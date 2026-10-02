@@ -1,118 +1,83 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 21:41 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 22:50 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ 469a9547 plus the commit that adds 1344-M3 and updates this file, pushed: yes.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ b0809602 plus the commit that adds 1344-K and updates this file, pushed: yes.
 - Resume this session: `cd ~/Downloads/project-studio-p13-owner-direction-inputs-01 && claude --resume 60db833c-4cf7-4685-b2ec-8aac42c6dac1` (the session started in that folder; it works in this repo). A fresh session: start `claude` in this repo root and say "resume from HANDOFF.md".
 - Required reading, in order:
   1. This file.
-  2. The heavy-lane logs: `S/1344-s7/out/s7.meta` (§7), `S/post-s7-queue/queue.meta` (type gates at HEAD, 1359-X2, 1356-X3), `S/1358-x/run.log.meta` (1348-X6 and 1358-X).
-  3. `E/1344-M3-save43-sweep-recorded-gates.md`: the recorded gates, with the success line held.
-  4. `E/1344-stage/s7/RUNBOOK.md` (step 11 and the report template) and `E/1344-F5-parent-rulings-row6-and-s7-definitions.md` Part B (the §7 definitions).
-  5. `E/1344-F6-parent-ruling-declared-exceptions.md` and `E/1344-N-save43-pin-sweep-plan.md` (success line :80-82).
-  6. `docs/engineering/playability-launch-review/CONTINUATION-STATE.md`, top `## CURRENT` block (refreshed at c8c2872b; this file is newer).
+  2. `E/1344-K-parent-shelving-save43-closure.json` (P14 closed) and `E/1344-V-s7-shelving-verification.md` section 10.
+  3. `E/1357-X-p15b-wave2-probe-results.md` and `E/1357-F2-parent-response-to-1357-X.md`: the P15B probe reads Re-tune, and Owner question 1357-Q1.
+  4. `E/1358-F3-parent-rulings-on-1358-X.md` and `E/1358-C4-rel-sliceB-red-r4-handback.md`: slice B r4.
+  5. `E/1359-D4-p15c-wave2-red-r4-r5-confirmation.md` (P15C RED CONFIRMED) and its non-blocking notes.
+  6. `docs/engineering/playability-launch-review/CONTINUATION-STATE.md`, top `## CURRENT` block (same as 06's).
 
 ## Active order
 - Governing Owner order: the Opus take-over mandate (recover, finish P14, then P15 → P16 → P17 → a specified P18) under `docs/operations/fable-team/OWNER-DIRECTIVE-THREE-WEEK-AUTONOMOUS-20260915.md`, with Owner rulings 1340-O, D-1339-1 and 1342-O.
-- In scope:
-  - §7 and the P14 closure 1344-K;
-  - the P15 Wave 1 closures (1346-L with 1351-L, 1352-L, 1353-L) on the same gates;
-  - relationship slices A and B;
-  - the P15 Wave 2 reference runs and confirmations;
-  - then the P15 queue.
+- In scope: relationship slice B; the P15 Wave 2 REDs (P15A.1, P15A.2, P15C); P15A.2 slice 2a; slice A's broad gates; P15B Wave 2 only after 1357-Q1.
 - Closed, do not reopen:
-  - the 1340-O and 1342-O rulings;
-  - U2 (1341-K);
-  - P15B Wave 1 production (1352-L) and P15A.1, P15A.2 and P15C Wave 1 production;
-  - the three P15 Wave 2 RED reviews (1356-D2, 1355-D3 and 1359-D3);
-  - the Save43 sweep's recorded gates (1344-M3; review J3 pending).
+  - P14 shelving, Save43 and the sweep (1344-K); §7 (1344-V);
+  - P15 Wave 1 (1346-K, 1352-K, 1353-K);
+  - slice A production (1348-L; broad gates still ride with the next broad run);
+  - the RED confirmations 1355-D4, 1356-D4 and 1359-D4;
+  - the 1340-O and 1342-O rulings; U2 (1341-K).
 
 ## State
-- Done this session (all in E; pushed with this file):
-  - **The recorded gates at 469a9547** (the sweep cec3902c plus docs), each `fixedSource` true and `allGuardsExact` true:
-    - core: 85 failed of 4,959 (433 files);
-    - UI: 3 failed of 2,697.
-  - **Attribution:**
-    - core against 1338 (I3): SAME 73, CHANGED 5 (four S10 rows, C20), NEW 7 (exactly the F6 exceptions), GONE 1 (the exporter);
-    - UI against 1343 (I4): CHANGED 3 (numpy), GONE 7 (Pillow), NEW 0.
-  - **The success line holds:** `E/1344-M3-check.py` passes all ten checks.
-  - **Node:** the gates ran v22.23.2 against baselines on v20.20.2. No row moved.
-  - **Published but unmeasured at their final commits:**
-    - P15 r4s: 1359-C4 (RED r4, a lawful route L by migration-origin founding, plus reference r3) and 1356-C4 (self-timed harness ceiling);
-    - slice B r2 and r3 (1358-C2, 1358-C3) under the parent's rulings 1358-F2. The producer now sits at `E/1358-P-save43-producer.ts`.
-- In flight (as of 21:41 CDT, 2026-10-01). Each job holds `S/HEAVY-LANE-LOCK` and runs alone, chained in this order:
-  1. **§7:** `S/1344-s7/run-s7.sh 469a9547…`.
-     - Process: PID 27580, which `chain-after-gates.sh` replaced via exec.
-     - Started 21:39:19 on Node v20.20.2. Trees are built, and the C8 re-run (step 2) is running.
-     - Ends with an `end` line or a `STOP:` line in `s7.meta`.
-     - No record times a 520-week chain, and the decide-diag is the longest run.
-  2. **Queue 1:** `S/post-s7-queue/run-queue.sh`, PID 29222. It runs the type gates at HEAD (to `typegates-HEAD.txt`), then `S/1359-x2/run-1359-X2.sh`, then `S/1356-x3/run-1356-X3.sh`. Log: `queue.meta`.
-  3. **Then** `S/heavy-queue/lane-run.sh`, PID 35832, running `S/1358-x/run-1348-X6-1358-X.sh`:
-     - slice A r5 and step 3 at the post-sweep HEAD;
-     - slice B r3 over them;
-     - the 1358-P producer dry run in a tree with a real `tests/fixtures`.
+- Done this session (all in E, pushed):
+  - **1344-V** (§7) verified against the outputs and published, with the parent's rulings (section 10). The §7 scratch trees are cleaned (RUNBOOK step 12).
+  - **1344-K** closes P14 with the gates of 1344-M3 (core 85 failed: 1338's 78 retained plus the seven F6 exceptions; UI 3 numpy rows).
+  - **1346-K, 1352-K, 1353-K** close P15 Wave 1 on the same gates: every Wave 1 file passes there.
+  - **1357-X:** the P15B probe at b0809602 reads **Re-tune** (7 of 8 rivals closure due by 1960 on both p13a seeds; no rival recovers). **1357-F2:** no §4.5 value passes (Flag would need about 85 years in distress); Wave 2 holds at the gate; Owner question 1357-Q1.
+  - **1359-D4:** P15C RED r4 and r5 CONFIRMED, no defects.
+  - **Slice B r4** (1358-C4) staged in `E/1358-stage/` (patch d41ea111…, classification 3b008e0a…); the apply check at HEAD passes.
+- In flight: `S/1358-x2/run-1358-X2.sh` under `S/heavy-queue/lane-run.sh` (PID in `S/1358-x2/x2.pid`; log `S/1358-x2/x2.log`, meta `x2.log.meta`). It holds `S/HEAVY-LANE-LOCK`, builds a tree at b0809602, applies only `tests/*` of the r4 patch, runs the six slice B files and the type gates, then runs producer r4 in a tree with a real `tests/fixtures/p14`. Expected (1358-C4): romance 29 failed and 5 passed, Bridge 9 and 3, the other four files as 1358-X; root tsc 17 errors; producer exit 0 with three pairs at `sharedCompetitions` 2.
 - Claims limits:
-  - Measured since: §7 (all four anchors EQUAL, controls a-d PASS; report 1344-V in drafting), the type gates at
-    HEAD 85764cd5 (all exit 0), 1359-X2 and 1356-X3 (both as declared), 1348-X6 (slice A: 89 of 92 on the candidate,
-    the 3 failures being the F6 row 6 exceptions). Slice B r3 and the 1358-P producer dry run are in flight.
-  - The applied tree differs from x3's in three test files (two HYGIENE comments, the S9 regexes); 1344-J3 defect 1.
+  - §7 describes 469a9547 (the sweep's landed source). Slice A landed after §7 ended; its effect on natural routes is unmeasured.
+  - The 154 §7 promise movements: the shelving law causes them; the path is unnamed.
+  - 1357-X measured b0809602 (with slice A); its p13a timings agree with §7's at 469a9547.
 
 ## Next step
-E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits during a recorded run; free disk ≥ 5 GB before a recorded run; recorded runs pin Node v20.20.2.
+E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits during a recorded run; free disk ≥ 5 GB before a recorded run (4.9 GiB at 22:45; check before each); recorded runs pin Node v20.20.2; recorded stems must match `^[0-9]{3,4}[a-z0-9-]*$`.
 
-1. **1344-J3.** Save the independent review of M3 verbatim as `E/1344-J3-save43-sweep-gates-attribution-review.md` and act on any blocking defect. The brief is in this session's scratchpad (`1344-J3-brief.md`); a new session writes one from M3's checklist.
-2. **§7 report (1344-V).** When `s7.meta` says `end`:
-   - read the outputs per RUNBOOK step 11;
-   - write 1344-V from the RUNBOOK's template, with the F5 Part B definitions, and add 1355-X2's seed `-01` stall as one flagged observation;
-   - copy the runner scripts and the outputs into `E/1344-stage/s7/`, using `git add -f` for `out/` and logs. Large `final-state.json` files stay in scratch, cited by sha256.
-   - On a `STOP:` line: read the log, fix the kit, and re-run under new names as the RUNBOOK says.
-3. **Queue 1 results.**
-   - `typegates-HEAD.txt` goes into 1344-K.
-   - 1359-X2: record it, then run the confirmation review 1359-D4, which also sets the route and extension budgets.
-   - 1356-X3: record it, then run the confirmation review 1356-D4.
-4. **Closures.**
-   - 1344-K on the 1319-K pattern, closing P14:
-     - the application commit cec3902c, with appliedEqualsDryRunTree true;
-     - M3 and J3; the type gates at HEAD; the §7 result;
-     - the seven F6 exceptions;
-     - open items: X12's V39 family, 1356-X F-2 and the 1344-J follow-ups.
-   - The Wave 1 closures on the same gates: 1346-L with 1351-L, 1352-L and 1353-L.
-   - Then add the K entry atop 06, refresh the CURRENT blocks, and update this file.
-5. **Slices.**
-   - Slice A, after 1348-X6: recorded RED on r5, then apply steps 1-3 as incremental commits, then recorded GREEN.
-   - Slice B, after 1358-X: r4 per 1358-F2 §7 (budgets from the measurement, the `rosterWorld()` budget, the third-party leaf guard), then review 1358-D, then the recorded mint 1358-P once slice A has landed, then production.
-6. **Queue after that.** P15B probe 1357-P (1357-X), probes G1 and G-P, the P15 recorded REDs, and the writers in order (slice B, P15A.2 slice 2a, then the P15A.1, P15B and P15C Wave 2 productions).
+1. **1358-X2.** When `x2.log.meta` says `end`: compare with 1358-C4's expected results, record 1358-X2 in E, then run review 1358-D (independent, read-only) on r4 and X2. Note r4's one unordered change: the producer cancels the second production (:139).
+2. **Slice B mint and RED.** After 1358-D: the recorded mint 1358-P at HEAD (the last Save43 writer), then the recorded RED of r4 (lowercase stem), then production (Save44).
+3. **P15 REDs.** P15C: dry-run producer 1359-P r4, mint, then the recorded RED (1359-D4 note 5: the writer must replace the landed record-id uniqueness rule). P15A.1 and P15A.2: their recorded REDs per 1355-D4 and 1356-D4.
+4. **Slice A follow-ups.** The four 520-week natural routes at HEAD against 1344-V's final-state hashes, and slice A's broad gates with the next broad run.
+5. **P15B** waits for 1357-Q1. Probes G1 (P15A.1) and G-P (P15C) as their charters order.
 
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
 
 ## Open decisions for the Owner
-- **numpy** for the three rgba-export tool-contract rows. Recommend a scoped `.venv` install beside Pillow, because the rows otherwise stay permanent environment failures (1345-E).
-- **P16:** the nine questions in 1354-Q, open until the Owner answers.
-- **The seven declared exceptions** that 1344-K lists (1344-F6: row 6 ×3, promise rows ×4). Recommend accepting them as they stand: both probes found no lawful re-witness in the fixtures.
-- **1356-X F-2,** as 1356-F5 restates it. A public founding after week 0 reaches no valid save once the player signs the roster, or ticks with the draft open after rivals lock methods. Recommend checking reachability through the bridge first, then one charter for both rules if the path is reachable.
-- **X12's V39-masking family.** Five downgrade leaves pass without reaching the guard they name, and have since before Save43. Recommend a small RED that gives each an input whose first refusal is its own guard.
+- **1357-Q1 (new):** the P15B closure law closes 7 of 8 rivals by 1960 on two seeds because rivals that stop filming have no income and cannot cut costs. Recommend (a): charter rival recovery (cost-cutting, the filming stall's cause) before Wave 2's closure, then re-probe. Options (b) accept the collapse and (c) notices without closure are in 1357-F2 §4.
+- **numpy** for the three rgba-export tool-contract rows. Recommend a scoped `.venv` install beside Pillow (1345-E).
+- **P16:** the nine questions in 1354-Q.
+- **The seven declared exceptions** that 1344-K lists (1344-F6). Recommend accepting them: both probes found no lawful re-witness.
+- **The §7 flags** (1344-V §9, items 1-6): measured behaviour with no threshold, including the 154 promise movements.
+- **1356-X F-2,** as 1356-F5 restates it. Recommend checking reachability through the bridge first.
+- **X12's V39-masking family.** Recommend a small RED that gives each leaf an input whose first refusal is its own guard.
 
 ## Blockers and warnings
-- **Node.** Recorded runs pin v20.20.2: put `/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin` first on PATH. The session's nvm default is v22.23.2, and the baselines 1338, 1343 and 1344-M ran v20.20.2.
-- **Heavy lane.** Take `S/HEAVY-LANE-LOCK` first, then wait out any running vitest or tsc. Match on the `node` command name, so shell waiters whose text says "vitest" do not count. `S/heavy-queue/lane-run.sh` does this.
-- **The superseded kit folder.** `~/Downloads/project-studio-p13-owner-direction-inputs-01` is a superseded P13 input kit. It holds only a pointer HANDOFF.md to this file.
-- **Scratch.** Scratch trees link the real `docs`, `node_modules`, `art`, `tools` and `tests/fixtures`. Use `ln -sfn`, never write under a link, and delete with `rm -rf` on literal paths without a trailing slash.
+- **Node.** Recorded runs pin v20.20.2: put `/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin` first on PATH. The session's nvm default is v22.23.2.
+- **Heavy lane.** `S/heavy-queue/lane-run.sh <pid|0> <log> <cmd…>` takes `S/HEAVY-LANE-LOCK`, waits out vitest or tsc (matched on the `node` command name), runs the job alone and releases the lock. Run it with `bash`; it is not executable.
+- **Patches that touch `docs/`.** Scratch trees link the real `docs`; apply only `tests/*` there (`git apply --include`) and put E-path files in a separate tree with a real directory. Never write under a link.
+- **Deleting scratch.** The harness blocks `rm` on variable paths; use literal absolute paths, links first, then `rm -rf` on the tree.
 - **Agent auth.** If an agent returns `401 OAuth access token has been revoked`, the Owner runs `/login`.
-- **Commits.** None during a recorded run or its postflight. §7 and the X runs are not recorded runs, so commits are safe beside them.
-- **The machine.** 4 CPUs, 8 GB RAM. Disk: 5.5 GB free at 21:39 CDT.
+- **Commits.** None during a recorded run or its postflight. X runs and probes are not recorded runs.
+- **The machine.** 4 CPUs, 8 GB RAM. Disk: 4.9 GiB free at 22:45 CDT; the 1357-x, 1358-x2 and older scratch trees can go once their records are published.
 - **Hard limits.** Do not access Owner saves, scan fixture trees, force-push, or launch Codex.
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-01 22:09 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `4947f231f5afee80d32e3f7fa0652a83b175d285`
+- Stamped: 2026-10-01 22:21 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `b08096020e4dccf8c22d036bbd9fb7ad742e5aea`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 0
+- Uncommitted files: 1
+  - `M HANDOFF.md`
 - Last commits:
-  - 4947f231 docs(p15): 1359-X2 and 1356-X3 match their declarations; 1359-F4 sets the P15C budgets
-  - 93781f43 docs(p14): 1344-J3 REFINE on the gate record; 1344-M3 r2 applies it; type gates at HEAD clean; §7 outputs
-  - 85764cd5 docs(p14,p15): Save43 sweep recorded gates hold the 1344-N success line (1344-M3); P15 r4s and slice B r2/r3 published
-  - 469a9547 docs(handoff): sweep applied (cec3902c); recorded gates launching; P15 revisions in flight; no commits until the gates end
-  - cec3902c test(p14): Save43 pin sweep, 137 files (1344-C5; review 1344-D4 ACCEPT WITH CHANGES)
+  - b0809602 docs(p14b,p15): slice A landed (1348-L, recorded GREEN 89/92 with the 3 F6 exceptions); 1358-X/F3; 1356-D4 CONFIRMED; 1359 r5
+  - c208d214 feat(p14b): relationship slice A production step 3 (1348-E; review 1348-J KEEP; 1348-F4, 1348-F5)
+  - 442105f4 feat(p14b): relationship slice A production step 2 (1348-E; review 1348-J KEEP; 1348-F4, 1348-F5)
+  - 11693bff feat(p14b): relationship slice A production step 1 (1348-E; review 1348-J KEEP; 1348-F4, 1348-F5)
+  - f2663f6f docs(p14b): slice A recorded RED at 954a373e: 30 failed / 62 passed (92), as 1348-X6
 <!-- AUTO:END -->

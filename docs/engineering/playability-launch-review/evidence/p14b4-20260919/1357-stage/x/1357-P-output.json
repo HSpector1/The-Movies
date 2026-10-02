@@ -1,0 +1,3689 @@
+{
+  "probe": "1357-P",
+  "charter": "1357-A §8",
+  "treeHead": "b08096020e4dccf8c22d036bbd9fb7ad742e5aea",
+  "weeks": 6240,
+  "law": {
+    "condition": "corporate-condition/v1",
+    "loan": "studio-loan/v1"
+  },
+  "tuning": {
+    "CORPORATE_WARN_COVER_WEEKS": 4,
+    "CORPORATE_WARN_SUSTAIN_WEEKS": 4,
+    "CORPORATE_CLEAR_WEEKS": 4,
+    "CORPORATE_DISTRESS_SUSTAIN_WEEKS": 8,
+    "CORPORATE_RECOVERY_STABLE_WEEKS": 13,
+    "CORPORATE_CLOSURE_DISTRESS_WEEKS": 26,
+    "LOAN_MAX_FIXED_COST_WEEKS": 26,
+    "LOAN_TERM_WEEKS": 52,
+    "LOAN_INTEREST_PERCENT": 12,
+    "LOAN_AMOUNT_STEP": 1000
+  },
+  "seeds": [
+    {
+      "seed": "p13a-core-causal-01",
+      "finalWeek": 6240,
+      "elapsedMs": 91544,
+      "msPerTick": 14.67051282051282,
+      "checkpoints": {
+        "1960": {
+          "week": 2080,
+          "rivalsEntered": 8,
+          "a": {
+            "warned": 7,
+            "distressed": 7,
+            "closureDue": 7,
+            "loans": 0
+          },
+          "b": {
+            "warned": 7,
+            "distressed": 7,
+            "closureDue": 7,
+            "loans": 7
+          },
+          "closureDueShareB": 0.875,
+          "player": {
+            "stage": "closed",
+            "closureDue": true
+          }
+        },
+        "1980": {
+          "week": 3120,
+          "rivalsEntered": 9,
+          "a": {
+            "warned": 9,
+            "distressed": 9,
+            "closureDue": 9,
+            "loans": 0
+          },
+          "b": {
+            "warned": 9,
+            "distressed": 9,
+            "closureDue": 9,
+            "loans": 9
+          },
+          "closureDueShareB": 1,
+          "player": {
+            "stage": "closed",
+            "closureDue": true
+          }
+        },
+        "2000": {
+          "week": 4160,
+          "rivalsEntered": 9,
+          "a": {
+            "warned": 9,
+            "distressed": 9,
+            "closureDue": 9,
+            "loans": 0
+          },
+          "b": {
+            "warned": 9,
+            "distressed": 9,
+            "closureDue": 9,
+            "loans": 9
+          },
+          "closureDueShareB": 1,
+          "player": {
+            "stage": "closed",
+            "closureDue": true
+          }
+        },
+        "2040": {
+          "week": 6240,
+          "rivalsEntered": 9,
+          "a": {
+            "warned": 9,
+            "distressed": 9,
+            "closureDue": 9,
+            "loans": 0
+          },
+          "b": {
+            "warned": 9,
+            "distressed": 9,
+            "closureDue": 9,
+            "loans": 9
+          },
+          "closureDueShareB": 1,
+          "player": {
+            "stage": "closed",
+            "closureDue": true
+          }
+        }
+      },
+      "earlyClosures": [],
+      "distressEntriesUnderTwoRoutes": [
+        {
+          "studioId": "studio-aca408ec-player",
+          "arm": "a",
+          "week": 1341,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 0
+        },
+        {
+          "studioId": "studio-aca408ec-r01",
+          "arm": "a",
+          "week": 301,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 10
+        },
+        {
+          "studioId": "studio-aca408ec-r01",
+          "arm": "b",
+          "week": 301,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 10
+        },
+        {
+          "studioId": "studio-aca408ec-r01",
+          "arm": "b",
+          "week": 320,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 10
+        },
+        {
+          "studioId": "studio-aca408ec-r02",
+          "arm": "a",
+          "week": 330,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r02",
+          "arm": "b",
+          "week": 330,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r02",
+          "arm": "b",
+          "week": 349,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r03",
+          "arm": "a",
+          "week": 233,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 4
+        },
+        {
+          "studioId": "studio-aca408ec-r03",
+          "arm": "b",
+          "week": 233,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 4
+        },
+        {
+          "studioId": "studio-aca408ec-r03",
+          "arm": "b",
+          "week": 253,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 4
+        },
+        {
+          "studioId": "studio-aca408ec-r04",
+          "arm": "a",
+          "week": 137,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r04",
+          "arm": "b",
+          "week": 137,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r04",
+          "arm": "b",
+          "week": 157,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r05",
+          "arm": "a",
+          "week": 704,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r05",
+          "arm": "b",
+          "week": 704,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r05",
+          "arm": "b",
+          "week": 724,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r06",
+          "arm": "a",
+          "week": 1198,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 0
+        },
+        {
+          "studioId": "studio-aca408ec-r06",
+          "arm": "b",
+          "week": 1198,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 0
+        },
+        {
+          "studioId": "studio-aca408ec-r06",
+          "arm": "b",
+          "week": 1212,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 0
+        },
+        {
+          "studioId": "studio-aca408ec-r07",
+          "arm": "a",
+          "week": 1789,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 2
+        },
+        {
+          "studioId": "studio-aca408ec-r07",
+          "arm": "b",
+          "week": 1789,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 2
+        },
+        {
+          "studioId": "studio-aca408ec-r07",
+          "arm": "b",
+          "week": 1809,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 2
+        },
+        {
+          "studioId": "studio-aca408ec-r08",
+          "arm": "a",
+          "week": 2106,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r08",
+          "arm": "b",
+          "week": 2106,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r08",
+          "arm": "b",
+          "week": 2126,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r09",
+          "arm": "a",
+          "week": 2876,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r09",
+          "arm": "b",
+          "week": 2876,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-aca408ec-r09",
+          "arm": "b",
+          "week": 2896,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        }
+      ],
+      "events": 57,
+      "rootBytesArmB": 19331,
+      "studios": [
+        {
+          "studioId": "studio-aca408ec-player",
+          "role": "player",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 1333,
+              "distress": 1341,
+              "closed": 1366
+            },
+            "transitions": [
+              {
+                "week": 1333,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 1341,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1366,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": null,
+          "bandWeeks": {
+            "inTheRed": 4907,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 1307
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 1333,
+          "firstBelowReserveWeek": null,
+          "weeksBelowReserve": 0,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 1341,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 0
+            }
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r01",
+          "role": "rival",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 293,
+              "distress": 301,
+              "closed": 326
+            },
+            "transitions": [
+              {
+                "week": 293,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 301,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 326,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 293,
+              "distress": 301,
+              "recovery": 302,
+              "closed": 345
+            },
+            "transitions": [
+              {
+                "week": 293,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 301,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 302,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 312,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 320,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 345,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 301,
+                "principal": 3107000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 5947,
+            "strained": 13,
+            "stable": 5,
+            "thriving": 275
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 293,
+          "firstBelowReserveWeek": 281,
+          "weeksBelowReserve": 5960,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 301,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 10
+            },
+            {
+              "arm": "b",
+              "week": 301,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 10
+            },
+            {
+              "arm": "b",
+              "week": 320,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 10
+            }
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r02",
+          "role": "rival",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 322,
+              "distress": 330,
+              "closed": 355
+            },
+            "transitions": [
+              {
+                "week": 322,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 330,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 355,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 322,
+              "distress": 330,
+              "recovery": 331,
+              "closed": 374
+            },
+            "transitions": [
+              {
+                "week": 322,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 330,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 331,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 341,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 349,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 374,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 330,
+                "principal": 3081000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 5918,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 296
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 322,
+          "firstBelowReserveWeek": 305,
+          "weeksBelowReserve": 5936,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 330,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 330,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 349,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r03",
+          "role": "rival",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 225,
+              "distress": 233,
+              "closed": 258
+            },
+            "transitions": [
+              {
+                "week": 225,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 233,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 258,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 225,
+              "distress": 233,
+              "recovery": 234,
+              "closed": 278
+            },
+            "transitions": [
+              {
+                "week": 225,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 233,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 234,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 245,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 253,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 278,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 233,
+                "principal": 2437000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 6015,
+            "strained": 13,
+            "stable": 9,
+            "thriving": 203
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 225,
+          "firstBelowReserveWeek": 208,
+          "weeksBelowReserve": 6033,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 233,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 4
+            },
+            {
+              "arm": "b",
+              "week": 233,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 4
+            },
+            {
+              "arm": "b",
+              "week": 253,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 4
+            }
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r04",
+          "role": "rival",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 129,
+              "distress": 137,
+              "closed": 162
+            },
+            "transitions": [
+              {
+                "week": 129,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 137,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 162,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 129,
+              "distress": 137,
+              "recovery": 138,
+              "closed": 182
+            },
+            "transitions": [
+              {
+                "week": 129,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 137,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 138,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 149,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 157,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 182,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 137,
+                "principal": 3276000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 6111,
+            "strained": 13,
+            "stable": 28,
+            "thriving": 88
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 129,
+          "firstBelowReserveWeek": 115,
+          "weeksBelowReserve": 6126,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 137,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 137,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 157,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r05",
+          "role": "rival",
+          "enteredWeek": 520,
+          "firstEvaluatedWeek": 520,
+          "a": {
+            "firstWeek": {
+              "warning": 696,
+              "distress": 704,
+              "closed": 729
+            },
+            "transitions": [
+              {
+                "week": 696,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 704,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 729,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 696,
+              "distress": 704,
+              "recovery": 705,
+              "closed": 749
+            },
+            "transitions": [
+              {
+                "week": 696,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 704,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 705,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 716,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 724,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 749,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 704,
+                "principal": 2583000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 5544,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 151
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 696,
+          "firstBelowReserveWeek": 682,
+          "weeksBelowReserve": 5559,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 704,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 704,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 724,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r06",
+          "role": "rival",
+          "enteredWeek": 988,
+          "firstEvaluatedWeek": 988,
+          "a": {
+            "firstWeek": {
+              "warning": 1190,
+              "distress": 1198,
+              "closed": 1223
+            },
+            "transitions": [
+              {
+                "week": 1190,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 1198,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1223,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 1190,
+              "distress": 1198,
+              "recovery": 1199,
+              "closed": 1237
+            },
+            "transitions": [
+              {
+                "week": 1190,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 1198,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1199,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 1204,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 1212,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1237,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 1198,
+                "principal": 1079000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 5050,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 177
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 1190,
+          "firstBelowReserveWeek": 1173,
+          "weeksBelowReserve": 5068,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 1198,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 0
+            },
+            {
+              "arm": "b",
+              "week": 1198,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 0
+            },
+            {
+              "arm": "b",
+              "week": 1212,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 0
+            }
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r07",
+          "role": "rival",
+          "enteredWeek": 1560,
+          "firstEvaluatedWeek": 1560,
+          "a": {
+            "firstWeek": {
+              "warning": 1781,
+              "distress": 1789,
+              "closed": 1814
+            },
+            "transitions": [
+              {
+                "week": 1781,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 1789,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1814,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 1781,
+              "distress": 1789,
+              "recovery": 1790,
+              "closed": 1834
+            },
+            "transitions": [
+              {
+                "week": 1781,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 1789,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1790,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 1801,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 1809,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1834,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 1789,
+                "principal": 1795000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 4459,
+            "strained": 16,
+            "stable": 14,
+            "thriving": 192
+          },
+          "strainedAboveWarnWeeks": 12,
+          "everWarnedA": 1781,
+          "firstBelowReserveWeek": 1765,
+          "weeksBelowReserve": 4475,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 1789,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 2
+            },
+            {
+              "arm": "b",
+              "week": 1789,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 2
+            },
+            {
+              "arm": "b",
+              "week": 1809,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 2
+            }
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r08",
+          "role": "rival",
+          "enteredWeek": 1872,
+          "firstEvaluatedWeek": 1872,
+          "a": {
+            "firstWeek": {
+              "warning": 2098,
+              "distress": 2106,
+              "closed": 2131
+            },
+            "transitions": [
+              {
+                "week": 2098,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 2106,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 2131,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 2098,
+              "distress": 2106,
+              "recovery": 2107,
+              "closed": 2151
+            },
+            "transitions": [
+              {
+                "week": 2098,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 2106,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 2107,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 2118,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 2126,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 2151,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 2106,
+                "principal": 3315000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 4142,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 201
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 2098,
+          "firstBelowReserveWeek": 2083,
+          "weeksBelowReserve": 4158,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 2106,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 2106,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 2126,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r09",
+          "role": "rival",
+          "enteredWeek": 2548,
+          "firstEvaluatedWeek": 2548,
+          "a": {
+            "firstWeek": {
+              "warning": 2868,
+              "distress": 2876,
+              "closed": 2901
+            },
+            "transitions": [
+              {
+                "week": 2868,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 2876,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 2901,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 2868,
+              "distress": 2876,
+              "recovery": 2877,
+              "closed": 2921
+            },
+            "transitions": [
+              {
+                "week": 2868,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 2876,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 2877,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 2888,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 2896,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 2921,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 2876,
+                "principal": 2344000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 3372,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 295
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 2868,
+          "firstBelowReserveWeek": 2857,
+          "weeksBelowReserve": 3384,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 2876,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 2876,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 2896,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": "seed-b",
+      "finalWeek": 6240,
+      "elapsedMs": 362548,
+      "msPerTick": 58.100641025641025,
+      "checkpoints": {
+        "1960": {
+          "week": 2080,
+          "rivalsEntered": 8,
+          "a": {
+            "warned": 4,
+            "distressed": 4,
+            "closureDue": 4,
+            "loans": 0
+          },
+          "b": {
+            "warned": 4,
+            "distressed": 4,
+            "closureDue": 4,
+            "loans": 4
+          },
+          "closureDueShareB": 0.5,
+          "player": {
+            "stage": "closed",
+            "closureDue": true
+          }
+        },
+        "1980": {
+          "week": 3120,
+          "rivalsEntered": 9,
+          "a": {
+            "warned": 4,
+            "distressed": 4,
+            "closureDue": 4,
+            "loans": 0
+          },
+          "b": {
+            "warned": 4,
+            "distressed": 4,
+            "closureDue": 4,
+            "loans": 4
+          },
+          "closureDueShareB": 0.4444444444444444,
+          "player": {
+            "stage": "closed",
+            "closureDue": true
+          }
+        },
+        "2000": {
+          "week": 4160,
+          "rivalsEntered": 9,
+          "a": {
+            "warned": 4,
+            "distressed": 4,
+            "closureDue": 4,
+            "loans": 0
+          },
+          "b": {
+            "warned": 4,
+            "distressed": 4,
+            "closureDue": 4,
+            "loans": 4
+          },
+          "closureDueShareB": 0.4444444444444444,
+          "player": {
+            "stage": "closed",
+            "closureDue": true
+          }
+        },
+        "2040": {
+          "week": 6240,
+          "rivalsEntered": 9,
+          "a": {
+            "warned": 4,
+            "distressed": 4,
+            "closureDue": 4,
+            "loans": 0
+          },
+          "b": {
+            "warned": 4,
+            "distressed": 4,
+            "closureDue": 4,
+            "loans": 4
+          },
+          "closureDueShareB": 0.4444444444444444,
+          "player": {
+            "stage": "closed",
+            "closureDue": true
+          }
+        }
+      },
+      "earlyClosures": [],
+      "distressEntriesUnderTwoRoutes": [
+        {
+          "studioId": "studio-bc14baf6-player",
+          "arm": "a",
+          "week": 1341,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 0
+        },
+        {
+          "studioId": "studio-bc14baf6-r01",
+          "arm": "a",
+          "week": 649,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-bc14baf6-r01",
+          "arm": "b",
+          "week": 649,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-bc14baf6-r01",
+          "arm": "b",
+          "week": 669,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-bc14baf6-r02",
+          "arm": "a",
+          "week": 621,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-bc14baf6-r02",
+          "arm": "b",
+          "week": 621,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-bc14baf6-r02",
+          "arm": "b",
+          "week": 645,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 1
+        },
+        {
+          "studioId": "studio-bc14baf6-r03",
+          "arm": "a",
+          "week": 515,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-bc14baf6-r03",
+          "arm": "b",
+          "week": 515,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-bc14baf6-r03",
+          "arm": "b",
+          "week": 535,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-bc14baf6-r04",
+          "arm": "a",
+          "week": 486,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-bc14baf6-r04",
+          "arm": "b",
+          "week": 486,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-bc14baf6-r04",
+          "arm": "b",
+          "week": 506,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        }
+      ],
+      "events": 27,
+      "rootBytesArmB": 10231,
+      "studios": [
+        {
+          "studioId": "studio-bc14baf6-player",
+          "role": "player",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 1333,
+              "distress": 1341,
+              "closed": 1366
+            },
+            "transitions": [
+              {
+                "week": 1333,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 1341,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1366,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": null,
+          "bandWeeks": {
+            "inTheRed": 4907,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 1307
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 1333,
+          "firstBelowReserveWeek": null,
+          "weeksBelowReserve": 0,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 1341,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 0
+            }
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r01",
+          "role": "rival",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 641,
+              "distress": 649,
+              "closed": 674
+            },
+            "transitions": [
+              {
+                "week": 641,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 649,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 674,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 641,
+              "distress": 649,
+              "recovery": 650,
+              "closed": 694
+            },
+            "transitions": [
+              {
+                "week": 641,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 649,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 650,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 661,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 669,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 694,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 649,
+                "principal": 3233000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 5599,
+            "strained": 13,
+            "stable": 7,
+            "thriving": 621
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 641,
+          "firstBelowReserveWeek": 629,
+          "weeksBelowReserve": 5612,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 649,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 649,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 669,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r02",
+          "role": "rival",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 613,
+              "distress": 621,
+              "closed": 646
+            },
+            "transitions": [
+              {
+                "week": 613,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 621,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 646,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 613,
+              "distress": 621,
+              "recovery": 622,
+              "closed": 670
+            },
+            "transitions": [
+              {
+                "week": 613,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 621,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 622,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 637,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 645,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 670,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 621,
+                "principal": 2870000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 5627,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 587
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 613,
+          "firstBelowReserveWeek": 596,
+          "weeksBelowReserve": 5645,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 621,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 621,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 645,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 1
+            }
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r03",
+          "role": "rival",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 507,
+              "distress": 515,
+              "closed": 540
+            },
+            "transitions": [
+              {
+                "week": 507,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 515,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 540,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 507,
+              "distress": 515,
+              "recovery": 516,
+              "closed": 560
+            },
+            "transitions": [
+              {
+                "week": 507,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 515,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 516,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 527,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 535,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 560,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 515,
+                "principal": 3535000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 5733,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 481
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 507,
+          "firstBelowReserveWeek": 488,
+          "weeksBelowReserve": 5753,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 515,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 515,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 535,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r04",
+          "role": "rival",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 478,
+              "distress": 486,
+              "closed": 511
+            },
+            "transitions": [
+              {
+                "week": 478,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 486,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 511,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 478,
+              "distress": 486,
+              "recovery": 487,
+              "closed": 531
+            },
+            "transitions": [
+              {
+                "week": 478,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 486,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 487,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 498,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 506,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 531,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 486,
+                "principal": 2507000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 5762,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 452
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 478,
+          "firstBelowReserveWeek": 464,
+          "weeksBelowReserve": 5777,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 486,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 486,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 506,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r05",
+          "role": "rival",
+          "enteredWeek": 520,
+          "firstEvaluatedWeek": 520,
+          "a": {
+            "firstWeek": {},
+            "transitions": []
+          },
+          "b": {
+            "firstWeek": {},
+            "transitions": [],
+            "loans": []
+          },
+          "bandWeeks": {
+            "inTheRed": 0,
+            "strained": 0,
+            "stable": 0,
+            "thriving": 5721
+          },
+          "strainedAboveWarnWeeks": 0,
+          "everWarnedA": null,
+          "firstBelowReserveWeek": null,
+          "weeksBelowReserve": 0,
+          "distressEntries": []
+        },
+        {
+          "studioId": "studio-bc14baf6-r06",
+          "role": "rival",
+          "enteredWeek": 988,
+          "firstEvaluatedWeek": 988,
+          "a": {
+            "firstWeek": {},
+            "transitions": []
+          },
+          "b": {
+            "firstWeek": {},
+            "transitions": [],
+            "loans": []
+          },
+          "bandWeeks": {
+            "inTheRed": 0,
+            "strained": 0,
+            "stable": 0,
+            "thriving": 5253
+          },
+          "strainedAboveWarnWeeks": 0,
+          "everWarnedA": null,
+          "firstBelowReserveWeek": null,
+          "weeksBelowReserve": 0,
+          "distressEntries": []
+        },
+        {
+          "studioId": "studio-bc14baf6-r07",
+          "role": "rival",
+          "enteredWeek": 1560,
+          "firstEvaluatedWeek": 1560,
+          "a": {
+            "firstWeek": {},
+            "transitions": []
+          },
+          "b": {
+            "firstWeek": {},
+            "transitions": [],
+            "loans": []
+          },
+          "bandWeeks": {
+            "inTheRed": 0,
+            "strained": 0,
+            "stable": 0,
+            "thriving": 4681
+          },
+          "strainedAboveWarnWeeks": 0,
+          "everWarnedA": null,
+          "firstBelowReserveWeek": null,
+          "weeksBelowReserve": 0,
+          "distressEntries": []
+        },
+        {
+          "studioId": "studio-bc14baf6-r08",
+          "role": "rival",
+          "enteredWeek": 1872,
+          "firstEvaluatedWeek": 1872,
+          "a": {
+            "firstWeek": {},
+            "transitions": []
+          },
+          "b": {
+            "firstWeek": {},
+            "transitions": [],
+            "loans": []
+          },
+          "bandWeeks": {
+            "inTheRed": 0,
+            "strained": 0,
+            "stable": 0,
+            "thriving": 4369
+          },
+          "strainedAboveWarnWeeks": 0,
+          "everWarnedA": null,
+          "firstBelowReserveWeek": null,
+          "weeksBelowReserve": 0,
+          "distressEntries": []
+        },
+        {
+          "studioId": "studio-bc14baf6-r09",
+          "role": "rival",
+          "enteredWeek": 2548,
+          "firstEvaluatedWeek": 2548,
+          "a": {
+            "firstWeek": {},
+            "transitions": []
+          },
+          "b": {
+            "firstWeek": {},
+            "transitions": [],
+            "loans": []
+          },
+          "bandWeeks": {
+            "inTheRed": 0,
+            "strained": 0,
+            "stable": 0,
+            "thriving": 3693
+          },
+          "strainedAboveWarnWeeks": 0,
+          "everWarnedA": null,
+          "firstBelowReserveWeek": null,
+          "weeksBelowReserve": 0,
+          "distressEntries": []
+        }
+      ]
+    },
+    {
+      "seed": "p13a-wait-control-01",
+      "finalWeek": 6240,
+      "elapsedMs": 91080,
+      "msPerTick": 14.596153846153847,
+      "checkpoints": {
+        "1960": {
+          "week": 2080,
+          "rivalsEntered": 8,
+          "a": {
+            "warned": 8,
+            "distressed": 7,
+            "closureDue": 7,
+            "loans": 0
+          },
+          "b": {
+            "warned": 8,
+            "distressed": 7,
+            "closureDue": 7,
+            "loans": 7
+          },
+          "closureDueShareB": 0.875,
+          "player": {
+            "stage": "closed",
+            "closureDue": true
+          }
+        },
+        "1980": {
+          "week": 3120,
+          "rivalsEntered": 9,
+          "a": {
+            "warned": 9,
+            "distressed": 9,
+            "closureDue": 9,
+            "loans": 0
+          },
+          "b": {
+            "warned": 9,
+            "distressed": 9,
+            "closureDue": 9,
+            "loans": 9
+          },
+          "closureDueShareB": 1,
+          "player": {
+            "stage": "closed",
+            "closureDue": true
+          }
+        },
+        "2000": {
+          "week": 4160,
+          "rivalsEntered": 9,
+          "a": {
+            "warned": 9,
+            "distressed": 9,
+            "closureDue": 9,
+            "loans": 0
+          },
+          "b": {
+            "warned": 9,
+            "distressed": 9,
+            "closureDue": 9,
+            "loans": 9
+          },
+          "closureDueShareB": 1,
+          "player": {
+            "stage": "closed",
+            "closureDue": true
+          }
+        },
+        "2040": {
+          "week": 6240,
+          "rivalsEntered": 9,
+          "a": {
+            "warned": 9,
+            "distressed": 9,
+            "closureDue": 9,
+            "loans": 0
+          },
+          "b": {
+            "warned": 9,
+            "distressed": 9,
+            "closureDue": 9,
+            "loans": 9
+          },
+          "closureDueShareB": 1,
+          "player": {
+            "stage": "closed",
+            "closureDue": true
+          }
+        }
+      },
+      "earlyClosures": [],
+      "distressEntriesUnderTwoRoutes": [
+        {
+          "studioId": "studio-10aa1b55-player",
+          "arm": "a",
+          "week": 1341,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 0
+        },
+        {
+          "studioId": "studio-10aa1b55-r01",
+          "arm": "a",
+          "week": 255,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r01",
+          "arm": "b",
+          "week": 255,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r01",
+          "arm": "b",
+          "week": 275,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r02",
+          "arm": "a",
+          "week": 217,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 0
+        },
+        {
+          "studioId": "studio-10aa1b55-r02",
+          "arm": "b",
+          "week": 217,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 0
+        },
+        {
+          "studioId": "studio-10aa1b55-r02",
+          "arm": "b",
+          "week": 237,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 0
+        },
+        {
+          "studioId": "studio-10aa1b55-r03",
+          "arm": "a",
+          "week": 139,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r03",
+          "arm": "b",
+          "week": 139,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r03",
+          "arm": "b",
+          "week": 159,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r04",
+          "arm": "a",
+          "week": 117,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r04",
+          "arm": "b",
+          "week": 117,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r04",
+          "arm": "b",
+          "week": 137,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r05",
+          "arm": "a",
+          "week": 646,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r05",
+          "arm": "b",
+          "week": 646,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r05",
+          "arm": "b",
+          "week": 666,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r06",
+          "arm": "a",
+          "week": 1157,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r06",
+          "arm": "b",
+          "week": 1157,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r06",
+          "arm": "b",
+          "week": 1177,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r07",
+          "arm": "a",
+          "week": 1814,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r07",
+          "arm": "b",
+          "week": 1814,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r07",
+          "arm": "b",
+          "week": 1834,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r08",
+          "arm": "a",
+          "week": 2083,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 0
+        },
+        {
+          "studioId": "studio-10aa1b55-r08",
+          "arm": "b",
+          "week": 2083,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 0
+        },
+        {
+          "studioId": "studio-10aa1b55-r08",
+          "arm": "b",
+          "week": 2099,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 0
+        },
+        {
+          "studioId": "studio-10aa1b55-r09",
+          "arm": "a",
+          "week": 2831,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r09",
+          "arm": "b",
+          "week": 2831,
+          "loan": true,
+          "release": false,
+          "families": 1,
+          "headcount": 6
+        },
+        {
+          "studioId": "studio-10aa1b55-r09",
+          "arm": "b",
+          "week": 2851,
+          "loan": false,
+          "release": false,
+          "families": 0,
+          "headcount": 6
+        }
+      ],
+      "events": 57,
+      "rootBytesArmB": 19333,
+      "studios": [
+        {
+          "studioId": "studio-10aa1b55-player",
+          "role": "player",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 1333,
+              "distress": 1341,
+              "closed": 1366
+            },
+            "transitions": [
+              {
+                "week": 1333,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 1341,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1366,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": null,
+          "bandWeeks": {
+            "inTheRed": 4907,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 1307
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 1333,
+          "firstBelowReserveWeek": null,
+          "weeksBelowReserve": 0,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 1341,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 0
+            }
+          ]
+        },
+        {
+          "studioId": "studio-10aa1b55-r01",
+          "role": "rival",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 247,
+              "distress": 255,
+              "closed": 280
+            },
+            "transitions": [
+              {
+                "week": 247,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 255,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 280,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 247,
+              "distress": 255,
+              "recovery": 256,
+              "closed": 300
+            },
+            "transitions": [
+              {
+                "week": 247,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 255,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 256,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 267,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 275,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 300,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 255,
+                "principal": 2752000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 5993,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 221
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 247,
+          "firstBelowReserveWeek": 235,
+          "weeksBelowReserve": 6006,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 255,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 255,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 275,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-10aa1b55-r02",
+          "role": "rival",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 208,
+              "distress": 217,
+              "closed": 242
+            },
+            "transitions": [
+              {
+                "week": 208,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 217,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 242,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 208,
+              "distress": 217,
+              "recovery": 218,
+              "closed": 262
+            },
+            "transitions": [
+              {
+                "week": 208,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 217,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 218,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 229,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 237,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 262,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 217,
+                "principal": 1079000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 6031,
+            "strained": 14,
+            "stable": 13,
+            "thriving": 182
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 208,
+          "firstBelowReserveWeek": 191,
+          "weeksBelowReserve": 6050,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 217,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 0
+            },
+            {
+              "arm": "b",
+              "week": 217,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 0
+            },
+            {
+              "arm": "b",
+              "week": 237,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 0
+            }
+          ]
+        },
+        {
+          "studioId": "studio-10aa1b55-r03",
+          "role": "rival",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 131,
+              "distress": 139,
+              "closed": 164
+            },
+            "transitions": [
+              {
+                "week": 131,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 139,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 164,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 131,
+              "distress": 139,
+              "recovery": 140,
+              "closed": 184
+            },
+            "transitions": [
+              {
+                "week": 131,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 139,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 140,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 151,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 159,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 184,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 139,
+                "principal": 3069000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 6109,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 105
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 131,
+          "firstBelowReserveWeek": 112,
+          "weeksBelowReserve": 6129,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 139,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 139,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 159,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-10aa1b55-r04",
+          "role": "rival",
+          "enteredWeek": 0,
+          "firstEvaluatedWeek": 1,
+          "a": {
+            "firstWeek": {
+              "warning": 109,
+              "distress": 117,
+              "closed": 142
+            },
+            "transitions": [
+              {
+                "week": 109,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 117,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 142,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 109,
+              "distress": 117,
+              "recovery": 118,
+              "closed": 162
+            },
+            "transitions": [
+              {
+                "week": 109,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 117,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 118,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 129,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 137,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 162,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 117,
+                "principal": 3068000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 6131,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 83
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 109,
+          "firstBelowReserveWeek": 95,
+          "weeksBelowReserve": 6146,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 117,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 117,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 137,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-10aa1b55-r05",
+          "role": "rival",
+          "enteredWeek": 520,
+          "firstEvaluatedWeek": 520,
+          "a": {
+            "firstWeek": {
+              "warning": 638,
+              "distress": 646,
+              "closed": 671
+            },
+            "transitions": [
+              {
+                "week": 638,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 646,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 671,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 638,
+              "distress": 646,
+              "recovery": 647,
+              "closed": 691
+            },
+            "transitions": [
+              {
+                "week": 638,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 646,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 647,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 658,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 666,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 691,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 646,
+                "principal": 3328000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 5602,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 93
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 638,
+          "firstBelowReserveWeek": 624,
+          "weeksBelowReserve": 5617,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 646,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 646,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 666,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-10aa1b55-r06",
+          "role": "rival",
+          "enteredWeek": 988,
+          "firstEvaluatedWeek": 988,
+          "a": {
+            "firstWeek": {
+              "warning": 1149,
+              "distress": 1157,
+              "closed": 1182
+            },
+            "transitions": [
+              {
+                "week": 1149,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 1157,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1182,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 1149,
+              "distress": 1157,
+              "recovery": 1158,
+              "closed": 1202
+            },
+            "transitions": [
+              {
+                "week": 1149,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 1157,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1158,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 1169,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 1177,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1202,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 1157,
+                "principal": 2709000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 5091,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 136
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 1149,
+          "firstBelowReserveWeek": 1132,
+          "weeksBelowReserve": 5109,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 1157,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 1157,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 1177,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-10aa1b55-r07",
+          "role": "rival",
+          "enteredWeek": 1560,
+          "firstEvaluatedWeek": 1560,
+          "a": {
+            "firstWeek": {
+              "warning": 1806,
+              "distress": 1814,
+              "closed": 1839
+            },
+            "transitions": [
+              {
+                "week": 1806,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 1814,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1839,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 1806,
+              "distress": 1814,
+              "recovery": 1815,
+              "closed": 1859
+            },
+            "transitions": [
+              {
+                "week": 1806,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 1814,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1815,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 1826,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 1834,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 1859,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 1814,
+                "principal": 2578000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 4434,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 221
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 1806,
+          "firstBelowReserveWeek": 1794,
+          "weeksBelowReserve": 4447,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 1814,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 1814,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 1834,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        },
+        {
+          "studioId": "studio-10aa1b55-r08",
+          "role": "rival",
+          "enteredWeek": 1872,
+          "firstEvaluatedWeek": 1872,
+          "a": {
+            "firstWeek": {
+              "warning": 2075,
+              "distress": 2083,
+              "closed": 2108
+            },
+            "transitions": [
+              {
+                "week": 2075,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 2083,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 2108,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 2075,
+              "distress": 2083,
+              "recovery": 2084,
+              "closed": 2124
+            },
+            "transitions": [
+              {
+                "week": 2075,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 2083,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 2084,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 2091,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 2099,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 2124,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 2083,
+                "principal": 1079000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 4165,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 178
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 2075,
+          "firstBelowReserveWeek": 2060,
+          "weeksBelowReserve": 4181,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 2083,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 0
+            },
+            {
+              "arm": "b",
+              "week": 2083,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 0
+            },
+            {
+              "arm": "b",
+              "week": 2099,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 0
+            }
+          ]
+        },
+        {
+          "studioId": "studio-10aa1b55-r09",
+          "role": "rival",
+          "enteredWeek": 2548,
+          "firstEvaluatedWeek": 2548,
+          "a": {
+            "firstWeek": {
+              "warning": 2823,
+              "distress": 2831,
+              "closed": 2856
+            },
+            "transitions": [
+              {
+                "week": 2823,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 2831,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 2856,
+                "from": "distress",
+                "to": "closed"
+              }
+            ]
+          },
+          "b": {
+            "firstWeek": {
+              "warning": 2823,
+              "distress": 2831,
+              "recovery": 2832,
+              "closed": 2876
+            },
+            "transitions": [
+              {
+                "week": 2823,
+                "from": "stable",
+                "to": "warning"
+              },
+              {
+                "week": 2831,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 2832,
+                "from": "distress",
+                "to": "recovery"
+              },
+              {
+                "week": 2843,
+                "from": "recovery",
+                "to": "warning"
+              },
+              {
+                "week": 2851,
+                "from": "warning",
+                "to": "distress"
+              },
+              {
+                "week": 2876,
+                "from": "distress",
+                "to": "closed"
+              }
+            ],
+            "loans": [
+              {
+                "week": 2831,
+                "principal": 2744000
+              }
+            ]
+          },
+          "bandWeeks": {
+            "inTheRed": 3417,
+            "strained": 13,
+            "stable": 13,
+            "thriving": 250
+          },
+          "strainedAboveWarnWeeks": 9,
+          "everWarnedA": 2823,
+          "firstBelowReserveWeek": 2812,
+          "weeksBelowReserve": 3429,
+          "distressEntries": [
+            {
+              "arm": "a",
+              "week": 2831,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 2831,
+              "loan": true,
+              "release": false,
+              "families": 1,
+              "headcount": 6
+            },
+            {
+              "arm": "b",
+              "week": 2851,
+              "loan": false,
+              "release": false,
+              "families": 0,
+              "headcount": 6
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

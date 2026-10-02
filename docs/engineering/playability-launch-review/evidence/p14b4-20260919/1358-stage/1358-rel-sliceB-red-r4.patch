@@ -1,0 +1,1646 @@
+diff --git a/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-P-save43-producer.ts b/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-P-save43-producer.ts
+index 9b2b4a4..0e9c6ed 100644
+--- a/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-P-save43-producer.ts
++++ b/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-P-save43-producer.ts
+@@ -121,16 +121,22 @@ function fundIfNeeded(s: GameState): GameState {
+   return { ...s, studio: { ...s.studio, cash: target }, ledger: [...s.ledger,
+     { week: s.market.tick, kind: delta > 0 ? 'studioRevenue' : 'overhead', amount: delta, note: '1358-P producer disclosed cash bootstrap' }] }
+ }
+-/** One competition (cancel + re-greenlight once, so `sharedCompetitions` reaches 2 for the pair
+- * this slate names on its first two contested slots — no RNG anywhere in this route). */
++/** The route tests/p14b10-conflict-evidence.test.ts runs on this seed (`foundStudio` :236-248,
++ * `threeRealCompetitions` :280-293), through its second cancel at :288: fund, found, greenlight a
++ * contested slate, cancel and fund, re-greenlight the same casting session, cancel and fund. Each
++ * greenlight records the slate's competitions, so `sharedCompetitions` reaches 2 for (a,b). No RNG
++ * anywhere in this route. 1358-C4 (1358-F3 item 1): r3 never called `foundStudio`, so its first
++ * `commissionScript` named an unsigned writer (1358-X); r3 also left the second production active. */
+ function runCastingCompetitionRoute(s0: GameState, market: Market): GameState {
+   const [a, b, c] = market.actors as [string, string, string]
+   const slate: CastingSlate = { lead: [a, b], antagonist: [b, c], support: [c, a] }
+-  let s = fundIfNeeded(s0)
++  // Fund before founding, as both reference routes do: tests/p14b9-casting-competition.test.ts
++  // :141-145 applies the bootstrap "before any signing bonus is debited (1315-C2 revision, defect 1)".
++  let s = foundStudio(fundIfNeeded(s0), market)
+   const g1 = greenlightCycle(s, market, 0, slate, { lead: a, antagonist: b, support: c })
+   s = fundIfNeeded(applyActions(g1.state, [{ kind: 'cancel', productionId: g1.productionId }]))
+   const g2 = greenlightCycle(s, market, 0, null, { lead: a, antagonist: b, support: c }, g1.projectId)
+-  s = fundIfNeeded(g2.state)
++  s = fundIfNeeded(applyActions(g2.state, [{ kind: 'cancel', productionId: g2.productionId }]))
+   const edge = s.relationships.find((e) => [e.a, e.b].includes(a) && [e.a, e.b].includes(b))
+   assert.ok(edge && edge.sharedCompetitions >= 1, 'route premise failed: pair (a,b) did not reach sharedCompetitions >= 1')
+   return s
+@@ -168,7 +174,7 @@ const provenance = {
+   purpose: 'generated test campaigns only; never Owner saves', record: '1358-P', plan: ['1347-A', '1347-F', '1358-C'],
+   producer: 'docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-P-save43-producer.ts',
+   executionHead: head, saveVersion: LIVE_SAVE_VERSION, projectionVersion: PROJECTION_VERSION, schemaId: SCHEMA_ID,
+-  route: `p13aGeneratedStudio('${SEED}'); one real casting-competition cycle (cancel + re-greenlight once); natural ticks to week ${String(foundWeek)}`,
++  route: `p13aGeneratedStudio('${SEED}'); fund; found; greenlight, cancel, re-greenlight the same casting session, cancel (tests/p14b10-conflict-evidence.test.ts through :288); natural ticks to week ${String(foundWeek)}`,
+   gzip: id(gz), decoded: id(raw), facts,
+ }
+ out(`${OUTPUT}/${name}.provenance.json`, json(provenance))
+diff --git a/tests/bridge-p14b10-relationship-labels.test.ts b/tests/bridge-p14b10-relationship-labels.test.ts
+new file mode 100644
+index 0000000..f29dbab
+--- /dev/null
++++ b/tests/bridge-p14b10-relationship-labels.test.ts
+@@ -0,0 +1,291 @@
++// Record 1358-C — independent-test-engineer RED for P14B relationship rulings SLICE B, the BRIDGE
++// DTO (1347-A §4 "Projection" as SUPERSEDED by 1347-F's Addendum: "Slice B takes projection 57
++// once, for `labels` ('Mentor' | 'Professional Rivals') and `romance` together"). Authored on a
++// scratch tree (1327-C method) at BASE c614b7e9ed62dcb889118ba1eadb8a2bafa7934a with slice A applied
++// (committed `slice-a`), branch wip/headless-program-20260916-ts.
++//
++// AUTHORITY (read in full before use):
++//   1347-F Addendum (:62-68): "Slice B takes projection 57 once, for `labels` (`'Mentor' |
++//     'Professional Rivals'`) and `romance` together."
++//   1347-A §4 (:105): "Disclosure is unchanged: rows exist only for counterparts on the viewer's
++//     roster (bridge/relationships.ts :196-209). Evidence cites only released pictures or the
++//     viewer's own. No magnitudes appear, and no key named `"relationships":`."
++//   1347-A §6 item 8 (:156): "Mentor evidence on rival pictures. Withhold the label until all three
++//     pictures are public."
++//
++// PARENT API DECISION UNDER TEST: bridge: `StudioRelationshipRow` gains
++//   `labels: { label: 'Mentor' | 'Professional Rivals'; evidence: string }[]` and
++//   `romance: { status: 'partners' | 'ended'; sinceLabel: string; endedLabel: string | null } | null`.
++//
++// SCOPE NOTE ON "evidence cites only released pictures or the viewer's own" (a finding, not an
++// assumption): `recordCastingCompetition` is PLAYER-ONLY (1312-F Amendment 1, restated at
++// src/core/relationships.ts :382 "Rivals hold no casting session, so the reachable set is
++// player-only") — every REAL `competitions` row is therefore, by construction, always a production
++// the viewer's OWN studio ran whenever the viewer IS the player (the only browsing viewer this
++// single-player Bridge ever serves). The "released or the viewer's own" carve-out for Rivals is
++// consequently never load-bearing for a genuine competitions row; this file tests Rivals disclosure
++// (roster-gated row presence) and leaves the "released" half of the clause to the leaf that IS
++// load-bearing for it: Mentor, whose director/actor pair CAN be entirely rival-internal (no
++// player-only constraint on cohort entry or `firstTakes`), covered below with a REAL fixture (both
++// the all-released positive and the one-picture-still-in-production negative). Romance's DTO
++// (`status`/`sinceLabel`/`endedLabel`) names no production id at all — only calendar labels via the
++// existing `campaignDate` helper (the same device `asOfLabel` already uses in this file) — so the
++// "released pictures" clause has no surface there either. Both omissions are named explicitly here,
++// not left silent.
++//
++// RED MECHANISM: `bridge/relationships.ts` and `bridge/schema/bridge-schema.ts` already exist
++// (EXISTING modules) — a missing/unwidened field is a genuine `undefined` VALUE on the returned row,
++// never a resolution error, so every leaf below is a value assertion on real function output.
++//
++// FIXTURE STRATEGY: the Rivals/romance/DTO-shape leaves stage a `RelationshipEdge` directly onto a
++// freshly-founded, minimally-advanced world (the `withRoot`/`edges` I3 convention of
++// tests/bridge-p14b6-relationship-read-models.test.ts, re-derived here since that file's helpers are
++// not exported) with a REAL, signed-contract roster for disclosure (`rosterAt`'s own predicate, re-
++// derived the same way that file's — and talentMarket.ts's — private roster helper is re-derived
++// everywhere it is needed outside `src/core/`). The Mentor withholding leaves reuse the EXISTING,
++// already-vetted `cohortThreeFilms()` fixture (tests/helpers/p14c3-cohort-transition-fixtures.ts,
++// the SAME real commissionScript -> greenlightScriptProject -> shoot -> release route slice A's own
++// Mentor RED already uses) — a genuine cohort entrant, three genuine RELEASED same-director pictures,
++// on the PLAYER's own roster (so disclosure is trivially satisfied and the leaf isolates exactly the
++// "public" half of the rule). This fixture is HEAVY (measured by 1348-C5 at 50.8-82.3 s for its first
++// caller in a file). The two Mentor leaves keep a 180_000 ms vitest timeout, which cannot stop a
++// synchronous body and so is not a budget (1356-F5; 1358-F2 item 4). The budgets are the self-timed
++// builds below (1358-F3 item 2): `rosterWorld()` throws a named error past 45,000 ms, and
++// `mentorCohort()`, the wrapper both Mentor leaves call, past 240,000 ms.
++
++import assert from 'node:assert/strict'
++import { performance } from 'node:perf_hooks'
++import { describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { hiringMarketIds } from '../src/core/employment.js'
++import { campaignDate } from '../src/core/calendar.js'
++import { relationshipBlockFor } from '../bridge/relationships.js'
++import { PROJECTION_VERSION } from '../bridge/schema/bridge-schema.js'
++import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
++import { advanceTo, fund, player } from './helpers/p14b2-fixtures.js'
++import { cohortThreeFilms, COHORT_SUBJECT } from './helpers/p14c3-cohort-transition-fixtures.js'
++import type { GameState, RelationshipTier } from '../src/core/types.js'
++
++type RelationshipCompetition = { week: number; productionId: string; slots: string[] }
++type RomanceBond = { formedWeek: number; endedWeek: number | null }
++type RomanceTrack = { value: number; anchorWeek: number; bonds: RomanceBond[] }
++type RawEdge = {
++  edgeId: string; a: string; b: string; closeness: number; firstSharedWeek: number; lastEventWeek: number
++  sharedProductions: number; sharedSuccesses: number; sharedFailures: number; sharedCancellations: number
++  sharedCompetitions: number; peakTier: RelationshipTier; peakTierWeek: number; recent: unknown[]
++  competitions: RelationshipCompetition[]; romance: RomanceTrack | null
++}
++type LabelRow = { label: 'Mentor' | 'Professional Rivals'; evidence: string }
++type RomanceRow = { status: 'partners' | 'ended'; sinceLabel: string; endedLabel: string | null } | null
++type Row = { counterpartId: string; counterpartName: string; labels: LabelRow[]; romance: RomanceRow }
++type Block = { rows: Row[] }
++const withRoot = (state: GameState, rows: readonly RawEdge[]): GameState => ({ ...state, relationships: rows } as unknown as GameState)
++const blockFor = (state: GameState, talentId: string, viewer: string, week?: number): Block =>
++  relationshipBlockFor(state, talentId, viewer, week) as unknown as Block
++const row = (week: number, productionId: string, slots: string[]): RelationshipCompetition => ({ week, productionId, slots })
++
++/** A minimal founded, real-roster world: two SIGNED actors (disclosed) and one left unsigned
++ * (undisclosed — still an addressable person on `state.talent`, just off this studio's roster).
++ * MEMOIZED (the `baseWorld`/`castingCompetitionWorld` house convention): built ONCE per file
++ * process and `structuredClone`d out to every caller, so 12 leaves pay the `advanceTo(s, 150)`
++ * cost once, not 12 times (measured: an un-memoized first pass of this file took ~275s at ~25-32s
++ * per leaf; memoizing brings the whole file under the machine-load "quick" threshold). No leaf
++ * mutates the returned `state` in place (every derivation below is a `{ ...state, ... }` spread or
++ * `withRoot`, never an in-place write), so sharing the built world across leaves is safe.
++ * SELF-TIMED (1358-F3 item 2; 1348-F4 item 3: never keep a limit that cannot fire): no vitest
++ * timeout can stop this synchronous build, so the build times itself. 1358-F3 sets the number from
++ * 1358-X's measurement of the first caller, 5,704 ms on Node v22.23.2. */
++const ROSTER_WORLD_BUDGET_MS = 45_000
++let rosterWorldCache: { state: GameState; disclosedX: string; disclosedY: string; undisclosed: string; week: number } | undefined
++let rosterWorldOverBudget: Error | undefined // cached, so no later leaf pays an over-budget build again
++function rosterWorld(): { state: GameState; disclosedX: string; disclosedY: string; undisclosed: string; week: number } {
++  if (rosterWorldOverBudget !== undefined) throw rosterWorldOverBudget
++  if (rosterWorldCache !== undefined) return structuredClone(rosterWorldCache)
++  const started = performance.now()
++  let s = fund(p13aGeneratedStudio())
++  const actors = hiringMarketIds(s, s.market.tick).map((id) => s.talent.find((t) => t.id === id))
++    .filter((t): t is NonNullable<typeof t> => t !== undefined && t.role === 'actor')
++  assert.ok(actors.length >= 3, 'route premise: at least three free actors at week 0')
++  const [disclosedX, disclosedY, undisclosed] = actors.slice(0, 3).map((t) => t.id) as [string, string, string]
++  // termWeeks is clamped to 208 (see below), which still covers the week-150 advance, so the contract
++  // is still active (not naturally expired) at the week every leaf reads disclosure at.
++  s = applyActions(s, [{ kind: 'signContract', talentId: disclosedX, termWeeks: 1000 }, { kind: 'signContract', talentId: disclosedY, termWeeks: 1000 }])
++  // Advanced well past week 0 so every romance leaf's `week - N`-style calendar arithmetic below
++  // stays a non-negative, safe integer (campaignDate's own precondition). Bounded at 150 (not
++  // further): `signContract`'s termWeeks is clamped to TUNING.CONTRACT_MAX_WEEKS (measured 208)
++  // regardless of the requested value — a single contract cannot cover a week-400 advance, and
++  // this file does not renew mid-route (unlike tests/helpers/p14c3-cohort-transition-fixtures.ts's
++  // multi-renewal `RENEWALS` pattern), so 150 is the chosen, safely-under-208 headroom instead.
++  s = advanceTo(s, 150)
++  const elapsedMs = performance.now() - started
++  if (elapsedMs > ROSTER_WORLD_BUDGET_MS) {
++    rosterWorldOverBudget = Object.assign(new Error(`rosterWorld() took ${Math.round(elapsedMs)} ms, over ROSTER_WORLD_BUDGET_MS (${ROSTER_WORLD_BUDGET_MS} ms)`),
++      { name: 'RosterWorldBudgetExceeded' })
++    throw rosterWorldOverBudget
++  }
++  const week = s.market.tick
++  rosterWorldCache = { state: s, disclosedX, disclosedY, undisclosed, week }
++  return structuredClone(rosterWorldCache)
++}
++function baseEdge(index: number, a: string, b: string, week: number, extra: Partial<RawEdge> = {}): RawEdge {
++  const [x, y] = a < b ? [a, b] : [b, a]
++  return {
++    edgeId: `relationship-edge-${String(index)}`, a: x, b: y, closeness: 65, firstSharedWeek: week, lastEventWeek: week,
++    sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0,
++    peakTier: 'Friends', peakTierWeek: week, recent: [], competitions: [], romance: null, ...extra,
++  }
++}
++
++describe('P14B10 T1 — the projection version moves once for slice B (1347-F Addendum)', () => {
++  it('PROJECTION_VERSION is 57', () => {
++    expect(PROJECTION_VERSION).toBe(57)
++  })
++})
++
++describe('Professional Rivals — disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row)', () => {
++  it('a Rivals-qualifying edge on a DISCLOSED counterpart shows the label, naming evidence text', () => {
++    const w = rosterWorld()
++    const competitions = [row(w.week - 20, 'prod-riv-1', ['lead']), row(w.week - 10, 'prod-riv-2', ['lead'])]
++    const state = withRoot(w.state, [baseEdge(0, w.disclosedX, w.disclosedY, w.week, { sharedCompetitions: 2, competitions })])
++    const block = blockFor(state, w.disclosedX, player(w.state), w.week)
++    const counterpartRow = block.rows.find((r) => r.counterpartId === w.disclosedY)
++    assert.ok(counterpartRow, 'route premise: the disclosed counterpart must produce a row')
++    expect(Array.isArray(counterpartRow.labels)).toBe(true)
++    expect(counterpartRow.labels).toContainEqual(expect.objectContaining({ label: 'Professional Rivals' }))
++    const rivalsLabel = counterpartRow.labels.find((l) => l.label === 'Professional Rivals')!
++    expect(typeof rivalsLabel.evidence).toBe('string')
++    expect(rivalsLabel.evidence.length).toBeGreaterThan(0)
++  })
++
++  it('the IDENTICAL Rivals-qualifying edge on an UNDISCLOSED counterpart produces NO row at all (existing disclosure law, unaffected by labels)', () => {
++    const w = rosterWorld()
++    const competitions = [row(w.week - 20, 'prod-riv-1', ['lead']), row(w.week - 10, 'prod-riv-2', ['lead'])]
++    const state = withRoot(w.state, [baseEdge(0, w.disclosedX, w.undisclosed, w.week, { sharedCompetitions: 2, competitions })])
++    const block = blockFor(state, w.disclosedX, player(w.state), w.week)
++    expect(block.rows.find((r) => r.counterpartId === w.undisclosed)).toBeUndefined()
++  })
++
++  it('a disclosed non-Rivals edge (lead then support, no shared slot) shows no Professional Rivals label', () => {
++    const w = rosterWorld()
++    const competitions = [row(w.week - 20, 'prod-a', ['lead']), row(w.week - 10, 'prod-b', ['support'])]
++    const state = withRoot(w.state, [baseEdge(0, w.disclosedX, w.disclosedY, w.week, { sharedCompetitions: 2, competitions })])
++    const block = blockFor(state, w.disclosedX, player(w.state), w.week)
++    const counterpartRow = block.rows.find((r) => r.counterpartId === w.disclosedY)
++    assert.ok(counterpartRow, 'route premise')
++    expect(Array.isArray(counterpartRow.labels)).toBe(true)
++    expect(counterpartRow.labels.some((l) => l.label === 'Professional Rivals')).toBe(false)
++  })
++})
++
++describe('Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device)', () => {
++  it('a disclosed OPEN bond reads status "partners", sinceLabel = campaignDate(formedWeek).label, endedLabel null', () => {
++    const w = rosterWorld()
++    const formedWeek = w.week - 5
++    const romance: RomanceTrack = { value: 90, anchorWeek: w.week, bonds: [{ formedWeek, endedWeek: null }] }
++    const state = withRoot(w.state, [baseEdge(0, w.disclosedX, w.disclosedY, w.week, { romance })])
++    const block = blockFor(state, w.disclosedX, player(w.state), w.week)
++    const counterpartRow = block.rows.find((r) => r.counterpartId === w.disclosedY)
++    assert.ok(counterpartRow, 'route premise')
++    expect(counterpartRow.romance).toEqual({ status: 'partners', sinceLabel: campaignDate(formedWeek).label, endedLabel: null })
++  })
++
++  it('a disclosed CLOSED bond reads status "ended", with both sinceLabel and endedLabel set', () => {
++    const w = rosterWorld()
++    const formedWeek = w.week - 100, endedWeek = w.week - 30
++    const romance: RomanceTrack = { value: 20, anchorWeek: endedWeek, bonds: [{ formedWeek, endedWeek }] }
++    const state = withRoot(w.state, [baseEdge(0, w.disclosedX, w.disclosedY, w.week, { romance })])
++    const block = blockFor(state, w.disclosedX, player(w.state), w.week)
++    const counterpartRow = block.rows.find((r) => r.counterpartId === w.disclosedY)
++    assert.ok(counterpartRow, 'route premise')
++    expect(counterpartRow.romance).toEqual({ status: 'ended', sinceLabel: campaignDate(formedWeek).label, endedLabel: campaignDate(endedWeek).label })
++  })
++
++  it('no romance (null track) reads romance: null on the row', () => {
++    const w = rosterWorld()
++    const state = withRoot(w.state, [baseEdge(0, w.disclosedX, w.disclosedY, w.week)])
++    const block = blockFor(state, w.disclosedX, player(w.state), w.week)
++    const counterpartRow = block.rows.find((r) => r.counterpartId === w.disclosedY)
++    assert.ok(counterpartRow, 'route premise')
++    expect(counterpartRow.romance).toBeNull()
++  })
++
++  it('a bond on an UNDISCLOSED counterpart produces no row (and so no romance leak) at all', () => {
++    const w = rosterWorld()
++    const romance: RomanceTrack = { value: 90, anchorWeek: w.week, bonds: [{ formedWeek: w.week - 5, endedWeek: null }] }
++    const state = withRoot(w.state, [baseEdge(0, w.disclosedX, w.undisclosed, w.week, { romance })])
++    const block = blockFor(state, w.disclosedX, player(w.state), w.week)
++    expect(block.rows.find((r) => r.counterpartId === w.undisclosed)).toBeUndefined()
++  })
++})
++
++describe('No magnitudes, no key named "relationships": (1347-A §4; the landed leak law extended over the two new fields)', () => {
++  it('a label row is EXACTLY {label, evidence} — no numeric field slips in', () => {
++    const w = rosterWorld()
++    const competitions = [row(w.week - 20, 'prod-riv-1', ['lead']), row(w.week - 10, 'prod-riv-2', ['lead'])]
++    const state = withRoot(w.state, [baseEdge(0, w.disclosedX, w.disclosedY, w.week, { sharedCompetitions: 2, competitions })])
++    const block = blockFor(state, w.disclosedX, player(w.state), w.week)
++    const counterpartRow = block.rows.find((r) => r.counterpartId === w.disclosedY)
++    assert.ok(counterpartRow, 'route premise')
++    const rivalsLabel = counterpartRow.labels.find((l) => l.label === 'Professional Rivals')
++    assert.ok(rivalsLabel, 'route premise: this edge is Rivals-qualifying')
++    expect(Object.keys(rivalsLabel).sort()).toEqual(['evidence', 'label'])
++  })
++
++  it('the serialized block never contains the leak key form "relationships": (the landed law, tests/bridge-p14b5-relationships.test.ts:404-408, extended to the labels/romance fields)', () => {
++    const w = rosterWorld()
++    const competitions = [row(w.week - 20, 'prod-riv-1', ['lead']), row(w.week - 10, 'prod-riv-2', ['lead'])]
++    const romance: RomanceTrack = { value: 90, anchorWeek: w.week, bonds: [{ formedWeek: w.week - 5, endedWeek: null }] }
++    const state = withRoot(w.state, [baseEdge(0, w.disclosedX, w.disclosedY, w.week, { sharedCompetitions: 2, competitions, romance })])
++    const block = blockFor(state, w.disclosedX, player(w.state), w.week)
++    const dto = JSON.stringify(block)
++    for (const leak of ['"relationships":', '"closeness":', '"sharedCompetitions":', '"peakTier":', '"value":', '"anchorWeek":']) {
++      expect(dto.includes(leak), `leak law broken: DTO contains ${leak}`).toBe(false)
++    }
++  })
++})
++
++/** SELF-TIMED (1358-F3 item 2; 1348-F4 item 3): the helper memoizes `cohortThreeFilms()` once per file
++ * and hands every caller a clone. This wrapper times the first call in this file, the one that
++ * builds, and throws a named error past COHORT_THREE_FILMS_BUDGET_MS. 1358-F3 sets the number from
++ * 1358-X's measurement of the first Mentor leaf, 40,219 ms on Node v22.23.2. */
++const COHORT_THREE_FILMS_BUDGET_MS = 240_000
++let cohortTimed = false
++let cohortOverBudget: Error | undefined // cached, so the second Mentor leaf fails by the same name
++function mentorCohort(): ReturnType<typeof cohortThreeFilms> {
++  if (cohortOverBudget !== undefined) throw cohortOverBudget
++  if (cohortTimed) return cohortThreeFilms()
++  const started = performance.now()
++  const built = cohortThreeFilms()
++  const elapsedMs = performance.now() - started
++  cohortTimed = true
++  if (elapsedMs > COHORT_THREE_FILMS_BUDGET_MS) {
++    cohortOverBudget = Object.assign(new Error(`cohortThreeFilms() took ${Math.round(elapsedMs)} ms, over COHORT_THREE_FILMS_BUDGET_MS (${COHORT_THREE_FILMS_BUDGET_MS} ms)`),
++      { name: 'CohortThreeFilmsBudgetExceeded' })
++    throw cohortOverBudget
++  }
++  return built
++}
++
++describe('Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public")', () => {
++  it('a genuine cohort entrant with three genuine RELEASED same-director pictures shows the Mentor label on the disclosed pair', () => {
++    const { state, team } = mentorCohort()
++    const playerId = player(state)
++    const week = state.market.tick
++    const block = blockFor(state, COHORT_SUBJECT, playerId, week)
++    const directorRow = block.rows.find((r) => r.counterpartId === team.directorId)
++    assert.ok(directorRow, 'route premise: the director must be disclosed on the player roster')
++    expect(directorRow.labels).toContainEqual(expect.objectContaining({ label: 'Mentor' }))
++  }, 180_000) // 1356-F5: vitest cannot stop a synchronous body, so this timeout is not a budget
++
++  it('the SAME cohort entrant, with ONE of the three pictures NOT YET public (its release fact removed), withholds Mentor at the Bridge level even though the core derivation is unaffected', () => {
++    const { state, team, pictureIds } = mentorCohort()
++    const playerId = player(state)
++    const week = state.market.tick
++    const stillInProduction = pictureIds[2]!
++    const variant: GameState = { ...state, studio: { ...state.studio, releasedFilms: state.studio.releasedFilms.filter((f) => f.productionId !== stillInProduction) } }
++    const block = blockFor(variant, COHORT_SUBJECT, playerId, week)
++    const directorRow = block.rows.find((r) => r.counterpartId === team.directorId)
++    assert.ok(directorRow, 'route premise: the director must still be disclosed on the player roster')
++    expect(directorRow.labels.some((l) => l.label === 'Mentor')).toBe(false)
++  }, 180_000) // 1356-F5: vitest cannot stop a synchronous body, so this timeout is not a budget
++})
+diff --git a/tests/p14b10-competitions-log.test.ts b/tests/p14b10-competitions-log.test.ts
+new file mode 100644
+index 0000000..2d391f5
+--- /dev/null
++++ b/tests/p14b10-competitions-log.test.ts
+@@ -0,0 +1,244 @@
++// Record 1358-C — independent-test-engineer RED for P14B relationship rulings SLICE B, the
++// COMPETITIONS LOG (1347-A §2.1's append-only log, as amended/adopted by 1347-F; D-1312-1's
++// history requirement, 1340-O:59-67). Authored on a scratch tree (1327-C method) at BASE
++// c614b7e9ed62dcb889118ba1eadb8a2bafa7934a (the real repo's HEAD at start of this record) with
++// slice A applied (1348-rel-sliceA-red-r5.patch + 1348-rel-sliceA-production-step3.patch,
++// committed `slice-a`), branch wip/headless-program-20260916-ts.
++//
++// AUTHORITY (read in full before use):
++//   docs/.../1340-O-owner-rulings-20260929.md D-1312-1 (:59-67): "for history (ruling 8:
++//     'preserve ... conflict events') and for the Rivals label, each edge gains an append-only
++//     log ... The same helper writes it, one row per competition, where `slots` lists the cast
++//     slots the pair contested on that production."
++//   docs/.../1347-A-p14b-relationship-rulings-charter.md §2.1 (:29-34), §2.4 "How Rivals differs
++//     from conflict evidence" (:67-70): "A pair that contests both lead and support on one
++//     production records one competition with two slots."
++//   brief-1358-sliceB-red.md scope item 3 (verbatim): "recordCastingCompetition appends one row
++//     per pair per production {week, productionId, slots} with slots the non-empty subset of
++//     ['lead','antagonist','support'] that pair contested, in slot order; a pair contesting two
++//     slots of one production is one row with two slots; a re-greenlight after a cancel counts
++//     once per production; the row count never exceeds sharedCompetitions; no RNG draw."
++//
++// PARENT API DECISION UNDER TEST (brief PARENT API DECISIONS): src/core/relationships.ts:
++// `RelationshipEdge` gains `competitions: RelationshipCompetition[]` with
++// `RelationshipCompetition = { week: number; productionId: string; slots: CastSlot[] }`. The
++// EXISTING, UNCHANGED-SIGNATURE `recordCastingCompetition` (relationships.ts:384-427, slice A/pre)
++// is the "same helper" D-1312-1 names; this file exercises IT, never an invented second entry
++// point.
++//
++// RED MECHANISM: `recordCastingCompetition` already exists and already writes `sharedCompetitions`
++// (an existing, unchanged field) — every leaf below reads the NEW `edge.competitions` field off a
++// REAL, engine-minted edge. At BASE this field is `undefined` (`RelationshipEdge` does not carry it
++// yet), so every `.competitions`-touching assertion throws a genuine TypeError ("Cannot read
++// properties of undefined") — a real, specific, per-leaf RED, never a vacuous pass. This mirrors
++// tests/p14b10-conflict-evidence.test.ts's "the real casting-competition route reaches genuine
++// evidence" leaves, which reuse the SAME `sharedCompetitions`/`hasConflictEvidence` facts this
++// file's fixture also produces (that file's leaves are unaffected by this file; nothing here edits
++// it).
++//
++// FIXTURE: an independent copy of the `foundStudio`/`greenlightCycle` route already established
++// and measured in tests/p14b9-casting-competition.test.ts and tests/p14b10-conflict-evidence.test.ts
++// (same seed, same founding sequence) — per this codebase's own convention, each RED file keeps its
++// own copy of this route rather than importing another test file's private module scope (neither
++// file exports these helpers). Trimmed to the THREE productions this file's own leaves need:
++//   P1  (concept 0): slate { lead:[a,d], antagonist:[b,d], support:[a,b] }, cast
++//       { lead:a, antagonist:b, support:c } — TWO DIFFERENT pairs, each contesting ONE slot on the
++//       SAME production: (a,d) via lead, (b,d) via antagonist. Proves "one row per PAIR per
++//       production" (two rows, one per pair, not one row for the production).
++//   P2  (concept 1, the "dedup" slate): slate { lead:[a,b], antagonist:[a,b], support:[c,d] }, cast
++//       { lead:a, antagonist:b, support:c } — the SAME pair (a,b) named in two slots of ONE
++//       production (1313-F Amendment 2's own example). Proves "two contested slots -> one row with
++//       two slots", in slot order (lead before antagonist).
++//   P3a/P3b (concept 2): slate { lead:[a,b], antagonist:[b,c], support:[c,a] }, cast
++//       { lead:a, antagonist:b, support:c }, greenlit, captured, CANCELLED (no shoot, so no first
++//       take — `recordCancelledAfterFirstTake`'s early return applies, minting nothing extra), then
++//       RE-GREENLIT against the same still-complete casting session (1313-F Amendment 3) — a
++//       distinct production id. Proves "a re-greenlight after a cancel counts once per production"
++//       (pair (a,b) gets TWO rows, one per production id, not a single row nor a skipped second row).
++
++import assert from 'node:assert/strict'
++import { describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { hiringMarketIds } from '../src/core/employment.js'
++import { tick } from '../src/core/tick.js'
++import { TUNING } from '../src/core/tuning.js'
++import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
++import { fund } from './helpers/p14b2-fixtures.js'
++import type { CastingSlate, CastSlot, GameState } from '../src/core/types.js'
++import { RELATIONSHIP_CONFLICT_COMPETITIONS, hasConflictEvidence } from '../src/core/relationships.js'
++
++// The exact new shape under test (locally declared: `RelationshipCompetition` does not exist on
++// `src/core/types.ts` at BASE, so a `import type` of it would depend on an export that is not yet
++// there — the established in-repo convention, tests/p14b5-relationships.test.ts's own local `type
++// Edge`/`type Driver` redeclarations, is followed here instead of a brittle type-only import).
++type RelationshipCompetition = { week: number; productionId: string; slots: CastSlot[] }
++type EdgeWithLog = { a: string; b: string; sharedCompetitions: number; competitions: readonly RelationshipCompetition[]; recent: readonly { kind: string }[] }
++
++const SEED = 'r1314-casting-01'
++const STAGE = 'facility-soundstage-07'
++const SHAPE = { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' } as const
++const RANGES = { intimacy: [-0.5, 0.5] as [number, number], tonalWeight: [-0.5, 0.5] as [number, number], kineticEnergy: [-0.5, 0.5] as [number, number] }
++type Market = { writer: string; director: string; craft: string; actors: readonly string[] }
++
++function deriveMarket(s: GameState): Market {
++  const market = hiringMarketIds(s, 0)
++  const byRole = (role: string) => market.filter((id) => s.talent.find((t) => t.id === id)?.role === role)
++  const writer = byRole('writer')[0], director = byRole('director')[0], craft = byRole('craft')[0], actors = byRole('actor')
++  assert.ok(writer && director && craft && actors.length >= 4, `route premise failed: seed "${SEED}" week-0 market lacks a writer/director/craft/4 actors`)
++  return { writer, director, craft, actors }
++}
++function foundStudio(): { state: GameState; market: Market } {
++  let s = fund(p13aGeneratedStudio(SEED))
++  const market = deriveMarket(s)
++  for (const id of [market.writer, market.director, market.craft, ...market.actors]) {
++    s = applyActions(s, [{ kind: 'signContract', talentId: id, termWeeks: 208 }])
++  }
++  const mounted = s.sets.find((x) => x.mountedOn === STAGE && x.status !== 'retired')
++  if (mounted !== undefined) s = applyActions(s, [{ kind: 'strikeSet', setId: mounted.id }])
++  s = applyActions(s, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: STAGE } }])
++  s = advanceTo(s, TUNING.SET_BUILD_WEEKS_BAND_HIGH)
++  s = applyActions(s, [{ kind: 'activateScriptDevelopment' }, { kind: 'activateCastingSessions' }])
++  return { state: s, market }
++}
++function greenlightCycle(s: GameState, market: Market, conceptIndex: number, slate: CastingSlate | null, cast: Record<CastSlot, string>,
++  reuseProjectId?: string): { before: GameState; after: GameState; productionId: string; projectId: string } {
++  let projectId = reuseProjectId
++  if (projectId === undefined) {
++    const concept = s.concepts[conceptIndex]!
++    s = applyActions(s, [{ kind: 'commissionScript', project: { conceptId: concept.id, writerId: market.writer, shape: SHAPE, promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: RANGES } } }])
++    projectId = s.scriptDevelopment.projects.at(-1)!.id
++    for (let n = 0; s.scriptDevelopment.projects.find((p) => p.id === projectId)!.status !== 'review'; n++) {
++      if (n >= 30) throw new Error(`route premise failed: project "${projectId}" did not reach review within 30 ticks`)
++      s = tick(s)
++    }
++    s = applyActions(s, [{ kind: 'acceptScript', projectId }])
++    if (slate !== null) {
++      s = applyActions(s, [{ kind: 'startCastingSession', session: { projectId, slate } }])
++      const sessionId = s.castingSessions.sessions.find((x) => x.projectId === projectId)!.id
++      for (let n = 0; s.castingSessions.sessions.find((x) => x.id === sessionId)!.status !== 'review'; n++) {
++        if (n >= 30) throw new Error(`route premise failed: session "${sessionId}" did not reach review within 30 ticks`)
++        s = tick(s)
++      }
++      s = applyActions(s, [{ kind: 'acknowledgeCastingSession', sessionId }])
++    }
++  }
++  const concept = s.concepts[conceptIndex]!
++  const before = s
++  s = applyActions(s, [{ kind: 'greenlightScriptProject', production: { projectId, directorId: market.director, craftIds: [market.craft], cast, budget: { negative: concept.baseNegativeCost, marketing: 0 } } }])
++  const productionId = s.studio.activeProductions.at(-1)!.id
++  return { before, after: s, productionId, projectId }
++}
++function cancelAndRefund(s: GameState, productionId: string): GameState {
++  return fund(applyActions(s, [{ kind: 'cancel', productionId }]))
++}
++function edgeOf(s: GameState, x: string, y: string): EdgeWithLog | undefined {
++  return (s.relationships as unknown as EdgeWithLog[]).find((e) => (e.a === x && e.b === y) || (e.a === y && e.b === x))
++}
++
++type World = {
++  market: Market
++  afterP1: GameState; p1: string
++  afterP2: GameState; p2: string
++  afterP3a: GameState; p3a: string; rngBeforeP3a: unknown; rngAfterP3a: unknown
++  afterP3b: GameState; p3b: string
++}
++let cachedWorld: World | undefined
++/** Built ONCE (memo cache, the house convention for expensive multi-cycle routes); every `it()`
++ * reads a `structuredClone` of the cached result so no leaf can mutate another's fixture. */
++function competitionsLogWorld(): World {
++  if (cachedWorld !== undefined) return structuredClone(cachedWorld)
++  const { state: s0, market } = foundStudio()
++  const [a, b, c, d] = market.actors as [string, string, string, string]
++
++  // P1 — two DIFFERENT pairs, one slot each, on the SAME production.
++  const p1Slate: CastingSlate = { lead: [a, d], antagonist: [b, d], support: [a, b] }
++  const p1 = greenlightCycle(s0, market, 0, p1Slate, { lead: a, antagonist: b, support: c })
++  let s = cancelAndRefund(p1.after, p1.productionId)
++
++  // P2 — the SAME pair (a,b) named in two slots of ONE production (1313-F Amendment 2).
++  const p2Slate: CastingSlate = { lead: [a, b], antagonist: [a, b], support: [c, d] }
++  const p2 = greenlightCycle(s, market, 1, p2Slate, { lead: a, antagonist: b, support: c })
++  s = cancelAndRefund(p2.after, p2.productionId)
++
++  // P3a/P3b — greenlight, cancel (no shoot), re-greenlight the SAME still-complete casting
++  // session (1313-F Amendment 3) — a distinct production id, one more competition per pair.
++  const p3Slate: CastingSlate = { lead: [a, b], antagonist: [b, c], support: [c, a] }
++  const p3a = greenlightCycle(s, market, 2, p3Slate, { lead: a, antagonist: b, support: c })
++  const afterP3aCancel = fund(applyActions(p3a.after, [{ kind: 'cancel', productionId: p3a.productionId }]))
++  const concept2 = afterP3aCancel.concepts[2]!
++  const p3bAfter = applyActions(afterP3aCancel, [{ kind: 'greenlightScriptProject',
++    production: { projectId: p3a.projectId, directorId: market.director, craftIds: [market.craft],
++      cast: { lead: a, antagonist: b, support: c }, budget: { negative: concept2.baseNegativeCost, marketing: 0 } } }])
++  const p3b = p3bAfter.studio.activeProductions.at(-1)!.id
++
++  const world: World = {
++    market,
++    afterP1: p1.after, p1: p1.productionId,
++    afterP2: p2.after, p2: p2.productionId,
++    afterP3a: p3a.after, p3a: p3a.productionId, rngBeforeP3a: p3a.before.rngState, rngAfterP3a: p3a.after.rngState,
++    afterP3b: p3bAfter, p3b,
++  }
++  cachedWorld = world
++  return structuredClone(world)
++}
++
++describe('the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE)', () => {
++  it('P1: two different pairs each get their OWN row for the same production, slots = the one slot each contested', () => {
++    const w = competitionsLogWorld()
++    const [a, , , d] = w.market.actors
++    const [, b] = w.market.actors
++    const adEdge = edgeOf(w.afterP1, a, d)!
++    assert.ok(adEdge, 'route premise: pair (a,d) never formed an edge')
++    expect(adEdge.competitions).toEqual([{ week: w.afterP1.market.tick, productionId: w.p1, slots: ['lead'] }])
++    const bdEdge = edgeOf(w.afterP1, b, d)!
++    assert.ok(bdEdge, 'route premise: pair (b,d) never formed an edge')
++    expect(bdEdge.competitions).toEqual([{ week: w.afterP1.market.tick, productionId: w.p1, slots: ['antagonist'] }])
++  }, 60_000) // 1356-F5: vitest cannot stop a synchronous body, so this timeout is not a budget
++
++  it('P2: the SAME pair (a,b) contesting two slots of ONE production is ONE row, slots in slot order [lead, antagonist]', () => {
++    const w = competitionsLogWorld()
++    const [a, b] = w.market.actors
++    const edge = edgeOf(w.afterP2, a, b)!
++    assert.ok(edge, 'route premise: pair (a,b) never formed an edge')
++    // Exactly one row for P2 (never two rows, one per slot).
++    const p2Rows = edge.competitions.filter((row) => row.productionId === w.p2)
++    expect(p2Rows).toHaveLength(1)
++    expect(p2Rows[0]).toEqual({ week: w.afterP2.market.tick, productionId: w.p2, slots: ['lead', 'antagonist'] })
++    expect(edge.sharedCompetitions).toBe(1) // the existing counter: one competition, not two
++  }, 60_000) // 1356-F5: vitest cannot stop a synchronous body, so this timeout is not a budget
++
++  it('P3a/P3b: a re-greenlight after a cancel counts once per production — pair (a,b) gets TWO rows, one per production id, each slots=[\'lead\']', () => {
++    const w = competitionsLogWorld()
++    const [a, b] = w.market.actors
++    const edge = edgeOf(w.afterP3b, a, b)!
++    assert.ok(edge, 'route premise: pair (a,b) never formed an edge')
++    const p3Rows = edge.competitions.filter((row) => row.productionId === w.p3a || row.productionId === w.p3b)
++    expect(p3Rows).toHaveLength(2)
++    expect(new Set(p3Rows.map((row) => row.productionId))).toEqual(new Set([w.p3a, w.p3b]))
++    for (const row of p3Rows) expect(row.slots).toEqual(['lead'])
++    // Ascending weeks across the two productions (P3b is strictly later than P3a — validateSaveV44's own requirement).
++    const [first, second] = [...p3Rows].sort((x) => (x.productionId === w.p3a ? -1 : 1))
++    expect(first!.week).toBeLessThanOrEqual(second!.week)
++  }, 60_000) // 1356-F5: vitest cannot stop a synchronous body, so this timeout is not a budget
++
++  it('the row count never exceeds sharedCompetitions for ANY edge in the final world (in this route, always exactly equal)', () => {
++    const w = competitionsLogWorld()
++    for (const edge of w.afterP3b.relationships as unknown as EdgeWithLog[]) {
++      expect(edge.competitions.length).toBeLessThanOrEqual(edge.sharedCompetitions)
++      expect(edge.competitions.length).toBe(edge.sharedCompetitions) // this route's own invariant: one row per counted competition
++    }
++  }, 60_000) // 1356-F5: vitest cannot stop a synchronous body, so this timeout is not a budget
++
++  it('no RNG draw: rngState is unchanged by the P3a greenlight\'s minting (the existing recordCastingCompetition contract, unaffected by the new log field)', () => {
++    const w = competitionsLogWorld()
++    expect(w.rngAfterP3a).toEqual(w.rngBeforeP3a)
++  })
++
++  it('cross-check: pair (a,b) with sharedCompetitions=3 (P2 dedup + P3a + P3b) reports conflict evidence, independent of the log field [control: existing D-1312-1 arithmetic, unaffected by the log]', () => {
++    const w = competitionsLogWorld()
++    const [a, b] = w.market.actors
++    const edge = edgeOf(w.afterP3b, a, b)!
++    expect(edge.sharedCompetitions).toBe(RELATIONSHIP_CONFLICT_COMPETITIONS)
++    expect(hasConflictEvidence(edge)).toBe(true)
++  }, 60_000) // 1356-F5: vitest cannot stop a synchronous body, so this timeout is not a budget
++})
+diff --git a/tests/p14b10-labels.test.ts b/tests/p14b10-labels.test.ts
+new file mode 100644
+index 0000000..fa72cb4
+--- /dev/null
++++ b/tests/p14b10-labels.test.ts
+@@ -0,0 +1,152 @@
++// Record 1358-C — independent-test-engineer RED for P14B relationship rulings SLICE B, the
++// PROFESSIONAL RIVALS label (HIS-014, 1340-O:85-90; 1347-A §2.4 :67-70, §5 `p14b10-labels`).
++// Authored on a scratch tree (1327-C method) at BASE c614b7e9ed62dcb889118ba1eadb8a2bafa7934a with
++// slice A applied (committed `slice-a`), branch wip/headless-program-20260916-ts.
++//
++// SCOPE: brief-1358-sliceB-red.md is explicit that "Mentor bullets are slice A's; add only what
++// slice B's projection needs" — this file therefore covers ONLY the Rivals bullets and the
++// byte-equal read-is-inert leaf for `professionalRivalsEvidence`. It does not re-test Mentor
++// (tests/p14b10-mentor-label.test.ts already covers it in full).
++//
++// AUTHORITY (read in full before use):
++//   docs/.../1340-O-owner-rulings-20260929.md HIS-014 (:85-90): "Professional Rivals: at least two
++//     distinct recorded competitions between the pair for the same casting slot."
++//   docs/.../1347-A-p14b-relationship-rulings-charter.md §2.4 (:66, :67-70): "Professional Rivals.
++//     At least two `competitions` rows share a slot ... Rivals means two competitions for the same
++//     slot kind, and it is only a label. Conflict means three competitions in any slots, and it
++//     gates the tier. A pair that contests both lead and support on one production records one
++//     competition with two slots."
++//
++// PARENT API DECISION UNDER TEST (brief PARENT API DECISIONS):
++//   src/core/relationships.ts: `RIVALS_SAME_SLOT_COMPETITIONS = 2` (HIS-014's "at least two",
++//     1347-A §3 :78 "Owner definitions, not tuning: ... Rivals' 2 same-slot competitions").
++//   src/core/relationshipLabels.ts: `professionalRivalsEvidence(edge: Pick<RelationshipEdge,
++//     'competitions'>): { slot: CastSlot; rows: RelationshipCompetition[] } | null` — "the first
++//     slot in slot order with two rows; rows are the first two for that slot."
++//
++// RED MECHANISM: both `src/core/relationships.ts` and `src/core/relationshipLabels.ts` already
++// exist (slice A landed `relationshipLabels.ts` with `mentorEvidence`/`MENTOR_FIRST_PICTURES`), so
++// a missing named export binds to `undefined` under vite (the "RED-first tests import from a
++// missing module" memory) rather than a resolution error — every leaf below is a value/behavioral
++// assertion (typeof/exact-value), never existence alone, following tests/p14b10-conflict-evidence
++// .test.ts's established pattern for an EXISTING module gaining a new export (no dynamic import
++// needed here, unlike slice A's Mentor file, which needed one because the WHOLE module was new).
++//
++// FIXTURE STRATEGY: `professionalRivalsEvidence`'s own declared parameter type is
++// `Pick<RelationshipEdge, 'competitions'>` — a PURE function over the log alone, no engine route
++// needed. Every leaf below constructs a minimal `{ competitions: [...] }` object directly (the I3
++// staged-object convention), in SLOT ORDER ['lead','antagonist','support'] per 1347-A's own
++// enumeration and this repo's `recordCastingCompetition` iteration order
++// (src/core/relationships.ts :393). `RelationshipCompetition` is locally redeclared (matching the
++// brief's exact shape) rather than type-imported from `types.ts`, where it does not exist yet — the
++// same convention tests/p14b10-competitions-log.test.ts and tests/p14b5-relationships.test.ts use.
++
++import { describe, expect, it } from 'vitest'
++import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
++import type { CastSlot } from '../src/core/types.js'
++import { RIVALS_SAME_SLOT_COMPETITIONS, hasConflictEvidence } from '../src/core/relationships.js'
++import { professionalRivalsEvidence } from '../src/core/relationshipLabels.js'
++
++type RelationshipCompetition = { week: number; productionId: string; slots: CastSlot[] }
++type RivalsEvidence = { slot: CastSlot; rows: RelationshipCompetition[] }
++type RivalsFn = (edge: { competitions: readonly RelationshipCompetition[] }) => RivalsEvidence | null
++// Guard against a merely-missing named export binding to `undefined` under vite: called only
++// through this wrapper so every leaf's own failure names the reason precisely (matches the
++// p14b10-conflict-evidence.test.ts convention for an EXISTING module gaining a new export).
++const rivals = professionalRivalsEvidence as unknown as RivalsFn
++
++const row = (week: number, productionId: string, slots: CastSlot[]): RelationshipCompetition => ({ week, productionId, slots })
++
++describe('P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass)', () => {
++  it('RIVALS_SAME_SLOT_COMPETITIONS is the Owner\'s named 2, and professionalRivalsEvidence is a function', () => {
++    // HIS-014 (1340-O:85-90): "at least TWO distinct recorded competitions ... for the same casting slot."
++    expect(RIVALS_SAME_SLOT_COMPETITIONS).toBe(2)
++    expect(typeof professionalRivalsEvidence).toBe('function')
++  })
++})
++
++describe('Professional Rivals — the positive case (two same-slot competitions)', () => {
++  it('two competitions for the SAME slot (lead) give the label, naming that slot and both rows', () => {
++    const edge = { competitions: [row(10, 'prod-a', ['lead']), row(20, 'prod-b', ['lead'])] }
++    expect(rivals(edge)).toEqual({ slot: 'lead', rows: [row(10, 'prod-a', ['lead']), row(20, 'prod-b', ['lead'])] })
++  })
++
++  it('two competitions for the same slot (support) give the label naming support, not lead — no slot-name hardcoding', () => {
++    const edge = { competitions: [row(5, 'prod-x', ['support']), row(9, 'prod-y', ['support'])] }
++    expect(rivals(edge)).toEqual({ slot: 'support', rows: [row(5, 'prod-x', ['support']), row(9, 'prod-y', ['support'])] })
++  })
++
++  it('a THIRD competition for the same slot still names only the FIRST TWO rows for that slot ("rows are the first two for that slot")', () => {
++    const edge = { competitions: [row(1, 'prod-1', ['lead']), row(2, 'prod-2', ['lead']), row(3, 'prod-3', ['lead'])] }
++    expect(rivals(edge)).toEqual({ slot: 'lead', rows: [row(1, 'prod-1', ['lead']), row(2, 'prod-2', ['lead'])] })
++  })
++
++  it('a row holding TWO slots counts toward EACH of its slots: [lead,support] + [lead] gives Rivals for lead, naming both rows', () => {
++    // 1347-A §2.4 :70: "A pair that contests both lead and support on one production records one
++    // competition with two slots" — that ONE row is evidence for BOTH slots it names, so it must
++    // combine with a LATER single-slot row on either shared slot to complete the pair.
++    const edge = { competitions: [row(1, 'prod-1', ['lead', 'support']), row(2, 'prod-2', ['lead'])] }
++    expect(rivals(edge)).toEqual({ slot: 'lead', rows: [row(1, 'prod-1', ['lead', 'support']), row(2, 'prod-2', ['lead'])] })
++  })
++})
++
++describe('Professional Rivals — the negative cases', () => {
++  it('lead then support (two DIFFERENT slots, one competition each) gives no label', () => {
++    const edge = { competitions: [row(1, 'prod-1', ['lead']), row(2, 'prod-2', ['support'])] }
++    expect(rivals(edge)).toBeNull()
++  })
++
++  it('a single competition alone (any slot) gives no label, whatever RIVALS_SAME_SLOT_COMPETITIONS-many slots it names', () => {
++    const edge = { competitions: [row(1, 'prod-1', ['lead', 'antagonist', 'support'])] }
++    expect(rivals(edge)).toBeNull()
++  })
++
++  it('an empty competitions log gives no label', () => {
++    expect(rivals({ competitions: [] })).toBeNull()
++  })
++
++  it('the FIRST slot in slot order [lead, antagonist, support] wins when more than one slot separately qualifies', () => {
++    // antagonist qualifies (two rows) AND lead qualifies (two rows); slot order names lead.
++    const edge = {
++      competitions: [
++        row(1, 'prod-1', ['antagonist']), row(2, 'prod-2', ['antagonist']),
++        row(3, 'prod-3', ['lead']), row(4, 'prod-4', ['lead']),
++      ],
++    }
++    expect(rivals(edge)).toEqual({ slot: 'lead', rows: [row(3, 'prod-3', ['lead']), row(4, 'prod-4', ['lead'])] })
++  })
++})
++
++describe('Professional Rivals is a DIFFERENT axis from conflict evidence (1347-A §2.4 "how Rivals differs from conflict evidence")', () => {
++  it('two same-slot competitions give Rivals but are NOT conflict evidence (2 < RELATIONSHIP_CONFLICT_COMPETITIONS = 3) [control: hasConflictEvidence is slice A, unaffected by the log]', () => {
++    const competitions = [row(1, 'prod-1', ['lead']), row(2, 'prod-2', ['lead'])]
++    expect(rivals({ competitions })).not.toBeNull()
++    expect(hasConflictEvidence({ sharedCompetitions: competitions.length })).toBe(false)
++  })
++
++  it('three mixed-slot competitions are conflict evidence WITHOUT Rivals (no slot has two rows) [control: hasConflictEvidence is slice A]', () => {
++    const competitions = [row(1, 'prod-1', ['lead']), row(2, 'prod-2', ['antagonist']), row(3, 'prod-3', ['support'])]
++    expect(hasConflictEvidence({ sharedCompetitions: competitions.length })).toBe(true)
++    expect(rivals({ competitions })).toBeNull()
++  })
++})
++
++describe('Professional Rivals — reading the label is inert (HIS-014: "labels ... create no additional ... effect by themselves")', () => {
++  it('reading professionalRivalsEvidence leaves the whole state byte-equal (serialized text, not toEqual: live state can hold -0)', () => {
++    // Pitfall (brief): compare SERIALIZED TEXT, not `toEqual` objects — `toEqual` can report a
++    // false difference between `0` and `-0` that a live state may legitimately carry in an
++    // unrelated numeric field, which JSON.stringify normalizes identically (both serialize to
++    // "0"). A full generated state is used (not just the edge in isolation) so this leaf proves
++    // the read touches nothing OUTSIDE its own argument either.
++    const state = p13aGeneratedStudio()
++    const edge = { competitions: [row(1, 'prod-1', ['lead']), row(2, 'prod-2', ['lead'])] }
++    const beforeText = JSON.stringify(state)
++    const result = rivals(edge)
++    expect(result).not.toBeNull() // fixture premise: the read actually exercises the positive path
++    expect(JSON.stringify(state)).toBe(beforeText)
++    // The read's own input is also left untouched (no in-place mutation of the log or its rows).
++    const beforeEdgeText = JSON.stringify(edge)
++    rivals(edge)
++    expect(JSON.stringify(edge)).toBe(beforeEdgeText)
++  })
++})
+diff --git a/tests/p14b10-romance.test.ts b/tests/p14b10-romance.test.ts
+new file mode 100644
+index 0000000..1140d0e
+--- /dev/null
++++ b/tests/p14b10-romance.test.ts
+@@ -0,0 +1,579 @@
++// Record 1358-C — independent-test-engineer RED for P14B relationship rulings SLICE B, ROMANCE
++// (D-1312-2, 1340-O:69-79; 1347-A §2.3 as amended/adopted by 1347-F's non-blocking note; 1347-A §5
++// `p14b10-romance`). Authored on a scratch tree (1327-C method) at BASE
++// c614b7e9ed62dcb889118ba1eadb8a2bafa7934a with slice A applied (committed `slice-a`), branch
++// wip/headless-program-20260916-ts.
++//
++// Revised as record 1358-C2 (RED r2) on a scratch tree at BASE
++// 469a9547f1a3b53b7c9985ec53beaa55e2a65587 (after the Save43 pin sweep cec3902c), slice A applied
++// the same way. The r2 changes follow 1358-F-parent-rulings-on-1358-C.md §1-§3, plus §4 F4 for one
++// ending leaf's RED guard; each is named where it lands. Revised again as record 1358-C3 (RED r3) on
++// the same base under the parent's rulings on 1358-C2 (1358-F2): the write order (item 1), the
++// baseWorld budget (item 4) and titles that state the ruled seam and API (item 6). Revised again as
++// record 1358-C4 (RED r4) at HEAD b08096020e4dccf8c22d036bbd9fb7ad742e5aea, where slice A has landed,
++// under the parent's rulings on the dry run 1358-X (1358-F3): the final baseWorld budget (item 2)
++// and the third-party leaf's guard (item 3).
++//
++// AUTHORITY (read in full before use):
++//   docs/.../1340-O-owner-rulings-20260929.md D-1312-2 (:69-79): "Choose candidate A ... Partners
++//     remain exempt from ordinary friendship drift, but sustained separation may decay the separate
++//     romance track and end the bond. Use a grace period and an exit threshold below formation ...
++//     Record the ending once. Do not erase friendship/history or add a conflict penalty to an
++//     amicable breakup. Changing studios, retirement or a friendship-tier drop alone does not
++//     automatically end the romance."
++//   docs/.../1347-A-p14b-relationship-rulings-charter.md §2.3 (:43-60), §3 (:79-84 the named
++//     constants and their rationale), §5 `p14b10-romance` (:123-130).
++//   docs/.../1347-F-parent-relationship-charter-adoption.md non-blocking notes (:49-51): "The romance
++//     track's eligibility. Growth and formation both require that the pair is at Friends or above
++//     and that neither person has an open bond with anyone (companion §5.4a). The formation check
++//     remains the one point that appends a bond."
++//
++// PARENT API DECISION UNDER TEST (brief PARENT API DECISIONS, bullet 1): src/core/relationships.ts:
++// `RelationshipEdge` gains `romance: RomanceTrack | null` with `RomanceTrack = { value: number;
++// anchorWeek: number; bonds: { formedWeek: number; endedWeek: number | null }[] }`. Exported
++// constants `ROMANCE_FORMATION_THRESHOLD` 75, `ROMANCE_EXIT_THRESHOLD` 40, `ROMANCE_PROXIMITY_GAIN`
++// 10, `ROMANCE_SUCCESS_GAIN` 5, `ROMANCE_GRACE_WEEKS` 104, `ROMANCE_DECAY_WEEKS` 260.
++// `currentRomanceValue(romance, week): number` and `romanceStatus(edge, week): 'partners'|'ended'|null`.
++//
++// THE DISPUTED READING, RULED (1358-F §1, Reading B): "anyone" in 1347-F's eligibility note excludes
++// the pair's own partner. An already-partnered pair keeps growing under the same drivers, up to the
++// 0-100 bound; 1347-A §3 prices the life of a bond at 100, a value only continued growth reaches. A
++// THIRD PARTY's open bond still blocks growth and formation ("growth is blocked by a THIRD PARTY's
++// open bond" below). The leaf "romance-partnered-pair-keeps-growing" pins Reading B.
++//
++// GAP 1, THE WRITE SEAM, RULED (1358-F §2): growth, formation and the recorded ending run in the
++// existing tick seam `advanceRelationshipsWeek(state, delta, week)` (src/core/relationships.ts:310
++// with slice A applied), which already reads the week's takes and releases (1347-A §2.3 "at the
++// tick seam, from the week's changes only"). Every growth, formation and ending leaf below calls it
++// with that unchanged signature.
++//
++// GAP 2, THE DRIFT-EXEMPTION READ SITE, RULED (1358-F §3): `currentCloseness` takes the strict
++// `Pick<RelationshipEdge, 'closeness' | 'lastEventWeek' | 'romance'>`, with `romance` required, the
++// slice A precedent of a required `sharedCompetitions` (1348-F4 item 2). It holds the stored
++// closeness while `romanceStatus(edge, week) === 'partners'`, and after the ending it counts
++// dormancy from `max(lastEventWeek, endedWeek)`. `currentTier` widens its Pick the same way. A
++// caller that omits `romance` fails to compile; callers that build partial edges gain
++// `romance: null` in the production sweep, not in this RED. The drift leaves at the end of this
++// file pin each part. The type-level parts are a `@ts-expect-error` on a call without `romance` and
++// literals typed `Parameters<typeof currentCloseness>[0]` (or `currentTier`) that carry it.
++//
++// THE WRITE ORDER, RULED (1358-F2 item 1, from 1347-A §2.3 "the same shape as currentCloseness" and
++// `writeEdge`, which materializes drift before the delta): a romance write first records any derived
++// ending ("before any new driver applies"), then reads `currentRomanceValue(romance, writeWeek)`,
++// then adds any gain, clamps to 0..100 and sets `anchorWeek` to the write week.
++//
++// RED MECHANISM: `src/core/relationships.ts` already exists (an EXISTING module) — every missing
++// named export binds to `undefined` under vite, never a resolution error, so every leaf below is a
++// value/behavioral assertion (the p14b10-conflict-evidence.test.ts convention), never existence
++// alone. `RomanceTrack`/`RomanceBond` are locally redeclared (they do not exist on `types.ts` yet —
++// the same convention every other 1358-C file uses) rather than type-imported.
++//
++// FIXTURE STRATEGY: every leaf is a PURE, STAGED (I3 "reader-admitted") edge, injected via
++// `advanceRelationshipsWeek` (a pure function; no `makeSave`/`live()` round-trip, since the era-44
++// validator does not exist in production yet and would reject the new fields as "not a field of this
++// record" for a reason UNRELATED to what these leaves test) or read directly with
++// `currentRomanceValue`/`romanceStatus`. Synthetic `Production`-shaped objects are cast
++// `as unknown as Production` (this file's own minimal analogue of the `withEdges`/`withRoot`
++// `as unknown as GameState` convention already established throughout this test suite) — only the
++// fields `seatPairs` reads (`id`, `directorId`, `cast`) are populated; nothing else about them is
++// asserted or needed.
++
++import assert from 'node:assert/strict'
++import { performance } from 'node:perf_hooks'
++import { describe, expect, it } from 'vitest'
++import { advanceTo } from '../src/harness/p13a/fixtures.js'
++import { fund } from './helpers/p14b2-fixtures.js'
++import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
++import type { GameState, Production, RelationshipTier } from '../src/core/types.js'
++import {
++  ROMANCE_DECAY_WEEKS, ROMANCE_EXIT_THRESHOLD, ROMANCE_FORMATION_THRESHOLD, ROMANCE_GRACE_WEEKS,
++  ROMANCE_PROXIMITY_GAIN, ROMANCE_SUCCESS_GAIN, RELATIONSHIP_TIER_FLOOR, RELATIONSHIP_SUCCESS_CRITIC_SCORE,
++  advanceRelationshipsWeek, currentCloseness, currentRomanceValue, currentTier, romanceStatus,
++  RELATIONSHIP_BASELINE, RELATIONSHIP_DRIFT_GRACE_WEEKS, RELATIONSHIP_DRIFT_RETURN_WEEKS,
++} from '../src/core/relationships.js'
++
++type RomanceBond = { formedWeek: number; endedWeek: number | null }
++type RomanceTrack = { value: number; anchorWeek: number; bonds: RomanceBond[] }
++type Edge = {
++  edgeId: string; a: string; b: string; closeness: number; firstSharedWeek: number; lastEventWeek: number
++  sharedProductions: number; sharedSuccesses: number; sharedFailures: number; sharedCancellations: number
++  sharedCompetitions: number; peakTier: RelationshipTier; peakTierWeek: number; recent: { kind: string; week: number; ref: string; delta: number }[]
++  competitions: unknown[]; romance: RomanceTrack | null
++}
++const canon = (x: string, y: string): readonly [string, string] => (x < y ? [x, y] : [y, x])
++const floor = (tier: RelationshipTier): number => (RELATIONSHIP_TIER_FLOOR as Record<RelationshipTier, number>)[tier]
++
++/** A STAGED edge, the `stagedEdge` I3 convention every 1358-C/1348-C file shares. */
++function stagedEdge(index: number, x: string, y: string, closeness: number, lastEventWeek: number, extra: Partial<Edge> = {}): Edge {
++  const [a, b] = canon(x, y)
++  return {
++    edgeId: `relationship-edge-${String(index)}`, a, b, closeness, firstSharedWeek: lastEventWeek, lastEventWeek,
++    sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0,
++    peakTier: 'Friends', peakTierWeek: lastEventWeek, recent: [{ kind: 'sharedProduction', week: lastEventWeek, ref: 'staged-production', delta: 2 }],
++    competitions: [], romance: null, ...extra,
++  }
++}
++const withEdges = (state: GameState, relationships: readonly Edge[]): GameState => ({ ...state, relationships } as unknown as GameState)
++const edgeOf = (state: GameState, x: string, y: string): Edge | undefined =>
++  (state.relationships as unknown as Edge[]).find((e) => (e.a === x && e.b === y) || (e.a === y && e.b === x))
++
++/** A minimal high/low-proximity synthetic take — only the three fields `seatPairs` reads are
++ * populated (see file header). `directorId`+`lead` is HIGH proximity; `antagonist`+`support` is LOW. */
++function syntheticTake(id: string, directorId: string, lead: string, antagonist: string, support: string): Production {
++  return { id, directorId, cast: { lead, antagonist, support } } as unknown as Production
++}
++
++/** 1358-F2 item 4 (1348-F4 item 3: never keep a limit that cannot fire). vitest 2.1.9 starts a test's
++ * timer only after a synchronous body returns, so no `it` timeout can stop the build below; the build
++ * times itself instead. 1358-F3 item 2 sets the number by the 1359-F4 rule, about six times the
++ * slowest single-file time, rounded up: 1358-X measured this build at 14,082 ms on Node v22.23.2. */
++const BASEWORLD_BUDGET_MS = 90_000
++
++let worldCache: { state: GameState; people: readonly string[] } | undefined
++let worldOverBudget: Error | undefined // cached, so no later leaf pays an over-budget build again
++/** A real, minimal founded world (for real talent ids only — every edge below is staged), built once per file. */
++function baseWorld(): { state: GameState; people: readonly string[] } {
++  if (worldOverBudget !== undefined) throw worldOverBudget
++  if (worldCache === undefined) {
++    const started = performance.now()
++    let s = fund(p13aGeneratedStudio())
++    s = advanceTo(s, 400) // headroom so every `week - N` calendar/decay arithmetic below stays non-negative
++    const elapsedMs = performance.now() - started
++    if (elapsedMs > BASEWORLD_BUDGET_MS) {
++      worldOverBudget = Object.assign(new Error(`baseWorld() took ${Math.round(elapsedMs)} ms, over BASEWORLD_BUDGET_MS (${BASEWORLD_BUDGET_MS} ms)`),
++        { name: 'BaseWorldBudgetExceeded' })
++      throw worldOverBudget
++    }
++    const people = s.talent.slice(0, 8).map((t) => t.id)
++    assert.ok(people.length >= 8, 'route premise: at least 8 talent ids exist')
++    worldCache = { state: s, people }
++  }
++  return { state: worldCache.state, people: worldCache.people }
++}
++
++describe('P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass)', () => {
++  it('every romance constant is the Owner/charter-named value (1347-A §3), and both functions exist', () => {
++    expect(ROMANCE_FORMATION_THRESHOLD).toBe(75)
++    expect(ROMANCE_EXIT_THRESHOLD).toBe(40)
++    expect(ROMANCE_PROXIMITY_GAIN).toBe(10)
++    expect(ROMANCE_SUCCESS_GAIN).toBe(5)
++    expect(ROMANCE_GRACE_WEEKS).toBe(104)
++    expect(ROMANCE_DECAY_WEEKS).toBe(260)
++    expect(typeof currentRomanceValue).toBe('function')
++    expect(typeof romanceStatus).toBe('function')
++  })
++
++  it('the named relation holds: EXIT_THRESHOLD is strictly below FORMATION_THRESHOLD (1347-A §3: "the wide gap stops bonds flickering")', () => {
++    expect(ROMANCE_EXIT_THRESHOLD).toBeLessThan(ROMANCE_FORMATION_THRESHOLD)
++  })
++})
++
++describe('currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline)', () => {
++  it('holds the stored value inside the grace window (dormant = 0, and dormant = GRACE exactly)', () => {
++    const romance: RomanceTrack = { value: 80, anchorWeek: 1000, bonds: [] }
++    expect(currentRomanceValue(romance, 1000)).toBe(80)
++    expect(currentRomanceValue(romance, 1000 + ROMANCE_GRACE_WEEKS)).toBe(80)
++  })
++
++  it('decays linearly toward 0 partway through the decay window (independent hand-derived oracle)', () => {
++    const romance: RomanceTrack = { value: 80, anchorWeek: 1000, bonds: [] }
++    const halfway = 1000 + ROMANCE_GRACE_WEEKS + Math.floor(ROMANCE_DECAY_WEEKS / 2)
++    const span = Math.floor(ROMANCE_DECAY_WEEKS / 2)
++    const expected = 80 - Math.trunc(80 * span / ROMANCE_DECAY_WEEKS) // hand-derived: value - trunc(value*span/DECAY)
++    expect(currentRomanceValue(romance, halfway)).toBe(expected)
++  })
++
++  it('reaches exactly 0 at GRACE + DECAY weeks, and never goes negative or rises past that floor afterward', () => {
++    const romance: RomanceTrack = { value: 80, anchorWeek: 1000, bonds: [] }
++    expect(currentRomanceValue(romance, 1000 + ROMANCE_GRACE_WEEKS + ROMANCE_DECAY_WEEKS)).toBe(0)
++    expect(currentRomanceValue(romance, 1000 + ROMANCE_GRACE_WEEKS + ROMANCE_DECAY_WEEKS + 500)).toBe(0)
++  })
++
++  it('a value of 0 stays 0 through the whole window (no negative drift)', () => {
++    const romance: RomanceTrack = { value: 0, anchorWeek: 1000, bonds: [] }
++    for (const week of [1000, 1000 + ROMANCE_GRACE_WEEKS, 1000 + ROMANCE_GRACE_WEEKS + ROMANCE_DECAY_WEEKS]) {
++      expect(currentRomanceValue(romance, week)).toBe(0)
++    }
++  })
++
++  it('a value of exactly ROMANCE_FORMATION_THRESHOLD decays below ROMANCE_EXIT_THRESHOLD before reaching 0 (the named 229-week note, 1347-A §3)', () => {
++    // A loop bound of `undefined + undefined` is NaN, which makes `week <= NaN` false from the
++    // very first iteration — the loop body (and so `currentRomanceValue`) would then never run at
++    // all, turning a genuine RED (the constants are missing) into a confusing "-1" result instead
++    // of a clear, attributable failure. Guarded explicitly so THIS leaf's own RED names the real
++    // reason directly, matching the file's dedicated bindings-check leaf above.
++    expect(typeof ROMANCE_GRACE_WEEKS).toBe('number')
++    expect(typeof ROMANCE_DECAY_WEEKS).toBe('number')
++    const romance: RomanceTrack = { value: ROMANCE_FORMATION_THRESHOLD, anchorWeek: 0, bonds: [] }
++    // 1347-A §3: "A bond at 75 ends about 229 weeks after the last shared picture" — hand-derive the
++    // exact crossing week from the law's own formula rather than trusting the prose "about 229".
++    let crossing = -1
++    for (let week = 0; week <= ROMANCE_GRACE_WEEKS + ROMANCE_DECAY_WEEKS; week++) {
++      if (currentRomanceValue(romance, week) < ROMANCE_EXIT_THRESHOLD) { crossing = week; break }
++    }
++    expect(crossing).toBeGreaterThan(0)
++    expect(crossing).toBeLessThan(ROMANCE_GRACE_WEEKS + ROMANCE_DECAY_WEEKS)
++    expect(currentRomanceValue(romance, crossing)).toBeLessThan(ROMANCE_EXIT_THRESHOLD)
++    expect(currentRomanceValue(romance, crossing - 1)).toBeGreaterThanOrEqual(ROMANCE_EXIT_THRESHOLD)
++  })
++})
++
++describe('romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment)', () => {
++  it('null romance reads null', () => {
++    const edge = stagedEdge(0, 'p-a', 'p-b', 65, 1000, { romance: null })
++    expect(romanceStatus(edge, 1000)).toBeNull()
++  })
++
++  it('a track with no bond ever formed (still accumulating) reads null, not "partners"', () => {
++    const edge = stagedEdge(0, 'p-a', 'p-b', 65, 1000, { romance: { value: 50, anchorWeek: 1000, bonds: [] } })
++    expect(romanceStatus(edge, 1000)).toBeNull()
++  })
++
++  it('an OPEN bond whose derived value is still at/above EXIT_THRESHOLD reads "partners"', () => {
++    const edge = stagedEdge(0, 'p-a', 'p-b', 65, 1000, { romance: { value: 90, anchorWeek: 1000, bonds: [{ formedWeek: 1000, endedWeek: null }] } })
++    expect(romanceStatus(edge, 1000)).toBe('partners')
++  })
++
++  it('an OPEN bond whose derived value has now decayed below EXIT_THRESHOLD reads "ended" — COMPUTED ON READ, before any write has persisted endedWeek', () => {
++    const romance: RomanceTrack = { value: 90, anchorWeek: 1000, bonds: [{ formedWeek: 1000, endedWeek: null }] }
++    const farWeek = 1000 + ROMANCE_GRACE_WEEKS + ROMANCE_DECAY_WEEKS // fully decayed to 0, well below EXIT_THRESHOLD
++    expect(currentRomanceValue(romance, farWeek)).toBeLessThan(ROMANCE_EXIT_THRESHOLD) // fixture premise
++    const edge = stagedEdge(0, 'p-a', 'p-b', 65, 1000, { romance })
++    expect(romanceStatus(edge, farWeek)).toBe('ended')
++    // Storage itself is UNTOUCHED by this read (the write-on-touch rule only fires at the next WRITE).
++    expect(edge.romance!.bonds[0]!.endedWeek).toBeNull()
++  })
++
++  it('an already-recorded closed bond reads "ended" at every later week too, unconditionally', () => {
++    const edge = stagedEdge(0, 'p-a', 'p-b', 65, 1000, { romance: { value: 30, anchorWeek: 900, bonds: [{ formedWeek: 500, endedWeek: 900 }] } })
++    expect(romanceStatus(edge, 1000)).toBe('ended')
++    expect(romanceStatus(edge, 5000)).toBe('ended')
++  })
++
++  it('romanceStatus is independent of tier/closeness: a Partners pair at Strained closeness still reads "partners" (D-1312-2: a friendship-tier drop alone does not end the romance)', () => {
++    const edge = stagedEdge(0, 'p-a', 'p-b', floor('Strained'), 1000, { romance: { value: 85, anchorWeek: 1000, bonds: [{ formedWeek: 1000, endedWeek: null }] } })
++    expect(currentTier(edge, 1000)).toBe('Strained') // fixture premise
++    expect(romanceStatus(edge, 1000)).toBe('partners')
++  })
++
++  it('romanceStatus takes no argument beyond (edge, week) — by construction it cannot consult studio, retirement or employment (D-1312-2 non-triggers)', () => {
++    expect(romanceStatus.length).toBe(2)
++  })
++})
++
++describe('growth in advanceRelationshipsWeek (1358-F §2): eligibility is Friends+ and no open bond with anyone but the pair\'s own partner (1347-F note; 1358-F §1)', () => {
++  it('below Friends, a qualifying high-proximity 2nd+ shared production grants NO romance growth', () => {
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    const edge = stagedEdge(0, d!, l!, floor('Acquaintances'), week, { sharedProductions: 1, romance: null })
++    const next = advanceRelationshipsWeek(withEdges(state, [edge]),
++      { takes: [{ studioId: 'irrelevant', production: syntheticTake('growth-take-below-friends', d!, l!, a2!, s2!) }], releases: [] }, week + 1)
++    const written = edgeOf(next, d!, l!)!
++    expect(written.sharedProductions).toBe(2) // fixture premise: the take DID count as their 2nd shared production
++    expect(written.romance).toBeNull() // no growth: tier is below Friends
++  })
++
++  it('growth is blocked by a THIRD PARTY\'s open bond (1358-F §1: Reading B excludes only the pair\'s own partner)', () => {
++    // Guard first (1358-F2 §7, 1358-F3 item 3): with the constants missing the staged value is NaN, and NaN read back equals NaN.
++    for (const constant of [ROMANCE_FORMATION_THRESHOLD, ROMANCE_PROXIMITY_GAIN]) expect(typeof constant).toBe('number')
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2, z] = people
++    const week = state.market.tick
++    // (d,l) sits ONE gain below the formation threshold; (l,z) already holds an OPEN bond.
++    const dl = stagedEdge(0, d!, l!, floor('Friends'), week, { sharedProductions: 1, romance: { value: ROMANCE_FORMATION_THRESHOLD - ROMANCE_PROXIMITY_GAIN, anchorWeek: week, bonds: [] } })
++    const lz = stagedEdge(1, l!, z!, floor('Friends'), week, { sharedProductions: 2, romance: { value: 80, anchorWeek: week, bonds: [{ formedWeek: week - 10, endedWeek: null }] } })
++    const next = advanceRelationshipsWeek(withEdges(state, [dl, lz]),
++      { takes: [{ studioId: 'irrelevant', production: syntheticTake('growth-take-blocked', d!, l!, a2!, s2!) }], releases: [] }, week + 1)
++    const written = edgeOf(next, d!, l!)!
++    expect(written.sharedProductions).toBe(2) // fixture premise: this IS their qualifying 2nd+ shared production
++    // Eligibility fails (l already holds an open bond with z, a THIRD party): growth does not apply,
++    // and formation (which this take would otherwise have crossed) does not fire either.
++    expect(written.romance!.value).toBe(ROMANCE_FORMATION_THRESHOLD - ROMANCE_PROXIMITY_GAIN)
++    expect(written.romance!.bonds).toEqual([])
++  })
++
++  it('romance-partnered-pair-keeps-growing: after formation, a shared success raises the pair\'s own value, capped at 100 (1358-F §1, Reading B: "anyone" excludes the pair\'s own partner)', () => {
++    // Guard first: with the gain missing the staged value is NaN, and NaN read back equals NaN.
++    expect(typeof ROMANCE_SUCCESS_GAIN).toBe('number')
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    const production = syntheticTake('partnered-success-prod', d!, l!, a2!, s2!)
++    const firstTake = { eventId: 'first-take-event-partnered-1', week, productionId: production.id, studioId: 'irrelevant',
++      directorId: d!, cast: { lead: l!, antagonist: a2!, support: s2! } }
++    const stateWithTake: GameState = { ...state, firstTakes: [...state.firstTakes, firstTake as unknown as GameState['firstTakes'][number]] }
++    // (d,l) are partners: one OPEN bond with each other and no bond with anyone else. One success
++    // takes the value past 100, so the cap binds. Anchored this week, so no decay applies at the write.
++    const staged = 100 - ROMANCE_SUCCESS_GAIN + 1
++    const bond: RomanceBond = { formedWeek: week - 10, endedWeek: null }
++    const edge = stagedEdge(0, d!, l!, floor('CloseFriends'), week, { sharedProductions: 3, romance: { value: staged, anchorWeek: week, bonds: [bond] } })
++    const film = { productionId: production.id, releaseTick: week, criticScore: RELATIONSHIP_SUCCESS_CRITIC_SCORE } as unknown as GameState['studio']['releasedFilms'][number]
++    const next = advanceRelationshipsWeek(withEdges(stateWithTake, [edge]), { takes: [], releases: [film] }, week + 1)
++    const written = edgeOf(next, d!, l!)!
++    expect(written.sharedSuccesses).toBe(1) // fixture premise: the existing success driver fired
++    expect(written.romance!.value).toBe(Math.min(100, staged + ROMANCE_SUCCESS_GAIN)) // grew past `staged`, stopped at 100
++    expect(written.romance!.bonds).toEqual([bond]) // the same open bond; growth appends no second one
++  })
++})
++
++describe('growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1)', () => {
++  it('a high-proximity (director-lead) 2nd+ shared production, Friends+, no open bond anywhere, adds ROMANCE_PROXIMITY_GAIN and resets anchorWeek', () => {
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    const edge = stagedEdge(0, d!, l!, floor('Friends'), week, { sharedProductions: 1, romance: null })
++    const next = advanceRelationshipsWeek(withEdges(state, [edge]),
++      { takes: [{ studioId: 'irrelevant', production: syntheticTake('growth-take-eligible', d!, l!, a2!, s2!) }], releases: [] }, week + 1)
++    const written = edgeOf(next, d!, l!)!
++    expect(written.sharedProductions).toBe(2)
++    expect(written.romance).not.toBeNull()
++    expect(written.romance!.value).toBe(ROMANCE_PROXIMITY_GAIN) // the track starts at 0; first-ever qualifying gain sets it
++    expect(written.romance!.anchorWeek).toBe(week + 1)
++    expect(written.romance!.bonds).toEqual([]) // 10 < 75: no formation yet
++  })
++
++  it('lead-antagonist is ALSO high proximity (1347-A §2.3 names both seat pairs) and grants the same gain', () => {
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    const edge = stagedEdge(0, l!, a2!, floor('Friends'), week, { sharedProductions: 1, romance: null })
++    const next = advanceRelationshipsWeek(withEdges(state, [edge]),
++      { takes: [{ studioId: 'irrelevant', production: syntheticTake('growth-take-lead-antag', d!, l!, a2!, s2!) }], releases: [] }, week + 1)
++    const written = edgeOf(next, l!, a2!)!
++    expect(written.romance!.value).toBe(ROMANCE_PROXIMITY_GAIN)
++  })
++
++  it('director-support is LOW proximity and grants NO romance gain (but still resets anchorWeek if a track already exists — "any shared take resets separation")', () => {
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    // 1358-F2 item 1(a): the anchor sits inside ROMANCE_GRACE_WEEKS, so no decay applies at the touch and
++    // the leaf tests only its title. Decay at a touch is the next leaf's subject.
++    const staged = 50, anchor = week - 100
++    const edge = stagedEdge(0, d!, s2!, floor('Friends'), week, { sharedProductions: 1, romance: { value: staged, anchorWeek: anchor, bonds: [] } })
++    const next = advanceRelationshipsWeek(withEdges(state, [edge]),
++      { takes: [{ studioId: 'irrelevant', production: syntheticTake('growth-take-low-prox', d!, l!, a2!, s2!) }], releases: [] }, week + 1)
++    const written = edgeOf(next, d!, s2!)!
++    expect(written.romance!.value).toBe(staged) // LOW proximity: no gain
++    expect(written.romance!.anchorWeek).toBe(week + 1) // but the anchor still resets — "any shared take"
++    // Fixture premise, after the behaviour so the RED names the anchor: the touch falls inside the grace window.
++    expect(week + 1 - anchor).toBeLessThanOrEqual(ROMANCE_GRACE_WEEKS)
++  })
++
++  it('a write materializes first: a high-proximity touch outside the grace window reads currentRomanceValue at the write week, then adds ROMANCE_PROXIMITY_GAIN (1358-F2 item 1)', () => {
++    // Guard first: with the constants missing every expected value below is NaN.
++    for (const constant of [ROMANCE_GRACE_WEEKS, ROMANCE_DECAY_WEEKS, ROMANCE_PROXIMITY_GAIN]) expect(typeof constant).toBe('number')
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    const staged = 50, anchor = week - 200, writeWeek = week + 1 // 201 weeks apart: outside ROMANCE_GRACE_WEEKS
++    const edge = stagedEdge(0, d!, l!, floor('Friends'), week, { sharedProductions: 1, romance: { value: staged, anchorWeek: anchor, bonds: [] } })
++    const next = advanceRelationshipsWeek(withEdges(state, [edge]),
++      { takes: [{ studioId: 'irrelevant', production: syntheticTake('growth-take-materialize', d!, l!, a2!, s2!) }], releases: [] }, writeWeek)
++    const written = edgeOf(next, d!, l!)!
++    // The decay law at the write week (1347-A §2.3), and the three candidate orders it separates.
++    const span = Math.min(writeWeek - anchor - ROMANCE_GRACE_WEEKS, ROMANCE_DECAY_WEEKS)
++    const decayed = (value: number): number => value - Math.trunc(value * span / ROMANCE_DECAY_WEEKS)
++    const restoreThenGain = staged + ROMANCE_PROXIMITY_GAIN // 60
++    const materializeThenGain = decayed(staged) + ROMANCE_PROXIMITY_GAIN // 32 + 10 = 42, the ruled order
++    const gainThenDecay = decayed(staged + ROMANCE_PROXIMITY_GAIN) // 38
++    expect(new Set([restoreThenGain, materializeThenGain, gainThenDecay]).size).toBe(3) // fixture premise: the orders differ
++    expect(written.sharedProductions).toBe(2) // fixture premise: this is their 2nd shared production
++    expect(written.romance!.value).toBe(Math.min(100, materializeThenGain))
++    expect(written.romance!.anchorWeek).toBe(writeWeek)
++  })
++
++  it('a shared SUCCESS (release) adds ROMANCE_SUCCESS_GAIN, Friends+ and no open bond', () => {
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    const production = syntheticTake('growth-success-prod', d!, l!, a2!, s2!)
++    // The pair must already share a first take on record for the release leg to join it
++    // (advanceRelationshipsWeek's own existing rule: `state.firstTakes.find(t => t.productionId === film.productionId)`).
++    const firstTake = { eventId: 'first-take-event-growth-1', week, productionId: production.id, studioId: 'irrelevant',
++      directorId: d!, cast: { lead: l!, antagonist: a2!, support: s2! } }
++    const stateWithTake: GameState = { ...state, firstTakes: [...state.firstTakes, firstTake as unknown as GameState['firstTakes'][number]] }
++    const edge = stagedEdge(0, d!, l!, floor('Friends'), week, { sharedProductions: 2, romance: null }) // already past their 1st production
++    const film = { productionId: production.id, releaseTick: week, criticScore: RELATIONSHIP_SUCCESS_CRITIC_SCORE } as unknown as GameState['studio']['releasedFilms'][number]
++    const next = advanceRelationshipsWeek(withEdges(stateWithTake, [edge]), { takes: [], releases: [film] }, week + 1)
++    const written = edgeOf(next, d!, l!)!
++    expect(written.sharedSuccesses).toBe(1) // fixture premise: the existing success driver fired
++    expect(written.romance!.value).toBe(ROMANCE_SUCCESS_GAIN)
++  })
++
++  it('a rival pair (rival studioId in the take) forms romance under the SAME law [control: advanceRelationshipsWeek never reads delta.takes[].studioId]', () => {
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    const edge = stagedEdge(0, d!, l!, floor('Friends'), week, { sharedProductions: 1, romance: null })
++    const next = advanceRelationshipsWeek(withEdges(state, [edge]),
++      { takes: [{ studioId: 'studio-some-rival-r01', production: syntheticTake('growth-take-rival', d!, l!, a2!, s2!) }], releases: [] }, week + 1)
++    const written = edgeOf(next, d!, l!)!
++    expect(written.romance!.value).toBe(ROMANCE_PROXIMITY_GAIN)
++  })
++})
++
++describe('formation — dated once, at the crossing write', () => {
++  it('crossing ROMANCE_FORMATION_THRESHOLD appends a bond with formedWeek = the crossing week and endedWeek null', () => {
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    // One gain below threshold; the next qualifying high-proximity take crosses it.
++    const edge = stagedEdge(0, d!, l!, floor('Friends'), week, { sharedProductions: 1, romance: { value: ROMANCE_FORMATION_THRESHOLD - ROMANCE_PROXIMITY_GAIN, anchorWeek: week, bonds: [] } })
++    const crossingWeek = week + 1
++    const next = advanceRelationshipsWeek(withEdges(state, [edge]),
++      { takes: [{ studioId: 'irrelevant', production: syntheticTake('growth-take-formation', d!, l!, a2!, s2!) }], releases: [] }, crossingWeek)
++    const written = edgeOf(next, d!, l!)!
++    expect(written.romance!.value).toBe(ROMANCE_FORMATION_THRESHOLD)
++    expect(written.romance!.bonds).toEqual([{ formedWeek: crossingWeek, endedWeek: null }])
++  })
++
++  it('a re-formation (after an ended bond) appends a SECOND bond row, never overwriting the first', () => {
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    const edge = stagedEdge(0, d!, l!, floor('Friends'), week, {
++      sharedProductions: 3,
++      romance: { value: ROMANCE_FORMATION_THRESHOLD - ROMANCE_PROXIMITY_GAIN, anchorWeek: week, bonds: [{ formedWeek: week - 500, endedWeek: week - 100 }] },
++    })
++    const crossingWeek = week + 1
++    const next = advanceRelationshipsWeek(withEdges(state, [edge]),
++      { takes: [{ studioId: 'irrelevant', production: syntheticTake('growth-take-reformation', d!, l!, a2!, s2!) }], releases: [] }, crossingWeek)
++    const written = edgeOf(next, d!, l!)!
++    expect(written.romance!.bonds).toEqual([{ formedWeek: week - 500, endedWeek: week - 100 }, { formedWeek: crossingWeek, endedWeek: null }])
++  })
++})
++
++describe('ending — computed on read, persisted once at the next touching write, never moved again', () => {
++  it('the next write that touches the edge persists the READ-derived ending week into endedWeek', () => {
++    // 1358-C2 (1358-F §4 F4, the r1 F3.3 pattern): without these guards the missing constants make
++    // formedWeek NaN, the search below never runs, and the leaf throws its own "fixture premise
++    // failed" message instead of naming the missing API.
++    expect(typeof ROMANCE_GRACE_WEEKS).toBe('number')
++    expect(typeof ROMANCE_DECAY_WEEKS).toBe('number')
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    const formedWeek = week - ROMANCE_GRACE_WEEKS - ROMANCE_DECAY_WEEKS - 10 // long enough ago that today's derived value is already 0
++    const romance: RomanceTrack = { value: 80, anchorWeek: formedWeek, bonds: [{ formedWeek, endedWeek: null }] }
++    const derivedEndWeek = (() => {
++      for (let w = formedWeek; w <= week; w++) if (currentRomanceValue(romance, w) < ROMANCE_EXIT_THRESHOLD) return w
++      throw new Error('fixture premise failed: the staged track never crosses the exit threshold by `week`')
++    })()
++    const edge = stagedEdge(0, d!, l!, floor('Friends'), week, { sharedProductions: 3, romance })
++    // A further, unrelated shared take is the "next write that touches the edge" (write-on-touch).
++    const touchWeek = week + 1
++    const next = advanceRelationshipsWeek(withEdges(state, [edge]),
++      { takes: [{ studioId: 'irrelevant', production: syntheticTake('ending-touch-take', d!, l!, a2!, s2!) }], releases: [] }, touchWeek)
++    const written = edgeOf(next, d!, l!)!
++    expect(written.romance!.bonds[0]!.endedWeek).toBe(derivedEndWeek) // the WEEK THE DECAY CROSSED, never the touch week itself
++    expect(written.romance!.bonds[0]!.endedWeek).not.toBe(touchWeek)
++  })
++
++  it('once persisted, endedWeek is never moved by a LATER write touching the same edge again', () => {
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    const edge = stagedEdge(0, d!, l!, floor('Friends'), week, {
++      sharedProductions: 3,
++      romance: { value: 30, anchorWeek: week - 500, bonds: [{ formedWeek: week - 900, endedWeek: week - 500 }] }, // already recorded
++    })
++    const next = advanceRelationshipsWeek(withEdges(state, [edge]),
++      { takes: [{ studioId: 'irrelevant', production: syntheticTake('ending-later-touch', d!, l!, a2!, s2!) }], releases: [] }, week + 300)
++    const written = edgeOf(next, d!, l!)!
++    expect(written.romance!.bonds[0]!.endedWeek).toBe(week - 500) // unchanged
++  })
++
++  it('the ending write adds no romance-shaped driver and moves no counter/peak/recent beyond the mundane event that touched the edge', () => {
++    const { state, people } = baseWorld()
++    const [d, l, a2, s2] = people
++    const week = state.market.tick
++    const formedWeek = week - ROMANCE_GRACE_WEEKS - ROMANCE_DECAY_WEEKS - 10
++    const edge = stagedEdge(0, d!, l!, floor('Friends'), week, { sharedProductions: 1, romance: { value: 80, anchorWeek: formedWeek, bonds: [{ formedWeek, endedWeek: null }] } })
++    const peakBefore = edge.peakTier
++    const next = advanceRelationshipsWeek(withEdges(state, [edge]),
++      { takes: [{ studioId: 'irrelevant', production: syntheticTake('ending-driver-check', d!, l!, a2!, s2!) }], releases: [] }, week + 1)
++    const written = edgeOf(next, d!, l!)!
++    // Exactly the mundane drivers the existing sharedProduction/repeatedCollaboration law already
++    // mints for a 2nd shared production — nothing extra for the ending.
++    const kinds = written.recent.map((r) => r.kind)
++    expect(kinds.every((k) => k === 'sharedProduction' || k === 'repeatedCollaboration')).toBe(true)
++    expect(written.peakTier === peakBefore || written.peakTier === 'Friends' || RELATIONSHIP_TIER_FLOOR[written.peakTier] >= RELATIONSHIP_TIER_FLOOR[peakBefore]).toBe(true)
++  })
++})
++
++describe('drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3)', () => {
++  // 1358-F §3 replaced r1's first leaf here, which asserted the hold at week 100000. By then the
++  // bond has decayed below ROMANCE_EXIT_THRESHOLD and romanceStatus reads 'ended', so the ruled
++  // law drifts that pair fully to the baseline.
++  it('while romanceStatus reads "partners", currentCloseness holds the stored closeness past the drift grace (1358-F §3)', () => {
++    const lastEventWeek = 1000
++    const romance: RomanceTrack = { value: 100, anchorWeek: lastEventWeek, bonds: [{ formedWeek: lastEventWeek, endedWeek: null }] }
++    // The strict three-key Pick: slice A's two-key Pick refuses this literal at the type gate.
++    const edge: Parameters<typeof currentCloseness>[0] = { closeness: 90, lastEventWeek, romance }
++    const week = lastEventWeek + RELATIONSHIP_DRIFT_GRACE_WEEKS + RELATIONSHIP_DRIFT_RETURN_WEEKS / 2
++    // Not held, the pair would be halfway home: 90 + trunc((RELATIONSHIP_BASELINE - 90) / 2) = 70.
++    expect(currentCloseness(edge, week)).toBe(edge.closeness)
++    // Fixture premise, after the behaviour so the RED names the drift: the bond is still open at `week`.
++    expect(romanceStatus(stagedEdge(0, 'p-a', 'p-b', edge.closeness, lastEventWeek, { romance }), week)).toBe('partners')
++  })
++
++  it('after the bond ends, drift resumes from max(lastEventWeek, endedWeek) — not from the stale lastEventWeek', () => {
++    const endedWeek = 900, lastEventWeek = 500 // the ending happened AFTER the last ordinary driver
++    const edge = stagedEdge(0, 'p-a', 'p-b', 70, lastEventWeek, { romance: { value: 20, anchorWeek: endedWeek, bonds: [{ formedWeek: 100, endedWeek }] } })
++    const week = endedWeek + 10 // only 10 weeks past the ENDING, well inside grace from endedWeek
++    expect(currentCloseness(edge as unknown as Parameters<typeof currentCloseness>[0], week)).toBe(70) // still held: grace counted from endedWeek, not lastEventWeek
++  })
++
++  it('after a recorded ending, a LATER ordinary driver anchors the dormancy: max(lastEventWeek, endedWeek) picks lastEventWeek (1358-F §3) [control: passes at RED]', () => {
++    const endedWeek = 900, lastEventWeek = 950 // an ordinary driver, a release say, came 50 weeks after the ending
++    const romance: RomanceTrack = { value: 20, anchorWeek: endedWeek, bonds: [{ formedWeek: 100, endedWeek }] }
++    const edge: Parameters<typeof currentCloseness>[0] = { closeness: 70, lastEventWeek, romance }
++    const week = lastEventWeek + RELATIONSHIP_DRIFT_GRACE_WEEKS + RELATIONSHIP_DRIFT_RETURN_WEEKS / 2
++    // Counted from lastEventWeek the pair is halfway home, 60. Counted from endedWeek it would be 57.
++    expect(currentCloseness(edge, week)).toBe(70 + Math.trunc((RELATIONSHIP_BASELINE - 70) * (RELATIONSHIP_DRIFT_RETURN_WEEKS / 2) / RELATIONSHIP_DRIFT_RETURN_WEEKS))
++  })
++
++  it('an ending computed on read (endedWeek still null) ends the hold at that week and anchors the dormancy there, so recording it later changes no closeness (1358-F §3; 1347-A §2.3)', () => {
++    expect(typeof currentRomanceValue).toBe('function') // RED names the missing read the derived ending needs
++    const lastEventWeek = 1000
++    const open: RomanceTrack = { value: 90, anchorWeek: lastEventWeek, bonds: [{ formedWeek: lastEventWeek, endedWeek: null }] }
++    // 1347-A §2.3: the bond ends at the first week the derived value drops below the exit threshold.
++    let endWeek = lastEventWeek
++    while (currentRomanceValue(open, endWeek) >= ROMANCE_EXIT_THRESHOLD) {
++      endWeek++
++      assert.ok(endWeek <= lastEventWeek + ROMANCE_GRACE_WEEKS + ROMANCE_DECAY_WEEKS, 'fixture premise: a value of 90 ends inside GRACE + DECAY')
++    }
++    // Fixture premise: counted from lastEventWeek, the pair would already be drifting at the ending.
++    expect(endWeek - lastEventWeek).toBeGreaterThan(RELATIONSHIP_DRIFT_GRACE_WEEKS)
++    const recorded: RomanceTrack = { ...open, bonds: [{ formedWeek: lastEventWeek, endedWeek: endWeek }] }
++    const before: Parameters<typeof currentCloseness>[0] = { closeness: 90, lastEventWeek, romance: open }
++    const after: Parameters<typeof currentCloseness>[0] = { closeness: 90, lastEventWeek, romance: recorded }
++    expect(currentCloseness(before, endWeek - 1)).toBe(before.closeness) // still partners the week before: held
++    expect(currentCloseness(before, endWeek + RELATIONSHIP_DRIFT_GRACE_WEEKS)).toBe(before.closeness) // the grace runs from the ending
++    for (const week of [endWeek, endWeek + RELATIONSHIP_DRIFT_GRACE_WEEKS, endWeek + RELATIONSHIP_DRIFT_GRACE_WEEKS + RELATIONSHIP_DRIFT_RETURN_WEEKS / 2]) {
++      expect(currentCloseness(before, week)).toBe(currentCloseness(after, week))
++    }
++  })
++
++  it('currentTier widens its Pick the same way: a Partners pair past the drift grace keeps its held tier (1358-F §3)', () => {
++    const lastEventWeek = 1000
++    const romance: RomanceTrack = { value: 100, anchorWeek: lastEventWeek, bonds: [{ formedWeek: lastEventWeek, endedWeek: null }] }
++    const edge: Parameters<typeof currentTier>[0] = { closeness: floor('Inseparable'), lastEventWeek, sharedCompetitions: 0, romance }
++    const week = lastEventWeek + RELATIONSHIP_DRIFT_GRACE_WEEKS + RELATIONSHIP_DRIFT_RETURN_WEEKS / 2
++    // Not held: 81 + trunc((RELATIONSHIP_BASELINE - 81) / 2) = 66, which reads Friends.
++    expect(currentTier(edge, week)).toBe('Inseparable')
++  })
++
++  it('the Picks are strict (1358-F §3): a partial edge without romance does not compile for currentCloseness or currentTier [RED at the type gate only]', () => {
++    // Never called: production may read edge.romance unguarded, because the type requires it.
++    const omitsRomance = (): void => {
++      // @ts-expect-error 1358-F §3: romance is a required key of currentCloseness's Pick
++      currentCloseness({ closeness: 70, lastEventWeek: 1000 }, 1000)
++      // @ts-expect-error 1358-F §3: currentTier widens its Pick the same way
++      currentTier({ closeness: 70, lastEventWeek: 1000, sharedCompetitions: 0 }, 1000)
++    }
++    expect(typeof omitsRomance).toBe('function')
++  })
++})
+diff --git a/tests/p14b10-save-v44.test.ts b/tests/p14b10-save-v44.test.ts
+new file mode 100644
+index 0000000..4454d42
+--- /dev/null
++++ b/tests/p14b10-save-v44.test.ts
+@@ -0,0 +1,291 @@
++// Record 1358-C — independent-test-engineer RED for P14B relationship rulings SLICE B, Save44
++// (1347-A §4 as amended by 1347-F's Addendum: "Slice B takes projection 57 once"; the log and
++// romance validator per D-1312-1/D-1312-2). Authored on a scratch tree (1327-C method) at BASE
++// c614b7e9ed62dcb889118ba1eadb8a2bafa7934a with slice A applied (committed `slice-a`), branch
++// wip/headless-program-20260916-ts.
++//
++// AUTHORITY (read in full before use):
++//   docs/.../1347-A-p14b-relationship-rulings-charter.md §4 (:88-101): "`validateRelationshipsRoot
++//     (raw, 44)` checks the log (ascending weeks, distinct refs, a non-empty subset of slots in
++//     slot order, `competitions.length ≤ sharedCompetitions`). It also checks romance (value 0..100,
++//     bonds in order, only the last one open) ... `convertV43ToV44` adds `competitions: []` and
++//     `romance: null`. The 44→43 downgrade refuses by name when any log row or romance exists ...
++//     Conflict evidence comes from the recorded `sharedCompetitions`, because Save42 recorded those
++//     under the same dedup rule ... No Rivals label appears until two slotted rows exist after
++//     Save44."
++//   brief-1358-sliceB-red.md scope item 5 (verbatim): "genuine V43 input migrates with
++//     `competitions: []` and `romance: null` on every edge; V42-era competitions (sharedCompetitions
++//     > 0 with an empty log) count as conflict evidence but give no Rivals label; the 44->43
++//     downgrade is lossless only when both fields are empty on every edge and otherwise refuses by
++//     name; a forged log refuses (non-ascending weeks, duplicate production, empty or out-of-order
++//     slots, more rows than sharedCompetitions); romance validation (value 0..100, bonds in order,
++//     only the last open)."
++//
++// PARENT API DECISION UNDER TEST: src/core/save.ts: `LIVE_SAVE_VERSION = 44`, `validateSaveV44`,
++// `convertV43ToV44`, `convertV44ToV43`, `migrateToV44`, with refusal messages in the Save43 style
++// ("migrateToV43: cannot downgrade or discard a ...").
++//
++// RED MECHANISM: `src/core/save.ts` already exists (an EXISTING module — the same "RED-first tests
++// import from a missing module" mechanism as every other slice B file here: a missing named export
++// binds to `undefined` under vite, not a resolution error). Every "validator rejects X" leaf follows
++// tests/p14d1-rival-shelving-save-v43.test.ts's own documented pitfall guard: a bare `.toThrow()`
++// against a call to an UNDEFINED function is a VACUOUS pass (any TypeError satisfies it), so every
++// such leaf asserts a CONTENT-SPECIFIC pattern (`.toThrow(/competit|romance|log|slot|bond/i)`) that
++// "validateSaveV44 is not a function" does NOT match — it fails loudly and specifically at RED, and
++// only a genuine, on-topic domain refusal will satisfy it once implemented.
++//
++// FIXTURE STRATEGY: genuine V42 input (`genuineV42Week130`, minted at the last Save42 writer,
++// 1344-C's own fixture, reused read-only here — "reuse existing authority") is converted through the
++// REAL, EXISTING `convertV42ToV43` (slice-independent, unchanged by this record) to get a genuine
++// V43 envelope, then HAND-PROJECTED to a well-formed V44-shaped envelope (the
++// tests/p14d1-rival-shelving-save-v43.test.ts `baseV43Envelope()` convention: JSON.parse a genuine
++// envelope, inject the new field on every row) for the VALIDATOR-focused leaves below — this file
++// tests the VALIDATOR in isolation on a hand-built envelope, never inventing a fabricated identity
++// or world. The GENUINE, fully-authentic V43-with-shelving-and-a-real-competition input the brief's
++// migration leaf needs is minted separately by `1358-P-save43-producer.ts` at
++// `tests/fixtures/p14/genuine-v43-pre-romance/` — NOT YET RUN (parent-authorized recorded mint,
++// after the current machine-load measurement ends). That ONE leaf below reads the fixture by path
++// and is EXPECTED to fail on the missing file at RED (named explicitly in the classification JSON,
++// per the brief's explicit allowance), not on a hardcoded byte/hash pin this author cannot yet know.
++
++import assert from 'node:assert/strict'
++import { existsSync, readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { describe, expect, it } from 'vitest'
++import * as saveModule from '../src/core/save.js'
++import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
++
++type RelationshipCompetition = { week: number; productionId: string; slots: string[] }
++type RomanceBond = { formedWeek: number; endedWeek: number | null }
++type RomanceTrack = { value: number; anchorWeek: number; bonds: RomanceBond[] }
++type RawEdge = { edgeId: string; a: string; b: string; sharedCompetitions: number
++  competitions: RelationshipCompetition[]; romance: RomanceTrack | null; [key: string]: unknown }
++type RawEnvelope = { saveVersion: number; seed: string; state: { relationships: RawEdge[] } & Record<string, unknown>; broadcastCache: unknown[] }
++type V44ModuleShape = {
++  LIVE_SAVE_VERSION: number
++  validateSaveV44: (s: unknown) => RawEnvelope
++  convertV43ToV44: (s: unknown) => RawEnvelope
++  convertV44ToV43: (s: unknown) => unknown
++  migrateToV44: (s: unknown) => RawEnvelope
++}
++const mods = () => saveModule as unknown as V44ModuleShape
++
++/** A genuine V43 envelope (real V42 fixture -> the REAL, unchanged `convertV42ToV43`), hand-
++ * projected to V44 by adding the empty new fields to every edge (the exact shape
++ * `convertV43ToV44` is specified to produce) — the `baseV43Envelope()` convention. */
++function baseV44Envelope(): RawEnvelope {
++  const v42 = genuineV42Week130()
++  const v43 = (saveModule as unknown as { convertV42ToV43: (s: unknown) => RawEnvelope }).convertV42ToV43(v42)
++  const parsed = JSON.parse(JSON.stringify(v43)) as RawEnvelope
++  parsed.saveVersion = 44
++  for (const edge of parsed.state.relationships) {
++    edge.competitions = []
++    edge.romance = null
++  }
++  return parsed
++}
++
++describe('API decisions this file exercises (existence asserted first)', () => {
++  it('LIVE_SAVE_VERSION is 44; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions', () => {
++    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)
++    expect(typeof mods().validateSaveV44).toBe('function')
++    expect(typeof mods().convertV43ToV44).toBe('function')
++    expect(typeof mods().convertV44ToV43).toBe('function')
++    expect(typeof mods().migrateToV44).toBe('function')
++  })
++})
++
++describe('save-v44: the well-formed empty state validates (control)', () => {
++  it('accepts empty competitions and null romance on every edge', () => {
++    expect(() => mods().validateSaveV44(baseV44Envelope())).not.toThrow()
++  })
++})
++
++describe('save-v44: V43 -> V44 migration', () => {
++  it('convertV43ToV44 adds competitions: [] and romance: null to every edge of a genuine V43 envelope, and validates', () => {
++    const v42 = genuineV42Week130()
++    const v43 = (saveModule as unknown as { convertV42ToV43: (s: unknown) => RawEnvelope }).convertV42ToV43(v42)
++    assert.ok(v43.state.relationships.length > 0, 'route premise: the genuine week-130 fixture holds at least one relationship edge')
++    const v44 = mods().convertV43ToV44(v43)
++    expect(v44.saveVersion).toBe(44)
++    const validated = mods().validateSaveV44(v44)
++    for (const edge of validated.state.relationships) {
++      expect(edge.competitions).toEqual([])
++      expect(edge.romance).toBeNull()
++    }
++    // Nothing outside the two new per-edge fields moves (the Save41/Save43 lossless-add pattern).
++    const stripEdges = (edges: RawEdge[]) => edges.map(({ competitions: _c, romance: _r, ...rest }) => rest)
++    expect(stripEdges(validated.state.relationships)).toEqual(stripEdges(v43.state.relationships))
++  })
++
++  it('GENUINE V43 input (1358-P-save43-producer.ts mint) migrates with competitions: [] and romance: null on every edge, and preserves its non-empty screenplayShelving', () => {
++    const dir = new URL('./fixtures/p14/genuine-v43-pre-romance/', import.meta.url)
++    const manifestPath = new URL('MANIFEST.json', dir)
++    assert.ok(existsSync(manifestPath),
++      'GENUINE V43 FIXTURE NOT YET MINTED: run docs/engineering/playability-launch-review/evidence/' +
++      'p14b4-20260919/1358-P-save43-producer.ts under the parent\'s recorded mint (this ' +
++      'record\'s brief: "Do NOT run it: the parent runs it as a recorded mint after the measurement ' +
++      'ends") before this leaf can exercise the genuine route. Expected RED reason at 1358-C.')
++    const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as { inputs: { name: string }[] }
++    assert.ok(manifest.inputs.length > 0, 'route premise: the manifest names at least one captured week')
++    const first = manifest.inputs[0]!
++    const raw = gunzipSync(readFileSync(new URL(`${first.name}.json.gz`, dir))).toString('utf8')
++    const v43 = JSON.parse(raw) as RawEnvelope
++    expect(v43.saveVersion).toBe(43)
++    const hasCompetition = v43.state.relationships.some((e) => e.sharedCompetitions >= 1)
++    const hasShelving = ((v43.state as unknown as { hollywood: { businesses: { screenplayShelving: { rejections: unknown[]; shelved: unknown[] } }[] } }).hollywood.businesses)
++      .some((b) => b.screenplayShelving.rejections.length > 0 || b.screenplayShelving.shelved.length > 0)
++    expect(hasCompetition, 'producer premise: at least one edge holds sharedCompetitions >= 1').toBe(true)
++    expect(hasShelving, 'producer premise: at least one business holds non-empty screenplayShelving').toBe(true)
++    const v44 = mods().convertV43ToV44(v43)
++    const validated = mods().validateSaveV44(v44)
++    for (const edge of validated.state.relationships) {
++      expect(edge.competitions).toEqual([])
++      expect(edge.romance).toBeNull()
++    }
++  })
++})
++
++describe('save-v44: V42-era competitions count as conflict evidence but give no Rivals label (1347-A §4 "what old saves show")', () => {
++  it('an edge with sharedCompetitions >= RELATIONSHIP_CONFLICT_COMPETITIONS and an empty competitions log reads conflict evidence but no Rivals label after migration', () => {
++    const env = baseV44Envelope()
++    const edge = env.state.relationships[0]
++    assert.ok(edge, 'route premise: the genuine fixture holds at least one relationship edge')
++    edge.sharedCompetitions = 3 // Save42-era recorded count; the log itself cannot be reconstructed (Q3).
++    edge.competitions = []
++    const validated = mods().validateSaveV44(env)
++    const migratedEdge = validated.state.relationships.find((e) => e.edgeId === edge.edgeId)!
++    expect(migratedEdge.competitions).toEqual([]) // no Rivals evidence: the log is empty
++    expect(migratedEdge.sharedCompetitions).toBe(3) // conflict evidence is unaffected — it reads the old counter
++  })
++})
++
++describe('save-v44: the validator rejects a forged competitions log', () => {
++  function withFirstEdge(mutate: (edge: RawEdge) => void): RawEnvelope {
++    const env = baseV44Envelope()
++    const edge = env.state.relationships[0]
++    assert.ok(edge, 'route premise: the genuine fixture holds at least one relationship edge')
++    mutate(edge)
++    return env
++  }
++
++  it('rejects non-ascending weeks across rows', () => {
++    const env = withFirstEdge((e) => {
++      e.sharedCompetitions = 2
++      e.competitions = [{ week: 20, productionId: 'prod-x', slots: ['lead'] }, { week: 10, productionId: 'prod-y', slots: ['lead'] }]
++    })
++    expect(() => mods().validateSaveV44(env)).toThrow(/competit|week|ascend|order/i)
++  })
++
++  it('rejects a duplicate production id across two rows', () => {
++    const env = withFirstEdge((e) => {
++      e.sharedCompetitions = 2
++      e.competitions = [{ week: 10, productionId: 'prod-x', slots: ['lead'] }, { week: 20, productionId: 'prod-x', slots: ['support'] }]
++    })
++    expect(() => mods().validateSaveV44(env)).toThrow(/competit|duplicate|production/i)
++  })
++
++  it('rejects a row with an empty slots array', () => {
++    const env = withFirstEdge((e) => {
++      e.sharedCompetitions = 1
++      e.competitions = [{ week: 10, productionId: 'prod-x', slots: [] }]
++    })
++    expect(() => mods().validateSaveV44(env)).toThrow(/competit|slot|empty|non-empty/i)
++  })
++
++  it('rejects a row with slots out of slot order (support before lead)', () => {
++    const env = withFirstEdge((e) => {
++      e.sharedCompetitions = 1
++      e.competitions = [{ week: 10, productionId: 'prod-x', slots: ['support', 'lead'] }]
++    })
++    expect(() => mods().validateSaveV44(env)).toThrow(/competit|slot|order/i)
++  })
++
++  it('rejects more competitions rows than sharedCompetitions', () => {
++    const env = withFirstEdge((e) => {
++      e.sharedCompetitions = 1
++      e.competitions = [{ week: 10, productionId: 'prod-x', slots: ['lead'] }, { week: 20, productionId: 'prod-y', slots: ['lead'] }]
++    })
++    expect(() => mods().validateSaveV44(env)).toThrow(/competit|shared|exceed/i)
++  })
++
++  it('accepts a well-formed two-slot row on one production (the "one production, two slots, one row" shape)', () => {
++    const env = withFirstEdge((e) => {
++      e.sharedCompetitions = 1
++      e.competitions = [{ week: 10, productionId: 'prod-x', slots: ['lead', 'support'] }]
++    })
++    expect(() => mods().validateSaveV44(env)).not.toThrow()
++  })
++})
++
++describe('save-v44: the validator rejects forged romance', () => {
++  function withFirstEdge(mutate: (edge: RawEdge) => void): RawEnvelope {
++    const env = baseV44Envelope()
++    const edge = env.state.relationships[0]
++    assert.ok(edge, 'route premise: the genuine fixture holds at least one relationship edge')
++    mutate(edge)
++    return env
++  }
++
++  it('rejects a romance value above 100', () => {
++    const env = withFirstEdge((e) => { e.romance = { value: 101, anchorWeek: 10, bonds: [] } })
++    expect(() => mods().validateSaveV44(env)).toThrow(/romance|value|0.*100/i)
++  })
++
++  it('rejects a negative romance value', () => {
++    const env = withFirstEdge((e) => { e.romance = { value: -1, anchorWeek: 10, bonds: [] } })
++    expect(() => mods().validateSaveV44(env)).toThrow(/romance|value|negative|0.*100/i)
++  })
++
++  it('rejects bonds out of order (a later formedWeek before an earlier one)', () => {
++    const env = withFirstEdge((e) => {
++      e.romance = { value: 80, anchorWeek: 100, bonds: [{ formedWeek: 100, endedWeek: 150 }, { formedWeek: 50, endedWeek: null }] }
++    })
++    expect(() => mods().validateSaveV44(env)).toThrow(/romance|bond|order/i)
++  })
++
++  it('rejects two open bonds (only the last one may be open)', () => {
++    const env = withFirstEdge((e) => {
++      e.romance = { value: 80, anchorWeek: 100, bonds: [{ formedWeek: 10, endedWeek: null }, { formedWeek: 50, endedWeek: null }] }
++    })
++    expect(() => mods().validateSaveV44(env)).toThrow(/romance|bond|open/i)
++  })
++
++  it('accepts a closed earlier bond followed by one open later bond (the re-formation shape)', () => {
++    const env = withFirstEdge((e) => {
++      e.romance = { value: 80, anchorWeek: 100, bonds: [{ formedWeek: 10, endedWeek: 40 }, { formedWeek: 100, endedWeek: null }] }
++    })
++    expect(() => mods().validateSaveV44(env)).not.toThrow()
++  })
++
++  it('accepts every bond closed (an ended romance with no currently open bond)', () => {
++    const env = withFirstEdge((e) => {
++      e.romance = { value: 30, anchorWeek: 100, bonds: [{ formedWeek: 10, endedWeek: 40 }] }
++    })
++    expect(() => mods().validateSaveV44(env)).not.toThrow()
++  })
++})
++
++describe('save-v44: down-conversion (convertV44ToV43)', () => {
++  it('accepts the empty state on every edge (round-trips losslessly, Save41/Save43 pattern)', () => {
++    const env = baseV44Envelope()
++    expect(() => mods().convertV44ToV43(env)).not.toThrow()
++  })
++
++  it('refuses a real competitions log by name', () => {
++    const env = baseV44Envelope()
++    const edge = env.state.relationships[0]
++    assert.ok(edge, 'route premise')
++    edge.sharedCompetitions = 1
++    edge.competitions = [{ week: 10, productionId: 'prod-x', slots: ['lead'] }]
++    expect(() => mods().convertV44ToV43(env)).toThrow(/competit/i)
++  })
++
++  it('refuses a real (non-null) romance by name', () => {
++    const env = baseV44Envelope()
++    const edge = env.state.relationships[0]
++    assert.ok(edge, 'route premise')
++    edge.romance = { value: 80, anchorWeek: 10, bonds: [{ formedWeek: 10, endedWeek: null }] }
++    expect(() => mods().convertV44ToV43(env)).toThrow(/romance/i)
++  })
++})
+diff --git a/tests/p14b5-relationships.test.ts b/tests/p14b5-relationships.test.ts
+index 1225928..eb350d4 100644
+--- a/tests/p14b5-relationships.test.ts
++++ b/tests/p14b5-relationships.test.ts
+@@ -775,7 +775,13 @@ describe('family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :4
+ })
+ 
+ // ─────────────────────────────────────────────────────────────────────────────────────────────────────
+-describe('family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 1 and the D2 reachability (scope (3)-(4))', () => {
++// 1358-C (parent ruling 1348-F5 item 3, slice A implementation review 1348-J KEEP): this describe
++// title pinned "RELATIONSHIP_RULES_VERSION 1" in its own text after r5 moved the leaf's own
++// asserted value to 2 (:760 below) -- a stale label, not a behavior change. Title-only rename;
++// every assertion under this describe is byte-identical to r5. See
++// 1358-rel-sliceB-red-classification.json for the old/new full-identity rename record (redStatus
++// unchanged: all three leaves under this describe already pass with slice A's production applied).
++describe('family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4))', () => {
+   it('eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained', () => {
+     expect(typeof currentTier).toBe('function')
+     // 1348-C: moves by ruling (1347-F Amendment 2). Was `.toBe(1)`. The rest of this test builds

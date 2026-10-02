@@ -1,0 +1,295 @@
+{
+ "diag": "1357-X cash path",
+ "treeHead": "b08096020e4dccf8c22d036bbd9fb7ad742e5aea",
+ "weeks": 6240,
+ "seeds": [
+  {
+   "seed": "p13a-core-causal-01",
+   "finalWeek": 6240,
+   "rivals": {
+    "studio-aca408ec-r01": {
+     "enteredWeek": 0,
+     "firstNonPositive": 294,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 293,
+     "minCash": -286299779.6680543,
+     "endCash": -286299779.6680543,
+     "lastWeekWithStaff": 472,
+     "staffAtEnd": 0
+    },
+    "studio-aca408ec-r02": {
+     "enteredWeek": 0,
+     "firstNonPositive": 323,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 322,
+     "minCash": -264479958.08657187,
+     "endCash": -264479958.08657187,
+     "lastWeekWithStaff": 415,
+     "staffAtEnd": 0
+    },
+    "studio-aca408ec-r03": {
+     "enteredWeek": 0,
+     "firstNonPositive": 226,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 225,
+     "minCash": -259510410.2810072,
+     "endCash": -259510410.2810072,
+     "lastWeekWithStaff": 415,
+     "staffAtEnd": 0
+    },
+    "studio-aca408ec-r04": {
+     "enteredWeek": 0,
+     "firstNonPositive": 130,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 129,
+     "minCash": -260191219.0443893,
+     "endCash": -260191219.0443893,
+     "lastWeekWithStaff": 207,
+     "staffAtEnd": 0
+    },
+    "studio-aca408ec-r05": {
+     "enteredWeek": 520,
+     "firstNonPositive": 697,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 696,
+     "minCash": -231902051.7593953,
+     "endCash": -231902051.7593953,
+     "lastWeekWithStaff": 727,
+     "staffAtEnd": 0
+    },
+    "studio-aca408ec-r06": {
+     "enteredWeek": 988,
+     "firstNonPositive": 1191,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 1190,
+     "minCash": -209934045.22487706,
+     "endCash": -209934045.22487706,
+     "lastWeekWithStaff": 1195,
+     "staffAtEnd": 0
+    },
+    "studio-aca408ec-r07": {
+     "enteredWeek": 1560,
+     "firstNonPositive": 1782,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 1781,
+     "minCash": -190356849.52826703,
+     "endCash": -190356849.52826703,
+     "lastWeekWithStaff": 1975,
+     "staffAtEnd": 0
+    },
+    "studio-aca408ec-r08": {
+     "enteredWeek": 1872,
+     "firstNonPositive": 2099,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 2098,
+     "minCash": -188127217.3414395,
+     "endCash": -188127217.3414395,
+     "lastWeekWithStaff": 2287,
+     "staffAtEnd": 0
+    },
+    "studio-aca408ec-r09": {
+     "enteredWeek": 2548,
+     "firstNonPositive": 2869,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 2868,
+     "minCash": -144527022.22923142,
+     "endCash": -144527022.22923142,
+     "lastWeekWithStaff": 2963,
+     "staffAtEnd": 0
+    }
+   }
+  },
+  {
+   "seed": "seed-b",
+   "finalWeek": 6240,
+   "rivals": {
+    "studio-bc14baf6-r01": {
+     "enteredWeek": 0,
+     "firstNonPositive": 642,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 641,
+     "minCash": -275171786.7277018,
+     "endCash": -275171786.7277018,
+     "lastWeekWithStaff": 831,
+     "staffAtEnd": 0
+    },
+    "studio-bc14baf6-r02": {
+     "enteredWeek": 0,
+     "firstNonPositive": 614,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 613,
+     "minCash": -245988758.23823267,
+     "endCash": -245988758.23823267,
+     "lastWeekWithStaff": 675,
+     "staffAtEnd": 0
+    },
+    "studio-bc14baf6-r03": {
+     "enteredWeek": 0,
+     "firstNonPositive": 508,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 507,
+     "minCash": -260097100.21774876,
+     "endCash": -260097100.21774876,
+     "lastWeekWithStaff": 623,
+     "staffAtEnd": 0
+    },
+    "studio-bc14baf6-r04": {
+     "enteredWeek": 0,
+     "firstNonPositive": 479,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 478,
+     "minCash": -258344733.3902905,
+     "endCash": -258344733.3902905,
+     "lastWeekWithStaff": 623,
+     "staffAtEnd": 0
+    },
+    "studio-bc14baf6-r05": {
+     "enteredWeek": 520,
+     "firstNonPositive": null,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 6240,
+     "minCash": 6732062,
+     "endCash": 674485466.188129,
+     "lastWeekWithStaff": 6240,
+     "staffAtEnd": 6
+    },
+    "studio-bc14baf6-r06": {
+     "enteredWeek": 988,
+     "firstNonPositive": null,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 6240,
+     "minCash": 8452239,
+     "endCash": 2611099287.7336326,
+     "lastWeekWithStaff": 6240,
+     "staffAtEnd": 6
+    },
+    "studio-bc14baf6-r07": {
+     "enteredWeek": 1560,
+     "firstNonPositive": null,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 6240,
+     "minCash": 15418672.034757482,
+     "endCash": 2578488429.1542096,
+     "lastWeekWithStaff": 6240,
+     "staffAtEnd": 6
+    },
+    "studio-bc14baf6-r08": {
+     "enteredWeek": 1872,
+     "firstNonPositive": null,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 6240,
+     "minCash": 8018375,
+     "endCash": 3132547212.5673857,
+     "lastWeekWithStaff": 6240,
+     "staffAtEnd": 6
+    },
+    "studio-bc14baf6-r09": {
+     "enteredWeek": 2548,
+     "firstNonPositive": null,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 6240,
+     "minCash": 17605598,
+     "endCash": 1501297486.959666,
+     "lastWeekWithStaff": 6240,
+     "staffAtEnd": 5
+    }
+   }
+  },
+  {
+   "seed": "p13a-wait-control-01",
+   "finalWeek": 6240,
+   "rivals": {
+    "studio-10aa1b55-r01": {
+     "enteredWeek": 0,
+     "firstNonPositive": 248,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 247,
+     "minCash": -259529387.3521456,
+     "endCash": -259529387.3521456,
+     "lastWeekWithStaff": 415,
+     "staffAtEnd": 0
+    },
+    "studio-10aa1b55-r02": {
+     "enteredWeek": 0,
+     "firstNonPositive": 210,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 209,
+     "minCash": -250252789,
+     "endCash": -250252789,
+     "lastWeekWithStaff": 207,
+     "staffAtEnd": 0
+    },
+    "studio-10aa1b55-r03": {
+     "enteredWeek": 0,
+     "firstNonPositive": 132,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 131,
+     "minCash": -259341350.76102832,
+     "endCash": -259341350.76102832,
+     "lastWeekWithStaff": 207,
+     "staffAtEnd": 0
+    },
+    "studio-10aa1b55-r04": {
+     "enteredWeek": 0,
+     "firstNonPositive": 110,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 109,
+     "minCash": -261912041.70353234,
+     "endCash": -261912041.70353234,
+     "lastWeekWithStaff": 207,
+     "staffAtEnd": 0
+    },
+    "studio-10aa1b55-r05": {
+     "enteredWeek": 520,
+     "firstNonPositive": 639,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 638,
+     "minCash": -240168044.99350855,
+     "endCash": -240168044.99350855,
+     "lastWeekWithStaff": 727,
+     "staffAtEnd": 0
+    },
+    "studio-10aa1b55-r06": {
+     "enteredWeek": 988,
+     "firstNonPositive": 1150,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 1149,
+     "minCash": -214141016,
+     "endCash": -214141016,
+     "lastWeekWithStaff": 1195,
+     "staffAtEnd": 0
+    },
+    "studio-10aa1b55-r07": {
+     "enteredWeek": 1560,
+     "firstNonPositive": 1807,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 1806,
+     "minCash": -193775382,
+     "endCash": -193775382,
+     "lastWeekWithStaff": 1975,
+     "staffAtEnd": 0
+    },
+    "studio-10aa1b55-r08": {
+     "enteredWeek": 1872,
+     "firstNonPositive": 2076,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 2075,
+     "minCash": -173094848.18535072,
+     "endCash": -173094848.18535072,
+     "lastWeekWithStaff": 2079,
+     "staffAtEnd": 0
+    },
+    "studio-10aa1b55-r09": {
+     "enteredWeek": 2548,
+     "firstNonPositive": 2824,
+     "positiveWeeksAfterFirstNonPositive": 0,
+     "lastPositive": 2823,
+     "minCash": -150807149.23063534,
+     "endCash": -150807149.23063534,
+     "lastWeekWithStaff": 2963,
+     "staffAtEnd": 0
+    }
+   }
+  }
+ ]
+}

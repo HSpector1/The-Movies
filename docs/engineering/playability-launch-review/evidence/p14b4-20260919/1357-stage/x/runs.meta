@@ -1,0 +1,8 @@
+smoke: node v20.20.2, weeks 20, seeds p13a-core-causal-01, start 2026-10-01 22:25:03 CDT
+smoke: exit 0, end 2026-10-01 22:25:07 CDT
+full: node v20.20.2, weeks 6240, seeds p13a-core-causal-01,seed-b,p13a-wait-control-01, start 2026-10-01 22:25:20 CDT
+full: exit 0, end 2026-10-01 22:34:28 CDT
+diag-smoke: node v20.20.2, weeks 30, seeds p13a-core-causal-01, start 2026-10-01 22:38:29 CDT
+diag-smoke: exit 0, end 2026-10-01 22:38:33 CDT
+diag: node v20.20.2, weeks 6240, seeds p13a-core-causal-01,seed-b,p13a-wait-control-01, start 2026-10-01 22:38:36 CDT
+diag: exit 0, end 2026-10-01 22:47:05 CDT

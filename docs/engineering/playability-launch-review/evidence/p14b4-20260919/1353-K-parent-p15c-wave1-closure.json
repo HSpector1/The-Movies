@@ -1,0 +1,172 @@
+{
+  "record": "1353-K parent closure: P15C Wave 1 (campaign-legacy/v1), the pure law",
+  "timeUtc": "2026-10-02T03:34:39.025765+00:00",
+  "disposition": "CLOSED, LOGIC VERIFIED: pure law, not yet wired into tick, save, Bridge or UI. Broad gates: the Save43 sweep's recorded gates at 469a9547 (1344-M3; review 1344-J3, confirmed by 1344-J4). p15c1-campaign-legacy and p15c-wave-r-retention pass there (72 + 6 tests), and no identity in the gates names this wave.",
+  "landing": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-L-p15c1-wave1-landing.md",
+      "bytes": 2559,
+      "sha256": "eb770e609ef43cbd31431000da59a4f99e9077eaca07a5de986afd660675de3b"
+    }
+  ],
+  "implementationReviews": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-J-p15c1-implementation-review.md",
+      "bytes": 6863,
+      "sha256": "fefad789231995a441ab60aa2cc3ef1326de0919545e0cd00225761bce1cae1a"
+    }
+  ],
+  "recordedRuns": {
+    "1353-p15c1-red-recorded": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-red-recorded-preflight.json",
+        "bytes": 115929,
+        "sha256": "9e85aca50e2603d4a9c9b3505f82078ec85fb2a9ec539445ab36cc93eb210ca1"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-red-recorded.json",
+        "bytes": 53592,
+        "sha256": "587cb9e52b26605a8a66ad84ca4c80ae95f5a4fa9044273e710b55f8aade7c23"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-red-recorded.txt",
+        "bytes": 84861,
+        "sha256": "d424efffe77b1c2bd7a3896f5e98a6ce4286a93d0e4579921f6b87464fcc0367"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-red-recorded.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-red-recorded-postflight.json",
+        "bytes": 116605,
+        "sha256": "1501f6bd3ac71cc512ef23abaf516c19ebc8ba4a98f1ede8f675e66cad930197"
+      }
+    ],
+    "1353-p15c1-green-recorded": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-green-recorded-preflight.json",
+        "bytes": 115929,
+        "sha256": "e7e7a88ee30af88b803aee65b0009d6d4247f432ec537e47f152d03da057d7e0"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-green-recorded.json",
+        "bytes": 53628,
+        "sha256": "2c938b8323fba6f6b17eda31af8eab85f806201b965228084c915cf9c68fccda"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-green-recorded.txt",
+        "bytes": 45613,
+        "sha256": "d918514eac25b3577e436f0ded12e5f7b6b87d734ba77d88beeb31c9f2b7ac80"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-green-recorded.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-green-recorded-postflight.json",
+        "bytes": 116611,
+        "sha256": "2199d3d2fbda1e7b8fa95a37d767909f0c87df41ba1c41fe3da4628adcd518d6"
+      }
+    ]
+  },
+  "broadGates": {
+    "record": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-M3-save43-sweep-recorded-gates.md",
+        "bytes": 14046,
+        "sha256": "71edb4e6e2f24f5c61bd266ea7d55e7860e50e6e3fe1cb67d11ed7a84ccfbb80"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-M3-check.json",
+        "bytes": 1286,
+        "sha256": "d67b58982294aff1f5df737692dab8a9eed7e73653b656b2082f210021696e18"
+      }
+    ],
+    "review": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-J3-save43-sweep-gates-attribution-review.md",
+        "bytes": 13854,
+        "sha256": "a23c2c6f5cba8d5f64f1ff2a7ff19f1089b655e7ae5ec030973334402986c9b9"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-J4-m3-revision-confirmation.md",
+        "bytes": 3949,
+        "sha256": "13b638d0a9448ded493c19048874779dbfb056e5473f51671aaa9d1776fe452e"
+      }
+    ],
+    "reviewVerdict": "REFINE (two text defects, no wrong number); M3 r2 applied it; CONFIRMED (1344-J4); M3 r3 applied the wording residuals with no count changed",
+    "core": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-core-preflight.json",
+        "bytes": 115929,
+        "sha256": "2187f1ee2871accdf0cf17b431ee94d693ac62816fe0a90c4b3f961421b697ea"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-core.json",
+        "bytes": 72600,
+        "sha256": "7ec176240606ab563d2fe28392845808e851e8ffa49096ba510475d111058e86"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-core.txt",
+        "bytes": 14839339,
+        "sha256": "6983b02a9574d65040e4f8823682f337819a6fcac6282b247f69e84f2db05e17"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-core.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-core-postflight.json",
+        "bytes": 116623,
+        "sha256": "4dee93e8e26bfe1db6bd14a6efbaaed23ccdf5626cfd4587ae3ad714ada6d4d2"
+      }
+    ],
+    "ui": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-ui-preflight.json",
+        "bytes": 115929,
+        "sha256": "f40bd1fc2b5c83e5983e45b1dfb80f704ec7992ded3a0d8322906a8c528cd5fe"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-ui.json",
+        "bytes": 53540,
+        "sha256": "fbc158a8772ed2bfb152d9184fbf167cabfe2b2cfe652dfdb1db89f354bc5b3f"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-ui.txt",
+        "bytes": 211558,
+        "sha256": "f86972d5909095e66ab54520f09c9c9ccce9bb9046108b1939de3a382788a3c3"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-ui.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-ui-postflight.json",
+        "bytes": 116615,
+        "sha256": "b45845a419824ac95f87d0da392b7745b1627a6aba14e8a312d7b4f7978bb0d5"
+      }
+    ]
+  },
+  "typeGatesAtHead": {
+    "head": "85764cd5",
+    "root": 0,
+    "ui": 0,
+    "bridge": 0,
+    "note": "the gated tree plus docs; slice A at c208d214 also exits 0 on all three (1348-L-type-gates.txt)",
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-M3-type-gates-HEAD.txt",
+      "bytes": 139,
+      "sha256": "84775c479698259fe38fff67b814da74da7a241254491a6fcb0b54e3397afec7"
+    }
+  },
+  "carried": [
+    "1353-J note 2 (CAMPAIGN_LEGACY_DEFINITION versioning proven by an old-law fixture), into Wave 2 (1359)",
+    "1353-J note 1, the pioneer quirk ratified by 1353-F5, into the Wave 4 dossier copy"
+  ]
+}

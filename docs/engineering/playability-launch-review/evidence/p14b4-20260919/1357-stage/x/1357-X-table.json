@@ -1,0 +1,317 @@
+{
+ "probe": "1357-P",
+ "treeHead": "b08096020e4dccf8c22d036bbd9fb7ad742e5aea",
+ "weeks": 6240,
+ "verdict": "Re-tune",
+ "seeds": [
+  {
+   "seed": "p13a-core-causal-01",
+   "rows": [
+    {
+     "readOut": "closure due by 1960 / rivals entered by 1960",
+     "value": "7/8",
+     "share": 0.875,
+     "band": "Re-tune"
+    },
+    {
+     "readOut": "closure due by 2000 / rivals entered by 2000",
+     "value": "9/9",
+     "share": 1.0,
+     "band": "Re-tune"
+    },
+    {
+     "readOut": "closure due by 2040 / 9 rivals",
+     "value": "9/9, 0 left",
+     "share": 1.0,
+     "band": "Re-tune"
+    },
+    {
+     "readOut": "closure due, arm B minus arm A, at any checkpoint",
+     "value": {
+      "1960": 0,
+      "1980": 0,
+      "2000": 0,
+      "2040": 0
+     },
+     "band": "Proceed"
+    },
+    {
+     "readOut": "a rival closure due within 104 weeks of entry",
+     "value": [],
+     "band": "Proceed"
+    }
+   ],
+   "seedVerdict": "Re-tune",
+   "recoveries": 0,
+   "neverWarned": [],
+   "reserveBeforeWarning": {
+    "r01": [
+     281,
+     293
+    ],
+    "r02": [
+     305,
+     322
+    ],
+    "r03": [
+     208,
+     225
+    ],
+    "r04": [
+     115,
+     129
+    ],
+    "r05": [
+     682,
+     696
+    ],
+    "r06": [
+     1173,
+     1190
+    ],
+    "r07": [
+     1765,
+     1781
+    ],
+    "r08": [
+     2083,
+     2098
+    ],
+    "r09": [
+     2857,
+     2868
+    ]
+   },
+   "strainedAboveWarnWeeks": {
+    "yer": 9,
+    "r01": 9,
+    "r02": 9,
+    "r03": 9,
+    "r04": 9,
+    "r05": 9,
+    "r06": 9,
+    "r07": 12,
+    "r08": 9,
+    "r09": 9
+   },
+   "distressEntriesUnderTwoRoutes": 28,
+   "player": {
+    "warning": 1333,
+    "distress": 1341,
+    "closed": 1366
+   },
+   "events": 57,
+   "rootBytesArmB": 19331,
+   "elapsedMs": 91544,
+   "msPerTick": 14.67
+  },
+  {
+   "seed": "seed-b",
+   "rows": [
+    {
+     "readOut": "closure due by 1960 / rivals entered by 1960",
+     "value": "4/8",
+     "share": 0.5,
+     "band": "Flag"
+    },
+    {
+     "readOut": "closure due by 2000 / rivals entered by 2000",
+     "value": "4/9",
+     "share": 0.4444444444444444,
+     "band": "Flag"
+    },
+    {
+     "readOut": "closure due by 2040 / 9 rivals",
+     "value": "4/9, 5 left",
+     "share": 0.4444444444444444,
+     "band": "Proceed"
+    },
+    {
+     "readOut": "closure due, arm B minus arm A, at any checkpoint",
+     "value": {
+      "1960": 0,
+      "1980": 0,
+      "2000": 0,
+      "2040": 0
+     },
+     "band": "Proceed"
+    },
+    {
+     "readOut": "a rival closure due within 104 weeks of entry",
+     "value": [],
+     "band": "Proceed"
+    }
+   ],
+   "seedVerdict": "Flag",
+   "recoveries": 0,
+   "neverWarned": [
+    "studio-bc14baf6-r05",
+    "studio-bc14baf6-r06",
+    "studio-bc14baf6-r07",
+    "studio-bc14baf6-r08",
+    "studio-bc14baf6-r09"
+   ],
+   "reserveBeforeWarning": {
+    "r01": [
+     629,
+     641
+    ],
+    "r02": [
+     596,
+     613
+    ],
+    "r03": [
+     488,
+     507
+    ],
+    "r04": [
+     464,
+     478
+    ],
+    "r05": [
+     null,
+     null
+    ],
+    "r06": [
+     null,
+     null
+    ],
+    "r07": [
+     null,
+     null
+    ],
+    "r08": [
+     null,
+     null
+    ],
+    "r09": [
+     null,
+     null
+    ]
+   },
+   "strainedAboveWarnWeeks": {
+    "yer": 9,
+    "r01": 9,
+    "r02": 9,
+    "r03": 9,
+    "r04": 9,
+    "r05": 0,
+    "r06": 0,
+    "r07": 0,
+    "r08": 0,
+    "r09": 0
+   },
+   "distressEntriesUnderTwoRoutes": 13,
+   "player": {
+    "warning": 1333,
+    "distress": 1341,
+    "closed": 1366
+   },
+   "events": 27,
+   "rootBytesArmB": 10231,
+   "elapsedMs": 362548,
+   "msPerTick": 58.1
+  },
+  {
+   "seed": "p13a-wait-control-01",
+   "rows": [
+    {
+     "readOut": "closure due by 1960 / rivals entered by 1960",
+     "value": "7/8",
+     "share": 0.875,
+     "band": "Re-tune"
+    },
+    {
+     "readOut": "closure due by 2000 / rivals entered by 2000",
+     "value": "9/9",
+     "share": 1.0,
+     "band": "Re-tune"
+    },
+    {
+     "readOut": "closure due by 2040 / 9 rivals",
+     "value": "9/9, 0 left",
+     "share": 1.0,
+     "band": "Re-tune"
+    },
+    {
+     "readOut": "closure due, arm B minus arm A, at any checkpoint",
+     "value": {
+      "1960": 0,
+      "1980": 0,
+      "2000": 0,
+      "2040": 0
+     },
+     "band": "Proceed"
+    },
+    {
+     "readOut": "a rival closure due within 104 weeks of entry",
+     "value": [],
+     "band": "Proceed"
+    }
+   ],
+   "seedVerdict": "Re-tune",
+   "recoveries": 0,
+   "neverWarned": [],
+   "reserveBeforeWarning": {
+    "r01": [
+     235,
+     247
+    ],
+    "r02": [
+     191,
+     208
+    ],
+    "r03": [
+     112,
+     131
+    ],
+    "r04": [
+     95,
+     109
+    ],
+    "r05": [
+     624,
+     638
+    ],
+    "r06": [
+     1132,
+     1149
+    ],
+    "r07": [
+     1794,
+     1806
+    ],
+    "r08": [
+     2060,
+     2075
+    ],
+    "r09": [
+     2812,
+     2823
+    ]
+   },
+   "strainedAboveWarnWeeks": {
+    "yer": 9,
+    "r01": 9,
+    "r02": 9,
+    "r03": 9,
+    "r04": 9,
+    "r05": 9,
+    "r06": 9,
+    "r07": 9,
+    "r08": 9,
+    "r09": 9
+   },
+   "distressEntriesUnderTwoRoutes": 28,
+   "player": {
+    "warning": 1333,
+    "distress": 1341,
+    "closed": 1366
+   },
+   "events": 57,
+   "rootBytesArmB": 19333,
+   "elapsedMs": 91080,
+   "msPerTick": 14.6
+  }
+ ]
+}

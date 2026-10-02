@@ -1,5 +1,46 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT: P14 closed (1344-K); P15 Wave 1 closed; relationship slice A landed; the P15B probe reads Re-tune
+
+State at 2026-10-01 22:50 CDT, HEAD b0809602 plus this update (pushed, remote verified). No recorded run is active.
+Root `HANDOFF.md` carries the resume commands.
+
+- **P14 shelving and Save43: CLOSED** ([1344-K](evidence/p14b4-20260919/1344-K-parent-shelving-save43-closure.json)).
+  - The recorded gates at 469a9547 hold the 1344-N success line
+    ([1344-M3](evidence/p14b4-20260919/1344-M3-save43-sweep-recorded-gates.md); review 1344-J3 REFINE, then
+    CONFIRMED by 1344-J4).
+  - Core fails 85: 1338's 78 retained identities and the seven 1344-F6 declared exceptions. UI fails 3, the numpy rows.
+  - §7 ([1344-V](evidence/p14b4-20260919/1344-V-s7-shelving-verification.md)): every anchor is EQUAL and controls
+    (a)-(d) PASS. All 231 film and commission movements are attributed to the shelving law. 154 promise movements
+    come from the same law, but their path is unnamed, so they are flagged to the Owner.
+- **P15 Wave 1: CLOSED** on those gates: 1346-K (P15A.1 and P15A.2), 1352-K (P15B) and 1353-K (P15C). These are pure
+  laws, not yet wired in.
+- **Relationship slice A: LANDED, IN PROGRESS**
+  ([1348-L](evidence/p14b4-20260919/1348-L-rel-sliceA-landing.md)).
+  - RED r5 at 954a373e: 30 failed, 62 passed.
+  - Production 11693bff, 442105f4 and c208d214: recorded GREEN 89 of 92. The 3 failures are 1344-F6 row 6.
+  - Its broad gates, and a check of the natural routes at HEAD, ride with the next broad run.
+- **Slice B:** RED r4 staged
+  ([1358-C4](evidence/p14b4-20260919/1358-C4-rel-sliceB-red-r4-handback.md)). The producer now founds the studio
+  first. The parent dry run 1358-X2 is next, then review 1358-D and the mint 1358-P.
+- **P15 Wave 2:**
+  - **P15B** probe ([1357-X](evidence/p14b4-20260919/1357-X-p15b-wave2-probe-results.md)): **Re-tune.** On the p13a
+    seeds, 7 of 8 rivals are due for closure by 1960, and no rival recovers. No §4.5 value passes the gate.
+    [1357-F2](evidence/p14b4-20260919/1357-F2-parent-response-to-1357-X.md) holds Wave 2 at the gate and asks the
+    Owner 1357-Q1.
+  - P15A.1 RED r4 CONFIRMED (1355-D4).
+  - P15A.2 RED r4 CONFIRMED (1356-D4).
+  - P15C RED r4 and r5 CONFIRMED
+    ([1359-D4](evidence/p14b4-20260919/1359-D4-p15c-wave2-red-r4-r5-confirmation.md)).
+- **Open Owner items:**
+  - 1357-Q1: rival recovery before P15B closure. Recommend (a).
+  - numpy for the three rgba rows.
+  - P16's nine questions (1354-Q).
+  - The §7 flags (1344-V §9).
+  - The seven declared exceptions.
+  - 1356-X F-2.
+  - X12's V39 family.
+
 ## CURRENT — Save43 sweep authored and merged in scratch (helpers, g1-g6, parent edits); dry run x2 running detached; P15C Wave 1 landed (1353-L)
 
 State at 2026-09-30 14:49 EDT (20:49 CEST), HEAD d9e253ad plus this update (pushed, remote verified). No recorded run
