@@ -66,7 +66,7 @@
 // carries no count and no ref. A ranking ref cites the archive record's own recordId.
 
 import { campaignDate } from './calendar.js'
-import { P15_PHASE_TABLES } from './p15Phases.js'
+import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
 import type { FinancialStrengthBand } from './powerRanking.js'
 import { TECHNOLOGY_CATALOGUE } from './technologyCatalogue.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
@@ -1152,6 +1152,31 @@ export function legacyRefResolver(state: GameState, boundaryWeek: number): (ref:
   return (ref) => places.get(ref.domainId)?.get(ref.id)
 }
 
+// ── the freeze step (1359-A §4.2) ─────────────────────────────────────────────
+/**
+ * The tick's last step: it wraps the Power Ranking record, which wraps everything before it (1361-F ruling 9).
+ * It returns `state` itself unless the industry exists, the produced week is B, the freeze is due (1359-A §4.3:
+ * the industry and the root both record from before B) and no official manifest exists. Then it builds the facts
+ * of the tick's final state, calls the law through `freezeLegacy`, stamps the manifest from the one P15 allocator
+ * and advances it. It writes nothing else and draws no randomness; every other tick pays a few comparisons.
+ */
+export function freezeCampaignLegacyWeek(state: GameState): GameState {
+  if (state.hollywood === null || state.market.tick !== LEGACY_BOUNDARY_WEEK) return state
+  const root = state.campaignLegacy
+  if (root.official !== null) return state
+  if (state.hollywood.originWeek >= LEGACY_BOUNDARY_WEEK || root.recordedFromWeek >= LEGACY_BOUNDARY_WEEK) return state
+  const frozen = freezeLegacy(root, LEGACY_BOUNDARY_WEEK, legacyFactsFromState(state, LEGACY_BOUNDARY_WEEK))
+  if (frozen.official === null) fail('campaignLegacy.official', 'must be written by the freeze at the boundary')
+  const sequence = state.p15Sequence.next
+  const official: OfficialLegacy = {
+    ...frozen.official,
+    legacySnapshotId: `campaign-legacy-${sequence}`,
+    p15DomainSequence: sequence,
+    ...p15PhaseTriple(FINALE_PHASE),
+  }
+  return { ...state, campaignLegacy: { ...root, official }, p15Sequence: { ...state.p15Sequence, next: sequence + 1 } }
+}
+
 // ── the validator (1359-A §5.1 with 1359-F Amendment 1) ───────────────────────
 
 /**
@@ -1186,9 +1211,10 @@ export function validateCampaignLegacy(raw: Record<string, unknown>, label: stri
   if (root.endOfRun !== null) refuse('endOfRun', 'must be null in this era: the end-of-run record is Wave 5 (1359-A §6)')
 
   // 2. The marker rule (1359-A §4.3). The freeze was due exactly when the industry and the root both record
-  // from before B and the save stands at B or later. No official manifest exists unless it was due.
+  // from before B and the save stands at B or later. An official manifest exists exactly when it was due.
   const h = state.hollywood
   const due = h !== null && h.originWeek < B && from < B && tick >= B
+  if (due && root.official === null) refuse('official', 'must hold the frozen 2040 Legacy: the freeze was due')
   if (!due && root.official !== null) refuse('official', 'must be null: the 2040 freeze was not due')
   if (root.official === null || h === null) return // a manifest that was due has an industry
   const value = root.official

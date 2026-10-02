@@ -3,6 +3,7 @@ import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
 import { requireSharedMarket } from './marketIntegration.js'
 import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.js'
 import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
+import { freezeCampaignLegacyWeek } from './campaignLegacy.js'
 import { recordPowerRankingQuarter } from './powerRankingArchive.js'
 import { advancePromisesWeek, appendFirstTakes, breakPromisesOnGreenlight } from './promises.js'
 import { advanceRelationshipsWeek } from './relationships.js'
@@ -1175,8 +1176,10 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // the band reads the week's final cash and contracts. At the end of the tick the ranking record
   // runs first; P15C's freeze wraps it as the last step, and P15B's condition steps later sit
   // between the two (1355-F2 item 2; 1361-F ruling 9). No RNG.
-  return recordPowerRankingQuarter(
-    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays)))))
+  // P15C Wave 2 (1359-A §4.2): the 2040 freeze reads the week's final state, the 6240 ranking record
+  // included, and writes only `campaignLegacy` and `p15Sequence`, in the tick producing week 6240 alone.
+  return freezeCampaignLegacyWeek(recordPowerRankingQuarter(
+    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays))))))
 }
 
 /**
