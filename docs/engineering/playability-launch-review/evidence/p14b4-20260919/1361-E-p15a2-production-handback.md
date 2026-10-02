@@ -383,3 +383,40 @@ helpers. The python script only printed `save.ts` with the 40 migrator lines; it
 
 Scratch files: the tree; the patch; this record; the migrator script at
 `/private/tmp/claude-501/-Users-zacheryspector-Downloads-project-studio-p13-owner-direction-inputs-01/60db833c-4cf7-4685-b2ec-8aac42c6dac1/scratchpad/gen/migrators.py`.
+
+## r2 (1361-F3)
+
+1361-D returned PROCEED on r1, and 1361-F3 ruling 1 adopts four fixes, R1 to R4 (1361-D findings 1, 3, 4 and 7). I
+folded them into the slice 2a commit and, as for r1, ran nothing.
+
+- **The commit.** `p15a2-r2` is `5eccada21b9ec413d68cbd0bd7d9f1d2e321fcc1`, one commit on `base` that amends r1. The tag
+  `p15a2-r1` stays on `1f2495a`.
+- **The patch.** `/Users/zacheryspector/studio-scratch/1361-prod/1361-p15a2-production-r2.patch` (`git diff base
+  p15a2-r2`): 1,097 lines, 68,526 bytes, sha256 `0060f5ccc58a4c272830e175d58e643a9c2e24d60320ee74042e194d7cf6003c`. It
+  applies on `base` under a temporary index. The r1 patch is unchanged.
+- **The delta,** `git diff --numstat p15a2-r1 p15a2-r2`: `save.ts` +21 −10, `powerRankingArchive.ts` (PRA) +9 −4.
+
+| Fix | r2 lines | What changed |
+|---|---|---|
+| R1 | save.ts:10867-10870 | `P15_ROOT_KEYS = Object.keys({ p15Sequence: true, powerRanking: true } satisfies Record<keyof P15StepRoots, true>)`. A `P15StepRoots` key missing from the literal, or a key the type lacks, fails the type gate. The key order matches r1's list, so every strip and presence message keeps its order. |
+| R2 | PRA:233-239 | The phase check first finds the entry of the record's own version. A version with no table, or a table with no `p15a2.rankingRecord` entry, refuses. This restores the reference's `entry !== undefined`. |
+| R2 | PRA:257-262 | `row.rank !== law.rows[i].rank` runs beside `rowFacts`, so an in-memory `undefined` rank no longer serializes into the law's `null`. |
+| R3 | save.ts:10907-10918, :10937-10939 | The walk collects every value stored under `p15DomainSequence`, and the one check refuses, naming the root, any value that is not a whole number of at least 1. |
+| R4 | save.ts:10867-10869, :10898-10904 | The key-list comment names the helper's four keys. The sequenced-roots comment carries 1361-F3 ruling 2's instruction for P15B. |
+
+- **R3 goes one step past 1361-D's one-line form.** r1's walk pushed only numbers, so a string or an `undefined` under
+  the key never reached a check in the loop, and 1361-F3 cites the walk (:10906) too. The walk now collects the value
+  whatever its type. On a lawful state both walks collect the same numbers, the reading `tests/helpers/p15-roots.ts`
+  uses.
+- **RED effect, by reading: none.** Each root validator runs before the allocator, so R3 never pre-empts a root's own
+  message. Every archive tamper in A uses numbers (1361-D F3). R1 keeps r1's key order. No 1356 row changes status or
+  message.
+- **Types.** `satisfies` (TypeScript 4.9 and later; the tree pins ^5.6) checks the literal in both directions, and
+  `Object.keys` returns `string[]`. In R3, `typeof n !== 'number' ||` narrows `n` from `unknown` to `number` for the
+  rest of the condition and after the throw. In R2, `entry` is the table's element type or `undefined`.
+- **Not taken:** 1361-D F1's optional typing of `P15_SEQUENCED_ROOTS` as `readonly (keyof P15StepRoots)[]`. 1361-F3
+  adopted R1's literal only.
+- **A correction to this record** (1361-D F7). The silent-failure text above says a missing root drops writing
+  authority every tick. It drops it only in ticks where `retirementWritingNeedsProfessionProof` holds
+  (`src/core/retirementWriting.ts:25-53`), as 1361-D F1 states, and R1 now turns that miss into a type error.
+- **The stack.** P15A.1's (a), (b) and (c) now sit on r2 (1361-E2). In (b), R1's literal gains `sharedMarket: true`.

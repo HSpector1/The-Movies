@@ -1,0 +1,1400 @@
+diff --git a/src/core/hollywoodTick.ts b/src/core/hollywoodTick.ts
+index 1c9c523..39fde4f 100644
+--- a/src/core/hollywoodTick.ts
++++ b/src/core/hollywoodTick.ts
+@@ -335,8 +335,10 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
+   h.concepts=[...h.concepts,concept]
+ }
+ 
+-/** Stage rival work against pre-development talent. All writes are to new local objects. */
+-export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
++/** Stage rival work against pre-development talent. All writes are to new local objects.
++ * P15A.1 Wave 2 (1355-A §3.2): `factorById` carries the frozen shared-market factor of each rival
++ * release; absent, every rival release takes today's path. */
++export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<string,number>):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
+   /** P14B.1 (1): this week's rival first takes (the 5 -> 4 advance), handed to
+    * the outer tick so the ONE first-take root is appended in one place. */
+   firstTakes:{studioId:string;production:Production}[];
+@@ -385,7 +387,9 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
+     for(const p of releasing) {
+       const project=hotDevelopment(b).projects.find(s=>s.productionId===p.id)!
+       const inp=inputsFor(state,h,{...b,standing:startStanding},p,project,people)
+-      const result=resolveReception(inp,stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
++      // P15A.1 Wave 2 (1355-A §3.2): the rival release site of the seam.
++      const factor=factorById?.get(p.id)
++      const result=resolveReception(factor===undefined?inp:{...inp,competitionFactor:factor},stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
+       const base=buildFilmResult(result,{productionId:p.id,releaseTick:week,conceptId:p.conceptId,directorId:p.directorId})
+       const filmResult={...base,participants:p.participants!,forecast:{expectedCriticScore:p.forecastSnapshot.expectedCriticScore,expectedTotal:p.forecastSnapshot.expectedTotal,expectedOpening:p.forecastSnapshot.expectedOpening}}
+       const cost=b.projects[Number(project.id.slice(7))]!
+diff --git a/src/core/index.ts b/src/core/index.ts
+index 561c200..b35642a 100644
+--- a/src/core/index.ts
++++ b/src/core/index.ts
+@@ -1376,6 +1376,11 @@ export {
+   convertV43ToV44,
+   convertV44ToV43,
+   migrateToV44,
++  // The shared P15 step, Save45 (1361-F ruling 8): slice 2a's Power Ranking archive and P15 allocator.
++  validateSaveV45,
++  convertV44ToV45,
++  convertV45ToV44,
++  migrateToV45,
+   convertV27ToV28,
+   convertV28ToV27,
+   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
+@@ -1429,6 +1434,7 @@ export type {
+   SaveFileV42,
+   SaveFileV43,
+   SaveFileV44,
++  SaveFileV45,
+   LiveSaveFile,
+   SaveFile,
+   TalentV1,
+@@ -1712,7 +1718,7 @@ export type { AdoptionQuote, AdoptionRequest } from './technologyAdoption.js'
+ export { productionTechnologyView } from './technologyProduction.js'
+ export type { StudioTechnology, StudioTechnologyV2, StudioTechnologyV3, TechnologyAction, ResearchProject, ResearchWeekReceipt, ResearchLabContribution, TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, ProductionTechnology } from './technologyTypes.js'
+ 
+-export type { GameStateV40, GameStateV41, GameStateV42, GameStateV43, GameStateV44, ProfessionalPromiseV40, OpportunitySeatClass, OpportunityPredicate, GenreOpportunityPredicate, ProjectOpportunityPredicate, FirstTakeSubject, FirstTakeSubjects,
++export type { GameStateV40, GameStateV41, GameStateV42, GameStateV43, GameStateV44, GameStateV45, ProfessionalPromiseV40, OpportunitySeatClass, OpportunityPredicate, GenreOpportunityPredicate, ProjectOpportunityPredicate, FirstTakeSubject, FirstTakeSubjects,
+   GameStateV38, GameStateV39, ProfessionalPromiseV39, DirectorCountPredicate, CareerLifecycleRootV38, TransitionTarget, TransitionRoleTier, TransitionPotentialTier,
+   RetirementKey, ProfessionAnchor, TransitionPictureRef, TransitionContextWitness, TransitionTargetInput,
+   TransitionInputs, TransitionEvaluation, ProfessionChange, IndustryRetirement, TransitionDue } from './types.js'
+diff --git a/src/core/marketIntegration.ts b/src/core/marketIntegration.ts
+new file mode 100644
+index 0000000..70fc916
+--- /dev/null
++++ b/src/core/marketIntegration.ts
+@@ -0,0 +1,175 @@
++// ── P15A.1 Wave 2: the shared market in the live release pipeline ─────────────
++// Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/): 1355-A §3 as
++// adopted by 1355-F, 1355-F2, 1355-F3 and 1355-F5; 1361-F rulings 3 to 6. The law is Wave 1's
++// `sharedMarket.ts` (`p15a1-market-v1`), always called through its module export.
++//
++// The root `sharedMarket` holds each assessment the law returned, plus the row's P15 domain
++// sequence and phase triple, in (week, releaseId) order. Active exposures derive from it and are
++// never stored. Its validator refuses by name. The one allocator check across every P15 root runs
++// once in save.ts (1361-F ruling 5), so no copy of it lives here.
++
++import { P15_PHASE_TABLES } from './p15Phases.js'
++import { assessBatch, SHARED_MARKET_DEFINITION } from './sharedMarket.js'
++import { GENRE_ORDER, TUNING } from './tuning.js'
++import type { HollywoodState } from './hollywoodTypes.js'
++import type { GameState, Genre, PersistedMarketAssessment, SharedMarketRoot } from './types.js'
++
++export const MARKET_PHASE_ID = 'p15a1.marketBatch'
++
++/** The empty root a fresh world, a migration and a historical lift write: nothing assessed,
++ * recording from `week`. No earlier release becomes an exposure (P15:677; annex:558). */
++export const initialSharedMarket = (week: number): SharedMarketRoot => ({ version: 1, recordedFromWeek: week, assessments: [] })
++
++/** The root a live tick reads. A state without it fails here by name, never with a default. */
++export function requireSharedMarket(state: GameState): SharedMarketRoot {
++  const root = (state as Partial<GameState>).sharedMarket
++  if (root === undefined) throw new Error('shared market: the state has no sharedMarket root; migrate it to Save45 before ticking it')
++  return root
++}
++
++// ── the save validator (1355-A §3.4; 1355-F3 RED 14; 1355-F5 ruling 1) ─────────────
++const ROOT_KEYS = ['assessments', 'recordedFromWeek', 'version']
++const ROW_KEYS = ['definitionVersion', 'factor', 'genre', 'inputDigest', 'p15DomainSequence', 'phaseId', 'phaseOrderVersion',
++  'phaseOrdinal', 'pressure', 'reasons', 'releaseId', 'stockTerm', 'studioId', 'week', 'windowTerm']
++const REASON_KEYS = ['code', 'sourceReleaseIds', 'value']
++/** The era map (1355-A §3.4 item 5): each definition version to its law; v1 is the live TUNING. A
++ * retune adds a definition and its law here, so old rows keep reconciling under their own. */
++const LAWS: Readonly<Record<string, typeof assessBatch>> = { [SHARED_MARKET_DEFINITION]: assessBatch }
++const LAW_FIELDS = ['pressure', 'factor', 'windowTerm', 'stockTerm', 'inputDigest'] as const
++
++const isRecord = (value: unknown): value is Record<string, unknown> =>
++  value !== null && typeof value === 'object' && !Array.isArray(value)
++const sameKeys = (value: Record<string, unknown>, keys: readonly string[]): boolean => {
++  const own = Object.keys(value).sort()
++  return own.length === keys.length && own.every((key, i) => key === keys[i])
++}
++const isWeek = (value: unknown): value is number => Number.isSafeInteger(value) && (value as number) >= 0
++
++/**
++ * Validates `sharedMarket` against the whole state, refusing by name. The step runs it after the
++ * frozen V44 chain has proved the rest of the state, so `market`, `hollywood`, `concepts` and
++ * `studio` are well formed here. Checks: exact keys and version; `recordedFromWeek` in
++ * [0, market.tick]; each row's exact keys and fields, known definition and the phase triple of its
++ * own `phaseOrderVersion`; `recordedFromWeek <= week < market.tick`; strict (week, releaseId) and
++ * p15DomainSequence ascent; no row without an industry; the film bijection; the law reconciled.
++ */
++export function validateSharedMarketRoot(raw: Record<string, unknown>, label: string): void {
++  const fail = (message: string): never => { throw new Error(`${label}: sharedMarket ${message}`) }
++  const root = raw.sharedMarket
++  if (!isRecord(root)) return fail('root must be an object')
++  if (!sameKeys(root, ROOT_KEYS)) fail(`root must have exactly the keys ${ROOT_KEYS.join(', ')}`)
++  if (root.version !== 1) fail(`version ${String(root.version)} is unknown`)
++  const state = raw as unknown as GameState
++  const tick = state.market.tick
++  const recordedFromWeek = root.recordedFromWeek
++  if (!isWeek(recordedFromWeek) || recordedFromWeek > tick) return fail(`recordedFromWeek ${String(recordedFromWeek)} is not a week in [0, ${tick}]`)
++  const values: unknown = root.assessments
++  if (!Array.isArray(values)) return fail('assessments must be an array')
++  if (state.hollywood === null && values.length > 0) fail('holds assessments in a world with no industry')
++
++  const rows: PersistedMarketAssessment[] = []
++  const seen = new Set<string>()
++  for (const [i, value] of (values as unknown[]).entries()) {
++    if (!isRecord(value)) return fail(`assessment ${i} is not an object`)
++    if (!sameKeys(value, ROW_KEYS)) {
++      const keys = Object.keys(value)
++      const unexpected = keys.filter((key) => !ROW_KEYS.includes(key))
++      const missing = ROW_KEYS.filter((key) => !keys.includes(key))
++      fail(`assessment ${i} must have exactly the persisted keys (unexpected key: ${unexpected.join(', ') || 'none'}; missing: ${missing.join(', ') || 'none'})`)
++    }
++    const row = value as unknown as PersistedMarketAssessment
++    if (typeof row.releaseId !== 'string' || typeof row.studioId !== 'string' || !(GENRE_ORDER as readonly unknown[]).includes(row.genre) ||
++      !isWeek(row.week) || typeof row.definitionVersion !== 'string' || typeof row.inputDigest !== 'string' ||
++      ![row.pressure, row.factor, row.windowTerm, row.stockTerm].every((n) => Number.isFinite(n)) ||
++      !Number.isSafeInteger(row.p15DomainSequence) || typeof row.phaseId !== 'string' ||
++      !Number.isSafeInteger(row.phaseOrdinal) || !Number.isSafeInteger(row.phaseOrderVersion) || !Array.isArray(row.reasons)) {
++      fail(`assessment ${i} has a malformed field`)
++    }
++    for (const reason of row.reasons as unknown[]) {
++      if (!isRecord(reason) || !sameKeys(reason, REASON_KEYS) || typeof reason.code !== 'string' || typeof reason.value !== 'number' ||
++        !Array.isArray(reason.sourceReleaseIds) || !reason.sourceReleaseIds.every((id: unknown) => typeof id === 'string')) {
++        fail(`assessment ${row.releaseId} has a malformed reason`)
++      }
++    }
++    if (!Object.hasOwn(LAWS, row.definitionVersion)) fail(`assessment ${row.releaseId} definitionVersion ${row.definitionVersion} is unknown`)
++    // 1355-F5 ruling 1: the entry of the row's own version, read through the module's exported binding.
++    const entry = P15_PHASE_TABLES[row.phaseOrderVersion]?.find((candidate) => candidate.phaseId === MARKET_PHASE_ID)
++    if (row.phaseId !== MARKET_PHASE_ID || entry === undefined || entry.phaseOrdinal !== row.phaseOrdinal) {
++      fail(`assessment ${row.releaseId} phase triple (${row.phaseId}, ${row.phaseOrdinal}, ${row.phaseOrderVersion}) does not match its phaseOrderVersion's table entry`)
++    }
++    if (row.week < recordedFromWeek) fail(`assessment ${row.releaseId} week ${row.week} is before recordedFromWeek ${recordedFromWeek}`)
++    if (row.week >= tick) fail(`assessment ${row.releaseId} week ${row.week} is not before market.tick ${tick}`)
++    if (seen.has(row.releaseId)) fail(`holds a duplicate assessment of ${row.releaseId}`)
++    seen.add(row.releaseId)
++    const previous: PersistedMarketAssessment | undefined = rows[rows.length - 1]
++    if (previous !== undefined && (previous.week > row.week || (previous.week === row.week && previous.releaseId >= row.releaseId))) {
++      fail(`assessments are out of (week, releaseId) order at ${row.releaseId}`)
++    }
++    if (row.p15DomainSequence < 1) fail(`assessment ${row.releaseId} p15DomainSequence ${row.p15DomainSequence} is below 1`)
++    if (previous !== undefined && row.p15DomainSequence <= previous.p15DomainSequence) {
++      fail(`assessment ${row.releaseId} p15DomainSequence ${row.p15DomainSequence} does not ascend`)
++    }
++    rows.push(row)
++  }
++  if (state.hollywood !== null) validateFilmBijection(state, state.hollywood, rows, recordedFromWeek, fail)
++  reconcileLaw(rows, fail)
++}
++
++/** 1355-A §3.4 item 3: from max(recordedFromWeek, originWeek), every simulated release has exactly
++ * one assessment with its id, week, studio and genre, and every assessment has its film. */
++function validateFilmBijection(state: GameState, hollywood: HollywoodState, rows: readonly PersistedMarketAssessment[],
++  recordedFromWeek: number, fail: (message: string) => never): void {
++  const from = Math.max(recordedFromWeek, hollywood.originWeek)
++  const genres = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
++  const films = new Map<string, { week: number; studioId: string; genre: Genre | undefined }>()
++  for (const film of state.studio.releasedFilms) {
++    if (film.releaseTick >= from) films.set(film.productionId, { week: film.releaseTick, studioId: hollywood.playerStudioId, genre: genres.get(film.conceptId) })
++  }
++  for (const film of hollywood.films) {
++    if (film.provenance === 'simulation/v1' && film.result.releaseTick >= from) {
++      films.set(film.filmId, { week: film.result.releaseTick, studioId: film.studioId, genre: film.genre })
++    }
++  }
++  for (const row of rows) {
++    const film = films.get(row.releaseId)
++    if (film === undefined) fail(`assessment ${row.releaseId} has no film released from week ${from}`)
++    else if (film.week !== row.week || film.studioId !== row.studioId || film.genre !== row.genre) {
++      fail(`assessment ${row.releaseId} disagrees with its film's week, studio or genre`)
++    }
++  }
++  if (films.size === rows.length) return
++  const assessed = new Set(rows.map((row) => row.releaseId))
++  for (const [id, film] of films) if (!assessed.has(id)) fail(`film ${id} released at week ${film.week} has no assessment`)
++}
++
++/** 1355-A §3.4 item 4: week by week, rebuild the exposures and members from the stored rows alone
++ * and re-run the law of the week's definition; every law field and every reason must be exactly
++ * equal (the law is order-free, sharedMarket.ts:16-19). One pass, O(sum of active + members). */
++function reconcileLaw(rows: readonly PersistedMarketAssessment[], fail: (message: string) => never): void {
++  let windowStart = 0
++  for (let start = 0; start < rows.length;) {
++    const week = rows[start]!.week
++    let end = start
++    while (end < rows.length && rows[end]!.week === week) end++
++    while (rows[windowStart]!.week <= week - TUNING.SHARED_MARKET_RETIRE_AFTER_WEEKS) windowStart++
++    const exposures = rows.slice(windowStart, start)
++      .map((row) => ({ releaseId: row.releaseId, studioId: row.studioId, genre: row.genre, releaseWeek: row.week }))
++    const members = rows.slice(start, end)
++    const law = LAWS[members[0]!.definitionVersion]!
++    const expected = law(exposures, { week, members: members.map((row) => ({ releaseId: row.releaseId, studioId: row.studioId, genre: row.genre })) })
++    members.forEach((row, k) => {
++      const lawRow = expected[k]!
++      for (const field of LAW_FIELDS) {
++        if (row[field] !== lawRow[field]) fail(`assessment ${row.releaseId} ${field} does not reconcile with ${row.definitionVersion}`)
++      }
++      const reasonsMatch = row.reasons.length === lawRow.reasons.length && row.reasons.every((reason, r) => {
++        const other = lawRow.reasons[r]!
++        return reason.code === other.code && reason.value === other.value &&
++          reason.sourceReleaseIds.length === other.sourceReleaseIds.length &&
++          reason.sourceReleaseIds.every((id, s) => id === other.sourceReleaseIds[s])
++      })
++      if (!reasonsMatch) fail(`assessment ${row.releaseId} reasons do not reconcile with ${row.definitionVersion}`)
++    })
++    start = end
++  }
++}
+diff --git a/src/core/p15Phases.ts b/src/core/p15Phases.ts
+new file mode 100644
+index 0000000..700c236
+--- /dev/null
++++ b/src/core/p15Phases.ts
+@@ -0,0 +1,35 @@
++// ── P15 domain-local phase identity and the one P15 allocator (1355-F2 items 1-3) ──
++// Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/): 1355-F2 items 1-3,
++// 1355-F5 ruling 1 and 1361-F ruling 6. This is 1355 r3's form of the module.
++//
++// One documented table per phase-order version. A P15 native row stores the triple it
++// was written under and keeps it; a later catalogue maps versions and never rewrites rows.
++
++export const P15_PHASE_ORDER_VERSION = 1 as const
++
++/** Ordinals ascend in the table's order (1355-F2 item 3). */
++export const P15_PHASE_TABLES: Readonly<Record<number, readonly { readonly phaseId: string; readonly phaseOrdinal: number }[]>> = {
++  1: [
++    { phaseId: 'p15a1.marketBatch', phaseOrdinal: 1 },
++    { phaseId: 'p15a2.rankingRecord', phaseOrdinal: 2 },
++    { phaseId: 'p15b.condition', phaseOrdinal: 3 },
++    { phaseId: 'p15c.finale', phaseOrdinal: 4 },
++  ],
++}
++
++export type P15PhaseTriple = { phaseId: string; phaseOrdinal: number; phaseOrderVersion: number }
++
++/** The triple a new row of `phaseId` is written under (the current version). */
++export function p15PhaseTriple(phaseId: string): P15PhaseTriple {
++  const entry = P15_PHASE_TABLES[P15_PHASE_ORDER_VERSION]!.find(row => row.phaseId === phaseId)
++  if (entry === undefined) throw new Error(`p15Phases: unknown phase ${phaseId}`)
++  return { phaseId, phaseOrdinal: entry.phaseOrdinal, phaseOrderVersion: P15_PHASE_ORDER_VERSION }
++}
++
++// 1355-F5 ruling 1: validators read a row's entry as `P15_PHASE_TABLES[row.phaseOrderVersion]`
++// through this module's exported binding. No helper here closes over the table for validation, so
++// an added version reaches every validator.
++
++/** The one persisted P15 allocator (1355-F2 item 1). Starts at 1; `next++` at append. */
++export type P15Sequence = { version: 1; next: number }
++export const initialP15Sequence = (): P15Sequence => ({ version: 1, next: 1 })
+diff --git a/src/core/powerRankingArchive.ts b/src/core/powerRankingArchive.ts
+new file mode 100644
+index 0000000..62e1d65
+--- /dev/null
++++ b/src/core/powerRankingArchive.ts
+@@ -0,0 +1,264 @@
++// ── P15A.2 Wave 2 slice 2a: the quarterly Power Ranking archive ─────────────────
++// Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/): 1356-A §3-§5 as
++// adopted in 1356-F (Amendment 2; Amendment 1 as replaced by 1355-F2 item 5), 1355-F2 items 1-6,
++// 1355-F5 ruling 1, 1351-F (authored films count in no lane), and 1361-F rulings 5, 6 and 9.
++// One module holds the adapter, the shared weekly fixed cost, the tick step and the validator.
++// No RNG. Cash and fixed cost leave src/core only as the band; no error here echoes a finance value.
++
++import {
++  computePowerRanking,
++  isPowerRankingWeek,
++  POWER_RANKING_DEFINITION,
++  type FinancialStrengthBand,
++  type PowerRankingRow,
++  type RankingFilm,
++  type RankingInput,
++  type RankingStudio,
++} from './powerRanking.js'
++import { rivalWeeklyOperatingCost } from './hollywood.js'
++import { weeklyPayroll } from './employment.js'
++import { weeklyFacilityOperatingCost, weeklyOverhead } from './economyView.js'
++import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
++import type { HollywoodState } from './hollywoodTypes.js'
++import type { GameState, PowerRankingRecord, PowerRankingRecordRow } from './types.js'
++
++const RANKING_PHASE = 'p15a2.rankingRecord'
++const BANDS: readonly FinancialStrengthBand[] = ['inTheRed', 'strained', 'stable', 'thriving']
++const ROOT_KEYS = ['recordedFromWeek', 'snapshots', 'version'] as const
++const RECORD_KEYS = ['available', 'definitionVersion', 'id', 'p15DomainSequence', 'phaseId', 'phaseOrderVersion',
++  'phaseOrdinal', 'rows', 'week', 'windowStartWeek'] as const
++const ROW_KEYS = ['band', 'countedFilmIds', 'filmsTenths', 'rank', 'ranked', 'releases', 'releasesTenths', 'studioId'] as const
++
++function industryOf(state: GameState): HollywoodState {
++  if (state.hollywood === null) throw new Error('power ranking archive: no industry to rank')
++  return state.hollywood
++}
++
++function rivalOf(h: HollywoodState, studioId: string) {
++  const business = h.businesses.find((b) => b.studioId === studioId)
++  if (business === undefined) throw new Error(`power ranking archive: studio ${studioId} has no business`)
++  return business
++}
++
++/**
++ * The one weekly fixed cost (1352-A §2, 1352-F amendment 4; P15B imports it): the charge the next
++ * advance makes, discretionary research excluded. Player: 0 while founding, else payroll + overhead
++ * + facility opex (= weeklyBurn − weeklyResearchSpend). Rival: rivalWeeklyOperatingCost at the
++ * current week.
++ */
++export function studioWeeklyFixedCost(state: GameState, studioId: string): number {
++  const h = industryOf(state)
++  if (studioId === h.playerStudioId) {
++    return state.founding !== null ? 0 : weeklyPayroll(state) + weeklyOverhead(state) + weeklyFacilityOperatingCost(state)
++  }
++  return rivalWeeklyOperatingCost(rivalOf(h, studioId), h, state.market.tick)
++}
++
++function cashOf(state: GameState, h: HollywoodState, studioId: string): number {
++  return studioId === h.playerStudioId ? state.studio.cash : rivalOf(h, studioId).account.cash
++}
++
++/** The law's input at `week` from persisted facts; `finance` false reads cash and cost as 0. */
++function rankingInputAt(state: GameState, week: number, finance: boolean): RankingInput {
++  const h = industryOf(state)
++  const studios: RankingStudio[] = []
++  for (const identity of h.identities) {
++    if (identity.enteredWeek === null || identity.enteredWeek > week) continue
++    studios.push({
++      studioId: identity.studioId,
++      enteredWeek: identity.enteredWeek,
++      cash: finance ? cashOf(state, h, identity.studioId) : 0,
++      weeklyFixedCost: finance ? studioWeeklyFixedCost(state, identity.studioId) : 0,
++    })
++  }
++  const runs = new Map(state.theatricalRuns.map((run) => [run.productionId, run]))
++  const films: RankingFilm[] = []
++  for (const film of state.studio.releasedFilms) {
++    // A pre-origin player film (migration-origin saves only) is not passed (1356-A §3).
++    if (film.releaseTick < h.originWeek) continue
++    const run = runs.get(film.productionId)
++    films.push({
++      filmId: film.productionId,
++      studioId: h.playerStudioId,
++      releaseTick: film.releaseTick,
++      // The last payment week, releaseTick + totalWeeks − 1, is before `week`: arithmetic, never
++      // `status`, so the validator reaches the step's answer years later (1356-F2 item 1).
++      runEndedByWeek: run === undefined || run.status === 'legacyCompleted' || run.releaseTick + run.totalWeeks <= week,
++      criticScore: film.criticScore,
++      totalGross: film.boxOffice.total,
++      authoredPreCampaign: false,
++    })
++  }
++  for (const film of h.films) {
++    if (film.provenance === 'authored-start/v1') {
++      films.push({
++        filmId: film.filmId,
++        studioId: film.studioId,
++        // The Bridge chronology tick (bridge/industry.ts:232).
++        releaseTick: (film.released.year - 1920) * 52,
++        runEndedByWeek: true,
++        criticScore: film.criticScore,
++        totalGross: film.totalGross,
++        authoredPreCampaign: true,
++      })
++      continue
++    }
++    if (film.result.releaseTick < h.originWeek) continue
++    films.push({
++      filmId: film.filmId,
++      studioId: film.studioId,
++      releaseTick: film.result.releaseTick,
++      runEndedByWeek: film.settledWeek !== null && film.settledWeek < week,
++      criticScore: film.result.criticScore,
++      totalGross: film.result.boxOffice.total,
++      authoredPreCampaign: false,
++    })
++  }
++  return { week, originWeek: h.originWeek, baseMarketValue: state.market.baseMarketValue, studios, films }
++}
++
++/** The law's input at W = state.market.tick (1356-A §3). No player flag, no RNG. */
++export function powerRankingInput(state: GameState): RankingInput {
++  return rankingInputAt(state, state.market.tick, true)
++}
++
++function recordRow(row: PowerRankingRow): PowerRankingRecordRow {
++  return {
++    studioId: row.studioId,
++    ranked: row.ranked,
++    rank: row.rank,
++    filmsTenths: row.filmsTenths,
++    releases: row.releases,
++    releasesTenths: row.releasesTenths,
++    countedFilmIds: [...row.countedFilmIds],
++    band: row.band,
++  }
++}
++
++/**
++ * The tick step (1356-A §4). tick() wraps its last expression with it, so the band reads the week's
++ * final cash and contracts; P15C's freeze later wraps this step (1361-F ruling 9). With an industry
++ * and a quarter week it appends one record, allocated from `p15Sequence.next`, and writes nothing
++ * else; otherwise it returns the state unchanged.
++ *
++ * Invariant (1356-F Amendment 2): `originWeek` and a migration's `recordedFromWeek` are stamped at
++ * the current week before any further tick runs, so the first week this step can produce is
++ * strictly above both. The validator's interval (max(recordedFromWeek, originWeek), market.tick]
++ * is open at its lower end for exactly that reason.
++ */
++export function recordPowerRankingQuarter(state: GameState): GameState {
++  const week = state.market.tick
++  if (state.hollywood === null || !isPowerRankingWeek(week)) return state
++  const snapshot = computePowerRanking(powerRankingInput(state))
++  const n = state.p15Sequence.next
++  const record: PowerRankingRecord = {
++    id: `power-ranking-${n}`,
++    p15DomainSequence: n,
++    ...p15PhaseTriple(RANKING_PHASE),
++    week,
++    definitionVersion: snapshot.definitionVersion,
++    available: snapshot.available,
++    windowStartWeek: snapshot.windowStartWeek,
++    rows: snapshot.rows.map(recordRow),
++  }
++  return {
++    ...state,
++    powerRanking: { ...state.powerRanking, snapshots: [...state.powerRanking.snapshots, record] },
++    p15Sequence: { ...state.p15Sequence, next: n + 1 },
++  }
++}
++
++function refuse(reason: string): never {
++  throw new Error(`validatePowerRankingArchive: Power Ranking archive ${reason}`)
++}
++
++function isObject(value: unknown): value is Record<string, unknown> {
++  return value !== null && typeof value === 'object' && !Array.isArray(value)
++}
++
++function hasExactKeys(value: Record<string, unknown>, keys: readonly string[]): boolean {
++  const own = Object.keys(value).sort()
++  return own.length === keys.length && own.every((key, i) => key === keys[i])
++}
++
++const rowFacts = (row: Pick<PowerRankingRecordRow, 'studioId' | 'ranked' | 'rank' | 'filmsTenths' | 'releases' | 'releasesTenths' | 'countedFilmIds'>): string =>
++  JSON.stringify([row.studioId, row.ranked, row.rank, row.filmsTenths, row.releases, row.releasesTenths, row.countedFilmIds])
++
++/**
++ * The root's own validator, run by validateSaveV45 after the frozen chain (1356-A §5 items 1-5):
++ * keys, version and range; cadence; definition; each record's own sequence, id and phase triple;
++ * cohort; the recompute by era. The allocator across every P15 root is save.ts's
++ * `validateP15Allocator`, which the step runs once (1361-F ruling 5). Refuses by name; never repairs.
++ */
++export function validatePowerRankingArchive(raw: Record<string, unknown>): void {
++  const archive = raw.powerRanking
++  if (!isObject(archive) || !hasExactKeys(archive, ROOT_KEYS)) refuse('root must be exactly {version, recordedFromWeek, snapshots}')
++  if (archive.version !== 1) refuse('version must be 1')
++  const tick = (raw.market as { tick: number }).tick
++  const recordedFromWeek = archive.recordedFromWeek
++  if (typeof recordedFromWeek !== 'number' || !Number.isSafeInteger(recordedFromWeek) || recordedFromWeek < 0 || recordedFromWeek > tick) {
++    refuse('recordedFromWeek must be a whole week in [0, market.tick]')
++  }
++  if (!Array.isArray(archive.snapshots)) refuse('snapshots must be an array')
++  const records = archive.snapshots as unknown[]
++
++  // The frozen chain has proved every root outside the P15 roots, so the state reads as GameState.
++  const state = raw as unknown as GameState
++  const h = state.hollywood
++  if (h === null) {
++    if (records.length > 0) refuse('holds a record without an industry')
++    return
++  }
++  // Cadence: exactly the quarters in (max(recordedFromWeek, originWeek), market.tick], ascending.
++  const expected: number[] = []
++  for (let week = Math.max(recordedFromWeek, h.originWeek) + 1; week <= tick; week++) {
++    if (isPowerRankingWeek(week)) expected.push(week)
++  }
++  if (records.length !== expected.length) {
++    refuse(`cadence: ${records.length} records where the quarters in (max(recordedFromWeek, originWeek), market.tick] number ${expected.length}`)
++  }
++
++  let previous = 0
++  for (const [index, value] of records.entries()) {
++    if (!isObject(value) || !hasExactKeys(value, RECORD_KEYS)) refuse(`record ${index} has the wrong keys`)
++    const record = value as unknown as PowerRankingRecord
++    if (record.week !== expected[index]) refuse(`cadence: record ${index} is not the quarter ${expected[index]}`)
++    if (record.definitionVersion !== POWER_RANKING_DEFINITION) refuse(`record ${record.week} names an unknown definition`)
++    // This root's own rule (1355-F2 item 4): whole sequences that ascend with weeks, and the id
++    // that cites them (annex D.7). Distinct across roots and below `next` is the allocator's rule.
++    const n = record.p15DomainSequence
++    if (typeof n !== 'number' || !Number.isSafeInteger(n) || n < 1) refuse(`record ${record.week} has no whole p15DomainSequence`)
++    if (n <= previous) refuse(`record ${record.week} p15DomainSequence does not ascend with weeks`)
++    if (record.id !== `power-ranking-${n}`) refuse(`record ${record.week} id is not power-ranking-<p15DomainSequence>`)
++    // 1355-F5 ruling 1: the record's own version's entry, read through the exported table. A version
++    // with no table, or a table with no entry for this phase, refuses (1361-F3 R2).
++    const entry = Number.isSafeInteger(record.phaseOrderVersion)
++      ? P15_PHASE_TABLES[record.phaseOrderVersion]?.find((candidate) => candidate.phaseId === RANKING_PHASE) : undefined
++    if (record.phaseId !== RANKING_PHASE || entry === undefined || entry.phaseOrdinal !== record.phaseOrdinal) {
++      refuse(`record ${record.week} phase triple does not match its phase-order version`)
++    }
++    previous = n
++
++    if (!Array.isArray(record.rows)) refuse(`record ${record.week} rows must be an array`)
++    for (const row of record.rows as unknown[]) {
++      if (!isObject(row) || !hasExactKeys(row, ROW_KEYS)) refuse(`record ${record.week} has a row with the wrong keys`)
++      if (!BANDS.includes(row.band as FinancialStrengthBand)) refuse(`record ${record.week} has an unknown band`)
++    }
++    const cohort = h.identities.filter((s) => s.enteredWeek !== null && s.enteredWeek <= record.week).map((s) => s.studioId).sort()
++    const rowIds = record.rows.map((row) => row.studioId).sort()
++    if (JSON.stringify(rowIds) !== JSON.stringify(cohort)) refuse(`cohort: record ${record.week} rows are not exactly the studios entered by its week`)
++
++    // Recompute by era: v1 is computePowerRanking with today's pinned TUNING. Cash and cost read 0,
++    // because cash at W is not recoverable, so every field but the band must match, row order included.
++    const law = computePowerRanking(rankingInputAt(state, record.week, false))
++    if (record.available !== law.available || record.windowStartWeek !== law.windowStartWeek) {
++      refuse(`record ${record.week} availability or window differs from the recomputed law`)
++    }
++    // `rank` is compared directly as well: rowFacts serializes, and JSON writes an in-memory
++    // `undefined` as the law's `null` (1361-F3 R2).
++    if (record.rows.length !== law.rows.length ||
++      record.rows.some((row, i) => row.rank !== law.rows[i]!.rank || rowFacts(row) !== rowFacts(law.rows[i]!))) {
++      refuse(`record ${record.week} rows differ from the recomputed law`)
++    }
++  }
++}
+diff --git a/src/core/promises.ts b/src/core/promises.ts
+index 049ffbb..ffffa62 100644
+--- a/src/core/promises.ts
++++ b/src/core/promises.ts
+@@ -38,7 +38,7 @@ import { isOpportunityPredicate, opportunitySlots, opportunityPredicateRefusal,
+   opportunityProductionMatches, opportunityReservations, opportunityFeasibilityInputs, opportunityAssessment,
+   opportunityPhysicalImpossibility, OPPORTUNITY_PROMISE_RULES_VERSION } from './opportunityPromises.js'
+ import type {
+-  CastRoleCountPredicate, DirectorCountPredicate, OpportunityPredicate, Genre, CastSlot, FirstTakeReceipt, GameState, GameStateV30, ProfessionalPromise, ProfessionalPromiseV30, Production,
++  CastRoleCountPredicate, DirectorCountPredicate, OpportunityPredicate, Genre, CastSlot, FirstTakeReceipt, GameState, GameStateV30, GameStateV40, ProfessionalPromise, ProfessionalPromiseV30, Production,
+   PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt, TalentMarketStateV36,
+ } from './types.js'
+ 
+@@ -1225,8 +1225,9 @@ function identicalSubstitute(promise: ProfessionalPromise, substitute: PromiseAt
+     && substitute.dueWeekExclusive === promise.dueWeekExclusive
+ }
+ 
+-/** Restriction inclusion is independent of class inclusion and remaining count. */
+-function opportunitySubstitutionRefusal(state: GameState, promise: ProfessionalPromise, substitute: PromiseAttachment): string | null {
++/** Restriction inclusion is independent of class inclusion and remaining count. It reads only the
++ * Save40 era's state, so the frozen V40/V41 proof can ask it as well as the live writer. */
++function opportunitySubstitutionRefusal(state: GameStateV40, promise: ProfessionalPromise, substitute: PromiseAttachment): string | null {
+   if (!isOpportunityPredicate(promise.predicate)) return null
+   if (!isOpportunityPredicate(substitute.predicate)) return 'a substitute cannot erase the promised genre or project restriction'
+   if (promise.predicate.kind === 'projectOpportunity') {
+@@ -1909,8 +1910,9 @@ export function validateDirectorWaiverLinks(promises: readonly ProfessionalPromi
+   }
+ }
+ 
+-/** Called only after complete40 admission, with full material and employment authority. */
+-export function validateOpportunityWaiverLinks(state: GameState): void {
++/** Called only after complete40 admission, with full material and employment authority. Typed by
++ * the era it proves: save.ts hands it the V40/V41 state, which carries no later root. */
++export function validateOpportunityWaiverLinks(state: GameStateV40): void {
+   const indices = new Map(state.promises.map((row, i) => [row.promiseId, i] as const))
+   const incoming = new Set<string>()
+   const fail = (id: string, reason: string): never => { throw new Error(`validateSaveV40: opportunity waiver ${id} ${reason}`) }
+diff --git a/src/core/reception.ts b/src/core/reception.ts
+index 068847b..abbd581 100644
+--- a/src/core/reception.ts
++++ b/src/core/reception.ts
+@@ -100,6 +100,10 @@ export type ReceptionInputs = {
+   // figure, so C6 inherits a measured lever rather than a confound.
+   setUplift?: number
+   setNovelty?: number | null
++  // P15A.1 Wave 2 (1355-A §3.2): the shared-market factor the week's batch froze for THIS
++  // release. Only the two release sites set it, the player's step 3 and the rival release;
++  // greenlight, chooser, forecast and package inputs never carry it. Absent is exactly 1.
++  competitionFactor?: number
+ }
+ 
+ // The rich breakdown §5.6 requires: every intermediate exposed alongside the
+@@ -592,7 +596,7 @@ export function efficientMarketingCapacity(preMarketingAwareness: number, engage
+ 
+ // ── §5.5 Box office ──────────────────────────────────────────────────────────
+ // Factored to accept the per-segment appeal scores so §7 can reuse it against
+-// noisy estimates (B16). competitionFactor ≡ 1.0 (N11). Pure; no sampling.
++// noisy estimates (B16). competitionFactor defaults to 1 (N11; P15A.1 Wave 2). Pure; no sampling.
+ export function computeBoxOffice(
+   segmentAppeal: Record<SegmentId, number>,
+   segments: Segment[],
+@@ -626,6 +630,12 @@ export function computeBoxOffice(
+   // DEFAULTS TO EXACTLY 1 — a bit-exact IEEE no-op — so every forecast, every
+   // legacy release and every unbound picture is byte-identical.
+   setNoveltyFactor = 1,
++  // P15A.1 Wave 2 (1355-A §3.2): the shared-market factor, which replaces the constant 1.0 of
++  // N11 and scales the opening where the set novelty factor does, so the total follows and legs
++  // hold. It defaults to exactly 1, an IEEE no-op, so every forecast and every caller that
++  // passes no factor is byte-identical. A factor outside [1 - SHARED_MARKET_FACTOR_MAX_PENALTY, 1]
++  // throws, so a forged factor never moves a gross.
++  competitionFactor = 1,
+ ): {
+   marketingQuality: number
+   preMarketingAwareness: number
+@@ -675,7 +685,10 @@ export function computeBoxOffice(
+   )
+ 
+   const openingReachMult = 1 + shapeEffects.openingReachMod / 100
+-  const competitionFactor = 1.0
++  const competitionFloor = 1 - TUNING.SHARED_MARKET_FACTOR_MAX_PENALTY
++  if (!(competitionFactor >= competitionFloor && competitionFactor <= 1)) {
++    throw new Error(`reception: competitionFactor ${competitionFactor} is outside [${competitionFloor}, 1]`)
++  }
+ 
+   let reachSum = 0
+   let weightedAudienceScore = 0
+@@ -810,6 +823,8 @@ export function resolveReception(
+     appealBlock.starDraw, // D-13: star support for reachSupport (fame, not quality)
+     // C2a-M2: the bound set's locked novelty. Exactly 1 when nothing was bound.
+     setNoveltyReceptionFactor(inp.setNovelty ?? null),
++    // P15A.1 Wave 2: the frozen batch factor. Exactly 1 when the inputs carry none.
++    inp.competitionFactor ?? 1,
+   )
+ 
+   return {
+diff --git a/src/core/save.ts b/src/core/save.ts
+index 818cc73..7234cef 100644
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -6,6 +6,9 @@ import { validateInstallationCancellation } from './installationCancellation.js'
+ import type { StudioTechnology, StudioTechnologyV1, StudioTechnologyV2, StudioTechnologyV3 } from './technologyTypes.js'
+ import { initializeHollywood } from './hollywood.js'
+ import { validateHollywood } from './hollywoodValidation.js'
++import { validatePowerRankingArchive } from './powerRankingArchive.js'
++import { initialP15Sequence } from './p15Phases.js'
++import { initialSharedMarket, validateSharedMarketRoot } from './marketIntegration.js'
+ import { RIVAL_RESEARCH_MONEY_KINDS } from './hollywood.js'
+ import { RIVAL_RESEARCH_RECEIPT_KINDS } from './hollywoodTypes.js'
+ import type { HollywoodState, RivalFinancePeriod } from './hollywoodTypes.js'
+@@ -106,6 +109,8 @@ import type {
+   GameStateV42,
+   GameStateV43,
+   GameStateV44,
++  GameStateV45,
++  P15StepRoots,
+   RelationshipEdge,
+   CohortReceipt,
+   FilmCreativeRole,
+@@ -627,7 +632,11 @@ export type SaveFileV44 = Omit<SaveFileV43, 'saveVersion' | 'state'> & {
+   saveVersion: 44;
+   state: GameStateV44;
+ };
+-export type LiveSaveFile = SaveFileV44;
++export type SaveFileV45 = Omit<SaveFileV44, 'saveVersion' | 'state'> & {
++  saveVersion: 45;
++  state: GameStateV45;
++};
++export type LiveSaveFile = SaveFileV45;
+ 
+ // Any envelope (the return of the version-dispatching validateSave/loadSave).
+ export type SaveFile =
+@@ -674,7 +683,8 @@ export type SaveFile =
+   | SaveFileV41
+   | SaveFileV42
+   | SaveFileV43
+-  | SaveFileV44;
++  | SaveFileV44
++  | SaveFileV45;
+ 
+ // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
+ // Recursively serializes with object keys sorted lexicographically, so the same
+@@ -5441,8 +5451,9 @@ export function validateSave(save: unknown): SaveFile {
+   if (s.saveVersion === 42) return validateSaveV42(save);
+   if (s.saveVersion === 43) return validateSaveV43(save);
+   if (s.saveVersion === 44) return validateSaveV44(save);
++  if (s.saveVersion === 45) return validateSaveV45(save);
+   throw new Error(
+-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only)`,
++    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 45 only)`,
+   );
+ }
+ 
+@@ -6180,6 +6191,13 @@ function projectTalentPreV20(person: Talent): Talent {
+ 
+ function assertFrozenBuilderRetainsHollywood(state: object, builder: string): void {
+   const original = state as Record<string, unknown>;
++  // The shared P15 step (Save45; 1356-A §5): no frozen builder carries a recorded P15 row. The one
++  // refusal names every non-empty root (1361-F ruling 4); the empty roots strip.
++  if (P15_ROOT_KEYS.some((key) => Object.hasOwn(original, key))) {
++    const refusal = p15DowngradeRefusal(original);
++    if (refusal !== null) throw new Error(`${builder}: ${refusal}`);
++    return assertFrozenBuilderRetainsHollywood(stripP15Roots(original), builder);
++  }
+   const raw = Object.hasOwn(original, 'firstTakeSubjects')
+     ? convertV40ToV39({ saveVersion: 40, seed: original.seed, state, broadcastCache: original.broadcastItems } as SaveFileV40).state as unknown as Record<string, unknown>
+     : original;
+@@ -6564,15 +6582,15 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
+ // Every caller that asks "is this envelope a migration?" compares against this
+ // constant rather than a literal that goes stale the next time `makeSave` moves
+ // (the bridge and the ui adapter both still compared against 23 at V25).
+-export const LIVE_SAVE_VERSION = 44 as const;
++export const LIVE_SAVE_VERSION = 45 as const;
+ 
+-// makeSave — the live V44 boundary. Frozen prior values migrate explicitly.
++// makeSave: the live V45 boundary. Frozen prior values migrate explicitly.
+ // The plain-JSON state is detached once; only final serialization sorts it.
+-export function makeSave(state: GameState): SaveFileV44 {
+-  const save = validateSaveV44({ saveVersion: 44, seed: state.seed, state, broadcastCache: state.broadcastItems });
++export function makeSave(state: GameState): SaveFileV45 {
++  const save = validateSaveV45({ saveVersion: 45, seed: state.seed, state, broadcastCache: state.broadcastItems });
+   // Validation precedes detachment, so undefined/non-JSON authority cannot be
+   // silently repaired by stringify before the boundary sees it.
+-  return JSON.parse(JSON.stringify(save)) as SaveFileV44;
++  return JSON.parse(JSON.stringify(save)) as SaveFileV45;
+ }
+ 
+ // ── Load / export / import ───────────────────────────────────────────────────
+@@ -7418,6 +7436,7 @@ export function importLegacyV1ToV4(json: string): SaveFileV4 {
+ export function migrateToV4(
+   save: SaveFile,
+ ): SaveFileV4 {
++  if (save.saveVersion === 45) return migrateToV4(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV4(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV4(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV4(convertV42ToV41(save as SaveFileV42));
+@@ -7447,6 +7466,7 @@ export function migrateToV4(
+ export function migrateToV5(
+   save: SaveFile,
+ ): SaveFileV5 {
++  if (save.saveVersion === 45) return migrateToV5(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV5(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV5(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV5(convertV42ToV41(save as SaveFileV42));
+@@ -7471,6 +7491,7 @@ export function migrateToV5(
+ export function migrateToV6(
+   save: SaveFile,
+ ): SaveFileV6 {
++  if (save.saveVersion === 45) return migrateToV6(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV6(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV6(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV6(convertV42ToV41(save as SaveFileV42));
+@@ -7496,6 +7517,7 @@ export function migrateToV6(
+ export function migrateToV7(
+   save: SaveFile,
+ ): SaveFileV7 {
++  if (save.saveVersion === 45) return migrateToV7(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV7(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV7(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV7(convertV42ToV41(save as SaveFileV42));
+@@ -7517,6 +7539,7 @@ export function migrateToV7(
+ // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
+ // may never silently discard authoritative screenplay or casting state.
+ export function migrateToV8(save: SaveFile): SaveFileV8 {
++  if (save.saveVersion === 45) return migrateToV8(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV8(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV8(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV8(convertV42ToV41(save as SaveFileV42));
+@@ -7556,6 +7579,7 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
+ // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
+ // authoritative casting history.
+ export function migrateToV9(save: SaveFile): SaveFileV9 {
++  if (save.saveVersion === 45) return migrateToV9(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV9(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV9(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV9(convertV42ToV41(save as SaveFileV42));
+@@ -7594,6 +7618,7 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
+ // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
+ // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
+ export function migrateToV10(save: SaveFile): SaveFileV10 {
++  if (save.saveVersion === 45) return migrateToV10(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV10(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV10(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV10(convertV42ToV41(save as SaveFileV42));
+@@ -7633,6 +7658,7 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
+ // mode. V12 is rejected, never downgraded: a placed facility, its land, its
+ // debit, and its operating history have no V11 home.
+ export function migrateToV11(save: SaveFile): SaveFileV11 {
++  if (save.saveVersion === 45) return migrateToV11(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV11(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV11(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV11(convertV42ToV41(save as SaveFileV42));
+@@ -7670,6 +7696,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
+ // their own validated construction history implies at the final V11→V12 step.
+ // V13 is rejected, never downgraded: a property that has grown has no V12 home.
+ export function migrateToV12(save: SaveFile): SaveFileV12 {
++  if (save.saveVersion === 45) return migrateToV12(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV12(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV12(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV12(convertV42ToV41(save as SaveFileV42));
+@@ -7710,6 +7737,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
+ // one widened leaf — the honest, un-guessed `subjectId: null` on any
+ // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
+ export function migrateToV15(save: SaveFile): SaveFileV15 {
++  if (save.saveVersion === 45) return migrateToV15(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV15(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV15(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV15(convertV42ToV41(save as SaveFileV42));
+@@ -7802,6 +7830,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
+ // identity (after validation at the call boundary); V1–V17 cross every frozen
+ // boundary, then receive `endowed` at the final V17→V18 step.
+ export function migrateToV18(save: SaveFile): SaveFileV18 {
++  if (save.saveVersion === 45) return migrateToV18(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV18(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV18(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV18(convertV42ToV41(save as SaveFileV42));
+@@ -7835,6 +7864,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
+ // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
+ // be downgraded: discarding the founding regime would erase exact history.
+ export function migrateToV17(save: SaveFile): SaveFileV17 {
++  if (save.saveVersion === 45) return migrateToV17(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV17(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV17(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV17(convertV42ToV41(save as SaveFileV42));
+@@ -7873,6 +7903,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
+ // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
+ // be downgraded: discarding the recorded history would silently erase provenance.
+ export function migrateToV16(save: SaveFile): SaveFileV16 {
++  if (save.saveVersion === 45) return migrateToV16(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV16(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV16(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV16(convertV42ToV41(save as SaveFileV42));
+@@ -7914,6 +7945,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
+ }
+ 
+ export function migrateToV14(save: SaveFile): SaveFileV14 {
++  if (save.saveVersion === 45) return migrateToV14(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV14(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV14(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV14(convertV42ToV41(save as SaveFileV42));
+@@ -7965,6 +7997,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
+ }
+ 
+ export function migrateToV13(save: SaveFile): SaveFileV13 {
++  if (save.saveVersion === 45) return migrateToV13(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV13(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV13(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV13(convertV42ToV41(save as SaveFileV42));
+@@ -8100,6 +8133,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
+   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
+ }
+ export function migrateToV19(save: SaveFile): SaveFileV19 {
++  if (save.saveVersion === 45) return migrateToV19(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV19(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV19(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV19(convertV42ToV41(save as SaveFileV42));
+@@ -8195,6 +8229,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
+ }
+ 
+ export function migrateToV21(save: SaveFile): SaveFileV21 {
++  if (save.saveVersion === 45) return migrateToV21(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV21(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV21(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV21(convertV42ToV41(save as SaveFileV42));
+@@ -8236,6 +8271,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
+ }
+ 
+ export function migrateToV22(save: SaveFile): SaveFileV22 {
++  if (save.saveVersion === 45) return migrateToV22(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV22(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV22(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV22(convertV42ToV41(save as SaveFileV42));
+@@ -8302,6 +8338,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
++  if (save.saveVersion === 45) return migrateToV23(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV23(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV23(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV23(convertV42ToV41(save as SaveFileV42));
+@@ -8378,6 +8415,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
++  if (save.saveVersion === 45) return migrateToV24(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV24(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV24(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV24(convertV42ToV41(save as SaveFileV42));
+@@ -8615,6 +8653,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
++  if (save.saveVersion === 45) return migrateToV25(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV25(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV25(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV25(convertV42ToV41(save as SaveFileV42));
+@@ -8793,6 +8832,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
++  if (save.saveVersion === 45) return migrateToV26(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV26(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV26(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV26(convertV42ToV41(save as SaveFileV42));
+@@ -8961,6 +9001,7 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
++  if (save.saveVersion === 45) return migrateToV27(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV27(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV27(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV27(convertV42ToV41(save as SaveFileV42));
+@@ -9061,6 +9102,7 @@ export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
++  if (save.saveVersion === 45) return migrateToV28(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV28(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV28(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV28(convertV42ToV41(save as SaveFileV42));
+@@ -9173,6 +9215,7 @@ export function convertV29ToV28(save: SaveFileV29): SaveFileV28 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
++  if (save.saveVersion === 45) return migrateToV29(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV29(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV29(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV29(convertV42ToV41(save as SaveFileV42));
+@@ -9239,6 +9282,7 @@ export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
+ /** The V30 boundary (P14B.4, record 600); since P14B.5 a frozen prior shape
+  * reached from the live V31 by the ONE lossless-when-empty downgrade. */
+ export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
++  if (save.saveVersion === 45) return migrateToV30(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV30(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV30(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV30(convertV42ToV41(save as SaveFileV42));
+@@ -9331,6 +9375,7 @@ export function convertV31ToV30(save: SaveFileV31): SaveFileV30 {
+ /** The live load-to-play route (P14B.5): every prior envelope migrates to the
+  * V31 boundary the live writer stamps. */
+ export function migrateToV31(save: SaveFile | { saveVersion: number }): SaveFileV31 {
++  if (save.saveVersion === 45) return migrateToV31(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV31(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV31(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV31(convertV42ToV41(save as SaveFileV42));
+@@ -9433,6 +9478,7 @@ export function convertV32ToV31(save: SaveFileV32): SaveFileV31 {
+ /** The live load-to-play route (P14B.7): every prior envelope migrates to the
+  * V32 boundary the live writer stamps. */
+ export function migrateToV32(save: SaveFile | { saveVersion: number }): SaveFileV32 {
++  if (save.saveVersion === 45) return migrateToV32(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV32(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV32(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV32(convertV42ToV41(save as SaveFileV42));
+@@ -9700,6 +9746,7 @@ export function convertV33ToV32(save: SaveFileV33): SaveFileV32 {
+ /** The live load-to-play route (P14C.1): every prior envelope migrates to the
+  * V33 boundary the live writer stamps. */
+ export function migrateToV33(save: SaveFile | { saveVersion: number }): SaveFileV33 {
++  if (save.saveVersion === 45) return migrateToV33(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV33(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV33(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV33(convertV42ToV41(save as SaveFileV42));
+@@ -9952,6 +9999,7 @@ export function convertV34ToV33(save: SaveFileV34): SaveFileV33 {
+ /** Every prior envelope migrates to the V34 boundary; a V35 one downgrades losslessly
+  * only while it holds no cohort receipt. */
+ export function migrateToV34(save: SaveFile | { saveVersion: number }): SaveFileV34 {
++  if (save.saveVersion === 45) return migrateToV34(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV34(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV34(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV34(convertV42ToV41(save as SaveFileV42));
+@@ -10157,6 +10205,7 @@ export function convertV35ToV34(save: SaveFileV35): SaveFileV34 {
+ /** Every prior envelope migrates to the V35 boundary; a V36 one downgrades losslessly
+  * only while it holds no retirement extension. */
+ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFileV35 {
++  if (save.saveVersion === 45) return migrateToV35(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV35(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV35(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV35(convertV42ToV41(save as SaveFileV42));
+@@ -10174,7 +10223,7 @@ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFile
+  * stamps. Callers whose meaning is "the live state" call this, never a numbered
+  * step, so the next save bump moves this one definition. */
+ export function migrateToLive(save: SaveFile | { saveVersion: number }): LiveSaveFile {
+-  return migrateToV44(save);
++  return migrateToV45(save);
+ }
+ 
+ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
+@@ -10195,6 +10244,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
+ }
+ 
+ export function migrateToV20(save: SaveFile): SaveFileV20 {
++  if (save.saveVersion === 45) return migrateToV20(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV20(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV20(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV20(convertV42ToV41(save as SaveFileV42));
+@@ -10393,6 +10443,7 @@ export function convertV36ToV35(save: SaveFileV36): SaveFileV35 {
+ 
+ /** Every prior envelope migrates to the V36 boundary. */
+ export function migrateToV36(save: SaveFile | { saveVersion: number }): SaveFileV36 {
++  if (save.saveVersion === 45) return migrateToV36(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV36(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV36(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV36(convertV42ToV41(save as SaveFileV42));
+@@ -10459,6 +10510,7 @@ export function convertV37ToV36(save: SaveFileV37): SaveFileV36 {
+ 
+ /** Every prior envelope migrates to the explicit amended-law boundary. */
+ export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFileV37 {
++  if (save.saveVersion === 45) return migrateToV37(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV37(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV37(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV37(convertV42ToV41(save as SaveFileV42));
+@@ -10495,10 +10547,10 @@ export function validateSaveV38(save: unknown): SaveFileV38 {
+ /** Internal live-entry proof. Context escapes only after the complete current
+  * save chain succeeds; no serialization or historical projection repairs input. */
+ export function validatedLiveProfessionContext(state: GameState): ProfessionValidationContext {
+-  // Save42, Save43 and Save44 move no profession law: the live state proves through the V41
+-  // chain with its relationship root at era 31 (`relationshipsAtV31` also drops the Save44
+-  // fields) and the Save43 shelving era, exactly what `validateSaveV44` hands that chain.
+-  return proveProfessionSave({ saveVersion: 41, seed: state.seed, state: { ...state, relationships: relationshipsAtV31(state.relationships) },
++  // Save42 to Save45 move no profession law: the live state proves through the V41 chain without
++  // the Save45 P15 roots, with its relationship root at era 31 (`relationshipsAtV31` also drops the
++  // Save44 fields) and the Save43 shelving era, exactly what `validateSaveV45` hands that chain.
++  return proveProfessionSave({ saveVersion: 41, seed: state.seed, state: { ...stripP15Roots(state), relationships: relationshipsAtV31(state.relationships) },
+     broadcastCache: state.broadcastItems }, 41, true).professionContext;
+ }
+ 
+@@ -10532,6 +10584,7 @@ export function convertV38ToV37(save: SaveFileV38): SaveFileV37 {
+ }
+ 
+ export function migrateToV38(save: SaveFile | { saveVersion: number }): SaveFileV38 {
++  if (save.saveVersion === 45) return migrateToV38(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV38(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV38(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV38(convertV42ToV41(save as SaveFileV42));
+@@ -10568,6 +10621,7 @@ export function convertV39ToV38(save: SaveFileV39): SaveFileV38 {
+ }
+ 
+ export function migrateToV39(save: SaveFile | { saveVersion: number }): SaveFileV39 {
++  if (save.saveVersion === 45) return migrateToV39(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV39(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV39(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV39(convertV42ToV41(save as SaveFileV42));
+@@ -10607,6 +10661,7 @@ export function convertV40ToV39(save: SaveFileV40): SaveFileV39 {
+ }
+ 
+ export function migrateToV40(save: SaveFile | { saveVersion: number }): SaveFileV40 {
++  if (save.saveVersion === 45) return migrateToV40(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV40(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV40(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV40(convertV42ToV41(save as SaveFileV42));
+@@ -10652,6 +10707,7 @@ export function convertV41ToV40(save: SaveFileV41): SaveFileV40 {
+ }
+ 
+ export function migrateToV41(save: SaveFile | { saveVersion: number }): SaveFileV41 {
++  if (save.saveVersion === 45) return migrateToV41(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV41(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV41(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return convertV42ToV41(save as SaveFileV42);
+@@ -10699,6 +10755,7 @@ export function convertV42ToV41(save: SaveFileV42): SaveFileV41 {
+ }
+ 
+ export function migrateToV42(save: SaveFile | { saveVersion: number }): SaveFileV42 {
++  if (save.saveVersion === 45) return migrateToV42(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return migrateToV42(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return convertV43ToV42(save as SaveFileV43);
+   if (save.saveVersion === 42) return validateSaveV42(save);
+@@ -10750,6 +10807,7 @@ export function convertV43ToV42(save: SaveFileV43): SaveFileV42 {
+ }
+ 
+ export function migrateToV43(save: SaveFile | { saveVersion: number }): SaveFileV43 {
++  if (save.saveVersion === 45) return migrateToV43(convertV45ToV44(save as SaveFileV45));
+   if (save.saveVersion === 44) return convertV44ToV43(save as SaveFileV44);
+   if (save.saveVersion === 43) return validateSaveV43(save);
+   return convertV42ToV43(migrateToV42(save));
+@@ -10794,6 +10852,143 @@ export function convertV44ToV43(save: SaveFileV44): SaveFileV43 {
+ }
+ 
+ export function migrateToV44(save: SaveFile | { saveVersion: number }): SaveFileV44 {
++  if (save.saveVersion === 45) return convertV45ToV44(save as SaveFileV45);
+   if (save.saveVersion === 44) return validateSaveV44(save);
+   return convertV43ToV44(migrateToV43(save));
+ }
++
++
++// The shared P15 save step, Save45 (1360-F ruling 1; 1361-F rulings 3 to 5). Slice 2a creates it
++// with two top-level roots: the quarterly Power Ranking archive `powerRanking` (1356-A §5) and the
++// one P15 allocator `p15Sequence` (1355-F2 item 1). P15A.1 Wave 2 adds the shared-market root
++// `sharedMarket` (1355-A §3.3). Each root keeps its own validator, migration and refusal (1355-F
++// Amendment 4). P15C adds `campaignLegacy` with one entry in P15StepRoots (types.ts),
++// P15_ROOT_KEYS, P15_SEQUENCED_ROOTS, P15_DOWNGRADE_REFUSALS, initialP15Roots and validateSaveV45.
++
++/** The step's own top-level roots, a subset of the four keys `tests/helpers/p15-roots.ts` lists for
++ * every P15 RED. The `satisfies` clause ties the literal to P15StepRoots: a root missing here, or a
++ * key the type lacks, fails the type gate, so no root can miss the strips (1361-F3 R1). */
++const P15_ROOT_KEYS: readonly string[] = Object.keys({ p15Sequence: true, powerRanking: true, sharedMarket: true } satisfies Record<keyof P15StepRoots, true>);
++
++/** The state without the step's roots, every other key kept in its order. */
++function stripP15Roots(raw: object): Record<string, unknown> {
++  return Object.fromEntries(Object.entries(raw).filter(([key]) => !P15_ROOT_KEYS.includes(key)));
++}
++
++/** The step's roots as a fresh world, a migration and a historical control's lift write them:
++ * nothing recorded, recording from `week`, the allocator at 1 (1355-F2 item 6). */
++export function initialP15Roots(week: number): P15StepRoots {
++  return { powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] }, p15Sequence: initialP15Sequence(),
++    sharedMarket: initialSharedMarket(week) };
++}
++
++/** The downgrade refusals, in the ruled order sharedMarket, powerRanking, campaignLegacy (1361-F
++ * ruling 4): P15C appends its own. Each reads an unvalidated state, because the frozen builders ask
++ * too, and returns null for an empty or absent root. */
++const P15_DOWNGRADE_REFUSALS: readonly ((state: Record<string, unknown>) => string | null)[] = [
++  (state) => isRecord(state.sharedMarket) && Array.isArray(state.sharedMarket.assessments) && state.sharedMarket.assessments.length > 0
++    ? `cannot downgrade or discard a recorded shared-market assessment (${state.sharedMarket.assessments.length} recorded)` : null,
++  (state) => isRecord(state.powerRanking) && Array.isArray(state.powerRanking.snapshots) && state.powerRanking.snapshots.length > 0
++    ? 'cannot downgrade or discard a recorded Power Ranking quarter' : null,
++];
++
++/** The one refusal: every non-empty root of the step, named in one message; null when all are empty. */
++function p15DowngradeRefusal(state: object): string | null {
++  const raw = state as Record<string, unknown>;
++  const reasons = P15_DOWNGRADE_REFUSALS.map((refusal) => refusal(raw)).filter((reason) => reason !== null);
++  return reasons.length === 0 ? null : reasons.join('; ');
++}
++
++/**
++ * Every Save45 root whose rows draw from the allocator (1361-F ruling 5). P15C adds `campaignLegacy`.
++ * P15B's `corporateCondition` never joins this list or P15_ROOT_KEYS (1361-F3 ruling 2): P15B's
++ * later step keeps its root out of both, has its frozen `validateSaveV45` call skip this check by an
++ * era flag (the Save43 pattern at validateSaveV42Era) or a roots parameter, and runs the one check
++ * itself over every root, its own included.
++ */
++const P15_SEQUENCED_ROOTS: readonly string[] = ['sharedMarket', 'powerRanking'];
++
++/** Every value stored under `p15DomainSequence` inside `node`, at any depth. A lawful P15 native row
++ * carries a number there, the reading `tests/helpers/p15-roots.ts` uses; any other value is
++ * collected too, so the one check below refuses it (1361-F3 R3). */
++function p15Sequences(node: unknown, found: unknown[] = []): unknown[] {
++  if (Array.isArray(node)) {
++    for (const item of node) p15Sequences(item, found);
++  } else if (isRecord(node)) {
++    if (Object.hasOwn(node, 'p15DomainSequence')) found.push(node.p15DomainSequence);
++    for (const value of Object.values(node)) p15Sequences(value, found);
++  }
++  return found;
++}
++
++/**
++ * The one allocator check (1355-F2 item 4; 1361-F ruling 5), run once by the step after every
++ * root's own validator: `p15Sequence` is exactly {version: 1, next}; every p15DomainSequence across
++ * the sequenced roots is a whole number of at least 1, distinct, and below `next`; and `next` is one
++ * more than the largest, 1 when there is none. No root validator keeps a copy of this rule.
++ */
++export function validateP15Allocator(raw: Record<string, unknown>, label: string): void {
++  const sequence = raw.p15Sequence;
++  if (!isRecord(sequence) || Object.keys(sequence).sort().join() !== 'next,version' || sequence.version !== 1 ||
++    typeof sequence.next !== 'number' || !Number.isSafeInteger(sequence.next) || sequence.next < 1) {
++    throw new Error(`${label}: p15Sequence must be exactly {version: 1, next} with a whole next of at least 1`);
++  }
++  const next = sequence.next;
++  const seen = new Set<number>();
++  let largest = 0;
++  for (const root of P15_SEQUENCED_ROOTS) {
++    for (const n of p15Sequences(raw[root])) {
++      if (typeof n !== 'number' || !Number.isSafeInteger(n) || n < 1) {
++        throw new Error(`${label}: ${root} p15DomainSequence ${String(n)} is not a whole number of at least 1`);
++      }
++      if (seen.has(n)) throw new Error(`${label}: p15DomainSequence ${n} is held by two P15 rows (duplicate)`);
++      if (n >= next) throw new Error(`${label}: ${root} p15DomainSequence ${n} is at or above p15Sequence.next ${next}`);
++      seen.add(n);
++      largest = Math.max(largest, n);
++    }
++  }
++  if (next !== largest + 1) {
++    throw new Error(`${label}: p15Sequence.next ${next} must be one more than the largest p15DomainSequence (${largest})`);
++  }
++}
++
++/** Every root of the step is present; the frozen V44 chain proves the state without them; then each
++ * root's own validator runs, and the one allocator check last (1356-A §5 "after the frozen chain"). */
++export function validateSaveV45(save: unknown): SaveFileV45 {
++  if (!isRecord(save)) throw new Error('validateSaveV45: object required');
++  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
++  if (save.saveVersion !== 45) throw new Error('validateSaveV45: expected version 45');
++  const raw = v14Record(checkEnvelope(save, 'validateSaveV45'), 'state');
++  for (const key of P15_ROOT_KEYS) {
++    if (!Object.hasOwn(raw, key)) throw new Error(`validateSaveV45: the ${key} root is missing`);
++  }
++  validateSaveV44({ ...save, saveVersion: 44, state: stripP15Roots(raw) });
++  validatePowerRankingArchive(raw);
++  validateSharedMarketRoot(raw, 'validateSaveV45');
++  validateP15Allocator(raw, 'validateSaveV45');
++  return save as SaveFileV45;
++}
++
++/** Adds the step's empty roots at the save's own week. No past quarter is recorded (annex G.2),
++ * nothing is back-filled, and a second migration is a no-op. */
++export function convertV44ToV45(save: SaveFileV44): SaveFileV45 {
++  const validated = validateSaveV44(save);
++  const old = JSON.parse(JSON.stringify(validated)) as SaveFileV44;
++  return validateSaveV45({ ...old, saveVersion: 45, state: { ...old.state, ...initialP15Roots(old.state.market.tick) } });
++}
++
++/** Lossless only while every root of the step is empty: the empty roots drop. A recorded row
++ * refuses once, after validation, naming every non-empty root. A round trip can only claim less
++ * history, never more. */
++export function convertV45ToV44(save: SaveFileV45): SaveFileV44 {
++  const validated = validateSaveV45(save);
++  const refusal = p15DowngradeRefusal(validated.state);
++  if (refusal !== null) throw new Error(`migrateToV44: ${refusal}`);
++  const detached = JSON.parse(JSON.stringify(validated)) as SaveFileV45;
++  return validateSaveV44({ ...detached, saveVersion: 44, state: stripP15Roots(detached.state) });
++}
++
++export function migrateToV45(save: SaveFile | { saveVersion: number }): SaveFileV45 {
++  if (save.saveVersion === 45) return validateSaveV45(save);
++  return convertV44ToV45(migrateToV44(save));
++}
+diff --git a/src/core/tick.ts b/src/core/tick.ts
+index fee7846..86322fb 100644
+--- a/src/core/tick.ts
++++ b/src/core/tick.ts
+@@ -1,7 +1,9 @@
+ import { prepareLiveWritingContext } from './liveRetirementWriting.js'
+ import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
++import { requireSharedMarket } from './marketIntegration.js'
+ import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.js'
+ import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
++import { recordPowerRankingQuarter } from './powerRankingArchive.js'
+ import { advancePromisesWeek, appendFirstTakes, breakPromisesOnGreenlight } from './promises.js'
+ import { advanceRelationshipsWeek } from './relationships.js'
+ import { advanceTalentMarketWeek } from './talentMarket.js'
+@@ -1114,6 +1116,11 @@ export function tick(state: GameState, options?: TickOptions): GameState {
+     // P08A: stamp this advance's history rows in pipeline order and fold routine
+     // detail that aged past the window — against the week this advance PRODUCES.
+     studioHistory: commitStudioHistory(state.studioHistory, history, currentTick + 1, facilityCompletionDrafts(placementCompletion.completed)),
++    // P15A.1 Wave 2 commit (b): no market batch runs yet, so a world with an industry assesses
++    // nothing and its root records from the week this advance produces. The film bijection
++    // (1355-A §3.4 item 3) then covers no release, and a later batch starts with the disclosed
++    // 26-week ramp of a migrated world. A world with no industry keeps its root as created.
++    ...(admitted.hollywood === null ? {} : { sharedMarket: { ...requireSharedMarket(admitted), recordedFromWeek: currentTick + 1 } }),
+   }
+   for(const identity of finalized.hollywood?.identities ?? []) {
+     if(identity.role==='rival' && identity.enteredWeek===null && identity.eligibleWeek<=finalized.market.tick) {
+@@ -1157,7 +1164,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
+   // runs AFTER the market, so an accepted extension has already moved the effective week it
+   // reads. By here the P10 expiry and `finishHollywoodWeek` have written every contract
+   // end at this week, which settlement asserts rather than repeats (773 D10). No RNG.
+-  return advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays))))
++  // P15A.2 slice 2a (1356-A §4): the quarterly Power Ranking record wraps the last expression, so
++  // the band reads the week's final cash and contracts. At the end of the tick the ranking record
++  // runs first; P15C's freeze wraps it as the last step, and P15B's condition steps later sit
++  // between the two (1355-F2 item 2; 1361-F ruling 9). No RNG.
++  return recordPowerRankingQuarter(
++    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays)))))
+ }
+ 
+ /**
+diff --git a/src/core/types.ts b/src/core/types.ts
+index fb1dee3..abec413 100644
+--- a/src/core/types.ts
++++ b/src/core/types.ts
+@@ -2321,7 +2321,9 @@ export type GameStateV31 = GameStateV30 & {
+ // V42 adds the edge's `sharedCompetitions` counter and the two casting driver kinds.
+ // V43 adds rival screenplay shelving: `screenplayShelving` per business and its receipt.
+ // V44 adds the edge's `competitions` log and `romance` track.
+-export type GameState = GameStateV44
++// V45 is the shared P15 step: slice 2a adds the Power Ranking archive and the one P15 allocator,
++// and P15A.1 Wave 2 adds the shared-market root.
++export type GameState = GameStateV45
+ 
+ // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
+ 
+@@ -2566,6 +2568,42 @@ export type GameStateV43 = GameStateV42
+  * edge projected to era 42, exactly the V43 law.
+  */
+ export type GameStateV44 = GameStateV43
++/**
++ * P15A.2 slice 2a (1356-A §5; 1355-F2 items 1-5): the append-only quarterly Power Ranking archive.
++ * A record is the law's snapshot minus `pointsTenths`, `honors` and `distressStage`, plus its id,
++ * its P15 domain sequence and its phase triple.
++ */
++export type PowerRankingRecordRow = {
++  studioId: string; ranked: boolean; rank: number | null; filmsTenths: number; releases: number
++  releasesTenths: number; countedFilmIds: string[]; band: import('./powerRanking.js').FinancialStrengthBand
++}
++export type PowerRankingRecord = {
++  id: string; p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
++  week: number; definitionVersion: 'power-ranking/v1'; available: boolean; windowStartWeek: number
++  rows: PowerRankingRecordRow[]
++}
++export type PowerRankingArchive = { version: 1; recordedFromWeek: number; snapshots: PowerRankingRecord[] }
++/**
++ * P15A.1 Wave 2 (1355-A §3.3; 1355-F2 items 2-3; 1355-F3): one shared-market assessment as the root
++ * stores it, the Wave 1 law's record plus its P15 domain sequence and phase triple. `releaseId` is
++ * its identity and its film's id.
++ */
++export type PersistedMarketAssessment = import('./sharedMarket.js').MarketAssessment & {
++  p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
++}
++/** The shared-market root: every assessment from `recordedFromWeek`, in (week, releaseId) order. */
++export type SharedMarketRoot = { version: 1; recordedFromWeek: number; assessments: PersistedMarketAssessment[] }
++/**
++ * The roots of the shared P15 save step, Save45 (1360-F ruling 1; 1361-F ruling 3). Slice 2a brings
++ * the archive and the one P15 allocator (1355-F2 item 1), P15A.1 the shared market, and P15C adds
++ * `campaignLegacy` here.
++ */
++export type P15StepRoots = {
++  powerRanking: PowerRankingArchive
++  p15Sequence: import('./p15Phases.js').P15Sequence
++  sharedMarket: SharedMarketRoot
++}
++export type GameStateV45 = GameStateV44 & P15StepRoots
+ 
+ // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
+ // The ONE canonical persisted record of a participant's outcome on one released film.
+diff --git a/src/core/worldgen.ts b/src/core/worldgen.ts
+index 422f045..a906b8f 100644
+--- a/src/core/worldgen.ts
++++ b/src/core/worldgen.ts
+@@ -83,7 +83,7 @@ import {
+   WORLD_CONFIG,
+ } from './tuning.js'
+ import { ageRunwayMult, roleOVR } from './talentSummary.js'
+-import { emptyPublicityState } from './save.js'
++import { emptyPublicityState, initialP15Roots } from './save.js'
+ import type {
+   CastSlot,
+   Ceilings,
+@@ -815,5 +815,9 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
+     talentProvenance: buildTalentProvenance(drawn, 0, 'authored_exact_week'),
+     // P14C.2a: a fresh world has announced no retirement; the root records from week 0.
+     careerLifecycle: initialCareerLifecycle(0, people),
++    // P15A.2 slice 2a (1356-A §5; 1355-F2 item 1): a fresh world records Power Ranking quarters
++    // from week 0, and the one P15 allocator starts at 1. P15A.1 Wave 2 (1355-A §3.5): the shared
++    // market records from week 0 too.
++    ...initialP15Roots(0),
+   }
+ }
+diff --git a/src/harness/roster-wall/historical-control.ts b/src/harness/roster-wall/historical-control.ts
+index f528ed2..d655bb4 100644
+--- a/src/harness/roster-wall/historical-control.ts
++++ b/src/harness/roster-wall/historical-control.ts
+@@ -6,7 +6,7 @@ import { initialTalentMarket } from '../../core/talentMarket.js'
+ import { withResearchFoundation } from '../../core/researchPeople.js'
+ import { buildTalentProvenance } from '../../core/aging.js'
+ import { initialCareerLifecycle } from '../../core/careerLifecycle.js'
+-import { stableStringify, validateTalentProvenanceRoot } from '../../core/save.js'
++import { initialP15Roots, stableStringify, validateTalentProvenanceRoot } from '../../core/save.js'
+ import { validateFirstTakeSubjects } from '../../core/firstTakeSubjects.js'
+ import { SKILL_ORDER, GENRE_ORDER } from '../../core/tuning.js'
+ import type { GameState, GameStateV18 } from '../../core/types.js'
+@@ -51,11 +51,16 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
+   // P14C.2a (Save V34): a historical control has no industry, so the lifecycle never
+   // engages and nobody announces — the empty root, exactly what the real lift writes.
+   // P14C.4 (Save V35): nor does any cohort enter — the live opener carries `cohorts: []`.
+-  careerLifecycle:initialCareerLifecycle(state.market.tick, people)} }
++  careerLifecycle:initialCareerLifecycle(state.market.tick, people),
++  // P15 (Save V45): a control has no industry, so it records no Power Ranking quarter, assesses
++  // no release and allocates no P15 row: the empty roots at the lift week, exactly what the real
++  // lift writes.
++  ...initialP15Roots(state.market.tick)} }
+ export function historicalHashState<T extends object>(state:T):object {
+   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
+     && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state) && !('talentProvenance' in state)
+-    && !('careerLifecycle' in state) && !('firstTakeSubjects' in state))return state
++    && !('careerLifecycle' in state) && !('firstTakeSubjects' in state) && !('powerRanking' in state) && !('p15Sequence' in state)
++    && !('sharedMarket' in state))return state
+   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
+   // P14B.1: the control records no qualifying event and no commitment; an empty
+   // pair of roots is the only lawful shape to discard. P14B.5: nor any edge.
+@@ -107,9 +112,17 @@ export function historicalHashState<T extends object>(state:T):object {
+     // empty too, or the entrants they describe would stay in `talent` unexplained.
+     if (((state as Partial<GameState>).careerLifecycle?.cohorts?.length ?? 0) !== 0) throw new Error('Historical hash cannot discard cohort receipt authority')
+   }
++  if ('powerRanking' in state || 'p15Sequence' in state || 'sharedMarket' in state) {
++    // P15 (Save V45). A control has no industry, so it records no Power Ranking quarter, assesses no
++    // release and its P15 allocator never moves: only the empty roots and the allocator at 1 are
++    // lawful to discard.
++    const p15 = state as Partial<GameState>
++    if ((p15.powerRanking?.snapshots.length ?? 0) !== 0 || (p15.sharedMarket?.assessments.length ?? 0) !== 0
++      || (p15.p15Sequence?.next ?? 1) !== 1) throw new Error('Historical hash cannot discard P15 authority')
++  }
+   const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,
+     firstTakes: _takes, firstTakeSubjects: _subjects, promises: _promises, relationships: _relationships, talentProvenance: _provenance,
+-    careerLifecycle: _lifecycle, ...frozen}=state as Partial<GameState>
++    careerLifecycle: _lifecycle, powerRanking: _ranking, p15Sequence: _sequence, sharedMarket: _sharedMarket, ...frozen}=state as Partial<GameState>
+   if (frozen.operations) {
+     // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe, so the only lawful
+     // shape to discard is the null record at revision 0.
