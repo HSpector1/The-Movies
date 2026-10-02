@@ -1,0 +1,3 @@
+[1353-T] tree 975e72a18746ee0e3cc2096750f7fdf7967a18be, 20 weeks (smoke), seeds p13a-core-causal-01, law campaign-legacy/v1
+[1353-T] p13a-core-causal-01: F1 BRIDGE: the landed law refused an authored film's null settledWeek (campaignLegacy.ts:351; 1359-F2 F1); the law runs on a copy where 8 authored films read settledWeek 0
+[1353-T] p13a-core-causal-01: smoke endOfRun at week 20: 4 releases, 4 settled; held: artistic-voice 0, commercial-engine 0, of 5 studios; law check pass (52 comparisons)

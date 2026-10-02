@@ -1,0 +1,1232 @@
+diff --git a/bridge/finance-upcoming.ts b/bridge/finance-upcoming.ts
+index 0c90c2b..be472f8 100644
+--- a/bridge/finance-upcoming.ts
++++ b/bridge/finance-upcoming.ts
+@@ -5,7 +5,7 @@ import { weeklySalary } from '../src/core/employment.ts'
+ import { setIsUnderRepair } from '../src/core/sets.ts'
+ import { TUNING } from '../src/core/tuning.ts'
+ import { ordinaryRenewalWindow } from '../src/core/studioCalendar.ts'
+-import { currentTier } from '../src/core/relationships.ts'
++import { currentTier, romanceStatus } from '../src/core/relationships.ts'
+ import type { FinanceRoute } from './finance-route.ts'
+ 
+ export type FinanceUpcomingEvent = {
+@@ -19,9 +19,11 @@ export const FINANCE_UPCOMING_LIMIT = 64
+  * the player's roster at the expiry week, in roster (employment) order. The roster test
+  * restates `bridge/relationships.ts` `rosterAt` (strict at the week on both ends) and,
+  * because the week is in the future, also requires the counterpart's committed term to
+- * reach past it. The tier is read at the expiry week, drift included.
++ * reach past it. The tier is read at the expiry week, drift included. D-1312-2 (1313-A §2
++ * "Partners joins this sentence when the romance track lands"; 1347-A §2.3): a Partners
++ * counterpart joins at any tier, its bond read at the same week.
+  */
+-function inseparableNote(state: GameState, subjectId: string, week: number): string {
++function closeTieNote(state: GameState, subjectId: string, week: number): string {
+   const playerStudioId = state.hollywood?.playerStudioId
+   if (playerStudioId === undefined || state.relationships === undefined) return ''
+   const notes: string[] = []
+@@ -30,10 +32,14 @@ function inseparableNote(state: GameState, subjectId: string, week: number): str
+     if (row.studioId !== playerStudioId || id === subjectId) continue
+     if (!(row.terms.startWeek < week && week < (row.endedWeek ?? row.terms.endWeekExclusive))) continue
+     const edge = state.relationships.find(e => (e.a === subjectId && e.b === id) || (e.b === subjectId && e.a === id))
+-    if (edge === undefined || currentTier(edge, week) !== 'Inseparable') continue
++    if (edge === undefined) continue
++    const partners = romanceStatus(edge, week) === 'partners'
++    if (!partners && currentTier(edge, week) !== 'Inseparable') continue
+     const name = state.talent.find(t => t.id === id)?.name
+     if (name === undefined) throw new Error('Finance Upcoming: unknown roster counterpart')
+-    notes.push(` ${name} works here and is Inseparable with them; letting the contract lapse separates them.`)
++    notes.push(partners
++      ? ` ${name} works here and is their partner; letting the contract lapse separates them.`
++      : ` ${name} works here and is Inseparable with them; letting the contract lapse separates them.`)
+   }
+   return notes.join('')
+ }
+@@ -67,7 +73,7 @@ export function financeUpcoming(state: GameState) {
+       weeklyOperatingCostChange: null, route })
+     events.push({ id: `expiry:${talent.id}:${contract.endWeekExclusive}`, kind: 'contractExpiry', week: contract.endWeekExclusive,
+       label: `${talent.name} current contract expires`,
+-      detail: `If not renewed, current weekly salary of $${weeklySalary(contract.annualSalary).toLocaleString('en-US')} ends on arrival in Week ${contract.endWeekExclusive}. No replacement contract is assumed.${inseparableNote(state, talent.id, contract.endWeekExclusive)}`,
++      detail: `If not renewed, current weekly salary of $${weeklySalary(contract.annualSalary).toLocaleString('en-US')} ends on arrival in Week ${contract.endWeekExclusive}. No replacement contract is assumed.${closeTieNote(state, talent.id, contract.endWeekExclusive)}`,
+       weeklyOperatingCostChange: null, route })
+   }
+   for (const set of state.sets) {
+diff --git a/src/core/index.ts b/src/core/index.ts
+index 0e6cfa3..561c200 100644
+--- a/src/core/index.ts
++++ b/src/core/index.ts
+@@ -108,6 +108,9 @@ export type {
+   RelationshipDriver,
+   RelationshipDriverKind,
+   RelationshipTier,
++  RelationshipCompetition,
++  RomanceBond,
++  RomanceTrack,
+   ProfessionalPromiseV29,
+   ProfessionalPromiseV30,
+   ProfessionalPromiseV32,
+@@ -1369,6 +1372,10 @@ export {
+   convertV42ToV43,
+   convertV43ToV42,
+   migrateToV43,
++  validateSaveV44,
++  convertV43ToV44,
++  convertV44ToV43,
++  migrateToV44,
+   convertV27ToV28,
+   convertV28ToV27,
+   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
+@@ -1421,6 +1428,7 @@ export type {
+   SaveFileV41,
+   SaveFileV42,
+   SaveFileV43,
++  SaveFileV44,
+   LiveSaveFile,
+   SaveFile,
+   TalentV1,
+@@ -1525,11 +1533,16 @@ export {
+   recordCancelledAfterFirstTake,
+   recordCastingCompetition,
+   relationshipsAtV31,
++  relationshipsAtV42,
+   assertRelationshipsAtV31,
+   currentCloseness,
+   currentTier,
++  currentRomanceValue,
++  romanceStatus,
++  romanceEndWeek,
+   pairChemistry,
+   driverGain,
++  rosterTies,
+   tiersOnRoster,
+   relationshipsReasonSentence,
+   requireRelationshipsRoot,
+@@ -1538,6 +1551,7 @@ export {
+   hasConflictEvidence,
+   RELATIONSHIP_RULES_VERSION,
+   RELATIONSHIP_CONFLICT_COMPETITIONS,
++  RIVALS_SAME_SLOT_COMPETITIONS,
+   RELATIONSHIP_BASELINE,
+   RELATIONSHIP_TIERS,
+   RELATIONSHIP_TIER_FLOOR,
+@@ -1557,8 +1571,14 @@ export {
+   RELATIONSHIP_DRIFT_GRACE_WEEKS,
+   RELATIONSHIP_DRIFT_RETURN_WEEKS,
+   RELATIONSHIP_RECENT_CAP,
++  ROMANCE_FORMATION_THRESHOLD,
++  ROMANCE_EXIT_THRESHOLD,
++  ROMANCE_PROXIMITY_GAIN,
++  ROMANCE_SUCCESS_GAIN,
++  ROMANCE_GRACE_WEEKS,
++  ROMANCE_DECAY_WEEKS,
+ } from './relationships.js'
+-export type { PairChemistry, RelationshipDelta } from './relationships.js'
++export type { PairChemistry, RelationshipDelta, RosterTie } from './relationships.js'
+ 
+ // ── P13B-S3 Physical plans (persistent queue, dependencies, admission) ───────
+ export {
+@@ -1692,7 +1712,7 @@ export type { AdoptionQuote, AdoptionRequest } from './technologyAdoption.js'
+ export { productionTechnologyView } from './technologyProduction.js'
+ export type { StudioTechnology, StudioTechnologyV2, StudioTechnologyV3, TechnologyAction, ResearchProject, ResearchWeekReceipt, ResearchLabContribution, TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, ProductionTechnology } from './technologyTypes.js'
+ 
+-export type { GameStateV40, GameStateV41, GameStateV42, GameStateV43, ProfessionalPromiseV40, OpportunitySeatClass, OpportunityPredicate, GenreOpportunityPredicate, ProjectOpportunityPredicate, FirstTakeSubject, FirstTakeSubjects,
++export type { GameStateV40, GameStateV41, GameStateV42, GameStateV43, GameStateV44, ProfessionalPromiseV40, OpportunitySeatClass, OpportunityPredicate, GenreOpportunityPredicate, ProjectOpportunityPredicate, FirstTakeSubject, FirstTakeSubjects,
+   GameStateV38, GameStateV39, ProfessionalPromiseV39, DirectorCountPredicate, CareerLifecycleRootV38, TransitionTarget, TransitionRoleTier, TransitionPotentialTier,
+   RetirementKey, ProfessionAnchor, TransitionPictureRef, TransitionContextWitness, TransitionTargetInput,
+   TransitionInputs, TransitionEvaluation, ProfessionChange, IndustryRetirement, TransitionDue } from './types.js'
+diff --git a/src/core/relationshipLabels.ts b/src/core/relationshipLabels.ts
+index aacec77..b5b4e52 100644
+--- a/src/core/relationshipLabels.ts
++++ b/src/core/relationshipLabels.ts
+@@ -4,10 +4,12 @@
+ // amended by 1347-F Amendment 1 and its "qualifying pictures" note. A label cites
+ // its evidence and decorates the existing tier; it has no skill, trust, chemistry or
+ // closeness effect of its own, and no engine path reads this module. Professional
+-// Rivals needs the competitions log and lands with slice B.
++// Rivals reads the Save44 competitions log (slice B).
+ 
+ import { distinctActingFirstTakes } from './professionTransitions.js'
+-import type { GameState } from './types.js'
++import { RIVALS_SAME_SLOT_COMPETITIONS } from './relationships.js'
++import { SLOT_ORDER } from './tuning.js'
++import type { CastSlot, GameState, RelationshipCompetition, RelationshipEdge } from './types.js'
+ 
+ /** HIS-014: "the same director directed an actor's first three qualifying
+  * pictures". An Owner definition, not tuning. */
+@@ -36,3 +38,21 @@ export function mentorEvidence(state: GameState, actorId: string): MentorEvidenc
+   if (second.directorId !== first.directorId || third.directorId !== first.directorId) return null
+   return { directorId: first.directorId, productionIds: [first.productionId, second.productionId, third.productionId], entryWeek: receipt.week }
+ }
++
++export type RivalsEvidence = { slot: CastSlot; rows: RelationshipCompetition[] }
++
++/**
++ * Professional Rivals (HIS-014; 1347-A §2.4): at least RIVALS_SAME_SLOT_COMPETITIONS rows
++ * of the pair's `competitions` log name the same cast slot. A row with two slots counts for
++ * each of them. The first qualifying slot in slot order names the label, and that slot's
++ * first two rows are its evidence. Conflict evidence is a different axis (three
++ * competitions in any slots), so neither implies the other. A competition recorded before
++ * Save44 has no row, so it never makes Rivals; nothing is reconstructed.
++ */
++export function professionalRivalsEvidence(edge: Pick<RelationshipEdge, 'competitions'>): RivalsEvidence | null {
++  for (const slot of SLOT_ORDER) {
++    const rows = edge.competitions.filter((row) => row.slots.includes(slot))
++    if (rows.length >= RIVALS_SAME_SLOT_COMPETITIONS) return { slot, rows: rows.slice(0, RIVALS_SAME_SLOT_COMPETITIONS) }
++  }
++  return null
++}
+diff --git a/src/core/relationships.ts b/src/core/relationships.ts
+index 8a8f526..e1835f2 100644
+--- a/src/core/relationships.ts
++++ b/src/core/relationships.ts
+@@ -24,9 +24,10 @@
+ // no edge from its old credits (Q3, OPEN 2 stays open).
+ 
+ import { castingSessionForProject } from './castingSessions.js'
++import { SLOT_ORDER } from './tuning.js'
+ import type {
+-  CastSlot, FilmResult, FirstTakeReceipt, GameState, Production, RelationshipDriver, RelationshipDriverKind,
+-  RelationshipEdge, RelationshipTier,
++  CastSlot, FilmResult, FirstTakeReceipt, GameState, Production, RelationshipCompetition, RelationshipDriver,
++  RelationshipDriverKind, RelationshipEdge, RelationshipTier, RomanceTrack,
+ } from './types.js'
+ 
+ // ── the versioned rule and the named HYPOTHESES (plan :761; none is settled law) ──
+@@ -50,6 +51,11 @@ export const RELATIONSHIP_RULES_VERSION = 2
+  * initial value; no new counter, driver kind or delta at the threshold. */
+ export const RELATIONSHIP_CONFLICT_COMPETITIONS = 3
+ 
++/** HIS-014 (1340-O): Professional Rivals needs "at least two distinct recorded
++ * competitions between the pair for the same casting slot". An Owner definition, not
++ * tuning (1347-A §3); a label only, read from the `competitions` log. */
++export const RIVALS_SAME_SLOT_COMPETITIONS = 2
++
+ /** §5.1 :401's random 45–55 replaced by ONE fixed constant (647-B ruling (i) on
+  * OPEN 4; §8 :641 forbids a new RNG stream). Inside Acquaintances. */
+ export const RELATIONSHIP_BASELINE = 50
+@@ -115,6 +121,19 @@ export const RELATIONSHIP_FAILURE_CRITIC_SCORE = 40
+  * return to the baseline over the return horizon, from either side. */
+ export const RELATIONSHIP_DRIFT_GRACE_WEEKS = 52
+ export const RELATIONSHIP_DRIFT_RETURN_WEEKS = 260
++/** D-1312-2 romance track (1347-A §3): PROVISIONAL TUNING by name; the Owner delegated
++ * the numbers. Formation at 75 takes about six high-proximity pictures with successes
++ * after Friends, and the exit at 40 sits well below it so a bond does not flicker. */
++export const ROMANCE_FORMATION_THRESHOLD = 75
++export const ROMANCE_EXIT_THRESHOLD = 40
++/** The main driver (§5.4a :456): a high-proximity shared take from the second shared production. */
++export const ROMANCE_PROXIMITY_GAIN = 10
++export const ROMANCE_SUCCESS_GAIN = 5
++/** Separation: the value holds for the grace window, then falls linearly to 0 over the
++ * decay window, the `currentCloseness` shape. A bond at 75 ends 229 weeks after the last
++ * shared picture; a bond at 100 after 263. */
++export const ROMANCE_GRACE_WEEKS = 104
++export const ROMANCE_DECAY_WEEKS = 260
+ /** §5.5 :468 / plan (9): `recent` holds at most this many drivers; the oldest
+  * folds OUT at write and the exact counters keep the count.
+  * ponytail: fold-by-count only; the §5.5 :468 windowed 260-week compaction is
+@@ -144,14 +163,54 @@ const pairKey = (a: string, b: string): string => `${a}\u0000${b}`
+ 
+ /** The value at `week`, drift materialized on read (§5.5 :467; §5.2 :413): the
+  * stored value inside the grace window, else a linear return toward the baseline
+- * from either side, complete at GRACE + RETURN and never past the baseline. */
+-export function currentCloseness(edge: Pick<RelationshipEdge, 'closeness' | 'lastEventWeek'>, week: number): number {
+-  const dormant = week - edge.lastEventWeek
++ * from either side, complete at GRACE + RETURN and never past the baseline.
++ * D-1312-2 (1358-F §3): Partners are exempt while their bond is open; after the ending,
++ * recorded or derived on read, dormancy counts from max(lastEventWeek, the ending). */
++export function currentCloseness(edge: Pick<RelationshipEdge, 'closeness' | 'lastEventWeek' | 'romance'>, week: number): number {
++  const ending = romanceEndWeek(edge.romance)
++  if (ending !== null && week < ending) return edge.closeness
++  const dormant = week - Math.max(edge.lastEventWeek, ending ?? edge.lastEventWeek)
+   if (dormant <= RELATIONSHIP_DRIFT_GRACE_WEEKS) return edge.closeness
+   const span = Math.min(dormant - RELATIONSHIP_DRIFT_GRACE_WEEKS, RELATIONSHIP_DRIFT_RETURN_WEEKS)
+   return edge.closeness + Math.trunc((RELATIONSHIP_BASELINE - edge.closeness) * span / RELATIONSHIP_DRIFT_RETURN_WEEKS)
+ }
+ 
++/** The romance value at `week` (1347-A §2.3): the stored value inside the grace window,
++ * else a linear fall to 0 over the decay window, `currentCloseness`'s shape with 0 as
++ * its target. */
++export function currentRomanceValue(romance: RomanceTrack, week: number): number {
++  const dormant = week - romance.anchorWeek
++  if (dormant <= ROMANCE_GRACE_WEEKS) return romance.value
++  const span = Math.min(dormant - ROMANCE_GRACE_WEEKS, ROMANCE_DECAY_WEEKS)
++  return romance.value - Math.trunc(romance.value * span / ROMANCE_DECAY_WEEKS)
++}
++
++/** The first week `currentRomanceValue` reads below ROMANCE_EXIT_THRESHOLD, in closed
++ * form (record 1358-E checks it against the week-by-week read for every value 0..100);
++ * a stored value already below the threshold ends at its anchor. */
++function derivedEndWeek(romance: RomanceTrack): number {
++  if (romance.value < ROMANCE_EXIT_THRESHOLD) return romance.anchorWeek
++  return romance.anchorWeek + ROMANCE_GRACE_WEEKS
++    + Math.ceil(ROMANCE_DECAY_WEEKS * (romance.value - ROMANCE_EXIT_THRESHOLD + 1) / romance.value)
++}
++
++/** The last bond's ending week, recorded or derived on read; null when no bond ever
++ * formed. Only the last bond can be open, and `value`/`anchorWeek` describe it. A staged
++ * edge built without the field reads as `romance: null`. */
++export function romanceEndWeek(romance: RomanceTrack | null): number | null {
++  const bond = romance?.bonds.at(-1)
++  if (romance == null || bond === undefined) return null
++  return bond.endedWeek ?? derivedEndWeek(romance)
++}
++
++/** The pair's bond at `week` (1347-A §2.3): 'partners' before the last bond's ending,
++ * 'ended' from it on, null when none ever formed. It reads the track and the week only,
++ * so a studio change, a retirement or a fall in the friendship tier ends nothing. */
++export function romanceStatus(edge: Pick<RelationshipEdge, 'romance'>, week: number): 'partners' | 'ended' | null {
++  const ending = romanceEndWeek(edge.romance)
++  return ending === null ? null : week < ending ? 'partners' : 'ended'
++}
++
+ /** The value band by the named floors alone (no evidence condition). */
+ function bandOf(closeness: number): RelationshipTier {
+   let band: RelationshipTier = 'Nemeses'
+@@ -174,7 +233,7 @@ function tierOf(closeness: number, evidence: boolean): RelationshipTier {
+ }
+ 
+ /** The tier at `week` under `RELATIONSHIP_RULES_VERSION`, a pure read. */
+-export function currentTier(edge: Pick<RelationshipEdge, 'closeness' | 'lastEventWeek' | 'sharedCompetitions'>, week: number): RelationshipTier {
++export function currentTier(edge: Pick<RelationshipEdge, 'closeness' | 'lastEventWeek' | 'sharedCompetitions' | 'romance'>, week: number): RelationshipTier {
+   return tierOf(currentCloseness(edge, week), hasConflictEvidence(edge))
+ }
+ 
+@@ -204,13 +263,25 @@ function counted(edge: RelationshipEdge, kind: RelationshipDriverKind): Relation
+   }
+ }
+ 
+-/** One driver applied to an existing edge: drift materialized first, then the
+- * delta, clamped to [0, 100]; the anchor moves to `week`; the peak rises only on
+- * a HIGHER tier; the driver appends and the oldest folds out past the cap (the
+- * counters are the fold target — §5.5 :468). Spread-preserving. */
++/** 1347-A §2.3: a derived romance ending is written into `endedWeek` once, at the next
++ * write that touches the edge (or either person's formation check), before any new
++ * driver applies. It writes no driver and moves no closeness, counter, peak or `recent`. */
++function recordEnding(edge: RelationshipEdge, week: number): RelationshipEdge {
++  const romance = edge.romance
++  const bond = romance?.bonds.at(-1)
++  if (romance == null || bond === undefined || bond.endedWeek !== null) return edge
++  const endedWeek = derivedEndWeek(romance)
++  if (endedWeek > week) return edge
++  return { ...edge, romance: { ...romance, bonds: [...romance.bonds.slice(0, -1), { ...bond, endedWeek }] } }
++}
++
++/** One driver applied to an existing edge: any derived romance ending recorded,
++ * drift materialized, then the delta, clamped to [0, 100]; the anchor moves to `week`;
++ * the peak rises only on a HIGHER tier; the driver appends and the oldest folds out
++ * past the cap (the counters are the fold target — §5.5 :468). Spread-preserving. */
+ function writeEdge(edge: RelationshipEdge, week: number, driver: RelationshipDriver): RelationshipEdge {
+-  const next = counted(edge, driver.kind)
+-  const closeness = clamp(currentCloseness(edge, week) + driver.delta)
++  const next = counted(recordEnding(edge, week), driver.kind)
++  const closeness = clamp(currentCloseness(next, week) + driver.delta)
+   const tier = tierOf(closeness, hasConflictEvidence(next))
+   const higher = rank(tier) > rank(edge.peakTier)
+   return {
+@@ -239,6 +310,8 @@ function newEdge(index: number, a: string, b: string, week: number, driver: Rela
+     sharedCompetitions,
+     peakTier: tier, peakTierWeek: week,
+     recent: [driver],
++    competitions: [],
++    romance: null,
+   }
+ }
+ 
+@@ -286,7 +359,50 @@ function driveTake(state: GameState, ledger: Ledger, take: FirstTakeReceipt, kin
+     if (hasDriver(edge, kind, take.productionId)) continue
+     ledger.edges[i] = writeEdge(edge, week, { kind, week, ref: take.productionId, delta: driverGain(state, pair.a, pair.b, delta) })
+     ledger.changed = true
++    if (kind === 'sharedSuccess') writeRomance(ledger, i, week, ROMANCE_SUCCESS_GAIN, false)
++  }
++}
++
++/** The formation check of 1347-A §2.3 for edge `i`: does either person hold an open
++ * bond with anyone else at `week`? It records every third-party ending it reads, so a
++ * bond that already ended on read neither blocks nor stays open. */
++function thirdPartyBond(ledger: Ledger, i: number, week: number): boolean {
++  const { a, b } = ledger.edges[i]!
++  let open = false
++  for (let j = 0; j < ledger.edges.length; j++) {
++    const other = ledger.edges[j]!
++    if (j === i || other.romance == null || ![a, b].some((person) => person === other.a || person === other.b)) continue
++    const recorded = recordEnding(other, week)
++    if (recorded !== other) {
++      ledger.edges[j] = recorded
++      ledger.changed = true
++    }
++    if (romanceStatus(recorded, week) === 'partners') open = true
+   }
++  return open
++}
++
++/**
++ * One romance write on edge `i` at the tick seam, after that write's friendship drivers
++ * (1347-A §2.3; 1358-F §1-§2; 1358-F2 item 1): the derived ending recorded first, then
++ * the value read at `week`, the gain added and clamped to 0..100, and the anchor moved to
++ * `week`. A gain needs the pair at Friends or above, read on the edge as this write left
++ * it, and no open bond for either person with anyone but each other: the pair's own bond
++ * never blocks it (Reading B). A gain that reaches ROMANCE_FORMATION_THRESHOLD while the
++ * pair holds no open bond forms one, dated `week`. A shared take always writes, since any
++ * shared take resets separation; a success writes only when it gains.
++ */
++function writeRomance(ledger: Ledger, i: number, week: number, gain: number, take: boolean): void {
++  const edge = recordEnding(ledger.edges[i]!, week)
++  ledger.edges[i] = edge
++  const gains = gain > 0 && rank(currentTier(edge, week)) >= rank('Friends') && !thirdPartyBond(ledger, i, week)
++  if (!gains && (!take || edge.romance == null)) return
++  const track: RomanceTrack = edge.romance ?? { value: 0, anchorWeek: week, bonds: [] }
++  const value = clamp(currentRomanceValue(track, week) + (gains ? gain : 0))
++  const forms = gains && value >= ROMANCE_FORMATION_THRESHOLD && track.bonds.at(-1)?.endedWeek !== null
++  const bonds = forms ? [...track.bonds, { formedWeek: week, endedWeek: null }] : track.bonds
++  ledger.edges[i] = { ...edge, romance: { value, anchorWeek: week, bonds } }
++  ledger.changed = true
+ }
+ 
+ // ── the ONE tail seam (plan scope (2)) ───────────────────────────────────────
+@@ -305,7 +421,9 @@ export type RelationshipDelta = {
+  * BEFORE the root guard; then the loud root guard; then no industry → unchanged,
+  * so the headless corpus and the roster-wall observatory stay byte-identical
+  * apart from the empty root. Every driver is stamped `week` (the tail week, as
+- * takes are — 647-B R1). Idempotent by (edgeId, kind, ref) over `recent`.
++ * takes are — 647-B R1). Idempotent by (edgeId, kind, ref) over `recent`. The
++ * romance track grows, forms and records its ending here too, from the same delta
++ * (1358-F §2): see `writeRomance`.
+  */
+ export function advanceRelationshipsWeek(state: GameState, delta: RelationshipDelta, week: number): GameState {
+   if (delta.takes.length === 0 && delta.releases.length === 0) return state
+@@ -333,10 +451,14 @@ export function advanceRelationshipsWeek(state: GameState, delta: RelationshipDe
+       }
+       ledger.edges[i] = next
+       ledger.changed = true
++      // D-1312-2: from the pair's second shared production, a high-proximity take gains.
++      const proximity = pair.weight === RELATIONSHIP_PROXIMITY_HIGH && next.sharedProductions >= 2
++      writeRomance(ledger, i, week, proximity ? ROMANCE_PROXIMITY_GAIN : 0, true)
+     }
+   }
+   // (2b) shared success / failure at release, joined to the recorded take by
+-  // productionId on `criticScore` alone; nothing between the two edges.
++  // productionId on `criticScore` alone; nothing between the two edges; a success
++  // also gains on the romance track.
+   for (const film of delta.releases) {
+     const kind: RelationshipDriverKind | null = film.criticScore >= RELATIONSHIP_SUCCESS_CRITIC_SCORE ? 'sharedSuccess'
+       : film.criticScore < RELATIONSHIP_FAILURE_CRITIC_SCORE ? 'sharedFailure' : null
+@@ -377,9 +499,12 @@ export function recordCancelledAfterFirstTake(state: GameState, studioId: string
+  * canonical and de-duplicated, so a pair contesting two slots of one production
+  * records ONE competition (1313-F amendment 2). Each pair: `castingCompetitionLost`
+  * (ref = the production id, stamped `state.market.tick`), then from its second
+- * competition the capped `repeatedCompetition` accelerator. A project without a
+- * complete session mints nothing (the SAME reference comes back). No RNG. Rivals
+- * hold no casting session, so the reachable set is player-only (1312-F amendment 1).
++ * competition the capped `repeatedCompetition` accelerator, and one `competitions`
++ * row `{week, productionId, slots}` with the slots it contested in slot order (Save44,
++ * 1347-A §2.1): the row is appended exactly where the counter counts, so the log never
++ * outgrows `sharedCompetitions`. A project without a complete session mints nothing
++ * (the SAME reference comes back). No RNG. Rivals hold no casting session, so the
++ * reachable set is player-only (1312-F amendment 1).
+  */
+ export function recordCastingCompetition(state: GameState, studioId: string, production: Production, projectId: string): GameState {
+   const session = castingSessionForProject(state.castingSessions, projectId)
+@@ -388,28 +513,28 @@ export function recordCastingCompetition(state: GameState, studioId: string, pro
+   if (studioId !== state.hollywood?.playerStudioId) {
+     throw new Error(`relationships: casting session "${session.id}" belongs to the player studio, not ${studioId}`)
+   }
+-  const pairs: { a: string; b: string }[] = []
+-  const seen = new Set<string>()
+-  for (const slot of ['lead', 'antagonist', 'support'] as const satisfies readonly CastSlot[]) {
++  const pairs = new Map<string, { a: string; b: string; slots: CastSlot[] }>() // first-contest order
++  for (const slot of SLOT_ORDER) {
+     const seated = production.cast[slot]
+     const [x, y] = session.slate[slot]
+     const other = seated === x ? y : seated === y ? x : null
+     if (other === null) continue
+     const [a, b] = canonicalPair(seated, other)
+-    if (seen.has(pairKey(a, b))) continue
+-    seen.add(pairKey(a, b))
+-    pairs.push({ a, b })
++    const pair = pairs.get(pairKey(a, b))
++    if (pair === undefined) pairs.set(pairKey(a, b), { a, b, slots: [slot] })
++    else pair.slots.push(slot)
+   }
+-  if (pairs.length === 0) return state
++  if (pairs.size === 0) return state
+   const week = state.market.tick
+   const ledger = openLedger(state)
+-  for (const { a, b } of pairs) {
++  for (const { a, b, slots } of pairs.values()) {
+     const driver: RelationshipDriver = { kind: 'castingCompetitionLost', week, ref: production.id,
+       delta: driverGain(state, a, b, -RELATIONSHIP_COMPETITION_DELTA) }
++    const row: RelationshipCompetition = { week, productionId: production.id, slots }
+     const i = ledger.index.get(pairKey(a, b))
+     if (i === undefined) {
+       ledger.index.set(pairKey(a, b), ledger.edges.length)
+-      ledger.edges.push(newEdge(ledger.edges.length, a, b, week, driver))
++      ledger.edges.push({ ...newEdge(ledger.edges.length, a, b, week, driver), competitions: [row] })
+       ledger.changed = true
+       continue
+     }
+@@ -420,7 +545,7 @@ export function recordCastingCompetition(state: GameState, studioId: string, pro
+     if (accelerator > 0) {
+       next = writeEdge(next, week, { kind: 'repeatedCompetition', week, ref: production.id, delta: driverGain(state, a, b, -accelerator) })
+     }
+-    ledger.edges[i] = next
++    ledger.edges[i] = { ...next, competitions: [...next.competitions, row] }
+     ledger.changed = true
+   }
+   return commitLedger(state, ledger)
+@@ -428,17 +553,25 @@ export function recordCastingCompetition(state: GameState, studioId: string, pro
+ 
+ // ── reads (plan scope (5)-(7)) ───────────────────────────────────────────────
+ 
+-/** The D5 / reservation read: the subject's current tier with every counterpart
+- * in `roster` at `week` (the roster itself is the caller's — `talentMarket.ts`
+- * owns the employer-interval predicate). Order is immaterial to every consumer. */
+-export function tiersOnRoster(state: GameState, subject: string, roster: ReadonlySet<string>, week: number): readonly RelationshipTier[] {
++/** One roster counterpart's tie for D5: the current tier, and whether the pair are Partners. */
++export type RosterTie = { tier: RelationshipTier; partners: boolean }
++
++/** The D5 / reservation read: the subject's current tie with every counterpart in
++ * `roster` at `week` (the roster itself is the caller's — `talentMarket.ts` owns the
++ * employer-interval predicate). Order is immaterial to every consumer. */
++export function rosterTies(state: GameState, subject: string, roster: ReadonlySet<string>, week: number): readonly RosterTie[] {
+   requireRelationshipsRoot(state)
+-  const tiers: RelationshipTier[] = []
++  const ties: RosterTie[] = []
+   for (const edge of state.relationships) {
+     const counterpart = edge.a === subject ? edge.b : edge.b === subject ? edge.a : null
+-    if (counterpart !== null && roster.has(counterpart)) tiers.push(currentTier(edge, week))
++    if (counterpart !== null && roster.has(counterpart)) ties.push({ tier: currentTier(edge, week), partners: romanceStatus(edge, week) === 'partners' })
+   }
+-  return tiers
++  return ties
++}
++
++/** `rosterTies`, tiers only. */
++export function tiersOnRoster(state: GameState, subject: string, roster: ReadonlySet<string>, week: number): readonly RelationshipTier[] {
++  return rosterTies(state, subject, roster, week).map((tie) => tie.tier)
+ }
+ 
+ /**
+@@ -475,7 +608,9 @@ const DRIVER_COPY: Readonly<Record<RelationshipDriverKind, string>> = {
+  * in B.5 (the result owner's bound, formula and seam are a later slice; R17).
+  * `null`/`0`/`[]` without an edge; `sign` +1 for Colleagues and above, 0 for
+  * Acquaintances, −1 for Strained and below; reasons from the recent kinds and
+- * the dormancy, none carrying a number.
++ * the dormancy, none carrying a number. D-1312-2 (1347-A §2.3, §6 item 3): Partners
++ * carry Inseparable's +1 at Strained and above, add one reason, and read −1 at
++ * Enemies or Nemeses, where current hostility governs.
+  */
+ export function pairChemistry(state: GameState, x: string, y: string, week: number): PairChemistry {
+   requireRelationshipsRoot(state)
+@@ -483,8 +618,10 @@ export function pairChemistry(state: GameState, x: string, y: string, week: numb
+   const edge = state.relationships.find((e) => e.a === a && e.b === b)
+   if (edge === undefined) return { tier: null, sign: 0, reasons: [] }
+   const tier = currentTier(edge, week)
+-  const sign = rank(tier) >= rank('Colleagues') ? 1 : tier === 'Acquaintances' ? 0 : -1
++  const partners = romanceStatus(edge, week) === 'partners'
++  const sign = rank(tier) >= rank('Colleagues') || (partners && rank(tier) >= rank('Strained')) ? 1 : tier === 'Acquaintances' ? 0 : -1
+   const reasons = RELATIONSHIP_DRIVER_KINDS.filter((kind) => edge.recent.some((d) => d.kind === kind)).map((kind) => DRIVER_COPY[kind])
++  if (partners) reasons.push('they are partners')
+   if (week - edge.lastEventWeek > RELATIONSHIP_DRIFT_GRACE_WEEKS) {
+     reasons.push(edge.sharedProductions === 0 ? 'they have never worked together' : 'they have not worked together lately')
+   }
+@@ -500,7 +637,11 @@ function isRecord(value: unknown): value is Record<string, unknown> {
+ const EDGE_KEYS = ['edgeId', 'a', 'b', 'closeness', 'firstSharedWeek', 'lastEventWeek', 'sharedProductions', 'sharedSuccesses',
+   'sharedFailures', 'sharedCancellations', 'peakTier', 'peakTierWeek', 'recent'] as const
+ const EDGE_KEYS_V42 = [...EDGE_KEYS, 'sharedCompetitions'] as const
++const EDGE_KEYS_V44 = [...EDGE_KEYS_V42, 'competitions', 'romance'] as const
+ const DRIVER_KEYS = ['kind', 'week', 'ref', 'delta'] as const
++const COMPETITION_KEYS = ['week', 'productionId', 'slots'] as const
++const ROMANCE_KEYS = ['value', 'anchorWeek', 'bonds'] as const
++const BOND_KEYS = ['formedWeek', 'endedWeek'] as const
+ 
+ /**
+  * The V31 root's own validator (the `validatePromiseRoots` model): array; each
+@@ -513,13 +654,18 @@ const DRIVER_KEYS = ['kind', 'week', 'ref', 'delta'] as const
+  * `recent` within the cap, each driver in the catalogue with `week ≤ lastEventWeek`.
+  * `era` 31 (every frozen Save31..Save41 reader) is exactly that law with the frozen
+  * five-kind catalogue; `era` 42 adds the exact `sharedCompetitions` counter and the
+- * two casting kinds (1313-A §3, 1313-F note 8).
++ * two casting kinds (1313-A §3, 1313-F note 8); `era` 44 adds the `competitions` log and
++ * the `romance` track (1347-A §4). The log: weeks in order, equal weeks allowed (two
++ * productions can contest in one week, the parent's reading of "ascending"), distinct
++ * production refs, a non-empty subset of the cast slots in slot order, and no more rows
++ * than `sharedCompetitions`. Romance: an integer value 0..100 and bonds in order, only the
++ * last of them open. Every week inside the recording interval, as above.
+  */
+-export function validateRelationshipsRoot(state: unknown, era: 31 | 42 = 31): void {
++export function validateRelationshipsRoot(state: unknown, era: 31 | 42 | 44 = 31): void {
+   const fail = (message: string): never => {
+     throw new Error(`validateSaveV${String(era)}: ${message}`)
+   }
+-  const catalogue = era === 42 ? RELATIONSHIP_DRIVER_KINDS : RELATIONSHIP_DRIVER_KINDS_V31
++  const catalogue = era === 31 ? RELATIONSHIP_DRIVER_KINDS_V31 : RELATIONSHIP_DRIVER_KINDS
+   if (!isRecord(state)) return fail('state is not a plain object')
+   const rows = state.relationships
+   if (!Array.isArray(rows)) return fail('state.relationships is not an array')
+@@ -563,7 +709,7 @@ export function validateRelationshipsRoot(state: unknown, era: 31 | 42 = 31): vo
+   for (let i = 0; i < rows.length; i++) {
+     const at = `state.relationships[${String(i)}]`
+     const row = record(rows[i], at)
+-    exact(row, era === 42 ? EDGE_KEYS_V42 : EDGE_KEYS, at)
++    exact(row, era === 44 ? EDGE_KEYS_V44 : era === 42 ? EDGE_KEYS_V42 : EDGE_KEYS, at)
+     if (row.edgeId !== `relationship-edge-${String(i)}`) return fail(`${at}.edgeId is not this root's ordinal id`)
+     const a = personId(row.a, `${at}.a`)
+     const b = personId(row.b, `${at}.b`)
+@@ -582,7 +728,7 @@ export function validateRelationshipsRoot(state: unknown, era: 31 | 42 = 31): vo
+     const cancellations = nonnegative(row.sharedCancellations, `${at}.sharedCancellations`)
+     if (successes + failures > productions) return fail(`${at} counters are inconsistent: sharedSuccesses + sharedFailures exceeds sharedProductions`)
+     if (cancellations > productions) return fail(`${at} counters are inconsistent: sharedCancellations exceeds sharedProductions`)
+-    if (era === 42) nonnegative(row.sharedCompetitions, `${at}.sharedCompetitions`)
++    const competitions = era === 31 ? 0 : nonnegative(row.sharedCompetitions, `${at}.sharedCompetitions`)
+     if (!RELATIONSHIP_TIERS.includes(row.peakTier as RelationshipTier)) return fail(`${at}.peakTier is not a tier of the catalogue`)
+     recordedWeek(row.peakTierWeek, `${at}.peakTierWeek`)
+     const recent = row.recent
+@@ -598,6 +744,54 @@ export function validateRelationshipsRoot(state: unknown, era: 31 | 42 = 31): vo
+       text(driver.ref, `${d}.ref`)
+       integer(driver.delta, `${d}.delta`)
+     }
++    if (era !== 44) continue
++    const log = row.competitions
++    if (!Array.isArray(log)) return fail(`${at}.competitions is not an array`)
++    if (log.length > competitions) return fail(`${at}.competitions holds more rows than sharedCompetitions`)
++    const refs = new Set<string>()
++    let previousWeek = boundary
++    for (let j = 0; j < log.length; j++) {
++      const c = `${at}.competitions[${String(j)}]`
++      const entry = record(log[j], c)
++      exact(entry, COMPETITION_KEYS, c)
++      const week = recordedWeek(entry.week, `${c}.week`)
++      if (week < previousWeek) return fail(`${c}.week is before the previous row's week: the log must be in week order`)
++      previousWeek = week
++      const ref = text(entry.productionId, `${c}.productionId`)
++      if (refs.has(ref)) return fail(`${c}.productionId repeats an earlier row's production`)
++      refs.add(ref)
++      const slots = entry.slots
++      if (!Array.isArray(slots) || slots.length === 0) return fail(`${c}.slots must be a non-empty array of cast slots`)
++      let previousSlot = -1
++      for (const slot of slots) {
++        const order = SLOT_ORDER.indexOf(slot as CastSlot)
++        if (order <= previousSlot) return fail(`${c}.slots must name distinct cast slots in slot order (lead, antagonist, support)`)
++        previousSlot = order
++      }
++    }
++    if (row.romance === null) continue
++    const r = `${at}.romance`
++    const romance = record(row.romance, r)
++    exact(romance, ROMANCE_KEYS, r)
++    const value = integer(romance.value, `${r}.value`)
++    if (value < 0 || value > 100) return fail(`${r}.value must be an integer from 0 to 100`)
++    recordedWeek(romance.anchorWeek, `${r}.anchorWeek`)
++    const bonds = romance.bonds
++    if (!Array.isArray(bonds)) return fail(`${r}.bonds is not an array`)
++    let previousEnd = boundary
++    for (let j = 0; j < bonds.length; j++) {
++      const b = `${r}.bonds[${String(j)}]`
++      const bond = record(bonds[j], b)
++      exact(bond, BOND_KEYS, b)
++      const formed = recordedWeek(bond.formedWeek, `${b}.formedWeek`)
++      if (formed < previousEnd) return fail(`${b} is out of order: it forms before the previous bond ended`)
++      if (bond.endedWeek === null) {
++        if (j !== bonds.length - 1) return fail(`${b} is open, but only the last bond may be open`)
++        continue
++      }
++      previousEnd = recordedWeek(bond.endedWeek, `${b}.endedWeek`)
++      if (previousEnd < formed) return fail(`${b}.endedWeek is before its formedWeek`)
++    }
+   }
+ }
+ 
+@@ -617,15 +811,23 @@ export function projectRelationshipsPreV31(state: unknown): void {
+ 
+ /**
+  * Save42 → the era-31 edge every frozen reader knows (1313-A §3): `sharedCompetitions`
+- * dropped and the two casting kinds removed from `recent`. `validateSaveV42` hands the
+- * frozen V41 chain this projection after validating its own root at era 42; the
+- * downgrade calls it only after `assertRelationshipsAtV31` has refused real history.
++ * dropped and the two casting kinds removed from `recent` (and the Save44 fields, when the
++ * live state is handed down directly). `validateSaveV42` hands the frozen V41 chain this
++ * projection after validating its own root at era 42; the downgrade calls it only after
++ * `assertRelationshipsAtV31` has refused real history.
+  */
+ export function relationshipsAtV31(rows: readonly RelationshipEdge[]): Record<string, unknown>[] {
+-  return rows.map(({ sharedCompetitions: _competitions, ...edge }) =>
++  return rows.map(({ sharedCompetitions: _competitions, competitions: _log, romance: _romance, ...edge }) =>
+     ({ ...edge, recent: edge.recent.filter((d) => RELATIONSHIP_DRIVER_KINDS_V31.includes(d.kind)) }))
+ }
+ 
++/** Save44 → the era-42 edge the V43 chain knows (1347-A §4): `competitions` and `romance`
++ * dropped. `validateSaveV44` hands the frozen V43 chain this projection after validating
++ * its own root at era 44; the downgrade calls it only after refusing real history. */
++export function relationshipsAtV42(rows: readonly RelationshipEdge[]): Record<string, unknown>[] {
++  return rows.map(({ competitions: _log, romance: _romance, ...edge }) => edge)
++}
++
+ /** The 42→41 refusal (1313-A §3): lossless exactly while no pair ever competed. */
+ export function assertRelationshipsAtV31(rows: readonly RelationshipEdge[], caller: string): void {
+   if (rows.some((edge) => edge.sharedCompetitions !== 0 || edge.recent.some((d) => !RELATIONSHIP_DRIVER_KINDS_V31.includes(d.kind)))) {
+diff --git a/src/core/save.ts b/src/core/save.ts
+index 2f7006b..818cc73 100644
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -54,7 +54,7 @@ import { assertStudioHistoryInvariants, migratedStudioHistory } from './studioHi
+ import { initialPhysicalPlans, validatePhysicalPlans } from './physicalPlans.js'
+ import { projectLegacyTerminations, projectTalentMarketPreV28, talentMarketTerminationLaw, validateTalentMarketRoot } from './talentMarket.js'
+ import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30, validatePromiseRootsV39, validatePromiseRootsV40, validateWaivedPromiseLinks, validateDirectorWaiverLinks, validateOpportunityWaiverLinks } from './promises.js'
+-import { assertRelationshipsAtV31, projectRelationshipsPreV31, relationshipsAtV31, validateRelationshipsRoot } from './relationships.js'
++import { assertRelationshipsAtV31, projectRelationshipsPreV31, relationshipsAtV31, relationshipsAtV42, validateRelationshipsRoot } from './relationships.js'
+ import { ageAt, anchorOf, buildTalentProvenance, recomputeDue } from './aging.js'
+ import { COHORT_PROFESSIONS, deriveCohortRequest, isCohortWeek, retirementWindow, initialCareerLifecycle } from './careerLifecycle.js'
+ import type { ProfessionValidationContext } from './professionHistory.js'
+@@ -105,6 +105,7 @@ import type {
+   GameStateV41,
+   GameStateV42,
+   GameStateV43,
++  GameStateV44,
+   RelationshipEdge,
+   CohortReceipt,
+   FilmCreativeRole,
+@@ -622,7 +623,11 @@ export type SaveFileV43 = Omit<SaveFileV42, 'saveVersion' | 'state'> & {
+   saveVersion: 43;
+   state: GameStateV43;
+ };
+-export type LiveSaveFile = SaveFileV43;
++export type SaveFileV44 = Omit<SaveFileV43, 'saveVersion' | 'state'> & {
++  saveVersion: 44;
++  state: GameStateV44;
++};
++export type LiveSaveFile = SaveFileV44;
+ 
+ // Any envelope (the return of the version-dispatching validateSave/loadSave).
+ export type SaveFile =
+@@ -668,7 +673,8 @@ export type SaveFile =
+   | SaveFileV40
+   | SaveFileV41
+   | SaveFileV42
+-  | SaveFileV43;
++  | SaveFileV43
++  | SaveFileV44;
+ 
+ // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
+ // Recursively serializes with object keys sorted lexicographically, so the same
+@@ -5434,8 +5440,9 @@ export function validateSave(save: unknown): SaveFile {
+   if (s.saveVersion === 41) return validateSaveV41(save);
+   if (s.saveVersion === 42) return validateSaveV42(save);
+   if (s.saveVersion === 43) return validateSaveV43(save);
++  if (s.saveVersion === 44) return validateSaveV44(save);
+   throw new Error(
+-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 43 only)`,
++    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only)`,
+   );
+ }
+ 
+@@ -6557,15 +6564,15 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
+ // Every caller that asks "is this envelope a migration?" compares against this
+ // constant rather than a literal that goes stale the next time `makeSave` moves
+ // (the bridge and the ui adapter both still compared against 23 at V25).
+-export const LIVE_SAVE_VERSION = 43 as const;
++export const LIVE_SAVE_VERSION = 44 as const;
+ 
+-// makeSave — the live V43 boundary. Frozen prior values migrate explicitly.
++// makeSave — the live V44 boundary. Frozen prior values migrate explicitly.
+ // The plain-JSON state is detached once; only final serialization sorts it.
+-export function makeSave(state: GameState): SaveFileV43 {
+-  const save = validateSaveV43({ saveVersion: 43, seed: state.seed, state, broadcastCache: state.broadcastItems });
++export function makeSave(state: GameState): SaveFileV44 {
++  const save = validateSaveV44({ saveVersion: 44, seed: state.seed, state, broadcastCache: state.broadcastItems });
+   // Validation precedes detachment, so undefined/non-JSON authority cannot be
+   // silently repaired by stringify before the boundary sees it.
+-  return JSON.parse(JSON.stringify(save)) as SaveFileV43;
++  return JSON.parse(JSON.stringify(save)) as SaveFileV44;
+ }
+ 
+ // ── Load / export / import ───────────────────────────────────────────────────
+@@ -7411,6 +7418,7 @@ export function importLegacyV1ToV4(json: string): SaveFileV4 {
+ export function migrateToV4(
+   save: SaveFile,
+ ): SaveFileV4 {
++  if (save.saveVersion === 44) return migrateToV4(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV4(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV4(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV4(convertV41ToV40(save as SaveFileV41));
+@@ -7439,6 +7447,7 @@ export function migrateToV4(
+ export function migrateToV5(
+   save: SaveFile,
+ ): SaveFileV5 {
++  if (save.saveVersion === 44) return migrateToV5(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV5(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV5(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV5(convertV41ToV40(save as SaveFileV41));
+@@ -7462,6 +7471,7 @@ export function migrateToV5(
+ export function migrateToV6(
+   save: SaveFile,
+ ): SaveFileV6 {
++  if (save.saveVersion === 44) return migrateToV6(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV6(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV6(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV6(convertV41ToV40(save as SaveFileV41));
+@@ -7486,6 +7496,7 @@ export function migrateToV6(
+ export function migrateToV7(
+   save: SaveFile,
+ ): SaveFileV7 {
++  if (save.saveVersion === 44) return migrateToV7(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV7(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV7(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV7(convertV41ToV40(save as SaveFileV41));
+@@ -7506,6 +7517,7 @@ export function migrateToV7(
+ // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
+ // may never silently discard authoritative screenplay or casting state.
+ export function migrateToV8(save: SaveFile): SaveFileV8 {
++  if (save.saveVersion === 44) return migrateToV8(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV8(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV8(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV8(convertV41ToV40(save as SaveFileV41));
+@@ -7544,6 +7556,7 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
+ // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
+ // authoritative casting history.
+ export function migrateToV9(save: SaveFile): SaveFileV9 {
++  if (save.saveVersion === 44) return migrateToV9(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV9(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV9(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV9(convertV41ToV40(save as SaveFileV41));
+@@ -7581,6 +7594,7 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
+ // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
+ // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
+ export function migrateToV10(save: SaveFile): SaveFileV10 {
++  if (save.saveVersion === 44) return migrateToV10(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV10(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV10(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV10(convertV41ToV40(save as SaveFileV41));
+@@ -7619,6 +7633,7 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
+ // mode. V12 is rejected, never downgraded: a placed facility, its land, its
+ // debit, and its operating history have no V11 home.
+ export function migrateToV11(save: SaveFile): SaveFileV11 {
++  if (save.saveVersion === 44) return migrateToV11(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV11(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV11(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV11(convertV41ToV40(save as SaveFileV41));
+@@ -7655,6 +7670,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
+ // their own validated construction history implies at the final V11→V12 step.
+ // V13 is rejected, never downgraded: a property that has grown has no V12 home.
+ export function migrateToV12(save: SaveFile): SaveFileV12 {
++  if (save.saveVersion === 44) return migrateToV12(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV12(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV12(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV12(convertV41ToV40(save as SaveFileV41));
+@@ -7694,6 +7710,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
+ // one widened leaf — the honest, un-guessed `subjectId: null` on any
+ // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
+ export function migrateToV15(save: SaveFile): SaveFileV15 {
++  if (save.saveVersion === 44) return migrateToV15(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV15(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV15(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV15(convertV41ToV40(save as SaveFileV41));
+@@ -7785,6 +7802,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
+ // identity (after validation at the call boundary); V1–V17 cross every frozen
+ // boundary, then receive `endowed` at the final V17→V18 step.
+ export function migrateToV18(save: SaveFile): SaveFileV18 {
++  if (save.saveVersion === 44) return migrateToV18(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV18(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV18(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV18(convertV41ToV40(save as SaveFileV41));
+@@ -7817,6 +7835,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
+ // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
+ // be downgraded: discarding the founding regime would erase exact history.
+ export function migrateToV17(save: SaveFile): SaveFileV17 {
++  if (save.saveVersion === 44) return migrateToV17(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV17(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV17(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV17(convertV41ToV40(save as SaveFileV41));
+@@ -7854,6 +7873,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
+ // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
+ // be downgraded: discarding the recorded history would silently erase provenance.
+ export function migrateToV16(save: SaveFile): SaveFileV16 {
++  if (save.saveVersion === 44) return migrateToV16(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV16(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV16(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV16(convertV41ToV40(save as SaveFileV41));
+@@ -7894,6 +7914,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
+ }
+ 
+ export function migrateToV14(save: SaveFile): SaveFileV14 {
++  if (save.saveVersion === 44) return migrateToV14(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV14(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV14(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV14(convertV41ToV40(save as SaveFileV41));
+@@ -7944,6 +7965,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
+ }
+ 
+ export function migrateToV13(save: SaveFile): SaveFileV13 {
++  if (save.saveVersion === 44) return migrateToV13(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV13(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV13(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV13(convertV41ToV40(save as SaveFileV41));
+@@ -8078,6 +8100,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
+   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
+ }
+ export function migrateToV19(save: SaveFile): SaveFileV19 {
++  if (save.saveVersion === 44) return migrateToV19(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV19(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV19(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV19(convertV41ToV40(save as SaveFileV41));
+@@ -8172,6 +8195,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
+ }
+ 
+ export function migrateToV21(save: SaveFile): SaveFileV21 {
++  if (save.saveVersion === 44) return migrateToV21(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV21(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV21(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV21(convertV41ToV40(save as SaveFileV41));
+@@ -8212,6 +8236,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
+ }
+ 
+ export function migrateToV22(save: SaveFile): SaveFileV22 {
++  if (save.saveVersion === 44) return migrateToV22(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV22(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV22(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV22(convertV41ToV40(save as SaveFileV41));
+@@ -8277,6 +8302,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
++  if (save.saveVersion === 44) return migrateToV23(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV23(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV23(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV23(convertV41ToV40(save as SaveFileV41));
+@@ -8352,6 +8378,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
++  if (save.saveVersion === 44) return migrateToV24(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV24(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV24(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV24(convertV41ToV40(save as SaveFileV41));
+@@ -8588,6 +8615,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
++  if (save.saveVersion === 44) return migrateToV25(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV25(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV25(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV25(convertV41ToV40(save as SaveFileV41));
+@@ -8765,6 +8793,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
++  if (save.saveVersion === 44) return migrateToV26(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV26(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV26(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV26(convertV41ToV40(save as SaveFileV41));
+@@ -8932,6 +8961,7 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
++  if (save.saveVersion === 44) return migrateToV27(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV27(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV27(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV27(convertV41ToV40(save as SaveFileV41));
+@@ -9031,6 +9061,7 @@ export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
++  if (save.saveVersion === 44) return migrateToV28(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV28(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV28(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV28(convertV41ToV40(save as SaveFileV41));
+@@ -9142,6 +9173,7 @@ export function convertV29ToV28(save: SaveFileV29): SaveFileV28 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
++  if (save.saveVersion === 44) return migrateToV29(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV29(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV29(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV29(convertV41ToV40(save as SaveFileV41));
+@@ -9207,6 +9239,7 @@ export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
+ /** The V30 boundary (P14B.4, record 600); since P14B.5 a frozen prior shape
+  * reached from the live V31 by the ONE lossless-when-empty downgrade. */
+ export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
++  if (save.saveVersion === 44) return migrateToV30(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV30(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV30(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV30(convertV41ToV40(save as SaveFileV41));
+@@ -9298,6 +9331,7 @@ export function convertV31ToV30(save: SaveFileV31): SaveFileV30 {
+ /** The live load-to-play route (P14B.5): every prior envelope migrates to the
+  * V31 boundary the live writer stamps. */
+ export function migrateToV31(save: SaveFile | { saveVersion: number }): SaveFileV31 {
++  if (save.saveVersion === 44) return migrateToV31(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV31(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV31(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV31(convertV41ToV40(save as SaveFileV41));
+@@ -9399,6 +9433,7 @@ export function convertV32ToV31(save: SaveFileV32): SaveFileV31 {
+ /** The live load-to-play route (P14B.7): every prior envelope migrates to the
+  * V32 boundary the live writer stamps. */
+ export function migrateToV32(save: SaveFile | { saveVersion: number }): SaveFileV32 {
++  if (save.saveVersion === 44) return migrateToV32(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV32(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV32(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV32(convertV41ToV40(save as SaveFileV41));
+@@ -9665,6 +9700,7 @@ export function convertV33ToV32(save: SaveFileV33): SaveFileV32 {
+ /** The live load-to-play route (P14C.1): every prior envelope migrates to the
+  * V33 boundary the live writer stamps. */
+ export function migrateToV33(save: SaveFile | { saveVersion: number }): SaveFileV33 {
++  if (save.saveVersion === 44) return migrateToV33(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV33(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV33(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV33(convertV41ToV40(save as SaveFileV41));
+@@ -9916,6 +9952,7 @@ export function convertV34ToV33(save: SaveFileV34): SaveFileV33 {
+ /** Every prior envelope migrates to the V34 boundary; a V35 one downgrades losslessly
+  * only while it holds no cohort receipt. */
+ export function migrateToV34(save: SaveFile | { saveVersion: number }): SaveFileV34 {
++  if (save.saveVersion === 44) return migrateToV34(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV34(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV34(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV34(convertV41ToV40(save as SaveFileV41));
+@@ -10120,6 +10157,7 @@ export function convertV35ToV34(save: SaveFileV35): SaveFileV34 {
+ /** Every prior envelope migrates to the V35 boundary; a V36 one downgrades losslessly
+  * only while it holds no retirement extension. */
+ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFileV35 {
++  if (save.saveVersion === 44) return migrateToV35(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV35(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV35(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV35(convertV41ToV40(save as SaveFileV41));
+@@ -10136,7 +10174,7 @@ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFile
+  * stamps. Callers whose meaning is "the live state" call this, never a numbered
+  * step, so the next save bump moves this one definition. */
+ export function migrateToLive(save: SaveFile | { saveVersion: number }): LiveSaveFile {
+-  return migrateToV43(save);
++  return migrateToV44(save);
+ }
+ 
+ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
+@@ -10157,6 +10195,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
+ }
+ 
+ export function migrateToV20(save: SaveFile): SaveFileV20 {
++  if (save.saveVersion === 44) return migrateToV20(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV20(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV20(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV20(convertV41ToV40(save as SaveFileV41));
+@@ -10354,6 +10393,7 @@ export function convertV36ToV35(save: SaveFileV36): SaveFileV35 {
+ 
+ /** Every prior envelope migrates to the V36 boundary. */
+ export function migrateToV36(save: SaveFile | { saveVersion: number }): SaveFileV36 {
++  if (save.saveVersion === 44) return migrateToV36(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV36(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV36(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV36(convertV41ToV40(save as SaveFileV41));
+@@ -10419,6 +10459,7 @@ export function convertV37ToV36(save: SaveFileV37): SaveFileV36 {
+ 
+ /** Every prior envelope migrates to the explicit amended-law boundary. */
+ export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFileV37 {
++  if (save.saveVersion === 44) return migrateToV37(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV37(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV37(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV37(convertV41ToV40(save as SaveFileV41));
+@@ -10454,9 +10495,9 @@ export function validateSaveV38(save: unknown): SaveFileV38 {
+ /** Internal live-entry proof. Context escapes only after the complete current
+  * save chain succeeds; no serialization or historical projection repairs input. */
+ export function validatedLiveProfessionContext(state: GameState): ProfessionValidationContext {
+-  // Save42 and Save43 move no profession law: the live state proves through the V41 chain with
+-  // its relationship root at era 31 and the Save43 shelving era, exactly what `validateSaveV43`
+-  // hands that chain.
++  // Save42, Save43 and Save44 move no profession law: the live state proves through the V41
++  // chain with its relationship root at era 31 (`relationshipsAtV31` also drops the Save44
++  // fields) and the Save43 shelving era, exactly what `validateSaveV44` hands that chain.
+   return proveProfessionSave({ saveVersion: 41, seed: state.seed, state: { ...state, relationships: relationshipsAtV31(state.relationships) },
+     broadcastCache: state.broadcastItems }, 41, true).professionContext;
+ }
+@@ -10491,6 +10532,7 @@ export function convertV38ToV37(save: SaveFileV38): SaveFileV37 {
+ }
+ 
+ export function migrateToV38(save: SaveFile | { saveVersion: number }): SaveFileV38 {
++  if (save.saveVersion === 44) return migrateToV38(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV38(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV38(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV38(convertV41ToV40(save as SaveFileV41));
+@@ -10526,6 +10568,7 @@ export function convertV39ToV38(save: SaveFileV39): SaveFileV38 {
+ }
+ 
+ export function migrateToV39(save: SaveFile | { saveVersion: number }): SaveFileV39 {
++  if (save.saveVersion === 44) return migrateToV39(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV39(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV39(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV39(convertV41ToV40(save as SaveFileV41));
+@@ -10564,6 +10607,7 @@ export function convertV40ToV39(save: SaveFileV40): SaveFileV39 {
+ }
+ 
+ export function migrateToV40(save: SaveFile | { saveVersion: number }): SaveFileV40 {
++  if (save.saveVersion === 44) return migrateToV40(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV40(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV40(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return convertV41ToV40(save as SaveFileV41);
+@@ -10608,6 +10652,7 @@ export function convertV41ToV40(save: SaveFileV41): SaveFileV40 {
+ }
+ 
+ export function migrateToV41(save: SaveFile | { saveVersion: number }): SaveFileV41 {
++  if (save.saveVersion === 44) return migrateToV41(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV41(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return convertV42ToV41(save as SaveFileV42);
+   if (save.saveVersion === 41) return validateSaveV41(save);
+@@ -10654,6 +10699,7 @@ export function convertV42ToV41(save: SaveFileV42): SaveFileV41 {
+ }
+ 
+ export function migrateToV42(save: SaveFile | { saveVersion: number }): SaveFileV42 {
++  if (save.saveVersion === 44) return migrateToV42(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return convertV43ToV42(save as SaveFileV43);
+   if (save.saveVersion === 42) return validateSaveV42(save);
+   return convertV41ToV42(migrateToV41(save));
+@@ -10704,6 +10750,50 @@ export function convertV43ToV42(save: SaveFileV43): SaveFileV42 {
+ }
+ 
+ export function migrateToV43(save: SaveFile | { saveVersion: number }): SaveFileV43 {
++  if (save.saveVersion === 44) return convertV44ToV43(save as SaveFileV44);
+   if (save.saveVersion === 43) return validateSaveV43(save);
+   return convertV42ToV43(migrateToV42(save));
+ }
++
++
++// The competitions log and romance (1347-A §4, as adopted by 1347-F), Save44. No new root:
++// every relationship edge gains `competitions` and `romance`. The V44 validator checks its
++// own root at era 44, then hands the frozen V43 chain the edges projected to era 42 (the
++// Save42 pattern); no flag is threaded below V44.
++export function validateSaveV44(save: unknown): SaveFileV44 {
++  if (!isRecord(save)) throw new Error('validateSaveV44: object required');
++  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
++  if (save.saveVersion !== 44) throw new Error('validateSaveV44: expected version 44');
++  const raw = v14Record(checkEnvelope(save, 'validateSaveV44'), 'state');
++  validateRelationshipsRoot(raw, 44);
++  validateSaveV43({ ...save, saveVersion: 43,
++    state: { ...raw, relationships: relationshipsAtV42(raw.relationships as readonly RelationshipEdge[]) } });
++  return save as SaveFileV44;
++}
++
++/** Adds an empty log and a null romance to every edge; nothing else moves. No competition
++ * row is reconstructed from the recorded counter and no romance from old credits (Q3). */
++export function convertV43ToV44(save: SaveFileV43): SaveFileV44 {
++  const validated = validateSaveV43(save);
++  const old = JSON.parse(JSON.stringify(validated)) as SaveFileV43;
++  const relationships = old.state.relationships.map((edge) => ({ ...edge, competitions: [], romance: null }));
++  return validateSaveV44({ ...old, saveVersion: 44, state: { ...old.state, relationships } });
++}
++
++/** Lossless only while every log is empty and every romance null: the empty fields are
++ * dropped; a log row or a romance refuses by name. */
++export function convertV44ToV43(save: SaveFileV44): SaveFileV43 {
++  const validated = validateSaveV44(save);
++  const detached = JSON.parse(JSON.stringify(validated)) as SaveFileV44;
++  for (const edge of detached.state.relationships) {
++    if (edge.competitions.length > 0) throw new Error(`migrateToV43: cannot downgrade or discard the competitions log of ${edge.edgeId}`);
++    if (edge.romance !== null) throw new Error(`migrateToV43: cannot downgrade or discard the romance of ${edge.edgeId}`);
++  }
++  return validateSaveV43({ ...detached, saveVersion: 43,
++    state: { ...detached.state, relationships: relationshipsAtV42(detached.state.relationships) as unknown as RelationshipEdge[] } });
++}
++
++export function migrateToV44(save: SaveFile | { saveVersion: number }): SaveFileV44 {
++  if (save.saveVersion === 44) return validateSaveV44(save);
++  return convertV43ToV44(migrateToV43(save));
++}
+diff --git a/src/core/talentMarket.ts b/src/core/talentMarket.ts
+index f572d05..c5fd8cf 100644
+--- a/src/core/talentMarket.ts
++++ b/src/core/talentMarket.ts
+@@ -39,7 +39,7 @@ import type { ContractOffer, TerminationLaw } from './employment.js'
+ import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
+ import { isOpportunityPredicate } from './opportunityPromises.js'
+ import { takeSubjectOwner } from './firstTakeSubjects.js'
+-import { relationshipsReasonSentence, tiersOnRoster } from './relationships.js'
++import { relationshipsReasonSentence, rosterTies, tiersOnRoster } from './relationships.js'
+ import type { PromiseAttachment } from './promises.js'
+ import { careerIdentity } from './talentSummary.js'
+ import { TUNING } from './tuning.js'
+@@ -910,14 +910,17 @@ function bandsFor(
+     const trust = band === 'Reliable' ? 2 : band === 'Mixed record' ? 1 : 0
+     // D5 relationships (P14B.5 (5); companion :116): `close ties here` (2) iff a
+     // counterpart of the subject reads CloseFriends or Inseparable on the issuer's
+-    // roster at W; `enemies here` (0) iff one reads Enemies or Nemeses and no close
+-    // tie; else `none` (1). When both are on the roster the shipped order holds and
+-    // close ties rank first (1347-F Amendment 2; OPEN 11's enemies-first candidate is
+-    // not selected). Relationship rules 2 make Enemies/Nemeses reachable through
+-    // conflict evidence, so `enemies here` is now a reachable band.
+-    const tiers = tiersOnRoster(state, kase.talentId, rosterAt(hollywood, p.issuerStudioId, kase.talentId, week), week)
+-    const relationships = tiers.some((t) => t === 'CloseFriends' || t === 'Inseparable') ? 2
+-      : tiers.some((t) => t === 'Enemies' || t === 'Nemeses') ? 0 : 1
++    // roster at W, or is the subject's Partner at a tier short of hostility (D-1312-2;
++    // 1347-A §2.3 "a close tie, still below hostility"); `enemies here` (0) iff one
++    // reads Enemies or Nemeses and no close tie; else `none` (1). When both are on the
++    // roster the shipped order holds and close ties rank first (1347-F Amendment 2;
++    // OPEN 11's enemies-first candidate is not selected). Relationship rules 2 make
++    // Enemies/Nemeses reachable through conflict evidence, so `enemies here` is now a
++    // reachable band, and a Partner at Enemies counts there.
++    const ties = rosterTies(state, kase.talentId, rosterAt(hollywood, p.issuerStudioId, kase.talentId, week), week)
++      .map((tie) => ({ ...tie, hostile: tie.tier === 'Enemies' || tie.tier === 'Nemeses' }))
++    const relationships = ties.some((t) => t.tier === 'CloseFriends' || t.tier === 'Inseparable' || (t.partners && !t.hostile)) ? 2
++      : ties.some((t) => t.hostile) ? 0 : 1
+     out.set(p, { compensation, term, opportunity, trust, relationships, standing, incumbency })
+   })
+   return out
+diff --git a/src/core/types.ts b/src/core/types.ts
+index a56cd28..fb1dee3 100644
+--- a/src/core/types.ts
++++ b/src/core/types.ts
+@@ -2256,6 +2256,26 @@ export type RelationshipDriver = {
+   delta: number
+ }
+ 
++/** Save44 (1347-A §2.1): one counted casting competition, one row per pair per production;
++ * `slots` are the cast slots the pair contested there, in slot order. Never compacted. */
++export type RelationshipCompetition = {
++  week: number
++  productionId: string
++  slots: readonly CastSlot[]
++}
++
++/** Save44 (1347-A §2.3): one Partners bond. `endedWeek` stays null while the bond is open
++ * and is written once, at the next write after the derived ending. */
++export type RomanceBond = { formedWeek: number; endedWeek: number | null }
++
++/** Save44 (1347-A §2.3): the romance track, held beside the friendship tier. `value` is an
++ * integer 0..100 AT `anchorWeek`; separation decay is computed on read from that anchor. */
++export type RomanceTrack = {
++  value: number
++  anchorWeek: number
++  bonds: readonly RomanceBond[]
++}
++
+ /** §5.2 :412's two facts per pair — CURRENT closeness (integer 0..100 AT
+  * `lastEventWeek`; drift is computed on read from that anchor) and CAREER history
+  * (the exact counters, never compacted; the peak; the bounded `recent` window,
+@@ -2278,6 +2298,11 @@ export type RelationshipEdge = {
+   peakTier: RelationshipTier
+   peakTierWeek: number
+   recent: readonly RelationshipDriver[]
++  /** Save44: the dated rows behind `sharedCompetitions`, appended by the same helper. A
++   * pre-Save44 competition keeps only its count; nothing is reconstructed (Q3). */
++  competitions: readonly RelationshipCompetition[]
++  /** Save44: null until the pair's first romance gain. */
++  romance: RomanceTrack | null
+ }
+ 
+ export type GameStateV31 = GameStateV30 & {
+@@ -2295,7 +2320,8 @@ export type GameStateV31 = GameStateV30 & {
+ // V41 adds no field: the rival `termination` movement is version-aware at the boundary.
+ // V42 adds the edge's `sharedCompetitions` counter and the two casting driver kinds.
+ // V43 adds rival screenplay shelving: `screenplayShelving` per business and its receipt.
+-export type GameState = GameStateV43
++// V44 adds the edge's `competitions` log and `romance` track.
++export type GameState = GameStateV44
+ 
+ // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
+ 
+@@ -2534,6 +2560,12 @@ export type GameStateV42 = GameStateV41
+  * the boundary as V41's termination was. Frozen readers keep "unproduced ⇔ active".
+  */
+ export type GameStateV43 = GameStateV42
++/**
++ * The competitions log and the romance track (Save V44, 1347-A §4). NO new root: every
++ * relationship edge gains `competitions` and `romance`. Frozen V31..V43 readers validate the
++ * edge projected to era 42, exactly the V43 law.
++ */
++export type GameStateV44 = GameStateV43
+ 
+ // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
+ // The ONE canonical persisted record of a participant's outcome on one released film.

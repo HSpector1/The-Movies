@@ -1,0 +1,334 @@
+{
+  "probe": "1353-T",
+  "purpose": "distributions for the 1353-A §5.5 retune of artistic-voice and commercial-engine (1359-F5)",
+  "mode": "smoke",
+  "treeHead": "975e72a18746ee0e3cc2096750f7fdf7967a18be",
+  "weeks": 20,
+  "boundaryWeek": 6240,
+  "law": "campaign-legacy/v1",
+  "tuning": {
+    "LEGACY_CRITIC_ACCLAIM_MIN": 70,
+    "LEGACY_CRITIC_PAN_BELOW": 35,
+    "LEGACY_AUDIENCE_LIKED_MIN": 57,
+    "LEGACY_MIN_FILMS": 5,
+    "LEGACY_MIN_SHARE_PERCENT": 25,
+    "LEGACY_HIT_REACH_PERCENT": 90,
+    "LEGACY_FLOP_REACH_PERCENT": 30,
+    "LEGACY_AUDIENCE_MIN_DECADES": 4,
+    "LEGACY_DECADE_MIN_RELEASES": 2,
+    "LEGACY_PIONEER_WEEKS": 52,
+    "LEGACY_TECH_LATE_WEEKS": 260,
+    "LEGACY_FOUNDRY_MIN_PEOPLE": 3,
+    "LEGACY_FOUNDRY_MIN_CREDITS": 10,
+    "LEGACY_FOUNDRY_SETTLE_WEEKS": 260,
+    "LEGACY_GENRE_MIN_FILMS": 8
+  },
+  "quantile": "type 7, linear between order statistics (src/harness/d16/stats.ts:8-19); min is q 0 and max is q 1; null for an empty sample",
+  "lawCheck": "pass",
+  "seeds": [
+    {
+      "seed": "p13a-core-causal-01",
+      "finalWeek": 20,
+      "routeMs": 1190,
+      "msPerTick": 59.5,
+      "playerStudioId": "studio-aca408ec-player",
+      "adapterRefusals": [],
+      "lawRefusal": null,
+      "f1": {
+        "landedLawRefusal": "campaign legacy: films[0] (studio-aca408ec-r01:historical-film:0).settledWeek must be a whole week once settled",
+        "standInFilms": 8
+      },
+      "manifestSha256": "12ccd97a6ee85ef2545aceb0c79289b67f73a49ec0675047f2070e257e559161",
+      "lawCheck": {
+        "studios": 5,
+        "releases": 4,
+        "comparisons": 52,
+        "mismatches": []
+      },
+      "baseMarketValue": 35646914.85371441,
+      "allRivals": {
+        "critic": {
+          "count": 4,
+          "min": 38.113776472197664,
+          "p50": 45.624471147955475,
+          "p75": 46.350561151287856,
+          "p90": 46.57111589945538,
+          "p95": 46.64463414884455,
+          "p99": 46.70344874835589,
+          "max": 46.71815239823373
+        },
+        "reach": {
+          "count": 4,
+          "min": 0.19960726508070728,
+          "p50": 0.2837940921286609,
+          "p75": 0.327426361921211,
+          "p90": 0.38408492946357164,
+          "p95": 0.4029711186443584,
+          "p99": 0.41808006998898795,
+          "max": 0.42185730782514536
+        }
+      },
+      "studios": [
+        {
+          "studioId": "studio-aca408ec-player",
+          "role": "player",
+          "row": 0,
+          "enteredWeek": 0,
+          "artisticVoice": {
+            "n": 0,
+            "a": 0,
+            "sharePercent": null,
+            "held": false,
+            "panned": 0
+          },
+          "commercialEngine": {
+            "s": 0,
+            "h": 0,
+            "sharePercent": null,
+            "held": false,
+            "flops": 0
+          },
+          "critic": {
+            "count": 0,
+            "min": null,
+            "p50": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          "reach": {
+            "count": 0,
+            "min": null,
+            "p50": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        },
+        {
+          "studioId": "studio-aca408ec-r01",
+          "role": "rival",
+          "row": 1,
+          "enteredWeek": 0,
+          "artisticVoice": {
+            "n": 1,
+            "a": 0,
+            "sharePercent": 0,
+            "held": false,
+            "panned": 0
+          },
+          "commercialEngine": {
+            "s": 1,
+            "h": 0,
+            "sharePercent": 0,
+            "held": false,
+            "flops": 1
+          },
+          "critic": {
+            "count": 1,
+            "min": 46.71815239823373,
+            "p50": 46.71815239823373,
+            "p75": 46.71815239823373,
+            "p90": 46.71815239823373,
+            "p95": 46.71815239823373,
+            "p99": 46.71815239823373,
+            "max": 46.71815239823373
+          },
+          "reach": {
+            "count": 1,
+            "min": 0.29594937995323284,
+            "p50": 0.29594937995323284,
+            "p75": 0.29594937995323284,
+            "p90": 0.29594937995323284,
+            "p95": 0.29594937995323284,
+            "p99": 0.29594937995323284,
+            "max": 0.29594937995323284
+          }
+        },
+        {
+          "studioId": "studio-aca408ec-r02",
+          "role": "rival",
+          "row": 2,
+          "enteredWeek": 0,
+          "artisticVoice": {
+            "n": 1,
+            "a": 0,
+            "sharePercent": 0,
+            "held": false,
+            "panned": 0
+          },
+          "commercialEngine": {
+            "s": 1,
+            "h": 0,
+            "sharePercent": 0,
+            "held": false,
+            "flops": 0
+          },
+          "critic": {
+            "count": 1,
+            "min": 46.22803073563923,
+            "p50": 46.22803073563923,
+            "p75": 46.22803073563923,
+            "p90": 46.22803073563923,
+            "p95": 46.22803073563923,
+            "p99": 46.22803073563923,
+            "max": 46.22803073563923
+          },
+          "reach": {
+            "count": 1,
+            "min": 0.42185730782514536,
+            "p50": 0.42185730782514536,
+            "p75": 0.42185730782514536,
+            "p90": 0.42185730782514536,
+            "p95": 0.42185730782514536,
+            "p99": 0.42185730782514536,
+            "max": 0.42185730782514536
+          }
+        },
+        {
+          "studioId": "studio-aca408ec-r03",
+          "role": "rival",
+          "row": 3,
+          "enteredWeek": 0,
+          "artisticVoice": {
+            "n": 1,
+            "a": 0,
+            "sharePercent": 0,
+            "held": false,
+            "panned": 0
+          },
+          "commercialEngine": {
+            "s": 1,
+            "h": 0,
+            "sharePercent": 0,
+            "held": false,
+            "flops": 1
+          },
+          "critic": {
+            "count": 1,
+            "min": 45.02091156027172,
+            "p50": 45.02091156027172,
+            "p75": 45.02091156027172,
+            "p90": 45.02091156027172,
+            "p95": 45.02091156027172,
+            "p99": 45.02091156027172,
+            "max": 45.02091156027172
+          },
+          "reach": {
+            "count": 1,
+            "min": 0.27163880430408904,
+            "p50": 0.27163880430408904,
+            "p75": 0.27163880430408904,
+            "p90": 0.27163880430408904,
+            "p95": 0.27163880430408904,
+            "p99": 0.27163880430408904,
+            "max": 0.27163880430408904
+          }
+        },
+        {
+          "studioId": "studio-aca408ec-r04",
+          "role": "rival",
+          "row": 4,
+          "enteredWeek": 0,
+          "artisticVoice": {
+            "n": 1,
+            "a": 0,
+            "sharePercent": 0,
+            "held": false,
+            "panned": 0
+          },
+          "commercialEngine": {
+            "s": 1,
+            "h": 0,
+            "sharePercent": 0,
+            "held": false,
+            "flops": 1
+          },
+          "critic": {
+            "count": 1,
+            "min": 38.113776472197664,
+            "p50": 38.113776472197664,
+            "p75": 38.113776472197664,
+            "p90": 38.113776472197664,
+            "p95": 38.113776472197664,
+            "p99": 38.113776472197664,
+            "max": 38.113776472197664
+          },
+          "reach": {
+            "count": 1,
+            "min": 0.19960726508070728,
+            "p50": 0.19960726508070728,
+            "p75": 0.19960726508070728,
+            "p90": 0.19960726508070728,
+            "p95": 0.19960726508070728,
+            "p99": 0.19960726508070728,
+            "max": 0.19960726508070728
+          }
+        }
+      ]
+    }
+  ],
+  "releaseColumns": [
+    "filmId",
+    "studioId",
+    "role",
+    "releaseWeek",
+    "settled",
+    "criticScore",
+    "audienceScore",
+    "grossSettled",
+    "reach"
+  ],
+  "releaseRows": {
+    "p13a-core-causal-01": [
+      [
+        "studio-aca408ec-r01:film:0",
+        "studio-aca408ec-r01",
+        "rival",
+        11,
+        true,
+        46.71815239823373,
+        62.210882659268755,
+        10549682.348202465,
+        0.29594937995323284
+      ],
+      [
+        "studio-aca408ec-r02:film:0",
+        "studio-aca408ec-r02",
+        "rival",
+        12,
+        true,
+        46.22803073563923,
+        68.84462562352446,
+        15037911.532460146,
+        0.42185730782514536
+      ],
+      [
+        "studio-aca408ec-r03:film:0",
+        "studio-aca408ec-r03",
+        "rival",
+        11,
+        true,
+        45.02091156027172,
+        59.178840493269334,
+        9683085.327992652,
+        0.27163880430408904
+      ],
+      [
+        "studio-aca408ec-r04:film:0",
+        "studio-aca408ec-r04",
+        "rival",
+        12,
+        true,
+        38.113776472197664,
+        54.05883965390631,
+        7115383.182514774,
+        0.19960726508070728
+      ]
+    ]
+  }
+}

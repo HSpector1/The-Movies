@@ -1,0 +1,12 @@
+smoke-gp: 1359-GP-probe.ts node v20.20.2, weeks 20, seeds p13a-core-causal-01, start 2026-10-01 23:14:42 CDT
+smoke-gp: exit 0, end 2026-10-01 23:14:46 CDT
+smoke-g1: 1355-G1-probe.ts node v20.20.2, weeks 20, seeds p13a-core-causal-01, start 2026-10-01 23:14:46 CDT
+smoke-g1: exit 0, end 2026-10-01 23:14:49 CDT
+gp: 1359-GP-probe.ts node v20.20.2, weeks 6240, seeds p13a-core-causal-01,seed-b, start 2026-10-01 23:14:58 CDT
+gp: exit 0, end 2026-10-01 23:22:25 CDT
+g1: 1355-G1-probe.ts node v20.20.2, weeks 6240, seeds p13a-core-causal-01,seed-b, start 2026-10-01 23:22:25 CDT
+g1: exit 0, end 2026-10-01 23:29:41 CDT
+smoke-dist: 1353-T-distributions-probe.ts node v20.20.2, weeks 20, seeds p13a-core-causal-01, start 2026-10-01 23:51:25 CDT
+smoke-dist: exit 0, end 2026-10-01 23:51:29 CDT
+dist: 1353-T-distributions-probe.ts node v20.20.2, weeks 6240, seeds p13a-core-causal-01,seed-b,p13a-wait-control-01, start 2026-10-01 23:51:34 CDT
+dist: exit 0, end 2026-10-01 23:59:30 CDT

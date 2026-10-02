@@ -1,0 +1,244 @@
+## save-live-43: 143 lines in 80 files
+  tests/bridge-p13b-r07-setup.test.ts: 587
+  tests/bridge-p13b-s8-rivals.test.ts: 233, 404
+  tests/bridge-p14a1-market.test.ts: 408
+  tests/bridge-p14a2-market.test.ts: 232, 739, 772, 784, 794, 809
+  tests/bridge-p14a3-world.test.ts: 245, 575, 600, 622
+  tests/bridge-p14b1-promises.test.ts: 207, 504, 520
+  tests/bridge-p14b2-checkpoint.test.ts: 61
+  tests/bridge-p14b2-trust.test.ts: 141, 469
+  tests/bridge-p14b3-promise-command.test.ts: 509, 511
+  tests/bridge-p14b4-runtime47-compatibility.test.ts: 208
+  tests/bridge-p14b5-relationships.test.ts: 383
+  tests/bridge-p14b6-relationship-read-models.test.ts: 779
+  tests/bridge-p14b8-waiver-surface.test.ts: 817, 818
+  tests/bridge-p14c2rm-runtime.test.ts: 53, 96
+  tests/bridge-p14c2s-scientist-runtime.test.ts: 108, 125
+  tests/bridge-p14c3-promise-digest-continuity.test.ts: 168
+  tests/bridge-p14c3-runtime.test.ts: 160
+  tests/bridge-p14p3-directing-promises.test.ts: 75, 132, 283
+  tests/bridge-p14p4p5-opportunities.test.ts: 66, 92
+  tests/bridge-p14r2r3-prior55.test.ts: 186
+  tests/bridge-process-restart.test.ts: 797, 799
+  tests/bridge-runtime-checkpoint.test.ts: 232, 233, 269, 270, 331, 332, 726, 754, 782
+  tests/c2a-m3-rename-and-pooling.test.ts: 214, 363
+  tests/c2a-m3-screenplay-mint.test.ts: 356
+  tests/construction-save-v11.test.ts: 189, 554
+  tests/contracts/v14-boundary-guards.contract.test.ts: 321
+  tests/contracts/v14-byte-parity.contract.test.ts: 205
+  tests/d11-employment.test.ts: 551
+  tests/d17-engagement-persistence.test.ts: 466
+  tests/d17a-adv-reconciliation.test.ts: 337
+  tests/film-chronicle.test.ts: 911, 922
+  tests/helpers/p14c3-fixtures.ts: 134
+  tests/helpers/p14c3-genuine-evidence-fixtures.ts: 17
+  tests/helpers/p14c3-history-boundary-fixtures.ts: 26
+  tests/helpers/p14c3-second-episode-fixtures.ts: 27
+  tests/p04a2-writer-credit-law.test.ts: 773
+  tests/p09a-w0-founding-regime.test.ts: 137
+  tests/p13b-r07-save-v25.test.ts: 273, 275
+  tests/p13b-s2-save-v22.test.ts: 208, 214
+  tests/p13b-s3-save-v23.test.ts: 121, 126
+  tests/p13b-s5-save-v24.test.ts: 210, 213, 215
+  tests/p13b-s6-save-v26.test.ts: 221, 225, 254
+  tests/p13b-s7-announcements.test.ts: 87, 135
+  tests/p13b-s8-save-v27.test.ts: 187, 215
+  tests/p14a1-save-v28.test.ts: 256
+  tests/p14b1-save-v29.test.ts: 206
+  tests/p14b4-cancel-causal-proof.test.ts: 271
+  tests/p14b4-cast-class-outcomes.test.ts: 79
+  tests/p14b4-save-v30-compatibility.test.ts: 252
+  tests/p14b5-save-v31.test.ts: 196
+  tests/p14b7-promise-waiver.test.ts: 651
+  tests/p14b9-save-v42.test.ts: 205, 213, 216, 217
+  tests/p14c1-materialized-aging.test.ts: 1030
+  tests/p14c2a-save-and-settlement.test.ts: 353
+  tests/p14c2b-save-v36.test.ts: 161, 167
+  tests/p14c2s-scientist-retirement.test.ts: 255, 266, 276, 338
+  tests/p14c3-save-v38.test.ts: 53, 54, 72
+  tests/p14c4-save-v35.test.ts: 57, 63
+  tests/p14d1-rival-shelving-save-v43.test.ts: 46, 57, 85
+  tests/p14d1-rival-shelving.test.ts: 187
+  tests/p14p3-directing-promises.test.ts: 350, 405, 430, 1093, 1133
+  tests/p14p4p5-casting-reservation.test.ts: 81
+  tests/p14p4p5-cross-owner.test.ts: 75
+  tests/p14p4p5-delayed-retirement.test.ts: 100
+  tests/p14p4p5-finishing-material.test.ts: 64
+  tests/p14p4p5-grouped-witness.test.ts: 70
+  tests/p14p4p5-opportunities.test.ts: 321, 341, 362
+  tests/p14p4p5-post-capacity.test.ts: 71
+  tests/p14p4p5-queued-project-outcome.test.ts: 99
+  tests/p14p4p5-receipt-freeze.test.ts: 65
+  tests/p14p4p5-retired-acting.test.ts: 47
+  tests/p14p4p5-scenery-capacity.test.ts: 81
+  tests/p14p4p5-screenplay-status.test.ts: 65
+  tests/p14p4p5-soundstage-capacity.test.ts: 55
+  tests/p14p4p5-stock-subject.test.ts: 66
+  tests/p14p4p5-writer-resources.test.ts: 50
+  tests/p14r3-save-v41.test.ts: 211, 216, 225, 343
+  tests/property-state-v13.test.ts: 533, 700, 944
+  tests/save.test.ts: 456
+  tests/script-projects-save-v9.test.ts: 419
+## validateSaveV43-call: 210 lines in 73 files
+  tests/bridge-p14b2-trust.test.ts: 287, 424, 468
+  tests/bridge-p14b3-promise-command.test.ts: 38, 86, 136, 363, 508
+  tests/bridge-p14b4-cast-class.test.ts: 127, 456, 514
+  tests/bridge-p14b6-d2-withheld-employment-claim.test.ts: 84
+  tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts: 95
+  tests/bridge-p14b6-relationship-read-models.test.ts: 229
+  tests/bridge-p14c2s-scientist-runtime.test.ts: 124
+  tests/bridge-p14c3-runtime.test.ts: 168
+  tests/bridge-p14p3-directing-promises.test.ts: 75, 368
+  tests/bridge-p14p4p5-opportunities.test.ts: 66, 510, 515, 516
+  tests/bridge-p14r2r3-prior55.test.ts: 185
+  tests/c2a-m2-sets-save.test.ts: 52, 172, 182, 191, 200, 231, 250, 280, 289, 295
+  tests/cash-ledger-checkpoint-v11.test.ts: 225, 235, 287, 364, 461, 467, 473, 479
+  tests/construction-core.test.ts: 497, 505, 566, 664
+  tests/construction-save-v11.test.ts: 191, 514
+  tests/contracts/cross-owner-refusal.contract.test.ts: 72, 100, 118
+  tests/contracts/phase-table-agreement.contract.test.ts: 104, 224, 230, 246, 266
+  tests/facility-move-demolish.test.ts: 781
+  tests/helpers/p14b2-fixtures.ts: 122, 244, 259
+  tests/helpers/p14c2c-fixtures.ts: 29
+  tests/helpers/p14c2rm-fixtures.ts: 24
+  tests/helpers/p14c3-genuine-evidence-fixtures.ts: 18
+  tests/helpers/p14c3-history-boundary-fixtures.ts: 27
+  tests/helpers/p14c3-second-episode-fixtures.ts: 28
+  tests/helpers/p14p3-fixtures.ts: 109
+  tests/legacy-parcel-ground.test.ts: 365, 376, 404
+  tests/p06a-w1-release-authority.test.ts: 459, 465
+  tests/p08a-w0-studio-history.test.ts: 441, 450, 459, 465, 477
+  tests/p09a-w0-founding-regime.test.ts: 145, 147, 149, 151, 214
+  tests/p13a-causal-core.test.ts: 49, 91
+  tests/p13a-technology-milestones.test.ts: 74, 79, 82
+  tests/p13b-s2-access-identity.test.ts: 196
+  tests/p13b-s3-validation.test.ts: 159
+  tests/p14b1-first-take.test.ts: 294
+  tests/p14b1-promises.test.ts: 503
+  tests/p14b1-t4-regressions.test.ts: 84, 86, 166, 306
+  tests/p14b2-setup-wrap-regressions.test.ts: 27
+  tests/p14b3-reservations.test.ts: 94, 134, 177, 201
+  tests/p14b3-rule-revision.test.ts: 235, 277
+  tests/p14b4-cast-class-outcomes.test.ts: 355
+  tests/p14b4-material-evidence-core.test.ts: 109, 362
+  tests/p14b5-relationships.test.ts: 1297, 1311, 1317, 1359, 1439
+  tests/p14b5-t-failure-tuning.test.ts: 413, 438
+  tests/p14b9-save-v42.test.ts: 206
+  tests/p14bf2-acting-discipline.test.ts: 97, 137, 269, 418
+  tests/p14c2a-save-and-settlement.test.ts: 346
+  tests/p14c2b-save-v36.test.ts: 113, 121, 130, 142, 155
+  tests/p14c2rm-writer-continuation.test.ts: 81, 218, 232, 241, 242, 278, 279, 345
+  tests/p14c3-canonical-rival-history.test.ts: 233, 245, 255, 256
+  tests/p14c3-cohort-transition.test.ts: 273, 278, 280
+  tests/p14c3-profession-history.test.ts: 276, 280, 301, 305, 320, 326, 332, 340, 342, 347, 354, 356, 361, 376
+  tests/p14c3-queued-writing-proof.test.ts: 61, 134, 159
+  tests/p14c4-save-v35.test.ts: 277, 278
+  tests/p14d1-rival-shelving-save-v43.test.ts: 58, 76, 139, 147, 156, 165, 180, 191, 199, 211, 216
+  tests/p14d1-rival-shelving.test.ts: 981
+  tests/p14p4p5-casting-reservation.test.ts: 81
+  tests/p14p4p5-cross-owner.test.ts: 75, 76
+  tests/p14p4p5-delayed-retirement.test.ts: 100
+  tests/p14p4p5-finishing-material.test.ts: 64, 65
+  tests/p14p4p5-grouped-witness.test.ts: 70, 71
+  tests/p14p4p5-opportunities.test.ts: 34, 322, 335, 362, 379, 393, 732, 740, 957
+  tests/p14p4p5-post-capacity.test.ts: 71, 72
+  tests/p14p4p5-queued-project-outcome.test.ts: 99
+  tests/p14p4p5-receipt-freeze.test.ts: 65, 361
+  tests/p14p4p5-retired-acting.test.ts: 47, 48
+  tests/p14p4p5-scenery-capacity.test.ts: 81
+  tests/p14p4p5-screenplay-status.test.ts: 65
+  tests/p14p4p5-soundstage-capacity.test.ts: 55, 56
+  tests/p14p4p5-stock-subject.test.ts: 66, 67
+  tests/p14p4p5-writer-resources.test.ts: 50
+  tests/p14r3-save-v41.test.ts: 224, 342
+  tests/placement-save-v12.test.ts: 412, 418, 430, 436, 443, 450
+  tests/property-state-v13.test.ts: 702, 799, 868, 880
+## SaveFileV43-type: 3 lines in 1 files
+  tests/p14b9-save-v42.test.ts: 71, 174, 175
+## projection-56: 76 lines in 38 files
+  tests/bridge-contract-generator.test.ts: 567
+  tests/bridge-operations-events.test.ts: 333
+  tests/bridge-owner-ux-projection21-schema.test.ts: 18, 19
+  tests/bridge-p10a-w0-people-projection.test.ts: 321, 322
+  tests/bridge-p11-capital-contributors.test.ts: 24
+  tests/bridge-p11-ready.test.ts: 52
+  tests/bridge-p13b-r07-setup.test.ts: 320, 321, 322
+  tests/bridge-p13b-s1b-seats.test.ts: 76, 102
+  tests/bridge-p13b-s2-labs.test.ts: 115, 126
+  tests/bridge-p13b-s3-plans.test.ts: 202, 214
+  tests/bridge-p13b-s4-office.test.ts: 224, 235
+  tests/bridge-p13b-s5-adoption.test.ts: 250, 251, 252
+  tests/bridge-p13b-s6-cancellation.test.ts: 270, 271, 272
+  tests/bridge-p13b-s7-disclosure.test.ts: 270, 271, 272
+  tests/bridge-p13b-s8-rivals.test.ts: 223, 224, 225
+  tests/bridge-p14a1-market.test.ts: 152, 153, 154
+  tests/bridge-p14a1-release-busy-set.test.ts: 215, 216, 217
+  tests/bridge-p14a2-market.test.ts: 217, 218, 219
+  tests/bridge-p14a3-world.test.ts: 229, 230, 231
+  tests/bridge-p14b1-promises.test.ts: 208, 209, 210
+  tests/bridge-p14b2-trust.test.ts: 140, 142, 143
+  tests/bridge-p14b3-promise-command.test.ts: 510
+  tests/bridge-p14b4-runtime47-compatibility.test.ts: 207
+  tests/bridge-p14b5-relationships.test.ts: 377
+  tests/bridge-p14b7-promise-waiver.test.ts: 137
+  tests/bridge-p14b8-waiver-surface.test.ts: 776, 777, 778
+  tests/bridge-p14c2rm-runtime.test.ts: 94
+  tests/bridge-p14c2s-scientist-runtime.test.ts: 107
+  tests/bridge-p14c3-promise-digest-continuity.test.ts: 119
+  tests/bridge-p14c3-runtime.test.ts: 160
+  tests/bridge-p14p3-directing-promises.test.ts: 358
+  tests/bridge-p14p4p5-opportunities.test.ts: 487, 488
+  tests/bridge-p14r2r3-prior55.test.ts: 154, 155
+  tests/bridge-r3n4-read-model-deltas.test.ts: 144, 145, 351
+  tests/bridge-schema.test.ts: 81, 84, 340
+  tests/bridge.test.ts: 167
+  tests/d17a-adv-cliff.test.ts: 192
+  tests/p15a2-power-ranking.test.ts: 365, 416, 421
+## schema-id-56: 3 lines in 2 files
+  tests/bridge-contract-generator.test.ts: 569, 572
+  tests/bridge-p14b5-relationships.test.ts: 381
+## prior-schema-roster: 89 lines in 22 files
+  tests/bridge-owner-ux-projection20-migration.test.ts: 12, 67, 68
+  tests/bridge-p06-checkpoint-recovery.test.ts: 8, 177, 178
+  tests/bridge-p10a-w0-people-projection.test.ts: 35, 330, 331
+  tests/bridge-p11-capital-contributors.test.ts: 6, 26
+  tests/bridge-p11-production-location.test.ts: 4, 35
+  tests/bridge-p11-ready.test.ts: 4, 53
+  tests/bridge-p14b2-checkpoint.test.ts: 6, 33
+  tests/bridge-p14b4-runtime47-compatibility.test.ts: 18, 210, 211, 212, 213, 214, 215, 221
+  tests/bridge-p14b5-relationships.test.ts: 44, 384, 385, 386, 387, 388, 431, 432, 433
+  tests/bridge-p14b6-relationship-read-models.test.ts: 72, 786, 787, 788, 789, 791, 792, 793, 794
+  tests/bridge-p14b8-waiver-surface.test.ts: 57, 105, 784, 785, 786, 787, 788
+  tests/bridge-p14c2rm-runtime.test.ts: 7, 98, 99
+  tests/bridge-p14c2s-scientist-runtime.test.ts: 10, 110, 111
+  tests/bridge-p14c3-promise-digest-continuity.test.ts: 15, 121, 122
+  tests/bridge-p14c3-runtime.test.ts: 10, 161, 162
+  tests/bridge-p14p3-directing-promises.test.ts: 18, 359, 360
+  tests/bridge-p14p4p5-opportunities.test.ts: 16, 489, 490, 491, 493, 496
+  tests/bridge-p14r2r3-prior55.test.ts: 14, 15, 50, 65, 156, 157, 169
+  tests/bridge-r3n4-read-model-deltas.test.ts: 44, 148, 149
+  tests/bridge-runtime-checkpoint.test.ts: 15, 763, 946, 977
+  tests/r3n1-stale-schedule-take-02.test.ts: 46, 108
+  tests/r3n1-stale-schedule-take-02p31.test.ts: 43, 115
+## staged-edges-without-slice-B-fields
+  tests/bridge-p14b5-relationships.test.ts: devices currentTier, makeSave, peopleProjection
+  tests/bridge-p14b6-d2-withheld-employment-claim.test.ts: devices admitted, makeSave, peopleProjection, validateSaveV43
+  tests/bridge-p14b6-relationship-read-models.test.ts: devices admitted, makeSave, pairChemistry, peopleProjection, relationshipBlockFor, validateSaveV43
+  tests/bridge-p14c2rm-runtime.test.ts: devices makeSave
+  tests/bridge-p14c2s-scientist-runtime.test.ts: devices makeSave, validateSaveV43
+  tests/bridge-p14c3-promise-digest-continuity.test.ts: devices makeSave
+  tests/bridge-p14p3-directing-promises.test.ts: devices makeSave, peopleProjection, validateSaveV43
+  tests/bridge-p14p4p5-opportunities.test.ts: devices makeSave, peopleProjection, validateSaveV43
+  tests/p14b10-conflict-evidence.test.ts: devices currentCloseness, currentTier, live, makeSave, stage, tiersOnRoster
+  tests/p14b5-t-failure-tuning.test.ts: devices currentCloseness, currentTier, makeSave, pairChemistry, validateSaveV43
+  tests/p14b9-casting-competition.test.ts: devices currentTier, makeSave
+  tests/p14b9-save-v42.test.ts: devices makeSave, validateSaveV41, validateSaveV42, validateSaveV43
+  tests/p14c3-save-v38.test.ts: devices makeSave
+  tests/p14p3-directing-promises.test.ts: devices admitted, makeSave
+  tests/p14p4p5-casting-reservation.test.ts: devices admitted, makeSave, validateSaveV43
+  tests/p14p4p5-cross-owner.test.ts: devices admitted, makeSave, validateSaveV43
+  tests/p14p4p5-delayed-retirement.test.ts: devices admitted, makeSave, validateSaveV43
+  tests/p14p4p5-opportunities.test.ts: devices admitted, makeSave, validateSaveV43
+  tests/p14p4p5-post-capacity.test.ts: devices admitted, makeSave, validateSaveV43
+  tests/p14p4p5-queued-project-outcome.test.ts: devices admitted, makeSave, validateSaveV43
+  tests/p14p4p5-scenery-capacity.test.ts: devices admitted, makeSave, validateSaveV43

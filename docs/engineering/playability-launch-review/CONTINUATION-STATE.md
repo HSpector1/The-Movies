@@ -1,5 +1,48 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT: slice A closed (1348-M); slice B RED r8 and production r2 staged; P15C retune ruled (hit line 49), RED r7 staged
+
+State at 2026-10-02 02:19 CDT, at the commit that adds this block (pushed). No recorded run is active. The heavy lane runs scratch
+probes and dry runs. Root `HANDOFF.md` carries the resume commands and the lane queue.
+
+- **Relationship slice A: CLOSED.** [1348-M](evidence/p14b4-20260919/1348-M-rel-sliceA-recorded-broad-gates.md) recorded its broad gates at
+  bc2f6007 on Node v20.20.2.
+  - Core: 85 failed, the same identities and primaries as 1344-I3 (SAME 85).
+  - UI: 3 failed, the numpy rows.
+  - Both new files pass. [1348-L](evidence/p14b4-20260919/1348-L-rel-sliceA-landing.md) is CLOSED.
+- **Relationship slice B: RED and production staged, not landed.**
+  - RED r8 ([1358-C8](evidence/p14b4-20260919/1358-C8-rel-sliceB-red-r8-handback.md)):
+    - [1358-D2](evidence/p14b4-20260919/1358-D2-rel-sliceB-red-r6-confirmation.md) CONFIRMED r6;
+    - [1358-F6](evidence/p14b4-20260919/1358-F6-parent-response-to-1358-D2.md) withdrew F5's `endedWeek` bound, and r7 corrected the text;
+    - [1358-F8](evidence/p14b4-20260919/1358-F8-parent-response-to-1358-J.md) added two forged-save leaves, a control and an anchor
+      assertion.
+  - Production in four cumulative steps, revision r2 ([1358-E](evidence/p14b4-20260919/1358-E-rel-sliceB-production-handback.md),
+    [1358-E2](evidence/p14b4-20260919/1358-E2-rel-sliceB-production-r2-handback.md)):
+    - review [1358-J](evidence/p14b4-20260919/1358-J-rel-sliceB-production-review.md) KEEP, and delta check
+      [1358-J2](evidence/p14b4-20260919/1358-J2-rel-sliceB-production-r2-delta-check.md) CONFIRMED;
+    - [1358-F7](evidence/p14b4-20260919/1358-F7-parent-rulings-on-1358-E.md) rules on the writer's questions.
+  - Next: the r8 short run (1358-X4), the RED commit, the recorded mint and RED, the step dry run 1358-X5, the
+    fallout measurement 1358-M2, then the sweep plan 1358-N.
+- **P15C §5.5 retune: ruled; the RED is staged.**
+  - [1353-T](evidence/p14b4-20260919/1353-T-p15c-legacy-tuning-amendment.md) proposed critic 60, hit line 50 and share floor 20.
+  - [1353-F6](evidence/p14b4-20260919/1353-F6-parent-rulings-on-1353-T.md) chose 49, which keeps a `commercial-engine` holder under the
+    measured shared-market factors. [1353-U](evidence/p14b4-20260919/1353-U-p15c-legacy-tuning-review.md) returned REFINE, and
+    [1353-F7](evidence/p14b4-20260919/1353-F7-parent-response-to-1353-U.md) adopted it.
+  - RED r7 and reference r4 are staged ([1359-C6](evidence/p14b4-20260919/1359-C6-p15c-wave2-red-r6-handback.md),
+    [1359-C7](evidence/p14b4-20260919/1359-C7-p15c-wave2-red-r7-handback.md)). [1359-D5](evidence/p14b4-20260919/1359-D5-p15c-wave2-red-r6-confirmation.md)
+    returned REFINE, answered by [1359-F6](evidence/p14b4-20260919/1359-F6-parent-response-to-1359-D5.md).
+  - In the lane: G-P on the ruled values (1353-X4), then dry run 1359-X5.
+- **Open Owner items:**
+  - 1357-Q1: rival recovery before P15B closure. Recommend (a), starting with the shelving `cashBlocked` fix (1357-F3).
+  - The P15C playtest brief (1353-T §6.3; 1353-F7 ruling 6).
+  - Slice B's provisional copy (1358-F7 ruling 7).
+  - numpy for the three rgba rows.
+  - P16's nine questions (1354-Q).
+  - The §7 flags (1344-V §9).
+  - The seven declared exceptions.
+  - 1356-X F-2.
+  - X12's V39 family.
+
 ## CURRENT: P14 closed (1344-K); P15 Wave 1 closed; slice A landed; P15B Re-tune; P15C G-P sends two archetypes to retune
 
 State at 2026-10-01 23:45 CDT, HEAD 975e72a1 plus this update (pushed, remote verified). No recorded run is active.

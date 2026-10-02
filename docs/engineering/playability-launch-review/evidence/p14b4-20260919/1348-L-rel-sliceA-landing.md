@@ -39,10 +39,11 @@
 
 Root, UI and Bridge each exit 0.
 
-## Status: IN PROGRESS
+## Status: CLOSED
 
-- **Broad gates.** The Save43 sweep's recorded gates ran before slice A landed, so they do not cover it. Slice A's
-  broad core and UI gates ride with the next broad gate run.
+- **Broad gates.** [1348-M](1348-M-rel-sliceA-recorded-broad-gates.md) ran them at bc2f6007, whose source equals
+  c208d214's. Core reproduces 1344-I3's 85 failures exactly (SAME 85), and UI reproduces 1344-I4's three numpy rows.
+  Slice A's two new files pass.
 - **Natural routes.** [1348-X7](1348-X7-rel-sliceA-natural-routes.md) ran §7's four 520-week routes at HEAD. Every
   output file equals the §7 candidate's, so slice A moves none of them.
 - **Follow-ups.** The stale describe title (1348-F5 item 3) rides with slice B's RED, which renames it.

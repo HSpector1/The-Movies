@@ -1,0 +1,43 @@
+[1353-T] tree 975e72a18746ee0e3cc2096750f7fdf7967a18be, 6240 weeks (full), seeds p13a-core-causal-01, seed-b, p13a-wait-control-01, law campaign-legacy/v1
+[1353-T] p13a-core-causal-01: week 520/6240, 7 s
+[1353-T] p13a-core-causal-01: week 1040/6240, 10 s
+[1353-T] p13a-core-causal-01: week 1560/6240, 13 s
+[1353-T] p13a-core-causal-01: week 2080/6240, 18 s
+[1353-T] p13a-core-causal-01: week 2600/6240, 22 s
+[1353-T] p13a-core-causal-01: week 3120/6240, 29 s
+[1353-T] p13a-core-causal-01: week 3640/6240, 34 s
+[1353-T] p13a-core-causal-01: week 4160/6240, 40 s
+[1353-T] p13a-core-causal-01: week 4680/6240, 47 s
+[1353-T] p13a-core-causal-01: week 5200/6240, 54 s
+[1353-T] p13a-core-causal-01: week 5720/6240, 64 s
+[1353-T] p13a-core-causal-01: week 6240/6240, 74 s
+[1353-T] p13a-core-causal-01: F1 BRIDGE: the landed law refused an authored film's null settledWeek (campaignLegacy.ts:351; 1359-F2 F1); the law runs on a copy where 8 authored films read settledWeek 0
+[1353-T] p13a-core-causal-01: freeze at week 6240: 91 releases, 91 settled; held: artistic-voice 0, commercial-engine 0, of 10 studios; law check pass (102 comparisons)
+[1353-T] seed-b: week 520/6240, 11 s
+[1353-T] seed-b: week 1040/6240, 17 s
+[1353-T] seed-b: week 1560/6240, 22 s
+[1353-T] seed-b: week 2080/6240, 31 s
+[1353-T] seed-b: week 2600/6240, 44 s
+[1353-T] seed-b: week 3120/6240, 63 s
+[1353-T] seed-b: week 3640/6240, 90 s
+[1353-T] seed-b: week 4160/6240, 119 s
+[1353-T] seed-b: week 4680/6240, 159 s
+[1353-T] seed-b: week 5200/6240, 201 s
+[1353-T] seed-b: week 5720/6240, 259 s
+[1353-T] seed-b: week 6240/6240, 323 s
+[1353-T] seed-b: F1 BRIDGE: the landed law refused an authored film's null settledWeek (campaignLegacy.ts:351; 1359-F2 F1); the law runs on a copy where 8 authored films read settledWeek 0
+[1353-T] seed-b: freeze at week 6240: 1952 releases, 1952 settled; held: artistic-voice 0, commercial-engine 0, of 10 studios; law check pass (102 comparisons)
+[1353-T] p13a-wait-control-01: week 520/6240, 5 s
+[1353-T] p13a-wait-control-01: week 1040/6240, 7 s
+[1353-T] p13a-wait-control-01: week 1560/6240, 9 s
+[1353-T] p13a-wait-control-01: week 2080/6240, 14 s
+[1353-T] p13a-wait-control-01: week 2600/6240, 17 s
+[1353-T] p13a-wait-control-01: week 3120/6240, 23 s
+[1353-T] p13a-wait-control-01: week 3640/6240, 29 s
+[1353-T] p13a-wait-control-01: week 4160/6240, 35 s
+[1353-T] p13a-wait-control-01: week 4680/6240, 43 s
+[1353-T] p13a-wait-control-01: week 5200/6240, 53 s
+[1353-T] p13a-wait-control-01: week 5720/6240, 64 s
+[1353-T] p13a-wait-control-01: week 6240/6240, 77 s
+[1353-T] p13a-wait-control-01: F1 BRIDGE: the landed law refused an authored film's null settledWeek (campaignLegacy.ts:351; 1359-F2 F1); the law runs on a copy where 8 authored films read settledWeek 0
+[1353-T] p13a-wait-control-01: freeze at week 6240: 13 releases, 13 settled; held: artistic-voice 0, commercial-engine 0, of 10 studios; law check pass (102 comparisons)
