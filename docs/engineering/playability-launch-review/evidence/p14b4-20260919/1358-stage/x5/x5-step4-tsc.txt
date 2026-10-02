@@ -1,0 +1,152 @@
+== tsconfig.json
+tests/contracts/v14-boundary-guards.contract.test.ts(63,116): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/helpers/p14c2b-fixtures.ts(69,122): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/helpers/p14c3-canonical-rival-fixtures.ts(198,97): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/helpers/p14c4-fixtures.ts(71,104): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p06a-w1-release-authority.test.ts(406,120): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p12-starting-world.test.ts(52,76): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14b10-conflict-evidence.test.ts(108,3): error TS2322: Type '{ edgeId: string; a: string; b: string; closeness: number; firstSharedWeek: number; lastEventWeek: number; sharedProductions: number; sharedSuccesses: number; sharedFailures: number; ... 6 more ...; romance?: RomanceTrack | null; }' is not assignable to type 'RelationshipEdge'.
+  Property 'competitions' is optional in type '{ edgeId: string; a: string; b: string; closeness: number; firstSharedWeek: number; lastEventWeek: number; sharedProductions: number; sharedSuccesses: number; sharedFailures: number; sharedCancellations: number; ... 5 more ...; romance?: RomanceTrack | null; }' but required in type 'RelationshipEdge'.
+tests/p14b4-material-evidence-core.test.ts(293,9): error TS2322: Type 'SaveFileV44' is not assignable to type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14b5-relationships.test.ts(590,26): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(709,31): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek">'.
+tests/p14b5-relationships.test.ts(710,26): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(720,40): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek">'.
+tests/p14b5-relationships.test.ts(726,28): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(729,31): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek">'.
+tests/p14b5-relationships.test.ts(730,26): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(741,34): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(796,32): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(798,26): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(801,24): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(802,24): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(832,24): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(834,94): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(837,92): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(981,29): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(982,24): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(1025,24): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(1091,24): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(1103,24): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(1137,24): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(1147,24): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(1231,24): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-relationships.test.ts(1286,54): error TS2345: Argument of type 'Edge' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type 'Edge' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-t-failure-tuning.test.ts(295,36): error TS2345: Argument of type '{ closeness: number; lastEventWeek: number; sharedCompetitions: number; }' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type '{ closeness: number; lastEventWeek: number; sharedCompetitions: number; }' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b5-t-failure-tuning.test.ts(373,91): error TS2345: Argument of type '{ closeness: number; lastEventWeek: number; sharedCompetitions: number; }' is not assignable to parameter of type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+  Property 'romance' is missing in type '{ closeness: number; lastEventWeek: number; sharedCompetitions: number; }' but required in type 'Pick<RelationshipEdge, "romance" | "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14c2rm-writer-continuation.test.ts(254,130): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14c3-cohort-transition.test.ts(287,114): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14c3-dual-extensions.test.ts(178,114): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14c3-offmenu-extensions.test.ts(235,114): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14c3-profession-history.test.ts(119,144): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14c3-promise-digest-continuity.test.ts(279,119): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14p3-directing-promises.test.ts(387,90): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14p3-directing-promises.test.ts(693,91): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14p4p5-opportunities.test.ts(810,106): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14p4p5-screenplay-status.test.ts(320,97): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/save.test.ts(370,120): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/save.test.ts(419,120): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+exit 2
+== ui/tsconfig.json
+tests/helpers/p14c2b-fixtures.ts(69,122): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/helpers/p14c4-fixtures.ts(71,104): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+exit 2
+== tsconfig.bridge.json
+tests/helpers/p14c2b-fixtures.ts(69,122): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/helpers/p14c4-fixtures.ts(71,104): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+exit 2

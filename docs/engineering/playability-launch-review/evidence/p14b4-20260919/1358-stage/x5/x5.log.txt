@@ -1,0 +1,35 @@
+node v20.20.2, base 5245072a67b07ea5107a8201c4a86ce60b8c82c8
+step 1 applied:  4 files changed, 238 insertions(+), 24 deletions(-)
+step 1 vitest start 02:36:40
+step 1 vitest exit 1
+step 1 tsc: == tsconfig.json exit 2 == ui/tsconfig.json exit 2 == tsconfig.bridge.json exit 2 
+step 1 check exit 0
+step 1: per file (failed, passed): {'bridge-p14b10-relationship-labels.test.ts': [11, 3], 'p14b10-competitions-log.test.ts': [5, 2], 'p14b10-labels.test.ts': [12, 0], 'p14b10-romance.test.ts': [32, 5], 'p14b10-save-v44.test.ts': [1, 24], 'p14b5-relationships.test.ts': [31, 22]}
+step 1: classified rows 100, expected red 62, mismatches 0, unclassified failures 30
+tree status after step 1: []
+step 2 applied:  5 files changed, 284 insertions(+), 41 deletions(-)
+step 2 vitest start 02:39:20
+step 2 vitest exit 1
+step 2 tsc: == tsconfig.json exit 2 == ui/tsconfig.json exit 2 == tsconfig.bridge.json exit 2 
+step 2 check exit 0
+step 2: per file (failed, passed): {'bridge-p14b10-relationship-labels.test.ts': [11, 3], 'p14b10-competitions-log.test.ts': [0, 7], 'p14b10-labels.test.ts': [0, 12], 'p14b10-romance.test.ts': [32, 5], 'p14b10-save-v44.test.ts': [0, 25], 'p14b5-relationships.test.ts': [31, 22]}
+step 2: classified rows 100, expected red 44, mismatches 0, unclassified failures 30
+tree status after step 2: []
+step 3 applied:  7 files changed, 466 insertions(+), 78 deletions(-)
+step 3 vitest start 02:41:59
+step 3 vitest exit 1
+step 3 tsc: == tsconfig.json exit 2 == ui/tsconfig.json exit 2 == tsconfig.bridge.json exit 2 
+step 3 check exit 0
+step 3: per file (failed, passed): {'bridge-p14b10-relationship-labels.test.ts': [10, 4], 'p14b10-competitions-log.test.ts': [0, 7], 'p14b10-labels.test.ts': [0, 12], 'p14b10-romance.test.ts': [0, 37], 'p14b10-save-v44.test.ts': [0, 25], 'p14b5-relationships.test.ts': [30, 23]}
+step 3: classified rows 100, expected red 10, mismatches 0, unclassified failures 30
+tree status after step 3: []
+step 4 applied:  13 files changed, 712 insertions(+), 122 deletions(-)
+step 4 vitest start 02:44:22
+step 4 vitest exit 1
+step 4 tsc: == tsconfig.json exit 2 == ui/tsconfig.json exit 2 == tsconfig.bridge.json exit 2 
+step 4 generator: == check:bridge-contract exit 0 == check:bridge-contract:fixtures exit 0 
+step 4 check exit 0
+step 4: per file (failed, passed): {'bridge-p14b10-relationship-labels.test.ts': [3, 11], 'p14b10-competitions-log.test.ts': [0, 7], 'p14b10-labels.test.ts': [0, 12], 'p14b10-romance.test.ts': [0, 37], 'p14b10-save-v44.test.ts': [0, 25], 'p14b5-relationships.test.ts': [30, 23]}
+step 4: classified rows 100, expected red 3, mismatches 0, unclassified failures 30
+tree status after step 4: []
+done 02:46:47
