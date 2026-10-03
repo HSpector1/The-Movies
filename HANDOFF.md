@@ -110,11 +110,9 @@ Standing rules:
 - None open. 1366-O answered O1 and O6. O2 to O5 of 1363-A go to the Owner only with 1363-V's numbers.
 
 ## Blockers and warnings
-- **Disk.** 3.84 GiB free at 12:43 CDT, below the 5 GiB a recorded run needs. Swap shares the container and grows during heavy runs. Before recorded runs, delete with literal absolute paths, links first:
-  - the `S/1361-sweep/x1/tree` and `x2/tree` trees, once read;
-  - old closed scratch: `S/1358-*`, `S/1344-*`, `S/1353-*`, and any `S/*/tree` whose record is closed.
-
-  Gzip large closed logs in place.
+- **Disk.** 3.74 GiB free at 13:03 CDT, below the 5 GiB a recorded run needs. Swap takes the space: `sysctl vm.swapusage` shows 4,096 MB allocated and 2,978 MB used, and all of `S` is under 0.7 GiB.
+  - **The fix before the recorded runs:** restart the Mac after x2 and before the landing (which also clears the stuck `U` and `UE` processes), or close Chrome and VS Code. Then check `df -k /`.
+  - **Scratch trees** (`S/1361-sweep/x1/tree`, `x2/tree` once read) go by literal absolute paths, links first. Never delete cited logs: the gzipped `S/1344-merge/x*-core.txt.gz` and `S/1361-m2/m2-*.txt*` back records.
 - **Power.** The Mac slept overnight on 10-02 at 0% battery. It is on AC power at 12:39 on 10-03. Keep it plugged in.
 - **The recorder's guards** digest HEAD, the index and stage entries. No `git add` during a recorded run or its postflight, and use plumbing only. Recorded-run scripts check exactly five output names (memory `recorder-output-exact-names`).
 - **Scratch trees.** `tests/fixtures` must be a real directory of per-entry links, with `bridge-contract-union-fixtures.ts` copied. `docs` is linked whole, because the sibling test reads `E/1052-c3-endurance-A-observer-fixed/`. Never write under a link. `build-unit-tree.sh` and `run-sweep-x.sh` do all of this.
