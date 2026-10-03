@@ -56,12 +56,10 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-03 10:22 CDT, written a
   - **The sweep plan:** `E/1361-N-save45-pin-sweep-plan.md`, with its classification and scripts in `E/1361-stage/sweep/`. It covers 868 core rows and 11 UI rows in units H and G1 to G5. 716 rows are certain and 103 need a dry run.
   - **1363 adopted** (1363-F, with question O6 for the Owner).
 - **In flight:**
-  - **Sweep unit H's test author** (sonnet, started 10:42 CDT 10-03). Its tree is `S/1361-sweep/H/tree`, built by `S/1361-sweep/build-unit-tree.sh H`. Outputs go to `S/1361-sweep/H/`: `patch.diff`, `rows.json`, `deferred.md` and `handback.md`.
-  - **Ready for x1** (H's dry run):
-    - the command: `nohup bash S/heavy-queue/lane-run.sh 0 S/1361-sweep/x1.log bash S/1361-sweep/run-sweep-x.sh x1 <E>/1359-stage/1359-p15c-wave2-sibling-r2.patch S/1361-sweep/hygiene/1361-hygiene-comment.patch S/1361-sweep/H/patch.diff &`;
-    - the core list: 448 files (`S/1361-sweep/core-list-448.txt`);
-    - attribution: as 1361-M2 did it, with `x-core.txt` and `x-ui.txt`;
-    - H's acceptance (plan, "H's acceptance check (x1)"): its other 378 rows pass or move to sites another unit owns; the 7 retained rows fail with their 1358-I messages; the type gates lose H's 5 sites.
+  - **Unit H done** (sonnet author): `S/1361-sweep/H/{patch.diff,rows.json,deferred.md,handback.md}`, 16 files, 60 of 61 lines; 1 deferred (`p14c3-save-v38:121`, a bare `.toThrow()` per ruling 9); 11 measure lines await a run.
+  - **x1** in the lane since 11:01 CDT 10-03 (`S/1361-sweep/run-sweep-x.sh x1` + sibling + hygiene + H; progress `S/1361-sweep/x1/x.meta`; outputs `x-core.txt`, `x-ui.txt`, `x-d16.json`). Type gates already match H's acceptance (root 28, UI 0, Bridge 5 test errors; src 0). Expected end about 12:50.
+  - **G units** (sonnet authors, shared brief `S/1361-sweep/brief-g-unit.md`): G1 and G2 running since 11:07. Trees for G3, G4a, G4b and G5 are built (production + H). The G4 split (1361-F7 ruling 11): G4a = v14-boundary-guards, p06a-w1-release-authority, p12-starting-world, p13b-s8-save-v27, p14b1-t4-regressions, p14c2b-save-v36, p14c2rm-writer-continuation, p14c3-canonical-rival-history, p14c3-cohort-transition, p14c3-dual-extensions, p14c3-offmenu-extensions, p14c3-profession-history; G4b = p14c3-promise-digest-continuity, p14c3-queued-writing-proof, p14c3-transitions, p14p3-directing-promises, p14p4p5-opportunities, p14p4p5-screenplay-status, p14r3-save-v41, save.
+  - **x2 after the G units:** `run-sweep-x.sh x2 <sibling> <hygiene> H/patch.diff G1/patch.diff G2/patch.diff G3/patch.diff G4a/patch.diff G4b/patch.diff G5/patch.diff` (each G patch is `git diff HEAD -- tests ui` on top of H, so they stack); queue it behind x1 in the lane.
   - **The hygiene comment patch** (1361-F7 ruling 1) is `S/1361-sweep/hygiene/1361-hygiene-comment.patch`, checked against HEAD.
 - **Claims limits:**
   - The sweep plan rests on reading only. 103 rows and every S9 anchor must be measured in its dry run.
