@@ -1,9 +1,9 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-03 12:44 CDT. Codex takes over at about 13:45 CDT (Owner).
+Last writer: Codex (GPT-6), 2026-10-03 14:12 CDT. Resumed after the Owner's requested three-hour wait; accepted integration ownership at Claude's published checkpoint a23a40f4.
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit that carries this file, pushed: yes. Protected main is never touched.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit that carries this file (parent a23a40f4ad7d30304265df12caa091ab70026b90), pushed: yes. Protected main is never touched.
 - E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`.
 - Required reading, in order:
   1. this file;
@@ -37,6 +37,9 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-03 12:44 CDT. Codex tak
   - Owner questions O1 and O6 (1366-O).
 
 ## State
+- **Codex resume checks:** the download folder is only a pointer. Fetched in this live repo; branch/HEAD a23a40f4 matched the remote and the worktree was clean. The production tree is clean on `p15c` and has the six recorded commits. Read the required orders and accepted the existing Save45 scope; no settled choice reopened. AC power is connected.
+- **Preliminary independent review:** a separate Codex reviewer (substituting for the historical Sonnet role) sampled 58 edits across every unit and S1-S10/T at x2's committed tree, finding no new sweep defect or assertion weakening. `E/1361-stage/sweep/review-x2-static.md` holds its full table. This is not final sweep approval: measurements, deferred pins and final delta review remain required.
+- **Prepared, not run:** `E/1361-stage/sweep/attribute-x2.py` runs the existing parsers after x2 ends, compares d16 after normalizing only the scratch-tree prefix, and routes remaining rows to units. `observe-guards.py` and `run-guard-observers.sh` preserve each original callback and assertion while logging the three bare refusal sites, studio-events forbidden keys and five loose S9 sites in a separate `S/1361-sweep/x2-guards/tree`. The latter must run through the heavy lane after x2. Syntax checked only. Following review, the runner now requires its uninstrumented Git tree to equal x2's, and the observer rejects symlink path components.
 - **Production, all reviewed PROCEED and dry-run clean:**
   - the writer's tree `S/1361-prod/tree`, branch `p15c`, clean;
   - `git -C S/1361-prod/tree log --oneline base..p15c-c-r1` gives the six landing commits: 5eccada (slice 2a r2), 39d0481 (P15A.1 a), b0b6fb0 (P15A.1 b r2), 2592aea, 5a3a532 and f4612bf (P15C a, b and c);
@@ -57,9 +60,9 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-03 12:44 CDT. Codex tak
   - nothing new fails that did not fail in M2;
   - the P15 files fail the 45 declared.
 - **x1 complete** (12:58 CDT): UI went from 11 to 8 failed (H cleared its 3; the 8 left are G3's UI files) and d16 fails the base 12. Record `E/1361-X5`.
-- **In flight:** **x2 (all units)** has run in the lane since 12:58:12 CDT (`S/1361-sweep/run-sweep-x.sh x2`, all nine patches applied cleanly). Its progress is in `S/1361-sweep/x2/x.meta`, its outputs `x-tsc.txt`, `x-core.txt`, `x-ui.txt` and `x-d16.json`, and its lane log `S/1361-sweep/x2.log`. Expected: core finishes about 14:20, the whole run about 14:45.
+- **In flight:** **x2 (all units)** has run in the lane since 12:58:12 CDT (`S/1361-sweep/run-sweep-x.sh x2`, all nine patches applied cleanly). The lane PID is 55402, runner PID 63881 and core vitest PID 64372 (alive at takeover). Its progress is in `S/1361-sweep/x2/x.meta`, its outputs `x-tsc.txt`, `x-core.txt`, `x-ui.txt` and `x-d16.json`, and its lane log `S/1361-sweep/x2.log`. Expected: core finishes about 14:20, the whole run about 14:45.
 - **Claims limits:**
-  - No unit edit has run yet. x2 is the first measurement of G1 to G5.
+  - x2 is the first measurement of G1 to G5. At takeover all three type gates and both generators exited 0; core is still running (301 of 448 files completed at 14:11). No final core/UI/d16 claim is made yet.
   - About 30 S8 and S9 pins are unmeasured: each unit's `deferred.md`, and the G4a, G4b and G5 handbacks.
   - The Bridge's post-2040 cost is unmeasured; G-L measures it.
 
@@ -77,6 +80,7 @@ Standing rules:
    python3 E/1321-I-attribution.py S/1361-sweep/x2/x-core.txt S/1361-sweep/x2/attr/x2-core-failures.json
    python3 E/1344-I-compare.py S/1361-sweep/x2/attr/x2-core-failures.json E/1358-I-core-failures.json S/1361-sweep/x2/attr/x2-core-vs1358I.json
    ```
+   The prepared `python3 S/1361-sweep/attribute-x2.py` performs both parser/comparison pairs and the d16 comparison, once only (its output names must not already exist).
    Do the same for UI, with `E/1317-I-attribution.py` and `E/1358-I2-ui-failures.json`. Read d16 against the base 12 (`E/1361-stage/d16/d16-base.json`). Then check:
    - **(a) The success line** (1361-N):
      - the three type gates exit 0;
@@ -85,7 +89,9 @@ Standing rules:
      - d16 fails the same 12.
    - **(b) A production defect, which stops the work:** any refusal by `validateSaveV45` of a ticked save carrying Power Ranking records. The first such sites are G3's `p13a-causal-core` :49 and :91 and `v14-byte-parity.contract` :206. Report it, and do not edit the test.
    - **(c) Anything else is unit work.** Sort each remaining row to its unit by file (the classification's `unit`; G4's files per HANDOFF history: G4a has 12 files, G4b has 8).
-2. **Follow-up units:**
+2. **Guard observations and follow-up units:**
+   - After x2 has ended and its production-stop check is clear, run `bash S/heavy-queue/lane-run.sh 0 S/1361-sweep/x2-guards.log bash S/1361-sweep/run-guard-observers.sh`. Read its `observer.txt`, `observer.meta` and `observer.patch`; no observer edit may land. This closes the passing-but-unattributed bare and loose guards identified in the preliminary review. Any mismatching guard gets the F7 ruling 9 treatment, not a weakened assertion.
+
    - **The tree.** Rebuild with `bash S/1361-sweep/build-unit-tree.sh <unit>-r2 S/1361-sweep/H/patch.diff S/1361-sweep/<unit>/patch.diff` (for H: `H-r2 S/1361-sweep/H/patch.diff`). Edit there.
    - **The edits.** Pin each measured first guard as 1361-F7 ruling 2 and the plan's S9 section say. Settle the deferred lines from x2's messages.
    - **The patch.** Regenerate it cumulatively from the unit's original state. For a G unit, `git diff HEAD~1 -- tests ui` covers its first patch plus the follow-up. Keep the old patch as `patch-r1.diff`.
@@ -110,10 +116,10 @@ Standing rules:
 - None open. 1366-O answered O1 and O6. O2 to O5 of 1363-A go to the Owner only with 1363-V's numbers.
 
 ## Blockers and warnings
-- **Disk.** 3.74 GiB free at 13:03 CDT, below the 5 GiB a recorded run needs. Swap takes the space: `sysctl vm.swapusage` shows 4,096 MB allocated and 2,978 MB used, and all of `S` is under 0.7 GiB.
+- **Disk.** 3,844,920 KiB free at 14:08 CDT (about 3.67 GiB), below the 5 GiB a recorded run needs. Swap takes the space: `sysctl vm.swapusage` shows 4,096 MB allocated and 2,978 MB used, and all of `S` is under 0.7 GiB.
   - **The fix before the recorded runs:** restart the Mac after x2 and before the landing (which also clears the stuck `U` and `UE` processes), or close Chrome and VS Code. Then check `df -k /`.
   - **Scratch trees** (`S/1361-sweep/x1/tree`, `x2/tree` once read) go by literal absolute paths, links first. Never delete cited logs: the gzipped `S/1344-merge/x*-core.txt.gz` and `S/1361-m2/m2-*.txt*` back records.
-- **Power.** The Mac slept overnight on 10-02 at 0% battery. It is on AC power at 12:39 on 10-03. Keep it plugged in.
+- **Power.** The Mac slept overnight on 10-02 at 0% battery. Codex verified AC power and 100% charge at 14:01 on 10-03. Keep it plugged in.
 - **The recorder's guards** digest HEAD, the index and stage entries. No `git add` during a recorded run or its postflight, and use plumbing only. Recorded-run scripts check exactly five output names (memory `recorder-output-exact-names`).
 - **Scratch trees.** `tests/fixtures` must be a real directory of per-entry links, with `bridge-contract-union-fixtures.ts` copied. `docs` is linked whole, because the sibling test reads `E/1052-c3-endurance-A-observer-fixed/`. Never write under a link. `build-unit-tree.sh` and `run-sweep-x.sh` do all of this.
 - **Never `cd` in a top-level shell command.** It rebinds the session's working directory. Use `git -C` and absolute paths (memory `no-cd-in-bash`).
