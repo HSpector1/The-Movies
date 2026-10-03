@@ -71,16 +71,7 @@ Standing rules:
 - recorded runs on Node v20.20.2, with stems matching `^[0-9]{3,4}[a-z0-9-]*$`;
 - keep the Mac on power (below).
 
-1. **Write `E/1361-F7`, the parent's rulings on 1361-N's eleven questions** (plan, lines 677 to 710). Recommended answers:
-   - **(1) Hygiene row** (`tests/hygiene.test.ts:45`; "Math.random" in a comment at L:79 of `tests/p15c2-campaign-legacy-integration.test.ts`; it fails at HEAD since 1360-L). The RED's owner rewords that comment in its own tests-only commit with a short record, before the recorded GREEN. No leaf changes, and no Owner exception is needed.
-   - **(2) S9:** confirm, following 1358-F10 ruling 4 and 1358-F9 ruling 2.
-   - **(3)** Confirm a literal `withEmptyP15Roots` in each file. Production never defines the expectation.
-   - **(4)** Import `stripP15` and `p15Rows` from `tests/helpers/p15-roots.ts` (read-only), and add the `p15Sequence.next === 1` check. Later roots then join the guard automatically.
-   - **(5)** Adopt the 1358-F12 form for `p14d1-rival-shelving:618`, as the plan proposes.
-   - **(6) and (7)** Confirm the numbering and the 18 title renames. The classification maps each old identity to its new one, for the success line.
-   - **(8)** Confirm that C20 gets no edit and that the 7 masked rows are re-attributed. If R8 passes after H, it reads GONE with its cause recorded.
-   - **(9) and (10)** Confirm.
-   - **(11)** Split G4 into G4a and G4b by file.
+1. **`E/1361-F7` is written** (the eleven rulings on 1361-N, adopting the recommendations above it in this file's history): the hygiene comment is reworded by the RED's owner in its own tests-only commit; S9 follows 1358-F10 ruling 4 and 1358-F9 ruling 2; S5 uses a literal per-file `withEmptyP15Roots`; S7 and S10 import `stripP15` and `p15Rows` from `tests/helpers/p15-roots.ts`; the 1358-F12 form applies at `p14d1-rival-shelving:618`; G4 splits into G4a and G4b.
 2. **Build the sweep's merge tree**, `S/1361-sweep/merge`: an archive of HEAD plus `E/1361-stage/prod/1361-p15c-production-c-r1.patch`, plus the sibling patch `E/1359-stage/1359-p15c-wave2-sibling-r2.patch`, laid out as `S/1361-m2/run-1361-M2.sh` lays out its tree. Then:
    - **Unit H:** its test author writes it first.
    - **The G units:** test authors on disjoint files, at most two agents at once, each writing the plan's edits and staging a patch.
