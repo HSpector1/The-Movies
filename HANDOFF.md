@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 17:17 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-03 09:25 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 50181e76 that carries this file, pushed: yes. Protected main is never touched.
@@ -31,7 +31,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 17:17 CDT. Claude's 
 - In flight:
   - **P15C production handed back** (`E/1361-E3`; patches `E/1361-stage/prod/1361-p15c-production-{a,b,c}-r1.patch`): `p15c-a-r1` 2592aea, `p15c-b-r1` 5a3a532, `p15c-c-r1` f4612bf on `p15a1-b-r2`; tree clean on branch `p15c`. The parent accepts the writer's split (replay in (b); the marker rule's due half in (c)); rule it in `1361-F6` with 1361-D3's findings. By reading: 1359 86/98/116 at (a)/(b)/(c); messages of L:854, L:885, L:1089 change at (a)/(b).
 - **Review `1361-D3`: PROCEED**, no change required (`E/1361-D3`; rulings `E/1361-F6`: O1 split stands; F1 replay-input rule and closure guard; F2 cost at G-L; F3/F5 wait for an r2 or the closure; F4 to `1361-N`).
-  - **Fallout `1361-M2`** in the lane since 17:16 CDT: `S/1361-m2/run-1361-M2.sh` (archive of HEAD + `E/1361-stage/prod/1361-p15c-production-c-r1.patch`; type gates, generators, core over 447 files `S/1361-m2/core-list.txt`, UI, d16); progress `S/1361-m2/m2.meta`; outputs `S/1361-m2/m2-*.txt`. About 2-3 h.
+- **Fallout `E/1361-M2` done** (core 17:19-18:38, UI to 18:57 on 10-02; d16 finished 09:23 on 10-03 after the machine slept 19:01-09:19 at 0% battery): src type-clean; 1355 exactly the 45, 1356 and 1359 all pass; core vs 1358-I SAME 71 / CHANGED 14 / NEW 854 (45 of them the declared 1355 leaves; 809 Save45 pin rows in 138 files); UI NEW 11 (all 45-vs-44 pins), GONE 3 (rgba rows pass with numpy); d16 the same 12. Raw logs `S/1361-m2/m2-{core,ui}.txt(.gz)`; parsed rows `E/1361-stage/m2/`.
 - **P15C dry run `E/1361-X4`:** src type-clean at (a)/(b)/(c); 1359 86/98/116, no regression; 1356 72/72, harness 80,483 ms at (c); 1355 exactly the 45; d16 the same 12; sibling 5/5 at (c), 5/5 failing by name at b-r2 (its RED-side baseline); classification `E/1361-stage/sibling/`.
 - **Done since the G2 verdict:** `p15a1-b-r2` b0b6fb01 (b-r1 + F3's guard; `E/1361-F5` Amendment 1 adds the 45th leaf); its dry run `E/1361-X3` (src type-clean; 1356 72/72, harness 70,404 ms; 1355 14 passed and exactly the 45 declared failing, list `E/1361-stage/x-r3b/1355-leaves-red-at-b-r2.tsv`; 1359 unchanged; generators 0); **G-P passed** on b-r2 + v2 (`E/1361-GP-X`: no trigger; holder sets equal 1353-X4's; C0 passed; two market-reading expectations of 1361-F5 missed by the parent's own error, explained there).
 - Claims limits: P15A.1's r1 commits and slice 2a r2 are unmeasured; the harness time compares across Node versions and machine load (1361-F3 ruling 5); the 1363-A design rests on reading.
@@ -39,9 +39,9 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 17:17 CDT. Claude's 
 ## Next step
 Standing rules: one production writer; one heavy test process at a time (`bash S/heavy-queue/lane-run.sh 0 <log> <cmd>`); no commits or `git add` during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run; recorded runs on Node v20.20.2; stems match `^[0-9]{3,4}[a-z0-9-]*$`.
 
-1. **When 1361-D3 returns:** publish it in E; rule `1361-F6` (accept E3's O1 split unless D3 finds a defect; O2-O7); a REVISE goes to the writer (SendMessage `a9b8c143941cbb673`), then a new X run of the changed tags.
-2. **When the fallout ends** (`S/1361-m2/m2.meta` says `end`): attribute core with `E/1321-I-attribution.py` and `E/1344-I-compare.py` against `E/1358-I-core-failures.json` (the Save44 recorded gates), expecting also 1355's 45 declared; UI with `E/1317-I-attribution.py` against `E/1358-I2-ui-failures.json`; d16 against the base 12; gzip `m2-core.txt` after reading; record `1361-M2`. Then the sweep plan `1361-N` (planner agent, 1358-N's method), its units (test authors), dry runs and review; then the landing `1361-L` (one push: productions, sibling test commit, sweep) with four recorded runs (1361-F ruling 14; 1355's files must fail exactly the 45), recorded broad gates `1361-M3`.
-3. **When an agent slot frees and usage allows:** draft the late-founding charter `1364-A` (scope in 1362-O's third section).
+1. **The sweep plan `1361-N`** (planner agent, 1358-N's method) from `E/1361-M2`: classify all 809 core rows, the 8 CHANGED Save45 rows and the 11 UI rows; group them into units for test authors; carry 1361-D2 F7 and 1361-D3 F4; leave the P15 RED files, `BASE_LIVE_SAVE_VERSION`, F10 and F11 alone. Then its units (test authors on disjoint files), the merged sweep's dry run (core, UI, type gates) until the success line holds, the review, then the landing `1361-L` in one push (productions; the sibling test commit; the sweep) with four recorded runs (1361-F ruling 14; 1355's files fail exactly the 45 with their messages; the sibling file joins `1361-p15c-green-recorded`), the recorded broad gates `1361-M3` (d16 must fail exactly the base 12).
+2. **Keep the Mac on power** for recorded runs: it slept overnight at 0% battery (pmset AutoPowerOff 19:01, wake 09:19 on 10-03).
+3. **When usage allows:** draft the late-founding charter `1364-A` (scope in 1362-O's third section).
 
 ## Open decisions for the Owner
 - **1363-A O1, rival facility disposal** (asked 2026-10-02; `E/1363-A` §4.7, §10.2): may rivals close facilities; at what refund; may core filming plant go. v1 keeps facilities and does not wait. Parent recommends: no disposal in v1; revisit with 1363-V's numbers; if ever allowed, non-core plant only at the player's demolition refund, core plant never.

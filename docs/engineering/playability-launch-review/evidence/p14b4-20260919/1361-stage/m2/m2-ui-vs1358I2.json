@@ -1,0 +1,134 @@
+{
+ "new": "/Users/zacheryspector/studio-scratch/1361-m2/attr/m2-ui-failures.json",
+ "base": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-I2-ui-failures.json",
+ "counts": {
+  "NEW": 11,
+  "GONE": 3
+ },
+ "newByFile": {
+  "ui/src/screens/StudioCalendar.career.test.tsx": 3,
+  "ui/src/session.test.tsx": 3,
+  "ui/src/engine/d17-save-migration.test.ts": 2,
+  "ui/src/engine/film-chronicle-adapter.test.ts": 1,
+  "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts": 1,
+  "ui/src/saves.test.tsx": 1
+ },
+ "rows": [
+  {
+   "identity": "ui/src/engine/d17-save-migration.test.ts > D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a CURRENT-version save round-trips through the adapter as NOT converted",
+   "file": "ui/src/engine/d17-save-migration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/engine/d17-save-migration.test.ts:131:42"
+  },
+  {
+   "identity": "ui/src/engine/d17-save-migration.test.ts > D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state",
+   "file": "ui/src/engine/d17-save-migration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/engine/d17-save-migration.test.ts:155:61"
+  },
+  {
+   "identity": "ui/src/engine/film-chronicle-adapter.test.ts > Film Chronicle V1 \u2014 real adapter wiring > uses current market week as the chronology gate and reconstructs deeply after V13 reload",
+   "file": "ui/src/engine/film-chronicle-adapter.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/engine/film-chronicle-adapter.test.ts:289:71"
+  },
+  {
+   "identity": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts > C2a-M2 \u2014 a save round-trips as V15, roots and all > exports V15 and imports it back with the four C2a roots intact",
+   "file": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts:46:42"
+  },
+  {
+   "identity": "ui/src/saves.test.tsx > saves: export \u2192 import round-trips the EXACT state > importSaveJson(exportSaveJson(state)) has a serialized form equal to the original",
+   "file": "ui/src/saves.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/saves.test.tsx:126:42"
+  },
+  {
+   "identity": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U1 renders genuine change/finality names and dates, retains age12, and removes age13 news",
+   "file": "ui/src/screens/StudioCalendar.career.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/screens/StudioCalendar.career.test.tsx:29:23"
+  },
+  {
+   "identity": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U2 App opens the exact off-roster career profile and restores focus without post-hydration writes",
+   "file": "ui/src/screens/StudioCalendar.career.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/screens/StudioCalendar.career.test.tsx:29:23"
+  },
+  {
+   "identity": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U3 actual208 expiry explains its stop while Scientist finality alone adds no automatic stop",
+   "file": "ui/src/screens/StudioCalendar.career.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/screens/StudioCalendar.career.test.tsx:29:23"
+  },
+  {
+   "identity": "ui/src/session.test.tsx > D-17A fix-pass \u2014 a stored V5 autosave migrates on load > a NEVER-ENGAGED headless V5 session restores with the flag false",
+   "file": "ui/src/session.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/session.test.tsx:360:79"
+  },
+  {
+   "identity": "ui/src/session.test.tsx > D-17A fix-pass \u2014 a stored V5 autosave migrates on load > an ENGAGED V5 session restores with the flag true and the converted banner",
+   "file": "ui/src/session.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/session.test.tsx:332:79"
+  },
+  {
+   "identity": "ui/src/session.test.tsx > Script Projects V1 \u2014 a stored V8 autosave migrates on load > preserves operations, seeds legacy screenplay and casting state, then re-saves as V15",
+   "file": "ui/src/session.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/session.test.tsx:387:35"
+  }
+ ],
+ "gone": [
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "basePrimary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-L2yi7X/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-L2yi7X/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-L2yi7X --stem t --colours 16"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 7. repeated runs are byte-identical",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "basePrimary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-Aw2Hui/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-Aw2Hui/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-Aw2Hui/a --stem t --colours 16"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "basePrimary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py quantize --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-nNsY1n/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-nNsY1n/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-nNsY1n --stem q"
+  }
+ ]
+}
