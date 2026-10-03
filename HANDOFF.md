@@ -1,9 +1,9 @@
 # HANDOFF
 
-Last writer: Codex (GPT-6), 2026-10-03 15:02 CDT. Resumed after the Owner's requested three-hour wait; accepted integration ownership at Claude's published checkpoint a23a40f4.
+Last writer: Codex (GPT-6), 2026-10-03 15:50 CDT. Resumed after the Owner's requested three-hour wait; accepted integration ownership at Claude's published checkpoint a23a40f4.
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit that carries this file (parent 8719cde18f7398b8baacab870f1105a0720db6e1), pushed: yes. Protected main is never touched.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit that carries this file (parent 7692b1e1d5cf1f5f3f3bdad555fae3f2664cfe24), pushed: yes. Protected main is never touched.
 - E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`.
 - Required reading, in order:
   1. this file;
@@ -39,7 +39,7 @@ Last writer: Codex (GPT-6), 2026-10-03 15:02 CDT. Resumed after the Owner's requ
 ## State
 - **Codex resume checks:** the download folder is only a pointer. Fetched in this live repo; branch/HEAD a23a40f4 matched the remote and the worktree was clean. The production tree is clean on `p15c` and has the six recorded commits. Read the required orders and accepted the existing Save45 scope; no settled choice reopened. AC power is connected.
 - **Preliminary independent review:** a separate Codex reviewer (substituting for the historical Sonnet role) sampled 58 edits across every unit and S1-S10/T at x2's committed tree, finding no new sweep defect or assertion weakening. `E/1361-stage/sweep/review-x2-static.md` holds its full table. This is not final sweep approval: measurements, deferred pins and final delta review remain required.
-- **Prepared, not run:** `E/1361-stage/sweep/attribute-x2.py` runs the existing parsers after x2 ends, compares d16 after normalizing only the scratch-tree prefix, and routes remaining rows to units. `observe-guards.py` and `run-guard-observers.sh` preserve each original callback and assertion while logging the three bare refusal sites, studio-events forbidden keys and five loose S9 sites in a separate `S/1361-sweep/x2-guards/tree`. The latter must run through the heavy lane after x2. Syntax checked only. Following review, the runner now requires its uninstrumented Git tree to equal x2's, and the observer rejects symlink path components.
+- **Attribution and observation tooling:** x2 attribution and guard observations completed. `S/1361-sweep/attribute-x3.py` is prepared and syntax-checked for x3, using its final r2 unit paths and fresh output names; execute only after `x.meta` contains `end;`. x2 outputs remain preserved.
 - **Production, all reviewed PROCEED and dry-run clean:**
   - the writer's tree `S/1361-prod/tree`, branch `p15c`, clean;
   - `git -C S/1361-prod/tree log --oneline base..p15c-c-r1` gives the six landing commits: 5eccada (slice 2a r2), 39d0481 (P15A.1 a), b0b6fb0 (P15A.1 b r2), 2592aea, 5a3a532 and f4612bf (P15C a, b and c);
@@ -63,10 +63,11 @@ Last writer: Codex (GPT-6), 2026-10-03 15:02 CDT. Resumed after the Owner's requ
 - **x2 complete (1361-X6):** type gates and generators all pass; core 155 failed / 5,096 passed, SAME 78 / CHANGED 7 / NEW 70 / GONE 0 against 1358-I. NEW = 45 declared 1355 leaves with identical messages + 7 environment rows + 18 deferred S9 rows in 11 files. UI 2,692 passed / 5 skipped, no failures. d16 is exactly the base 12, including full messages after scratch-prefix normalization. The tree ended clean at 14:50:06 CDT. Both named production-stop files pass.
 - **r2 staged, not confirmed:** `S/1361-sweep/{H,G1,G4a,G4b}/patch-r2.diff` and `rows-r2.json`, mirrored in `E/1361-stage/sweep/units/`. 17 S9 anchored pins across 11 files plus four case-specific S8 pins (three H mutation cases and one G4a case across four callers), with masking/coverage comments. The other units stay at `patch.diff`; the originals have not been overwritten. Independent static delta review is `E/1361-stage/sweep/review-r2-static.md`, with all comment findings corrected. Stack check passes; execution is pending.
 - **Guard observations complete:** x2-guards ended 14:52:50, 343 observations, expected 17 failed / 219 passed. Four first-guard pins were required and are in H/G4a r2. Independent attribution and the raw/parsed observations are staged under `E/1361-stage/sweep/`. No P15 masking occurred. The 15 existing P14B.1 terminal premise failures and 26 V14 workflow/history masking observations remain disclosed coverage limits.
-- **In flight:** **x3**, lane PID 94391, runner PID 94400, started 15:01:16 CDT. Candidate `ee289de` on source archive 8719cde1; clean at build completion. Progress `S/1361-sweep/x3/x.meta`, raw logs `x-tsc.txt`, `x-generate.txt`, `x-core.txt`, `x-ui.txt`, `x-d16.txt/json`; lane log `S/1361-sweep/x3.log`. Tool session 38877 is this session only. Estimate core done around 16:35 and whole run around 16:55. No recorded run is active.
+- **Completed scratch cleanup:** removed only the closed H-r2, G1-r2, G4a-r2, G4b-r2, x1 and x2-guards trees, by literal paths with links removed first. Patches, raw logs, observations and review records remain. The x2, x3 and production trees remain.
+- **In flight:** **x3**, lane PID 94391, runner PID 94400, started 15:01:16 CDT. Candidate `ee289de` on source archive 8719cde1; clean at build completion. All three type checks and both generator checks passed; core started 15:03:23 and remains active. Progress `S/1361-sweep/x3/x.meta`, raw logs `x-tsc.txt`, `x-generate.txt`, `x-core.txt`, `x-ui.txt`, `x-d16.txt/json`; lane log `S/1361-sweep/x3.log`. Tool session 38877 is this session only. Estimate core done around 16:35 and whole run around 16:55. No recorded run is active.
 - **Claims limits:**
   - x2 measures all r1 units; r2 is being confirmed by x3. Guard observations are complete and attributed; their documented pre-existing coverage limits remain.
-  - About 30 S8 and S9 pins are unmeasured: each unit's `deferred.md`, and the G4a, G4b and G5 handbacks.
+  - Unit deferred/handback documents still describe the pre-observation state; reconcile them with the guard evidence and completed x3 before final approval.
   - The Bridge's post-2040 cost is unmeasured; G-L measures it.
 
 ## Next step
@@ -84,7 +85,7 @@ Standing rules:
 3. **The candidate inputs** are frozen in `E/1361-stage/sweep/units/final-candidate-sha256.txt`: H, G1, G4a and G4b use `patch-r2.diff`; G2, G3 and G5 use `patch.diff`, after sibling and hygiene. The originals remain. `E/1361-X6-sweep-x2-all-units.md` records x2, the 343 guard observations and every follow-up. Record x3 as `1361-X7`; copy its raw/parsed evidence and update the unit deferred/handback status from its results.
 4. **Finish the independent review** (1361-N Units step 5): the 58-row static sample and all follow-up deltas are reviewed in `review-x2-static.md`, `review-r2-static.md` and `review-guard-messages.md`. Obtain the final measured conclusion on x3; do not call the preliminary review final approval.
 5. **The landing `1361-L`.** Keep the Mac on AC power, and keep at least 5 GiB free (see the warnings).
-   - **The commits.** In the repo, run `git -C S/1361-prod/tree format-patch base..p15c-c-r1 -o <dir>`, then `git am` the six into the repo. Then commit, in order:
+   - **The commits.** The six format-patches are already prepared under `S/1361-land/production/`; verify them before use. To regenerate if needed, run `git -C S/1361-prod/tree format-patch base..p15c-c-r1 -o <dir>`, then `git am` the six into the repo. Then commit, in order:
      - the sibling test (`git apply` `E/1359-stage/1359-p15c-wave2-sibling-r2.patch`);
      - the hygiene comment (`E/1361-stage/sweep/1361-hygiene-comment.patch`, record 1361-F7 ruling 1);
      - the sweep: the final unit patches, as one commit or one per unit.
@@ -101,8 +102,8 @@ Standing rules:
 - None open. 1366-O answered O1 and O6. O2 to O5 of 1363-A go to the Owner only with 1363-V's numbers.
 
 ## Blockers and warnings
-- **Disk.** 3,844,920 KiB free at 14:08 CDT (about 3.67 GiB), below the 5 GiB a recorded run needs. Swap takes the space: `sysctl vm.swapusage` shows 4,096 MB allocated and 2,978 MB used, and all of `S` is under 0.7 GiB.
-  - **The fix before the recorded runs:** restart the Mac after x2 and before the landing (which also clears the stuck `U` and `UE` processes), or close Chrome and VS Code. Then check `df -k /`.
+- **Disk.** 3,875,668 KiB free after completed-tree cleanup (about 3.70 GiB), below the 5 GiB a recorded run needs. Swap takes the space: `sysctl vm.swapusage` shows 4,096 MB allocated and 2,978 MB used, that older scratch-size measurement predates the new candidate trees.
+  - **Before recorded runs:** require at least 5 GiB free. A restart or closing unrelated applications requires Owner coordination; do not do either while x3 runs. Finished scratch cleanup has not yet met the threshold.
   - **Scratch trees** (`S/1361-sweep/x1/tree`, `x2/tree` once read) go by literal absolute paths, links first. Never delete cited logs: the gzipped `S/1344-merge/x*-core.txt.gz` and `S/1361-m2/m2-*.txt*` back records.
 - **Power.** The Mac slept overnight on 10-02 at 0% battery. Codex verified AC power and 100% charge at 14:01 on 10-03. Keep it plugged in.
 - **The recorder's guards** digest HEAD, the index and stage entries. No `git add` during a recorded run or its postflight, and use plumbing only. Recorded-run scripts check exactly five output names (memory `recorder-output-exact-names`).
