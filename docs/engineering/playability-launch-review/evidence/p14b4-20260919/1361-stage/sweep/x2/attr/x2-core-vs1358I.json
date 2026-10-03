@@ -1,0 +1,1425 @@
+{
+ "new": "/Users/zacheryspector/studio-scratch/1361-sweep/x2/attr/x2-core-failures.json",
+ "base": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-I-core-failures.json",
+ "counts": {
+  "SAME": 78,
+  "NEW": 70,
+  "CHANGED": 7,
+  "GONE": 0
+ },
+ "newByFile": {
+  "tests/p15a1-market-integration.test.ts": 40,
+  "tests/bridge-supervisor.test.ts": 7,
+  "tests/p15a1-market-integration-atomicity.test.ts": 4,
+  "tests/p14c3-profession-history.test.ts": 3,
+  "tests/p14p3-directing-promises.test.ts": 3,
+  "tests/p14c2b-save-v36.test.ts": 2,
+  "tests/p14c3-dual-extensions.test.ts": 2,
+  "tests/p14c3-offmenu-extensions.test.ts": 2,
+  "tests/p14c2rm-writer-continuation.test.ts": 1,
+  "tests/p14c2s-scientist-retirement.test.ts": 1,
+  "tests/p14c3-cohort-transition.test.ts": 1,
+  "tests/p14c3-transitions.test.ts": 1,
+  "tests/p14p4p5-opportunities.test.ts": 1,
+  "tests/p14r3-save-v41.test.ts": 1,
+  "tests/p15a1-market-integration-phases.test.ts": 1
+ },
+ "rows": [
+  {
+   "identity": "tests/bridge-p13-campaign-isolation.test.ts > P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority",
+   "file": "tests/bridge-p13-campaign-isolation.test.ts",
+   "status": "SAME",
+   "primary": "Error: Test timed out in 60000ms.",
+   "basePrimary": "Error: Test timed out in 60000ms.",
+   "timeout": true,
+   "frame": null
+  },
+  {
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group3 \u2014 one bound-only newest-first history DTO on both carriers > does not publish another studio\u2019s real bound history as the player\u2019s own terms",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "status": "SAME",
+   "primary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "basePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "timeout": false,
+   "frame": "tests/bridge-p14b2-trust.test.ts:253:15"
+  },
+  {
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group5 \u2014 independent promise attention after cases close > does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe)",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "basePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "timeout": false,
+   "frame": "tests/bridge-p14b2-trust.test.ts:345:15"
+  },
+  {
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group5 \u2014 independent promise attention after cases close > ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "status": "SAME",
+   "primary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "basePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "timeout": false,
+   "frame": "tests/bridge-p14b2-trust.test.ts:363:19"
+  },
+  {
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group5 \u2014 independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "basePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "timeout": false,
+   "frame": "tests/bridge-p14b2-trust.test.ts:298:15"
+  },
+  {
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group5 \u2014 independent promise attention after cases close > raises the poaching winner\u2019s actual outcome only in its recorded week, once per cause/person",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "basePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "timeout": false,
+   "frame": "tests/bridge-p14b2-trust.test.ts:317:15"
+  },
+  {
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public > is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "status": "SAME",
+   "primary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "basePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "timeout": false,
+   "frame": "tests/bridge-p14b2-trust.test.ts:412:15"
+  },
+  {
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public > keeps open rival proposal terms literal UNKNOWN across Profile and Market",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "status": "SAME",
+   "primary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "basePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "timeout": false,
+   "frame": "tests/bridge-p14b2-trust.test.ts:386:15"
+  },
+  {
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public > publishes the real rival kept outcome and aggregate label while withholding bound history terms",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "status": "SAME",
+   "primary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "basePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "timeout": false,
+   "frame": "tests/bridge-p14b2-trust.test.ts:398:15"
+  },
+  {
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected '62c9fd5d2d7887b1b6263a38f9545f2ad77cd\u2026' to be 'c034f2fb5a8e5f454a475020cec9de1ac764d\u2026' // Object.is equality",
+   "basePrimary": "AssertionError: expected '62c9fd5d2d7887b1b6263a38f9545f2ad77cd\u2026' to be 'c034f2fb5a8e5f454a475020cec9de1ac764d\u2026' // Object.is equality",
+   "timeout": false,
+   "frame": "tests/bridge-p14b5-relationships.test.ts:564:37"
+  },
+  {
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13a-core-causal-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected '8a4df62fdd64ba26fc6e00e438c47c2574992\u2026' to be '706e54c6ec9728df1664025982ebbafeb0fc3\u2026' // Object.is equality",
+   "basePrimary": "AssertionError: expected '8a4df62fdd64ba26fc6e00e438c47c2574992\u2026' to be '706e54c6ec9728df1664025982ebbafeb0fc3\u2026' // Object.is equality",
+   "timeout": false,
+   "frame": "tests/bridge-p14b5-relationships.test.ts:564:37"
+  },
+  {
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(42) ] to have a length of 48 but got 43",
+   "basePrimary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(42) ] to have a length of 48 but got 43",
+   "timeout": false,
+   "frame": "tests/bridge-p14b5-relationships.test.ts:544:54"
+  },
+  {
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(40) ] to have a length of 48 but got 41",
+   "basePrimary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(40) ] to have a length of 48 but got 41",
+   "timeout": false,
+   "frame": "tests/bridge-p14b5-relationships.test.ts:544:54"
+  },
+  {
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart",
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "basePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "timeout": false,
+   "frame": "tests/bridge-p14b5-relationships.test.ts:574:46"
+  },
+  {
+   "identity": "tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak",
+   "file": "tests/bridge-p14c2rm-retirement.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }",
+   "basePrimary": "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }",
+   "timeout": false,
+   "frame": "tests/bridge-p14c2rm-retirement.test.ts:347:15"
+  },
+  {
+   "identity": "tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > natural retired tiers stay fixed across real drift while lawful current employment changes disclosure",
+   "file": "tests/bridge-p14c2rm-retirement.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }",
+   "basePrimary": "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }",
+   "timeout": false,
+   "frame": "tests/bridge-p14c2rm-retirement.test.ts:334:15"
+  },
+  {
+   "identity": "tests/bridge-p14c3-runtime.test.ts > C.3 projection53 current/save/journal and durable campaign authority > R8 durable coordinator Save As branches208, saves B209, then clean-loads A207 and restarts with isolated records/journals",
+   "file": "tests/bridge-p14c3-runtime.test.ts",
+   "status": "SAME",
+   "primary": "Error: Test timed out in 5000ms.",
+   "basePrimary": "Error: Test timed out in 5000ms.",
+   "timeout": true,
+   "frame": null
+  },
+  {
+   "identity": "tests/bridge-runtime-checkpoint-prepared-reuse.test.ts > prepared checkpoint representation reuse preserves authority boundaries > preserves live authority on failed Save and replays the exact successful receipt after later changes and restart",
+   "file": "tests/bridge-runtime-checkpoint-prepared-reuse.test.ts",
+   "status": "SAME",
+   "primary": "Error: Test timed out in 20000ms.",
+   "basePrimary": "Error: Test timed out in 20000ms.",
+   "timeout": true,
+   "frame": null
+  },
+  {
+   "identity": "tests/bridge-supervisor.test.ts > one-command studio supervisor > bounds engine crash loops and never touches an unrelated process",
+   "file": "tests/bridge-supervisor.test.ts",
+   "status": "NEW",
+   "primary": "Error: Fake Unity did not report health.",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/bridge-supervisor.test.ts:110:9"
+  },
+  {
+   "identity": "tests/bridge-supervisor.test.ts > one-command studio supervisor > cancels replacement work when Unity exits during an engine outage",
+   "file": "tests/bridge-supervisor.test.ts",
+   "status": "NEW",
+   "primary": "Error: Fake Unity did not report health.",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/bridge-supervisor.test.ts:110:9"
+  },
+  {
+   "identity": "tests/bridge-supervisor.test.ts > one-command studio supervisor > emits, audits, and supervises the packaged production graph without the development loader",
+   "file": "tests/bridge-supervisor.test.ts",
+   "status": "NEW",
+   "primary": "Error: Fake Unity did not report started.",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/bridge-supervisor.test.ts:110:9"
+  },
+  {
+   "identity": "tests/bridge-supervisor.test.ts > one-command studio supervisor > kills a Unity helper that survives TERM before releasing the active lease",
+   "file": "tests/bridge-supervisor.test.ts",
+   "status": "NEW",
+   "primary": "Error: Fake Unity did not report helper.",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/bridge-supervisor.test.ts:110:9"
+  },
+  {
+   "identity": "tests/bridge-supervisor.test.ts > one-command studio supervisor > launches only after authenticated readiness and preserves one private profile across distinct logs",
+   "file": "tests/bridge-supervisor.test.ts",
+   "status": "NEW",
+   "primary": "Error: Fake Unity did not report started.",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/bridge-supervisor.test.ts:110:9"
+  },
+  {
+   "identity": "tests/bridge-supervisor.test.ts > one-command studio supervisor > rejects a concurrent owner, shuts down on signal, and reclaims only a stale incarnation",
+   "file": "tests/bridge-supervisor.test.ts",
+   "status": "NEW",
+   "primary": "Error: Fake Unity did not report health.",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/bridge-supervisor.test.ts:110:9"
+  },
+  {
+   "identity": "tests/bridge-supervisor.test.ts > one-command studio supervisor > restarts a SIGKILLed engine on its fixed port without changing durable authority",
+   "file": "tests/bridge-supervisor.test.ts",
+   "status": "NEW",
+   "primary": "Error: Fake Unity did not report started.",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/bridge-supervisor.test.ts:110:9"
+  },
+  {
+   "identity": "tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001",
+   "file": "tests/p13a-scientist-foundation.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected '8fb8cbf85fd5e7925bc26d317151ab19a2d4e\u2026' to be '7517c0d01eb928245e2101752932b99ccd344\u2026' // Object.is equality",
+   "basePrimary": "AssertionError: expected '8fb8cbf85fd5e7925bc26d317151ab19a2d4e\u2026' to be '7517c0d01eb928245e2101752932b99ccd344\u2026' // Object.is equality",
+   "timeout": false,
+   "frame": "tests/p13a-scientist-foundation.test.ts:32:77"
+  },
+  {
+   "identity": "tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1",
+   "file": "tests/p13a-scientist-foundation.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected 'e5796af6edd31bc3ecd910f2761e4dc0dda0c\u2026' to be '16857a2609206c58bfb34ba3be7b67d95276e\u2026' // Object.is equality",
+   "basePrimary": "AssertionError: expected 'e5796af6edd31bc3ecd910f2761e4dc0dda0c\u2026' to be '16857a2609206c58bfb34ba3be7b67d95276e\u2026' // Object.is equality",
+   "timeout": false,
+   "frame": "tests/p13a-scientist-foundation.test.ts:32:77"
+  },
+  {
+   "identity": "tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2",
+   "file": "tests/p13a-scientist-foundation.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected 'd82b15fdd4235680423bbc521fbb395a5763c\u2026' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01\u2026' // Object.is equality",
+   "basePrimary": "AssertionError: expected 'd82b15fdd4235680423bbc521fbb395a5763c\u2026' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01\u2026' // Object.is equality",
+   "timeout": false,
+   "frame": "tests/p13a-scientist-foundation.test.ts:32:77"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects another beneficiary outcome receipt references",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects duplicate qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects empty qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects missing outcome receipt references",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects missing take qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects non-take receipt qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects null outcome receipt references",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects outside window qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects unbound outcome qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects unknown outcome receipt references",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong outcome week outcome receipt references",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong progress qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong receipt kind outcome receipt references",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong studio or cast qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > round-trips several beneficiaries sharing one real take and distinct own outcome receipts",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "status": "SAME",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "basePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "timeout": false,
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9"
+  },
+  {
+   "identity": "tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals",
+   "file": "tests/p14b1-trust-chooser.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected 'compensation' to be 'opportunity' // Object.is equality",
+   "basePrimary": "AssertionError: expected 'compensation' to be 'opportunity' // Object.is equality",
+   "timeout": false,
+   "frame": "tests/p14b1-trust-chooser.test.ts:349:53"
+  },
+  {
+   "identity": "tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain",
+   "file": "tests/p14b2-fixture-preconditions.test.ts",
+   "status": "SAME",
+   "primary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "basePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "timeout": false,
+   "frame": "tests/p14b2-fixture-preconditions.test.ts:27:15"
+  },
+  {
+   "identity": "tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone",
+   "file": "tests/p14b2-fixture-preconditions.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "basePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "timeout": false,
+   "frame": "tests/p14b2-fixture-preconditions.test.ts:22:15"
+  },
+  {
+   "identity": "tests/p14b4-cast-class-capacity-evaluator5.test.ts > P14B4 evaluator-5 kernel vocabulary (record 600 \u00a73 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice",
+   "file": "tests/p14b4-cast-class-capacity-evaluator5.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality",
+   "basePrimary": "AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality",
+   "timeout": false,
+   "frame": "tests/p14b4-cast-class-capacity-evaluator5.test.ts:239:77"
+  },
+  {
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "status": "SAME",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "basePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "timeout": false,
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9"
+  },
+  {
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'antagonist' seat: qualification=false",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "status": "SAME",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "basePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "timeout": false,
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9"
+  },
+  {
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "status": "SAME",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "basePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "timeout": false,
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9"
+  },
+  {
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "status": "SAME",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "basePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "timeout": false,
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9"
+  },
+  {
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "status": "SAME",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "basePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "timeout": false,
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9"
+  },
+  {
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "status": "SAME",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "basePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "timeout": false,
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9"
+  },
+  {
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "status": "SAME",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "basePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "timeout": false,
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9"
+  },
+  {
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "status": "SAME",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "basePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "timeout": false,
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9"
+  },
+  {
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "status": "SAME",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "basePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "timeout": false,
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9"
+  },
+  {
+   "identity": "tests/p14b4-ready-replay-stale-target.test.ts > P14B4 Ready replay \u2014 stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix",
+   "file": "tests/p14b4-ready-replay-stale-target.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality",
+   "basePrimary": "AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality",
+   "timeout": false,
+   "frame": "tests/p14b4-ready-replay-stale-target.test.ts:234:28"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected { week: 202, \u2026(1) } to deeply equal { week: 202, \u2026(1) }",
+   "basePrimary": "AssertionError: expected { week: 202, \u2026(1) } to deeply equal { week: 202, \u2026(1) }",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:622:66"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: The expression evaluated to a falsy value:",
+   "basePrimary": "AssertionError: The expression evaluated to a falsy value:",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:690:12"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts \u2014 'window ends before any take can land \u2026'",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts \u2014 'window starts after every plausible t\u2026'",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader \u2014 'APPEARANCE_COUNT is generic cast'",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader \u2014 'legacy count-only LEAD_OR_SIGNIFICANT\u2026'",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader \u2014 'tagged lead stays exact: r01-2 counts\u2026'",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected [] to deeply equal [ { week: 208, \u2026(4) }, \u2026(1) ]",
+   "basePrimary": "AssertionError: expected [] to deeply equal [ { week: 208, \u2026(4) }, \u2026(1) ]",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:483:78"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality",
+   "basePrimary": "AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:498:20"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) > promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) > the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER \u2014 a non-primary-actor beneficiary \u2014 and the real package and first take serve his promise",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:807:12"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated \u2014 inherited tie behaviour, not fairness (:218-221)",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "basePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "timeout": false,
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10"
+  },
+  {
+   "identity": "tests/p14b5-relationships.test.ts > family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)",
+   "file": "tests/p14b5-relationships.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+   "basePrimary": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+   "timeout": false,
+   "frame": "tests/p14b5-relationships.test.ts:414:53"
+  },
+  {
+   "identity": "tests/p14b5-relationships.test.ts > family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order",
+   "file": "tests/p14b5-relationships.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+   "basePrimary": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+   "timeout": false,
+   "frame": "tests/p14b5-relationships.test.ts:414:53"
+  },
+  {
+   "identity": "tests/p14b5-relationships.test.ts > family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)",
+   "file": "tests/p14b5-relationships.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+   "basePrimary": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+   "timeout": false,
+   "frame": "tests/p14b5-relationships.test.ts:414:53"
+  },
+  {
+   "identity": "tests/p14c2b-save-v36.test.ts > P14C.2b S2: V36 -> V35 downgrade > refused as a downgrade when a case carries variant: retirementExtension (open, not yet used \u2014 the case alone is enough)",
+   "file": "tests/p14c2b-save-v36.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c2b-save-v36.test.ts:108:62"
+  },
+  {
+   "identity": "tests/p14c2b-save-v36.test.ts > P14C.2b S2: V36 -> V35 downgrade > refused as a downgrade when a record carries extensionUsed: true (a genuinely accepted extension, axis a, natural route)",
+   "file": "tests/p14c2b-save-v36.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c2b-save-v36.test.ts:89:61"
+  },
+  {
+   "identity": "tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R1: a genuine bound rival promise follows the same exact cutoff, with no new trust penalty",
+   "file": "tests/p14c2c-rival-promises.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 }",
+   "basePrimary": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 }",
+   "timeout": false,
+   "frame": "tests/p14c2c-rival-promises.test.ts:25:42"
+  },
+  {
+   "identity": "tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R2: a rival count already impossible without retirement remains OPEN until ordinary due settlement",
+   "file": "tests/p14c2c-rival-promises.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 }",
+   "basePrimary": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 }",
+   "timeout": false,
+   "frame": "tests/p14c2c-rival-promises.test.ts:25:42"
+  },
+  {
+   "identity": "tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R3: real rival VOIDED replay across save/load preserves the source campaign and its outcome identity",
+   "file": "tests/p14c2c-rival-promises.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 }",
+   "basePrimary": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 }",
+   "timeout": false,
+   "frame": "tests/p14c2c-rival-promises.test.ts:25:42"
+  },
+  {
+   "identity": "tests/p14c2rm-writer-continuation.test.ts > 880-B live allowance stays narrowly scoped > frozen public V36 stays strict, and an exceptional current save cannot silently downgrade",
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c2rm-writer-continuation.test.ts:293:180"
+  },
+  {
+   "identity": "tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 actual Scientist record: live37 accepts, V36 and prior downgrade refuse without stripping obligations/history",
+   "file": "tests/p14c2s-scientist-retirement.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c2s-scientist-retirement.test.ts:288:38"
+  },
+  {
+   "identity": "tests/p14c3-admission-boundaries.test.ts > C.3 N01\u2013N10 current global and requested actor boundaries > N10 actual open rival promise disposition explicitly requests actor before its genuine cutoff",
+   "file": "tests/p14c3-admission-boundaries.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0, \u2026(1) }",
+   "basePrimary": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0, \u2026(1) }",
+   "timeout": false,
+   "frame": "tests/p14c3-admission-boundaries.test.ts:141:19"
+  },
+  {
+   "identity": "tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > L1 observes an actual passive non-player Writer hire with one employer and paid signing authority",
+   "file": "tests/p14c3-canonical-rival-history.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}",
+   "basePrimary": "AssertionError: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}",
+   "timeout": false,
+   "frame": "tests/p14c3-canonical-rival-history.test.ts:260:15"
+  },
+  {
+   "identity": "tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > L2 completes real rival screenplay review, production and released Writer credit after the change",
+   "file": "tests/p14c3-canonical-rival-history.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}",
+   "basePrimary": "AssertionError: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}",
+   "timeout": false,
+   "frame": "tests/p14c3-canonical-rival-history.test.ts:260:15"
+  },
+  {
+   "identity": "tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J7 makes the real3283 Director choice while preserving the original832 Actor receipt and strict cause",
+   "file": "tests/p14c3-cohort-transition.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c3-cohort-transition.test.ts:294:163"
+  },
+  {
+   "identity": "tests/p14c3-dual-extensions.test.ts > C.3 actor\u2192director two genuine profession extensions > X5 settles and pays the destination468\u2192520 extension while preserving both dated cases through current persistence",
+   "file": "tests/p14c3-dual-extensions.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c3-dual-extensions.test.ts:186:161"
+  },
+  {
+   "identity": "tests/p14c3-dual-extensions.test.ts > C.3 actor\u2192writer two genuine profession extensions > X5 settles and pays the destination468\u2192520 extension while preserving both dated cases through current persistence",
+   "file": "tests/p14c3-dual-extensions.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c3-dual-extensions.test.ts:186:161"
+  },
+  {
+   "identity": "tests/p14c3-offmenu-extensions.test.ts > C.3 actor\u2192director genuine off-menu58-week extension > O3 actually settles and pays58 weeks at410 with real trust and both dated used episodes preserved",
+   "file": "tests/p14c3-offmenu-extensions.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c3-offmenu-extensions.test.ts:243:161"
+  },
+  {
+   "identity": "tests/p14c3-offmenu-extensions.test.ts > C.3 actor\u2192writer genuine off-menu58-week extension > O3 actually settles and pays58 weeks at410 with real trust and both dated used episodes preserved",
+   "file": "tests/p14c3-offmenu-extensions.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c3-offmenu-extensions.test.ts:243:161"
+  },
+  {
+   "identity": "tests/p14c3-profession-history.test.ts > C.3 current append and strict historical authority boundaries > H1\u2013H3 createBalancedTalent appends one real209 entrant and survives reload",
+   "file": "tests/p14c3-profession-history.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV42: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c3-profession-history.test.ts:125:218"
+  },
+  {
+   "identity": "tests/p14c3-profession-history.test.ts > C.3 current append and strict historical authority boundaries > H1\u2013H3 createCustomTalent appends one real209 entrant and survives reload",
+   "file": "tests/p14c3-profession-history.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV42: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c3-profession-history.test.ts:125:218"
+  },
+  {
+   "identity": "tests/p14c3-profession-history.test.ts > C.3 current append and strict historical authority boundaries > H1\u2013H3 createTalent appends one real209 entrant and survives reload",
+   "file": "tests/p14c3-profession-history.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV42: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c3-profession-history.test.ts:125:218"
+  },
+  {
+   "identity": "tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > exposes matching strict38 conversion, validation and current migration over a genuine37 save",
+   "file": "tests/p14c3-save-v38.test.ts",
+   "status": "CHANGED",
+   "primary": "AssertionError: expected '{\"broadcastCache\":[],\"saveVersion\":45\u2026' to be '{\"broadcastCache\":[],\"saveVersion\":38\u2026' // Object.is equality",
+   "basePrimary": "AssertionError: expected '{\"broadcastCache\":[],\"saveVersion\":44\u2026' to be '{\"broadcastCache\":[],\"saveVersion\":38\u2026' // Object.is equality",
+   "timeout": false,
+   "frame": "tests/p14c3-save-v38.test.ts:115:49"
+  },
+  {
+   "identity": "tests/p14c3-transitions.test.ts > C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload",
+   "file": "tests/p14c3-transitions.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV42: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14c3-transitions.test.ts:178:185"
+  },
+  {
+   "identity": "tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves",
+   "file": "tests/p14p3-directing-promises.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14p3-directing-promises.test.ts:397:47"
+  },
+  {
+   "identity": "tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion",
+   "file": "tests/p14p3-directing-promises.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14p3-directing-promises.test.ts:498:75"
+  },
+  {
+   "identity": "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor",
+   "file": "tests/p14p3-directing-promises.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+   "basePrimary": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+   "timeout": false,
+   "frame": "tests/p14p3-directing-promises.test.ts:1030:20"
+  },
+  {
+   "identity": "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing",
+   "file": "tests/p14p3-directing-promises.test.ts",
+   "status": "SAME",
+   "primary": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+   "basePrimary": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+   "timeout": false,
+   "frame": "tests/p14p3-directing-promises.test.ts:1030:20"
+  },
+  {
+   "identity": "tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D12 waives only forward same-domain remaining work on the same contract",
+   "file": "tests/p14p3-directing-promises.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14p3-directing-promises.test.ts:756:56"
+  },
+  {
+   "identity": "tests/p14p4p5-opportunities.test.ts > P4/P5 retained subject and waiver authority controls > Q07 rejects nonempty suffix and owner contradictions after actual cast work",
+   "file": "tests/p14p4p5-opportunities.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14p4p5-opportunities.test.ts:845:166"
+  },
+  {
+   "identity": "tests/p14r3-save-v41.test.ts > P14 1305-C Save41: 41->40 downgrade > refused, with a message matching /termination/i, on a genuine V41 save carrying a real rival release (lawful route, 1308-F item 5 \u2014 replaces the prior receipt-only tamper, which is not a valid V41 envelope: every house converter validates first, so that tamper's refusal named the validator's own interval-consistency failure, never \"termination\")",
+   "file": "tests/p14r3-save-v41.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /^migrateToV43: cannot downgrade or di\u2026/ but got 'migrateToV44: cannot downgrade or dis\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p14r3-save-v41.test.ts:384:118"
+  },
+  {
+   "identity": "tests/p15a1-market-integration-atomicity.test.ts > p15a1 market all-or-none at the seam (1355-F3 Blocking 1) > market-second-subject-failure-commits-nothing: a player second subject refuses in the seam; nothing from either subject commits",
+   "file": "tests/p15a1-market-integration-atomicity.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [] to have a length of 2 but got +0",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration-atomicity.test.ts:126:20"
+  },
+  {
+   "identity": "tests/p15a1-market-integration-atomicity.test.ts > p15a1 market all-or-none at the seam (1355-F3 Blocking 1) > market-second-subject-failure-commits-nothing: a rival second subject refuses in the seam; nothing from either subject commits",
+   "file": "tests/p15a1-market-integration-atomicity.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [] to have a length of 2 but got +0",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration-atomicity.test.ts:112:20"
+  },
+  {
+   "identity": "tests/p15a1-market-integration-atomicity.test.ts > p15a1 market due-set witness in the live tick (RED 5) > market-due-set-mismatch-fails-closed: a frozen batch that loses a due rival picture fails the week by name; input unchanged",
+   "file": "tests/p15a1-market-integration-atomicity.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [] to include 'studio-be7356c7-r03:film:1'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration-atomicity.test.ts:141:67"
+  },
+  {
+   "identity": "tests/p15a1-market-integration-atomicity.test.ts > p15a1 market seam at both release sites (RED 2 live, 1355-A \u00a73.2) > market-seam-both-call-sites: the batch factor scales the player's and the rival's opening and total; critic and legs hold",
+   "file": "tests/p15a1-market-integration-atomicity.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot read properties of undefined (reading 'factor')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration-atomicity.test.ts:163:61"
+  },
+  {
+   "identity": "tests/p15a1-market-integration-phases.test.ts > p15a1 market phase identity (1355-F3; 1355-F4 R4) > market-phase-version-immutable: v1 rows keep their triple under a v2 table, a row declared v2 with v2's ordinal validates, a triple off its own version refuses by name",
+   "file": "tests/p15a1-market-integration-phases.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: premise: recorded assessments: expected 0 to be greater than 0",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration-phases.test.ts:49:58"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market chronology controls (RED 10-11, 1355-A \u00a74 K1/K2) > market-no-pressure-week-identity (K2): every release of the K2 week is assessed at P = 0 and f = 1",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected '[]' to be '[{\"genre\":\"drama\",\"releaseId\":\"studio\u2026' // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:459:48"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market chronology controls (RED 10-11, 1355-A \u00a74 K1/K2) > market-week-diff-confined (K1): the K1 week is pressured exactly where the law says",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected '[]' to be '[{\"genre\":\"comedy\",\"releaseId\":\"studi\u2026' // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:425:48"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market due set (RED 4-5, 1355-A \u00a73.1) > market-due-set-equals-releases: frozen members are the committed player release plus every rival picture at 1",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected '[]' to be '[{\"genre\":\"horror\",\"releaseId\":\"prod-\u2026' // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:280:67"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market due set (RED 4-5, 1355-A \u00a73.1) > market-due-set-mismatch-fails-closed: a frozen batch missing a due rival picture throws, input unchanged",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw an error",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:296:53"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market due set (RED 4-5, 1355-A \u00a73.1) > market-due-set-mismatch-fails-closed: a frozen batch naming a picture nobody releases throws, input unchanged",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw an error",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:304:54"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market forecast paths (RED 3, 1355-A \u00a73.2 \"never carry it\") > market-forecast-paths-unchanged: a week of rival decisions with no release ignores the root [control]",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "Error: tick: the sharedMarket root already holds market assessments (12 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:260:36"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-no-player-flag: a persisted row carries exactly the law fields and the 1355-F2 fields, no owner",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 0 to be greater than 0",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:388:25"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-no-player-flag: mirror fixtures that swap the player studio give equal assessments after id normalization",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 0 to be greater than or equal to 2",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:408:25"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-one-player-one-rival: same genre, same week, both pressureFactor(1), each names the other",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: the player release is assessed: expected undefined to be defined",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:320:52"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-self-exclusion-clamp: one studio's two same-genre same-week releases see each other at 1.00, never themselves",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [] to have a length of 2 but got +0",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:370:18"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-window-stock-retire: releases at W\u22122, W\u221210 and W\u221226 act through WINDOW_RELEASES, GENRE_SATURATION and nothing",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "Error: tick: the sharedMarket root already holds market assessments (3 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:347:18"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market old saves (RED 16) > market-old-save: a non-empty root refuses the downgrade by name, at the step and through every older migrator",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: premise: a recorded assessment: expected 0 to be greater than 0",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:790:68"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market old saves (RED 16) > market-old-save: the first batches after migration see no pre-migration release [fixture-pending]",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: studio-315405e1-r03:film:2 is assessed within 26 weeks of the migration: expected undefined to be defined",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:763:102"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market persisted storage (RED 18) > market-large-batch-persisted-linear: 32- and 512-member batches persist equal-bounded rows and linear root bytes",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: premise: a live row supplies the persisted shape: expected undefined to be defined",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:844:74"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market persisted storage (RED 18) > market-large-batch-persisted-linear: every live row is bounded: exact keys, at most five reasons of at most five ids",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 0 to be greater than 0",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:833:25"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) > market-inflight-save-replay: save during an active exposure, reload, run 30 weeks: assessments and terminal save equal an unsaved run",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: an active exposure at the save: expected false to be true // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:534:41"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) > market-root-append-canonical: one ordered append per week; derived exposures equal reduceExposures",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 1 to be +0 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:491:38"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) > market-root-append-canonical: rows ascend in (week, releaseId) and in p15DomainSequence, each with its v1 phase triple",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 0 to be greater than 0",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:513:25"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: across P15 roots, a sibling row may hold the largest sequence and a market row may not reuse a sibling's",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: premise: a sibling sequence below some market row: expected undefined to be defined",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:677:73"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses a duplicate assessment by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw error matching /duplicate|twice|order|ascend/i but got 'validateSaveV45: sharedMarket assessm\u2026'",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:651:38"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses a duplicate p15DomainSequence by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot read properties of undefined (reading 'p15DomainSequence')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:624:71"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses a forged factor by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot read properties of undefined (reading 'factor')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:578:105"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses a forged inputDigest by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot set properties of undefined (setting 'inputDigest')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:585:98"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses a forged pressure by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot read properties of undefined (reading 'pressure')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:577:79"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses a forged reason by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot read properties of undefined (reading 'pressure')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:583:19"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses a forged stockTerm by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot read properties of undefined (reading 'stockTerm')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:580:86"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses a forged windowTerm by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot read properties of undefined (reading 'windowTerm')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:579:88"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses a missing assessment by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "Error: fixture premise: no removable row",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:603:32"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses a p15DomainSequence at p15Sequence.next by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:627:16"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses a p15DomainSequence below 1 by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:629:113"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses a phase ordinal off its version's table entry by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot read properties of undefined (reading 'phaseOrdinal')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:633:105"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses an assessment at the tick by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot read properties of undefined (reading 'phaseId')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:553:64"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses an assessment before recordedFromWeek by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot read properties of undefined (reading 'week')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:608:49"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses an orphan assessment with no film by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot read properties of undefined (reading 'week')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:596:55"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses an owner field on a row (exact keys) by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot set properties of undefined (setting 'owner')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:620:58"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses an unknown definitionVersion by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot set properties of undefined (setting 'definitionVersion')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:616:64"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses an unknown phaseOrderVersion by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot set properties of undefined (setting 'phaseOrderVersion')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:635:101"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses another phase's phaseId by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "TypeError: Cannot set properties of undefined (setting 'phaseId')",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:634:89"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: refuses rows out of (week, releaseId) order by name",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected [Function] to throw an error",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:650:38"
+  },
+  {
+   "identity": "tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A \u00a73.4) > market-validator-reconciles: the unforged route state validates (premise of every refusal below)",
+   "file": "tests/p15a1-market-integration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: premise: rows in at least two weeks: expected 0 to be greater than or equal to 3",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "tests/p15a1-market-integration.test.ts:641:73"
+  },
+  {
+   "identity": "tests/r3n1-stale-schedule-take-02.test.ts > R3-N1-DATA-02 \u2014 stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL \u2014 a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation",
+   "file": "tests/r3n1-stale-schedule-take-02.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-scratch/1361-sweep/x2/tree/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'",
+   "basePrimary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'",
+   "timeout": false,
+   "frame": "tests/r3n1-stale-schedule-take-02.test.ts:100:15"
+  },
+  {
+   "identity": "tests/r3n1-stale-schedule-take-02.test.ts > R3-N1-DATA-02 \u2014 stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL \u2014 the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once",
+   "file": "tests/r3n1-stale-schedule-take-02.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-scratch/1361-sweep/x2/tree/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'",
+   "basePrimary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'",
+   "timeout": false,
+   "frame": "tests/r3n1-stale-schedule-take-02.test.ts:100:15"
+  },
+  {
+   "identity": "tests/r3n1-stale-schedule-take-02p31.test.ts > R3-N4-DATA-03 \u2014 stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL \u2014 a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation",
+   "file": "tests/r3n1-stale-schedule-take-02p31.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-scratch/1361-sweep/x2/tree/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'",
+   "basePrimary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'",
+   "timeout": false,
+   "frame": "tests/r3n1-stale-schedule-take-02p31.test.ts:107:15"
+  },
+  {
+   "identity": "tests/r3n1-stale-schedule-take-02p31.test.ts > R3-N4-DATA-03 \u2014 stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL \u2014 the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once",
+   "file": "tests/r3n1-stale-schedule-take-02p31.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-scratch/1361-sweep/x2/tree/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'",
+   "basePrimary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'",
+   "timeout": false,
+   "frame": "tests/r3n1-stale-schedule-take-02p31.test.ts:107:15"
+  },
+  {
+   "identity": "tests/r3n1-stale-schedule-take-02p32.test.ts > R3-N4-TEST-25 \u2014 stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL \u2014 a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation",
+   "file": "tests/r3n1-stale-schedule-take-02p32.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-scratch/1361-sweep/x2/tree/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'",
+   "basePrimary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'",
+   "timeout": false,
+   "frame": "tests/r3n1-stale-schedule-take-02p32.test.ts:98:15"
+  },
+  {
+   "identity": "tests/r3n1-stale-schedule-take-02p32.test.ts > R3-N4-TEST-25 \u2014 stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL \u2014 the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once",
+   "file": "tests/r3n1-stale-schedule-take-02p32.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-scratch/1361-sweep/x2/tree/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'",
+   "basePrimary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'",
+   "timeout": false,
+   "frame": "tests/r3n1-stale-schedule-take-02p32.test.ts:98:15"
+  }
+ ],
+ "gone": []
+}

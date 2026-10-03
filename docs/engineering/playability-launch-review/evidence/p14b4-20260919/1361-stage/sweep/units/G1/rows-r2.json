@@ -1,0 +1,25 @@
+{
+  "unit": "G1",
+  "baseMetadata": "rows.json",
+  "status": "pending measured confirmation",
+  "edits": [
+    {
+      "file": "tests/p14c2s-scientist-retirement.test.ts",
+      "candidateLine": 288,
+      "class": "S9",
+      "old": "expect(() => migrateToV36(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)",
+      "new": "expect(() => migrateToV36(live)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
+      "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
+      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+    },
+    {
+      "file": "tests/p14c2s-scientist-retirement.test.ts",
+      "candidateLine": 289,
+      "class": "S9",
+      "old": "expect(() => migrateToV35(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)",
+      "new": "expect(() => migrateToV35(live)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
+      "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
+      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+    }
+  ]
+}

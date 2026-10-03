@@ -1,0 +1,844 @@
+diff --git a/tests/facility-move-demolish.test.ts b/tests/facility-move-demolish.test.ts
+index 785acb1..d6d42af 100644
+--- a/tests/facility-move-demolish.test.ts
++++ b/tests/facility-move-demolish.test.ts
+@@ -49,7 +49,7 @@ import {
+   tick,
+   validateSave,
+   LIVE_SAVE_VERSION,
+-  validateSaveV44,
++  validateSaveV45,
+ } from '../src/core/index.js'
+ import {
+   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
+@@ -57,6 +57,7 @@ import {
+   FACILITY_DEMOLITION_REFUND_FRACTION,
+   FACILITY_MOVE_COST,
+ } from '../src/core/tuning.js'
++import { p15Rows, stripP15 } from './helpers/p15-roots.js'
+ import type {
+   CommissionScriptPayload,
+   CreativeRole,
+@@ -778,7 +779,7 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
+     const save = makeSave(state)
+     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
+     expect(validateSave(save)).toBe(save)
+-    expect(validateSaveV44(save)).toBe(save)
++    expect(validateSaveV45(save)).toBe(save)
+     const json = exportSave(save)
+     expect(exportSave(importSave(json))).toBe(json)
+     const reloaded = migrateToCurrentControl(importSave(json)).state
+@@ -867,6 +868,17 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
+     // walk reaches the demolition refund boundary this test is about.
+     expect((forgedV11.state.firstTakeSubjects as { facts: unknown[] }).facts).toEqual([])
+     delete forgedV11.state.firstTakeSubjects
++    // 1361-N S7: and the four Save45 P15 roots (powerRanking, p15Sequence, sharedMarket,
++    // campaignLegacy). They are V45-only, so the V11 exact-keys allowlist trips on 'unknown field
++    // "campaignLegacy"' (src/core/save.ts:3936; measured at m2-core.txt:7610) before the walk reaches
++    // the demolition refund boundary this test is about. Removed only while EMPTY (the 1332-A
++    // guard-before-strip form): this world comes from generateWorld, which holds no industry
++    // (src/core/worldgen.ts:728), so no quarter is ever recorded and the allocator still stands at 1.
++    // The roots come from the RED helper's one list, so a later P15 root joins this strip
++    // (1361-F7 ruling 4).
++    expect(p15Rows(forgedV11.state)).toEqual([])
++    expect((forgedV11.state.p15Sequence as { next: number }).next).toBe(1)
++    forgedV11.state = stripP15(forgedV11.state)
+     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
+       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
+         delete (person[key] as Record<string, unknown>).research
+diff --git a/tests/p13b-r07-save-v25.test.ts b/tests/p13b-r07-save-v25.test.ts
+index d71a8cf..dda92e3 100644
+--- a/tests/p13b-r07-save-v25.test.ts
++++ b/tests/p13b-r07-save-v25.test.ts
+@@ -7,6 +7,7 @@ import * as save from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+ import type { GameState, ProductionWorkflow } from '../src/core/types.js'
+ import { operationsStudio, productionPayload, withCash } from './contracts/_contractFixtures.js'
++import { p15Rows, stripP15 } from './helpers/p15-roots.js'
+ // RED-by-design: `src/core/productionSetup.ts` does not exist yet — see
+ // tests/p13b-r07-recipes.test.ts's header for the full RED-design rationale
+ // (shared across every P13B-S5-R07 test-author file). `SETUP_RECIPES` is the
+@@ -205,7 +206,15 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
+   // fact and nothing is discarded.
+   expect(stripped.firstTakeSubjects.facts).toEqual([])
+   delete (stripped as unknown as { firstTakeSubjects?: unknown }).firstTakeSubjects
+-  return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }
++  // 1361-N S7: a frozen V25 envelope carries no P15 root either (the four are V45-only), so the
++  // frozen chain refuses 'validateSaveV12: state has unknown field "powerRanking"' (src/core/save.ts:4185;
++  // measured at m2-core.txt:2864). Same honest reconstruction as the roots above, removed only while
++  // EMPTY (the 1332-A guard-before-strip form): this rehearsing world ticks three weeks, short of the
++  // first quarter week (13), so it holds no P15 row and the allocator still stands at 1. The roots come
++  // from the RED helper's one list, so a later P15 root joins this strip (1361-F7 ruling 4).
++  expect(p15Rows(stripped)).toEqual([])
++  expect(stripped.p15Sequence.next).toBe(1)
++  return { saveVersion: 25, seed: stripped.seed, state: stripP15(stripped) as unknown as GameState, broadcastCache: stripped.broadcastItems }
+ }
+ 
+ describe('P13B-S5-R07 Save V25 (test 5)', () => {
+@@ -270,9 +279,12 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
+   // forward exactly as p13b-s5-save-v24.test.ts's own sentinel case does
+   // (superseded as the canonical proof by tests/p13b-s6-save-v26.test.ts's
+   // "an unknown saveVersion 35..." case, kept here rather than deleted).
+-  it('an unknown saveVersion 45 is refused, naming the handled range "1 through 44 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
+-    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 45 }
+-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)
++  // 1361-N S3: Save45 is live, so a live save stamped 45 is valid now and no longer throws; the
++  // forged sentinel moves to 46 (src/core/save.ts:5455-5457: "unknown saveVersion 46 (this build
++  // handles versions 1 through 45 only)"), and the pattern follows the range.
++  it('an unknown saveVersion 46 is refused, naming the handled range "1 through 45 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
++    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 46 }
++    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)
+   })
+ 
+   it('mid-setup save/reload round-trips byte-identically (export/import codec only) — INTERPRETATION 3: hand-authored setup, no genuine producer exists yet', () => {
+diff --git a/tests/p14b3-rule-revision.test.ts b/tests/p14b3-rule-revision.test.ts
+index 0d17fb1..67bd73d 100644
+--- a/tests/p14b3-rule-revision.test.ts
++++ b/tests/p14b3-rule-revision.test.ts
+@@ -10,7 +10,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
+ import * as promiseModule from '../src/core/promises.js'
+ import { attachPromise, PROMISE_RULES_VERSION } from '../src/core/promises.js'
+ import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
+-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV44 } from '../src/core/save.js'
++import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV45 } from '../src/core/save.js'
+ import type { GameState, PromiseFeasibilityReceipt } from '../src/core/types.js'
+ import { buildTalentProvenance } from '../src/core/aging.js'
+ import type { CareerLifecycleRootV38, CreativeRole } from '../src/core/types.js'
+@@ -43,6 +43,18 @@ function withEmptyScreenplayShelving(state: GameState): GameState {
+   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
++
++// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
++// save's own week and back-fills nothing; the OLD (raw, pre-migration) state never carried them. The
++// literals are this file's own expectation: production's initialP15Roots never defines it
++// (1361-F7 ruling 3).
++function withEmptyP15Roots<T extends object>(state: T, week: number): T {
++  return { ...state,
++    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
++    p15Sequence: { version: 1, next: 1 },
++    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
++    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
++}
+ import { advanceTo } from '../src/harness/p13a/fixtures.js'
+ 
+ const CORPUS = './fixtures/p14/genuine-v29-pre-b3-evaluator1/'
+@@ -171,7 +183,9 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
+     // P14C.2b: every pre-V36 case in the raw fixture defaults to `variant: 'expiry'`
+     // (convertV35ToV36's own rule), same reasoning as the `careerLifecycle` root.
+     const rawCases = (parsedRaw.state.talentMarket.cases as Record<string, unknown>[]).map((kase) => ({ ...kase, variant: 'expiry' }))
+-    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)),
++    // 1361-N S5: Save45's four P15 roots, empty, at the input's own week (nothing ticks between the
++    // migration and this comparison).
++    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyP15Roots(withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)), parsedRaw.state.market.tick as number),
+       relationships: [], promises: (parsedRaw.state.promises as Record<string, unknown>[]).map(addedFieldsRaw),
+       talent: rawPeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
+       talentProvenance: buildTalentProvenance(rawPeople, parsedRaw.state.market.tick as number, 'legacy_age_anchor'),
+@@ -232,7 +246,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
+     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
+     expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
+       .toEqual([fresh.promiseId])
+-    const reloaded = validateSaveV44(importSave(exportSave(makeSave(attached)))).state
++    const reloaded = validateSaveV45(importSave(exportSave(makeSave(attached)))).state
+     expect(reloaded.promises).toEqual(attached.promises)
+   })
+ 
+@@ -274,7 +288,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
+       talentId: old.beneficiaryPersonId, studioId: old.issuerStudioId, week: proposal.startWeek }))
+     expect(currentProposals(settled, old.beneficiaryPersonId)).toEqual([])
+     expect(JSON.stringify(state.promises)).toBe(priorRoots)
+-    const reloaded = validateSaveV44(importSave(exportSave(makeSave(settled)))).state
++    const reloaded = validateSaveV45(importSave(exportSave(makeSave(settled)))).state
+     expect(reloaded.promises.find((p) => p.promiseId === old.promiseId)).toEqual(bound)
+     expect(old.version).toBe(1)
+     expect(old.feasibilityReceipt.rulesVersion).toBe(1)
+diff --git a/tests/p14b4-save-v30-compatibility.test.ts b/tests/p14b4-save-v30-compatibility.test.ts
+index cc0747f..115b8c6 100644
+--- a/tests/p14b4-save-v30-compatibility.test.ts
++++ b/tests/p14b4-save-v30-compatibility.test.ts
+@@ -154,6 +154,19 @@ function withEmptyScreenplayShelving<T extends { hollywood: { businesses: readon
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
+ 
++// Save45 (1361-N S5): convertV44ToV45 (src/core/save.ts:10980-10984) adds the four P15 roots,
++// empty, at the save's own week and back-fills nothing; the OLD (V30-vintage) state never carried
++// them, so the expected migrated-to-live state below must carry them at the input's own week. The
++// literals are this file's own expectation: production's initialP15Roots never defines it
++// (1361-F7 ruling 3).
++function withEmptyP15Roots<T extends object>(state: T, week: number): T {
++  return { ...state,
++    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
++    p15Sequence: { version: 1, next: 1 },
++    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
++    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
++}
++
+ function preservesExactly(admitted: OldSave) {
+   const before = JSON.stringify(admitted)
+   const raw = exportSave(admitted)
+@@ -213,7 +226,7 @@ function preservesExactly(admitted: OldSave) {
+   // own rule) — this corpus predates the retirement-extension market entirely, so
+   // every case here always was one, and `lifted` below defaulted it the same way.
+   const marketV36 = { ...migrated.state.talentMarket, cases: migrated.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' as const })) }
+-  expect(lifted).toEqual({ ...migrated, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyScreenplayShelving(withRivalTermination(migrated.state)), relationships: [],
++  expect(lifted).toEqual({ ...migrated, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyP15Roots(withEmptyScreenplayShelving(withRivalTermination(migrated.state)), migrated.state.market.tick), relationships: [],
+     promises: migrated.state.promises.map(addedFields), talent: floored, talentProvenance: provenance, careerLifecycle: lifecycle,
+     talentMarket: marketV36,
+     firstTakeSubjects: { version: 1, cutoverOrdinal: migrated.state.firstTakes.length, facts: [] } } })
+@@ -249,7 +262,7 @@ function assertActualBacking(save: OldSave, root: OldPromise): void {
+ 
+ describe('P14B4 Save30: genuine final V29 corpus, exact old-state preservation', () => {
+   it('pins LIVE_SAVE_VERSION to literal41 independently of the value under test', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(44)
++    expect(LIVE_SAVE_VERSION).toBe(45)
+   })
+ 
+   it.each(NAMES)('migrates genuine %s without rewriting roots, receipts, digests or history and downgrades losslessly', (name) => {
+diff --git a/tests/p14b5-relationships.test.ts b/tests/p14b5-relationships.test.ts
+index eaebd8a..fe66a97 100644
+--- a/tests/p14b5-relationships.test.ts
++++ b/tests/p14b5-relationships.test.ts
+@@ -71,10 +71,11 @@ import * as marketModule from '../src/core/talentMarket.js'
+ import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
+ import { attachPromise } from '../src/core/promises.js'
+ import { validateFirstTakeSubjects } from '../src/core/firstTakeSubjects.js'
+-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV44 } from '../src/core/save.js'
++import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV45 } from '../src/core/save.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import { careerIdentity } from '../src/core/talentSummary.js'
+ import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
++import { p15Rows, stripP15 } from './helpers/p15-roots.js'
+ import type { CastSlot, FilmResult, GameState, Production, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
+ // RED-by-design: src/core/relationships.ts does not exist. Every binding below is CALLED.
+ import {
+@@ -269,6 +270,16 @@ const stage = (state: GameState, edge: Edge): GameState => live(withEdges(state,
+ // throws unless every business holds version 1, nothing shelved, no commission
+ // hold and only count-1 rejections on active ready ordinals, and no
+ // `screenplayShelved` receipt exists; only then does the strip drop the key.
++// 1361-N S10 (1361-F7 ruling 4, the same 1332-A :84-90 guard-before-strip form): Save45 gives
++// every live state the four P15 roots. convertV44ToV45 writes them empty at takeWorld's migration
++// (src/core/save.ts:10980-10984) and the one tick moves `sharedMarket.recordedFromWeek`
++// (src/core/tick.ts:1131), so the unstripped digest moved: 1361-M2 received 80fe2347... here
++// (m2-core.txt:330595). This window (weeks 60 to 61) reaches no quarter week (13 divides
++// neither), so every root holds no row. The guard below throws unless `p15Rows` finds none and
++// `p15Sequence.next` is still 1; only then does the strip drop the four roots. The RED helper's
++// one list names them (tests/helpers/p15-roots.ts, read only), so a later P15 root joins this
++// guard. `postTakeDigestStripped` stays UNCHANGED: the guarded strip must reproduce it, and any
++// other value refutes the attribution.
+ const bytes = (state: GameState): string => {
+   // P14C.2b: before the structural strip below silently drops the whole root,
+   // confirm it is dropping no retirement-extension authority — this window
+@@ -307,13 +318,17 @@ const bytes = (state: GameState): string => {
+   if (state.hollywood?.receipts.some((r) => r.kind === 'screenplayShelved')) {
+     throw new Error('bytes: a screenplayShelved receipt exists, so the screenplayShelving strip would hide a real shelving')
+   }
++  // 1361-N S10: the P15 guard, before the strip below drops the four roots.
++  if (p15Rows(state).length > 0 || state.p15Sequence.next !== 1) {
++    throw new Error('bytes: a P15 row or an allocated sequence exists, so the P15 strip would hide real authority')
++  }
+   const strippedHollywood = state.hollywood === null ? null : { ...state.hollywood,
+     businesses: state.hollywood.businesses.map(({ screenplayShelving: _shelving, ...business }) => ({ ...business,
+       account: { ...business.account, periods: business.account.periods.map((period) => {
+         const { termination: _t, ...movements } = period.movements
+         return { ...period, movements }
+       }) } })) }
+-  const { relationships: _r, careerLifecycle: _cl, firstTakeSubjects: _fts, ...rest } = state as unknown as Record<string, unknown> & {
++  const { relationships: _r, careerLifecycle: _cl, firstTakeSubjects: _fts, ...rest } = stripP15(state) as Record<string, unknown> & {
+     promises: Record<string, unknown>[]
+     talentMarket: { cases: Record<string, unknown>[] } & Record<string, unknown>
+   }
+@@ -1296,12 +1311,16 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+   const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
+     const save = v31()
+     mutate(save.state.relationships, save.state)
+-    expect(() => validateSaveV44(save)).toThrow(pattern)
++    expect(() => validateSaveV45(save)).toThrow(pattern)
+     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave); the era-31
+     // default would refuse on the unrelated new sharedCompetitions field before
+     // ever reaching the deliberate tamper below it.
+     // 1358-N S1: live is era 44 now; era 42 would refuse the unrelated
+     // `competitions` and `romance` keys first, the same way.
++    // 1361-N S1: the envelope validator above is Save45 now. It hands the frozen V44 chain the
++    // state without the four P15 roots (src/core/save.ts:10970), so the tampered edge meets its
++    // own guard as under Save44, and Save45 adds no relationships field: this root's own era
++    // stays 44.
+     expect(() => validateRelationshipsRoot(save.state, 44)).toThrow(pattern)
+   }
+ 
+@@ -1312,13 +1331,13 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+     const save = v31()
+     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
+     expect(save.state.relationships).toHaveLength(6)
+-    expect(validateSaveV44(save)).toEqual(save)
++    expect(validateSaveV45(save)).toEqual(save)
+   })
+ 
+   it('refuses a missing root', () => {
+     const save = v31()
+     Reflect.deleteProperty(save.state, 'relationships')
+-    expect(() => validateSaveV44(save)).toThrow(/relationships/)
++    expect(() => validateSaveV45(save)).toThrow(/relationships/)
+   })
+   it('refuses a non-ordinal edgeId', () => expectRefused((e) => { e[0]!.edgeId = 'edge-x' }, /edgeId/))
+   it('refuses a duplicate pair', () => expectRefused((e) => { e[1]!.a = e[0]!.a; e[1]!.b = e[0]!.b }, /duplicate|pair/i))
+@@ -1361,7 +1380,8 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+     // 1320-A: `one.saveVersion` moved once more, to 42 (Save42) — the live validator
+     // moves with it again, same reasoning.
+     // 1358-N S1: and once more, to 44 (Save44); same reasoning.
+-    const admitted = validateSaveV44(one)
++    // 1361-N S1: and once more, to 45 (Save45); same reasoning.
++    const admitted = validateSaveV45(one)
+     const before = JSON.stringify(admitted)
+     expect(() => projectRelationshipsPreV31(one.state)).toThrow()
+     // RE-EXPRESSED (was: `/cannot downgrade SaveFileV31 or discard the relationship
+@@ -1442,7 +1462,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+     // That downgrade route does not exist for this fixture any more; the correct,
+     // current-law assertion is that it is refused too — not a different message,
+     // and not a success.
+-    const empty = validateSaveV44({ ...save, state: { ...save.state, relationships: [] } })
++    const empty = validateSaveV45({ ...save, state: { ...save.state, relationships: [] } })
+     expect(projectRelationshipsPreV31(empty.state)).toBeUndefined()
+     // 1309-X3 ruling 2: `empty` is also takeWorld()-derived, so it too carries a
+     // recorded first-take subject; the V39 guard masks the V33 materialization
+diff --git a/tests/p14b9-save-v42.test.ts b/tests/p14b9-save-v42.test.ts
+index 40594be..464097b 100644
+--- a/tests/p14b9-save-v42.test.ts
++++ b/tests/p14b9-save-v42.test.ts
+@@ -68,7 +68,7 @@ import {
+ // RED (see header): the four names below are absent from src/core/save.ts at HEAD e65012e5.
+ // `SaveFileV42` (type-only, cannot itself RED at runtime) is used as the cast target for the
+ // dynamically-looked-up `convertV41ToV42`/`validateSaveV42` below, so it is a real, used type.
+-import type { SaveFile, SaveFileV42, SaveFileV43, SaveFileV44 } from '../src/core/save.js'
++import type { SaveFile, SaveFileV42, SaveFileV43, SaveFileV44, SaveFileV45 } from '../src/core/save.js'
+ import * as saveModule from '../src/core/save.js'
+ import type { GameState, RelationshipEdge } from '../src/core/types.js'
+ 
+@@ -173,7 +173,9 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
+       convertV41ToV42: (s: V41Save) => SaveFileV42
+       convertV42ToV43: (s: SaveFileV42) => SaveFileV43
+       convertV43ToV44: (s: SaveFileV43) => SaveFileV44
+-      validateSaveV44: (s: unknown) => SaveFileV44
++      convertV44ToV45: (s: SaveFileV44) => SaveFileV45
++      validateSaveV45: (s: unknown) => SaveFileV45
++      convertV45ToV44: (s: unknown) => unknown
+       convertV44ToV43: (s: unknown) => unknown
+       convertV43ToV42: (s: unknown) => unknown
+       convertV42ToV41: (s: unknown) => unknown
+@@ -189,7 +191,11 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
+     // (src/core/save.ts:10678-10686) rather than hand-adding the root.
+     // 1358-N S5 (1358-J 3e, finding 16): the live writer also needs Save44's `competitions` and
+     // `romance` on every edge; lift through the genuine convertV43ToV44 (src/core/save.ts:10776-10781).
+-    const state = mods.convertV43ToV44(mods.convertV42ToV43(v42)).state as unknown as GameState
++    // 1361-N S5 (1361-F7 ruling 10): and `makeSave` below writes Save45, which refuses a
++    // state without the four P15 roots ("validateSaveV45: the p15Sequence root is missing",
++    // src/core/save.ts:10968). The lift ends at Save45 through the genuine convertV44ToV45
++    // (src/core/save.ts:10980-10984), which writes them empty at this state's own week, never by hand.
++    const state = mods.convertV44ToV45(mods.convertV43ToV44(mods.convertV42ToV43(v42))).state as unknown as GameState
+     const projectId = 'script-0000'
+     const project = state.scriptDevelopment.projects.find((p) => p.id === projectId)
+     expect(project, 'route premise: project "script-0000" is present in the acknowledged fixture').toBeDefined()
+@@ -211,8 +217,8 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
+       expect(driver, `route/RED premise: pair (${x}, ${y}) should carry a castingCompetitionLost driver from production "${productionId}"`).toBeDefined()
+     }
+     const newSave = makeSave(greenlit)
+-    expect(newSave.saveVersion).toBe(44) // LIVE_SAVE_VERSION 44 (was 42 at 1313-A §3)
+-    expect(() => mods.validateSaveV44(newSave)).not.toThrow()
++    expect(newSave.saveVersion).toBe(45) // LIVE_SAVE_VERSION 45 (was 44 under Save44, 42 at 1313-A §3)
++    expect(() => mods.validateSaveV45(newSave)).not.toThrow()
+     // 1358-N S9 (MASKED): the live chain now crosses convertV44ToV43 first, and the greenlight
+     // appended a competitions-log row on each slate pair (src/core/relationships.ts:537), so
+     // the Save44 log guard (src/core/save.ts:10789) refuses before convertV42ToV41's casting-
+@@ -220,17 +226,22 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
+     // are all rival-internal, so the three pairs are new edges 24-26 and edge 24 refuses first.
+     // Read from source and the fixture, not measured. The staged `v42` copy above keeps the
+     // casting-competition guard's own-era pin.
+-    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(mods.convertV44ToV43(newSave)))).toThrow(/^migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24$/)
++    // 1361-N S4: the live chain now crosses convertV45ToV44 first (src/core/save.ts:10989-10995). After
++    // validation it refuses once while any P15 root holds a row. This state was greenlit by an action
++    // and never ticked, so every root is still empty and the chain reaches the Save44 log guard as
++    // before. Derived from source, not measured: the pin below is unchanged until a run shows another
++    // first guard.
++    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(mods.convertV44ToV43(mods.convertV45ToV44(newSave))))).toThrow(/^migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24$/)
+   }, 30_000)
+ })
+ 
+ describe('LIVE_SAVE_VERSION and the dispatcher message', () => {
+-  it('LIVE_SAVE_VERSION is 44', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(44)
++  it('LIVE_SAVE_VERSION is 45', () => {
++    expect(LIVE_SAVE_VERSION).toBe(45)
+   })
+ 
+-  it('validateSave names the new ceiling in its unknown-version message ("1 through 44")', () => {
+-    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 44/)
++  it('validateSave names the new ceiling in its unknown-version message ("1 through 45")', () => {
++    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 45/)
+   })
+ })
+ 
+diff --git a/tests/p14bf2-acting-discipline.test.ts b/tests/p14bf2-acting-discipline.test.ts
+index bbaee1e..dcf2a17 100644
+--- a/tests/p14bf2-acting-discipline.test.ts
++++ b/tests/p14bf2-acting-discipline.test.ts
+@@ -17,7 +17,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
+ import { applyActions, hiringMarketIds, SKILL_ORDER, tick } from '../src/core/index.js'
+ import { attachPromise, promiseFeasibility, PROMISE_RULES_VERSION, type PromiseDraft } from '../src/core/promises.js'
+ import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
+-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV44 } from '../src/core/save.js'
++import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV45 } from '../src/core/save.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import type { Action, CastSlot, GameState } from '../src/core/types.js'
+ import { buildTalentProvenance } from '../src/core/aging.js'
+@@ -48,6 +48,17 @@ function withEmptyScreenplayShelving(state: GameState): GameState {
+   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
++// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
++// save's own week and back-fills nothing; the OLD (raw, pre-migration) state never carried them. The
++// literals are this file's own expectation: production's initialP15Roots never defines it
++// (1361-F7 ruling 3).
++function withEmptyP15Roots<T extends object>(state: T, week: number): T {
++  return { ...state,
++    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
++    p15Sequence: { version: 1, next: 1 },
++    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
++    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
++}
+ import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+ 
+ type Crew = { leadId: string; writerId: string; directorId: string; antagonistId: string; supportId: string; craftId: string }
+@@ -94,7 +105,7 @@ function fixture(): Window {
+     state = submitProposal(state, { talentId: lead.id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
+     expect(state.studio.activeProductions).toEqual([])
+     expect(state.promises.filter((p) => p.beneficiaryPersonId === lead.id)).toEqual([])
+-    validateSaveV44(makeSave(state))
++    validateSaveV45(makeSave(state))
+     cached = { castable, state, crew }
+   }
+   return structuredClone(cached)
+@@ -134,7 +145,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
+     expect(legal.studio.activeProductions.at(-1)!.cast.lead).toBe(crew.leadId)
+     expect(legal.studio.activeProductions.at(-1)!.writerId).toBe(crew.writerId)
+     expect(legal.talent.find((p) => p.id === crew.leadId)!.role).toBe('writer')
+-    validateSaveV44(makeSave(legal))
++    validateSaveV45(makeSave(legal))
+     const doubleRole = payload(castable, crew)
+     doubleRole.writerId = crew.leadId
+     expect(() => applyActions(castable, [{ kind: 'greenlight', production: doubleRole }]))
+@@ -266,7 +277,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
+     expect(receipts[0]).toMatchObject({ kind: 'promiseOutcome', week: take.week,
+       talentId: crew.leadId, studioId: player(state) })
+     expect(state.talent.find((p) => p.id === crew.leadId)!.role).toBe('writer')
+-    const loaded = validateSaveV44(importSave(exportSave(makeSave(state)))).state
++    const loaded = validateSaveV45(importSave(exportSave(makeSave(state)))).state
+     expect(loaded.promises).toEqual(state.promises)
+     expect(loaded.firstTakes).toEqual(state.firstTakes)
+   })
+@@ -363,7 +374,9 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
+     // P14C.2b: every pre-V36 case in the raw fixture defaults to `variant: 'expiry'`
+     // (convertV35ToV36's own rule), same reasoning as the `careerLifecycle` root.
+     const rawCases = (parsedRaw.state.talentMarket.cases as Record<string, unknown>[]).map((kase) => ({ ...kase, variant: 'expiry' }))
+-    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)),
++    // 1361-N S5: Save45's four P15 roots, empty, at the input's own week (nothing ticks between the
++    // migration and this comparison).
++    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyP15Roots(withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)), parsedRaw.state.market.tick as number),
+       relationships: [], promises: (parsedRaw.state.promises as Record<string, unknown>[]).map(addedFieldsRaw),
+       talent: rawPeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
+       talentProvenance: buildTalentProvenance(rawPeople, parsedRaw.state.market.tick as number, 'legacy_age_anchor'),
+@@ -415,6 +428,6 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
+       contractId: null, outcome: null, feasibilityReceipt: fresh })
+     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(originalRoots)
+     expect(attached.talent.find((p) => p.id === old.beneficiaryPersonId)!.role).toBe('writer')
+-    expect(validateSaveV44(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)
++    expect(validateSaveV45(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)
+   })
+ })
+diff --git a/tests/p14c1-materialized-aging.test.ts b/tests/p14c1-materialized-aging.test.ts
+index 0386f8a..2b9cb35 100644
+--- a/tests/p14c1-materialized-aging.test.ts
++++ b/tests/p14c1-materialized-aging.test.ts
+@@ -175,7 +175,12 @@ function liftForTick(migrated: { envelope: Envelope; state: ProvenanceState }):
+   // 1358-N S5 (1358-J 3e): one further governed step to the true live boundary,
+   // Save44's `competitions` and `romance` on every edge (convertV43ToV44,
+   // save.ts:10776-10781), which the live validator requires.
+-  const live = SaveModule.convertV43ToV44(SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40))))
++  // 1361-N S5 (1361-D2 F7; 1361-F7 ruling 10): one further governed step to the true live boundary,
++  // Save45's four P15 roots (convertV44ToV45, save.ts:10980-10984). `tick()` refuses an industry
++  // state with no `sharedMarket` root ("shared market: the state has no sharedMarket root; migrate it
++  // to Save45 before ticking it", marketIntegration.ts:26 via tick.ts:1071; m2-core.txt:606), so every
++  // lifted state ends at Save45 through production's own step, never with roots added by hand.
++  const live = SaveModule.convertV44ToV45(SaveModule.convertV43ToV44(SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40)))))
+   return { envelope: live, state: withProvenance(live.state as object) }
+ }
+ 
+@@ -1030,6 +1035,6 @@ describe('13. provenance is written at the append, not the mint call', () => {
+ // P14C.2a (776 S10): C.1 landed at 33 as this test predicted, then C.2a bumped once more.
+ describe('save version bump (contract §6)', () => {
+   it('LIVE_SAVE_VERSION is 37 once C.2b lands (was 35 after C.4, was 34 after C.2a)', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(44)
++    expect(LIVE_SAVE_VERSION).toBe(45)
+   })
+ })
+diff --git a/tests/p14c2s-scientist-retirement.test.ts b/tests/p14c2s-scientist-retirement.test.ts
+index 6d0ccac..34f64db 100644
+--- a/tests/p14c2s-scientist-retirement.test.ts
++++ b/tests/p14c2s-scientist-retirement.test.ts
+@@ -13,6 +13,7 @@ import type { GameState } from '../src/core/types.js'
+ import { advanceTo, exhaustedScientistPool, labId, owner, project, saveRoundTrip, SCI, SCI_END,
+   scientistAt, scientistFilm, scientistSupply, scientistWorld } from './helpers/p14c2s-fixtures.js'
+ import { scientistRaw } from './helpers/p14c3-fixtures.js'
++import { stripP15 } from './helpers/p15-roots.js'
+ 
+ const record = (state: GameState) => retirementRecordFor(state, SCI)
+ const bytes = (state: GameState) => JSON.stringify(makeSave(state))
+@@ -253,7 +254,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+     const state = scientistWorld()
+     const before = bytes(state)
+     const live = makeSave(state)
+-    expect(live.saveVersion).toBe(44)
++    expect(live.saveVersion).toBe(45)
+     const outgoing37 = migrateToV37(live) // governed lossless C.3 boundary, preserving every older root
+     expect(live.state.careerLifecycle).toEqual({ ...outgoing37.state.careerLifecycle,
+       transitionBoundaryWeek: state.market.tick,
+@@ -264,7 +265,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+     expect(old.saveVersion).toBe(36)
+     expect(JSON.stringify(old.state)).toBe(JSON.stringify(outgoing37.state))
+     const lifted = migrateToLive(old)
+-    expect(lifted.saveVersion).toBe(44)
++    expect(lifted.saveVersion).toBe(45)
+     expect(JSON.stringify(lifted.state)).toBe(JSON.stringify(live.state))
+     expect(JSON.stringify(migrateToV37(lifted).state)).toBe(JSON.stringify(old.state))
+     expect(bytes(state)).toBe(before)
+@@ -274,18 +275,23 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+     const state = scientistAt('hardResearch', 566)
+     expect(record(state)?.profession).toBe('scientist')
+     const live = makeSave(state)
+-    expect(live.saveVersion).toBe(44)
++    expect(live.saveVersion).toBe(45)
+     const before = JSON.stringify(live)
+     expect(importSave(before)).toEqual(live)
+-    // 1358-N S9 (MASKED): this state's romance track on relationship-edge-27 makes Save44's
+-    // convertV44ToV43 refuse first on both routes (src/core/save.ts:10790). That masks the V39 guard
+-    // that fired first under Save43 (save.ts:10600-10602, 1344-X12 §4) and the Scientist guard this
+-    // title names (save.ts:10449-10454). Measured by the 1358-X6 message probe (G1-new-1, both
+-    // lines). The next assertion keeps the Scientist guard covered on its own era's genuine input.
+-    // The V39 guard stays covered on V40 input by tests/p14p4p5-opportunities.test.ts Q03 (:336)
+-    // and exactly by tests/p13b-s3-save-v23.test.ts:115-117.
+-    expect(() => migrateToV36(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)
+-    expect(() => migrateToV35(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)
++    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
++    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
++    // x2 measured this first guard in the family; the follow-up must confirm every call.
++    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
++    // The genuine V37 Scientist refusal remains in the next assertion.
++    // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
++    expect(() => migrateToV36(live)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
++    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
++    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
++    // x2 measured this first guard in the family; the follow-up must confirm every call.
++    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
++    // The genuine V37 Scientist refusal remains in the next assertion.
++    // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
++    expect(() => migrateToV35(live)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+     // The genuine V37 capture at week 670 holds the retired Scientist record of t-sci-00, and
+     // convertV37ToV36 refuses it by name before validation.
+     expect(() => convertV37ToV36(validateSaveV37(JSON.parse(scientistRaw())))).toThrow(/^migrateToV36: cannot downgrade SaveFileV37 or discard Scientist retirement \u2014 t-sci-00 holds a record that V36 does not support$/)
+@@ -323,6 +329,13 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+       // exported"), exactly like the unconditional `extensionUsed`/`variant`
+       // deletions above — V34/35/36 never had this root at all.
+       delete (envelope.state as { firstTakeSubjects?: unknown }).firstTakeSubjects
++      // 1361-N sweep (S7): nor the four Save45 P15 roots (powerRanking, p15Sequence, sharedMarket,
++      // campaignLegacy; V45-only). The frozen V34 chain refuses 'unknown field "powerRanking"'
++      // (src/core/save.ts:9958, :4185; m2-core.txt:402321) on the whole-envelope control below. Same
++      // reader-only shape adjustment as the deletions above. The RED helper's one list names the
++      // roots (1361-F7 ruling 4).
++      // 1361-F8 ruling 1: reader-only control; P15 roots stripped unconditionally
++      envelope.state = stripP15(envelope.state)
+       // 1327-C sweep (C15): nor the `termination` rival-finance movement key
+       // (added V41 to `RivalMoneyKind`) — same reader-only shape adjustment.
+       // 1344-N sweep (S7): nor the `screenplayShelving` root on each rival
+@@ -353,7 +366,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+     const state = scientistAt('hardResearch', 566)
+     expect(record(state)?.profession).toBe('scientist')
+     const live = makeSave(state)
+-    expect(live.saveVersion).toBe(44)
++    expect(live.saveVersion).toBe(45)
+     const before = JSON.stringify(live)
+     type MutableEnvelope = { state: { talentProvenance: { rows: Record<string, unknown>[] },
+       careerLifecycle: { records: Record<string, unknown>[] } } }
+diff --git a/tests/p14d1-rival-shelving.test.ts b/tests/p14d1-rival-shelving.test.ts
+index d2a8dcf..169bd95 100644
+--- a/tests/p14d1-rival-shelving.test.ts
++++ b/tests/p14d1-rival-shelving.test.ts
+@@ -34,6 +34,7 @@ import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/co
+ import type { GameState } from '../src/core/types.js'
+ import type { RivalBusiness, IndustryReceipt } from '../src/core/hollywoodTypes.js'
+ import { RIVAL_MONEY_KINDS, rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
++import { validatePowerRankingArchive } from '../src/core/powerRankingArchive.js'
+ import { liveWeek100, liveWeek130, RIVAL_R01, genuineV42Week93, manifestPin93 } from './p14d1-rival-shelving-fixtures.js'
+ import type { PromiseDraft } from '../src/core/promises.js'
+ import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+@@ -183,8 +184,8 @@ describe('API decisions this file exercises (asserted to exist first, per PITFAL
+     const fn = (hollywoodPolicy as unknown as Record<string, unknown>).searchIndustryPackages
+     expect(typeof fn).toBe('function')
+   })
+-  it('save.ts LIVE_SAVE_VERSION is 44, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {
+-    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)
++  it('save.ts LIVE_SAVE_VERSION is 45, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {
++    expect(saveModule.LIVE_SAVE_VERSION).toBe(45)
+     const mods = saveModule as unknown as Record<string, unknown>
+     expect(typeof mods.validateSaveV43).toBe('function')
+     expect(typeof mods.convertV42ToV43).toBe('function')
+@@ -566,6 +567,8 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
+     // genuine input is lifted once more through production's own convertV43ToV44. The control
+     // asserts the candidate holds no log row and sets its romance tracks to the lift's null
+     // below (1358-F12 ruling 7; 1358-D9b N1).
++    // 1361-N S5 (1361-F7 ruling 5): the genuine side stays at this V44 lift. A genuine Save42 input
++    // holds none of Save45's four P15 roots, so the candidate's come out below instead.
+     const genuineState = mods.convertV43ToV44(genuineV43).state
+     let state = HARNESS_GENESIS()
+     for (let week = 0; week < 93; week++) state = tick(state)
+@@ -615,7 +618,27 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
+     // byte for byte. Slice B's tracks are measured by its own tests and by 1358-M2's routes.
+     const withoutSliceB = (s: GameState) => ({ ...s, relationships: (s.relationships ?? []).map(e => ({ ...e, competitions: [], romance: null })) })
+     expect((state.relationships ?? []).every(e => e.competitions.length === 0)).toBe(true)
+-    expect(JSON.stringify(canon(strip(withoutSliceB(state))))).toBe(JSON.stringify(canon(strip(genuineState))))
++    // 1361-N S5 (1361-F7 ruling 5, the 1358-F12 form): Save45 gives the candidate four roots that a
++    // genuine Save42 input cannot hold, and by week 93 its archive holds the quarters from week 13 to
++    // week 91. As this control already takes slice B's fields out, it takes the four P15 roots out of
++    // the candidate too, behind checks that its own P15 state is lawful and that nothing but the
++    // archive holds a row: no shared-market assessment (P15A.1's (c) has not landed at this candidate,
++    // so no tick writes one), an unfrozen Legacy (the freeze runs only in the tick that produces week
++    // 6240), the archive through validatePowerRankingArchive and the allocator through
++    // validateP15Allocator. P15A.2's own tests measure the archive. Everything else must match byte
++    // for byte.
++    expect(state.sharedMarket.assessments).toEqual([])
++    expect(state.campaignLegacy.official).toBeNull()
++    expect(state.campaignLegacy.endOfRun).toBeNull()
++    expect(() => validatePowerRankingArchive(state as unknown as Record<string, unknown>)).not.toThrow()
++    expect(() => saveModule.validateP15Allocator(state as unknown as Record<string, unknown>, 'week-93 control')).not.toThrow()
++    // The four keys are named here, not read from tests/helpers/p15-roots.ts: a P15 root added later
++    // must fail this control until its own check joins the four above, never vanish with the strip.
++    const withoutP15 = (s: GameState) => {
++      const { powerRanking: _pr, p15Sequence: _seq, sharedMarket: _sm, campaignLegacy: _cl, ...rest } = s
++      return rest as unknown as GameState
++    }
++    expect(JSON.stringify(canon(strip(withoutSliceB(withoutP15(state)))))).toBe(JSON.stringify(canon(strip(genuineState))))
+     expect(state.hollywood!.receipts).toEqual(genuineState.hollywood!.receipts)
+     // Premise, derived from the CANDIDATE's own receipts (never a hard-coded shelving
+     // week, per 1344-F3): no screenplayShelved receipt has accumulated by week 93 on
+@@ -991,8 +1014,8 @@ describe('shelving-chart-output (1344-A §6.8)', () => {
+     const releasedSimulationCount = h.films.filter(f => f.studioId === RIVAL && f.provenance === 'simulation/v1' && f.result.releaseTick < state.market.tick).length
+     expect(authoredCount, 'route premise: r01 has its two canonical starting (authored) films').toBe(2)
+     expect(row!.output).toBe(releasedSimulationCount + authoredCount)
+-    const mods = saveModule as unknown as { validateSaveV44: (s: unknown) => unknown }
+-    expect(() => mods.validateSaveV44(saveModule.makeSave(state))).not.toThrow()
++    const mods = saveModule as unknown as { validateSaveV45: (s: unknown) => unknown }
++    expect(() => mods.validateSaveV45(saveModule.makeSave(state))).not.toThrow()
+   }, 20_000)
+ })
+ 
+diff --git a/tests/p14p4p5-casting-reservation.test.ts b/tests/p14p4p5-casting-reservation.test.ts
+index 999fb1a..bd26849 100644
+--- a/tests/p14p4p5-casting-reservation.test.ts
++++ b/tests/p14p4p5-casting-reservation.test.ts
+@@ -52,6 +52,17 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
+   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
++// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
++// save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The
++// literals are this file's own expectation: production's initialP15Roots never defines it
++// (1361-F7 ruling 3).
++function withEmptyP15Roots<T extends object>(state: T, week: number): T {
++  return { ...state,
++    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
++    p15Sequence: { version: 1, next: 1 },
++    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
++    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
++}
+ const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+ const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
+ const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
+@@ -83,7 +94,7 @@ function memo(name: string, build: () => GameState): GameState {
+ }
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
+   const raw = saves.exportSave(save)
+   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
+ }
+@@ -206,7 +217,7 @@ function input45(): GameState {
+     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
+     const state = saves.migrateToLive(old).state
+     expect(stable(old)).toBe(prior)
+-    expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
++    expect(state).toEqual({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+     initial = clone(state); retained(state)
+     expect(issuer(state)).toBe('studio-de11f27b-player')
+     expect(state.operations.mode).toBe('managed'); expect(state.scriptDevelopment.mode).toBe('managed')
+diff --git a/tests/p14p4p5-cross-owner.test.ts b/tests/p14p4p5-cross-owner.test.ts
+index e89726c..6b9302e 100644
+--- a/tests/p14p4p5-cross-owner.test.ts
++++ b/tests/p14p4p5-cross-owner.test.ts
+@@ -51,6 +51,17 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
+   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
++// 1361-N S5: Save45 (convertV44ToV45, src/core/save.ts:10980-10984) adds the four P15 roots, empty, at
++// the save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The
++// literals are this file's own expectation: production's initialP15Roots never defines it
++// (1361-F7 ruling 3).
++function withEmptyP15Roots<T extends object>(state: T, week: number): T {
++  return { ...state,
++    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
++    p15Sequence: { version: 1, next: 1 },
++    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
++    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
++}
+ const stable = saves.stableStringify
+ const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+ const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
+@@ -77,8 +88,8 @@ afterAll(() => {
+ })
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
+-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
++  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)
+   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
+ }
+ function input45(): GameState {
+@@ -104,7 +115,8 @@ function input45(): GameState {
+     expect(stable(old)).toBe(prior); admitted(state)
+     const { firstTakeSubjects, ...retained } = state
+     // 1344-N S5 (x2 at a318722, :94 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
+-    expect(retained).toEqual(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))))); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })
++    // 1361-N S5: and the four empty P15 roots at the input's own week (this capture ticks nothing after its migration).
++    expect(retained).toEqual(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick)); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })
+     expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506)
+     expect(issuer(state)).toBe('studio-de11f27b-player')
+     expect(state.firstTakes).toHaveLength(19); expect(state.promises).toEqual([]); expect(state.talentMarket.proposals).toEqual([])
+diff --git a/tests/p14p4p5-delayed-retirement.test.ts b/tests/p14p4p5-delayed-retirement.test.ts
+index 24963e0..1b18e89 100644
+--- a/tests/p14p4p5-delayed-retirement.test.ts
++++ b/tests/p14p4p5-delayed-retirement.test.ts
+@@ -56,6 +56,17 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
+     ...business, screenplayShelving: { version: 1 as const, rejections: [] as const, shelved: [] as const, commissionHoldUntilWeek: 0 as const },
+   })) } } as T
+ }
++// 1361-N S5: convertV44ToV45 (src/core/save.ts:10980-10984) adds the four P15 roots, empty, at the
++// save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The
++// literals are this file's own expectation: production's initialP15Roots never defines it
++// (1361-F7 ruling 3).
++function withEmptyP15Roots<T extends object>(state: T, week: number): T {
++  return { ...state,
++    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
++    p15Sequence: { version: 1, next: 1 },
++    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
++    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
++}
+ const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+ const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
+ const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
+@@ -104,7 +115,8 @@ function admitted(state: GameState): void {
+   // 1344-N S2+S1 (x2 at a318722, :98 measured "expected 43 to be 42"): makeSave writes the live 43, and the
+   // masked live validator call on the same line moves with it.
+   // 1358-N S2+S1: Save44 moves the live stamp to 44, and both pins on the next line move with it.
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
++  // 1361-N S2+S1: Save45 moves the live stamp to 45, and both pins on the next line move with it again.
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
+   const raw = saves.exportSave(save)
+   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
+ }
+@@ -186,7 +198,7 @@ function input45(): GameState {
+     const parsed: unknown = JSON.parse(raw), old = saves.validateSaveV39(parsed), frozen = stable(old)
+     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
+     const state = saves.migrateToLive(old).state
+-    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
++    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+     oldTakes = clone(old.state.firstTakes); expect(oldTakes).toHaveLength(19); admitted(state); suffix(state)
+     expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506); expect(state.promises).toEqual([])
+     expect(state.talentMarket.proposals).toEqual([]); expect(state.studio.activeProductions).toEqual([])
+diff --git a/tests/p14p4p5-queued-project-outcome.test.ts b/tests/p14p4p5-queued-project-outcome.test.ts
+index 61bb0f2..534a9d1 100644
+--- a/tests/p14p4p5-queued-project-outcome.test.ts
++++ b/tests/p14p4p5-queued-project-outcome.test.ts
+@@ -54,6 +54,17 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
+   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
++// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
++// save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The
++// literals are this file's own expectation: production's initialP15Roots never defines it
++// (1361-F7 ruling 3).
++function withEmptyP15Roots<T extends object>(state: T, week: number): T {
++  return { ...state,
++    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
++    p15Sequence: { version: 1, next: 1 },
++    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
++    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
++}
+ const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+ const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
+ const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
+@@ -101,7 +112,7 @@ function memo<T>(name: string, build: () => T): T {
+ }
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
+   const raw = saves.exportSave(save)
+   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
+ }
+@@ -183,7 +194,7 @@ function input45(): GameState {
+     const parsed: unknown = JSON.parse(raw), old = saves.validateSaveV39(parsed), frozen = stable(old)
+     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
+     const state = saves.migrateToLive(old).state
+-    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
++    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+     oldTakes = clone(old.state.firstTakes); expect(oldTakes).toHaveLength(19); admitted(state); suffix(state)
+     expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506); expect(state.promises).toEqual([])
+     expect(state.talentMarket.proposals).toEqual([]); expect(state.studio.activeProductions).toEqual([])
+diff --git a/tests/p14p4p5-scenery-capacity.test.ts b/tests/p14p4p5-scenery-capacity.test.ts
+index 8956b11..962b0db 100644
+--- a/tests/p14p4p5-scenery-capacity.test.ts
++++ b/tests/p14p4p5-scenery-capacity.test.ts
+@@ -51,6 +51,17 @@ function withEmptyScreenplayShelving<T extends WithScreenplayShelving>(state: T)
+   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
++// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
++// save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The
++// literals are this file's own expectation: production's initialP15Roots never defines it
++// (1361-F7 ruling 3).
++function withEmptyP15Roots<T extends object>(state: T, week: number): T {
++  return { ...state,
++    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
++    p15Sequence: { version: 1, next: 1 },
++    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
++    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
++}
+ const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+ const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
+ const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
+@@ -83,7 +94,7 @@ function memo(name: string, build: () => GameState): GameState {
+ }
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
+   const raw = saves.exportSave(save)
+   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
+ }
+@@ -199,7 +210,7 @@ function input45(): GameState {
+     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
+     const state = saves.migrateToLive(old).state
+     expect(stable(old)).toBe(prior)
+-    expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
++    expect(state).toEqual({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+     initial = clone(state); retained(state)
+     expect(issuer(state)).toBe('studio-de11f27b-player'); expect(state.studio.cash).toBe(24701506)
+     expect(state.operations.mode).toBe('managed'); expect(state.scriptDevelopment.mode).toBe('managed')

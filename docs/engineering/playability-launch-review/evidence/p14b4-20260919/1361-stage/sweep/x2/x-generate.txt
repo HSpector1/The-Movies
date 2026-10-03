@@ -1,0 +1,8 @@
+== check:bridge-contract
+verified /Users/zacheryspector/studio-scratch/1361-sweep/x2/tree/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/studio-scratch/1361-sweep/x2/tree/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/studio-scratch/1361-sweep/x2/tree/generated/unity/project-studio-bridge.contract-manifest.json
+exit 0
+== check:bridge-contract:fixtures
+verified /Users/zacheryspector/studio-scratch/1361-sweep/x2/tree/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs
+exit 0

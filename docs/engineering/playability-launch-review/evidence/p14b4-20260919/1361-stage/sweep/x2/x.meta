@@ -1,0 +1,9 @@
+start: tree /Users/zacheryspector/studio-scratch/1361-sweep/x2/tree at 838dce0 on repo 8757a3d2c041355c2f0d9939d96d4d43f031b18f; status [], node v20.20.2, patches: /Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1359-stage/1359-p15c-wave2-sibling-r2.patch /Users/zacheryspector/studio-scratch/1361-sweep/hygiene/1361-hygiene-comment.patch /Users/zacheryspector/studio-scratch/1361-sweep/H/patch.diff /Users/zacheryspector/studio-scratch/1361-sweep/G1/patch.diff /Users/zacheryspector/studio-scratch/1361-sweep/G2/patch.diff /Users/zacheryspector/studio-scratch/1361-sweep/G3/patch.diff /Users/zacheryspector/studio-scratch/1361-sweep/G4a/patch.diff /Users/zacheryspector/studio-scratch/1361-sweep/G4b/patch.diff /Users/zacheryspector/studio-scratch/1361-sweep/G5/patch.diff; 2026-10-03 12:58:12 CDT
+tsc: == tsconfig.json exit 0 == ui/tsconfig.json exit 0 == tsconfig.bridge.json exit 0 ; 2026-10-03 13:00:09 CDT
+generator: == check:bridge-contract exit 0 == check:bridge-contract:fixtures exit 0 ; 2026-10-03 13:00:11 CDT
+core start; 2026-10-03 13:00:11 CDT
+core exit 1;  Tests 155 failed | 5096 passed | 3 skipped | 11 todo (5265); 2026-10-03 14:30:54 CDT
+ui exit 0;  Tests 2692 passed | 5 skipped (2697); 2026-10-03 14:45:47 CDT
+d16 exit 1;  Tests 12 failed | 164 passed (176); 2026-10-03 14:50:06 CDT
+tree status: []; 2026-10-03 14:50:06 CDT
+end; 2026-10-03 14:50:06 CDT

@@ -1,0 +1,26 @@
+{
+ "new": "/Users/zacheryspector/studio-scratch/1361-sweep/x2/attr/x2-ui-failures.json",
+ "base": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-I2-ui-failures.json",
+ "counts": {
+  "GONE": 3
+ },
+ "newByFile": {},
+ "rows": [],
+ "gone": [
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "basePrimary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-L2yi7X/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-L2yi7X/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-L2yi7X --stem t --colours 16"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 7. repeated runs are byte-identical",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "basePrimary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-Aw2Hui/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-Aw2Hui/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-Aw2Hui/a --stem t --colours 16"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "basePrimary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py quantize --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-nNsY1n/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-nNsY1n/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-nNsY1n --stem q"
+  }
+ ]
+}

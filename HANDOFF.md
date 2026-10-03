@@ -1,9 +1,9 @@
 # HANDOFF
 
-Last writer: Codex (GPT-6), 2026-10-03 14:12 CDT. Resumed after the Owner's requested three-hour wait; accepted integration ownership at Claude's published checkpoint a23a40f4.
+Last writer: Codex (GPT-6), 2026-10-03 14:52 CDT. Resumed after the Owner's requested three-hour wait; accepted integration ownership at Claude's published checkpoint a23a40f4.
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit that carries this file (parent a23a40f4ad7d30304265df12caa091ab70026b90), pushed: yes. Protected main is never touched.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit that carries this file (parent 7cc287478f1892b453c8a9ea2de002e63899a85d), pushed: yes. Protected main is never touched.
 - E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`.
 - Required reading, in order:
   1. this file;
@@ -60,9 +60,11 @@ Last writer: Codex (GPT-6), 2026-10-03 14:12 CDT. Resumed after the Owner's requ
   - nothing new fails that did not fail in M2;
   - the P15 files fail the 45 declared.
 - **x1 complete** (12:58 CDT): UI went from 11 to 8 failed (H cleared its 3; the 8 left are G3's UI files) and d16 fails the base 12. Record `E/1361-X5`.
-- **In flight:** **x2 (all units)** has run in the lane since 12:58:12 CDT (`S/1361-sweep/run-sweep-x.sh x2`, all nine patches applied cleanly). The lane PID is 55402, runner PID 63881 and core vitest PID 64372 (alive at takeover). Its progress is in `S/1361-sweep/x2/x.meta`, its outputs `x-tsc.txt`, `x-core.txt`, `x-ui.txt` and `x-d16.json`, and its lane log `S/1361-sweep/x2.log`. Expected: core finishes about 14:20, the whole run about 14:45.
+- **x2 complete (1361-X6):** type gates and generators all pass; core 155 failed / 5,096 passed, SAME 78 / CHANGED 7 / NEW 70 / GONE 0 against 1358-I. NEW = 45 declared 1355 leaves with identical messages + 7 environment rows + 18 deferred S9 rows in 11 files. UI 2,692 passed / 5 skipped, no failures. d16 is exactly the base 12, including full messages after scratch-prefix normalization. The tree ended clean at 14:50:06 CDT. Both named production-stop files pass.
+- **r2 staged, not confirmed:** `S/1361-sweep/{G1,G4a,G4b}/patch-r2.diff` and `rows-r2.json`, mirrored in `E/1361-stage/sweep/units/`. 17 anchored pins and coverage comments across 11 files. The other units stay at `patch.diff`; the originals have not been overwritten. Independent static delta review is `E/1361-stage/sweep/review-r2-static.md`, with all comment findings corrected. Stack check passes; execution is pending.
+- **In flight:** `x2-guards`, lane PID 90441, runner PID 90563, started 14:50:16 CDT. Logs are `S/1361-sweep/x2-guards/observer.txt`, `observer.meta` and `observer.patch`; lane log `S/1361-sweep/x2-guards.log`. It should finish around 14:54. Tool session 14845 belongs only to this Codex session. No recorded run is active.
 - **Claims limits:**
-  - x2 is the first measurement of G1 to G5. At takeover all three type gates and both generators exited 0; core is still running (301 of 448 files completed at 14:11). No final core/UI/d16 claim is made yet.
+  - x2 measures all r1 units; r2 remains unmeasured. The bare and loose guard messages are still being observed.
   - About 30 S8 and S9 pins are unmeasured: each unit's `deferred.md`, and the G4a, G4b and G5 handbacks.
   - The Bridge's post-2040 cost is unmeasured; G-L measures it.
 
@@ -74,7 +76,7 @@ Standing rules:
 - Node v20.20.2 first on PATH;
 - delete scratch only by literal absolute paths, links first (variable paths are blocked).
 
-1. **When x2 ends** (`S/1361-sweep/x2/x.meta` shows `end`), attribute it:
+1. **x2 has ended and is attributed** (`E/1361-X6-sweep-x2-all-units.md`). The commands below are retained for the next run; do not overwrite the existing x2 outputs:
    ```
    mkdir -p S/1361-sweep/x2/attr
    python3 E/1321-I-attribution.py S/1361-sweep/x2/x-core.txt S/1361-sweep/x2/attr/x2-core-failures.json
@@ -89,14 +91,14 @@ Standing rules:
      - d16 fails the same 12.
    - **(b) A production defect, which stops the work:** any refusal by `validateSaveV45` of a ticked save carrying Power Ranking records. The first such sites are G3's `p13a-causal-core` :49 and :91 and `v14-byte-parity.contract` :206. Report it, and do not edit the test.
    - **(c) Anything else is unit work.** Sort each remaining row to its unit by file (the classification's `unit`; G4's files per HANDOFF history: G4a has 12 files, G4b has 8).
-2. **Guard observations and follow-up units:**
-   - After x2 has ended and its production-stop check is clear, run `bash S/heavy-queue/lane-run.sh 0 S/1361-sweep/x2-guards.log bash S/1361-sweep/run-guard-observers.sh`. Read its `observer.txt`, `observer.meta` and `observer.patch`; no observer edit may land. This closes the passing-but-unattributed bare and loose guards identified in the preliminary review. Any mismatching guard gets the F7 ruling 9 treatment, not a weakened assertion.
+2. **Finish the active guard observations, then confirm r2:**
+   - `run-guard-observers.sh` is already running; do not start a duplicate. Read its `observer.txt`, `observer.meta` and `observer.patch`; no observer edit may land. This closes the passing-but-unattributed bare and loose guards identified in the preliminary review. Any mismatching guard gets the F7 ruling 9 treatment, not a weakened assertion.
 
    - **The tree.** Rebuild with `bash S/1361-sweep/build-unit-tree.sh <unit>-r2 S/1361-sweep/H/patch.diff S/1361-sweep/<unit>/patch.diff` (for H: `H-r2 S/1361-sweep/H/patch.diff`). Edit there.
    - **The edits.** Pin each measured first guard as 1361-F7 ruling 2 and the plan's S9 section say. Settle the deferred lines from x2's messages.
    - **The patch.** Regenerate it cumulatively from the unit's original state. For a G unit, `git diff HEAD~1 -- tests ui` covers its first patch plus the follow-up. Keep the old patch as `patch-r1.diff`.
    - **The rule.** An author may be an agent with `S/1361-sweep/brief-g-unit.md`, or Codex itself. Never weaken an assertion.
-3. **x3.** Run `run-sweep-x.sh x3 …` with the updated patches (copy the script if x2 still runs). Repeat until the success line holds, then record `E/1361-X6` and later.
+3. **x3.** Run `run-sweep-x.sh x3 …` with sibling, hygiene, H/patch.diff, G1/patch-r2.diff, G2/patch.diff, G3/patch.diff, G4a/patch-r2.diff, G4b/patch-r2.diff and G5/patch.diff (plus any new measured guard fixes) (copy the script if x2 still runs). Repeat until the success line holds, then record `E/1361-X7` and later.
 4. **The sweep's independent review** (plan, "Units" step 5): a sample of at least 40 rows across the classes.
 5. **The landing `1361-L`.** Keep the Mac on AC power, and keep at least 5 GiB free (see the warnings).
    - **The commits.** In the repo, run `git -C S/1361-prod/tree format-patch base..p15c-c-r1 -o <dir>`, then `git am` the six into the repo. Then commit, in order:
