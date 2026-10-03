@@ -26,12 +26,18 @@ dc84faf0 with these committed in order:
 - **SAME rises by 7.** The 7 retained identities H unmasks fail again with their 1358-I messages, as the plan predicted.
 - **Still to do:** a row-by-row check of H's acceptance. Each of H's other rows passes or moves to a site another unit
   owns. x2 measures all units together and supersedes this check.
-- **UI and d16** were still running at the time of writing. Their results land in `S/1361-sweep/x1/x.meta`.
+- **UI:** 8 failed, 2,684 passed (2,697), 12:38-12:53 CDT. Against 1358-I2: NEW 8, GONE 3.
+  - H's three UI rows, the `StudioCalendar.career` leaves behind the genuine-evidence helper, now pass.
+  - The eight left sit in G3's UI files: `d17-save-migration` ×2, `film-chronicle-adapter`, `v14SetHolderBoundary`,
+    `saves` and `session` ×3.
+  - GONE 3 are the rgba rows, which pass with numpy.
+- **d16:** 12 failed, 164 passed (176). These are the same leaves with the same messages as at `base`.
+- **The run ended at 12:58:03 CDT** with the tree clean.
 
 Parsed rows: `S/1361-sweep/x1/attr/x1-core-vs1358I.json`.
 
 ## What follows
 
-**x2** measures every unit together (H, G1, G2, G3, G4a, G4b, G5). It is queued behind x1 in the lane:
+**x2** measures every unit together (H, G1, G2, G3, G4a, G4b, G5). It started at 12:58:12 CDT, right after x1, on a tree with all nine patches applied cleanly:
 `run-sweep-x.sh x2 …`, with outputs in `S/1361-sweep/x2/`. After x2 come the follow-ups for the deferred and measured
 lines in each unit's `deferred.md`, then x3, then the sweep's independent review.

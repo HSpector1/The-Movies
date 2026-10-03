@@ -56,9 +56,8 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-03 12:44 CDT. Codex tak
   - core went from 938 to 614 failed, against 1358-I SAME 78, CHANGED 7, NEW 530;
   - nothing new fails that did not fail in M2;
   - the P15 files fail the 45 declared.
-- **In flight:**
-  - **x1's UI and d16 stages** are in the lane and finish at about 13:05 CDT (`S/1361-sweep/x1/x.meta`).
-  - **x2 (all units)** is queued behind x1 and starts when x1 ends: `S/1361-sweep/run-sweep-x.sh x2 <sibling> <hygiene> H G1 G2 G3 G4a G4b G5`. Its lane log is `S/1361-sweep/x2.log`, its progress `S/1361-sweep/x2/x.meta`, and its outputs `x-tsc.txt`, `x-core.txt`, `x-ui.txt` and `x-d16.json`. Expected: core finishes about 14:30, the whole run about 14:55.
+- **x1 complete** (12:58 CDT): UI went from 11 to 8 failed (H cleared its 3; the 8 left are G3's UI files) and d16 fails the base 12. Record `E/1361-X5`.
+- **In flight:** **x2 (all units)** has run in the lane since 12:58:12 CDT (`S/1361-sweep/run-sweep-x.sh x2`, all nine patches applied cleanly). Its progress is in `S/1361-sweep/x2/x.meta`, its outputs `x-tsc.txt`, `x-core.txt`, `x-ui.txt` and `x-d16.json`, and its lane log `S/1361-sweep/x2.log`. Expected: core finishes about 14:20, the whole run about 14:45.
 - **Claims limits:**
   - No unit edit has run yet. x2 is the first measurement of G1 to G5.
   - About 30 S8 and S9 pins are unmeasured: each unit's `deferred.md`, and the G4a, G4b and G5 handbacks.
