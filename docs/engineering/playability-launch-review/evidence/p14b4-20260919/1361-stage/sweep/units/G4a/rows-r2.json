@@ -65,6 +65,14 @@
       "new": "expect(() => convertV36ToV35(liveEnvelopeV36(atWindow))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
       "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
       "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+    },
+    {
+      "file": "tests/p14c2rm-writer-continuation.test.ts",
+      "class": "S8",
+      "case": "announcement lies in the future",
+      "callers": 4,
+      "evidence": "x2-guards/messages.json",
+      "limit": "Market-case retirement coherence refuses before lifecycle future-announcement guard; precise first-guard pin added."
     }
   ]
 }

@@ -1,0 +1,11 @@
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LC_ALL = "C.UTF-8",
+	LC_CTYPE = "C.UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+tar: Failed to set default locale
+tar: Failed to set default locale
+tree /Users/zacheryspector/studio-scratch/1361-sweep/x2-guards/tree at a3af993 on repo 7cc287478f1892b453c8a9ea2de002e63899a85d; status []
+Uninstrumented tree equals x2: 0165274ffeedc3783ef215e68b773b7e8a6b5410

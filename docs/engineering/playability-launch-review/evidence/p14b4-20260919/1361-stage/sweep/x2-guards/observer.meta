@@ -1,0 +1,10 @@
+start 2026-10-03 14:50:25 CDT
+v20.20.2
+vitest exit 1
+ M tests/contracts/studio-events.contract.test.ts
+ M tests/contracts/v14-boundary-guards.contract.test.ts
+ M tests/p14b1-t4-regressions.test.ts
+ M tests/p14c2rm-writer-continuation.test.ts
+ M tests/p14c3-save-v38.test.ts
+ M tests/v14-migration.contract.test.ts
+end 2026-10-03 14:52:50 CDT

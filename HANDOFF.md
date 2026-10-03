@@ -1,9 +1,9 @@
 # HANDOFF
 
-Last writer: Codex (GPT-6), 2026-10-03 14:52 CDT. Resumed after the Owner's requested three-hour wait; accepted integration ownership at Claude's published checkpoint a23a40f4.
+Last writer: Codex (GPT-6), 2026-10-03 15:02 CDT. Resumed after the Owner's requested three-hour wait; accepted integration ownership at Claude's published checkpoint a23a40f4.
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit that carries this file (parent 7cc287478f1892b453c8a9ea2de002e63899a85d), pushed: yes. Protected main is never touched.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit that carries this file (parent 8719cde18f7398b8baacab870f1105a0720db6e1), pushed: yes. Protected main is never touched.
 - E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`.
 - Required reading, in order:
   1. this file;
@@ -61,10 +61,11 @@ Last writer: Codex (GPT-6), 2026-10-03 14:52 CDT. Resumed after the Owner's requ
   - the P15 files fail the 45 declared.
 - **x1 complete** (12:58 CDT): UI went from 11 to 8 failed (H cleared its 3; the 8 left are G3's UI files) and d16 fails the base 12. Record `E/1361-X5`.
 - **x2 complete (1361-X6):** type gates and generators all pass; core 155 failed / 5,096 passed, SAME 78 / CHANGED 7 / NEW 70 / GONE 0 against 1358-I. NEW = 45 declared 1355 leaves with identical messages + 7 environment rows + 18 deferred S9 rows in 11 files. UI 2,692 passed / 5 skipped, no failures. d16 is exactly the base 12, including full messages after scratch-prefix normalization. The tree ended clean at 14:50:06 CDT. Both named production-stop files pass.
-- **r2 staged, not confirmed:** `S/1361-sweep/{G1,G4a,G4b}/patch-r2.diff` and `rows-r2.json`, mirrored in `E/1361-stage/sweep/units/`. 17 anchored pins and coverage comments across 11 files. The other units stay at `patch.diff`; the originals have not been overwritten. Independent static delta review is `E/1361-stage/sweep/review-r2-static.md`, with all comment findings corrected. Stack check passes; execution is pending.
-- **In flight:** `x2-guards`, lane PID 90441, runner PID 90563, started 14:50:16 CDT. Logs are `S/1361-sweep/x2-guards/observer.txt`, `observer.meta` and `observer.patch`; lane log `S/1361-sweep/x2-guards.log`. It should finish around 14:54. Tool session 14845 belongs only to this Codex session. No recorded run is active.
+- **r2 staged, not confirmed:** `S/1361-sweep/{H,G1,G4a,G4b}/patch-r2.diff` and `rows-r2.json`, mirrored in `E/1361-stage/sweep/units/`. 17 S9 anchored pins across 11 files plus four case-specific S8 pins (three H mutation cases and one G4a case across four callers), with masking/coverage comments. The other units stay at `patch.diff`; the originals have not been overwritten. Independent static delta review is `E/1361-stage/sweep/review-r2-static.md`, with all comment findings corrected. Stack check passes; execution is pending.
+- **Guard observations complete:** x2-guards ended 14:52:50, 343 observations, expected 17 failed / 219 passed. Four first-guard pins were required and are in H/G4a r2. Independent attribution and the raw/parsed observations are staged under `E/1361-stage/sweep/`. No P15 masking occurred. The 15 existing P14B.1 terminal premise failures and 26 V14 workflow/history masking observations remain disclosed coverage limits.
+- **In flight:** **x3**, lane PID 94391, runner PID 94400, started 15:01:16 CDT. Candidate `ee289de` on source archive 8719cde1; clean at build completion. Progress `S/1361-sweep/x3/x.meta`, raw logs `x-tsc.txt`, `x-generate.txt`, `x-core.txt`, `x-ui.txt`, `x-d16.txt/json`; lane log `S/1361-sweep/x3.log`. Tool session 38877 is this session only. Estimate core done around 16:35 and whole run around 16:55. No recorded run is active.
 - **Claims limits:**
-  - x2 measures all r1 units; r2 remains unmeasured. The bare and loose guard messages are still being observed.
+  - x2 measures all r1 units; r2 is being confirmed by x3. Guard observations are complete and attributed; their documented pre-existing coverage limits remain.
   - About 30 S8 and S9 pins are unmeasured: each unit's `deferred.md`, and the G4a, G4b and G5 handbacks.
   - The Bridge's post-2040 cost is unmeasured; G-L measures it.
 
@@ -76,30 +77,12 @@ Standing rules:
 - Node v20.20.2 first on PATH;
 - delete scratch only by literal absolute paths, links first (variable paths are blocked).
 
-1. **x2 has ended and is attributed** (`E/1361-X6-sweep-x2-all-units.md`). The commands below are retained for the next run; do not overwrite the existing x2 outputs:
-   ```
-   mkdir -p S/1361-sweep/x2/attr
-   python3 E/1321-I-attribution.py S/1361-sweep/x2/x-core.txt S/1361-sweep/x2/attr/x2-core-failures.json
-   python3 E/1344-I-compare.py S/1361-sweep/x2/attr/x2-core-failures.json E/1358-I-core-failures.json S/1361-sweep/x2/attr/x2-core-vs1358I.json
-   ```
-   The prepared `python3 S/1361-sweep/attribute-x2.py` performs both parser/comparison pairs and the d16 comparison, once only (its output names must not already exist).
-   Do the same for UI, with `E/1317-I-attribution.py` and `E/1358-I2-ui-failures.json`. Read d16 against the base 12 (`E/1361-stage/d16/d16-base.json`). Then check:
-   - **(a) The success line** (1361-N):
-     - the three type gates exit 0;
-     - core fails exactly 1358-I's 85 identities as re-attributed, plus the 45 declared 1355 leaves, plus the environment rows (7 `bridge-supervisor` "Fake Unity", 6 `r3n1` ENOENT);
-     - UI has no NEW row;
-     - d16 fails the same 12.
-   - **(b) A production defect, which stops the work:** any refusal by `validateSaveV45` of a ticked save carrying Power Ranking records. The first such sites are G3's `p13a-causal-core` :49 and :91 and `v14-byte-parity.contract` :206. Report it, and do not edit the test.
-   - **(c) Anything else is unit work.** Sort each remaining row to its unit by file (the classification's `unit`; G4's files per HANDOFF history: G4a has 12 files, G4b has 8).
-2. **Finish the active guard observations, then confirm r2:**
-   - `run-guard-observers.sh` is already running; do not start a duplicate. Read its `observer.txt`, `observer.meta` and `observer.patch`; no observer edit may land. This closes the passing-but-unattributed bare and loose guards identified in the preliminary review. Any mismatching guard gets the F7 ruling 9 treatment, not a weakened assertion.
-
-   - **The tree.** Rebuild with `bash S/1361-sweep/build-unit-tree.sh <unit>-r2 S/1361-sweep/H/patch.diff S/1361-sweep/<unit>/patch.diff` (for H: `H-r2 S/1361-sweep/H/patch.diff`). Edit there.
-   - **The edits.** Pin each measured first guard as 1361-F7 ruling 2 and the plan's S9 section say. Settle the deferred lines from x2's messages.
-   - **The patch.** Regenerate it cumulatively from the unit's original state. For a G unit, `git diff HEAD~1 -- tests ui` covers its first patch plus the follow-up. Keep the old patch as `patch-r1.diff`.
-   - **The rule.** An author may be an agent with `S/1361-sweep/brief-g-unit.md`, or Codex itself. Never weaken an assertion.
-3. **x3.** Run `run-sweep-x.sh x3 …` with sibling, hygiene, H/patch.diff, G1/patch-r2.diff, G2/patch.diff, G3/patch.diff, G4a/patch-r2.diff, G4b/patch-r2.diff and G5/patch.diff (plus any new measured guard fixes) (copy the script if x2 still runs). Repeat until the success line holds, then record `E/1361-X7` and later.
-4. **The sweep's independent review** (plan, "Units" step 5): a sample of at least 40 rows across the classes.
+1. **Wait for x3 to finish.** Do not start another heavy process or edit its tree/script. Once `x.meta` shows `end`, attribute core and UI with the existing parsers against 1358-I/1358-I2, compare d16 against base and the declared 45 P15A.1 messages. Copy/adapt `attribute-x2.py` to new x3 paths; its x2 outputs must not be overwritten.
+   - Success: type gates/generators pass; core has exactly 1358-I's identities as re-attributed plus the declared 45 and 7 supervisor environment rows, with no extra S9 row; UI NEW 0; d16 exactly the base 12. The six r3n1 environment rows already belong to 1358-I, so do not double-count them.
+   - Any refusal of a lawful ticked Power Ranking save is a production defect: report and do not repin the test. Both named files passed x2.
+2. **If x3 has remaining sweep failures**, classify from the completed messages and rebuild only the necessary unit scratch tree; preserve exact assertions and existing historical coverage. The pending-repeat rules of 1361-F7/F8 and 1361-N still apply. Nothing is waived because it was measured.
+3. **The candidate inputs** are frozen in `E/1361-stage/sweep/units/final-candidate-sha256.txt`: H, G1, G4a and G4b use `patch-r2.diff`; G2, G3 and G5 use `patch.diff`, after sibling and hygiene. The originals remain. `E/1361-X6-sweep-x2-all-units.md` records x2, the 343 guard observations and every follow-up. Record x3 as `1361-X7`; copy its raw/parsed evidence and update the unit deferred/handback status from its results.
+4. **Finish the independent review** (1361-N Units step 5): the 58-row static sample and all follow-up deltas are reviewed in `review-x2-static.md`, `review-r2-static.md` and `review-guard-messages.md`. Obtain the final measured conclusion on x3; do not call the preliminary review final approval.
 5. **The landing `1361-L`.** Keep the Mac on AC power, and keep at least 5 GiB free (see the warnings).
    - **The commits.** In the repo, run `git -C S/1361-prod/tree format-patch base..p15c-c-r1 -o <dir>`, then `git am` the six into the repo. Then commit, in order:
      - the sibling test (`git apply` `E/1359-stage/1359-p15c-wave2-sibling-r2.patch`);

@@ -1,0 +1,2051 @@
+[
+  {
+    "site": "v14-migration:244/development/none",
+    "test": "C2a-M1 \u00b7 T9 (A) \u2014 the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes",
+    "outcome": "returned"
+  },
+  {
+    "site": "v14-migration:244/preProduction/none",
+    "test": "C2a-M1 \u00b7 T9 (A) \u2014 the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes",
+    "outcome": "returned"
+  },
+  {
+    "site": "v14-migration:244/preProduction/facility-capacity",
+    "test": "C2a-M1 \u00b7 T9 (A) \u2014 the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes",
+    "outcome": "returned"
+  },
+  {
+    "site": "v14-migration:244/rehearsal/none",
+    "test": "C2a-M1 \u00b7 T9 (A) \u2014 the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes",
+    "outcome": "returned"
+  },
+  {
+    "site": "v14-migration:244/rehearsal/facility-capacity",
+    "test": "C2a-M1 \u00b7 T9 (A) \u2014 the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes",
+    "outcome": "returned"
+  },
+  {
+    "site": "v14-migration:244/shooting/none",
+    "test": "C2a-M1 \u00b7 T9 (A) \u2014 the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes",
+    "outcome": "returned"
+  },
+  {
+    "site": "v14-migration:244/shooting/scenery-load-in",
+    "test": "C2a-M1 \u00b7 T9 (A) \u2014 the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes",
+    "outcome": "returned"
+  },
+  {
+    "site": "v14-migration:244/shooting/facility-capacity",
+    "test": "C2a-M1 \u00b7 T9 (A) \u2014 the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes",
+    "outcome": "returned"
+  },
+  {
+    "site": "v14-migration:244/postProduction/none",
+    "test": "C2a-M1 \u00b7 T9 (A) \u2014 the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes",
+    "outcome": "returned"
+  },
+  {
+    "site": "v14-boundary:215/4/5",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV4 refuses every one of V5/V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV4: cannot downgrade SaveFileV5 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/4/6",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV4 refuses every one of V5/V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV4: cannot downgrade SaveFileV6 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/4/7",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV4 refuses every one of V5/V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV4: cannot downgrade SaveFileV7 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/4/8",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV4 refuses every one of V5/V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV4: cannot downgrade SaveFileV8 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/4/9",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV4 refuses every one of V5/V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV4: cannot downgrade SaveFileV9 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/4/10",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV4 refuses every one of V5/V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV4: cannot downgrade SaveFileV10 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/4/11",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV4 refuses every one of V5/V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV4: cannot downgrade SaveFileV11 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/4/12",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV4 refuses every one of V5/V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV4: cannot downgrade SaveFileV12 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/4/13",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV4 refuses every one of V5/V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV4: cannot downgrade SaveFileV13 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/4/14",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV4 refuses every one of V5/V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV4: cannot downgrade SaveFileV14 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/5/6",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV5 refuses every one of V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV5: cannot downgrade SaveFileV6 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/5/7",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV5 refuses every one of V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV5: cannot downgrade SaveFileV7 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/5/8",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV5 refuses every one of V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV5: cannot downgrade SaveFileV8 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/5/9",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV5 refuses every one of V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV5: cannot downgrade SaveFileV9 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/5/10",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV5 refuses every one of V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV5: cannot downgrade SaveFileV10 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/5/11",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV5 refuses every one of V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV5: cannot downgrade SaveFileV11 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/5/12",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV5 refuses every one of V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV5: cannot downgrade SaveFileV12 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/5/13",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV5 refuses every one of V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV5: cannot downgrade SaveFileV13 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/5/14",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV5 refuses every one of V6/V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV5: cannot downgrade SaveFileV14 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/6/7",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV6 refuses every one of V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV6: cannot downgrade SaveFileV7 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/6/8",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV6 refuses every one of V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV6: cannot downgrade SaveFileV8 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/6/9",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV6 refuses every one of V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV6: cannot downgrade SaveFileV9 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/6/10",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV6 refuses every one of V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV6: cannot downgrade SaveFileV10 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/6/11",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV6 refuses every one of V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV6: cannot downgrade SaveFileV11 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/6/12",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV6 refuses every one of V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV6: cannot downgrade SaveFileV12 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/6/13",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV6 refuses every one of V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV6: cannot downgrade SaveFileV13 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/6/14",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV6 refuses every one of V7/V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV6: cannot downgrade SaveFileV14 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/7/8",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV7 refuses every one of V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV7: cannot downgrade SaveFileV8 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/7/9",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV7 refuses every one of V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV7: cannot downgrade SaveFileV9 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/7/10",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV7 refuses every one of V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV7: cannot downgrade SaveFileV10 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/7/11",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV7 refuses every one of V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV7: cannot downgrade SaveFileV11 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/7/12",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV7 refuses every one of V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV7: cannot downgrade SaveFileV12 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/7/13",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV7 refuses every one of V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV7: cannot downgrade SaveFileV13 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/7/14",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV7 refuses every one of V8/V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV7: cannot downgrade SaveFileV14 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/8/9",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV8 refuses every one of V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV8: cannot downgrade SaveFileV9 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/8/10",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV8 refuses every one of V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV8: cannot downgrade SaveFileV10 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/8/11",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV8 refuses every one of V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV8: cannot downgrade SaveFileV11 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/8/12",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV8 refuses every one of V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV8: cannot downgrade SaveFileV12 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/8/13",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV8 refuses every one of V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV8: cannot downgrade SaveFileV13 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/8/14",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV8 refuses every one of V9/V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV8: cannot downgrade SaveFileV14 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/9/10",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV9 refuses every one of V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV9: cannot downgrade SaveFileV10 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/9/11",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV9 refuses every one of V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV9: cannot downgrade SaveFileV11 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/9/12",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV9 refuses every one of V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV9: cannot downgrade SaveFileV12 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/9/13",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV9 refuses every one of V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV9: cannot downgrade SaveFileV13 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/9/14",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV9 refuses every one of V10/V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV9: cannot downgrade SaveFileV14 or discard newer authoritative state"
+  },
+  {
+    "site": "v14-boundary:215/10/11",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV10 refuses every one of V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV10: cannot downgrade SaveFileV11 or discard construction, placement, and property state"
+  },
+  {
+    "site": "v14-boundary:215/10/12",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV10 refuses every one of V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV10: cannot downgrade SaveFileV12 or discard construction, placement, and property state"
+  },
+  {
+    "site": "v14-boundary:215/10/13",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV10 refuses every one of V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV10: cannot downgrade SaveFileV13 or discard construction, placement, and property state"
+  },
+  {
+    "site": "v14-boundary:215/10/14",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV10 refuses every one of V11/V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV10: cannot downgrade SaveFileV14 or discard construction, placement, and property state"
+  },
+  {
+    "site": "v14-boundary:215/11/12",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV11 refuses every one of V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV11: cannot downgrade SaveFileV12 or discard placement and property state"
+  },
+  {
+    "site": "v14-boundary:215/11/13",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV11 refuses every one of V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV11: cannot downgrade SaveFileV13 or discard placement and property state"
+  },
+  {
+    "site": "v14-boundary:215/11/14",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV11 refuses every one of V12/V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV11: cannot downgrade SaveFileV14 or discard placement and property state"
+  },
+  {
+    "site": "v14-boundary:215/12/13",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV12 refuses every one of V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV12: cannot downgrade SaveFileV13 or discard property, set, queue, screenplay, and studio-history state"
+  },
+  {
+    "site": "v14-boundary:215/12/14",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV12 refuses every one of V13/V14",
+    "outcome": "threw",
+    "message": "migrateToV12: cannot downgrade SaveFileV14 or discard property, set, queue, screenplay, and studio-history state"
+  },
+  {
+    "site": "v14-boundary:215/13/14",
+    "test": "C2a-M1 \u00b7 guards (A) \u2014 every migrator refuses every higher version > migrateToV13 refuses every one of V14",
+    "outcome": "threw",
+    "message": "migrateToV13: cannot downgrade SaveFileV14 or discard set, queue, screenplay, and studio-history state"
+  },
+  {
+    "site": "v14-boundary:254",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to walk a V14 file back down to V13",
+    "outcome": "threw",
+    "message": "migrateToV13: cannot downgrade SaveFileV14 or discard set, queue, screenplay, and studio-history state"
+  },
+  {
+    "site": "v14-boundary:279/1/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV1: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/2/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV2: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/3/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV3: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/4/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV4: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/5/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV5: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/6/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV6: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/7/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV7: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/8/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV8: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/9/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV9: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/10/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV10: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/11/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV11: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/12/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV12: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/13/a set beyond the endowment",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV13: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/1/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV1: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/2/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV2: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/3/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV3: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/4/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV4: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/5/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV5: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/6/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV6: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/7/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV7: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/8/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV8: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/9/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV9: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/10/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV10: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/11/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV11: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/12/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV12: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/13/a set-id counter that has moved",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV13: cannot downgrade or discard authoritative V14 sets"
+  },
+  {
+    "site": "v14-boundary:279/1/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV1: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/2/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV2: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/3/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV3: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/4/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV4: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/5/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV5: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/6/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV6: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/7/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV7: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/8/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV8: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/9/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV9: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/10/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV10: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/11/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV11: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/12/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV12: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/13/a recorded studio event",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV13: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/1/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV1: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/2/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV2: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/3/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV3: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/4/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV4: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/5/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV5: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/6/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV6: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/7/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV7: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/8/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV8: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/9/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV9: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/10/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV10: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/11/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV11: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/12/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV12: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/13/a queued intent",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV13: cannot downgrade or discard the authoritative V14 production queue"
+  },
+  {
+    "site": "v14-boundary:279/1/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV1: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/2/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV2: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/3/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV3: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/4/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV4: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/5/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV5: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/6/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV6: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/7/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV7: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/8/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV8: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/9/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV9: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/10/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV10: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/11/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV11: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/12/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV12: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/13/a minted screenplay ordinal",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV13: cannot downgrade or discard authoritative V14 screenplay provenance"
+  },
+  {
+    "site": "v14-boundary:279/1/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV1: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/2/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV2: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/3/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV3: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/4/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV4: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/5/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV5: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/6/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV6: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/7/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV7: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/8/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV8: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/9/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV9: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/10/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV10: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/11/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV11: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/12/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV12: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/13/a set capital ledger row",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV13: cannot downgrade or discard authoritative V14 set capital ledger state"
+  },
+  {
+    "site": "v14-boundary:279/1/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV1: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/2/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV2: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/3/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV3: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/4/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV4: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/5/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV5: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/6/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV6: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/7/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV7: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/8/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV8: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/9/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV9: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/10/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV10: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/11/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV11: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/12/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV12: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/13/a workflow bound to a set",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV13: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/1/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV1: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/2/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV2: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/3/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV3: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/4/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV4: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/5/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV5: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/6/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV6: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/7/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV7: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/8/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV8: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/9/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV9: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/10/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV10: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/11/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV11: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/12/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV12: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:279/13/a set-unavailable blocker",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+    "outcome": "threw",
+    "message": "makeSaveV13: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "v14-boundary:304",
+    "test": "C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > may write a V13 file only when the migrator can put every byte back",
+    "outcome": "threw",
+    "message": "makeSaveV13: cannot downgrade or discard authoritative V14 studio history"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > tick refuses 'non-finite effective week'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > tick refuses 'fractional effective/finishing week'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > tick refuses 'announced status at the effective week'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is still announced at week 312, at or after its effective week 312"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > tick refuses 'finishing date differs from the effec\u2026'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments from week 311, which is not its effective week 312 at or before week 312"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > tick refuses 'announcement lies in the future'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: talentMarket.cases[25] opened at week 300, when authored-0000's retirement was not announced (announced week 313, effective week 312)"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > tick refuses 'finishing status carries a retired da\u2026'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments but carries a retirement week"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > tick refuses 'duplicate lifecycle person authority'",
+    "outcome": "threw",
+    "message": "validateSaveV38: duplicate person/profession retirement episode"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > tick refuses 'unsupported lifecycle intent version'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].intentRulesVersion must be 1"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'non-finite effective week'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'fractional effective/finishing week'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'announced status at the effective week'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is still announced at week 312, at or after its effective week 312"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'finishing date differs from the effec\u2026'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments from week 311, which is not its effective week 312 at or before week 312"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'announcement lies in the future'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: talentMarket.cases[25] opened at week 300, when authored-0000's retirement was not announced (announced week 313, effective week 312)"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'finishing status carries a retired da\u2026'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments but carries a retirement week"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'duplicate lifecycle person authority'",
+    "outcome": "threw",
+    "message": "validateSaveV38: duplicate person/profession retirement episode"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'unsupported lifecycle intent version'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].intentRulesVersion must be 1"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'non-finite effective week'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'fractional effective/finishing week'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'announced status at the effective week'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is still announced at week 312, at or after its effective week 312"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'finishing date differs from the effec\u2026'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments from week 311, which is not its effective week 312 at or before week 312"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'announcement lies in the future'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: talentMarket.cases[25] opened at week 300, when authored-0000's retirement was not announced (announced week 313, effective week 312)"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'finishing status carries a retired da\u2026'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments but carries a retirement week"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'duplicate lifecycle person authority'",
+    "outcome": "threw",
+    "message": "validateSaveV38: duplicate person/profession retirement episode"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'unsupported lifecycle intent version'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].intentRulesVersion must be 1"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'non-finite effective week'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'fractional effective/finishing week'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'announced status at the effective week'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is still announced at week 312, at or after its effective week 312"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'finishing date differs from the effec\u2026'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments from week 311, which is not its effective week 312 at or before week 312"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'announcement lies in the future'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: talentMarket.cases[25] opened at week 300, when authored-0000's retirement was not announced (announced week 313, effective week 312)"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'finishing status carries a retired da\u2026'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments but carries a retirement week"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'duplicate lifecycle person authority'",
+    "outcome": "threw",
+    "message": "validateSaveV38: duplicate person/profession retirement episode"
+  },
+  {
+    "site": "p14c2rm-writer-continuation:385",
+    "test": "880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'unsupported lifecycle intent version'",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].intentRulesVersion must be 1"
+  },
+  {
+    "site": "studio-events:221/premiere/seen",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal premiere row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+  },
+  {
+    "site": "studio-events:221/premiere/consumed",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal premiere row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+  },
+  {
+    "site": "studio-events:221/wrapped/seen",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal wrapped row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+  },
+  {
+    "site": "studio-events:221/wrapped/consumed",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal wrapped row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+  },
+  {
+    "site": "studio-events:221/releaseCommitted/seen",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal releaseCommitted row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV12: state.studioEvents releaseCommitted row 0 has unknown field \"seen\""
+  },
+  {
+    "site": "studio-events:221/releaseCommitted/consumed",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal releaseCommitted row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV12: state.studioEvents releaseCommitted row 0 has unknown field \"consumed\""
+  },
+  {
+    "site": "studio-events:221/constructionCompleted/seen",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal constructionCompleted row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+  },
+  {
+    "site": "studio-events:221/constructionCompleted/consumed",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal constructionCompleted row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+  },
+  {
+    "site": "studio-events:221/setBuilt/seen",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal setBuilt row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+  },
+  {
+    "site": "studio-events:221/setBuilt/consumed",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal setBuilt row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+  },
+  {
+    "site": "studio-events:221/setRetired/seen",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal setRetired row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+  },
+  {
+    "site": "studio-events:221/setRetired/consumed",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal setRetired row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+  },
+  {
+    "site": "studio-events:221/reservationGranted/seen",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal reservationGranted row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+  },
+  {
+    "site": "studio-events:221/reservationGranted/consumed",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal reservationGranted row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+  },
+  {
+    "site": "studio-events:221/reservationReleased/seen",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal reservationReleased row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+  },
+  {
+    "site": "studio-events:221/reservationReleased/consumed",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal reservationReleased row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+  },
+  {
+    "site": "studio-events:221/queueAdmitted/seen",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal queueAdmitted row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+  },
+  {
+    "site": "studio-events:221/queueAdmitted/consumed",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal queueAdmitted row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+  },
+  {
+    "site": "studio-events:221/queueIntentExpired/seen",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal queueIntentExpired row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+  },
+  {
+    "site": "studio-events:221/queueIntentExpired/consumed",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal queueIntentExpired row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+  },
+  {
+    "site": "studio-events:221/phaseEntered/seen",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal phaseEntered row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+  },
+  {
+    "site": "studio-events:221/phaseEntered/consumed",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal phaseEntered row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+  },
+  {
+    "site": "studio-events:221/sceneryArrived/seen",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal sceneryArrived row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+  },
+  {
+    "site": "studio-events:221/sceneryArrived/consumed",
+    "test": "C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal sceneryArrived row and refuses the same row plus a cursor field",
+    "outcome": "threw",
+    "message": "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+  },
+  {
+    "site": "p14c3-save-v38:131/missing transitionBoundaryWeek",
+    "test": "C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority",
+    "outcome": "threw",
+    "message": "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing professionAnchors",
+    "test": "C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority",
+    "outcome": "threw",
+    "message": "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing transitionEvaluations",
+    "test": "C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority",
+    "outcome": "threw",
+    "message": "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing professionChanges",
+    "test": "C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority",
+    "outcome": "threw",
+    "message": "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing industryRetirements",
+    "test": "C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority",
+    "outcome": "threw",
+    "message": "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing transitionDue",
+    "test": "C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority",
+    "outcome": "threw",
+    "message": "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+  },
+  {
+    "site": "p14c3-save-v38:131/unknown root key",
+    "test": "C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority",
+    "outcome": "threw",
+    "message": "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+  },
+  {
+    "site": "p14c3-save-v38:131/events cannot be null",
+    "test": "C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionEvaluations must be an array"
+  },
+  {
+    "site": "p14c3-save-v38:131/queue cannot be an object",
+    "test": "C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionDue must be an array"
+  },
+  {
+    "site": "p14c3-save-v38:131/invalid boundary -1",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock",
+    "outcome": "threw",
+    "message": "validateSaveV38: careerLifecycle.transitionBoundaryWeek must be a safe nonnegative integer"
+  },
+  {
+    "site": "p14c3-save-v38:131/invalid boundary 0.5",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock",
+    "outcome": "threw",
+    "message": "validateSaveV38: careerLifecycle.transitionBoundaryWeek must be a safe nonnegative integer"
+  },
+  {
+    "site": "p14c3-save-v38:131/invalid boundary NaN",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock",
+    "outcome": "threw",
+    "message": "validateSaveV38: careerLifecycle.transitionBoundaryWeek must be a safe nonnegative integer"
+  },
+  {
+    "site": "p14c3-save-v38:131/invalid boundary Infinity",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock",
+    "outcome": "threw",
+    "message": "validateSaveV38: careerLifecycle.transitionBoundaryWeek must be a safe nonnegative integer"
+  },
+  {
+    "site": "p14c3-save-v38:131/invalid boundary 9007199254740992",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock",
+    "outcome": "threw",
+    "message": "validateSaveV38: careerLifecycle.transitionBoundaryWeek must be a safe nonnegative integer"
+  },
+  {
+    "site": "p14c3-save-v38:131/invalid boundary 208",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition boundary is outside recorded campaign history"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing person anchor",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: professionAnchors must name every person once in talent order"
+  },
+  {
+    "site": "p14c3-save-v38:131/duplicate person anchor",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: professionAnchors must name every person once in talent order"
+  },
+  {
+    "site": "p14c3-save-v38:131/wrong anchor order",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: professionAnchors identity or order mismatch"
+  },
+  {
+    "site": "p14c3-save-v38:131/unknown person",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: professionAnchors identity or order mismatch"
+  },
+  {
+    "site": "p14c3-save-v38:131/invalid kind",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: unknown profession anchor kind"
+  },
+  {
+    "site": "p14c3-save-v38:131/unknown profession",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: anchor profession is not a profession"
+  },
+  {
+    "site": "p14c3-save-v38:131/existing anchor before boundary",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: existing profession anchor must equal transition boundary"
+  },
+  {
+    "site": "p14c3-save-v38:131/anchor after current clock",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: existing profession anchor must equal transition boundary"
+  },
+  {
+    "site": "p14c3-save-v38:131/unknown anchor field",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: professionAnchors[0] must carry exactly personId, profession, recordedWeek, kind"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing anchor field",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: professionAnchors[0] must carry exactly personId, profession, recordedWeek, kind"
+  },
+  {
+    "site": "p14c3-save-v38:131/role rewrite without a change",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: current profession changed without its anchored change history"
+  },
+  {
+    "site": "p14c3-save-v38:131/existing anchor cannot grant presence before genuine creation",
+    "test": "C.3 A12 exact root, anchored identity and due authority > cannot relabel a genuinely later-created person as an existing person before their entry",
+    "outcome": "threw",
+    "message": "validateSaveV38: existing profession anchor predates the person\u2019s observed presence"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing due person",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionDue differs from exact prospective reconciliation or deferred schedule"
+  },
+  {
+    "site": "p14c3-save-v38:131/duplicate due person",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionDue differs from exact prospective reconciliation or deferred schedule"
+  },
+  {
+    "site": "p14c3-save-v38:131/wrong queue order",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionDue differs from exact prospective reconciliation or deferred schedule"
+  },
+  {
+    "site": "p14c3-save-v38:131/due today is stale",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionDue must be strictly after the current week"
+  },
+  {
+    "site": "p14c3-save-v38:131/arbitrary future week is not the exact next due",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionDue differs from exact prospective reconciliation or deferred schedule"
+  },
+  {
+    "site": "p14c3-save-v38:131/fractional week",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionDue.week must be a safe nonnegative integer"
+  },
+  {
+    "site": "p14c3-save-v38:131/unknown due person",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: profession history names unknown person missing-person"
+  },
+  {
+    "site": "p14c3-save-v38:131/extra due property",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionDue[0] must carry exactly personId, week"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing due date",
+    "test": "C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionDue[0] must carry exactly personId, week"
+  },
+  {
+    "site": "p14c3-save-v38:131/extra evaluation key",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionEvaluations[0] must carry exactly id, ordinal, week, personId, source, rulesVersion, inputs, inputsDigest, outcome, selected, reason"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing rules version",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionEvaluations[0] must carry exactly id, ordinal, week, personId, source, rulesVersion, inputs, inputsDigest, outcome, selected, reason"
+  },
+  {
+    "site": "p14c3-save-v38:131/extra inputs key",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition inputs must carry exactly age, actingFirstTakes, leadFirstTakes, actingWitnesses, targets"
+  },
+  {
+    "site": "p14c3-save-v38:131/extra target key",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition targets[0] must carry exactly profession, capability, roleTier, workHistory, proven, potentialTier, contextCount, contextBand, contextWitness"
+  },
+  {
+    "site": "p14c3-save-v38:131/extra context key",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects",
+    "outcome": "threw",
+    "message": "validateSaveV38: contextWitness must carry exactly counterpartId, pictures"
+  },
+  {
+    "site": "p14c3-save-v38:131/extra picture key",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects",
+    "outcome": "threw",
+    "message": "validateSaveV38: context picture must carry exactly studioId, pictureId"
+  },
+  {
+    "site": "p14c3-save-v38:131/extra source key",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects",
+    "outcome": "threw",
+    "message": "validateSaveV38: retirement source must carry exactly personId, profession"
+  },
+  {
+    "site": "p14c3-save-v38:131/rules version2",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology",
+    "outcome": "threw",
+    "message": "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch"
+  },
+  {
+    "site": "p14c3-save-v38:131/negative ordinal",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology",
+    "outcome": "threw",
+    "message": "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch"
+  },
+  {
+    "site": "p14c3-save-v38:131/noncontiguous ordinal",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology",
+    "outcome": "threw",
+    "message": "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch"
+  },
+  {
+    "site": "p14c3-save-v38:131/id not derived from ordinal",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology",
+    "outcome": "threw",
+    "message": "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch"
+  },
+  {
+    "site": "p14c3-save-v38:131/duplicate evaluation",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology",
+    "outcome": "threw",
+    "message": "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch"
+  },
+  {
+    "site": "p14c3-save-v38:131/unknown person",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology",
+    "outcome": "threw",
+    "message": "validateSaveV38: profession history names unknown person missing-person"
+  },
+  {
+    "site": "p14c3-save-v38:131/source names another person",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology",
+    "outcome": "threw",
+    "message": "validateSaveV38: retirement source person must match its subject"
+  },
+  {
+    "site": "p14c3-save-v38:131/source is not an actor retirement",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition catalogue requires original actor retirement"
+  },
+  {
+    "site": "p14c3-save-v38:131/evaluation before actual retirement",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology",
+    "outcome": "threw",
+    "message": "validateSaveV38: evaluation week must be after the transition boundary and at/before the campaign week"
+  },
+  {
+    "site": "p14c3-save-v38:131/evaluation after current week",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology",
+    "outcome": "threw",
+    "message": "validateSaveV38: evaluation week must be after the transition boundary and at/before the campaign week"
+  },
+  {
+    "site": "p14c3-save-v38:131/nonfinite event week",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology",
+    "outcome": "threw",
+    "message": "validateSaveV38: evaluation week must be a safe nonnegative integer"
+  },
+  {
+    "site": "p14c3-save-v38:131/uncompleted source",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology",
+    "outcome": "threw",
+    "message": "validateSaveV38: evaluation lacks completed acting retirement predecessor"
+  },
+  {
+    "site": "p14c3-save-v38:131/age disagrees with immutable provenance",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: evaluation age differs from immutable provenance"
+  },
+  {
+    "site": "p14c3-save-v38:131/unsafe total",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: actingFirstTakes must be a safe nonnegative integer"
+  },
+  {
+    "site": "p14c3-save-v38:131/negative lead count",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: leadFirstTakes must be a safe nonnegative integer"
+  },
+  {
+    "site": "p14c3-save-v38:131/capability zero",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: target capability must be within1..99"
+  },
+  {
+    "site": "p14c3-save-v38:131/capability100",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: target capability must be within1..99"
+  },
+  {
+    "site": "p14c3-save-v38:131/fractional capability",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: target capability must be a safe nonnegative integer"
+  },
+  {
+    "site": "p14c3-save-v38:131/invalid potential enum",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: unknown public potential tier"
+  },
+  {
+    "site": "p14c3-save-v38:131/tier disagrees with capability",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: target roleTier disagrees with its public capability"
+  },
+  {
+    "site": "p14c3-save-v38:131/proven disagrees with zero work",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: target proven disagrees with capability/workHistory snapshot"
+  },
+  {
+    "site": "p14c3-save-v38:131/context band outside closed enum",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: target contextBand disagrees with exact count"
+  },
+  {
+    "site": "p14c3-save-v38:131/wrong target order",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition target order must be director, writer"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing target",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition inputs need exactly director and writer targets"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing acting witness",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: acting witness count differs from bounded evidence"
+  },
+  {
+    "site": "p14c3-save-v38:131/unknown acting witness",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: acting counts or bounded witness differ from retained evidence"
+  },
+  {
+    "site": "p14c3-save-v38:131/wrong context witness",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: target context count or bounded witness differs from retained evidence"
+  },
+  {
+    "site": "p14c3-save-v38:131/malformed digest",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition inputsDigest differs from the canonical recorded question"
+  },
+  {
+    "site": "p14c3-save-v38:131/different well-shaped digest",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition inputsDigest differs from the canonical recorded question"
+  },
+  {
+    "site": "p14c3-save-v38:131/valid digest cannot authorize wrong selected target",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition outcome/selection/reason differs from deterministic public choice"
+  },
+  {
+    "site": "p14c3-save-v38:131/valid digest cannot authorize wrong outcome",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition outcome/selection/reason differs from deterministic public choice"
+  },
+  {
+    "site": "p14c3-save-v38:131/valid digest cannot authorize wrong reason",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition outcome/selection/reason differs from deterministic public choice"
+  },
+  {
+    "site": "p14c3-save-v38:131/unknown outcome",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition outcome/selection/reason differs from deterministic public choice"
+  },
+  {
+    "site": "p14c3-save-v38:131/noncatalogue selection",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest",
+    "outcome": "threw",
+    "message": "validateSaveV38: transition outcome/selection/reason differs from deterministic public choice"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing chosen change",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person",
+    "outcome": "threw",
+    "message": "validateSaveV38: invalid profession change catalogue/ordinal/id"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing predecessor evaluation",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person",
+    "outcome": "threw",
+    "message": "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch"
+  },
+  {
+    "site": "p14c3-save-v38:131/duplicate profession change",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person",
+    "outcome": "threw",
+    "message": "validateSaveV38: invalid profession change catalogue/ordinal/id"
+  },
+  {
+    "site": "p14c3-save-v38:131/unknown evaluation reference",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person",
+    "outcome": "threw",
+    "message": "validateSaveV38: profession change has no matching chosen evaluation"
+  },
+  {
+    "site": "p14c3-save-v38:131/change person disagrees with evaluation",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person",
+    "outcome": "threw",
+    "message": "validateSaveV38: profession history names unknown person missing-person"
+  },
+  {
+    "site": "p14c3-save-v38:131/change date disagrees with evaluation",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person",
+    "outcome": "threw",
+    "message": "validateSaveV38: profession change week must be after the transition boundary and at/before the campaign week"
+  },
+  {
+    "site": "p14c3-save-v38:131/change ordinal not contiguous",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person",
+    "outcome": "threw",
+    "message": "validateSaveV38: invalid profession change catalogue/ordinal/id"
+  },
+  {
+    "site": "p14c3-save-v38:131/change id not derived from ordinal",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person",
+    "outcome": "threw",
+    "message": "validateSaveV38: invalid profession change catalogue/ordinal/id"
+  },
+  {
+    "site": "p14c3-save-v38:131/change cannot originate in a writer",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person",
+    "outcome": "threw",
+    "message": "validateSaveV38: invalid profession change catalogue/ordinal/id"
+  },
+  {
+    "site": "p14c3-save-v38:131/extra change field",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person",
+    "outcome": "threw",
+    "message": "validateSaveV38: professionChanges[0] must carry exactly id, ordinal, week, personId, from, to, evaluationId"
+  },
+  {
+    "site": "p14c3-save-v38:131/current role omits actual change",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person",
+    "outcome": "threw",
+    "message": "validateSaveV38: current profession changed without its anchored change history"
+  },
+  {
+    "site": "p14c3-save-v38:131/chosen person still queued",
+    "test": "C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionDue differs from exact prospective reconciliation or deferred schedule"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing finality",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: non-catalogue retirement is missing its exact finality"
+  },
+  {
+    "site": "p14c3-save-v38:131/duplicate finality",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: industry retirement episode/identity mismatch"
+  },
+  {
+    "site": "p14c3-save-v38:131/retroactive finality at migration",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: industry retirement week must be after the transition boundary and at/before the campaign week"
+  },
+  {
+    "site": "p14c3-save-v38:131/future finality",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: industry retirement week must be after the transition boundary and at/before the campaign week"
+  },
+  {
+    "site": "p14c3-save-v38:131/wrong final profession",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: industry retirement episode/identity mismatch"
+  },
+  {
+    "site": "p14c3-save-v38:131/wrong source person",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: retirement source person must match its subject"
+  },
+  {
+    "site": "p14c3-save-v38:131/wrong source profession",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: industry retirement episode/identity mismatch"
+  },
+  {
+    "site": "p14c3-save-v38:131/noCatalogue cannot reference an evaluation",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: noCatalogue finality requires a non-actor and no evaluation"
+  },
+  {
+    "site": "p14c3-save-v38:131/declinedAll requires its actual evaluation",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: unknown industry finality cause"
+  },
+  {
+    "site": "p14c3-save-v38:131/unknown finality cause",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: unknown industry finality cause"
+  },
+  {
+    "site": "p14c3-save-v38:131/extra finality field",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: industry retirement must carry exactly personId, week, profession, source, cause, evaluationId"
+  },
+  {
+    "site": "p14c3-save-v38:131/missing finality key",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: industry retirement must carry exactly personId, week, profession, source, cause, evaluationId"
+  },
+  {
+    "site": "p14c3-save-v38:131/final person cannot remain queued",
+    "test": "C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation",
+    "outcome": "threw",
+    "message": "validateSaveV38: transitionDue differs from exact prospective reconciliation or deferred schedule"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a missing proposal promises leaf before it is stripped for frozen V28 validation",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises must be an array of at most one promise ID"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a null proposal promises leaf before it is stripped for frozen V28 validation",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises must be an array of at most one promise ID"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a string proposal promises leaf before it is stripped for frozen V28 validation",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises must be an array of at most one promise ID"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a object proposal promises leaf before it is stripped for frozen V28 validation",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises must be an array of at most one promise ID"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a non-string member proposal promises leaf before it is stripped for frozen V28 validation",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises must be a non-empty string"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a unknown reference proposal promises leaf before it is stripped for frozen V28 validation",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises does not name this proposal's own promise"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a duplicate reference proposal promises leaf before it is stripped for frozen V28 validation",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises must be an array of at most one promise ID"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects attaching another issuer's real promise ID to a proposal",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[1].promises does not name this proposal's own promise"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a bound promise whose contract ID is absent",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].contractId does not name this person's employment at the issuing studio"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a real contract ID belonging to a different beneficiary or issuer",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].contractId does not name this person's employment at the issuing studio"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a bound promise with missing contract field independently of the other pair field",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].contractId is missing"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a bound promise with wrong beneficiary independently of the other pair field",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].contractId does not name this person's employment at the issuing studio"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a bound promise with wrong issuer independently of the other pair field",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].contractId does not name this person's employment at the issuing studio"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects the same pair's previous contract, whose interval cannot carry this window",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].contractId ends before the promised window"
+  },
+  {
+    "site": "p14b1-t4-regressions:86",
+    "test": "P14B.1 T4: V29 owns every proposal promise leaf > rejects a terminal promise rebound to the same pair's later actual contract starting after its outcome",
+    "outcome": "threw",
+    "message": "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].outcomeWeek precedes the contract that carried this promise"
+  }
+]

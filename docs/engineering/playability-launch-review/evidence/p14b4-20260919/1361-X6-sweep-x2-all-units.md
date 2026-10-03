@@ -40,6 +40,36 @@ The parent prepared cumulative `patch-r2.diff` and supplemental `rows-r2.json` f
 
 An independent Codex reviewer (substituting for the historical Sonnet role) sampled 58 edits across all units/classes in [the preliminary review](1361-stage/sweep/review-x2-static.md). Its [r2 delta review](1361-stage/sweep/review-r2-static.md) found no assertion weakening. Three comment findings were corrected: separate writer controls, the termination receipt/movement coverage limit, and explicitly provisional measurement language. Final approval waits for execution.
 
-The separate diagnostic `x2-guards` is running under the heavy lane. Its uninstrumented Git tree must equal x2's. It invokes each observed callback once, returns its result or rethrows the same error, and keeps every assertion unchanged. It observes the three bare refusal sites, studio-events forbidden keys and five loose S9 sites that a passing test cannot attribute. No diagnostic edit may land.
+The separate diagnostic `x2-guards` ran under the heavy lane from 14:50:25 to 14:52:50 CDT. Its uninstrumented Git tree must equal x2's. It invokes each observed callback once, returns its result or rethrows the same error, and keeps every assertion unchanged. It observes the three bare refusal sites, studio-events forbidden keys and five loose S9 sites that a passing test cannot attribute. No diagnostic edit may land.
 
-Next: read the guard messages, apply any required F7 ruling 9 pins, then run the full r2 confirmation as x3. Save45 is not landed or ready for recorded gates yet. Free disk remains below their 5 GiB precondition.
+The guard messages and F7 ruling 9 edits are now complete as described below; x3 is running. Save45 is not landed or ready for recorded gates yet. Free disk remains below their 5 GiB precondition.
+
+## Completed guard observations and final r2 candidate
+
+[The observer artifacts](1361-stage/sweep/x2-guards/) retain all 343 messages, the exact six-file instrumentation diff, metadata and compressed raw output. The diagnostic has the expected 17 failed / 219 passed out of 236; its failing identities and messages match these files in x2. It changed no test assertion.
+
+| Observed surface | Calls |
+|---|---:|
+| P14B.1 bare malformed-input refusals | 15 |
+| Writer full-save controls | 32 |
+| Save38 mutation cases | 102 |
+| Studio-event forbidden fields | 24 |
+| Historical migrator matrix | 55 |
+| V14 to V13 migration refusal | 1 |
+| Frozen builders on V14 carriers | 104 |
+| Managed-studio V13 write refusal | 1 |
+| V13 write/round-trip cells, all returned | 9 |
+
+[Independent message attribution](1361-stage/sweep/review-guard-messages.md) found no P15 masking. It identified four first guards that differed from the intended isolated check. F7 ruling 9 now pins them precisely:
+- G4a: the writer's future-announcement case (four live callers) first reaches market-case retirement coherence. The full-save assertion gains that exact anchored message; live refusal and other controls stay intact.
+- H: `missing chosen change` first reaches surviving-row change ordinal/id continuity.
+- H: `missing predecessor evaluation` first reaches evaluation ordinal/id continuity.
+- H: `declinedAll requires its actual evaluation` uses a Scientist finality and first reaches actor/cause eligibility.
+
+The H helper adds an optional exact first-guard matcher for only those three cases; all other bare assertions stay. Comments disclose the masked checks. The reviewer checked all four regexes against the observations and confirmed the branches preserve one assertion, positive controls, unchanged mutations and immutability checks.
+
+Coverage limits remain explicit: 15 P14B.1 terminal leaves fail at their existing natural premise before reaching mutants; 26 workflow-carrier observations first reach existing V14 studio history. The latter get no sweep edit because the loose-S9 rule permits one only for newly observed P15 masking. These are not claimed as isolated workflow coverage.
+
+The final candidate uses r2 patches for H, G1, G4a and G4b and r1 patches for G2, G3 and G5. [Its patch hashes](1361-stage/sweep/units/final-candidate-sha256.txt) identify the exact inputs. The complete stack applies cleanly in a temporary index. The three original S9 comment findings are resolved; final execution and approval still await x3.
+
+x3 started at 15:01:16 CDT using `run-sweep-x.sh x3` in the heavy lane. It is a dry run, not a recorded gate. Its source archive is repository 8719cde1; its clean committed candidate is in `S/1361-sweep/x3/tree`. Read `x.meta` before acting; do not change its files or script during the run.

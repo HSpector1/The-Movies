@@ -335,7 +335,7 @@ index c0afeae..3084e5e 100644
  
    it('two independent V35 -> V36 migrations of the SAME state are byte-identical', () => {
 diff --git a/tests/p14c2rm-writer-continuation.test.ts b/tests/p14c2rm-writer-continuation.test.ts
-index 26eb1d5..c9548ca 100644
+index 26eb1d5..8d778d8 100644
 --- a/tests/p14c2rm-writer-continuation.test.ts
 +++ b/tests/p14c2rm-writer-continuation.test.ts
 @@ -9,8 +9,8 @@ import { studioConstructionView } from '../src/core/placement.js'
@@ -421,12 +421,43 @@ index 26eb1d5..c9548ca 100644
        expect(() => validateSaveV36({ ...historicalWriterPair().finishing, saveVersion: 36 })).toThrow(/not contracted/i)
      }
      expect(stableStringify(legal)).toBe(legalBefore)
-@@ -376,7 +377,7 @@ describe('880-B malformed authority refuses before live work, not only at persis
+@@ -327,7 +328,7 @@ const changeRetirement = (state: GameState, id: string, patch: Partial<Retiremen
+     records: state.careerLifecycle.records.map(row => row.personId === id ? { ...row, ...patch } : row),
+   },
+ })
+-const invalidTemporalAuthority: InvalidCase[] = [
++const invalidTemporalAuthority: (InvalidCase & { saveRefusal?: RegExp })[] = [
+   { name: 'non-finite effective week', corrupt: (state, id) => changeRetirement(state, id, { effectiveWeek: Number.NaN }) },
+   { name: 'fractional effective/finishing week', corrupt: (state, id) => changeRetirement(state, id, {
+     effectiveWeek: 312.5, finishingFromWeek: 312.5,
+@@ -336,7 +337,12 @@ const invalidTemporalAuthority: InvalidCase[] = [
+     status: 'announced', finishingFromWeek: null,
+   }) },
+   { name: 'finishing date differs from the effective week', corrupt: (state, id) => changeRetirement(state, id, { finishingFromWeek: 311 }) },
+-  { name: 'announcement lies in the future', corrupt: (state, id) => changeRetirement(state, id, { announcedWeek: 313 }) },
++  // 1361-N S8 / F7 ruling 9: the x2-guards probe reaches the V36 market-case
++  // retirement-coherence guard before the lifecycle future-announcement guard.
++  // This full-save control does not isolate the latter; the live callers still refuse below.
++  { name: 'announcement lies in the future',
++    saveRefusal: /^validateSaveV37: state is invalid \u2014 validateSaveV36: talentMarket\.cases\[25\] opened at week 300, when authored-0000's retirement was not announced \(announced week 313, effective week 312\)$/,
++    corrupt: (state, id) => changeRetirement(state, id, { announcedWeek: 313 }) },
+   { name: 'finishing status carries a retired date', corrupt: (state, id) => changeRetirement(state, id, { retiredWeek: 312 }) },
+   { name: 'duplicate lifecycle person authority', corrupt: (state, id) => ({ ...state, careerLifecycle: { ...state.careerLifecycle,
+     records: [...state.careerLifecycle.records, { ...state.careerLifecycle.records.find(row => row.personId === id)! }],
+@@ -371,12 +377,14 @@ const liveTemporalCallers: { name: string; run: (state: GameState, youngId: stri
+ ]
+ describe('880-B malformed authority refuses before live work, not only at persistence', () => {
+   for (const caller of liveTemporalCallers) {
+-    it.each(invalidTemporalAuthority)(`${caller.name} refuses $name`, ({ corrupt }) => {
++    it.each(invalidTemporalAuthority)(`${caller.name} refuses $name`, ({ corrupt, saveRefusal }) => {
+       const f = temporalInput()
        // The unmodified real state and this same live entrypoint are admissible.
        expect(() => caller.run(f.state, f.youngId)).not.toThrow()
        const invalid = corrupt(f.state, f.retiringId), before = structuredClone(invalid)
 -      expect(() => validateSaveV44(envelope(invalid)), 'existing full-save refusal is a control').toThrow()
-+      expect(() => validateSaveV45(envelope(invalid)), 'existing full-save refusal is a control').toThrow()
++      const validateInvalid = () => validateSaveV45(envelope(invalid))
++      if (saveRefusal === undefined) expect(validateInvalid, 'existing full-save refusal is a control').toThrow()
++      else expect(validateInvalid, 'measured first full-save guard (1361-N S8)').toThrow(saveRefusal)
        expect(() => caller.run(invalid, f.youngId), 'live permission must also reject malformed authority').toThrow()
        // Compare in memory so NaN and signed zero are not hidden by JSON encoding.
        expect(invalid).toEqual(before)

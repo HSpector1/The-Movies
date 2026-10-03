@@ -1,0 +1,31 @@
+{
+  "unit": "H",
+  "baseMetadata": "rows.json",
+  "status": "pending x3 confirmation",
+  "edits": [
+    {
+      "file": "tests/p14c3-save-v38.test.ts",
+      "class": "S8",
+      "case": "missing chosen change",
+      "firstGuard": "validateSaveV38: invalid profession change catalogue/ordinal/id",
+      "limit": "Removing a row first breaks surviving-row ordinal/id continuity; this case does not isolate the missing chosen-change join.",
+      "evidence": "x2-guards/messages.json"
+    },
+    {
+      "file": "tests/p14c3-save-v38.test.ts",
+      "class": "S8",
+      "case": "missing predecessor evaluation",
+      "firstGuard": "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch",
+      "limit": "Removing a row first breaks surviving-row ordinal/id continuity; this case does not isolate the missing predecessor join.",
+      "evidence": "x2-guards/messages.json"
+    },
+    {
+      "file": "tests/p14c3-save-v38.test.ts",
+      "class": "S8",
+      "case": "declinedAll requires its actual evaluation",
+      "firstGuard": "validateSaveV38: unknown industry finality cause",
+      "limit": "Scientist finality cannot use the actor-only declinedAll cause; this case refuses before evaluation lookup.",
+      "evidence": "x2-guards/messages.json"
+    }
+  ]
+}

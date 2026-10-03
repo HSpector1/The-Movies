@@ -1,0 +1,209 @@
+diff --git a/tests/contracts/studio-events.contract.test.ts b/tests/contracts/studio-events.contract.test.ts
+index 3c75875..c2d1ead 100644
+--- a/tests/contracts/studio-events.contract.test.ts
++++ b/tests/contracts/studio-events.contract.test.ts
+@@ -216,7 +216,7 @@ describe('C2a-M1 · events (B) — every row carries exactly the keys §8.1 give
+       for (const forbidden of FORBIDDEN_EVENT_ROW_KEYS) {
+         const forged = { ...row, [forbidden]: false }
+         expect(
+-          () => validateAtOwningBoundary(kind, [forged], 1),
++          () => observe1361('studio-events:221/' + kind + '/' + forbidden, () => validateAtOwningBoundary(kind, [forged], 1)),
+           `a ${kind} row carrying "${forbidden}" was accepted — §5.1 forbids it forever`,
+         ).toThrow()
+       }
+@@ -411,3 +411,16 @@ describe('C2a-M1 · events (E) — a managed studio accumulates its own history'
+     expect(log.nextSeq).toBeGreaterThan(previous)
+   })
+ })
++
++// Scratch-only 1361-N P4/P5 observer. Never part of a landing patch.
++function observe1361<T>(site: string, run: () => T): T {
++  try {
++    const value = run()
++    console.log('1361-GUARD ' + JSON.stringify({ site, test: expect.getState().currentTestName, outcome: 'returned' }))
++    return value
++  } catch (error) {
++    console.log('1361-GUARD ' + JSON.stringify({ site, test: expect.getState().currentTestName,
++      outcome: 'threw', message: error instanceof Error ? error.message : String(error) }))
++    throw error
++  }
++}
+diff --git a/tests/contracts/v14-boundary-guards.contract.test.ts b/tests/contracts/v14-boundary-guards.contract.test.ts
+index 8aabd29..f785a8d 100644
+--- a/tests/contracts/v14-boundary-guards.contract.test.ts
++++ b/tests/contracts/v14-boundary-guards.contract.test.ts
+@@ -210,7 +210,7 @@ describe('C2a-M1 · guards (A) — every migrator refuses every higher version',
+       for (const version of higher) {
+         const save = envelopeAt(version)
+         expect(
+-          () => migrator(save),
++          () => observe1361('v14-boundary:215/' + target + '/' + version, () => migrator(save)),
+           `migrateToV${String(target)} silently accepted a SaveFileV${String(version)}`,
+         ).toThrow(/cannot downgrade/)
+       }
+@@ -251,7 +251,7 @@ describe('C2a-M1 · guards (B) — the live boundary moves one way', () => {
+ 
+   it('refuses to walk a V14 file back down to V13', () => {
+     const migrate = fn('migrateToV13', '§8: the downgrade refusal') as (save: unknown) => unknown
+-    expect(() => migrate(envelopeAt(14))).toThrow(/cannot downgrade/)
++    expect(() => observe1361('v14-boundary:254', () => migrate(envelopeAt(14)))).toThrow(/cannot downgrade/)
+   })
+ 
+   it('refuses to write REAL V14 authority out through any frozen builder', () => {
+@@ -274,7 +274,7 @@ describe('C2a-M1 · guards (B) — the live boundary moves one way', () => {
+           '§8.3: the write side of the historical boundary',
+         ) as (state: unknown) => unknown
+         expect(
+-          () => builder(carrier),
++          () => observe1361('v14-boundary:279/' + version + '/' + label, () => builder(carrier)),
+           `makeSaveV${String(version)} discarded ${label} to write a historical file`,
+         ).toThrow(/cannot downgrade/)
+       }
+@@ -293,7 +293,7 @@ describe('C2a-M1 · guards (B) — the live boundary moves one way', () => {
+ 
+     let written: Envelope
+     try {
+-      written = makeV13(inFlight)
++      written = observe1361('v14-boundary:304', () => makeV13(inFlight))
+     } catch (error) {
+       // A refusal is a legal answer — but ONLY a downgrade refusal. Any other
+       // throw is the V13 boundary failing to describe a state it must describe,
+@@ -499,3 +499,16 @@ describe('C2a-M1 · guards (C) — LEG 3: the widened leaves are version-aware',
+     ).not.toThrow()
+   })
+ })
++
++// Scratch-only 1361-N P4/P5 observer. Never part of a landing patch.
++function observe1361<T>(site: string, run: () => T): T {
++  try {
++    const value = run()
++    console.log('1361-GUARD ' + JSON.stringify({ site, test: expect.getState().currentTestName, outcome: 'returned' }))
++    return value
++  } catch (error) {
++    console.log('1361-GUARD ' + JSON.stringify({ site, test: expect.getState().currentTestName,
++      outcome: 'threw', message: error instanceof Error ? error.message : String(error) }))
++    throw error
++  }
++}
+diff --git a/tests/p14b1-t4-regressions.test.ts b/tests/p14b1-t4-regressions.test.ts
+index c8dc1cf..aa733f3 100644
+--- a/tests/p14b1-t4-regressions.test.ts
++++ b/tests/p14b1-t4-regressions.test.ts
+@@ -83,7 +83,7 @@ function rejects(state: GameState, mutate: (raw: Raw) => void): void {
+   const valid = JSON.parse(JSON.stringify(envelope(state))) as Raw
+   expect(() => validateSaveV45(valid)).not.toThrow()
+   mutate(valid)
+-  expect(() => validateSaveV45(valid)).toThrow()
++  expect(() => observe1361('p14b1-t4-regressions:86', () => validateSaveV45(valid))).toThrow()
+ }
+ 
+ describe('P14B.1 T4: feasibility evidence and lawful contract windows', () => {
+@@ -345,3 +345,16 @@ describe('P14B.1 T4: terminal V29 promise reference integrity', () => {
+     })
+   })
+ })
++
++// Scratch-only 1361-N P4/P5 observer. Never part of a landing patch.
++function observe1361<T>(site: string, run: () => T): T {
++  try {
++    const value = run()
++    console.log('1361-GUARD ' + JSON.stringify({ site, test: expect.getState().currentTestName, outcome: 'returned' }))
++    return value
++  } catch (error) {
++    console.log('1361-GUARD ' + JSON.stringify({ site, test: expect.getState().currentTestName,
++      outcome: 'threw', message: error instanceof Error ? error.message : String(error) }))
++    throw error
++  }
++}
+diff --git a/tests/p14c2rm-writer-continuation.test.ts b/tests/p14c2rm-writer-continuation.test.ts
+index 7be47db..d11cb82 100644
+--- a/tests/p14c2rm-writer-continuation.test.ts
++++ b/tests/p14c2rm-writer-continuation.test.ts
+@@ -382,10 +382,23 @@ describe('880-B malformed authority refuses before live work, not only at persis
+       // The unmodified real state and this same live entrypoint are admissible.
+       expect(() => caller.run(f.state, f.youngId)).not.toThrow()
+       const invalid = corrupt(f.state, f.retiringId), before = structuredClone(invalid)
+-      expect(() => validateSaveV45(envelope(invalid)), 'existing full-save refusal is a control').toThrow()
++      expect(() => observe1361('p14c2rm-writer-continuation:385', () => validateSaveV45(envelope(invalid))), 'existing full-save refusal is a control').toThrow()
+       expect(() => caller.run(invalid, f.youngId), 'live permission must also reject malformed authority').toThrow()
+       // Compare in memory so NaN and signed zero are not hidden by JSON encoding.
+       expect(invalid).toEqual(before)
+     })
+   }
+ })
++
++// Scratch-only 1361-N P4/P5 observer. Never part of a landing patch.
++function observe1361<T>(site: string, run: () => T): T {
++  try {
++    const value = run()
++    console.log('1361-GUARD ' + JSON.stringify({ site, test: expect.getState().currentTestName, outcome: 'returned' }))
++    return value
++  } catch (error) {
++    console.log('1361-GUARD ' + JSON.stringify({ site, test: expect.getState().currentTestName,
++      outcome: 'threw', message: error instanceof Error ? error.message : String(error) }))
++    throw error
++  }
++}
+diff --git a/tests/p14c3-save-v38.test.ts b/tests/p14c3-save-v38.test.ts
+index 08264ae..308c83d 100644
+--- a/tests/p14c3-save-v38.test.ts
++++ b/tests/p14c3-save-v38.test.ts
+@@ -128,7 +128,7 @@ function rejectMutations(control: Save38, cases: Negative[]): void {
+   for (const row of cases) {
+     const mutated = clone(control)
+     row.mutate(mutated)
+-    expect(() => validate(mutated), row.name).toThrow()
++    expect(() => observe1361('p14c3-save-v38:131/' + row.name, () => validate(mutated)), row.name).toThrow()
+   }
+   expect(stableStringify(control)).toBe(immutable)
+ }
+@@ -500,3 +500,16 @@ describe('C.3 A11 lossless empty-boundary downgrade and actual entrant authority
+     expect(boundary.talent).toHaveLength(beforeCount)
+   })
+ })
++
++// Scratch-only 1361-N P4/P5 observer. Never part of a landing patch.
++function observe1361<T>(site: string, run: () => T): T {
++  try {
++    const value = run()
++    console.log('1361-GUARD ' + JSON.stringify({ site, test: expect.getState().currentTestName, outcome: 'returned' }))
++    return value
++  } catch (error) {
++    console.log('1361-GUARD ' + JSON.stringify({ site, test: expect.getState().currentTestName,
++      outcome: 'threw', message: error instanceof Error ? error.message : String(error) }))
++    throw error
++  }
++}
+diff --git a/tests/v14-migration.contract.test.ts b/tests/v14-migration.contract.test.ts
+index 24e14df..b92ed6e 100644
+--- a/tests/v14-migration.contract.test.ts
++++ b/tests/v14-migration.contract.test.ts
+@@ -231,9 +231,9 @@ describe('C2a-M1 · T9 (A) — the headline matrix covers every phase that holds
+       ).toBe(stableStringify(v13TwinOf(native).state))
+       let written: { saveVersion: number; state: Record<string, unknown> }
+       try {
+-        written = makeSaveV13(
++        written = observe1361('v14-migration:244/' + cell.key, () => makeSaveV13(
+           historical as unknown as Parameters<typeof makeSaveV13>[0],
+-        ) as unknown as {
++        )) as unknown as {
+           saveVersion: number
+           state: Record<string, unknown>
+         }
+@@ -497,3 +497,16 @@ describe('C2a-M1 · T9 (D) — migrated workflows are grandfathered, by derivati
+     }
+   })
+ })
++
++// Scratch-only 1361-N P4/P5 observer. Never part of a landing patch.
++function observe1361<T>(site: string, run: () => T): T {
++  try {
++    const value = run()
++    console.log('1361-GUARD ' + JSON.stringify({ site, test: expect.getState().currentTestName, outcome: 'returned' }))
++    return value
++  } catch (error) {
++    console.log('1361-GUARD ' + JSON.stringify({ site, test: expect.getState().currentTestName,
++      outcome: 'threw', message: error instanceof Error ? error.message : String(error) }))
++    throw error
++  }
++}
