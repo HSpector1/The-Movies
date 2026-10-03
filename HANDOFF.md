@@ -25,7 +25,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-03 10:22 CDT, written a
 
      Everything lands in one push with four recorded runs, then the recorded broad gates.
   2. **After Save45:**
-     - the rival-recovery amendment 1363 (Parts A and B);
+     - the rival-recovery amendment 1363: Parts A and B, plus Part C, the non-core facility disposal of `E/1366-O`, with 1363-A r2 to draft;
      - the late-founding correction 1364-A, with the charter still to draft;
      - P15A.1's (c) tuning amendment, record 1365. G2 read Retune.
 
@@ -93,9 +93,10 @@ Standing rules:
    - then 1363, 1364-A and 1365, in the order the parent sets.
 
 ## Open decisions for the Owner
-- **1363-A O1, rival facility disposal** (asked 2026-10-02). Recommend no disposal in v1. If it is ever allowed, non-core plant only, at the player's demolition refund.
-- **1363-F O6, post-loan restart** (needed before re-probe 2; it blocks nothing now). Recommend yes: a loan principal ends cost-cutting, and the ordinary staffing laws resume.
-- **O2 to O5 of 1363-A** go to the Owner only with 1363-V's numbers.
+- None open. On 2026-10-03 (`E/1366-O`, `DECISIONS.md`) the Owner answered:
+  - **O1:** non-core facility disposal at the player's demolition refund, as a bounded Part C of 1363 after Save45, with the Owner's safeguards;
+  - **O6:** a P15B loan ends cost-cutting.
+- O2 to O5 of 1363-A go to the Owner only with 1363-V's numbers.
 
 ## Blockers and warnings
 - **Power.** The Mac slept from 19:01 on 10-02 to 09:19 on 10-03 at 0% battery (pmset AutoPowerOff). At 10:22 it is on battery at 81%. Plug it in before any heavy or recorded run: a recorded run is void if the machine sleeps.

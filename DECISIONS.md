@@ -12,6 +12,27 @@ order). Marathon-era "no successor" language below is historical.**
 This is a compact routing index, not a replacement for the contracts, evidence, Owner records, or
 canonical Lessons Learned.
 
+## Owner rulings, 2026-10-03
+
+Recorded word for word in
+[1366-O](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1366-O-owner-response-20261003.md).
+
+- **1363 O1: option 2.** Rivals may dispose of non-core facilities under the player's existing demolition and refund
+  law, as a bounded Part C of the rival-recovery amendment after the Save45 landing.
+  - **What stays protected:** the four core filming facilities, in recovery v1.
+  - **The eligible facilities:** an explicit list.
+  - **What blocks a disposal:** committed work, occupied capacity or a required operational dependency.
+  - **What is preserved:** completed work, verified research, identities and history.
+  - **The refund:** the player's capital-cost basis, fraction and rounding, with no invented asset values.
+  - **The record:** the disposal and refund once, with running costs stopping at the proper boundary and no duplicate
+    on save and reload.
+  - **The boundary:** recovery downsizing stays apart from terminal estate liquidation.
+  - **What is measured:** the cash received once, the recurring costs avoided, the overhead left and whether the rival
+    films again. Nothing is tuned toward guaranteed survival.
+  - **The scope:** no general facility-management redesign, and no interruption of Save45.
+- **1363 O6: yes.** A P15B loan principal ends a rival's cost-cutting, and the ordinary staffing and greenlight laws
+  resume.
+
 ## Owner rulings, 2026-10-02
 
 Recorded word for word in
