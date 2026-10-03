@@ -55,7 +55,14 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-03 10:22 CDT, written a
     - **The fallout (1361-M2):** 809 Save45 pin rows in 138 core files, 11 UI pins, and 33, 4 and 9 test type-error sites.
   - **The sweep plan:** `E/1361-N-save45-pin-sweep-plan.md`, with its classification and scripts in `E/1361-stage/sweep/`. It covers 868 core rows and 11 UI rows in units H and G1 to G5. 716 rows are certain and 103 need a dry run.
   - **1363 adopted** (1363-F, with question O6 for the Owner).
-- **In flight:** nothing. The lane is free. No agent is running.
+- **In flight:**
+  - **Sweep unit H's test author** (sonnet, started 10:42 CDT 10-03). Its tree is `S/1361-sweep/H/tree`, built by `S/1361-sweep/build-unit-tree.sh H`. Outputs go to `S/1361-sweep/H/`: `patch.diff`, `rows.json`, `deferred.md` and `handback.md`.
+  - **Ready for x1** (H's dry run):
+    - the command: `nohup bash S/heavy-queue/lane-run.sh 0 S/1361-sweep/x1.log bash S/1361-sweep/run-sweep-x.sh x1 <E>/1359-stage/1359-p15c-wave2-sibling-r2.patch S/1361-sweep/hygiene/1361-hygiene-comment.patch S/1361-sweep/H/patch.diff &`;
+    - the core list: 448 files (`S/1361-sweep/core-list-448.txt`);
+    - attribution: as 1361-M2 did it, with `x-core.txt` and `x-ui.txt`;
+    - H's acceptance (plan, "H's acceptance check (x1)"): its other 378 rows pass or move to sites another unit owns; the 7 retained rows fail with their 1358-I messages; the type gates lose H's 5 sites.
+  - **The hygiene comment patch** (1361-F7 ruling 1) is `S/1361-sweep/hygiene/1361-hygiene-comment.patch`, checked against HEAD.
 - **Claims limits:**
   - The sweep plan rests on reading only. 103 rows and every S9 anchor must be measured in its dry run.
   - The Bridge's per-state replay cost after 2040 is unmeasured; G-L measures it (1361-F6 ruling 3).
