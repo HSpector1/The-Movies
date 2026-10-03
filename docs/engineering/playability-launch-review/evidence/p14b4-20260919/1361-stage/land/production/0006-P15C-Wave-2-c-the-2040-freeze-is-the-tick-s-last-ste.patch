@@ -1,0 +1,119 @@
+From f4612bf887b8861e2273e350c917a9cc9c6ab498 Mon Sep 17 00:00:00 2001
+From: writer <writer@local>
+Date: Fri, 2 Oct 2026 16:40:38 -0500
+Subject: [PATCH 6/6] P15C Wave 2 (c): the 2040 freeze is the tick's last step
+ (1361-E3 r1)
+
+1359-A section 4 and section 10 item 6, commit (c), with 1361-F
+ruling 9:
+- src/core/campaignLegacy.ts: freezeCampaignLegacyWeek(state). In the
+  tick producing week 6240, when the industry and the root both record
+  from before 6240 and no official manifest exists, it builds the facts
+  of the tick's final state, calls the law through freezeLegacy, stamps
+  campaign-legacy-<n> with the p15c.finale triple, and advances
+  p15Sequence. Every other tick returns its input unchanged. No
+  randomness, no clock.
+- validateCampaignLegacy gains the marker rule's other half: a save that
+  stands at or past 6240 with the freeze due must hold the official
+  manifest (1359-A section 4.3).
+- tick.ts: the freeze wraps the Power Ranking record, which wraps
+  everything before it, so it is the tick's last step and the official
+  sequence is the week's last allocation; P15A.1's step 2.5 is untouched.
+
+A save below 6240 freezes on its 6240 tick, with migrated siblings read
+as limited; a save at or past 6240 never freezes (1359-A section 5.2).
+On this base the market domain reads notRecorded at 2040, because (b)'s
+tick write keeps sharedMarket recording from the current week (1361-F5
+ruling 2.3).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ src/core/campaignLegacy.ts | 30 ++++++++++++++++++++++++++++--
+ src/core/tick.ts           |  7 +++++--
+ 2 files changed, 33 insertions(+), 4 deletions(-)
+
+diff --git a/src/core/campaignLegacy.ts b/src/core/campaignLegacy.ts
+index 665ea67..5a206dd 100644
+--- a/src/core/campaignLegacy.ts
++++ b/src/core/campaignLegacy.ts
+@@ -66,7 +66,7 @@
+ // carries no count and no ref. A ranking ref cites the archive record's own recordId.
+ 
+ import { campaignDate } from './calendar.js'
+-import { P15_PHASE_TABLES } from './p15Phases.js'
++import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
+ import type { FinancialStrengthBand } from './powerRanking.js'
+ import { TECHNOLOGY_CATALOGUE } from './technologyCatalogue.js'
+ import { GENRE_ORDER, TUNING } from './tuning.js'
+@@ -1152,6 +1152,31 @@ export function legacyRefResolver(state: GameState, boundaryWeek: number): (ref:
+   return (ref) => places.get(ref.domainId)?.get(ref.id)
+ }
+ 
++// ── the freeze step (1359-A §4.2) ─────────────────────────────────────────────
++/**
++ * The tick's last step: it wraps the Power Ranking record, which wraps everything before it (1361-F ruling 9).
++ * It returns `state` itself unless the industry exists, the produced week is B, the freeze is due (1359-A §4.3:
++ * the industry and the root both record from before B) and no official manifest exists. Then it builds the facts
++ * of the tick's final state, calls the law through `freezeLegacy`, stamps the manifest from the one P15 allocator
++ * and advances it. It writes nothing else and draws no randomness; every other tick pays a few comparisons.
++ */
++export function freezeCampaignLegacyWeek(state: GameState): GameState {
++  if (state.hollywood === null || state.market.tick !== LEGACY_BOUNDARY_WEEK) return state
++  const root = state.campaignLegacy
++  if (root.official !== null) return state
++  if (state.hollywood.originWeek >= LEGACY_BOUNDARY_WEEK || root.recordedFromWeek >= LEGACY_BOUNDARY_WEEK) return state
++  const frozen = freezeLegacy(root, LEGACY_BOUNDARY_WEEK, legacyFactsFromState(state, LEGACY_BOUNDARY_WEEK))
++  if (frozen.official === null) fail('campaignLegacy.official', 'must be written by the freeze at the boundary')
++  const sequence = state.p15Sequence.next
++  const official: OfficialLegacy = {
++    ...frozen.official,
++    legacySnapshotId: `campaign-legacy-${sequence}`,
++    p15DomainSequence: sequence,
++    ...p15PhaseTriple(FINALE_PHASE),
++  }
++  return { ...state, campaignLegacy: { ...root, official }, p15Sequence: { ...state.p15Sequence, next: sequence + 1 } }
++}
++
+ // ── the validator (1359-A §5.1 with 1359-F Amendment 1) ───────────────────────
+ 
+ /**
+@@ -1186,9 +1211,10 @@ export function validateCampaignLegacy(raw: Record<string, unknown>, label: stri
+   if (root.endOfRun !== null) refuse('endOfRun', 'must be null in this era: the end-of-run record is Wave 5 (1359-A §6)')
+ 
+   // 2. The marker rule (1359-A §4.3). The freeze was due exactly when the industry and the root both record
+-  // from before B and the save stands at B or later. No official manifest exists unless it was due.
++  // from before B and the save stands at B or later. An official manifest exists exactly when it was due.
+   const h = state.hollywood
+   const due = h !== null && h.originWeek < B && from < B && tick >= B
++  if (due && root.official === null) refuse('official', 'must hold the frozen 2040 Legacy: the freeze was due')
+   if (!due && root.official !== null) refuse('official', 'must be null: the 2040 freeze was not due')
+   if (root.official === null || h === null) return // a manifest that was due has an industry
+   const value = root.official
+diff --git a/src/core/tick.ts b/src/core/tick.ts
+index 9ebf399..0ec94ab 100644
+--- a/src/core/tick.ts
++++ b/src/core/tick.ts
+@@ -3,6 +3,7 @@ import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
+ import { requireSharedMarket } from './marketIntegration.js'
+ import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.js'
+ import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
++import { freezeCampaignLegacyWeek } from './campaignLegacy.js'
+ import { recordPowerRankingQuarter } from './powerRankingArchive.js'
+ import { advancePromisesWeek, appendFirstTakes, breakPromisesOnGreenlight } from './promises.js'
+ import { advanceRelationshipsWeek } from './relationships.js'
+@@ -1175,8 +1176,10 @@ export function tick(state: GameState, options?: TickOptions): GameState {
+   // the band reads the week's final cash and contracts. At the end of the tick the ranking record
+   // runs first; P15C's freeze wraps it as the last step, and P15B's condition steps later sit
+   // between the two (1355-F2 item 2; 1361-F ruling 9). No RNG.
+-  return recordPowerRankingQuarter(
+-    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays)))))
++  // P15C Wave 2 (1359-A §4.2): the 2040 freeze reads the week's final state, the 6240 ranking record
++  // included, and writes only `campaignLegacy` and `p15Sequence`, in the tick producing week 6240 alone.
++  return freezeCampaignLegacyWeek(recordPowerRankingQuarter(
++    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays))))))
+ }
+ 
+ /**
+-- 
+2.37.1 (Apple Git-137.1)
+

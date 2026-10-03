@@ -1,7 +1,7 @@
 {
   "unit": "G1",
   "baseMetadata": "rows.json",
-  "status": "pending measured confirmation",
+  "status": "confirmed by completed x3 (1361-X7); recorded landing gates still required",
   "edits": [
     {
       "file": "tests/p14c2s-scientist-retirement.test.ts",
@@ -10,7 +10,8 @@
       "old": "expect(() => migrateToV36(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)",
       "new": "expect(() => migrateToV36(live)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
       "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
-      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     },
     {
       "file": "tests/p14c2s-scientist-retirement.test.ts",
@@ -19,7 +20,13 @@
       "old": "expect(() => migrateToV35(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)",
       "new": "expect(() => migrateToV35(live)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
       "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
-      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     }
-  ]
+  ],
+  "confirmation": {
+    "candidate": "ee289de67e453ce269c98d840a48799265c62993",
+    "record": "1361-X7",
+    "result": "all revised assertion leaves pass"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "unit": "H",
   "baseMetadata": "rows.json",
-  "status": "pending x3 confirmation",
+  "status": "confirmed by completed x3 (1361-X7); recorded landing gates still required",
   "edits": [
     {
       "file": "tests/p14c3-save-v38.test.ts",
@@ -9,7 +9,8 @@
       "case": "missing chosen change",
       "firstGuard": "validateSaveV38: invalid profession change catalogue/ordinal/id",
       "limit": "Removing a row first breaks surviving-row ordinal/id continuity; this case does not isolate the missing chosen-change join.",
-      "evidence": "x2-guards/messages.json"
+      "evidence": "x2-guards/messages.json",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     },
     {
       "file": "tests/p14c3-save-v38.test.ts",
@@ -17,7 +18,8 @@
       "case": "missing predecessor evaluation",
       "firstGuard": "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch",
       "limit": "Removing a row first breaks surviving-row ordinal/id continuity; this case does not isolate the missing predecessor join.",
-      "evidence": "x2-guards/messages.json"
+      "evidence": "x2-guards/messages.json",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     },
     {
       "file": "tests/p14c3-save-v38.test.ts",
@@ -25,7 +27,13 @@
       "case": "declinedAll requires its actual evaluation",
       "firstGuard": "validateSaveV38: unknown industry finality cause",
       "limit": "Scientist finality cannot use the actor-only declinedAll cause; this case refuses before evaluation lookup.",
-      "evidence": "x2-guards/messages.json"
+      "evidence": "x2-guards/messages.json",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     }
-  ]
+  ],
+  "confirmation": {
+    "candidate": "ee289de67e453ce269c98d840a48799265c62993",
+    "record": "1361-X7",
+    "result": "all revised assertion leaves pass"
+  }
 }

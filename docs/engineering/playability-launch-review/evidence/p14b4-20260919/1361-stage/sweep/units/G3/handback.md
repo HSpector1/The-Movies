@@ -1,3 +1,11 @@
+## Completion addendum — 1361-X7, 2026-10-03
+
+Final input: `patch.diff`. x3 completed clean at `ee289de67e453ce269c98d840a48799265c62993`. All type/generator checks pass; core has exactly the baseline plus the declared 45 and seven supervisor environment failures, UI has no failures, and d16 matches its base 12 exactly. The retained S8 patterns pass; UI has no failures. Both production-stop files pass (causal-core 8/8 and byte-parity 6/6). No lawful ticked archive was repinned as a refusal.
+
+The author-time pending statements below are historical and are superseded by 1361-X7 and the preserved x2 guard observations. No unresolved Save45 sweep failure remains; existing premise/masking limits remain disclosed. Independent final approval and recorded landing gates are separate requirements.
+
+---
+
 # Unit G3 handback (1361-N)
 
 I edited the 36 files of the plan's G3 table and no others: 31 under `tests/` and 5 under `ui/src/`. `patch.diff` is `git diff HEAD -- tests ui` on top of H. It holds 108 lines, each replaced one for one (108 insertions, 108 deletions), uncommitted in the tree. I ran no node, vitest, tsc, npm, npx, tsx or vite-node.

@@ -1,0 +1,11 @@
+{
+  "normalization": "Only the scratch-tree absolute prefix is replaced by <tree> in full failureMessages.",
+  "baselineFailed": 12,
+  "currentFailed": 12,
+  "baselineTotal": 176,
+  "currentTotal": 176,
+  "new": [],
+  "gone": [],
+  "changedMessages": [],
+  "equal": true
+}

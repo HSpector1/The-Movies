@@ -1,3 +1,11 @@
+## Completion addendum — 1361-X7, 2026-10-03
+
+Final input: `patch-r2.diff`. x3 completed clean at `ee289de67e453ce269c98d840a48799265c62993`. All type/generator checks pass; core has exactly the baseline plus the declared 45 and seven supervisor environment failures, UI has no failures, and d16 matches its base 12 exactly. All eight revised S9 sites pass, including the sequential/loop calls that x2 did not reach. The other two retained pins also pass. D07 and D18 remain the two known rival-winner fixture failures. The termination receipt control covers its own guard; the separate movement-only leaf does not independently prove a movement downgrade guard.
+
+The author-time pending statements below are historical and are superseded by 1361-X7 and the preserved x2 guard observations. No unresolved Save45 sweep failure remains; existing premise/masking limits remain disclosed. Independent final approval and recorded landing gates are separate requirements.
+
+---
+
 # Unit G4b deferred lines (1361-N)
 
 Line numbers are HEAD's in the G4b tree (HEAD holds unit H's patch). `rows.json` gives each edited line's new number. P4, P5, P6 and P7 are the probes in the plan's S10 section. x2 is the parent's run after the G units.

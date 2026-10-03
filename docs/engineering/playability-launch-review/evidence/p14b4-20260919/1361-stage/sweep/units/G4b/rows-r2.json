@@ -1,7 +1,7 @@
 {
   "unit": "G4b",
   "baseMetadata": "rows.json",
-  "status": "pending measured confirmation",
+  "status": "confirmed by completed x3 (1361-X7); recorded landing gates still required",
   "edits": [
     {
       "file": "tests/p14r3-save-v41.test.ts",
@@ -10,7 +10,8 @@
       "old": "expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(save as never)))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
       "new": "expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(save as never)))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
       "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
-      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     },
     {
       "file": "tests/p14p4p5-opportunities.test.ts",
@@ -19,7 +20,8 @@
       "old": "expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(released))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
       "new": "expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(released))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
       "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
-      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     },
     {
       "file": "tests/p14p3-directing-promises.test.ts",
@@ -28,7 +30,8 @@
       "old": "expect(() => api.convertV39ToV38(save)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
       "new": "expect(() => api.convertV39ToV38(save)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
       "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
-      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     },
     {
       "file": "tests/p14p3-directing-promises.test.ts",
@@ -37,7 +40,8 @@
       "old": ".toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
       "new": ".toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
       "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
-      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     },
     {
       "file": "tests/p14p3-directing-promises.test.ts",
@@ -46,7 +50,8 @@
       "old": "expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
       "new": "expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
       "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
-      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     },
     {
       "file": "tests/p14p3-directing-promises.test.ts",
@@ -55,7 +60,8 @@
       "old": "expect(() => futureSave().convertV39ToV38(save)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
       "new": "expect(() => futureSave().convertV39ToV38(save)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
       "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
-      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     },
     {
       "file": "tests/p14p3-directing-promises.test.ts",
@@ -64,7 +70,8 @@
       "old": ".toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
       "new": ".toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
       "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
-      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     },
     {
       "file": "tests/p14c3-transitions.test.ts",
@@ -73,7 +80,13 @@
       "old": "expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(envelope38(reopened) as never))))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)",
       "new": "expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(envelope38(reopened) as never))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
       "message": "migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter",
-      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation"
+      "evidence": "x2 completed core log; sequential calls and loop variants require follow-up confirmation",
+      "confirmation": "x3: corresponding leaf passes, including sequential calls and loop variants where present"
     }
-  ]
+  ],
+  "confirmation": {
+    "candidate": "ee289de67e453ce269c98d840a48799265c62993",
+    "record": "1361-X7",
+    "result": "all revised assertion leaves pass"
+  }
 }

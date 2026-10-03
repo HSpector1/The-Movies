@@ -1,3 +1,11 @@
+## Completion addendum — 1361-X7, 2026-10-03
+
+Final input: `patch-r2.diff`. x3 completed clean at `ee289de67e453ce269c98d840a48799265c62993`. All type/generator checks pass; core has exactly the baseline plus the declared 45 and seven supervisor environment failures, UI has no failures, and d16 matches its base 12 exactly. The scientist S9 pins pass for both sequential converters. All other retained patterns and reached equality/strip controls pass. The reader-only Scientist exception remains exactly the F8 ruling; it grants no write or tick permission.
+
+The author-time pending statements below are historical and are superseded by 1361-X7 and the preserved x2 guard observations. No unresolved Save45 sweep failure remains; existing premise/masking limits remain disclosed. Independent final approval and recorded landing gates are separate requirements.
+
+---
+
 # Unit G1 deferred lines (1361-N)
 
 Line numbers are HEAD's. `rows.json` gives each edited line's new number. P4, P5, P6, P7 and P2 are the probes in the plan's S10 section. M2 never reached any line below: each sits behind an earlier Save45 failure in its leaf.

@@ -1,3 +1,11 @@
+## Completion addendum — 1361-X7, 2026-10-03
+
+Final input: `patch-r2.diff`. x3 completed clean at `ee289de67e453ce269c98d840a48799265c62993`. All type/generator checks pass; core has exactly the baseline plus the declared 45 and seven supervisor environment failures, UI has no failures, and d16 matches its base 12 exactly. The three case-specific S8 pins pass in x3; Save-v38 retains only C20. Its 102 guard observations are preserved and attributed. Retained baseline failures still do not imply execution of assertions after those failures; R8 is retained, not GONE.
+
+The author-time pending statements below are historical and are superseded by 1361-X7 and the preserved x2 guard observations. No unresolved Save45 sweep failure remains; existing premise/masking limits remain disclosed. Independent final approval and recorded landing gates are separate requirements.
+
+---
+
 # Unit H handback (1361-N)
 
 I edited the 16 files in the brief and no others. `patch.diff` is `git diff production -- tests`: 575 lines, +84 and -58, uncommitted in the tree. I ran no node, vitest, tsc, npm, npx, tsx or vite-node.

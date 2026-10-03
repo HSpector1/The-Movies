@@ -1,3 +1,11 @@
+## Completion addendum — 1361-X7, 2026-10-03
+
+Final input: `patch-r2.diff`. x3 completed clean at `ee289de67e453ce269c98d840a48799265c62993`. All type/generator checks pass; core has exactly the baseline plus the declared 45 and seven supervisor environment failures, UI has no failures, and d16 matches its base 12 exactly. All revised S9 leaves and the writer future-announcement S8 pin pass. Guard observations cover the bare sites and loose historical chains. The 15 existing P14B.1 terminal-premise failures do not reach mutants. Twenty-six workflow-carrier observations reach existing V14 history first; this is disclosed masking, not new P15 masking or isolated workflow coverage.
+
+The author-time pending statements below are historical and are superseded by 1361-X7 and the preserved x2 guard observations. No unresolved Save45 sweep failure remains; existing premise/masking limits remain disclosed. Independent final approval and recorded landing gates are separate requirements.
+
+---
+
 # Unit G4a deferred lines (1361-N)
 
 Line numbers are HEAD's (the tree before my edits). `rows.json` gives each edited line's new number. P4, P5 and P7 are the probes in the plan's S10 section. "Pending note" means a short comment I added at an S4 insert that says the pin below it is unmeasured at Save45.

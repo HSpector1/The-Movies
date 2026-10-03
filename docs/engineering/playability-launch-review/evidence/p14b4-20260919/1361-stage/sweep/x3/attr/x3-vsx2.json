@@ -1,0 +1,26 @@
+{
+  "normalization": "Only x2/x3 scratch-tree prefixes in primary messages.",
+  "removedCount": 18,
+  "removed": [
+    "tests/p14c2b-save-v36.test.ts > P14C.2b S2: V36 -> V35 downgrade > refused as a downgrade when a case carries variant: retirementExtension (open, not yet used \u2014 the case alone is enough)",
+    "tests/p14c2b-save-v36.test.ts > P14C.2b S2: V36 -> V35 downgrade > refused as a downgrade when a record carries extensionUsed: true (a genuinely accepted extension, axis a, natural route)",
+    "tests/p14c2rm-writer-continuation.test.ts > 880-B live allowance stays narrowly scoped > frozen public V36 stays strict, and an exceptional current save cannot silently downgrade",
+    "tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 actual Scientist record: live37 accepts, V36 and prior downgrade refuse without stripping obligations/history",
+    "tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J7 makes the real3283 Director choice while preserving the original832 Actor receipt and strict cause",
+    "tests/p14c3-dual-extensions.test.ts > C.3 actor\u2192director two genuine profession extensions > X5 settles and pays the destination468\u2192520 extension while preserving both dated cases through current persistence",
+    "tests/p14c3-dual-extensions.test.ts > C.3 actor\u2192writer two genuine profession extensions > X5 settles and pays the destination468\u2192520 extension while preserving both dated cases through current persistence",
+    "tests/p14c3-offmenu-extensions.test.ts > C.3 actor\u2192director genuine off-menu58-week extension > O3 actually settles and pays58 weeks at410 with real trust and both dated used episodes preserved",
+    "tests/p14c3-offmenu-extensions.test.ts > C.3 actor\u2192writer genuine off-menu58-week extension > O3 actually settles and pays58 weeks at410 with real trust and both dated used episodes preserved",
+    "tests/p14c3-profession-history.test.ts > C.3 current append and strict historical authority boundaries > H1\u2013H3 createBalancedTalent appends one real209 entrant and survives reload",
+    "tests/p14c3-profession-history.test.ts > C.3 current append and strict historical authority boundaries > H1\u2013H3 createCustomTalent appends one real209 entrant and survives reload",
+    "tests/p14c3-profession-history.test.ts > C.3 current append and strict historical authority boundaries > H1\u2013H3 createTalent appends one real209 entrant and survives reload",
+    "tests/p14c3-transitions.test.ts > C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload",
+    "tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves",
+    "tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion",
+    "tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D12 waives only forward same-domain remaining work on the same contract",
+    "tests/p14p4p5-opportunities.test.ts > P4/P5 retained subject and waiver authority controls > Q07 rejects nonempty suffix and owner contradictions after actual cast work",
+    "tests/p14r3-save-v41.test.ts > P14 1305-C Save41: 41->40 downgrade > refused, with a message matching /termination/i, on a genuine V41 save carrying a real rival release (lawful route, 1308-F item 5 \u2014 replaces the prior receipt-only tamper, which is not a valid V41 envelope: every house converter validates first, so that tamper's refusal named the validator's own interval-consistency failure, never \"termination\")"
+  ],
+  "added": [],
+  "changedMessages": []
+}

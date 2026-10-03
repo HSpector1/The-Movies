@@ -1,3 +1,11 @@
+## Completion addendum — 1361-X7, 2026-10-03
+
+Final input: `patch.diff`. x3 completed clean at `ee289de67e453ce269c98d840a48799265c62993`. All type/generator checks pass; core has exactly the baseline plus the declared 45 and seven supervisor environment failures, UI has no failures, and d16 matches its base 12 exactly. Reached S8 patterns and the cash-ledger S9 pin pass. The managed V13 refusal and nine returning V13 cells were observed without P15 masking. No bare refusal site requires a new G5 pin.
+
+The author-time pending statements below are historical and are superseded by 1361-X7 and the preserved x2 guard observations. No unresolved Save45 sweep failure remains; existing premise/masking limits remain disclosed. Independent final approval and recorded landing gates are separate requirements.
+
+---
+
 # Unit G5 handback (1361-N)
 
 I edited 25 of the 26 files in the G5 table and no others. `patch.diff` is `git diff HEAD -- tests ui`: 800 lines, +85 and -85, uncommitted in the tree. Every edit renames `validateSaveV44` to `validateSaveV45` or `toBe(44)` to `toBe(45)`. A script compared all 85 old and new lines and found no other difference. I ran no node, vitest, tsc, npm, npx, tsx or vite-node.

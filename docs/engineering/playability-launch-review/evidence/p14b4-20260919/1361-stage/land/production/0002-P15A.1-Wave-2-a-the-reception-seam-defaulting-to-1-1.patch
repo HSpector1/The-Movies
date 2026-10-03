@@ -1,0 +1,113 @@
+From 39d0481f0b008404855d6fa9dd698cc354a889c8 Mon Sep 17 00:00:00 2001
+From: writer <writer@local>
+Date: Fri, 2 Oct 2026 14:25:58 -0500
+Subject: [PATCH 2/6] P15A.1 Wave 2 (a): the reception seam, defaulting to 1
+ (1361-E2 r1)
+
+1355-A section 3.2 and section 8 item 5, commit (a):
+- ReceptionInputs gains an optional competitionFactor. computeBoxOffice
+  takes it as a trailing parameter that defaults to 1 and replaces the
+  constant 1.0 of N11; a factor outside
+  [1 - SHARED_MARKET_FACTOR_MAX_PENALTY, 1] throws. resolveReception
+  passes inp.competitionFactor ?? 1.
+- advanceHollywoodWeek takes an optional factor map and applies a
+  release's factor at the rival reception site.
+
+No caller supplies a factor yet, so every reception is bit-identical:
+x * 1 = x in IEEE arithmetic, and the critic draw precedes the seam.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ src/core/hollywoodTick.ts | 10 +++++++---
+ src/core/reception.ts     | 19 +++++++++++++++++--
+ 2 files changed, 24 insertions(+), 5 deletions(-)
+
+diff --git a/src/core/hollywoodTick.ts b/src/core/hollywoodTick.ts
+index 1c9c523..39fde4f 100644
+--- a/src/core/hollywoodTick.ts
++++ b/src/core/hollywoodTick.ts
+@@ -335,8 +335,10 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
+   h.concepts=[...h.concepts,concept]
+ }
+ 
+-/** Stage rival work against pre-development talent. All writes are to new local objects. */
+-export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
++/** Stage rival work against pre-development talent. All writes are to new local objects.
++ * P15A.1 Wave 2 (1355-A §3.2): `factorById` carries the frozen shared-market factor of each rival
++ * release; absent, every rival release takes today's path. */
++export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<string,number>):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
+   /** P14B.1 (1): this week's rival first takes (the 5 -> 4 advance), handed to
+    * the outer tick so the ONE first-take root is appended in one place. */
+   firstTakes:{studioId:string;production:Production}[];
+@@ -385,7 +387,9 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
+     for(const p of releasing) {
+       const project=hotDevelopment(b).projects.find(s=>s.productionId===p.id)!
+       const inp=inputsFor(state,h,{...b,standing:startStanding},p,project,people)
+-      const result=resolveReception(inp,stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
++      // P15A.1 Wave 2 (1355-A §3.2): the rival release site of the seam.
++      const factor=factorById?.get(p.id)
++      const result=resolveReception(factor===undefined?inp:{...inp,competitionFactor:factor},stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
+       const base=buildFilmResult(result,{productionId:p.id,releaseTick:week,conceptId:p.conceptId,directorId:p.directorId})
+       const filmResult={...base,participants:p.participants!,forecast:{expectedCriticScore:p.forecastSnapshot.expectedCriticScore,expectedTotal:p.forecastSnapshot.expectedTotal,expectedOpening:p.forecastSnapshot.expectedOpening}}
+       const cost=b.projects[Number(project.id.slice(7))]!
+diff --git a/src/core/reception.ts b/src/core/reception.ts
+index 068847b..abbd581 100644
+--- a/src/core/reception.ts
++++ b/src/core/reception.ts
+@@ -100,6 +100,10 @@ export type ReceptionInputs = {
+   // figure, so C6 inherits a measured lever rather than a confound.
+   setUplift?: number
+   setNovelty?: number | null
++  // P15A.1 Wave 2 (1355-A §3.2): the shared-market factor the week's batch froze for THIS
++  // release. Only the two release sites set it, the player's step 3 and the rival release;
++  // greenlight, chooser, forecast and package inputs never carry it. Absent is exactly 1.
++  competitionFactor?: number
+ }
+ 
+ // The rich breakdown §5.6 requires: every intermediate exposed alongside the
+@@ -592,7 +596,7 @@ export function efficientMarketingCapacity(preMarketingAwareness: number, engage
+ 
+ // ── §5.5 Box office ──────────────────────────────────────────────────────────
+ // Factored to accept the per-segment appeal scores so §7 can reuse it against
+-// noisy estimates (B16). competitionFactor ≡ 1.0 (N11). Pure; no sampling.
++// noisy estimates (B16). competitionFactor defaults to 1 (N11; P15A.1 Wave 2). Pure; no sampling.
+ export function computeBoxOffice(
+   segmentAppeal: Record<SegmentId, number>,
+   segments: Segment[],
+@@ -626,6 +630,12 @@ export function computeBoxOffice(
+   // DEFAULTS TO EXACTLY 1 — a bit-exact IEEE no-op — so every forecast, every
+   // legacy release and every unbound picture is byte-identical.
+   setNoveltyFactor = 1,
++  // P15A.1 Wave 2 (1355-A §3.2): the shared-market factor, which replaces the constant 1.0 of
++  // N11 and scales the opening where the set novelty factor does, so the total follows and legs
++  // hold. It defaults to exactly 1, an IEEE no-op, so every forecast and every caller that
++  // passes no factor is byte-identical. A factor outside [1 - SHARED_MARKET_FACTOR_MAX_PENALTY, 1]
++  // throws, so a forged factor never moves a gross.
++  competitionFactor = 1,
+ ): {
+   marketingQuality: number
+   preMarketingAwareness: number
+@@ -675,7 +685,10 @@ export function computeBoxOffice(
+   )
+ 
+   const openingReachMult = 1 + shapeEffects.openingReachMod / 100
+-  const competitionFactor = 1.0
++  const competitionFloor = 1 - TUNING.SHARED_MARKET_FACTOR_MAX_PENALTY
++  if (!(competitionFactor >= competitionFloor && competitionFactor <= 1)) {
++    throw new Error(`reception: competitionFactor ${competitionFactor} is outside [${competitionFloor}, 1]`)
++  }
+ 
+   let reachSum = 0
+   let weightedAudienceScore = 0
+@@ -810,6 +823,8 @@ export function resolveReception(
+     appealBlock.starDraw, // D-13: star support for reachSupport (fame, not quality)
+     // C2a-M2: the bound set's locked novelty. Exactly 1 when nothing was bound.
+     setNoveltyReceptionFactor(inp.setNovelty ?? null),
++    // P15A.1 Wave 2: the frozen batch factor. Exactly 1 when the inputs carry none.
++    inp.competitionFactor ?? 1,
+   )
+ 
+   return {
+-- 
+2.37.1 (Apple Git-137.1)
+

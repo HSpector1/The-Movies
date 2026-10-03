@@ -1,3 +1,11 @@
+## Completion addendum — 1361-X7, 2026-10-03
+
+Final input: `patch.diff`. x3 completed clean at `ee289de67e453ce269c98d840a48799265c62993`. All type/generator checks pass; core has exactly the baseline plus the declared 45 and seven supervisor environment failures, UI has no failures, and d16 matches its base 12 exactly. All three type gates pass and there is no new G2 failure. Reached equality and migration assertions pass. The standing bridge-p14b2-trust fixture failure still prevents its later assertion from running; R8 remains a retained failure.
+
+The author-time pending statements below are historical and are superseded by 1361-X7 and the preserved x2 guard observations. No unresolved Save45 sweep failure remains; existing premise/masking limits remain disclosed. Independent final approval and recorded landing gates are separate requirements.
+
+---
+
 # Unit G2 deferred lines (1361-N)
 
 Line numbers are HEAD's. `rows.json` gives each edited line's new number. P4 and P6 are probes from the plan's S10 section. x1 is H's acceptance run, so G2's lines first meet a run in x2.
