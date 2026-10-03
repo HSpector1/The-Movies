@@ -1,0 +1,889 @@
+diff --git a/tests/c2a-m3-rename-and-pooling.test.ts b/tests/c2a-m3-rename-and-pooling.test.ts
+index 7689723..56789ad 100644
+--- a/tests/c2a-m3-rename-and-pooling.test.ts
++++ b/tests/c2a-m3-rename-and-pooling.test.ts
+@@ -211,7 +211,7 @@ describe('C2a-M3 — renaming a screenplay', () => {
+     )
+     // Still saveable: the invariant is "never renamed ⇒ still the generated
+     // title", not "the title never changes".
+-    expect(makeSave(state).saveVersion).toBe(44)
++    expect(makeSave(state).saveVersion).toBe(45)
+   })
+ 
+   it('leaves the TWO frozen-history surfaces frozen, BY DESIGN', () => {
+@@ -360,7 +360,7 @@ describe('C2a-M3 — the bounded writer pool (00E.9)', () => {
+         },
+       ]),
+     ).toThrow(/maximum of 5 writers/)
+-    expect(makeSave(state).saveVersion).toBe(44)
++    expect(makeSave(state).saveVersion).toBe(45)
+   })
+ 
+   it('is refused on a screenplay that is not being drafted', () => {
+diff --git a/tests/c2a-m3-screenplay-mint.test.ts b/tests/c2a-m3-screenplay-mint.test.ts
+index 5f2d9c6..f46f2ba 100644
+--- a/tests/c2a-m3-screenplay-mint.test.ts
++++ b/tests/c2a-m3-screenplay-mint.test.ts
+@@ -353,7 +353,7 @@ describe('C2a-M3 — a writer goes to work and hands the studio a new movie', ()
+       { kind: 'commissionOriginalScreenplay', screenplay: originalPayload(state, 'crime') },
+     ])
+     const save = makeSave(state)
+-    expect(save.saveVersion).toBe(44)
++    expect(save.saveVersion).toBe(45)
+     expect(save.state.originalScreenplays.blueprints).toHaveLength(1)
+     expect(save.state.concepts.at(-1)!.id).toBe(`${ORIGINAL_CONCEPT_ID_PREFIX}0000`)
+   })
+diff --git a/tests/construction-save-v11.test.ts b/tests/construction-save-v11.test.ts
+index 2945ab0..d5429c9 100644
+--- a/tests/construction-save-v11.test.ts
++++ b/tests/construction-save-v11.test.ts
+@@ -47,7 +47,7 @@ import {
+   stableStringify,
+   validateSave,
+   validateSaveV11,
+-  validateSaveV44,
++  validateSaveV45,
+   type SaveFile,
+   type SaveFileV11,
+ } from "../src/core/save.js";
+@@ -186,9 +186,9 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
+ 
+     for (const state of states) {
+       const save = makeSave(state);
+-      expect(save.saveVersion).toBe(44);
++      expect(save.saveVersion).toBe(45);
+       expect(validateSave(save)).toBe(save);
+-      expect(validateSaveV44(save)).toBe(save);
++      expect(validateSaveV45(save)).toBe(save);
+       const json = exportSave(save);
+       expect(exportSave(importSave(json))).toBe(json);
+     }
+@@ -511,7 +511,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
+           productionId: reservedId,
+           note: "forged persisted production identity",
+         });
+-        expect(() => validateSaveV44(forgedV13)).toThrow(
++        expect(() => validateSaveV45(forgedV13)).toThrow(
+           /canonical Annex id .*collides with persisted production history/,
+         );
+       }
+@@ -550,8 +550,8 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
+     };
+     expect(() => makeSave(withFuture)).toThrow(/unknown field "futureV13"/);
+     const save = makeSave(managedVacant("save-v11-projection"));
+-    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(
+-      /unknown saveVersion 45.*versions 1 through 44 only/,
++    expect(() => validateSave({ ...save, saveVersion: 46 })).toThrow(
++      /unknown saveVersion 46.*versions 1 through 45 only/,
+     );
+   });
+ });
+diff --git a/tests/contracts/v14-byte-parity.contract.test.ts b/tests/contracts/v14-byte-parity.contract.test.ts
+index dbe7edc..b99fd66 100644
+--- a/tests/contracts/v14-byte-parity.contract.test.ts
++++ b/tests/contracts/v14-byte-parity.contract.test.ts
+@@ -198,11 +198,11 @@ describe('C2a-M1 · parity (C) — every exported row is inside the window or Ti
+   it('re-validates what it wrote, at its own version', () => {
+     const validateV15 = requireFunction(
+       requireCore(),
+-      'validateSaveV44',
++      'validateSaveV45',
+       '§8.1: the live boundary (P13B-S6: V26)',
+     ) as unknown as (save: unknown) => unknown
+     const save = makeSave(runScriptedWeeks(scriptedStart(SEED), RUN_WEEKS))
+-    expect(save.saveVersion).toBe(44) // P14C.2b: the live version (was 35)
++    expect(save.saveVersion).toBe(45) // P14C.2b: the live version (was 35)
+     expect(() => validateV15(save)).not.toThrow()
+   })
+ })
+diff --git a/tests/d11-employment.test.ts b/tests/d11-employment.test.ts
+index 91e7684..f04edec 100644
+--- a/tests/d11-employment.test.ts
++++ b/tests/d11-employment.test.ts
+@@ -548,7 +548,7 @@ describe('D-11 — determinism & live saves', () => {
+   it('new games save at the live version and round-trip byte-identically', () => {
+     const s = foundStudio('save-v4')
+     const save = makeSave(s)
+-    expect(save.saveVersion).toBe(44) // P13B-S8: new games save as V27.
++    expect(save.saveVersion).toBe(45) // P13B-S8: new games save as V27.
+     const a = exportSave(save)
+     const b = exportSave(importSave(a))
+     expect(b).toBe(a)
+diff --git a/tests/d17-engagement-persistence.test.ts b/tests/d17-engagement-persistence.test.ts
+index 29a753b..c32790e 100644
+--- a/tests/d17-engagement-persistence.test.ts
++++ b/tests/d17-engagement-persistence.test.ts
+@@ -463,7 +463,7 @@ describe('D-17A/R2: a V6 save without an explicit engagement fact is rejected LO
+   it('new games save as V16 and carry the fact', () => {
+     // P06A (W1): makeSave now writes the live V16; the R2 fact is still carried.
+     const save = makeSave(foundStudio('d17-newgame'))
+-    expect(save.saveVersion).toBe(44)
++    expect(save.saveVersion).toBe(45)
+     expect(save.state.economyEngagedEver).toBe(true)
+   })
+ })
+diff --git a/tests/d17a-adv-migration.test.ts b/tests/d17a-adv-migration.test.ts
+index 7c9c93a..b6fc6b3 100644
+--- a/tests/d17a-adv-migration.test.ts
++++ b/tests/d17a-adv-migration.test.ts
+@@ -271,7 +271,7 @@ describe('D-17A/D — validateSave still guards the version boundary loudly', ()
+   // boundary moved one further, to 17 — the same law the boundary has always followed one
+   // bump on.
+   it('rejects unknown V42 loudly (stale title corrected post-C.2b; the boundary moves on every save bump)', () => {
+-    expect(() => validateSave({ ...v6, saveVersion: 45 })).toThrow(/unknown saveVersion 45/)
++    expect(() => validateSave({ ...v6, saveVersion: 46 })).toThrow(/unknown saveVersion 46/)
+   })
+ 
+   it('rejects a V6 whose persisted regime fact is missing or not a boolean', () => {
+diff --git a/tests/d17a-adv-reconciliation.test.ts b/tests/d17a-adv-reconciliation.test.ts
+index 1011212..75a7a89 100644
+--- a/tests/d17a-adv-reconciliation.test.ts
++++ b/tests/d17a-adv-reconciliation.test.ts
+@@ -334,7 +334,7 @@ describe('D-17A/B — odd dollars: whole-dollar determinism and a governed tie-b
+ 
+     // Property State V13 (C1-M1a): the live load-to-play entry is migrateToV17.
+     const reloaded = migrateToCurrentControl(validateSave(importSave(exportSave(makeSave(s)))))
+-    expect(reloaded.saveVersion).toBe(44)
++    expect(reloaded.saveVersion).toBe(45)
+     expect(stableStringify(allocateFixedCosts(reloaded.state))).toBe(first)
+ 
+     // …and the hostile schedule survives the same trip.
+diff --git a/tests/d17b-save-v7.test.ts b/tests/d17b-save-v7.test.ts
+index ca81dd5..c3326d9 100644
+--- a/tests/d17b-save-v7.test.ts
++++ b/tests/d17b-save-v7.test.ts
+@@ -160,7 +160,7 @@ describe('D-17B/E4 — the frozen V7 envelope remains valid and isolated', () =>
+ 
+   it('V7 through V36 are known, so the unknown-version boundary is now 42 (stale numbers corrected post-C.2b; the boundary moves on every save bump)', () => {
+     const save = makeSaveV7(toV7(foundStudio('d17b-v7-boundary')))
+-    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(/unknown saveVersion 45/)
++    expect(() => validateSave({ ...save, saveVersion: 46 })).toThrow(/unknown saveVersion 46/)
+     // P06A (W1): 16 is now a KNOWN, LIVE version — dispatch reaches validateSaveV16, which
+     // fails on this V7 payload's real shape mismatch (no releaseAuthority), not the
+     // unknown-version boundary.
+diff --git a/tests/film-chronicle.test.ts b/tests/film-chronicle.test.ts
+index c6823f6..7b0a2c9 100644
+--- a/tests/film-chronicle.test.ts
++++ b/tests/film-chronicle.test.ts
+@@ -908,7 +908,7 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
+   it("reconstructs a deep-equal Chronicle after an exact V11 export/import round-trip", () => {
+     const { state, productionId } = validProducedState("film-chronicle-save-v11");
+     const envelope = makeSave(state);
+-    expect(envelope.saveVersion).toBe(44);
++    expect(envelope.saveVersion).toBe(45);
+     expect(validateSave(envelope)).toBe(envelope);
+ 
+     const beforeState = stableStringify(state);
+@@ -919,8 +919,8 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
+     expectAvailable(before!.productionRecord);
+ 
+     const restored = importSave(exportSave(envelope));
+-    expect(restored.saveVersion).toBe(44);
+-    if (restored.saveVersion !== 44) return;
++    expect(restored.saveVersion).toBe(45);
++    if (restored.saveVersion !== 45) return;
+     const after = buildFilmChronicle(inputFromState(migrateToCurrentControl(restored).state, productionId));
+ 
+     expect(after).toEqual(before);
+diff --git a/tests/p04a2-writer-credit-law.test.ts b/tests/p04a2-writer-credit-law.test.ts
+index 4ba649a..07584af 100644
+--- a/tests/p04a2-writer-credit-law.test.ts
++++ b/tests/p04a2-writer-credit-law.test.ts
+@@ -770,7 +770,7 @@ describe('P04A.2 §19G — the split needs no save migration and survives reload
+     const save = makeSave(greenlit)
+     // NO VERSION BUMP FROM THIS CLAUSE: the credit/assignment split changed no
+     // persisted shape. The live version is 16 (P06A W1 release-authority root).
+-    expect(save.saveVersion).toBe(44)
++    expect(save.saveVersion).toBe(45)
+     // eslint-disable-next-line no-console
+     console.log(
+       '[P04A.2 WITNESS] §19G saveVersion:',
+diff --git a/tests/p09a-w0-founding-regime.test.ts b/tests/p09a-w0-founding-regime.test.ts
+index d921781..199475b 100644
+--- a/tests/p09a-w0-founding-regime.test.ts
++++ b/tests/p09a-w0-founding-regime.test.ts
+@@ -54,7 +54,7 @@ import {
+   nextStudioDecision,
+   queryPlacement,
+   tick,
+-  validateSaveV44,
++  validateSaveV45,
+ } from '../src/core/index.js'
+ import type { CreativeRole, GameState, LotCell } from '../src/core/index.js'
+ import { FACILITY_BLUEPRINTS, TUNING } from '../src/core/tuning.js'
+@@ -134,7 +134,7 @@ describe('P09 R1 — the founding regime is persisted, exact, and immutable', ()
+     for (const regime of ['endowed', 'bare-lot'] as const) {
+       const state = regime === 'bare-lot' ? bareLot('p09-r1-rt') : endowed('p09-r1-rt')
+       const save = makeSave(state)
+-      expect(save.saveVersion).toBe(44)
++      expect(save.saveVersion).toBe(45)
+       expect(save.state.foundingRegime).toBe(regime)
+       const json = exportSave(save)
+       expect(exportSave(importSave(json))).toBe(json)
+@@ -142,13 +142,13 @@ describe('P09 R1 — the founding regime is persisted, exact, and immutable', ()
+     }
+     const save = makeSave(endowed('p09-r1-forge'))
+     const raw = JSON.parse(exportSave(save)) as { state: Record<string, unknown> }
+-    expect(() => validateSaveV44({ ...raw, state: { ...raw.state, foundingRegime: 'sandbox' } })).toThrow(/not a known founding regime/)
++    expect(() => validateSaveV45({ ...raw, state: { ...raw.state, foundingRegime: 'sandbox' } })).toThrow(/not a known founding regime/)
+     const { foundingRegime: _r, ...missing } = raw.state
+-    expect(() => validateSaveV44({ ...raw, state: missing })).toThrow(/foundingRegime is missing/)
++    expect(() => validateSaveV45({ ...raw, state: missing })).toThrow(/foundingRegime is missing/)
+     // Laundering: an endowed property cannot claim the bare-lot regime, nor the reverse.
+-    expect(() => validateSaveV44({ ...raw, state: { ...raw.state, foundingRegime: 'bare-lot' } })).toThrow(/cannot carry founding structures/)
++    expect(() => validateSaveV45({ ...raw, state: { ...raw.state, foundingRegime: 'bare-lot' } })).toThrow(/cannot carry founding structures/)
+     const bare = JSON.parse(exportSave(makeSave(bareLot('p09-r1-forge-b')))) as { state: Record<string, unknown> }
+-    expect(() => validateSaveV44({ ...bare, state: { ...bare.state, foundingRegime: 'endowed' } })).toThrow(/must carry its founding structures/)
++    expect(() => validateSaveV45({ ...bare, state: { ...bare.state, foundingRegime: 'endowed' } })).toThrow(/must carry its founding structures/)
+   })
+ 
+   it('every pre-P09 save migrates to endowed with no other change; downgrades are refused', () => {
+@@ -211,7 +211,7 @@ describe('P09 R3 — bare-lot activation mints nothing', () => {
+     // The history is honest: the founding landmark, nothing else.
+     expect(state.studioHistory.rows.map((row) => row.kind)).toEqual(['studioFounded'])
+     // The save boundary accepts the sparse studio as a first-class shape.
+-    expect(() => validateSaveV44(makeSave(state))).not.toThrow()
++    expect(() => validateSaveV45(makeSave(state))).not.toThrow()
+   })
+ })
+ 
+diff --git a/tests/p13a-causal-core.test.ts b/tests/p13a-causal-core.test.ts
+index 184f7a4..98eb785 100644
+--- a/tests/p13a-causal-core.test.ts
++++ b/tests/p13a-causal-core.test.ts
+@@ -1,7 +1,7 @@
+ import { beforeAll, describe, expect, it } from 'vitest'
+ import { applyActions } from '../src/core/actions.js'
+ import { tick } from '../src/core/tick.js'
+-import { exportCurrentState, importSave, migrateToLive, validateSaveV44, makeSave } from '../src/core/save.js'
++import { exportCurrentState, importSave, migrateToLive, validateSaveV45, makeSave } from '../src/core/save.js'
+ import { researchWeekQuote, technologyAccess } from '../src/core/technology.js'
+ import { facilityInstallationPhase } from '../src/core/placement.js'
+ import { hasOperationalFacilityInstallation } from '../src/core/facilityEffects.js'
+@@ -46,7 +46,7 @@ describe('P13A causal Core through the real weekly engine',()=>{
+     state=advanceTo(state,315)
+     expect(state.technology.adoptions.find(a=>a.id===adoption.id)!.operationalWeek).toBe(315)
+     expect(hasOperationalFacilityInstallation(state,adoption.stageFacilityId,'synchronized-sound-stage')).toBe(true)
+-    expect(()=>validateSaveV44(makeSave(state))).not.toThrow()
++    expect(()=>validateSaveV45(makeSave(state))).not.toThrow()
+     const restored=migrateToLive(importSave(exportCurrentState(state))).state
+     expect(restored.technology).toEqual(state.technology)
+     expect(exportCurrentState(restored)===exportCurrentState(state)).toBe(true)
+@@ -88,6 +88,6 @@ describe('P13A causal Core through the real weekly engine',()=>{
+     expect(428-315).toBe(113)
+     expect(state.era.soundRequired).toBe(false)
+     expect(state.ledger.some(e=>e.kind==='researchSpend'||e.kind==='researchPayroll')).toBe(false)
+-    expect(()=>validateSaveV44(makeSave(state))).not.toThrow()
++    expect(()=>validateSaveV45(makeSave(state))).not.toThrow()
+   },30_000)
+ })
+diff --git a/tests/p13b-s2-access-identity.test.ts b/tests/p13b-s2-access-identity.test.ts
+index 753eae1..ca699cd 100644
+--- a/tests/p13b-s2-access-identity.test.ts
++++ b/tests/p13b-s2-access-identity.test.ts
+@@ -1,7 +1,7 @@
+ import { beforeAll, describe, expect, it } from 'vitest'
+ import { applyActions } from '../src/core/actions.js'
+ import { tick } from '../src/core/tick.js'
+-import { exportSave, importSave, makeSave, migrateToLive, validateSaveV44 } from '../src/core/save.js'
++import { exportSave, importSave, makeSave, migrateToLive, validateSaveV45 } from '../src/core/save.js'
+ import { playerTechnologyAccess } from '../src/core/technology.js'
+ import type { TechnologyAccess, TechnologyId } from '../src/core/technologyTypes.js'
+ import type { GameState } from '../src/core/types.js'
+@@ -193,7 +193,7 @@ describe('P13B-S2 access identity: completion grant must key on (studioId, techn
+     expect(lightRows).toHaveLength(1)
+     expect(soundRows[0]).toEqual({ studioId: own, technologyId: 'synchronized-sound', route: 'research', chosenWeek: 780, acquiredWeek: 787, accessCost: 0, researchProjectId: firstId })
+     expect(lightRows[0]).toEqual({ studioId: own, technologyId: 'lighting-control-01', route: 'research', chosenWeek: 787, acquiredWeek: 794, accessCost: 0, researchProjectId: secondId })
+-    expect(() => validateSaveV44(makeSave(state))).not.toThrow()
++    expect(() => validateSaveV45(makeSave(state))).not.toThrow()
+   })
+ 
+   it('7. idempotence: ticking again after completion never adds a duplicate row for either technology', () => {
+diff --git a/tests/p13b-s2-save-v22.test.ts b/tests/p13b-s2-save-v22.test.ts
+index 8649dde..2304e2f 100644
+--- a/tests/p13b-s2-save-v22.test.ts
++++ b/tests/p13b-s2-save-v22.test.ts
+@@ -205,13 +205,13 @@ describe('P13B-S2 V21 to V22 migration (test 8)', () => {
+ describe('P13B-S2 envelope law at the live writer (test 8)', () => {
+   it('makeSave always writes the live saveVersion 37 (stale title corrected post-C.4)', () => {
+     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
+-    expect(makeSave(live(migrated)).saveVersion).toBe(44)
++    expect(makeSave(live(migrated)).saveVersion).toBe(45)
+   })
+ 
+-  it('refuses an unknown saveVersion 45 with the updated range (stale number corrected post-C.2b)', () => {
++  it('refuses an unknown saveVersion 46 with the updated range (stale number corrected post-C.2b)', () => {
+     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
+     const save = makeSave(live(migrated))
+-    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(/versions 1 through 44 only/)
++    expect(() => validateSave({ ...save, saveVersion: 46 })).toThrow(/versions 1 through 45 only/)
+   })
+ 
+   it('round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV32 byte-identically', () => {
+diff --git a/tests/p13b-s3-save-v23.test.ts b/tests/p13b-s3-save-v23.test.ts
+index e0210dc..a47da79 100644
+--- a/tests/p13b-s3-save-v23.test.ts
++++ b/tests/p13b-s3-save-v23.test.ts
+@@ -118,12 +118,12 @@ describe('P13B-S3 Save V23 (test 7)', () => {
+   })
+ 
+   it('makeSave writes the live saveVersion 37 (stale title corrected post-C.2b)', () => {
+-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(44)
++    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(45)
+   })
+ 
+-  it('an unknown saveVersion 45 is refused, naming the handled range (stale number corrected post-C.2b)', () => {
+-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 45 }
+-    expect(() => validateSave(forged)).toThrow(/versions 1 through 44 only/)
++  it('an unknown saveVersion 46 is refused, naming the handled range (stale number corrected post-C.2b)', () => {
++    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 46 }
++    expect(() => validateSave(forged)).toThrow(/versions 1 through 45 only/)
+   })
+ 
+   it('save/reload mid-queue continues identically (byte for byte)', () => {
+diff --git a/tests/p13b-s3-validation.test.ts b/tests/p13b-s3-validation.test.ts
+index 3a0bbed..575f7f9 100644
+--- a/tests/p13b-s3-validation.test.ts
++++ b/tests/p13b-s3-validation.test.ts
+@@ -1,5 +1,5 @@
+ import { beforeAll, describe, expect, it } from 'vitest'
+-import { exportSave, makeSave, validateSaveV44 } from '../src/core/save.js'
++import { exportSave, makeSave, validateSaveV45 } from '../src/core/save.js'
+ import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import type { GameState } from '../src/core/types.js'
+@@ -156,7 +156,7 @@ describe('P13B-S3 validator refusals for physicalPlans (test 8)', () => {
+   // AMENDED (735-T live-version sweep, 2026-09-23): live envelope now V32.
+   it('accepts the unmutated hand-authored baseline directly through validateSaveV32', () => {
+     const json = exportSave(makeSave(base))
+-    expect(() => validateSaveV44(JSON.parse(json))).not.toThrow()
++    expect(() => validateSaveV45(JSON.parse(json))).not.toThrow()
+   })
+ 
+   it('(a) rejects a dependency cycle', () => {
+diff --git a/tests/p13b-s5-save-v24.test.ts b/tests/p13b-s5-save-v24.test.ts
+index e1ab944..00904f1 100644
+--- a/tests/p13b-s5-save-v24.test.ts
++++ b/tests/p13b-s5-save-v24.test.ts
+@@ -207,12 +207,12 @@ describe('P13B-S5 Save V24 (test 4)', () => {
+   // AMENDED AGAIN (P13B-S6 live-version sweep, 2026-09-17): `makeSave` moved to
+   // the live V26 boundary; this section moved with it a second time.
+   it('makeSave writes the live saveVersion 37 (stale title corrected post-C.4)', () => {
+-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(44)
++    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(45)
+   })
+ 
+-  it('an unknown saveVersion 45 is refused, naming the handled range "1 through 44 only" (stale numbers corrected post-C.2b)', () => {
+-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 45 }
+-    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 44 only/)
++  it('an unknown saveVersion 46 is refused, naming the handled range "1 through 45 only" (stale numbers corrected post-C.2b)', () => {
++    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 46 }
++    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 45 only/)
+   })
+ 
+   it('save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational', () => {
+diff --git a/tests/p13b-s6-save-v26.test.ts b/tests/p13b-s6-save-v26.test.ts
+index 008510b..1215c7b 100644
+--- a/tests/p13b-s6-save-v26.test.ts
++++ b/tests/p13b-s6-save-v26.test.ts
+@@ -218,11 +218,11 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
+     expect(() => save.migrateToV20(v26 as never)).toThrow(/cannot downgrade/i)
+   })
+ 
+-  it('an unknown saveVersion 45 is refused, naming the handled range "1 through 44 only" (B4 additive reader boundary; stale numbers corrected post-C.2b, then post-1344-N)', () => {
++  it('an unknown saveVersion 46 is refused, naming the handled range "1 through 45 only" (B4 additive reader boundary; stale numbers corrected post-C.2b, then post-1344-N)', () => {
+     const json = load(V25_FIXTURES.soundMidDeployment.file)
+     const v26 = withV26.migrateToV26(JSON.parse(json))
+-    const forged = { ...v26, saveVersion: 45 }
+-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)
++    const forged = { ...v26, saveVersion: 46 }
++    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)
+   })
+ 
+   it('VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause', () => {
+@@ -251,7 +251,7 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
+       // clock's reach (already proven by tests/p13b-s6-ordering.test.ts case 3).
+       return advanceTo(cancelled, 320)
+     })
+-    expect((reimported as { saveVersion: number }).saveVersion).toBe(44) // did NOT throw (at the live version this real advance writes)
++    expect((reimported as { saveVersion: number }).saveVersion).toBe(45) // did NOT throw (at the live version this real advance writes)
+   })
+ 
+   it('REFUSED: a cancelled placement marked operational', () => {
+diff --git a/tests/p13b-s7-announcements.test.ts b/tests/p13b-s7-announcements.test.ts
+index 551cf52..294ff69 100644
+--- a/tests/p13b-s7-announcements.test.ts
++++ b/tests/p13b-s7-announcements.test.ts
+@@ -83,8 +83,8 @@ function assertSha256(json: string, expected: string) {
+ const liveState = (json: string): GameState => save.migrateToLive(JSON.parse(json) as never).state as GameState
+ 
+ describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3)', () => {
+-  it('LIVE_SAVE_VERSION is 44 (stale title corrected post-C.4 and again for Save43; P13B-S8 made it 27 at the time) — S7 itself changes no save', () => {
+-    expect(save.LIVE_SAVE_VERSION).toBe(44)
++  it('LIVE_SAVE_VERSION is 45 (stale title corrected post-C.4 and again for Save43; P13B-S8 made it 27 at the time) — S7 itself changes no save', () => {
++    expect(save.LIVE_SAVE_VERSION).toBe(45)
+   })
+ 
+   it('genuine V26 fixture at week 795 (before lighting announces at 884): sha256 matches, loads through the live path, no lighting announcement row', () => {
+@@ -132,7 +132,7 @@ describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load,
+     expect(exported).not.toMatch(/"announcement/i)
+ 
+     const reimported = save.importSave(exported)
+-    expect(reimported.saveVersion).toBe(44) // S7 added no save root; the live version is S8's
++    expect(reimported.saveVersion).toBe(45) // S7 added no save root; the live version is S8's
+   })
+ 
+   it('Save As proxy: two independently-loaded copies of the same genuine save publish byte-identical announcement rows at 884', () => {
+diff --git a/tests/p14a1-save-v28.test.ts b/tests/p14a1-save-v28.test.ts
+index 6269ab4..9b2d67a 100644
+--- a/tests/p14a1-save-v28.test.ts
++++ b/tests/p14a1-save-v28.test.ts
+@@ -249,11 +249,11 @@ describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade,
+     expect(() => withV28.validateSaveV28(nonNull as never)).toThrow(/representation/i)
+   })
+ 
+-  it('an unknown saveVersion 45 is refused, naming the handled range "1 through 44 only" (stale numbers corrected post-C.2b)', () => {
++  it('an unknown saveVersion 46 is refused, naming the handled range "1 through 45 only" (stale numbers corrected post-C.2b)', () => {
+     const json = load(V27_FIXTURES.naturalRivalLabs.file)
+     const lifted = withV28.migrateToV28(JSON.parse(json))
+-    const forged = { ...lifted, saveVersion: 45 }
+-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)
++    const forged = { ...lifted, saveVersion: 46 }
++    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)
+   })
+ 
+   it('releaseTalent on a migrateToV28-only state throws the named V29-roots-missing message (T2c: pins the fail-loud behaviour that made the R4 case below need migrateToV29 for its live action)', () => {
+diff --git a/tests/p14b1-save-v29.test.ts b/tests/p14b1-save-v29.test.ts
+index d80ea6a..4e186c7 100644
+--- a/tests/p14b1-save-v29.test.ts
++++ b/tests/p14b1-save-v29.test.ts
+@@ -107,7 +107,7 @@ function promisesRootOf(state: GameState | GameStateV29): readonly unknown[] {
+ 
+ describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade)', () => {
+   it('LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4; the P14B.5 cutover, record 662, made it 31 at the time — the V29 lift this slice pins is the intermediate step)', () => {
+-    expect(save.LIVE_SAVE_VERSION as number).toBe(44)
++    expect(save.LIVE_SAVE_VERSION as number).toBe(45)
+   })
+ 
+   it('genuine V28 open-case-45 fixture: sha256 matches, still validates as V28 through the frozen chain, migrates to V29 with EMPTY firstTakes and promises roots and promises: [] on every existing proposal, otherwise byte-identical', () => {
+@@ -199,10 +199,10 @@ describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same d
+   // The B5 additive reader recognizes V31 (the live writer cut over at record 662,
+   // LIVE_SAVE_VERSION 31); 31 is the current dispatch ceiling, not a change to
+   // frozen V29 fixture law.
+-  it('an unknown saveVersion 45 is refused, naming the handled range "1 through 44 only" (stale numbers corrected post-C.2b)', () => {
++  it('an unknown saveVersion 46 is refused, naming the handled range "1 through 45 only" (stale numbers corrected post-C.2b)', () => {
+     const json = load(FIXTURE.file)
+     const lifted = withV29.migrateToV29(JSON.parse(json))
+-    const forged = { ...lifted, saveVersion: 45 }
+-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)
++    const forged = { ...lifted, saveVersion: 46 }
++    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)
+   })
+ })
+diff --git a/tests/p14b10-save-v44.test.ts b/tests/p14b10-save-v44.test.ts
+index bd5fb34..3cb3e79 100644
+--- a/tests/p14b10-save-v44.test.ts
++++ b/tests/p14b10-save-v44.test.ts
+@@ -115,8 +115,8 @@ function baseV44Envelope(): RawEnvelope {
+ }
+ 
+ describe('API decisions this file exercises (existence asserted first)', () => {
+-  it('LIVE_SAVE_VERSION is 44; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions', () => {
+-    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)
++  it('LIVE_SAVE_VERSION is 45; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions', () => {
++    expect(saveModule.LIVE_SAVE_VERSION).toBe(45)
+     expect(typeof mods().validateSaveV44, 'validateSaveV44').toBe('function')
+     expect(typeof mods().convertV43ToV44, 'convertV43ToV44').toBe('function')
+     expect(typeof mods().convertV44ToV43, 'convertV44ToV43').toBe('function')
+@@ -358,16 +358,16 @@ describe('save-v44: down-conversion (convertV44ToV43)', () => {
+ })
+ 
+ describe('save-v44: the chain and the live route (1358-F4 item 3)', () => {
+-  it('migrateToLive lifts the GENUINE V43 save to Save44 with competitions: [] and romance: null on every edge; makeSave stamps 44 and validateSave dispatches it', () => {
++  it('migrateToLive lifts the GENUINE V43 save to Save45 with competitions: [] and romance: null on every edge; makeSave stamps 45 and validateSave dispatches it', () => {
+     const live = saveModule.migrateToLive(saveModule.importSave(genuineV43Raw())) as unknown as RawEnvelope
+-    expect(live.saveVersion).toBe(44)
++    expect(live.saveVersion).toBe(45)
+     for (const edge of live.state.relationships) {
+       expect(edge.competitions).toEqual([])
+       expect(edge.romance).toBeNull()
+     }
+     const stamped = saveModule.makeSave(live.state as unknown as GameState)
+-    expect(stamped.saveVersion).toBe(44)
+-    expect(saveModule.validateSave(stamped).saveVersion).toBe(44)
++    expect(stamped.saveVersion).toBe(45)
++    expect(saveModule.validateSave(stamped).saveVersion).toBe(45)
+   })
+ 
+   it('migrateToV43(convertV43ToV44(v43)) deep-equals the GENUINE v43: the downgrade drops only the two empty fields', () => {
+diff --git a/tests/p14b5-save-v31.test.ts b/tests/p14b5-save-v31.test.ts
+index f874b38..2cea1ef 100644
+--- a/tests/p14b5-save-v31.test.ts
++++ b/tests/p14b5-save-v31.test.ts
+@@ -192,8 +192,8 @@ function liftsLosslessly(raw: string, save: V30Save) {
+ 
+ // ─────────────────────────────────────────────────────────────────────────────────────────────────────
+ describe('P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep)', () => {
+-  it('LIVE_SAVE_VERSION is the literal 44 the live writer stamps (stale title corrected post-C.2b and again for Save43; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(44)
++  it('LIVE_SAVE_VERSION is the literal 45 the live writer stamps (stale title corrected post-C.2b and again for Save43; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)', () => {
++    expect(LIVE_SAVE_VERSION).toBe(45)
+     expect(V30_AUTHORITY.saveVersion).toBe(30)
+   })
+ 
+diff --git a/tests/p14b7-promise-waiver.test.ts b/tests/p14b7-promise-waiver.test.ts
+index 5e086ab..020fb27 100644
+--- a/tests/p14b7-promise-waiver.test.ts
++++ b/tests/p14b7-promise-waiver.test.ts
+@@ -648,7 +648,7 @@ describe('P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, d
+   // bridge/schema/bridge-schema.ts, and that import alone fails `npx tsc --noEmit` under the root
+   // tsconfig regardless of anything downstream (730-T finding 3).
+   it('LIVE_SAVE_VERSION is the value this slice\'s own V31->V32 step must produce (720 item 11)', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(44)
++    expect(LIVE_SAVE_VERSION).toBe(45)
+   })
+   it('convertV31ToV32 and convertV32ToV31 exist (the RED-mechanism guard for this group)', () => {
+     assertMigrationFns()
+diff --git a/tests/p14c2a-save-and-settlement.test.ts b/tests/p14c2a-save-and-settlement.test.ts
+index e6906c3..af57443 100644
+--- a/tests/p14c2a-save-and-settlement.test.ts
++++ b/tests/p14c2a-save-and-settlement.test.ts
+@@ -25,7 +25,7 @@ import {
+   // RED-by-design (776 S6): none of these five exist in src/core/save.ts today.
+   validateSaveV34, convertV33ToV34, convertV34ToV33, migrateToV34, migrateToLive,
+   // P14C.2b: the live validator now (G5 alone drives a real tick()/makeSave round trip).
+-  validateSaveV37, validateSaveV44,
++  validateSaveV37, validateSaveV45,
+ } from '../src/core/save.js'
+ import type { GameState, GameStateV34, GameStateV37 } from '../src/core/types.js'
+ import {
+@@ -343,14 +343,14 @@ describe('P14C.2a G1-G5: Save V34', () => {
+     const state = migrateToLive(validateSaveV37({ saveVersion: 37, seed: historical.seed,
+       state: historical, broadcastCache: historical.broadcastItems })).state
+     const continuous = tick(tick(state))
+-    const reloaded = validateSaveV44(JSON.parse(JSON.stringify(makeSave(state)))).state
++    const reloaded = validateSaveV45(JSON.parse(JSON.stringify(makeSave(state)))).state
+     const viaSaveLoad = tick(tick(reloaded))
+     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
+   })
+ 
+   it('records LIVE_SAVE_VERSION and confirms migrateToV34/migrateToLive exist (RED premise only — not exercised further here)', () => {
+     // P14C.4: LIVE_SAVE_VERSION is the live writer's own stamp — moves with the bump.
+-    expect(LIVE_SAVE_VERSION).toBe(44)
++    expect(LIVE_SAVE_VERSION).toBe(45)
+     expect(typeof migrateToV34, 'RED premise: migrateToV34 must exist as a named export of src/core/save.ts').toBe('function')
+     expect(typeof migrateToLive, 'RED premise: migrateToLive must exist as a named export of src/core/save.ts').toBe('function')
+   })
+diff --git a/tests/p14c4-save-v35.test.ts b/tests/p14c4-save-v35.test.ts
+index bb38e45..3e7f0e6 100644
+--- a/tests/p14c4-save-v35.test.ts
++++ b/tests/p14c4-save-v35.test.ts
+@@ -30,7 +30,7 @@
+ //    merely that it says "downgrade".
+ import { describe, expect, it } from 'vitest'
+ import {
+-  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV44,
++  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV45,
+ } from '../src/core/save.js'
+ import type { CohortReceipt, GameStateV37 } from '../src/core/types.js'
+ import { recomputeDue } from '../src/core/aging.js'
+@@ -54,13 +54,13 @@ describe('P14C.4 D1: every corpus world migrates V34 -> V35 with cohorts: [] and
+ 
+ describe('P14C.4 D2: the live boundary moved through 35 (stale numbers corrected post-C.2b; both bodies always assert the live constant)', () => {
+   it('LIVE_SAVE_VERSION === 38', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(44)
++    expect(LIVE_SAVE_VERSION).toBe(45)
+   })
+ 
+   it('makeSave stamps 38', () => {
+     const state = c4LiveFixture('genuine-v34-c4-mid-year') // F2: migrate first — makeSave now expects the live (V36) shape
+     const saved = makeSave(state)
+-    expect((saved as { saveVersion: number }).saveVersion).toBe(44)
++    expect((saved as { saveVersion: number }).saveVersion).toBe(45)
+   })
+ })
+ 
+@@ -274,8 +274,8 @@ describe('P14C.4 D5: replay determinism, and save/load mid-year then continuing
+     // P14C.2b: reload at the LIVE (V36) boundary, not the frozen V35 one `liveEnvelope`
+     // now targets (helpers/p14c4-fixtures.ts) — continuing to tick needs every V36 key
+     // `readExtensionUsed` requires, which the V35-stripped shape no longer carries.
+-    const savedLive = validateSaveV44({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })
+-    const reloaded = validateSaveV44(JSON.parse(JSON.stringify(savedLive)))
++    const savedLive = validateSaveV45({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })
++    const reloaded = validateSaveV45(JSON.parse(JSON.stringify(savedLive)))
+     const viaSaveLoad = advanceTo(reloaded.state, 156)
+     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
+   })
+diff --git a/tests/p14d1-rival-shelving-save-v43.test.ts b/tests/p14d1-rival-shelving-save-v43.test.ts
+index 714cf93..e6b677f 100644
+--- a/tests/p14d1-rival-shelving-save-v43.test.ts
++++ b/tests/p14d1-rival-shelving-save-v43.test.ts
+@@ -42,8 +42,8 @@ const mods = () => saveModule as unknown as V43ModuleShape
+ const TUNING_FUTURE = TUNING as unknown as { HOLLYWOOD_SHELVE_AFTER_REJECTIONS: number; HOLLYWOOD_SHELVED_RETRY_WEEKS: number; HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS: number }
+ 
+ describe('API decisions this file exercises (existence asserted first)', () => {
+-  it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 44', () => {
+-    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)
++  it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 45', () => {
++    expect(saveModule.LIVE_SAVE_VERSION).toBe(45)
+     expect(typeof mods().validateSaveV43).toBe('function')
+     expect(typeof mods().convertV42ToV43).toBe('function')
+     expect(typeof mods().convertV43ToV42).toBe('function')
+@@ -79,10 +79,10 @@ describe('save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration', () => {
+     }
+   })
+ 
+-  it('migrateToLive carries a genuine V42 save to V44 (LIVE_SAVE_VERSION)', () => {
++  it('migrateToLive carries a genuine V42 save to V45 (LIVE_SAVE_VERSION)', () => {
+     const v42 = saveModule.importSave(week130Raw())
+     const live = migrateToLive(v42)
+-    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(44)
++    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(45)
+   })
+ })
+ 
+diff --git a/tests/placement-save-v12.test.ts b/tests/placement-save-v12.test.ts
+index 1425684..fd5f7c1 100644
+--- a/tests/placement-save-v12.test.ts
++++ b/tests/placement-save-v12.test.ts
+@@ -50,7 +50,7 @@ import {
+   validateSave,
+   validateSaveV11,
+   validateSaveV12,
+-  validateSaveV44,
++  validateSaveV45,
+ } from '../src/core/index.js'
+ import type {
+   GameState,
+@@ -409,13 +409,13 @@ describe('Placement Core V12 — the frozen envelope', () => {
+       { blueprintId: ANNEX, origin: { gx: 0, gy: 12 } },
+     )
+     const valid = makeSave(twoPlacements)
+-    expect(validateSaveV44(valid)).toBe(valid)
++    expect(validateSaveV45(valid)).toBe(valid)
+ 
+     const overlapped = clone(valid)
+     overlapped.state.placement.facilities[1]!.origin = { gx: 0, gy: 9 }
+     overlapped.state.placement.facilities[1]!.cells =
+       overlapped.state.placement.facilities[0]!.cells.map((cell) => ({ ...cell }))
+-    expect(() => validateSaveV44(overlapped)).toThrow(/overlaps placed facility 1/)
++    expect(() => validateSaveV45(overlapped)).toThrow(/overlaps placed facility 1/)
+ 
+     const tooClose = clone(valid)
+     tooClose.state.placement.facilities[1]!.origin = { gx: 0, gy: 11 }
+@@ -427,27 +427,27 @@ describe('Placement Core V12 — the frozen envelope', () => {
+       { gx: 1, gy: 12 },
+       { gx: 2, gy: 12 },
+     ]
+-    expect(() => validateSaveV44(tooClose)).toThrow(/violates its clearance ring/)
++    expect(() => validateSaveV45(tooClose)).toThrow(/violates its clearance ring/)
+   })
+ 
+   it('rejects a forged operating charge that disagrees with the operational facilities', () => {
+     const operational = advance(building('save-v12-opex'), ANNEX_DURATION_WEEKS + 2)
+     const valid = makeSave(operational)
+-    expect(validateSaveV44(valid)).toBe(valid)
++    expect(validateSaveV45(valid)).toBe(valid)
+ 
+     const doubled = clone(valid)
+     const row = doubled.state.ledger.find((entry) => entry.kind === 'facilityOpex')!
+     const before = row.amount
+     row.amount = before * 2
+     doubled.state.studio.cash += before
+-    expect(() => validateSaveV44(doubled)).toThrow(
++    expect(() => validateSaveV45(doubled)).toThrow(
+       /facility operating cost at week .* disagrees/,
+     )
+ 
+     const early = clone(valid)
+     const earliest = early.state.ledger.find((entry) => entry.kind === 'facilityOpex')!
+     earliest.week = 1 // before the facility existed
+-    expect(() => validateSaveV44(early)).toThrow(
++    expect(() => validateSaveV45(early)).toThrow(
+       /facility operating cost at week 1 disagrees/,
+     )
+   })
+diff --git a/tests/property-state-v13.test.ts b/tests/property-state-v13.test.ts
+index d1c791e..b475f68 100644
+--- a/tests/property-state-v13.test.ts
++++ b/tests/property-state-v13.test.ts
+@@ -62,7 +62,7 @@ import {
+   studioPlacementView,
+   tick,
+   validateSave,
+-  validateSaveV44,
++  validateSaveV45,
+   assertStudioPlacementInvariants,
+   expectedWeeklyOperatingCostAt,
+ } from '../src/core/index.js'
+@@ -530,7 +530,7 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
+     // And it all round-trips byte-identically at the live boundary.
+     const json = exportSave(makeSave(operational))
+     const reloaded = migrateToCurrentControl(importSave(json))
+-    expect(reloaded.saveVersion).toBe(44)
++    expect(reloaded.saveVersion).toBe(45)
+     expect(exportSave(makeSave(reloaded.state))).toBe(json)
+     expect(reloaded.state.property).toEqual(INITIAL_PROPERTY)
+     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)
+@@ -697,9 +697,9 @@ describe('C1-M1a (d) — SaveFileV13', () => {
+       const save = makeSave(state)
+       // P13B-S6: the LIVE envelope is now V26. The property root and every claim
+       // this case makes about it are unchanged — only which version writes it.
+-      expect(save.saveVersion).toBe(44)
++      expect(save.saveVersion).toBe(45)
+       expect(validateSave(save)).toBe(save)
+-      expect(validateSaveV44(save)).toBe(save)
++      expect(validateSaveV45(save)).toBe(save)
+       expect(save.state.property).toEqual(INITIAL_PROPERTY)
+       const json = exportSave(save)
+       expect(exportSave(importSave(json))).toBe(json)
+@@ -796,7 +796,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
+     for (const [, mutate, expected] of cases) {
+       const bad = clone(valid)
+       mutate(bad)
+-      expect(() => validateSaveV44(bad)).toThrow(expected)
++      expect(() => validateSaveV45(bad)).toThrow(expected)
+     }
+   })
+ 
+@@ -865,7 +865,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
+     for (const [, mutate, expected] of cases) {
+       const bad = clone(valid)
+       mutate(bad)
+-      expect(() => validateSaveV44(bad)).toThrow(expected)
++      expect(() => validateSaveV45(bad)).toThrow(expected)
+     }
+   })
+ 
+@@ -877,7 +877,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
+     const forged = clone(makeSave(state))
+     // Move the Theater onto the Annex's ground. Nothing may stand in a body.
+     forged.state.property.structures.find((s) => s.id === 'theater')!.origin = { gx: 7, gy: 15 }
+-    expect(() => validateSaveV44(forged)).toThrow(
++    expect(() => validateSaveV45(forged)).toThrow(
+       /placed facility 1 overlaps property structure "theater"/,
+     )
+   })
+@@ -940,8 +940,8 @@ describe('C1-M1a (d) — SaveFileV13', () => {
+ 
+   it('rejects unknown V42 beyond the current V37 reader boundary (stale numbers corrected post-C.2b)', () => {
+     const live = makeSave(managedStudio('c1-m1a-unknown'))
+-    expect(() => validateSave({ ...live, saveVersion: 45 })).toThrow(
+-      /unknown saveVersion 45.*versions 1 through 44 only/,
++    expect(() => validateSave({ ...live, saveVersion: 46 })).toThrow(
++      /unknown saveVersion 46.*versions 1 through 45 only/,
+     )
+   })
+ })
+diff --git a/tests/script-projects-save-v9.test.ts b/tests/script-projects-save-v9.test.ts
+index d7af0d8..048e525 100644
+--- a/tests/script-projects-save-v9.test.ts
++++ b/tests/script-projects-save-v9.test.ts
+@@ -412,11 +412,11 @@ describe("Script Projects V1 — SaveFileV9", () => {
+ 
+   it("rejects unknown V42 and refuses to downgrade V9 through migrateToV8 (stale number corrected post-C.2b)", () => {
+     const save = makeSaveV9(generateWorld("save-v9-boundary"));
+-    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(
+-      /unknown saveVersion 45/,
++    expect(() => validateSave({ ...save, saveVersion: 46 })).toThrow(
++      /unknown saveVersion 46/,
+     );
+-    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(
+-      /versions 1 through 44 only/,
++    expect(() => validateSave({ ...save, saveVersion: 46 })).toThrow(
++      /versions 1 through 45 only/,
+     );
+     expect(() => migrateToV8(save)).toThrow(/cannot downgrade SaveFileV9/);
+   });
+diff --git a/ui/src/engine/d17-save-migration.test.ts b/ui/src/engine/d17-save-migration.test.ts
+index ba63f10..876e1ec 100644
+--- a/ui/src/engine/d17-save-migration.test.ts
++++ b/ui/src/engine/d17-save-migration.test.ts
+@@ -128,7 +128,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
+   it('a CURRENT-version save round-trips through the adapter as NOT converted', () => {
+     const state = newFoundedGame('d17-adapter-v10')
+     const json = exportSaveJson(state)
+-    expect(JSON.parse(json).saveVersion).toBe(44) // Current C.3 writer: SaveFileV38.
++    expect(JSON.parse(json).saveVersion).toBe(45) // Current C.3 writer: SaveFileV38.
+ 
+     const r = importSaveJson(json)
+     expect(r.ok).toBe(true)
+@@ -152,7 +152,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
+     expect(r.state.operations).toEqual(state.operations)
+     expect(r.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
+     expect(r.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
+-    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(44) // current C.3 writer: SaveFileV38.
++    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(45) // current C.3 writer: SaveFileV38.
+   })
+ 
+   it('a V5 file with a hand-added economyEngagedEver is still read as V5 (the flag is recomputed)', () => {
+diff --git a/ui/src/engine/film-chronicle-adapter.test.ts b/ui/src/engine/film-chronicle-adapter.test.ts
+index 35fbb54..1eec52c 100644
+--- a/ui/src/engine/film-chronicle-adapter.test.ts
++++ b/ui/src/engine/film-chronicle-adapter.test.ts
+@@ -286,7 +286,7 @@ describe('Film Chronicle V1 — real adapter wiring', () => {
+     const before = releaseNewspaper(state, film)
+     expect(before).not.toBeNull()
+     const json = exportSaveJson(state)
+-    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(44) // current C.3 writer: SaveFileV38.
++    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(45) // current C.3 writer: SaveFileV38.
+     const imported = importSaveJson(json)
+     expect(imported.ok).toBe(true)
+     if (!imported.ok) return
+diff --git a/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts b/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts
+index 934fd9b..7521a43 100644
+--- a/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts
++++ b/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts
+@@ -43,7 +43,7 @@ describe('C2a-M2 — a save round-trips as V15, roots and all', () => {
+     const json = exportSaveJson(state)
+     // This exercises the current writer, including the governed P13 root.
+     // Frozen historical validators retain their separate versioned tests.
+-    expect(JSON.parse(json).saveVersion).toBe(44) // current C.3 writer: SaveFileV38.
++    expect(JSON.parse(json).saveVersion).toBe(45) // current C.3 writer: SaveFileV38.
+ 
+     const outcome = importSaveJson(json)
+     expect(outcome.ok).toBe(true)
+diff --git a/ui/src/saves.test.tsx b/ui/src/saves.test.tsx
+index b84a7d8..65f5915 100644
+--- a/ui/src/saves.test.tsx
++++ b/ui/src/saves.test.tsx
+@@ -123,7 +123,7 @@ describe('saves: export → import round-trips the EXACT state', () => {
+     state = advanceWeek(state).next
+ 
+     const json = exportSaveJson(state)
+-    expect(JSON.parse(json).saveVersion).toBe(44) // current C.3 writer: SaveFileV38.
++    expect(JSON.parse(json).saveVersion).toBe(45) // current C.3 writer: SaveFileV38.
+     const r = importSaveJson(json)
+     expect(r.ok).toBe(true)
+     if (!r.ok) return
+diff --git a/ui/src/session.test.tsx b/ui/src/session.test.tsx
+index af4ba06..8d6ee6a 100644
+--- a/ui/src/session.test.tsx
++++ b/ui/src/session.test.tsx
+@@ -329,7 +329,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
+ 
+     // …and re-saving it writes a V14 envelope that loads back UNCONVERTED.
+     saveActiveSession(loaded.state)
+-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(44) // C.3: live saves are SaveFileV38.
++    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(45) // C.3: live saves are SaveFileV38.
+     const again = loadActiveSession()
+     expect(again.ok).toBe(true)
+     if (!again.ok) return
+@@ -357,7 +357,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
+ 
+     // Round-trip: saved as V14, reloaded unconverted, still not engaged.
+     saveActiveSession(loaded.state)
+-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(44) // C.3: live saves are SaveFileV38.
++    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(45) // C.3: live saves are SaveFileV38.
+     const again = loadActiveSession()
+     expect(again.ok).toBe(true)
+     if (!again.ok) return
+@@ -384,7 +384,7 @@ describe('Script Projects V1 — a stored V8 autosave migrates on load', () => {
+ 
+     saveActiveSession(loaded.state)
+     const parsedV11 = JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!)
+-    expect(parsedV11.saveVersion).toBe(44) // C.3: live saves are SaveFileV38.
++    expect(parsedV11.saveVersion).toBe(45) // C.3: live saves are SaveFileV38.
+     expect(parsedV11.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
+     expect(parsedV11.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
+     expect(parsedV11.state.construction).toEqual({ mode: 'legacy', parcels: [], projects: [] })

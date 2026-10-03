@@ -1,0 +1,800 @@
+diff --git a/tests/c2a-m2-sets-save.test.ts b/tests/c2a-m2-sets-save.test.ts
+index c43e9df..5579e25 100644
+--- a/tests/c2a-m2-sets-save.test.ts
++++ b/tests/c2a-m2-sets-save.test.ts
+@@ -29,7 +29,7 @@ import {
+   setMountedOn,
+   stableStringify,
+   tick,
+-  validateSaveV44,
++  validateSaveV45,
+ } from '../src/core/index.js'
+ import type { CastSlot, CreativeRole, GameState, SegmentId, Talent } from '../src/core/index.js'
+ import { grandfatheredBindings, v13TwinOf } from './contracts/_v14Contract.js'
+@@ -49,7 +49,7 @@ function foundedStudio(seed: string, historical = false): GameState {
+   const generated = generateWorld(seed)
+   if (historical) {
+     expect(generated.hollywood).toBeNull()
+-    expect(() => validateSaveV44(makeSave(generated))).not.toThrow()
++    expect(() => validateSaveV45(makeSave(generated))).not.toThrow()
+   }
+   let state = historical ? beginFoundingHistoricalControl(generated) : beginFounding(generated)
+   const pool = applicants(state)
+@@ -169,7 +169,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
+     const envelope = JSON.parse(exportSave(makeSave(state))) as {
+       state: { sets: Record<string, unknown>[]; nextSetId: number }
+     }
+-    expect(() => validateSaveV44(envelope)).not.toThrow()
++    expect(() => validateSaveV45(envelope)).not.toThrow()
+ 
+     const forge = (mutate: (sets: Record<string, unknown>[]) => void): unknown => {
+       const copy = JSON.parse(JSON.stringify(envelope)) as typeof envelope
+@@ -179,7 +179,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
+ 
+     // Two sets on one stage.
+     expect(() =>
+-      validateSaveV44(
++      validateSaveV45(
+         forge((sets) => {
+           sets[2]!.mountedOn = STAGE_7
+         }),
+@@ -188,7 +188,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
+ 
+     // A standing set with no condition — the build/repair discriminator broken.
+     expect(() =>
+-      validateSaveV44(
++      validateSaveV45(
+         forge((sets) => {
+           sets[0]!.condition = 0
+         }),
+@@ -197,7 +197,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
+ 
+     // A set under work that no scenery crew is on.
+     expect(() =>
+-      validateSaveV44(
++      validateSaveV45(
+         forge((sets) => {
+           sets[0]!.status = 'under-construction'
+           sets[0]!.completesWeek = 400
+@@ -229,7 +229,7 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
+     // 1344-N S1 (x2 at a318722, :230 measured "validateSaveV42: expected version 42"): makeSave
+     // (src/core/save.ts:6564-6565) stamps the live 43, here and at the two later calls in this leaf.
+     // 1358-N S1: Save44 moves the live stamp to 44, so all three calls name validateSaveV44.
+-    expect(() => validateSaveV44(makeSave(native))).not.toThrow()
++    expect(() => validateSaveV45(makeSave(native))).not.toThrow()
+     const twin = v13TwinOf(grandfatheredBindings(native))
+     const migratedSave = migrateToV14(twin as unknown as Parameters<typeof migrateToV14>[0])
+     const migrated = migratedSave.state
+@@ -248,7 +248,7 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
+     // nothing in this migrated save was ever a committed release.
+     const liveMigrated = migrateToCurrentControl(migratedSave).state
+     expect(liveMigrated.hollywood).toBeNull()
+-    expect(() => validateSaveV44(makeSave(liveMigrated))).not.toThrow()
++    expect(() => validateSaveV45(makeSave(liveMigrated))).not.toThrow()
+     let played = applyActions(liveMigrated, [
+       { kind: 'greenlight', production: productionPayload(liveMigrated, 1) },
+     ])
+@@ -278,7 +278,7 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
+     }
+ 
+     // And the whole thing is a legal V15 file at every step.
+-    expect(() => validateSaveV44(JSON.parse(exportSave(makeSave(played))))).not.toThrow()
++    expect(() => validateSaveV45(JSON.parse(exportSave(makeSave(played))))).not.toThrow()
+   })
+ 
+   it('lets a migrated studio BUILD a set on the stage it just cleared', () => {
+@@ -288,13 +288,13 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
+     // 1344-N S1 (x2 at a318722, :286 measured "validateSaveV42: expected version 42"): makeSave
+     // (src/core/save.ts:6564-6565) stamps the live 43, here and at the later call in this leaf.
+     // 1358-N S1: Save44 moves the live stamp to 44, so both calls name validateSaveV44.
+-    expect(() => validateSaveV44(makeSave(native))).not.toThrow()
++    expect(() => validateSaveV45(makeSave(native))).not.toThrow()
+     const migratedSave = migrateToV14(v13TwinOf(grandfatheredBindings(native)) as unknown as Parameters<typeof migrateToV14>[0])
+     // `migrated` (frozen GameStateV14) gains P06A's release authority — empty,
+     // since nothing in this migrated save was ever a committed release.
+     const liveMigrated = migrateToCurrentControl(migratedSave).state
+     expect(liveMigrated.hollywood).toBeNull()
+-    expect(() => validateSaveV44(makeSave(liveMigrated))).not.toThrow()
++    expect(() => validateSaveV45(makeSave(liveMigrated))).not.toThrow()
+     let played = applyActions(liveMigrated, [{ kind: 'strikeSet', setId: 'set-1' }])
+     expect(setMountedOn(played.sets, STAGE_12)).toBeNull()
+     played = applyActions(played, [
+diff --git a/tests/cash-ledger-checkpoint-v11.test.ts b/tests/cash-ledger-checkpoint-v11.test.ts
+index 6a57eb5..4b15cd4 100644
+--- a/tests/cash-ledger-checkpoint-v11.test.ts
++++ b/tests/cash-ledger-checkpoint-v11.test.ts
+@@ -45,7 +45,7 @@ import {
+   makeSaveV11,
+   migrateToV11,
+   migrateToV14,
+-  validateSaveV44,
++  validateSaveV45,
+   stableStringify,
+   validateSaveV1,
+   validateSaveV2,
+@@ -222,7 +222,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
+     const nativeWorld = generateWorld("checkpoint-native-omission");
+     const native = makeSave(nativeWorld);
+     expect("cashLedgerCheckpoint" in native.state).toBe(false);
+-    expect(validateSaveV44(native)).toBe(native);
++    expect(validateSaveV45(native)).toBe(native);
+     expect(migrateToCurrentControl(native)).toBe(native);
+ 
+     const played = applyActions(
+@@ -232,7 +232,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
+     const reconciled = makeSave(played);
+     expect(reconciled.state.ledger).toHaveLength(1);
+     expect("cashLedgerCheckpoint" in reconciled.state).toBe(false);
+-    expect(validateSaveV44(reconciled)).toBe(reconciled);
++    expect(validateSaveV45(reconciled)).toBe(reconciled);
+ 
+     const json = exportSave(reconciled);
+     const imported = importSave(json);
+@@ -284,7 +284,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
+       cash: redundant.state.studio.cash,
+       ledgerLength: redundant.state.ledger.length,
+     };
+-    expect(() => validateSaveV44(redundant)).toThrow(
++    expect(() => validateSaveV45(redundant)).toThrow(
+       /checkpoint must encode a genuine historical reconciliation boundary/,
+     );
+   });
+@@ -361,7 +361,7 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
+       expect(stableStringify(invalid)).toBe(invalidBytes);
+     }
+ 
+-    const current = validateSaveV44(makeSave(generateWorld("checkpoint-frozen-redundant")));
++    const current = validateSaveV45(makeSave(generateWorld("checkpoint-frozen-redundant")));
+     const currentBytes = stableStringify(current);
+     const historical = validateSaveV11(makeSaveV11(current.state));
+     expect(stableStringify(current)).toBe(currentBytes);
+@@ -458,25 +458,25 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
+ 
+     const changedAnchor = clone(valid);
+     changedAnchor.state.cashLedgerCheckpoint!.cash += 1;
+-    expect(() => validateSaveV44(changedAnchor)).toThrow(
++    expect(() => validateSaveV45(changedAnchor)).toThrow(
+       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
+     );
+ 
+     const changedCash = clone(valid);
+     changedCash.state.studio.cash += 1;
+-    expect(() => validateSaveV44(changedCash)).toThrow(
++    expect(() => validateSaveV45(changedCash)).toThrow(
+       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
+     );
+ 
+     const movedBoundary = clone(valid);
+     movedBoundary.state.cashLedgerCheckpoint!.ledgerLength += 1;
+-    expect(() => validateSaveV44(movedBoundary)).toThrow(
++    expect(() => validateSaveV45(movedBoundary)).toThrow(
+       /construction capex cannot predate the V11 cash-ledger checkpoint/,
+     );
+ 
+     const changedSuffix = clone(valid);
+     changedSuffix.state.ledger[overheadIndex]!.amount -= 1;
+-    expect(() => validateSaveV44(changedSuffix)).toThrow(
++    expect(() => validateSaveV45(changedSuffix)).toThrow(
+       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
+     );
+   });
+diff --git a/tests/construction-core.test.ts b/tests/construction-core.test.ts
+index 93a1519..6063f24 100644
+--- a/tests/construction-core.test.ts
++++ b/tests/construction-core.test.ts
+@@ -16,7 +16,7 @@ import {
+   stableStringify,
+   studioConstructionView,
+   tick,
+-  validateSaveV44,
++  validateSaveV45,
+ } from '../src/core/index.js'
+ import { DEVELOPMENT_CASTING_ANNEX_FACILITY } from '../src/core/operations.js'
+ import type {
+@@ -494,7 +494,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
+     )
+     const forgedSave = JSON.parse(stableStringify(makeSave(state))) as ReturnType<typeof makeSave>
+     forgedSave.state.operations.workflows[0]!.reservations[0]!.facilityId = ANNEX_FACILITY_ID
+-    expect(() => validateSaveV44(forgedSave)).toThrow(
++    expect(() => validateSaveV45(forgedSave)).toThrow(
+       /cannot reserve the Annex before Week 13/,
+     )
+     const laundered = JSON.parse(stableStringify(forged)) as GameState
+@@ -502,7 +502,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
+     expect(() => assertStudioPlacementInvariants(laundered)).toThrow(
+       /advanced farther than its startTick permits/,
+     )
+-    expect(() => validateSaveV44(makeSave(laundered))).toThrow(
++    expect(() => validateSaveV45(makeSave(laundered))).toThrow(
+       /advanced farther than its startTick permits/,
+     )
+ 
+@@ -563,7 +563,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
+     const forgedSave = JSON.parse(stableStringify(makeSave(state))) as ReturnType<typeof makeSave>
+     forgedSave.state.studio.activeProductions[0]!.startTick = 13
+     forgedSave.state.operations.workflows[0]!.reservations[0]!.facilityId = ANNEX_FACILITY_ID
+-    expect(() => validateSaveV44(forgedSave)).toThrow(
++    expect(() => validateSaveV45(forgedSave)).toThrow(
+       /placed-facility reservation disagrees with its authoritative greenlight week/,
+     )
+   })
+@@ -661,7 +661,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
+     ).toBe(true)
+     expect(state.operations.facilities.at(-1)!.id).toBe(ANNEX_FACILITY_ID)
+     expect(state.placement.facilities[0]).toMatchObject({ status: 'operational', completesWeek: 13 })
+-    expect(() => validateSaveV44(makeSave(state))).not.toThrow()
++    expect(() => validateSaveV45(makeSave(state))).not.toThrow()
+   })
+ 
+   it('accepts only the exact Annex V1 facility set and detects cross-owner collisions', () => {
+diff --git a/tests/contracts/cross-owner-refusal.contract.test.ts b/tests/contracts/cross-owner-refusal.contract.test.ts
+index 5e5f7e1..ef91ab9 100644
+--- a/tests/contracts/cross-owner-refusal.contract.test.ts
++++ b/tests/contracts/cross-owner-refusal.contract.test.ts
+@@ -21,7 +21,7 @@
+ 
+ import { describe, expect, it } from 'vitest'
+ 
+-import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV44 } from '../../src/core/index.js'
++import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV45 } from '../../src/core/index.js'
+ import type { GameState, LiveSaveFile } from '../../src/core/index.js'
+ import {
+   auditionSlate,
+@@ -69,7 +69,7 @@ function auditionBesideScreenplay(seed: string): GameState {
+ 
+ function legalSave(state: GameState): LiveSaveFile {
+   const save = makeSave(state)
+-  expect(validateSaveV44(save)).toBe(save)
++  expect(validateSaveV45(save)).toBe(save)
+   return save
+ }
+ 
+@@ -97,7 +97,7 @@ function proveRefusal(
+ 
+   let thrown: unknown = null
+   try {
+-    validateSaveV44(forged)
++    validateSaveV45(forged)
+   } catch (error) {
+     thrown = error
+   }
+@@ -115,7 +115,7 @@ function proveRefusal(
+   expect(stableStringify(forged), `${label}: the twin is byte-identical`).toBe(
+     stableStringify(legal),
+   )
+-  expect(validateSaveV44(forged as LiveSaveFile)).toBe(forged)
++  expect(validateSaveV45(forged as LiveSaveFile)).toBe(forged)
+ }
+ 
+ describe('C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED', () => {
+diff --git a/tests/contracts/phase-table-agreement.contract.test.ts b/tests/contracts/phase-table-agreement.contract.test.ts
+index a3bb959..5b8ffcc 100644
+--- a/tests/contracts/phase-table-agreement.contract.test.ts
++++ b/tests/contracts/phase-table-agreement.contract.test.ts
+@@ -25,7 +25,7 @@ import {
+   productionPhaseForRemainingTicks as operationsPhaseForRemainingTicks,
+   stableStringify,
+   tick,
+-  validateSaveV44,
++  validateSaveV45,
+ } from '../../src/core/index.js'
+ import type {
+   FacilityReservation,
+@@ -101,7 +101,7 @@ function phaseWalk(seed: string): PhaseSnapshot[] {
+ 
+ function saveOf(state: GameState): LiveSaveFile {
+   const save = makeSave(state)
+-  expect(validateSaveV44(save)).toBe(save)
++  expect(validateSaveV45(save)).toBe(save)
+   return save
+ }
+ 
+@@ -221,13 +221,13 @@ describe('C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal', ()
+ 
+       // Substring form on purpose: a required multiset is joined with " + ",
+       // which is a quantifier if it is read as a pattern.
+-      expect(() => validateSaveV44(forged), `${snapshot.phase} forged`).toThrow(
++      expect(() => validateSaveV45(forged), `${snapshot.phase} forged`).toThrow(
+         `must provide exactly ${expectedNaming} for ${snapshot.phase}`,
+       )
+       // The legal twin is untouched and still passes — the refusal is the
+       // collision, not the fixture.
+       expect(stableStringify(legal)).toBe(before)
+-      expect(validateSaveV44(legal)).toBe(legal)
++      expect(validateSaveV45(legal)).toBe(legal)
+     }
+   })
+ 
+@@ -243,7 +243,7 @@ describe('C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal', ()
+         capability: 'development-casting',
+         targetPhase: wrongTarget,
+       }
+-      expect(() => validateSaveV44(forged), `${snapshot.phase} → ${wrongTarget}`).toThrow(
++      expect(() => validateSaveV45(forged), `${snapshot.phase} → ${wrongTarget}`).toThrow(
+         /blocker\.targetPhase must be the next scheduled phase/,
+       )
+     }
+@@ -263,7 +263,7 @@ describe('C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal', ()
+       capability: unrelated,
+       targetPhase: next,
+     }
+-    expect(() => validateSaveV44(forged)).toThrow(
++    expect(() => validateSaveV45(forged)).toThrow(
+       /blocker\.capability is not required by its target phase/,
+     )
+   })
+diff --git a/tests/contracts/studio-events.contract.test.ts b/tests/contracts/studio-events.contract.test.ts
+index 882ac52..3c75875 100644
+--- a/tests/contracts/studio-events.contract.test.ts
++++ b/tests/contracts/studio-events.contract.test.ts
+@@ -126,7 +126,7 @@ function validateAtOwningBoundary(kind: string, rows: readonly Record<string, un
+     const makeSaveLive = requireFunction(requireCore(), 'makeSave', 'P08A live boundary') as unknown as (
+       s: GameState,
+     ) => { state: Record<string, unknown> }
+-    const validateLive = requireFunction(requireCore(), 'validateSaveV44', 'P09 live boundary') as unknown as (
++    const validateLive = requireFunction(requireCore(), 'validateSaveV45', 'P09 live boundary') as unknown as (
+       save: unknown,
+     ) => unknown
+     const forged = clone(makeSaveLive(managed) as unknown as Envelope)
+diff --git a/tests/legacy-parcel-ground.test.ts b/tests/legacy-parcel-ground.test.ts
+index 19acb61..cf089b3 100644
+--- a/tests/legacy-parcel-ground.test.ts
++++ b/tests/legacy-parcel-ground.test.ts
+@@ -46,7 +46,7 @@ import {
+   studioCalendar,
+   studioConstructionView,
+   tick,
+-  validateSaveV44,
++  validateSaveV45,
+ } from '../src/core/index.js'
+ import {
+   CRAFT_ANNEX_BLUEPRINT,
+@@ -362,7 +362,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
+     expect(() =>
+       assertStudioPlacementInvariants(save.state as unknown as GameState),
+     ).toThrow(named)
+-    expect(() => validateSaveV44(save)).toThrow(named)
++    expect(() => validateSaveV45(save)).toThrow(named)
+     // The load path a player actually reaches — never a half-loaded world.
+     expect(() => importSave(JSON.stringify(save))).toThrow(named)
+   })
+@@ -373,7 +373,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
+       DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.buildWeeks,
+     )
+     const save = makeSave(annex)
+-    expect(validateSaveV44(save)).toBe(save)
++    expect(validateSaveV45(save)).toBe(save)
+     const json = exportSave(save)
+     expect(exportSave(importSave(json) as LiveSaveFile)).toBe(json)
+     expect(annex.placement.facilities[0]!.parcelId).toBe(LEGACY_EXPANSION_PARCEL_ID)
+@@ -401,7 +401,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
+           placed.cells.push({ gx: LEGACY_ORIGIN.gx + dx, gy: LEGACY_ORIGIN.gy + dy })
+         }
+       }
+-      expect(() => validateSaveV44(save), blueprint.id).toThrow(/reserved for the studio's Annex/)
++      expect(() => validateSaveV45(save), blueprint.id).toThrow(/reserved for the studio's Annex/)
+     }
+   })
+ })
+diff --git a/tests/p08a-w0-studio-history.test.ts b/tests/p08a-w0-studio-history.test.ts
+index 54d2df7..cf61b1f 100644
+--- a/tests/p08a-w0-studio-history.test.ts
++++ b/tests/p08a-w0-studio-history.test.ts
+@@ -50,7 +50,7 @@ import {
+   tick,
+   TUNING,
+   updateStanding,
+-  validateSaveV44,
++  validateSaveV45,
+ } from '../src/core/index.js'
+ import type {
+   CastSlot,
+@@ -438,7 +438,7 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
+   it('refuses out-of-order ids, pre-boundary rows, lying deltas, and unknown kinds', () => {
+     const { after } = releaseOne('p08-h8-forge')
+     const legal = makeSave(after)
+-    expect(validateSaveV44(clone(legal))).toBeTruthy()
++    expect(validateSaveV45(clone(legal))).toBeTruthy()
+ 
+     const swapped = clone(legal)
+     const rows = [...swapped.state.studioHistory.rows]
+@@ -447,7 +447,7 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
+       rows[0] = b
+       rows[1] = a
+       ;(swapped.state.studioHistory as unknown as { rows: unknown[] }).rows = rows
+-      expect(() => validateSaveV44(swapped)).toThrow(/ascending eventId/)
++      expect(() => validateSaveV45(swapped)).toThrow(/ascending eventId/)
+     }
+ 
+     const early = clone(legal)
+@@ -456,13 +456,13 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
+     expect(early.state.firstTakes.every((take) => take.week >= boundary)).toBe(true)
+     expect(early.state.promises).toEqual([])
+     ;(early.state.studioHistory as { recordingStartedWeek: number }).recordingStartedWeek = boundary
+-    expect(() => validateSaveV44(early)).toThrow(/recording boundary/)
++    expect(() => validateSaveV45(early)).toThrow(/recording boundary/)
+ 
+     const lying = clone(legal)
+     const receipt = lying.state.studioHistory.rows.find((r) => r.kind === 'standingChanged')
+     if (receipt !== undefined && receipt.kind === 'standingChanged') {
+       ;(receipt.deltas as { audienceAwareness: number }).audienceAwareness += 1
+-      expect(() => validateSaveV44(lying)).toThrow(/after − before/)
++      expect(() => validateSaveV45(lying)).toThrow(/after − before/)
+     }
+ 
+     const unknown = clone(legal)
+@@ -474,6 +474,6 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
+       subjects: [{ kind: 'studio' }],
+     })
+     ;(unknown.state.studioHistory as { nextEventId: number }).nextEventId += 1
+-    expect(() => validateSaveV44(unknown)).toThrow(/not a known history kind/)
++    expect(() => validateSaveV45(unknown)).toThrow(/not a known history kind/)
+   })
+ })
+diff --git a/tests/p13a-technology-milestones.test.ts b/tests/p13a-technology-milestones.test.ts
+index a99a0a3..0259b43 100644
+--- a/tests/p13a-technology-milestones.test.ts
++++ b/tests/p13a-technology-milestones.test.ts
+@@ -3,7 +3,7 @@ import { gunzipSync } from 'node:zlib'
+ import { beforeAll, describe, expect, it } from 'vitest'
+ import { applyActions } from '../src/core/actions.js'
+ import { initializeHollywood } from '../src/core/hollywood.js'
+-import { exportSave, importSave, makeSave, migrateToV25, migrateToLive, validateSaveV19, validateSaveV44 } from '../src/core/save.js'
++import { exportSave, importSave, makeSave, migrateToV25, migrateToLive, validateSaveV19, validateSaveV45 } from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+ import { technologyMilestoneDrafts } from '../src/core/technologyMilestones.js'
+ import type { GameState } from '../src/core/types.js'
+@@ -71,14 +71,14 @@ describe('P13A dated public technology history', () => {
+     ]) {
+       const forged = structuredClone(save)
+       Object.assign(milestones(forged.state)[0]!, change)
+-      expect(() => validateSaveV44(forged)).toThrow(/technology milestone/)
++      expect(() => validateSaveV45(forged)).toThrow(/technology milestone/)
+     }
+     const duplicated = structuredClone(save)
+     duplicated.state.studioHistory.rows = [...duplicated.state.studioHistory.rows,
+       { ...milestones(duplicated.state)[0]!, eventId: duplicated.state.studioHistory.nextEventId++ }]
+-    expect(() => validateSaveV44(duplicated)).toThrow(/duplicate technology milestone/)
++    expect(() => validateSaveV45(duplicated)).toThrow(/duplicate technology milestone/)
+     const preRecorded = structuredClone(save)
+     preRecorded.state.technology.recordingStartedWeek = 260
+-    expect(() => validateSaveV44(preRecorded)).toThrow(/invented technology history/)
++    expect(() => validateSaveV45(preRecorded)).toThrow(/invented technology history/)
+   })
+ })
+diff --git a/tests/p14b1-first-take.test.ts b/tests/p14b1-first-take.test.ts
+index a9f9720..91c1c2f 100644
+--- a/tests/p14b1-first-take.test.ts
++++ b/tests/p14b1-first-take.test.ts
+@@ -291,7 +291,7 @@ describe('P14B.1 test 1: the first-take receipt', () => {
+     // 33 -> 34 and the validator with it, same reasoning one step further.
+     expect(afterFirstWeek.relationships.length).toBeGreaterThan(0)
+     const envelope = { saveVersion: save.LIVE_SAVE_VERSION, seed: afterFirstWeek.seed, state: afterFirstWeek, broadcastCache: afterFirstWeek.broadcastItems }
+-    const roundTripped = save.validateSaveV44(JSON.parse(JSON.stringify(envelope)))
++    const roundTripped = save.validateSaveV45(JSON.parse(JSON.stringify(envelope)))
+     // Filtered by productionId, exactly like `takes` above: an industry
+     // world's `firstTakes` root also carries every rival's own first takes
+     // (unlike the V28-fixture's isolated operations-only world), so the
+diff --git a/tests/p14b1-promises.test.ts b/tests/p14b1-promises.test.ts
+index ce115a7..84050b9 100644
+--- a/tests/p14b1-promises.test.ts
++++ b/tests/p14b1-promises.test.ts
+@@ -500,7 +500,7 @@ describe('P14B.1 test 3: the feasibility service', () => {
+     const active = withActivePromise.promises.find((p) => p.promiseId === attachedProposal.promises[0])
+     expect(active).toMatchObject({ issuerStudioId, beneficiaryPersonId, contractId: null,
+       outcome: null, predicate: { count: 1 }, feasibilityReceipt: first })
+-    save.validateSaveV44(save.makeSave(withActivePromise))
++    save.validateSaveV45(save.makeSave(withActivePromise))
+     const second = promiseFeasibility(withActivePromise, draft, state.market.tick)
+     expect(second.classification).toBe('FRAGILE')
+     expect(second.bottleneck ?? '').toMatch(/not.*commission/i)
+diff --git a/tests/p14b2-setup-wrap-regressions.test.ts b/tests/p14b2-setup-wrap-regressions.test.ts
+index d0203d0..f145f52 100644
+--- a/tests/p14b2-setup-wrap-regressions.test.ts
++++ b/tests/p14b2-setup-wrap-regressions.test.ts
+@@ -4,7 +4,7 @@
+ import { describe, expect, it } from 'vitest'
+ import { applyActions, tick } from '../src/core/index.js'
+ import { validateProductionSetup } from '../src/core/productionSetup.js'
+-import { makeSave, validateSaveV44 } from '../src/core/save.js'
++import { makeSave, validateSaveV45 } from '../src/core/save.js'
+ import { isTierDStudioEventKind } from '../src/core/studioEvents.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import type { GameState } from '../src/core/types.js'
+@@ -24,7 +24,7 @@ function wrapped() {
+ }
+ function roundTrip(state: GameState): void {
+   const saved = makeSave(state)
+-  expect(validateSaveV44(JSON.parse(JSON.stringify(saved)))).toEqual(saved)
++  expect(validateSaveV45(JSON.parse(JSON.stringify(saved)))).toEqual(saved)
+ }
+ describe('P14B.2-F1 completed setup remains historical authority after real wrap', () => {
+   it('round-trips actual first take → wrap → Post with unchanged setup and released stage', () => {
+diff --git a/tests/p14b3-reservations.test.ts b/tests/p14b3-reservations.test.ts
+index e9d78d9..512b1bb 100644
+--- a/tests/p14b3-reservations.test.ts
++++ b/tests/p14b3-reservations.test.ts
+@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest'
+ import { applyActions, hiringMarketIds } from '../src/core/index.js'
+ import { attachPromise, promiseFeasibility, trustDrivers, type PromiseDraft } from '../src/core/promises.js'
+ import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
+-import { makeSave, validateSaveV44 } from '../src/core/save.js'
++import { makeSave, validateSaveV45 } from '../src/core/save.js'
+ import type { GameState, ProfessionalPromise } from '../src/core/types.js'
+ import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+ 
+@@ -91,7 +91,7 @@ describe('P14B.3 F1: real reservation membership and matching feasibility digest
+     expect(trustDrivers(next, talentId, player(next), next.market.tick))
+       .toEqual(trustDrivers(state, talentId, player(state), state.market.tick))
+     expect(next.talentMarket.receipts.some((r) => r.kind === 'promiseOutcome' && r.talentId === talentId)).toBe(false)
+-    const reloaded = validateSaveV44(JSON.parse(JSON.stringify(makeSave(next)))).state
++    const reloaded = validateSaveV45(JSON.parse(JSON.stringify(makeSave(next)))).state
+     expect(reloaded.promises).toEqual(next.promises) // loading never recomputes historical receipts
+     expect(read(reloaded, talentId)).toEqual(before)
+   })
+@@ -131,7 +131,7 @@ describe('P14B.3 F1: real reservation membership and matching feasibility digest
+     expect(read(settled, talentId).classification).toBe('FRAGILE')
+     expect(read(settled, talentId).bottleneck).toMatch(/not.*commission/i)
+     expect(read(settled, talentId, { promiseId: bound.promiseId }).classification).toBe('REASONABLY_ACHIEVABLE')
+-    validateSaveV44(JSON.parse(JSON.stringify(makeSave(settled))))
++    validateSaveV45(JSON.parse(JSON.stringify(makeSave(settled))))
+   })
+ 
+   it('preserves the existing competing CURRENT cross-issuer reservation policy, without choosing a new alternatives policy', () => {
+@@ -174,7 +174,7 @@ describe('P14B.3 F1: real reservation membership and matching feasibility digest
+       .toMatchObject({ kind: 'promiseOutcome', week: 52, talentId, studioId: player(released) })
+     expect(read(released, talentId).classification).toBe('REASONABLY_ACHIEVABLE')
+     expect(read(released, talentId)).toEqual(read(released, talentId, { promiseId: id }))
+-    validateSaveV44(JSON.parse(JSON.stringify(makeSave(released))))
++    validateSaveV45(JSON.parse(JSON.stringify(makeSave(released))))
+   })
+ 
+   it('an actually dropped losing draft stays in evidence after settlement but cannot reserve a later overlapping read', () => {
+@@ -198,6 +198,6 @@ describe('P14B.3 F1: real reservation membership and matching feasibility digest
+     const later = { windowStartWeek: 100, dueWeekExclusive: 204, startWeek: 52, termWeeks: 208 }
+     expect(read(settled, talentId, later).classification).toBe('REASONABLY_ACHIEVABLE')
+     expect(read(settled, talentId, later)).toEqual(read(settled, talentId, { ...later, promiseId: losing.promiseId }))
+-    validateSaveV44(JSON.parse(JSON.stringify(makeSave(settled))))
++    validateSaveV45(JSON.parse(JSON.stringify(makeSave(settled))))
+   })
+ })
+diff --git a/tests/p14b4-cancel-causal-proof.test.ts b/tests/p14b4-cancel-causal-proof.test.ts
+index fa41387..fea2fe3 100644
+--- a/tests/p14b4-cancel-causal-proof.test.ts
++++ b/tests/p14b4-cancel-causal-proof.test.ts
+@@ -268,7 +268,7 @@ function bind(state: GameState, spec: BindSpec): GameState {
+ }
+ /** The live writer validates the whole state (P14C.2a: validateSaveV37, was validateSaveV35, was validateSaveV34); a refusal fails the case with its text. */
+ function lawful(state: GameState): void {
+-  expect(makeSave(state).saveVersion).toBe(44)
++  expect(makeSave(state).saveVersion).toBe(45)
+ }
+ function root(state: GameState, promiseId: string): ProfessionalPromise {
+   const rows = state.promises.filter((p) => p.promiseId === promiseId)
+diff --git a/tests/p14b4-cast-class-outcomes.test.ts b/tests/p14b4-cast-class-outcomes.test.ts
+index a549f9a..f2fee8c 100644
+--- a/tests/p14b4-cast-class-outcomes.test.ts
++++ b/tests/p14b4-cast-class-outcomes.test.ts
+@@ -17,7 +17,7 @@ import { advancePromisesWeek, attachPromise } from '../src/core/promises.js'
+ import * as operationsModule from '../src/core/operations.js'
+ import { productionTechnologyView } from '../src/core/technologyProduction.js'
+ import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
+-import { exportSave, importSave, makeSave, migrateToLive, validateSaveV29, validateSaveV44 } from '../src/core/save.js'
++import { exportSave, importSave, makeSave, migrateToLive, validateSaveV29, validateSaveV45 } from '../src/core/save.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import type { Action, CastSlot, GameState, ProfessionalPromise } from '../src/core/types.js'
+ import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+@@ -76,7 +76,7 @@ function live(state: GameState): GameState {
+   // Existing live writer is the governed strict V31 validation entry after B5.
+   // Do not manually stamp a save version or invent a new outcome-test API.
+   const validated = makeSave(state)
+-  expect(validated.saveVersion).toBe(44)
++  expect(validated.saveVersion).toBe(45)
+   return validated.state
+ }
+ function production(prepared: Prepared) {
+@@ -352,7 +352,7 @@ describe('P14B4 genuine submit/settle/take routes, no synthetic commitments', ()
+     expect(root(prepared.state, bound.promiseId).outcome).toBeNull()
+     const after = complete(prepared)
+     satisfied(after.state, bound.promiseId, [after.take.eventId])
+-    const reloaded = validateSaveV44(importSave(exportSave(makeSave(after.state))))
++    const reloaded = validateSaveV45(importSave(exportSave(makeSave(after.state))))
+     expect(reloaded.state.promises).toEqual(after.state.promises)
+   })
+ 
+diff --git a/tests/p14b4-material-evidence-core.test.ts b/tests/p14b4-material-evidence-core.test.ts
+index 5e3f489..750d8e4 100644
+--- a/tests/p14b4-material-evidence-core.test.ts
++++ b/tests/p14b4-material-evidence-core.test.ts
+@@ -14,7 +14,7 @@ import { fnv1a64 } from '../src/core/math.js'
+ import { advancePromisesWeek, attachedPromiseDigest, promiseDigest } from '../src/core/promises.js'
+ import * as promisesModule from '../src/core/promises.js'
+ import * as operationsModule from '../src/core/operations.js'
+-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV44 } from '../src/core/save.js'
++import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV45 } from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+ import type { Action, CastSlot, GameState, GameStateV31, ProfessionalPromiseV30 } from '../src/core/types.js'
+ 
+@@ -37,7 +37,7 @@ type Envelope = ReturnType<typeof validateSaveV31>
+ // envelope (every record's `extensionUsed`/`extendedFromWeek`, every case's `variant`).
+ // 975: only this live carrier reaches38. The independent frozen31 carrier below
+ // retains its original reader, assertions and immutable fixture bytes.
+-type EnvelopeV33 = ReturnType<typeof validateSaveV44>
++type EnvelopeV33 = ReturnType<typeof validateSaveV45>
+ const SLOTS = ['lead', 'antagonist', 'support'] as const
+ const CLASSES = ['lead', 'leadOrAntagonist'] as const
+ type SeatClass = typeof CLASSES[number]
+@@ -106,7 +106,7 @@ function validateStateV33(carrier: EnvelopeV33, state: GameState): EnvelopeV33 {
+   // The live-boundary twin of validateState above, for the second describe
+   // block's real-gameplay states (genuinely live-shaped once applyActions/tick
+   // have touched them) -- same device, the frozen V31 reader untouched.
+-  return validateSaveV44({ ...carrier, state, broadcastCache: state.broadcastItems })
++  return validateSaveV45({ ...carrier, state, broadcastCache: state.broadcastItems })
+ }
+ function binding(state: GameStateV31, promise: ProfessionalPromiseV30): void {
+   assert.notEqual(promise.contractId, null)
+@@ -359,7 +359,7 @@ function actualTakeInput(slot: CastSlot): Prepared {
+ }
+ function outcomes(state: GameState) { return state.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome') }
+ function evaluate(input: EnvelopeV33): GameState {
+-  validateSaveV44(input)
++  validateSaveV45(input)
+   const before = clone(input)
+   const after = advancePromisesWeek(input.state) // existing structurally compatible public owner, no cast
+   expect(input).toEqual(before)
+diff --git a/tests/p14b5-t-failure-tuning.test.ts b/tests/p14b5-t-failure-tuning.test.ts
+index 2690f91..1db822a 100644
+--- a/tests/p14b5-t-failure-tuning.test.ts
++++ b/tests/p14b5-t-failure-tuning.test.ts
+@@ -54,7 +54,7 @@ import {
+   RELATIONSHIP_SUCCESS_CRITIC_SCORE, RELATIONSHIP_SUCCESS_DELTA, RELATIONSHIP_TIER_FLOOR,
+   advanceRelationshipsWeek, currentCloseness, currentTier, pairChemistry, validateRelationshipsRoot,
+ } from '../src/core/relationships.js'
+-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV44 } from '../src/core/save.js'
++import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV45 } from '../src/core/save.js'
+ import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+ import { tick } from '../src/core/tick.js'
+ import type { FilmResult, GameState, Production, RelationshipDriver, RelationshipEdge } from '../src/core/types.js'
+@@ -410,7 +410,7 @@ describe('CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical de
+     expect(written.every((row) => row.includes(FAIL_DELTA))).toBe(true) // the chain really recorded failures
+     const save = makeSave(state)
+     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
+-    expect(validateSaveV44(save)).toEqual(save)
++    expect(validateSaveV45(save)).toEqual(save)
+     const migrated = migrateToLive(save)
+     expect(JSON.stringify(migrated.state.relationships)).toBe(JSON.stringify(save.state.relationships))
+     expect(migrated.state.relationships.map((e) => e.recent.map((d) => d.delta))).toEqual(written)
+@@ -435,7 +435,7 @@ describe('CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical de
+     const carried = save.state.relationships.flatMap((e) => e.recent.filter((d) => d.kind === 'sharedFailure').map((d) => d.delta))
+     expect(carried.length).toBeGreaterThan(0)
+     expect(new Set(carried)).toEqual(new Set([historicalDelta]))
+-    const migrated = migrateToLive(validateSaveV44(save))
++    const migrated = migrateToLive(validateSaveV45(save))
+     expect(JSON.stringify(migrated.state.relationships)).toBe(JSON.stringify(save.state.relationships))
+     expect(migrated.state.relationships.flatMap((e) => e.recent.filter((d) => d.kind === 'sharedFailure').map((d) => d.delta)))
+       .toEqual(carried)
+diff --git a/tests/p14p4p5-finishing-material.test.ts b/tests/p14p4p5-finishing-material.test.ts
+index de54bd6..d2cab36 100644
+--- a/tests/p14p4p5-finishing-material.test.ts
++++ b/tests/p14p4p5-finishing-material.test.ts
+@@ -61,8 +61,8 @@ function memo(name: string, build: () => GameState): GameState {
+ }
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
+-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
++  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)
+   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
+ }
+ function production(state: GameState, id = PROD) {
+diff --git a/tests/p14p4p5-grouped-witness.test.ts b/tests/p14p4p5-grouped-witness.test.ts
+index 036c6a0..91a4b10 100644
+--- a/tests/p14p4p5-grouped-witness.test.ts
++++ b/tests/p14p4p5-grouped-witness.test.ts
+@@ -67,8 +67,8 @@ function memo(name: string, build: () => GameState): GameState {
+ }
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
+-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
++  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)
+   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw)
+   expect(current.state.firstTakeSubjects).toEqual(state.firstTakeSubjects)
+   expect(stable(state)).toBe(before)
+diff --git a/tests/p14p4p5-post-capacity.test.ts b/tests/p14p4p5-post-capacity.test.ts
+index 9d951cb..6979319 100644
+--- a/tests/p14p4p5-post-capacity.test.ts
++++ b/tests/p14p4p5-post-capacity.test.ts
+@@ -68,8 +68,8 @@ function memo(name: string, build: () => GameState): GameState {
+ }
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
+-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
++  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)
+   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
+ }
+ function production(state: GameState, id = PROD) {
+diff --git a/tests/p14p4p5-receipt-freeze.test.ts b/tests/p14p4p5-receipt-freeze.test.ts
+index 967b786..e069f81 100644
+--- a/tests/p14p4p5-receipt-freeze.test.ts
++++ b/tests/p14p4p5-receipt-freeze.test.ts
+@@ -62,7 +62,7 @@ function memo<T>(name: string, build: () => T): T {
+ }
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
+   const raw = saves.exportSave(save)
+   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
+ }
+@@ -358,7 +358,7 @@ describe('P4/P5 genuine root6 and frozen receipt7 settlement', () => {
+     expect(committed).toEqual({ ...joined.focusRoot, contractId: employment[0]!.contractId, feasibilityReceipt: frozen.receipt })
+     expect(stable(committed.feasibilityReceipt)).toBe(stable(frozen.receipt))
+     expect(committed.version).toBe(6); expect(joined.focusRoot.feasibilityReceipt.rulesVersion).toBe(6)
+-    const raw = bytes(state), imported = saves.importSave(raw), round = saves.validateSaveV44(imported)
++    const raw = bytes(state), imported = saves.importSave(raw), round = saves.validateSaveV45(imported)
+     expect(round).toBe(imported)
+     expect(root(round.state, committed.promiseId)).toEqual(committed)
+     expect(saves.exportSave(round)).toBe(raw)
+diff --git a/tests/p14p4p5-retired-acting.test.ts b/tests/p14p4p5-retired-acting.test.ts
+index 5e62843..a112182 100644
+--- a/tests/p14p4p5-retired-acting.test.ts
++++ b/tests/p14p4p5-retired-acting.test.ts
+@@ -44,8 +44,8 @@ afterAll(() => {
+ })
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
+-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
++  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)
+   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
+ }
+ function input208(): GameState {
+diff --git a/tests/p14p4p5-soundstage-capacity.test.ts b/tests/p14p4p5-soundstage-capacity.test.ts
+index 79ec461..f8a850d 100644
+--- a/tests/p14p4p5-soundstage-capacity.test.ts
++++ b/tests/p14p4p5-soundstage-capacity.test.ts
+@@ -52,8 +52,8 @@ function memo(name: string, build: () => GameState): GameState {
+ }
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
+-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
++  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)
+   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
+ }
+ function unchangedAuthority(state: GameState): void {
+diff --git a/tests/p14p4p5-stock-subject.test.ts b/tests/p14p4p5-stock-subject.test.ts
+index d6f0294..f8fa9ce 100644
+--- a/tests/p14p4p5-stock-subject.test.ts
++++ b/tests/p14p4p5-stock-subject.test.ts
+@@ -63,8 +63,8 @@ function memo(name: string, build: () => GameState): GameState {
+ }
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
+-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
++  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)
+   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw)
+   expect(current.state.firstTakeSubjects).toEqual(state.firstTakeSubjects)
+   expect(stable(state)).toBe(before)
+diff --git a/tests/p14p4p5-writer-resources.test.ts b/tests/p14p4p5-writer-resources.test.ts
+index b1ad3a1..dd6770d 100644
+--- a/tests/p14p4p5-writer-resources.test.ts
++++ b/tests/p14p4p5-writer-resources.test.ts
+@@ -47,7 +47,7 @@ function memo(name: string, build: () => GameState): GameState {
+ }
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
++  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
+   const raw = saves.exportSave(save)
+   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
+ }

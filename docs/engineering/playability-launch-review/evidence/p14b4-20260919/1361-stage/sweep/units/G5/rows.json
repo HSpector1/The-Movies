@@ -1,0 +1,1469 @@
+{
+ "record": "1361-N",
+ "unit": "G5",
+ "tree": "/Users/zacheryspector/studio-scratch/1361-sweep/G5/tree",
+ "basis": "git diff HEAD -- tests ui in the unit tree (HEAD = base + production + H patch); line = HEAD line, newLine = line in the edited file (no line moved); rowIds are indexes into rows[] of 1361-stage/sweep/1361-N-classification.json (type rows included)",
+ "count": 85,
+ "planEditLines": 87,
+ "deferredPlanLines": 2,
+ "edits": [
+  {
+   "file": "tests/c2a-m2-sets-save.test.ts",
+   "line": 32,
+   "newLine": 32,
+   "old": "  validateSaveV44,",
+   "new": "  validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    228,
+    229,
+    230
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7207 (tests/c2a-m2-sets-save.test.ts:172)"
+  },
+  {
+   "file": "tests/c2a-m2-sets-save.test.ts",
+   "line": 52,
+   "newLine": 52,
+   "old": "    expect(() => validateSaveV44(makeSave(generated))).not.toThrow()",
+   "new": "    expect(() => validateSaveV45(makeSave(generated))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [
+    229,
+    230
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7226 (tests/c2a-m2-sets-save.test.ts:52)"
+  },
+  {
+   "file": "tests/c2a-m2-sets-save.test.ts",
+   "line": 172,
+   "newLine": 172,
+   "old": "    expect(() => validateSaveV44(envelope)).not.toThrow()",
+   "new": "    expect(() => validateSaveV45(envelope)).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [
+    228
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7207 (tests/c2a-m2-sets-save.test.ts:172)"
+  },
+  {
+   "file": "tests/c2a-m2-sets-save.test.ts",
+   "line": 182,
+   "newLine": 182,
+   "old": "      validateSaveV44(",
+   "new": "      validateSaveV45(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :172 in the same leaf (row 228)",
+   "frame": null,
+   "behindRowIds": [
+    228
+   ]
+  },
+  {
+   "file": "tests/c2a-m2-sets-save.test.ts",
+   "line": 191,
+   "newLine": 191,
+   "old": "      validateSaveV44(",
+   "new": "      validateSaveV45(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :172 in the same leaf (row 228)",
+   "frame": null,
+   "behindRowIds": [
+    228
+   ]
+  },
+  {
+   "file": "tests/c2a-m2-sets-save.test.ts",
+   "line": 200,
+   "newLine": 200,
+   "old": "      validateSaveV44(",
+   "new": "      validateSaveV45(",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :172 in the same leaf (row 228)",
+   "frame": null,
+   "behindRowIds": [
+    228
+   ]
+  },
+  {
+   "file": "tests/c2a-m2-sets-save.test.ts",
+   "line": 232,
+   "newLine": 232,
+   "old": "    expect(() => validateSaveV44(makeSave(native))).not.toThrow()",
+   "new": "    expect(() => validateSaveV45(makeSave(native))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :52 (foundedStudio, historical=true) in the same leaf (row 229)",
+   "frame": null,
+   "behindRowIds": [
+    229
+   ]
+  },
+  {
+   "file": "tests/c2a-m2-sets-save.test.ts",
+   "line": 251,
+   "newLine": 251,
+   "old": "    expect(() => validateSaveV44(makeSave(liveMigrated))).not.toThrow()",
+   "new": "    expect(() => validateSaveV45(makeSave(liveMigrated))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :52 in the same leaf (row 229)",
+   "frame": null,
+   "behindRowIds": [
+    229
+   ]
+  },
+  {
+   "file": "tests/c2a-m2-sets-save.test.ts",
+   "line": 281,
+   "newLine": 281,
+   "old": "    expect(() => validateSaveV44(JSON.parse(exportSave(makeSave(played))))).not.toThrow()",
+   "new": "    expect(() => validateSaveV45(JSON.parse(exportSave(makeSave(played))))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :52 in the same leaf (row 229)",
+   "frame": null,
+   "behindRowIds": [
+    229
+   ]
+  },
+  {
+   "file": "tests/c2a-m2-sets-save.test.ts",
+   "line": 291,
+   "newLine": 291,
+   "old": "    expect(() => validateSaveV44(makeSave(native))).not.toThrow()",
+   "new": "    expect(() => validateSaveV45(makeSave(native))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :52 in the same leaf (row 230)",
+   "frame": null,
+   "behindRowIds": [
+    230
+   ]
+  },
+  {
+   "file": "tests/c2a-m2-sets-save.test.ts",
+   "line": 297,
+   "newLine": 297,
+   "old": "    expect(() => validateSaveV44(makeSave(liveMigrated))).not.toThrow()",
+   "new": "    expect(() => validateSaveV45(makeSave(liveMigrated))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :52 in the same leaf (row 230)",
+   "frame": null,
+   "behindRowIds": [
+    230
+   ]
+  },
+  {
+   "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+   "line": 48,
+   "newLine": 48,
+   "old": "  validateSaveV44,",
+   "new": "  validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    234,
+    235,
+    236,
+    237
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:7325 (tests/cash-ledger-checkpoint-v11.test.ts:225)"
+  },
+  {
+   "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+   "line": 225,
+   "newLine": 225,
+   "old": "    expect(validateSaveV44(native)).toBe(native);",
+   "new": "    expect(validateSaveV45(native)).toBe(native);",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    234
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:7325 (tests/cash-ledger-checkpoint-v11.test.ts:225)"
+  },
+  {
+   "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+   "line": 235,
+   "newLine": 235,
+   "old": "    expect(validateSaveV44(reconciled)).toBe(reconciled);",
+   "new": "    expect(validateSaveV45(reconciled)).toBe(reconciled);",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :225 in the same leaf (row 234)",
+   "frame": null,
+   "behindRowIds": [
+    234
+   ]
+  },
+  {
+   "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+   "line": 287,
+   "newLine": 287,
+   "old": "    expect(() => validateSaveV44(redundant)).toThrow(",
+   "new": "    expect(() => validateSaveV45(redundant)).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    235
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /checkpoint must encode a genuine hist…/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7338 (tests/cash-ledger-checkpoint-v11.test.ts:287)"
+  },
+  {
+   "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+   "line": 364,
+   "newLine": 364,
+   "old": "    const current = validateSaveV44(makeSave(generateWorld(\"checkpoint-frozen-redundant\")));",
+   "new": "    const current = validateSaveV45(makeSave(generateWorld(\"checkpoint-frozen-redundant\")));",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    237
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:7357 (tests/cash-ledger-checkpoint-v11.test.ts:364)"
+  },
+  {
+   "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+   "line": 461,
+   "newLine": 461,
+   "old": "    expect(() => validateSaveV44(changedAnchor)).toThrow(",
+   "new": "    expect(() => validateSaveV45(changedAnchor)).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    236
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /studio cash must equal the historical…/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7370 (tests/cash-ledger-checkpoint-v11.test.ts:461)"
+  },
+  {
+   "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+   "line": 467,
+   "newLine": 467,
+   "old": "    expect(() => validateSaveV44(changedCash)).toThrow(",
+   "new": "    expect(() => validateSaveV45(changedCash)).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :461 in the same leaf (row 236)",
+   "frame": null,
+   "behindRowIds": [
+    236
+   ]
+  },
+  {
+   "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+   "line": 473,
+   "newLine": 473,
+   "old": "    expect(() => validateSaveV44(movedBoundary)).toThrow(",
+   "new": "    expect(() => validateSaveV45(movedBoundary)).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :461 in the same leaf (row 236)",
+   "frame": null,
+   "behindRowIds": [
+    236
+   ]
+  },
+  {
+   "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+   "line": 479,
+   "newLine": 479,
+   "old": "    expect(() => validateSaveV44(changedSuffix)).toThrow(",
+   "new": "    expect(() => validateSaveV45(changedSuffix)).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :461 in the same leaf (row 236)",
+   "frame": null,
+   "behindRowIds": [
+    236
+   ]
+  },
+  {
+   "file": "tests/construction-core.test.ts",
+   "line": 19,
+   "newLine": 19,
+   "old": "  validateSaveV44,",
+   "new": "  validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    238,
+    239,
+    240
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7427 (tests/construction-core.test.ts:664)"
+  },
+  {
+   "file": "tests/construction-core.test.ts",
+   "line": 497,
+   "newLine": 497,
+   "old": "    expect(() => validateSaveV44(forgedSave)).toThrow(",
+   "new": "    expect(() => validateSaveV45(forgedSave)).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    239
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /cannot reserve the Annex before Week …/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7389 (tests/construction-core.test.ts:497)"
+  },
+  {
+   "file": "tests/construction-core.test.ts",
+   "line": 505,
+   "newLine": 505,
+   "old": "    expect(() => validateSaveV44(makeSave(laundered))).toThrow(",
+   "new": "    expect(() => validateSaveV45(makeSave(laundered))).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :497 in the same leaf (row 239)",
+   "frame": null,
+   "behindRowIds": [
+    239
+   ]
+  },
+  {
+   "file": "tests/construction-core.test.ts",
+   "line": 566,
+   "newLine": 566,
+   "old": "    expect(() => validateSaveV44(forgedSave)).toThrow(",
+   "new": "    expect(() => validateSaveV45(forgedSave)).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    240
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /placed-facility reservation disagrees…/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7408 (tests/construction-core.test.ts:566)"
+  },
+  {
+   "file": "tests/construction-core.test.ts",
+   "line": 664,
+   "newLine": 664,
+   "old": "    expect(() => validateSaveV44(makeSave(state))).not.toThrow()",
+   "new": "    expect(() => validateSaveV45(makeSave(state))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [
+    238
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7427 (tests/construction-core.test.ts:664)"
+  },
+  {
+   "file": "tests/contracts/cross-owner-refusal.contract.test.ts",
+   "line": 24,
+   "newLine": 24,
+   "old": "import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV44 } from '../../src/core/index.js'",
+   "new": "import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV45 } from '../../src/core/index.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    245,
+    246,
+    247
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:617206 (tests/contracts/cross-owner-refusal.contract.test.ts:72)"
+  },
+  {
+   "file": "tests/contracts/cross-owner-refusal.contract.test.ts",
+   "line": 72,
+   "newLine": 72,
+   "old": "  expect(validateSaveV44(save)).toBe(save)",
+   "new": "  expect(validateSaveV45(save)).toBe(save)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    245,
+    246,
+    247
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:617206 (tests/contracts/cross-owner-refusal.contract.test.ts:72)"
+  },
+  {
+   "file": "tests/contracts/cross-owner-refusal.contract.test.ts",
+   "line": 100,
+   "newLine": 100,
+   "old": "    validateSaveV44(forged)",
+   "new": "    validateSaveV45(forged)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :72 (legalSave runs before proveRefusal) in rows 245-247",
+   "frame": null,
+   "behindRowIds": [
+    245,
+    246,
+    247
+   ]
+  },
+  {
+   "file": "tests/contracts/cross-owner-refusal.contract.test.ts",
+   "line": 118,
+   "newLine": 118,
+   "old": "  expect(validateSaveV44(forged as LiveSaveFile)).toBe(forged)",
+   "new": "  expect(validateSaveV45(forged as LiveSaveFile)).toBe(forged)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :72 (legalSave runs before proveRefusal) in rows 245-247",
+   "frame": null,
+   "behindRowIds": [
+    245,
+    246,
+    247
+   ]
+  },
+  {
+   "file": "tests/contracts/phase-table-agreement.contract.test.ts",
+   "line": 28,
+   "newLine": 28,
+   "old": "  validateSaveV44,",
+   "new": "  validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    248,
+    249,
+    250
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:617248 (tests/contracts/phase-table-agreement.contract.test.ts:104)"
+  },
+  {
+   "file": "tests/contracts/phase-table-agreement.contract.test.ts",
+   "line": 104,
+   "newLine": 104,
+   "old": "  expect(validateSaveV44(save)).toBe(save)",
+   "new": "  expect(validateSaveV45(save)).toBe(save)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    248,
+    249,
+    250
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:617248 (tests/contracts/phase-table-agreement.contract.test.ts:104)"
+  },
+  {
+   "file": "tests/contracts/phase-table-agreement.contract.test.ts",
+   "line": 224,
+   "newLine": 224,
+   "old": "      expect(() => validateSaveV44(forged), `${snapshot.phase} forged`).toThrow(",
+   "new": "      expect(() => validateSaveV45(forged), `${snapshot.phase} forged`).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :104 (saveOf) in rows 248-250",
+   "frame": null,
+   "behindRowIds": [
+    250
+   ]
+  },
+  {
+   "file": "tests/contracts/phase-table-agreement.contract.test.ts",
+   "line": 230,
+   "newLine": 230,
+   "old": "      expect(validateSaveV44(legal)).toBe(legal)",
+   "new": "      expect(validateSaveV45(legal)).toBe(legal)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :104 (saveOf) in rows 248-250",
+   "frame": null,
+   "behindRowIds": [
+    250
+   ]
+  },
+  {
+   "file": "tests/contracts/phase-table-agreement.contract.test.ts",
+   "line": 246,
+   "newLine": 246,
+   "old": "      expect(() => validateSaveV44(forged), `${snapshot.phase} → ${wrongTarget}`).toThrow(",
+   "new": "      expect(() => validateSaveV45(forged), `${snapshot.phase} → ${wrongTarget}`).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :104 (saveOf) in rows 248-250",
+   "frame": null,
+   "behindRowIds": [
+    249
+   ]
+  },
+  {
+   "file": "tests/contracts/phase-table-agreement.contract.test.ts",
+   "line": 266,
+   "newLine": 266,
+   "old": "    expect(() => validateSaveV44(forged)).toThrow(",
+   "new": "    expect(() => validateSaveV45(forged)).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :104 (saveOf) in rows 248-250",
+   "frame": null,
+   "behindRowIds": [
+    248
+   ]
+  },
+  {
+   "file": "tests/contracts/studio-events.contract.test.ts",
+   "line": 129,
+   "newLine": 129,
+   "old": "    const validateLive = requireFunction(requireCore(), 'validateSaveV44', 'P09 live boundary') as unknown as (",
+   "new": "    const validateLive = requireFunction(requireCore(), 'validateSaveV45', 'P09 live boundary') as unknown as (",
+   "class": "S1",
+   "edit": "by-name lookup 'validateSaveV44' -> 'validateSaveV45'",
+   "decision": "certain",
+   "rowIds": [
+    251,
+    252,
+    253
+   ],
+   "measured": "AssertionError: releaseCommitted row refused: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:617290 (tests/contracts/studio-events.contract.test.ts:212)"
+  },
+  {
+   "file": "tests/legacy-parcel-ground.test.ts",
+   "line": 49,
+   "newLine": 49,
+   "old": "  validateSaveV44,",
+   "new": "  validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    265,
+    266,
+    267
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:7690 (tests/legacy-parcel-ground.test.ts:376)"
+  },
+  {
+   "file": "tests/legacy-parcel-ground.test.ts",
+   "line": 365,
+   "newLine": 365,
+   "old": "    expect(() => validateSaveV44(save)).toThrow(named)",
+   "new": "    expect(() => validateSaveV45(save)).toThrow(named)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    266
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /stands on ground reserved for the stu…/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7671 (tests/legacy-parcel-ground.test.ts:365)"
+  },
+  {
+   "file": "tests/legacy-parcel-ground.test.ts",
+   "line": 376,
+   "newLine": 376,
+   "old": "    expect(validateSaveV44(save)).toBe(save)",
+   "new": "    expect(validateSaveV45(save)).toBe(save)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    265
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:7690 (tests/legacy-parcel-ground.test.ts:376)"
+  },
+  {
+   "file": "tests/legacy-parcel-ground.test.ts",
+   "line": 404,
+   "newLine": 404,
+   "old": "      expect(() => validateSaveV44(save), blueprint.id).toThrow(/reserved for the studio's Annex/)",
+   "new": "      expect(() => validateSaveV45(save), blueprint.id).toThrow(/reserved for the studio's Annex/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    267
+   ],
+   "measured": "AssertionError: development-casting-hall: expected [Function] to throw error matching /reserved for the studio's Annex/ but got 'validateSaveV44: expected version 44'",
+   "frame": "m2-core.txt:7703 (tests/legacy-parcel-ground.test.ts:404)"
+  },
+  {
+   "file": "tests/p08a-w0-studio-history.test.ts",
+   "line": 53,
+   "newLine": 53,
+   "old": "  validateSaveV44,",
+   "new": "  validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    271
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:7774 (tests/p08a-w0-studio-history.test.ts:441)"
+  },
+  {
+   "file": "tests/p08a-w0-studio-history.test.ts",
+   "line": 441,
+   "newLine": 441,
+   "old": "    expect(validateSaveV44(clone(legal))).toBeTruthy()",
+   "new": "    expect(validateSaveV45(clone(legal))).toBeTruthy()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    271
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:7774 (tests/p08a-w0-studio-history.test.ts:441)"
+  },
+  {
+   "file": "tests/p08a-w0-studio-history.test.ts",
+   "line": 450,
+   "newLine": 450,
+   "old": "      expect(() => validateSaveV44(swapped)).toThrow(/ascending eventId/)",
+   "new": "      expect(() => validateSaveV45(swapped)).toThrow(/ascending eventId/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :441 in the same leaf (row 271)",
+   "frame": null,
+   "behindRowIds": [
+    271
+   ]
+  },
+  {
+   "file": "tests/p08a-w0-studio-history.test.ts",
+   "line": 459,
+   "newLine": 459,
+   "old": "    expect(() => validateSaveV44(early)).toThrow(/recording boundary/)",
+   "new": "    expect(() => validateSaveV45(early)).toThrow(/recording boundary/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :441 in the same leaf (row 271)",
+   "frame": null,
+   "behindRowIds": [
+    271
+   ]
+  },
+  {
+   "file": "tests/p08a-w0-studio-history.test.ts",
+   "line": 465,
+   "newLine": 465,
+   "old": "      expect(() => validateSaveV44(lying)).toThrow(/after − before/)",
+   "new": "      expect(() => validateSaveV45(lying)).toThrow(/after − before/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :441 in the same leaf (row 271)",
+   "frame": null,
+   "behindRowIds": [
+    271
+   ]
+  },
+  {
+   "file": "tests/p08a-w0-studio-history.test.ts",
+   "line": 477,
+   "newLine": 477,
+   "old": "    expect(() => validateSaveV44(unknown)).toThrow(/not a known history kind/)",
+   "new": "    expect(() => validateSaveV45(unknown)).toThrow(/not a known history kind/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :441 in the same leaf (row 271)",
+   "frame": null,
+   "behindRowIds": [
+    271
+   ]
+  },
+  {
+   "file": "tests/p13a-technology-milestones.test.ts",
+   "line": 6,
+   "newLine": 6,
+   "old": "import { exportSave, importSave, makeSave, migrateToV25, migrateToLive, validateSaveV19, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { exportSave, importSave, makeSave, migrateToV25, migrateToLive, validateSaveV19, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    277
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /technology milestone/ but got 'validateSaveV44: expected version 44'",
+   "frame": "m2-core.txt:7910 (tests/p13a-technology-milestones.test.ts:74)"
+  },
+  {
+   "file": "tests/p13a-technology-milestones.test.ts",
+   "line": 74,
+   "newLine": 74,
+   "old": "      expect(() => validateSaveV44(forged)).toThrow(/technology milestone/)",
+   "new": "      expect(() => validateSaveV45(forged)).toThrow(/technology milestone/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    277
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /technology milestone/ but got 'validateSaveV44: expected version 44'",
+   "frame": "m2-core.txt:7910 (tests/p13a-technology-milestones.test.ts:74)"
+  },
+  {
+   "file": "tests/p13a-technology-milestones.test.ts",
+   "line": 79,
+   "newLine": 79,
+   "old": "    expect(() => validateSaveV44(duplicated)).toThrow(/duplicate technology milestone/)",
+   "new": "    expect(() => validateSaveV45(duplicated)).toThrow(/duplicate technology milestone/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :74 in the same leaf (row 277)",
+   "frame": null,
+   "behindRowIds": [
+    277
+   ]
+  },
+  {
+   "file": "tests/p13a-technology-milestones.test.ts",
+   "line": 82,
+   "newLine": 82,
+   "old": "    expect(() => validateSaveV44(preRecorded)).toThrow(/invented technology history/)",
+   "new": "    expect(() => validateSaveV45(preRecorded)).toThrow(/invented technology history/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :74 in the same leaf (row 277)",
+   "frame": null,
+   "behindRowIds": [
+    277
+   ]
+  },
+  {
+   "file": "tests/p14b1-first-take.test.ts",
+   "line": 294,
+   "newLine": 294,
+   "old": "    const roundTripped = save.validateSaveV44(JSON.parse(JSON.stringify(envelope)))",
+   "new": "    const roundTripped = save.validateSaveV45(JSON.parse(JSON.stringify(envelope)))",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    297,
+    892
+   ],
+   "measured": "Error: validateSaveV44: expected version 44 | type: TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV45' with 'exactOptionalPropert...",
+   "frame": "m2-core.txt:8282 (tests/p14b1-first-take.test.ts:294); m2-tsc.txt:30"
+  },
+  {
+   "file": "tests/p14b1-promises.test.ts",
+   "line": 503,
+   "newLine": 503,
+   "old": "    save.validateSaveV44(save.makeSave(withActivePromise))",
+   "new": "    save.validateSaveV45(save.makeSave(withActivePromise))",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    298
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:8295 (tests/p14b1-promises.test.ts:503)"
+  },
+  {
+   "file": "tests/p14b2-setup-wrap-regressions.test.ts",
+   "line": 7,
+   "newLine": 7,
+   "old": "import { makeSave, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { makeSave, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: the import; the 12 leaves are H rows 328-339 (throwing site helpers/p14b2-fixtures.ts:122)",
+   "frame": null,
+   "alsoServesHRowIds": [
+    328,
+    329,
+    330,
+    331,
+    332,
+    333,
+    334,
+    335,
+    336,
+    337,
+    338,
+    339
+   ]
+  },
+  {
+   "file": "tests/p14b2-setup-wrap-regressions.test.ts",
+   "line": 27,
+   "newLine": 27,
+   "old": "  expect(validateSaveV44(JSON.parse(JSON.stringify(saved)))).toEqual(saved)",
+   "new": "  expect(validateSaveV45(JSON.parse(JSON.stringify(saved)))).toEqual(saved)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: the file's only validateSaveV44 call (roundTrip); its leaves are H rows 328-339 (throwing site helpers/p14b2-fixtures.ts:122), so M2 never reached it",
+   "frame": null,
+   "alsoServesHRowIds": [
+    328,
+    329,
+    330,
+    331,
+    332,
+    333,
+    334,
+    335,
+    336,
+    337,
+    338,
+    339
+   ]
+  },
+  {
+   "file": "tests/p14b3-reservations.test.ts",
+   "line": 12,
+   "newLine": 12,
+   "old": "import { makeSave, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { makeSave, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    340,
+    341,
+    342,
+    343,
+    344,
+    894
+   ],
+   "measured": "Error: validateSaveV44: expected version 44 | type: TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV45' with 'exactOptionalPropert...",
+   "frame": "m2-core.txt:8800 (tests/p14b3-reservations.test.ts:134); m2-tsc.txt:34"
+  },
+  {
+   "file": "tests/p14b3-reservations.test.ts",
+   "line": 94,
+   "newLine": 94,
+   "old": "    const reloaded = validateSaveV44(JSON.parse(JSON.stringify(makeSave(next)))).state",
+   "new": "    const reloaded = validateSaveV45(JSON.parse(JSON.stringify(makeSave(next)))).state",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    343,
+    344,
+    894
+   ],
+   "measured": "Error: validateSaveV44: expected version 44 | type: TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV45' with 'exactOptionalPropert...",
+   "frame": "m2-core.txt:8787 (tests/p14b3-reservations.test.ts:94); m2-tsc.txt:34"
+  },
+  {
+   "file": "tests/p14b3-reservations.test.ts",
+   "line": 134,
+   "newLine": 134,
+   "old": "    validateSaveV44(JSON.parse(JSON.stringify(makeSave(settled))))",
+   "new": "    validateSaveV45(JSON.parse(JSON.stringify(makeSave(settled))))",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    340
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:8800 (tests/p14b3-reservations.test.ts:134)"
+  },
+  {
+   "file": "tests/p14b3-reservations.test.ts",
+   "line": 177,
+   "newLine": 177,
+   "old": "    validateSaveV44(JSON.parse(JSON.stringify(makeSave(released))))",
+   "new": "    validateSaveV45(JSON.parse(JSON.stringify(makeSave(released))))",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    341
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:8813 (tests/p14b3-reservations.test.ts:177)"
+  },
+  {
+   "file": "tests/p14b3-reservations.test.ts",
+   "line": 201,
+   "newLine": 201,
+   "old": "    validateSaveV44(JSON.parse(JSON.stringify(makeSave(settled))))",
+   "new": "    validateSaveV45(JSON.parse(JSON.stringify(makeSave(settled))))",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    342
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:8826 (tests/p14b3-reservations.test.ts:201)"
+  },
+  {
+   "file": "tests/p14b4-cancel-causal-proof.test.ts",
+   "line": 271,
+   "newLine": 271,
+   "old": "  expect(makeSave(state).saveVersion).toBe(44)",
+   "new": "  expect(makeSave(state).saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    350,
+    351,
+    352,
+    353,
+    354,
+    355,
+    356,
+    357,
+    358,
+    359,
+    360,
+    361,
+    362,
+    363,
+    364,
+    365,
+    366,
+    367,
+    368,
+    369,
+    370,
+    371
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:57102 (tests/p14b4-cancel-causal-proof.test.ts:271)"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "line": 20,
+   "newLine": 20,
+   "old": "import { exportSave, importSave, makeSave, migrateToLive, validateSaveV29, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { exportSave, importSave, makeSave, migrateToLive, validateSaveV29, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    372,
+    373,
+    374,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    384,
+    385
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:57524 (tests/p14b4-cast-class-outcomes.test.ts:79)"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "line": 79,
+   "newLine": 79,
+   "old": "  expect(validated.saveVersion).toBe(44)",
+   "new": "  expect(validated.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    372,
+    373,
+    374,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    384,
+    385
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:57524 (tests/p14b4-cast-class-outcomes.test.ts:79)"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "line": 355,
+   "newLine": 355,
+   "old": "    const reloaded = validateSaveV44(importSave(exportSave(makeSave(after.state))))",
+   "new": "    const reloaded = validateSaveV45(importSave(exportSave(makeSave(after.state))))",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :79 (live(), row 372/373 leaf)",
+   "frame": null,
+   "behindRowIds": [
+    372,
+    373
+   ]
+  },
+  {
+   "file": "tests/p14b4-material-evidence-core.test.ts",
+   "line": 17,
+   "newLine": 17,
+   "old": "import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    386,
+    387,
+    388,
+    389,
+    390,
+    391,
+    392,
+    393,
+    394,
+    395,
+    895,
+    896,
+    897,
+    898,
+    899,
+    900
+   ],
+   "measured": "Error: validateSaveV44: expected version 44 | type: TS2379: Argument of type '{ promises: ProfessionalPromiseV40[]; technology: import(\"/Users/zacheryspector/studio-scratch...",
+   "frame": "m2-core.txt:57771 (tests/p14b4-material-evidence-core.test.ts:109); m2-tsc.txt:36"
+  },
+  {
+   "file": "tests/p14b4-material-evidence-core.test.ts",
+   "line": 40,
+   "newLine": 40,
+   "old": "type EnvelopeV33 = ReturnType<typeof validateSaveV44>",
+   "new": "type EnvelopeV33 = ReturnType<typeof validateSaveV45>",
+   "class": "S1",
+   "edit": "type the live envelope as ReturnType<typeof validateSaveV45>",
+   "decision": "certain",
+   "rowIds": [
+    895,
+    896,
+    897,
+    898,
+    899,
+    900
+   ],
+   "measured": "TS2379: Argument of type '{ promises: ProfessionalPromiseV40[]; technology: import(\"/Users/zacheryspector/studio-scratch/1361-m2/tree/src/core/technologyTypes\").StudioTechnology; market: MarketState; careerEvents: TalentCareerEven...",
+   "frame": "m2-tsc.txt:36"
+  },
+  {
+   "file": "tests/p14b4-material-evidence-core.test.ts",
+   "line": 109,
+   "newLine": 109,
+   "old": "  return validateSaveV44({ ...carrier, state, broadcastCache: state.broadcastItems })",
+   "new": "  return validateSaveV45({ ...carrier, state, broadcastCache: state.broadcastItems })",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    386,
+    387,
+    388,
+    389,
+    390,
+    391,
+    392,
+    393,
+    394,
+    395,
+    895
+   ],
+   "measured": "Error: validateSaveV44: expected version 44 | type: TS2379: Argument of type '{ promises: ProfessionalPromiseV40[]; technology: import(\"/Users/zacheryspector/studio-scratch...",
+   "frame": "m2-core.txt:57771 (tests/p14b4-material-evidence-core.test.ts:109); m2-tsc.txt:36"
+  },
+  {
+   "file": "tests/p14b4-material-evidence-core.test.ts",
+   "line": 362,
+   "newLine": 362,
+   "old": "  validateSaveV44(input)",
+   "new": "  validateSaveV45(input)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    898
+   ],
+   "measured": "TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV45' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties. | core rows 386-395 stop earlier at :109, before evaluate() runs",
+   "frame": "m2-tsc.txt:44",
+   "behindRowIds": [
+    386,
+    387,
+    388,
+    389,
+    390,
+    391,
+    392,
+    393,
+    394,
+    395
+   ]
+  },
+  {
+   "file": "tests/p14b5-t-failure-tuning.test.ts",
+   "line": 57,
+   "newLine": 57,
+   "old": "import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    436,
+    437
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:331001 (tests/p14b5-t-failure-tuning.test.ts:413)"
+  },
+  {
+   "file": "tests/p14b5-t-failure-tuning.test.ts",
+   "line": 413,
+   "newLine": 413,
+   "old": "    expect(validateSaveV44(save)).toEqual(save)",
+   "new": "    expect(validateSaveV45(save)).toEqual(save)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    436
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:331001 (tests/p14b5-t-failure-tuning.test.ts:413)"
+  },
+  {
+   "file": "tests/p14b5-t-failure-tuning.test.ts",
+   "line": 438,
+   "newLine": 438,
+   "old": "    const migrated = migrateToLive(validateSaveV44(save))",
+   "new": "    const migrated = migrateToLive(validateSaveV45(save))",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    437
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:331014 (tests/p14b5-t-failure-tuning.test.ts:438)"
+  },
+  {
+   "file": "tests/p14p4p5-finishing-material.test.ts",
+   "line": 64,
+   "newLine": 64,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on the same line (both pins, plan S2 rule)",
+   "decision": "certain",
+   "rowIds": [
+    756
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:510049 (tests/p14p4p5-finishing-material.test.ts:64)"
+  },
+  {
+   "file": "tests/p14p4p5-finishing-material.test.ts",
+   "line": 65,
+   "newLine": 65,
+   "old": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+   "new": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :64 in admitted() (row 756)",
+   "frame": null,
+   "behindRowIds": [
+    756
+   ]
+  },
+  {
+   "file": "tests/p14p4p5-grouped-witness.test.ts",
+   "line": 70,
+   "newLine": 70,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on the same line (both pins, plan S2 rule)",
+   "decision": "certain",
+   "rowIds": [
+    757
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:510077 (tests/p14p4p5-grouped-witness.test.ts:70)"
+  },
+  {
+   "file": "tests/p14p4p5-grouped-witness.test.ts",
+   "line": 71,
+   "newLine": 71,
+   "old": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+   "new": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :70 in admitted() (row 757)",
+   "frame": null,
+   "behindRowIds": [
+    757
+   ]
+  },
+  {
+   "file": "tests/p14p4p5-post-capacity.test.ts",
+   "line": 71,
+   "newLine": 71,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on the same line (both pins, plan S2 rule)",
+   "decision": "certain",
+   "rowIds": [
+    764
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:510199 (tests/p14p4p5-post-capacity.test.ts:71)"
+  },
+  {
+   "file": "tests/p14p4p5-post-capacity.test.ts",
+   "line": 72,
+   "newLine": 72,
+   "old": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+   "new": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :71 in admitted() (row 764)",
+   "frame": null,
+   "behindRowIds": [
+    764
+   ]
+  },
+  {
+   "file": "tests/p14p4p5-receipt-freeze.test.ts",
+   "line": 65,
+   "newLine": 65,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on the same line (both pins, plan S2 rule)",
+   "decision": "certain",
+   "rowIds": [
+    766
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:563071 (tests/p14p4p5-receipt-freeze.test.ts:65)"
+  },
+  {
+   "file": "tests/p14p4p5-receipt-freeze.test.ts",
+   "line": 361,
+   "newLine": 361,
+   "old": "    const raw = bytes(state), imported = saves.importSave(raw), round = saves.validateSaveV44(imported)",
+   "new": "    const raw = bytes(state), imported = saves.importSave(raw), round = saves.validateSaveV45(imported)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    913
+   ],
+   "measured": "TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV45' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.",
+   "frame": "m2-tsc.txt:92",
+   "behindRowIds": [
+    766
+   ]
+  },
+  {
+   "file": "tests/p14p4p5-retired-acting.test.ts",
+   "line": 47,
+   "newLine": 47,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on the same line (both pins, plan S2 rule)",
+   "decision": "certain",
+   "rowIds": [
+    767
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:563099 (tests/p14p4p5-retired-acting.test.ts:47)"
+  },
+  {
+   "file": "tests/p14p4p5-retired-acting.test.ts",
+   "line": 48,
+   "newLine": 48,
+   "old": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+   "new": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :47 in admitted() (row 767)",
+   "frame": null,
+   "behindRowIds": [
+    767
+   ]
+  },
+  {
+   "file": "tests/p14p4p5-soundstage-capacity.test.ts",
+   "line": 55,
+   "newLine": 55,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on the same line (both pins, plan S2 rule)",
+   "decision": "certain",
+   "rowIds": [
+    770
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:615987 (tests/p14p4p5-soundstage-capacity.test.ts:55)"
+  },
+  {
+   "file": "tests/p14p4p5-soundstage-capacity.test.ts",
+   "line": 56,
+   "newLine": 56,
+   "old": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+   "new": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :55 in admitted() (row 770)",
+   "frame": null,
+   "behindRowIds": [
+    770
+   ]
+  },
+  {
+   "file": "tests/p14p4p5-stock-subject.test.ts",
+   "line": 66,
+   "newLine": 66,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on the same line (both pins, plan S2 rule)",
+   "decision": "certain",
+   "rowIds": [
+    771
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:616015 (tests/p14p4p5-stock-subject.test.ts:66)"
+  },
+  {
+   "file": "tests/p14p4p5-stock-subject.test.ts",
+   "line": 67,
+   "newLine": 67,
+   "old": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+   "new": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "not reached in M2: behind :66 in admitted() (row 771)",
+   "frame": null,
+   "behindRowIds": [
+    771
+   ]
+  },
+  {
+   "file": "tests/p14p4p5-writer-resources.test.ts",
+   "line": 50,
+   "newLine": 50,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on the same line (both pins, plan S2 rule)",
+   "decision": "certain",
+   "rowIds": [
+    772,
+    773
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:616044 (tests/p14p4p5-writer-resources.test.ts:50)"
+  }
+ ]
+}

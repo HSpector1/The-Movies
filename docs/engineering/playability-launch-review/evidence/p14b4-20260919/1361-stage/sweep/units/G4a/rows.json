@@ -1,0 +1,1234 @@
+{
+ "record": "1361-N",
+ "unit": "G4a",
+ "tree": "/Users/zacheryspector/studio-scratch/1361-sweep/G4a/tree",
+ "basis": "git diff HEAD -U0 in the tree (HEAD = unit H applied); line = HEAD line, newLine = line in the edited file; rowIds are indexes into rows[] of 1361-stage/sweep/1361-N-classification.json",
+ "count": 82,
+ "codeLines": 69,
+ "commentBlocks": 13,
+ "edits": [
+  {
+   "file": "tests/contracts/v14-boundary-guards.contract.test.ts",
+   "line": 34,
+   "newLine": 34,
+   "old": "import { applyActions, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, makeSave, stableStringify, tick } from '../../src/core/index.js'",
+   "new": "import { applyActions, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, makeSave, stableStringify, tick } from '../../src/core/index.js'",
+   "class": "S4",
+   "edit": "convertV45ToV44 joins the import",
+   "decision": "certain",
+   "rowIds": [
+    254,
+    884
+   ],
+   "measured": "TS2345: Argument of type 'SaveFileV45' is not assignable to parameter of type 'SaveFileV44'.",
+   "frame": "type site #6, m2-tsc.txt:2; suite-level row m2-core.txt:4487"
+  },
+  {
+   "file": "tests/contracts/v14-boundary-guards.contract.test.ts",
+   "line": 63,
+   "newLine": 67,
+   "old": "  const admitted = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(state)))))))).state",
+   "new": "  const admitted = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(makeSave(state))))))))).state",
+   "class": "S4",
+   "edit": "convertV45ToV44 innermost in the carrier chain",
+   "decision": "measure",
+   "rowIds": [
+    254,
+    884
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:4487 (suite-level failure in beforeAll); type site #6 (63,132), m2-tsc.txt:2"
+  },
+  {
+   "file": "tests/contracts/v14-boundary-guards.contract.test.ts",
+   "line": null,
+   "newLine": 63,
+   "old": null,
+   "new": "  // 1361-N S4: Save45 is live, so convertV45ToV44 (src/core/save.ts:10989-10995) leads the chain. It passes\n  // here: the one caller (beforeAll, below) ticks a founded studio that holds no industry (the contract fixtures\n  // found it with beginFoundingHistoricalControl), and a state without an industry records no Power Ranking\n  // quarter (src/core/powerRankingArchive.ts:151), so every P15 root stays empty.",
+   "class": "S4",
+   "edit": "comment: why convertV45ToV44 passes (no industry, no quarter)",
+   "decision": "comment",
+   "rowIds": [
+    254,
+    884
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=4",
+   "newLines": 4,
+   "insertedAfterOldLine": 63
+  },
+  {
+   "file": "tests/contracts/v14-boundary-guards.contract.test.ts",
+   "line": 322,
+   "newLine": 327,
+   "old": "    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(/unknown saveVersion 45/)",
+   "new": "    expect(() => validateSave({ ...save, saveVersion: 46 })).toThrow(/unknown saveVersion 46/)",
+   "class": "S3",
+   "edit": "sentinel 45 -> 46, pattern /unknown saveVersion 46/",
+   "decision": "certain",
+   "rowIds": [
+    254
+   ],
+   "measured": "none: the leaf sits behind the suite-level failure at :63. Plan S3: an older envelope stamped 45 now refuses at \"validateSaveV45: the p15Sequence root is missing\" (save.ts:10968)",
+   "frame": "masked by the suite-level row 254 (m2-core.txt:4487)"
+  },
+  {
+   "file": "tests/contracts/v14-boundary-guards.contract.test.ts",
+   "line": null,
+   "newLine": 326,
+   "old": null,
+   "new": "    // 1361-N S3: 45 is now live (src/core/save.ts:5455-5457 handles 1 through 45), so the unknown sentinel is 46.",
+   "class": "S3",
+   "edit": "comment: 45 is live, so the unknown sentinel is 46",
+   "decision": "certain",
+   "rowIds": [
+    254
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=1",
+   "newLines": 1,
+   "insertedAfterOldLine": 322
+  },
+  {
+   "file": "tests/p06a-w1-release-authority.test.ts",
+   "line": 32,
+   "newLine": 32,
+   "old": "  convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43,",
+   "new": "  convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44,",
+   "class": "S4",
+   "edit": "convertV45ToV44 joins the import",
+   "decision": "certain",
+   "rowIds": [
+    269,
+    890
+   ],
+   "measured": "TS2345: Argument of type 'SaveFileV45' is not assignable to parameter of type 'SaveFileV44'.",
+   "frame": "type site #12, m2-tsc.txt:22; m2-core.txt:7732"
+  },
+  {
+   "file": "tests/p06a-w1-release-authority.test.ts",
+   "line": 38,
+   "newLine": 38,
+   "old": "  validateSaveV44,",
+   "new": "  validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    270
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /foreign identity|orphan/ but got 'validateSaveV44: expected version 44'",
+   "frame": "m2-core.txt:7746"
+  },
+  {
+   "file": "tests/p06a-w1-release-authority.test.ts",
+   "line": 406,
+   "newLine": 410,
+   "old": "    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(ready))))))))",
+   "new": "    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(makeSave(ready)))))))))",
+   "class": "S4",
+   "edit": "convertV45ToV44 innermost",
+   "decision": "measure",
+   "rowIds": [
+    269,
+    890
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:7732; type site #12 (406,136), m2-tsc.txt:22"
+  },
+  {
+   "file": "tests/p06a-w1-release-authority.test.ts",
+   "line": null,
+   "newLine": 406,
+   "old": null,
+   "new": "    // 1361-N S4: Save45 is live, so convertV45ToV44 (src/core/save.ts:10989-10995) leads the chain. It passes\n    // here: `ready` is the historical-control founding (beginFoundingHistoricalControl, src/core/employment.ts:573-576),\n    // which holds no industry, and a state without an industry records no Power Ranking quarter\n    // (src/core/powerRankingArchive.ts:151), so every P15 root is empty.",
+   "class": "S4",
+   "edit": "comment: why convertV45ToV44 passes (historical-control founding has no industry)",
+   "decision": "comment",
+   "rowIds": [
+    269,
+    890
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=4",
+   "newLines": 4,
+   "insertedAfterOldLine": 406
+  },
+  {
+   "file": "tests/p06a-w1-release-authority.test.ts",
+   "line": 459,
+   "newLine": 463,
+   "old": "    expect(() => validateSaveV44(orphan)).toThrow(/foreign identity|orphan/)",
+   "new": "    expect(() => validateSaveV45(orphan)).toThrow(/foreign identity|orphan/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [
+    270
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /foreign identity|orphan/ but got 'validateSaveV44: expected version 44'",
+   "frame": "m2-core.txt:7746"
+  },
+  {
+   "file": "tests/p06a-w1-release-authority.test.ts",
+   "line": 465,
+   "newLine": 469,
+   "old": "    expect(() => validateSaveV44(extraKey)).toThrow(/unknown field .surprise./)",
+   "new": "    expect(() => validateSaveV45(extraKey)).toThrow(/unknown field .surprise./)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "unreached in M2: the leaf stops at :459"
+  },
+  {
+   "file": "tests/p12-starting-world.test.ts",
+   "line": 2,
+   "newLine": 2,
+   "old": "import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToLive, makeSaveV18, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43 } from '../src/core/index.js'",
+   "new": "import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToLive, makeSaveV18, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44 } from '../src/core/index.js'",
+   "class": "S4",
+   "edit": "convertV45ToV44 joins the import",
+   "decision": "certain",
+   "rowIds": [
+    274,
+    891
+   ],
+   "measured": "TS2345: Argument of type 'SaveFileV45' is not assignable to parameter of type 'SaveFileV44'.",
+   "frame": "type site #13, m2-tsc.txt:26; m2-core.txt:7816"
+  },
+  {
+   "file": "tests/p12-starting-world.test.ts",
+   "line": 55,
+   "newLine": 58,
+   "old": "    expect(()=>makeSaveV18(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(state))))).state)).toThrow(/^makeSaveV18: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)",
+   "new": "    expect(()=>makeSaveV18(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(makeSave(state)))))).state)).toThrow(/^makeSaveV18: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)",
+   "class": "S4",
+   "edit": "convertV45ToV44 innermost; pin unchanged",
+   "decision": "measure",
+   "rowIds": [
+    274,
+    891
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /^makeSaveV18: cannot downgrade or dis\u2026/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7816; type site #13 (55,92), m2-tsc.txt:26"
+  },
+  {
+   "file": "tests/p12-starting-world.test.ts",
+   "line": null,
+   "newLine": 55,
+   "old": null,
+   "new": "    // 1361-N S4: Save45 is live, so convertV45ToV44 (src/core/save.ts:10989-10995) leads the chain. It passes: this\n    // founding state is at week 0, so no tick has recorded a Power Ranking quarter and every P15 root is empty.\n    // The pinned refusal below is unchanged.",
+   "class": "S4",
+   "edit": "comment: why convertV45ToV44 passes (week 0)",
+   "decision": "comment",
+   "rowIds": [
+    274,
+    891
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=3",
+   "newLines": 3,
+   "insertedAfterOldLine": 55
+  },
+  {
+   "file": "tests/p13b-s8-save-v27.test.ts",
+   "line": 187,
+   "newLine": 187,
+   "old": "    expect(envelope.saveVersion).toBe(44)",
+   "new": "    expect(envelope.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    294
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:8197"
+  },
+  {
+   "file": "tests/p13b-s8-save-v27.test.ts",
+   "line": 188,
+   "newLine": 188,
+   "old": "    // 1358-N S9 (MASKED): `natural` holds a romance track on relationship-edge-0, so convertV44ToV43 refuses\n    // first (src/core/save.ts:10790). Under Save43 the V39 subject guard already refused first (1344-X12\n    // section 4), so the V27 rival-research guard this title names (convertV27ToV26, save.ts:8945-8956) is\n    // not reached here. Measured in 1358-X6 (probe G4-new-1). The V27 guard's receipt arm (save.ts:8833)\n    // keeps its own-era coverage in the next leaf's last assertion. Its finance arm (save.ts:8848), the\n    // movement this title names, cannot fire on a valid save (1358-F11 closure findings; 1358-D9 N3).",
+   "new": "    // 1361-N S9 (MASKED): `natural` is a p13a route ticked to week 20, past quarter 13, so its Power Ranking\n    // archive holds a quarter and convertV45ToV44 refuses first (src/core/save.ts:10992, reason :10895). That\n    // masks the Save44 romance refusal on relationship-edge-0 (convertV44ToV43, save.ts:10849; 1358-N S9). Under\n    // Save43 the V39 subject guard already refused first (1344-X12 section 4), so the V27 rival-research guard\n    // this title names (convertV27ToV26, save.ts:8986-8997) is not reached here. Measured in 1361-M2 at the\n    // next leaf, which builds this same `natural`. The V27 guard's receipt arm (save.ts:8874) keeps its\n    // own-era coverage in the next leaf's last assertion. Its finance arm (save.ts:8889), the movement this\n    // title names, cannot fire on a valid save (1358-F11 closure findings; 1358-D9 N3). The romance guard\n    // stays covered on a V44 envelope by tests/p14b10-save-v44.test.ts:356 ('refuses a real (non-null)\n    // romance by name').",
+   "class": "S9",
+   "edit": "S9 comment rewrite for :194 (Save45 lines; masked guards and their own-era covers)",
+   "decision": "certain",
+   "rowIds": [
+    294,
+    295
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=10",
+   "newLines": 10,
+   "insertedAfterOldLine": null
+  },
+  {
+   "file": "tests/p13b-s8-save-v27.test.ts",
+   "line": 194,
+   "newLine": 198,
+   "old": "    expect(() => save.migrateToV26(envelope as never)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+   "new": "    expect(() => save.migrateToV26(envelope as never)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
+   "class": "S9",
+   "edit": "pin the first guard, /^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/",
+   "decision": "measure",
+   "rowIds": [
+    294,
+    295
+   ],
+   "measured": "not reached in M2 (the leaf stops at :187). The same `natural` (advanceTo(p13aGeneratedStudio(NATURAL_SEED), 20)) is built at :206, which measured \"migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter\" (save.ts:10992, reason :10895)",
+   "frame": "m2-core.txt:8216-8230 (the identical input); row 295 edit text: \":194 takes the same form\""
+  },
+  {
+   "file": "tests/p13b-s8-save-v27.test.ts",
+   "line": 201,
+   "newLine": 205,
+   "old": "    // 1358-N S9 (MASKED): the same romance track on relationship-edge-0 makes convertV44ToV43 refuse first\n    // (src/core/save.ts:10790), ahead of the V27 receipt guard this title names (save.ts:8945-8956). Under\n    // Save43 the V39 subject guard already refused first on this campaign (1344-X12 section 4, at :188).\n    // Measured in 1358-X6 (probe G4-new-2). The V27 guard keeps its own-era coverage in the staged\n    // assertion below.",
+   "new": "    // 1361-N S9 (MASKED): the same week-20 route holds a recorded Power Ranking quarter, so convertV45ToV44\n    // refuses first (src/core/save.ts:10992, reason :10895), ahead of the Save44 romance refusal\n    // (convertV44ToV43, save.ts:10849; 1358-N S9) and the V27 receipt guard this title names\n    // (convertV27ToV26, save.ts:8986-8997). Under Save43 the V39 subject guard already refused first on\n    // this campaign (1344-X12 section 4, in the leaf above). Measured in 1361-M2. The V27 guard keeps its\n    // own-era coverage in the staged assertion below, and the romance guard on a V44 envelope in\n    // tests/p14b10-save-v44.test.ts:356 ('refuses a real (non-null) romance by name').",
+   "class": "S9",
+   "edit": "S9 comment rewrite for :206 (Save45 lines; masked guards and their own-era covers)",
+   "decision": "certain",
+   "rowIds": [
+    295
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=7",
+   "newLines": 7,
+   "insertedAfterOldLine": null
+  },
+  {
+   "file": "tests/p13b-s8-save-v27.test.ts",
+   "line": 206,
+   "newLine": 212,
+   "old": "    expect(() => save.migrateToV26(envelope as never)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+   "new": "    expect(() => save.migrateToV26(envelope as never)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)",
+   "class": "S9",
+   "edit": "pin the first guard, /^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/",
+   "decision": "certain",
+   "rowIds": [
+    295
+   ],
+   "measured": "received in full: \"migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter\" (through the production chain migrateToV26)",
+   "frame": "m2-core.txt:8216-8230"
+  },
+  {
+   "file": "tests/p13b-s8-save-v27.test.ts",
+   "line": 232,
+   "newLine": 238,
+   "old": "  it('an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+   "new": "  it('an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+   "class": "T",
+   "edit": "title: sentinel 45 -> 46, \"1 through 44 only\" -> \"1 through 45 only\"",
+   "decision": "certain",
+   "rowIds": [
+    293
+   ],
+   "measured": "title rename, no M2 message",
+   "frame": "old and new identity in the entry",
+   "titleOldIdentity": "tests/p13b-s8-save-v27.test.ts > P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)",
+   "titleNewIdentity": "tests/p13b-s8-save-v27.test.ts > P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)"
+  },
+  {
+   "file": "tests/p13b-s8-save-v27.test.ts",
+   "line": 235,
+   "newLine": 241,
+   "old": "    const forged = { ...v27, saveVersion: 45 }",
+   "new": "    const forged = { ...v27, saveVersion: 46 }",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    293
+   ],
+   "measured": "see :236",
+   "frame": "m2-core.txt:8235"
+  },
+  {
+   "file": "tests/p13b-s8-save-v27.test.ts",
+   "line": 236,
+   "newLine": 242,
+   "old": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)",
+   "new": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)",
+   "class": "S3",
+   "edit": "\"1 through 44\" -> \"1 through 45\"",
+   "decision": "certain",
+   "rowIds": [
+    293
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /versions 1 through 44 only/ but got 'validateSaveV45: the p15Sequence root\u2026' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]",
+   "frame": "m2-core.txt:8235-8250"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "line": 12,
+   "newLine": 12,
+   "old": "import { LIVE_SAVE_VERSION, migrateToLive, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { LIVE_SAVE_VERSION, migrateToLive, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    301,
+    302,
+    303,
+    304,
+    305,
+    306,
+    307,
+    308,
+    309,
+    310,
+    311,
+    312,
+    313,
+    314,
+    315,
+    316
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "serves all 16 rows; type site #15 (168,33), m2-tsc.txt:32"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "line": 84,
+   "newLine": 84,
+   "old": "  expect(() => validateSaveV44(valid)).not.toThrow()",
+   "new": "  expect(() => validateSaveV45(valid)).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [
+    302,
+    303,
+    304,
+    305,
+    306,
+    307,
+    308,
+    309,
+    310,
+    311,
+    312,
+    313,
+    314,
+    315,
+    316
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers\u2026' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "rows 302-316, m2-core.txt:8350-8478 (through rejects())"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "line": 86,
+   "newLine": 86,
+   "old": "  expect(() => validateSaveV44(valid)).toThrow()",
+   "new": "  expect(() => validateSaveV45(valid)).toThrow()",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(; the bare .toThrow() stays bare",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none: M2 stops at :84 first",
+   "frame": "bare probe (1361-F7 ruling 9): a pin follows only if probe P5 shows a guard other than the tampered field's"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "line": 166,
+   "newLine": 166,
+   "old": "    const loaded = validateSaveV44(JSON.parse(json))",
+   "new": "    const loaded = validateSaveV45(JSON.parse(json))",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    301,
+    893
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:8337; type site #15 (168,33) TS2379, m2-tsc.txt:32"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "line": 306,
+   "newLine": 306,
+   "old": "    expect(JSON.stringify(validateSaveV44(JSON.parse(json)))).toBe(json)",
+   "new": "    expect(JSON.stringify(validateSaveV45(JSON.parse(json)))).toBe(json)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "inside a retained identity that fails at its fixture premise before this line (\"no multi-beneficiary promise outcome from a shared real take within 230 weeks\", m2-core.txt:8498); the rename completes the file's move to the V45 import"
+  },
+  {
+   "file": "tests/p14c2b-save-v36.test.ts",
+   "line": 29,
+   "newLine": 29,
+   "old": "import { LIVE_SAVE_VERSION, convertV35ToV36, convertV36ToV35, makeSave, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { LIVE_SAVE_VERSION, convertV35ToV36, convertV36ToV35, makeSave, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    478
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers\u2026' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:401584"
+  },
+  {
+   "file": "tests/p14c2b-save-v36.test.ts",
+   "line": null,
+   "newLine": 83,
+   "old": null,
+   "new": "    // 1361-N S4: liveEnvelopeV36 now starts at convertV45ToV44 (tests/helpers/p14c2b-fixtures.ts:69;\n    // src/core/save.ts:10989-10995). This route runs from the week-52 capture to week 98, past quarters 65, 78\n    // and 91, so a recorded Power Ranking quarter would refuse first (\"migrateToV44: cannot downgrade or discard\n    // a recorded Power Ranking quarter\", :10992, reason :10895), ahead of the romance guard pinned below, which\n    // tests/p14b10-save-v44.test.ts:356 covers on a V44 envelope. The pin is unmeasured at Save45 and stays\n    // until probe P4 of 1361-N measures it.",
+   "class": "S4",
+   "edit": "comment: liveEnvelopeV36 starts at convertV45ToV44; pin unmeasured",
+   "decision": "comment",
+   "rowIds": [
+    477
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=6",
+   "newLines": 6,
+   "insertedAfterOldLine": 82
+  },
+  {
+   "file": "tests/p14c2b-save-v36.test.ts",
+   "line": null,
+   "newLine": 104,
+   "old": null,
+   "new": "    // 1361-N S4: as in the leaf above, liveEnvelopeV36 starts at convertV45ToV44 (src/core/save.ts:10989-10995),\n    // and this route runs from week 52 to week 92, past quarters 65, 78 and 91, so a recorded Power Ranking\n    // quarter would refuse first (:10992, reason :10895), ahead of the romance guard pinned below (covered by\n    // tests/p14b10-save-v44.test.ts:356). The pin is unmeasured at Save45 (probe P4 of 1361-N).",
+   "class": "S4",
+   "edit": "comment: liveEnvelopeV36 starts at convertV45ToV44; pin unmeasured",
+   "decision": "comment",
+   "rowIds": [
+    476
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=4",
+   "newLines": 4,
+   "insertedAfterOldLine": 97
+  },
+  {
+   "file": "tests/p14c2b-save-v36.test.ts",
+   "line": 129,
+   "newLine": 139,
+   "old": "    expect(() => validateSaveV44(makeSave(state))).not.toThrow()",
+   "new": "    expect(() => validateSaveV45(makeSave(state))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [
+    478
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers\u2026' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:401584"
+  },
+  {
+   "file": "tests/p14c2b-save-v36.test.ts",
+   "line": 137,
+   "newLine": 147,
+   "old": "    expect(() => validateSaveV44(makeSave(tampered))).toThrow(/at most one|second retirementExtension/i)",
+   "new": "    expect(() => validateSaveV45(makeSave(tampered))).toThrow(/at most one|second retirementExtension/i)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none: no M2 row; the leaf passed in M2 because makeSave(tampered) validates and throws the tampered field's guard before the explicit call",
+   "frame": "P5 confirms"
+  },
+  {
+   "file": "tests/p14c2b-save-v36.test.ts",
+   "line": 146,
+   "newLine": 156,
+   "old": "    expect(() => validateSaveV44(makeSave(tampered))).toThrow(/settled retirementExtension case/i)",
+   "new": "    expect(() => validateSaveV45(makeSave(tampered))).toThrow(/settled retirementExtension case/i)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none: no M2 row; the leaf passed in M2 because makeSave(tampered) validates and throws the tampered field's guard before the explicit call",
+   "frame": "P5 confirms"
+  },
+  {
+   "file": "tests/p14c2b-save-v36.test.ts",
+   "line": 158,
+   "newLine": 168,
+   "old": "    expect(() => validateSaveV44(makeSave(tampered))).toThrow(/weeks before its effective week/i)",
+   "new": "    expect(() => validateSaveV45(makeSave(tampered))).toThrow(/weeks before its effective week/i)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none: no M2 row; the leaf passed in M2 because makeSave(tampered) validates and throws the tampered field's guard before the explicit call",
+   "frame": "P5 confirms"
+  },
+  {
+   "file": "tests/p14c2b-save-v36.test.ts",
+   "line": 171,
+   "newLine": 181,
+   "old": "    expect(() => validateSaveV44(makeSave(tampered))).toThrow(/exactly one must/i)",
+   "new": "    expect(() => validateSaveV45(makeSave(tampered))).toThrow(/exactly one must/i)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none: no M2 row; the leaf passed in M2 because makeSave(tampered) validates and throws the tampered field's guard before the explicit call",
+   "frame": "P5 confirms"
+  },
+  {
+   "file": "tests/p14c2b-save-v36.test.ts",
+   "line": 177,
+   "newLine": 187,
+   "old": "    expect(LIVE_SAVE_VERSION).toBe(44)",
+   "new": "    expect(LIVE_SAVE_VERSION).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    479
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:401603"
+  },
+  {
+   "file": "tests/p14c2b-save-v36.test.ts",
+   "line": 183,
+   "newLine": 193,
+   "old": "    expect((saved as { saveVersion: number }).saveVersion).toBe(44)",
+   "new": "    expect((saved as { saveVersion: number }).saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    480
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:401622"
+  },
+  {
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "line": 12,
+   "newLine": 12,
+   "old": "import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,",
+   "new": "import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,",
+   "class": "S4",
+   "edit": "convertV45ToV44 joins the import",
+   "decision": "certain",
+   "rowIds": [
+    902
+   ],
+   "measured": "TS2345: Argument of type 'SaveFileV45' is not assignable to parameter of type 'SaveFileV44'.",
+   "frame": "type site #24, m2-tsc.txt:52"
+  },
+  {
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "line": 13,
+   "newLine": 13,
+   "old": "  validateSaveV36, validateSaveV44 } from '../src/core/save.js'",
+   "new": "  validateSaveV36, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c2rm-fixtures.ts:24); the file's 63 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "line": 81,
+   "newLine": 81,
+   "old": "    expect(validateSaveV44(envelope(reopened)).state).toBe(reopened)",
+   "new": "    expect(validateSaveV45(envelope(reopened)).state).toBe(reopened)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c2rm-fixtures.ts:24); the file's 63 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "line": 236,
+   "newLine": 236,
+   "old": "    expect(() => validateSaveV44(input)).toThrow(refusal)",
+   "new": "    expect(() => validateSaveV45(input)).toThrow(refusal)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept (refusal per case)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c2rm-fixtures.ts:24); the file's 63 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "line": 252,
+   "newLine": 252,
+   "old": "    expect(() => validateSaveV44(envelope(illegal))).toThrow(/validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted$/)",
+   "new": "    expect(() => validateSaveV45(envelope(illegal))).toThrow(/validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted$/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c2rm-fixtures.ts:24); the file's 63 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "line": 263,
+   "newLine": 263,
+   "old": "    expect(() => validateSaveV44(input)).toThrow(/validateSaveV9: state\\.scriptDevelopment\\.projects\\[0\\] has unknown field \"retirementBypass\"$/)",
+   "new": "    expect(() => validateSaveV45(input)).toThrow(/validateSaveV9: state\\.scriptDevelopment\\.projects\\[0\\] has unknown field \"retirementBypass\"$/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c2rm-fixtures.ts:24); the file's 63 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "line": 264,
+   "newLine": 264,
+   "old": "    expect(() => validateSaveV44({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field \"retirementBypass\"$/)",
+   "new": "    expect(() => validateSaveV45({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field \"retirementBypass\"$/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c2rm-fixtures.ts:24); the file's 63 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "line": 287,
+   "newLine": 293,
+   "old": "    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(current))))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+   "new": "    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(current)))))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+   "class": "S4",
+   "edit": "convertV45ToV44 innermost; S9 pin deferred",
+   "decision": "measure",
+   "rowIds": [
+    902
+   ],
+   "measured": "none: no M2 row; the leaf is behind H's helper pin",
+   "frame": "type site #24 (287,146) TS2345, m2-tsc.txt:52"
+  },
+  {
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "line": null,
+   "newLine": 287,
+   "old": null,
+   "new": "    // 1361-N S4: Save45 is live, so convertV45ToV44 (src/core/save.ts:10989-10995) now leads this chain.\n    // `f.finishing` is a genesis route to week 312 (finishingWriter), past quarter weeks 13 to 312, so a\n    // recorded Power Ranking quarter would refuse first (\"migrateToV44: cannot downgrade or discard a recorded\n    // Power Ranking quarter\", :10992, reason :10895), ahead of the romance guard pinned below, which\n    // tests/p14b10-save-v44.test.ts:356 covers on a V44 envelope. The pin is unmeasured at Save45 and stays\n    // until probe P4 of 1361-N measures it.",
+   "class": "S4",
+   "edit": "comment: convertV45ToV44 leads the chain; pin unmeasured",
+   "decision": "comment",
+   "rowIds": [
+    902
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=6",
+   "newLines": 6,
+   "insertedAfterOldLine": 287
+  },
+  {
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "line": 311,
+   "newLine": 317,
+   "old": "      expect(() => validateSaveV44(legal)).not.toThrow()",
+   "new": "      expect(() => validateSaveV45(legal)).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c2rm-fixtures.ts:24); the file's 63 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "line": 313,
+   "newLine": 319,
+   "old": "      expect(() => validateSaveV44(illegal)).toThrow(/validateSaveV36: talentMarket\\.cases\\[25\\] is a retirementExtension case for authored-0000, who holds no retirement record$/) // save.ts:10295",
+   "new": "      expect(() => validateSaveV45(illegal)).toThrow(/validateSaveV36: talentMarket\\.cases\\[25\\] is a retirementExtension case for authored-0000, who holds no retirement record$/) // save.ts:10295",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c2rm-fixtures.ts:24); the file's 63 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c2rm-writer-continuation.test.ts",
+   "line": 379,
+   "newLine": 385,
+   "old": "      expect(() => validateSaveV44(envelope(invalid)), 'existing full-save refusal is a control').toThrow()",
+   "new": "      expect(() => validateSaveV45(envelope(invalid)), 'existing full-save refusal is a control').toThrow()",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(; the bare .toThrow() stays bare",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "bare probe (1361-F7 ruling 9): a pin follows only if probe P5 shows a guard other than the tampered field's; behind H's helper pin"
+  },
+  {
+   "file": "tests/p14c3-canonical-rival-history.test.ts",
+   "line": 10,
+   "newLine": 10,
+   "old": "import { exportSave, makeSave, stableStringify, validateSaveV37, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { exportSave, makeSave, stableStringify, validateSaveV37, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-genuine-evidence-fixtures.ts:17); the file's 6 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c3-canonical-rival-history.test.ts",
+   "line": 233,
+   "newLine": 233,
+   "old": "    expect(validateSaveV44(control)).toBe(control)",
+   "new": "    expect(validateSaveV45(control)).toBe(control)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-genuine-evidence-fixtures.ts:17); the file's 6 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c3-canonical-rival-history.test.ts",
+   "line": 245,
+   "newLine": 245,
+   "old": "      expect(() => validateSaveV44(mutant)).toThrow(cause)",
+   "new": "      expect(() => validateSaveV45(mutant)).toThrow(cause)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, .toThrow(cause) kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-genuine-evidence-fixtures.ts:17); the file's 6 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c3-canonical-rival-history.test.ts",
+   "line": 255,
+   "newLine": 255,
+   "old": "    expect(() => validateSaveV44(missing)).toThrow(/current profession changed without its anchored change history/)",
+   "new": "    expect(() => validateSaveV45(missing)).toThrow(/current profession changed without its anchored change history/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-genuine-evidence-fixtures.ts:17); the file's 6 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c3-canonical-rival-history.test.ts",
+   "line": 256,
+   "newLine": 256,
+   "old": "    expect(validateSaveV44(control)).toBe(control)",
+   "new": "    expect(validateSaveV45(control)).toBe(control)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-genuine-evidence-fixtures.ts:17); the file's 6 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c3-cohort-transition.test.ts",
+   "line": 9,
+   "newLine": 9,
+   "old": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S4",
+   "edit": "convertV45ToV44 joins the import; validateSaveV45 replaces validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    903
+   ],
+   "measured": "TS2345: Argument of type 'SaveFileV45' is not assignable to parameter of type 'SaveFileV44'.",
+   "frame": "type site #25, m2-tsc.txt:56"
+  },
+  {
+   "file": "tests/p14c3-cohort-transition.test.ts",
+   "line": 273,
+   "newLine": 273,
+   "old": "    expect(validateSaveV44(control)).toBe(control)",
+   "new": "    expect(validateSaveV45(control)).toBe(control)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-genuine-evidence-fixtures.ts:17); the file's 9 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c3-cohort-transition.test.ts",
+   "line": 278,
+   "newLine": 278,
+   "old": "    expect(() => validateSaveV44(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)",
+   "new": "    expect(() => validateSaveV45(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin; the file's 9 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c3-cohort-transition.test.ts",
+   "line": 280,
+   "newLine": 280,
+   "old": "    expect(validateSaveV44(control)).toBe(control)",
+   "new": "    expect(validateSaveV45(control)).toBe(control)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-genuine-evidence-fixtures.ts:17); the file's 9 M2 rows are H-owned"
+  },
+  {
+   "file": "tests/p14c3-cohort-transition.test.ts",
+   "line": 288,
+   "newLine": 294,
+   "old": "    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(control)))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-48$/)",
+   "new": "    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(control))))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-48$/)",
+   "class": "S4",
+   "edit": "convertV45ToV44 innermost; S9 pin deferred",
+   "decision": "measure",
+   "rowIds": [
+    903
+   ],
+   "measured": "none: no M2 row; the leaf is behind H's helper pin",
+   "frame": "type site #25 (288,130) TS2345, m2-tsc.txt:56"
+  },
+  {
+   "file": "tests/p14c3-cohort-transition.test.ts",
+   "line": null,
+   "newLine": 288,
+   "old": null,
+   "new": "    // 1361-N S4: Save45 is live, so convertV45ToV44 (src/core/save.ts:10989-10995) now leads this chain. The\n    // control runs from the week-2600 capture to week 3283, past quarters 2613 to 3276, so a recorded Power\n    // Ranking quarter would refuse first (\"migrateToV44: cannot downgrade or discard a recorded Power Ranking\n    // quarter\", :10992, reason :10895), ahead of the romance guard pinned below, which\n    // tests/p14b10-save-v44.test.ts:356 covers on a V44 envelope. The pin is unmeasured at Save45 and stays\n    // until probe P4 of 1361-N measures it.",
+   "class": "S4",
+   "edit": "comment: convertV45ToV44 leads the chain; pin unmeasured",
+   "decision": "comment",
+   "rowIds": [
+    903
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=6",
+   "newLines": 6,
+   "insertedAfterOldLine": 288
+  },
+  {
+   "file": "tests/p14c3-dual-extensions.test.ts",
+   "line": 8,
+   "newLine": 8,
+   "old": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'",
+   "new": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'",
+   "class": "S4",
+   "edit": "convertV45ToV44 joins the import",
+   "decision": "certain",
+   "rowIds": [
+    904
+   ],
+   "measured": "TS2345: Argument of type 'SaveFileV45' is not assignable to parameter of type 'SaveFileV44'.",
+   "frame": "type site #26, m2-tsc.txt:60"
+  },
+  {
+   "file": "tests/p14c3-dual-extensions.test.ts",
+   "line": 180,
+   "newLine": 186,
+   "old": "    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+   "new": "    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(saved))))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+   "class": "S4",
+   "edit": "convertV45ToV44 innermost; S9 pin deferred",
+   "decision": "measure",
+   "rowIds": [
+    904
+   ],
+   "measured": "none: no M2 row; the leaf is behind H's helper pin (p14c3-second-episode-fixtures.ts:27)",
+   "frame": "type site #26 (180,130) TS2345, m2-tsc.txt:60"
+  },
+  {
+   "file": "tests/p14c3-dual-extensions.test.ts",
+   "line": null,
+   "newLine": 180,
+   "old": null,
+   "new": "    // 1361-N S4: Save45 is live, so convertV45ToV44 (src/core/save.ts:10989-10995) now leads this chain. The\n    // saved state runs from the week-103 capture (dualOrigin) to week 468, past quarters 104 to 468, so a\n    // recorded Power Ranking quarter would refuse first (\"migrateToV44: cannot downgrade or discard a recorded\n    // Power Ranking quarter\", :10992, reason :10895), ahead of the romance guard pinned below, which\n    // tests/p14b10-save-v44.test.ts:356 covers on a V44 envelope. The pin is unmeasured at Save45 and stays\n    // until probe P4 of 1361-N measures it.",
+   "class": "S4",
+   "edit": "comment: convertV45ToV44 leads the chain; pin unmeasured",
+   "decision": "comment",
+   "rowIds": [
+    904
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=6",
+   "newLines": 6,
+   "insertedAfterOldLine": 180
+  },
+  {
+   "file": "tests/p14c3-offmenu-extensions.test.ts",
+   "line": 10,
+   "newLine": 10,
+   "old": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'",
+   "new": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'",
+   "class": "S4",
+   "edit": "convertV45ToV44 joins the import",
+   "decision": "certain",
+   "rowIds": [
+    905
+   ],
+   "measured": "TS2345: Argument of type 'SaveFileV45' is not assignable to parameter of type 'SaveFileV44'.",
+   "frame": "type site #27, m2-tsc.txt:64"
+  },
+  {
+   "file": "tests/p14c3-offmenu-extensions.test.ts",
+   "line": 237,
+   "newLine": 243,
+   "old": "    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+   "new": "    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(saved))))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+   "class": "S4",
+   "edit": "convertV45ToV44 innermost; S9 pin deferred",
+   "decision": "measure",
+   "rowIds": [
+    905
+   ],
+   "measured": "none: no M2 row; the leaf is behind H's helper pin",
+   "frame": "type site #27 (237,130) TS2345, m2-tsc.txt:64"
+  },
+  {
+   "file": "tests/p14c3-offmenu-extensions.test.ts",
+   "line": null,
+   "newLine": 237,
+   "old": null,
+   "new": "    // 1361-N S4: Save45 is live, so convertV45ToV44 (src/core/save.ts:10989-10995) now leads this chain. The\n    // saved state runs from the week-103 capture (offmenuSettlement) to week 410, past quarters 104 to 403, so\n    // a recorded Power Ranking quarter would refuse first (\"migrateToV44: cannot downgrade or discard a\n    // recorded Power Ranking quarter\", :10992, reason :10895), ahead of the romance guard pinned below, which\n    // tests/p14b10-save-v44.test.ts:356 covers on a V44 envelope. The pin is unmeasured at Save45 and stays\n    // until probe P4 of 1361-N measures it.",
+   "class": "S4",
+   "edit": "comment: convertV45ToV44 leads the chain; pin unmeasured",
+   "decision": "comment",
+   "rowIds": [
+    905
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=6",
+   "newLines": 6,
+   "insertedAfterOldLine": 237
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 119,
+   "newLine": 125,
+   "old": "    expect(() => save.convertV38ToV37(save.convertV39ToV38(save.convertV40ToV39(save.convertV41ToV40(save.convertV42ToV41(save.convertV43ToV42(save.convertV44ToV43(save.makeSave(f.state))))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)",
+   "new": "    expect(() => save.convertV38ToV37(save.convertV39ToV38(save.convertV40ToV39(save.convertV41ToV40(save.convertV42ToV41(save.convertV43ToV42(save.convertV44ToV43(save.convertV45ToV44(save.makeSave(f.state)))))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)",
+   "class": "S4",
+   "edit": "convertV45ToV44 innermost; S9 pin deferred",
+   "decision": "measure",
+   "rowIds": [
+    906
+   ],
+   "measured": "none: no M2 row; the leaf is behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)",
+   "frame": "type site #28 (119,165) TS2345, m2-tsc.txt:68"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": null,
+   "newLine": 119,
+   "old": null,
+   "new": "    // 1361-N S4: Save45 is live, so convertV45ToV44 (src/core/save.ts:10989-10995) now leads this chain. The\n    // state runs from the week-207 capture through week 208, a quarter week (13 x 16), so a recorded Power\n    // Ranking quarter would refuse first (\"migrateToV44: cannot downgrade or discard a recorded Power Ranking\n    // quarter\", :10992, reason :10895), ahead of the shelving guard pinned below, which\n    // tests/p14d1-rival-shelving-save-v43.test.ts:226 covers on a V43 envelope. The pin is unmeasured at\n    // Save45 and stays until probe P4 of 1361-N measures it.",
+   "class": "S4",
+   "edit": "comment: convertV45ToV44 leads the chain; pin unmeasured",
+   "decision": "comment",
+   "rowIds": [
+    906
+   ],
+   "measured": "comment lines only",
+   "frame": "newLines=6",
+   "newLines": 6,
+   "insertedAfterOldLine": 119
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 276,
+   "newLine": 282,
+   "old": "    expect(save.validateSaveV44(current)).toBe(current); expect(save.validateSaveV37(old)).toBe(old)",
+   "new": "    expect(save.validateSaveV45(current)).toBe(current); expect(save.validateSaveV37(old)).toBe(old)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 280,
+   "newLine": 286,
+   "old": "      expect(save.validateSaveV44(current)).toBe(current)",
+   "new": "      expect(save.validateSaveV45(current)).toBe(current)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 301,
+   "newLine": 307,
+   "old": "    for (const input of [a, b, a]) expect(save.validateSaveV44(input)).toBe(input)",
+   "new": "    for (const input of [a, b, a]) expect(save.validateSaveV45(input)).toBe(input)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 305,
+   "newLine": 311,
+   "old": "    try { expect(save.validateSaveV44(detached)).toBe(detached) } finally { spy.mockRestore() }",
+   "new": "    try { expect(save.validateSaveV45(detached)).toBe(detached) } finally { spy.mockRestore() }",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 320,
+   "newLine": 326,
+   "old": "    expect(() => save.validateSaveV44(forgedB)).toThrow(/current profession changed without its anchored change history/)",
+   "new": "    expect(() => save.validateSaveV45(forgedB)).toThrow(/current profession changed without its anchored change history/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 326,
+   "newLine": 332,
+   "old": "    expect(save.validateSaveV44(a)).toBe(a); expect(save.validateSaveV44(b)).toBe(b)",
+   "new": "    expect(save.validateSaveV45(a)).toBe(a); expect(save.validateSaveV45(b)).toBe(b)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 332,
+   "newLine": 338,
+   "old": "    expect(save.validateSaveV44(control)).toBe(control)",
+   "new": "    expect(save.validateSaveV45(control)).toBe(control)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 340,
+   "newLine": 346,
+   "old": "    expect(() => save.validateSaveV44(malformed)).toThrow(/future entrant in its recorded talent prefix/)",
+   "new": "    expect(() => save.validateSaveV45(malformed)).toThrow(/future entrant in its recorded talent prefix/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 342,
+   "newLine": 348,
+   "old": "    expect(save.validateSaveV44(control)).toBe(control)",
+   "new": "    expect(save.validateSaveV45(control)).toBe(control)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 347,
+   "newLine": 353,
+   "old": "    expect(save.validateSaveV44(control)).toBe(control)",
+   "new": "    expect(save.validateSaveV45(control)).toBe(control)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 354,
+   "newLine": 360,
+   "old": "    expect(() => save.validateSaveV44(malformed)).toThrow(/precedes this person's actual creation/)",
+   "new": "    expect(() => save.validateSaveV45(malformed)).toThrow(/precedes this person's actual creation/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45(, pattern kept",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 356,
+   "newLine": 362,
+   "old": "    expect(save.validateSaveV44(control)).toBe(control)",
+   "new": "    expect(save.validateSaveV45(control)).toBe(control)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 361,
+   "newLine": 367,
+   "old": "    expect(save.validateSaveV37(old)).toBe(old); expect(save.validateSaveV44(current)).toBe(current)",
+   "new": "    expect(save.validateSaveV37(old)).toBe(old); expect(save.validateSaveV45(current)).toBe(current)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  },
+  {
+   "file": "tests/p14c3-profession-history.test.ts",
+   "line": 376,
+   "newLine": 382,
+   "old": "    expect(save.validateSaveV44(current)).toBe(current)",
+   "new": "    expect(save.validateSaveV45(current)).toBe(current)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "none",
+   "frame": "behind H's helper pin (p14c3-history-boundary-fixtures.ts:26)"
+  }
+ ]
+}

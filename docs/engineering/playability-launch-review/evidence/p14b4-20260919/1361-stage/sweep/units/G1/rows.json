@@ -1,0 +1,1454 @@
+{
+ "record": "1361-N",
+ "unit": "G1",
+ "tree": "/Users/zacheryspector/studio-scratch/1361-sweep/G1/tree",
+ "basis": "git diff HEAD -- tests ui, on top of unit H; line = the HEAD line of the edit (an insertion carries the HEAD line it precedes), newLine = line in the edited file; planLine = the plan census line where it differs; rowIds are indexes into rows[] of 1361-stage/sweep/1361-N-classification.json",
+ "count": 78,
+ "edits": [
+  {
+   "file": "tests/facility-move-demolish.test.ts",
+   "line": 52,
+   "newLine": 52,
+   "old": "  validateSaveV44,",
+   "new": "  validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    262
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:31 (S1 class summary)",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/facility-move-demolish.test.ts",
+   "line": 60,
+   "newLine": 60,
+   "old": null,
+   "new": "import { p15Rows, stripP15 } from './helpers/p15-roots.js'",
+   "class": "S7",
+   "edit": "import p15Rows and stripP15 from tests/helpers/p15-roots.ts (1361-F7 ruling 4)",
+   "decision": "certain",
+   "rowIds": [
+    261
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /SaveFileV13 facility demolition autho…/ but got 'validateSaveV11: state has unknown fi…' [received in full: \"validateSaveV11: state has unknown field \\\"campaignLegacy\\\"\"]",
+   "frame": "m2-core.txt:7610",
+   "oldLines": 0,
+   "newLines": 1
+  },
+  {
+   "file": "tests/facility-move-demolish.test.ts",
+   "line": 781,
+   "newLine": 782,
+   "old": "    expect(validateSaveV44(save)).toBe(save)",
+   "new": "    expect(validateSaveV45(save)).toBe(save)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    262
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/facility-move-demolish.test.ts",
+   "line": 870,
+   "newLine": 871,
+   "old": null,
+   "new": "    // 1361-N S7: and the four Save45 P15 roots (powerRanking, p15Sequence, sharedMarket,\n    // campaignLegacy). They are V45-only, so the V11 exact-keys allowlist trips on 'unknown field\n    // \"campaignLegacy\"' (src/core/save.ts:3936; measured at m2-core.txt:7610) before the walk reaches\n    // the demolition refund boundary this test is about. Removed only while EMPTY (the 1332-A\n    // guard-before-strip form): this world comes from generateWorld, which holds no industry\n    // (src/core/worldgen.ts:728), so no quarter is ever recorded and the allocator still stands at 1.\n    // The roots come from the RED helper's one list, so a later P15 root joins this strip\n    // (1361-F7 ruling 4).\n    expect(p15Rows(forgedV11.state)).toEqual([])\n    expect((forgedV11.state.p15Sequence as { next: number }).next).toBe(1)\n    forgedV11.state = stripP15(forgedV11.state)",
+   "class": "S7",
+   "edit": "forgedV11: guard (p15Rows empty, p15Sequence.next === 1) then stripP15 beside the firstTakeSubjects deletion",
+   "decision": "certain",
+   "rowIds": [
+    261
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /SaveFileV13 facility demolition autho…/ but got 'validateSaveV11: state has unknown fi…' [received in full: \"validateSaveV11: state has unknown field \\\"campaignLegacy\\\"\"]",
+   "frame": "m2-core.txt:7610",
+   "oldLines": 0,
+   "newLines": 11,
+   "planLine": 869
+  },
+  {
+   "file": "tests/p13b-r07-save-v25.test.ts",
+   "line": 10,
+   "newLine": 10,
+   "old": null,
+   "new": "import { p15Rows, stripP15 } from './helpers/p15-roots.js'",
+   "class": "S7",
+   "edit": "import p15Rows and stripP15 from tests/helpers/p15-roots.ts (1361-F7 ruling 4)",
+   "decision": "certain",
+   "rowIds": [
+    279,
+    280
+   ],
+   "measured": "Error: validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \"powerRanking\"",
+   "frame": "m2-core.txt:2864",
+   "oldLines": 0,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p13b-r07-save-v25.test.ts",
+   "line": 208,
+   "newLine": 209,
+   "old": "  return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }",
+   "new": "  // 1361-N S7: a frozen V25 envelope carries no P15 root either (the four are V45-only), so the\n  // frozen chain refuses 'validateSaveV12: state has unknown field \"powerRanking\"' (src/core/save.ts:4185;\n  // measured at m2-core.txt:2864). Same honest reconstruction as the roots above, removed only while\n  // EMPTY (the 1332-A guard-before-strip form): this rehearsing world ticks three weeks, short of the\n  // first quarter week (13), so it holds no P15 row and the allocator still stands at 1. The roots come\n  // from the RED helper's one list, so a later P15 root joins this strip (1361-F7 ruling 4).\n  expect(p15Rows(stripped)).toEqual([])\n  expect(stripped.p15Sequence.next).toBe(1)\n  return { saveVersion: 25, seed: stripped.seed, state: stripP15(stripped) as unknown as GameState, broadcastCache: stripped.broadcastItems }",
+   "class": "S7",
+   "edit": "asV25Envelope: guard (p15Rows empty, p15Sequence.next === 1) then stripP15 on the returned state",
+   "decision": "certain",
+   "rowIds": [
+    279,
+    280
+   ],
+   "measured": "Error: validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \"powerRanking\"",
+   "frame": "m2-core.txt:2864",
+   "oldLines": 1,
+   "newLines": 9,
+   "planLine": 149
+  },
+  {
+   "file": "tests/p13b-r07-save-v25.test.ts",
+   "line": 273,
+   "newLine": 282,
+   "old": "  it('an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+   "new": "  // 1361-N S3: Save45 is live, so a live save stamped 45 is valid now and no longer throws; the\n  // forged sentinel moves to 46 (src/core/save.ts:5455-5457: \"unknown saveVersion 46 (this build\n  // handles versions 1 through 45 only)\"), and the pattern follows the range.\n  it('an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+   "class": "T",
+   "edit": "title: sentinel 45 -> 46 and \"1 through 44 only\" -> \"1 through 45 only\" (comment added above it)",
+   "decision": "certain",
+   "rowIds": [
+    278
+   ],
+   "measured": "title only; the leaf body is the S3 row below",
+   "frame": "plan T list",
+   "oldLines": 1,
+   "newLines": 4,
+   "oldIdentity": "tests/p13b-r07-save-v25.test.ts > P13B-S5-R07 Save V25 (test 5) > an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)",
+   "newIdentity": "tests/p13b-r07-save-v25.test.ts > P13B-S5-R07 Save V25 (test 5) > an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)"
+  },
+  {
+   "file": "tests/p13b-r07-save-v25.test.ts",
+   "line": 274,
+   "newLine": 286,
+   "old": "    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 45 }",
+   "new": "    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 46 }",
+   "class": "S3",
+   "edit": "forged sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    278
+   ],
+   "measured": "AssertionError: expected [Function] to throw an error (a live save stamped 45 is valid at Save45)",
+   "frame": "m2-core.txt (S3 class: bare throw sees none)",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p13b-r07-save-v25.test.ts",
+   "line": 275,
+   "newLine": 287,
+   "old": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)",
+   "new": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)",
+   "class": "S3",
+   "edit": "\"1 through 44\" -> \"1 through 45\" in the pattern; message is \"validateSave: unknown saveVersion 46 (this build handles versions 1 through 45 only)\"",
+   "decision": "certain",
+   "rowIds": [
+    278
+   ],
+   "measured": "AssertionError: expected [Function] to throw an error (a live save stamped 45 is valid at Save45)",
+   "frame": "src/core/save.ts:5455-5457",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b3-rule-revision.test.ts",
+   "line": 13,
+   "newLine": 13,
+   "old": "import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    345,
+    346
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b3-rule-revision.test.ts",
+   "line": 46,
+   "newLine": 46,
+   "old": null,
+   "new": "\n// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the\n// save's own week and back-fills nothing; the OLD (raw, pre-migration) state never carried them. The\n// literals are this file's own expectation: production's initialP15Roots never defines it\n// (1361-F7 ruling 3).\nfunction withEmptyP15Roots<T extends object>(state: T, week: number): T {\n  return { ...state,\n    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },\n    p15Sequence: { version: 1, next: 1 },\n    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },\n    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }\n}",
+   "class": "S5",
+   "edit": "per-file literal helper withEmptyP15Roots(state, week) beside withEmptyScreenplayShelving (1361-F7 ruling 3)",
+   "decision": "measure",
+   "rowIds": [
+    347,
+    348,
+    349
+   ],
+   "measured": "AssertionError: expected { broadcastCache: [], …(3) } to deeply equal { broadcastCache: [], …(3) }",
+   "frame": "m2-core.txt (S5 class)",
+   "oldLines": 0,
+   "newLines": 12
+  },
+  {
+   "file": "tests/p14b3-rule-revision.test.ts",
+   "line": 174,
+   "newLine": 186,
+   "old": "    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)),",
+   "new": "    // 1361-N S5: Save45's four P15 roots, empty, at the input's own week (nothing ticks between the\n    // migration and this comparison).\n    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyP15Roots(withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)), parsedRaw.state.market.tick as number),",
+   "class": "S5",
+   "edit": "the expected side gains the four empty P15 roots at parsedRaw.state.market.tick",
+   "decision": "measure",
+   "rowIds": [
+    347,
+    348,
+    349
+   ],
+   "measured": "AssertionError: expected { broadcastCache: [], …(3) } to deeply equal { broadcastCache: [], …(3) }",
+   "frame": "save.ts:10980-10984",
+   "oldLines": 1,
+   "newLines": 3
+  },
+  {
+   "file": "tests/p14b3-rule-revision.test.ts",
+   "line": 235,
+   "newLine": 249,
+   "old": "    const reloaded = validateSaveV44(importSave(exportSave(makeSave(attached)))).state",
+   "new": "    const reloaded = validateSaveV45(importSave(exportSave(makeSave(attached)))).state",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    346
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b3-rule-revision.test.ts",
+   "line": 277,
+   "newLine": 291,
+   "old": "    const reloaded = validateSaveV44(importSave(exportSave(makeSave(settled)))).state",
+   "new": "    const reloaded = validateSaveV45(importSave(exportSave(makeSave(settled)))).state",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    345
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b4-save-v30-compatibility.test.ts",
+   "line": 157,
+   "newLine": 157,
+   "old": null,
+   "new": "// Save45 (1361-N S5): convertV44ToV45 (src/core/save.ts:10980-10984) adds the four P15 roots,\n// empty, at the save's own week and back-fills nothing; the OLD (V30-vintage) state never carried\n// them, so the expected migrated-to-live state below must carry them at the input's own week. The\n// literals are this file's own expectation: production's initialP15Roots never defines it\n// (1361-F7 ruling 3).\nfunction withEmptyP15Roots<T extends object>(state: T, week: number): T {\n  return { ...state,\n    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },\n    p15Sequence: { version: 1, next: 1 },\n    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },\n    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }\n}\n",
+   "class": "S5",
+   "edit": "per-file literal helper withEmptyP15Roots(state, week) beside withEmptyScreenplayShelving (1361-F7 ruling 3)",
+   "decision": "measure",
+   "rowIds": [
+    396,
+    397,
+    398,
+    399,
+    400,
+    401,
+    402,
+    403,
+    404,
+    406,
+    407,
+    408,
+    409,
+    410,
+    411,
+    412,
+    413,
+    414,
+    415,
+    416,
+    417
+   ],
+   "measured": "AssertionError: expected { saveVersion: 45, …(3) } to deeply equal { broadcastCache: [], …(3) }",
+   "frame": "m2-core.txt:2143",
+   "oldLines": 0,
+   "newLines": 13
+  },
+  {
+   "file": "tests/p14b4-save-v30-compatibility.test.ts",
+   "line": 216,
+   "newLine": 229,
+   "old": "  expect(lifted).toEqual({ ...migrated, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyScreenplayShelving(withRivalTermination(migrated.state)), relationships: [],",
+   "new": "  expect(lifted).toEqual({ ...migrated, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyP15Roots(withEmptyScreenplayShelving(withRivalTermination(migrated.state)), migrated.state.market.tick), relationships: [],",
+   "class": "S5",
+   "edit": "the expected side gains the four empty P15 roots at migrated.state.market.tick",
+   "decision": "measure",
+   "rowIds": [
+    396,
+    397,
+    398,
+    399,
+    400,
+    401,
+    402,
+    403,
+    404,
+    406,
+    407,
+    408,
+    409,
+    410,
+    411,
+    412,
+    413,
+    414,
+    415,
+    416,
+    417
+   ],
+   "measured": "AssertionError: expected { saveVersion: 45, …(3) } to deeply equal { broadcastCache: [], …(3) }",
+   "frame": "m2-core.txt:2143; save.ts:10980-10984",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b4-save-v30-compatibility.test.ts",
+   "line": 252,
+   "newLine": 265,
+   "old": "    expect(LIVE_SAVE_VERSION).toBe(44)",
+   "new": "    expect(LIVE_SAVE_VERSION).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    405
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "line": 74,
+   "newLine": 74,
+   "old": "import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    419,
+    420,
+    421,
+    422,
+    423,
+    424,
+    425,
+    426,
+    427,
+    428,
+    429,
+    430,
+    431,
+    432,
+    433,
+    434
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "line": 78,
+   "newLine": 78,
+   "old": null,
+   "new": "import { p15Rows, stripP15 } from './helpers/p15-roots.js'",
+   "class": "S10",
+   "edit": "import p15Rows and stripP15 from tests/helpers/p15-roots.ts (1361-F7 ruling 4)",
+   "decision": "measure",
+   "rowIds": [
+    418
+   ],
+   "measured": "AssertionError: expected '80fe2347e47678fefdf4b175f0b48046a11a9…' to be '9702aa6869cf80f82d5133f68137427a0ed44…' // Object.is equality",
+   "frame": "m2-core.txt:330595",
+   "oldLines": 0,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "line": 272,
+   "newLine": 273,
+   "old": null,
+   "new": "// 1361-N S10 (1361-F7 ruling 4, the same 1332-A :84-90 guard-before-strip form): Save45 gives\n// every live state the four P15 roots. convertV44ToV45 writes them empty at takeWorld's migration\n// (src/core/save.ts:10980-10984) and the one tick moves `sharedMarket.recordedFromWeek`\n// (src/core/tick.ts:1131), so the unstripped digest moved: 1361-M2 received 80fe2347... here\n// (m2-core.txt:330595). This window (weeks 60 to 61) reaches no quarter week (13 divides\n// neither), so every root holds no row. The guard below throws unless `p15Rows` finds none and\n// `p15Sequence.next` is still 1; only then does the strip drop the four roots. The RED helper's\n// one list names them (tests/helpers/p15-roots.ts, read only), so a later P15 root joins this\n// guard. `postTakeDigestStripped` stays UNCHANGED: the guarded strip must reproduce it, and any\n// other value refutes the attribution.",
+   "class": "S10",
+   "edit": "bytes(): header comment for the P15 guard-before-strip (FROZEN.postTakeDigestStripped stays)",
+   "decision": "measure",
+   "rowIds": [
+    418
+   ],
+   "measured": "AssertionError: expected '80fe2347e47678fefdf4b175f0b48046a11a9…' to be '9702aa6869cf80f82d5133f68137427a0ed44…' // Object.is equality",
+   "frame": "m2-core.txt:330595",
+   "oldLines": 0,
+   "newLines": 10,
+   "planLine": 272
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "line": 310,
+   "newLine": 321,
+   "old": null,
+   "new": "  // 1361-N S10: the P15 guard, before the strip below drops the four roots.\n  if (p15Rows(state).length > 0 || state.p15Sequence.next !== 1) {\n    throw new Error('bytes: a P15 row or an allocated sequence exists, so the P15 strip would hide real authority')\n  }",
+   "class": "S10",
+   "edit": "bytes(): guard throws unless p15Rows is empty and p15Sequence.next === 1",
+   "decision": "measure",
+   "rowIds": [
+    418
+   ],
+   "measured": "AssertionError: expected '80fe2347e47678fefdf4b175f0b48046a11a9…' to be '9702aa6869cf80f82d5133f68137427a0ed44…' // Object.is equality",
+   "frame": "m2-core.txt:330595",
+   "oldLines": 0,
+   "newLines": 4,
+   "planLine": 272
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "line": 316,
+   "newLine": 331,
+   "old": "  const { relationships: _r, careerLifecycle: _cl, firstTakeSubjects: _fts, ...rest } = state as unknown as Record<string, unknown> & {",
+   "new": "  const { relationships: _r, careerLifecycle: _cl, firstTakeSubjects: _fts, ...rest } = stripP15(state) as Record<string, unknown> & {",
+   "class": "S10",
+   "edit": "bytes(): the strip now drops the four P15 roots through stripP15",
+   "decision": "measure",
+   "rowIds": [
+    418
+   ],
+   "measured": "AssertionError: expected '80fe2347e47678fefdf4b175f0b48046a11a9…' to be '9702aa6869cf80f82d5133f68137427a0ed44…' // Object.is equality",
+   "frame": "m2-core.txt:330595",
+   "oldLines": 1,
+   "newLines": 1,
+   "planLine": 272
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "line": 1299,
+   "newLine": 1314,
+   "old": "    expect(() => validateSaveV44(save)).toThrow(pattern)",
+   "new": "    expect(() => validateSaveV45(save)).toThrow(pattern)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside expectRefused; pattern kept (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    420,
+    421,
+    423,
+    424,
+    425,
+    426,
+    427,
+    428,
+    429,
+    430,
+    431,
+    432,
+    433
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching the case pattern but got \"validateSaveV44: expected version 44\" (13 rows; the tampered guard is not reached)",
+   "frame": "m2-core.txt:31 (version refusal first); guard predicted unchanged (relationships.ts:666-)",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "line": 1305,
+   "newLine": 1320,
+   "old": null,
+   "new": "    // 1361-N S1: the envelope validator above is Save45 now. It hands the frozen V44 chain the\n    // state without the four P15 roots (src/core/save.ts:10970), so the tampered edge meets its\n    // own guard as under Save44, and Save45 adds no relationships field: this root's own era\n    // stays 44.",
+   "class": "S1",
+   "edit": "comment: the envelope validator is Save45, the relationships root keeps era 44 at the next line",
+   "decision": "certain",
+   "rowIds": [
+    420,
+    421,
+    423,
+    424,
+    425,
+    426,
+    427,
+    428,
+    429,
+    430,
+    431,
+    432,
+    433
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /week|driver/i but got 'validateSaveV44: expected version 44'",
+   "frame": "plan S1 Keep: validateRelationshipsRoot(save.state, 44)",
+   "oldLines": 0,
+   "newLines": 4
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "line": 1315,
+   "newLine": 1334,
+   "old": "    expect(validateSaveV44(save)).toEqual(save)",
+   "new": "    expect(validateSaveV45(save)).toEqual(save)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    434
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "line": 1321,
+   "newLine": 1340,
+   "old": "    expect(() => validateSaveV44(save)).toThrow(/relationships/)",
+   "new": "    expect(() => validateSaveV45(save)).toThrow(/relationships/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( in the missing-root refusal; pattern /relationships/ kept",
+   "decision": "measure",
+   "rowIds": [
+    422
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /relationships/ but got 'validateSaveV44: expected version 44'",
+   "frame": "m2-core.txt:31 (version refusal first); guard predicted unchanged",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "line": 1364,
+   "newLine": 1383,
+   "old": "    const admitted = validateSaveV44(one)",
+   "new": "    // 1361-N S1: and once more, to 45 (Save45); same reasoning.\n    const admitted = validateSaveV45(one)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( (comment line added in the file's era trail)",
+   "decision": "certain",
+   "rowIds": [
+    419
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 2
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "line": 1445,
+   "newLine": 1465,
+   "old": "    const empty = validateSaveV44({ ...save, state: { ...save.state, relationships: [] } })",
+   "new": "    const empty = validateSaveV45({ ...save, state: { ...save.state, relationships: [] } })",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "no M2 row: behind the :1364 failure; follows the same rename",
+   "frame": "save.ts:10962-10975",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b9-save-v42.test.ts",
+   "line": 71,
+   "newLine": 71,
+   "old": "import type { SaveFile, SaveFileV42, SaveFileV43, SaveFileV44 } from '../src/core/save.js'",
+   "new": "import type { SaveFile, SaveFileV42, SaveFileV43, SaveFileV44, SaveFileV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "add SaveFileV45 to the type import for the renamed and added typed members",
+   "decision": "certain",
+   "rowIds": [
+    440
+   ],
+   "measured": "Error: validateSaveV45: the p15Sequence root is missing",
+   "frame": "plan S1 (type import)",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b9-save-v42.test.ts",
+   "line": 176,
+   "newLine": 176,
+   "old": null,
+   "new": "      convertV44ToV45: (s: SaveFileV44) => SaveFileV45",
+   "class": "S5",
+   "edit": "typed member convertV44ToV45 for the hand lift at :192",
+   "decision": "certain",
+   "rowIds": [
+    440
+   ],
+   "measured": "Error: validateSaveV45: the p15Sequence root is missing (save.ts:10968)",
+   "frame": "save.ts:10980",
+   "oldLines": 0,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b9-save-v42.test.ts",
+   "line": 176,
+   "newLine": 177,
+   "old": "      validateSaveV44: (s: unknown) => SaveFileV44",
+   "new": "      validateSaveV45: (s: unknown) => SaveFileV45",
+   "class": "S1",
+   "edit": "typed member validateSaveV44 -> validateSaveV45 (return type SaveFileV45)",
+   "decision": "certain",
+   "rowIds": [
+    440
+   ],
+   "measured": "Error: validateSaveV45: the p15Sequence root is missing (save.ts:10968)",
+   "frame": "save.ts:10962",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b9-save-v42.test.ts",
+   "line": 176,
+   "newLine": 178,
+   "old": null,
+   "new": "      convertV45ToV44: (s: unknown) => unknown",
+   "class": "S4",
+   "edit": "typed member convertV45ToV44 beside convertV44ToV43",
+   "decision": "certain",
+   "rowIds": [
+    440
+   ],
+   "measured": "Error: validateSaveV44: expected version 44 from the old innermost converter (save.ts:10845 calling :10825)",
+   "frame": "save.ts:10989",
+   "oldLines": 0,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b9-save-v42.test.ts",
+   "line": 192,
+   "newLine": 194,
+   "old": "    const state = mods.convertV43ToV44(mods.convertV42ToV43(v42)).state as unknown as GameState",
+   "new": "    // 1361-N S5 (1361-F7 ruling 10): and `makeSave` below writes Save45, which refuses a\n    // state without the four P15 roots (\"validateSaveV45: the p15Sequence root is missing\",\n    // src/core/save.ts:10968). The lift ends at Save45 through the genuine convertV44ToV45\n    // (src/core/save.ts:10980-10984), which writes them empty at this state's own week, never by hand.\n    const state = mods.convertV44ToV45(mods.convertV43ToV44(mods.convertV42ToV43(v42))).state as unknown as GameState",
+   "class": "S5",
+   "edit": "hand lift gains one governed step: convertV44ToV45(...) (comment added)",
+   "decision": "certain",
+   "rowIds": [
+    440
+   ],
+   "measured": "Error: validateSaveV45: the p15Sequence root is missing (save.ts:10968), because makeSave now validates the lifted state at Save45",
+   "frame": "save.ts:10980-10984; m2-core.txt (S5 hand lift)",
+   "oldLines": 1,
+   "newLines": 5
+  },
+  {
+   "file": "tests/p14b9-save-v42.test.ts",
+   "line": 214,
+   "newLine": 220,
+   "old": "    expect(newSave.saveVersion).toBe(44) // LIVE_SAVE_VERSION 44 (was 42 at 1313-A §3)",
+   "new": "    expect(newSave.saveVersion).toBe(45) // LIVE_SAVE_VERSION 45 (was 44 under Save44, 42 at 1313-A §3)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    440
+   ],
+   "measured": "AssertionError: expected 45 to be 44 (behind the :192 lift failure at M2)",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b9-save-v42.test.ts",
+   "line": 215,
+   "newLine": 221,
+   "old": "    expect(() => mods.validateSaveV44(newSave)).not.toThrow()",
+   "new": "    expect(() => mods.validateSaveV45(newSave)).not.toThrow()",
+   "class": "S1",
+   "edit": "mods.validateSaveV44( -> mods.validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [
+    440
+   ],
+   "measured": "Error: validateSaveV44: expected version 44 (behind the :192 lift failure at M2)",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b9-save-v42.test.ts",
+   "line": 223,
+   "newLine": 229,
+   "old": "    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(mods.convertV44ToV43(newSave)))).toThrow(/^migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24$/)",
+   "new": "    // 1361-N S4: the live chain now crosses convertV45ToV44 first (src/core/save.ts:10989-10995). After\n    // validation it refuses once while any P15 root holds a row. This state was greenlit by an action\n    // and never ticked, so every root is still empty and the chain reaches the Save44 log guard as\n    // before. Derived from source, not measured: the pin below is unchanged until a run shows another\n    // first guard.\n    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(mods.convertV44ToV43(mods.convertV45ToV44(newSave))))).toThrow(/^migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24$/)",
+   "class": "S4",
+   "edit": "convertV45ToV44 inserted innermost; the pinned competitions-log pattern is UNCHANGED (S9 pin deferred to a run)",
+   "decision": "measure",
+   "rowIds": [
+    440
+   ],
+   "measured": "no M2 message: behind the :192 lift failure",
+   "frame": "save.ts:10989-10995; plan S9 prediction: archive empty, no tick",
+   "oldLines": 1,
+   "newLines": 6,
+   "planClass": "S9?"
+  },
+  {
+   "file": "tests/p14b9-save-v42.test.ts",
+   "line": 228,
+   "newLine": 239,
+   "old": "  it('LIVE_SAVE_VERSION is 44', () => {",
+   "new": "  it('LIVE_SAVE_VERSION is 45', () => {",
+   "class": "T",
+   "edit": "title \"LIVE_SAVE_VERSION is 44\" -> \"is 45\"",
+   "decision": "certain",
+   "rowIds": [
+    441
+   ],
+   "measured": "title only; the body is the S2 row below",
+   "frame": "plan T list",
+   "oldLines": 1,
+   "newLines": 1,
+   "oldIdentity": "tests/p14b9-save-v42.test.ts > LIVE_SAVE_VERSION and the dispatcher message > LIVE_SAVE_VERSION is 44",
+   "newIdentity": "tests/p14b9-save-v42.test.ts > LIVE_SAVE_VERSION and the dispatcher message > LIVE_SAVE_VERSION is 45"
+  },
+  {
+   "file": "tests/p14b9-save-v42.test.ts",
+   "line": 229,
+   "newLine": 240,
+   "old": "    expect(LIVE_SAVE_VERSION).toBe(44)",
+   "new": "    expect(LIVE_SAVE_VERSION).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    441
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14b9-save-v42.test.ts",
+   "line": 232,
+   "newLine": 243,
+   "old": "  it('validateSave names the new ceiling in its unknown-version message (\"1 through 44\")', () => {",
+   "new": "  it('validateSave names the new ceiling in its unknown-version message (\"1 through 45\")', () => {",
+   "class": "T",
+   "edit": "title (\"1 through 44\") -> (\"1 through 45\")",
+   "decision": "certain",
+   "rowIds": [
+    442
+   ],
+   "measured": "title only; the body is the S3 row below",
+   "frame": "plan T list",
+   "oldLines": 1,
+   "newLines": 1,
+   "oldIdentity": "tests/p14b9-save-v42.test.ts > LIVE_SAVE_VERSION and the dispatcher message > validateSave names the new ceiling in its unknown-version message (\"1 through 44\")",
+   "newIdentity": "tests/p14b9-save-v42.test.ts > LIVE_SAVE_VERSION and the dispatcher message > validateSave names the new ceiling in its unknown-version message (\"1 through 45\")"
+  },
+  {
+   "file": "tests/p14b9-save-v42.test.ts",
+   "line": 233,
+   "newLine": 244,
+   "old": "    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 44/)",
+   "new": "    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 45/)",
+   "class": "S3",
+   "edit": "/1 through 44/ -> /1 through 45/ (sentinel 999 kept)",
+   "decision": "certain",
+   "rowIds": [
+    442
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /1 through 44/ but got 'validateSave: unknown saveVersion 999…' [received in full: \"validateSave: unknown saveVersion 999 (this build handles versions 1 through 45 only)\"]",
+   "frame": "m2-core.txt:331092; save.ts:5455-5457",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14bf2-acting-discipline.test.ts",
+   "line": 20,
+   "newLine": 20,
+   "old": "import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    443,
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14bf2-acting-discipline.test.ts",
+   "line": 51,
+   "newLine": 51,
+   "old": null,
+   "new": "// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the\n// save's own week and back-fills nothing; the OLD (raw, pre-migration) state never carried them. The\n// literals are this file's own expectation: production's initialP15Roots never defines it\n// (1361-F7 ruling 3).\nfunction withEmptyP15Roots<T extends object>(state: T, week: number): T {\n  return { ...state,\n    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },\n    p15Sequence: { version: 1, next: 1 },\n    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },\n    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }\n}",
+   "class": "S5",
+   "edit": "per-file literal helper withEmptyP15Roots(state, week) beside withEmptyScreenplayShelving (1361-F7 ruling 3)",
+   "decision": "measure",
+   "rowIds": [
+    444
+   ],
+   "measured": "AssertionError: expected { broadcastCache: [], …(3) } to deeply equal { broadcastCache: [], …(3) }",
+   "frame": "m2-core.txt (S5 class)",
+   "oldLines": 0,
+   "newLines": 11
+  },
+  {
+   "file": "tests/p14bf2-acting-discipline.test.ts",
+   "line": 97,
+   "newLine": 108,
+   "old": "    validateSaveV44(makeSave(state))",
+   "new": "    validateSaveV45(makeSave(state))",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14bf2-acting-discipline.test.ts",
+   "line": 137,
+   "newLine": 148,
+   "old": "    validateSaveV44(makeSave(legal))",
+   "new": "    validateSaveV45(makeSave(legal))",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "no M2 row: behind the :97 failure in the same fixture; same rename",
+   "frame": "save.ts:10962-10975",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14bf2-acting-discipline.test.ts",
+   "line": 269,
+   "newLine": 280,
+   "old": "    const loaded = validateSaveV44(importSave(exportSave(makeSave(state)))).state",
+   "new": "    const loaded = validateSaveV45(importSave(exportSave(makeSave(state)))).state",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "no M2 row: behind the :97 failure in the same fixture; same rename",
+   "frame": "save.ts:10962-10975",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14bf2-acting-discipline.test.ts",
+   "line": 366,
+   "newLine": 377,
+   "old": "    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)),",
+   "new": "    // 1361-N S5: Save45's four P15 roots, empty, at the input's own week (nothing ticks between the\n    // migration and this comparison).\n    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyP15Roots(withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)), parsedRaw.state.market.tick as number),",
+   "class": "S5",
+   "edit": "the expected side gains the four empty P15 roots at parsedRaw.state.market.tick",
+   "decision": "measure",
+   "rowIds": [
+    444
+   ],
+   "measured": "AssertionError: expected { broadcastCache: [], …(3) } to deeply equal { broadcastCache: [], …(3) }",
+   "frame": "save.ts:10980-10984",
+   "oldLines": 1,
+   "newLines": 3
+  },
+  {
+   "file": "tests/p14bf2-acting-discipline.test.ts",
+   "line": 418,
+   "newLine": 431,
+   "old": "    expect(validateSaveV44(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)",
+   "new": "    expect(validateSaveV45(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    443
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14c1-materialized-aging.test.ts",
+   "line": 178,
+   "newLine": 178,
+   "old": "  const live = SaveModule.convertV43ToV44(SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40))))",
+   "new": "  // 1361-N S5 (1361-D2 F7; 1361-F7 ruling 10): one further governed step to the true live boundary,\n  // Save45's four P15 roots (convertV44ToV45, save.ts:10980-10984). `tick()` refuses an industry\n  // state with no `sharedMarket` root (\"shared market: the state has no sharedMarket root; migrate it\n  // to Save45 before ticking it\", marketIntegration.ts:26 via tick.ts:1071; m2-core.txt:606), so every\n  // lifted state ends at Save45 through production's own step, never with roots added by hand.\n  const live = SaveModule.convertV44ToV45(SaveModule.convertV43ToV44(SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40)))))",
+   "class": "S5",
+   "edit": "liftForTick gains one governed step: convertV44ToV45(...) (comment in the 1358-N form)",
+   "decision": "certain",
+   "rowIds": [
+    455,
+    456,
+    457,
+    458,
+    459,
+    460,
+    461,
+    462,
+    463,
+    464,
+    465,
+    466,
+    467,
+    468,
+    469,
+    470,
+    471
+   ],
+   "measured": "Error: shared market: the state has no sharedMarket root; migrate it to Save45 before ticking it",
+   "frame": "m2-core.txt:606; marketIntegration.ts:26 via tick.ts:1071",
+   "oldLines": 1,
+   "newLines": 6
+  },
+  {
+   "file": "tests/p14c1-materialized-aging.test.ts",
+   "line": 1033,
+   "newLine": 1038,
+   "old": "    expect(LIVE_SAVE_VERSION).toBe(44)",
+   "new": "    expect(LIVE_SAVE_VERSION).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    472
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14c2s-scientist-retirement.test.ts",
+   "line": 16,
+   "newLine": 16,
+   "old": null,
+   "new": "import { stripP15 } from './helpers/p15-roots.js'",
+   "class": "S7",
+   "edit": "import stripP15 from tests/helpers/p15-roots.ts (1361-F7 ruling 4); no p15Rows, because the strip here is unconditional (1361-F8 ruling 1)",
+   "decision": "certain",
+   "rowIds": [
+    565
+   ],
+   "measured": "AssertionError: V34 whole-envelope shape control: expected [Function] to not throw an error but 'Error: validateSaveV34: frozen V33 st…' was thrown [received in full: \"Error: validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \\\"powerRanking\\\"\"]",
+   "frame": "m2-core.txt:402321",
+   "oldLines": 0,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14c2s-scientist-retirement.test.ts",
+   "line": 256,
+   "newLine": 257,
+   "old": "    expect(live.saveVersion).toBe(44)",
+   "new": "    expect(live.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    566
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14c2s-scientist-retirement.test.ts",
+   "line": 267,
+   "newLine": 268,
+   "old": "    expect(lifted.saveVersion).toBe(44)",
+   "new": "    expect(lifted.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "no M2 row: behind the :256 failure; same pin",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14c2s-scientist-retirement.test.ts",
+   "line": 277,
+   "newLine": 278,
+   "old": "    expect(live.saveVersion).toBe(44)",
+   "new": "    expect(live.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    563
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14c2s-scientist-retirement.test.ts",
+   "line": 326,
+   "newLine": 327,
+   "old": null,
+   "new": "      // 1361-N sweep (S7): nor the four Save45 P15 roots (powerRanking, p15Sequence, sharedMarket,\n      // campaignLegacy; V45-only). The frozen V34 chain refuses 'unknown field \"powerRanking\"'\n      // (src/core/save.ts:9958, :4185; m2-core.txt:402321) on the whole-envelope control below. Same\n      // reader-only shape adjustment as the deletions above. The RED helper's one list names the\n      // roots (1361-F7 ruling 4).\n      // 1361-F8 ruling 1: reader-only control; P15 roots stripped unconditionally\n      envelope.state = stripP15(envelope.state)",
+   "class": "S7",
+   "edit": "reader-only V34-V36 relabel: stripP15 unconditionally, no p15Rows or next guard (1361-F8 ruling 1: reader-only control; the state lawfully holds quarters 533, 546 and 559)",
+   "decision": "certain",
+   "rowIds": [
+    565
+   ],
+   "measured": "AssertionError: V34 whole-envelope shape control: expected [Function] to not throw an error but 'Error: validateSaveV34: frozen V33 st…' was thrown [received in full: \"Error: validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \\\"powerRanking\\\"\"]",
+   "frame": "m2-core.txt:402321",
+   "oldLines": 0,
+   "newLines": 7,
+   "planLine": 325,
+   "ruling": "1361-F8 ruling 1"
+  },
+  {
+   "file": "tests/p14c2s-scientist-retirement.test.ts",
+   "line": 356,
+   "newLine": 364,
+   "old": "    expect(live.saveVersion).toBe(44)",
+   "new": "    expect(live.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    564
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14d1-rival-shelving.test.ts",
+   "line": 37,
+   "newLine": 37,
+   "old": null,
+   "new": "import { validatePowerRankingArchive } from '../src/core/powerRankingArchive.js'",
+   "class": "S5",
+   "edit": "import validatePowerRankingArchive for the week-93 control (1361-F7 ruling 5)",
+   "decision": "ruling",
+   "rowIds": [
+    747
+   ],
+   "measured": "AssertionError: expected '{\"broadcastItems\":[],\"campaignLegacy\"…' to be '{\"broadcastItems\":[],\"careerEvents\":[…' // Object.is equality",
+   "frame": "m2-core.txt:582",
+   "oldLines": 0,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14d1-rival-shelving.test.ts",
+   "line": 186,
+   "newLine": 187,
+   "old": "  it('save.ts LIVE_SAVE_VERSION is 44, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {",
+   "new": "  it('save.ts LIVE_SAVE_VERSION is 45, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {",
+   "class": "T",
+   "edit": "title \"LIVE_SAVE_VERSION is 44\" -> \"is 45\"",
+   "decision": "certain",
+   "rowIds": [
+    745
+   ],
+   "measured": "title only; the body is the S2 row below",
+   "frame": "plan T list",
+   "oldLines": 1,
+   "newLines": 1,
+   "oldIdentity": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > save.ts LIVE_SAVE_VERSION is 44, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist",
+   "newIdentity": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > save.ts LIVE_SAVE_VERSION is 45, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist"
+  },
+  {
+   "file": "tests/p14d1-rival-shelving.test.ts",
+   "line": 187,
+   "newLine": 188,
+   "old": "    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)",
+   "new": "    expect(saveModule.LIVE_SAVE_VERSION).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    745
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14d1-rival-shelving.test.ts",
+   "line": 569,
+   "newLine": 570,
+   "old": null,
+   "new": "    // 1361-N S5 (1361-F7 ruling 5): the genuine side stays at this V44 lift. A genuine Save42 input\n    // holds none of Save45's four P15 roots, so the candidate's come out below instead.",
+   "class": "S5",
+   "edit": "comment only: the genuine side stays at its V44 lift (ruling 5); the candidate's roots come out below",
+   "decision": "ruling",
+   "rowIds": [
+    747
+   ],
+   "measured": "AssertionError: expected '{\"broadcastItems\":[],\"campaignLegacy\"…' to be '{\"broadcastItems\":[],\"careerEvents\":[…' // Object.is equality",
+   "frame": "1361-F7 ruling 5",
+   "oldLines": 0,
+   "newLines": 2,
+   "planLine": 569
+  },
+  {
+   "file": "tests/p14d1-rival-shelving.test.ts",
+   "line": 618,
+   "newLine": 621,
+   "old": "    expect(JSON.stringify(canon(strip(withoutSliceB(state))))).toBe(JSON.stringify(canon(strip(genuineState))))",
+   "new": "    // 1361-N S5 (1361-F7 ruling 5, the 1358-F12 form): Save45 gives the candidate four roots that a\n    // genuine Save42 input cannot hold, and by week 93 its archive holds the quarters from week 13 to\n    // week 91. As this control already takes slice B's fields out, it takes the four P15 roots out of\n    // the candidate too, behind checks that its own P15 state is lawful and that nothing but the\n    // archive holds a row: no shared-market assessment (P15A.1's (c) has not landed at this candidate,\n    // so no tick writes one), an unfrozen Legacy (the freeze runs only in the tick that produces week\n    // 6240), the archive through validatePowerRankingArchive and the allocator through\n    // validateP15Allocator. P15A.2's own tests measure the archive. Everything else must match byte\n    // for byte.\n    expect(state.sharedMarket.assessments).toEqual([])\n    expect(state.campaignLegacy.official).toBeNull()\n    expect(state.campaignLegacy.endOfRun).toBeNull()\n    expect(() => validatePowerRankingArchive(state as unknown as Record<string, unknown>)).not.toThrow()\n    expect(() => saveModule.validateP15Allocator(state as unknown as Record<string, unknown>, 'week-93 control')).not.toThrow()\n    // The four keys are named here, not read from tests/helpers/p15-roots.ts: a P15 root added later\n    // must fail this control until its own check joins the four above, never vanish with the strip.\n    const withoutP15 = (s: GameState) => {\n      const { powerRanking: _pr, p15Sequence: _seq, sharedMarket: _sm, campaignLegacy: _cl, ...rest } = s\n      return rest as unknown as GameState\n    }\n    expect(JSON.stringify(canon(strip(withoutSliceB(withoutP15(state)))))).toBe(JSON.stringify(canon(strip(genuineState))))",
+   "class": "S5",
+   "edit": "week-93 control, 1358-F12 form: assert no assessment, unfrozen Legacy, validatePowerRankingArchive, validateP15Allocator; then the four roots come out of the candidate",
+   "decision": "ruling",
+   "rowIds": [
+    747
+   ],
+   "measured": "AssertionError: expected '{\"broadcastItems\":[],\"campaignLegacy\"…' to be '{\"broadcastItems\":[],\"careerEvents\":[…' // Object.is equality",
+   "frame": "m2-core.txt:582",
+   "oldLines": 1,
+   "newLines": 21,
+   "planLine": 616
+  },
+  {
+   "file": "tests/p14d1-rival-shelving.test.ts",
+   "line": 994,
+   "newLine": 1017,
+   "old": "    const mods = saveModule as unknown as { validateSaveV44: (s: unknown) => unknown }",
+   "new": "    const mods = saveModule as unknown as { validateSaveV45: (s: unknown) => unknown }",
+   "class": "S1",
+   "edit": "typed member validateSaveV44 -> validateSaveV45",
+   "decision": "certain",
+   "rowIds": [
+    746
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14d1-rival-shelving.test.ts",
+   "line": 995,
+   "newLine": 1018,
+   "old": "    expect(() => mods.validateSaveV44(saveModule.makeSave(state))).not.toThrow()",
+   "new": "    expect(() => mods.validateSaveV45(saveModule.makeSave(state))).not.toThrow()",
+   "class": "S1",
+   "edit": "mods.validateSaveV44( -> mods.validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [
+    746
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14p4p5-casting-reservation.test.ts",
+   "line": 55,
+   "newLine": 55,
+   "old": null,
+   "new": "// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the\n// save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The\n// literals are this file's own expectation: production's initialP15Roots never defines it\n// (1361-F7 ruling 3).\nfunction withEmptyP15Roots<T extends object>(state: T, week: number): T {\n  return { ...state,\n    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },\n    p15Sequence: { version: 1, next: 1 },\n    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },\n    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }\n}",
+   "class": "S5",
+   "edit": "per-file literal helper withEmptyP15Roots(state, week) beside withEmptyScreenplayShelving (1361-F7 ruling 3)",
+   "decision": "measure",
+   "rowIds": [
+    753
+   ],
+   "measured": "AssertionError: expected { broadcastItems: [], …(44) } to deeply equal { broadcastItems: [], …(40) }",
+   "frame": "m2-core.txt:924",
+   "oldLines": 0,
+   "newLines": 11
+  },
+  {
+   "file": "tests/p14p4p5-casting-reservation.test.ts",
+   "line": 86,
+   "newLine": 97,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on this line (namespace import, no import edit)",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "no M2 row: admitted() runs after the :209 comparison",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14p4p5-casting-reservation.test.ts",
+   "line": 209,
+   "newLine": 220,
+   "old": "    expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })",
+   "new": "    expect(state).toEqual({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })",
+   "class": "S5",
+   "edit": "the expected side gains the four empty P15 roots at old.state.market.tick (45)",
+   "decision": "measure",
+   "rowIds": [
+    753
+   ],
+   "measured": "AssertionError: expected { broadcastItems: [], …(44) } to deeply equal { broadcastItems: [], …(40) }",
+   "frame": "m2-core.txt:924",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14p4p5-cross-owner.test.ts",
+   "line": 54,
+   "newLine": 54,
+   "old": null,
+   "new": "// 1361-N S5: Save45 (convertV44ToV45, src/core/save.ts:10980-10984) adds the four P15 roots, empty, at\n// the save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The\n// literals are this file's own expectation: production's initialP15Roots never defines it\n// (1361-F7 ruling 3).\nfunction withEmptyP15Roots<T extends object>(state: T, week: number): T {\n  return { ...state,\n    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },\n    p15Sequence: { version: 1, next: 1 },\n    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },\n    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }\n}",
+   "class": "S5",
+   "edit": "per-file literal helper withEmptyP15Roots(state, week) beside withEmptyScreenplayShelving (1361-F7 ruling 3)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "no M2 row: admitted() fails first at :80",
+   "frame": "m2-core.txt:924",
+   "oldLines": 0,
+   "newLines": 11
+  },
+  {
+   "file": "tests/p14p4p5-cross-owner.test.ts",
+   "line": 80,
+   "newLine": 91,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on this line (namespace import, no import edit)",
+   "decision": "certain",
+   "rowIds": [
+    754
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14p4p5-cross-owner.test.ts",
+   "line": 81,
+   "newLine": 92,
+   "old": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+   "new": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    754
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:31",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14p4p5-cross-owner.test.ts",
+   "line": 107,
+   "newLine": 118,
+   "old": "    expect(retained).toEqual(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))))); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })",
+   "new": "    // 1361-N S5: and the four empty P15 roots at the input's own week (this capture ticks nothing after its migration).\n    expect(retained).toEqual(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick)); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })",
+   "class": "S5",
+   "edit": "the expected side gains the four empty P15 roots at old.state.market.tick (45)",
+   "decision": "measure",
+   "rowIds": [],
+   "measured": "no M2 row: behind the :80 failure",
+   "frame": "m2-core.txt:924",
+   "oldLines": 1,
+   "newLines": 2
+  },
+  {
+   "file": "tests/p14p4p5-delayed-retirement.test.ts",
+   "line": 59,
+   "newLine": 59,
+   "old": null,
+   "new": "// 1361-N S5: convertV44ToV45 (src/core/save.ts:10980-10984) adds the four P15 roots, empty, at the\n// save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The\n// literals are this file's own expectation: production's initialP15Roots never defines it\n// (1361-F7 ruling 3).\nfunction withEmptyP15Roots<T extends object>(state: T, week: number): T {\n  return { ...state,\n    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },\n    p15Sequence: { version: 1, next: 1 },\n    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },\n    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }\n}",
+   "class": "S5",
+   "edit": "per-file literal helper withEmptyP15Roots(state, week) beside withEmptyScreenplayShelving (1361-F7 ruling 3)",
+   "decision": "measure",
+   "rowIds": [
+    755
+   ],
+   "measured": "AssertionError: expected { broadcastItems: [], …(44) } to deeply equal { broadcastItems: [], …(40) }",
+   "frame": "m2-core.txt:924",
+   "oldLines": 0,
+   "newLines": 11
+  },
+  {
+   "file": "tests/p14p4p5-delayed-retirement.test.ts",
+   "line": 107,
+   "newLine": 118,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  // 1361-N S2+S1: Save45 moves the live stamp to 45, and both pins on the next line move with it again.\n  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on this line (comment added in the 1344-N/1358-N trail)",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "no M2 row: admitted() runs after the :189 comparison",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 2
+  },
+  {
+   "file": "tests/p14p4p5-delayed-retirement.test.ts",
+   "line": 189,
+   "newLine": 201,
+   "old": "    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })",
+   "new": "    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })",
+   "class": "S5",
+   "edit": "the expected side gains the four empty P15 roots at old.state.market.tick (45)",
+   "decision": "measure",
+   "rowIds": [
+    755
+   ],
+   "measured": "AssertionError: expected { broadcastItems: [], …(44) } to deeply equal { broadcastItems: [], …(40) }",
+   "frame": "m2-core.txt:924",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14p4p5-queued-project-outcome.test.ts",
+   "line": 57,
+   "newLine": 57,
+   "old": null,
+   "new": "// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the\n// save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The\n// literals are this file's own expectation: production's initialP15Roots never defines it\n// (1361-F7 ruling 3).\nfunction withEmptyP15Roots<T extends object>(state: T, week: number): T {\n  return { ...state,\n    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },\n    p15Sequence: { version: 1, next: 1 },\n    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },\n    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }\n}",
+   "class": "S5",
+   "edit": "per-file literal helper withEmptyP15Roots(state, week) beside withEmptyScreenplayShelving (1361-F7 ruling 3)",
+   "decision": "measure",
+   "rowIds": [
+    765
+   ],
+   "measured": "AssertionError: expected { broadcastItems: [], …(44) } to deeply equal { broadcastItems: [], …(40) }",
+   "frame": "m2-core.txt:924",
+   "oldLines": 0,
+   "newLines": 11
+  },
+  {
+   "file": "tests/p14p4p5-queued-project-outcome.test.ts",
+   "line": 104,
+   "newLine": 115,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on this line (namespace import, no import edit)",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "no M2 row: admitted() runs after the :186 comparison",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14p4p5-queued-project-outcome.test.ts",
+   "line": 186,
+   "newLine": 197,
+   "old": "    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })",
+   "new": "    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })",
+   "class": "S5",
+   "edit": "the expected side gains the four empty P15 roots at old.state.market.tick (45)",
+   "decision": "measure",
+   "rowIds": [
+    765
+   ],
+   "measured": "AssertionError: expected { broadcastItems: [], …(44) } to deeply equal { broadcastItems: [], …(40) }",
+   "frame": "m2-core.txt:924",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14p4p5-scenery-capacity.test.ts",
+   "line": 54,
+   "newLine": 54,
+   "old": null,
+   "new": "// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the\n// save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The\n// literals are this file's own expectation: production's initialP15Roots never defines it\n// (1361-F7 ruling 3).\nfunction withEmptyP15Roots<T extends object>(state: T, week: number): T {\n  return { ...state,\n    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },\n    p15Sequence: { version: 1, next: 1 },\n    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },\n    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }\n}",
+   "class": "S5",
+   "edit": "per-file literal helper withEmptyP15Roots(state, week) beside withEmptyScreenplayShelving (1361-F7 ruling 3)",
+   "decision": "measure",
+   "rowIds": [
+    768
+   ],
+   "measured": "AssertionError: expected { broadcastItems: [], …(44) } to deeply equal { broadcastItems: [], …(40) }",
+   "frame": "m2-core.txt:924",
+   "oldLines": 0,
+   "newLines": 11
+  },
+  {
+   "file": "tests/p14p4p5-scenery-capacity.test.ts",
+   "line": 86,
+   "newLine": 97,
+   "old": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+   "new": "  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45) and validateSaveV44( -> validateSaveV45( on this line (namespace import, no import edit)",
+   "decision": "certain",
+   "rowIds": [],
+   "measured": "no M2 row: admitted() runs after the :202 comparison",
+   "frame": "m2-core.txt:91",
+   "oldLines": 1,
+   "newLines": 1
+  },
+  {
+   "file": "tests/p14p4p5-scenery-capacity.test.ts",
+   "line": 202,
+   "newLine": 213,
+   "old": "    expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })",
+   "new": "    expect(state).toEqual({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })",
+   "class": "S5",
+   "edit": "the expected side gains the four empty P15 roots at old.state.market.tick (45)",
+   "decision": "measure",
+   "rowIds": [
+    768
+   ],
+   "measured": "AssertionError: expected { broadcastItems: [], …(44) } to deeply equal { broadcastItems: [], …(40) }",
+   "frame": "m2-core.txt:924",
+   "oldLines": 1,
+   "newLines": 1
+  }
+ ]
+}

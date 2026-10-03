@@ -1,0 +1,1795 @@
+{
+ "record": "1361-N",
+ "unit": "G3",
+ "tree": "/Users/zacheryspector/studio-scratch/1361-sweep/G3/tree",
+ "basis": "git diff HEAD -- tests ui in the G3 tree (HEAD = base + production + unit H patch); line == newLine because every edit replaces one line with one line. rowIds are indexes into rows[] of 1361-N-classification.json. An import or other line outside a test serves the rows of the validateSaveV44( calls it feeds. frame cites m2-core.txt or m2-ui.txt line numbers of the frame line.",
+ "count": 108,
+ "files": 36,
+ "byClass": {
+  "S2": 33,
+  "S1": 22,
+  "S8": 12,
+  "S3": 21,
+  "T": 12,
+  "UI": 8
+ },
+ "byDecision": {
+  "certain": 96,
+  "measure": 12
+ },
+ "classificationRowsServed": {
+  "core": 54,
+  "ui": 8,
+  "type": 2
+ },
+ "typeSitesCleared": [
+  {
+   "rowId": 901,
+   "site": "tsc root tests/p14c2a-save-and-settlement.test.ts(347,35) TS2379",
+   "clearedBy": [
+    "tests/p14c2a-save-and-settlement.test.ts:346"
+   ]
+  },
+  {
+   "rowId": 908,
+   "site": "tsc root tests/p14c4-save-v35.test.ts(279,35) TS2379",
+   "clearedBy": [
+    "tests/p14c4-save-v35.test.ts:277",
+    "tests/p14c4-save-v35.test.ts:278"
+   ]
+  }
+ ],
+ "titleRenames": [
+  {
+   "file": "tests/p13b-s2-save-v22.test.ts",
+   "line": 211,
+   "oldIdentity": "tests/p13b-s2-save-v22.test.ts > P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 45 with the updated range (stale number corrected post-C.2b)",
+   "newIdentity": "tests/p13b-s2-save-v22.test.ts > P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 46 with the updated range (stale number corrected post-C.2b)"
+  },
+  {
+   "file": "tests/p13b-s3-save-v23.test.ts",
+   "line": 124,
+   "oldIdentity": "tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > an unknown saveVersion 45 is refused, naming the handled range (stale number corrected post-C.2b)",
+   "newIdentity": "tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > an unknown saveVersion 46 is refused, naming the handled range (stale number corrected post-C.2b)"
+  },
+  {
+   "file": "tests/p13b-s5-save-v24.test.ts",
+   "line": 213,
+   "oldIdentity": "tests/p13b-s5-save-v24.test.ts > P13B-S5 Save V24 (test 4) > an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (stale numbers corrected post-C.2b)",
+   "newIdentity": "tests/p13b-s5-save-v24.test.ts > P13B-S5 Save V24 (test 4) > an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)"
+  },
+  {
+   "file": "tests/p13b-s6-save-v26.test.ts",
+   "line": 221,
+   "oldIdentity": "tests/p13b-s6-save-v26.test.ts > P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b, then post-1344-N)",
+   "newIdentity": "tests/p13b-s6-save-v26.test.ts > P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b, then post-1344-N)"
+  },
+  {
+   "file": "tests/p13b-s7-announcements.test.ts",
+   "line": 86,
+   "oldIdentity": "tests/p13b-s7-announcements.test.ts > P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > LIVE_SAVE_VERSION is 44 (stale title corrected post-C.4 and again for Save43; P13B-S8 made it 27 at the time) — S7 itself changes no save",
+   "newIdentity": "tests/p13b-s7-announcements.test.ts > P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > LIVE_SAVE_VERSION is 45 (stale title corrected post-C.4 and again for Save43; P13B-S8 made it 27 at the time) — S7 itself changes no save"
+  },
+  {
+   "file": "tests/p14a1-save-v28.test.ts",
+   "line": 252,
+   "oldIdentity": "tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (stale numbers corrected post-C.2b)",
+   "newIdentity": "tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)"
+  },
+  {
+   "file": "tests/p14b1-save-v29.test.ts",
+   "line": 202,
+   "oldIdentity": "tests/p14b1-save-v29.test.ts > P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (stale numbers corrected post-C.2b)",
+   "newIdentity": "tests/p14b1-save-v29.test.ts > P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)"
+  },
+  {
+   "file": "tests/p14b10-save-v44.test.ts",
+   "line": 118,
+   "oldIdentity": "tests/p14b10-save-v44.test.ts > API decisions this file exercises (existence asserted first) > LIVE_SAVE_VERSION is 44; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions",
+   "newIdentity": "tests/p14b10-save-v44.test.ts > API decisions this file exercises (existence asserted first) > LIVE_SAVE_VERSION is 45; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions"
+  },
+  {
+   "file": "tests/p14b10-save-v44.test.ts",
+   "line": 361,
+   "oldIdentity": "tests/p14b10-save-v44.test.ts > save-v44: the chain and the live route (1358-F4 item 3) > migrateToLive lifts the GENUINE V43 save to Save44 with competitions: [] and romance: null on every edge; makeSave stamps 44 and validateSave dispatches it",
+   "newIdentity": "tests/p14b10-save-v44.test.ts > save-v44: the chain and the live route (1358-F4 item 3) > migrateToLive lifts the GENUINE V43 save to Save45 with competitions: [] and romance: null on every edge; makeSave stamps 45 and validateSave dispatches it"
+  },
+  {
+   "file": "tests/p14b5-save-v31.test.ts",
+   "line": 195,
+   "oldIdentity": "tests/p14b5-save-v31.test.ts > P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > LIVE_SAVE_VERSION is the literal 44 the live writer stamps (stale title corrected post-C.2b and again for Save43; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)",
+   "newIdentity": "tests/p14b5-save-v31.test.ts > P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > LIVE_SAVE_VERSION is the literal 45 the live writer stamps (stale title corrected post-C.2b and again for Save43; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)"
+  },
+  {
+   "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+   "line": 45,
+   "oldIdentity": "tests/p14d1-rival-shelving-save-v43.test.ts > API decisions this file exercises (existence asserted first) > validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 44",
+   "newIdentity": "tests/p14d1-rival-shelving-save-v43.test.ts > API decisions this file exercises (existence asserted first) > validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 45"
+  },
+  {
+   "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+   "line": 82,
+   "oldIdentity": "tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > migrateToLive carries a genuine V42 save to V44 (LIVE_SAVE_VERSION)",
+   "newIdentity": "tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > migrateToLive carries a genuine V42 save to V45 (LIVE_SAVE_VERSION)"
+  }
+ ],
+ "edits": [
+  {
+   "file": "tests/c2a-m3-rename-and-pooling.test.ts",
+   "line": 214,
+   "newLine": 214,
+   "old": "    expect(makeSave(state).saveVersion).toBe(44)",
+   "new": "    expect(makeSave(state).saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    231
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:7268 (tests/c2a-m3-rename-and-pooling.test.ts:214)"
+  },
+  {
+   "file": "tests/c2a-m3-rename-and-pooling.test.ts",
+   "line": 363,
+   "newLine": 363,
+   "old": "    expect(makeSave(state).saveVersion).toBe(44)",
+   "new": "    expect(makeSave(state).saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    232
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:7287 (tests/c2a-m3-rename-and-pooling.test.ts:363)"
+  },
+  {
+   "file": "tests/c2a-m3-screenplay-mint.test.ts",
+   "line": 356,
+   "newLine": 356,
+   "old": "    expect(save.saveVersion).toBe(44)",
+   "new": "    expect(save.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    233
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:7306 (tests/c2a-m3-screenplay-mint.test.ts:356)"
+  },
+  {
+   "file": "tests/construction-save-v11.test.ts",
+   "line": 50,
+   "newLine": 50,
+   "old": "  validateSaveV44,",
+   "new": "  validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    241,
+    242,
+    244
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/construction-save-v11.test.ts:189, tests/construction-save-v11.test.ts:514 (AssertionError: expected [Function] to throw error matching /canonical Annex id .*collides with pe…/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]; AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:7466; m2-core.txt:7446"
+  },
+  {
+   "file": "tests/construction-save-v11.test.ts",
+   "line": 189,
+   "newLine": 189,
+   "old": "      expect(save.saveVersion).toBe(44);",
+   "new": "      expect(save.saveVersion).toBe(45);",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    244
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:7446 (tests/construction-save-v11.test.ts:189)"
+  },
+  {
+   "file": "tests/construction-save-v11.test.ts",
+   "line": 191,
+   "newLine": 191,
+   "old": "      expect(validateSaveV44(save)).toBe(save);",
+   "new": "      expect(validateSaveV45(save)).toBe(save);",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    244
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/construction-save-v11.test.ts:189 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:7446"
+  },
+  {
+   "file": "tests/construction-save-v11.test.ts",
+   "line": 514,
+   "newLine": 514,
+   "old": "        expect(() => validateSaveV44(forgedV13)).toThrow(",
+   "new": "        expect(() => validateSaveV45(forgedV13)).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    241,
+    242
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /canonical Annex id .*collides with pe…/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7466 (tests/construction-save-v11.test.ts:514)"
+  },
+  {
+   "file": "tests/construction-save-v11.test.ts",
+   "line": 553,
+   "newLine": 553,
+   "old": "    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(",
+   "new": "    expect(() => validateSave({ ...save, saveVersion: 46 })).toThrow(",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    243
+   ],
+   "measured": "AssertionError: expected [Function] to throw an error",
+   "frame": "m2-core.txt:7485 (tests/construction-save-v11.test.ts:553)"
+  },
+  {
+   "file": "tests/construction-save-v11.test.ts",
+   "line": 554,
+   "newLine": 554,
+   "old": "      /unknown saveVersion 45.*versions 1 through 44 only/,",
+   "new": "      /unknown saveVersion 46.*versions 1 through 45 only/,",
+   "class": "S3",
+   "edit": "\"unknown saveVersion 45\" -> 46 and \"1 through 44\" -> \"1 through 45\"",
+   "decision": "certain",
+   "rowIds": [
+    243
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/construction-save-v11.test.ts:553 (AssertionError: expected [Function] to throw an error); m2-core.txt:7485"
+  },
+  {
+   "file": "tests/contracts/v14-byte-parity.contract.test.ts",
+   "line": 201,
+   "newLine": 201,
+   "old": "      'validateSaveV44',",
+   "new": "      'validateSaveV45',",
+   "class": "S1",
+   "edit": "by-name lookup 'validateSaveV44' -> 'validateSaveV45'",
+   "decision": "certain",
+   "rowIds": [
+    255
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/contracts/v14-byte-parity.contract.test.ts:205 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:617347"
+  },
+  {
+   "file": "tests/contracts/v14-byte-parity.contract.test.ts",
+   "line": 205,
+   "newLine": 205,
+   "old": "    expect(save.saveVersion).toBe(44) // P14C.2b: the live version (was 35)",
+   "new": "    expect(save.saveVersion).toBe(45) // P14C.2b: the live version (was 35)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    255
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:617347 (tests/contracts/v14-byte-parity.contract.test.ts:205)"
+  },
+  {
+   "file": "tests/d11-employment.test.ts",
+   "line": 551,
+   "newLine": 551,
+   "old": "    expect(save.saveVersion).toBe(44) // P13B-S8: new games save as V27.",
+   "new": "    expect(save.saveVersion).toBe(45) // P13B-S8: new games save as V27.",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    256
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:7504 (tests/d11-employment.test.ts:551)"
+  },
+  {
+   "file": "tests/d17-engagement-persistence.test.ts",
+   "line": 466,
+   "newLine": 466,
+   "old": "    expect(save.saveVersion).toBe(44)",
+   "new": "    expect(save.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    257
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:7523 (tests/d17-engagement-persistence.test.ts:466)"
+  },
+  {
+   "file": "tests/d17a-adv-migration.test.ts",
+   "line": 274,
+   "newLine": 274,
+   "old": "    expect(() => validateSave({ ...v6, saveVersion: 45 })).toThrow(/unknown saveVersion 45/)",
+   "new": "    expect(() => validateSave({ ...v6, saveVersion: 46 })).toThrow(/unknown saveVersion 46/)",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    258
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /unknown saveVersion 45/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]",
+   "frame": "m2-core.txt:7542 (tests/d17a-adv-migration.test.ts:274)"
+  },
+  {
+   "file": "tests/d17a-adv-reconciliation.test.ts",
+   "line": 337,
+   "newLine": 337,
+   "old": "    expect(reloaded.saveVersion).toBe(44)",
+   "new": "    expect(reloaded.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    259
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:7561 (tests/d17a-adv-reconciliation.test.ts:337)"
+  },
+  {
+   "file": "tests/d17b-save-v7.test.ts",
+   "line": 163,
+   "newLine": 163,
+   "old": "    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(/unknown saveVersion 45/)",
+   "new": "    expect(() => validateSave({ ...save, saveVersion: 46 })).toThrow(/unknown saveVersion 46/)",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    260
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /unknown saveVersion 45/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]",
+   "frame": "m2-core.txt:7580 (tests/d17b-save-v7.test.ts:163)"
+  },
+  {
+   "file": "tests/film-chronicle.test.ts",
+   "line": 911,
+   "newLine": 911,
+   "old": "    expect(envelope.saveVersion).toBe(44);",
+   "new": "    expect(envelope.saveVersion).toBe(45);",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    263
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:7631 (tests/film-chronicle.test.ts:911)"
+  },
+  {
+   "file": "tests/film-chronicle.test.ts",
+   "line": 922,
+   "newLine": 922,
+   "old": "    expect(restored.saveVersion).toBe(44);",
+   "new": "    expect(restored.saveVersion).toBe(45);",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    263
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/film-chronicle.test.ts:911 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:7631"
+  },
+  {
+   "file": "tests/film-chronicle.test.ts",
+   "line": 923,
+   "newLine": 923,
+   "old": "    if (restored.saveVersion !== 44) return;",
+   "new": "    if (restored.saveVersion !== 45) return;",
+   "class": "S2",
+   "edit": "the guard 44 -> 45 (moves with :922, 1358-J 3k)",
+   "decision": "certain",
+   "rowIds": [
+    263
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/film-chronicle.test.ts:911 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:7631"
+  },
+  {
+   "file": "tests/p04a2-writer-credit-law.test.ts",
+   "line": 773,
+   "newLine": 773,
+   "old": "    expect(save.saveVersion).toBe(44)",
+   "new": "    expect(save.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    268
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:7722 (tests/p04a2-writer-credit-law.test.ts:773)"
+  },
+  {
+   "file": "tests/p09a-w0-founding-regime.test.ts",
+   "line": 57,
+   "newLine": 57,
+   "old": "  validateSaveV44,",
+   "new": "  validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    272,
+    273
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p09a-w0-founding-regime.test.ts:137, tests/p09a-w0-founding-regime.test.ts:214 (AssertionError: expected 45 to be 44 // Object.is equality; AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]); m2-core.txt:7787; m2-core.txt:7806"
+  },
+  {
+   "file": "tests/p09a-w0-founding-regime.test.ts",
+   "line": 137,
+   "newLine": 137,
+   "old": "      expect(save.saveVersion).toBe(44)",
+   "new": "      expect(save.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    272
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:7787 (tests/p09a-w0-founding-regime.test.ts:137)"
+  },
+  {
+   "file": "tests/p09a-w0-founding-regime.test.ts",
+   "line": 145,
+   "newLine": 145,
+   "old": "    expect(() => validateSaveV44({ ...raw, state: { ...raw.state, foundingRegime: 'sandbox' } })).toThrow(/not a known founding regime/)",
+   "new": "    expect(() => validateSaveV45({ ...raw, state: { ...raw.state, foundingRegime: 'sandbox' } })).toThrow(/not a known founding regime/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    272
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p09a-w0-founding-regime.test.ts:137 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:7787"
+  },
+  {
+   "file": "tests/p09a-w0-founding-regime.test.ts",
+   "line": 147,
+   "newLine": 147,
+   "old": "    expect(() => validateSaveV44({ ...raw, state: missing })).toThrow(/foundingRegime is missing/)",
+   "new": "    expect(() => validateSaveV45({ ...raw, state: missing })).toThrow(/foundingRegime is missing/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    272
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p09a-w0-founding-regime.test.ts:137 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:7787"
+  },
+  {
+   "file": "tests/p09a-w0-founding-regime.test.ts",
+   "line": 149,
+   "newLine": 149,
+   "old": "    expect(() => validateSaveV44({ ...raw, state: { ...raw.state, foundingRegime: 'bare-lot' } })).toThrow(/cannot carry founding structures/)",
+   "new": "    expect(() => validateSaveV45({ ...raw, state: { ...raw.state, foundingRegime: 'bare-lot' } })).toThrow(/cannot carry founding structures/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    272
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p09a-w0-founding-regime.test.ts:137 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:7787"
+  },
+  {
+   "file": "tests/p09a-w0-founding-regime.test.ts",
+   "line": 151,
+   "newLine": 151,
+   "old": "    expect(() => validateSaveV44({ ...bare, state: { ...bare.state, foundingRegime: 'endowed' } })).toThrow(/must carry its founding structures/)",
+   "new": "    expect(() => validateSaveV45({ ...bare, state: { ...bare.state, foundingRegime: 'endowed' } })).toThrow(/must carry its founding structures/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    272
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p09a-w0-founding-regime.test.ts:137 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:7787"
+  },
+  {
+   "file": "tests/p09a-w0-founding-regime.test.ts",
+   "line": 214,
+   "newLine": 214,
+   "old": "    expect(() => validateSaveV44(makeSave(state))).not.toThrow()",
+   "new": "    expect(() => validateSaveV45(makeSave(state))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [
+    273
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7806 (tests/p09a-w0-founding-regime.test.ts:214)"
+  },
+  {
+   "file": "tests/p13a-causal-core.test.ts",
+   "line": 4,
+   "newLine": 4,
+   "old": "import { exportCurrentState, importSave, migrateToLive, validateSaveV44, makeSave } from '../src/core/save.js'",
+   "new": "import { exportCurrentState, importSave, migrateToLive, validateSaveV45, makeSave } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    275,
+    276
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p13a-causal-core.test.ts:49, tests/p13a-causal-core.test.ts:91 (AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]); m2-core.txt:7839; m2-core.txt:7858"
+  },
+  {
+   "file": "tests/p13a-causal-core.test.ts",
+   "line": 49,
+   "newLine": 49,
+   "old": "    expect(()=>validateSaveV44(makeSave(state))).not.toThrow()",
+   "new": "    expect(()=>validateSaveV45(makeSave(state))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [
+    275
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7839 (tests/p13a-causal-core.test.ts:49)"
+  },
+  {
+   "file": "tests/p13a-causal-core.test.ts",
+   "line": 91,
+   "newLine": 91,
+   "old": "    expect(()=>validateSaveV44(makeSave(state))).not.toThrow()",
+   "new": "    expect(()=>validateSaveV45(makeSave(state))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [
+    276
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7858 (tests/p13a-causal-core.test.ts:91)"
+  },
+  {
+   "file": "tests/p13b-s2-access-identity.test.ts",
+   "line": 4,
+   "newLine": 4,
+   "old": "import { exportSave, importSave, makeSave, migrateToLive, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { exportSave, importSave, makeSave, migrateToLive, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    281
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p13b-s2-access-identity.test.ts:196 (AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]); m2-core.txt:7978"
+  },
+  {
+   "file": "tests/p13b-s2-access-identity.test.ts",
+   "line": 196,
+   "newLine": 196,
+   "old": "    expect(() => validateSaveV44(makeSave(state))).not.toThrow()",
+   "new": "    expect(() => validateSaveV45(makeSave(state))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [
+    281
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:7978 (tests/p13b-s2-access-identity.test.ts:196)"
+  },
+  {
+   "file": "tests/p13b-s2-save-v22.test.ts",
+   "line": 208,
+   "newLine": 208,
+   "old": "    expect(makeSave(live(migrated)).saveVersion).toBe(44)",
+   "new": "    expect(makeSave(live(migrated)).saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    282
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:7997 (tests/p13b-s2-save-v22.test.ts:208)"
+  },
+  {
+   "file": "tests/p13b-s2-save-v22.test.ts",
+   "line": 211,
+   "newLine": 211,
+   "old": "  it('refuses an unknown saveVersion 45 with the updated range (stale number corrected post-C.2b)', () => {",
+   "new": "  it('refuses an unknown saveVersion 46 with the updated range (stale number corrected post-C.2b)', () => {",
+   "class": "T",
+   "edit": "rename the title: sentinel 45 -> 46; record old and new identity",
+   "decision": "certain",
+   "rowIds": [
+    283
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p13b-s2-save-v22.test.ts:214 (AssertionError: expected [Function] to throw an error); m2-core.txt:8016",
+   "titleRename": true,
+   "oldIdentity": "tests/p13b-s2-save-v22.test.ts > P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 45 with the updated range (stale number corrected post-C.2b)",
+   "newIdentity": "tests/p13b-s2-save-v22.test.ts > P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 46 with the updated range (stale number corrected post-C.2b)"
+  },
+  {
+   "file": "tests/p13b-s2-save-v22.test.ts",
+   "line": 214,
+   "newLine": 214,
+   "old": "    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(/versions 1 through 44 only/)",
+   "new": "    expect(() => validateSave({ ...save, saveVersion: 46 })).toThrow(/versions 1 through 45 only/)",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    283
+   ],
+   "measured": "AssertionError: expected [Function] to throw an error",
+   "frame": "m2-core.txt:8016 (tests/p13b-s2-save-v22.test.ts:214)"
+  },
+  {
+   "file": "tests/p13b-s3-save-v23.test.ts",
+   "line": 121,
+   "newLine": 121,
+   "old": "    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(44)",
+   "new": "    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    285
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:8035 (tests/p13b-s3-save-v23.test.ts:121)"
+  },
+  {
+   "file": "tests/p13b-s3-save-v23.test.ts",
+   "line": 124,
+   "newLine": 124,
+   "old": "  it('an unknown saveVersion 45 is refused, naming the handled range (stale number corrected post-C.2b)', () => {",
+   "new": "  it('an unknown saveVersion 46 is refused, naming the handled range (stale number corrected post-C.2b)', () => {",
+   "class": "T",
+   "edit": "rename the title: sentinel 45 -> 46; record old and new identity",
+   "decision": "certain",
+   "rowIds": [
+    284
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p13b-s3-save-v23.test.ts:126 (AssertionError: expected [Function] to throw an error); m2-core.txt:8054",
+   "titleRename": true,
+   "oldIdentity": "tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > an unknown saveVersion 45 is refused, naming the handled range (stale number corrected post-C.2b)",
+   "newIdentity": "tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > an unknown saveVersion 46 is refused, naming the handled range (stale number corrected post-C.2b)"
+  },
+  {
+   "file": "tests/p13b-s3-save-v23.test.ts",
+   "line": 125,
+   "newLine": 125,
+   "old": "    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 45 }",
+   "new": "    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 46 }",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    284
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p13b-s3-save-v23.test.ts:126 (AssertionError: expected [Function] to throw an error); m2-core.txt:8054"
+  },
+  {
+   "file": "tests/p13b-s3-save-v23.test.ts",
+   "line": 126,
+   "newLine": 126,
+   "old": "    expect(() => validateSave(forged)).toThrow(/versions 1 through 44 only/)",
+   "new": "    expect(() => validateSave(forged)).toThrow(/versions 1 through 45 only/)",
+   "class": "S3",
+   "edit": "\"unknown saveVersion 45\" -> 46 and \"1 through 44\" -> \"1 through 45\"",
+   "decision": "certain",
+   "rowIds": [
+    284
+   ],
+   "measured": "AssertionError: expected [Function] to throw an error",
+   "frame": "m2-core.txt:8054 (tests/p13b-s3-save-v23.test.ts:126)"
+  },
+  {
+   "file": "tests/p13b-s3-validation.test.ts",
+   "line": 2,
+   "newLine": 2,
+   "old": "import { exportSave, makeSave, validateSaveV44 } from '../src/core/save.js'",
+   "new": "import { exportSave, makeSave, validateSaveV45 } from '../src/core/save.js'",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    286
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p13b-s3-validation.test.ts:159 (AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]); m2-core.txt:8073"
+  },
+  {
+   "file": "tests/p13b-s3-validation.test.ts",
+   "line": 159,
+   "newLine": 159,
+   "old": "    expect(() => validateSaveV44(JSON.parse(json))).not.toThrow()",
+   "new": "    expect(() => validateSaveV45(JSON.parse(json))).not.toThrow()",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45( under not.toThrow",
+   "decision": "certain",
+   "rowIds": [
+    286
+   ],
+   "measured": "AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV44: expected vers…' was thrown [received in full: \"Error: validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:8073 (tests/p13b-s3-validation.test.ts:159)"
+  },
+  {
+   "file": "tests/p13b-s5-save-v24.test.ts",
+   "line": 210,
+   "newLine": 210,
+   "old": "    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(44)",
+   "new": "    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    288
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:8092 (tests/p13b-s5-save-v24.test.ts:210)"
+  },
+  {
+   "file": "tests/p13b-s5-save-v24.test.ts",
+   "line": 213,
+   "newLine": 213,
+   "old": "  it('an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (stale numbers corrected post-C.2b)', () => {",
+   "new": "  it('an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)', () => {",
+   "class": "T",
+   "edit": "rename the title: sentinel 45 -> 46 and \"1 through 44 only\" -> \"1 through 45 only\"; record old and new identity",
+   "decision": "certain",
+   "rowIds": [
+    287
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p13b-s5-save-v24.test.ts:215 (AssertionError: expected [Function] to throw an error); m2-core.txt:8111",
+   "titleRename": true,
+   "oldIdentity": "tests/p13b-s5-save-v24.test.ts > P13B-S5 Save V24 (test 4) > an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (stale numbers corrected post-C.2b)",
+   "newIdentity": "tests/p13b-s5-save-v24.test.ts > P13B-S5 Save V24 (test 4) > an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)"
+  },
+  {
+   "file": "tests/p13b-s5-save-v24.test.ts",
+   "line": 214,
+   "newLine": 214,
+   "old": "    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 45 }",
+   "new": "    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 46 }",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    287
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p13b-s5-save-v24.test.ts:215 (AssertionError: expected [Function] to throw an error); m2-core.txt:8111"
+  },
+  {
+   "file": "tests/p13b-s5-save-v24.test.ts",
+   "line": 215,
+   "newLine": 215,
+   "old": "    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 44 only/)",
+   "new": "    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 45 only/)",
+   "class": "S3",
+   "edit": "\"unknown saveVersion 45\" -> 46 and \"1 through 44\" -> \"1 through 45\"",
+   "decision": "certain",
+   "rowIds": [
+    287
+   ],
+   "measured": "AssertionError: expected [Function] to throw an error",
+   "frame": "m2-core.txt:8111 (tests/p13b-s5-save-v24.test.ts:215)"
+  },
+  {
+   "file": "tests/p13b-s6-save-v26.test.ts",
+   "line": 221,
+   "newLine": 221,
+   "old": "  it('an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b, then post-1344-N)', () => {",
+   "new": "  it('an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b, then post-1344-N)', () => {",
+   "class": "T",
+   "edit": "rename the title: sentinel 45 -> 46 and \"1 through 44 only\" -> \"1 through 45 only\"; record old and new identity",
+   "decision": "certain",
+   "rowIds": [
+    290
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p13b-s6-save-v26.test.ts:225 (AssertionError: expected [Function] to throw error matching /versions 1 through 44 only/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]); m2-core.txt:8130",
+   "titleRename": true,
+   "oldIdentity": "tests/p13b-s6-save-v26.test.ts > P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b, then post-1344-N)",
+   "newIdentity": "tests/p13b-s6-save-v26.test.ts > P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b, then post-1344-N)"
+  },
+  {
+   "file": "tests/p13b-s6-save-v26.test.ts",
+   "line": 224,
+   "newLine": 224,
+   "old": "    const forged = { ...v26, saveVersion: 45 }",
+   "new": "    const forged = { ...v26, saveVersion: 46 }",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    290
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p13b-s6-save-v26.test.ts:225 (AssertionError: expected [Function] to throw error matching /versions 1 through 44 only/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]); m2-core.txt:8130"
+  },
+  {
+   "file": "tests/p13b-s6-save-v26.test.ts",
+   "line": 225,
+   "newLine": 225,
+   "old": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)",
+   "new": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)",
+   "class": "S3",
+   "edit": "\"unknown saveVersion 45\" -> 46 and \"1 through 44\" -> \"1 through 45\"",
+   "decision": "certain",
+   "rowIds": [
+    290
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /versions 1 through 44 only/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]",
+   "frame": "m2-core.txt:8130 (tests/p13b-s6-save-v26.test.ts:225)"
+  },
+  {
+   "file": "tests/p13b-s6-save-v26.test.ts",
+   "line": 254,
+   "newLine": 254,
+   "old": "    expect((reimported as { saveVersion: number }).saveVersion).toBe(44) // did NOT throw (at the live version this real advance writes)",
+   "new": "    expect((reimported as { saveVersion: number }).saveVersion).toBe(45) // did NOT throw (at the live version this real advance writes)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    289
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:8149 (tests/p13b-s6-save-v26.test.ts:254)"
+  },
+  {
+   "file": "tests/p13b-s7-announcements.test.ts",
+   "line": 86,
+   "newLine": 86,
+   "old": "  it('LIVE_SAVE_VERSION is 44 (stale title corrected post-C.4 and again for Save43; P13B-S8 made it 27 at the time) — S7 itself changes no save', () => {",
+   "new": "  it('LIVE_SAVE_VERSION is 45 (stale title corrected post-C.4 and again for Save43; P13B-S8 made it 27 at the time) — S7 itself changes no save', () => {",
+   "class": "T",
+   "edit": "rename the title: \"LIVE_SAVE_VERSION is 44\" -> \"is 45\"; record old and new identity",
+   "decision": "certain",
+   "rowIds": [
+    291
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p13b-s7-announcements.test.ts:87 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:8168",
+   "titleRename": true,
+   "oldIdentity": "tests/p13b-s7-announcements.test.ts > P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > LIVE_SAVE_VERSION is 44 (stale title corrected post-C.4 and again for Save43; P13B-S8 made it 27 at the time) — S7 itself changes no save",
+   "newIdentity": "tests/p13b-s7-announcements.test.ts > P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > LIVE_SAVE_VERSION is 45 (stale title corrected post-C.4 and again for Save43; P13B-S8 made it 27 at the time) — S7 itself changes no save"
+  },
+  {
+   "file": "tests/p13b-s7-announcements.test.ts",
+   "line": 87,
+   "newLine": 87,
+   "old": "    expect(save.LIVE_SAVE_VERSION).toBe(44)",
+   "new": "    expect(save.LIVE_SAVE_VERSION).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    291
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:8168 (tests/p13b-s7-announcements.test.ts:87)"
+  },
+  {
+   "file": "tests/p13b-s7-announcements.test.ts",
+   "line": 135,
+   "newLine": 135,
+   "old": "    expect(reimported.saveVersion).toBe(44) // S7 added no save root; the live version is S8's",
+   "new": "    expect(reimported.saveVersion).toBe(45) // S7 added no save root; the live version is S8's",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    292
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:8187 (tests/p13b-s7-announcements.test.ts:135)"
+  },
+  {
+   "file": "tests/p14a1-save-v28.test.ts",
+   "line": 252,
+   "newLine": 252,
+   "old": "  it('an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (stale numbers corrected post-C.2b)', () => {",
+   "new": "  it('an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)', () => {",
+   "class": "T",
+   "edit": "rename the title: sentinel 45 -> 46 and \"1 through 44 only\" -> \"1 through 45 only\"; record old and new identity",
+   "decision": "certain",
+   "rowIds": [
+    296
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14a1-save-v28.test.ts:256 (AssertionError: expected [Function] to throw error matching /versions 1 through 44 only/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]); m2-core.txt:8263",
+   "titleRename": true,
+   "oldIdentity": "tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (stale numbers corrected post-C.2b)",
+   "newIdentity": "tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)"
+  },
+  {
+   "file": "tests/p14a1-save-v28.test.ts",
+   "line": 255,
+   "newLine": 255,
+   "old": "    const forged = { ...lifted, saveVersion: 45 }",
+   "new": "    const forged = { ...lifted, saveVersion: 46 }",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    296
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14a1-save-v28.test.ts:256 (AssertionError: expected [Function] to throw error matching /versions 1 through 44 only/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]); m2-core.txt:8263"
+  },
+  {
+   "file": "tests/p14a1-save-v28.test.ts",
+   "line": 256,
+   "newLine": 256,
+   "old": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)",
+   "new": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)",
+   "class": "S3",
+   "edit": "\"unknown saveVersion 45\" -> 46 and \"1 through 44\" -> \"1 through 45\"",
+   "decision": "certain",
+   "rowIds": [
+    296
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /versions 1 through 44 only/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]",
+   "frame": "m2-core.txt:8263 (tests/p14a1-save-v28.test.ts:256)"
+  },
+  {
+   "file": "tests/p14b1-save-v29.test.ts",
+   "line": 110,
+   "newLine": 110,
+   "old": "    expect(save.LIVE_SAVE_VERSION as number).toBe(44)",
+   "new": "    expect(save.LIVE_SAVE_VERSION as number).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    299
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:8308 (tests/p14b1-save-v29.test.ts:110)"
+  },
+  {
+   "file": "tests/p14b1-save-v29.test.ts",
+   "line": 202,
+   "newLine": 202,
+   "old": "  it('an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (stale numbers corrected post-C.2b)', () => {",
+   "new": "  it('an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)', () => {",
+   "class": "T",
+   "edit": "rename the title: sentinel 45 -> 46 and \"1 through 44 only\" -> \"1 through 45 only\"; record old and new identity",
+   "decision": "certain",
+   "rowIds": [
+    300
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14b1-save-v29.test.ts:206 (AssertionError: expected [Function] to throw error matching /versions 1 through 44 only/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]); m2-core.txt:8327",
+   "titleRename": true,
+   "oldIdentity": "tests/p14b1-save-v29.test.ts > P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (stale numbers corrected post-C.2b)",
+   "newIdentity": "tests/p14b1-save-v29.test.ts > P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)"
+  },
+  {
+   "file": "tests/p14b1-save-v29.test.ts",
+   "line": 205,
+   "newLine": 205,
+   "old": "    const forged = { ...lifted, saveVersion: 45 }",
+   "new": "    const forged = { ...lifted, saveVersion: 46 }",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    300
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14b1-save-v29.test.ts:206 (AssertionError: expected [Function] to throw error matching /versions 1 through 44 only/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]); m2-core.txt:8327"
+  },
+  {
+   "file": "tests/p14b1-save-v29.test.ts",
+   "line": 206,
+   "newLine": 206,
+   "old": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)",
+   "new": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)",
+   "class": "S3",
+   "edit": "\"unknown saveVersion 45\" -> 46 and \"1 through 44\" -> \"1 through 45\"",
+   "decision": "certain",
+   "rowIds": [
+    300
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /versions 1 through 44 only/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]",
+   "frame": "m2-core.txt:8327 (tests/p14b1-save-v29.test.ts:206)"
+  },
+  {
+   "file": "tests/p14b10-save-v44.test.ts",
+   "line": 118,
+   "newLine": 118,
+   "old": "  it('LIVE_SAVE_VERSION is 44; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions', () => {",
+   "new": "  it('LIVE_SAVE_VERSION is 45; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions', () => {",
+   "class": "T",
+   "edit": "rename the title: \"LIVE_SAVE_VERSION is 44\" -> \"is 45\" (the named V44 functions stay); record old and new identity",
+   "decision": "certain",
+   "rowIds": [
+    323
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14b10-save-v44.test.ts:119 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:8605",
+   "titleRename": true,
+   "oldIdentity": "tests/p14b10-save-v44.test.ts > API decisions this file exercises (existence asserted first) > LIVE_SAVE_VERSION is 44; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions",
+   "newIdentity": "tests/p14b10-save-v44.test.ts > API decisions this file exercises (existence asserted first) > LIVE_SAVE_VERSION is 45; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions"
+  },
+  {
+   "file": "tests/p14b10-save-v44.test.ts",
+   "line": 119,
+   "newLine": 119,
+   "old": "    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)",
+   "new": "    expect(saveModule.LIVE_SAVE_VERSION).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45): a live-version pin",
+   "decision": "certain",
+   "rowIds": [
+    323
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:8605 (tests/p14b10-save-v44.test.ts:119)"
+  },
+  {
+   "file": "tests/p14b10-save-v44.test.ts",
+   "line": 361,
+   "newLine": 361,
+   "old": "  it('migrateToLive lifts the GENUINE V43 save to Save44 with competitions: [] and romance: null on every edge; makeSave stamps 44 and validateSave dispatches it', () => {",
+   "new": "  it('migrateToLive lifts the GENUINE V43 save to Save45 with competitions: [] and romance: null on every edge; makeSave stamps 45 and validateSave dispatches it', () => {",
+   "class": "T",
+   "edit": "rename the title: \"makeSave stamps 44\" -> \"makeSave stamps 45\" and \"to Save44\" -> \"to Save45\"; record old and new identity",
+   "decision": "certain",
+   "rowIds": [
+    324
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14b10-save-v44.test.ts:363 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:8624",
+   "titleRename": true,
+   "oldIdentity": "tests/p14b10-save-v44.test.ts > save-v44: the chain and the live route (1358-F4 item 3) > migrateToLive lifts the GENUINE V43 save to Save44 with competitions: [] and romance: null on every edge; makeSave stamps 44 and validateSave dispatches it",
+   "newIdentity": "tests/p14b10-save-v44.test.ts > save-v44: the chain and the live route (1358-F4 item 3) > migrateToLive lifts the GENUINE V43 save to Save45 with competitions: [] and romance: null on every edge; makeSave stamps 45 and validateSave dispatches it"
+  },
+  {
+   "file": "tests/p14b10-save-v44.test.ts",
+   "line": 363,
+   "newLine": 363,
+   "old": "    expect(live.saveVersion).toBe(44)",
+   "new": "    expect(live.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45): a live-version pin",
+   "decision": "certain",
+   "rowIds": [
+    324
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:8624 (tests/p14b10-save-v44.test.ts:363)"
+  },
+  {
+   "file": "tests/p14b10-save-v44.test.ts",
+   "line": 369,
+   "newLine": 369,
+   "old": "    expect(stamped.saveVersion).toBe(44)",
+   "new": "    expect(stamped.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45): a live-version pin",
+   "decision": "certain",
+   "rowIds": [
+    324
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14b10-save-v44.test.ts:363 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:8624"
+  },
+  {
+   "file": "tests/p14b10-save-v44.test.ts",
+   "line": 370,
+   "newLine": 370,
+   "old": "    expect(saveModule.validateSave(stamped).saveVersion).toBe(44)",
+   "new": "    expect(saveModule.validateSave(stamped).saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45): a live-version pin",
+   "decision": "certain",
+   "rowIds": [
+    324
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14b10-save-v44.test.ts:363 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:8624"
+  },
+  {
+   "file": "tests/p14b5-save-v31.test.ts",
+   "line": 195,
+   "newLine": 195,
+   "old": "  it('LIVE_SAVE_VERSION is the literal 44 the live writer stamps (stale title corrected post-C.2b and again for Save43; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)', () => {",
+   "new": "  it('LIVE_SAVE_VERSION is the literal 45 the live writer stamps (stale title corrected post-C.2b and again for Save43; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)', () => {",
+   "class": "T",
+   "edit": "rename the title: \"the literal 44\" -> \"the literal 45\"; record old and new identity",
+   "decision": "certain",
+   "rowIds": [
+    435
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14b5-save-v31.test.ts:196 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:330987",
+   "titleRename": true,
+   "oldIdentity": "tests/p14b5-save-v31.test.ts > P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > LIVE_SAVE_VERSION is the literal 44 the live writer stamps (stale title corrected post-C.2b and again for Save43; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)",
+   "newIdentity": "tests/p14b5-save-v31.test.ts > P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > LIVE_SAVE_VERSION is the literal 45 the live writer stamps (stale title corrected post-C.2b and again for Save43; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)"
+  },
+  {
+   "file": "tests/p14b5-save-v31.test.ts",
+   "line": 196,
+   "newLine": 196,
+   "old": "    expect(LIVE_SAVE_VERSION).toBe(44)",
+   "new": "    expect(LIVE_SAVE_VERSION).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    435
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:330987 (tests/p14b5-save-v31.test.ts:196)"
+  },
+  {
+   "file": "tests/p14b7-promise-waiver.test.ts",
+   "line": 651,
+   "newLine": 651,
+   "old": "    expect(LIVE_SAVE_VERSION).toBe(44)",
+   "new": "    expect(LIVE_SAVE_VERSION).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    439
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:331042 (tests/p14b7-promise-waiver.test.ts:651)"
+  },
+  {
+   "file": "tests/p14c2a-save-and-settlement.test.ts",
+   "line": 28,
+   "newLine": 28,
+   "old": "  validateSaveV37, validateSaveV44,",
+   "new": "  validateSaveV37, validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    473
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14c2a-save-and-settlement.test.ts:346 (Error: validateSaveV44: expected version 44); m2-core.txt:401508"
+  },
+  {
+   "file": "tests/p14c2a-save-and-settlement.test.ts",
+   "line": 346,
+   "newLine": 346,
+   "old": "    const reloaded = validateSaveV44(JSON.parse(JSON.stringify(makeSave(state)))).state",
+   "new": "    const reloaded = validateSaveV45(JSON.parse(JSON.stringify(makeSave(state)))).state",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    473
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:401508 (tests/p14c2a-save-and-settlement.test.ts:346)",
+   "typeSiteRowIds": [
+    901
+   ],
+   "typeSite": "tsc root tests/p14c2a-save-and-settlement.test.ts(347,35) TS2379 TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV45' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties."
+  },
+  {
+   "file": "tests/p14c2a-save-and-settlement.test.ts",
+   "line": 353,
+   "newLine": 353,
+   "old": "    expect(LIVE_SAVE_VERSION).toBe(44)",
+   "new": "    expect(LIVE_SAVE_VERSION).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    474
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:401521 (tests/p14c2a-save-and-settlement.test.ts:353)"
+  },
+  {
+   "file": "tests/p14c4-save-v35.test.ts",
+   "line": 33,
+   "newLine": 33,
+   "old": "  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV44,",
+   "new": "  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    742
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14c4-save-v35.test.ts:277 (Error: validateSaveV44: expected version 44); m2-core.txt:404105"
+  },
+  {
+   "file": "tests/p14c4-save-v35.test.ts",
+   "line": 57,
+   "newLine": 57,
+   "old": "    expect(LIVE_SAVE_VERSION).toBe(44)",
+   "new": "    expect(LIVE_SAVE_VERSION).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    740
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:404067 (tests/p14c4-save-v35.test.ts:57)"
+  },
+  {
+   "file": "tests/p14c4-save-v35.test.ts",
+   "line": 63,
+   "newLine": 63,
+   "old": "    expect((saved as { saveVersion: number }).saveVersion).toBe(44)",
+   "new": "    expect((saved as { saveVersion: number }).saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    741
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:404086 (tests/p14c4-save-v35.test.ts:63)"
+  },
+  {
+   "file": "tests/p14c4-save-v35.test.ts",
+   "line": 277,
+   "newLine": 277,
+   "old": "    const savedLive = validateSaveV44({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })",
+   "new": "    const savedLive = validateSaveV45({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    742
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:404105 (tests/p14c4-save-v35.test.ts:277)",
+   "typeSiteRowIds": [
+    908
+   ],
+   "typeSite": "tsc root tests/p14c4-save-v35.test.ts(279,35) TS2379 TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV45' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties."
+  },
+  {
+   "file": "tests/p14c4-save-v35.test.ts",
+   "line": 278,
+   "newLine": 278,
+   "old": "    const reloaded = validateSaveV44(JSON.parse(JSON.stringify(savedLive)))",
+   "new": "    const reloaded = validateSaveV45(JSON.parse(JSON.stringify(savedLive)))",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    742
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14c4-save-v35.test.ts:277 (Error: validateSaveV44: expected version 44); m2-core.txt:404105",
+   "typeSiteRowIds": [
+    908
+   ],
+   "typeSite": "tsc root tests/p14c4-save-v35.test.ts(279,35) TS2379 TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV45' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties."
+  },
+  {
+   "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+   "line": 45,
+   "newLine": 45,
+   "old": "  it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 44', () => {",
+   "new": "  it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 45', () => {",
+   "class": "T",
+   "edit": "rename the title: \"LIVE_SAVE_VERSION is 44\" -> \"is 45\"; record old and new identity",
+   "decision": "certain",
+   "rowIds": [
+    743
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14d1-rival-shelving-save-v43.test.ts:46 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:404118",
+   "titleRename": true,
+   "oldIdentity": "tests/p14d1-rival-shelving-save-v43.test.ts > API decisions this file exercises (existence asserted first) > validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 44",
+   "newIdentity": "tests/p14d1-rival-shelving-save-v43.test.ts > API decisions this file exercises (existence asserted first) > validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 45"
+  },
+  {
+   "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+   "line": 46,
+   "newLine": 46,
+   "old": "    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)",
+   "new": "    expect(saveModule.LIVE_SAVE_VERSION).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    743
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:404118 (tests/p14d1-rival-shelving-save-v43.test.ts:46)"
+  },
+  {
+   "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+   "line": 82,
+   "newLine": 82,
+   "old": "  it('migrateToLive carries a genuine V42 save to V44 (LIVE_SAVE_VERSION)', () => {",
+   "new": "  it('migrateToLive carries a genuine V42 save to V45 (LIVE_SAVE_VERSION)', () => {",
+   "class": "T",
+   "edit": "rename the title: \"to V44 (LIVE_SAVE_VERSION)\" -> \"to V45 (LIVE_SAVE_VERSION)\"; record old and new identity",
+   "decision": "certain",
+   "rowIds": [
+    744
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/p14d1-rival-shelving-save-v43.test.ts:85 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:404137",
+   "titleRename": true,
+   "oldIdentity": "tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > migrateToLive carries a genuine V42 save to V44 (LIVE_SAVE_VERSION)",
+   "newIdentity": "tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > migrateToLive carries a genuine V42 save to V45 (LIVE_SAVE_VERSION)"
+  },
+  {
+   "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+   "line": 85,
+   "newLine": 85,
+   "old": "    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(44)",
+   "new": "    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    744
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:404137 (tests/p14d1-rival-shelving-save-v43.test.ts:85)"
+  },
+  {
+   "file": "tests/placement-save-v12.test.ts",
+   "line": 53,
+   "newLine": 53,
+   "old": "  validateSaveV44,",
+   "new": "  validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    824,
+    825
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/placement-save-v12.test.ts:412, tests/placement-save-v12.test.ts:436 (Error: validateSaveV44: expected version 44); m2-core.txt:616790; m2-core.txt:616777"
+  },
+  {
+   "file": "tests/placement-save-v12.test.ts",
+   "line": 412,
+   "newLine": 412,
+   "old": "    expect(validateSaveV44(valid)).toBe(valid)",
+   "new": "    expect(validateSaveV45(valid)).toBe(valid)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    825
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:616777 (tests/placement-save-v12.test.ts:412)"
+  },
+  {
+   "file": "tests/placement-save-v12.test.ts",
+   "line": 418,
+   "newLine": 418,
+   "old": "    expect(() => validateSaveV44(overlapped)).toThrow(/overlaps placed facility 1/)",
+   "new": "    expect(() => validateSaveV45(overlapped)).toThrow(/overlaps placed facility 1/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    825
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/placement-save-v12.test.ts:412 (Error: validateSaveV44: expected version 44); m2-core.txt:616777"
+  },
+  {
+   "file": "tests/placement-save-v12.test.ts",
+   "line": 430,
+   "newLine": 430,
+   "old": "    expect(() => validateSaveV44(tooClose)).toThrow(/violates its clearance ring/)",
+   "new": "    expect(() => validateSaveV45(tooClose)).toThrow(/violates its clearance ring/)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    825
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/placement-save-v12.test.ts:412 (Error: validateSaveV44: expected version 44); m2-core.txt:616777"
+  },
+  {
+   "file": "tests/placement-save-v12.test.ts",
+   "line": 436,
+   "newLine": 436,
+   "old": "    expect(validateSaveV44(valid)).toBe(valid)",
+   "new": "    expect(validateSaveV45(valid)).toBe(valid)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    824
+   ],
+   "measured": "Error: validateSaveV44: expected version 44",
+   "frame": "m2-core.txt:616790 (tests/placement-save-v12.test.ts:436)"
+  },
+  {
+   "file": "tests/placement-save-v12.test.ts",
+   "line": 443,
+   "newLine": 443,
+   "old": "    expect(() => validateSaveV44(doubled)).toThrow(",
+   "new": "    expect(() => validateSaveV45(doubled)).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    824
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/placement-save-v12.test.ts:436 (Error: validateSaveV44: expected version 44); m2-core.txt:616790"
+  },
+  {
+   "file": "tests/placement-save-v12.test.ts",
+   "line": 450,
+   "newLine": 450,
+   "old": "    expect(() => validateSaveV44(early)).toThrow(",
+   "new": "    expect(() => validateSaveV45(early)).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    824
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/placement-save-v12.test.ts:436 (Error: validateSaveV44: expected version 44); m2-core.txt:616790"
+  },
+  {
+   "file": "tests/property-state-v13.test.ts",
+   "line": 65,
+   "newLine": 65,
+   "old": "  validateSaveV44,",
+   "new": "  validateSaveV45,",
+   "class": "S1",
+   "edit": "import validateSaveV45 in place of validateSaveV44",
+   "decision": "certain",
+   "rowIds": [
+    827,
+    828,
+    829,
+    831
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/property-state-v13.test.ts:700, tests/property-state-v13.test.ts:799, tests/property-state-v13.test.ts:868, tests/property-state-v13.test.ts:880 (AssertionError: expected [Function] to throw error matching /placed facility 1 overlaps property s…/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]; AssertionError: expected [Function] to throw error matching /state is missing required field \"prop…/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]; AssertionError: expected [Function] to throw error matching /property road 0 is not a well-formed …/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]; AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:616879; m2-core.txt:616841; m2-core.txt:616860; m2-core.txt:616822"
+  },
+  {
+   "file": "tests/property-state-v13.test.ts",
+   "line": 533,
+   "newLine": 533,
+   "old": "    expect(reloaded.saveVersion).toBe(44)",
+   "new": "    expect(reloaded.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    826
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:616803 (tests/property-state-v13.test.ts:533)"
+  },
+  {
+   "file": "tests/property-state-v13.test.ts",
+   "line": 700,
+   "newLine": 700,
+   "old": "      expect(save.saveVersion).toBe(44)",
+   "new": "      expect(save.saveVersion).toBe(45)",
+   "class": "S2",
+   "edit": "toBe(44) -> toBe(45)",
+   "decision": "certain",
+   "rowIds": [
+    831
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-core.txt:616822 (tests/property-state-v13.test.ts:700)"
+  },
+  {
+   "file": "tests/property-state-v13.test.ts",
+   "line": 702,
+   "newLine": 702,
+   "old": "      expect(validateSaveV44(save)).toBe(save)",
+   "new": "      expect(validateSaveV45(save)).toBe(save)",
+   "class": "S1",
+   "edit": "validateSaveV44( -> validateSaveV45(",
+   "decision": "certain",
+   "rowIds": [
+    831
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/property-state-v13.test.ts:700 (AssertionError: expected 45 to be 44 // Object.is equality); m2-core.txt:616822"
+  },
+  {
+   "file": "tests/property-state-v13.test.ts",
+   "line": 799,
+   "newLine": 799,
+   "old": "      expect(() => validateSaveV44(bad)).toThrow(expected)",
+   "new": "      expect(() => validateSaveV45(bad)).toThrow(expected)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    828
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /state is missing required field \"prop…/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:616841 (tests/property-state-v13.test.ts:799)"
+  },
+  {
+   "file": "tests/property-state-v13.test.ts",
+   "line": 868,
+   "newLine": 868,
+   "old": "      expect(() => validateSaveV44(bad)).toThrow(expected)",
+   "new": "      expect(() => validateSaveV45(bad)).toThrow(expected)",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    829
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /property road 0 is not a well-formed …/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:616860 (tests/property-state-v13.test.ts:868)"
+  },
+  {
+   "file": "tests/property-state-v13.test.ts",
+   "line": 880,
+   "newLine": 880,
+   "old": "    expect(() => validateSaveV44(forged)).toThrow(",
+   "new": "    expect(() => validateSaveV45(forged)).toThrow(",
+   "class": "S8",
+   "edit": "validateSaveV44( -> validateSaveV45( inside a refusal assertion or capture; keep the pattern (message probe confirms)",
+   "decision": "measure",
+   "rowIds": [
+    827
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /placed facility 1 overlaps property s…/ but got 'validateSaveV44: expected version 44' [received in full: \"validateSaveV44: expected version 44\"]",
+   "frame": "m2-core.txt:616879 (tests/property-state-v13.test.ts:880)"
+  },
+  {
+   "file": "tests/property-state-v13.test.ts",
+   "line": 943,
+   "newLine": 943,
+   "old": "    expect(() => validateSave({ ...live, saveVersion: 45 })).toThrow(",
+   "new": "    expect(() => validateSave({ ...live, saveVersion: 46 })).toThrow(",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    830
+   ],
+   "measured": "AssertionError: expected [Function] to throw an error",
+   "frame": "m2-core.txt:616898 (tests/property-state-v13.test.ts:943)"
+  },
+  {
+   "file": "tests/property-state-v13.test.ts",
+   "line": 944,
+   "newLine": 944,
+   "old": "      /unknown saveVersion 45.*versions 1 through 44 only/,",
+   "new": "      /unknown saveVersion 46.*versions 1 through 45 only/,",
+   "class": "S3",
+   "edit": "\"unknown saveVersion 45\" -> 46 and \"1 through 44\" -> \"1 through 45\"",
+   "decision": "certain",
+   "rowIds": [
+    830
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/property-state-v13.test.ts:943 (AssertionError: expected [Function] to throw an error); m2-core.txt:616898"
+  },
+  {
+   "file": "tests/script-projects-save-v9.test.ts",
+   "line": 415,
+   "newLine": 415,
+   "old": "    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(",
+   "new": "    expect(() => validateSave({ ...save, saveVersion: 46 })).toThrow(",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    842
+   ],
+   "measured": "AssertionError: expected [Function] to throw error matching /unknown saveVersion 45/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]",
+   "frame": "m2-core.txt:617054 (tests/script-projects-save-v9.test.ts:415)"
+  },
+  {
+   "file": "tests/script-projects-save-v9.test.ts",
+   "line": 416,
+   "newLine": 416,
+   "old": "      /unknown saveVersion 45/,",
+   "new": "      /unknown saveVersion 46/,",
+   "class": "S3",
+   "edit": "\"unknown saveVersion 45\" -> 46 and \"1 through 44\" -> \"1 through 45\"",
+   "decision": "certain",
+   "rowIds": [
+    842
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/script-projects-save-v9.test.ts:415 (AssertionError: expected [Function] to throw error matching /unknown saveVersion 45/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]); m2-core.txt:617054"
+  },
+  {
+   "file": "tests/script-projects-save-v9.test.ts",
+   "line": 418,
+   "newLine": 418,
+   "old": "    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(",
+   "new": "    expect(() => validateSave({ ...save, saveVersion: 46 })).toThrow(",
+   "class": "S3",
+   "edit": "sentinel stamp 45 -> 46",
+   "decision": "certain",
+   "rowIds": [
+    842
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/script-projects-save-v9.test.ts:415 (AssertionError: expected [Function] to throw error matching /unknown saveVersion 45/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]); m2-core.txt:617054"
+  },
+  {
+   "file": "tests/script-projects-save-v9.test.ts",
+   "line": 419,
+   "newLine": 419,
+   "old": "      /versions 1 through 44 only/,",
+   "new": "      /versions 1 through 45 only/,",
+   "class": "S3",
+   "edit": "\"unknown saveVersion 45\" -> 46 and \"1 through 44\" -> \"1 through 45\"",
+   "decision": "certain",
+   "rowIds": [
+    842
+   ],
+   "measured": null,
+   "frame": "no M2 failure at this line: its test stops earlier at tests/script-projects-save-v9.test.ts:415 (AssertionError: expected [Function] to throw error matching /unknown saveVersion 45/ but got 'validateSaveV45: the p15Sequence root…' [received in full: \"validateSaveV45: the p15Sequence root is missing\"]); m2-core.txt:617054"
+  },
+  {
+   "file": "ui/src/engine/d17-save-migration.test.ts",
+   "line": 131,
+   "newLine": 131,
+   "old": "    expect(JSON.parse(json).saveVersion).toBe(44) // Current C.3 writer: SaveFileV38.",
+   "new": "    expect(JSON.parse(json).saveVersion).toBe(45) // Current C.3 writer: SaveFileV38.",
+   "class": "UI",
+   "edit": "toBe(44) -> toBe(45): the UI adapter writes the live version",
+   "decision": "certain",
+   "rowIds": [
+    868
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-ui.txt:1478 (ui/src/engine/d17-save-migration.test.ts:131)"
+  },
+  {
+   "file": "ui/src/engine/d17-save-migration.test.ts",
+   "line": 155,
+   "newLine": 155,
+   "old": "    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(44) // current C.3 writer: SaveFileV38.",
+   "new": "    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(45) // current C.3 writer: SaveFileV38.",
+   "class": "UI",
+   "edit": "toBe(44) -> toBe(45): the UI adapter writes the live version",
+   "decision": "certain",
+   "rowIds": [
+    869
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-ui.txt:1497 (ui/src/engine/d17-save-migration.test.ts:155)"
+  },
+  {
+   "file": "ui/src/engine/film-chronicle-adapter.test.ts",
+   "line": 289,
+   "newLine": 289,
+   "old": "    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(44) // current C.3 writer: SaveFileV38.",
+   "new": "    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(45) // current C.3 writer: SaveFileV38.",
+   "class": "UI",
+   "edit": "toBe(44) -> toBe(45): the UI adapter writes the live version",
+   "decision": "certain",
+   "rowIds": [
+    870
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-ui.txt:1516 (ui/src/engine/film-chronicle-adapter.test.ts:289)"
+  },
+  {
+   "file": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+   "line": 46,
+   "newLine": 46,
+   "old": "    expect(JSON.parse(json).saveVersion).toBe(44) // current C.3 writer: SaveFileV38.",
+   "new": "    expect(JSON.parse(json).saveVersion).toBe(45) // current C.3 writer: SaveFileV38.",
+   "class": "UI",
+   "edit": "toBe(44) -> toBe(45): the UI adapter writes the live version",
+   "decision": "certain",
+   "rowIds": [
+    871
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-ui.txt:1561 (ui/src/lot/snapshot/v14SetHolderBoundary.test.ts:46)"
+  },
+  {
+   "file": "ui/src/saves.test.tsx",
+   "line": 126,
+   "newLine": 126,
+   "old": "    expect(JSON.parse(json).saveVersion).toBe(44) // current C.3 writer: SaveFileV38.",
+   "new": "    expect(JSON.parse(json).saveVersion).toBe(45) // current C.3 writer: SaveFileV38.",
+   "class": "UI",
+   "edit": "toBe(44) -> toBe(45): the UI adapter writes the live version",
+   "decision": "certain",
+   "rowIds": [
+    872
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-ui.txt:1402 (ui/src/saves.test.tsx:126)"
+  },
+  {
+   "file": "ui/src/session.test.tsx",
+   "line": 332,
+   "newLine": 332,
+   "old": "    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(44) // C.3: live saves are SaveFileV38.",
+   "new": "    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(45) // C.3: live saves are SaveFileV38.",
+   "class": "UI",
+   "edit": "toBe(44) -> toBe(45): the UI adapter writes the live version",
+   "decision": "certain",
+   "rowIds": [
+    877
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-ui.txt:1421 (ui/src/session.test.tsx:332)"
+  },
+  {
+   "file": "ui/src/session.test.tsx",
+   "line": 360,
+   "newLine": 360,
+   "old": "    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(44) // C.3: live saves are SaveFileV38.",
+   "new": "    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(45) // C.3: live saves are SaveFileV38.",
+   "class": "UI",
+   "edit": "toBe(44) -> toBe(45): the UI adapter writes the live version",
+   "decision": "certain",
+   "rowIds": [
+    876
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-ui.txt:1440 (ui/src/session.test.tsx:360)"
+  },
+  {
+   "file": "ui/src/session.test.tsx",
+   "line": 387,
+   "newLine": 387,
+   "old": "    expect(parsedV11.saveVersion).toBe(44) // C.3: live saves are SaveFileV38.",
+   "new": "    expect(parsedV11.saveVersion).toBe(45) // C.3: live saves are SaveFileV38.",
+   "class": "UI",
+   "edit": "toBe(44) -> toBe(45): the UI adapter writes the live version",
+   "decision": "certain",
+   "rowIds": [
+    878
+   ],
+   "measured": "AssertionError: expected 45 to be 44 // Object.is equality",
+   "frame": "m2-ui.txt:1459 (ui/src/session.test.tsx:387)"
+  }
+ ]
+}
