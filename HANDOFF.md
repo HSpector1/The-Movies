@@ -100,7 +100,7 @@ Standing rules:
      - the sweep: the final unit patches, as one commit or one per unit.
 
      Then the type gates and the generator checks at HEAD, and push.
-   - **The four recorded runs** (1361-F ruling 14; model `S/1358-land/recorded3.sh`; stems lowercase):
+   - **The four recorded runs** (1361-F ruling 14), with the script prepared for them: `bash S/heavy-queue/lane-run.sh 0 S/1361-land/<mode>.log bash S/1361-land/recorded-1361.sh <mode>`, modes `p15a2-green`, `p15a2-harness`, `p15a1-green`, `p15c-green`, then `core`, `ui` and `d16` for 1361-M3. The script is staged as `E/1361-stage/land/recorded-1361.sh` and adapted from `S/1358-land/recorded3.sh`. It checks HEAD against the remote, clean source paths, at least 5 GiB free, the stem rule and the five exact output names, and that the sibling test and hygiene comment have landed. Its `d16` mode (the recorder wrapping `vitest --config`) is untested: read the recorder before relying on it. The runs:
      - `1361-p15a2-green-recorded`;
      - `1361-p15a2-harness-recorded`, alone;
      - `1361-p15a1-green-recorded`, which must fail exactly the 45 with their messages;
