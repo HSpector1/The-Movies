@@ -58,7 +58,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-03 10:22 CDT, written a
 - **In flight:**
   - **Unit H done** (sonnet author): `S/1361-sweep/H/{patch.diff,rows.json,deferred.md,handback.md}`, 16 files, 60 of 61 lines; 1 deferred (`p14c3-save-v38:121`, a bare `.toThrow()` per ruling 9); 11 measure lines await a run.
   - **x1** in the lane since 11:01 CDT 10-03 (`S/1361-sweep/run-sweep-x.sh x1` + sibling + hygiene + H; progress `S/1361-sweep/x1/x.meta`; outputs `x-core.txt`, `x-ui.txt`, `x-d16.json`). Type gates already match H's acceptance (root 28, UI 0, Bridge 5 test errors; src 0). Expected end about 12:50.
-  - **G units** (sonnet authors, shared brief `S/1361-sweep/brief-g-unit.md`): G1 and G2 running since 11:07. Trees for G3, G4a, G4b and G5 are built (production + H). The G4 split (1361-F7 ruling 11): G4a = v14-boundary-guards, p06a-w1-release-authority, p12-starting-world, p13b-s8-save-v27, p14b1-t4-regressions, p14c2b-save-v36, p14c2rm-writer-continuation, p14c3-canonical-rival-history, p14c3-cohort-transition, p14c3-dual-extensions, p14c3-offmenu-extensions, p14c3-profession-history; G4b = p14c3-promise-digest-continuity, p14c3-queued-writing-proof, p14c3-transitions, p14p3-directing-promises, p14p4p5-opportunities, p14p4p5-screenplay-status, p14r3-save-v41, save.
+  - **G units** (sonnet authors, shared brief `S/1361-sweep/brief-g-unit.md`; each unit's outputs in `S/1361-sweep/<unit>/`): **G1 done** (61 of 67 lines, 7 deferred where M2 never reached; 4 title renames; `p14c2s:325` per `E/1361-F8` ruling 1), **G2 done** (92 of 92, 5 Bridge type sites cleared), **G3 done** (108 of 108; 2 type sites; 12 title renames; 8 S8 guards to confirm in x2; its `p13a-causal-core` :49/:91 and `v14-byte-parity` :206 are the first ticked saves with ranking records through `validateSaveV45`, so a refusal there is a production defect). G4a and G4b running (started about 11:30 and 11:50); G5's tree is built and waits for a free slot (at most two authors at once). The G4 split (1361-F7 ruling 11): G4a = v14-boundary-guards, p06a-w1-release-authority, p12-starting-world, p13b-s8-save-v27, p14b1-t4-regressions, p14c2b-save-v36, p14c2rm-writer-continuation, p14c3-canonical-rival-history, p14c3-cohort-transition, p14c3-dual-extensions, p14c3-offmenu-extensions, p14c3-profession-history; G4b = p14c3-promise-digest-continuity, p14c3-queued-writing-proof, p14c3-transitions, p14p3-directing-promises, p14p4p5-opportunities, p14p4p5-screenplay-status, p14r3-save-v41, save.
   - **x2 after the G units:** `run-sweep-x.sh x2 <sibling> <hygiene> H/patch.diff G1/patch.diff G2/patch.diff G3/patch.diff G4a/patch.diff G4b/patch.diff G5/patch.diff` (each G patch is `git diff HEAD -- tests ui` on top of H, so they stack); queue it behind x1 in the lane.
   - **The hygiene comment patch** (1361-F7 ruling 1) is `S/1361-sweep/hygiene/1361-hygiene-comment.patch`, checked against HEAD.
 - **Claims limits:**
@@ -122,14 +122,14 @@ Standing rules:
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-03 09:48 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `5a6378d13c0d9a27e5f7448419bbfd18c2226637`
+- Stamped: 2026-10-03 11:31 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `fc8d56742a0d893cf7f4183b9746c82c7f4cade2`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 0
 - Last commits:
-  - 5a6378d1 docs(handoff): the Save45 sweep planner 1361-N is running
-  - c0b07770 docs(p15): 1361-M2 Save45 fallout (809 pin rows in 138 files; P15 files as declared; UI 11 pins; d16 unchanged)
-  - 74553102 docs(p15): 1361-D3 review of P15C (PROCEED, no change) and 1361-F6 rulings (replay-input rule and closure guard; post-2040 cost at G-L)
-  - 3f68f84b docs(p15): 1361-X4 dry run of P15C (1359 116/116 at (c), no regression; sibling 5/5); review 1361-D3 and fallout 1361-M2 running
-  - a0e51c93 docs(p15): 1361-E3 P15C production handback and patches staged; X4 dry run in the lane
+  - fc8d5674 docs(handoff): unit H done; x1 running; G1 and G2 authoring; G3-G5 trees ready; G4 split defined
+  - dc84faf0 docs(handoff): sweep unit H in progress; x1 and the hygiene patch ready
+  - 5b57cfbc docs(owner): 1366-O Owner answers O1 (non-core facility disposal at the player's refund, bounded Part C of 1363 after Save45) and O6 (a loan ends cost-cutting)
+  - af5ad7d1 docs(p15): 1361-F7 parent rulings on the 1361-N sweep plan (eleven questions); HANDOFF next step updated
+  - d44c567e docs(handoff): full rewrite at the 95% usage trigger; 1361-N sweep plan staged with recommended rulings for 1361-F7
 <!-- AUTO:END -->
