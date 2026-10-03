@@ -1,81 +1,138 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-03 09:25 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-03 10:22 CDT, written at Claude's 95% weekly-usage trigger. If Claude stops, Codex resumes from this file.
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 50181e76 that carries this file, pushed: yes. Protected main is never touched.
-- Resume this session: `cd ~/Downloads/project-studio-p13-owner-direction-inputs-01 && claude --resume 60db833c-4cf7-4685-b2ec-8aac42c6dac1`. A fresh session: start in this repo root and say "resume from HANDOFF.md".
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit that carries this file (its parent is 5a6378d1), pushed: yes. Protected main is never touched.
+- Resume: this session is `claude --resume 60db833c-4cf7-4685-b2ec-8aac42c6dac1`, run from `~/Downloads/project-studio-p13-owner-direction-inputs-01`. A fresh session starts in this repo root and says "resume from HANDOFF.md".
 - E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`.
 - Required reading, in order:
-  1. This file.
-  2. The Save45 production phase: `E/1361-F` (22 rulings, order of work), amended by `E/1361-F2` (probe rulings; ruling 3 corrects the G2-Retune path: P15A.1 takes its own later step) and `E/1361-F3` (slice 2a r2 fixes R1-R4); `E/1361-R` (the protocol); `E/1361-E`, `E/1361-X`, `E/1361-D` (slice 2a r1 handback, dry run, review).
-  3. The Owner's three responses of 2026-10-02, verbatim in `E/1362-O` (1357-Q1 (a); numpy; items 5-9; late founding reachable) and summarized in `DECISIONS.md` "Owner rulings, 2026-10-02".
-  4. `E/1363-A-rival-recovery-amendment-charter.md` with its adoption `E/1363-F` (12 amendments; review `E/1363-B`) and `E/1364-R-late-founding-reachability.md`.
-  5. `docs/engineering/playability-launch-review/CONTINUATION-STATE.md`, top `## CURRENT` block (same as 06's).
+  1. this file;
+  2. `E/1361-F` (the Save45 order of work), with `E/1361-F2` to `E/1361-F6`; F5 and its Amendment 1 define what Save45 now carries;
+  3. `E/1361-M2` (the fallout) and `E/1361-N-save45-pin-sweep-plan.md` (the sweep plan, awaiting rulings);
+  4. `E/1362-O` (the Owner's three responses of 2026-10-02, summarized in `DECISIONS.md`);
+  5. `E/1363-F` (the recovery charter as adopted) and `E/1364-R`.
 
 ## Active order
-- Governing Owner order: the Opus take-over mandate under `docs/operations/fable-team/OWNER-DIRECTIVE-THREE-WEEK-AUTONOMOUS-20260915.md`, with Owner rulings 1340-O, 1342-O and the 2026-10-02 responses in 1362-O. Do not stop after decision reports; do not reopen settled choices.
-- In scope, in dependency order:
-  1. **Save45** (1361-F): P15A.2 slice 2a, then P15A.1, then P15C, one writer, landing together behind one Save45 pin sweep; G2 gates P15A.1's (c); G-P gates P15C. No commit that changes `src/` lands before Save45.
-  2. **After the Save45 landing:** the rival-recovery amendment (`1363-A`; Part A the binding-cash test, Part B scoped cost-cutting at Save46, P15B then Save47) and the late-founding correction (`1364-A`, authorized 2026-10-02: both invariant failures; a generated labelled import input; refuse clearly before mutation otherwise; no invented payments, no weakened validators, no late-start mode). The parent orders the two at that checkpoint.
-  3. Also after Save45: the masked-downgrade-guard coverage repair (1344-X12 family); after the recovery amendment: replacement natural fixtures for the seven exceptions; G-L reruns on the recovery tree (1361-F2 ruling 5); P15B Wave 2 after the recovery amendment, with the Owner's P16 choices 5.1-5.9 binding its Wave 4 charter.
-- Closed, do not reopen: P14 (1344-K, 1344-V); P15 Wave 1 (1346-K, 1352-K, 1353-K); relationship slices A (1348-L/M) and B (1358-L, 1358-M3); the P15 Wave 2 RED landing (1360-L); numpy (1362-V); the RED confirmations 1355-D4, 1356-D4, 1359-D4; the 1340-O and 1342-O rulings; U2 (1341-K).
+- **Governing Owner order:** the take-over mandate (`docs/operations/fable-team/OWNER-DIRECTIVE-THREE-WEEK-AUTONOMOUS-20260915.md`), with rulings 1340-O and 1342-O and the 2026-10-02 responses in 1362-O. Do not stop after decision reports. Do not reopen settled choices.
+- **In scope, in dependency order:**
+  1. **Land Save45 (1361-F).** It carries:
+     - slice 2a r2 (`powerRanking`, `p15Sequence`);
+     - P15A.1's (a) and (b) r2: an empty `sharedMarket`, with the F3 guard;
+     - P15C (a) to (c), the frozen 2040 Legacy;
+     - the sibling test;
+     - the Save45 pin sweep.
+
+     Everything lands in one push with four recorded runs, then the recorded broad gates.
+  2. **After Save45:**
+     - the rival-recovery amendment 1363 (Parts A and B);
+     - the late-founding correction 1364-A, with the charter still to draft;
+     - P15A.1's (c) tuning amendment, record 1365. G2 read Retune.
+
+     The parent orders the three. After them come the masked-downgrade-guard coverage repair, the replacement natural
+     fixtures for the seven exceptions, G-P and G-L on the recovery tree, and P15B Wave 2.
+- **Closed, do not reopen:**
+  - P14 (1344-K, 1344-V); P15 Wave 1; relationship slices A and B (1358-L, 1358-M3);
+  - the P15 Wave 2 RED landing (1360-L); numpy (1362-V);
+  - G2's verdict (1361-G2-X, 1361-F5); G-P (1361-GP-X);
+  - the reviews 1361-D, D2 and D3, all PROCEED.
 
 ## State
-- Done this session (all pushed): slice B landed and closed (1358-L, 1358-M3); the P15 Wave 2 REDs landed with recorded mints and REDs equal to the 1360-X replay (1360-L); 1361-R/F (production plan); the writer's tree built (`S/1361-prod/tree`, tag `base` = archive of f3fe97d0, `src` equal to 1706d844's); slice 2a r1 measured (1361-X: `src` type-clean on root, UI and Bridge; 1356 RED 72/72; harness 81,692 ms of 300,000; generators clean) and reviewed (1361-D PROCEED; 1361-F3 adopts R1-R4 as r2); G-P r2 written and reviewed (1361-GP-D PROCEED; 1361-F2 rulings); the G2 probe written (`S/1361-g2/`); numpy installed and verified (1362-V); the Owner's three responses recorded (1362-O, DECISIONS.md); 1364-R; the 1363-A draft (fc233994).
-- The writer's tree now (`main`, clean): `p15a2-r1` 1f2495a (kept); `p15a2-r2` 5eccada (R1-R4); `p15a1-a-r1` 39d0481, `p15a1-b-r1` 1074744, `p15a1-c-r1` c524911 (the frozen G2 candidate).
-- **1361-X2** (15:06 CDT): the stack measured at (c), (b) and slice 2a r2: `src` type-clean everywhere; 1356 72/72; 1355 59/59 at (c) (K1/K2/M0A and capture leaves pass), 15 at (b), 9 at r2; harness 83,603 ms at (c); generators clean. `E/1361-E2` and the r2 delta in `E/1361-E` published.
-- **G2 probe** reviewed (`E/1361-G2-D` HOLD) and fixed (`E/1361-G2-F`: Defect band, whole-run streaks, integer thresholds, RED_JSON tie, items 5-10); the parent checked the diff.
-- **G2 read Retune** (`E/1361-G2-X`; rulings `E/1361-F5`): K1-K5 exact (K3 case (a) of `E/1361-F4` ruling 1, pre-registered at 5b911ed3); Retune rows p13a industry gross 0.875 at 520, seed-b stall (stopped rivals) and below-zero +325% at 520, seed-b root share 2.3-3.1% (storage fix). Save45 now lands slice 2a r2 + P15A.1 (a) and (b) r2 (+ P15C if G-P passes); (c) and (d) wait for a tuning amendment (record 1365, after the landing).
-- **1361-D2** PROCEED (`E/1361-D2`, rulings `E/1361-F4`); **1363** adopted (`E/1363-F`); **G-P C0** passed (15:48; both exit 0, equal manifest, JSON equal apart from the allowed fields).
-- In flight:
-  - **P15C production handed back** (`E/1361-E3`; patches `E/1361-stage/prod/1361-p15c-production-{a,b,c}-r1.patch`): `p15c-a-r1` 2592aea, `p15c-b-r1` 5a3a532, `p15c-c-r1` f4612bf on `p15a1-b-r2`; tree clean on branch `p15c`. The parent accepts the writer's split (replay in (b); the marker rule's due half in (c)); rule it in `1361-F6` with 1361-D3's findings. By reading: 1359 86/98/116 at (a)/(b)/(c); messages of L:854, L:885, L:1089 change at (a)/(b).
-- **Review `1361-D3`: PROCEED**, no change required (`E/1361-D3`; rulings `E/1361-F6`: O1 split stands; F1 replay-input rule and closure guard; F2 cost at G-L; F3/F5 wait for an r2 or the closure; F4 to `1361-N`).
-- **In flight: the sweep planner `1361-N`** (agent, read-only) -> `S/1361-sweep/1361-N-save45-pin-sweep-plan.md` and `1361-N-classification.json`; started 09:26 CDT 10-03.
-- **Fallout `E/1361-M2` done** (core 17:19-18:38, UI to 18:57 on 10-02; d16 finished 09:23 on 10-03 after the machine slept 19:01-09:19 at 0% battery): src type-clean; 1355 exactly the 45, 1356 and 1359 all pass; core vs 1358-I SAME 71 / CHANGED 14 / NEW 854 (45 of them the declared 1355 leaves; 809 Save45 pin rows in 138 files); UI NEW 11 (all 45-vs-44 pins), GONE 3 (rgba rows pass with numpy); d16 the same 12. Raw logs `S/1361-m2/m2-{core,ui}.txt(.gz)`; parsed rows `E/1361-stage/m2/`.
-- **P15C dry run `E/1361-X4`:** src type-clean at (a)/(b)/(c); 1359 86/98/116, no regression; 1356 72/72, harness 80,483 ms at (c); 1355 exactly the 45; d16 the same 12; sibling 5/5 at (c), 5/5 failing by name at b-r2 (its RED-side baseline); classification `E/1361-stage/sibling/`.
-- **Done since the G2 verdict:** `p15a1-b-r2` b0b6fb01 (b-r1 + F3's guard; `E/1361-F5` Amendment 1 adds the 45th leaf); its dry run `E/1361-X3` (src type-clean; 1356 72/72, harness 70,404 ms; 1355 14 passed and exactly the 45 declared failing, list `E/1361-stage/x-r3b/1355-leaves-red-at-b-r2.tsv`; 1359 unchanged; generators 0); **G-P passed** on b-r2 + v2 (`E/1361-GP-X`: no trigger; holder sets equal 1353-X4's; C0 passed; two market-reading expectations of 1361-F5 missed by the parent's own error, explained there).
-- Claims limits: P15A.1's r1 commits and slice 2a r2 are unmeasured; the harness time compares across Node versions and machine load (1361-F3 ruling 5); the 1363-A design rests on reading.
+- **Done this session (all pushed):**
+  - **Slice 2a r2:** 5eccada.
+  - **P15A.1:**
+    - `p15a1-a-r1` 39d0481;
+    - `p15a1-b-r2` b0b6fb01: (b) plus 1361-D2 F3's guard, which refuses a tick when `sharedMarket` holds rows;
+    - `p15a1-c-r1` c524911: G2's frozen candidate, now waiting for record 1365.
+  - **P15C:** `p15c-a-r1` 2592aea, `p15c-b-r1` 5a3a532, `p15c-c-r1` f4612bf. All are in the writer's tree `S/1361-prod/tree`, clean on branch `p15c`. Cumulative patches are in `E/1361-stage/prod/` (`git diff base <tag>`).
+  - **The measurements:**
+    - **G2 (1361-G2-X): Retune.** K1 to K5 hold exactly. The K3 reading was pre-registered in 1361-F4.
+    - **G-P (1361-GP-X):** no trigger, and the holder sets equal 1353-X4's.
+    - **The dry run of b-r2 (1361-X3).**
+    - **The dry run of P15C (1361-X4):** `src` type-clean at every tag; 1359 at 86, 98 and 116 of 116; 1356 at 72 of 72, with the harness at 80,483 ms; 1355 fails exactly the 45 declared leaves in `E/1361-stage/x-r3b/1355-leaves-red-at-b-r2.tsv`.
+    - **The sibling test:** 5 of 5 pass at (c), and 5 of 5 fail by name at b-r2.
+    - **d16:** the same 12 of 176 fail at `base` and at every tag.
+    - **The fallout (1361-M2):** 809 Save45 pin rows in 138 core files, 11 UI pins, and 33, 4 and 9 test type-error sites.
+  - **The sweep plan:** `E/1361-N-save45-pin-sweep-plan.md`, with its classification and scripts in `E/1361-stage/sweep/`. It covers 868 core rows and 11 UI rows in units H and G1 to G5. 716 rows are certain and 103 need a dry run.
+  - **1363 adopted** (1363-F, with question O6 for the Owner).
+- **In flight:** nothing. The lane is free. No agent is running.
+- **Claims limits:**
+  - The sweep plan rests on reading only. 103 rows and every S9 anchor must be measured in its dry run.
+  - The Bridge's per-state replay cost after 2040 is unmeasured; G-L measures it (1361-F6 ruling 3).
+  - The d16 drift (12 failures at `base`) is unexplained.
+  - On the Save45 tree the Legacy's market lens is empty at every boundary (1361-GP-X).
 
 ## Next step
-Standing rules: one production writer; one heavy test process at a time (`bash S/heavy-queue/lane-run.sh 0 <log> <cmd>`); no commits or `git add` during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run; recorded runs on Node v20.20.2; stems match `^[0-9]{3,4}[a-z0-9-]*$`.
+Standing rules:
+- one production writer;
+- one heavy process at a time: `bash S/heavy-queue/lane-run.sh 0 <log> <cmd>`, with logs outside output directories;
+- no commit or `git add` during a recorded run or its postflight;
+- at least 5 GiB free before a recorded run;
+- recorded runs on Node v20.20.2, with stems matching `^[0-9]{3,4}[a-z0-9-]*$`;
+- keep the Mac on power (below).
 
-1. **The sweep plan `1361-N`** (planner agent, 1358-N's method) from `E/1361-M2`: classify all 809 core rows, the 8 CHANGED Save45 rows and the 11 UI rows; group them into units for test authors; carry 1361-D2 F7 and 1361-D3 F4; leave the P15 RED files, `BASE_LIVE_SAVE_VERSION`, F10 and F11 alone. Then its units (test authors on disjoint files), the merged sweep's dry run (core, UI, type gates) until the success line holds, the review, then the landing `1361-L` in one push (productions; the sibling test commit; the sweep) with four recorded runs (1361-F ruling 14; 1355's files fail exactly the 45 with their messages; the sibling file joins `1361-p15c-green-recorded`), the recorded broad gates `1361-M3` (d16 must fail exactly the base 12).
-2. **Keep the Mac on power** for recorded runs: it slept overnight at 0% battery (pmset AutoPowerOff 19:01, wake 09:19 on 10-03).
-3. **When usage allows:** draft the late-founding charter `1364-A` (scope in 1362-O's third section).
+1. **Write `E/1361-F7`, the parent's rulings on 1361-N's eleven questions** (plan, lines 677 to 710). Recommended answers:
+   - **(1) Hygiene row** (`tests/hygiene.test.ts:45`; "Math.random" in a comment at L:79 of `tests/p15c2-campaign-legacy-integration.test.ts`; it fails at HEAD since 1360-L). The RED's owner rewords that comment in its own tests-only commit with a short record, before the recorded GREEN. No leaf changes, and no Owner exception is needed.
+   - **(2) S9:** confirm, following 1358-F10 ruling 4 and 1358-F9 ruling 2.
+   - **(3)** Confirm a literal `withEmptyP15Roots` in each file. Production never defines the expectation.
+   - **(4)** Import `stripP15` and `p15Rows` from `tests/helpers/p15-roots.ts` (read-only), and add the `p15Sequence.next === 1` check. Later roots then join the guard automatically.
+   - **(5)** Adopt the 1358-F12 form for `p14d1-rival-shelving:618`, as the plan proposes.
+   - **(6) and (7)** Confirm the numbering and the 18 title renames. The classification maps each old identity to its new one, for the success line.
+   - **(8)** Confirm that C20 gets no edit and that the 7 masked rows are re-attributed. If R8 passes after H, it reads GONE with its cause recorded.
+   - **(9) and (10)** Confirm.
+   - **(11)** Split G4 into G4a and G4b by file.
+2. **Build the sweep's merge tree**, `S/1361-sweep/merge`: an archive of HEAD plus `E/1361-stage/prod/1361-p15c-production-c-r1.patch`, plus the sibling patch `E/1359-stage/1359-p15c-wave2-sibling-r2.patch`, laid out as `S/1361-m2/run-1361-M2.sh` lays out its tree. Then:
+   - **Unit H:** its test author writes it first.
+   - **The G units:** test authors on disjoint files, at most two agents at once, each writing the plan's edits and staging a patch.
+   - **The parent** merges and dry-runs, with the type gates, core over 447 files plus the sibling file, UI and d16. Copy `run-1361-M2.sh` to a new name; never edit a running script.
+   - **Iterate** until 1361-N's success line holds:
+     - type gates exit 0, and both generator checks pass;
+     - core fails exactly 1358-I's 85 identities as re-attributed, the 45 declared 1355 leaves and the environment rows (7 `bridge-supervisor`, 6 `r3n1`);
+     - UI has 0 NEW rows;
+     - d16 fails the base 12.
+   - **Then** an independent review of the sweep.
+3. **The landing `1361-L`.**
+   - **The commits,** replayed in order from the writer's tree: `git -C S/1361-prod/tree format-patch base..p15c-c-r1` yields exactly the six landing commits 5eccada, 39d0481, b0b6fb0, 2592aea, 5a3a532 and f4612bf, which `git am` applies in the repo. Then the sibling test commit, then the hygiene-comment commit, then the sweep. One push.
+   - **The four recorded runs** (1361-F ruling 14; model `S/1358-land/recorded3.sh`): `1361-p15a2-green-recorded`, `1361-p15a2-harness-recorded`, `1361-p15a1-green-recorded` (it must fail exactly the 45 with their messages) and `1361-p15c-green-recorded` (1359's three files plus the sibling file).
+   - **Then** the recorded broad gates `1361-M3` (core, UI, d16 equal to the base 12), and the type gates at the landed HEAD.
+4. **After the landing:**
+   - the P15C closure items (1361-F6 ruling 2's two guard leaves, G-L with the post-2040 cost measurements);
+   - P15A.1's integrated harness, after (c) lands;
+   - the bounded reviews (the writing-context swallow; the d16 drift);
+   - then 1363, 1364-A and 1365, in the order the parent sets.
 
 ## Open decisions for the Owner
-- **1363-A O1, rival facility disposal** (asked 2026-10-02; `E/1363-A` §4.7, §10.2): may rivals close facilities; at what refund; may core filming plant go. v1 keeps facilities and does not wait. Parent recommends: no disposal in v1; revisit with 1363-V's numbers; if ever allowed, non-core plant only at the player's demolition refund, core plant never.
-- **1363-F O6, post-loan restart** (needed before re-probe 2; blocks nothing now): may a rival that cut costs hire and film again after a P15B loan? Parent recommends yes: a loan principal ends cost-cutting and the ordinary staffing laws resume.
-- O2-O5 of 1363-A are asked only with 1363-V's numbers. Everything else the Owner listed is answered (1362-O).
+- **1363-A O1, rival facility disposal** (asked 2026-10-02). Recommend no disposal in v1. If it is ever allowed, non-core plant only, at the player's demolition refund.
+- **1363-F O6, post-loan restart** (needed before re-probe 2; it blocks nothing now). Recommend yes: a loan principal ends cost-cutting, and the ordinary staffing laws resume.
+- **O2 to O5 of 1363-A** go to the Owner only with 1363-V's numbers.
 
 ## Blockers and warnings
-- **Node.** Recorded runs pin v20.20.2: put `/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin` first on PATH. The session's nvm default is v22.23.2.
-- **Heavy lane.** `S/heavy-queue/lane-run.sh <pid|0> <log> <cmd…>` takes `S/HEAVY-LANE-LOCK`, waits out vitest or tsc (matched on the `node` command name), runs the job alone and releases the lock. Run it with `bash`; it is not executable. Passing a PID to wait for avoids its 2 h lock cap.
-- **The recorder's guards** digest HEAD, the git index and stage entries: no `git add` (not only no commit) while a recorded run or its postflight runs. `git status` can rewrite the index too: during a run use plumbing only (`rev-parse`, `show`, `diff A B`) or `GIT_OPTIONAL_LOCKS=0`. Writing under `docs/` is safe; `src`, `bridge`, `tests`, `ui`, `generated`, `scripts` and the root configs are source paths.
-- **Recorded-run scripts** check exactly the five output names (`<stem>.json`, `.txt`, `.patch`, `-preflight.json`, `-postflight.json`); `S/1358-land/recorded3.sh` is the model. A `<stem>-*` glob matched the producer's own files once (memory `recorder-output-exact-names`).
-- **Scratch trees.** Never link `tests/fixtures` wholesale: make it a real directory of links and copy `bridge-contract-union-fixtures.ts` (memory `scratch-tree-fixture-links`; model `S/1358-sweep/run-1358-sweep-dry-v2.sh`). Patches that touch `docs/`: apply only `tests/*` in a scratch tree. Never write under a link.
-- **Deleting scratch.** The harness blocks `rm` on variable paths; use literal absolute paths, links first, then `rm -rf` on the tree.
-- **Agent auth.** If an agent returns `401 OAuth access token has been revoked`, the Owner runs `/login`.
-- **The machine.** 4 CPUs, 8 GB RAM. Disk: 5.13 GiB free at 12:32 CDT (after gzipping closed outputs and removing the closed trees 1353-x4 and 1358-n). Swap shares the disk container (4 GB allocated after the core gate) and moves free space by about 1 GiB; a recorded preflight needs ≥ 5 GiB. Each X run adds a ~130 MB tree: delete it after reading its outputs. `S/1344-merge/x1-core.txt`, `x2-core.txt` and `x3-core.txt` are gzipped in place (gunzip restores the bytes that 1344-X8 and X9 cite). The P15 RED repos survive as mirrors (`S/1355-red/tree-mirror.git`, `S/1356-red/tree-mirror.git`, `S/1359-red/tree-mirror.git`). `S/1358-n/tree` and `S/1358-sweep/merge` hold the slice B reference trees that 1358-J3's scripts read; 1358-L is closed, so they may go once space is needed.
-- **Stuck kernel processes.** The shell's `grep` wrapper (ugrep) and `pgrep -f`/`ps … command` can hang; some processes sit in state `U`/`UE` and survive `kill -9` (a `ReportCrash` for five days; a grep from 2026-10-02). Use `/usr/bin/grep`, `ps -Ao pid,etime,stat,comm`, and `perl -e 'alarm N; exec @ARGV'` for a hard timeout. A reboot clears them; not urgent.
-- **Memory.** 8 GB with five agents, VS Code and Chrome left about 20 MB free and 1.8 GB swap in use at 13:58; keep heavy runs one at a time and avoid the full core fallout while many agents read.
-- **Legacy replay inputs (1361-F6 ruling 2):** no change to `src/core/technologyCatalogue.ts` or to `campaignLegacy.ts`'s archetype evaluators may land until P15C's closure adds the catalogue-order pin and the frozen-v2-Legacy capture leaf; the change itself then takes a definition bump or an adopted append-only catalogue.
-- **The d16 suite** (`src/harness/d16/vitest.d16.config.ts`, outside the core project) fails 12 of 176 at `base` already, the same 12 at `p15a1-b-r2` (`E/1361-X3` section 2; outputs `E/1361-stage/d16/`; runner `S/1361-d16/run-d16.sh <tag> <label>`). The landing must fail exactly those 12; the drift goes to the closure's open items.
-- **The writing-context swallow** (`src/core/liveRetirementWriting.ts:21-26`, since 4dbca155) silently turns a refused live profession proof into `{ kind: 'rejected' }`; 1361-F3 ruling 3 sends it to a bounded review after Save45. R1 (slice 2a r2) closes the P15 cause at compile time.
-- **Never scan `docs/` recursively.** `find docs -maxdepth 3` and `git grep … -- docs` hung for minutes at 13:45 CDT on 2026-10-02 and stalled other shells; name exact files, or grep `src`, `ui/src`, `bridge` and `tests`.
+- **Power.** The Mac slept from 19:01 on 10-02 to 09:19 on 10-03 at 0% battery (pmset AutoPowerOff). At 10:22 it is on battery at 81%. Plug it in before any heavy or recorded run: a recorded run is void if the machine sleeps.
+- **Disk.** 4.99 GiB free at 10:22. Before recorded runs, delete closed trees with literal paths, links first:
+  - `S/1361-m2/tree`;
+  - `S/1361-sibling/v2-c/tree` and `S/1361-sibling/v2-b/tree`;
+  - `S/1358-n/tree` and `S/1358-sweep/merge`, the slice B references; 1358-L is closed.
+- **Node.** Put `/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin` first on PATH. The nvm default is v22.
+- **The recorder's guards** digest HEAD, the index and stage entries. No `git add` while a recorded run or its postflight runs. During a run use plumbing only.
+- **Recorded-run scripts** check exactly the five output names (memory `recorder-output-exact-names`).
+- **Scratch trees.** `tests/fixtures` must be a real directory of per-entry links, with `bridge-contract-union-fixtures.ts` copied. Tests that read `E/1052-c3-endurance-A-observer-fixed/` need the E directory linked as well (1361-X4's first sibling run failed with ENOENT without it). Never write under a link.
+- **Never `cd` in a Bash call.** It rebinds the harness's working directory (memory `no-cd-in-bash`). Use `git -C` and absolute paths.
+- **Hanging tools.** The shell's `grep` wrapper, `pgrep -f`, `git grep` over docs and any recursive scan of `docs/` can hang. Use `/usr/bin/grep`, `ps -Ao pid,etime,stat,comm`, and `perl -e 'alarm N; exec @ARGV'`.
+- **Legacy replay inputs** (1361-F6 ruling 2): no change to `technologyCatalogue.ts` or to `campaignLegacy.ts`'s evaluators until P15C's closure adds the catalogue-order pin and the frozen-v2-Legacy capture leaf.
+- **(c)'s retune** must delete b-r2's F3 guard together with (b)'s write (1361-F5 Amendment 1).
+- **The writing-context swallow** (`src/core/liveRetirementWriting.ts:21-26`) gets a bounded review after Save45 (1361-F3 ruling 3).
 - **Hard limits.** Do not access Owner saves, scan fixture trees, force-push, or launch Codex.
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-02 16:42 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `ddc01e585b2b90dfc580c6724c9136cc2f8f2855`
+- Stamped: 2026-10-03 09:48 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `5a6378d13c0d9a27e5f7448419bbfd18c2226637`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 0
 - Last commits:
-  - ddc01e58 docs(handoff): sibling test classification in flight
-  - 3ed9f0e1 docs(p15): d16 suite baseline at base and p15a1-b-r2 (the same 12 of 176 fail at both; pre-existing)
-  - 389c81f8 docs(p15): 1361-X3 (p15a1-b-r2 dry run: exactly the 45 declared) and 1361-GP-X (G-P passes on b-r2, C0 passes); P15C production started
-  - 75be4e14 docs(p15): p15a1-b-r2 staged; 1361-F5 Amendment 1 declares the 45th leaf at (b); dry run and G-P in the lane
-  - d833dd0d docs(p15): 1361-G2-X (G2 reads Retune; K1-K5 exact) and 1361-F5 rulings; Save45 lands (a)+(b), (c) to a tuning amendment; G-P expectations pre-registered
+  - 5a6378d1 docs(handoff): the Save45 sweep planner 1361-N is running
+  - c0b07770 docs(p15): 1361-M2 Save45 fallout (809 pin rows in 138 files; P15 files as declared; UI 11 pins; d16 unchanged)
+  - 74553102 docs(p15): 1361-D3 review of P15C (PROCEED, no change) and 1361-F6 rulings (replay-input rule and closure guard; post-2040 cost at G-L)
+  - 3f68f84b docs(p15): 1361-X4 dry run of P15C (1359 116/116 at (c), no regression; sibling 5/5); review 1361-D3 and fallout 1361-M2 running
+  - a0e51c93 docs(p15): 1361-E3 P15C production handback and patches staged; X4 dry run in the lane
 <!-- AUTO:END -->
