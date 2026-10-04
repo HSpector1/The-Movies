@@ -76,7 +76,7 @@
 // `freezeCampaignLegacyWeek`, `LEGACY_DEFINITIONS`, the `campaignLegacy` root), so it fails
 // fast and by name today; C2-C4 fail on their pending captures first. The two `legacy-control-*`
 // leaves pass today, and no leaf here stays red after this wave's GREEN (1359-F2). Strict TypeScript;
-// no Math.random; TUNING by name; states compared at the serialization level (1344-X6).
+// no unseeded randomness; TUNING by name; states compared at the serialization level (1344-X6).
 
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
