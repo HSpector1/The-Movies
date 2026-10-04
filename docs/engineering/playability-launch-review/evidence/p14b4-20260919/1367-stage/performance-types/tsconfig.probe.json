@@ -1,0 +1,14 @@
+{
+  "extends": "./tree/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "noEmit": true,
+    "allowImportingTsExtensions": true
+  },
+  "include": [
+    "probe/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,6 +1,6 @@
 # 1367-J: F6 frozen-v2 Legacy capture
 
-2026-10-04. The genuine Save45 frozen-v2 Legacy capture was minted at published `951ef9265f5bb5a6df039887686379cc068482bf`, after recorded Save45 baseline acceptance c32d67ed. Actual game source remains2eaa697e. The capture and its two replay tests are independently approved and ready for publication; recorded affected-suite acceptance follows their clean published checkpoint.
+2026-10-04. The genuine Save45 frozen-v2 Legacy capture was minted at published `951ef9265f5bb5a6df039887686379cc068482bf`, after recorded Save45 baseline acceptance c32d67ed. Actual game source remains2eaa697e. The genuine capture and two replay tests were published at452ccc165d090b2a16deef31e08cc1f3b58a5747. Recorded affected-suite acceptance completed123/123PASS atthat exactHEAD. This closes the bounded F6ruling2capture/cataloguepin requirement; other F6closure work remains.
 
 ## Producer and generation
 
@@ -27,6 +27,6 @@ Installed `tests/p15c2-legacy-replay-inputs.test.ts` from the same reviewed patc
 
 Independent [mint review](1367-stage/f6-mint/MINT-REVIEW.md) verified actual951ef926blobs, allcapturehashes, routeprovenance andrecordedguards. The [replay wrapper review](1367-stage/f6-mint/F6-REPLAY-WRAPPER-REVIEW.md) approves finalwrapper c659475a2dc0a67aecec7f1d386b2a1f5a318eb1d6a834d501360e651406141e afterexplicitactualpostprocessstatuscorrection. Parent adopts both bounded reviews.
 
-Next afterpublication: recorded `1361-f6-replay-recorded` over the2new and121existing affected P15Ccases, oneworker/originaltimeouts. Separate newcapturemanifest/gziphashes are checkedbeforeandafter alongside existing source/manual/index guards; the old manualguard list coversP14inputs and is not silently widened. Fullactualchild0andpostprocess0required. Reviewedwrapper lives S/1361-closure-prep/recorded-f6-replay.sh.
+Recorded `1361-f6-replay-recorded` completed18:46:31–18:48:43CDT at452ccc16: **5files/123PASS**, actualchild0, fixedsource and allguards exact. Selection includes2new+121existing P15Ccases, oneworker/originaltimeouts. Wrapper finishedexit0 afterexplicitpostprocesscheck. [Extra input guards](1367-stage/f6-mint/replay-extra-guards.json) preserve the exacttwo before/after pin receipts and finalactualchild/guard receipt. Separate newcapturemanifest/gziphashes are checkedbeforeandafter alongside existing source/manual/index guards; the old manualguard list coversP14inputs and is not silently widened. Fullactualchild0andpostprocess0required. Reviewedwrapper lives S/1361-closure-prep/recorded-f6-replay.sh.
 
 F6qualityguard/commentclosure, G-L/K3/seed-b6240/8791andqualifiedpost-release timings remain separate. No recoverylogic or laterstep is implemented by this capture checkpoint.

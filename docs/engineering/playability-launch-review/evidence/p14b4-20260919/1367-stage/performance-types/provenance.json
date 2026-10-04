@@ -1,0 +1,11 @@
+{
+  "head": "452ccc165d090b2a16deef31e08cc1f3b58a5747",
+  "sourceTree": "88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837",
+  "archiveSha256": "9a3461bf5abcd9958884f6848eb74f13498b7fb6b4d2ccab4d01facc4046a47e",
+  "probeHashes": {
+    "1361-GL-probe.ts": "1a57343fe78e1e8d2c4de290c4725201f20b03be0e4e59f68c7db21689e74476",
+    "1361-GL-independent-adapter.ts": "71faf4d254370acfb3ebdb00d88014e0b7541b05f87323e1678fa5660fd40f62",
+    "gp-reference.json": "5ca908b3d4d9ff538d2b17cdd4fd7db6703e1d40c369751daf0acdb7383882d9",
+    "postrelease.ts": "87e45c65f8972da3106c2e4d9e3382db90962377f1686fb67069a181507b505d"
+  }
+}

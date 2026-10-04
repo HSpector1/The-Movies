@@ -1,0 +1,7 @@
+# 1367-K: unchanged Save45 Legacy performance closure
+
+Preparation qualification,2026-10-04. The reviewed natural G-L/K3 probe and separate operated post-release probe both passed the archived source's strict TypeScript configuration, with no emit and TypeScript import extensions enabled. One heavy lane,18:49:42–18:49:54CDT,exit0. [Metadata](1367-stage/performance-types/types.meta), [config](1367-stage/performance-types/tsconfig.probe.json), [source/probe provenance](1367-stage/performance-types/provenance.json). Archive452ccc165d090b2a16deef31e08cc1f3b58a5747 contains source/config only, no fixture tree. Actual game source is unchanged2eaa697e.
+
+No probe ran in this qualification. Next execute unchanged reviewed S/1361-gl-prep/run-1361-gl-natural.sh with the actual accepted publishedHEAD and a new exclusiveleaf. It checks naturaldefault/seed-b6240 K3 against independentadapter and historicalG-P, reports domain/holder/retunefindings and three makeSave/additionalvalidate samples onseed-b6240/8791. No unmeasured Bridge budget is invented; fullclosure remainsfalse withoutpost-release.
+
+Then execute only the reviewed520weekpost-release trial throughS/1361-postrelease-prep/run-postrelease.sh. Full6344 requires actualsameHEAD/policyqualifiedtrial and boundedrealpost2040release with unchangedofficialfreeze. A failedorabsenttrial cannotauthorizefullrun; retainfindings. Allruntimebelongsoneheavy lane andnewexclusiveartifacts. FrozenLegacycapture/cataloguepins are nowpublishedandrecorded123-caseaffected suitepassed under1367-J; F6qualityguard remainsseparate.

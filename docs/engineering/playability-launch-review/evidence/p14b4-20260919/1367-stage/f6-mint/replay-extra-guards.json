@@ -1,0 +1,27 @@
+{
+  "sourceHead": "452ccc165d090b2a16deef31e08cc1f3b58a5747",
+  "stem": "1361-f6-replay-recorded",
+  "sourceLog": "/Users/zacheryspector/studio-scratch/1361-land/recorded.log",
+  "sourceLogSha256AtExtraction": "dbc31cb45dfdb1ee91565d225ffb1260d94580289e46da0ea9eea0e7d517a054",
+  "orderedChecks": [
+    {
+      "f6ManualCapturePins": {
+        "MANIFEST.json": "ed8bc9f4ae53694ddb88c3ca190957bfe68194c4f6affb18ef7a3d8a9e575b0a",
+        "route-l-week-6240.save45.json.gz": "ba6b451afe8e533157f1a6aa6ce297895309ef6c782d442c4980bdd61712a275"
+      },
+      "exact": true
+    },
+    {
+      "f6ManualCapturePins": {
+        "MANIFEST.json": "ed8bc9f4ae53694ddb88c3ca190957bfe68194c4f6affb18ef7a3d8a9e575b0a",
+        "route-l-week-6240.save45.json.gz": "ba6b451afe8e533157f1a6aa6ce297895309ef6c782d442c4980bdd61712a275"
+      },
+      "exact": true
+    },
+    {
+      "f6ActualChildExit": 0,
+      "fixedSource": true,
+      "allGuardsExact": true
+    }
+  ]
+}
