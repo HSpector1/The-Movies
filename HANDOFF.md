@@ -1,10 +1,10 @@
 # HANDOFF
 
-Last writer: Codex (GPT-6), 2026-10-04 16:07 CDT. Save45 source landed and type/generator gates passed; the Owner approved the entire bounded-P18 remainder plan and delegation.
+Last writer: Codex (GPT-6), 2026-10-04 16:08 CDT. Save45 source published; cache cleanup resolved the recorded-run disk guard.
 
 ## Where the work is
 - Repo: `/Users/zacheryspector/The-Movies-headless-program` (the Downloads folder is only a pointer).
-- Branch: `wip/headless-program-20260916-ts`, HEAD is the commit carrying this handoff (parent `db8cf523`), pushed: yes. Main is protected and untouched. This branch has no upstream; verify the remote explicitly.
+- Branch: `wip/headless-program-20260916-ts`, HEAD is the commit carrying this handoff (parent `c6d77238`), pushed: yes. Main is protected and untouched. This branch has no upstream; verify the remote explicitly.
 - E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`; S = `/Users/zacheryspector/studio-scratch`.
 - Required reading, in order: this file; repo `CLAUDE.md` and the coordinator/source-index rules; `E/1361-F` through `E/1361-F8`; `E/1361-N-save45-pin-sweep-plan.md`; `E/1361-X7-sweep-x3-confirmation.md`; `E/1361-stage/sweep/review-x3-final.md`; `E/1366-O`, `E/1363-F`, `E/1367-O` and `docs/engineering/playability-launch-review/plans/HEADLESS-REMAINDER-IMPLEMENTATION-PLAN.md`. `E/1361-X6` carries the x2 guard attribution and disclosed limits. Records with short IDs are filenames beginning with that ID, not literal filenames.
 
@@ -29,12 +29,12 @@ Last writer: Codex (GPT-6), 2026-10-04 16:07 CDT. Save45 source landed and type/
 - Independent review: prior 58-edit sample, all r2 deltas, guard messages, and final measured candidate reviewed. Final verdict: PROCEED for sweep landing, subject to disk precondition and later recorded gates. See `E/1361-stage/sweep/review-x3-final.md`.
 - Cleanup completed: closed H-r2, G1-r2, G4a-r2, G4b-r2, x1 and x2-guards trees removed by literal paths, links first. Patches/logs/observations preserved. x2/tree, x3/tree and production tree remain.
 - Landing parity:1,545 relevant entries equal measured x3; see E/1361-stage/land/landing-parity.json. Root/UI/Bridge typechecks and both generators passed16:02:24–16:04:36 CDT; preserved script/log/meta in that directory. Session41280 finished exit0. E/1361-L records source landing and pending recorded gates.
-- In flight: no test running. recovery_charter authors PartA RED only under S/1363-prep/part-a-red; founding_charter prepares F6 closure tests/capture method under S/1361-closure-prep; sweep_review independently reviews. Both charters adopted in1367-F with exact-hash independent review1367-D;1363-A2 and1364-A are preserved in E. No child production writes or heavy commands; no recorded run started.
+- In flight: no test running. recovery_charter authors PartA RED only under S/1363-prep/part-a-red; founding_charter prepares F6 closure tests/capture method under S/1361-closure-prep; sweep_review independently reviews. Both charters adopted in1367-F with exact-hash independent review1367-D;1363-A2 and1364-A are preserved in E. No child production writes or heavy commands; first recorded p15a2-green run is next, after this checkpoint push. Logs: S/1361-land/recorded.meta, recorded.log and p15a2-green.log; wrapper path preserved in E/1361-stage/land.
 - Claims limits: 15 P14B.1 terminal premise failures never reach mutants; 26 workflow-carrier observations first reach existing V14 history guards, not new P15 masking. Four exact S8 cases disclose earlier guards rather than claim isolated masked-invariant coverage. Other standing fixture failures still block later assertions. No production, fixture payload or P15 RED assertion changed in the sweep. Bridge post-2040 cost remains unmeasured (G-L). Dry runs do not satisfy recorded gates.
 
 ## Next step
-1. **Source landing complete; recorded runs await5 GiB free.** Current~4.27 GiB is insufficient. Owner will handle storage later; preparation continues. A read-only check found~1.37 GiB in ~/.npm/_cacache; explicit permission to clear this shared cache is pending. AC requested. Do not close unrelated apps/restart. No heavy process is running. Verify disk, power, source cleanliness and exact local/remote HEAD before recording. The old “disk before source landing” extension was corrected after independent audit; do not reintroduce it.
-2. **Continue independent preparation while storage is resolved.** Adopt reviewed1363/1364 charters with their exact review; independently review PartA RED and F6 Legacy guard preparation. Preserve all pre-PartA genuine captures and the Save45 G-L baseline. No recovery source lands before its prerequisite gates. The complete authorized sequence remains in the remainder implementation plan; do not stop at this landing.
+1. **Run the recorded Save45 gates.** Owner explicitly authorized clearing ~/.npm/_cacache. Deleted only accessible cache entries; root-owned~62 MiB retained. Free space now5,837,952 KiB (~5.57 GiB), above5 GiB. No unrelated files touched. Mac still battery93%; AC requested, caffeinate in lane/recorder. First mode p15a2-green starts after this checkpoint push; inspect logs/process before starting any new heavy job.
+2. **Continue independent preparation during the recorded gates.** Adopt reviewed1363/1364 charters with their exact review; independently review PartA RED and F6 Legacy guard preparation. Preserve all pre-PartA genuine captures and the Save45 G-L baseline. No recovery source lands before its prerequisite gates. The complete authorized sequence remains in the remainder implementation plan; do not stop at this landing.
 3. **Four recorded P15 runs**, each through `bash S/heavy-queue/lane-run.sh 0 S/1361-land/<mode>.log bash S/1361-land/recorded-1361.sh <mode>`: `p15a2-green`, `p15a2-harness` (alone), `p15a1-green`, `p15c-green`. P15A.1 must retain the exact declared 45; the P15C selection includes the sibling. Script and format-patches are preserved under `E/1361-stage/land/`. Codex read the recorder and wrapper; d16 mode wraps vitest's config command correctly, but no recorded mode has yet run here. Inspect recorder guards, exits and postflight, not only wrapper exit.
 4. Then recorded `core`, `ui`, `d16` modes for 1361-M3. Core is 448 files including sibling and excludes the six owner-input files per1296-A. Attribute against the established baselines; do not waive the 45 or any new failure. Finish 1361-L/M3, handoff checkpoint, then continue the ordered recovery/founding/retune program.
 
@@ -45,11 +45,11 @@ Standing execution rules:
 - Scratch deletion uses literal absolute paths and removes symlinks first. `rm -f` style commands were automatically rejected; the completed cleanup safely used `find -P ... -type l -delete` then `rm -r` on those literal closed-tree paths.
 
 ## Open decisions for the Owner
-- Machine storage: free enough space to meet the recorded runner's 5 GiB requirement (recommend at least 1.5 GiB additional headroom), or coordinate a restart after saving other work. All task jobs are finished and evidence is preserved.
+- Storage resolved by explicitly approved npm cache cleanup; no restart needed. AC remains requested. No additional product question now.
 - No product decision is open. O1/O6 are answered; O2–O5 of1363-A wait for1363-V's measured numbers.
 
 ## Blockers and warnings
-- Disk blocks recorded runs, not source landing/typechecks or independent contract preparation; do not waive the 5 GiB guard. Earlier swap was 4,096 MB allocated / 2,978 MB used, so restarting may release space, but requires Owner coordination. Current free space must be measured anew.
+- Keep the5 GiB guard for every recorded run; cleanup measured5,837,952 KiB available. Swap remains4 GiB allocated; no restart performed. Recheck disk between runs.
 - Keep the Mac on AC. It previously slept at 0% battery; heavy scripts run caffeinate.
 - `tests/fixtures` in scratch must be a real directory of per-entry links, with `bridge-contract-union-fixtures.ts` copied. `docs` is linked whole for sibling evidence. Never write through links or scan fixture payloads.
 - Shell `grep` wrapper and `pgrep -f` may hang; use `/usr/bin/grep`, targeted `rg`, `ps`, or bounded Python. Avoid recursive docs content scans.
