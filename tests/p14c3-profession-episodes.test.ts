@@ -56,13 +56,13 @@ function ready(): Ready {
     expect([directorId, writerId, ...Object.values(production.cast), ...production.craftIds]).not.toContain(id)
   }
   const saved = envelope38(state)
-  expect(saveApi('validateSaveV44')(saved)).toBe(saved)
+  expect(saveApi('validateSaveV45')(saved)).toBe(saved)
   // The complete ordinary staffing/budget/concept control must succeed before
   // retired-actor attempts; no busy/duplicate seat or missing contract can mask it.
   const before = stableStringify(state), allowed = applyActions(state, [{ kind: 'greenlight', production: clone(production) }])
   expect(allowed.studio.activeProductions.at(-1)).toMatchObject({ conceptId: concept.id, directorId, writerId, cast: production.cast })
   const allowedSave = envelope38(allowed)
-  expect(saveApi('validateSaveV44')(allowedSave)).toBe(allowedSave)
+  expect(saveApi('validateSaveV45')(allowedSave)).toBe(allowedSave)
   expect(stableStringify(state)).toBe(before)
   readyCache = { state, production, youngActor: production.cast.lead }
   return clone(readyCache)
@@ -140,7 +140,7 @@ describe('C.3 B2 requested-profession admission after genuine acting retirement'
     expect(state.careerLifecycle).toEqual(idle.careerLifecycle)
     expect(state.promises).toEqual(idle.promises)
     const saved = envelope38(state)
-    expect(saveApi('validateSaveV44')(saved)).toBe(saved)
+    expect(saveApi('validateSaveV45')(saved)).toBe(saved)
     expect(stableStringify(idle)).toBe(before)
   })
 })

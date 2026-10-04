@@ -9,7 +9,7 @@ import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV44 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV45 } from '../src/core/save.js'
 import type { GameStateV36 } from '../src/core/types.js'
 
 // 1309-X3 ruling 4: convertV40ToV41 (src/core/save.ts:10479) adds a zero
@@ -39,6 +39,16 @@ function withEmptyScreenplayShelving<T extends { hollywood: GameStateV36['hollyw
 // (convertV43ToV44, save.ts:10776-10781); a genuine V36-vintage old.state never carried either.
 function withEmptyCompetitionsAndRomance<T extends { relationships: readonly { competitions?: readonly unknown[]; romance?: unknown }[] }>(state: T): T {
   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
+}
+// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
+// save's own week and back-fills nothing; a genuine V36-vintage old.state never carried them. The literals
+// are this file's own expectation: production's initialP15Roots never defines it (1361-F7 ruling 3).
+function withEmptyP15Roots<T extends object>(state: T, week: number): T {
+  return { ...state,
+    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
+    p15Sequence: { version: 1, next: 1 },
+    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
 }
 
 const OUTGOING_50 = 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698'
@@ -110,7 +120,7 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
   it('requires literal projection52/Save37, registers actual outgoing50, and excludes the running identity from prior schemas', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(57)
-    expect(LIVE_SAVE_VERSION).toBe(44)
+    expect(LIVE_SAVE_VERSION).toBe(45)
     expect(SCHEMA_ID).not.toBe(OUTGOING_50)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_50)).toBe('projection-v50')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
@@ -126,8 +136,8 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
       const old = validateSaveV36(JSON.parse(prior[slot]))
       const actualJson = loaded.hydrated.checkpoint[slot]
       expect(typeof actualJson).toBe('string')
-      const actual = validateSaveV44(importSave(actualJson!))
-      expect(actual.saveVersion).toBe(44)
+      const actual = validateSaveV45(importSave(actualJson!))
+      expect(actual.saveVersion).toBe(45)
       expect(actual.state.market.tick).toBe(week)
       // C.3 adds only six dated profession-authority fields; every old root,
       // retirement, skill, employment and receipt remains independently exact.
@@ -138,7 +148,7 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
       // comparison the same way p14p4p5-opportunities.test.ts's Q04 does.
       const { firstTakeSubjects, ...restState } = actual.state
       expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: old.state.firstTakes.length, facts: [] })
-      expect(canonicalJson({ ...restState, careerLifecycle: oldLifecycle })).toBe(canonicalJson(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))))))
+      expect(canonicalJson({ ...restState, careerLifecycle: oldLifecycle })).toBe(canonicalJson(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), week)))
       expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
         industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
         professionAnchors: old.state.talent.map(person => ({ personId: person.id, profession: person.role,

@@ -175,7 +175,12 @@ function liftForTick(migrated: { envelope: Envelope; state: ProvenanceState }): 
   // 1358-N S5 (1358-J 3e): one further governed step to the true live boundary,
   // Save44's `competitions` and `romance` on every edge (convertV43ToV44,
   // save.ts:10776-10781), which the live validator requires.
-  const live = SaveModule.convertV43ToV44(SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40))))
+  // 1361-N S5 (1361-D2 F7; 1361-F7 ruling 10): one further governed step to the true live boundary,
+  // Save45's four P15 roots (convertV44ToV45, save.ts:10980-10984). `tick()` refuses an industry
+  // state with no `sharedMarket` root ("shared market: the state has no sharedMarket root; migrate it
+  // to Save45 before ticking it", marketIntegration.ts:26 via tick.ts:1071; m2-core.txt:606), so every
+  // lifted state ends at Save45 through production's own step, never with roots added by hand.
+  const live = SaveModule.convertV44ToV45(SaveModule.convertV43ToV44(SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40)))))
   return { envelope: live, state: withProvenance(live.state as object) }
 }
 
@@ -1030,6 +1035,6 @@ describe('13. provenance is written at the append, not the mint call', () => {
 // P14C.2a (776 S10): C.1 landed at 33 as this test predicted, then C.2a bumped once more.
 describe('save version bump (contract §6)', () => {
   it('LIVE_SAVE_VERSION is 37 once C.2b lands (was 35 after C.4, was 34 after C.2a)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(44)
+    expect(LIVE_SAVE_VERSION).toBe(45)
   })
 })

@@ -51,6 +51,17 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
 }
+// 1361-N S5: Save45 (convertV44ToV45, src/core/save.ts:10980-10984) adds the four P15 roots, empty, at
+// the save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The
+// literals are this file's own expectation: production's initialP15Roots never defines it
+// (1361-F7 ruling 3).
+function withEmptyP15Roots<T extends object>(state: T, week: number): T {
+  return { ...state,
+    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
+    p15Sequence: { version: 1, next: 1 },
+    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+}
 const stable = saves.stableStringify
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
@@ -77,8 +88,8 @@ afterAll(() => {
 })
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)
+  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
+  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)
   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
 }
 function input45(): GameState {
@@ -104,7 +115,8 @@ function input45(): GameState {
     expect(stable(old)).toBe(prior); admitted(state)
     const { firstTakeSubjects, ...retained } = state
     // 1344-N S5 (x2 at a318722, :94 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
-    expect(retained).toEqual(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))))); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })
+    // 1361-N S5: and the four empty P15 roots at the input's own week (this capture ticks nothing after its migration).
+    expect(retained).toEqual(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick)); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })
     expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506)
     expect(issuer(state)).toBe('studio-de11f27b-player')
     expect(state.firstTakes).toHaveLength(19); expect(state.promises).toEqual([]); expect(state.talentMarket.proposals).toEqual([])

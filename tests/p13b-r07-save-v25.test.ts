@@ -7,6 +7,7 @@ import * as save from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState, ProductionWorkflow } from '../src/core/types.js'
 import { operationsStudio, productionPayload, withCash } from './contracts/_contractFixtures.js'
+import { p15Rows, stripP15 } from './helpers/p15-roots.js'
 // RED-by-design: `src/core/productionSetup.ts` does not exist yet — see
 // tests/p13b-r07-recipes.test.ts's header for the full RED-design rationale
 // (shared across every P13B-S5-R07 test-author file). `SETUP_RECIPES` is the
@@ -205,7 +206,15 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
   // fact and nothing is discarded.
   expect(stripped.firstTakeSubjects.facts).toEqual([])
   delete (stripped as unknown as { firstTakeSubjects?: unknown }).firstTakeSubjects
-  return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }
+  // 1361-N S7: a frozen V25 envelope carries no P15 root either (the four are V45-only), so the
+  // frozen chain refuses 'validateSaveV12: state has unknown field "powerRanking"' (src/core/save.ts:4185;
+  // measured at m2-core.txt:2864). Same honest reconstruction as the roots above, removed only while
+  // EMPTY (the 1332-A guard-before-strip form): this rehearsing world ticks three weeks, short of the
+  // first quarter week (13), so it holds no P15 row and the allocator still stands at 1. The roots come
+  // from the RED helper's one list, so a later P15 root joins this strip (1361-F7 ruling 4).
+  expect(p15Rows(stripped)).toEqual([])
+  expect(stripped.p15Sequence.next).toBe(1)
+  return { saveVersion: 25, seed: stripped.seed, state: stripP15(stripped) as unknown as GameState, broadcastCache: stripped.broadcastItems }
 }
 
 describe('P13B-S5-R07 Save V25 (test 5)', () => {
@@ -270,9 +279,12 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
   // forward exactly as p13b-s5-save-v24.test.ts's own sentinel case does
   // (superseded as the canonical proof by tests/p13b-s6-save-v26.test.ts's
   // "an unknown saveVersion 35..." case, kept here rather than deleted).
-  it('an unknown saveVersion 45 is refused, naming the handled range "1 through 44 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
-    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 45 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)
+  // 1361-N S3: Save45 is live, so a live save stamped 45 is valid now and no longer throws; the
+  // forged sentinel moves to 46 (src/core/save.ts:5455-5457: "unknown saveVersion 46 (this build
+  // handles versions 1 through 45 only)"), and the pattern follows the range.
+  it('an unknown saveVersion 46 is refused, naming the handled range "1 through 45 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
+    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 46 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)
   })
 
   it('mid-setup save/reload round-trips byte-identically (export/import codec only) — INTERPRETATION 3: hand-authored setup, no genuine producer exists yet', () => {

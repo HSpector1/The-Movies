@@ -19,6 +19,16 @@ function withEmptyScreenplayShelving<T extends { hollywood: { businesses: readon
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
 }
+// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
+// save's own week and back-fills nothing; the genuine V29 slots never carried them. The literals
+// are this file's own expectation: production's initialP15Roots never defines it (1361-F7 ruling 3).
+function withEmptyP15Roots<T extends object>(state: T, week: number): T {
+  return { ...state,
+    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
+    p15Sequence: { version: 1, next: 1 },
+    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+}
 describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)', () => {
   it('pins actual historical source bytes and the literal outgoing schema registry entry', () => {
     expect(createHash('sha256').update(bytes).digest('hex')).toBe('433629e8aa3f9e6ebbbaf331a63fa307ffe61a03c9a48257b3a8ca3f61a02fc8')
@@ -58,7 +68,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
     const addedFields = (promise: Record<string, unknown>) => ({ ...promise, supersededByPromiseId: null })
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       const governed = migrateToLive(importSave(before[slot]))
-      expect(governed.saveVersion).toBe(44)
+      expect(governed.saveVersion).toBe(45)
       const source = JSON.parse(before[slot])
       // 763-R8 (P14C.1, R-VERSION): the governed lift now also writes C.1's provenance
       // root and FLOORS every stored age against it — the first step in this chain that
@@ -90,7 +100,8 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
       // {version 1, rejections [], shelved [], commissionHoldUntilWeek 0} on each of the four rival
       // businesses, nothing else): the live writer stamps 43, and the lift adds the empty shelving root.
       // 1358-N S2: Save44 stamps 44; its edge fields add nothing here, as `relationships` stays [].
-      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 44, state: withEmptyScreenplayShelving({ ...source.state,
+      // 1361-N S2+S5: Save45 stamps 45, and the lift adds the four empty P15 roots at each slot's own tick (convertV44ToV45, save.ts:10980-10984).
+      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 45, state: withEmptyScreenplayShelving({ ...withEmptyP15Roots(source.state, source.state.market.tick as number),
         relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),
         talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
         talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor'),

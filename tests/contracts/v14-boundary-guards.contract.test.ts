@@ -31,7 +31,7 @@
 
 import { beforeAll, describe, expect, it } from 'vitest'
 
-import { applyActions, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, makeSave, stableStringify, tick } from '../../src/core/index.js'
+import { applyActions, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, makeSave, stableStringify, tick } from '../../src/core/index.js'
 import type { GameState } from '../../src/core/index.js'
 
 import { clone, operationsStudio, productionPayload, withCash } from './_contractFixtures.js'
@@ -60,7 +60,11 @@ let legacy: GameState
 let inFlight: ReturnType<typeof historicalWorkflowCarrier>
 
 function historicalWorkflowCarrier(state: GameState) {
-  const admitted = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(state)))))))).state
+  // 1361-N S4: Save45 is live, so convertV45ToV44 (src/core/save.ts:10989-10995) leads the chain. It passes
+  // here: the one caller (beforeAll, below) ticks a founded studio that holds no industry (the contract fixtures
+  // found it with beginFoundingHistoricalControl), and a state without an industry records no Power Ranking
+  // quarter (src/core/powerRankingArchive.ts:151), so every P15 root stays empty.
+  const admitted = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(makeSave(state))))))))).state
   return { ...admitted, operations: { ...admitted.operations,
     workflows: admitted.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow) } }
 }
@@ -319,7 +323,8 @@ describe('C2a-M1 · guards (B) — the live boundary moves one way', () => {
     const save = envelopeAt(14)
     // 1344-N S3 (x2 at a318722, :320 measured "validateSaveV42: state.relationships is not an array"):
     // 1358-N S3: 44 is now live (src/core/save.ts:5443-5445 handles 1 through 44), so the unknown sentinel is 45.
-    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(/unknown saveVersion 45/)
+    // 1361-N S3: 45 is now live (src/core/save.ts:5455-5457 handles 1 through 45), so the unknown sentinel is 46.
+    expect(() => validateSave({ ...save, saveVersion: 46 })).toThrow(/unknown saveVersion 46/)
   })
 })
 

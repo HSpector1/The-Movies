@@ -109,14 +109,13 @@ describe('C.3 current append and strict historical authority boundaries', () => 
     expect(f.state.hollywood!.employment.filter(row => row.terms.talentId === f.id)).toEqual([])
     expect(f.state.talentProvenance.rows.find(row => row.personId === f.id)).toMatchObject({ ageAtEntry: 30 })
     expect(save.exportSave(save.makeSave(f.loaded))).toBe(save.exportSave(save.makeSave(f.state)))
-    // 1344-N S9 (MASKED): this state at 209 holds a screenplay shelving rejection count
-    // for studio-de11f27b-r04, so convertV43ToV42 refuses first (src/core/save.ts:10698),
-    // before convertV38ToV37's entrant guard this line named (save.ts:10487,
-    // src/core/professionHistory.ts:67). Measured (x2 at a318722, all three kinds):
-    // "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of
-    // studio-de11f27b-r04". The entrant guard stays covered on its own era's genuine input
-    // by tests/p14c3-save-v38.test.ts:484 (genuine V37 C3 corpus, same-week entrant at 207).
-    expect(() => save.convertV38ToV37(save.convertV39ToV38(save.convertV40ToV39(save.convertV41ToV40(save.convertV42ToV41(save.convertV43ToV42(save.convertV44ToV43(save.makeSave(f.state))))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)
+    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
+    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
+    // x2 measured this first guard in the family; the follow-up must confirm every call.
+    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
+    // The shelving-count guard stays covered on V43 in p14d1-rival-shelving-save-v43.test.ts.
+    // The entrant guard stays covered on the genuine V37 corpus in p14c3-save-v38.test.ts.
+    expect(() => save.convertV38ToV37(save.convertV39ToV38(save.convertV40ToV39(save.convertV41ToV40(save.convertV42ToV41(save.convertV43ToV42(save.convertV44ToV43(save.convertV45ToV44(save.makeSave(f.state)))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
     expect(save.stableStringify(f.before)).toBe(beforeBytes)
   })
 
@@ -273,11 +272,11 @@ describe('C.3 current append and strict historical authority boundaries', () => 
 
   it('H10 actual whole38 delegates copied original/date/entrant authority to the real19 endpoint', () => {
     const f = creatorBoundary('createTalent'), current = save.makeSave(f.state), old = historical37()
-    expect(save.validateSaveV44(current)).toBe(current); expect(save.validateSaveV37(old)).toBe(old)
+    expect(save.validateSaveV45(current)).toBe(current); expect(save.validateSaveV37(old)).toBe(old)
     const currentBytes = save.stableStringify(current), oldBytes = save.stableStringify(old)
     const contexts: (ProfessionValidationContext | undefined)[] = [], spy = observeHollywood(contexts)
     try {
-      expect(save.validateSaveV44(current)).toBe(current)
+      expect(save.validateSaveV45(current)).toBe(current)
       expect(contexts.length, 'actual private chain must reach the spied real Hollywood validator').toBeGreaterThan(0)
       for (const context of contexts) {
         assert.ok(context)
@@ -298,11 +297,11 @@ describe('C.3 current append and strict historical authority boundaries', () => 
   it('H11 A/B/A validation and copied closure facts remain independent of caller mutations', () => {
     const f = creatorBoundary('createTalent'), a = save.makeSave(f.state), b = save.makeSave(actual207())
     const aBytes = save.stableStringify(a), bBytes = save.stableStringify(b)
-    for (const input of [a, b, a]) expect(save.validateSaveV44(input)).toBe(input)
+    for (const input of [a, b, a]) expect(save.validateSaveV45(input)).toBe(input)
     expect(professionAtWeek(a.state, FOCUS.director, 208)).toBe('director')
     expect(professionAtWeek(b.state, FOCUS.director, 207)).toBe('actor')
     const detached = clone(a), contexts: (ProfessionValidationContext | undefined)[] = [], spy = observeHollywood(contexts)
-    try { expect(save.validateSaveV44(detached)).toBe(detached) } finally { spy.mockRestore() }
+    try { expect(save.validateSaveV45(detached)).toBe(detached) } finally { spy.mockRestore() }
     const context = contexts.at(-1)
     assert.ok(context, 'actual successful delegated context is captured')
     const anchor = detached.state.careerLifecycle.professionAnchors.find(row => row.personId === FOCUS.director)
@@ -317,19 +316,19 @@ describe('C.3 current append and strict historical authority boundaries', () => 
     expect(context.entrantWeek(f.id)).toBe(209)
     const forgedB = clone(b)
     person(forgedB.state, FOCUS.director).role = 'director'
-    expect(() => save.validateSaveV44(forgedB)).toThrow(/current profession changed without its anchored change history/)
+    expect(() => save.validateSaveV45(forgedB)).toThrow(/current profession changed without its anchored change history/)
     const old = historical37(), forgedOld = clone(old)
     expect(save.validateSaveV37(old)).toBe(old)
     const oldPerson = forgedOld.state.talent.find(row => row.id === FOCUS.director)
     assert.ok(oldPerson); oldPerson.role = 'director'
     expect(() => save.validateSaveV37(forgedOld)).toThrow(/retirement record.*names profession actor/)
-    expect(save.validateSaveV44(a)).toBe(a); expect(save.validateSaveV44(b)).toBe(b)
+    expect(save.validateSaveV45(a)).toBe(a); expect(save.validateSaveV45(b)).toBe(b)
     expect(save.stableStringify(a)).toBe(aBytes); expect(save.stableStringify(b)).toBe(bBytes)
   })
 
   it('H12 a future209 entrant cannot be smuggled into an earlier208 cohort prefix', () => {
     const f = creatorBoundary('createTalent'), control = save.makeSave(f.state), malformed = clone(control)
-    expect(save.validateSaveV44(control)).toBe(control)
+    expect(save.validateSaveV45(control)).toBe(control)
     const prior = save.stableStringify(control), index = malformed.state.careerLifecycle.cohorts.findIndex(row => row.week === 208)
     expect(index).toBeGreaterThanOrEqual(0)
     const receipts = [...malformed.state.careerLifecycle.cohorts]
@@ -337,28 +336,28 @@ describe('C.3 current append and strict historical authority boundaries', () => 
       requested: { actor: 0, director: 0, writer: 0, craft: 0 }, clipped: 0, personIds: [] }
     mutableField(malformed.state.careerLifecycle, 'cohorts', receipts)
     expect(historyProof(malformed.state).entrantWeek(f.id)).toBe(209)
-    expect(() => save.validateSaveV44(malformed)).toThrow(/future entrant in its recorded talent prefix/)
+    expect(() => save.validateSaveV45(malformed)).toThrow(/future entrant in its recorded talent prefix/)
     expect(save.stableStringify(control)).toBe(prior)
-    expect(save.validateSaveV44(control)).toBe(control)
+    expect(save.validateSaveV45(control)).toBe(control)
   })
 
   it('H13 private34 refuses an otherwise shaped retirement predating actual creation', () => {
     const f = creatorBoundary('createTalent'), control = save.makeSave(f.state), malformed = clone(control)
-    expect(save.validateSaveV44(control)).toBe(control)
+    expect(save.validateSaveV45(control)).toBe(control)
     const prior = save.stableStringify(control)
     const arranged: RetirementRecordV36 = { personId: f.id, profession: 'actor', intentRulesVersion: 1,
       cause: 'hardBoundary', announcedWeek: 208, ageAtAnnouncement: 30, effectiveWeek: 260,
       status: 'announced', finishingFromWeek: null, retiredWeek: null, extensionUsed: false, extendedFromWeek: null }
     mutableField(malformed.state.careerLifecycle, 'records', [...malformed.state.careerLifecycle.records, arranged])
     expect(historyProof(malformed.state).entrantWeek(f.id)).toBe(209)
-    expect(() => save.validateSaveV44(malformed)).toThrow(/precedes this person's actual creation/)
+    expect(() => save.validateSaveV45(malformed)).toThrow(/precedes this person's actual creation/)
     expect(save.stableStringify(control)).toBe(prior)
-    expect(save.validateSaveV44(control)).toBe(control)
+    expect(save.validateSaveV45(control)).toBe(control)
   })
 
   it('H14 frozen public37 never borrows current authority from root fields or earlier invocations', () => {
     const old = historical37(), current = save.makeSave(actual209()), original = save.stableStringify(old)
-    expect(save.validateSaveV37(old)).toBe(old); expect(save.validateSaveV44(current)).toBe(current)
+    expect(save.validateSaveV37(old)).toBe(old); expect(save.validateSaveV45(current)).toBe(current)
     const extra = clone(old)
     for (const field of TRANSITION_ROOT_FIELDS) mutableField(extra.state.careerLifecycle, field, clone(current.state.careerLifecycle[field]))
     expect(() => save.validateSaveV37(extra)).toThrow(/careerLifecycle.*exactly/)
@@ -373,7 +372,7 @@ describe('C.3 current append and strict historical authority boundaries', () => 
       expect(contexts.every(context => context === undefined)).toBe(true)
     } finally { spy.mockRestore() }
     expect(save.stableStringify(old)).toBe(original)
-    expect(save.validateSaveV44(current)).toBe(current)
+    expect(save.validateSaveV45(current)).toBe(current)
   })
 
   it('H15 actual deep-deficit2600→2652 tick appends a nonempty cohort with current entrant authority', () => {

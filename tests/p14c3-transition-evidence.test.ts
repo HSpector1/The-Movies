@@ -31,14 +31,14 @@ let accepted: Save38 | undefined
 function control(): Save38 {
   if (accepted === undefined) {
     const actual = envelope38(chosen())
-    expect(saveApi('validateSaveV44')(actual)).toBe(actual)
+    expect(saveApi('validateSaveV45')(actual)).toBe(actual)
     const reencoded = clone(actual)
     for (const id of Object.values(FOCUS)) {
       const row = evaluation(reencoded, id)
       expect(questionDigest(row), 'independent946 encoder must first admit the actual recorded question').toBe(row.inputsDigest)
       row.inputsDigest = questionDigest(row)
     }
-    expect(saveApi('validateSaveV44')(reencoded)).toBe(reencoded)
+    expect(saveApi('validateSaveV45')(reencoded)).toBe(reencoded)
     expect(stableStringify(reencoded)).toBe(stableStringify(actual))
     accepted = actual
   }
@@ -47,7 +47,7 @@ function control(): Save38 {
 const pictureOrder = (a: PictureRef, b: PictureRef) => compareText(a.studioId, b.studioId) || compareText(a.pictureId, b.pictureId)
 function coherentRefusal(id: string, edit: (row: Evaluation, save: Save38) => void, cause: RegExp): void {
   const original = control(), before = stableStringify(original), malformed = clone(original)
-  expect(saveApi('validateSaveV44')(original)).toBe(original)
+  expect(saveApi('validateSaveV45')(original)).toBe(original)
   const row = evaluation(malformed, id), oldDigest = row.inputsDigest
   const outcome = { outcome: row.outcome, selected: row.selected, reason: row.reason }
   edit(row, malformed)
@@ -58,7 +58,7 @@ function coherentRefusal(id: string, edit: (row: Evaluation, save: Save38) => vo
   expect(malformed.state.firstTakes).toEqual(original.state.firstTakes)
   expect(malformed.state.studio.releasedFilms).toEqual(original.state.studio.releasedFilms)
   expect(malformed.state.hollywood).toEqual(original.state.hollywood)
-  expect(() => saveApi('validateSaveV44')(malformed)).toThrow(cause)
+  expect(() => saveApi('validateSaveV45')(malformed)).toThrow(cause)
   expect(stableStringify(original)).toBe(before)
 }
 
@@ -104,7 +104,7 @@ describe('C.3 B1 retained evidence independently binds coherent recorded questio
       expect(row.inputs.actingFirstTakes).toBe(row.inputs.actingWitnesses.length)
       expect(questionDigest(row)).toBe(row.inputsDigest)
     }
-    expect(saveApi('validateSaveV44')(saved)).toBe(saved)
+    expect(saveApi('validateSaveV45')(saved)).toBe(saved)
   })
 
   it('B1-02 refuses a digest-correct total of four with three actual takes and three witnesses', () => {

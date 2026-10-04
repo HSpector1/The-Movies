@@ -9,8 +9,8 @@ import { studioConstructionView } from '../src/core/placement.js'
 import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
 import { studioCalendar } from '../src/core/studioCalendar.js'
 import { tick } from '../src/core/tick.js'
-import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
-  validateSaveV36, validateSaveV44 } from '../src/core/save.js'
+import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
+  validateSaveV36, validateSaveV45 } from '../src/core/save.js'
 import type { GameState, GameStateV33, RetirementRecordV36, ScriptProject } from '../src/core/types.js'
 import { c2Fixture } from './helpers/p14c2a-fixtures.js'
 
@@ -78,7 +78,7 @@ describe('880-B natural retired-writer continuation', () => {
     const reopened = readBack(f.finishing)
     // Persistence has always canonicalized JSON -0 to 0. Validate the actual
     // reopened object and compare authoritative canonical bytes across storage.
-    expect(validateSaveV44(envelope(reopened)).state).toBe(reopened)
+    expect(validateSaveV45(envelope(reopened)).state).toBe(reopened)
     expect(stableStringify(reopened)).toBe(before)
     expect(stableStringify(f.finishing)).toBe(before)
   })
@@ -233,7 +233,7 @@ const invalidCases: (InvalidCase & { refusal: RegExp })[] = [
 describe('880-B live allowance stays narrowly scoped', () => {
   it.each(invalidCases)('refuses $name without altering caller bytes', ({ corrupt, refusal }) => {
     const f = finishingWriter(), state = corrupt(f.finishing, f.writerId), input = envelope(state), before = stableStringify(input)
-    expect(() => validateSaveV44(input)).toThrow(refusal)
+    expect(() => validateSaveV45(input)).toThrow(refusal)
     expect(stableStringify(input)).toBe(before)
   })
 
@@ -249,7 +249,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
       originalScreenplays: f.commissioned.originalScreenplays }
     // 1358-N S8: the grafted draft's writer holds no contract and no retirement authority on this
     // branch (src/core/scriptDevelopment.ts:1118). Measured by the 1358-X6 message probe (N-0470).
-    expect(() => validateSaveV44(envelope(illegal))).toThrow(/validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/)
+    expect(() => validateSaveV45(envelope(illegal))).toThrow(/validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/)
     expect(() => applyActions(terminated, [originalCommission(f.writerId)])).toThrow()
   })
 
@@ -260,8 +260,8 @@ describe('880-B live allowance stays narrowly scoped', () => {
     } })
     // 1358-N S8: the V9 project key set refuses the extra key (src/core/save.ts:3371). Measured by
     // the 1358-X6 message probe (N-0472).
-    expect(() => validateSaveV44(input)).toThrow(/validateSaveV9: state\.scriptDevelopment\.projects\[0\] has unknown field "retirementBypass"$/)
-    expect(() => validateSaveV44({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field "retirementBypass"$/)
+    expect(() => validateSaveV45(input)).toThrow(/validateSaveV9: state\.scriptDevelopment\.projects\[0\] has unknown field "retirementBypass"$/)
+    expect(() => validateSaveV45({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field "retirementBypass"$/)
   })
 
   it('frozen public V36 stays strict, and an exceptional current save cannot silently downgrade', () => {
@@ -278,13 +278,14 @@ describe('880-B live allowance stays narrowly scoped', () => {
     expect(() => convertV36ToV35(convertV37ToV36(old.commissioned))).toThrow(/^migrateToV35: cannot downgrade SaveFileV36 or discard the retirement extension \u2014 it holds 1 retirementExtension case\(s\) and 0 used extension\(s\) \(first: authored-0000\), and V35 has nowhere to record the one final extension$/)
     expect(() => convertV37ToV36(old.finishing)).toThrow(/not contracted/i)
     const current = makeSave(f.finishing), before = stableStringify(current)
-    // 1358-N S9 (MASKED): the finishing state's romance track on relationship-edge-0 makes Save44's
-    // convertV44ToV43 refuse first (src/core/save.ts:10790). That masks the V39 guard that fired first
-    // under Save43 (save.ts:10600-10602, 1344-X12 §4) and the frozen V36 refusal this title names,
-    // which the convertV37ToV36(old.finishing) assertion above covers on the genuine V37 pair.
-    // Measured by the 1358-X6 message probe (N-0476). The V39 guard stays covered on V40 input by
-    // tests/p14p4p5-opportunities.test.ts Q03 (:336) and exactly by tests/p13b-s3-save-v23.test.ts:115-117.
-    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(current))))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
+    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
+    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
+    // x2 measured this first guard in the family; the follow-up must confirm every call.
+    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
+    // The commissioned V37 control above covers the V36 extension guard.
+    // The finishing V37 control covers the not-contracted refusal this live chain masks.
+    // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
+    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(current)))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
     expect(stableStringify(current)).toBe(before)
   })
 
@@ -308,9 +309,9 @@ describe('880-B live allowance stays narrowly scoped', () => {
       records: f.finishing.careerLifecycle.records.filter(row => row.personId !== f.writerId) } })
     const legalBefore = stableStringify(legal), illegalBefore = stableStringify(illegal)
     for (let round = 0; round < 2; round++) {
-      expect(() => validateSaveV44(legal)).not.toThrow()
+      expect(() => validateSaveV45(legal)).not.toThrow()
       // 1358-D9 R2 (S8): `illegal` is N-0468 case 1's input, so it takes that case's measured refusal.
-      expect(() => validateSaveV44(illegal)).toThrow(/validateSaveV36: talentMarket\.cases\[25\] is a retirementExtension case for authored-0000, who holds no retirement record$/) // save.ts:10295
+      expect(() => validateSaveV45(illegal)).toThrow(/validateSaveV36: talentMarket\.cases\[25\] is a retirementExtension case for authored-0000, who holds no retirement record$/) // save.ts:10295
       expect(() => validateSaveV36({ ...historicalWriterPair().finishing, saveVersion: 36 })).toThrow(/not contracted/i)
     }
     expect(stableStringify(legal)).toBe(legalBefore)
@@ -327,7 +328,7 @@ const changeRetirement = (state: GameState, id: string, patch: Partial<Retiremen
     records: state.careerLifecycle.records.map(row => row.personId === id ? { ...row, ...patch } : row),
   },
 })
-const invalidTemporalAuthority: InvalidCase[] = [
+const invalidTemporalAuthority: (InvalidCase & { saveRefusal?: RegExp })[] = [
   { name: 'non-finite effective week', corrupt: (state, id) => changeRetirement(state, id, { effectiveWeek: Number.NaN }) },
   { name: 'fractional effective/finishing week', corrupt: (state, id) => changeRetirement(state, id, {
     effectiveWeek: 312.5, finishingFromWeek: 312.5,
@@ -336,7 +337,12 @@ const invalidTemporalAuthority: InvalidCase[] = [
     status: 'announced', finishingFromWeek: null,
   }) },
   { name: 'finishing date differs from the effective week', corrupt: (state, id) => changeRetirement(state, id, { finishingFromWeek: 311 }) },
-  { name: 'announcement lies in the future', corrupt: (state, id) => changeRetirement(state, id, { announcedWeek: 313 }) },
+  // 1361-N S8 / F7 ruling 9: the x2-guards probe reaches the V36 market-case
+  // retirement-coherence guard before the lifecycle future-announcement guard.
+  // This full-save control does not isolate the latter; the live callers still refuse below.
+  { name: 'announcement lies in the future',
+    saveRefusal: /^validateSaveV37: state is invalid \u2014 validateSaveV36: talentMarket\.cases\[25\] opened at week 300, when authored-0000's retirement was not announced \(announced week 313, effective week 312\)$/,
+    corrupt: (state, id) => changeRetirement(state, id, { announcedWeek: 313 }) },
   { name: 'finishing status carries a retired date', corrupt: (state, id) => changeRetirement(state, id, { retiredWeek: 312 }) },
   { name: 'duplicate lifecycle person authority', corrupt: (state, id) => ({ ...state, careerLifecycle: { ...state.careerLifecycle,
     records: [...state.careerLifecycle.records, { ...state.careerLifecycle.records.find(row => row.personId === id)! }],
@@ -371,12 +377,14 @@ const liveTemporalCallers: { name: string; run: (state: GameState, youngId: stri
 ]
 describe('880-B malformed authority refuses before live work, not only at persistence', () => {
   for (const caller of liveTemporalCallers) {
-    it.each(invalidTemporalAuthority)(`${caller.name} refuses $name`, ({ corrupt }) => {
+    it.each(invalidTemporalAuthority)(`${caller.name} refuses $name`, ({ corrupt, saveRefusal }) => {
       const f = temporalInput()
       // The unmodified real state and this same live entrypoint are admissible.
       expect(() => caller.run(f.state, f.youngId)).not.toThrow()
       const invalid = corrupt(f.state, f.retiringId), before = structuredClone(invalid)
-      expect(() => validateSaveV44(envelope(invalid)), 'existing full-save refusal is a control').toThrow()
+      const validateInvalid = () => validateSaveV45(envelope(invalid))
+      if (saveRefusal === undefined) expect(validateInvalid, 'existing full-save refusal is a control').toThrow()
+      else expect(validateInvalid, 'measured first full-save guard (1361-N S8)').toThrow(saveRefusal)
       expect(() => caller.run(invalid, f.youngId), 'live permission must also reject malformed authority').toThrow()
       // Compare in memory so NaN and signed zero are not hidden by JSON encoding.
       expect(invalid).toEqual(before)

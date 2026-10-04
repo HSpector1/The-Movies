@@ -7,7 +7,7 @@ import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { professionAtWeek, salaryCurve, transitionInputsFor } from '../src/core/index.js'
 import { fnv1a64 } from '../src/core/math.js'
 import { validateProfessionHistory } from '../src/core/professionHistory.js'
-import { exportSave, makeSave, stableStringify, validateSaveV37, validateSaveV44 } from '../src/core/save.js'
+import { exportSave, makeSave, stableStringify, validateSaveV37, validateSaveV45 } from '../src/core/save.js'
 import { careerIdentity, expectedPotentialTier, roleOVR, roleTier } from '../src/core/talentSummary.js'
 import type { GameState, TransitionEvaluation, TransitionInputs, TransitionPictureRef, TransitionTargetInput } from '../src/core/types.js'
 import { clone, compareText, historical37, person } from './helpers/p14c3-fixtures.js'
@@ -230,7 +230,7 @@ describe('C.3 canonical Actor history survives actual passive rival Writer trans
 
   it('K4 refuses separate malformed canonical title, credit, entry cause and missing profession authority', () => {
     const control = makeSave(canonicalChosen().loaded)
-    expect(validateSaveV44(control)).toBe(control)
+    expect(validateSaveV45(control)).toBe(control)
     const old = historical37()
     expect(validateSaveV37(old)).toBe(old) // Genuine953 bytes; never relabel current098.
     const title = clone(control), credit = clone(control), entry = clone(control)
@@ -242,7 +242,7 @@ describe('C.3 canonical Actor history survives actual passive rival Writer trans
       [credit, /authored credit differs from canonical starting manifest/],
       [entry, /authored credit differs from canonical starting manifest/]] as const) {
       expect(() => validateProfessionHistory({ ...mutant.state })).not.toThrow()
-      expect(() => validateSaveV44(mutant)).toThrow(cause)
+      expect(() => validateSaveV45(mutant)).toThrow(cause)
     }
     const missing = clone(control)
     // Remove only this person's authority; keep other real changes and coherent
@@ -252,8 +252,8 @@ describe('C.3 canonical Actor history survives actual passive rival Writer trans
         .map((row, ordinal) => ({ ...row, ordinal, id: `profession-change-${ordinal}` })) }
     expect(person(missing.state, id).role).toBe('writer')
     expect(() => validateProfessionHistory({ ...missing.state })).toThrow(/current profession changed without its anchored change history/)
-    expect(() => validateSaveV44(missing)).toThrow(/current profession changed without its anchored change history/)
-    expect(validateSaveV44(control)).toBe(control)
+    expect(() => validateSaveV45(missing)).toThrow(/current profession changed without its anchored change history/)
+    expect(validateSaveV45(control)).toBe(control)
   })
 
   it('L1 observes an actual passive non-player Writer hire with one employer and paid signing authority', () => {

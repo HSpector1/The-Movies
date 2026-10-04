@@ -34,6 +34,7 @@ import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/co
 import type { GameState } from '../src/core/types.js'
 import type { RivalBusiness, IndustryReceipt } from '../src/core/hollywoodTypes.js'
 import { RIVAL_MONEY_KINDS, rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
+import { validatePowerRankingArchive } from '../src/core/powerRankingArchive.js'
 import { liveWeek100, liveWeek130, RIVAL_R01, genuineV42Week93, manifestPin93 } from './p14d1-rival-shelving-fixtures.js'
 import type { PromiseDraft } from '../src/core/promises.js'
 import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
@@ -183,8 +184,8 @@ describe('API decisions this file exercises (asserted to exist first, per PITFAL
     const fn = (hollywoodPolicy as unknown as Record<string, unknown>).searchIndustryPackages
     expect(typeof fn).toBe('function')
   })
-  it('save.ts LIVE_SAVE_VERSION is 44, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {
-    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)
+  it('save.ts LIVE_SAVE_VERSION is 45, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {
+    expect(saveModule.LIVE_SAVE_VERSION).toBe(45)
     const mods = saveModule as unknown as Record<string, unknown>
     expect(typeof mods.validateSaveV43).toBe('function')
     expect(typeof mods.convertV42ToV43).toBe('function')
@@ -566,6 +567,8 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
     // genuine input is lifted once more through production's own convertV43ToV44. The control
     // asserts the candidate holds no log row and sets its romance tracks to the lift's null
     // below (1358-F12 ruling 7; 1358-D9b N1).
+    // 1361-N S5 (1361-F7 ruling 5): the genuine side stays at this V44 lift. A genuine Save42 input
+    // holds none of Save45's four P15 roots, so the candidate's come out below instead.
     const genuineState = mods.convertV43ToV44(genuineV43).state
     let state = HARNESS_GENESIS()
     for (let week = 0; week < 93; week++) state = tick(state)
@@ -615,7 +618,27 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
     // byte for byte. Slice B's tracks are measured by its own tests and by 1358-M2's routes.
     const withoutSliceB = (s: GameState) => ({ ...s, relationships: (s.relationships ?? []).map(e => ({ ...e, competitions: [], romance: null })) })
     expect((state.relationships ?? []).every(e => e.competitions.length === 0)).toBe(true)
-    expect(JSON.stringify(canon(strip(withoutSliceB(state))))).toBe(JSON.stringify(canon(strip(genuineState))))
+    // 1361-N S5 (1361-F7 ruling 5, the 1358-F12 form): Save45 gives the candidate four roots that a
+    // genuine Save42 input cannot hold, and by week 93 its archive holds the quarters from week 13 to
+    // week 91. As this control already takes slice B's fields out, it takes the four P15 roots out of
+    // the candidate too, behind checks that its own P15 state is lawful and that nothing but the
+    // archive holds a row: no shared-market assessment (P15A.1's (c) has not landed at this candidate,
+    // so no tick writes one), an unfrozen Legacy (the freeze runs only in the tick that produces week
+    // 6240), the archive through validatePowerRankingArchive and the allocator through
+    // validateP15Allocator. P15A.2's own tests measure the archive. Everything else must match byte
+    // for byte.
+    expect(state.sharedMarket.assessments).toEqual([])
+    expect(state.campaignLegacy.official).toBeNull()
+    expect(state.campaignLegacy.endOfRun).toBeNull()
+    expect(() => validatePowerRankingArchive(state as unknown as Record<string, unknown>)).not.toThrow()
+    expect(() => saveModule.validateP15Allocator(state as unknown as Record<string, unknown>, 'week-93 control')).not.toThrow()
+    // The four keys are named here, not read from tests/helpers/p15-roots.ts: a P15 root added later
+    // must fail this control until its own check joins the four above, never vanish with the strip.
+    const withoutP15 = (s: GameState) => {
+      const { powerRanking: _pr, p15Sequence: _seq, sharedMarket: _sm, campaignLegacy: _cl, ...rest } = s
+      return rest as unknown as GameState
+    }
+    expect(JSON.stringify(canon(strip(withoutSliceB(withoutP15(state)))))).toBe(JSON.stringify(canon(strip(genuineState))))
     expect(state.hollywood!.receipts).toEqual(genuineState.hollywood!.receipts)
     // Premise, derived from the CANDIDATE's own receipts (never a hard-coded shelving
     // week, per 1344-F3): no screenplayShelved receipt has accumulated by week 93 on
@@ -991,8 +1014,8 @@ describe('shelving-chart-output (1344-A §6.8)', () => {
     const releasedSimulationCount = h.films.filter(f => f.studioId === RIVAL && f.provenance === 'simulation/v1' && f.result.releaseTick < state.market.tick).length
     expect(authoredCount, 'route premise: r01 has its two canonical starting (authored) films').toBe(2)
     expect(row!.output).toBe(releasedSimulationCount + authoredCount)
-    const mods = saveModule as unknown as { validateSaveV44: (s: unknown) => unknown }
-    expect(() => mods.validateSaveV44(saveModule.makeSave(state))).not.toThrow()
+    const mods = saveModule as unknown as { validateSaveV45: (s: unknown) => unknown }
+    expect(() => mods.validateSaveV45(saveModule.makeSave(state))).not.toThrow()
   }, 20_000)
 })
 

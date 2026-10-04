@@ -35,6 +35,7 @@ import type {
   ProductionPhase,
 } from '../../src/core/index.js'
 
+import { p15Rows, stripP15 } from '../helpers/p15-roots.js'
 import { clone, operationsStudio, productionPayload, withCash } from './_contractFixtures.js'
 
 // ── §8.1 — the V14 schema, pinned as charter literals ───────────────────────
@@ -375,7 +376,15 @@ export function rowIdentity(row: StudioEventRow): string {
 
 /** Strip every V14 addition from a JSON clone of a live state. */
 export function projectToV13State(state: GameState): Record<string, unknown> {
-  const raw = clone(state) as unknown as Record<string, unknown>
+  // P15 (Save45): the four P15 roots are V45-only, so a genuine V13 file never carried
+  // them. They strip only while every root is empty: a P15 native row or a spent
+  // allocator is real authority and refuses, as with the guarded roots below. The RED
+  // helper's one list names the roots, so a later P15 root joins this guard when that
+  // list grows. A state from an older era carries no root, which reads as empty.
+  if (p15Rows(state).length > 0 || (state.p15Sequence?.next ?? 1) !== 1) {
+    throw new Error('V13 twin cannot discard P15 authority')
+  }
+  const raw = stripP15(clone(state))
   for (const root of V14_STATE_ROOTS) delete raw[root]
   // P06A (charter W1): the V16 root is version-younger than everything this
   // twin models — a genuine V13 file never carried it, so the twin must not.

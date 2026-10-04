@@ -49,7 +49,7 @@ import {
   tick,
   validateSave,
   LIVE_SAVE_VERSION,
-  validateSaveV44,
+  validateSaveV45,
 } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -57,6 +57,7 @@ import {
   FACILITY_DEMOLITION_REFUND_FRACTION,
   FACILITY_MOVE_COST,
 } from '../src/core/tuning.js'
+import { p15Rows, stripP15 } from './helpers/p15-roots.js'
 import type {
   CommissionScriptPayload,
   CreativeRole,
@@ -778,7 +779,7 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     const save = makeSave(state)
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV44(save)).toBe(save)
+    expect(validateSaveV45(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
     const reloaded = migrateToCurrentControl(importSave(json)).state
@@ -867,6 +868,17 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     // walk reaches the demolition refund boundary this test is about.
     expect((forgedV11.state.firstTakeSubjects as { facts: unknown[] }).facts).toEqual([])
     delete forgedV11.state.firstTakeSubjects
+    // 1361-N S7: and the four Save45 P15 roots (powerRanking, p15Sequence, sharedMarket,
+    // campaignLegacy). They are V45-only, so the V11 exact-keys allowlist trips on 'unknown field
+    // "campaignLegacy"' (src/core/save.ts:3936; measured at m2-core.txt:7610) before the walk reaches
+    // the demolition refund boundary this test is about. Removed only while EMPTY (the 1332-A
+    // guard-before-strip form): this world comes from generateWorld, which holds no industry
+    // (src/core/worldgen.ts:728), so no quarter is ever recorded and the allocator still stands at 1.
+    // The roots come from the RED helper's one list, so a later P15 root joins this strip
+    // (1361-F7 ruling 4).
+    expect(p15Rows(forgedV11.state)).toEqual([])
+    expect((forgedV11.state.p15Sequence as { next: number }).next).toBe(1)
+    forgedV11.state = stripP15(forgedV11.state)
     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
         delete (person[key] as Record<string, unknown>).research

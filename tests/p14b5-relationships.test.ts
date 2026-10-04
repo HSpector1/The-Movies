@@ -71,10 +71,11 @@ import * as marketModule from '../src/core/talentMarket.js'
 import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
 import { attachPromise } from '../src/core/promises.js'
 import { validateFirstTakeSubjects } from '../src/core/firstTakeSubjects.js'
-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV44 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV45 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+import { p15Rows, stripP15 } from './helpers/p15-roots.js'
 import type { CastSlot, FilmResult, GameState, Production, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
 // RED-by-design: src/core/relationships.ts does not exist. Every binding below is CALLED.
 import {
@@ -269,6 +270,16 @@ const stage = (state: GameState, edge: Edge): GameState => live(withEdges(state,
 // throws unless every business holds version 1, nothing shelved, no commission
 // hold and only count-1 rejections on active ready ordinals, and no
 // `screenplayShelved` receipt exists; only then does the strip drop the key.
+// 1361-N S10 (1361-F7 ruling 4, the same 1332-A :84-90 guard-before-strip form): Save45 gives
+// every live state the four P15 roots. convertV44ToV45 writes them empty at takeWorld's migration
+// (src/core/save.ts:10980-10984) and the one tick moves `sharedMarket.recordedFromWeek`
+// (src/core/tick.ts:1131), so the unstripped digest moved: 1361-M2 received 80fe2347... here
+// (m2-core.txt:330595). This window (weeks 60 to 61) reaches no quarter week (13 divides
+// neither), so every root holds no row. The guard below throws unless `p15Rows` finds none and
+// `p15Sequence.next` is still 1; only then does the strip drop the four roots. The RED helper's
+// one list names them (tests/helpers/p15-roots.ts, read only), so a later P15 root joins this
+// guard. `postTakeDigestStripped` stays UNCHANGED: the guarded strip must reproduce it, and any
+// other value refutes the attribution.
 const bytes = (state: GameState): string => {
   // P14C.2b: before the structural strip below silently drops the whole root,
   // confirm it is dropping no retirement-extension authority — this window
@@ -307,13 +318,17 @@ const bytes = (state: GameState): string => {
   if (state.hollywood?.receipts.some((r) => r.kind === 'screenplayShelved')) {
     throw new Error('bytes: a screenplayShelved receipt exists, so the screenplayShelving strip would hide a real shelving')
   }
+  // 1361-N S10: the P15 guard, before the strip below drops the four roots.
+  if (p15Rows(state).length > 0 || state.p15Sequence.next !== 1) {
+    throw new Error('bytes: a P15 row or an allocated sequence exists, so the P15 strip would hide real authority')
+  }
   const strippedHollywood = state.hollywood === null ? null : { ...state.hollywood,
     businesses: state.hollywood.businesses.map(({ screenplayShelving: _shelving, ...business }) => ({ ...business,
       account: { ...business.account, periods: business.account.periods.map((period) => {
         const { termination: _t, ...movements } = period.movements
         return { ...period, movements }
       }) } })) }
-  const { relationships: _r, careerLifecycle: _cl, firstTakeSubjects: _fts, ...rest } = state as unknown as Record<string, unknown> & {
+  const { relationships: _r, careerLifecycle: _cl, firstTakeSubjects: _fts, ...rest } = stripP15(state) as Record<string, unknown> & {
     promises: Record<string, unknown>[]
     talentMarket: { cases: Record<string, unknown>[] } & Record<string, unknown>
   }
@@ -1296,12 +1311,16 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
   const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
     const save = v31()
     mutate(save.state.relationships, save.state)
-    expect(() => validateSaveV44(save)).toThrow(pattern)
+    expect(() => validateSaveV45(save)).toThrow(pattern)
     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave); the era-31
     // default would refuse on the unrelated new sharedCompetitions field before
     // ever reaching the deliberate tamper below it.
     // 1358-N S1: live is era 44 now; era 42 would refuse the unrelated
     // `competitions` and `romance` keys first, the same way.
+    // 1361-N S1: the envelope validator above is Save45 now. It hands the frozen V44 chain the
+    // state without the four P15 roots (src/core/save.ts:10970), so the tampered edge meets its
+    // own guard as under Save44, and Save45 adds no relationships field: this root's own era
+    // stays 44.
     expect(() => validateRelationshipsRoot(save.state, 44)).toThrow(pattern)
   }
 
@@ -1312,13 +1331,13 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     const save = v31()
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(save.state.relationships).toHaveLength(6)
-    expect(validateSaveV44(save)).toEqual(save)
+    expect(validateSaveV45(save)).toEqual(save)
   })
 
   it('refuses a missing root', () => {
     const save = v31()
     Reflect.deleteProperty(save.state, 'relationships')
-    expect(() => validateSaveV44(save)).toThrow(/relationships/)
+    expect(() => validateSaveV45(save)).toThrow(/relationships/)
   })
   it('refuses a non-ordinal edgeId', () => expectRefused((e) => { e[0]!.edgeId = 'edge-x' }, /edgeId/))
   it('refuses a duplicate pair', () => expectRefused((e) => { e[1]!.a = e[0]!.a; e[1]!.b = e[0]!.b }, /duplicate|pair/i))
@@ -1361,7 +1380,8 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // 1320-A: `one.saveVersion` moved once more, to 42 (Save42) — the live validator
     // moves with it again, same reasoning.
     // 1358-N S1: and once more, to 44 (Save44); same reasoning.
-    const admitted = validateSaveV44(one)
+    // 1361-N S1: and once more, to 45 (Save45); same reasoning.
+    const admitted = validateSaveV45(one)
     const before = JSON.stringify(admitted)
     expect(() => projectRelationshipsPreV31(one.state)).toThrow()
     // RE-EXPRESSED (was: `/cannot downgrade SaveFileV31 or discard the relationship
@@ -1442,7 +1462,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // That downgrade route does not exist for this fixture any more; the correct,
     // current-law assertion is that it is refused too — not a different message,
     // and not a success.
-    const empty = validateSaveV44({ ...save, state: { ...save.state, relationships: [] } })
+    const empty = validateSaveV45({ ...save, state: { ...save.state, relationships: [] } })
     expect(projectRelationshipsPreV31(empty.state)).toBeUndefined()
     // 1309-X3 ruling 2: `empty` is also takeWorld()-derived, so it too carries a
     // recorded first-take subject; the V39 guard masks the V33 materialization

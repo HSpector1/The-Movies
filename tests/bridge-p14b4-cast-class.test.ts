@@ -22,7 +22,7 @@ import { attachPromise } from '../src/core/promises.js'
 import * as promiseModule from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV44 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV45 } from '../src/core/save.js'
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
 import { provenanceRowFor, recomputeDue } from '../src/core/aging.js'
 import type { GameState, ProfessionalPromiseV30 } from '../src/core/types.js'
@@ -124,7 +124,7 @@ function base() {
   expect(state.operations.mode).toBe('managed')
   expect(state.scriptDevelopment.mode).toBe('legacy')
   expect(currentProposals(state, focus.beneficiaryPersonId)).toEqual([])
-  validateSaveV44({ ...live, state, broadcastCache: state.broadcastItems })
+  validateSaveV45({ ...live, state, broadcastCache: state.broadcastItems })
   return { state, talentId: focus.beneficiaryPersonId }
 }
 function p2(talentId: string, seatClass: SeatClass = 'lead'): P2Payload {
@@ -453,7 +453,7 @@ describe('P14B4 existing own/private/public carriers', () => {
     // hand-written `talent[i].age` disagreeing with it is now refused), not a
     // fabricated credit — same disclosed synthetic pure-read age input as before.
     const state = withSyntheticAge(live.state, person.id, age)
-    validateSaveV44({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit
+    validateSaveV45({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit
     const before = clone(state)
     const block = marketCaseProjection(state, person.id, player(state))!
     const profile = peopleProjection(state).profiles.find((p) => p.talentId === person.id)!
@@ -511,7 +511,7 @@ describe('P14B4 existing own/private/public carriers', () => {
     const savedSession = new BridgeSession(brokenState, 'b4-saved-' + seatClass)
     const saved = savedSession.save(control(savedSession, 'save-real-outcome'))
     if (!saved.accepted) throw new Error(saved.message)
-    expect(validateSaveV44(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
+    expect(validateSaveV45(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
     const loaded = BridgeSession.fromSaveJson(saved.saveJson, 'b4-loaded-' + seatClass)
     expect(loaded.gameState.promises).toEqual(brokenState.promises)
     history(loaded.gameState, loaded.gameState.promises.find((p) => p.promiseId === broken.promiseId)!, seatClass)

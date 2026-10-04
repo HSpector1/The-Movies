@@ -68,7 +68,7 @@ import {
 // RED (see header): the four names below are absent from src/core/save.ts at HEAD e65012e5.
 // `SaveFileV42` (type-only, cannot itself RED at runtime) is used as the cast target for the
 // dynamically-looked-up `convertV41ToV42`/`validateSaveV42` below, so it is a real, used type.
-import type { SaveFile, SaveFileV42, SaveFileV43, SaveFileV44 } from '../src/core/save.js'
+import type { SaveFile, SaveFileV42, SaveFileV43, SaveFileV44, SaveFileV45 } from '../src/core/save.js'
 import * as saveModule from '../src/core/save.js'
 import type { GameState, RelationshipEdge } from '../src/core/types.js'
 
@@ -173,7 +173,9 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
       convertV41ToV42: (s: V41Save) => SaveFileV42
       convertV42ToV43: (s: SaveFileV42) => SaveFileV43
       convertV43ToV44: (s: SaveFileV43) => SaveFileV44
-      validateSaveV44: (s: unknown) => SaveFileV44
+      convertV44ToV45: (s: SaveFileV44) => SaveFileV45
+      validateSaveV45: (s: unknown) => SaveFileV45
+      convertV45ToV44: (s: unknown) => unknown
       convertV44ToV43: (s: unknown) => unknown
       convertV43ToV42: (s: unknown) => unknown
       convertV42ToV41: (s: unknown) => unknown
@@ -189,7 +191,11 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
     // (src/core/save.ts:10678-10686) rather than hand-adding the root.
     // 1358-N S5 (1358-J 3e, finding 16): the live writer also needs Save44's `competitions` and
     // `romance` on every edge; lift through the genuine convertV43ToV44 (src/core/save.ts:10776-10781).
-    const state = mods.convertV43ToV44(mods.convertV42ToV43(v42)).state as unknown as GameState
+    // 1361-N S5 (1361-F7 ruling 10): and `makeSave` below writes Save45, which refuses a
+    // state without the four P15 roots ("validateSaveV45: the p15Sequence root is missing",
+    // src/core/save.ts:10968). The lift ends at Save45 through the genuine convertV44ToV45
+    // (src/core/save.ts:10980-10984), which writes them empty at this state's own week, never by hand.
+    const state = mods.convertV44ToV45(mods.convertV43ToV44(mods.convertV42ToV43(v42))).state as unknown as GameState
     const projectId = 'script-0000'
     const project = state.scriptDevelopment.projects.find((p) => p.id === projectId)
     expect(project, 'route premise: project "script-0000" is present in the acknowledged fixture').toBeDefined()
@@ -211,8 +217,8 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
       expect(driver, `route/RED premise: pair (${x}, ${y}) should carry a castingCompetitionLost driver from production "${productionId}"`).toBeDefined()
     }
     const newSave = makeSave(greenlit)
-    expect(newSave.saveVersion).toBe(44) // LIVE_SAVE_VERSION 44 (was 42 at 1313-A §3)
-    expect(() => mods.validateSaveV44(newSave)).not.toThrow()
+    expect(newSave.saveVersion).toBe(45) // LIVE_SAVE_VERSION 45 (was 44 under Save44, 42 at 1313-A §3)
+    expect(() => mods.validateSaveV45(newSave)).not.toThrow()
     // 1358-N S9 (MASKED): the live chain now crosses convertV44ToV43 first, and the greenlight
     // appended a competitions-log row on each slate pair (src/core/relationships.ts:537), so
     // the Save44 log guard (src/core/save.ts:10789) refuses before convertV42ToV41's casting-
@@ -220,17 +226,22 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
     // are all rival-internal, so the three pairs are new edges 24-26 and edge 24 refuses first.
     // Read from source and the fixture, not measured. The staged `v42` copy above keeps the
     // casting-competition guard's own-era pin.
-    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(mods.convertV44ToV43(newSave)))).toThrow(/^migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24$/)
+    // 1361-N S4: the live chain now crosses convertV45ToV44 first (src/core/save.ts:10989-10995). After
+    // validation it refuses once while any P15 root holds a row. This state was greenlit by an action
+    // and never ticked, so every root is still empty and the chain reaches the Save44 log guard as
+    // before. Derived from source, not measured: the pin below is unchanged until a run shows another
+    // first guard.
+    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(mods.convertV44ToV43(mods.convertV45ToV44(newSave))))).toThrow(/^migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24$/)
   }, 30_000)
 })
 
 describe('LIVE_SAVE_VERSION and the dispatcher message', () => {
-  it('LIVE_SAVE_VERSION is 44', () => {
-    expect(LIVE_SAVE_VERSION).toBe(44)
+  it('LIVE_SAVE_VERSION is 45', () => {
+    expect(LIVE_SAVE_VERSION).toBe(45)
   })
 
-  it('validateSave names the new ceiling in its unknown-version message ("1 through 44")', () => {
-    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 44/)
+  it('validateSave names the new ceiling in its unknown-version message ("1 through 45")', () => {
+    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 45/)
   })
 })
 

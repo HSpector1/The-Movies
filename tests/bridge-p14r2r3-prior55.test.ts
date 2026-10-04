@@ -64,7 +64,7 @@ import {
   encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
 } from '../bridge/runtime-checkpoint.ts'
-import { exportSave, migrateToLive, validateSaveV40, validateSaveV44 } from '../src/core/save.js'
+import { exportSave, migrateToLive, validateSaveV40, validateSaveV45 } from '../src/core/save.js'
 
 const FIXTURES = new URL('./fixtures/p14/genuine-runtime55-pre-r3/', import.meta.url)
 const OLD_SCHEMA = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158'
@@ -150,6 +150,16 @@ function withEmptyCompetitionsAndRomance<T extends { relationships?: readonly ob
   for (const edge of clone.relationships ?? []) Object.assign(edge, { competitions: [], romance: null })
   return clone
 }
+// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
+// save's own week and back-fills nothing; a genuine V44-or-older previous.state never carried them. The literals
+// are this file's own expectation: production's initialP15Roots never defines it (1361-F7 ruling 3).
+function withEmptyP15Roots<T extends object>(state: T, week: number): T {
+  return { ...state,
+    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
+    p15Sequence: { version: 1, next: 1 },
+    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+}
 
 describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently', () => {
   it('loadBridgeRuntimeCheckpoint migrates the prior-schema checkpoint, resets runtime authority, and migrates both save slots to V41 with only the new key added', () => {
@@ -193,12 +203,12 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
       const nextRaw = current[slot]
       expect(nextRaw, `${slot} must be present on the migrated checkpoint`).toBeTruthy()
       const previous = validateSaveV40(JSON.parse(old.value[slot]))
-      const now = validateSaveV44(JSON.parse(nextRaw!))
-      expect(now.saveVersion).toBe(44)
+      const now = validateSaveV45(JSON.parse(nextRaw!))
+      expect(now.saveVersion).toBe(45)
       // new.state equals old.state with termination:0 added to every rival finance period's
       // movements, and nothing else — the same fact p14r3-save-v41.test.ts asserts directly
       // on the raw fixtures, independently re-derived here through the runtime-checkpoint path.
-      expect(now.state).toEqual(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withSharedCompetitionsZero(withTerminationZero(previous.state as never)))))
+      expect(now.state).toEqual(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withSharedCompetitionsZero(withTerminationZero(previous.state as never)))), previous.state.market.tick))
       // slot bytes equal exportSave(migrateToLive(previous)) — the checkpoint's own migration
       // must route through the SAME migrateToLive chain the save-file path uses, not a second,
       // divergent conversion.

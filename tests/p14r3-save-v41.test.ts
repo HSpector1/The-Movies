@@ -119,7 +119,7 @@ import { describe, expect, it } from 'vitest'
 // src/core/save.ts at HEAD 3c6a7732 (see header, INTERPRETATION 1). Each is called below.
 import {
   LIVE_SAVE_VERSION, exportSave, makeSave, migrateToV40, validateSaveV40,
-  validateSaveV41, validateSaveV44, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, migrateToV41,
+  validateSaveV41, validateSaveV45, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, migrateToV41,
 } from '../src/core/save.js'
 import { terminationCost } from '../src/core/employment.js'
 import { industryBusyTalentIds, moveRivalMoney } from '../src/core/hollywood.js'
@@ -210,12 +210,12 @@ function lawfulTerminatedSave(): { save: unknown; expectedCharge: number; rivalI
 
 describe('P14 1305-C Save41: live boundary', () => {
   it('LIVE_SAVE_VERSION === 42', () => {
-    expect(LIVE_SAVE_VERSION).toBe(44)
+    expect(LIVE_SAVE_VERSION).toBe(45)
   })
   it('makeSave stamps 41 on a freshly generated current campaign', () => {
     const state = p13aGeneratedStudio()
     const saved = makeSave(state)
-    expect((saved as { saveVersion: number }).saveVersion).toBe(44)
+    expect((saved as { saveVersion: number }).saveVersion).toBe(45)
   })
 })
 
@@ -223,8 +223,8 @@ describe('P14 1305-C Save41: fresh V41 validates (freshly generated, no fixture 
   it('a freshly generated current campaign round-trips through validateSaveV41', () => {
     const state = p13aGeneratedStudio()
     const saved = makeSave(state)
-    const revalidated = validateSaveV44(JSON.parse(JSON.stringify(saved)))
-    expect(revalidated.saveVersion).toBe(44)
+    const revalidated = validateSaveV45(JSON.parse(JSON.stringify(saved)))
+    expect(revalidated.saveVersion).toBe(45)
     for (const business of rivalBusinesses(revalidated.state as never)) {
       for (const period of business.account.periods) expect(period.movements.termination).toBe(0)
     }
@@ -341,8 +341,8 @@ describe('P14 1305-C Save41: the player\'s own termination is not counted as a r
 describe('P14 1305-C Save41: a genuine rival release (lawful route) validates under V41 with the exact charge, and is refused by the frozen V40 reader', () => {
   it('validateSaveV41 admits it; the row-2 period\'s termination movement equals -terminationCost(original terms, 22); relabeling saveVersion 40 is refused by the frozen validateSaveV40', () => {
     const { save, expectedCharge, rivalId } = lawfulTerminatedSave()
-    const validated = validateSaveV44(save as never)
-    expect(validated.saveVersion).toBe(44)
+    const validated = validateSaveV45(save as never)
+    expect(validated.saveVersion).toBe(45)
     const business = rivalBusinesses(validated.state as never).find((b) => b.studioId === rivalId)!
     const period = business.account.periods[business.account.periods.length - 1]!
     expect(period.movements.termination).toBe(-expectedCharge)
@@ -373,12 +373,14 @@ describe('P14 1305-C Save41: 41->40 downgrade', () => {
 
   it('refused, with a message matching /termination/i, on a genuine V41 save carrying a real rival release (lawful route, 1308-F item 5 — replaces the prior receipt-only tamper, which is not a valid V41 envelope: every house converter validates first, so that tamper\'s refusal named the validator\'s own interval-consistency failure, never "termination")', () => {
     const { save } = lawfulTerminatedSave()
-    // 1358-N S9 (MASKED): the lawful route's live save holds a romance track on relationship-edge-0, so
-    // convertV44ToV43 refuses first (src/core/save.ts:10790), before the rival termination receipt guard
-    // this title names (save.ts:10642-10643). Measured in 1358-X6 (probe N-0569). The movement leaf above
-    // stops in validateSaveV41's reconciliation (src/core/hollywoodValidation.ts:294; measured in 1358-X7t),
-    // so the guard keeps its own-era coverage in the staged assertion below.
-    expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(save as never))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
+    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
+    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
+    // x2 measured this first guard in the family; the follow-up must confirm every call.
+    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
+    // The staged V41 assertion below in this leaf covers the rival termination receipt guard.
+    // The movement-only leaf above stops in V41 reconciliation (hollywoodValidation.ts:294;
+    // measured in 1358-X7t), so it does not independently cover the downgrade movement guard.
+    expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(save as never)))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
     // 1358-F10 ruling 4: no Save41 engine remains to write a rival release, so one is staged on a V41 copy
     // of the genuine week110 input. It writes what the release law writes (src/core/hollywoodTick.ts:180-197)
     // for the first rival employee that passes the law's seat, cap, Scientist and open-promise tests (it

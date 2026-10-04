@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import * as core from '../src/core/index.js'
 import { ageAt, nextBirthdayWeek } from '../src/core/aging.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, exportSave, importSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { CreativeRole, GameState } from '../src/core/types.js'
@@ -166,13 +166,13 @@ describe('C.3 A05/A06 public profession history, current evidence and repeat saf
     expect(root38(next).transitionEvaluations).toEqual(root38(reopened).transitionEvaluations)
     expect(root38(next).professionChanges).toEqual(root38(reopened).professionChanges)
     for (const [target, id] of Object.entries(FOCUS)) expect(at(next, id, 209)).toBe(target)
-    // 1344-N S9 (MASKED): this chain holds a screenplay shelving rejection count, so
-    // convertV43ToV42 refuses first (src/core/save.ts:10698), before the V37 profession
-    // transition guard this line named (src/core/professionHistory.ts:67). Measured in 1344-X12
-    // (merge 62f14e7): "migrateToV42: cannot downgrade or discard a screenplay shelving
-    // rejection count of studio-de11f27b-r04". The V37 guard stays covered by the leaf below
-    // ("records Scientist noCatalogue finality"), whose chain reaches it first (1344-X12).
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(envelope38(reopened) as never)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)
+    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
+    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
+    // x2 measured this first guard in the family; the follow-up must confirm every call.
+    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
+    // The shelving-count guard stays covered on V43 in p14d1-rival-shelving-save-v43.test.ts.
+    // The Scientist noCatalogue leaf below still reaches the V37 transition guard.
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(envelope38(reopened) as never))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
   })
 })
 
@@ -204,7 +204,10 @@ describe('C.3 A09/A10 genuine prospective finality and deferred reconciliation',
     // 1344-X12 measured this chain's first guard: the V37 profession transition guard
     // (src/core/professionHistory.ts:67), which the shelving guard masks in the leaf above. Pinned
     // exactly, so this leaf keeps that guard covered (1344-N S9).
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(envelope38(reopened) as never)))))))).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
+    // 1361-N S4: convertV45ToV44 now leads this chain (src/core/save.ts:10989-10995). scientistBoundary() is migrated,
+    // not ticked, and its one tick (670 to 671) crosses no quarter week, so every P15 root is empty and the chain
+    // should reach the pinned guard as before. Derived from source, not measured: the pin is unchanged until a run (P4).
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(envelope38(reopened) as never))))))))).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
   })
 
   it('defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week', () => {

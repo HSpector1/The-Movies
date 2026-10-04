@@ -52,13 +52,23 @@ type WithEdgeLogAndRomance = { relationships: readonly { competitions?: readonly
 function withEmptyCompetitionsAndRomance<T extends WithEdgeLogAndRomance>(state: T): T {
   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
 }
+// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
+// save's own week and back-fills nothing; a genuine Save37 old.state never carried them. The literals
+// are this file's own expectation: production's initialP15Roots never defines it (1361-F7 ruling 3).
+function withEmptyP15Roots<T extends object>(state: T, week: number): T {
+  return { ...state,
+    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
+    p15Sequence: { version: 1, next: 1 },
+    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+}
 // Independent old-state preservation alongside the actual governed slot bytes.
 function currentSlot(json: string): string {
   const old = validateSaveV37(JSON.parse(json)), current = migrateToLive(importSave(json)), week = old.state.market.tick
-  expect(current.saveVersion).toBe(44)
+  expect(current.saveVersion).toBe(45)
   const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
     industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
-  const expectedOld = withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state)))))
+  const expectedOld = withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))), week)
   expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))
   expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
     industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
@@ -98,7 +108,7 @@ describe('C.2-RM genuine projection51 recovery', () => {
   it('steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once', () => {
     expect(PROJECTION_VERSION).toBe(57)
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(LIVE_SAVE_VERSION).toBe(44)
+    expect(LIVE_SAVE_VERSION).toBe(45)
     expect(SCHEMA_ID).not.toBe(OUTGOING_51)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)

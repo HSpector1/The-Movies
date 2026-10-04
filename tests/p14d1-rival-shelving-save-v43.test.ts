@@ -42,8 +42,8 @@ const mods = () => saveModule as unknown as V43ModuleShape
 const TUNING_FUTURE = TUNING as unknown as { HOLLYWOOD_SHELVE_AFTER_REJECTIONS: number; HOLLYWOOD_SHELVED_RETRY_WEEKS: number; HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS: number }
 
 describe('API decisions this file exercises (existence asserted first)', () => {
-  it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 44', () => {
-    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)
+  it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 45', () => {
+    expect(saveModule.LIVE_SAVE_VERSION).toBe(45)
     expect(typeof mods().validateSaveV43).toBe('function')
     expect(typeof mods().convertV42ToV43).toBe('function')
     expect(typeof mods().convertV43ToV42).toBe('function')
@@ -79,10 +79,10 @@ describe('save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration', () => {
     }
   })
 
-  it('migrateToLive carries a genuine V42 save to V44 (LIVE_SAVE_VERSION)', () => {
+  it('migrateToLive carries a genuine V42 save to V45 (LIVE_SAVE_VERSION)', () => {
     const v42 = saveModule.importSave(week130Raw())
     const live = migrateToLive(v42)
-    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(44)
+    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(45)
   })
 })
 

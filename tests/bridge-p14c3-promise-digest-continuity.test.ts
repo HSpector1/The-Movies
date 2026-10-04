@@ -100,6 +100,16 @@ type WithEdgeLogAndRomance = { relationships: readonly { competitions?: readonly
 function withEmptyCompetitionsAndRomance<T extends WithEdgeLogAndRomance>(state: T): T {
   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
 }
+// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
+// save's own week and back-fills nothing; a genuine Save37 old.state never carried them. The literals
+// are this file's own expectation: production's initialP15Roots never defines it (1361-F7 ruling 3).
+function withEmptyP15Roots<T extends object>(state: T, week: number): T {
+  return { ...state,
+    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
+    p15Sequence: { version: 1, next: 1 },
+    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+}
 describe('955 genuine207 normal-development continuation', () => {
   it('matches actual BridgeSession advance from saved207 with uninterrupted develop:true on the reordered raw world', () => {
     const raw = reordered(pre207()), save = bytes(raw), direct = tick(raw, { develop: true })
@@ -161,7 +171,7 @@ describe('955 historical preservation and interim projection52 journal authority
       const current = migrateToLive(old)
       const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
         industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
-      const expectedOld = withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state)))))
+      const expectedOld = withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))), week)
       expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))
       expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
         industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
@@ -171,7 +181,7 @@ describe('955 historical preservation and interim projection52 journal authority
         transitionDue: old.state.hollywood === null ? [] : old.state.careerLifecycle.records
           .filter(row => row.status === 'retired').map(row => ({ personId: row.personId, week: week + 1 }))
           .sort((a, b) => a.personId < b.personId ? -1 : a.personId > b.personId ? 1 : 0) })
-      expect(current.saveVersion).toBe(44)
+      expect(current.saveVersion).toBe(45)
       expect(next[slot]).toBe(exportSave(current))
       expect(next[digest]).toBe(sha(exportSave(current)))
     }

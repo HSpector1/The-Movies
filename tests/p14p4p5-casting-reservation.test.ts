@@ -52,6 +52,17 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
 }
+// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
+// save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The
+// literals are this file's own expectation: production's initialP15Roots never defines it
+// (1361-F7 ruling 3).
+function withEmptyP15Roots<T extends object>(state: T, week: number): T {
+  return { ...state,
+    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
+    p15Sequence: { version: 1, next: 1 },
+    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+}
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
 const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
@@ -83,7 +94,7 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
+  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }
@@ -206,7 +217,7 @@ function input45(): GameState {
     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
     const state = saves.migrateToLive(old).state
     expect(stable(old)).toBe(prior)
-    expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+    expect(state).toEqual({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
     initial = clone(state); retained(state)
     expect(issuer(state)).toBe('studio-de11f27b-player')
     expect(state.operations.mode).toBe('managed'); expect(state.scriptDevelopment.mode).toBe('managed')

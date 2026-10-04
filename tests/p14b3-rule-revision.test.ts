@@ -10,7 +10,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
 import * as promiseModule from '../src/core/promises.js'
 import { attachPromise, PROMISE_RULES_VERSION } from '../src/core/promises.js'
 import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV44 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV45 } from '../src/core/save.js'
 import type { GameState, PromiseFeasibilityReceipt } from '../src/core/types.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
 import type { CareerLifecycleRootV38, CreativeRole } from '../src/core/types.js'
@@ -42,6 +42,18 @@ function withEmptyScreenplayShelving(state: GameState): GameState {
   if (state.hollywood === null) return state
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+}
+
+// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
+// save's own week and back-fills nothing; the OLD (raw, pre-migration) state never carried them. The
+// literals are this file's own expectation: production's initialP15Roots never defines it
+// (1361-F7 ruling 3).
+function withEmptyP15Roots<T extends object>(state: T, week: number): T {
+  return { ...state,
+    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
+    p15Sequence: { version: 1, next: 1 },
+    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
 }
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
 
@@ -171,7 +183,9 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     // P14C.2b: every pre-V36 case in the raw fixture defaults to `variant: 'expiry'`
     // (convertV35ToV36's own rule), same reasoning as the `careerLifecycle` root.
     const rawCases = (parsedRaw.state.talentMarket.cases as Record<string, unknown>[]).map((kase) => ({ ...kase, variant: 'expiry' }))
-    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)),
+    // 1361-N S5: Save45's four P15 roots, empty, at the input's own week (nothing ticks between the
+    // migration and this comparison).
+    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyP15Roots(withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)), parsedRaw.state.market.tick as number),
       relationships: [], promises: (parsedRaw.state.promises as Record<string, unknown>[]).map(addedFieldsRaw),
       talent: rawPeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
       talentProvenance: buildTalentProvenance(rawPeople, parsedRaw.state.market.tick as number, 'legacy_age_anchor'),
@@ -232,7 +246,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
     expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
       .toEqual([fresh.promiseId])
-    const reloaded = validateSaveV44(importSave(exportSave(makeSave(attached)))).state
+    const reloaded = validateSaveV45(importSave(exportSave(makeSave(attached)))).state
     expect(reloaded.promises).toEqual(attached.promises)
   })
 
@@ -274,7 +288,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
       talentId: old.beneficiaryPersonId, studioId: old.issuerStudioId, week: proposal.startWeek }))
     expect(currentProposals(settled, old.beneficiaryPersonId)).toEqual([])
     expect(JSON.stringify(state.promises)).toBe(priorRoots)
-    const reloaded = validateSaveV44(importSave(exportSave(makeSave(settled)))).state
+    const reloaded = validateSaveV45(importSave(exportSave(makeSave(settled)))).state
     expect(reloaded.promises.find((p) => p.promiseId === old.promiseId)).toEqual(bound)
     expect(old.version).toBe(1)
     expect(old.feasibilityReceipt.rulesVersion).toBe(1)

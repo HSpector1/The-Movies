@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { extensionIssuer, retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { activeContract } from '../src/core/employment.js'
 import { professionAtWeek } from '../src/core/index.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { marketEligibility, openMarketCaseFor, playerOffer, submitProposal } from '../src/core/talentMarket.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -169,15 +169,13 @@ describe.each(DUAL_TARGETS)('C.3 actor→%s two genuine profession extensions', 
     expect(exportSave(makeSave(loaded))).toBe(raw)
     expect(loaded.talentMarket.cases.filter(row => row.talentId === id)).toEqual(state.talentMarket.cases.filter(row => row.talentId === id))
     expect(loaded.careerLifecycle).toEqual(state.careerLifecycle)
-    // 1358-N S9 (MASKED): the saved state's romance track on relationship-edge-0 makes Save44's
-    // convertV44ToV43 refuse first (src/core/save.ts:10790). That masks the screenplayShelved
-    // receipt guard 1344-N pinned here (save.ts:10739-10740) and the V39 subject guard this line
-    // named before Save43 (save.ts:10600-10602). Measured by the 1358-X6 message probe (N-0493,
-    // both targets). The V39 guard stays covered on V40 input by
-    // tests/p14p4p5-opportunities.test.ts Q03 (:336) and exactly by
-    // tests/p13b-s3-save-v23.test.ts:115-117. The receipt guard stays covered on V43 input by
-    // tests/p14d1-rival-shelving-save-v43.test.ts:256 (1358-F11).
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
+    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
+    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
+    // x2 measured this first guard in the family; the follow-up must confirm every call.
+    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
+    // V39 stays covered by p13b-s3-save-v23.test.ts; the shelving receipt guard
+    // stays covered by the own-era V43 input in p14d1-rival-shelving-save-v43.test.ts.
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(saved))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
     accepted(loaded)
   })
 

@@ -13,6 +13,7 @@ import type { GameState } from '../src/core/types.js'
 import { advanceTo, exhaustedScientistPool, labId, owner, project, saveRoundTrip, SCI, SCI_END,
   scientistAt, scientistFilm, scientistSupply, scientistWorld } from './helpers/p14c2s-fixtures.js'
 import { scientistRaw } from './helpers/p14c3-fixtures.js'
+import { stripP15 } from './helpers/p15-roots.js'
 
 const record = (state: GameState) => retirementRecordFor(state, SCI)
 const bytes = (state: GameState) => JSON.stringify(makeSave(state))
@@ -253,7 +254,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistWorld()
     const before = bytes(state)
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(44)
+    expect(live.saveVersion).toBe(45)
     const outgoing37 = migrateToV37(live) // governed lossless C.3 boundary, preserving every older root
     expect(live.state.careerLifecycle).toEqual({ ...outgoing37.state.careerLifecycle,
       transitionBoundaryWeek: state.market.tick,
@@ -264,7 +265,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     expect(old.saveVersion).toBe(36)
     expect(JSON.stringify(old.state)).toBe(JSON.stringify(outgoing37.state))
     const lifted = migrateToLive(old)
-    expect(lifted.saveVersion).toBe(44)
+    expect(lifted.saveVersion).toBe(45)
     expect(JSON.stringify(lifted.state)).toBe(JSON.stringify(live.state))
     expect(JSON.stringify(migrateToV37(lifted).state)).toBe(JSON.stringify(old.state))
     expect(bytes(state)).toBe(before)
@@ -274,18 +275,23 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistAt('hardResearch', 566)
     expect(record(state)?.profession).toBe('scientist')
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(44)
+    expect(live.saveVersion).toBe(45)
     const before = JSON.stringify(live)
     expect(importSave(before)).toEqual(live)
-    // 1358-N S9 (MASKED): this state's romance track on relationship-edge-27 makes Save44's
-    // convertV44ToV43 refuse first on both routes (src/core/save.ts:10790). That masks the V39 guard
-    // that fired first under Save43 (save.ts:10600-10602, 1344-X12 §4) and the Scientist guard this
-    // title names (save.ts:10449-10454). Measured by the 1358-X6 message probe (G1-new-1, both
-    // lines). The next assertion keeps the Scientist guard covered on its own era's genuine input.
-    // The V39 guard stays covered on V40 input by tests/p14p4p5-opportunities.test.ts Q03 (:336)
-    // and exactly by tests/p13b-s3-save-v23.test.ts:115-117.
-    expect(() => migrateToV36(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)
-    expect(() => migrateToV35(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)
+    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
+    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
+    // x2 measured this first guard in the family; the follow-up must confirm every call.
+    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
+    // The genuine V37 Scientist refusal remains in the next assertion.
+    // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
+    expect(() => migrateToV36(live)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
+    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
+    // x2 measured this first guard in the family; the follow-up must confirm every call.
+    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
+    // The genuine V37 Scientist refusal remains in the next assertion.
+    // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
+    expect(() => migrateToV35(live)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
     // The genuine V37 capture at week 670 holds the retired Scientist record of t-sci-00, and
     // convertV37ToV36 refuses it by name before validation.
     expect(() => convertV37ToV36(validateSaveV37(JSON.parse(scientistRaw())))).toThrow(/^migrateToV36: cannot downgrade SaveFileV37 or discard Scientist retirement \u2014 t-sci-00 holds a record that V36 does not support$/)
@@ -323,6 +329,13 @@ describe('Scientist retirement persistence has an explicit semantic version boun
       // exported"), exactly like the unconditional `extensionUsed`/`variant`
       // deletions above — V34/35/36 never had this root at all.
       delete (envelope.state as { firstTakeSubjects?: unknown }).firstTakeSubjects
+      // 1361-N sweep (S7): nor the four Save45 P15 roots (powerRanking, p15Sequence, sharedMarket,
+      // campaignLegacy; V45-only). The frozen V34 chain refuses 'unknown field "powerRanking"'
+      // (src/core/save.ts:9958, :4185; m2-core.txt:402321) on the whole-envelope control below. Same
+      // reader-only shape adjustment as the deletions above. The RED helper's one list names the
+      // roots (1361-F7 ruling 4).
+      // 1361-F8 ruling 1: reader-only control; P15 roots stripped unconditionally
+      envelope.state = stripP15(envelope.state)
       // 1327-C sweep (C15): nor the `termination` rival-finance movement key
       // (added V41 to `RivalMoneyKind`) — same reader-only shape adjustment.
       // 1344-N sweep (S7): nor the `screenplayShelving` root on each rival
@@ -353,7 +366,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistAt('hardResearch', 566)
     expect(record(state)?.profession).toBe('scientist')
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(44)
+    expect(live.saveVersion).toBe(45)
     const before = JSON.stringify(live)
     type MutableEnvelope = { state: { talentProvenance: { rows: Record<string, unknown>[] },
       careerLifecycle: { records: Record<string, unknown>[] } } }

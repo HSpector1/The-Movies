@@ -29,13 +29,13 @@ import {
   makeSave,
   makeSaveV15,
   convertV38ToV37,
-  convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43,
+  convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44,
   migrateToV15,
   migrateToLive,
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV44,
+  validateSaveV45,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -403,7 +403,11 @@ describe('P06A W1 — save law', () => {
     // predates `setup`/`planRevision` (added at V25, P13B-S5-R07) exactly as it
     // predates `releaseAuthority` (added at V16, P06A) — strip both leaves the
     // same way, or `makeSaveV15` refuses the workflow's own unknown field.
-    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(ready))))))))
+    // 1361-N S4: Save45 is live, so convertV45ToV44 (src/core/save.ts:10989-10995) leads the chain. It passes
+    // here: `ready` is the historical-control founding (beginFoundingHistoricalControl, src/core/employment.ts:573-576),
+    // which holds no industry, and a state without an industry records no Power Ranking quarter
+    // (src/core/powerRankingArchive.ts:151), so every P15 root is empty.
+    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(makeSave(ready)))))))))
     const { releaseAuthority: _drop, ...v15State } = admitted37.state
     const v15 = makeSaveV15({
       ...v15State,
@@ -456,12 +460,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV44(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV45(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV44(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV45(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

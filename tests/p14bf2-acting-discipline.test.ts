@@ -17,7 +17,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions, hiringMarketIds, SKILL_ORDER, tick } from '../src/core/index.js'
 import { attachPromise, promiseFeasibility, PROMISE_RULES_VERSION, type PromiseDraft } from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV44 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV45 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, CastSlot, GameState } from '../src/core/types.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
@@ -47,6 +47,17 @@ function withEmptyScreenplayShelving(state: GameState): GameState {
   if (state.hollywood === null) return state
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+}
+// 1361-N S5: Save45 (convertV44ToV45, save.ts:10980-10984) adds the four P15 roots, empty, at the
+// save's own week and back-fills nothing; the OLD (raw, pre-migration) state never carried them. The
+// literals are this file's own expectation: production's initialP15Roots never defines it
+// (1361-F7 ruling 3).
+function withEmptyP15Roots<T extends object>(state: T, week: number): T {
+  return { ...state,
+    powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
+    p15Sequence: { version: 1, next: 1 },
+    sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
 }
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
 
@@ -94,7 +105,7 @@ function fixture(): Window {
     state = submitProposal(state, { talentId: lead.id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
     expect(state.studio.activeProductions).toEqual([])
     expect(state.promises.filter((p) => p.beneficiaryPersonId === lead.id)).toEqual([])
-    validateSaveV44(makeSave(state))
+    validateSaveV45(makeSave(state))
     cached = { castable, state, crew }
   }
   return structuredClone(cached)
@@ -134,7 +145,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     expect(legal.studio.activeProductions.at(-1)!.cast.lead).toBe(crew.leadId)
     expect(legal.studio.activeProductions.at(-1)!.writerId).toBe(crew.writerId)
     expect(legal.talent.find((p) => p.id === crew.leadId)!.role).toBe('writer')
-    validateSaveV44(makeSave(legal))
+    validateSaveV45(makeSave(legal))
     const doubleRole = payload(castable, crew)
     doubleRole.writerId = crew.leadId
     expect(() => applyActions(castable, [{ kind: 'greenlight', production: doubleRole }]))
@@ -266,7 +277,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     expect(receipts[0]).toMatchObject({ kind: 'promiseOutcome', week: take.week,
       talentId: crew.leadId, studioId: player(state) })
     expect(state.talent.find((p) => p.id === crew.leadId)!.role).toBe('writer')
-    const loaded = validateSaveV44(importSave(exportSave(makeSave(state)))).state
+    const loaded = validateSaveV45(importSave(exportSave(makeSave(state)))).state
     expect(loaded.promises).toEqual(state.promises)
     expect(loaded.firstTakes).toEqual(state.firstTakes)
   })
@@ -363,7 +374,9 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
     // P14C.2b: every pre-V36 case in the raw fixture defaults to `variant: 'expiry'`
     // (convertV35ToV36's own rule), same reasoning as the `careerLifecycle` root.
     const rawCases = (parsedRaw.state.talentMarket.cases as Record<string, unknown>[]).map((kase) => ({ ...kase, variant: 'expiry' }))
-    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)),
+    // 1361-N S5: Save45's four P15 roots, empty, at the input's own week (nothing ticks between the
+    // migration and this comparison).
+    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyP15Roots(withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)), parsedRaw.state.market.tick as number),
       relationships: [], promises: (parsedRaw.state.promises as Record<string, unknown>[]).map(addedFieldsRaw),
       talent: rawPeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
       talentProvenance: buildTalentProvenance(rawPeople, parsedRaw.state.market.tick as number, 'legacy_age_anchor'),
@@ -415,6 +428,6 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
       contractId: null, outcome: null, feasibilityReceipt: fresh })
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(originalRoots)
     expect(attached.talent.find((p) => p.id === old.beneficiaryPersonId)!.role).toBe('writer')
-    expect(validateSaveV44(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)
+    expect(validateSaveV45(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)
   })
 })

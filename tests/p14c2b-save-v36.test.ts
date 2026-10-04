@@ -26,7 +26,7 @@
 //  - S4's `makeSave` case now migrates first (F1) — `makeSave` takes the live V36
 //    `GameState`, and a raw V35 fixture is a type error against it.
 import { describe, expect, it } from 'vitest'
-import { LIVE_SAVE_VERSION, convertV35ToV36, convertV36ToV35, makeSave, validateSaveV44 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, convertV35ToV36, convertV36ToV35, makeSave, validateSaveV45 } from '../src/core/save.js'
 import type { GameState, GameStateV35, RetirementRecordV36, TalentMarketCaseV36 } from '../src/core/types.js'
 import { C2B_CORPUS, advanceTo, c2bFixture, c2bLiveFixture, liveEnvelope, liveEnvelopeV36 } from './helpers/p14c2b-fixtures.js'
 import { submitProposal } from '../src/core/talentMarket.js'
@@ -71,16 +71,14 @@ describe('P14C.2b S2: V36 -> V35 downgrade', () => {
     const withOffer = submitProposal(atWindow, { talentId: 'authored-0000', issuerStudioId: 'studio-d7df6c8e-player', termWeeks: 58, premiumTier: 1.1 })
     const settled = advanceTo(withOffer, 98)
     expect(retirementRecordFor(settled, 'authored-0000')?.extensionUsed).toBe(true)
-    // 1358-N S9 (MASKED): the settled state's romance track on relationship-edge-0 makes Save44's
-    // convertV44ToV43 refuse first inside liveEnvelopeV36 (src/core/save.ts:10790). That masks the
-    // V39 guard that fired first under Save43 (save.ts:10600-10602, 1344-X12 §2) and the V36
-    // extension guard this title names (save.ts:10382-10388). Measured by the 1358-X6 message probe
-    // (G4-new-3). The V36 guard stays covered on its own era's input by
-    // tests/p14c2rm-writer-continuation.test.ts:278 (the genuine V37 pair's open case, through
-    // convertV37ToV36); no V36-era input holds a used extension, so this title's branch has none.
-    // The V39 guard stays covered on V40 input by tests/p14p4p5-opportunities.test.ts Q03 (:336)
-    // and exactly by tests/p13b-s3-save-v23.test.ts:115-117.
-    expect(() => convertV36ToV35(liveEnvelopeV36(settled))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
+    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
+    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
+    // x2 measured this first guard in the family; the follow-up must confirm every call.
+    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
+    // The V36 open-case guard stays covered by the genuine V37 pair in
+    // p14c2rm-writer-continuation.test.ts. No own-era input covers a used extension.
+    // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
+    expect(() => convertV36ToV35(liveEnvelopeV36(settled))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
   })
 
   it('refused as a downgrade when a case carries variant: retirementExtension (open, not yet used — the case alone is enough)', () => {
@@ -88,14 +86,14 @@ describe('P14C.2b S2: V36 -> V35 downgrade', () => {
     const kase = atWindow.talentMarket.cases.find((c) => c.contractId === 'studio-d7df6c8e-player:contract:authored-0000:0:player-24')
     expect(kase?.variant).toBe('retirementExtension')
     expect(retirementRecordFor(atWindow, 'authored-0000')?.extensionUsed, 'this state must NOT yet have used its extension — the CASE alone must be enough to refuse').toBe(false)
-    // 1358-N S9 (MASKED): as in the leaf above, the window state's romance track on
-    // relationship-edge-0 makes convertV44ToV43 refuse first (src/core/save.ts:10790), ahead of the
-    // V39 guard and the V36 extension guard this title names (save.ts:10382-10388). Measured by the
-    // 1358-X6 message probe (G4-new-4). tests/p14c2rm-writer-continuation.test.ts:278 covers this
-    // case branch on its own era's input: one open retirementExtension case refuses alone. The V39
-    // guard stays covered on V40 input by tests/p14p4p5-opportunities.test.ts Q03 (:336) and
-    // exactly by tests/p13b-s3-save-v23.test.ts:115-117.
-    expect(() => convertV36ToV35(liveEnvelopeV36(atWindow))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
+    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
+    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
+    // x2 measured this first guard in the family; the follow-up must confirm every call.
+    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
+    // The V36 open-case guard stays covered by the genuine V37 pair in
+    // p14c2rm-writer-continuation.test.ts. No own-era input covers a used extension.
+    // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
+    expect(() => convertV36ToV35(liveEnvelopeV36(atWindow))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
   })
 })
 
@@ -126,7 +124,7 @@ function genuineSettledBaseline(): { state: GameState; personId: string; oldE: n
 describe('P14C.2b S3: the validator refuses each tampering, one per case, from a GENUINE settled V36 state (806 §8.2)', () => {
   it('the unmutated, genuinely-produced baseline must validate', () => {
     const { state } = genuineSettledBaseline()
-    expect(() => validateSaveV44(makeSave(state))).not.toThrow()
+    expect(() => validateSaveV45(makeSave(state))).not.toThrow()
   })
 
   it('a second extension case for the SAME person is refused (at most one per person, ever)', () => {
@@ -134,7 +132,7 @@ describe('P14C.2b S3: the validator refuses each tampering, one per case, from a
     const original = state.talentMarket.cases.find((c) => c.contractId === contractId && c.variant === 'retirementExtension')!
     const second: TalentMarketCaseV36 = { ...original, contractId: `${contractId}-second` }
     const tampered: GameState = { ...state, talentMarket: { ...state.talentMarket, cases: [...state.talentMarket.cases, second] } }
-    expect(() => validateSaveV44(makeSave(tampered))).toThrow(/at most one|second retirementExtension/i)
+    expect(() => validateSaveV45(makeSave(tampered))).toThrow(/at most one|second retirementExtension/i)
   })
 
   it('extensionUsed: true with no SETTLED extension case for that person is refused', () => {
@@ -143,7 +141,7 @@ describe('P14C.2b S3: the validator refuses each tampering, one per case, from a
       ...state,
       talentMarket: { ...state.talentMarket, cases: state.talentMarket.cases.filter((c) => !(c.talentId === personId && c.variant === 'retirementExtension')) },
     }
-    expect(() => validateSaveV44(makeSave(tampered))).toThrow(/settled retirementExtension case/i)
+    expect(() => validateSaveV45(makeSave(tampered))).toThrow(/settled retirementExtension case/i)
   })
 
   it('extendedFromWeek mismatched with effectiveWeek - 52 is refused', () => {
@@ -155,7 +153,7 @@ describe('P14C.2b S3: the validator refuses each tampering, one per case, from a
         records: state.careerLifecycle.records.map((r) => (r.personId === personId ? { ...r, extendedFromWeek: oldE - 1 } : r)),
       },
     }
-    expect(() => validateSaveV44(makeSave(tampered))).toThrow(/weeks before its effective week/i)
+    expect(() => validateSaveV45(makeSave(tampered))).toThrow(/weeks before its effective week/i)
   })
 
   it('no contract ending at the new E is found by TERMS (the new contract\'s endWeekExclusive is altered) — refused', () => {
@@ -168,19 +166,19 @@ describe('P14C.2b S3: the validator refuses each tampering, one per case, from a
           (e.terms.endWeekExclusive === newE ? { ...e, terms: { ...e.terms, endWeekExclusive: newE + 1 } } : e)),
       },
     }
-    expect(() => validateSaveV44(makeSave(tampered))).toThrow(/exactly one must/i)
+    expect(() => validateSaveV45(makeSave(tampered))).toThrow(/exactly one must/i)
   })
 })
 
 describe('P14C.2b S4: LIVE_SAVE_VERSION, makeSave, replay determinism', () => {
   it('LIVE_SAVE_VERSION === 38', () => {
-    expect(LIVE_SAVE_VERSION).toBe(44)
+    expect(LIVE_SAVE_VERSION).toBe(45)
   })
 
   it('makeSave stamps 38', () => {
     const live = c2bLiveFixture('genuine-v35-c2b-contract-gap-freeagent-expiry') // F1: migrate first — makeSave now expects the live (V36) shape
     const saved = makeSave(live)
-    expect((saved as { saveVersion: number }).saveVersion).toBe(44)
+    expect((saved as { saveVersion: number }).saveVersion).toBe(45)
   })
 
   it('two independent V35 -> V36 migrations of the SAME state are byte-identical', () => {
