@@ -1,0 +1,125 @@
+// ── P15C Wave 2: the sibling leaves (records 1359-C, 1359-C2; 1359-F2 "SIBLING PENDING leaves are split out") ──
+//
+// Five leaves of 1359-A §8 that need a sibling P15 root in the live state. They left the P15C Wave 2 RED
+// so that no leaf of that RED stays red after its GREEN (1359-F2). This file is
+// 1359-p15c-wave2-sibling.patch: it lands with whichever of P15C Wave 2 and the named sibling lands
+// second (1359-A §10 item 3), on top of the P15C Wave 2 RED and its helpers.
+//   - B2 `legacy-freeze-is-last-allocation`, B4 `legacy-ranking-at-6240-inside-live-tick` and C8
+//     `legacy-validate-stamp-duplicate-across-roots` need P15A.2 slice 2a (`powerRanking`).
+//   - C3 `legacy-migration-before-boundary-siblings-limited` needs a sibling that arrives in the
+//     Legacy's own step (a shared step), so that route L's 6239 capture migrates it at 6239. In a
+//     separate step the sibling records from route L's world start, C3's premise fails by name, and
+//     the landing re-pins it to a capture below the sibling's own step.
+//   - C10 `legacy-validate-refs-sibling-added-after-freeze` needs any sibling root.
+// Each leaf asserts its sibling first and fails by name ("SIBLING PENDING") without it. At landing:
+// re-pin the forged and read shapes to the sibling's landed ones, and make sure the sibling's key is
+// in tests/helpers/p15-roots.ts. B7 `legacy-endless-no-revival` is not here: it needs P15B's root and a
+// closure route that only P15B's RED can supply, so it is a note for that RED (1359-B7 note).
+
+import { describe, expect, it } from 'vitest'
+import { buildLegacyManifest } from '../src/core/campaignLegacy.js'
+import { makeSave } from '../src/core/save.js'
+import { tick } from '../src/core/tick.js'
+import {
+  B,
+  budgeted,
+  canon,
+  captureAt,
+  convertIntoStep,
+  factsFn,
+  genuineFrozen,
+  officialOf,
+  P15_SIBLINGS,
+  FIXTURE_MS,
+  ROUTE_MS,
+  rawOf,
+  refuses,
+  requireRoot,
+  requireSiblings,
+  sequenceOf,
+  siblingRows,
+  sourceOf,
+  STEP,
+  stepFn,
+  withoutStamp,
+  withRoot,
+} from './helpers/p15c2-legacy.js'
+import { routeAt } from './helpers/p15c2-route-l.js'
+
+describe('p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10)', () => {
+  it('legacy-freeze-is-last-allocation', budgeted(ROUTE_MS, () => {
+    stepFn()
+    const [s6239, s6240] = [routeAt(B - 1), routeAt(B)]
+    requireRoot(s6240, 'powerRanking', 'the freeze tick appends the 6240 ranking record only once P15A.2 slice 2a lands')
+    const since = sequenceOf(s6239).next
+    expect(siblingRows(s6240, 'powerRanking').some((row) => row.p15DomainSequence >= since && row.week === B),
+      'the 6240 ranking record is appended in the freeze tick').toBe(true)
+    const official = officialOf(s6240)
+    for (const [key, domainId] of P15_SIBLINGS) {
+      if (rawOf(s6240)[key] === undefined) continue // an absent sibling reads 0 (A6, A7)
+      const rows = siblingRows(s6240, key)
+      for (const row of rows.filter((r) => r.p15DomainSequence >= since)) {
+        expect(official.p15DomainSequence, `${key} row ${row.p15DomainSequence}`).toBeGreaterThan(row.p15DomainSequence)
+      }
+      const largest = rows.reduce((max, row) => Math.max(max, row.p15DomainSequence), 0)
+      expect(sourceOf(official, domainId).highWatermark, `${domainId} watermark includes the freeze tick's rows`).toBe(largest)
+    }
+    expect(official.p15DomainSequence).toBe(sequenceOf(s6240).next - 1)
+  }), ROUTE_MS)
+
+  it('legacy-ranking-at-6240-inside-live-tick', budgeted(ROUTE_MS, () => {
+    // B4's inside half on the live tick (1359-F2 item 4). The outside half (a condition event stamped 6240)
+    // left with 1359-D item 4: route L need not stamp one, and B4 proves the cut on a forged root.
+    stepFn()
+    const facts = factsFn()
+    const s6240 = routeAt(B)
+    requireRoot(s6240, 'powerRanking', 'the freeze tick writes the 6240 ranking record only once P15A.2 slice 2a lands')
+    const ranking = rawOf(s6240).powerRanking as { snapshots: { week: number }[] }
+    expect(ranking.snapshots.some((record) => record.week === B), 'the ranking step records week 6240 before the freeze').toBe(true)
+    // Inside: the official equals the law over the tick's facts, and removing the 6240 record changes it.
+    expect(canon(withoutStamp(officialOf(s6240)))).toBe(canon(buildLegacyManifest(facts(s6240, B), 'official2040')))
+    const without = withRoot(s6240, 'powerRanking', { ...ranking, snapshots: ranking.snapshots.filter((record) => record.week !== B) })
+    expect(canon(buildLegacyManifest(facts(without, B), 'official2040'))).not.toBe(canon(withoutStamp(officialOf(s6240))))
+  }), ROUTE_MS)
+
+  it('legacy-migration-before-boundary-siblings-limited', budgeted(ROUTE_MS, () => {
+    const capture = captureAt((state) => state.market.tick === B - 1, 'at week 6239')
+    const next = tick(convertIntoStep(capture).state)
+    requireSiblings(next, 'siblings migrated at 6239 read limited only once they land')
+    const official = officialOf(next)
+    // Only a sibling that arrives in the Legacy's own step is migrated at 6239 with it. A sibling landed
+    // in an earlier step records from route L's world start inside the capture (1359-A §10 item 4).
+    const migrated = P15_SIBLINGS.filter(([key]) => (rawOf(next)[key] as { recordedFromWeek?: number } | undefined)?.recordedFromWeek === B - 1)
+    expect(migrated.length, 'premise: a sibling root migrated at 6239 with the Legacy (a shared step)').toBeGreaterThan(0)
+    for (const [, domainId] of migrated) {
+      const source = sourceOf(official, domainId)
+      expect([source.recordedFromWeek, source.status], domainId).toEqual([B - 1, 'limited'])
+    }
+  }), ROUTE_MS)
+
+  it('legacy-validate-stamp-duplicate-across-roots', budgeted(ROUTE_MS, () => {
+    stepFn()
+    const state = routeAt(B + 1)
+    requireRoot(state, 'powerRanking', 'a duplicate needs a second P15 root')
+    const ranking = rawOf(state).powerRanking as { snapshots: Record<string, unknown>[] }
+    expect(ranking.snapshots.length, 'premise: recorded quarters').toBeGreaterThan(0)
+    const sequence = officialOf(state).p15DomainSequence
+    const lastRecord = ranking.snapshots[ranking.snapshots.length - 1]!
+    refuses(withRoot(state, 'powerRanking', { ...ranking, snapshots: [...ranking.snapshots.slice(0, -1),
+      { ...lastRecord, p15DomainSequence: sequence, id: `power-ranking-${sequence}` }] }), /power ranking|p15/i)
+  }), ROUTE_MS)
+
+  it('legacy-validate-refs-sibling-added-after-freeze', budgeted(FIXTURE_MS, () => {
+    stepFn()
+    const frozen = genuineFrozen()
+    requireSiblings(frozen, 'a sibling root recorded from B or later exists only once a sibling lands')
+    const official = officialOf(frozen)
+    for (const [key, domainId] of P15_SIBLINGS) {
+      const root = rawOf(frozen)[key] as { recordedFromWeek: number } | undefined
+      if (root === undefined) continue
+      expect(root.recordedFromWeek, `${key} migrated at 6240`).toBeGreaterThanOrEqual(B)
+      expect(sourceOf(official, domainId)).toEqual({ domainId, highWatermark: 0, recordedFromWeek: null, status: 'notRecorded' })
+    }
+    expect(makeSave(frozen).saveVersion).toBe(STEP)
+  }), FIXTURE_MS)
+})
