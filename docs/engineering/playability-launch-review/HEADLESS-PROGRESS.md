@@ -1,5 +1,11 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — 2026-10-04 Save45 source landed; recorded acceptance pending
+
+Save45 production, sibling and reviewed sweep are landed through95ddf564 and published with1361-L. All three typechecks and both generators pass; exact parity with measured x3 is recorded. Four recorded P15 runs and broad core/UI/d16 remain pending5 GiB free storage; current~4.27 GiB. No final GREEN or broad-acceptance claim. P15A.1(c) stays held for1365.
+
+Owner1367-O authorizes the [remainder plan](plans/HEADLESS-REMAINDER-IMPLEMENTATION-PLAN.md) through boundedP18, delegation and milestone handoffs. Next: recorded Save45 gates, closure baseline/pins,1363 recovery,1364 founding,1365 activation, then P15B/P16/P17/P18 in the approved dependency order. Root HANDOFF.md owns current jobs and exact next action. Earlier “CURRENT” sections below are retained historical checkpoints.
+
 ## CURRENT — P15A.1 Wave 1 landed (gates pending); shelving production running; P15B charter in review
 
 - P15A.1 Wave 1, the pure shared-market law (D-1323-1), landed (1346-L).

@@ -1,5 +1,9 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — 2026-10-04 Save45 and remaining headless program
+
+Save45 source landed through95ddf564; Bridge TypeScript and both generated-contract checks pass. This is not native Unity verification. Preserve the existing native backlog. Qualified P15B condition/loan/closure presentation, P15C ranking/Legacy views and minimum web ceremony/dossier, P16 rights/acquisitions, bounded P17 continuations and P18 first-season surfaces must be reconciled against their actual later DTO/schema changes. Do not treat this forward list as implemented functionality. Follow the [approved remainder plan](plans/HEADLESS-REMAINDER-IMPLEMENTATION-PLAN.md) and root HANDOFF.md; protected-main promotion remains separately authorized.
+
 ## CURRENT — Neighbor maintenance verified; occupancy control applied for its first observation
 
 Published972836d552864c926cf1a8848e6234519ecbd0e6 remains the exact source of all

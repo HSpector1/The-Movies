@@ -1,0 +1,27 @@
+{
+  "live": "95ddf564f1637cffd43abe335c82440116d6f983",
+  "candidate": "ee289de67e453ce269c98d840a48799265c62993",
+  "paths": [
+    "src",
+    "tests",
+    "ui",
+    "bridge",
+    "generated",
+    "scripts",
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json",
+    "tsconfig.bridge.json",
+    "vitest.config.ts",
+    "vitest.workspace.ts"
+  ],
+  "excluded": "tests/fixtures payloads; neither enumerated on filesystem nor read",
+  "comparedEntries": 1545,
+  "deltas": [],
+  "untrackedCandidateFile": {
+    "path": "scripts/art/authored-asset-pipeline.py",
+    "sha256": "fc3c4c465597f71fb5d397cb0e95454500bab401dd40e5e9c4d5dd73b4775b4d",
+    "mode": "0o755",
+    "result": "physical bytes and mode equal; file absent from scratch git index"
+  }
+}
