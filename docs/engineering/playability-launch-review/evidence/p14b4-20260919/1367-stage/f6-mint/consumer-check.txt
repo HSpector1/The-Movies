@@ -1,0 +1,10 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p15c2-legacy-replay-inputs.test.ts (2 tests) 288ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  18:43:25
+   Duration  2.90s (transform 1.72s, setup 0ms, collect 2.20s, tests 288ms, environment 0ms, prepare 106ms)
+

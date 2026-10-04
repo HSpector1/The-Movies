@@ -1,0 +1,3 @@
+waiting for pid 0; then: env PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin:/usr/sbin:/sbin node node_modules/vitest/vitest.mjs run --project core tests/p15c2-legacy-replay-inputs.test.ts --maxWorkers=1 --minWorkers=1; 2026-10-04 18:43:24 CDT
+start; 2026-10-04 18:43:25 CDT
+end, exit 0; 2026-10-04 18:43:28 CDT

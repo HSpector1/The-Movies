@@ -1,0 +1,28 @@
+{
+  "format": "p15c-frozen-v2-capture/v1",
+  "sourceHead": "951ef9265f5bb5a6df039887686379cc068482bf",
+  "routeSeed": "1359-legacy-late-founding-01",
+  "sourceSaveVersion": 45,
+  "week": 6240,
+  "definition": "campaign-legacy/v2",
+  "route": "generateWorld; natural route L; historical-control founding before migration-origin industry; actual tick to 6240",
+  "capture": {
+    "name": "route-l-week-6240.save45.json.gz",
+    "compressedBytes": 80224,
+    "compressedSha256": "ba6b451afe8e533157f1a6aa6ce297895309ef6c782d442c4980bdd61712a275",
+    "bytes": 693800,
+    "sha256": "c1467a491522e2a71590263669afa8df55faddb4cac1293781c2567cfaa2f3f1"
+  },
+  "officialSha256": "45df393f87d093d3ea2d55f11d3418cc6abdce6099414048d82f69ea3e374368",
+  "sourceFiles": {
+    "src/core/campaignLegacy.ts": "b958691c971e36be17a53726224c21bcfc2081d6119880c07519f88c6f71331f",
+    "src/core/technologyCatalogue.ts": "c9117fcff0944ffa9a518190f642fd46acddfe65d9f67f5df559558b3b941428",
+    "src/core/save.ts": "3f852f997feaa77effd581858f56bf59a9cfa87069afec6e0a895cc653dced72",
+    "tests/helpers/p15c2-route-l.ts": "0a046fbed82026d0a14571dbca7291054064cf66f9d45ad83ad0b1926fdaa0c4",
+    "tests/helpers/p15c2-frozen-v2-mint.ts": "a71cb89adc4d4ec571b8fe54472437b27c42bb78b9b16b7699df204bbc041d45"
+  },
+  "timings": {
+    "routeMs": 5779.7727350000005,
+    "totalMs": 5995.255005000001
+  }
+}

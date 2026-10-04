@@ -1,0 +1,17 @@
+{
+  "sourceHead": "951ef9265f5bb5a6df039887686379cc068482bf",
+  "manifestSha256": "ed8bc9f4ae53694ddb88c3ca190957bfe68194c4f6affb18ef7a3d8a9e575b0a",
+  "capture": {
+    "name": "route-l-week-6240.save45.json.gz",
+    "compressedBytes": 80224,
+    "compressedSha256": "ba6b451afe8e533157f1a6aa6ce297895309ef6c782d442c4980bdd61712a275",
+    "bytes": 693800,
+    "sha256": "c1467a491522e2a71590263669afa8df55faddb4cac1293781c2567cfaa2f3f1"
+  },
+  "officialSha256": "45df393f87d093d3ea2d55f11d3418cc6abdce6099414048d82f69ea3e374368",
+  "timings": {
+    "routeMs": 5779.7727350000005,
+    "totalMs": 5995.255005000001
+  },
+  "recordedStem": "1361-f6-frozen-v2-mint"
+}
