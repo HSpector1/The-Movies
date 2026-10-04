@@ -12,6 +12,10 @@ order). Marathon-era "no successor" language below is historical.**
 This is a compact routing index, not a replacement for the contracts, evidence, Owner records, or
 canonical Lessons Learned.
 
+## Owner execution decisions, 2026-10-04
+
+[1367-O](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-O-owner-execution-decisions-20261004.md) records execution through bounded P18, sub-agent authority and checkpoint handoffs. The Owner delegates bounded P17 cameo capability/era and fee contract authoring with independent review before coding. Spin-off branch rights stay with the parent property until explicit independent-property promotion; no branch-rights market is added. [Implementation plan](docs/engineering/playability-launch-review/plans/HEADLESS-REMAINDER-IMPLEMENTATION-PLAN.md).
+
 ## Owner rulings, 2026-10-03
 
 Recorded word for word in
