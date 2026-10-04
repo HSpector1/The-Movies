@@ -10,7 +10,7 @@ Production commits, in order: `97bee4ac` (slice2a), `df8cb801` (market seam), `5
 
 ## Landing checks
 
-The single heavy lane ran [this script](1361-stage/land/landing-checks.sh) on source95ddf564 with Node20.20.2 from16:02:24 to16:04:36 CDT. `set -eu` makes each following command dependent on prior success. Root/UI/Bridge TypeScript and both Bridge generator checks all passed; final exit0. [Log](1361-stage/land/landing-checks.log), [lane metadata](1361-stage/land/landing-checks.log.meta). Source remained clean after checks.
+The single heavy lane ran [this script](1361-stage/land/landing-checks.sh) on source95ddf564 with Node20.20.2 from16:02:24 to16:04:36 CDT. `set -eu` makes each following command dependent on prior success. Root/UI/Bridge TypeScript and both Bridge generator checks all passed; final exit0. [Log](1361-stage/land/landing-checks.txt), [lane metadata](1361-stage/land/landing-checks.log.meta). Source remained clean after checks.
 
 ## Pending acceptance
 
