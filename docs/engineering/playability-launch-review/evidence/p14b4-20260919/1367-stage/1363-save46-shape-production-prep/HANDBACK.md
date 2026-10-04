@@ -1,0 +1,9 @@
+# Combined Save46 shape/initialization draft
+
+Scratch partial proposal, no live source edit, types/runtime/RED/GREEN. Base published2eaa697e; none of these locations overlap the prepared A/B/C behavior diffs. Exact four-file patch adds the live costCutting shape, one refund kind, one facilityDisposed receipt, fresh/scheduled null/zero initialization, GameStateV46 alias, and the corresponding explicit null/zero-only strip in frozen convertV18ToV19. The shared initializer must not contaminate an old envelope with newly added fields. The frozen migration still validates old input/output through its existing owners.
+
+This is not an independently runnable schema release. Live save envelope/writer/reader/dispatcher still says45; combined conversion, era-aware exact validation, private proof chain, all downgrade/frozen-builder paths, owned receipt/opex accounting and live-version test sweep are still absent. Assemble the coherent combined46 slice before exposing source or committing production. Type aliases share the widened Hollywood structure as prior leaf eras do; public old readers must remain runtime-strict through explicit flags.
+
+No new P15 root/sequence allocation, migration receipt, cash, historical recovery episode or retrospectively disposed body is introduced. Existing periods get zero only through the yet-unwritten true45→46 converter; this initializer affects newly created live periods only. Admitted actual old-era staging must not acquire the new zero key when an old helper creates a new year period; inspect the explicit pre-recovery admission path during full integration and test it separately. The old controls currently operate within their existing periods, but that is not a general compatibility proof.
+
+Next independent static review, then future complete save implementation under adopted1363-A/F/A2 and1367-H, controlled RED/GREEN and historical fallout. Do not apply this partial shape to the frozen active recorder.

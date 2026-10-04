@@ -1,0 +1,122 @@
+diff --git a/tests/save-masked-downgrade-own-era.test.ts b/tests/save-masked-downgrade-own-era.test.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/save-masked-downgrade-own-era.test.ts
+@@ -0,0 +1,117 @@
++// 1362-O item 9 / 1344-X12: additive own-era downgrade controls.
++// Historical live-chain cases and immutable captures remain unchanged.
++// The missing used-extension capture and unreachable genuine V27 finance-only
++// route are reported in the preparation inventory, not claimed by these tests.
++import { createHash } from 'node:crypto'
++import { readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { describe, expect, it } from 'vitest'
++import {
++  convertV26ToV27, convertV27ToV26, convertV36ToV35, convertV37ToV36,
++  migrateToV35, migrateToV36, stableStringify, validateSaveV26, validateSaveV27,
++  validateSaveV36, validateSaveV37,
++} from '../src/core/save.js'
++import { admitRivalPlans } from '../src/core/rivalResearch.js'
++import type { GameState } from '../src/core/types.js'
++import { historicalWriterPair } from './helpers/p14c2rm-fixtures.js'
++import { scientistRaw } from './helpers/p14c3-fixtures.js'
++
++const bytes = (value: unknown): string => stableStringify(value)
++
++function refusal(run: () => unknown): Error {
++  try { run() } catch (error) {
++    expect(error).toBeInstanceOf(Error)
++    return error as Error
++  }
++  throw new Error('Expected the named downgrade guard to refuse')
++}
++
++describe('1362-O item 9: valid own-era downgrade inputs', () => {
++  it('V36 open retirementExtension case alone refuses V35 after both own-era controls validate', () => {
++    const original = historicalWriterPair().commissioned
++    const originalBytes = bytes(original)
++    expect(validateSaveV37(original)).toBe(original)
++    expect(original.state.careerLifecycle.records.some(row => row.profession === 'scientist')).toBe(false)
++
++    const own36 = convertV37ToV36(original)
++    expect(validateSaveV36(own36)).toBe(own36)
++    const cases = own36.state.talentMarket.cases.filter(row => row.variant === 'retirementExtension')
++    const used = own36.state.careerLifecycle.records.filter(row => row.extensionUsed)
++    expect(cases).toHaveLength(1)
++    expect(cases[0]!.talentId).toBe('authored-0000')
++    expect(used, 'the open-case witness has no used-extension authority').toHaveLength(0)
++    const before = bytes(own36)
++    expect(refusal(() => convertV36ToV35(own36)).message).toBe(
++      'migrateToV35: cannot downgrade SaveFileV36 or discard the retirement extension — it holds 1 retirementExtension case(s) and 0 used extension(s) (first: authored-0000), and V35 has nowhere to record the one final extension',
++    )
++    expect(bytes(own36)).toBe(before)
++    expect(bytes(original)).toBe(originalBytes)
++  })
++
++  it('V37 Scientist refusal is first on both V36 and V35 routes from a valid historical envelope', () => {
++    const control = historicalWriterPair().commissioned
++    expect(validateSaveV37(control)).toBe(control)
++    expect(control.state.careerLifecycle.records.some(row => row.profession === 'scientist')).toBe(false)
++    expect(validateSaveV36(migrateToV36(control)).saveVersion).toBe(36)
++
++    const own37 = validateSaveV37(JSON.parse(scientistRaw()))
++    expect(own37.state.market.tick).toBe(670)
++    expect(own37.state.careerLifecycle.records.find(row => row.personId === 't-sci-00'))
++      .toMatchObject({ profession: 'scientist' })
++    const before = bytes(own37)
++    const expected = 'migrateToV36: cannot downgrade SaveFileV37 or discard Scientist retirement — t-sci-00 holds a record that V36 does not support'
++    expect(refusal(() => migrateToV36(own37)).message).toBe(expected)
++    expect(refusal(() => migrateToV35(own37)).message).toBe(expected)
++    expect(bytes(own37)).toBe(before)
++  })
++
++  it('valid V37 retained writer reaches the frozen V36 not-contracted rule without a later-era wrapper', () => {
++    const pair = historicalWriterPair()
++    expect(validateSaveV37(pair.commissioned)).toBe(pair.commissioned)
++    expect(validateSaveV37(pair.finishing)).toBe(pair.finishing)
++    expect(validateSaveV36(convertV37ToV36(pair.commissioned)).saveVersion).toBe(36)
++    expect(pair.finishing.state.careerLifecycle.records.some(row => row.profession === 'scientist')).toBe(false)
++    const state = pair.finishing.state
++    const projects = state.scriptDevelopment.projects.filter(row =>
++      (row.status === 'drafting' || row.status === 'rewriting') && row.writerIds.includes(pair.writerId))
++    expect(projects, 'one genuine active writing obligation survives the contract expiry').toHaveLength(1)
++    expect(state.contracts.some(row => row.talentId === pair.writerId
++      && row.startWeek <= state.market.tick && state.market.tick < row.endWeekExclusive)).toBe(false)
++    const before = bytes(pair)
++    const error = refusal(() => convertV37ToV36(pair.finishing))
++    // Pin both the public frozen reader and the exact producer invariant/subject.
++    // Intervening frozen-reader prefix text is not the guard under test.
++    expect(error.message.startsWith('validateSaveV36: frozen V35 state is invalid — ')).toBe(true)
++    expect(error.message.endsWith('active project "' + projects[0]!.id + '" writer is not contracted')).toBe(true)
++    expect(bytes(pair)).toBe(before)
++  })
++
++  it('valid staged V27 research reaches the receipt arm; this does not claim finance-only coverage', () => {
++    // Same immutable sound-mid-deployment input and real admission seam approved
++    // by 1358-F10/F11; this new leaf explicitly validates both own-era states.
++    const compressed = readFileSync(new URL('./fixtures/p13b/legacy-v26-sound-mid-deployment-309.json.gz', import.meta.url))
++    const raw = gunzipSync(compressed).toString('utf8')
++    expect(createHash('sha256').update(raw).digest('hex'))
++      .toBe('11ef05be4131d3d3c4a19484f31e79cb50fa1936868f96ace7d0d18ea86e2d72')
++    const old = validateSaveV26(JSON.parse(raw))
++    const oldBytes = bytes(old)
++    const lifted = convertV26ToV27(old)
++    expect(validateSaveV27(lifted)).toBe(lifted)
++    expect(bytes(convertV27ToV26(lifted))).toBe(oldBytes)
++    const liftedBytes = bytes(lifted)
++    const produced = admitRivalPlans(lifted.state as unknown as GameState)
++    const staged = validateSaveV27({ ...lifted, state: produced.state })
++    const kinds = new Set(['laboratoryCommitted', 'laboratoryOperational', 'instrumentOperational', 'researchSeatAssigned', 'researchCompleted'])
++    const receipt = staged.state.hollywood!.receipts.find(row => kinds.has(row.kind))
++    expect(receipt, 'a real rival admission produces the first blocking research receipt').toBeDefined()
++    expect(staged.state.hollywood!.businesses.some(business =>
++      business.account.periods.some(period => period.movements.researchCapacity !== 0))).toBe(true)
++    const before = bytes(staged)
++    expect(refusal(() => convertV27ToV26(staged)).message).toBe(
++      'migrateToV26: cannot downgrade SaveFileV27 or discard rival research — frozen save projection cannot discard authoritative V27 rival research state on receipt ' + receipt!.eventId,
++    )
++    expect(bytes(staged)).toBe(before)
++    expect(bytes(lifted)).toBe(liftedBytes)
++    expect(bytes(old)).toBe(oldBytes)
++  })
++})

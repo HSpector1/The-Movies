@@ -1,0 +1,10 @@
+{
+  "baseHead": "2eaa697effc38538c37da28b486786ce267a2284",
+  "allocatedSaveVersion": 46,
+  "status": "partial preparation; no execution; explicit coverage gaps",
+  "files": {
+    "part-c-red.patch": "96ce467b85e4dc2c9e5aee477f6f578dab30763280b8513831849ad030841594",
+    "tests/p14d2-rival-facility-disposal.test.ts": "a64637e8c5eb86ebe7d126be62f2c0e2c22ccbfa819187626c08d2bd83252a69",
+    "HANDBACK.md": "36557dee5d7ed1a6a4b910942cd576607cbfe15c251420d6e6618b8bcf0108a0"
+  }
+}

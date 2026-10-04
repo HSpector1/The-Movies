@@ -1,0 +1,71 @@
+# Part C RED preparation: bounded rival facility disposal
+
+Status: incomplete RED preparation for parent inspection and independent review, not an execution-ready complete C1-C9/S5-S6 matrix. No Node, tests, typecheck, fixtures, production edits or repository/index writes. Source baseline Save45 `2eaa697effc38538c37da28b486786ce267a2284`; Save46 allocated exclusively to B+C by adopted 1367-H. Read with 1363-A2 and 1363-F. Parent owns source and the heavy lane.
+
+## Proposed interfaces, not existing implementation
+
+Add the following named exports to existing `src/core/rivalResearch.ts`. Names and diagnostic strings are proposed test contracts for parent adoption, not Owner product rulings. Namespace imports and local future-shape casts make absent exports explicit assertion failures; no fictitious module must be imported.
+
+- `rivalFacilityDisposalEligibility(state, studioId, facilityId)` is pure, returning `{eligible:true, planId, refund}` or `{eligible:false, reason, subjectId}`. It reads authoritative roots, not caller-supplied quote/refund information.
+- `disposeRivalFacility(state, studioId, facilityId): GameState` independently calls that same predicate. It refuses with exactly `rival facility disposal: <reason> (<subjectId>)`, with no input mutation, or returns one atomic result. It removes only the eligible body, appends one receipt through the existing global Hollywood allocator, and uses the existing money owner for the exact shared refund. No new body-plan status or duplicate disposal-history root.
+- `disposeEligibleRivalFacilities(state, studioId): GameState` visits body commitments in original receipt order, re-evaluates after each mutation, and skips protected bodies. Explicit requests for disposed bodies refuse; this policy pass and completion skip the tombstone without further effects. Integrate after decide and before facility opex, without a second staff/decide pass. The tick may use a reviewed adapter around its local clones; it must not invent a different eligibility law.
+- `validateRivalFacilityDisposal(state): void` is a proposed pure owner validator for new-era disposal authority. It accepts a valid control and emits exactly `rival facility disposal invariant: <reason>` for the named independent C7 mutants. Public Save46 must reach that named first refusal, with an explicit disposal-era path. This export is for independently testable owner invariants, not an old-reader backdoor. Parent may choose another seam before adoption, updating tests without weakening the assertions.
+
+Eligibility guard ordering proposed for deterministic first-refusal isolation: owner identity (player/not-rival, unknown studio); matching tombstone; known subject ownership (foreign); exact core identity; cutting status; body provenance/operational completion; reservations; retained project/seat history; admitted/operational instrument; remaining direct/transitive plan dependency; adoption dependency. Unknown body is distinct from a committed but unfinished known body. Four protected core IDs use their actual existing suffixes. Return the exact blocking plan/project as subject where applicable, the studio for owner/cutting failures, otherwise the facility. No broader eligibility list is authorized.
+
+C7's dedicated validator runs before the generic account/receipt chain for these new fields, so a one-field refund mismatch cannot count as coverage by failing a generic balance check instead. Distinct proposed codes currently pinned: wrong-refund, wrong-blueprint, future-disposal, missing-body-plan, wrong-owner, wrong-body, duplicate-disposal, refund-movement-mismatch, negative-refund-movement, standing-and-disposed, operational-body-missing. They are explicit new authoring choices requiring parent review, not observed runtime messages.
+
+## Setup integrity and boundaries
+
+The test helper invokes existing `p13aGeneratedStudio('p13a-core-causal-01')`, then exactly the named ordinary ticks. There are no fixture inputs, money edits, clock jumps or inserted plans/receipts. The paid laboratory, commitment, started plan and operational receipt must be genuine. Completed bodies retain `status:'started'` in the actual physical-plan law.
+
+For isolated disposal controls, only `costCutting.since` is set to the current observed week after asserting its newly initialized null form. This is explicitly a **synthetic policy-state control**, not evidence of natural entry. Both the generated input and modified control must pass actual makeSave/validateSaveV46 outside all refusal assertions. C1 additionally requires no production/run and no retained project/install authority on the body. A failed premise is reported as UNMET VALID PREMISE, not target RED coverage. No builder deletes history to create a bare body.
+
+Named setup bounds: weeks 0, 1, 12, the actual observed operational week, 52, 261 and 280. These are unmeasured proposals, not claims that this seed supplies every premise after A+B. Cache each completed generated route; a failing route must be investigated, not silently widened or repaired. The week-261 instrument and week-280 retained-project leaves require real original authorities and may be unmet after the new cutting policy.
+
+Per-leaf harness timeouts are 120 seconds, with 300 seconds for the bounded natural observation. These are operational allowances, not gameplay performance ceilings or measured durations. The C6 continuation is exactly 60 ticks per arm, comparing uninterrupted with actual export/import. The separate natural observation is exactly 520 ticks of the same generated seed with no synthetic cost-cutting or state edits. It records real autonomous disposal rows, or explicitly emits ZERO_REFUNDS. A zero-result observation is not a positive disposal integration witness or a coverage waiver; keep the blocking-cause census and acceptance route requirement open. It does not claim sustainable recovery merely from a refund.
+
+## Actual owner/seam inventory
+
+| Source seam | Actual fact and required integration |
+|---|---|
+| rivalResearch.ts:121-177 | Real admission creates a paid started plan and laboratoryCommitted receipt, debits researchCapacity. At most two historical body plans; a second requires occupied first capacity. Disposal cannot free that historical quota. |
+| rivalResearch.ts:268-317 | Completion is at arrived week, reconstructs an absent body from retained started plan, and emits laboratoryOperational. It needs the lawful tombstone guard; do not mark plans completed or delete them. |
+| physicalPlans.ts:392-458; types.ts:1919-1969 | Work targets actual facility IDs or plan IDs, dependsOn is same-studio/acyclic, statuses are queued/held/blocked/started/cancelled. Rival started plans have no player placement. No invented lifecycle or dependency semantics. |
+| hollywood.ts:35-52,128-153 | Existing money owner handles year period creation; body opex comes from actual held facilities; four core identities and costs are fixed. Refund uses facilityDemolitionRefund(blueprintById('research-laboratory')), currently 450,000 against paid body 900,000. |
+| hollywoodTick.ts:425-438 | Existing weekly payroll/overhead/facility booking; integrate disposal after decision and before body opex. Completion happens later at the arrived boundary. |
+| hollywoodValidation.ts:245-323,373-391 | Paid-plan capacity, project-spend and account reconciliation; current positive whitelist only studioRevenue; operational receipts currently imply standing labs. Extend only the disposal era with exact refund-period joins, two-way standing-or-disposed proof and [O,D) laboratory opex. |
+| technology.ts:940-978 | Every project status and every historical seat still resolves its lab; released seats and completed/cancelled projects do not free the body. |
+| technologyTypes.ts:93-116 | Current adoption references are stage/post and physical project IDs, not invented lab-only grants. A lab adoption guard needs truthful supported source facts; no invalid adoption may masquerade as an isolated control. |
+| save.ts:8084,10528-10555 | Profession proof descends the whole Hollywood chain. Strip costCutting only in its internal historical view, pass explicit disposal era through every layer, preserve actual cash/refund/receipt/missing body. S6 calls validatedLiveProfessionContext directly. |
+| 1367-H | Allocate46 once for B+C; migrate null/zero only, keep all old public readers strict. No separate Part C era, production law or blueprint widening. |
+
+### Authorized historical staging compatibility
+
+The public `admitRivalPlans` is called on explicit old V27 state by `tests/p13b-s8-save-v27.test.ts:218-222` under 1358-F10/F11 and by the reviewed additive 1367 own-era patch. An unconditional `business.costCutting.since` dereference would crash that lawful route. Preserve its pre-era behavior at an explicit compatible boundary while ensuring actual live46 calls cannot omit/disable cutting checks. Do not infer era solely from attacker-controlled fields in save validation. Do not repin a missing-field failure. The historical staging test remains a separate compatibility gate; these new disposal controls always validate Save46. Part B author has been informed.
+
+## Coverage matrix: implemented versus still unproven
+
+| Requirement | Prepared assertion or remaining gap |
+|---|---|
+| C1 | Genuine paid bare body with explicitly synthetic admitted cutting state; shared refund/current450k, capital strictly greater, actual cash/period/receipt, removal, original history and all unrelated roots unchanged. Positive natural entry/refund remains separate. |
+| C2 | Four core IDs; player/unknown owner; foreign/unknown body; non-cutting. Non-lab beyond core has no lawful current rival producer; do not insert an invalid fifth non-lab and claim valid isolation. |
+| C3 | Genuine unfinished body and bounded actual uncompleted instrument. Queued/held/blocked/transitive dependency and adoption-reference valid baselines are not yet established. Operational instrument without earlier research-history masking also remains to be sourced. No statuses/plans/adoptions are forged to pass. |
+| C4 | One genuinely retained research reference under the exact research-history guard, preserving entire technology root. Separate active/paused/cancelled/completed/released-seat/reserved-slot valid witnesses are still required; the one leaf cannot close all variants. Rival pause/cancel policy is not invented. |
+| C5 | Disposal at actual O, ordinary week12 and finance boundary52, no retroactive opex, next-week only core opex, same paid plan. Retained instrument opex on another lawful body and fuller multi-period mutant coverage remain open. |
+| C6 | Explicit repeat refusal; policy/completion no-op; started plan retained; 60-tick actual save/reload equality and no repeat body/refund. Pending unrelated-plan continuation requires a separate valid witness. |
+| C7 | Eleven independently labeled synthetic authority/finance mutants from a fully admitted disposed state, each exact named first owner refusal and public46 refusal. Duplicate-plan, pre-operational date, missing specific predecessor and wrong-period movement controls remain to add after establishing their isolated first-guard premises. |
+| C8 | No test currently claims two lawful bare labs. Existing second-body admission requires first-lab occupied seats, and retained history protects that first lab forever. Two lawful bare labs therefore have no established genuine producer route. A protected first body with a later lawful body may be possible at its actual completion boundary; source/measure that separately. Never erase first-lab history to manufacture two disposals. Canonical ordering and reorder mutants remain open. |
+| C9 | Direct refund preserves cutting and creates no hiring/commission/production. Later retained-team real greenlight exit and unstaffed no-rehire continuation need admitted real premises and Part B coordination; not claimed here. |
+| S5 | Empty generated-live46 lossless down/up control only, explicitly not a genuine predecessor capture. Genuine pre-amendment45 capture, migration idempotence/authority preservation, exact since/refund/tombstone downward guards and isolated old-reader rejections remain required. A nonzero refund without receipt is invalid, so it cannot stand in as an independent valid downgrade control. |
+| S6 | Direct proof on admitted cutting state and on actual disposed/refunded state; input unchanged. Production review must inspect all era-threaded internal callsites; passing only tick is insufficient. |
+
+## Parent handback
+
+This is useful partial RED preparation, not completion of the adopted matrix. Parent and independent reviewer must review proposed APIs and diagnostic ordering, then the parent may install in an isolated controlled tree after the freeze. Measure intended REDs separately from missing-api, missing-version, unmet-setup and unrelated validation failures. Do not weaken baseline checks or replace genuine source authority to make a leaf pass. The declared capture/valid-premise gaps need additional authorized authoring or measured disposition before claiming complete C acceptance; no Owner waiver is requested or presumed.
+
+No shared Part B files were edited. Their synthetic cutting control uses the same admitted-current-week principle, while their no-inflow case stays on four core facilities; Part C owns the distinct backed positive refund and direct disposed-state profession proof. Parent remains sole production writer. The source has not been modified or executed.
+
+## Parent-review correction: synthetic cutting admission
+
+The bare-body, unfinished-body, instrument and retained-project selectors now all require an existing rival with null since, no production, no run and no current issuer proposal before selecting its authority. A shared markCutting helper reasserts those premises, asserts the exact initialized shape and absence of issuer proposals, changes only since to the observed week, and immediately runs full Save46 admission. If no such owner exists at the same seed/week, report UNMET VALID PREMISE; no extra ticks, proposal removal, cleared production or history repair is permitted. These stricter selectors remain unmeasured and do not establish natural entry.

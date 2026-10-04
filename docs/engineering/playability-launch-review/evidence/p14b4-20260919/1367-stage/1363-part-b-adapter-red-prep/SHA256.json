@@ -1,0 +1,9 @@
+{
+  "tests/p14d2-rival-cost-cutting-adapter.test.ts": "39e6985c71a19b1c10b0f3255a923caa831a860da7cd14543ff08654571e8486",
+  "part-b-adapter-red.patch": "e9449542d4977ac7dff72a279ee43f6693eb76e830f24573effcbdc5e87c4408",
+  "HANDBACK.md": "630ba7927d96d3da78dde2c1dc4ea7b534db4246e5aa6cf90437a8c69a0aba82",
+  "unchanged_main_patches": {
+    "part-b-red.patch": "aaf3788ecbb0dc550dc5369f6e5cf91b836a9fb02ba7c85dfd274c531ca72b6a",
+    "mixed-sequence-input.patch": "145d198242778af57e173a979401c866aa0ae6cde2300ceddc8835753efc1180"
+  }
+}

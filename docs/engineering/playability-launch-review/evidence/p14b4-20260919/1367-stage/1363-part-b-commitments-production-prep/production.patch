@@ -1,0 +1,86 @@
+--- a/src/core/rivalResearch.ts
++++ b/src/core/rivalResearch.ts
+@@ -112,6 +112,7 @@
+  */
+ export function rivalScientistDemand(state: GameState, h: HollywoodState, business: RivalBusiness,
+   talent: readonly Talent[], week: number): number {
++  if (business.costCutting.since !== null) return 0
+   const context = studioContext({ ...state, hollywood: h, talent: talent as Talent[] }, business.studioId)
+   const capacity = context.facilities.reduce((sum, f) => f.capability === 'laboratory' ? sum + f.capacity : sum, 0)
+   if (capacity === 0) return 0
+@@ -197,13 +198,18 @@
+  * is modified. `history` mirrors `admitPhysicalPlans`'s shape and is always empty:
+  * `studioHistory` is the PLAYER's record, and a rival writes no row in it.
+  */
+-export function admitRivalPlans(state: GameState): { state: GameState; history: readonly StudioHistoryDraft[] } {
++export function admitRivalPlans(state: GameState, era: 'recovery' | 'pre-recovery' = 'recovery'): { state: GameState; history: readonly StudioHistoryDraft[] } {
+   const source = state.hollywood
+   if (!source || source.businesses.length === 0) return { state, history: [] }
+   const h: HollywoodState = { ...source, receipts: [...source.receipts], businesses: source.businesses.map(workingBusiness) }
+   const week = state.market.tick
+   let plans = state.physicalPlans
+-  for (const business of h.businesses) plans = admitFor({ ...state, hollywood: h }, h, business, plans, week)
++  for (const business of h.businesses) {
++    // Explicit staging for already validated historical callers; never infer an
++    // old era from a missing live field. Actual live admission defaults strict.
++    if (era === 'recovery' && business.costCutting.since !== null) continue
++    plans = admitFor({ ...state, hollywood: h }, h, business, plans, week)
++  }
+   if (plans === state.physicalPlans && h.receipts.length === source.receipts.length) return { state, history: [] }
+   return { state: { ...state, hollywood: h, physicalPlans: plans }, history: [] }
+ }
+@@ -211,6 +217,7 @@
+ /** The admission step the weekly industry tick runs against its own clones. */
+ export function admitRivalPlansInWeek(state: GameState, h: HollywoodState, business: RivalBusiness,
+   plans: StudioPhysicalPlans, week: number): StudioPhysicalPlans {
++  if (business.costCutting.since !== null) return plans
+   return admitFor(state, h, business, plans, week)
+ }
+ 
+@@ -224,7 +231,8 @@
+   talent: readonly Talent[], week: number): GameState['technology'] {
+   let technology = state.technology
+   const working = (): GameState => ({ ...state, hollywood: h, technology, talent: talent as Talent[] })
+-  for (const row of interests(state, business, week)) {
++  // Existing active projects keep advancing below. Only new seats/starts stop.
++  for (const row of business.costCutting.since === null ? interests(state, business, week) : []) {
+     const context = studioContext(working(), business.studioId)
+     const laboratories = context.facilities.filter(f => f.capability === 'laboratory' && context.instrumentOperational(f.id, row.technologyId))
+     if (laboratories.length === 0) continue
+--- a/src/core/technologyRival.ts
++++ b/src/core/technologyRival.ts
+@@ -17,6 +17,7 @@
+  * is never re-bought, and nothing about the commercial route moved.
+  */
+ export function considerRivalSoundPurchase(state: GameState, hollywood: HollywoodState, business: RivalBusiness): StudioTechnology {
++  if (business.costCutting.since !== null) return state.technology
+   let technology = state.technology
+   for (const entry of TECHNOLOGY_CATALOGUE) {
+     technology = considerRivalAdoption({ ...state, technology, hollywood }, hollywood, business, entry)
+--- a/src/core/talentMarket.ts
++++ b/src/core/talentMarket.ts
+@@ -1334,6 +1334,16 @@
+   const week = state.market.tick
+   let next = state
+ 
++  // Entry happened in the industry decision before this market phase. Withdraw
++  // through the shared verb before any case can settle, including extensions.
++  const cuttingStudios = new Set(next.hollywood!.businesses
++    .filter(b => b.costCutting.since !== null).map(b => b.studioId))
++  for (const proposal of next.talentMarket.proposals) {
++    if (cuttingStudios.has(proposal.issuerStudioId)) {
++      next = withdrawProposal(next, proposal.talentId, proposal.issuerStudioId)
++    }
++  }
++
+   // 1. invalidation
+   for (const kase of next.talentMarket.cases) {
+     if (kase.outcome !== null) continue
+@@ -1387,6 +1397,7 @@
+     }
+     const extension = isExtensionCase(kase)
+     for (const business of next.hollywood!.businesses) {
++      if (business.costCutting.since !== null) continue
+       if (week < business.nextDecisionWeek) continue // it has not decided this week
+       if (next.talentMarket.proposals.some((p) => p.talentId === kase.talentId && p.issuerStudioId === business.studioId)) continue
+       // P14C.2b (780 X8, 806 §8.1): on an extension case only the incumbent evaluates, under

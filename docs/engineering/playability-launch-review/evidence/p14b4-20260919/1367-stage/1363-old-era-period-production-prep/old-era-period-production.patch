@@ -1,0 +1,74 @@
+--- a/src/core/hollywood.ts
++++ b/src/core/hollywood.ts
+@@ -32,17 +32,25 @@
+   return id
+ }
+ 
+-export function newFinancePeriod(week: number, opening: number): RivalFinancePeriod {
++/** Explicit historical admission uses the V27 money roster; ordinary callers are live. */
++export type RivalFinanceEra = 'live' | 'research-v27'
++
++export function newFinancePeriod(week: number, opening: number, era: RivalFinanceEra = 'live'): RivalFinancePeriod {
++  const kinds = era === 'live' ? RIVAL_MONEY_KINDS
++    : RIVAL_MONEY_KINDS.filter(kind => kind !== 'termination' && kind !== 'facilityDemolitionRefund')
+   return { fromWeek: week, throughWeek: week, opening, closing: opening,
+-    movements: Object.fromEntries(RIVAL_MONEY_KINDS.map(kind => [kind,0])) as RivalFinancePeriod['movements'] }
++    movements: Object.fromEntries(kinds.map(kind => [kind,0])) as RivalFinancePeriod['movements'] }
+ }
+ 
+ /** Local working account only. Every committed movement reconciles its period. */
+-export function moveRivalMoney(account: RivalAccount, kind: RivalMoneyKind, amount: number, week: number): void {
++export function moveRivalMoney(account: RivalAccount, kind: RivalMoneyKind, amount: number, week: number, era: RivalFinanceEra = 'live'): void {
++  if (era === 'research-v27' && (kind === 'termination' || kind === 'facilityDemolitionRefund')) {
++    throw new Error('V27 rival finance does not admit later movement kinds')
++  }
+   if (!Number.isFinite(amount) || !Number.isFinite(account.cash + amount)) throw new Error('Nonfinite rival money')
+   let period = account.periods[account.periods.length-1]!
+   if (Math.floor(week/52) !== Math.floor(period.fromWeek/52)) {
+-    period = newFinancePeriod(week,account.cash)
++    period = newFinancePeriod(week,account.cash,era)
+     account.periods.push(period)
+   }
+   account.cash += amount
+--- a/src/core/rivalResearch.ts
++++ b/src/core/rivalResearch.ts
+@@ -23,6 +23,7 @@
+ // objects, except the internals the weekly tick calls with its OWN clones.
+ 
+ import { moveRivalMoney, rivalWeeklyOperatingCost } from './hollywood.js'
++import type { RivalFinanceEra } from './hollywood.js'
+ import { blueprintById, facilityDemolitionRefund, physicalQuoteFingerprint } from './placement.js'
+ import { assignSeat, beginProject, studioContext, advanceRivalResearchWeek } from './technology.js'
+ import { TECHNOLOGY_CATALOGUE, technologyEntry } from './technologyCatalogue.js'
+@@ -128,7 +129,7 @@
+  * the caller's working copies and ARE mutated, exactly as the rest of the weekly
+  * industry step works). Returns the plan root it produced.
+  */
+-function admitFor(state: GameState, h: HollywoodState, business: RivalBusiness, plans: StudioPhysicalPlans, week: number): StudioPhysicalPlans {
++function admitFor(state: GameState, h: HollywoodState, business: RivalBusiness, plans: StudioPhysicalPlans, week: number, financeEra: RivalFinanceEra = 'live'): StudioPhysicalPlans {
+   let root = plans
+   const reserve = rivalWeeklyOperatingCost(business, h, week) * business.policy.reserveWeeks
+   const admit = (work: PhysicalPlanWork, facilityId: string | null): boolean => {
+@@ -148,7 +149,7 @@
+       startedPlacementId: null, commitReceipt: { week, fingerprint: quote.fingerprint, cost: quote.cost },
+     }
+     root = { ...root, plans: [...root.plans, plan] }
+-    moveRivalMoney(business.account, 'researchCapacity', -quote.cost, week)
++    moveRivalMoney(business.account, 'researchCapacity', -quote.cost, week, financeEra)
+     if (facilityId !== null) appendReceipt(h, { week, studioId: business.studioId, kind: 'laboratoryCommitted', planId: id, facilityId })
+     return true
+   }
+@@ -205,10 +206,10 @@
+   const week = state.market.tick
+   let plans = state.physicalPlans
+   for (const business of h.businesses) {
+-    // Explicit staging for already validated historical callers; never infer an
+-    // old era from a missing live field. Actual live admission defaults strict.
++    // Explicit pre-recovery staging is the existing V27 research admission seam.
++    // It selects that money roster; no era is inferred from missing live fields.
+     if (era === 'recovery' && business.costCutting.since !== null) continue
+-    plans = admitFor({ ...state, hollywood: h }, h, business, plans, week)
++    plans = admitFor({ ...state, hollywood: h }, h, business, plans, week, era === 'pre-recovery' ? 'research-v27' : 'live')
+   }
+   if (plans === state.physicalPlans && h.receipts.length === source.receipts.length) return { state, history: [] }
+   return { state: { ...state, hollywood: h, physicalPlans: plans }, history: [] }

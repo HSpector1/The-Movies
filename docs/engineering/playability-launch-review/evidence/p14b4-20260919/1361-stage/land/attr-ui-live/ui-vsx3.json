@@ -1,0 +1,11 @@
+{
+  "beforeCount": 0,
+  "afterCount": 0,
+  "sameCount": 0,
+  "new": [],
+  "gone": [],
+  "changed": [],
+  "equal": true,
+  "normalization": "Only known absolute x3/live checkout prefixes become <tree>/ in primary messages; shared node_modules paths remain exact.",
+  "disposition": "Attribution only; every difference still requires parent review before gate acceptance."
+}

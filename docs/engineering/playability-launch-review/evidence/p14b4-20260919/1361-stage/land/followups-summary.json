@@ -1,0 +1,50 @@
+{
+  "disclosure": {
+    "sourceSha": "2eaa697effc38538c37da28b486786ce267a2284",
+    "exitCode": 0,
+    "fixedSource": true,
+    "allGuardsExact": true,
+    "start": "2026-10-04T23:28:35.919Z",
+    "end": "2026-10-04T23:29:44.962Z",
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/bridge-p13b-s7-disclosure.test.ts",
+      "--maxWorkers=1",
+      "--minWorkers=1"
+    ],
+    "sha256": {
+      ".json": "03df7ea837579b7c811c6cf0d98dc580c62889021bbb64ea95b3d82d8b6499c7",
+      ".txt": "03925909de253d1beef5a79efbbc5f5b98f4f0a3cf11d50df4f9dc2d2a71c5ab",
+      ".patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "-preflight.json": "ff17f7d5e880bc59330456f4e367bf8e6918ea5d47b6acd91a7a8030ca298907",
+      "-postflight.json": "74726f99111d359c3e8bded22186eab63ec0c7650891a9faaa2bc2983e2398c4"
+    }
+  },
+  "supervisor": {
+    "sourceSha": "2eaa697effc38538c37da28b486786ce267a2284",
+    "exitCode": 0,
+    "fixedSource": true,
+    "allGuardsExact": true,
+    "start": "2026-10-04T23:31:04.797Z",
+    "end": "2026-10-04T23:32:24.402Z",
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/bridge-supervisor.test.ts",
+      "--maxWorkers=1",
+      "--minWorkers=1"
+    ],
+    "sha256": {
+      ".json": "0222566508a2ea3d5ac5025d0aa59c378cc247b9c8728164ed5d04e007960e3b",
+      ".txt": "a949cb1f467db72cb3415897f0831fab9f79fcbb61133ff4fcc9e0b0ace1e6da",
+      ".patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "-preflight.json": "040c6ad89e58cda297a75d6f33b0755893a75157d3ad9665283749e2164c5712",
+      "-postflight.json": "9e3d3bbcf0233ded97a9d14c82030fc74d264dd418f8bb74a82662c3bb6ae4dd"
+    }
+  }
+}

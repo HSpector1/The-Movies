@@ -1,10 +1,12 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
-## CURRENT — 2026-10-04 Save45 source landed; recorded acceptance pending
+## CURRENT — 2026-10-04 Save45 recorded baseline verified; capture closure next
 
-Save45 production, sibling and reviewed sweep are landed through95ddf564 and published with1361-L. All three typechecks and both generators pass; exact parity with measured x3 is recorded. Four recorded P15 runs are complete:71PASS,1PASS,45declaredFAIL/14PASS,121PASS with exact guards. Broad core/UI/d16 are next; approved cache cleanup resolved storage (latest~6.52GiB free). No final GREEN or broad-acceptance claim. P15A.1(c) stays held for1365.
+[1361-M3](evidence/p14b4-20260919/1361-M3-save45-recorded-broad-gates.md) records completed source-fixed gates at2eaa697e: core133FAIL/5118PASS/3SKIP/11TODO, UI2692PASS/5SKIP, d16exact12FAIL/164PASS. Core preserves85prior identities and45declared held-c failures. Three additional waits did not reproduce in unchanged-source full-file followups (22/22 and14/14PASS); broad failures remain recorded, with no environmental-cause or all-green claim. Independent reviews approve this recorded-baseline checkpoint. Types/generators/parity and four focused runs remain verified under1361-L.
 
-Owner1367-O authorizes the [remainder plan](plans/HEADLESS-REMAINDER-IMPLEMENTATION-PLAN.md) through boundedP18, delegation and milestone handoffs. Next: recorded Save45 gates, closure baseline/pins,1363 recovery,1364 founding,1365 activation, then P15B/P16/P17/P18 in the approved dependency order. Root HANDOFF.md owns current jobs and exact next action. Earlier “CURRENT” sections below are retained historical checkpoints.
+Next: unchangedSave45 G-L/K3, F6 genuine frozen-v2/catalogue pins, qualified post-release timings and required pre-recovery captures. Reviewed recovery production/test preparation remains scratch-only and uncompiled (1367-I); downstream contracts are adopted1367-G and joint recovery Save46 allocated1367-H. P15A.1(c) remains held for1365.
+
+Owner1367-O authorizes the [remainder plan](plans/HEADLESS-REMAINDER-IMPLEMENTATION-PLAN.md) through boundedP18, agents and milestone handoff/commit/push. Continue recovery→founding→activation→P15B/P16/P17/P18 in dependency order. Root HANDOFF.md owns actual jobs and next actions. Older CURRENT sections below are historical.
 
 ## CURRENT — P15A.1 Wave 1 landed (gates pending); shelving production running; P15B charter in review
 

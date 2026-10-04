@@ -1,0 +1,15 @@
+{
+  "part-b-red.patch": "aaf3788ecbb0dc550dc5369f6e5cf91b836a9fb02ba7c85dfd274c531ca72b6a",
+  "mixed-sequence-input.patch": "145d198242778af57e173a979401c866aa0ae6cde2300ceddc8835753efc1180",
+  "tests/p14d2-rival-cost-cutting.test.ts": "5f15b798494527ae25e1d3d0fd550d0c57654007295a43310466ec10af2a4a49",
+  "base/tests/p14d1-rival-shelving.test.ts": "c24a4ab26d79fc1c3e82e1a4ee32cf8143a27fd794a0e6f457ec7ae989f42a2c",
+  "candidate/tests/p14d1-rival-shelving.test.ts": "dfee44dfc5cefb9fcb9d672d5750f153b04dfa2e89129bcefd1c68a142f1b6bb",
+  "HANDBACK.md": "71633d7d579d6ebc5b6509273896850583199b11b3292c9994d0e86c0c3dce85",
+  "live_base_sources": {
+    "src/core/hollywoodTick.ts": "d5963544fd591ee5abbb3584e3f0337db0210bfeaac05b69195a3c339452ac17",
+    "src/core/hollywoodPolicy.ts": "843131da845b609ad133259ee82035bc129aad4b75394b757d5ac66341efd234",
+    "src/core/rivalResearch.ts": "eb7753e88b31e980f504f28421346447eb6ece2308e42d1032fb7e9cc6e38d74",
+    "src/core/talentMarket.ts": "010ed07634a5991674dc867f61b3b78ab022c91699366d29fea26a4d5585c087",
+    "src/core/save.ts": "3f852f997feaa77effd581858f56bf59a9cfa87069afec6e0a895cc653dced72"
+  }
+}

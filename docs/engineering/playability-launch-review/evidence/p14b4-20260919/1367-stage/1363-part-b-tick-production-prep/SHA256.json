@@ -1,0 +1,6 @@
+{
+  "HANDBACK.md": "076cbdd9690e286b4a30fb8b33c647f5f56ba5be72d9e6a34900d6170e80f8b8",
+  "part-b-tick-production.patch": "e3016b96fa033e20959e6ac8802d4cbae49b30bfe7e938fee1dd2f5062c18e18",
+  "base/src/core/hollywoodTick.ts": "21b00c62f0057786f81d1b821eb5984677f7e4251211ecaf7d5288840d5f719e",
+  "candidate/src/core/hollywoodTick.ts": "8808d5dd7dd21ee3f1eace4e0fe267d1e02f0935a2be9b5a4ed7063849466658"
+}

@@ -1,0 +1,85 @@
+{
+  "status": "Reviewed preparation only; unexecuted. No production patch applied.",
+  "files": [
+    {
+      "path": "1367-stage/1363-capture-prep/1363-a8-capture-prep.patch",
+      "sha256": "ee9923ba239eba0bf270a858be413783c0d9b6d4326cba9de9b3c524345bb9b7"
+    },
+    {
+      "path": "1367-stage/1363-capture-prep/PATCH.sha256",
+      "sha256": "0d8c9fd0ccaf1febde55deddfedb8980fab0eb88f64703f1ca1adcb18346e9cc"
+    },
+    {
+      "path": "1367-stage/1363-capture-prep/HANDBACK.md",
+      "sha256": "eaa106926d3035d344009bed9780811607e5c745364a82a8705b249f274eb77a"
+    },
+    {
+      "path": "1367-stage/1363-capture-prep/INDEPENDENT-REVIEW.md",
+      "sha256": "69f8f979891b693e1ef1d3e5d7ef17632cc07eddd49ca6c2e1be01f63e13fb65"
+    },
+    {
+      "path": "1367-stage/1361-gl-prep/1361-GL-probe.ts",
+      "sha256": "1a57343fe78e1e8d2c4de290c4725201f20b03be0e4e59f68c7db21689e74476"
+    },
+    {
+      "path": "1367-stage/1361-gl-prep/1361-GL-independent-adapter.ts",
+      "sha256": "71faf4d254370acfb3ebdb00d88014e0b7541b05f87323e1678fa5660fd40f62"
+    },
+    {
+      "path": "1367-stage/1361-gl-prep/run-1361-gl-natural.sh",
+      "sha256": "4332fcde7dcf8ef2adbedf8693480cf2bf0127cdb8e7f7b29c96658a7d9ff483"
+    },
+    {
+      "path": "1367-stage/1361-gl-prep/gp-reference.json",
+      "sha256": "5ca908b3d4d9ff538d2b17cdd4fd7db6703e1d40c369751daf0acdb7383882d9"
+    },
+    {
+      "path": "1367-stage/1361-gl-prep/GP-SOURCE.txt",
+      "sha256": "fb0a2a7fef7393928a971904f2423c9a98f83cceb0d6fb0c0a589ba0d385c4af"
+    },
+    {
+      "path": "1367-stage/1361-gl-prep/SHA256.json",
+      "sha256": "4c622cbd2bd4e950de0d9e1c49e5a241619dcff4dddfc804437103bda4891896"
+    },
+    {
+      "path": "1367-stage/1361-gl-prep/HANDBACK.md",
+      "sha256": "b286eaae9a89a47da62b07da0e843bd3137d2b8759b6634ac1d047541fc7699a"
+    },
+    {
+      "path": "1367-stage/1361-gl-prep/INDEPENDENT-REVIEW.md",
+      "sha256": "491aa8675f95d5a1bd0f8e1544cad882212625e2c55226adfa1c8ae5197437bf"
+    },
+    {
+      "path": "1367-stage/1361-gl-prep/POST-RELEASE-METHOD.md",
+      "sha256": "7c493a902abfeede913decaa7707fe79c38ae3e1d386e2ef42cc584cde6324c6"
+    },
+    {
+      "path": "1367-stage/1361-postrelease-prep/probe/postrelease.ts",
+      "sha256": "87e45c65f8972da3106c2e4d9e3382db90962377f1686fb67069a181507b505d"
+    },
+    {
+      "path": "1367-stage/1361-postrelease-prep/run-postrelease.sh",
+      "sha256": "3e58c19c16ac7e086d4d7c39881b681431cc675bea979ed6983c3b67b7f56909"
+    },
+    {
+      "path": "1367-stage/1361-postrelease-prep/HANDBACK.md",
+      "sha256": "22dd20a556f58fdc000dc526d4d097ec362915094aadbc8461859e46c40c5059"
+    },
+    {
+      "path": "1367-stage/1361-postrelease-prep/INDEPENDENT-REVIEW.md",
+      "sha256": "146eabbea92652e06aaedfdf044b7e17de89b1552012bc0f30a7d9eaafb0f4d3"
+    },
+    {
+      "path": "1367-stage/1361-capture-runner/run-capture.sh",
+      "sha256": "608132e110736939051b9c259bf8e8d3415ecae3f50be2c6fe6c7f72b2ab1268"
+    },
+    {
+      "path": "1367-stage/1361-capture-runner/bounded-child.py",
+      "sha256": "717d02e676d08600ffd4c5b54cb9cb5b94d3d4ddb73555ad70981e8bae406b9c"
+    },
+    {
+      "path": "1367-stage/1361-capture-runner/INDEPENDENT-REVIEW.md",
+      "sha256": "52ebac31e6d55a560f720205c038831922a87353ce64913938229b6bf83f15c6"
+    }
+  ]
+}

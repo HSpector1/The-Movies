@@ -1,0 +1,13 @@
+{
+  "beforeCount": 12,
+  "afterCount": 12,
+  "sameCount": 12,
+  "new": [],
+  "gone": [],
+  "changed": [],
+  "equal": true,
+  "normalization": "Only each exact absolute checkout prefix becomes <tree>/; shared node_modules stack paths remain unchanged. Full failureMessages arrays compared.",
+  "caseInventoryEqual": true,
+  "baselineSha256": "55eb745dc0f00853361376f49ae01dac278cbc6a2834b9311a5a4a3153dc5955",
+  "currentSha256": "eb0251e7de94cddc73546b6255d891e2260168d06fb95153794f7116798805b9"
+}

@@ -1,0 +1,14 @@
+{
+  "baseHead": "2eaa697effc38538c37da28b486786ce267a2284",
+  "patchSha256": "2b11a5c13259b69ddcea3476b826c6eba690b7ea82facfa11e2aff03352bd5d9",
+  "files": {
+    "src/core/hollywoodPolicy.ts": {
+      "baseSha256": "843131da845b609ad133259ee82035bc129aad4b75394b757d5ac66341efd234",
+      "candidateSha256": "cfdde050a2aa2955bdea15f69a9600d7b57017eb09828c01109df03ea7b3695a"
+    },
+    "src/core/hollywoodTick.ts": {
+      "baseSha256": "d5963544fd591ee5abbb3584e3f0337db0210bfeaac05b69195a3c339452ac17",
+      "candidateSha256": "21b00c62f0057786f81d1b821eb5984677f7e4251211ecaf7d5288840d5f719e"
+    }
+  }
+}

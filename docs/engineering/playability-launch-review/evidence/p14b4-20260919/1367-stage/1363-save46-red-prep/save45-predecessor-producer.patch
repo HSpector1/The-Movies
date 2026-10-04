@@ -1,0 +1,144 @@
+--- /dev/null
++++ b/scripts/captures/1363-save45-predecessor.ts
+@@ -0,0 +1,136 @@
++// Install this reviewed producer and config at the matching repository paths.
++// Genuine bounded Save45 capture only. No fixture input, state repair or migration.
++import assert from 'node:assert/strict'
++import { execFileSync } from 'node:child_process'
++import { createHash } from 'node:crypto'
++import { lstatSync, mkdirSync, readFileSync, realpathSync, writeFileSync } from 'node:fs'
++import { dirname, join, relative, resolve, sep } from 'node:path'
++import { fileURLToPath } from 'node:url'
++import { gzipSync } from 'node:zlib'
++const ORIGINAL = '2eaa697effc38538c37da28b486786ce267a2284'
++const PRODUCER = 'scripts/captures/1363-save45-predecessor.ts'
++const CONFIG = 'scripts/captures/1363-save45-predecessor.config.ts'
++const OUTPUT = '/Users/zacheryspector/studio-scratch/1363-save45-predecessor-capture-01'
++const SEED = 'p13a-core-causal-01'
++const SOURCE = ['src', 'bridge', 'tests', 'ui', 'generated', 'scripts', 'package.json', 'package-lock.json',
++  'vitest.config.ts', 'vitest.workspace.ts', 'tsconfig.json', 'tsconfig.bridge.json', 'tsconfig.src.json']
++const EXCLUDED = ['tests/fixtures/', 'ui/e2e/', 'ui/public/']
++const allowed = (p: string) => !EXCLUDED.some(prefix => p.startsWith(prefix))
++const PATHS = [...SOURCE, ...EXCLUDED.map(prefix => ':(exclude)' + prefix.slice(0, -1))]
++const sha = (v: string | Uint8Array) => createHash('sha256').update(v).digest('hex')
++const required = (name: string): string => { const value = process.env[name]; assert.ok(value, 'required: ' + name); return value }
++const exists = (p: string): boolean => {
++  try { lstatSync(p); return true } catch (error) {
++    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return false
++    throw error
++  }
++}
++class Absent extends Error {}
++const started = new Date().toISOString(), startMs = Date.now()
++let output: string | undefined
++let facts: Record<string, unknown> = { started, originalSourceHead: ORIGINAL, seed: SEED, bound: { ticks: 53, weeks: [0, 53], timeoutMs: 300_000 } }
++async function main(): Promise<void> {
++  const root = realpathSync(process.cwd())
++  const git = (...args: string[]) => execFileSync('git', args, { cwd: root, encoding: 'utf8',
++    maxBuffer: 64 * 1024 * 1024, env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' } })
++  assert.equal(realpathSync(git('rev-parse', '--show-toplevel').trim()), root)
++  const head = required('P1363_SAVE45_GENERATING_HEAD')
++  assert.match(head, /^[0-9a-f]{40}$/)
++  assert.equal(git('rev-parse', 'HEAD').trim(), head)
++  const srcTree = git('rev-parse', head + ':src').trim()
++  assert.equal(srcTree, git('rev-parse', ORIGINAL + ':src').trim(), 'original published Save45 gameplay source only')
++  assert.equal(srcTree, required('P1363_SAVE45_SRC_TREE'), 'independently recorded source tree')
++  assert.equal(realpathSync(fileURLToPath(import.meta.url)), realpathSync(join(root, PRODUCER)))
++  const manual = [PRODUCER, CONFIG, 'src/harness/p13a/fixtures.ts', 'src/core/save.ts', 'src/core/tick.ts',
++    'package.json', 'package-lock.json']
++  for (const path of manual) {
++    git('ls-files', '--error-unmatch', '--', path)
++    assert.ok(!lstatSync(join(root, path)).isSymbolicLink(), 'named input cannot be symlink: ' + path)
++  }
++  const files = Object.fromEntries(manual.map(path => [path, sha(readFileSync(join(root, path)))]))
++  assert.equal(files[PRODUCER], required('P1363_SAVE45_PRODUCER_SHA256'))
++  assert.equal(files[CONFIG], required('P1363_SAVE45_CONFIG_SHA256'))
++  const identity = () => {
++    const included = git('ls-files', '--', ...PATHS).split('\n').filter(Boolean).filter(allowed).sort()
++    return { head: git('rev-parse', 'HEAD').trim(), srcTree: git('rev-parse', 'HEAD:src').trim(),
++      scope: { included, roots: SOURCE, excludedAutomaticReadPrefixes: EXCLUDED },
++      diffSha256: sha(git('diff', '--no-ext-diff', 'HEAD', '--binary', '--', ...included)),
++      untracked: git('ls-files', '--others', '--exclude-standard', '--', ...PATHS).split('\n').filter(Boolean).filter(allowed).sort(),
++      indexSha256: sha(readFileSync(resolve(root, git('rev-parse', '--git-path', 'index').trim()))),
++      stageEntriesSha256: sha(git('ls-files', '--stage', '-z')) }
++  }
++  const beforeIdentity = identity()
++  assert.equal(beforeIdentity.diffSha256, sha(''), 'bounded gameplay/helper source must be clean')
++  assert.deepEqual(beforeIdentity.untracked, [], 'untracked consumed source cannot be attributed to HEAD')
++  assert.equal(required('P1363_SAVE45_OUTPUT'), OUTPUT, 'output named before mint; a new attempt needs separately reviewed naming')
++  assert.ok(!exists(OUTPUT), 'exclusive output: existing path, including dangling symlink, refuses')
++  assert.equal(realpathSync(dirname(OUTPUT)), dirname(OUTPUT), 'no output ancestor symlink')
++  const rel = relative(root, OUTPUT)
++  assert.ok(rel === '..' || rel.startsWith('..' + sep), 'output outside repo')
++  const runtime = Object.fromEntries(['node_modules/vite/package.json', 'node_modules/vite-node/package.json'].map(path =>
++    [path, sha(readFileSync(join(root, path)))]))
++  mkdirSync(OUTPUT)
++  output = OUTPUT
++  facts = { ...facts, generatingHead: head, srcTree, sourceIdentityBefore: beforeIdentity, files, runtime,
++    producer: PRODUCER, config: CONFIG, output: OUTPUT, command: process.argv, nodeVersion: process.version,
++    declaredOutputs: ['p13a-week-0.save45.json.gz', 'p13a-week-53.save45.json.gz', 'MANIFEST.json', 'RESULT.json'],
++    route: "p13aGeneratedStudio('p13a-core-causal-01'); 53 ordinary tick(state, {develop:true}) calls; capture at 0 and 53" }
++  const bound = () => assert.ok(Date.now() - startMs <= 300_000, 'execution exceeded bounded five-minute allowance')
++  const postflight = () => {
++    bound(); assert.deepEqual(identity(), beforeIdentity, 'source/index changed during mint')
++    for (const [path, hash] of Object.entries({ ...files, ...runtime })) assert.equal(sha(readFileSync(join(root, path))), hash, path)
++  }
++  const save = await import('../../src/core/save.js')
++  const { tick } = await import('../../src/core/tick.js')
++  const { p13aGeneratedStudio } = await import('../../src/harness/p13a/fixtures.js')
++  assert.equal(save.LIVE_SAVE_VERSION, 45)
++  let state = p13aGeneratedStudio(SEED)
++  const captures: { name: string; week: number; gzipSha256: string; rawSha256: string; stateSha256: string; gzipBytes: number; rawBytes: number }[] = []
++  const pending: { name: string; compressed: Buffer }[] = []
++  for (let week = 0; week <= 53; week++) {
++    bound(); assert.equal(state.market.tick, week)
++    if (week === 0 || week === 53) {
++      const original = save.stableStringify(state)
++      const envelope = save.makeSave(state)
++      assert.equal(envelope.saveVersion, 45)
++      save.validateSaveV45(envelope)
++      assert.equal(save.stableStringify(state), original, 'writer mutated its input')
++      assert.ok(state.hollywood, 'industry route must remain present')
++      for (const b of state.hollywood.businesses) {
++        assert.ok(!Object.hasOwn(b, 'costCutting'))
++        for (const p of b.account.periods) assert.ok(!Object.hasOwn(p.movements, 'facilityDemolitionRefund'))
++      }
++      assert.ok(!state.hollywood.receipts.some(r => (r.kind as string) === 'facilityDisposed'))
++      if (week === 53 && !state.hollywood.businesses.some(b => b.account.periods.length > 1)) {
++        postflight(); throw new Absent('week 53 produced no multi-period rival account; do not extend or repair route')
++      }
++      const raw = save.exportSave(envelope)
++      const reloaded = save.validateSaveV45(save.importSave(raw))
++      assert.equal(save.stableStringify(reloaded), save.stableStringify(envelope))
++      const compressed = gzipSync(Buffer.from(raw), { level: 9 })
++      const name = `p13a-week-${week}.save45.json.gz`
++      captures.push({ name, week, gzipSha256: sha(compressed), rawSha256: sha(raw),
++        stateSha256: sha(original), gzipBytes: compressed.length, rawBytes: Buffer.byteLength(raw) })
++      pending.push({ name, compressed })
++    }
++    if (week < 53) state = tick(state, { develop: true })
++  }
++  postflight()
++  const manifest = { format: '1363-save45-predecessor/v1', ...facts, sourceSaveVersion: 45,
++    sourceIdentityAfter: identity(), captures, elapsedMs: Date.now() - startMs }
++  for (const item of pending) writeFileSync(join(OUTPUT, item.name), item.compressed, { flag: 'wx' })
++  const manifestBytes = JSON.stringify(manifest, null, 2) + '\n'
++  writeFileSync(join(OUTPUT, 'MANIFEST.json'), manifestBytes, { flag: 'wx' })
++  const result = { status: 'MINTED', generatingHead: head, srcTree, output: OUTPUT,
++    manifestSha256: sha(manifestBytes), captures, elapsedMs: Date.now() - startMs }
++  writeFileSync(join(OUTPUT, 'RESULT.json'), JSON.stringify(result, null, 2) + '\n', { flag: 'wx' })
++  process.stdout.write(JSON.stringify(result) + '\n')
++}
++try { await main() }
++catch (error) {
++  const result = { ...facts, status: error instanceof Absent ? 'ABSENT' : 'ERROR',
++    message: error instanceof Error ? error.message : String(error), elapsedMs: Date.now() - startMs }
++  if (output !== undefined && !exists(join(output, 'RESULT.json'))) writeFileSync(join(output, 'RESULT.json'), JSON.stringify(result, null, 2) + '\n', { flag: 'wx' })
++  process.stderr.write(JSON.stringify(result) + '\n')
++  process.exitCode = error instanceof Absent ? 2 : 1
++}
+--- /dev/null
++++ b/scripts/captures/1363-save45-predecessor.config.ts
+@@ -0,0 +1,2 @@
++// Dedicated producer config; no application plugins or gameplay aliases.
++export default { logLevel: 'error', clearScreen: false }

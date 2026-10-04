@@ -1,0 +1,74 @@
+--- a/tests/p14d1-rival-shelving.test.ts
++++ b/tests/p14d1-rival-shelving.test.ts
+@@ -28,6 +28,7 @@
+ import { tick, TUNING } from '../src/core/index.js'
+ import * as hollywoodPolicy from '../src/core/hollywoodPolicy.js'
+ import * as talentMarket from '../src/core/talentMarket.js'
++import * as careerLifecycle from '../src/core/careerLifecycle.js'
+ import * as saveModule from '../src/core/save.js'
+ import { promiseFeasibility } from '../src/core/promises.js'
+ import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
+@@ -490,23 +491,16 @@
+       const e = h.employment[i]!
+       return e.studioId === RIVAL && state.talent.find(t => t.id === e.terms.talentId)?.role === 'actor'
+     })!
+-    const week = state.market.tick
+-    const b0 = business(state, RIVAL)
+-    const originalCash = b0.account.cash
+-    // 3 staffing-blocked weeks first: same unseatable construction as the staffingBlocked
+-    // leaf above (staff() runs before decide() within one weekly pass and would otherwise
+-    // re-hire before decide() reads the roster; cash at the pre-hire reserve+1 fails the
+-    // re-hire's own affordability gate, hollywoodTick.ts staff() ~:158).
+-    const reserve = rivalWeeklyOperatingCost(b0, h, week) * b0.policy.reserveWeeks
+-    let mixed: GameState = {
+-      ...state,
+-      hollywood: {
+-        ...h,
+-        employment: h.employment.map((e, i) => i === actorOrdinal ? { ...e, endedWeek: week } : e),
+-        activeEmploymentOrdinals: h.activeEmploymentOrdinals.filter(i => i !== actorOrdinal),
+-        businesses: h.businesses.map(row => row.studioId === RIVAL ? { ...row, account: { ...row.account, cash: reserve + 1 } } : row),
+-      },
+-    }
++    // 1363-F ruling 5: an actual cash refusal now correctly enters cost-cutting.
++    // Keep this counting leaf on a noncash staffing block. The original reserve+1
++    // arrangement remains a separately labeled Part B entry unit case.
++    saveModule.makeSave(state)
++    const actorId = h.employment[actorOrdinal]!.terms.talentId
++    const originalAssignmentRefusal = careerLifecycle.assignmentRefusal
++    const unavailable = vi.spyOn(careerLifecycle, 'assignmentRefusal').mockImplementation((input, personId, atWeek, profession) =>
++      personId === actorId ? 'test-only temporary staffing unavailability'
++        : originalAssignmentRefusal(input, personId, atWeek, profession))
++    let mixed: GameState = state
+     const originalChoose = hollywoodPolicy.chooseIndustryPackage
+     const evaluatedDuringBlock: unknown[] = []
+     const spy = vi.spyOn(hollywoodPolicy, 'chooseIndustryPackage').mockImplementation((input, policy, options) => {
+@@ -517,23 +511,15 @@
+       for (let i = 0; i < 3; i++) mixed = tick(mixed)
+     } finally {
+       spy.mockRestore()
++      unavailable.mockRestore()
+     }
+     expect(shelving(business(mixed, RIVAL)).rejections.find(r => r.ordinal === ordinal)?.count ?? 0).toBe(0)
+     expect(evaluatedDuringBlock, 'no package is evaluated for r01 across the staffingBlocked weeks').toEqual([])
+-    // Restore staffing AND cash; the remaining decisions are economic rejections (route
+-    // premise: this screenplay's package fails viability every week on this seed,
+-    // per 1329-A). 13 more economic-rejection weeks must shelve it; fewer must not.
+-    const restoredEmployment = mixed.hollywood!.employment.map((e, i) => i === actorOrdinal ? { ...e, endedWeek: null } : e)
+-    const restoredActive = [...mixed.hollywood!.activeEmploymentOrdinals, actorOrdinal].sort((a, b) => a - b)
+-    mixed = {
+-      ...mixed,
+-      hollywood: {
+-        ...mixed.hollywood!,
+-        employment: restoredEmployment,
+-        activeEmploymentOrdinals: restoredActive,
+-        businesses: mixed.hollywood!.businesses.map(row => row.studioId === RIVAL ? { ...row, account: { ...row.account, cash: originalCash } } : row),
+-      },
+-    }
++    // Removing the noncash availability control restores the real unchanged
++    // employment and accounting state. No cash, contract or receipt is restored.
++    saveModule.makeSave(mixed)
++    const cutting = business(mixed, RIVAL) as RivalBusiness & { costCutting: { version: 1; since: number | null } }
++    expect(cutting.costCutting.since, 'noncash staffing must not enter cost-cutting').toBeNull()
+     let shelvedAt: number | null = null
+     for (let i = 0; i < 16; i++) {
+       const before = mixed

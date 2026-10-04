@@ -1,0 +1,12 @@
+{
+  "save46-shape-production.patch": "de39b307c6d66521f22c615fed0845ba2a2faa7e001a9c46d36b924d695ed048",
+  "HANDBACK.md": "873fe4a30ba9d4835b2793b21475cf0ba7290e242e01b35720f8141939dd6f71",
+  "base/src/core/hollywood.ts": "c9281b85fab7fe6ce72568f318a545fce01343da86c8fd9c7db8ee5e3bd17f1f",
+  "base/src/core/types.ts": "d0d5c51ea08c8bec71d78f32b653f835d1d32c73c3f7d0d46aa3f9c541fa0dc2",
+  "base/src/core/hollywoodTypes.ts": "09606801a73c8c675737f972dae5b78ef41deef375aad0c9732286d13a08b68a",
+  "base/src/core/save.ts": "3f852f997feaa77effd581858f56bf59a9cfa87069afec6e0a895cc653dced72",
+  "candidate/src/core/hollywood.ts": "1c439f854acad1525541c7024e34cbbb1d15f652af87512fe840efd8c38bb96a",
+  "candidate/src/core/types.ts": "114efba3aece83977c63fc8c5f5f77e9ce966807fcaed9b89625e608d715f9ee",
+  "candidate/src/core/hollywoodTypes.ts": "65a54dc851cd1f61f8b97674ed825b343a8ec94ab7b8328ad113f12343a41a84",
+  "candidate/src/core/save.ts": "cc8998793df2dfe16bd6d8ec8a8bd3ad4d98f45de7ff83afe85dc6187f5e9a7f"
+}

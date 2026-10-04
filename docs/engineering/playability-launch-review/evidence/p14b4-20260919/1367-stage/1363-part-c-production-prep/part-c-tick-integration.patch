@@ -1,0 +1,28 @@
+--- a/src/core/hollywoodTick.ts
++++ b/src/core/hollywoodTick.ts
+@@ -9,7 +9,7 @@
+ import { promisedCastMasks, WEEKS_TO_FIRST_TAKE } from './promises.js'
+ import { isOpportunityPredicate } from './opportunityPromises.js'
+ import { industryBusyTalentIds, moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
+-import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, rivalScientistDemand } from './rivalResearch.js'
++import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, disposeEligibleRivalFacilities, rivalScientistDemand } from './rivalResearch.js'
+ import { researchAfterEmploymentRelease } from './technology.js'
+ import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
+ import { buildFilmParticipants } from './filmParticipants.js'
+@@ -410,6 +410,16 @@
+     physicalPlans=admitRivalPlansInWeek({...state,technology,physicalPlans,hollywood:h,talent},h,b,physicalPlans,week)
+     technology=advanceRivalResearch({...state,technology,physicalPlans,hollywood:h,talent},h,b,talent,week)
+     decide(state,h,b,talent,week,greenlights,cashFacts)
++    // Shared disposal law returns an atomic copy; adopt only its four changed
++    // fields into this tick's owned clones. No second staff/decision pass spends
++    // the refund, and the removed body pays no opex for the current week.
++    const disposed=disposeEligibleRivalFacilities({...state,technology,physicalPlans,hollywood:h,talent},b.studioId)
++    if(disposed.hollywood!==h) {
++      const result=disposed.hollywood!
++      const owner=result.businesses.find(row=>row.studioId===b.studioId)!
++      b.account=owner.account;b.operations=owner.operations
++      h.receipts=result.receipts;h.nextReceipt=result.nextReceipt
++    }
+     operateStage(b)
+     for(const p of b.productions) if(releaseCommitmentRefusal({productions:b.productions,operations:b.operations,releaseAuthority:b.releaseAuthority,concepts:[]},p.id)===null) {
+       b.releaseAuthority=withReleaseCommitment(b.releaseAuthority,p.id,week)

@@ -1,0 +1,10 @@
+{
+  "part-c-tick-integration.patch": "9247157072bd4969ca134bc3be653281807453d712e08c19f687f0a82d1e5500",
+  "part-c-disposal-production.patch": "29d5ce1f31049c759702dac2d836fd052c01cd0722cb0c1aefce86d81f1a55b7",
+  "HANDBACK.md": "ac4020c6aa8ec89b2cca9ff2e3f6d721a918cc961c10f77844f4d734e12711be",
+  "OCCUPANCY-MAP.md": "626a24d0db6160b5dc0f4db53ce4fbc0e8777315946a4de068b12932d398e8ad",
+  "base/src/core/hollywoodTick.ts": "8808d5dd7dd21ee3f1eace4e0fe267d1e02f0935a2be9b5a4ed7063849466658",
+  "base/src/core/rivalResearch.ts": "65578b5f591f43b63b7c1e54f5f3094442251dfc587eadac7d0d6847408578f4",
+  "candidate/src/core/hollywoodTick.ts": "6da40c08e4aee457f01b6c1804acb2a79679d7a49f8b7db15b184ad0b1c7eaf0",
+  "candidate/src/core/rivalResearch.ts": "2ecb9b1cc9a24ece288d356bada70686456de97260333beb25e73bec92e71b6c"
+}

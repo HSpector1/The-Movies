@@ -1,0 +1,20 @@
+{
+  "head": "2eaa697effc38538c37da28b486786ce267a2284",
+  "exitCode": 1,
+  "fixedSource": true,
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--config",
+    "src/harness/d16/vitest.d16.config.ts",
+    "--reporter=verbose",
+    "--reporter=json",
+    "--outputFile.json=/Users/zacheryspector/studio-scratch/1361-land/d16-vitest.json"
+  ],
+  "start": "2026-10-04T23:22:59.226Z",
+  "end": "2026-10-04T23:27:19.031Z",
+  "allGuardsExact": true,
+  "recordSha256": "3255f2843e1c364c2874a9dde5c5231b39ad0364e6d32b68067075fca73fb64e",
+  "rawSha256": "b2d44718d4a4c87187a504d972953bd417cdbd0826d7d5abdc7e1ae3e5f7e905",
+  "postflightSha256": "54fdd951fceaf1d618a42bc95c9fa618199c6a1bf6f83304a754e72713d8494b"
+}

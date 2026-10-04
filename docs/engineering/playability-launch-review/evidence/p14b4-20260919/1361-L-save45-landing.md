@@ -1,4 +1,4 @@
-# 1361-L — Save45 source landing; recorded gates pending
+# 1361-L — Save45 source landing and recorded gates
 
 2026-10-04. Parent applied the independently approved x3 candidate after verifying all seven final unit hashes and both copies of the six production format-patches. No new production or test interpretation was introduced.
 
@@ -12,11 +12,11 @@ Production commits, in order: `97bee4ac` (slice2a), `df8cb801` (market seam), `5
 
 The single heavy lane ran [this script](1361-stage/land/landing-checks.sh) on source95ddf564 with Node20.20.2 from16:02:24 to16:04:36 CDT. `set -eu` makes each following command dependent on prior success. Root/UI/Bridge TypeScript and both Bridge generator checks all passed; final exit0. [Log](1361-stage/land/landing-checks.txt), [lane metadata](1361-stage/land/landing-checks.log.meta). Source remained clean after checks.
 
-## Pending acceptance
+## Recorded acceptance status
 
-The four recorded P15 runs and core/UI/d16 gates are NOT run and NOT replaced by x3 or these type checks. Preserve the exact45 held-c failures, baseline attribution and review's coverage limits. Recorder requires5,242,880 KiB free; latest measurement4,471,752 KiB. Independent audit of1361-F/R and the wrapper confirms this guards recorded runs, not source landing or standalone types; the previous handoff's broader restriction was corrected explicitly. AC has been requested; the Mac currently uses battery.
+The four focused selections and broad core/UI/d16 are complete. [1361-M3](1361-M3-save45-recorded-broad-gates.md) owns exact residual attribution and unchanged-source followups. UI2692PASS/5SKIP; d16exact12FAIL/164PASS; core133FAIL/5118PASS/3SKIP/11TODO. Core includes85prior baseline identities,45declared held-c failures, and3 waits that did not reproduce in isolated full-file recorded followups. These are explicit non-green results, not waived or repinned failures. Independent core, UI/d16 and followup reviews approve the recorded-baseline checkpoint with those limitations.
 
-Next: once storage permits, execute the preserved recorded-1361.sh modes in handoff order, inspect pre/postflight and actual exits, attribute and complete1361-M3. Then complete Save45 G-L baseline and frozen-Legacy/catalogue pins before recovery changes. Publication is a source milestone, not final Save45 acceptance or bounded-P18 completion.
+The Owner-authorized npm download-cache cleanup recovered~1.31GiB; root-owned residue was retained. Recorded runs met the5GiB guard, AC was connected, and no unrelated cleanup or restart occurred. Save45 G-L/F6 closure and genuine pre-recovery captures remain before recovery behavior changes.
 
 ## Four recorded focused gates — complete
 
@@ -31,4 +31,4 @@ All ran at clean published19d5d06efb1227d1c2788f6119dd2e89cd3f84f5 on2026-10-04,
 
 The harness reports campaign79,802ms, makeSave685ms and validation366ms against300,000ms ceiling; archive725,757bytes, save6,209,534bytes. P15A.1 identities and complete primary messages equal the declared TSV: missing0, extra0, changed0, no normalization ([comparison](1361-stage/land/p15a1-declared45.json)). The recorder wrapper itself exits0 even for a failed test child; this record uses actual child/postflight exits.
 
-Broad core/UI/d16 and1361-M3 remain pending. No all-green claim; held P15A.1(c) remains explicit. Owner-authorized npm cache cleanup recovered~1.31GiB, preserving~62MiB root-owned entries. Latest free6,841,872KiB (~6.52GiB) permits broad recording. No restart or unrelated file cleanup.
+Broad results and followups are preserved in1361-M3. The existing type/generator/parity and focused records are unchanged. P15A.1(c) remains held pending1365, and the planned boundedP18 endpoint remains in progress.

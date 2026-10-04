@@ -1,0 +1,15 @@
+{
+  "src/core/rivalResearch.ts": {
+    "base": "eb96f09d28fbb1d7c785b1ccf7351836ed313a2ab47327c84106e9933c7c1b49",
+    "candidate": "82f438dc533052295daa1d58df17a6da11ee0f7c20f84d86dd87a164ebb982dc"
+  },
+  "src/core/save.ts": {
+    "base": "9286781eb562fcc9bf961c85eb226176c1dab74b79e8dbbc08333c09531e5332",
+    "candidate": "df9a70a0ce2128492bea2719193cda93acff2e6f355890ece580e71e8fd8775d"
+  },
+  "src/core/hollywoodValidation.ts": {
+    "base": "b58d085621ff41e8fe6e3e8d7ebe0d2b60e4925f6faaa0e8ddc3aea622eb6aff",
+    "candidate": "ec8cf7290a63389087750967fcbe456159eaf2840770341ce3c9cf7d9f75c214"
+  },
+  "patch": "5e2c150f2ff6d0e00a551f4f6c7296a9a99730234522bc21a80f2fffd09fc699"
+}

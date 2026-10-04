@@ -1,0 +1,201 @@
+--- a/src/core/rivalResearch.ts
++++ b/src/core/rivalResearch.ts
+@@ -544,3 +544,63 @@
+     }
+   }
+ }
++
++
++/** Raw boundary for the retained-disposal proof. This admits only the shapes that
++ * proof touches; the complete save chain still proves every root and exact key.
++ * It runs on ORIGINAL live authority, before historical projections strip setup.
++ */
++export function validateRivalFacilityDisposalAuthority(value: unknown): void {
++  const record = (v: unknown): Record<string, unknown> => {
++    if (v === null || typeof v !== 'object' || Array.isArray(v)) throw new Error('rival facility disposal shape: object required')
++    return v as Record<string, unknown>
++  }
++  const rows = (v: unknown): Record<string, unknown>[] => {
++    if (!Array.isArray(v)) throw new Error('rival facility disposal shape: array required')
++    return v.map(record)
++  }
++  const array = (v: unknown): void => {
++    if (!Array.isArray(v)) throw new Error('rival facility disposal shape: array required')
++  }
++  const state = record(value)
++  if (state.hollywood === null) return
++  const h = record(state.hollywood)
++  record(state.market)
++  rows(h.receipts)
++  for (const b of rows(h.businesses)) {
++    const operations = record(b.operations)
++    rows(operations.facilities)
++    for (const workflow of rows(operations.workflows)) {
++      rows(workflow.reservations)
++      record(workflow.bindings)
++      if (workflow.shootingTask !== undefined && workflow.shootingTask !== null) record(workflow.shootingTask)
++      if (workflow.setup !== undefined && workflow.setup !== null) {
++        const setup = record(workflow.setup)
++        rows(setup.priorWork)
++      }
++    }
++    for (const script of rows(record(b.development).projects)) {
++      if (script.reservation !== undefined && script.reservation !== null) record(script.reservation)
++    }
++    for (const period of rows(record(b.account).periods)) record(period.movements)
++  }
++  for (const plan of rows(record(state.physicalPlans).plans)) {
++    const work = record(plan.work)
++    if (work.kind === 'placement') record(work.origin)
++    if (work.kind === 'installation') record(work.target)
++    array(plan.dependsOn)
++    record(plan.approvedQuote)
++    if (plan.commitReceipt !== null) record(plan.commitReceipt)
++  }
++  const technology = record(state.technology)
++  rows(technology.adoptions)
++  for (const project of rows(technology.projects)) {
++    rows(project.seats)
++    for (const week of rows(project.weeks)) {
++      if (week.labs !== undefined && week.labs !== null) rows(week.labs)
++    }
++  }
++  // The proof never mutates input. Exact roots, dates, IDs, kind enums, scalar
++  // types and ordinary accounting are independently mandatory in the chain.
++  validateRivalFacilityDisposal(value as GameState)
++}
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -1,3 +1,4 @@
++import { validateRivalFacilityDisposalAuthority } from './rivalResearch.js'
+ import { retirementWritingAuthority, type RetirementWritingAuthority } from './retirementWriting.js';
+ import { initialTechnology, initialTechnologyV1, liftTechnologyV1, liftTechnologyV2, liftTechnologyV3, validateTechnology, validateTechnologyV1, validateTechnologyV2, validateTechnologyV3 } from './technology.js'
+ import { withResearchFoundation } from './researchPeople.js'
+@@ -10606,6 +10607,7 @@
+ /** Internal live-entry proof. Context escapes only after the complete current
+  * save chain succeeds; no serialization or historical projection repairs input. */
+ export function validatedLiveProfessionContext(state: GameState): ProfessionValidationContext {
++  validateRivalFacilityDisposalAuthority(state);
+   // The internal profession view omits only the current cutting flag. It retains every
+   // refund, disposal receipt and absent body, proved under the explicit disposal era.
+   const hollywood = state.hollywood === null ? null : { ...state.hollywood,
+@@ -10888,7 +10890,7 @@
+ // The competitions log and romance (1347-A §4, as adopted by 1347-F), Save44. No new root:
+ // every relationship edge gains `competitions` and `romance`. The V44 validator checks its
+ // own root at era 44, then hands the frozen V43 chain the edges projected to era 42 (the
+-// Save42 pattern); no flag is threaded below V44.
++// Save42 pattern); no relationship flag is threaded below V44.
+ export function validateSaveV44(save: unknown): SaveFileV44 {
+   return validateSaveV44Era(save);
+ }
+@@ -11087,8 +11089,19 @@
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 46) throw new Error('validateSaveV46: expected version 46');
+   const raw = v14Record(checkEnvelope(save, 'validateSaveV46'), 'state');
++  validateRivalFacilityDisposalAuthority(raw);
+   validateSaveV45Era({ ...save, saveVersion: 45, state: raw }, true, true);
+-  return save as SaveFileV46;
++  // The frozen V28 descent strips talentMarket. Inspect current proposals only
++  // after complete admission, on the retained original state.
++  const current = save as SaveFileV46;
++  for (const business of current.state.hollywood?.businesses ?? []) {
++    const since = business.costCutting.since;
++    if (since !== null && current.state.talentMarket.proposals.some(p =>
++      p.issuerStudioId === business.studioId && p.submittedWeek > since)) {
++      throw new Error('Hollywood save: cost cutting has a later talent-market proposal');
++    }
++  }
++  return current;
+ }
+ 
+ /** Used only to route unversioned frozen-builder input into strict V46 validation. */
+--- a/src/core/hollywoodValidation.ts
++++ b/src/core/hollywoodValidation.ts
+@@ -69,10 +69,10 @@
+ // P14D.1 — `rivalShelving` is the Save43 era: `screenplayShelving` on every business and
+ // the `screenplayShelved` receipt exist only under it, and an unproduced screenplay is
+ // active or shelved, never both; every frozen reader keeps "unproduced ⇔ active".
+-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false): asserts value is HollywoodState | null {
++export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false): asserts value is HollywoodState | null {
+   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)
+   const moneyKinds = RIVAL_MONEY_KINDS.filter(kind =>
+-    (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)) && (rivalTermination || kind !== 'termination'))
++    (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)) && (rivalTermination || kind !== 'termination') && (rivalFacilityDisposal || kind !== 'facilityDemolitionRefund'))
+   const researchProjects = research ? ((technology as StudioTechnology | undefined)?.projects ?? []) : []
+   campaignDate(state.market.tick)
+   if (value === null) {
+@@ -225,9 +225,26 @@
+   for(const p of state.studio.activeProductions)verifyParticipants(p,false)
+   for(const a of activeScriptWriterAssignments(state.scriptDevelopment,state.concepts))claimAssignment(a.talentId,`${h.playerStudioId}:${a.projectId}`)
+   for (const b of h.businesses) {
+-    exact(b,['studioId','entryKey','account','standing','operations','development','productions','activeScriptOrdinals','activeRunFilmOrdinals','releaseAuthority','runs','projects','nextDecisionWeek','policy',...(rivalShelving?['screenplayShelving']:[])])
++    exact(b,['studioId','entryKey','account','standing','operations','development','productions','activeScriptOrdinals','activeRunFilmOrdinals','releaseAuthority','runs','projects','nextDecisionWeek','policy',...(rivalShelving?['screenplayShelving']:[]),...(rivalCostCutting?['costCutting']:[])])
+     requireFact(!businesses.has(b.studioId) && studios.get(b.studioId)?.role === 'rival' && studios.get(b.studioId)!.enteredWeek !== null,'duplicate/unknown business'); businesses.add(b.studioId)
+     requireFact(b.entryKey === `${b.studioId}:entry`,'entry key mismatch'); integer(b.nextDecisionWeek); standing(b.standing)
++    if (rivalCostCutting) {
++      const cutting: unknown = b.costCutting
++      exact(cutting,['version','since']); requireFact(cutting.version === 1,'cost cutting: unknown version')
++      if (cutting.since !== null) {
++        integer(cutting.since,studios.get(b.studioId)!.enteredWeek!)
++        requireFact(cutting.since <= state.market.tick,'cost cutting: future entry')
++        list(b.productions); list(b.runs)
++        requireFact(b.productions.length === 0 && b.runs.length === 0,'cost cutting requires no production or run')
++        const since = cutting.since
++        requireFact(!h.receipts.some(r => r.studioId === b.studioId && r.week > since &&
++          (r.kind === 'filmAnnounced' || r.kind === 'laboratoryCommitted' ||
++            (r.kind === 'employment' && r.toStudioId === b.studioId))), 'cost cutting has a later commitment')
++        // Operational completion is permitted when its commitment predates entry.
++        requireFact(!technology?.adoptions.some(a => a.studioId === b.studioId && a.committedWeek > since),
++          'cost cutting has a later technology adoption')
++      }
++    }
+     requireFact(b.nextDecisionWeek>=state.market.tick && b.nextDecisionWeek<=Math.max(state.market.tick,studios.get(b.studioId)!.enteredWeek!)+TUNING.HOLLYWOOD_DECISION_WEEKS,'decision boundary differs from actual cadence')
+     exact(b.policy,['version','affinities','negativeScale','marketingRatio','reserveWeeks'])
+     requireFact(b.policy.version === 1,'unknown policy version'); exact(b.policy.affinities,GENRE_ORDER)
+@@ -292,7 +309,10 @@
+         requireFact(p.movements.technologyRestoration === 0 && p.movements.technologyRefund === 0, 'rival restoration or refund without a cancellation receipt')
+       }
+       if (rivalTermination) requireFact(close(p.movements.termination, -expectedTermination[periodIndex]!), 'rival termination movements do not reconcile with termination receipts')
+-      for (const [kind,n] of Object.entries(p.movements)) number(n,kind === 'studioRevenue' ? 0 : -Infinity,kind === 'studioRevenue' ? Infinity : 0)
++      for (const [kind,n] of Object.entries(p.movements)) {
++        const positive = kind === 'studioRevenue' || (rivalFacilityDisposal && kind === 'facilityDemolitionRefund')
++        number(n,positive ? 0 : -Infinity,positive ? Infinity : 0)
++      }
+       requireFact(close(balance,p.opening) && close(p.opening+Object.values(p.movements).reduce((a,n)=>a+n,0),p.closing),'unreconciled money')
+       balance=p.closing
+     }
+@@ -318,7 +338,9 @@
+     // did not exist, which is exactly the legacy zero-Opex grandfathering.
+     const baseOpex=rivalCapacityOpex({...b,operations:{...b.operations,facilities:rivalStartingFacilities(b.studioId)}} as RivalBusiness)
+     const plantOpex=h.receipts.reduce((sum,r)=>r.studioId!==b.studioId?sum
+-      :r.kind==='laboratoryOperational'?sum+Math.max(0,state.market.tick-r.week)*TUNING.RESEARCH_LABORATORY_WEEKLY_OPERATING_COST
++      :r.kind==='laboratoryOperational'?sum+Math.max(0,Math.min(state.market.tick,
++        rivalFacilityDisposal ? h.receipts.find(d=>d.kind==='facilityDisposed'&&d.studioId===r.studioId&&d.facilityId===r.facilityId)?.week ?? state.market.tick : state.market.tick)
++        -r.week)*TUNING.RESEARCH_LABORATORY_WEEKLY_OPERATING_COST
+       :r.kind==='instrumentOperational'?sum+Math.max(0,state.market.tick-r.week)*instrumentWeeklyOperatingCost(r.technologyId):sum,0)
+     requireFact(close(movements.facilityOpex!, -(elapsed*baseOpex+plantOpex)), 'facility operating costs do not reconcile')
+     for(const kind of ['development','production','marketing'] as const) requireFact(close(movements[kind]!, -b.projects.reduce((sum,p)=>sum+p[kind],0)), `${kind} commitments do not reconcile`)
+@@ -474,7 +496,8 @@
+       instrumentOperational:research?['facilityId','technologyId']:undefined,
+       researchSeatAssigned:research?['projectId','talentId']:undefined, researchCompleted:research?['projectId']:undefined,
+       // P14D.1: a rival's shelving receipt exists only under the Save43 era.
+-      screenplayShelved:rivalShelving?['scriptProjectId','conceptId','rejections']:undefined}[r.kind]
++      screenplayShelved:rivalShelving?['scriptProjectId','conceptId','rejections']:undefined,
++      facilityDisposed:rivalFacilityDisposal?['facilityId','planId','blueprintId','refund']:undefined}[r.kind]
+     requireFact(extra,'unknown receipt kind'); exact(r,[...base,'kind',...extra])
+     integer(r.week); requireFact(r.week>=priorWeek&&r.week<=state.market.tick,'receipt chronology'); priorWeek=r.week
+     const owner=studios.get(r.studioId)
+@@ -515,8 +538,11 @@
+     if(r.kind==='laboratoryOperational') {
+       requireFact(r.studioId!==h.playerStudioId,'a rival research receipt cannot name the player')
+       const business=businessById.get(r.studioId)
+-      requireFact(business?.operations.facilities.some(f=>f.id===r.facilityId&&f.capability==='laboratory'),'Laboratory operational receipt has no Laboratory')
+-    }
++      requireFact(business?.operations.facilities.some(f=>f.id===r.facilityId&&f.capability==='laboratory') ||
++        (rivalFacilityDisposal && h.receipts.some(d=>d.kind==='facilityDisposed'&&d.studioId===r.studioId&&d.facilityId===r.facilityId)),
++        rivalFacilityDisposal ? 'Laboratory operational receipt has no Laboratory or validated disposal' : 'Laboratory operational receipt has no Laboratory')
++    }
++    if(r.kind==='facilityDisposed') { text(r.facilityId); text(r.planId); text(r.blueprintId); number(r.refund,0) }
+     if(r.kind==='instrumentOperational') {
+       requireFact(r.studioId!==h.playerStudioId,'a rival research receipt cannot name the player')
+       const business=businessById.get(r.studioId)

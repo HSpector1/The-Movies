@@ -1,0 +1,11 @@
+{
+  "src/core/hollywood.ts": {
+    "base": "1c439f854acad1525541c7024e34cbbb1d15f652af87512fe840efd8c38bb96a",
+    "candidate": "7e9e26ac92689a2db5ad9e239c90b6203b4f1084b1aca8f68064c9908569a441"
+  },
+  "src/core/rivalResearch.ts": {
+    "base": "82f438dc533052295daa1d58df17a6da11ee0f7c20f84d86dd87a164ebb982dc",
+    "candidate": "e24566c984414a66fbfb896481dbc6d8f742bf7fa36702aec0a211b15d513d18"
+  },
+  "patch": "8527738dbee6a51f9e5230d5d297a5b375837b60971edfef3eea06bda6a932f0"
+}

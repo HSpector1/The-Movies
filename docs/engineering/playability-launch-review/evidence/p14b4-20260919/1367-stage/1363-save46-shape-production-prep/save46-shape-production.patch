@@ -1,0 +1,86 @@
+--- a/src/core/hollywoodTypes.ts
++++ b/src/core/hollywoodTypes.ts
+@@ -57,7 +57,7 @@
+  */
+ export type RivalMoneyKind = 'capacity' | 'signing' | 'payroll' | 'overhead' | 'facilityOpex'
+   | 'development' | 'production' | 'marketing' | 'studioRevenue' | 'technologyAdoption'
+-  | RivalResearchMoneyKind | 'termination'
++  | RivalResearchMoneyKind | 'termination' | 'facilityDemolitionRefund'
+ export type RivalFinancePeriod = {
+   fromWeek: number
+   throughWeek: number
+@@ -117,6 +117,8 @@
+   policy: { version: 1; affinities: Record<Genre, number>; negativeScale: number;
+     marketingRatio: number; reserveWeeks: number }
+   screenplayShelving: ScreenplayShelving
++  /** Save46 recovery episode; cleared only by a real greenlight or later loan principal. */
++  costCutting: { version: 1; since: number | null }
+ }
+ export type IndustryReceipt = { eventId: string; week: number; studioId: string } & (
+   | { kind: 'studioEntered'; entryKey: string; origin: 'fresh' | 'migration' | 'scheduled' }
+@@ -131,6 +133,8 @@
+   // here — "no rival authority without a receipt" is validated against these.
+   | { kind: 'laboratoryCommitted'; planId: string; facilityId: string }
+   | { kind: 'laboratoryOperational'; facilityId: string }
++  /** Save46: retained paid-body tombstone; no plan/history is removed. */
++  | { kind: 'facilityDisposed'; facilityId: string; planId: string; blueprintId: 'research-laboratory'; refund: number }
+   | { kind: 'instrumentOperational'; facilityId: string; technologyId: string }
+   | { kind: 'researchSeatAssigned'; projectId: string; talentId: string }
+   | { kind: 'researchCompleted'; projectId: string }
+--- a/src/core/hollywood.ts
++++ b/src/core/hollywood.ts
+@@ -23,7 +23,7 @@
+   ['researchSpend','researchCapacity','technologyRestoration','technologyRefund']
+ export const RIVAL_MONEY_KINDS: readonly RivalMoneyKind[] = ['capacity','signing','payroll','overhead',
+   'facilityOpex','development','production','marketing','studioRevenue','technologyAdoption',
+-  ...RIVAL_RESEARCH_MONEY_KINDS,'termination']
++  ...RIVAL_RESEARCH_MONEY_KINDS,'termination','facilityDemolitionRefund']
+ 
+ export function uniqueIdentity(base: string, taken: Set<string>): string {
+   let id = base
+@@ -204,6 +204,7 @@
+     standing:startingStanding(template,authored), operations:{mode:'managed',workflows:[],facilities:rivalStartingFacilities(studioId)}, development:initialManagedScriptDevelopment(), productions:[], activeScriptOrdinals:[], activeRunFilmOrdinals:[], releaseAuthority:initialReleaseAuthority(),
+     runs:[], projects:[], nextDecisionWeek:week+1,
+     screenplayShelving:{version:1,rejections:[],shelved:[],commissionHoldUntilWeek:0},
++    costCutting:{version:1,since:null},
+     policy:{version:1,affinities:Object.fromEntries(GENRE_ORDER.map(g => [g,template.anchors.includes(g)?5:1])) as Record<Genre,number>,
+       negativeScale:template.negativeScale,marketingRatio:template.marketingRatio,reserveWeeks:template.reserveWeeks}}
+   const capex = TUNING.BASELINE_DEVELOPMENT_CASTING_CAPEX + TUNING.STAGE_STANDARD_CAPEX +
+--- a/src/core/types.ts
++++ b/src/core/types.ts
+@@ -2323,7 +2323,7 @@
+ // V44 adds the edge's `competitions` log and `romance` track.
+ // V45 is the shared P15 step: slice 2a adds the Power Ranking archive and the one P15 allocator,
+ // P15A.1 Wave 2 adds the shared-market root, and P15C Wave 2 adds the Campaign Legacy root.
+-export type GameState = GameStateV45
++export type GameState = GameStateV46
+ 
+ // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
+ 
+@@ -2606,6 +2606,9 @@
+   campaignLegacy: import('./campaignLegacy.js').CampaignLegacyRoot
+ }
+ export type GameStateV45 = GameStateV44 & P15StepRoots
++/** Save46 recovery B+C: rival episode, refund movement and body tombstone are
++ * explicit-era Hollywood leaf widenings; there is no new duplicate root. */
++export type GameStateV46 = GameStateV45
+ 
+ // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
+ // The ONE canonical persisted record of a participant's outcome on one released film.
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -8123,7 +8123,13 @@
+       // R3 (Save41): the shared initializer now mints the zero `termination` movement too.
+       if (period.movements.termination !== 0) throw new Error('V18 to V19 cannot discard a rival termination');
+       Reflect.deleteProperty(period.movements, 'termination');
+-    }
++      // Save46: the shared fresh initializer adds only a zero refund. A frozen
++      // V19 intermediate must not carry that later key or discard a real refund.
++      if (period.movements.facilityDemolitionRefund !== 0) throw new Error('V18 to V19 cannot discard a rival facility refund');
++      Reflect.deleteProperty(period.movements, 'facilityDemolitionRefund');
++    }
++    if (business.costCutting.since !== null) throw new Error('V18 to V19 cannot discard rival cost cutting');
++    Reflect.deleteProperty(business, 'costCutting');
+     // P14D.1 (Save43): the shared entry now mints the empty screenplay shelving state too.
+     const shelving = business.screenplayShelving;
+     if (shelving.rejections.length > 0 || shelving.shelved.length > 0 || shelving.commissionHoldUntilWeek !== 0) {

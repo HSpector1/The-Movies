@@ -1,0 +1,10 @@
+{
+  "beforeCount": 45,
+  "afterCount": 45,
+  "sameCount": 45,
+  "new": [],
+  "gone": [],
+  "changed": [],
+  "equal": true,
+  "normalization": "None: exact declared identity and primary message."
+}

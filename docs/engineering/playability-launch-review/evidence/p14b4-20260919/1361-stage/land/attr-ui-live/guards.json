@@ -1,0 +1,17 @@
+{
+  "head": "2eaa697effc38538c37da28b486786ce267a2284",
+  "exitCode": 0,
+  "fixedSource": true,
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "ui"
+  ],
+  "start": "2026-10-04T23:07:26.332Z",
+  "end": "2026-10-04T23:22:16.255Z",
+  "allGuardsExact": true,
+  "recordSha256": "7e0515b8bc28ef20c1da92c95fec50672f6c5cd6382d25c08bcd0b600522d9e4",
+  "rawSha256": "1ea18ff09ac49474678636bdc6da66b692fb17abc50d652bc9bcef829f3298fc",
+  "postflightSha256": "5efd92f9091194a6325fed1fc5b1f6893d2c4e44701375258694ed7a55536fcc"
+}

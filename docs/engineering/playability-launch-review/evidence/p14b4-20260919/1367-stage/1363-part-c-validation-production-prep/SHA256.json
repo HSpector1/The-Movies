@@ -1,0 +1,6 @@
+{
+  "part-c-owner-validation.patch": "65b014b55d9b018ccb889ff54e51004b6407f4e71783694ee967a16deab130d5",
+  "HANDBACK.md": "4b155d432cc79e84b7f4248090876276b55db7364b4ea74e78a1c159bcfe17f9",
+  "base/src/core/rivalResearch.ts": "2ecb9b1cc9a24ece288d356bada70686456de97260333beb25e73bec92e71b6c",
+  "candidate/src/core/rivalResearch.ts": "eb96f09d28fbb1d7c785b1ccf7351836ed313a2ab47327c84106e9933c7c1b49"
+}

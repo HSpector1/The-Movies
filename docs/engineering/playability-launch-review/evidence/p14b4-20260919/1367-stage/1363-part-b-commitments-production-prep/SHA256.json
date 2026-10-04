@@ -1,0 +1,13 @@
+{
+  "historical-staging-callers.patch": "8a95be91469de3949724173d4e1cfb7fc8908957f13501e0f341b1e3e21d45cb",
+  "HANDBACK.md": "dcf256527e547350a4945631dba87a712e6272d1fb419f741e3803fdf48a7101",
+  "production.patch": "b4303c5670ccf3ad289102a7b3f6f949af6f84782290b888e2b8e08c6fb0642e",
+  "base/tests/p13b-s8-save-v27.test.ts": "ffe07d9ca39b43f646d034a2984497c5bfe593f065ff2d906cfb811e206c84ef",
+  "base/src/core/technologyRival.ts": "69c8fa5ab2446b0cb3c74678538bd4b308917e0c8021e71355e5c54d07803520",
+  "base/src/core/rivalResearch.ts": "eb7753e88b31e980f504f28421346447eb6ece2308e42d1032fb7e9cc6e38d74",
+  "base/src/core/talentMarket.ts": "010ed07634a5991674dc867f61b3b78ab022c91699366d29fea26a4d5585c087",
+  "candidate/tests/p13b-s8-save-v27.test.ts": "f44c990cfeb641203c908ac44595ed2d811b4bed000188ef09d041285097ec58",
+  "candidate/src/core/technologyRival.ts": "fd9764c20f5a649be3b51e23533cd4208fd59c049b1b2a166d89a9bbb35c0336",
+  "candidate/src/core/rivalResearch.ts": "65578b5f591f43b63b7c1e54f5f3094442251dfc587eadac7d0d6847408578f4",
+  "candidate/src/core/talentMarket.ts": "feaf3ef75051583820addb8b3b00065925464e5a2ca265c3d328102c22aa5957"
+}

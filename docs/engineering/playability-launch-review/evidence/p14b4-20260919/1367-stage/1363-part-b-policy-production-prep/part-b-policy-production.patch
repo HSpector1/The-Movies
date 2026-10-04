@@ -1,0 +1,68 @@
+--- a/src/core/hollywoodPolicy.ts
++++ b/src/core/hollywoodPolicy.ts
+@@ -1,3 +1,4 @@
++import { terminationCost, weeklySalary } from './employment.js'
+ import { computeForecast, forecastCenters } from './forecast.js'
+ import { marketingCapacityForInputs, marketingMenuFromCapacity } from './marketingMenu.js'
+ import { resolveShape } from './shape.js'
+@@ -93,3 +94,49 @@
+ export function chooseIndustryPackage(input:ReceptionInputs,policy:RivalBusiness['policy'],options:IndustryPackageOptions):IndustryPackageChoice|null {
+   return searchIndustryPackages(input,policy,options).choice
+ }
++
++/** Actual evidence from one scheduled rival decision, after its work decisions. */
++export type RivalCostCuttingEntryFacts = {
++  decisionRan: boolean; productionCount: number; runCount: number
++  greenlit: boolean; commissioned: boolean; hasScriptWork: boolean
++  cash: number; reserve: number
++  commissionStop: 'none' | 'unaffordablePackage' | 'missingTeam' | 'missingWriter'
++    | 'fullIndex' | 'hold' | 'busyWriter' | 'economicRejection'
++  unfilledFilmSlotForCash: boolean
++  renewalRefusedForCash: boolean; unrelatedScientistSlotRefusedForCash: boolean
++  indexedOutcomes: readonly ('cashBlocked' | 'economicRejection' | 'staffingBlocked')[]
++}
++
++/** 1363-F: loss of work and a cash-closed commissioning path must coincide. */
++export function rivalCostCuttingEntry(facts: RivalCostCuttingEntryFacts): boolean {
++  if (!facts.decisionRan || facts.productionCount !== 0 || facts.runCount !== 0
++    || facts.greenlit || facts.commissioned || facts.hasScriptWork) return false
++  if (facts.cash < facts.reserve) return true
++  if (facts.commissionStop === 'unaffordablePackage') return true
++  if (facts.commissionStop === 'missingTeam' || facts.commissionStop === 'missingWriter') {
++    return facts.unfilledFilmSlotForCash
++  }
++  // A renewal refusal leaves its employee in place. An unrelated Scientist
++  // vacancy cannot explain a film slot. Neither substitutes for slot evidence.
++  return facts.commissionStop === 'fullIndex' && facts.indexedOutcomes.length > 0
++    && facts.indexedOutcomes.every(outcome => outcome === 'cashBlocked'
++      || (outcome === 'staffingBlocked' && facts.unfilledFilmSlotForCash))
++}
++
++export type RivalCostCuttingReleaseFacts = {
++  week: number; endWeekExclusive: number; annualSalary: number
++  cash: number; weeklyOperatingCost: number; reserveWeeks: number
++  productionSeat: boolean; writingSeat: boolean; unreleasedResearchSeat: boolean; openPromise: boolean
++}
++
++/** R3 protections and shared termination charge, plus 1363-F's runway rule.
++ * The caller supplies fresh cash/cost for each employee in employment order. */
++export function rivalCostCuttingReleaseAllowed(facts: RivalCostCuttingReleaseFacts): boolean {
++  if (facts.productionSeat || facts.writingSeat || facts.unreleasedResearchSeat || facts.openPromise) return false
++  if (!(facts.endWeekExclusive - facts.week > TUNING.HIRING_TERMINATION_CAP_WEEKS)) return false
++  const charge = terminationCost(facts, facts.week)
++  const saving = weeklySalary(facts.annualSalary) + TUNING.OVERHEAD_PER_EMPLOYEE
++  const reserveAfterRelease = (facts.weeklyOperatingCost - saving) * facts.reserveWeeks
++  return facts.cash - charge >= reserveAfterRelease
++    && charge * facts.weeklyOperatingCost <= facts.cash * saving
++}
+--- a/src/core/employment.ts
++++ b/src/core/employment.ts
+@@ -204,7 +204,7 @@
+ // exactly 52 weeks remaining, is HIGHER below that and LOWER above it, and is
+ // continuous at the 26-week boundary (companion §3.5 E5 — no cliff). The old
+ // `round(0.5 × guaranteed)` figure is explicitly not law (direction 1 / S3).
+-export function terminationCost(contract: Contract, week: number): number {
++export function terminationCost(contract: Pick<Contract, 'annualSalary' | 'endWeekExclusive'>, week: number): number {
+   const remainingWeeks = Math.max(0, contract.endWeekExclusive - week)
+   return weeklySalary(contract.annualSalary) * Math.min(remainingWeeks, TUNING.HIRING_TERMINATION_CAP_WEEKS)
+ }

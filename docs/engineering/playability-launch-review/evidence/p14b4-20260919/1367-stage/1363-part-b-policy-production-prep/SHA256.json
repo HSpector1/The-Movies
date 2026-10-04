@@ -1,0 +1,8 @@
+{
+  "part-b-policy-production.patch": "5c92dd24a8c7f9413259e7212a8570242b22c252ebbb9bd81b8307bba7b0efe4",
+  "HANDBACK.md": "56d94cc1e8ec2279c24ef612772aaca384d424616b2b393eae5151833487da07",
+  "base/src/core/employment.ts": "6c3fec2129c0a461ec0de8e3e20f4bb47e4150bb9f0c39fd7201fae6a3951ce0",
+  "base/src/core/hollywoodPolicy.ts": "cfdde050a2aa2955bdea15f69a9600d7b57017eb09828c01109df03ea7b3695a",
+  "candidate/src/core/employment.ts": "ad7f32db9f5a5ed6b5d11a26a25604ab71df07daba0e273214336e92d8c0f1bf",
+  "candidate/src/core/hollywoodPolicy.ts": "ea2994dbb980aa60ce70d1e53ecc6c2a0acf1365145f0e6aad148e5cd0a9bce1"
+}

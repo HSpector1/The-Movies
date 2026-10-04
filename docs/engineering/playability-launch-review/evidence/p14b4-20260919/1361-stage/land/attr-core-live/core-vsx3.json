@@ -1,0 +1,25 @@
+{
+  "beforeCount": 137,
+  "afterCount": 133,
+  "sameCount": 131,
+  "new": [
+    "tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 5: Industry announcement row \u2014 derived, nullable studioId, excluded from per-studio History, absent for sound, Save As identical > identical in a Save As world: two independently-saved-as campaign slots of the same week-884 state publish byte-identical announcement rows"
+  ],
+  "gone": [
+    "tests/bridge-supervisor.test.ts > one-command studio supervisor > cancels replacement work when Unity exits during an engine outage",
+    "tests/bridge-supervisor.test.ts > one-command studio supervisor > emits, audits, and supervises the packaged production graph without the development loader",
+    "tests/bridge-supervisor.test.ts > one-command studio supervisor > kills a Unity helper that survives TERM before releasing the active lease",
+    "tests/bridge-supervisor.test.ts > one-command studio supervisor > launches only after authenticated readiness and preserves one private profile across distinct logs",
+    "tests/bridge-supervisor.test.ts > one-command studio supervisor > rejects a concurrent owner, shuts down on signal, and reclaims only a stale incarnation"
+  ],
+  "changed": [
+    {
+      "identity": "tests/bridge-supervisor.test.ts > one-command studio supervisor > restarts a SIGKILLed engine on its fixed port without changing durable authority",
+      "before": "Error: Fake Unity did not report started.",
+      "after": "Error: Fake Unity did not report replacement."
+    }
+  ],
+  "equal": false,
+  "normalization": "Only known absolute x3/live checkout prefixes become <tree>/ in primary messages; shared node_modules paths remain exact.",
+  "disposition": "Attribution only; every difference still requires parent review before gate acceptance."
+}

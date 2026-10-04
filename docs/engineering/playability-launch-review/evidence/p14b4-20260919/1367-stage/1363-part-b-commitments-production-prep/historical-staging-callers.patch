@@ -1,0 +1,20 @@
+--- a/tests/p13b-s8-save-v27.test.ts
++++ b/tests/p13b-s8-save-v27.test.ts
+@@ -216,7 +216,7 @@
+     // laboratoryCommitted receipt and the researchCapacity movement. Nothing is stripped. Measured in
+     // 1358-X7t (probe F1-V27): the week-309 fixture admits a Laboratory, and the receipt arm refuses it.
+     const staged = Object.values(V26_FIXTURES).map(fixture => withV27.migrateToV27(JSON.parse(load(fixture.file))))
+-      .map(lifted => ({ ...lifted, state: admitRivalPlans(lifted.state).state }))
++      .map(lifted => ({ ...lifted, state: admitRivalPlans(lifted.state, 'pre-recovery').state }))
+       .find(lifted => lifted.state.hollywood!.receipts.some(r => r.kind === 'laboratoryCommitted'))
+     expect(staged, 'staging premise: a rival in a genuine V26 fixture can afford a Laboratory').toBeDefined()
+     expect(() => save.convertV27ToV26(staged as never)).toThrow(/^migrateToV26: cannot downgrade SaveFileV27 or discard rival research \u2014 frozen save projection cannot discard authoritative V27 rival research state on receipt industry-event-\d+$/)
+@@ -249,7 +249,7 @@
+     const week = genuine.market.tick
+     const requiredReserve = rivalWeeklyOperatingCost(business, genuine.hollywood!, week) * business.policy.reserveWeeks
+     expect(TUNING.RESEARCH_LABORATORY_CAPEX + requiredReserve).toBeGreaterThan(0)
+-    const result = admitRivalPlans(genuine) // the ONE call to the new module — proves the import is not a dead specifier
++    const result = admitRivalPlans(genuine, 'pre-recovery') // the ONE call to the new module — proves the import is not a dead specifier
+     expect(result).toBeDefined()
+   })
+ })

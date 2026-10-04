@@ -1,0 +1,18 @@
+{
+  "files": {
+    "HANDBACK.md": "d4b14a285962cf77f06aa14f312d071e881a94e3fff831eb3f4b8ff1c5ec9ce1",
+    "save46-migration-red.patch": "9807d01dc0c6b06429e02e404a6f5afd3068363d4511456b3713216e384bb6af",
+    "save45-predecessor-producer.patch": "63897a2c27393f860f2773cd9fbf03fe31229014e92431fa3dc668bedf0a5221",
+    "tests/p14d2-save46-migration.test.ts": "224ce377957a2e9f1be01a58d6cfc91ca07c7a6d143bafbf61e157d7a5a36910",
+    "scripts/captures/1363-save45-predecessor.ts": "7c94086ca4787a931f0bd61b7eb94cacee3062ec14973a7132799f37036eebac",
+    "scripts/captures/1363-save45-predecessor.config.ts": "7b935bef9808c4bae3371515c31ee3fb25bc78744070decab92e7c995a28abff"
+  },
+  "reviewedSourceHead": "2eaa697effc38538c37da28b486786ce267a2284",
+  "inspectedSourceFiles": {
+    "src/core/save.ts": "3f852f997feaa77effd581858f56bf59a9cfa87069afec6e0a895cc653dced72",
+    "src/core/hollywoodValidation.ts": "b58d085621ff41e8fe6e3e8d7ebe0d2b60e4925f6faaa0e8ddc3aea622eb6aff",
+    "src/core/hollywoodTypes.ts": "09606801a73c8c675737f972dae5b78ef41deef375aad0c9732286d13a08b68a",
+    "src/harness/p13a/fixtures.ts": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+    "src/core/tick.ts": "f923eb1694a030b3212e4f6f9881e83fd027f5ce5882a148623f58eca9cb0224"
+  }
+}
