@@ -1,0 +1,38 @@
+[
+  {
+    "stem": "1361-p15a2-green-recorded",
+    "sourceSha": "19d5d06efb1227d1c2788f6119dd2e89cd3f84f5",
+    "exitCode": 0,
+    "fixedSource": true,
+    "allGuardsExact": true,
+    "start": "2026-10-04T21:09:03.880Z",
+    "end": "2026-10-04T21:09:52.450Z"
+  },
+  {
+    "stem": "1361-p15a2-harness-recorded",
+    "sourceSha": "19d5d06efb1227d1c2788f6119dd2e89cd3f84f5",
+    "exitCode": 0,
+    "fixedSource": true,
+    "allGuardsExact": true,
+    "start": "2026-10-04T21:10:32.333Z",
+    "end": "2026-10-04T21:11:59.021Z"
+  },
+  {
+    "stem": "1361-p15a1-green-recorded",
+    "sourceSha": "19d5d06efb1227d1c2788f6119dd2e89cd3f84f5",
+    "exitCode": 1,
+    "fixedSource": true,
+    "allGuardsExact": true,
+    "start": "2026-10-04T21:12:44.259Z",
+    "end": "2026-10-04T21:12:59.610Z"
+  },
+  {
+    "stem": "1361-p15c-green-recorded",
+    "sourceSha": "19d5d06efb1227d1c2788f6119dd2e89cd3f84f5",
+    "exitCode": 0,
+    "fixedSource": true,
+    "allGuardsExact": true,
+    "start": "2026-10-04T21:13:52.924Z",
+    "end": "2026-10-04T21:16:42.466Z"
+  }
+]

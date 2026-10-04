@@ -1,0 +1,10 @@
+{
+  "expected": 45,
+  "actual": 45,
+  "missing": [],
+  "extra": [],
+  "changedMessages": [],
+  "equal": true,
+  "fixedSource": true,
+  "allGuardsExact": true
+}
