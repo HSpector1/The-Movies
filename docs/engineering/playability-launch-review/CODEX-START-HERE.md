@@ -1,5 +1,10 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1368-N: R8 corrected whole files pass formal gates
+
+[1368-N](evidence/p14b4-20260919/1368-N-r8-corrected-whole-file-verification.md) records the frozen unlanded R8 source. Relative to R6, exactly ten test files and four genuine historical fixture files changed; production source is byte-identical. Formal R8 types and both generators pass, then all 147 tests in the ten complete modified files pass with exact recorder/postflight guards. Preliminary complete P15 diagnostic improves 124 PASS/41 FAIL to 125 PASS/40 FAIL: the one NEW ranking identity is an executed pass and the remaining 40 failure messages match R6. Parent replay is labeled, not separate review. Current104/helper37/R8 formal P15, ledger, landing, broad and final recovery remain open; HANDOFF owns next actions.
+
+
 ## CURRENT — 1368-M: historical controls measured; ranking correction leaf passes
 
 [1368-M](evidence/p14b4-20260919/1368-M-r6-historical-controls-and-candidate.md) preserves the genuine original Save38 Scientist and original Save45 ranking captures, exact current Save46 refusals, versioned ranking-kit failures/fixes, and all formal ranking run records. The R7 preliminary combined correction passes root TS and all nine modified whole test files (78/78); the R8 ranking correction passes its selected leaf (1/1). Both are scratch-only and unlanded. Parent artifact replays are explicitly not separate reviews. The P15 whole-file, complete integrated, ledger and final recovery gates remain open. Main and CURRENT-BEST remain unchanged. HANDOFF contains the next exact actions.
