@@ -1,0 +1,155 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/candidate
+
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > below reserve
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > exact reserve alone
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > commission package entirely unaffordable
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > writer vacancy refused at staff cash gate
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > team vacancy refused at staff cash gate
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > failed renewal is not a vacancy
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > unrelated Scientist vacancy cash refusal
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > noncash staffing block
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > hold above reserve
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > busy writer above reserve
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > economic refusal alone
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full-index reason without evaluated screenplay evidence
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index all genuinely cash-bound
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index cash and cash-caused staffing
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index one economic rejection
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index noncash staffing
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > no decision opportunity
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > a production
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > a run
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > drafting or rewriting work
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > greenlit this decision
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > commissioned this decision
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > the separately retained legacy reserve-plus-one staffing setup enters cutting 716ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > accepts equality but refuses a one-dollar payback shortfall even when reserve passes
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > retains the separate R3 reserve guard when payback itself passes
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects productionSeat independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects writingSeat independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects unreleasedResearchSeat independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects openPromise independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects a contract with 0 weeks remaining
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects a contract with 1 weeks remaining
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects a contract with 26 weeks remaining
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > the pure release guard has no profession exclusion; a research seat protects the same facts
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > retains a genuinely occupied writing seat while cutting 503ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > releases in employment order with recomputed cash/cost and exact receipts, payroll and free agency 426ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2/B5: Part B restrictions and no inflow, separate from disposal > does not rehire next week, create positive money, remove plant or discard history
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B7/B8 and the direct live profession proof > a real ordinary greenlight clears cutting; the release policy is isolated as a refusal control 374ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B7/B8 and the direct live profession proof > direct profession proof accepts a valid cutting state without relying on tick swallowing a refusal
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B7/B8 and the direct live profession proof > has no player cost-cutting field or player termination effect
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B7/B8 and the direct live profession proof > never invokes recovery policy in a genuine hollywood-null world
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > sets new Scientist staffing demand to zero with a real positive demand control 8919ms
+   → bounded S8 route requires positive Scientist demand at an idle studio: expected undefined to be defined
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new renewal with an observed ordinary positive control
+   → bounded S8 route lacks a valid idle renewal control; report prerequisite failure: expected undefined to be defined
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new replacement with an observed ordinary positive control
+   → bounded S8 route lacks a valid idle replacement control; report prerequisite failure: expected undefined to be defined
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new laboratoryPlan with an observed ordinary positive control
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new adoption with an observed ordinary positive control
+   → bounded S8 route lacks a valid idle adoption control; report prerequisite failure: expected undefined to be defined
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new project with an observed ordinary positive control
+   → bounded S8 route lacks a valid idle project control; report prerequisite failure: expected undefined to be defined
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new seat with an observed ordinary positive control
+   → bounded S8 route lacks a valid idle seat control; report prerequisite failure: expected undefined to be defined
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > continues an already active, already seated research project and pays its work
+   → bounded S8 route requires an observed active-work positive control: expected undefined to be defined
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: every market case, including the extension bypass > expiryNew refuses new proposals and withdraws existing proposals before settlement 10456ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: every market case, including the extension bypass > extensionNew refuses new proposals and withdraws existing proposals before settlement 680ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: every market case, including the extension bypass > expiryWithdraw refuses new proposals and withdraws existing proposals before settlement
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: every market case, including the extension bypass > extensionWithdraw refuses new proposals and withdraws existing proposals before settlement 620ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > sets new Scientist staffing demand to zero with a real positive demand control
+AssertionError: bounded S8 route requires positive Scientist demand at an idle studio: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:321:94
+    319|   it('sets new Scientist staffing demand to zero with a real positive …
+    320|     const witness = commitmentControls().get('demand')
+    321|     expect(witness, 'bounded S8 route requires positive Scientist dema…
+       |                                                                                              ^
+    322|     const { input, id } = witness!
+    323|     makeSave(input)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new renewal with an observed ordinary positive control
+AssertionError: bounded S8 route lacks a valid idle renewal control; report prerequisite failure: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:331:107
+    329|     'blocks a new %s with an observed ordinary positive control', kind…
+    330|       const witness = commitmentControls().get(kind)
+    331|       expect(witness, `bounded S8 route lacks a valid idle ${kind} con…
+       |                                                                                                           ^
+    332|       const { input, control, id } = witness!
+    333|       makeSave(input); makeSave(control)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new replacement with an observed ordinary positive control
+AssertionError: bounded S8 route lacks a valid idle replacement control; report prerequisite failure: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:331:107
+    329|     'blocks a new %s with an observed ordinary positive control', kind…
+    330|       const witness = commitmentControls().get(kind)
+    331|       expect(witness, `bounded S8 route lacks a valid idle ${kind} con…
+       |                                                                                                           ^
+    332|       const { input, control, id } = witness!
+    333|       makeSave(input); makeSave(control)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new adoption with an observed ordinary positive control
+AssertionError: bounded S8 route lacks a valid idle adoption control; report prerequisite failure: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:331:107
+    329|     'blocks a new %s with an observed ordinary positive control', kind…
+    330|       const witness = commitmentControls().get(kind)
+    331|       expect(witness, `bounded S8 route lacks a valid idle ${kind} con…
+       |                                                                                                           ^
+    332|       const { input, control, id } = witness!
+    333|       makeSave(input); makeSave(control)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new project with an observed ordinary positive control
+AssertionError: bounded S8 route lacks a valid idle project control; report prerequisite failure: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:331:107
+    329|     'blocks a new %s with an observed ordinary positive control', kind…
+    330|       const witness = commitmentControls().get(kind)
+    331|       expect(witness, `bounded S8 route lacks a valid idle ${kind} con…
+       |                                                                                                           ^
+    332|       const { input, control, id } = witness!
+    333|       makeSave(input); makeSave(control)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new seat with an observed ordinary positive control
+AssertionError: bounded S8 route lacks a valid idle seat control; report prerequisite failure: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:331:107
+    329|     'blocks a new %s with an observed ordinary positive control', kind…
+    330|       const witness = commitmentControls().get(kind)
+    331|       expect(witness, `bounded S8 route lacks a valid idle ${kind} con…
+       |                                                                                                           ^
+    332|       const { input, control, id } = witness!
+    333|       makeSave(input); makeSave(control)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > continues an already active, already seated research project and pays its work
+AssertionError: bounded S8 route requires an observed active-work positive control: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:349:91
+    347|   it('continues an already active, already seated research project and…
+    348|     const witness = commitmentControls().get('activeWork')
+    349|     expect(witness, 'bounded S8 route requires an observed active-work…
+       |                                                                                           ^
+    350|     const { input, control, id } = witness!
+    351|     makeSave(input); makeSave(control)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+ Test Files  1 failed (1)
+      Tests  7 failed | 45 passed (52)
+   Start at  22:13:56
+   Duration  26.89s (transform 2.23s, setup 0ms, collect 2.96s, tests 23.40s, environment 0ms, prepare 135ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 1, "elapsedMs": 28825.24396397639}

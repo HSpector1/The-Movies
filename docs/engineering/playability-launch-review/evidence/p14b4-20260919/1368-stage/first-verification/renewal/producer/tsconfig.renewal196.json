@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","compilerOptions":{"noEmit":true,"allowImportingTsExtensions":true},"include":["src/**/*.ts","tests/1368-renewal196-capture.test.ts","tests/helpers/1368-archived-route.ts"]}

@@ -1,0 +1,15 @@
+# 1368-A — integrated focused evidence and genuine renewal witness
+
+IN PROGRESS; technical/headless evidence only. Recovery remains unlanded, main untouched, CURRENT-BEST unchanged. Owner1368-O continuation is active.
+
+On the exact preserved fullABC candidate, the existing six focused files pass46/46 (child0, no timeout,44.069s child). This extends the prior PartA-only result to integrated46 without changing those test bytes. Unchanged B behavior yields45PASS/7premiseFAIL, child1/no timeout28.825s: missing idle Scientist demand,renewal,replacement,adoption,project,seat,activeWork controls. Real ordered staff releases/charges/payroll/freeagency, occupied writing, direct profession, greenlight isolation and all four market cases pass. Adapter Scientist passes; renewal fails because576/576 observed renewal-window rows already have market cases, with zero renewal quotes. No B closure is claimed.
+
+The policy-predecessor schema tree's unchanged eight positive-controls yield seven same missing premises and one actual behavioral RED: it creates plan studio-efb645e3-r01:plan:1 despite cutting, reaching the real plan assertion after admission. FullABC's matching leaf is GREEN. Original results retained; pure policy passes are not invented historical REDs.
+
+A source-reasoned original26 route now supplies renewal: ce6945d58257f70c1b222a8c00e06038db73f6e4, p13a-core-causal-01,196 actual develop ticks. All157 original source blobs verified. Original writer/public26 and real migration/public46 pass, neutrality checks pass, actual current tick produces18paidrenewals acrossr01/r02/r03, each input owner idle, priorend208,newstart196. No case/history/cash edit. Frozen28 conversion lawfully initializes empty market; current industry executes before next market discovery. Current public reader/production is the pinned fullABC snapshot, not claimed live source.
+
+Typesr1 revealed a tuple typing error in the new loader; the safe indexed match correction passedtypesr2 (child0/no timeout19.157s). Capture then passed1case, child0/no timeout11.197s, all source/index/live-diff guards exact. Independent review accepts the capture and renewal-only consumers. Original current-route failures stay preserved. Consumer runtime has not yet run at this record.
+
+Exact capture adopted at tests/fixtures/p14/genuine-v26-renewal196-1368: manifestSHA d377c3bd3ce25cc91ef9e0b6778f576a3df1274dcdd0daed706081b5a63205ca; gzipSHA195651d9501df2e65ca97eb736862e8ea5eab9433c780541ef79821ffdd20dd2; rawSHA6e0ad3dd0a8a15cf0147ed8de1b3a04f2259829f90fddc4ae0fbb20b21f18783. Original53/312/93 inputs and failed attempts are untouched.
+
+[54-artifact manifest](1368-stage/first-verification/MANIFEST.json) preserves exact runners, source pins, completed results and independent reviews. Candidate source is unchanged from1367 fullABC; no broad/no-new-regression/native/gameplay/Golden claim. C/period witness producers and the delayed-start originalSave45 post2040 route are in independent review. Complete those, continue recovery verification and measurements, then reevaluate the existing promotion gate.

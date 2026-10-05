@@ -1,0 +1,133 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/candidate
+
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > sets new Scientist staffing demand to zero with a real positive demand control 9723ms
+   → bounded S8 route requires positive Scientist demand at an idle studio: expected undefined to be defined
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new renewal with an observed ordinary positive control
+   → bounded S8 route lacks a valid idle renewal control; report prerequisite failure: expected undefined to be defined
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new replacement with an observed ordinary positive control
+   → bounded S8 route lacks a valid idle replacement control; report prerequisite failure: expected undefined to be defined
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new laboratoryPlan with an observed ordinary positive control 380ms
+   → expected [ 'studio-efb645e3-r01:plan:1' ] to deeply equal []
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new adoption with an observed ordinary positive control
+   → bounded S8 route lacks a valid idle adoption control; report prerequisite failure: expected undefined to be defined
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new project with an observed ordinary positive control
+   → bounded S8 route lacks a valid idle project control; report prerequisite failure: expected undefined to be defined
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new seat with an observed ordinary positive control
+   → bounded S8 route lacks a valid idle seat control; report prerequisite failure: expected undefined to be defined
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > continues an already active, already seated research project and pays its work
+   → bounded S8 route requires an observed active-work positive control: expected undefined to be defined
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > sets new Scientist staffing demand to zero with a real positive demand control
+AssertionError: bounded S8 route requires positive Scientist demand at an idle studio: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:321:94
+    319|   it('sets new Scientist staffing demand to zero with a real positive …
+    320|     const witness = commitmentControls().get('demand')
+    321|     expect(witness, 'bounded S8 route requires positive Scientist dema…
+       |                                                                                              ^
+    322|     const { input, id } = witness!
+    323|     makeSave(input)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new renewal with an observed ordinary positive control
+AssertionError: bounded S8 route lacks a valid idle renewal control; report prerequisite failure: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:331:107
+    329|     'blocks a new %s with an observed ordinary positive control', kind…
+    330|       const witness = commitmentControls().get(kind)
+    331|       expect(witness, `bounded S8 route lacks a valid idle ${kind} con…
+       |                                                                                                           ^
+    332|       const { input, control, id } = witness!
+    333|       makeSave(input); makeSave(control)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new replacement with an observed ordinary positive control
+AssertionError: bounded S8 route lacks a valid idle replacement control; report prerequisite failure: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:331:107
+    329|     'blocks a new %s with an observed ordinary positive control', kind…
+    330|       const witness = commitmentControls().get(kind)
+    331|       expect(witness, `bounded S8 route lacks a valid idle ${kind} con…
+       |                                                                                                           ^
+    332|       const { input, control, id } = witness!
+    333|       makeSave(input); makeSave(control)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new laboratoryPlan with an observed ordinary positive control
+AssertionError: expected [ 'studio-efb645e3-r01:plan:1' ] to deeply equal []
+
+- Expected
++ Received
+
+- Array []
++ Array [
++   "studio-efb645e3-r01:plan:1",
++ ]
+
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:338:42
+    336|       const old = ownCommitments(input, id), after = ownCommitments(ne…
+    337|       expect(after.employment.map(e => e.contractId)).toEqual(old.empl…
+    338|       expect(after.plans.map(p => p.id)).toEqual(old.plans.map(p => p.…
+       |                                          ^
+    339|       expect(after.adoptions.map(a => [a.id, a.committedWeek])).toEqua…
+    340|       expect(after.projects.map(p => [p.id, p.startedWeek])).toEqual(o…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new adoption with an observed ordinary positive control
+AssertionError: bounded S8 route lacks a valid idle adoption control; report prerequisite failure: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:331:107
+    329|     'blocks a new %s with an observed ordinary positive control', kind…
+    330|       const witness = commitmentControls().get(kind)
+    331|       expect(witness, `bounded S8 route lacks a valid idle ${kind} con…
+       |                                                                                                           ^
+    332|       const { input, control, id } = witness!
+    333|       makeSave(input); makeSave(control)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new project with an observed ordinary positive control
+AssertionError: bounded S8 route lacks a valid idle project control; report prerequisite failure: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:331:107
+    329|     'blocks a new %s with an observed ordinary positive control', kind…
+    330|       const witness = commitmentControls().get(kind)
+    331|       expect(witness, `bounded S8 route lacks a valid idle ${kind} con…
+       |                                                                                                           ^
+    332|       const { input, control, id } = witness!
+    333|       makeSave(input); makeSave(control)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new seat with an observed ordinary positive control
+AssertionError: bounded S8 route lacks a valid idle seat control; report prerequisite failure: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:331:107
+    329|     'blocks a new %s with an observed ordinary positive control', kind…
+    330|       const witness = commitmentControls().get(kind)
+    331|       expect(witness, `bounded S8 route lacks a valid idle ${kind} con…
+       |                                                                                                           ^
+    332|       const { input, control, id } = witness!
+    333|       makeSave(input); makeSave(control)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > continues an already active, already seated research project and pays its work
+AssertionError: bounded S8 route requires an observed active-work positive control: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:349:91
+    347|   it('continues an already active, already seated research project and…
+    348|     const witness = commitmentControls().get('activeWork')
+    349|     expect(witness, 'bounded S8 route requires an observed active-work…
+       |                                                                                           ^
+    350|     const { input, control, id } = witness!
+    351|     makeSave(input); makeSave(control)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 44 skipped (52)
+   Start at  22:17:37
+   Duration  13.42s (transform 2.11s, setup 0ms, collect 2.88s, tests 10.11s, environment 0ms, prepare 115ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 1, "elapsedMs": 14402.173895970918}

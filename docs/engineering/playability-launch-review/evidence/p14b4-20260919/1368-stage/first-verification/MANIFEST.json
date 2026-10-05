@@ -1,0 +1,329 @@
+{
+  "format": "1368-first-verification/v1",
+  "files": [
+    {
+      "path": "b-verification/run.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/run.py",
+      "bytes": 2243,
+      "sha256": "4aa56672bfb3fe9733dc2662f349993bb3b11e9b2c398d21247946d2b443fce5"
+    },
+    {
+      "path": "b-verification/run-schema-controls.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/run-schema-controls.py",
+      "bytes": 2227,
+      "sha256": "30e68ed6cd340354e0c5250fa9d3bc5116adc5226c2f6d5f6405f0fc509d7e60"
+    },
+    {
+      "path": "b-verification/run-integrated-six.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/run-integrated-six.py",
+      "bytes": 2461,
+      "sha256": "684a078c15f9489561d3e35302022329856ef0145a957432520c13e4a2f35434"
+    },
+    {
+      "path": "b-verification/source-pins.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/source-pins.json",
+      "bytes": 76533,
+      "sha256": "d8920b5c747237e76b96f7e90cf0a4cf2fb305f22109e59fbfe198456c716ec2"
+    },
+    {
+      "path": "b-verification/schema-source-pins.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/schema-source-pins.json",
+      "bytes": 76423,
+      "sha256": "989ebc9ceba3e5c0594d090be41fd5404ac643eb9d4b0d0199615cf4171e9a0f"
+    },
+    {
+      "path": "b-verification/behavior-r1/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/behavior-r1/output.txt",
+      "bytes": 16763,
+      "sha256": "5b1c15e104d3a98c4a26ed69b2e973d6884943ade89685b10b5edbf8fcd8f735"
+    },
+    {
+      "path": "b-verification/behavior-r1/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/behavior-r1/result.json",
+      "bytes": 1606,
+      "sha256": "394e0c6ef941e0d843060b5f45830c5b6f4ff93bf0af6e66cb49dfca24c50a85"
+    },
+    {
+      "path": "b-verification/adapter-r1/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/adapter-r1/output.txt",
+      "bytes": 2246,
+      "sha256": "86b38f41e10004da051fb767223a7d484ccba8131c09a0ee82010b9ff43a3eee"
+    },
+    {
+      "path": "b-verification/adapter-r1/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/adapter-r1/result.json",
+      "bytes": 1614,
+      "sha256": "6ecc7522c892ad03a2783bfa8b493b34854ff699c8819868e5e008047ef2b659"
+    },
+    {
+      "path": "b-verification/schema-positive-controls-r1/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/schema-positive-controls-r1/output.txt",
+      "bytes": 10316,
+      "sha256": "fffaa830c5809a52ee882377fd9f55ce52d64ec12f5525b246896ef08207d836"
+    },
+    {
+      "path": "b-verification/schema-positive-controls-r1/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/schema-positive-controls-r1/result.json",
+      "bytes": 1673,
+      "sha256": "c77bc527d4854cd4ee55b05fb8659574cf4075425e4ebb76ea29ad9f9a9f3b3e"
+    },
+    {
+      "path": "b-verification/integrated-fixed-six-r1/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/integrated-fixed-six-r1/output.txt",
+      "bytes": 10229,
+      "sha256": "883389c4341e0ef9e8408a95d8d6af3a80f43918624d25ebcbb28fab9ff896b3"
+    },
+    {
+      "path": "b-verification/integrated-fixed-six-r1/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-verification/integrated-fixed-six-r1/result.json",
+      "bytes": 3142,
+      "sha256": "8ee14a17e0338cc7481003e609da9b8805383c697ac2898a5826e3e854ee579b"
+    },
+    {
+      "path": "lanes/1368-b-behavior-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-behavior-r1.log",
+      "bytes": 1504,
+      "sha256": "b96a5f75608850ca3e18fb0d9cd3e7a757be6e53e56f210165ab9d86538ffaee"
+    },
+    {
+      "path": "lanes/1368-b-behavior-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-behavior-r1.log.meta",
+      "bytes": 199,
+      "sha256": "5a70de3d12c18a2c87e4e477252e12c771987b102fb30e84b1146396f9aea176"
+    },
+    {
+      "path": "lanes/1368-b-adapter-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-adapter-r1.log",
+      "bytes": 1512,
+      "sha256": "c455b9443f6105d77462fed97daaaf4341e262ddf900bccdd1f6c30dfc6bcf8a"
+    },
+    {
+      "path": "lanes/1368-b-adapter-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-adapter-r1.log.meta",
+      "bytes": 198,
+      "sha256": "778e0dd0b70b1262877b1e72a69494ec5ca7386692912cd6af1cbc4a9aa4bd05"
+    },
+    {
+      "path": "lanes/1368-b-schema-controls-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-schema-controls-r1.log",
+      "bytes": 1563,
+      "sha256": "a711eb1670c34d2e09db98fa8dd87cded3f80b07af08e9c1768125ad7179e0ae"
+    },
+    {
+      "path": "lanes/1368-b-schema-controls-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-schema-controls-r1.log.meta",
+      "bytes": 206,
+      "sha256": "663f01187b2f4c94954c68565da6827cd75584e4fa60dfafe7a63d205b0b4f5c"
+    },
+    {
+      "path": "lanes/1368-integrated-six-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/1368-integrated-six-r1.log",
+      "bytes": 2988,
+      "sha256": "884cd685a20d5c669aff01917fbc393cb60d709796dcdcb3e38cbbdce78b8ec1"
+    },
+    {
+      "path": "lanes/1368-integrated-six-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1368-integrated-six-r1.log.meta",
+      "bytes": 205,
+      "sha256": "716912e9a32f4735bd84657ddfcd625eb0eee45fc341001a505259c093854f6a"
+    },
+    {
+      "path": "lanes/1368-b-renewal-types-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-renewal-types-r1.log",
+      "bytes": 1384,
+      "sha256": "6a9e20278091ad703a3aaf2cd6dc0d3d685f2a40b5d55842077584d50e43bf47"
+    },
+    {
+      "path": "lanes/1368-b-renewal-types-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-renewal-types-r1.log.meta",
+      "bytes": 196,
+      "sha256": "c6da77e38c47f3e99ea91943678df3097a4c7ca346a723d621be80abc1f8080c"
+    },
+    {
+      "path": "lanes/1368-b-renewal-types-r2.log",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-renewal-types-r2.log",
+      "bytes": 1470,
+      "sha256": "c88ffceb5c319b8479db5a66e12410c70fee814957a874a8e627e6819c3b1886"
+    },
+    {
+      "path": "lanes/1368-b-renewal-types-r2.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-renewal-types-r2.log.meta",
+      "bytes": 199,
+      "sha256": "d32ff00bf4b86c095f735e6929e9b3af525f89ee2f5fe2a679022a02a964eea1"
+    },
+    {
+      "path": "lanes/1368-b-renewal-capture-r2.log",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-renewal-capture-r2.log",
+      "bytes": 1589,
+      "sha256": "b1dbc28de497e32bfd16ac466159449262161d8192c17a8495b3e98238be5284"
+    },
+    {
+      "path": "lanes/1368-b-renewal-capture-r2.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-renewal-capture-r2.log.meta",
+      "bytes": 201,
+      "sha256": "fceedf299d62507495cafdf6b2a5435dd76edf2c7e2ce82e55d1c09f96b26e82"
+    },
+    {
+      "path": "renewal/BASE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/BASE-PINS.json",
+      "bytes": 76533,
+      "sha256": "d8920b5c747237e76b96f7e90cf0a4cf2fb305f22109e59fbfe198456c716ec2"
+    },
+    {
+      "path": "renewal/ARCHIVE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/ARCHIVE-PINS.json",
+      "bytes": 32154,
+      "sha256": "90b5dfc52f5ff8f446caba6a1d6e9421329e0335f94fa1baa100625a49c89731"
+    },
+    {
+      "path": "renewal/SOURCE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/SOURCE-PINS.json",
+      "bytes": 76852,
+      "sha256": "540c130b5f639902e9d0f57b63fc87587ce28843f936c3b1b5ee103be7644203"
+    },
+    {
+      "path": "renewal/SOURCE-PINS-v2.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/SOURCE-PINS-v2.json",
+      "bytes": 76852,
+      "sha256": "2ff643cc2b18068044c30bad94f8c4ec1c553347f75fe642fc8167dd2bddee06"
+    },
+    {
+      "path": "renewal/run.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/run.py",
+      "bytes": 2259,
+      "sha256": "053430980484a25dbd3926296317c5aa379fc3e7b8ed11d3660b18f4483e8f06"
+    },
+    {
+      "path": "renewal/run-v2.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/run-v2.py",
+      "bytes": 2540,
+      "sha256": "d68f562e316c0cb04b35e9830279d442f25ff0c830fec24ad35a0dea9bf338fe"
+    },
+    {
+      "path": "renewal/renewal-consumer-r1.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/renewal-consumer-r1.patch",
+      "bytes": 9085,
+      "sha256": "153500da4af8341711a4e79fa245eaeb60ac0e18f23a1f067ed1d1b8b54de0fe"
+    },
+    {
+      "path": "renewal/CONSUMER-PINS-r1.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/CONSUMER-PINS-r1.json",
+      "bytes": 346,
+      "sha256": "64455e24c599ffb6bd0ad5c66f5540e2eb698d6a4a2f68a603b62c5cbf9030bc"
+    },
+    {
+      "path": "renewal/renewal-consumer.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/renewal-consumer.patch",
+      "bytes": 9193,
+      "sha256": "bd83953b252a7dd44f802bf9ef062fd27d38a3ac4fbe7ec36c2eb7a6198cf83f"
+    },
+    {
+      "path": "renewal/CONSUMER-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/CONSUMER-PINS.json",
+      "bytes": 346,
+      "sha256": "b1489c7cfe586cc77e7d0c47c2722cce3c1eb5cfddec49117dbae321f9b6ce37"
+    },
+    {
+      "path": "renewal/types-r1/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/types-r1/output.txt",
+      "bytes": 396,
+      "sha256": "f0e161ba4fd382822e55bf8c0a254ff5fa6301cd479bcae4e1698a8ba73b1811"
+    },
+    {
+      "path": "renewal/types-r1/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/types-r1/result.json",
+      "bytes": 1462,
+      "sha256": "06c9b8b4501ff7e8761afbc4805584fb85de960bef82766aca8cc7cc9dd34006"
+    },
+    {
+      "path": "renewal/types-r2/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/types-r2/output.txt",
+      "bytes": 121,
+      "sha256": "d6fa45d401dd6f64cde68d89619a2bfe371ede1511b94b11badeef099e218fda"
+    },
+    {
+      "path": "renewal/types-r2/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/types-r2/result.json",
+      "bytes": 1550,
+      "sha256": "34bf8bd187fe58211ad4b4d7821018fda2e67fcf8165a1c2078c805e07a10fef"
+    },
+    {
+      "path": "renewal/capture-r2/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/capture-r2/output.txt",
+      "bytes": 6477,
+      "sha256": "90cab240e8ba0587c324cc9d38902f66c49a7f6f3e9653bf7fadc4a1f4ad6322"
+    },
+    {
+      "path": "renewal/capture-r2/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/capture-r2/result.json",
+      "bytes": 1693,
+      "sha256": "4ceb2f385030fa57bb7c859424882086189a6a172ec1f0aca63c254367295b70"
+    },
+    {
+      "path": "renewal/producer/tests/1368-renewal196-capture.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate/tests/1368-renewal196-capture.test.ts",
+      "bytes": 5235,
+      "sha256": "dd477145a674b85a081eb52927262febde399f0891247903de705dc795f3c3de"
+    },
+    {
+      "path": "renewal/producer/tests/helpers/1368-archived-route.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate/tests/helpers/1368-archived-route.ts",
+      "bytes": 4125,
+      "sha256": "9cf6a963a2ef4580b0f167f7083ec2dd0749f74f3b3898ce455e5c1fa0961aff"
+    },
+    {
+      "path": "renewal/producer/tsconfig.renewal196.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate/tsconfig.renewal196.json",
+      "bytes": 203,
+      "sha256": "694cd0904c83a11a0b58bdf6759aa637b0a9e2d2259597aa39048409cbc92357"
+    },
+    {
+      "path": "renewal/consumer/tests/helpers/1368-renewal-fixture.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/consumer/tests/helpers/1368-renewal-fixture.ts",
+      "bytes": 2427,
+      "sha256": "b2d808a51a2f37bdf22c77323bed31a6c3f4e9f37cf64e50f7fa20b43f7e3582"
+    },
+    {
+      "path": "renewal/consumer/tests/p14d2-rival-cost-cutting.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/consumer/tests/p14d2-rival-cost-cutting.test.ts",
+      "bytes": 31706,
+      "sha256": "096bcf27a75e1e288e2206585d2c6dcd21213c4138c80f8a77feb193a6f1e1aa"
+    },
+    {
+      "path": "renewal/consumer/tests/p14d2-rival-cost-cutting-adapter.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/consumer/tests/p14d2-rival-cost-cutting-adapter.test.ts",
+      "bytes": 14528,
+      "sha256": "f1d5c5f55012aa93174b180ef4d8b9763ea1a0c66974504e013d4b7fc8f53c28"
+    },
+    {
+      "path": "review/REPLACEMENT-CRITERIA.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/REPLACEMENT-CRITERIA.md",
+      "bytes": 5668,
+      "sha256": "93c90231343f087b8c5727684d8be85ca5fdec064715a0c7123ebd8252a69a8f"
+    },
+    {
+      "path": "review/B-MEASURED-AND-RENEWAL-FEASIBILITY.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/B-MEASURED-AND-RENEWAL-FEASIBILITY.md",
+      "bytes": 4448,
+      "sha256": "c715e0a9d8707afd610f87d1efc88cfd89566ec373d51ff5410c31a0d63d4825"
+    },
+    {
+      "path": "review/RENEWAL196-PRODUCER-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/RENEWAL196-PRODUCER-REVIEW.md",
+      "bytes": 3731,
+      "sha256": "fc79d988a68d20ce9dda0333fdf9c22ecbe585ac20f18673043b3e783c9d7ed3"
+    },
+    {
+      "path": "review/RENEWAL196-CAPTURE-ACCEPTANCE.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/RENEWAL196-CAPTURE-ACCEPTANCE.md",
+      "bytes": 3450,
+      "sha256": "ae75ca04bb930966de86661c9f2ad344bc0d0f89c704ec38059582604ea5ee8b"
+    },
+    {
+      "path": "review/RENEWAL196-CONSUMER-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/RENEWAL196-CONSUMER-REVIEW.md",
+      "bytes": 2519,
+      "sha256": "a2f6b7ba8cbd2413c7b3b146759e3427a597021e46658972fa87517f3b1959c1"
+    }
+  ]
+}

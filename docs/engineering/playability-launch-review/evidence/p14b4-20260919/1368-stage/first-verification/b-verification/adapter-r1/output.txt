@@ -1,0 +1,27 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/candidate
+
+ × |core| tests/p14d2-rival-cost-cutting-adapter.test.ts > 1363 B1 actual staff adapter: refusal causes remain distinct > renewal quote refusal does not become a film-team cash vacancy 8549ms
+   → PREREQUISITE: no real renewal staff quote/paid-control witness in 430 S8 ticks through 430 ({"renewalWindowRows":576,"windowRowsWithOpenCase":576,"renewalQuotes":0,"scientistQuotes":4}); report, do not fabricate: expected undefined to be defined
+ ✓ |core| tests/p14d2-rival-cost-cutting-adapter.test.ts > 1363 B1 actual staff adapter: refusal causes remain distinct > scientist quote refusal does not become a film-team cash vacancy 681ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting-adapter.test.ts > 1363 B1 actual staff adapter: refusal causes remain distinct > renewal quote refusal does not become a film-team cash vacancy
+AssertionError: PREREQUISITE: no real renewal staff quote/paid-control witness in 430 S8 ticks through 430 ({"renewalWindowRows":576,"windowRowsWithOpenCase":576,"renewalQuotes":0,"scientistQuotes":4}); report, do not fabricate: expected undefined to be defined
+ ❯ tests/p14d2-rival-cost-cutting-adapter.test.ts:167:181
+    165|   it.each(['renewal', 'scientist'] as const)('%s quote refusal does no…
+    166|     const witness = controls().get(kind)
+    167|     expect(witness, `PREREQUISITE: no real ${kind} staff quote/paid-co…
+       |                                                                                                                                                                                     ^
+    168|     const { input, quote, control } = witness!, id = quote.studioId
+    169|     makeSave(input); makeSave(control.next)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  22:14:49
+   Duration  11.98s (transform 1.70s, setup 0ms, collect 2.28s, tests 9.23s, environment 0ms, prepare 111ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 1, "elapsedMs": 12953.549475991167}

@@ -1,0 +1,139 @@
+--- a/tests/p14d2-rival-cost-cutting.test.ts
++++ b/tests/p14d2-rival-cost-cutting.test.ts
+@@ -2,6 +2,7 @@
+ // Proposed missing policy exports are checked on an EXISTING module, never stubbed.
+ // Integration controls must pass current makeSave after the separately adopted shape lands.
+ import { describe, expect, it, vi } from 'vitest'
++import { genuineRenewal196 } from './helpers/1368-renewal-fixture.js'
+ import * as policyModule from '../src/core/hollywoodPolicy.js'
+ import * as marketModule from '../src/core/talentMarket.js'
+ import * as researchModule from '../src/core/rivalResearch.js'
+@@ -290,6 +291,19 @@
+   })
+   expect(business(state, rowOne(state)).costCutting, 'Save46 source prerequisite').toEqual({ version: 1, since: null })
+   const found = new Map<CommitmentKind, Witness>()
++  // The fixed current S8 route has market cases throughout every renewal window.
++  // Preserve it for other controls; use an independently captured pre-market input
++  // for renewal without deleting any case, history, commitment or money.
++  const renewalInput = genuineRenewal196(), renewalNext = tick(renewalInput)
++  makeSave(renewalInput); makeSave(renewalNext)
++  for (const b of renewalInput.hollywood!.businesses) {
++    if (b.costCutting.since !== null || b.productions.length || b.runs.length
++      || renewalInput.talentMarket.proposals.some(p => p.issuerStudioId === b.studioId)) continue
++    const prior = ownCommitments(renewalInput, b.studioId), after = ownCommitments(renewalNext, b.studioId)
++    if (after.employment.slice(prior.employment.length).some(e => e.reason === 'renewal')) {
++      found.set('renewal', { input: renewalInput, control: renewalNext, id: b.studioId }); break
++    }
++  }
+   while (state.market.tick < 430 && found.size < 8) {
+     const next = tick(state)
+     for (const b of state.hollywood!.businesses) {
+@@ -328,7 +342,7 @@
+   it.each(['renewal', 'replacement', 'laboratoryPlan', 'adoption', 'project', 'seat'] as const)(
+     'blocks a new %s with an observed ordinary positive control', kind => {
+       const witness = commitmentControls().get(kind)
+-      expect(witness, `bounded S8 route lacks a valid idle ${kind} control; report prerequisite failure`).toBeDefined()
++      expect(witness, `bounded S8 / genuine196 inputs lack a valid idle ${kind} control; report prerequisite failure`).toBeDefined()
+       const { input, control, id } = witness!
+       makeSave(input); makeSave(control)
+       const state = cuttingInput(input, id), before = structuredClone(state), next = tick(state)
+--- a/tests/p14d2-rival-cost-cutting-adapter.test.ts
++++ b/tests/p14d2-rival-cost-cutting-adapter.test.ts
+@@ -1,6 +1,7 @@
+ // Additive 1363 Part B caller controls. The reviewed main RED patch is unchanged.
+ // Missing Save46/API or missing natural quote witnesses are prerequisites, not REDs.
+ import { describe, expect, it, vi } from 'vitest'
++import { genuineRenewal196 } from './helpers/1368-renewal-fixture.js'
+ import * as policy from '../src/core/hollywoodPolicy.js'
+ import * as market from '../src/core/talentMarket.js'
+ import * as employment from '../src/core/employment.js'
+@@ -135,6 +136,21 @@
+   makeSave(state)
+   for (const b of state.hollywood!.businesses) expect(business(state, b.studioId).costCutting, 'Save46 prerequisite').toEqual({ version: 1, since: null })
+   const found = new Map<Kind, Witness>()
++  function record(input: GameState, control: Observation): void {
++    for (const quote of control.quotes) {
++      if (found.has(quote.kind)) continue
++      const entry = control.entries.find(e => e.studioId === quote.studioId)
++      if (!entry || !entry.facts.decisionRan || entry.facts.unfilledFilmSlotForCash || entry.result) continue
++      const additions = control.next.hollywood!.employment.slice(input.hollywood!.employment.length)
++        .filter(e => e.studioId === quote.studioId && e.terms.talentId === quote.talentId)
++      if (additions.length !== 1) continue // positive real paid employment is required
++      if (quote.kind === 'renewal' && !control.next.hollywood!.employment.some(e => e.contractId === quote.oldContractId && e.endedWeek === input.market.tick)) continue
++      found.set(quote.kind, { input, quote, control })
++    }
++  }
++  // Genuine pre-market historical input; normal migration alone creates its empty market.
++  const renewalInput = genuineRenewal196()
++  record(renewalInput, observe(renewalInput))
+   while (state.market.tick < 430 && found.size < 2) {
+     for (const ordinal of state.hollywood!.activeEmploymentOrdinals) {
+       const row = state.hollywood!.employment[ordinal]!
+@@ -145,16 +161,7 @@
+     const control = observe(state); inspected++
+     discovery.renewalQuotes += control.quotes.filter(q => q.kind === 'renewal').length
+     discovery.scientistQuotes += control.quotes.filter(q => q.kind === 'scientist').length
+-    for (const quote of control.quotes) {
+-      if (found.has(quote.kind)) continue
+-      const entry = control.entries.find(e => e.studioId === quote.studioId)
+-      if (!entry || !entry.facts.decisionRan || entry.facts.unfilledFilmSlotForCash || entry.result) continue
+-      const additions = control.next.hollywood!.employment.slice(state.hollywood!.employment.length)
+-        .filter(e => e.studioId === quote.studioId && e.terms.talentId === quote.talentId)
+-      if (additions.length !== 1) continue // positive real paid employment is required
+-      if (quote.kind === 'renewal' && !control.next.hollywood!.employment.some(e => e.contractId === quote.oldContractId && e.endedWeek === state.market.tick)) continue
+-      found.set(quote.kind, { input: state, quote, control })
+-    }
++    record(state, control)
+     state = control.next
+   }
+   cached = found
+@@ -164,7 +171,7 @@
+ describe('1363 B1 actual staff adapter: refusal causes remain distinct', () => {
+   it.each(['renewal', 'scientist'] as const)('%s quote refusal does not become a film-team cash vacancy', kind => {
+     const witness = controls().get(kind)
+-    expect(witness, `PREREQUISITE: no real ${kind} staff quote/paid-control witness in ${inspected} S8 ticks through 430 (${JSON.stringify(discovery)}); report, do not fabricate`).toBeDefined()
++    expect(witness, `PREREQUISITE: no real ${kind} staff quote/paid-control witness in genuine196 plus ${inspected} S8 ticks through 430 (${JSON.stringify(discovery)}); report, do not fabricate`).toBeDefined()
+     const { input, quote, control } = witness!, id = quote.studioId
+     makeSave(input); makeSave(control.next)
+     const before = structuredClone(input)
+--- /dev/null
++++ b/tests/helpers/1368-renewal-fixture.ts
+@@ -0,0 +1,38 @@
++// Genuine historical pre-market state: all history is original26 output.
++// The normal migration introduces the empty market; no current case is removed.
++import { expect } from 'vitest'
++import { readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { createHash } from 'node:crypto'
++import { validateSaveV26, migrateToV46, validateSaveV46, stableStringify, exportSave, importSave } from '../../src/core/save.js'
++const root = new URL('../fixtures/p14/genuine-v26-renewal196-1368/', import.meta.url)
++const sha = (v: string | Uint8Array) => createHash('sha256').update(v).digest('hex')
++export function genuineRenewal196() {
++  const manifestBytes = readFileSync(new URL('MANIFEST.json', root))
++  expect(manifestBytes.length).toBe(8098)
++  expect(sha(manifestBytes)).toBe('d377c3bd3ce25cc91ef9e0b6778f576a3df1274dcdd0daed706081b5a63205ca')
++  const manifest = JSON.parse(manifestBytes.toString('utf8'))
++  expect(manifest).toMatchObject({ format: '1368-original26-renewal196/v1', generatingHead: 'ce6945d58257f70c1b222a8c00e06038db73f6e4',
++    archiveSha256: '942359540dafb615549c58df2cf1ea5067e1c7acd0d8df0dda24187241a67a14', seed: 'p13a-core-causal-01',
++    ticks: 196, week: 196, sourceSaveVersion: 26, tickOptions: { develop: true } })
++  const compressed = readFileSync(new URL('genuine-v26-week196.json.gz', root))
++  expect(compressed.length).toBe(117369)
++  expect(sha(compressed)).toBe('195651d9501df2e65ca97eb736862e8ea5eab9433c780541ef79821ffdd20dd2')
++  const raw = gunzipSync(compressed).toString('utf8')
++  expect(Buffer.byteLength(raw)).toBe(1048509)
++  expect(sha(raw)).toBe('6e0ad3dd0a8a15cf0147ed8de1b3a04f2259829f90fddc4ae0fbb20b21f18783')
++  const parsed: unknown = JSON.parse(raw), before = stableStringify(parsed)
++  const historical = validateSaveV26(parsed)
++  expect(stableStringify(parsed)).toBe(before)
++  expect(exportSave(historical)).toBe(raw)
++  expect(validateSaveV26(importSave(raw))).toEqual(historical)
++  const migrated = migrateToV46(historical), migratedBefore = stableStringify(migrated)
++  const live = validateSaveV46(migrated).state
++  expect(stableStringify(migrated)).toBe(migratedBefore)
++  expect(stableStringify(parsed)).toBe(before)
++  expect(live.market.tick).toBe(196)
++  expect(live.talentMarket.cases).toHaveLength(0)
++  expect(live.talentMarket.proposals).toHaveLength(0)
++  expect(live.hollywood!.businesses.every(b => b.costCutting.since === null)).toBe(true)
++  return live
++}

@@ -1,0 +1,2 @@
+tests/helpers/1368-archived-route.ts(36,31): error TS2352: Conversion of type 'RegExpExecArray' to type '[string, string, string]' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 2, "elapsedMs": 17773.206530022435}
