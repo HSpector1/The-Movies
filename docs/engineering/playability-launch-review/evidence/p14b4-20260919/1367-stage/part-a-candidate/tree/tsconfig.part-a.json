@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/**/*.ts",
+    "tests/p14d1-rival-shelving.test.ts",
+    "tests/p14d2-binding-cash.test.ts",
+    "tests/p14d2-a8-binding-cash.test.ts",
+    "tests/p15c2-legacy-lens-shape.test.ts",
+    "tests/save-masked-downgrade-own-era.test.ts",
+    "tests/save-v36-extension-own-era.test.ts"
+  ],
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true
+  }
+}

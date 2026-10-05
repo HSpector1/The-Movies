@@ -1,0 +1,144 @@
+{
+  "files": {
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/f6-quality-green/1367-f6-quality-regressions-extra-guards.json": {
+      "sha256": "d3a33a72820bdcab42222eecdc855d5ef28e81538b29e57f6b527556eb489f7b",
+      "bytes": 1311
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/f6-quality-green/lane.log.meta": {
+      "sha256": "df99dee0e0ce5449ad98a8b738b8ddfe1e2c42e83561d49c5aa4abe835847f28",
+      "bytes": 259
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/1367-part-a-landing-review/INDEPENDENT-REVIEW.md": {
+      "sha256": "2f90aa9c78ab45cc07cd2d20ad96c34cdc1b2fcabd5de17a52247b9565176423",
+      "bytes": 7444
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/1367-part-a-landing-review/CANDIDATE-WRAPPER-ADDENDUM.md": {
+      "sha256": "47d285779dcb6fd7b2fd8a45be2d6ddf947e6b17b8735fc9122b796f2b988a34",
+      "bytes": 4647
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/1367-part-a-boundary-prep/boundary.workspace.ts": {
+      "sha256": "d1772ae771e2b8867e21ed6f588a7cd968bcf28bee887695a635882fdf109177",
+      "bytes": 184
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/1367-part-a-boundary-prep/HANDBACK.md": {
+      "sha256": "1af45daeabac4cbc8e50a66492fe0056a34e49953d2682a5b4008490881d1ea0",
+      "bytes": 5571
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/1367-part-a-boundary-prep/ATTRIBUTION.json": {
+      "sha256": "53998aadb431db6485611082eb0fed1a3795798fd34f6dd1629c5eb970278800",
+      "bytes": 23596
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/1367-part-a-boundary-prep/compare.py": {
+      "sha256": "0c53827021c7f7e0804eac2665e302586f1f9761892b4dc2c39acf87f25c6541",
+      "bytes": 1134
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/1367-part-a-boundary-prep/boundary.probe.ts": {
+      "sha256": "f939d90ef4074e9ce9f4c51b6eafc86a07ca760220de386e7983fa91de725845",
+      "bytes": 2991
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/SOURCE-PINS.json": {
+      "sha256": "ab6ce98bad2f70a19b8eaf7f19e2ff87ca05d63628a216ab12dfe7ed564c3f1b",
+      "bytes": 76786
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/run.py": {
+      "sha256": "908fd1e6d3a9bc9cbd882d5ed77d85e479fcee3fce7449fcd26b9f2a312ce46d",
+      "bytes": 2498
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/types-r3/output.txt": {
+      "sha256": "79944436cbb57305536f0ab992277f4dc87d6085f8f29cf03b9aece4fb6142ba",
+      "bytes": 121
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/types-r3/result.json": {
+      "sha256": "fdfe80aa81ea04ecf78cbe41316f046b8b6a18a65c09d86eb772fc07b42dabe6",
+      "bytes": 3108
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/focused-r1/output.txt": {
+      "sha256": "45efe977934f577ec1d2f3a4c0cc21a4340cea0351afcebb51f969e860bd0e4c",
+      "bytes": 1984327
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/focused-r1/result.json": {
+      "sha256": "45a9501b5e010e9d4222beb8f68ea0cdd3f4073a42ba2136469849e909250ef3",
+      "bytes": 3478
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/tree/tsconfig.part-a.json": {
+      "sha256": "0647f318ace721232251f2f2375117554dc839cc149e3e324fe63d4818223208",
+      "bytes": 429
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/1367-part-a-types.log": {
+      "sha256": "f72daab9a4855400804b5311a367e6bca9028f1633924f62f20a875a31afe742",
+      "bytes": 1644
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/1367-part-a-types.log.meta": {
+      "sha256": "abafa9c60a80b2083e8960e6179c21b6d6bea55383407d36e7707d79e61fbbc2",
+      "bytes": 198
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/1367-part-a-types-r2.log": {
+      "sha256": "7e8613e9e32856806c5b0fdb6c9ded7c78aa865dd53e5dfec1ad376a8a02e943",
+      "bytes": 150
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/1367-part-a-types-r2.log.meta": {
+      "sha256": "5c068d153da3b1a4ffd76283060031ce27bbf00ad7bc83001f649c3d0e57ae42",
+      "bytes": 201
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/1367-part-a-types-r3.log.meta": {
+      "sha256": "7cfa52543ed73a109b1f86663bbfbf254ae8887353817a45a742ff32fe634623",
+      "bytes": 201
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/part-a-candidate/1367-part-a-focused-r1.log.meta": {
+      "sha256": "0c8d91ef87090fc0d597dca616602e4783c0d4f443540b1c8fd0b0c31e0a1542",
+      "bytes": 203
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/HANDBACK.md": {
+      "sha256": "43d55c2ba1506e6ab37edf5fc4129527b0cfb13d1e9b5df09aed9d9d355937af",
+      "bytes": 12378
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/APPLICATION-LOG.json": {
+      "sha256": "5efc8154f8e2eded209ae7ff1e285d0d115c7e92047d8af9c5dbba0b0a2f1e17",
+      "bytes": 32554
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/FILE-INVENTORY.json": {
+      "sha256": "4c8897990b80a5f71a733aeb2a8e33cd70af54f1eefbbd1f379f2cc93c93436f",
+      "bytes": 52070
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/FILE-INVENTORY-v2.json": {
+      "sha256": "b78f16b08a952b83efe03de5deb9d82f58cd777ba504c94c33ccf12a6e478a4d",
+      "bytes": 52348
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/integration.patch": {
+      "sha256": "7f1a89d2b55f423e068b8a56254e736a1daeb056812e565538260cd7c1dbcf0d",
+      "bytes": 132949
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/public-index-exports.patch": {
+      "sha256": "30fab513646c3a3dd5b0c879fab23ffe7409d9a1054ab7b57b19a6ef51e6e61b",
+      "bytes": 1800
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/against-858cd9d2.patch": {
+      "sha256": "45a0d62c6a19c173cc1d7b5ad989ac07a6f83a9f3883eaca26f2414bc5610045",
+      "bytes": 129112
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/production-identity-integration.patch": {
+      "sha256": "26e0958ff865139df38b27d040fdde7e247927e4b4870922d02125aa656e7588",
+      "bytes": 529
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/INTERMEDIATE-RED-LAYERS.md": {
+      "sha256": "9b31d3b75c9357118edc1127d9fe128cdc8a53567d760873f8a27f819342182d",
+      "bytes": 11644
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/types-r1/output.txt": {
+      "sha256": "52394f323325b21caca60552f48086887b5df5d8c01b6a28e86378c220ab0db5",
+      "bytes": 982
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/types-r1/result.json": {
+      "sha256": "c959199a6e45c174778ebb89b7929f3884a817935fe4a33f0287fb3ac7d346a8",
+      "bytes": 421
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/types-r2/output.txt": {
+      "sha256": "527065a0e403bdd28a5768bf09130407cfb10969ded422ff8a2ce85434cd1022",
+      "bytes": 120
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-integrated-candidate/types-r2/result.json": {
+      "sha256": "34377993e648a4e3e3e39510441ce17fc911fcdfbfe7ef22326bb10462f8e7f7",
+      "bytes": 422
+    }
+  }
+}

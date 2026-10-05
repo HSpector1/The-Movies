@@ -1,0 +1,7 @@
+src/core/productionIdentity.ts(113,24): error TS2322: Type '{ eventId: string; week: number; studioId: string; } & { kind: "facilityDisposed"; facilityId: string; planId: string; blueprintId: "research-laboratory"; refund: number; }' is not assignable to type 'never'.
+src/harness/p14/legacy-v28-fixtures.ts(30,63): error TS2307: Cannot find module '../../../tests/contracts/_contractFixtures.js' or its corresponding type declarations.
+src/harness/p14/legacy-v28-fixtures.ts(171,64): error TS7006: Parameter 'w' implicitly has an 'any' type.
+src/harness/p14/legacy-v28-fixtures.ts(186,57): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/harness/p14/legacy-v28-fixtures.ts(190,55): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/harness/p14/legacy-v28-fixtures.ts(197,53): error TS7006: Parameter 'w' implicitly has an 'any' type.
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 2, "elapsedMs": 18105.305914068595}

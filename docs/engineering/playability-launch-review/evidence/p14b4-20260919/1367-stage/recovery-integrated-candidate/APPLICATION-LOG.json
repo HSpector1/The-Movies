@@ -1,0 +1,1000 @@
+[
+  {
+    "order": 1,
+    "source": "/Users/zacheryspector/studio-scratch/1363-part-a-production-prep/part-a-production.patch",
+    "patchSha256": "2b11a5c13259b69ddcea3476b826c6eba690b7ea82facfa11e2aff03352bd5d9",
+    "files": [
+      {
+        "path": "src/core/hollywoodPolicy.ts",
+        "beforeSha256": "843131da845b609ad133259ee82035bc129aad4b75394b757d5ac66341efd234",
+        "afterSha256": "cfdde050a2aa2955bdea15f69a9600d7b57017eb09828c01109df03ea7b3695a",
+        "hunks": [
+          {
+            "header": "@@ -33,16 +33,20 @@",
+            "actualOldStartInEvolvingFile": 33,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -59,8 +63,11 @@",
+            "actualOldStartInEvolvingFile": 63,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -71,12 +78,15 @@",
+            "actualOldStartInEvolvingFile": 78,
+            "exactContext": true
+          }
+        ]
+      },
+      {
+        "path": "src/core/hollywoodTick.ts",
+        "beforeSha256": "d5963544fd591ee5abbb3584e3f0337db0210bfeaac05b69195a3c339452ac17",
+        "afterSha256": "21b00c62f0057786f81d1b821eb5984677f7e4251211ecaf7d5288840d5f719e",
+        "hunks": [
+          {
+            "header": "@@ -232,8 +232,10 @@",
+            "actualOldStartInEvolvingFile": 232,
+            "exactContext": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "order": 2,
+    "source": "/Users/zacheryspector/studio-scratch/1363-part-b-policy-production-prep/part-b-policy-production.patch",
+    "patchSha256": "5c92dd24a8c7f9413259e7212a8570242b22c252ebbb9bd81b8307bba7b0efe4",
+    "files": [
+      {
+        "path": "src/core/hollywoodPolicy.ts",
+        "beforeSha256": "cfdde050a2aa2955bdea15f69a9600d7b57017eb09828c01109df03ea7b3695a",
+        "afterSha256": "ea2994dbb980aa60ce70d1e53ecc6c2a0acf1365145f0e6aad148e5cd0a9bce1",
+        "hunks": [
+          {
+            "header": "@@ -1,3 +1,4 @@",
+            "actualOldStartInEvolvingFile": 1,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -93,3 +94,49 @@",
+            "actualOldStartInEvolvingFile": 94,
+            "exactContext": true
+          }
+        ]
+      },
+      {
+        "path": "src/core/employment.ts",
+        "beforeSha256": "6c3fec2129c0a461ec0de8e3e20f4bb47e4150bb9f0c39fd7201fae6a3951ce0",
+        "afterSha256": "ad7f32db9f5a5ed6b5d11a26a25604ab71df07daba0e273214336e92d8c0f1bf",
+        "hunks": [
+          {
+            "header": "@@ -204,7 +204,7 @@",
+            "actualOldStartInEvolvingFile": 204,
+            "exactContext": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "order": 3,
+    "source": "/Users/zacheryspector/studio-scratch/1363-part-b-tick-production-prep/part-b-tick-production.patch",
+    "patchSha256": "e3016b96fa033e20959e6ac8802d4cbae49b30bfe7e938fee1dd2f5062c18e18",
+    "files": [
+      {
+        "path": "src/core/hollywoodTick.ts",
+        "beforeSha256": "21b00c62f0057786f81d1b821eb5984677f7e4251211ecaf7d5288840d5f719e",
+        "afterSha256": "8808d5dd7dd21ee3f1eace4e0fe267d1e02f0935a2be9b5a4ed7063849466658",
+        "hunks": [
+          {
+            "header": "@@ -1,4 +1,5 @@",
+            "actualOldStartInEvolvingFile": 1,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -90,8 +91,12 @@",
+            "actualOldStartInEvolvingFile": 91,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -99,7 +104,7 @@",
+            "actualOldStartInEvolvingFile": 104,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -115,7 +120,9 @@",
+            "actualOldStartInEvolvingFile": 120,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -137,7 +144,7 @@",
+            "actualOldStartInEvolvingFile": 144,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -156,7 +163,11 @@",
+            "actualOldStartInEvolvingFile": 163,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -173,15 +184,16 @@",
+            "actualOldStartInEvolvingFile": 184,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -189,6 +201,12 @@",
+            "actualOldStartInEvolvingFile": 201,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -199,9 +217,13 @@",
+            "actualOldStartInEvolvingFile": 217,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -251,6 +273,8 @@",
+            "actualOldStartInEvolvingFile": 273,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -262,6 +286,7 @@",
+            "actualOldStartInEvolvingFile": 286,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -300,10 +325,12 @@",
+            "actualOldStartInEvolvingFile": 325,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -319,14 +346,14 @@",
+            "actualOldStartInEvolvingFile": 346,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -335,6 +362,17 @@",
+            "actualOldStartInEvolvingFile": 362,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -362,15 +400,16 @@",
+            "actualOldStartInEvolvingFile": 400,
+            "exactContext": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "order": 4,
+    "source": "/Users/zacheryspector/studio-scratch/1363-part-b-commitments-production-prep/production.patch",
+    "patchSha256": "b4303c5670ccf3ad289102a7b3f6f949af6f84782290b888e2b8e08c6fb0642e",
+    "files": [
+      {
+        "path": "src/core/rivalResearch.ts",
+        "beforeSha256": "eb7753e88b31e980f504f28421346447eb6ece2308e42d1032fb7e9cc6e38d74",
+        "afterSha256": "65578b5f591f43b63b7c1e54f5f3094442251dfc587eadac7d0d6847408578f4",
+        "hunks": [
+          {
+            "header": "@@ -112,6 +112,7 @@",
+            "actualOldStartInEvolvingFile": 112,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -197,13 +198,18 @@",
+            "actualOldStartInEvolvingFile": 198,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -211,6 +217,7 @@",
+            "actualOldStartInEvolvingFile": 217,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -224,7 +231,8 @@",
+            "actualOldStartInEvolvingFile": 231,
+            "exactContext": true
+          }
+        ]
+      },
+      {
+        "path": "src/core/technologyRival.ts",
+        "beforeSha256": "69c8fa5ab2446b0cb3c74678538bd4b308917e0c8021e71355e5c54d07803520",
+        "afterSha256": "fd9764c20f5a649be3b51e23533cd4208fd59c049b1b2a166d89a9bbb35c0336",
+        "hunks": [
+          {
+            "header": "@@ -17,6 +17,7 @@",
+            "actualOldStartInEvolvingFile": 17,
+            "exactContext": true
+          }
+        ]
+      },
+      {
+        "path": "src/core/talentMarket.ts",
+        "beforeSha256": "010ed07634a5991674dc867f61b3b78ab022c91699366d29fea26a4d5585c087",
+        "afterSha256": "feaf3ef75051583820addb8b3b00065925464e5a2ca265c3d328102c22aa5957",
+        "hunks": [
+          {
+            "header": "@@ -1334,6 +1334,16 @@",
+            "actualOldStartInEvolvingFile": 1334,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -1387,6 +1397,7 @@",
+            "actualOldStartInEvolvingFile": 1397,
+            "exactContext": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "order": 5,
+    "source": "/Users/zacheryspector/studio-scratch/1363-part-c-production-prep/part-c-disposal-production.patch",
+    "patchSha256": "29d5ce1f31049c759702dac2d836fd052c01cd0722cb0c1aefce86d81f1a55b7",
+    "files": [
+      {
+        "path": "src/core/rivalResearch.ts",
+        "beforeSha256": "65578b5f591f43b63b7c1e54f5f3094442251dfc587eadac7d0d6847408578f4",
+        "afterSha256": "2ecb9b1cc9a24ece288d356bada70686456de97260333beb25e73bec92e71b6c",
+        "hunks": [
+          {
+            "header": "@@ -23,7 +23,7 @@",
+            "actualOldStartInEvolvingFile": 23,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -292,6 +292,10 @@",
+            "actualOldStartInEvolvingFile": 292,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -320,3 +324,135 @@",
+            "actualOldStartInEvolvingFile": 324,
+            "exactContext": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "order": 6,
+    "source": "/Users/zacheryspector/studio-scratch/1363-part-c-production-prep/part-c-tick-integration.patch",
+    "patchSha256": "9247157072bd4969ca134bc3be653281807453d712e08c19f687f0a82d1e5500",
+    "files": [
+      {
+        "path": "src/core/hollywoodTick.ts",
+        "beforeSha256": "8808d5dd7dd21ee3f1eace4e0fe267d1e02f0935a2be9b5a4ed7063849466658",
+        "afterSha256": "6da40c08e4aee457f01b6c1804acb2a79679d7a49f8b7db15b184ad0b1c7eaf0",
+        "hunks": [
+          {
+            "header": "@@ -9,7 +9,7 @@",
+            "actualOldStartInEvolvingFile": 9,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -410,6 +410,16 @@",
+            "actualOldStartInEvolvingFile": 410,
+            "exactContext": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "order": 7,
+    "source": "/Users/zacheryspector/studio-scratch/1363-save46-shape-production-prep/save46-shape-production.patch",
+    "patchSha256": "de39b307c6d66521f22c615fed0845ba2a2faa7e001a9c46d36b924d695ed048",
+    "files": [
+      {
+        "path": "src/core/hollywoodTypes.ts",
+        "beforeSha256": "09606801a73c8c675737f972dae5b78ef41deef375aad0c9732286d13a08b68a",
+        "afterSha256": "65a54dc851cd1f61f8b97674ed825b343a8ec94ab7b8328ad113f12343a41a84",
+        "hunks": [
+          {
+            "header": "@@ -57,7 +57,7 @@",
+            "actualOldStartInEvolvingFile": 57,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -117,6 +117,8 @@",
+            "actualOldStartInEvolvingFile": 117,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -131,6 +133,8 @@",
+            "actualOldStartInEvolvingFile": 133,
+            "exactContext": true
+          }
+        ]
+      },
+      {
+        "path": "src/core/hollywood.ts",
+        "beforeSha256": "c9281b85fab7fe6ce72568f318a545fce01343da86c8fd9c7db8ee5e3bd17f1f",
+        "afterSha256": "1c439f854acad1525541c7024e34cbbb1d15f652af87512fe840efd8c38bb96a",
+        "hunks": [
+          {
+            "header": "@@ -23,7 +23,7 @@",
+            "actualOldStartInEvolvingFile": 23,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -204,6 +204,7 @@",
+            "actualOldStartInEvolvingFile": 204,
+            "exactContext": true
+          }
+        ]
+      },
+      {
+        "path": "src/core/types.ts",
+        "beforeSha256": "d0d5c51ea08c8bec71d78f32b653f835d1d32c73c3f7d0d46aa3f9c541fa0dc2",
+        "afterSha256": "114efba3aece83977c63fc8c5f5f77e9ce966807fcaed9b89625e608d715f9ee",
+        "hunks": [
+          {
+            "header": "@@ -2323,7 +2323,7 @@",
+            "actualOldStartInEvolvingFile": 2323,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -2606,6 +2606,9 @@",
+            "actualOldStartInEvolvingFile": 2606,
+            "exactContext": true
+          }
+        ]
+      },
+      {
+        "path": "src/core/save.ts",
+        "beforeSha256": "3f852f997feaa77effd581858f56bf59a9cfa87069afec6e0a895cc653dced72",
+        "afterSha256": "cc8998793df2dfe16bd6d8ec8a8bd3ad4d98f45de7ff83afe85dc6187f5e9a7f",
+        "hunks": [
+          {
+            "header": "@@ -8123,7 +8123,13 @@",
+            "actualOldStartInEvolvingFile": 8123,
+            "exactContext": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "order": 8,
+    "source": "/Users/zacheryspector/studio-scratch/1363-part-c-validation-production-prep/part-c-owner-validation.patch",
+    "patchSha256": "65b014b55d9b018ccb889ff54e51004b6407f4e71783694ee967a16deab130d5",
+    "files": [
+      {
+        "path": "src/core/rivalResearch.ts",
+        "beforeSha256": "2ecb9b1cc9a24ece288d356bada70686456de97260333beb25e73bec92e71b6c",
+        "afterSha256": "eb96f09d28fbb1d7c785b1ccf7351836ed313a2ab47327c84106e9933c7c1b49",
+        "hunks": [
+          {
+            "header": "@@ -378,6 +378,52 @@",
+            "actualOldStartInEvolvingFile": 378,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -421,38 +467,80 @@",
+            "actualOldStartInEvolvingFile": 467,
+            "exactContext": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "order": 9,
+    "source": "/Users/zacheryspector/studio-scratch/1363-save46-envelope-production-prep/save46-envelope-production.patch",
+    "patchSha256": "08a5e12ca3b57d7af3b3630cf03928fff06caea1f0cd39b866c0115ccbc2a3ec",
+    "files": [
+      {
+        "path": "src/core/save.ts",
+        "beforeSha256": "cc8998793df2dfe16bd6d8ec8a8bd3ad4d98f45de7ff83afe85dc6187f5e9a7f",
+        "afterSha256": "9286781eb562fcc9bf961c85eb226176c1dab74b79e8dbbc08333c09531e5332",
+        "hunks": [
+          {
+            "header": "@@ -111,6 +111,7 @@",
+            "actualOldStartInEvolvingFile": 111,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -637,7 +638,11 @@",
+            "actualOldStartInEvolvingFile": 638,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -685,7 +690,8 @@",
+            "actualOldStartInEvolvingFile": 690,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -5453,8 +5459,9 @@",
+            "actualOldStartInEvolvingFile": 5459,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -6192,6 +6199,15 @@",
+            "actualOldStartInEvolvingFile": 6199,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -6583,15 +6599,15 @@",
+            "actualOldStartInEvolvingFile": 6599,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7437,6 +7453,7 @@",
+            "actualOldStartInEvolvingFile": 7453,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7467,6 +7484,7 @@",
+            "actualOldStartInEvolvingFile": 7484,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7492,6 +7510,7 @@",
+            "actualOldStartInEvolvingFile": 7510,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7518,6 +7537,7 @@",
+            "actualOldStartInEvolvingFile": 7537,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7540,6 +7560,7 @@",
+            "actualOldStartInEvolvingFile": 7560,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7580,6 +7601,7 @@",
+            "actualOldStartInEvolvingFile": 7601,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7619,6 +7641,7 @@",
+            "actualOldStartInEvolvingFile": 7641,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7659,6 +7682,7 @@",
+            "actualOldStartInEvolvingFile": 7682,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7697,6 +7721,7 @@",
+            "actualOldStartInEvolvingFile": 7721,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7738,6 +7763,7 @@",
+            "actualOldStartInEvolvingFile": 7763,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7831,6 +7857,7 @@",
+            "actualOldStartInEvolvingFile": 7857,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7865,6 +7892,7 @@",
+            "actualOldStartInEvolvingFile": 7892,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7904,6 +7932,7 @@",
+            "actualOldStartInEvolvingFile": 7932,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7946,6 +7975,7 @@",
+            "actualOldStartInEvolvingFile": 7975,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -7998,6 +8028,7 @@",
+            "actualOldStartInEvolvingFile": 8028,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8072,6 +8103,8 @@",
+            "actualOldStartInEvolvingFile": 8103,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8096,7 +8129,7 @@",
+            "actualOldStartInEvolvingFile": 8129,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8140,6 +8173,7 @@",
+            "actualOldStartInEvolvingFile": 8173,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8236,6 +8270,7 @@",
+            "actualOldStartInEvolvingFile": 8270,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8278,6 +8313,7 @@",
+            "actualOldStartInEvolvingFile": 8313,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8345,6 +8381,7 @@",
+            "actualOldStartInEvolvingFile": 8381,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8387,7 +8424,7 @@",
+            "actualOldStartInEvolvingFile": 8424,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8398,7 +8435,7 @@",
+            "actualOldStartInEvolvingFile": 8435,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8422,6 +8459,7 @@",
+            "actualOldStartInEvolvingFile": 8459,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8566,7 +8604,7 @@",
+            "actualOldStartInEvolvingFile": 8604,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8614,7 +8652,7 @@",
+            "actualOldStartInEvolvingFile": 8652,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8660,6 +8698,7 @@",
+            "actualOldStartInEvolvingFile": 8698,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8779,7 +8818,7 @@",
+            "actualOldStartInEvolvingFile": 8818,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8800,7 +8839,7 @@",
+            "actualOldStartInEvolvingFile": 8839,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8839,6 +8878,7 @@",
+            "actualOldStartInEvolvingFile": 8878,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -8942,14 +8982,14 @@",
+            "actualOldStartInEvolvingFile": 8982,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9008,6 +9048,7 @@",
+            "actualOldStartInEvolvingFile": 9048,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9042,7 +9083,7 @@",
+            "actualOldStartInEvolvingFile": 9083,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9051,7 +9092,7 @@",
+            "actualOldStartInEvolvingFile": 9092,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9109,6 +9150,7 @@",
+            "actualOldStartInEvolvingFile": 9150,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9222,6 +9264,7 @@",
+            "actualOldStartInEvolvingFile": 9264,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9250,7 +9293,7 @@",
+            "actualOldStartInEvolvingFile": 9293,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9262,7 +9305,7 @@",
+            "actualOldStartInEvolvingFile": 9305,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9289,6 +9332,7 @@",
+            "actualOldStartInEvolvingFile": 9332,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9328,7 +9372,7 @@",
+            "actualOldStartInEvolvingFile": 9372,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9336,7 +9380,7 @@",
+            "actualOldStartInEvolvingFile": 9380,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9382,6 +9426,7 @@",
+            "actualOldStartInEvolvingFile": 9426,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9431,14 +9476,14 @@",
+            "actualOldStartInEvolvingFile": 9476,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9485,6 +9530,7 @@",
+            "actualOldStartInEvolvingFile": 9530,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9656,7 +9702,7 @@",
+            "actualOldStartInEvolvingFile": 9702,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9664,7 +9710,7 @@",
+            "actualOldStartInEvolvingFile": 9710,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9753,6 +9799,7 @@",
+            "actualOldStartInEvolvingFile": 9799,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9951,7 +9998,7 @@",
+            "actualOldStartInEvolvingFile": 9998,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -9959,7 +10006,7 @@",
+            "actualOldStartInEvolvingFile": 10006,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10006,6 +10053,7 @@",
+            "actualOldStartInEvolvingFile": 10053,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10160,7 +10208,7 @@",
+            "actualOldStartInEvolvingFile": 10208,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10168,7 +10216,7 @@",
+            "actualOldStartInEvolvingFile": 10216,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10212,6 +10260,7 @@",
+            "actualOldStartInEvolvingFile": 10260,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10230,7 +10279,7 @@",
+            "actualOldStartInEvolvingFile": 10279,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10251,6 +10300,7 @@",
+            "actualOldStartInEvolvingFile": 10300,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10385,7 +10435,7 @@",
+            "actualOldStartInEvolvingFile": 10435,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10394,7 +10444,7 @@",
+            "actualOldStartInEvolvingFile": 10444,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10450,6 +10500,7 @@",
+            "actualOldStartInEvolvingFile": 10500,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10472,7 +10523,7 @@",
+            "actualOldStartInEvolvingFile": 10523,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10480,7 +10531,7 @@",
+            "actualOldStartInEvolvingFile": 10531,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10517,6 +10568,7 @@",
+            "actualOldStartInEvolvingFile": 10568,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10531,7 +10583,7 @@",
+            "actualOldStartInEvolvingFile": 10583,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10541,7 +10593,7 @@",
+            "actualOldStartInEvolvingFile": 10593,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10554,11 +10606,13 @@",
+            "actualOldStartInEvolvingFile": 10606,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10591,6 +10645,7 @@",
+            "actualOldStartInEvolvingFile": 10645,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10628,6 +10683,7 @@",
+            "actualOldStartInEvolvingFile": 10683,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10668,6 +10724,7 @@",
+            "actualOldStartInEvolvingFile": 10724,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10714,6 +10771,7 @@",
+            "actualOldStartInEvolvingFile": 10771,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10731,14 +10789,14 @@",
+            "actualOldStartInEvolvingFile": 10789,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10762,6 +10820,7 @@",
+            "actualOldStartInEvolvingFile": 10820,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10776,10 +10835,14 @@",
+            "actualOldStartInEvolvingFile": 10835,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10814,6 +10877,7 @@",
+            "actualOldStartInEvolvingFile": 10877,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10826,13 +10890,17 @@",
+            "actualOldStartInEvolvingFile": 10890,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10859,6 +10927,7 @@",
+            "actualOldStartInEvolvingFile": 10927,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10966,6 +11035,10 @@",
+            "actualOldStartInEvolvingFile": 11035,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10973,7 +11046,7 @@",
+            "actualOldStartInEvolvingFile": 11046,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -11001,6 +11074,73 @@",
+            "actualOldStartInEvolvingFile": 11074,
+            "exactContext": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "order": 10,
+    "source": "/Users/zacheryspector/studio-scratch/1363-save46-owner-integration-prep/save46-owner-integration.patch",
+    "patchSha256": "5e2c150f2ff6d0e00a551f4f6c7296a9a99730234522bc21a80f2fffd09fc699",
+    "files": [
+      {
+        "path": "src/core/rivalResearch.ts",
+        "beforeSha256": "eb96f09d28fbb1d7c785b1ccf7351836ed313a2ab47327c84106e9933c7c1b49",
+        "afterSha256": "82f438dc533052295daa1d58df17a6da11ee0f7c20f84d86dd87a164ebb982dc",
+        "hunks": [
+          {
+            "header": "@@ -544,3 +544,63 @@",
+            "actualOldStartInEvolvingFile": 544,
+            "exactContext": true
+          }
+        ]
+      },
+      {
+        "path": "src/core/save.ts",
+        "beforeSha256": "9286781eb562fcc9bf961c85eb226176c1dab74b79e8dbbc08333c09531e5332",
+        "afterSha256": "df9a70a0ce2128492bea2719193cda93acff2e6f355890ece580e71e8fd8775d",
+        "hunks": [
+          {
+            "header": "@@ -1,3 +1,4 @@",
+            "actualOldStartInEvolvingFile": 1,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10606,6 +10607,7 @@",
+            "actualOldStartInEvolvingFile": 10607,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10888,7 +10890,7 @@",
+            "actualOldStartInEvolvingFile": 10890,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -11087,8 +11089,19 @@",
+            "actualOldStartInEvolvingFile": 11089,
+            "exactContext": true
+          }
+        ]
+      },
+      {
+        "path": "src/core/hollywoodValidation.ts",
+        "beforeSha256": "b58d085621ff41e8fe6e3e8d7ebe0d2b60e4925f6faaa0e8ddc3aea622eb6aff",
+        "afterSha256": "ec8cf7290a63389087750967fcbe456159eaf2840770341ce3c9cf7d9f75c214",
+        "hunks": [
+          {
+            "header": "@@ -69,10 +69,10 @@",
+            "actualOldStartInEvolvingFile": 69,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -225,9 +225,26 @@",
+            "actualOldStartInEvolvingFile": 225,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -292,7 +309,10 @@",
+            "actualOldStartInEvolvingFile": 309,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -318,7 +338,9 @@",
+            "actualOldStartInEvolvingFile": 338,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -474,7 +496,8 @@",
+            "actualOldStartInEvolvingFile": 496,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -515,8 +538,11 @@",
+            "actualOldStartInEvolvingFile": 538,
+            "exactContext": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "order": 11,
+    "source": "/Users/zacheryspector/studio-scratch/1363-old-era-period-production-prep/old-era-period-production.patch",
+    "patchSha256": "8527738dbee6a51f9e5230d5d297a5b375837b60971edfef3eea06bda6a932f0",
+    "files": [
+      {
+        "path": "src/core/hollywood.ts",
+        "beforeSha256": "1c439f854acad1525541c7024e34cbbb1d15f652af87512fe840efd8c38bb96a",
+        "afterSha256": "7e9e26ac92689a2db5ad9e239c90b6203b4f1084b1aca8f68064c9908569a441",
+        "hunks": [
+          {
+            "header": "@@ -32,17 +32,25 @@",
+            "actualOldStartInEvolvingFile": 32,
+            "exactContext": true
+          }
+        ]
+      },
+      {
+        "path": "src/core/rivalResearch.ts",
+        "beforeSha256": "82f438dc533052295daa1d58df17a6da11ee0f7c20f84d86dd87a164ebb982dc",
+        "afterSha256": "e24566c984414a66fbfb896481dbc6d8f742bf7fa36702aec0a211b15d513d18",
+        "hunks": [
+          {
+            "header": "@@ -23,6 +23,7 @@",
+            "actualOldStartInEvolvingFile": 23,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -128,7 +129,7 @@",
+            "actualOldStartInEvolvingFile": 129,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -148,7 +149,7 @@",
+            "actualOldStartInEvolvingFile": 149,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -205,10 +206,10 @@",
+            "actualOldStartInEvolvingFile": 206,
+            "exactContext": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "order": 12,
+    "source": "/Users/zacheryspector/studio-scratch/1361-quality-prep/production-quality.patch",
+    "patchSha256": "7be9bbd6b99e828824679d12303e2f73bd56dc5490d72409bbbd9215e65e0a03",
+    "files": [
+      {
+        "path": "src/core/campaignLegacy.ts",
+        "beforeSha256": "b958691c971e36be17a53726224c21bcfc2081d6119880c07519f88c6f71331f",
+        "afterSha256": "48e1d086deaaf82a82d05f0a8065bca9b7a7ea35bc68051ea06c33ceb3a0e8de",
+        "hunks": [
+          {
+            "header": "@@ -815,9 +815,10 @@",
+            "actualOldStartInEvolvingFile": 815,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -1182,7 +1183,8 @@",
+            "actualOldStartInEvolvingFile": 1183,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -1311,6 +1313,7 @@",
+            "actualOldStartInEvolvingFile": 1313,
+            "exactContext": true
+          }
+        ]
+      },
+      {
+        "path": "src/core/save.ts",
+        "beforeSha256": "df9a70a0ce2128492bea2719193cda93acff2e6f355890ece580e71e8fd8775d",
+        "afterSha256": "cd4a1d42d02fee6280e2a658ba304448c0ab93c0e57fd8866ef5a65e0072c035",
+        "hunks": [
+          {
+            "header": "@@ -10863,7 +10863,8 @@",
+            "actualOldStartInEvolvingFile": 10940,
+            "exactContext": true
+          },
+          {
+            "header": "@@ -10885,9 +10886,9 @@",
+            "actualOldStartInEvolvingFile": 10963,
+            "exactContext": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "order": 13,
+    "source": "parent-authorized additive public-index-exports.patch",
+    "patchSha256": "30fab513646c3a3dd5b0c879fab23ffe7409d9a1054ab7b57b19a6ef51e6e61b",
+    "files": [
+      {
+        "path": "src/core/index.ts",
+        "beforeSha256": "132372f417563651c7a31eec1629027b6eaef873746c5436d5b1d544d6237bea",
+        "afterSha256": "25b07f15ee0fe71484faab449b5c50aa407832cae1b4f4196b70c4944244de4b"
+      }
+    ],
+    "newAuthoredDelta": true
+  }
+]

@@ -1,0 +1,374 @@
+{
+  "f6": [
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS is a positive integer, 13"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS is a positive integer, 13"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS is a positive integer, 26"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > hollywoodPolicy.searchIndustryPackages exists as a function"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > save.ts LIVE_SAVE_VERSION is 45, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > talentMarket.rivalPromiseProjectCandidates exists as a function (1344-X2)"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > searchIndustryPackages counts contract (1344-D Blocking 1) > on a captured genuine economic-rejection call: choice matches chooseIndustryPackage; affordable+unaffordable equals the independently-derived candidate count (never the literal 54); viable<=affordable; (choice===null)===(viable===0)"
+    },
+    {
+      "status": "FAIL",
+      "name": "tests/p14d1-rival-shelving.test.ts > searchIndustryPackages counts contract (1344-D Blocking 1) > decide-level: partly unaffordable but all-hopeless packages count as economic rejection under 1363 Part A"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-stalled-route (1344-A \u00a76.1) > a stalled rival with staff and cash available shelves after exactly 13 evaluated economic rejections; the week is derived from receipts, never hard-coded"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A \u00a76.2) > staffingBlocked weeks (no seatable triple that survives staff()) leave the rejection count unchanged and evaluate no package"
+    },
+    {
+      "status": "FAIL",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A \u00a76.2) > all-hopeless weeks below every candidate still advance the rejection count under 1363 Part A"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A \u00a76.2) > a week with a running production evaluates nothing (count unchanged while productions.length>0; resumes after)"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A \u00a76.2) > a mixed sequence (staffing-blocked, then economic rejections) shelves only after 13 economic rejections, never 13 calendar weeks"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-viable-control (1344-F Amendment 2) > genesis to week 93: with screenplayShelving stripped from every business, state equals the genuine week-93 input migrated by convertV42ToV43 (also stripped); receipts identical; the leaf asserts its own premise that no shelving has happened yet and that the first screenplayShelved receipt falls strictly after this state, never a hard-coded week"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-viable-control (1344-F Amendment 2) > a business with at least one recorded greenlight and zero economic rejections in the first 5 weeks keeps the empty screenplayShelving state"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-commission-hold (1344-A \u00a76.4) > no new development project for the shelving studio during its commission hold; commissionHoldUntilWeek is exactly week+HOLD; a commission is not permanently blocked"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > no retry before retryWeek"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > a viable retry re-enters the slot and greenlights, removing the shelved entry"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > an unviable retry advances retryWeek and stays shelved (and never re-enters the slot, so it cannot be shelved twice)"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > no retry without a free slot (both original ordinals stay active, and a synthetic third due-shelved entry is not promoted)"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > at most one retry per decision: two shelved-and-due entries in the same week advance at most one"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-promise-guard (1344-A \u00a73.3) > an open SPECIFIC_PROJECT promise naming the screenplay defers shelving (count held at 13); shelving proceeds at the next economic rejection after it settles"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > rivalPromiseProjectCandidates (1344-X2 parent API decision; covers 1344-A \u00a76 item 7(c)) > a shelved screenplay is absent from the candidates"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > rivalPromiseProjectCandidates (1344-X2 parent API decision; covers 1344-A \u00a76 item 7(c)) > with nothing shelved, the result equals the first two non-produced screenplays by id"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-feasibility-readers (1344-A \u00a73.6) > a shelved screenplay changes the feasibility digest (unproducedScripts must stop counting it, promises.ts:410-411)"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-feasibility-readers (1344-A \u00a73.6) > opportunity paths mark a shelved screenplay impossible with reason \"the named script project is shelved\""
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-chart-output (1344-A \u00a76.8) > the 13-week chart row equals released (produced) films with a shelved screenplay present, and the state validates"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-player-symmetry (1344-A \u00a73.6, control at RED) > no screenplayShelved receipt ever names the player studio, across a long natural route"
+    },
+    {
+      "status": "FAIL",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A1: opt-in skipped-viable counts match independent candidates; existing results and opt-out forecast cost stay unchanged"
+    },
+    {
+      "status": "FAIL",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A2: viable membership is cash-free across no, partial and full affordability"
+    },
+    {
+      "status": "FAIL",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A3: an all-hopeless partial-affordability refusal advances its rejection count"
+    },
+    {
+      "status": "FAIL",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A4: an all-hopeless refusal with every candidate unaffordable still advances"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A5: genuinely viable but unaffordable packages retain the count and do not greenlight"
+    },
+    {
+      "status": "FAIL",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A6: hopeless due retry advances, allowing the next due ordinal its next decision"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A6: a truly cash-bound due retry keeps its due date"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A7: where every candidate is affordable, live tick equals the legacy-classification control"
+    },
+    {
+      "status": "FAIL",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A9: extra skipped-candidate forecasts do not move simulation RNG or mutate their input"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-a8-binding-cash.test.ts > 1363 Part A A8 \u2014 genuine pre-amendment count12 > A8 prerequisite: pinned public V45 input, real refused chooser and independent hopeless candidates remain valid"
+    },
+    {
+      "status": "FAIL",
+      "name": "tests/p14d2-a8-binding-cash.test.ts > 1363 Part A A8 \u2014 genuine pre-amendment count12 > A8 intended RED: one actual tick shelves the genuine count12 screenplay with exact receipt, retry and hold; historical cost and cash remain factual"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/save-masked-downgrade-own-era.test.ts > 1362-O item 9: valid own-era downgrade inputs > V36 open retirementExtension case alone refuses V35 after both own-era controls validate"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/save-masked-downgrade-own-era.test.ts > 1362-O item 9: valid own-era downgrade inputs > V37 Scientist refusal is first on both V36 and V35 routes from a valid historical envelope"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/save-masked-downgrade-own-era.test.ts > 1362-O item 9: valid own-era downgrade inputs > valid V37 retained writer reaches the frozen V36 not-contracted rule without a later-era wrapper"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/save-masked-downgrade-own-era.test.ts > 1362-O item 9: valid own-era downgrade inputs > valid staged V27 research reaches the receipt arm; this does not claim finance-only coverage"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/save-v36-extension-own-era.test.ts > 1367 genuine V36 retirement-extension downgrade controls > admits the genuine week92 open case, then first refuses V35 with one case and zero used extensions"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/save-v36-extension-own-era.test.ts > 1367 genuine V36 retirement-extension downgrade controls > admits the genuine week98 used extension WITH its required settled case and employment, then first refuses V35"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p15c2-legacy-lens-shape.test.ts > P15C closure: named lens-shape refusal > rejects non-object lenses and preserves the valid baseline and input"
+    }
+  ],
+  "candidate": [
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS is a positive integer, 13"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS is a positive integer, 13"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS is a positive integer, 26"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > hollywoodPolicy.searchIndustryPackages exists as a function"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > save.ts LIVE_SAVE_VERSION is 45, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > talentMarket.rivalPromiseProjectCandidates exists as a function (1344-X2)"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > searchIndustryPackages counts contract (1344-D Blocking 1) > on a captured genuine economic-rejection call: choice matches chooseIndustryPackage; affordable+unaffordable equals the independently-derived candidate count (never the literal 54); viable<=affordable; (choice===null)===(viable===0)"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > searchIndustryPackages counts contract (1344-D Blocking 1) > decide-level: partly unaffordable but all-hopeless packages count as economic rejection under 1363 Part A"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-stalled-route (1344-A \u00a76.1) > a stalled rival with staff and cash available shelves after exactly 13 evaluated economic rejections; the week is derived from receipts, never hard-coded"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A \u00a76.2) > staffingBlocked weeks (no seatable triple that survives staff()) leave the rejection count unchanged and evaluate no package"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A \u00a76.2) > all-hopeless weeks below every candidate still advance the rejection count under 1363 Part A"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A \u00a76.2) > a week with a running production evaluates nothing (count unchanged while productions.length>0; resumes after)"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A \u00a76.2) > a mixed sequence (staffing-blocked, then economic rejections) shelves only after 13 economic rejections, never 13 calendar weeks"
+    },
+    {
+      "status": "FAIL",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-viable-control (1344-F Amendment 2) > genesis to week 93: with screenplayShelving stripped from every business, state equals the genuine week-93 input migrated by convertV42ToV43 (also stripped); receipts identical; the leaf asserts its own premise that no shelving has happened yet and that the first screenplayShelved receipt falls strictly after this state, never a hard-coded week"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-viable-control (1344-F Amendment 2) > a business with at least one recorded greenlight and zero economic rejections in the first 5 weeks keeps the empty screenplayShelving state"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-commission-hold (1344-A \u00a76.4) > no new development project for the shelving studio during its commission hold; commissionHoldUntilWeek is exactly week+HOLD; a commission is not permanently blocked"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > no retry before retryWeek"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > a viable retry re-enters the slot and greenlights, removing the shelved entry"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > an unviable retry advances retryWeek and stays shelved (and never re-enters the slot, so it cannot be shelved twice)"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > no retry without a free slot (both original ordinals stay active, and a synthetic third due-shelved entry is not promoted)"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > at most one retry per decision: two shelved-and-due entries in the same week advance at most one"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-promise-guard (1344-A \u00a73.3) > an open SPECIFIC_PROJECT promise naming the screenplay defers shelving (count held at 13); shelving proceeds at the next economic rejection after it settles"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > rivalPromiseProjectCandidates (1344-X2 parent API decision; covers 1344-A \u00a76 item 7(c)) > a shelved screenplay is absent from the candidates"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > rivalPromiseProjectCandidates (1344-X2 parent API decision; covers 1344-A \u00a76 item 7(c)) > with nothing shelved, the result equals the first two non-produced screenplays by id"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-feasibility-readers (1344-A \u00a73.6) > a shelved screenplay changes the feasibility digest (unproducedScripts must stop counting it, promises.ts:410-411)"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-feasibility-readers (1344-A \u00a73.6) > opportunity paths mark a shelved screenplay impossible with reason \"the named script project is shelved\""
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-chart-output (1344-A \u00a76.8) > the 13-week chart row equals released (produced) films with a shelved screenplay present, and the state validates"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d1-rival-shelving.test.ts > shelving-player-symmetry (1344-A \u00a73.6, control at RED) > no screenplayShelved receipt ever names the player studio, across a long natural route"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A1: opt-in skipped-viable counts match independent candidates; existing results and opt-out forecast cost stay unchanged"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A2: viable membership is cash-free across no, partial and full affordability"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A3: an all-hopeless partial-affordability refusal advances its rejection count"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A4: an all-hopeless refusal with every candidate unaffordable still advances"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A5: genuinely viable but unaffordable packages retain the count and do not greenlight"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A6: hopeless due retry advances, allowing the next due ordinal its next decision"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A6: a truly cash-bound due retry keeps its due date"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A7: where every candidate is affordable, live tick equals the legacy-classification control"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-binding-cash.test.ts > 1363 Part A \u2014 binding cash > A9: extra skipped-candidate forecasts do not move simulation RNG or mutate their input"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-a8-binding-cash.test.ts > 1363 Part A A8 \u2014 genuine pre-amendment count12 > A8 prerequisite: pinned public V45 input, real refused chooser and independent hopeless candidates remain valid"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p14d2-a8-binding-cash.test.ts > 1363 Part A A8 \u2014 genuine pre-amendment count12 > A8 intended RED: one actual tick shelves the genuine count12 screenplay with exact receipt, retry and hold; historical cost and cash remain factual"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/save-masked-downgrade-own-era.test.ts > 1362-O item 9: valid own-era downgrade inputs > V36 open retirementExtension case alone refuses V35 after both own-era controls validate"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/save-masked-downgrade-own-era.test.ts > 1362-O item 9: valid own-era downgrade inputs > V37 Scientist refusal is first on both V36 and V35 routes from a valid historical envelope"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/save-masked-downgrade-own-era.test.ts > 1362-O item 9: valid own-era downgrade inputs > valid V37 retained writer reaches the frozen V36 not-contracted rule without a later-era wrapper"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/save-masked-downgrade-own-era.test.ts > 1362-O item 9: valid own-era downgrade inputs > valid staged V27 research reaches the receipt arm; this does not claim finance-only coverage"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/save-v36-extension-own-era.test.ts > 1367 genuine V36 retirement-extension downgrade controls > admits the genuine week92 open case, then first refuses V35 with one case and zero used extensions"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/save-v36-extension-own-era.test.ts > 1367 genuine V36 retirement-extension downgrade controls > admits the genuine week98 used extension WITH its required settled case and employment, then first refuses V35"
+    },
+    {
+      "status": "PASS",
+      "name": "tests/p15c2-legacy-lens-shape.test.ts > P15C closure: named lens-shape refusal > rejects non-object lenses and preserves the valid baseline and input"
+    }
+  ]
+}
