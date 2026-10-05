@@ -1,0 +1,22 @@
+{
+  "mode": "types",
+  "command": [
+    "python3",
+    "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+    "330",
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.observer-tests.json",
+    "--noEmit"
+  ],
+  "cwd": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/candidate",
+  "nodeVersion": "v20.20.2",
+  "pinHashes": {
+    "CANDIDATE-PINS.json": "6d42ee6d3997500ecea0718b62882fa7c1bcc1883c9540977b06436977de2e81",
+    "S-BASE-PINS.json": "351019ad8e2f454a8692836eb1980e7e7701713c19830fc6b358c1f5a4261beb",
+    "RUNNER-PINS.json": "47c634e9ed93f30ac2d967d2f632f7dd8428179ce0958a5154efa76469c4218e"
+  },
+  "freeBytes": 6539005952,
+  "candidateAndOriginalSExact": true
+}

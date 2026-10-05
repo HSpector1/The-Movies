@@ -1,0 +1,28 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/candidate
+
+ ✓ |core| tests/p13b-s8-old-era-period.test.ts > 1363 explicit V27 staging keeps its finance era across a calendar boundary > control: actual week309 admission retains the current old period and public V27 validity 874ms
+ × |core| tests/p13b-s8-old-era-period.test.ts > 1363 explicit V27 staging keeps its finance era across a calendar boundary > real week312 first charge opens exactly one old-era period without termination or disposal fields 1009ms
+   → UNMET VALID PREMISE: actual admitted V27 rival must afford at least one new Laboratory: expected 0 to be greater than 0
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s8-old-era-period.test.ts > 1363 explicit V27 staging keeps its finance era across a calendar boundary > real week312 first charge opens exactly one old-era period without termination or disposal fields
+AssertionError: UNMET VALID PREMISE: actual admitted V27 rival must afford at least one new Laboratory: expected 0 to be greater than 0
+ ❯ stage tests/p13b-s8-old-era-period.test.ts:51:117
+     49|   const oldIds = new Set(lifted.state.physicalPlans.plans.map(p => p.i…
+     50|   const newPlans = result.state.physicalPlans.plans.filter(p => !oldId…
+     51|   expect(newPlans.length, 'UNMET VALID PREMISE: actual admitted V27 ri…
+       |                                                                                                                     ^
+     52|   expect(result.state.market.tick).toBe(lifted.state.market.tick)
+     53|   expect(result.state.hollywood!.receipts.slice(0, lifted.state.hollyw…
+ ❯ tests/p13b-s8-old-era-period.test.ts:107:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  20:21:01
+   Duration  5.47s (transform 2.30s, setup 0ms, collect 3.00s, tests 1.88s, environment 0ms, prepare 158ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 1, "elapsedMs": 6572.588452021591}

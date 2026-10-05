@@ -1,0 +1,206 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/candidate
+
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C1 real paid bare body: exact shared refund, only backed movement and receipt, no input mutation 1157ms
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C2 four exact protected core IDs refuse on otherwise admitted cutting state
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C2 player, unknown owner, foreign body, unknown body and non-cutting refusals are precise
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C3 genuine admitted unfinished body refuses before it becomes operational
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C3 real admitted instrument protects its target before completion (bounded week 261 premise) 5983ms
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C4 actual retained research reference protects its laboratory (bounded week 280 premise) 3975ms
+   → UNMET VALID PREMISE: actual rival research on an admissible cutting owner: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at ordinary/year boundary 12 stops only this body opex before next booking
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at ordinary/year boundary 52 stops only this body opex before next booking 745ms
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at the actual operational boundary owes zero laboratory operating weeks
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C6 explicit retry refuses; policy and completion cannot rematerialize or repay the retained started plan
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-refund
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-blueprint
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: future-disposal
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: missing-body-plan
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-owner
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-body
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: duplicate-disposal
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: refund-movement-mismatch
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: negative-refund-movement
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 standing-and-disposed and missing tombstone cannot hide behind valid prior history
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C9 refund alone preserves cutting and does not create a hire, commission or production
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > S6 direct live profession proof retains the actual refund, missing body and disposal receipt
+   → UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > S5 empty live-46 down/up control is lossless; it is not the required genuine pre-amendment capture
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 20 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C1 real paid bare body: exact shared refund, only backed movement and receipt, no input mutation
+AssertionError: UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ ❯ bareAt tests/p14d2-rival-facility-disposal.test.ts:97:119
+     95|       && !state.physicalPlans.plans.some(p => p.studioId === owner.stu…
+     96|         && 'facilityId' in p.work.target && p.work.target.facilityId =…
+     97|   expect(candidate, 'UNMET VALID PREMISE: bare lab owner with null sin…
+       |                                                                                                                       ^
+     98|   const studioId = candidate!.owner.studioId, facilityId = candidate!.…
+     99|   markCutting(state, studioId)
+ ❯ tests/p14d2-rival-facility-disposal.test.ts:125:51
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/20]⎯
+
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C2 four exact protected core IDs refuse on otherwise admitted cutting state
+AssertionError: UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ ❯ bareAt tests/p14d2-rival-facility-disposal.test.ts:97:119
+     95|       && !state.physicalPlans.plans.some(p => p.studioId === owner.stu…
+     96|         && 'facilityId' in p.work.target && p.work.target.facilityId =…
+     97|   expect(candidate, 'UNMET VALID PREMISE: bare lab owner with null sin…
+       |                                                                                                                       ^
+     98|   const studioId = candidate!.owner.studioId, facilityId = candidate!.…
+     99|   markCutting(state, studioId)
+ ❯ tests/p14d2-rival-facility-disposal.test.ts:159:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/20]⎯
+
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C2 player, unknown owner, foreign body, unknown body and non-cutting refusals are precise
+AssertionError: UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ ❯ bareAt tests/p14d2-rival-facility-disposal.test.ts:97:119
+     95|       && !state.physicalPlans.plans.some(p => p.studioId === owner.stu…
+     96|         && 'facilityId' in p.work.target && p.work.target.facilityId =…
+     97|   expect(candidate, 'UNMET VALID PREMISE: bare lab owner with null sin…
+       |                                                                                                                       ^
+     98|   const studioId = candidate!.owner.studioId, facilityId = candidate!.…
+     99|   markCutting(state, studioId)
+ ❯ tests/p14d2-rival-facility-disposal.test.ts:165:45
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/20]⎯
+
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C4 actual retained research reference protects its laboratory (bounded week 280 premise)
+AssertionError: UNMET VALID PREMISE: actual rival research on an admissible cutting owner: expected undefined to be defined
+ ❯ tests/p14d2-rival-facility-disposal.test.ts:209:98
+    207|     const project = state.technology.projects.find(p => p.studioId !==…
+    208|       && canMarkCutting(state, p.studioId))
+    209|     expect(project, 'UNMET VALID PREMISE: actual rival research on an …
+       |                                                                                                  ^
+    210|     if (!project) throw new Error('research premise')
+    211|     markCutting(state, project.studioId)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/20]⎯
+
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at ordinary/year boundary 12 stops only this body opex before next booking
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at ordinary/year boundary 52 stops only this body opex before next booking
+AssertionError: UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ ❯ bareAt tests/p14d2-rival-facility-disposal.test.ts:97:119
+     95|       && !state.physicalPlans.plans.some(p => p.studioId === owner.stu…
+     96|         && 'facilityId' in p.work.target && p.work.target.facilityId =…
+     97|   expect(candidate, 'UNMET VALID PREMISE: bare lab owner with null sin…
+       |                                                                                                                       ^
+     98|   const studioId = candidate!.owner.studioId, facilityId = candidate!.…
+     99|   markCutting(state, studioId)
+ ❯ tests/p14d2-rival-facility-disposal.test.ts:219:58
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/20]⎯
+
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at the actual operational boundary owes zero laboratory operating weeks
+AssertionError: UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ ❯ bareAt tests/p14d2-rival-facility-disposal.test.ts:97:119
+     95|       && !state.physicalPlans.plans.some(p => p.studioId === owner.stu…
+     96|         && 'facilityId' in p.work.target && p.work.target.facilityId =…
+     97|   expect(candidate, 'UNMET VALID PREMISE: bare lab owner with null sin…
+       |                                                                                                                       ^
+     98|   const studioId = candidate!.owner.studioId, facilityId = candidate!.…
+     99|   markCutting(state, studioId)
+ ❯ tests/p14d2-rival-facility-disposal.test.ts:246:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/20]⎯
+
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C6 explicit retry refuses; policy and completion cannot rematerialize or repay the retained started plan
+AssertionError: UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ ❯ bareAt tests/p14d2-rival-facility-disposal.test.ts:97:119
+     95|       && !state.physicalPlans.plans.some(p => p.studioId === owner.stu…
+     96|         && 'facilityId' in p.work.target && p.work.target.facilityId =…
+     97|   expect(candidate, 'UNMET VALID PREMISE: bare lab owner with null sin…
+       |                                                                                                                       ^
+     98|   const studioId = candidate!.owner.studioId, facilityId = candidate!.…
+     99|   markCutting(state, studioId)
+ ❯ tests/p14d2-rival-facility-disposal.test.ts:260:51
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/20]⎯
+
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-refund
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-blueprint
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: future-disposal
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: missing-body-plan
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-owner
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-body
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: duplicate-disposal
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: refund-movement-mismatch
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: negative-refund-movement
+AssertionError: UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ ❯ bareAt tests/p14d2-rival-facility-disposal.test.ts:97:119
+     95|       && !state.physicalPlans.plans.some(p => p.studioId === owner.stu…
+     96|         && 'facilityId' in p.work.target && p.work.target.facilityId =…
+     97|   expect(candidate, 'UNMET VALID PREMISE: bare lab owner with null sin…
+       |                                                                                                                       ^
+     98|   const studioId = candidate!.owner.studioId, facilityId = candidate!.…
+     99|   markCutting(state, studioId)
+ ❯ tests/p14d2-rival-facility-disposal.test.ts:301:45
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/20]⎯
+
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 standing-and-disposed and missing tombstone cannot hide behind valid prior history
+AssertionError: UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ ❯ bareAt tests/p14d2-rival-facility-disposal.test.ts:97:119
+     95|       && !state.physicalPlans.plans.some(p => p.studioId === owner.stu…
+     96|         && 'facilityId' in p.work.target && p.work.target.facilityId =…
+     97|   expect(candidate, 'UNMET VALID PREMISE: bare lab owner with null sin…
+       |                                                                                                                       ^
+     98|   const studioId = candidate!.owner.studioId, facilityId = candidate!.…
+     99|   markCutting(state, studioId)
+ ❯ tests/p14d2-rival-facility-disposal.test.ts:317:45
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/20]⎯
+
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C9 refund alone preserves cutting and does not create a hire, commission or production
+AssertionError: UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ ❯ bareAt tests/p14d2-rival-facility-disposal.test.ts:97:119
+     95|       && !state.physicalPlans.plans.some(p => p.studioId === owner.stu…
+     96|         && 'facilityId' in p.work.target && p.work.target.facilityId =…
+     97|   expect(candidate, 'UNMET VALID PREMISE: bare lab owner with null sin…
+       |                                                                                                                       ^
+     98|   const studioId = candidate!.owner.studioId, facilityId = candidate!.…
+     99|   markCutting(state, studioId)
+ ❯ tests/p14d2-rival-facility-disposal.test.ts:335:45
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/20]⎯
+
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > S6 direct live profession proof retains the actual refund, missing body and disposal receipt
+AssertionError: UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week: expected undefined to be defined
+ ❯ bareAt tests/p14d2-rival-facility-disposal.test.ts:97:119
+     95|       && !state.physicalPlans.plans.some(p => p.studioId === owner.stu…
+     96|         && 'facilityId' in p.work.target && p.work.target.facilityId =…
+     97|   expect(candidate, 'UNMET VALID PREMISE: bare lab owner with null sin…
+       |                                                                                                                       ^
+     98|   const studioId = candidate!.owner.studioId, facilityId = candidate!.…
+     99|   markCutting(state, studioId)
+ ❯ tests/p14d2-rival-facility-disposal.test.ts:347:45
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/20]⎯
+
+ Test Files  1 failed (1)
+      Tests  20 failed | 3 passed | 1 skipped (24)
+   Start at  20:22:09
+   Duration  16.47s (transform 2.56s, setup 0ms, collect 3.31s, tests 12.58s, environment 0ms, prepare 143ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 1, "elapsedMs": 17606.423688004725}

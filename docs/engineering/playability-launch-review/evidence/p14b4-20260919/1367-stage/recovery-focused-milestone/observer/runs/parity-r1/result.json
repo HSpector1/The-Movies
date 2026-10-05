@@ -1,0 +1,30 @@
+{
+  "mode": "parity",
+  "exitCode": 0,
+  "elapsedSeconds": 24.989607090014033,
+  "command": [
+    "python3",
+    "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+    "330",
+    "node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--project",
+    "core",
+    "tests/p14d2-schema-observer-parity.test.ts",
+    "--maxWorkers=1",
+    "--minWorkers=1",
+    "--no-file-parallelism",
+    "--reporter=verbose"
+  ],
+  "boundedChild": {
+    "boundedCaptureChild": true,
+    "timeoutSeconds": 330,
+    "timedOut": false,
+    "childExit": 0,
+    "elapsedMs": 24400.975959026255
+  },
+  "boundedRecordCount": 1,
+  "postflightPassed": true,
+  "outputSha256": "71692e6f69ef3aeede06d9ea4a61e4f66ae9b48250152e2f9b8142da49bea496"
+}

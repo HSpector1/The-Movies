@@ -1,0 +1,26 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/candidate
+
+ × |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > a real disposal names every inseparable authority rather than hiding refund/tombstone behind since 641ms
+   → UNMET VALID PREMISE: captured week 53 has no eligible paid bare lab on an idle owner; do not alter history or widen route: expected undefined to be defined
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > a real disposal names every inseparable authority rather than hiding refund/tombstone behind since
+AssertionError: UNMET VALID PREMISE: captured week 53 has no eligible paid bare lab on an idle owner; do not alter history or widen route: expected undefined to be defined
+ ❯ tests/p14d2-save46-migration.test.ts:202:147
+    200|       if (selected) break
+    201|     }
+    202|     expect(selected, 'UNMET VALID PREMISE: captured week 53 has no eli…
+       |                                                                                                                                                   ^
+    203|     const { envelope, studioId, facilityId } = selected!
+    204|     const before = bytes(envelope)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 110 skipped (111)
+   Start at  20:24:15
+   Duration  3.55s (transform 1.91s, setup 0ms, collect 2.44s, tests 643ms, environment 0ms, prepare 118ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 1, "elapsedMs": 4898.991765920073}

@@ -1,0 +1,6 @@
+{
+  "src/core/save.ts": "cd4a1d42d02fee6280e2a658ba304448c0ab93c0e57fd8866ef5a65e0072c035",
+  "src/core/hollywoodValidation.ts": "ec8cf7290a63389087750967fcbe456159eaf2840770341ce3c9cf7d9f75c214",
+  "tests/p14d2-save46-migration.test.ts": "2e9afd796e30622578c7d7c7bd73bd8a4411faa6501c328adfcb4a10ca869bc0",
+  "tests/helpers/1367-recovery-predecessors.ts": "6f397222010d03b94f86607f27d83038413749bcf2b2d87b6e375d468ae455dd"
+}

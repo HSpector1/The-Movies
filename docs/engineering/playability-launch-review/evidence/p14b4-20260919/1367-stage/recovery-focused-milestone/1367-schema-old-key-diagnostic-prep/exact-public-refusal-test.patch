@@ -1,0 +1,37 @@
+--- a/tests/p14d2-save46-migration.test.ts
++++ b/tests/p14d2-save46-migration.test.ts
+@@ -166,11 +166,31 @@
+       const owner = mutant.state.hollywood!.businesses[0]!
+       if (kind === 'cuttingKey') Object.assign(owner, { costCutting: { version: 1, since: null } })
+       else Object.assign(owner.account.periods[0]!.movements, { facilityDemolitionRefund: 0 })
++      const mutantBytes = bytes(mutant)
+       const refusal = errorMessage(() => validate(mutant))
+-      expect(refusal.startsWith('Hollywood save: exact keys required: ')).toBe(true)
+-      // Since the only mutation is one added field on an otherwise admitted object,
+-      // an earlier unrelated old-root refusal cannot satisfy this expectation.
++      // Public old readers preserve the frozen-owner wrappers. Pin the complete
++      // expected refusal, including this era's exact owned key roster.
++      const wrappers = 'validateSaveV37: state is invalid — '
++        + 'validateSaveV36: frozen V35 state is invalid — '
++        + 'validateSaveV35: frozen V34 state is invalid — '
++        + 'validateSaveV34: frozen V33 state is invalid — '
++        + 'validateSaveV33: frozen V32 state is invalid — '
++        + 'validateSaveV32: frozen V31 state is invalid — '
++        + 'validateSaveV31: frozen V30 state is invalid — '
++        + 'validateSaveV30: frozen V28 state is invalid — '
++        + 'validateSaveV28: frozen V27 state is invalid — '
++        + 'validateSaveV27: frozen V26 state is invalid — '
++        + 'validateSaveV26: frozen V25 state is invalid — '
++        + 'validateSaveV25: frozen V24 state is invalid — '
++      const businessKeys = 'studioId,entryKey,account,standing,operations,development,productions,'
++        + 'activeScriptOrdinals,activeRunFilmOrdinals,releaseAuthority,runs,projects,nextDecisionWeek,policy'
++        + (version >= 43 ? ',screenplayShelving' : '')
++      const moneyKeys = 'capacity,signing,payroll,overhead,facilityOpex,development,production,marketing,'
++        + 'studioRevenue,technologyAdoption,researchSpend,researchCapacity,technologyRestoration,technologyRefund,termination'
++      expect(refusal).toBe(wrappers + 'Hollywood save: exact keys required: '
++        + (kind === 'cuttingKey' ? businessKeys : moneyKeys))
+       expect(refusal).not.toContain(kind === 'cuttingKey' ? 'costCutting' : 'facilityDemolitionRefund')
++      expect(bytes(mutant)).toBe(mutantBytes)
+     }
+     expect(bytes(own)).toBe(baseline)
+   })

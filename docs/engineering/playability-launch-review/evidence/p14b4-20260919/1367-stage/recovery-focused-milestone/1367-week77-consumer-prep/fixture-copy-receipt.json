@@ -1,0 +1,17 @@
+{
+  "files": [
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-capture-01/MANIFEST.json",
+      "destination": "tests/fixtures/p14/genuine-v42-pre-shelving-week77-1363/MANIFEST.json",
+      "bytes": 21060,
+      "sha256": "2f34d9ad15655c0beec8dc99cc3bc10b8b13195db254b23e0fa34d061f5aee4d"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-capture-01/genuine-v42-rival-stall-week-77.json.gz",
+      "destination": "tests/fixtures/p14/genuine-v42-pre-shelving-week77-1363/genuine-v42-rival-stall-week-77.json.gz",
+      "bytes": 103584,
+      "sha256": "b3856c561ca787d40db4dbe5e197a3101ceb45b83bfe2dd7978f70996b4915cd"
+    }
+  ],
+  "exactCopied": true
+}

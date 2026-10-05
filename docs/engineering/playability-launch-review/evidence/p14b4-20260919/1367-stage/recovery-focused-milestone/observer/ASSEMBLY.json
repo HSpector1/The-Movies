@@ -1,0 +1,21 @@
+{
+  "sourceSchemaRoot": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/candidate",
+  "sourceSchemaInventorySha256": "09e268309bbec92d4bd375ba9ff314d5bc6cbcb3296f3328c767e68d02d5df8d",
+  "observerPreparationRoot": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/observer-prep",
+  "patches": {
+    "observer-production.patch": "d0bd3c6bcfffb8244e98dcfd9a692bc51275f5601747fe81678df3778c561079",
+    "observer-parity-tests.patch": "b6fb482b1d57c291460429f562782079d48507be0ea8f160810caf2b42e08c92"
+  },
+  "fileCount": 198,
+  "dependencySymlink": {
+    "path": "candidate/node_modules",
+    "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+  },
+  "sourceChangedOnly": "src/core/hollywoodTick.ts",
+  "testsAdded": [
+    "tests/helpers/recovery-schema-policy-control.ts",
+    "tests/p14d2-schema-observer-parity.test.ts"
+  ],
+  "runtimeExecuted": false,
+  "manualConflicts": 0
+}

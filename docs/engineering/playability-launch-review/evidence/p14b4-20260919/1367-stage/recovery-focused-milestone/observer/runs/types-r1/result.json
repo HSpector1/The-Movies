@@ -1,0 +1,25 @@
+{
+  "mode": "types",
+  "exitCode": 0,
+  "elapsedSeconds": 18.866078523918986,
+  "command": [
+    "python3",
+    "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+    "330",
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.observer-tests.json",
+    "--noEmit"
+  ],
+  "boundedChild": {
+    "boundedCaptureChild": true,
+    "timeoutSeconds": 330,
+    "timedOut": false,
+    "childExit": 0,
+    "elapsedMs": 18677.540007978678
+  },
+  "boundedRecordCount": 1,
+  "postflightPassed": true,
+  "outputSha256": "056f808ba478510193ff2edf7f90d199231053958f16aaab25f74b73ede3dd40"
+}

@@ -1,0 +1,13 @@
+# Independent old-era key diagnostic and test correction review
+
+**ACCEPT the ten diagnostics; PROCEED with the exact test-only correction.** This is a source-grounded correction to a mis-specified test, not acceptance of broken production behavior.
+
+Reviewed correction `exact-public-refusal-test.patch` SHA `4c28de039804bc1431823a7be367d0967008b8c9a16c4bef9f16c08b9f95b8f6`. Completed diagnostic-r1 has10 PASS, actual child0, no timeout, watchdog9264.737ms. Its external lane closes exit0 at20:20:04 CDT. The result binds the one named diagnostic, original one-worker settings and exact source/input guards. No original failing test was changed for this observation.
+
+All ten unique cases (public45,44,43,42,41 × cuttingKey/refundKey) report admitted own-era controls and true mutant/baseline/predecessor neutrality. None returned successfully. Independently compared every complete observed message against the proposed correction: all ten exactly match. The common wrapper chain is V37→36→35→34→33→32→31→30→28→27→26→25→Hollywood. Cutting keys use the ordinary business roster with screenplayShelving only in43–45; refund keys use the old money roster including termination but excluding facilityDemolitionRefund. The diagnostic's originalStartsWith is false for the legitimate wrappers; merely containing the leaf was never accepted as sufficient attribution.
+
+Source basis: inspected actual pre-recovery published858cd9d2 save.ts catches at8613,8799,8948,9050,9261,9335,9437,9663,9958,10167,10393,10479. They already contain the exact inherited prefix strings in the observed chain. Pre-recovery Hollywood exact() emits its supplied allowed-key list, and the business roster already varies by shelving era. S's public old readers keep recovery flags false and preserve these catches. Therefore the original unwrapped startsWith expectation contradicts existing public-reader law; changing production to remove wrappers would be the regression.
+
+The patch replaces that incorrect expectation with exact equality over the full wrapper chain and owned key roster. It preserves the valid baseline, one-field mutant, actual old reader call and exclusion of the new field from the allowed list, and adds mutant neutrality. It changes no source, reader scope, input capture, cash/history, or error swallowing. No broad regex or arbitrary thrown-error acceptance is introduced. The original five main-test failures remain preserved as prior evidence; corrected tests still require actual measured GREEN afterward.
+
+No simulation, Node, types, tests, fixture payload or live/index change performed by reviewer. Read completed logs and exact source objects only. Week77 capture acceptance is separately recorded and grants no gameplay/main waiver.

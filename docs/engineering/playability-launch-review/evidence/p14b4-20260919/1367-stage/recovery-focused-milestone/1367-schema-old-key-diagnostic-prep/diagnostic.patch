@@ -1,0 +1,85 @@
+--- /dev/null
++++ b/tests/p14d2-schema-old-key-diagnostic.test.ts
+@@ -0,0 +1,82 @@
++// Diagnostic only: preserve the original five failing migration leaves unchanged.
++// Uses the same accepted genuine45 loader, real own-era migration and public readers.
++import { createHash } from 'node:crypto'
++import { describe, expect, it } from 'vitest'
++import * as save from '../src/core/save.js'
++import { recoveryPredecessor45 } from './helpers/1367-recovery-predecessors.js'
++import type { GameState } from '../src/core/types.js'
++
++type Envelope = { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown }
++type Kind = 'cuttingKey' | 'refundKey'
++const cases = ([45, 44, 43, 42, 41] as const).flatMap(version =>
++  (['cuttingKey', 'refundKey'] as const).map(kind => ({ version, kind })))
++const bytes = save.stableStringify
++const sha = (text: string) => createHash('sha256').update(text).digest('hex')
++function entry(name: string): (value: unknown) => unknown {
++  const fn = (save as unknown as Record<string, unknown>)[name]
++  expect(typeof fn, 'actual public save API: ' + name).toBe('function')
++  return fn as (value: unknown) => unknown
++}
++function target(envelope: Envelope, kind: Kind): Record<string, unknown> {
++  const owner = envelope.state.hollywood!.businesses[0]!
++  return (kind === 'cuttingKey' ? owner : owner.account.periods[0]!.movements) as unknown as Record<string, unknown>
++}
++
++describe('1367 schema old public key-law diagnostic', () => {
++  it.each(cases)('records public V$version $kind refusal without repinning', ({ version, kind }) => {
++    // Real genuine45 input and real own-era downgrade; never relabel a current state.
++    const old = recoveryPredecessor45(0)
++    const oldBefore = bytes(old), oldJson = JSON.stringify(old)
++    expect(save.validateSaveV45(old)).toBe(old)
++    const own = entry('migrateToV' + version)(old) as Envelope
++    const ownBefore = bytes(own), ownJson = JSON.stringify(own)
++    const validate = entry('validateSaveV' + version)
++    expect(own.saveVersion).toBe(version)
++    expect(validate(own), 'admitted own-era control before mutation').toBe(own)
++    expect(bytes(own)).toBe(ownBefore)
++    expect(JSON.stringify(own)).toBe(ownJson)
++    expect(bytes(old)).toBe(oldBefore)
++    expect(JSON.stringify(old)).toBe(oldJson)
++    expect(own.state.hollywood?.businesses.length).toBeGreaterThan(0)
++
++    const mutant = structuredClone(own)
++    const field = kind === 'cuttingKey' ? 'costCutting' : 'facilityDemolitionRefund'
++    expect(Object.hasOwn(target(mutant, kind), field)).toBe(false)
++    if (kind === 'cuttingKey') Object.assign(target(mutant, kind), { costCutting: { version: 1, since: null } })
++    else Object.assign(target(mutant, kind), { facilityDemolitionRefund: 0 })
++    const before = bytes(mutant), beforeJson = JSON.stringify(mutant)
++    // Verify the only change is the named one-field addition. This inverse is
++    // a comparison oracle only, never supplied to any reader or live producer.
++    const inverse = structuredClone(mutant)
++    Reflect.deleteProperty(target(inverse, kind), field)
++    expect(bytes(inverse)).toBe(ownBefore)
++    expect(JSON.stringify(inverse)).toBe(ownJson)
++
++    let result: { kind: 'returned' } | { kind: 'error'; name: string; message: string; sourceFrames: string[] }
++    try { validate(mutant); result = { kind: 'returned' } }
++    catch (error) {
++      result = error instanceof Error
++        ? { kind: 'error', name: error.name, message: error.message,
++            sourceFrames: (error.stack ?? '').split('\n').slice(1).filter(line => line.includes('.ts:')).slice(0, 8) }
++        : { kind: 'error', name: typeof error, message: String(error), sourceFrames: [] }
++    }
++    const mutantNeutral = bytes(mutant) === before && JSON.stringify(mutant) === beforeJson
++    const baselineNeutral = bytes(own) === ownBefore && JSON.stringify(own) === ownJson
++    const predecessorNeutral = bytes(old) === oldBefore && JSON.stringify(old) === oldJson
++    console.log('1367_SCHEMA_OLD_KEY_DIAGNOSTIC ' + JSON.stringify({
++      format: '1367-schema-old-key-diagnostic/v1', version, kind,
++      baselineAdmitted: true, baselineSha256: sha(ownBefore), mutantSha256: sha(before),
++      result, mutantNeutral, baselineNeutral, predecessorNeutral,
++      originalStartsWith: result.kind === 'error'
++        ? result.message.startsWith('Hollywood save: exact keys required: ') : false,
++      containsHollywoodExactKeys: result.kind === 'error'
++        ? result.message.includes('Hollywood save: exact keys required: ') : false,
++    }))
++    // Diagnostic assertions require refusal and purity only. No error-message
++    // expectation from the original suite is modified or silently replaced.
++    expect(result.kind, 'public old-era reader must refuse the added recovery field').toBe('error')
++    expect(mutantNeutral).toBe(true)
++    expect(baselineNeutral).toBe(true)
++    expect(predecessorNeutral).toBe(true)
++  })
++})

@@ -1,0 +1,556 @@
+{
+  "files": [
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-consumer-prep/HANDBACK.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-week77-consumer-prep/HANDBACK.md",
+      "bytes": 5295,
+      "sha256": "a7462200dc5a3768f2284c8fd7d931de34f563d061b2ea75ff0ce9dbd19e74bb"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-consumer-prep/INDEPENDENT-REVIEW.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-week77-consumer-prep/INDEPENDENT-REVIEW.md",
+      "bytes": 1590,
+      "sha256": "4ef353977c8a033389f674b23d6b64faee1d1ba73ddf9d7dff035c9b6229c48f"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-consumer-prep/SHA256.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-week77-consumer-prep/SHA256.json",
+      "bytes": 1535,
+      "sha256": "0f03064f5f65d5559d69776e535fe59b303fc3e25770debbfce479ed42401321"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-consumer-prep/consumer.patch",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-week77-consumer-prep/consumer.patch",
+      "bytes": 18533,
+      "sha256": "75fdc00666060224ceb4bf897344d84ec5208c38fe862c158b0319ab279c7251"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-consumer-prep/fixture-copy-plan.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-week77-consumer-prep/fixture-copy-plan.json",
+      "bytes": 834,
+      "sha256": "af883b1b2482e1b5ad322935aab9846a22a3bfb39196fff12ab85deebd99501d"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-consumer-prep/fixture-copy-receipt.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-week77-consumer-prep/fixture-copy-receipt.json",
+      "bytes": 706,
+      "sha256": "50115aa923a9dd559f450f60ec7fa9d0f578a148300d36a75d129a1b216193a3"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-consumer-prep/new-input-pins.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-week77-consumer-prep/new-input-pins.json",
+      "bytes": 315,
+      "sha256": "536fa0ae8c09cedbe974f1082f1cbb72a57dd8311438b2e1f8f81b4b06219237"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-consumer-prep/pin-only-delta.patch",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-week77-consumer-prep/pin-only-delta.patch",
+      "bytes": 1501,
+      "sha256": "b91f56b62706ddc0b7f393a7ec3f198a9e6e33918e562f5cbc62ffc9b9ce0e69"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-schema-old-key-diagnostic-prep/HANDBACK.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-schema-old-key-diagnostic-prep/HANDBACK.md",
+      "bytes": 5142,
+      "sha256": "f3e111839c8d3e21891922e1888d74e6328ef765d692ecb83ca0dce384a3045d"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-schema-old-key-diagnostic-prep/INDEPENDENT-MEASURED-REVIEW.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-schema-old-key-diagnostic-prep/INDEPENDENT-MEASURED-REVIEW.md",
+      "bytes": 2770,
+      "sha256": "aa173a5086684b9d3a55fa0affee9eec53ec2549b6139b6041d8a3c8b20e12ee"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-schema-old-key-diagnostic-prep/SHA256.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-schema-old-key-diagnostic-prep/SHA256.json",
+      "bytes": 387,
+      "sha256": "050e428df33104097c6da63d2fa228bceace3d170c00231d6b832a3cccf16d90"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-schema-old-key-diagnostic-prep/SOURCE-PINS.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-schema-old-key-diagnostic-prep/SOURCE-PINS.json",
+      "bytes": 425,
+      "sha256": "2b1d23f6e441fff3bc342b7c9a5be22ce4cd44d898de5a8af6492beb11126560"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-schema-old-key-diagnostic-prep/diagnostic.patch",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-schema-old-key-diagnostic-prep/diagnostic.patch",
+      "bytes": 4981,
+      "sha256": "1a2e304bb07e9f5fa47593d5a0d7e4e761b192bd0facaab9f611a80313a4da22"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-schema-old-key-diagnostic-prep/exact-public-refusal-test.patch",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-schema-old-key-diagnostic-prep/exact-public-refusal-test.patch",
+      "bytes": 2482,
+      "sha256": "4c28de039804bc1431823a7be367d0967008b8c9a16c4bef9f16c08b9f95b8f6"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-closure-sequencing-audit/AUDIT.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-closure-sequencing-audit/AUDIT.md",
+      "bytes": 10847,
+      "sha256": "8f2e32280c0aef5f1fb14b474b2e31f1591a4b3aa5373c04052988867e8fe974"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-closure-sequencing-audit/SHA256.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/1367-closure-sequencing-audit/SHA256.json",
+      "bytes": 1541,
+      "sha256": "e29da1f9d1b8dc38a2e58854b020fb3bcf7a66c0a24e401cafac941dd39015f5"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-capture-01/RESULT.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/week77-capture/RESULT.json",
+      "bytes": 180105,
+      "sha256": "53d7dfe5d85fd9fb65de5d85e14966930a2da177b25b5472c1d36718914ef4cf"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-capture-01/INDEPENDENT-REVIEW.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/week77-capture/INDEPENDENT-REVIEW.md",
+      "bytes": 4252,
+      "sha256": "fe4c8cb5c5cd3abde1de970bedc4bb9d055c118cdaa38798a3dd75220af655a1"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/diagnostic-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/schema/diagnostic-r1/output.txt",
+      "bytes": 24846,
+      "sha256": "632acb0f5ccd99b33430f4537e37ac97712e568e56098cfab5dca85b69d0b9e6"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/diagnostic-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/schema/diagnostic-r1/result.json",
+      "bytes": 1475,
+      "sha256": "c11d8c8ca1283f4946943c24d3fa7356fe1d1042c6fee0d5c4cf4c8db9c5b9e6"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/period-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/schema/period-r1/output.txt",
+      "bytes": 2134,
+      "sha256": "aa304fdaac2d05c7b87ed8b3b2b4d1e9d351dfb63ce7f6bfb1d12cebc529ff74"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/period-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/schema/period-r1/result.json",
+      "bytes": 1463,
+      "sha256": "cae68e050e5e5ae8b2b49afeae0284e573ac5dc700bd0d56d5cf18a65313a651"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/pure-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/schema/pure-r1/output.txt",
+      "bytes": 5511,
+      "sha256": "6f6b563199495161f2e304abd59780b0c17a3b7f3cbf5c086d78fbc785b562d3"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/pure-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/schema/pure-r1/result.json",
+      "bytes": 1606,
+      "sha256": "cd94c31813055d151645b1aef062edbcd8a89d0c30dbe2e85cc181abfd495b03"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/migration-r2/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/schema/migration-r2/output.txt",
+      "bytes": 21653,
+      "sha256": "e945b6d3e4a25789e7d3b97e7dbda3def2676f55168e4c402496ceb4a25cdd50"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/migration-r2/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/schema/migration-r2/result.json",
+      "bytes": 1523,
+      "sha256": "a572b831b4bb7e01d978b621e86604fae8a78a30d118b43ffe754eb7a31b9a57"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/run-diagnostic.py",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/schema/run-diagnostic.py",
+      "bytes": 2360,
+      "sha256": "5d86d7a93e5a90ab40461ae1cb084fd60f36d7120899303c37ef9cfeee5fdf88"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/DIAGNOSTIC-SOURCE-PINS.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/schema/DIAGNOSTIC-SOURCE-PINS.json",
+      "bytes": 76320,
+      "sha256": "c819e660810eb96374290fd04a4725589a41cff7b7f1e449fea35c3cd39c79ea"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/run-v2.py",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/schema/run-v2.py",
+      "bytes": 2271,
+      "sha256": "d3905f57a65c4f0e72ed2e5625a25acf68d57b2a2620c6df1f1c088d17f83620"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/TEST-SOURCE-PINS-v2.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/schema/TEST-SOURCE-PINS-v2.json",
+      "bytes": 76201,
+      "sha256": "a119eab9bb5ce89d517f018230e22478dda584af157da53e31f273c15afeac2c"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/c-controls-r1/INDEPENDENT-REVIEW.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/integrated/c-controls-r1/INDEPENDENT-REVIEW.md",
+      "bytes": 4325,
+      "sha256": "e0615eb1d0b0cc77b67c979a7c06c84e93dab950dbc3f9ec742da5963ecc1953"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/c-controls-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/integrated/c-controls-r1/output.txt",
+      "bytes": 21568,
+      "sha256": "f281682682faff3433b72537f56a6492d19f22f28053f2e3867de5d4e5d4f2d2"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/c-controls-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/integrated/c-controls-r1/result.json",
+      "bytes": 708,
+      "sha256": "2dadec73d1836dbd444f9eb77ed95150141c5e557de4f115f98d88d8727e9d37"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/migration-disposal-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/integrated/migration-disposal-r1/output.txt",
+      "bytes": 1774,
+      "sha256": "5aa0795b542ca7af5172e1c135a281a4ef8bddb601cf080250816b2cd4ee5888"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/migration-disposal-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/integrated/migration-disposal-r1/result.json",
+      "bytes": 673,
+      "sha256": "76d84adb136c79985ea7af080b4bb22fe5ae8083c09812db202cf3d4efef1363"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/test-types-r3/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/integrated/test-types-r3/output.txt",
+      "bytes": 120,
+      "sha256": "9089ba1141ed6c1c9229651964274dba631c4e648fd70e35299dadbe5df00468"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/test-types-r3/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/integrated/test-types-r3/result.json",
+      "bytes": 490,
+      "sha256": "57f106f3deaa5a193d13d461833e6c5bb36a3f06225d2d844b7cfd7f67d7673e"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/run-focused.py",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/integrated/run-focused.py",
+      "bytes": 1809,
+      "sha256": "72769fdfbe081e51947ed7085de05161bfa304eb032c4e9b0ca6709d04b4393a"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/run-test-types-v3.py",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/integrated/run-test-types-v3.py",
+      "bytes": 1330,
+      "sha256": "3415b1191d6c78d983d2be3902c4294ef12918269d1888794cbebd9fe36ec58d"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/TEST-SOURCE-PINS-v3.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/integrated/TEST-SOURCE-PINS-v3.json",
+      "bytes": 76306,
+      "sha256": "ed0471d1810c4727be24e2930229f9a85c6082e6ec68efa3fbb83b7a9d4cd6c7"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/APPLICATION-LOG.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/APPLICATION-LOG.json",
+      "bytes": 3104,
+      "sha256": "0dd7fe2d7f9a33413974e2e7f1d29b7f33ea7f98c028771b8c755306b1d2e366"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/ASSEMBLY.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/ASSEMBLY.json",
+      "bytes": 942,
+      "sha256": "a6f823251fd2429b33d7cde4ec04a9350d622cabd2f662ebd83923816f569266"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/CANDIDATE-PINS.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/CANDIDATE-PINS.json",
+      "bytes": 20336,
+      "sha256": "6d42ee6d3997500ecea0718b62882fa7c1bcc1883c9540977b06436977de2e81"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/HANDBACK.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/HANDBACK.md",
+      "bytes": 5275,
+      "sha256": "8c1d58ba7dd747ef8b9ec5a23dff1eca2144c3792e74f02037c4f01e1a112adc"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/INDEPENDENT-REVIEW.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/INDEPENDENT-REVIEW.md",
+      "bytes": 2257,
+      "sha256": "6a20b39a8e766e4313beaca2f7a17a7628b7e72098e7f713bd89606d2c25e299"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/MEASURED-REVIEW-AND-B-GUIDANCE.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/MEASURED-REVIEW-AND-B-GUIDANCE.md",
+      "bytes": 5214,
+      "sha256": "f77d87927d8a7bc496518f25ce0459b4e55003f655c3659ce798967753017ffd"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/PERIOD-PREMISE-NOTE.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/PERIOD-PREMISE-NOTE.md",
+      "bytes": 4594,
+      "sha256": "045ebc50d4f9859bbabf7ce8ec8864df80ce7612bf8108e5baa0e2d3f4ada846"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/RUNNER-PINS.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/RUNNER-PINS.json",
+      "bytes": 1058,
+      "sha256": "47c634e9ed93f30ac2d967d2f632f7dd8428179ce0958a5154efa76469c4218e"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/S-BASE-PINS.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/S-BASE-PINS.json",
+      "bytes": 19997,
+      "sha256": "351019ad8e2f454a8692836eb1980e7e7701713c19830fc6b358c1f5a4261beb"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/SHA256.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/SHA256.json",
+      "bytes": 622,
+      "sha256": "93bdff51dc70c861491f119c06d80773aed435ffa3b8f2bd09dceca7796765a8"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/run.py",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/run.py",
+      "bytes": 5306,
+      "sha256": "e1a890ef7f07845af1ba22ae886863b7a2b752bd3f17920e460b6eaf88c6d5e8"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/runs/types-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/runs/types-r1/output.txt",
+      "bytes": 121,
+      "sha256": "056f808ba478510193ff2edf7f90d199231053958f16aaab25f74b73ede3dd40"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/runs/types-r1/postflight.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/runs/types-r1/postflight.json",
+      "bytes": 363,
+      "sha256": "42bd31a16b1b0c273d8450492dc13b4c6db3a71ba790a0b0e5169c9b6163173e"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/runs/types-r1/preflight.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/runs/types-r1/preflight.json",
+      "bytes": 754,
+      "sha256": "cdde311146f85f4a8a2ef7afc9393e7013f81c659c48a2db95c517449fe0638a"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/runs/types-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/runs/types-r1/result.json",
+      "bytes": 623,
+      "sha256": "2b80945f17dd1b3a133b8995b88ad0ef2d4acb30a0d5a290f2d0292d0acad2f9"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/runs/parity-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/runs/parity-r1/output.txt",
+      "bytes": 766,
+      "sha256": "71692e6f69ef3aeede06d9ea4a61e4f66ae9b48250152e2f9b8142da49bea496"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/runs/parity-r1/postflight.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/runs/parity-r1/postflight.json",
+      "bytes": 363,
+      "sha256": "42bd31a16b1b0c273d8450492dc13b4c6db3a71ba790a0b0e5169c9b6163173e"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/runs/parity-r1/preflight.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/runs/parity-r1/preflight.json",
+      "bytes": 881,
+      "sha256": "dbaf4c4f340aabf9d1493bb86346ef658883e3dfc779ffa7d62fe51de133eb29"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/runs/parity-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/runs/parity-r1/result.json",
+      "bytes": 750,
+      "sha256": "9b2232872b3cc3de8336aab490866f844e696cd72c61f5aa18d03647c3f3463d"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/candidate/tsconfig.observer-tests.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/observer/tsconfig.observer-tests.json",
+      "bytes": 265,
+      "sha256": "1b2a320bcda96abeda72514925a4f5cd1bbfdb015784941458435281d0fee44e"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-part-a-candidate/types-week77-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/part-a/types-week77-r1/output.txt",
+      "bytes": 120,
+      "sha256": "cf39f0e531d99ec3475f42adfa4bc6092be8365cc082ee8201389549d9c5247a"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-part-a-candidate/types-week77-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/part-a/types-week77-r1/result.json",
+      "bytes": 3832,
+      "sha256": "bb6f919882aa7e0b8db587a5cc586eefdb777f58ae9e10264447a57bbfe3e21f"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-part-a-candidate/focused-week77-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/part-a/focused-week77-r1/output.txt",
+      "bytes": 10218,
+      "sha256": "225dac66359172d2c98937bdddaa74edead86cb3619369c13965cb1f36596174"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-part-a-candidate/focused-week77-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/part-a/focused-week77-r1/result.json",
+      "bytes": 4205,
+      "sha256": "22b247aa5c65782efcc7b57cec7d66b40d5c21381303fded10557b693e57a038"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-part-a-candidate/run-week77.py",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/part-a/run-week77.py",
+      "bytes": 2670,
+      "sha256": "53fb9e59c85ddc8a2543a5f158a2e276711b8b12b3c8f2a02a68e2a7b4518062"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-part-a-candidate/SOURCE-PINS-week77.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/part-a/SOURCE-PINS-week77.json",
+      "bytes": 76987,
+      "sha256": "fc8c9abeb8eb230fab0e203d41a36cb3b6002425a996f8f163855d657f75d968"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-part-a-candidate/MANUAL-week77.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/part-a/MANUAL-week77.json",
+      "bytes": 1288,
+      "sha256": "8ab4de9e99af6bc32c23d503d5c20858aba9a2b49b7c251181f937a94db9d5e4"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-part-a-landing-review/WEEK77-FOCUSED-GREEN.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/part-a/WEEK77-FOCUSED-GREEN.md",
+      "bytes": 3475,
+      "sha256": "21ff8b5bc69179d9e4773af9539880caa7a5e0f61ffffac6dd897f95aecc9f10"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-mint.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-week77-mint.log",
+      "bytes": 2079,
+      "sha256": "4b5f31fea26a04210297f2d7f9f74d966249334dbdd2aff9aecc21a27b9134a8"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-week77-mint.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-week77-mint.log.meta",
+      "bytes": 614,
+      "sha256": "99053bfac200a2f7a0d623fc8cb33d81b276304c7f1de5b5b200137a223d477e"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-old-key-diagnostic.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-old-key-diagnostic.log",
+      "bytes": 1377,
+      "sha256": "fd4c2656a299a784f113d636f0b56999ed18aac2459b490e347420b99fe4c2e4"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-old-key-diagnostic.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-old-key-diagnostic.log.meta",
+      "bytes": 226,
+      "sha256": "f5e752e71732272d4db8c452b8ad99d1b015232dbe15b69adb80dc932b9249f0"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-schema-period.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-schema-period.log",
+      "bytes": 1365,
+      "sha256": "be0e085b951ac2066b3768f974e190af9045ee2731b3075122989ec331f0852c"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-schema-period.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-schema-period.log.meta",
+      "bytes": 211,
+      "sha256": "0faa4e2a730e992c95a9ea0cb4d7eae638e596418839ff83f3369d12ea339a0e"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-schema-pure.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-schema-pure.log",
+      "bytes": 1500,
+      "sha256": "617d428d8e6a4afb30cf4276ba8ec630beca39969453b76f2a0d539165afec21"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-schema-pure.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-schema-pure.log.meta",
+      "bytes": 209,
+      "sha256": "9679181a6cd2a940df132bc78e90ccbcb79005b7ccb34832ccda28b548e903ba"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-schema-migration-r2.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-schema-migration-r2.log",
+      "bytes": 1417,
+      "sha256": "535e535c8fcfef382cd25786d7c78af7581e5428d8e2bbef531d09f6ee2fdb49"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-schema-migration-r2.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-schema-migration-r2.log.meta",
+      "bytes": 217,
+      "sha256": "a8210fe9dc9b8339ab77996eecc88d2ca34bd1f550ef5579f7c0da0d1858a575"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-c-controls.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-integrated-c-controls.log",
+      "bytes": 630,
+      "sha256": "f332542a65821a3ee010fd608cb3ea729815645c8fe050d9649e378d2e363abe"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-c-controls.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-integrated-c-controls.log.meta",
+      "bytes": 224,
+      "sha256": "b3b7a3930ffe41c0a56c4ee0108244c946fd176e7002a8b7b119797a71ccad62"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-migration-disposal.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-integrated-migration-disposal.log",
+      "bytes": 595,
+      "sha256": "94fb5465246e3e0c15bee53e09f3b2d3abf8aedae995c4606769ab01de90d69d"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-migration-disposal.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-integrated-migration-disposal.log.meta",
+      "bytes": 232,
+      "sha256": "e6654d15c173dfe4e8b4a185dacb9df834cb75acbcc39d26815648dd0dca8c50"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-types-r3.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-integrated-types-r3.log",
+      "bytes": 444,
+      "sha256": "b6602e05b311c61043b12db4c64283118ba8cd9c5e19965d069d75af8ca0cc03"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-types-r3.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-integrated-types-r3.log.meta",
+      "bytes": 219,
+      "sha256": "b98d03f15a7b58704a73a6082c97d792af0465394f72c4f98e4a711618aea637"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-observer-types.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-observer-types.log",
+      "bytes": 545,
+      "sha256": "310843f38f5a3cb70bdc008913e2f6b9381c86d2b7c2996cacecc3be4fdcf175"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-observer-types.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-observer-types.log.meta",
+      "bytes": 219,
+      "sha256": "7c5b2e632a78c64afef04534fb5082f2a60884c1d9d4c80eb548dc742f410737"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-observer-parity.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-observer-parity.log",
+      "bytes": 652,
+      "sha256": "958c4eccab3c9ea3329bbbd2b45ec761c957bde1259c16e8af4476458f5c5e9f"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-observer-parity.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-observer-parity.log.meta",
+      "bytes": 220,
+      "sha256": "5a10ca369875cf66af92a74444ab80f8a845326e4fa5edfe0074bbd058f8b82e"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-part-a-week77-types.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-part-a-week77-types.log",
+      "bytes": 157,
+      "sha256": "a76c4ea9fa5dc3b9a8e1afebf4c3df7000e1b75b9e10934b577e77d10fadcb18"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-part-a-week77-types.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-part-a-week77-types.log.meta",
+      "bytes": 215,
+      "sha256": "0404cde8098f91c42b1af0a267c053e97ff8ac5bdcec8c8db30af5101203f6fa"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-part-a-week77-focused.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-part-a-week77-focused.log",
+      "bytes": 161,
+      "sha256": "9537b2b799e7a3c3f50b8b82175077f8df32e892cfaf6b8dbf818b72c9905dce"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-part-a-week77-focused.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-focused-milestone/lanes/1367-part-a-week77-focused.log.meta",
+      "bytes": 217,
+      "sha256": "50422eff724c9ec39f746069b4d9583183b0ff93ca464f97c0d32f3e5c91fac5"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1367-recovery-schema-observer-candidate/candidate
+
+ ✓ |core| tests/p14d2-schema-observer-parity.test.ts > 1363 schema-only policy observations > retains ordered promised-mask entries and nested values in trace digests
+ ✓ |core| tests/p14d2-schema-observer-parity.test.ts > 1363 schema-only policy observations > matches exact uninstrumented policy, with and without observer, for 53 genuine ticks 20880ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  20:25:58
+   Duration  23.55s (transform 1.76s, setup 0ms, collect 2.32s, tests 20.89s, environment 0ms, prepare 90ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 24400.975959026255}

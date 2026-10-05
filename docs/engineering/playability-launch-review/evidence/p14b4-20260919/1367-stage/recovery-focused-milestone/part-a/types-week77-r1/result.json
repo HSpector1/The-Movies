@@ -1,0 +1,49 @@
+{
+  "mode": "types",
+  "command": [
+    "python3",
+    "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+    "330",
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.part-a.json"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 41.136353981914,
+  "before": {
+    "head": "d8a332fc33b26209abe23c32b157cc2fa85ac1f0",
+    "diff": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "index": "24e05b0e5b475ac375f440b6d993329d66ca995cf648f7461a792e2af6e58bb9",
+    "candidatePinsSha256": "fc8c9abeb8eb230fab0e203d41a36cb3b6002425a996f8f163855d657f75d968",
+    "manual": {
+      "tests/fixtures/p14/genuine-v45-binding-cash-1363/MANIFEST.json": "bd6d51a93b532d3f02de6bd0bae821588c70a7f63ac5251b092d518a12231b89",
+      "tests/fixtures/p14/genuine-v45-binding-cash-1363/genuine-v45-binding-cash-count12.provenance.json": "209b1fbdeaff37ff0f1228eeefebf201161bb3f878f1704072c67f9315a35597",
+      "tests/fixtures/p14/genuine-v45-binding-cash-1363/genuine-v45-binding-cash-count12.json.gz": "505c1335601ebd292fd0b341631ccb33ad4898eec652b4378c8f913d22064623",
+      "tests/fixtures/p14/genuine-v36-downgrade-extension-controls/MANIFEST.json": "e62713cc60ecfce007b11ee381c5346a1fa98a430978983d47068d61addbb7ee",
+      "tests/fixtures/p14/genuine-v36-downgrade-extension-controls/reproduced-v36-extension-open-week92.json.gz": "88293028366023ac5ffb3cf48838391a27e80ef0d7e5c95eddff8247e36f77af",
+      "tests/fixtures/p14/genuine-v36-downgrade-extension-controls/reproduced-v36-extension-used-week98.json.gz": "69339e4af679bf39270619d2d73196b0a17958cf96e8b932b8f03015bc0bbc26",
+      "tests/fixtures/p14/genuine-v42-pre-shelving-week77-1363/MANIFEST.json": "2f34d9ad15655c0beec8dc99cc3bc10b8b13195db254b23e0fa34d061f5aee4d",
+      "tests/fixtures/p14/genuine-v42-pre-shelving-week77-1363/genuine-v42-rival-stall-week-77.json.gz": "b3856c561ca787d40db4dbe5e197a3101ceb45b83bfe2dd7978f70996b4915cd"
+    }
+  },
+  "after": {
+    "head": "d8a332fc33b26209abe23c32b157cc2fa85ac1f0",
+    "diff": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "index": "24e05b0e5b475ac375f440b6d993329d66ca995cf648f7461a792e2af6e58bb9",
+    "candidatePinsSha256": "fc8c9abeb8eb230fab0e203d41a36cb3b6002425a996f8f163855d657f75d968",
+    "manual": {
+      "tests/fixtures/p14/genuine-v45-binding-cash-1363/MANIFEST.json": "bd6d51a93b532d3f02de6bd0bae821588c70a7f63ac5251b092d518a12231b89",
+      "tests/fixtures/p14/genuine-v45-binding-cash-1363/genuine-v45-binding-cash-count12.provenance.json": "209b1fbdeaff37ff0f1228eeefebf201161bb3f878f1704072c67f9315a35597",
+      "tests/fixtures/p14/genuine-v45-binding-cash-1363/genuine-v45-binding-cash-count12.json.gz": "505c1335601ebd292fd0b341631ccb33ad4898eec652b4378c8f913d22064623",
+      "tests/fixtures/p14/genuine-v36-downgrade-extension-controls/MANIFEST.json": "e62713cc60ecfce007b11ee381c5346a1fa98a430978983d47068d61addbb7ee",
+      "tests/fixtures/p14/genuine-v36-downgrade-extension-controls/reproduced-v36-extension-open-week92.json.gz": "88293028366023ac5ffb3cf48838391a27e80ef0d7e5c95eddff8247e36f77af",
+      "tests/fixtures/p14/genuine-v36-downgrade-extension-controls/reproduced-v36-extension-used-week98.json.gz": "69339e4af679bf39270619d2d73196b0a17958cf96e8b932b8f03015bc0bbc26",
+      "tests/fixtures/p14/genuine-v42-pre-shelving-week77-1363/MANIFEST.json": "2f34d9ad15655c0beec8dc99cc3bc10b8b13195db254b23e0fa34d061f5aee4d",
+      "tests/fixtures/p14/genuine-v42-pre-shelving-week77-1363/genuine-v42-rival-stall-week-77.json.gz": "b3856c561ca787d40db4dbe5e197a3101ceb45b83bfe2dd7978f70996b4915cd"
+    }
+  },
+  "allGuardsExact": true,
+  "wrapperSha256": "53fb9e59c85ddc8a2543a5f158a2e276711b8b12b3c8f2a02a68e2a7b4518062",
+  "sourceScope": "isolated Part A candidate; original published source remains unchanged"
+}

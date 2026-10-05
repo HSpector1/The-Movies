@@ -1,0 +1,3 @@
+waiting for pid 0; then: python3 /Users/zacheryspector/studio-scratch/1367-week77-capture-prep/run-capture.py --head d8a332fc33b26209abe23c32b157cc2fa85ac1f0 --current-version 45 --stem 1367-week77-save42-mint --archive-root /Users/zacheryspector/studio-scratch/1367-week77-v42-archive-01 --archive-sha256 2cb00fad7c679caabf6d3630ba345e5c0c7ea6e54e0e3e174b55ce274446c9ff --output /Users/zacheryspector/studio-scratch/1367-week77-capture-01 --runner-sha256 ddec7540fd1c7f979cd0ee9b4c69a93a37a85dda4f27e1230dc1ff3088b3efdd; 2026-10-04 20:18:40 CDT
+start; 2026-10-04 20:18:40 CDT
+end, exit 0; 2026-10-04 20:19:25 CDT

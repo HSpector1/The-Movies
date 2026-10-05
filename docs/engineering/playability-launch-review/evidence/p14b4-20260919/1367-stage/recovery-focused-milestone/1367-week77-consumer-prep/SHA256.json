@@ -1,0 +1,43 @@
+{
+  "format": "1367-week77-consumer/v1",
+  "priorReviewedDraftSha256": "3b367cf2a4f7be9f256a7b564bb276a6a634afc958343008910468c4553cfbb3",
+  "acceptedMintReviewSha256": "fe4c8cb5c5cd3abde1de970bedc4bb9d055c118cdaa38798a3dd75220af655a1",
+  "staticChecks": [
+    "Reviewed control body unchanged",
+    "Unified patch exact reconstruction"
+  ],
+  "files": {
+    "HANDBACK.md": {
+      "bytes": 5295,
+      "sha256": "a7462200dc5a3768f2284c8fd7d931de34f563d061b2ea75ff0ce9dbd19e74bb"
+    },
+    "base/tests/p14d1-rival-shelving.test.ts": {
+      "bytes": 66093,
+      "sha256": "c972b9bc3d0b1102d2c91b1c3256a807e9d147b7d65380d0d087674161203a14"
+    },
+    "consumer/tests/p14d1-rival-shelving.test.ts": {
+      "bytes": 62954,
+      "sha256": "611cae4838cff0fe907280d6f18739d1a3a22c5c41ebdae568e04f39377750d9"
+    },
+    "consumer/tests/p14d1-week77-fixture.ts": {
+      "bytes": 4335,
+      "sha256": "8f201e9f42062b77dd18ff197cf399dff6d4d44e76e5e2cc50de7fc81bec1f84"
+    },
+    "consumer.patch": {
+      "bytes": 18533,
+      "sha256": "75fdc00666060224ceb4bf897344d84ec5208c38fe862c158b0319ab279c7251"
+    },
+    "fixture-copy-plan.json": {
+      "bytes": 834,
+      "sha256": "af883b1b2482e1b5ad322935aab9846a22a3bfb39196fff12ab85deebd99501d"
+    },
+    "new-input-pins.json": {
+      "bytes": 315,
+      "sha256": "536fa0ae8c09cedbe974f1082f1cbb72a57dd8311438b2e1f8f81b4b06219237"
+    },
+    "pin-only-delta.patch": {
+      "bytes": 1501,
+      "sha256": "b91f56b62706ddc0b7f393a7ec3f198a9e6e33918e562f5cbc62ffc9b9ce0e69"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "exitCode": 0,
+  "elapsedSeconds": 26.553566307062283,
+  "command": [
+    "python3",
+    "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+    "330",
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.recovery-tests.json"
+  ],
+  "pinsSha256": "ed0471d1810c4727be24e2930229f9a85c6082e6ec68efa3fbb83b7a9d4cd6c7",
+  "wrapperSha256": "3415b1191d6c78d983d2be3902c4294ef12918269d1888794cbebd9fe36ec58d",
+  "allFilesExactBeforeAfter": true
+}

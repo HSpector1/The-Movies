@@ -1,0 +1,254 @@
+diff --git a/tests/p14d1-rival-shelving.test.ts b/tests/p14d1-rival-shelving.test.ts
+--- a/tests/p14d1-rival-shelving.test.ts
++++ b/tests/p14d1-rival-shelving.test.ts
+@@ -35,7 +35,8 @@
+ import type { RivalBusiness, IndustryReceipt } from '../src/core/hollywoodTypes.js'
+ import { RIVAL_MONEY_KINDS, rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
+ import { validatePowerRankingArchive } from '../src/core/powerRankingArchive.js'
+-import { liveWeek100, liveWeek130, RIVAL_R01, genuineV42Week93, manifestPin93 } from './p14d1-rival-shelving-fixtures.js'
++import { liveWeek100, liveWeek130, RIVAL_R01 } from './p14d1-rival-shelving-fixtures.js'
++import { genuineV42Week77 } from './p14d1-week77-fixture.js'
+ import type { PromiseDraft } from '../src/core/promises.js'
+ import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+ 
+@@ -552,113 +553,82 @@
+ 
+ // ── 3. shelving-viable-control (1344-F Amendment 2) ─────────────────────────────
+ describe('shelving-viable-control (1344-F Amendment 2)', () => {
+-  it('genesis to week 93: with screenplayShelving stripped from every business, state equals the genuine week-93 input migrated by convertV42ToV43 (also stripped); receipts identical; the leaf asserts its own premise that no shelving has happened yet and that the first screenplayShelved receipt falls strictly after this state, never a hard-coded week', () => {
+-    // 1344-F3 correction 4: week 100 crosses the candidate's own first shelving (per the
+-    // production writer's probe: r01's script-0006 gathers its 13th evaluated economic
+-    // rejection at week 93, with the shelving receipt appearing in the tick after). Week
+-    // 93 is the last week on this route with no shelving yet, so it is the correct
+-    // control point: a genuine pre-shelving Save42 input minted at week 93 (1344-P2).
+-    manifestPin93()
++  it('genesis to week 77: admitted candidate matches the genuine old input under the existing projections; zero shelves precede its own first visible shelving', () => {
++    // 1363-F11 trigger: measured Part A receipt week77 first appears at produced week78.
++    // Keep the old week93 fixture. This new original-engine capture does not assert
++    // that earlier Hollywood divergence is harmless; exact comparison below decides.
+     const mods = saveModule as unknown as {
+-      convertV42ToV43: (s: unknown) => { state: GameState }
+-      convertV43ToV44: (s: unknown) => { state: GameState }
+-    }
+-    const genuineV43 = mods.convertV42ToV43(genuineV42Week93())
+-    // 1358-N S5 (1358-F10 ruling 9): Save44 gives every edge `competitions` and `romance`, so the
+-    // genuine input is lifted once more through production's own convertV43ToV44. The control
+-    // asserts the candidate holds no log row and sets its romance tracks to the lift's null
+-    // below (1358-F12 ruling 7; 1358-D9b N1).
+-    // 1361-N S5 (1361-F7 ruling 5): the genuine side stays at this V44 lift. A genuine Save42 input
+-    // holds none of Save45's four P15 roots, so the candidate's come out below instead.
+-    const genuineState = mods.convertV43ToV44(genuineV43).state
++      convertV42ToV43(s: unknown): { state: GameState }
++      convertV43ToV44(s: unknown): { state: GameState }
++      validateSaveV46(s: unknown): unknown
++      convertV46ToV45(s: unknown): { state: GameState }
++    }
++    const genuine = genuineV42Week77(), originalBytes = saveModule.stableStringify(genuine)
++    const genuineState = mods.convertV43ToV44(mods.convertV42ToV43(genuine)).state
++    expect(saveModule.stableStringify(genuine)).toBe(originalBytes)
+     let state = HARNESS_GENESIS()
+-    for (let week = 0; week < 93; week++) state = tick(state)
+-    expect(state.market.tick).toBe(93)
+-    const strip = (s: GameState) => ({
+-      ...s,
+-      hollywood: s.hollywood === null ? null : {
+-        ...s.hollywood,
+-        businesses: s.hollywood.businesses.map(b => {
+-          const clone = b as unknown as Record<string, unknown>
+-          const { screenplayShelving: _drop, ...rest } = clone
+-          return rest
+-        }),
+-      },
+-    })
+-    // Byte for byte, exactly as the contract requires (1344-F Amendment 2 / 1344-F3:
+-    // "must match byte for byte"), via CANONICAL (key-sorted) JSON serialization, not
+-    // raw JS Object.is-based toEqual and not insertion-order-sensitive JSON.stringify.
+-    // True cause (1344-X6, correcting 1344-C3's own first diagnosis, which wrongly
+-    // blamed unrelated P15A code at the fixture's mint HEAD — P15A.1/P15A.2 are pure
+-    // and imported by no tick path, so they cannot change any state; 1344-X6's probe
+-    // confirms a fresh HEAD run to week 93 holds the same six values and its own
+-    // exportSave(makeSave(...)) equals this fixture byte for byte): ordinary live
+-    // arithmetic genuinely produces `-0` in six fields on this route
+-    // (careerEvents[*].genreExpBefore x2, talent[*].genreExperience...perceived x4).
+-    // A parsed/genuine save can never hold `-0` — JSON serialization always writes it
+-    // as `0` (JSON.stringify(-0) === "0" in this runtime) — so comparing a live state
+-    // against a parsed save with toEqual (Object.is-based) is a method error, not a
+-    // data error: it demands a distinction the save format itself cannot represent.
+-    // The leaf therefore compares at the serialization level (canonical, key-sorted
+-    // JSON), which is exactly what a save stores, not a live in-memory object graph.
+-    // Key sorting is needed alongside this because `state` (built by spreading a
+-    // freshly-ticked GameState) and `genuineState` (rebuilt by convertV42ToV43) insert
+-    // object keys in different orders even where every key/value pair is identical, so
+-    // plain (non-canonical) JSON.stringify would still show a spurious ordering
+-    // mismatch with no semantic content. Sorting keys recursively (arrays keep their
+-    // order, since order is semantically meaningful for lists of businesses/receipts)
+-    // removes both artifacts without hiding a real one: any actual value, kind, count
+-    // or shape difference still fails this check exactly as toEqual would.
++    for (let week = 0; week < 77; week++) state = tick(state)
++    expect(state.market.tick).toBe(77)
++    const stateBytes = saveModule.stableStringify(state)
++    const ordinary = saveModule.makeSave(state), ordinaryBytes = saveModule.stableStringify(ordinary)
++    let candidate45: GameState
++    if (Number(ordinary.saveVersion) === 45) {
++      // Part A-only Save45: validate the actual ordinary candidate before projections.
++      expect(saveModule.validateSaveV45(ordinary)).toBe(ordinary)
++      candidate45 = ordinary.state
++    } else {
++      // Combined Save46: admit it, then require empty recovery before a real downgrade.
++      expect(Number(ordinary.saveVersion)).toBe(46)
++      expect(mods.validateSaveV46(ordinary)).toBe(ordinary)
++      for (const business of ordinary.state.hollywood!.businesses) {
++        expect((business as unknown as { costCutting: unknown }).costCutting,
++          'UNMET PREMISE: recovery entered before historical comparison').toEqual({ version: 1, since: null })
++        for (const period of business.account.periods)
++          expect((period.movements as unknown as Record<string, number>).facilityDemolitionRefund,
++            'UNMET PREMISE: real refund cannot be projected away').toBe(0)
++      }
++      expect(ordinary.state.hollywood!.receipts.some(r => (r.kind as string) === 'facilityDisposed'),
++        'UNMET PREMISE: real disposal cannot be projected away').toBe(false)
++      const historical = mods.convertV46ToV45(ordinary)
++      expect(saveModule.validateSaveV45(historical)).toBe(historical)
++      candidate45 = historical.state
++    }
++    expect(saveModule.stableStringify(ordinary)).toBe(ordinaryBytes)
++    expect(saveModule.stableStringify(state)).toBe(stateBytes)
++    const strip = (s: GameState) => ({ ...s, hollywood: s.hollywood === null ? null : {
++      ...s.hollywood, businesses: s.hollywood.businesses.map(b => {
++        const { screenplayShelving: _drop, ...rest } = b as unknown as Record<string, unknown>
++        return rest
++      }),
++    } })
++    // Canonical JSON retains array order and the save format's existing -0→0 law.
+     const canon = (v: unknown): unknown => Array.isArray(v) ? v.map(canon)
+-      : v !== null && typeof v === 'object' ? Object.fromEntries(Object.keys(v as object).sort().map(k => [k, canon((v as Record<string, unknown>)[k])]))
+-      : v
+-    // 1358-F12: Save44's romance law writes tracks on the route's own pairs, 15 of them by week 93
+-    // (1358-X8 probe 4), which a genuine Save42 input cannot hold. As this control already takes Save43's
+-    // shelving root out, it takes slice B's two edge roots out of the candidate too: the log is still
+-    // empty at week 93 (asserted) and each track is set to the lift's null. Everything else must match
+-    // byte for byte. Slice B's tracks are measured by its own tests and by 1358-M2's routes.
++      : v !== null && typeof v === 'object' ? Object.fromEntries(Object.keys(v as object).sort().map(k => [k, canon((v as Record<string, unknown>)[k])])) : v
+     const withoutSliceB = (s: GameState) => ({ ...s, relationships: (s.relationships ?? []).map(e => ({ ...e, competitions: [], romance: null })) })
+-    expect((state.relationships ?? []).every(e => e.competitions.length === 0)).toBe(true)
+-    // 1361-N S5 (1361-F7 ruling 5, the 1358-F12 form): Save45 gives the candidate four roots that a
+-    // genuine Save42 input cannot hold, and by week 93 its archive holds the quarters from week 13 to
+-    // week 91. As this control already takes slice B's fields out, it takes the four P15 roots out of
+-    // the candidate too, behind checks that its own P15 state is lawful and that nothing but the
+-    // archive holds a row: no shared-market assessment (P15A.1's (c) has not landed at this candidate,
+-    // so no tick writes one), an unfrozen Legacy (the freeze runs only in the tick that produces week
+-    // 6240), the archive through validatePowerRankingArchive and the allocator through
+-    // validateP15Allocator. P15A.2's own tests measure the archive. Everything else must match byte
+-    // for byte.
+-    expect(state.sharedMarket.assessments).toEqual([])
+-    expect(state.campaignLegacy.official).toBeNull()
+-    expect(state.campaignLegacy.endOfRun).toBeNull()
+-    expect(() => validatePowerRankingArchive(state as unknown as Record<string, unknown>)).not.toThrow()
+-    expect(() => saveModule.validateP15Allocator(state as unknown as Record<string, unknown>, 'week-93 control')).not.toThrow()
+-    // The four keys are named here, not read from tests/helpers/p15-roots.ts: a P15 root added later
+-    // must fail this control until its own check joins the four above, never vanish with the strip.
++    expect((candidate45.relationships ?? []).every(e => e.competitions.length === 0)).toBe(true)
++    // Existing authorized P15 projection, still guarded by every original premise.
++    expect(candidate45.sharedMarket.assessments).toEqual([])
++    expect(candidate45.campaignLegacy.official).toBeNull()
++    expect(candidate45.campaignLegacy.endOfRun).toBeNull()
++    expect(() => validatePowerRankingArchive(candidate45 as unknown as Record<string, unknown>)).not.toThrow()
++    expect(() => saveModule.validateP15Allocator(candidate45 as unknown as Record<string, unknown>, 'week-77 control')).not.toThrow()
+     const withoutP15 = (s: GameState) => {
+       const { powerRanking: _pr, p15Sequence: _seq, sharedMarket: _sm, campaignLegacy: _cl, ...rest } = s
+       return rest as unknown as GameState
+     }
+-    expect(JSON.stringify(canon(strip(withoutSliceB(withoutP15(state)))))).toBe(JSON.stringify(canon(strip(genuineState))))
++    expect(JSON.stringify(canon(strip(withoutSliceB(withoutP15(candidate45)))))).toBe(JSON.stringify(canon(strip(genuineState))))
+     expect(state.hollywood!.receipts).toEqual(genuineState.hollywood!.receipts)
+-    // Premise, derived from the CANDIDATE's own receipts (never a hard-coded shelving
+-    // week, per 1344-F3): no screenplayShelved receipt has accumulated by week 93 on
+-    // either side (implied by the receipts equality above; checked directly here too).
+-    expect(shelvedReceiptsOf(state.hollywood!.receipts), 'route/RED premise: zero screenplayShelved receipts through week 93').toHaveLength(0)
+-    // Continuing forward from this EXACT compared state (never re-deriving or re-running
+-    // from genesis), the first screenplayShelved receipt appears within a bounded search —
+-    // i.e. strictly after the week-93 state this leaf just verified matches the genuine
+-    // input. The week number of that tick is never asserted or hard-coded; only that it
+-    // exists and comes strictly after the already-verified shelving-free state.
++    expect(shelvedReceiptsOf(state.hollywood!.receipts), 'route premise: zero shelving through produced week77').toHaveLength(0)
+     const BOUND = 16
+-    let probe = state
+-    let found = false
++    let probe = state, found = false
+     for (let i = 0; i < BOUND; i++) {
+       const before = probe
+       probe = tick(probe)
+       if (shelvedReceiptsOf(newReceipts(before, probe)).length > 0) { found = true; break }
+     }
+-    expect(found, `route/RED premise: the first screenplayShelved receipt falls within ${BOUND} weeks after the week-93 state (strictly after, never at or before it)`).toBe(true)
++    expect(found, `first visible shelving must occur within ${BOUND} later ticks from the exact compared state`).toBe(true)
++    expect(saveModule.stableStringify(state)).toBe(stateBytes)
++    expect(saveModule.stableStringify(genuine)).toBe(originalBytes)
+   }, 30_000)
+ 
+   it('a business with at least one recorded greenlight and zero economic rejections in the first 5 weeks keeps the empty screenplayShelving state', () => {
+diff --git a/tests/p14d1-week77-fixture.ts b/tests/p14d1-week77-fixture.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/p14d1-week77-fixture.ts
+@@ -0,0 +1,61 @@
++// Genuine original Save42 week77 capture; literal pins independently accepted after mint.
++import { createHash } from 'node:crypto'
++import { readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { expect } from 'vitest'
++import { exportSave, importSave, stableStringify, validateSaveV42 } from '../src/core/save.js'
++
++const ROOT = new URL('./fixtures/p14/genuine-v42-pre-shelving-week77-1363/', import.meta.url)
++type Pin = { bytes: number; sha256: string }
++const PINS: { manifest: Pin | null; gzip: Pin | null; raw: Pin | null; archiveSha256: string | null;
++  currentValidationHead: string | null; currentValidationVersion: 45 | 46 | null } = {
++  manifest: { bytes: 21060, sha256: '2f34d9ad15655c0beec8dc99cc3bc10b8b13195db254b23e0fa34d061f5aee4d' },
++  gzip: { bytes: 103584, sha256: 'b3856c561ca787d40db4dbe5e197a3101ceb45b83bfe2dd7978f70996b4915cd' },
++  raw: { bytes: 910372, sha256: '149de4e4d9501966456fa4123304f5dbf26e35d278a0c80ccf945cf47f7f06ac' },
++  archiveSha256: '2cb00fad7c679caabf6d3630ba345e5c0c7ea6e54e0e3e174b55ce274446c9ff',
++  currentValidationHead: 'd8a332fc33b26209abe23c32b157cc2fa85ac1f0', currentValidationVersion: 45,
++}
++const sha = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
++function required<T>(value: T | null, label: string): T {
++  if (value === null) throw new Error('UNMINTED WEEK77 PREREQUISITE: independent ' + label + ' pin is required')
++  return value
++}
++function pinned(name: string, input: Pin | null): Buffer {
++  const pin = required(input, name)
++  expect(pin.sha256).toMatch(/^[0-9a-f]{64}$/)
++  const data = readFileSync(new URL(name, ROOT))
++  expect(data.length).toBe(pin.bytes); expect(sha(data)).toBe(pin.sha256)
++  return data
++}
++export function genuineV42Week77() {
++  const manifest = JSON.parse(pinned('MANIFEST.json', PINS.manifest).toString('utf8')) as {
++    format: string; generatingHead: string; currentValidationHead: string; currentValidationVersion: number;
++    archivedSourceFilesSha256: string; producerSha256: string; sourceSaveVersion: number; seed: string;
++    startWeek: number; ticks: number; week: number; originalNamedPins: Record<string, { sha256: string }>;
++    capture: { name: string; gzipBytes: number; gzipSha256: string; rawBytes: number; rawSha256: string };
++  }
++  expect(manifest.format).toBe('1367-week77-save42-capture/v1')
++  expect(manifest.generatingHead).toBe('e62c944fef2966ea2ba4b5d28594dd061bc33a94')
++  expect(manifest.currentValidationHead).toBe(required(PINS.currentValidationHead, 'actual validation HEAD'))
++  expect(manifest.currentValidationVersion).toBe(required(PINS.currentValidationVersion, 'actual validation version'))
++  expect(manifest.archivedSourceFilesSha256).toBe(required(PINS.archiveSha256, 'archived source'))
++  expect(manifest.producerSha256).toBe('7f3acb1b161cbb67e409f59fe5ea28ed245df2362ed99626b1fb1d5470350a59')
++  expect(manifest.originalNamedPins['src/harness/p13a/fixtures.ts']!.sha256).toBe('f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5')
++  expect(manifest.originalNamedPins['bridge/protocol.ts']!.sha256).toBe('71b920d90ce9a54214c7dd82208a168bd71cab9be60efa11d2ae3a81d7e0b7fa')
++  expect(manifest.originalNamedPins['tsconfig.json']!.sha256).toBe('f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f')
++  expect([manifest.sourceSaveVersion, manifest.startWeek, manifest.ticks, manifest.week]).toEqual([42, 0, 77, 77])
++  expect(manifest.seed).toBe('p13a-core-causal-01')
++  const gzPin = required(PINS.gzip, 'gzip'), rawPin = required(PINS.raw, 'raw')
++  expect(manifest.capture).toEqual({ name: 'genuine-v42-rival-stall-week-77.json.gz',
++    gzipBytes: gzPin.bytes, gzipSha256: gzPin.sha256, rawBytes: rawPin.bytes, rawSha256: rawPin.sha256 })
++  const raw = gunzipSync(pinned(manifest.capture.name, PINS.gzip)).toString('utf8')
++  expect(Buffer.byteLength(raw)).toBe(rawPin.bytes); expect(sha(raw)).toBe(rawPin.sha256)
++  const parsed: unknown = JSON.parse(raw), before = stableStringify(parsed)
++  const save = validateSaveV42(parsed)
++  expect(save).toBe(parsed); expect(stableStringify(parsed)).toBe(before)
++  expect(save.saveVersion).toBe(42); expect(save.state.market.tick).toBe(77)
++  expect(exportSave(save)).toBe(raw)
++  expect(exportSave(validateSaveV42(importSave(raw)))).toBe(raw)
++  expect(stableStringify(parsed)).toBe(before)
++  return save
++}

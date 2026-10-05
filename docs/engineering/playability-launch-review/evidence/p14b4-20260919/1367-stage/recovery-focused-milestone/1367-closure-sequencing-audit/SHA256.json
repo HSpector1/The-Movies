@@ -1,0 +1,17 @@
+{
+  "auditSha256": "8f2e32280c0aef5f1fb14b474b2e31f1591a4b3aa5373c04052988867e8fe974",
+  "sourceDocuments": {
+    "1363-A-rival-recovery-amendment-charter.md": "32a11102b775ab46ed65f2d4e4073158ebb0e3b5e526b47a301864581c48d697",
+    "1363-F-parent-adoption-of-the-recovery-charter.md": "3cb2551836410747b7e6a4702db617cf3d37af9b6c4f9e8e8c494ec87e298c0a",
+    "1363-A2-recovery-amendment.md": "ef513674b7ed27aafdd4cc098b16c47e7e5d1b45426fb34f4f30e2f03f8b7805",
+    "1361-F6-parent-response-to-1361-D3.md": "65736659a47e89e9ce1bdcba90757db413f28c2b6293d916e80c2639d86b1795",
+    "1361-M3-save45-recorded-broad-gates.md": "256f1ddd2d7bbb29b9ad7d9473457c71e95b4eddf3ee338cf7a3f9ff5fe133fa",
+    "1367-K-save45-legacy-performance.md": "cbb86b6c2994d4f62c91b6c83fe97fdfc3b8339585d47cac20e940e7d9d6c1fb",
+    "1367-O2-owner-conditional-main-promotion.md": "d987ed8f925835e88fa9e8d5059bb1187e1ab7061059fbb8eee0cb4e50df131e",
+    "1367-P-recovery-baseline-and-f6-quality.md": "9f97571b4b8e53c00c5f0a3b3fed862398884abbe4ef2419f533f74672201bc0",
+    "1367-Q-recovery-candidate-first-verification.md": "80991a9017ea6369ed1419bef16a58adae9125a77c8a4c643265e9a7a39fefa3",
+    "1367-R-schema-measurement-and-week77-capture-preparation.md": "6fcb58ebf766cf35c2b02f1f4cad3da54fa15f6a6b362d39ce87d3f1772219fc",
+    "1367-stage/postrelease-maintenance-r1/INDEPENDENT-REVIEW.md": "62ff1e15c2482f90fa55078e6e896912d380c8323ebdc4da3996b40ae56f136f"
+  },
+  "scope": "Read-only authority/completed-evidence audit; no runtime or current-failure attribution claimed"
+}

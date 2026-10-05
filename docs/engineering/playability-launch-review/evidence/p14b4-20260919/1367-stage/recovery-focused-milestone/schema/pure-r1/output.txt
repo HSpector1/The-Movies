@@ -1,0 +1,42 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/candidate
+
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > below reserve
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > exact reserve alone
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > commission package entirely unaffordable
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > writer vacancy refused at staff cash gate
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > team vacancy refused at staff cash gate
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > failed renewal is not a vacancy
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > unrelated Scientist vacancy cash refusal
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > noncash staffing block
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > hold above reserve
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > busy writer above reserve
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > economic refusal alone
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full-index reason without evaluated screenplay evidence
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index all genuinely cash-bound
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index cash and cash-caused staffing
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index one economic rejection
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index noncash staffing
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > no decision opportunity
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > a production
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > a run
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > drafting or rewriting work
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > greenlit this decision
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > commissioned this decision
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > accepts equality but refuses a one-dollar payback shortfall even when reserve passes
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > retains the separate R3 reserve guard when payback itself passes
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects productionSeat independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects writingSeat independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects unreleasedResearchSeat independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects openPromise independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects a contract with 0 weeks remaining
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects a contract with 1 weeks remaining
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects a contract with 26 weeks remaining
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > the pure release guard has no profession exclusion; a research seat protects the same facts
+
+ Test Files  1 passed (1)
+      Tests  32 passed | 20 skipped (52)
+   Start at  20:21:33
+   Duration  4.81s (transform 3.18s, setup 0ms, collect 4.22s, tests 24ms, environment 0ms, prepare 122ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 6107.300728093833}

@@ -1,0 +1,23 @@
+diff --git a/tests/p14d1-week77-fixture.ts b/tests/p14d1-week77-fixture.ts
+--- a/tests/p14d1-week77-fixture.ts
++++ b/tests/p14d1-week77-fixture.ts
+@@ -1,4 +1,4 @@
+-// Draft only: populate these independent pins AFTER mint review; missing pins refuse.
++// Genuine original Save42 week77 capture; literal pins independently accepted after mint.
+ import { createHash } from 'node:crypto'
+ import { readFileSync } from 'node:fs'
+ import { gunzipSync } from 'node:zlib'
+@@ -9,8 +9,11 @@
+ type Pin = { bytes: number; sha256: string }
+ const PINS: { manifest: Pin | null; gzip: Pin | null; raw: Pin | null; archiveSha256: string | null;
+   currentValidationHead: string | null; currentValidationVersion: 45 | 46 | null } = {
+-  manifest: null, gzip: null, raw: null, archiveSha256: null,
+-  currentValidationHead: null, currentValidationVersion: null,
++  manifest: { bytes: 21060, sha256: '2f34d9ad15655c0beec8dc99cc3bc10b8b13195db254b23e0fa34d061f5aee4d' },
++  gzip: { bytes: 103584, sha256: 'b3856c561ca787d40db4dbe5e197a3101ceb45b83bfe2dd7978f70996b4915cd' },
++  raw: { bytes: 910372, sha256: '149de4e4d9501966456fa4123304f5dbf26e35d278a0c80ccf945cf47f7f06ac' },
++  archiveSha256: '2cb00fad7c679caabf6d3630ba345e5c0c7ea6e54e0e3e174b55ce274446c9ff',
++  currentValidationHead: 'd8a332fc33b26209abe23c32b157cc2fa85ac1f0', currentValidationVersion: 45,
+ }
+ const sha = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
+ function required<T>(value: T | null, label: string): T {
