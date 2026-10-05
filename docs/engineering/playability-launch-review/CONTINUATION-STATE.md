@@ -1,10 +1,10 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## CURRENT —1368-E: Save46 fallout complete; reviewed sweep and diagnostics next
+## CURRENT —1368-F: Writing correction GREEN; swept types accepted; recovery remains open
 
-[1368-E](evidence/p14b4-20260919/1368-E-save46-fallout-and-sweep-adoption.md) preserves the exact unswept candidate and all completed types/core/UI/d16 evidence. Core4500PASS/926FAIL/39SKIP/11TODO plus one failed suite; UI2681PASS/11FAIL/5SKIP; d16164PASS/12FAIL, all12 retained exact failures. Types fail at attributed boundary sites; both generators pass. All recorded guards exact. [1363-N](evidence/p14b4-20260919/1363-N-save46-recovery-fallout-sweep.md) adopts the independently reviewed seven mechanical groups; behavioral/protected cases remain separately diagnosed.
+[1368-F](evidence/p14b4-20260919/1368-F-writing-guard-and-swept-types.md) preserves the full original writing diagnosis, genuine pre414 input, two intended REDs, independently accepted unchanged2GREEN and guarded paid-boundary2PASS. The four-line rival guard prevents a new draft extending beyond its actual paid term and preserves completion at equality. It remains isolated and unlanded. Swept r3 passes root/UI/Bridge/producer types and both generators; all14 supervisor cases pass in isolation, without claiming the earlier broad failures repaired. Protected expected hashes remain unchanged.
 
-ABC/Save46 remains unlanded and recovery IN PROGRESS. Next: exact writing diagnostic types/probe and isolated reviewed sweep, then landing/broad/types/recovery measurements. Main c902a704 untouched. Original focused acceptance1368-D and originalSave45 post2040 measurement1368-C remain valid. CURRENT-BEST Owner acceptance unchanged. HANDOFF owns exact next commands; older CURRENT blocks are historical.
+Trust's original220-week positive actor prerequisite is still missing; reviewed genuine195 import control is unrun. Six-termination diagnostic preserves its signed-zero oracle failure and reviewed r2 correction; full receipt attribution is pending. Ledger and final integrated focused/broad/recovery-source gates remain open. Sixth preservation archive and original pre414 fixture are published with this record; HANDOFF owns exact pins and next commands. Main c902a704 remains untouched; no overallclosure, PR/merge, native/Unity/gameplay/Golden or P15–P18 completion. CURRENT-BEST Owner identity unchanged. Older CURRENT blocks are historical.
 
 ## CURRENT — Owner1368 autonomous recovery: focused acceptance; main untouched
 

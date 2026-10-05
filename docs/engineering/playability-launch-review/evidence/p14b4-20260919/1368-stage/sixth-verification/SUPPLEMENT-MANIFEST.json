@@ -1,0 +1,262 @@
+{
+  "status": "ARCHIVE_VERIFIED",
+  "scope": "R4 and ledger r2 completed handbacks after primary archive freeze; no execution",
+  "archive_sha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+  "archive_bytes": 253365,
+  "file_count": 42,
+  "logical_bytes": 1318736,
+  "files": [
+    {
+      "path": "scratch/1368-independent-review/LEDGER-PARENT-R2-STATIC.md",
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/LEDGER-PARENT-R2-STATIC.md",
+      "size": 1797,
+      "sha256": "93fb99a2bc4edf3d83302f1d262d902090a7eb35d2c354da89f5f9f09a98824b"
+    },
+    {
+      "path": "scratch/1368-independent-review/WRITING-GUARD-R4-INTEGRATION-STATIC.md",
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/WRITING-GUARD-R4-INTEGRATION-STATIC.md",
+      "size": 1815,
+      "sha256": "3ed254a9027e00c830b800619eddaeed4d3633a50700fbf1d91c3b511453ae26"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/APPROVED-WRITING-GUARD.patch",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/APPROVED-WRITING-GUARD.patch",
+      "size": 1003,
+      "sha256": "2a4ea2dc9b0fd87c211c9cf600d9691081f158fa45982ce42dcada4b703de058"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/HANDBACK.md",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/HANDBACK.md",
+      "size": 7034,
+      "sha256": "f7fef1ec9154e38821ebb87d25491a37137a57345e42733829e97c6869a75e9e"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/MANIFEST.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/MANIFEST.json",
+      "size": 3880,
+      "sha256": "6f1ab6dd2fa81678157c342f795872bcef83ad2e126ada1859ecede2344af752"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/ORIGINS.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/ORIGINS.json",
+      "size": 53323,
+      "sha256": "8a9db9ca444afcd8ad267994d93ee8d205298e7a2000ce39950ea6d6b5a11e9f"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/PROBE-SOURCE-REBIND.diff",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/PROBE-SOURCE-REBIND.diff",
+      "size": 857,
+      "sha256": "ba0f2e43ceb7bcea0c3288399646923c988d24ffb40ba1f912d89e2d40c6cfb7"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/RUNNER-R1-TO-R2.diff",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/RUNNER-R1-TO-R2.diff",
+      "size": 5743,
+      "sha256": "c5e1af50265ed838b34f39f73b2e20ee6555c6fb3dc056119cd82614d1206a2a"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/SOURCE-DIFFERENCE-PROOF.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/SOURCE-DIFFERENCE-PROOF.json",
+      "size": 774,
+      "sha256": "f4aa13870fb4f2603700190f3f033eb3b20bdfaa73637809c99c9d03446af5a1"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/assemble.py",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/assemble.py",
+      "size": 3193,
+      "sha256": "836a74be6bbd39510b5b71308d70355507d8223fa323246565c9502df3230876"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/BASELINE-BLOB-PROOF.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/BASELINE-BLOB-PROOF.json",
+      "size": 38473,
+      "sha256": "06cc083ef5b30c018b639845eb4286048736d4b1a7f0526700d2ab2f3435edcf"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/MANIFEST.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/MANIFEST.json",
+      "size": 1225,
+      "sha256": "6f9a6625ad20d60fc40fb12bb0062e6fd12e1df07676234b93be91fb7293ec65"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/ORIGINAL-EXTRACTION.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/ORIGINAL-EXTRACTION.json",
+      "size": 704,
+      "sha256": "04e6b583c0ada07b4f47643bf0ad7b1c3bf2f56dfbdf878d743348543a03dee2"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/ORIGINAL-FAILURES.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/ORIGINAL-FAILURES.json",
+      "size": 9289,
+      "sha256": "f8ffd0a447ae11502156fe2fdd6d41ded13390648e9666c3621780903e86c6aa"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/RECORDED-BASELINE-COMPARISON.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/RECORDED-BASELINE-COMPARISON.json",
+      "size": 1338,
+      "sha256": "7f99a0f80d3875ecb349fbada23a213122bd65bea3a29676a47b5cc33329cc91"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/ROUTE-BASELINE-PROOF.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/ROUTE-BASELINE-PROOF.json",
+      "size": 746,
+      "sha256": "9220bb1324946e909547b53e92d50faf2b16ab3d89631ed32a8adbe2f99b7978"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/SOURCE-PINS.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/SOURCE-PINS.json",
+      "size": 39708,
+      "sha256": "a2ba20f3ac5009f11c938ec55b7cb21371f1f8d3b74b7febe0f344e95f93a61a"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/compare.py",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/compare.py",
+      "size": 8933,
+      "sha256": "b0aa4ac69e6bd981e181269dab56c08f538b498f26bb17bf9dff8e31ffb79891"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/files/tests/1368-ledger-attribution.test.ts",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/files/tests/1368-ledger-attribution.test.ts",
+      "size": 52028,
+      "sha256": "bc097b87fcde4ab868b57e61e90caab4a057d5f5d99bd3a81b2058d2c9d78cab"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/files/tests/1368-ledger-original.ts",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/files/tests/1368-ledger-original.ts",
+      "size": 15098,
+      "sha256": "e76148d283054a864176dfaa247447169edba449f0bfdb5dbb92e8736733b618"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/files/tsconfig.1368-ledger.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/files/tsconfig.1368-ledger.json",
+      "size": 222,
+      "sha256": "3e8a3b07416bb03e9c859c514308fc8fc0a1ab538fbc0600746a4ae957a5b1aa"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/files/vitest.1368-ledger.config.ts",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/files/vitest.1368-ledger.config.ts",
+      "size": 236,
+      "sha256": "a38a64e53b22daebb0953e1e7271c972fc54e4f6643a35f306bda6124bc6b7cf"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/kit/files/vitest.1368-ledger.workspace.ts",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/kit/files/vitest.1368-ledger.workspace.ts",
+      "size": 115,
+      "sha256": "27326ff66aced4a8f1de8c60336ed72d9524e0b01249da1bef7a91b6561391e3"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/run.py",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/run.py",
+      "size": 16697,
+      "sha256": "34d60bcdf297c6435906a341801328d4c312f6dbc81b45d2645db387a1d72fbd"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/templates/ABC-ASSEMBLY.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/templates/ABC-ASSEMBLY.json",
+      "size": 72921,
+      "sha256": "7d835a634c203bc95ab710e1841bb025f75a7b19afbf7bd143e4bc4d24f4425e"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/templates/ABC-SOURCE-PINS.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/templates/ABC-SOURCE-PINS.json",
+      "size": 20247,
+      "sha256": "1e121e86b91534f1f73df074fc11292cc70bd2a7cadb4f30843901f26278cdcc"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/templates/ASSEMBLY.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/templates/ASSEMBLY.json",
+      "size": 490,
+      "sha256": "98005b47507551d2f9c0c261d74128e76fe3e6898dfa7ab0535f132c6c52d474"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/templates/C0-ASSEMBLY.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/templates/C0-ASSEMBLY.json",
+      "size": 72657,
+      "sha256": "4268653cc50a024e179fb02195db4b3a9af5c8df4f6878766bfb84073f2bfc3f"
+    },
+    {
+      "path": "scratch/1368-ledger-parent-prep-r2/templates/C0-SOURCE-PINS.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r2/templates/C0-SOURCE-PINS.json",
+      "size": 20247,
+      "sha256": "c0b04263da3a67cc788b38184900633d05216961ab3c8a4ac54417232e1b9102"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/ASSEMBLER-DELTA.diff",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/ASSEMBLER-DELTA.diff",
+      "size": 6039,
+      "sha256": "2353e3c2e5ffe71682f5cf8ee8cba8f63ee5d54afd90ed089c748e352a2e10c7"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/EXPECTED-ASSEMBLY.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/EXPECTED-ASSEMBLY.json",
+      "size": 3120,
+      "sha256": "604e0a722f5248ef7003ba5dc9216462564d6dad29ba86519612198fb53b94f5"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/EXPECTED-SOURCE-PINS.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/EXPECTED-SOURCE-PINS.json",
+      "size": 184067,
+      "sha256": "ca96ecb42e78ddf4442e17804bd15a80d70e5808a5e78ed42f43b4f06a0320d2"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/FIXTURE-PINS.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/FIXTURE-PINS.json",
+      "size": 4060,
+      "sha256": "618cdf309eeff5c17dac32d18a4a278363da59fd10d4e800b18aacdc1e8c44a9"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/HANDBACK.md",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/HANDBACK.md",
+      "size": 6197,
+      "sha256": "f80e0eb3cafd88bdfb2480097a80626f49d3ccb8694fca567b44407b8dd536c7"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/MANIFEST.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/MANIFEST.json",
+      "size": 1677,
+      "sha256": "742c6c0a44f2a7d78430ca0988c0087a70b01a14eb7fa284f8d88ffe98eea2bd"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/PREIMAGES.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/PREIMAGES.json",
+      "size": 2652,
+      "sha256": "07ede896d150b811f08eba02047bf28b8db8349678ef64e46b83944c4efb5658"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/RUNNER-REBIND.diff",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/RUNNER-REBIND.diff",
+      "size": 5687,
+      "sha256": "3f92bd4714d865d625e0d75cf4ae106c11c34126eaad6f5279f2016346dc7439"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/SELECTION-DELTA.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/SELECTION-DELTA.json",
+      "size": 2351,
+      "sha256": "051ecc1259988811959d33460e859c821af1b4691b7e793559665c043d04b86e"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/SELECTIONS.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/SELECTIONS.json",
+      "size": 637262,
+      "sha256": "dd39479ff422a8e63bbaf2c1516689218e6960ea6d99e9fba13962ef3dd2430c"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/assemble.py",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/assemble.py",
+      "size": 5768,
+      "sha256": "bb8241256684da412d42863ccb9f51dcb2b50b033c4715b59ee61e5b81e4abee"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/run.py",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run.py",
+      "size": 8513,
+      "sha256": "26ac8dfd421c777b0c38f9b046711a78afb796d421e2c84a959064caa16fae3c"
+    },
+    {
+      "path": "scratch/1368-writing-guard-integration-prep/tsconfig.producers.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/tsconfig.producers.json",
+      "size": 550,
+      "sha256": "24eaf19d3c7decbac18b573f8e627305a2e9001aeadf55ad26c40a3b2622a0ea"
+    }
+  ]
+}
