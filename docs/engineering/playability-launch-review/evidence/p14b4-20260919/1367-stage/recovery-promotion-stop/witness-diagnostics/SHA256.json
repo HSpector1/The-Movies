@@ -1,0 +1,8 @@
+{
+  "HANDBACK.md": "c3d83995838e9b4719885ca63d2ff4cb226dfdfc41e1225148e3f83b0d3f50e6",
+  "SOURCE-PINS.json": "bb5e3a89407e1e303647348c35ef517351a24fe25bc2c41802ed00213f36a953",
+  "period312-diagnostic.patch": "eae4ded511a9b08660ea2ee4e9d72d6f2be25eb7014300f68c930e7020c5ddd0",
+  "disposal-witness-diagnostic.patch": "c2668e2934a001697dc6103976a959d90ee91fd09bd206dd4487b8548c425ddd",
+  "tests/p13b-s8-period312-diagnostic.test.ts": "6db9f4727782c7b6b8c4319be4e9c8d1225b546e1507dcc341082f544205dc42",
+  "tests/p14d2-disposal-witness-diagnostic.test.ts": "81c90b4de459da239f1b9101c42b30022002dfd576f05f7ff51de319fdb12526"
+}

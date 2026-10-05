@@ -1,0 +1,215 @@
+{
+  "purpose": "Lossless preservation only; no implementation/landing/merge approval",
+  "started": "2026-10-05T01:40:09.194910+00:00",
+  "ended": "2026-10-05T01:40:13.162580+00:00",
+  "baseRef": "d1e084b65093a940ff2f224941e8cf52ac69a08a",
+  "baseTree": "0056a0ed5b1580f13f35e77f9c1ccc8e9965eb98",
+  "baseSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "basePublication": "Published identity supplied by parent; commit object verified locally, no remote mutation/fetch",
+  "candidateRoot": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/candidate",
+  "pinSource": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/abc-pins.json",
+  "pinSha256": "d8920b5c747237e76b96f7e90cf0a4cf2fb305f22109e59fbfe198456c716ec2",
+  "enumeratedFiles": 708,
+  "differingFiles": 31,
+  "addedFiles": 10,
+  "fullPatchSha256": "c6941628c03b4cbf56273d0dbf6a7541b994cdf71da81c1df41302fd31982cf7",
+  "fullPatchBytes": 276665,
+  "allCandidatePinsExactBeforeAfter": true,
+  "standalonePatchExit": 0,
+  "everyPatchedFileReconstructedExactly": true,
+  "reconstructed": [
+    {
+      "path": "src/core/employment.ts",
+      "bytes": 28250,
+      "sha256": "ad7f32db9f5a5ed6b5d11a26a25604ab71df07daba0e273214336e92d8c0f1bf",
+      "mode": "100644"
+    },
+    {
+      "path": "src/core/hollywood.ts",
+      "bytes": 17927,
+      "sha256": "7e9e26ac92689a2db5ad9e239c90b6203b4f1084b1aca8f68064c9908569a441",
+      "mode": "100644"
+    },
+    {
+      "path": "src/core/hollywoodPolicy.ts",
+      "bytes": 10166,
+      "sha256": "ea2994dbb980aa60ce70d1e53ecc6c2a0acf1365145f0e6aad148e5cd0a9bce1",
+      "mode": "100644"
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "bytes": 40920,
+      "sha256": "6da40c08e4aee457f01b6c1804acb2a79679d7a49f8b7db15b184ad0b1c7eaf0",
+      "mode": "100644"
+    },
+    {
+      "path": "src/core/hollywoodTypes.ts",
+      "bytes": 7442,
+      "sha256": "65a54dc851cd1f61f8b97674ed825b343a8ec94ab7b8328ad113f12343a41a84",
+      "mode": "100644"
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "bytes": 58650,
+      "sha256": "ec8cf7290a63389087750967fcbe456159eaf2840770341ce3c9cf7d9f75c214",
+      "mode": "100644"
+    },
+    {
+      "path": "src/core/index.ts",
+      "bytes": 50606,
+      "sha256": "25b07f15ee0fe71484faab449b5c50aa407832cae1b4f4196b70c4944244de4b",
+      "mode": "100644"
+    },
+    {
+      "path": "src/core/productionIdentity.ts",
+      "bytes": 10755,
+      "sha256": "2093668d7b1fb878d45a19923a6d3196fbf50a91c1ce5cc38e80598c27741d84",
+      "mode": "100644"
+    },
+    {
+      "path": "src/core/rivalResearch.ts",
+      "bytes": 36472,
+      "sha256": "e24566c984414a66fbfb896481dbc6d8f742bf7fa36702aec0a211b15d513d18",
+      "mode": "100644"
+    },
+    {
+      "path": "src/core/save.ts",
+      "bytes": 526723,
+      "sha256": "cd4a1d42d02fee6280e2a658ba304448c0ab93c0e57fd8866ef5a65e0072c035",
+      "mode": "100644"
+    },
+    {
+      "path": "src/core/talentMarket.ts",
+      "bytes": 92904,
+      "sha256": "feaf3ef75051583820addb8b3b00065925464e5a2ca265c3d328102c22aa5957",
+      "mode": "100644"
+    },
+    {
+      "path": "src/core/technologyRival.ts",
+      "bytes": 6877,
+      "sha256": "fd9764c20f5a649be3b51e23533cd4208fd59c049b1b2a166d89a9bbb35c0336",
+      "mode": "100644"
+    },
+    {
+      "path": "src/core/types.ts",
+      "bytes": 127502,
+      "sha256": "114efba3aece83977c63fc8c5f5f77e9ce966807fcaed9b89625e608d715f9ee",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/helpers/1367-recovery-predecessors.ts",
+      "bytes": 5969,
+      "sha256": "6f397222010d03b94f86607f27d83038413749bcf2b2d87b6e375d468ae455dd",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/helpers/p14c2b-fixtures.ts",
+      "bytes": 5551,
+      "sha256": "a91a8252664eca4b2af6f702cc0b34f183cede4e98fdeebbae39b7241d5de522",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p13b-s8-old-era-period.test.ts",
+      "bytes": 6131,
+      "sha256": "d17705986eeb363440f1a48e8d79a164a207253a95ba11f360b9919f7c8e24bd",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p13b-s8-save-v27.test.ts",
+      "bytes": 18136,
+      "sha256": "1863180b34dbfd7d12629dcda5472f1ff0490433951d211f5633b53f2e272780",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p14d1-rival-shelving.test.ts",
+      "bytes": 62378,
+      "sha256": "33d2af02abe56b7dcb470472dfa975b997caf234ecedf0240eeea1157eb218c0",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p14d1-week77-fixture.ts",
+      "bytes": 4335,
+      "sha256": "8f201e9f42062b77dd18ff197cf399dff6d4d44e76e5e2cc50de7fc81bec1f84",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p14d2-a8-binding-cash.test.ts",
+      "bytes": 9134,
+      "sha256": "7d4fc3e65a4f9b20e5f9840a1a6dcd7f24ce9153e45205d8c0c1cffab271948d",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p14d2-a8-fixture.ts",
+      "bytes": 5969,
+      "sha256": "2a5799a61f46041eea43b72cd89fa6ca7127d32ce98bb15a9be248fed59f4740",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p14d2-binding-cash.test.ts",
+      "bytes": 13233,
+      "sha256": "aca55d39be1f069604530e367b5a5092619c8fa3791114339efdfa067fabd871",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p14d2-disposal-witness-diagnostic.test.ts",
+      "bytes": 7548,
+      "sha256": "81c90b4de459da239f1b9101c42b30022002dfd576f05f7ff51de319fdb12526",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p14d2-rival-cost-cutting-adapter.test.ts",
+      "bytes": 14065,
+      "sha256": "39e6985c71a19b1c10b0f3255a923caa831a860da7cd14543ff08654571e8486",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p14d2-rival-cost-cutting.test.ts",
+      "bytes": 30718,
+      "sha256": "5f15b798494527ae25e1d3d0fd550d0c57654007295a43310466ec10af2a4a49",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p14d2-rival-facility-disposal.test.ts",
+      "bytes": 23937,
+      "sha256": "a64637e8c5eb86ebe7d126be62f2c0e2c22ccbfa819187626c08d2bd83252a69",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p14d2-save46-migration.test.ts",
+      "bytes": 14249,
+      "sha256": "7e141e5255154f6be88d9418a2b4c8549b0a451aff97ac3d13e4d266aebe504c",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/p15c2-legacy-lens-shape.test.ts",
+      "bytes": 1230,
+      "sha256": "059bb3acd2b536bea0a77ce653bd9001f6c9a17063d6f25ca84fe49fadc06ccb",
+      "mode": "100644"
+    },
+    {
+      "path": "tests/save-masked-downgrade-own-era.test.ts",
+      "bytes": 6973,
+      "sha256": "70ac5b8752470ed36bb570a562a610f630322b326e3f85b7081d053fcb8a4c57",
+      "mode": "100644"
+    },
+    {
+      "path": "tsconfig.recovery-tests.json",
+      "bytes": 742,
+      "sha256": "578626197a5fbe8a6c174ec33c1aa08925436af56b81051502f667f761bfbe75",
+      "mode": "100644"
+    },
+    {
+      "path": "tsconfig.witness-diagnostic.json",
+      "bytes": 215,
+      "sha256": "6dc6e01fb65cfc2d76ea4a955c8e1806dad9f905b1dd5d0df68de6556384ac3a",
+      "mode": "100644"
+    }
+  ],
+  "scopeLimits": [
+    "Only 708 explicitly enumerated regular consumed files; no inference about unenumerated paths/deletions",
+    "No fixture payloads, node_modules or symlinks captured",
+    "No Node, game runtime, tests or typechecks",
+    "Diagnostic source/config remains explicitly unlanded preparation",
+    "No candidate/live/index/HEAD writes"
+  ]
+}

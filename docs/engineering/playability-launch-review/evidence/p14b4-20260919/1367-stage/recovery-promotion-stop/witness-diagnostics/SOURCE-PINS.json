@@ -1,0 +1,18 @@
+{
+  "periodSchema": {
+    "src/core/hollywood.ts": "7e9e26ac92689a2db5ad9e239c90b6203b4f1084b1aca8f68064c9908569a441",
+    "src/core/rivalResearch.ts": "c7a1cfe81d284d8f40ff18fd91cf6ea2c2965541ac617c1dc1ad9db8ee24e9e7",
+    "src/core/hollywoodTick.ts": "21b00c62f0057786f81d1b821eb5984677f7e4251211ecaf7d5288840d5f719e",
+    "src/core/save.ts": "cd4a1d42d02fee6280e2a658ba304448c0ab93c0e57fd8866ef5a65e0072c035",
+    "src/core/placement.ts": "28c2f23521d752ecdccf260c25b0ee06a7b8fd0a01a29b39060796d05e4086ed",
+    "tests/helpers/1367-recovery-predecessors.ts": "6f397222010d03b94f86607f27d83038413749bcf2b2d87b6e375d468ae455dd"
+  },
+  "disposalFull": {
+    "src/core/hollywood.ts": "7e9e26ac92689a2db5ad9e239c90b6203b4f1084b1aca8f68064c9908569a441",
+    "src/core/rivalResearch.ts": "e24566c984414a66fbfb896481dbc6d8f742bf7fa36702aec0a211b15d513d18",
+    "src/core/hollywoodTick.ts": "6da40c08e4aee457f01b6c1804acb2a79679d7a49f8b7db15b184ad0b1c7eaf0",
+    "src/core/save.ts": "cd4a1d42d02fee6280e2a658ba304448c0ab93c0e57fd8866ef5a65e0072c035",
+    "src/core/placement.ts": "28c2f23521d752ecdccf260c25b0ee06a7b8fd0a01a29b39060796d05e4086ed",
+    "tests/p14d2-rival-facility-disposal.test.ts": "a64637e8c5eb86ebe7d126be62f2c0e2c22ccbfa819187626c08d2bd83252a69"
+  }
+}

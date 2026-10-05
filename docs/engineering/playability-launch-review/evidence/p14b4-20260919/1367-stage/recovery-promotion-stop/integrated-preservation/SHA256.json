@@ -1,0 +1,385 @@
+{
+  "purpose": "Lossless preservation only",
+  "files": {
+    "BASE-REFERENCE.json": {
+      "bytes": 299,
+      "sha256": "3aff9467f27eb6dad79c5e89b075e9e342d7831d87d69fc3049fc3052a1ae56c"
+    },
+    "CANDIDATE-INVENTORY.json": {
+      "bytes": 127587,
+      "sha256": "9012cd82e9aa9619643ece3cce986fab0e76f9343e681fcc9eb2d88388ba175c"
+    },
+    "FILE-INVENTORY.json": {
+      "bytes": 354451,
+      "sha256": "e562233cabb8c96f736b98f4a3e9578c5fc670057824171b8d3d67bab026c855"
+    },
+    "HANDBACK.md": {
+      "bytes": 5177,
+      "sha256": "dc2069ea0d55a3734f3457e287c317596572f005ed38e0b3d408e12abfeda6fa"
+    },
+    "PATCHED-FILES.json": {
+      "bytes": 13522,
+      "sha256": "6b082ea699a1cbf9901c43e8ae739b011d26277e49cfbed326309f2e07f43758"
+    },
+    "PRESERVATION.json": {
+      "bytes": 7367,
+      "sha256": "8a09e0a91b50a83828e092ec2cf0e373fa2e72d0b20cc9bd59af9fa714f26eb8"
+    },
+    "SOURCE-INVENTORY.json": {
+      "bytes": 99179,
+      "sha256": "cc13bdb30ab70647e0ac159a819c109746b8a1e0e7b05dd15008830c203dbb30"
+    },
+    "abc-pins.json": {
+      "bytes": 76533,
+      "sha256": "d8920b5c747237e76b96f7e90cf0a4cf2fb305f22109e59fbfe198456c716ec2"
+    },
+    "base-subset/src/core/employment.ts": {
+      "bytes": 28207,
+      "sha256": "6c3fec2129c0a461ec0de8e3e20f4bb47e4150bb9f0c39fd7201fae6a3951ce0"
+    },
+    "base-subset/src/core/hollywood.ts": {
+      "bytes": 17327,
+      "sha256": "c9281b85fab7fe6ce72568f318a545fce01343da86c8fd9c7db8ee5e3bd17f1f"
+    },
+    "base-subset/src/core/hollywoodPolicy.ts": {
+      "bytes": 6684,
+      "sha256": "843131da845b609ad133259ee82035bc129aad4b75394b757d5ac66341efd234"
+    },
+    "base-subset/src/core/hollywoodTick.ts": {
+      "bytes": 37323,
+      "sha256": "d5963544fd591ee5abbb3584e3f0337db0210bfeaac05b69195a3c339452ac17"
+    },
+    "base-subset/src/core/hollywoodTypes.ts": {
+      "bytes": 7072,
+      "sha256": "09606801a73c8c675737f972dae5b78ef41deef375aad0c9732286d13a08b68a"
+    },
+    "base-subset/src/core/hollywoodValidation.ts": {
+      "bytes": 56610,
+      "sha256": "b58d085621ff41e8fe6e3e8d7ebe0d2b60e4925f6faaa0e8ddc3aea622eb6aff"
+    },
+    "base-subset/src/core/index.ts": {
+      "bytes": 50457,
+      "sha256": "132372f417563651c7a31eec1629027b6eaef873746c5436d5b1d544d6237bea"
+    },
+    "base-subset/src/core/productionIdentity.ts": {
+      "bytes": 10639,
+      "sha256": "9e283644085782bbb951c266685040bfe648ef68bd3cf504db56a90de2d97fb6"
+    },
+    "base-subset/src/core/rivalResearch.ts": {
+      "bytes": 18927,
+      "sha256": "eb7753e88b31e980f504f28421346447eb6ece2308e42d1032fb7e9cc6e38d74"
+    },
+    "base-subset/src/core/save.ts": {
+      "bytes": 515108,
+      "sha256": "547d5bcbd982438e889c9bfd7f11c487ca2830e93e297b0ef989116b16949e14"
+    },
+    "base-subset/src/core/talentMarket.ts": {
+      "bytes": 92358,
+      "sha256": "010ed07634a5991674dc867f61b3b78ab022c91699366d29fea26a4d5585c087"
+    },
+    "base-subset/src/core/technologyRival.ts": {
+      "bytes": 6810,
+      "sha256": "69c8fa5ab2446b0cb3c74678538bd4b308917e0c8021e71355e5c54d07803520"
+    },
+    "base-subset/src/core/types.ts": {
+      "bytes": 127306,
+      "sha256": "d0d5c51ea08c8bec71d78f32b653f835d1d32c73c3f7d0d46aa3f9c541fa0dc2"
+    },
+    "base-subset/tests/helpers/p14c2b-fixtures.ts": {
+      "bytes": 5517,
+      "sha256": "a90d1433134128452b85b4101491fa1879236a600cdfa6f1a048760795f876fd"
+    },
+    "base-subset/tests/p13b-s8-save-v27.test.ts": {
+      "bytes": 17887,
+      "sha256": "ffe07d9ca39b43f646d034a2984497c5bfe593f065ff2d906cfb811e206c84ef"
+    },
+    "base-subset/tests/p14d1-rival-shelving.test.ts": {
+      "bytes": 66093,
+      "sha256": "c972b9bc3d0b1102d2c91b1c3256a807e9d147b7d65380d0d087674161203a14"
+    },
+    "base-subset/tests/p14d2-a8-binding-cash.test.ts": {
+      "bytes": 9071,
+      "sha256": "86d4d7a9cda92a6d8259d6c3ac831c86fdfbcf2fae113d2138b5acc17086a5e7"
+    },
+    "base-subset/tests/p14d2-a8-fixture.ts": {
+      "bytes": 5003,
+      "sha256": "98e21aef4a2d91c5b2718e261c2cd22bf39b6cbc6f1b0c9b45aa7658bafe548f"
+    },
+    "base-subset/tests/p14d2-binding-cash.test.ts": {
+      "bytes": 13233,
+      "sha256": "e93b273769950b15754a9cfaa885645ecd53594203e525816a26425c13f97e77"
+    },
+    "base-subset/tests/p15c2-legacy-lens-shape.test.ts": {
+      "bytes": 1230,
+      "sha256": "2fd689f6927876fbc47eecfb6b2d1bee23a32185e45356c866e815e205af14a2"
+    },
+    "base-subset/tests/save-masked-downgrade-own-era.test.ts": {
+      "bytes": 6957,
+      "sha256": "2d1744b0a7baa747876e58674f4f319be196e896febe6fc986f66d03c1cd7fa7"
+    },
+    "candidate-subset/src/core/employment.ts": {
+      "bytes": 28250,
+      "sha256": "ad7f32db9f5a5ed6b5d11a26a25604ab71df07daba0e273214336e92d8c0f1bf"
+    },
+    "candidate-subset/src/core/hollywood.ts": {
+      "bytes": 17927,
+      "sha256": "7e9e26ac92689a2db5ad9e239c90b6203b4f1084b1aca8f68064c9908569a441"
+    },
+    "candidate-subset/src/core/hollywoodPolicy.ts": {
+      "bytes": 10166,
+      "sha256": "ea2994dbb980aa60ce70d1e53ecc6c2a0acf1365145f0e6aad148e5cd0a9bce1"
+    },
+    "candidate-subset/src/core/hollywoodTick.ts": {
+      "bytes": 40920,
+      "sha256": "6da40c08e4aee457f01b6c1804acb2a79679d7a49f8b7db15b184ad0b1c7eaf0"
+    },
+    "candidate-subset/src/core/hollywoodTypes.ts": {
+      "bytes": 7442,
+      "sha256": "65a54dc851cd1f61f8b97674ed825b343a8ec94ab7b8328ad113f12343a41a84"
+    },
+    "candidate-subset/src/core/hollywoodValidation.ts": {
+      "bytes": 58650,
+      "sha256": "ec8cf7290a63389087750967fcbe456159eaf2840770341ce3c9cf7d9f75c214"
+    },
+    "candidate-subset/src/core/index.ts": {
+      "bytes": 50606,
+      "sha256": "25b07f15ee0fe71484faab449b5c50aa407832cae1b4f4196b70c4944244de4b"
+    },
+    "candidate-subset/src/core/productionIdentity.ts": {
+      "bytes": 10755,
+      "sha256": "2093668d7b1fb878d45a19923a6d3196fbf50a91c1ce5cc38e80598c27741d84"
+    },
+    "candidate-subset/src/core/rivalResearch.ts": {
+      "bytes": 36472,
+      "sha256": "e24566c984414a66fbfb896481dbc6d8f742bf7fa36702aec0a211b15d513d18"
+    },
+    "candidate-subset/src/core/save.ts": {
+      "bytes": 526723,
+      "sha256": "cd4a1d42d02fee6280e2a658ba304448c0ab93c0e57fd8866ef5a65e0072c035"
+    },
+    "candidate-subset/src/core/talentMarket.ts": {
+      "bytes": 92904,
+      "sha256": "feaf3ef75051583820addb8b3b00065925464e5a2ca265c3d328102c22aa5957"
+    },
+    "candidate-subset/src/core/technologyRival.ts": {
+      "bytes": 6877,
+      "sha256": "fd9764c20f5a649be3b51e23533cd4208fd59c049b1b2a166d89a9bbb35c0336"
+    },
+    "candidate-subset/src/core/types.ts": {
+      "bytes": 127502,
+      "sha256": "114efba3aece83977c63fc8c5f5f77e9ce966807fcaed9b89625e608d715f9ee"
+    },
+    "candidate-subset/tests/helpers/1367-recovery-predecessors.ts": {
+      "bytes": 5969,
+      "sha256": "6f397222010d03b94f86607f27d83038413749bcf2b2d87b6e375d468ae455dd"
+    },
+    "candidate-subset/tests/helpers/p14c2b-fixtures.ts": {
+      "bytes": 5551,
+      "sha256": "a91a8252664eca4b2af6f702cc0b34f183cede4e98fdeebbae39b7241d5de522"
+    },
+    "candidate-subset/tests/p13b-s8-old-era-period.test.ts": {
+      "bytes": 6131,
+      "sha256": "d17705986eeb363440f1a48e8d79a164a207253a95ba11f360b9919f7c8e24bd"
+    },
+    "candidate-subset/tests/p13b-s8-save-v27.test.ts": {
+      "bytes": 18136,
+      "sha256": "1863180b34dbfd7d12629dcda5472f1ff0490433951d211f5633b53f2e272780"
+    },
+    "candidate-subset/tests/p14d1-rival-shelving.test.ts": {
+      "bytes": 62378,
+      "sha256": "33d2af02abe56b7dcb470472dfa975b997caf234ecedf0240eeea1157eb218c0"
+    },
+    "candidate-subset/tests/p14d1-week77-fixture.ts": {
+      "bytes": 4335,
+      "sha256": "8f201e9f42062b77dd18ff197cf399dff6d4d44e76e5e2cc50de7fc81bec1f84"
+    },
+    "candidate-subset/tests/p14d2-a8-binding-cash.test.ts": {
+      "bytes": 9134,
+      "sha256": "7d4fc3e65a4f9b20e5f9840a1a6dcd7f24ce9153e45205d8c0c1cffab271948d"
+    },
+    "candidate-subset/tests/p14d2-a8-fixture.ts": {
+      "bytes": 5969,
+      "sha256": "2a5799a61f46041eea43b72cd89fa6ca7127d32ce98bb15a9be248fed59f4740"
+    },
+    "candidate-subset/tests/p14d2-binding-cash.test.ts": {
+      "bytes": 13233,
+      "sha256": "aca55d39be1f069604530e367b5a5092619c8fa3791114339efdfa067fabd871"
+    },
+    "candidate-subset/tests/p14d2-disposal-witness-diagnostic.test.ts": {
+      "bytes": 7548,
+      "sha256": "81c90b4de459da239f1b9101c42b30022002dfd576f05f7ff51de319fdb12526"
+    },
+    "candidate-subset/tests/p14d2-rival-cost-cutting-adapter.test.ts": {
+      "bytes": 14065,
+      "sha256": "39e6985c71a19b1c10b0f3255a923caa831a860da7cd14543ff08654571e8486"
+    },
+    "candidate-subset/tests/p14d2-rival-cost-cutting.test.ts": {
+      "bytes": 30718,
+      "sha256": "5f15b798494527ae25e1d3d0fd550d0c57654007295a43310466ec10af2a4a49"
+    },
+    "candidate-subset/tests/p14d2-rival-facility-disposal.test.ts": {
+      "bytes": 23937,
+      "sha256": "a64637e8c5eb86ebe7d126be62f2c0e2c22ccbfa819187626c08d2bd83252a69"
+    },
+    "candidate-subset/tests/p14d2-save46-migration.test.ts": {
+      "bytes": 14249,
+      "sha256": "7e141e5255154f6be88d9418a2b4c8549b0a451aff97ac3d13e4d266aebe504c"
+    },
+    "candidate-subset/tests/p15c2-legacy-lens-shape.test.ts": {
+      "bytes": 1230,
+      "sha256": "059bb3acd2b536bea0a77ce653bd9001f6c9a17063d6f25ca84fe49fadc06ccb"
+    },
+    "candidate-subset/tests/save-masked-downgrade-own-era.test.ts": {
+      "bytes": 6973,
+      "sha256": "70ac5b8752470ed36bb570a562a610f630322b326e3f85b7081d053fcb8a4c57"
+    },
+    "candidate-subset/tsconfig.recovery-tests.json": {
+      "bytes": 742,
+      "sha256": "578626197a5fbe8a6c174ec33c1aa08925436af56b81051502f667f761bfbe75"
+    },
+    "candidate-subset/tsconfig.witness-diagnostic.json": {
+      "bytes": 215,
+      "sha256": "6dc6e01fb65cfc2d76ea4a955c8e1806dad9f905b1dd5d0df68de6556384ac3a"
+    },
+    "full-abc.patch": {
+      "bytes": 276665,
+      "sha256": "c6941628c03b4cbf56273d0dbf6a7541b994cdf71da81c1df41302fd31982cf7"
+    },
+    "patch-application.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "patch-application.stdout.txt": {
+      "bytes": 1419,
+      "sha256": "6e24c0c355046ba860d82de7d5796da8568cb3d73e11d362ba50e578465a2b57"
+    },
+    "reconstruction/src/core/employment.ts": {
+      "bytes": 28250,
+      "sha256": "ad7f32db9f5a5ed6b5d11a26a25604ab71df07daba0e273214336e92d8c0f1bf"
+    },
+    "reconstruction/src/core/hollywood.ts": {
+      "bytes": 17927,
+      "sha256": "7e9e26ac92689a2db5ad9e239c90b6203b4f1084b1aca8f68064c9908569a441"
+    },
+    "reconstruction/src/core/hollywoodPolicy.ts": {
+      "bytes": 10166,
+      "sha256": "ea2994dbb980aa60ce70d1e53ecc6c2a0acf1365145f0e6aad148e5cd0a9bce1"
+    },
+    "reconstruction/src/core/hollywoodTick.ts": {
+      "bytes": 40920,
+      "sha256": "6da40c08e4aee457f01b6c1804acb2a79679d7a49f8b7db15b184ad0b1c7eaf0"
+    },
+    "reconstruction/src/core/hollywoodTypes.ts": {
+      "bytes": 7442,
+      "sha256": "65a54dc851cd1f61f8b97674ed825b343a8ec94ab7b8328ad113f12343a41a84"
+    },
+    "reconstruction/src/core/hollywoodValidation.ts": {
+      "bytes": 58650,
+      "sha256": "ec8cf7290a63389087750967fcbe456159eaf2840770341ce3c9cf7d9f75c214"
+    },
+    "reconstruction/src/core/index.ts": {
+      "bytes": 50606,
+      "sha256": "25b07f15ee0fe71484faab449b5c50aa407832cae1b4f4196b70c4944244de4b"
+    },
+    "reconstruction/src/core/productionIdentity.ts": {
+      "bytes": 10755,
+      "sha256": "2093668d7b1fb878d45a19923a6d3196fbf50a91c1ce5cc38e80598c27741d84"
+    },
+    "reconstruction/src/core/rivalResearch.ts": {
+      "bytes": 36472,
+      "sha256": "e24566c984414a66fbfb896481dbc6d8f742bf7fa36702aec0a211b15d513d18"
+    },
+    "reconstruction/src/core/save.ts": {
+      "bytes": 526723,
+      "sha256": "cd4a1d42d02fee6280e2a658ba304448c0ab93c0e57fd8866ef5a65e0072c035"
+    },
+    "reconstruction/src/core/talentMarket.ts": {
+      "bytes": 92904,
+      "sha256": "feaf3ef75051583820addb8b3b00065925464e5a2ca265c3d328102c22aa5957"
+    },
+    "reconstruction/src/core/technologyRival.ts": {
+      "bytes": 6877,
+      "sha256": "fd9764c20f5a649be3b51e23533cd4208fd59c049b1b2a166d89a9bbb35c0336"
+    },
+    "reconstruction/src/core/types.ts": {
+      "bytes": 127502,
+      "sha256": "114efba3aece83977c63fc8c5f5f77e9ce966807fcaed9b89625e608d715f9ee"
+    },
+    "reconstruction/tests/helpers/1367-recovery-predecessors.ts": {
+      "bytes": 5969,
+      "sha256": "6f397222010d03b94f86607f27d83038413749bcf2b2d87b6e375d468ae455dd"
+    },
+    "reconstruction/tests/helpers/p14c2b-fixtures.ts": {
+      "bytes": 5551,
+      "sha256": "a91a8252664eca4b2af6f702cc0b34f183cede4e98fdeebbae39b7241d5de522"
+    },
+    "reconstruction/tests/p13b-s8-old-era-period.test.ts": {
+      "bytes": 6131,
+      "sha256": "d17705986eeb363440f1a48e8d79a164a207253a95ba11f360b9919f7c8e24bd"
+    },
+    "reconstruction/tests/p13b-s8-save-v27.test.ts": {
+      "bytes": 18136,
+      "sha256": "1863180b34dbfd7d12629dcda5472f1ff0490433951d211f5633b53f2e272780"
+    },
+    "reconstruction/tests/p14d1-rival-shelving.test.ts": {
+      "bytes": 62378,
+      "sha256": "33d2af02abe56b7dcb470472dfa975b997caf234ecedf0240eeea1157eb218c0"
+    },
+    "reconstruction/tests/p14d1-week77-fixture.ts": {
+      "bytes": 4335,
+      "sha256": "8f201e9f42062b77dd18ff197cf399dff6d4d44e76e5e2cc50de7fc81bec1f84"
+    },
+    "reconstruction/tests/p14d2-a8-binding-cash.test.ts": {
+      "bytes": 9134,
+      "sha256": "7d4fc3e65a4f9b20e5f9840a1a6dcd7f24ce9153e45205d8c0c1cffab271948d"
+    },
+    "reconstruction/tests/p14d2-a8-fixture.ts": {
+      "bytes": 5969,
+      "sha256": "2a5799a61f46041eea43b72cd89fa6ca7127d32ce98bb15a9be248fed59f4740"
+    },
+    "reconstruction/tests/p14d2-binding-cash.test.ts": {
+      "bytes": 13233,
+      "sha256": "aca55d39be1f069604530e367b5a5092619c8fa3791114339efdfa067fabd871"
+    },
+    "reconstruction/tests/p14d2-disposal-witness-diagnostic.test.ts": {
+      "bytes": 7548,
+      "sha256": "81c90b4de459da239f1b9101c42b30022002dfd576f05f7ff51de319fdb12526"
+    },
+    "reconstruction/tests/p14d2-rival-cost-cutting-adapter.test.ts": {
+      "bytes": 14065,
+      "sha256": "39e6985c71a19b1c10b0f3255a923caa831a860da7cd14543ff08654571e8486"
+    },
+    "reconstruction/tests/p14d2-rival-cost-cutting.test.ts": {
+      "bytes": 30718,
+      "sha256": "5f15b798494527ae25e1d3d0fd550d0c57654007295a43310466ec10af2a4a49"
+    },
+    "reconstruction/tests/p14d2-rival-facility-disposal.test.ts": {
+      "bytes": 23937,
+      "sha256": "a64637e8c5eb86ebe7d126be62f2c0e2c22ccbfa819187626c08d2bd83252a69"
+    },
+    "reconstruction/tests/p14d2-save46-migration.test.ts": {
+      "bytes": 14249,
+      "sha256": "7e141e5255154f6be88d9418a2b4c8549b0a451aff97ac3d13e4d266aebe504c"
+    },
+    "reconstruction/tests/p15c2-legacy-lens-shape.test.ts": {
+      "bytes": 1230,
+      "sha256": "059bb3acd2b536bea0a77ce653bd9001f6c9a17063d6f25ca84fe49fadc06ccb"
+    },
+    "reconstruction/tests/save-masked-downgrade-own-era.test.ts": {
+      "bytes": 6973,
+      "sha256": "70ac5b8752470ed36bb570a562a610f630322b326e3f85b7081d053fcb8a4c57"
+    },
+    "reconstruction/tsconfig.recovery-tests.json": {
+      "bytes": 742,
+      "sha256": "578626197a5fbe8a6c174ec33c1aa08925436af56b81051502f667f761bfbe75"
+    },
+    "reconstruction/tsconfig.witness-diagnostic.json": {
+      "bytes": 215,
+      "sha256": "6dc6e01fb65cfc2d76ea4a955c8e1806dad9f905b1dd5d0df68de6556384ac3a"
+    },
+    "snapshot.py": {
+      "bytes": 8353,
+      "sha256": "485258c325ddff820694b73d28fafa926ad92f1376fe4f97c531f0cd9d18145f"
+    }
+  }
+}

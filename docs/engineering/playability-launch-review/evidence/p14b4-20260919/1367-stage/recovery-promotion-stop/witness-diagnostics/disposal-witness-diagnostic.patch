@@ -1,0 +1,116 @@
+--- /dev/null
++++ b/tests/p14d2-disposal-witness-diagnostic.test.ts
+@@ -0,0 +1,113 @@
++// Diagnostic only: exact existing C route/seed/options, named weeks, no disposal mutation.
++import { createHash } from 'node:crypto'
++import { expect, it } from 'vitest'
++import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
++import { tick } from '../src/core/tick.js'
++import { makeSave, validateSaveV46, stableStringify } from '../src/core/save.js'
++import { rivalFacilityDisposalEligibility } from '../src/core/rivalResearch.js'
++import type { GameState } from '../src/core/types.js'
++
++const WEEKS = [12, 52, 53, 261, 280] as const
++function admit(state: GameState): void {
++  const before = stableStringify(state), json = JSON.stringify(state)
++  const envelope = makeSave(state)
++  expect(validateSaveV46(envelope)).toBe(envelope)
++  expect(stableStringify(state)).toBe(before)
++  expect(JSON.stringify(state)).toBe(json)
++}
++function snapshot(state: GameState) {
++  const before = stableStringify(state), json = JSON.stringify(state)
++  admit(state)
++  const h = state.hollywood!
++  const owners = h.businesses.map(owner => {
++    const proposals = state.talentMarket.proposals.filter(p => p.issuerStudioId === owner.studioId)
++    const blockers: string[] = []
++    if (owner.costCutting.since !== null) blockers.push('since-is-already-set')
++    if (owner.productions.length !== 0) blockers.push('active-production')
++    if (owner.runs.length !== 0) blockers.push('active-run')
++    if (proposals.length !== 0) blockers.push('current-issuer-proposal')
++    const canMarkCutting = blockers.length === 0 // Exact original helper conjunction.
++    const plans = state.physicalPlans.plans.filter(p => p.studioId === owner.studioId)
++    const projects = state.technology.projects.filter(p => p.studioId === owner.studioId)
++    const receipts = h.receipts.filter(r => r.studioId === owner.studioId
++      && (r.kind === 'laboratoryCommitted' || r.kind === 'laboratoryOperational'
++        || r.kind === 'facilityDisposed' || r.kind === 'instrumentOperational'))
++    const labs = owner.operations.facilities.filter(f => f.capability === 'laboratory')
++    let synthetic: GameState | undefined
++    let syntheticAdmission: { attempted: false } | { attempted: true; admitted: boolean; message?: string } = { attempted: false }
++    if (canMarkCutting) {
++      const candidate = structuredClone(state)
++      candidate.hollywood!.businesses.find(b => b.studioId === owner.studioId)!.costCutting.since = state.market.tick
++      try { admit(candidate); synthetic = candidate; syntheticAdmission = { attempted: true, admitted: true } }
++      catch (error) { syntheticAdmission = { attempted: true, admitted: false,
++        message: error instanceof Error ? error.message : String(error) } }
++    }
++    const laboratoryFacts = labs.map(lab => {
++      // These first two filters match bareAt exactly. Extra retained-week/alias
++      // protections are recorded separately rather than weakening that premise.
++      const testResearchRefs = projects.filter(p => p.laboratoryFacilityId === lab.id
++        || p.seats.some(seat => seat.laboratoryFacilityId === lab.id)).map(p => p.id)
++      const testInstallationRefs = plans.filter(p => p.work.kind === 'installation'
++        && 'facilityId' in p.work.target && p.work.target.facilityId === lab.id && p.status !== 'cancelled').map(p => p.id)
++      const retainedWeekRefs = projects.filter(p => p.weeks.some(w =>
++        w.labs?.some(row => row.laboratoryFacilityId === lab.id))).map(p => p.id)
++      const workflowRefs = owner.operations.workflows.filter(w =>
++        w.reservations.some(r => r.facilityId === lab.id) || w.shootingTask?.soundstageFacilityId === lab.id
++        || w.bindings.stageFacilityId === lab.id || w.setup?.stageFacilityId === lab.id
++        || w.setup?.priorWork.some(p => p.stageFacilityId === lab.id)).map(w => w.productionId)
++      const scriptRefs = owner.development.projects.filter(p => p.reservation?.facilityId === lab.id).map(p => p.id)
++      const adoptionRefs = state.technology.adoptions.filter(a => a.studioId === owner.studioId
++        && (a.stageFacilityId === lab.id || a.postFacilityId === lab.id)).map(a => a.id)
++      const actualEligibility = rivalFacilityDisposalEligibility(state, owner.studioId, lab.id)
++      const syntheticEligibility = synthetic === undefined ? null
++        : rivalFacilityDisposalEligibility(synthetic, owner.studioId, lab.id)
++      return { id: lab.id, capacity: lab.capacity, testResearchRefs, testInstallationRefs,
++        retainedWeekRefs, workflowRefs, scriptRefs, adoptionRefs,
++        exactBareAtCandidate: canMarkCutting && testResearchRefs.length === 0 && testInstallationRefs.length === 0,
++        actualEligibility, syntheticEligibility }
++    })
++    const syntheticNeutral = synthetic === undefined || (() => {
++      const inverse = structuredClone(synthetic)
++      inverse.hollywood!.businesses.find(b => b.studioId === owner.studioId)!.costCutting.since = null
++      return stableStringify(inverse) === before && JSON.stringify(inverse) === json
++    })()
++    expect(syntheticNeutral, 'only the already-authorized synthetic since input changed').toBe(true)
++    return { studioId: owner.studioId, since: owner.costCutting.since, cash: owner.account.cash,
++      productionIds: owner.productions.map(p => p.id), runCount: owner.runs.length,
++      proposals: proposals.map(p => ({ talentId: p.talentId, submittedWeek: p.submittedWeek })),
++      canMarkCutting, canMarkBlockers: blockers, syntheticAdmission, laboratoryFacts, receipts,
++      plans: plans.map(p => ({ id: p.id, work: p.work, status: p.status, statusWeek: p.statusWeek,
++        dependsOn: p.dependsOn, commitReceipt: p.commitReceipt, buildWeeks: p.approvedQuote.buildWeeks })),
++      research: projects.map(p => ({ id: p.id, status: p.status, laboratoryFacilityId: p.laboratoryFacilityId,
++        seats: p.seats.map(seat => ({ talentId: seat.talentId, laboratoryFacilityId: seat.laboratoryFacilityId,
++          releasedWeek: seat.releasedWeek })), retainedWorkWeeks: p.weeks.length,
++        retainedWeekLaboratoryIds: [...new Set(p.weeks.flatMap(w => (w.labs ?? []).map(lab => lab.laboratoryFacilityId)))] })),
++      exactC4ProjectCandidates: canMarkCutting ? projects.map(p => p.id) : [],
++      exact261UnfinishedInstallationCandidates: canMarkCutting ? plans.filter(p => p.work.kind === 'installation'
++        && 'facilityId' in p.work.target && p.status === 'started' && p.commitReceipt !== null
++        && state.market.tick < p.commitReceipt.week + p.approvedQuote.buildWeeks).map(p => p.id) : [],
++    }
++  })
++  expect(stableStringify(state)).toBe(before)
++  expect(JSON.stringify(state)).toBe(json)
++  return { format: '1367-disposal-witness-diagnostic/v1', seed: state.seed, week: state.market.tick,
++    options: { develop: true }, baselineAdmitted: true, inputNeutral: true,
++    stateSha256: createHash('sha256').update(before).digest('hex'), owners }
++}
++
++it('records actual blocking facts at the five already-named C route weeks', () => {
++  let state = p13aGeneratedStudio('p13a-core-causal-01')
++  const emitted: number[] = []
++  for (let week = 1; week <= 280; week++) {
++    state = tick(state, { develop: true })
++    if ((WEEKS as readonly number[]).includes(week)) {
++      expect(state.market.tick).toBe(week)
++      console.log('1367_DISPOSAL_WITNESS_DIAGNOSTIC ' + JSON.stringify(snapshot(state)))
++      emitted.push(week)
++    }
++  }
++  expect(emitted).toEqual([...WEEKS])
++  expect(state.market.tick).toBe(280)
++  // Diagnostic success proves read-only observation, not availability of C1/C4
++  // witnesses. Original tests, premises and their failures remain unchanged.
++}, 120_000)

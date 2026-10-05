@@ -1,0 +1,286 @@
+{
+  "files": [
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/ABC-MEASURED-REVIEW.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/ABC-MEASURED-REVIEW.md",
+      "bytes": 6364,
+      "sha256": "e2d256e59710fd0769b346d2cab3ee0880f48b41aec268cfc5bded72c5e17c5e"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/HANDBACK.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/HANDBACK.md",
+      "bytes": 10591,
+      "sha256": "c3d83995838e9b4719885ca63d2ff4cb226dfdfc41e1225148e3f83b0d3f50e6"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/INDEPENDENT-REVIEW.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/INDEPENDENT-REVIEW.md",
+      "bytes": 3955,
+      "sha256": "0d19102214a423a26cf8350e80124cdea8d2fab503d11e036f3e53c0e9eb35cf"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/SCHEMA312-MEASURED-REVIEW.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/SCHEMA312-MEASURED-REVIEW.md",
+      "bytes": 3035,
+      "sha256": "212f62f9c8d244e355e5e9a94035a50240ddebc99b178a372867064f62eeed8d"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/SHA256.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/SHA256.json",
+      "bytes": 622,
+      "sha256": "4f38bd1f8194106259a7f0625c68c52880171e9fd2f272792091cbecccc2dede"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/SOURCE-PINS.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/SOURCE-PINS.json",
+      "bytes": 1265,
+      "sha256": "bb5e3a89407e1e303647348c35ef517351a24fe25bc2c41802ed00213f36a953"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/abc-pins.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/abc-pins.json",
+      "bytes": 76533,
+      "sha256": "d8920b5c747237e76b96f7e90cf0a4cf2fb305f22109e59fbfe198456c716ec2"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/abc-tsconfig.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/abc-tsconfig.json",
+      "bytes": 215,
+      "sha256": "6dc6e01fb65cfc2d76ea4a955c8e1806dad9f905b1dd5d0df68de6556384ac3a"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/disposal-witness-diagnostic.patch",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/disposal-witness-diagnostic.patch",
+      "bytes": 7747,
+      "sha256": "c2668e2934a001697dc6103976a959d90ee91fd09bd206dd4487b8548c425ddd"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/period312-diagnostic.patch",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/period312-diagnostic.patch",
+      "bytes": 5238,
+      "sha256": "eae4ded511a9b08660ea2ee4e9d72d6f2be25eb7014300f68c930e7020c5ddd0"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/run.py",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/run.py",
+      "bytes": 2184,
+      "sha256": "d227791ccd8306e5a8c25340cd6877999cf3b706cac8331eeb8bac019bc7cc00"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/schema-pins.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/schema-pins.json",
+      "bytes": 76423,
+      "sha256": "989ebc9ceba3e5c0594d090be41fd5404ac643eb9d4b0d0199615cf4171e9a0f"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/schema-tsconfig.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/schema-tsconfig.json",
+      "bytes": 210,
+      "sha256": "5981eb49c45fb3d46c01d684db55c3731fd0e1b8ce4a7e46452ba783d17b2192"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/tests/p13b-s8-period312-diagnostic.test.ts",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/tests/p13b-s8-period312-diagnostic.test.ts",
+      "bytes": 5086,
+      "sha256": "6db9f4727782c7b6b8c4319be4e9c8d1225b546e1507dcc341082f544205dc42"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/tests/p14d2-disposal-witness-diagnostic.test.ts",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/tests/p14d2-disposal-witness-diagnostic.test.ts",
+      "bytes": 7548,
+      "sha256": "81c90b4de459da239f1b9101c42b30022002dfd576f05f7ff51de319fdb12526"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/runs/schema-types-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/runs/schema-types-r1/output.txt",
+      "bytes": 121,
+      "sha256": "94a25aba430c522d8960348ec20230216b4b3d9a5ed951502a913e8d28ee59af"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/runs/schema-types-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/runs/schema-types-r1/result.json",
+      "bytes": 1352,
+      "sha256": "b46ae09ffec1060b7a730e8a53ce984601ad48e9bf1ef83b4cd984c0ffb993c1"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/runs/schema-run-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/runs/schema-run-r1/output.txt",
+      "bytes": 4148,
+      "sha256": "a7ec507630a397a8828dfd653c3473d9bae346082ddb09be9ee02156013fa999"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/runs/schema-run-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/runs/schema-run-r1/result.json",
+      "bytes": 1487,
+      "sha256": "57e427bc361efc08c9e43040f3144a8b57af2a97672a0c5d659b5fb094004f53"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/runs/abc-types-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/runs/abc-types-r1/output.txt",
+      "bytes": 121,
+      "sha256": "cd3a06fce38a62c5afb5a4fc76d4a44c7e6be3208501c462219253ced1f68110"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/runs/abc-types-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/runs/abc-types-r1/result.json",
+      "bytes": 1349,
+      "sha256": "676ca544b3e64ddc0f0e3ec17787f7b7930a8a7e617e855d63f75601935f31d3"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/runs/abc-run-r1/output.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/runs/abc-run-r1/output.txt",
+      "bytes": 31693,
+      "sha256": "f6f619cd25ec0ceaef877c604a2b07f8407080e10c3bc3acb6cacb0bfd8c14d5"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/runs/abc-run-r1/result.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/witness-diagnostics/runs/abc-run-r1/result.json",
+      "bytes": 1490,
+      "sha256": "515247d7f842d7f191c8762994e3e9ae1c5984d146520e2c26c7fe7260a0eef4"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-witness-schema-types.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/lanes/1367-witness-schema-types.log",
+      "bytes": 1276,
+      "sha256": "c06310a1a02ea50f9b352da30a50427f31c3cef6f37f76ff314fc5443ceadaf4"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-witness-schema-types.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/lanes/1367-witness-schema-types.log.meta",
+      "bytes": 224,
+      "sha256": "6631b182af9257767d730043ee83b1775f9073e89ffb2e258dda12bb7fab505e"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-witness-schema-run.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/lanes/1367-witness-schema-run.log",
+      "bytes": 1387,
+      "sha256": "51982ed75719920d091bc5deb008aa24690930a032edf4447cc93ffdbdbef4d1"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-witness-schema-run.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/lanes/1367-witness-schema-run.log.meta",
+      "bytes": 222,
+      "sha256": "e349f5c5ef0c24028dbef68dd74124a3ddeb8db53ed2c921f1f18ac57f633244"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-witness-abc-types.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/lanes/1367-witness-abc-types.log",
+      "bytes": 1273,
+      "sha256": "33330c5c5e0edbc58fcf66b04aa2618ae7efe8e600dc4bddce00c1b5a3cbd8f9"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-witness-abc-types.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/lanes/1367-witness-abc-types.log.meta",
+      "bytes": 221,
+      "sha256": "bf75ce3066a288da47c473e84be563927f66c32e0bb50d0b3b325606951bc516"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-witness-abc-run.log",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/lanes/1367-witness-abc-run.log",
+      "bytes": 1390,
+      "sha256": "926c8f6036ff305cc18d2fc97a4c927ead891d59afbc8b54f76063b1307c58bf"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-witness-abc-run.log.meta",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/lanes/1367-witness-abc-run.log.meta",
+      "bytes": 219,
+      "sha256": "9713138fc23881084fd3820c06f326cfaa16fa03e3a033ec8a555b2ed7582c72"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-promotion-stop/pre-publication-git-audit.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/pre-publication-git-audit.json",
+      "bytes": 1902,
+      "sha256": "342bc0fdc1d01256855b746bba51bf65ae35caf22364ee1390a2844e368ee0c8"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/BASE-REFERENCE.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/BASE-REFERENCE.json",
+      "bytes": 299,
+      "sha256": "3aff9467f27eb6dad79c5e89b075e9e342d7831d87d69fc3049fc3052a1ae56c"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/CANDIDATE-INVENTORY.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/CANDIDATE-INVENTORY.json",
+      "bytes": 127587,
+      "sha256": "9012cd82e9aa9619643ece3cce986fab0e76f9343e681fcc9eb2d88388ba175c"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/FILE-INVENTORY.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/FILE-INVENTORY.json",
+      "bytes": 354451,
+      "sha256": "e562233cabb8c96f736b98f4a3e9578c5fc670057824171b8d3d67bab026c855"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/HANDBACK.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/HANDBACK.md",
+      "bytes": 5177,
+      "sha256": "dc2069ea0d55a3734f3457e287c317596572f005ed38e0b3d408e12abfeda6fa"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/PATCHED-FILES.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/PATCHED-FILES.json",
+      "bytes": 13522,
+      "sha256": "6b082ea699a1cbf9901c43e8ae739b011d26277e49cfbed326309f2e07f43758"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/PRESERVATION.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/PRESERVATION.json",
+      "bytes": 7367,
+      "sha256": "8a09e0a91b50a83828e092ec2cf0e373fa2e72d0b20cc9bd59af9fa714f26eb8"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/SOURCE-INVENTORY.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/SOURCE-INVENTORY.json",
+      "bytes": 99179,
+      "sha256": "cc13bdb30ab70647e0ac159a819c109746b8a1e0e7b05dd15008830c203dbb30"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/abc-pins.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/abc-pins.json",
+      "bytes": 76533,
+      "sha256": "d8920b5c747237e76b96f7e90cf0a4cf2fb305f22109e59fbfe198456c716ec2"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/full-abc.patch",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/full-abc.patch",
+      "bytes": 276665,
+      "sha256": "c6941628c03b4cbf56273d0dbf6a7541b994cdf71da81c1df41302fd31982cf7"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/patch-application.stderr.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/patch-application.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/patch-application.stdout.txt",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/patch-application.stdout.txt",
+      "bytes": 1419,
+      "sha256": "6e24c0c355046ba860d82de7d5796da8568cb3d73e11d362ba50e578465a2b57"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/snapshot.py",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/snapshot.py",
+      "bytes": 8353,
+      "sha256": "485258c325ddff820694b73d28fafa926ad92f1376fe4f97c531f0cd9d18145f"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-integrated-preservation/SHA256.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/SHA256.json",
+      "bytes": 15565,
+      "sha256": "43dd2c621571b3659366162998992a44bb59ce41a84736daf0ff72165f192e7c"
+    },
+    {
+      "source": "exact explicit base/candidate/reconstruction subset files from original SHA256.json",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/integrated-preservation/byte-subsets.tar.gz",
+      "bytes": 886770,
+      "sha256": "a615ceb2bb0f4f8e6291f4cb93f5ef1d468714f3c30f802602f8ad9f97974519"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1367-promotion-stop/FINAL-REVIEW.md",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-promotion-stop/FINAL-REVIEW.md",
+      "bytes": 2933,
+      "sha256": "7cf57a9b6d4987eb4ec4f340a00bc47444de5972ffc05cd239b8bc61833c2e78"
+    }
+  ]
+}

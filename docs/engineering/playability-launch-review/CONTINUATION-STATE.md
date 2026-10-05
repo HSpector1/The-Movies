@@ -1,6 +1,8 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## CURRENT — recovery implementation in progress; conditional main promotion authorized
+## CURRENT — promotion stopped; required recovery verification remains open
+
+[1367-T](evidence/p14b4-20260919/1367-T-promotion-gate-blocked.md) records the proved promotion stop. Both bounded witness diagnostics completed successfully and independently explain the missing premises: all four historical312 owners cannot afford the required laboratory plus reserve; C's fixed early owners are active and later bodies are protected or already disposed. The original positive tests remain failed. Full original post2040 release-cost measurement also remains open before step10. No checkpoint closure, PR or main merge is claimed. Complete unlanded candidate source is preserved losslessly with exact base,708filepins,31filepatch and reconstruction proof. The source branch/evidence are pushed normally; HANDOFF owns final publication identity and next actions.
 
 [1367-S](evidence/p14b4-20260919/1367-S-recovery-focused-green-and-open-witnesses.md) records the latest focused milestone. Part A with genuine original-engine week77 control passes selected types and all46 focused cases. Corrected schema migration passes110 cases (one C leaf outside selection); observer parity passes2 cases over53 actual ticks. Integrated A+B+C test compilation passes. All remain bounded technical evidence, with live recovery source unapplied.
 

@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/**/*.ts",
+    "tests/p14d2-disposal-witness-diagnostic.test.ts"
+  ],
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true
+  }
+}
