@@ -4,7 +4,7 @@ Last writer: Codex (GPT-6), 2026-10-04 20:34 CDT. Part A focused46PASS; schema11
 
 ## Where the work is
 - Live repo `/Users/zacheryspector/The-Movies-headless-program`, branch `wip/headless-program-20260916-ts`, explicit remote origin, main untouched. Downloads folder is only a pointer.
-- Last verified published HEAD before this milestone: `d8a332fc33b26209abe23c32b157cc2fa85ac1f0`. F6 quality is live; recovery remains scratch. Verify new HEAD/explicit remote after commit. Original Save45 src tree `88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837` remains in that immutable commit and scratch run archives.
+- Last verified published HEAD before this milestone: `d8a332fc33b26209abe23c32b157cc2fa85ac1f0`. F6 quality is live; recovery remains scratch. Milestone source/evidence commit bfb11f83 plus exact lane-log preservation followup must be pushed together; verify final HEAD/explicit remote. Manifest audit caught the repository-wide *.log ignore, so the twelve named evidence logs are explicitly tracked without altering ignore policy. Patch context whitespace is retained to preserve reviewed artifact hashes. Original Save45 src tree `88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837` remains in that immutable commit and scratch run archives.
 - E=`docs/engineering/playability-launch-review/evidence/p14b4-20260919`; S=`/Users/zacheryspector/studio-scratch`.
 - Required reading: CLAUDE.md, coordinator/SOURCE-INDEX; E/1367-O2/O and remainder implementation plan; E/1367-S/R/Q/P/N/M/K/J/I/H/D/F/G; E/1361-M3/F6; E/1363-A/F/A2; each patch handback and independent review. IDs mean matching filename prefixes.
 
