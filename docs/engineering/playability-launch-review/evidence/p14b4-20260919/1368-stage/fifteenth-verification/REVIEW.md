@@ -1,0 +1,7 @@
+# Independent fifteenth archive review — 2026-10-05
+
+The fifteenth scratch archive and its manifest match: archive SHA `edcfce58af00c8946819a46dcafcc212ecaa173e37fc6aa9c818ad97d482f2e4`, manifest SHA `28d330f673011e13e2a9742967f50ee967d8d08d58f3af3b357a6dbb818f646d`. The archive has 136 regular members, 33,079,477 logical bytes and 3,583,411 archive bytes. I independently enumerated every regular source file in the 17 listed scratch directories, the four formal run directories within that set, the three attribution directories, the independent audit, the runner's root files, 20 formal evidence files, eight lane log/meta files, and the two frozen-source descriptors. The enumerated names equal the manifest and tar member names exactly, with no omissions or extras.
+
+Every manifest source is a regular file at the claimed path, size and SHA. Every tar member is regular; there are no symlinks, hard links, directories, devices, traversal paths or `/tree/` members. The enumerated source directories themselves contain no symlinks. I read back every tar member and compared its full bytes against its original scratch or formal-evidence file. All comparisons passed. The live tracked tree and frozen source were not edited.
+
+`RECEIPT.json` records the checks and per-directory file counts; `verify.py` reproduces them. This validates preservation fidelity, not the behavioral acceptance of the archived tests or proposals.

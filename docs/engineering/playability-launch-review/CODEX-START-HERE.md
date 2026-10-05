@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1368-Q: R8 selected runs and attribution complete
+
+[1368-Q](evidence/p14b4-20260919/1368-Q-r8-formal-selected-fallout.md) preserves fresh R8 types/generators all zero, current104 1396 PASS/45 FAIL/1 TODO, helper37 492 PASS/25 FAIL/1 SKIP/5 TODO, and P15four 125 PASS/40 FAIL, with exact formal guards and independent artifact/attribution review. Against R6, all 15 current, 2 helper and 1 P15 NEW failures now execute and pass; every remaining failed occurrence is SAME. Two protected current ledger identities still fail earlier on row counts and need source-matched causal reconciliation; no repin or broad closure. Fifteenth archive and direct formal receipts are published. R8 source is still frozen and unlanded. HANDOFF owns ledger types→clean→observed and subsequent landing/broad/final recovery gates. Main and CURRENT-BEST unchanged.
+
 ## CURRENT — 1368-N: R8 corrected whole files pass formal gates
 
 [1368-N](evidence/p14b4-20260919/1368-N-r8-corrected-whole-file-verification.md) records the frozen unlanded R8 source. Relative to R6, exactly ten test files and four genuine historical fixture files changed; production source is byte-identical. Formal R8 types and both generators pass, then all 147 tests in the ten complete modified files pass with exact recorder/postflight guards. Preliminary complete P15 diagnostic improves 124 PASS/41 FAIL to 125 PASS/40 FAIL: the one NEW ranking identity is an executed pass and the remaining 40 failure messages match R6. Parent replay is labeled, not separate review. Current104/helper37/R8 formal P15, ledger, landing, broad and final recovery remain open; HANDOFF owns next actions.
