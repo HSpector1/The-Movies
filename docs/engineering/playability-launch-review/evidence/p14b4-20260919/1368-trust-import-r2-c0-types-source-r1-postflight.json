@@ -1,0 +1,2203 @@
+{
+  "guardScope": {
+    "excludedAutomaticReadPrefixes": [
+      "tests/fixtures/",
+      "ui/e2e/",
+      "ui/public/"
+    ],
+    "excludedPaths": [
+      "tests/fixtures/bridge-contract-union-fixtures.ts",
+      "tests/fixtures/fake-unity-supervisor.mjs",
+      "tests/fixtures/p05a1-owner-profile-rev2.save.json",
+      "tests/fixtures/p05a3-owner-profile-rev10.save.json",
+      "tests/fixtures/p06-recovery.checkpoint.json.gz",
+      "tests/fixtures/p13a/README.md",
+      "tests/fixtures/p13a/accepted-v19-hired.json.gz",
+      "tests/fixtures/p13a/accepted-v19.json.gz",
+      "tests/fixtures/p13b/PROVENANCE.md",
+      "tests/fixtures/p13b/genuine-v26-old-era-period-1363/MANIFEST.json",
+      "tests/fixtures/p13b/genuine-v26-old-era-period-1363/genuine-v26-sound-mid-deployment-week312.json.gz",
+      "tests/fixtures/p13b/genuine-v26-period52-1368/MANIFEST.json",
+      "tests/fixtures/p13b/genuine-v26-period52-1368/period52.json.gz",
+      "tests/fixtures/p13b/legacy-v20-research-active-280.json.gz",
+      "tests/fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz",
+      "tests/fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz",
+      "tests/fixtures/p13b/legacy-v21-released-paused-266.json.gz",
+      "tests/fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz",
+      "tests/fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz",
+      "tests/fixtures/p13b/legacy-v22-staffed-4-seats-263.json.gz",
+      "tests/fixtures/p13b/legacy-v22-two-labs-cooperating-782.json.gz",
+      "tests/fixtures/p13b/legacy-v23-lighting-complete-plan-queued.json.gz",
+      "tests/fixtures/p13b/legacy-v23-sound-operational-315.json.gz",
+      "tests/fixtures/p13b/legacy-v24-lighting-operational-plan-queued.json.gz",
+      "tests/fixtures/p13b/legacy-v24-sound-operational-315.json.gz",
+      "tests/fixtures/p13b/legacy-v25-lighting-mid-deployment-793.json.gz",
+      "tests/fixtures/p13b/legacy-v25-sound-mid-deployment-309.json.gz",
+      "tests/fixtures/p13b/legacy-v26-lighting-cancelled-793.json.gz",
+      "tests/fixtures/p13b/legacy-v26-lighting-restored-795.json.gz",
+      "tests/fixtures/p13b/legacy-v26-sound-mid-deployment-309.json.gz",
+      "tests/fixtures/p13b/legacy-v27-natural-rival-labs-20.json.gz",
+      "tests/fixtures/p13b/legacy-v27-player-termination-20.json.gz",
+      "tests/fixtures/p13b/legacy-v27-renewal-window-456.json.gz",
+      "tests/fixtures/p14/genuine-pre38-validation-controls/MANIFEST.json",
+      "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-all-statuses-week312.json.gz",
+      "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-cohort-week-week156.json.gz",
+      "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-deep-deficit-week2652.json.gz",
+      "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v37-writer-commissioned311-finishing312.json.gz",
+      "tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz",
+      "tests/fixtures/p14/genuine-projection45-runtime.provenance.json",
+      "tests/fixtures/p14/genuine-projection46-runtime/MANIFEST.json",
+      "tests/fixtures/p14/genuine-projection46-runtime/genuine-projection46-runtime.checkpoint.json.gz",
+      "tests/fixtures/p14/genuine-projection46-runtime/genuine-projection46-runtime.provenance.json",
+      "tests/fixtures/p14/genuine-projection47-runtime/MANIFEST.json",
+      "tests/fixtures/p14/genuine-projection47-runtime/genuine-projection47-runtime.checkpoint.json.gz",
+      "tests/fixtures/p14/genuine-projection47-runtime/genuine-projection47-runtime.provenance.json",
+      "tests/fixtures/p14/genuine-projection48-runtime/MANIFEST.json",
+      "tests/fixtures/p14/genuine-projection48-runtime/genuine-projection48-runtime.checkpoint.json.gz",
+      "tests/fixtures/p14/genuine-projection48-runtime/genuine-projection48-runtime.provenance.json",
+      "tests/fixtures/p14/genuine-projection49-runtime/MANIFEST.json",
+      "tests/fixtures/p14/genuine-projection49-runtime/genuine-projection49-runtime.checkpoint.json.gz",
+      "tests/fixtures/p14/genuine-projection49-runtime/genuine-projection49-runtime.provenance.json",
+      "tests/fixtures/p14/genuine-projection50-runtime-c2rm/MANIFEST.json",
+      "tests/fixtures/p14/genuine-projection50-runtime-c2rm/runtime50-current53-saved52.json.gz",
+      "tests/fixtures/p14/genuine-projection51-runtime-c2rm/MANIFEST.json",
+      "tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week617.json.gz",
+      "tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week618.json.gz",
+      "tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week669.json.gz",
+      "tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week670.json.gz",
+      "tests/fixtures/p14/genuine-projection51-runtime-c2rm/runtime51-current670-saved669.json.gz",
+      "tests/fixtures/p14/genuine-runtime55-pre-r3/MANIFEST.json",
+      "tests/fixtures/p14/genuine-runtime55-pre-r3/runtime55-current111-saved110.json.gz",
+      "tests/fixtures/p14/genuine-runtime55-pre-r3/runtime55-current111-saved110.provenance.json",
+      "tests/fixtures/p14/genuine-v26-renewal196-1368/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v26-renewal196-1368/genuine-v26-week196.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-current-p1.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-current-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-role-label-refused-p1.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-role-label-refused-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-withdrawn-p1.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-withdrawn-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v29-pre-p2/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-current-p1.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-current-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-empty.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-empty.provenance.json",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-kept-and-broken-p1.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-kept-and-broken-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-refused-p2-count-only-current-draft.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-refused-p2-count-only-current-draft.provenance.json",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-replaced-p1.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-replaced-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-current-p1.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-current-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-shared-take-terminal-p1.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-shared-take-terminal-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-withdrawn-p1.json.gz",
+      "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-withdrawn-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v30-pre-b5/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-bound-open-p1.json.gz",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-bound-open-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-bound-open-p2-lead-or-antagonist.json.gz",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-bound-open-p2-lead-or-antagonist.provenance.json",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-bound-open-p2-lead.json.gz",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-bound-open-p2-lead.provenance.json",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-current-p1.json.gz",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-current-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-empty.json.gz",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-empty.provenance.json",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-first-take-at-five.json.gz",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-first-take-at-five.provenance.json",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-kept-and-broken.json.gz",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-kept-and-broken.provenance.json",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-legacy-count-only-p2-current-draft.json.gz",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-legacy-count-only-p2-current-draft.provenance.json",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-rival-current-p1-and-p2.json.gz",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-rival-current-p1-and-p2.provenance.json",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-rival-shared-take-terminal.json.gz",
+      "tests/fixtures/p14/genuine-v30-pre-b5/genuine-v30-rival-shared-take-terminal.provenance.json",
+      "tests/fixtures/p14/genuine-v31-pre-b7/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-bound-open-p1.json.gz",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-bound-open-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-bound-open-p2-lead-or-antagonist.json.gz",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-bound-open-p2-lead-or-antagonist.provenance.json",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-bound-open-p2-lead.json.gz",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-bound-open-p2-lead.provenance.json",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-distrusted-issuer.json.gz",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-distrusted-issuer.provenance.json",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-empty.json.gz",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-empty.provenance.json",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-kept-and-broken.json.gz",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-kept-and-broken.provenance.json",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-part-served-p1.json.gz",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-part-served-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-rival-current-p1-and-p2.json.gz",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-rival-current-p1-and-p2.provenance.json",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-with-edges.json.gz",
+      "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-with-edges.provenance.json",
+      "tests/fixtures/p14/genuine-v32-c1-corpus/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-authored.json.gz",
+      "tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-authored.provenance.json",
+      "tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-bare-ticked.json.gz",
+      "tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-bare-ticked.provenance.json",
+      "tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-bare-world.json.gz",
+      "tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-bare-world.provenance.json",
+      "tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-fresh-tick0.json.gz",
+      "tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-fresh-tick0.provenance.json",
+      "tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-scientist.json.gz",
+      "tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-scientist.provenance.json",
+      "tests/fixtures/p14/genuine-v32-pre-b8/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v32-pre-b8/genuine-v32-owes-two-p1.json.gz",
+      "tests/fixtures/p14/genuine-v32-pre-b8/genuine-v32-owes-two-p1.provenance.json",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-contract-and-case.json.gz",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-contract-and-case.provenance.json",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-hard-boundary-and-idle-window.json.gz",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-hard-boundary-and-idle-window.provenance.json",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-migrated-legacy.json.gz",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-migrated-legacy.provenance.json",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-rival-in-window.json.gz",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-rival-in-window.provenance.json",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-scientist.json.gz",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-scientist.provenance.json",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-seated.json.gz",
+      "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-seated.provenance.json",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-all-statuses.json.gz",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-all-statuses.provenance.json",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-cohort-week.json.gz",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-cohort-week.provenance.json",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-deep-deficit.json.gz",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-deep-deficit.provenance.json",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-mid-year.json.gz",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-mid-year.provenance.json",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-migrated-chain.json.gz",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-migrated-chain.provenance.json",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-null-hollywood.json.gz",
+      "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-null-hollywood.provenance.json",
+      "tests/fixtures/p14/genuine-v35-c2b-corpus/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-contract-at-effective-week.json.gz",
+      "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-contract-at-effective-week.provenance.json",
+      "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-contract-gap-freeagent-expiry.json.gz",
+      "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-contract-gap-freeagent-expiry.provenance.json",
+      "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-rival-incumbent-cohorts.json.gz",
+      "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-rival-incumbent-cohorts.provenance.json",
+      "tests/fixtures/p14/genuine-v36-downgrade-extension-controls/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v36-downgrade-extension-controls/reproduced-v36-extension-open-week92.json.gz",
+      "tests/fixtures/p14/genuine-v36-downgrade-extension-controls/reproduced-v36-extension-used-week98.json.gz",
+      "tests/fixtures/p14/genuine-v36-scientist-corpus/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v36-scientist-corpus/genuine-v36-scientist-week520.json.gz",
+      "tests/fixtures/p14/genuine-v36-scientist-corpus/genuine-v36-scientist-week521.json.gz",
+      "tests/fixtures/p14/genuine-v36-scientist-corpus/runtime50-current521-saved520.json.gz",
+      "tests/fixtures/p14/genuine-v37-c3-corpus/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-announced-week104.json.gz",
+      "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-created-week0.json.gz",
+      "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-postretirement-week209.json.gz",
+      "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-preannouncement-week103.json.gz",
+      "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-preretirement-week207.json.gz",
+      "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-retired-week208.json.gz",
+      "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-runtime-current208.json.gz",
+      "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-three-real-releases.json.gz",
+      "tests/fixtures/p14/genuine-v37-c3-corpus/runtime52-current208-saved207.json.gz",
+      "tests/fixtures/p14/genuine-v38-pre-p3/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-after-waiver-week104.json.gz",
+      "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-before-waiver-week104.json.gz",
+      "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-bound-p2-lead-week52.json.gz",
+      "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-kept-broken-week61.json.gz",
+      "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-migrated-week207.json.gz",
+      "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-natural-week208.json.gz",
+      "tests/fixtures/p14/genuine-v38-pre-p3/runtime53-current208-saved207.json.gz",
+      "tests/fixtures/p14/genuine-v38-pre-p3/runtime53-waiver-current104-saved104.json.gz",
+      "tests/fixtures/p14/genuine-v40-pre-r3/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v40-pre-r3/genuine-v40-r3-outgoing-week110.json.gz",
+      "tests/fixtures/p14/genuine-v40-pre-r3/genuine-v40-r3-outgoing-week110.provenance.json",
+      "tests/fixtures/p14/genuine-v40-pre-r3/genuine-v40-r3-research-week280.json.gz",
+      "tests/fixtures/p14/genuine-v40-pre-r3/genuine-v40-r3-research-week280.provenance.json",
+      "tests/fixtures/p14/genuine-v41-pre-casting-drivers/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v41-pre-casting-drivers/genuine-v41-casting-acknowledged.json.gz",
+      "tests/fixtures/p14/genuine-v41-pre-casting-drivers/genuine-v41-casting-acknowledged.provenance.json",
+      "tests/fixtures/p14/genuine-v41-pre-casting-drivers/genuine-v41-casting-released.json.gz",
+      "tests/fixtures/p14/genuine-v41-pre-casting-drivers/genuine-v41-casting-released.provenance.json",
+      "tests/fixtures/p14/genuine-v42-pre-shelving-week77-1363/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v42-pre-shelving-week77-1363/genuine-v42-rival-stall-week-77.json.gz",
+      "tests/fixtures/p14/genuine-v42-pre-shelving-week93/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v42-pre-shelving-week93/genuine-v42-rival-stall-week-93.json.gz",
+      "tests/fixtures/p14/genuine-v42-pre-shelving-week93/genuine-v42-rival-stall-week-93.provenance.json",
+      "tests/fixtures/p14/genuine-v42-pre-shelving/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v42-pre-shelving/genuine-v42-rival-stall-week-100.json.gz",
+      "tests/fixtures/p14/genuine-v42-pre-shelving/genuine-v42-rival-stall-week-100.provenance.json",
+      "tests/fixtures/p14/genuine-v42-pre-shelving/genuine-v42-rival-stall-week-130.json.gz",
+      "tests/fixtures/p14/genuine-v42-pre-shelving/genuine-v42-rival-stall-week-130.provenance.json",
+      "tests/fixtures/p14/genuine-v43-pre-romance/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v43-pre-romance/genuine-v43-pre-romance-week-284.json.gz",
+      "tests/fixtures/p14/genuine-v43-pre-romance/genuine-v43-pre-romance-week-284.provenance.json",
+      "tests/fixtures/p14/genuine-v45-binding-cash-1363/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v45-binding-cash-1363/genuine-v45-binding-cash-count12.json.gz",
+      "tests/fixtures/p14/genuine-v45-binding-cash-1363/genuine-v45-binding-cash-count12.provenance.json",
+      "tests/fixtures/p14/genuine-v45-recovery-predecessors-1363/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v45-recovery-predecessors-1363/p13a-week-0.save45.json.gz",
+      "tests/fixtures/p14/genuine-v45-recovery-predecessors-1363/p13a-week-53.save45.json.gz",
+      "tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/baseline265.json.gz",
+      "tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/baseline280.json.gz",
+      "tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/calendar.json.gz",
+      "tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/ordinary.json.gz",
+      "tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/research.json.gz",
+      "tests/fixtures/p14/genuine-v46-rival-writing-pre414-1368/MANIFEST.json",
+      "tests/fixtures/p14/genuine-v46-rival-writing-pre414-1368/pre414.save46.json.gz",
+      "tests/fixtures/p14/legacy-v28-legacy-terminations-20.json.gz",
+      "tests/fixtures/p14/legacy-v28-open-case-45.json.gz",
+      "tests/fixtures/p14/legacy-v28-settled-208.json.gz",
+      "tests/fixtures/p14/legacy-v28-shooting-5.json.gz",
+      "tests/fixtures/p15/genuine-below-p15-save-step/MANIFEST.json",
+      "tests/fixtures/p15/genuine-below-p15-save-step/fresh-market-week-30.json.gz",
+      "tests/fixtures/p15/p15a1-market-pins/MANIFEST.json",
+      "tests/fixtures/p15/p15a1-market-pins/k1-post-tick-week-21.json.gz",
+      "tests/fixtures/p15/p15c2-frozen-v2-save45/MANIFEST.json",
+      "tests/fixtures/p15/p15c2-frozen-v2-save45/route-l-week-6240.save45.json.gz",
+      "tests/fixtures/p15/p15c2-route-l-captures/MANIFEST.json",
+      "tests/fixtures/p15/p15c2-route-l-captures/route-l-week-6239.json.gz",
+      "tests/fixtures/p15/p15c2-route-l-captures/route-l-week-6240.json.gz",
+      "tests/fixtures/p20-after-hire.checkpoint.json.gz",
+      "tests/fixtures/p20-before-hire.checkpoint.json.gz",
+      "tests/fixtures/runtime-worker-fixture.mjs",
+      "ui/e2e/audition-planning-current-break-audit.spec.ts",
+      "ui/e2e/authored-stage-proof.spec.ts",
+      "ui/e2e/c1-golden-path-v1.spec.ts",
+      "ui/e2e/c2a-m2-set-and-stage-legibility-v1.spec.ts",
+      "ui/e2e/c2a-m3-renewable-screenplay-v1.spec.ts",
+      "ui/e2e/c2a-m4-throughput-queue-v1.spec.ts",
+      "ui/e2e/c2a-m5-living-turn-v1.spec.ts",
+      "ui/e2e/cycle2-playtest.spec.ts",
+      "ui/e2e/cycle3-playtest.spec.ts",
+      "ui/e2e/cycle4-playtest.spec.ts",
+      "ui/e2e/d12-economy-journey.spec.ts",
+      "ui/e2e/d14-career.spec.ts",
+      "ui/e2e/d1b-soundstage-proof.spec.ts",
+      "ui/e2e/expanded-property-second-zone-v1.spec.ts",
+      "ui/e2e/expanded-property-v1/manifest.json",
+      "ui/e2e/expanded-property-v1/week-0-far-property-twenty-two-parcels.save.json",
+      "ui/e2e/expanded-property-v1/week-0-south-yard-second-zone.save.json",
+      "ui/e2e/film-package-playtest.spec.ts",
+      "ui/e2e/first-movie-golden-path-v1.spec.ts",
+      "ui/e2e/foundation-recovery-v1/fixture-provenance.json",
+      "ui/e2e/foundation-recovery-v1/s1-no-contract-no-project.checkpoint.json",
+      "ui/e2e/foundation-recovery-v1/s1-no-contract-no-project.save.json",
+      "ui/e2e/greenlight-production-formation-v1.spec.ts",
+      "ui/e2e/helpers/construction-completion-notice.ts",
+      "ui/e2e/helpers/managed-production.ts",
+      "ui/e2e/helpers/save-migration-notice.ts",
+      "ui/e2e/live-week-advance-v1/manifest.json",
+      "ui/e2e/live-week-advance-v1/week-11-annex-progress-then-completion.save.json",
+      "ui/e2e/live-week-advance-v1/week-12-annex-completion-next.save.json",
+      "ui/e2e/live-week-advance-v1/week-12-release-annex-coevent-next.save.json",
+      "ui/e2e/live-week-advance-v1/week-30-nights-of-watchtower-stage-7-scheduled.save.json",
+      "ui/e2e/lot-founded-audition-path-v1.spec.ts",
+      "ui/e2e/lot-identity-final.spec.ts",
+      "ui/e2e/lot-identity.spec.ts",
+      "ui/e2e/lot-native-next-event-v1.spec.ts",
+      "ui/e2e/lot-native-next-event-v1/cash-negative-crossing.save.json",
+      "ui/e2e/lot-native-next-event-v1/casting-review.save.json",
+      "ui/e2e/lot-native-next-event-v1/construction-only-completion.save.json",
+      "ui/e2e/lot-native-next-event-v1/contract-expiry.save.json",
+      "ui/e2e/lot-native-next-event-v1/gazette-release-with-annex-completion.save.json",
+      "ui/e2e/lot-native-next-event-v1/manifest.json",
+      "ui/e2e/lot-native-next-event-v1/non-gazette-release.save.json",
+      "ui/e2e/lot-native-next-event-v1/renewal-window-opening.save.json",
+      "ui/e2e/lot-native-next-event-v1/script-review.save.json",
+      "ui/e2e/lot-native-next-event-v1/simultaneous-completed-runs.save.json",
+      "ui/e2e/lot-native-next-event-v1/stage-12-production-decision.save.json",
+      "ui/e2e/lot-native-next-event-v1/stage-7-production-decision.save.json",
+      "ui/e2e/lot-native-next-event-v1/week-520-guard.save.json",
+      "ui/e2e/lot-retained-audition-planning-v1.spec.ts",
+      "ui/e2e/lot-retained-commission-workspace-v1.spec.ts",
+      "ui/e2e/lot-second-picture-audition-path-v1.spec.ts",
+      "ui/e2e/lot.spec.ts",
+      "ui/e2e/m6b-visual-warmth.artshot.ts",
+      "ui/e2e/named-person-inspector-v1.spec.ts",
+      "ui/e2e/operational-annex-work-presence-v1.spec.ts",
+      "ui/e2e/p05-visual-oracle-v1/manifest.json",
+      "ui/e2e/p05-visual-oracle-v1/s1-idle-stage.checkpoint.json",
+      "ui/e2e/p05-visual-oracle-v1/s1-idle-stage.save.json",
+      "ui/e2e/p05-visual-oracle-v1/s2-rehearsal.checkpoint.json",
+      "ui/e2e/p05-visual-oracle-v1/s2-rehearsal.save.json",
+      "ui/e2e/p05-visual-oracle-v1/s3-scenery-load-in.checkpoint.json",
+      "ui/e2e/p05-visual-oracle-v1/s3-scenery-load-in.save.json",
+      "ui/e2e/p05-visual-oracle-v1/s4-blocked-waiting.checkpoint.json",
+      "ui/e2e/p05-visual-oracle-v1/s4-blocked-waiting.save.json",
+      "ui/e2e/p05-visual-oracle-v1/s5-shooting.checkpoint.json",
+      "ui/e2e/p05-visual-oracle-v1/s5-shooting.save.json",
+      "ui/e2e/p05-visual-oracle-v1/s6-wrap.checkpoint.json",
+      "ui/e2e/p05-visual-oracle-v1/s6-wrap.save.json",
+      "ui/e2e/p06-visual-oracle-v1/manifest.json",
+      "ui/e2e/p06-visual-oracle-v1/s1-idle-post.checkpoint.json",
+      "ui/e2e/p06-visual-oracle-v1/s1-idle-post.save.json",
+      "ui/e2e/p06-visual-oracle-v1/s2-wrapped-waiting-for-post.checkpoint.json",
+      "ui/e2e/p06-visual-oracle-v1/s2-wrapped-waiting-for-post.save.json",
+      "ui/e2e/p06-visual-oracle-v1/s3-active-finishing.checkpoint.json",
+      "ui/e2e/p06-visual-oracle-v1/s3-active-finishing.save.json",
+      "ui/e2e/p06-visual-oracle-v1/s4-release-ready.checkpoint.json",
+      "ui/e2e/p06-visual-oracle-v1/s4-release-ready.save.json",
+      "ui/e2e/p06-visual-oracle-v1/s5-committed-to-release.checkpoint.json",
+      "ui/e2e/p06-visual-oracle-v1/s5-committed-to-release.save.json",
+      "ui/e2e/p06-visual-oracle-v1/s6-multi-picture-contention.checkpoint.json",
+      "ui/e2e/p06-visual-oracle-v1/s6-multi-picture-contention.save.json",
+      "ui/e2e/p06-visual-oracle-v1/s7-mixed-slate-hero.checkpoint.json",
+      "ui/e2e/p06-visual-oracle-v1/s7-mixed-slate-hero.save.json",
+      "ui/e2e/p06-visual-oracle-v1/s8-scale-stress.checkpoint.json",
+      "ui/e2e/p06-visual-oracle-v1/s8-scale-stress.save.json",
+      "ui/e2e/p07-visual-oracle-v1/manifest.json",
+      "ui/e2e/p07-visual-oracle-v1/s1-p07-committed-not-released.checkpoint.json",
+      "ui/e2e/p07-visual-oracle-v1/s1-p07-committed-not-released.save.json",
+      "ui/e2e/p07-visual-oracle-v1/s2-p07-newly-in-theaters.checkpoint.json",
+      "ui/e2e/p07-visual-oracle-v1/s2-p07-newly-in-theaters.save.json",
+      "ui/e2e/p07-visual-oracle-v1/s3-p07-active-run.checkpoint.json",
+      "ui/e2e/p07-visual-oracle-v1/s3-p07-active-run.save.json",
+      "ui/e2e/p07-visual-oracle-v1/s4-p07-divided-response.checkpoint.json",
+      "ui/e2e/p07-visual-oracle-v1/s4-p07-divided-response.save.json",
+      "ui/e2e/p07-visual-oracle-v1/s5-p07-run-complete.checkpoint.json",
+      "ui/e2e/p07-visual-oracle-v1/s5-p07-run-complete.save.json",
+      "ui/e2e/p07-visual-oracle-v1/s6-p07-same-title-twins.checkpoint.json",
+      "ui/e2e/p07-visual-oracle-v1/s6-p07-same-title-twins.save.json",
+      "ui/e2e/p08-visual-oracle-v1-p19/manifest.json",
+      "ui/e2e/p08-visual-oracle-v1-p19/s1-p08-recording-just-begun.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1-p19/s2-p08-release-divergent.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1-p19/s3-p08-publicity.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1-p19/s4-p08-weekly-settling.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1-p19/s5-p08-sparse-timeline.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1-p19/s6-p08-same-title-twins.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1-p19/s7-p08-no-current-location.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1-p19/s8-p08-old-save-not-recorded.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1/manifest.json",
+      "ui/e2e/p08-visual-oracle-v1/s1-p08-recording-just-begun.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1/s1-p08-recording-just-begun.save.json",
+      "ui/e2e/p08-visual-oracle-v1/s2-p08-release-divergent.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1/s2-p08-release-divergent.save.json",
+      "ui/e2e/p08-visual-oracle-v1/s3-p08-publicity.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1/s3-p08-publicity.save.json",
+      "ui/e2e/p08-visual-oracle-v1/s4-p08-weekly-settling.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1/s4-p08-weekly-settling.save.json",
+      "ui/e2e/p08-visual-oracle-v1/s5-p08-sparse-timeline.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1/s5-p08-sparse-timeline.save.json",
+      "ui/e2e/p08-visual-oracle-v1/s6-p08-same-title-twins.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1/s6-p08-same-title-twins.save.json",
+      "ui/e2e/p08-visual-oracle-v1/s7-p08-no-current-location.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1/s7-p08-no-current-location.save.json",
+      "ui/e2e/p08-visual-oracle-v1/s8-p08-old-save-not-recorded.checkpoint.json",
+      "ui/e2e/p08-visual-oracle-v1/s8-p08-old-save-not-recorded.save.json",
+      "ui/e2e/p09-visual-oracle-v1-p18/s1-p09-migrated-endowed-unchanged.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p18/s2-p09-sparse-start.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p18/s3-p09-valid-placement.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p18/s5-p09-office-rising.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p18/s7-p09-reconnect-same-ids.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p18/s9-p09-save-load-mid-construction.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/manifest.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/s1-p09-migrated-endowed-unchanged.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/s10-p09-first-film-released.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/s11-p09-stage-ready-no-set.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/s12-p09-endowed-build.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/s2-p09-sparse-start.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/s3-p09-valid-placement.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/s4-p09-invalid-placement.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/s5-p09-office-rising.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/s6-p09-multi-site.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/s7-p09-reconnect-same-ids.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/s8-p09-same-week-completion.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1-p19/s9-p09-save-load-mid-construction.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/manifest.json",
+      "ui/e2e/p09-visual-oracle-v1/s1-p09-migrated-endowed-unchanged.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/s1-p09-migrated-endowed-unchanged.save.json",
+      "ui/e2e/p09-visual-oracle-v1/s10-p09-first-film-released.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/s10-p09-first-film-released.save.json",
+      "ui/e2e/p09-visual-oracle-v1/s11-p09-stage-ready-no-set.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/s11-p09-stage-ready-no-set.save.json",
+      "ui/e2e/p09-visual-oracle-v1/s12-p09-endowed-build.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/s12-p09-endowed-build.save.json",
+      "ui/e2e/p09-visual-oracle-v1/s2-p09-sparse-start.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/s2-p09-sparse-start.save.json",
+      "ui/e2e/p09-visual-oracle-v1/s3-p09-valid-placement.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/s3-p09-valid-placement.save.json",
+      "ui/e2e/p09-visual-oracle-v1/s4-p09-invalid-placement.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/s4-p09-invalid-placement.save.json",
+      "ui/e2e/p09-visual-oracle-v1/s5-p09-office-rising.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/s5-p09-office-rising.save.json",
+      "ui/e2e/p09-visual-oracle-v1/s6-p09-multi-site.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/s6-p09-multi-site.save.json",
+      "ui/e2e/p09-visual-oracle-v1/s7-p09-reconnect-same-ids.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/s7-p09-reconnect-same-ids.save.json",
+      "ui/e2e/p09-visual-oracle-v1/s8-p09-same-week-completion.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/s8-p09-same-week-completion.save.json",
+      "ui/e2e/p09-visual-oracle-v1/s9-p09-save-load-mid-construction.checkpoint.json",
+      "ui/e2e/p09-visual-oracle-v1/s9-p09-save-load-mid-construction.save.json",
+      "ui/e2e/p10-visual-oracle-v1/manifest.json",
+      "ui/e2e/p10-visual-oracle-v1/s1-p10-person-inspector.checkpoint.json",
+      "ui/e2e/p10-visual-oracle-v1/s2-p10-person-history.checkpoint.json",
+      "ui/e2e/p10-visual-oracle-v1/s3-p10-contract-actions.checkpoint.json",
+      "ui/e2e/p10-visual-oracle-v1/s4-p10-career-linked.checkpoint.json",
+      "ui/e2e/p10-visual-oracle-v1/s5-p10-facility-history.checkpoint.json",
+      "ui/e2e/p10-visual-oracle-v1/s6-p10-shortage-roster.checkpoint.json",
+      "ui/e2e/p11-core-v1/manifest.json",
+      "ui/e2e/p11-core-v1/s1-p11-preconstruction.checkpoint.json",
+      "ui/e2e/p11-core-v1/s1-p11-preconstruction.save.json",
+      "ui/e2e/p11-core-v1/s2-p11-capital-heavy.checkpoint.json",
+      "ui/e2e/p11-core-v1/s2-p11-capital-heavy.save.json",
+      "ui/e2e/p11-core-v1/s3-p11-ongoing-deficit.checkpoint.json",
+      "ui/e2e/p11-core-v1/s3-p11-ongoing-deficit.save.json",
+      "ui/e2e/p11-core-v1/s4-p11-in-red.checkpoint.json",
+      "ui/e2e/p11-core-v1/s4-p11-in-red.save.json",
+      "ui/e2e/p11-core-v1/s5-p11-steady.checkpoint.json",
+      "ui/e2e/p11-core-v1/s5-p11-steady.save.json",
+      "ui/e2e/p11-core-v1/s6-p11-positive-long-payroll.checkpoint.json",
+      "ui/e2e/p11-core-v1/s6-p11-positive-long-payroll.save.json",
+      "ui/e2e/p11-core-v1/s7-p11-same-title-active-settled.checkpoint.json",
+      "ui/e2e/p11-core-v1/s7-p11-same-title-active-settled.save.json",
+      "ui/e2e/p11-core-v1/s8-p11-incomplete-history.checkpoint.json",
+      "ui/e2e/p11-core-v1/s8-p11-incomplete-history.save.json",
+      "ui/e2e/p11-core-v2/manifest.json",
+      "ui/e2e/p11-core-v2/s1-p11-preconstruction.checkpoint.json",
+      "ui/e2e/p11-core-v2/s1-p11-preconstruction.save.json",
+      "ui/e2e/p11-core-v2/s2-p11-capital-heavy.checkpoint.json",
+      "ui/e2e/p11-core-v2/s2-p11-capital-heavy.save.json",
+      "ui/e2e/p11-core-v2/s3-p11-ongoing-deficit.checkpoint.json",
+      "ui/e2e/p11-core-v2/s3-p11-ongoing-deficit.save.json",
+      "ui/e2e/p11-core-v2/s4-p11-in-red.checkpoint.json",
+      "ui/e2e/p11-core-v2/s4-p11-in-red.save.json",
+      "ui/e2e/p11-core-v2/s5-p11-steady.checkpoint.json",
+      "ui/e2e/p11-core-v2/s5-p11-steady.save.json",
+      "ui/e2e/p11-core-v2/s6-p11-positive-long-payroll.checkpoint.json",
+      "ui/e2e/p11-core-v2/s6-p11-positive-long-payroll.save.json",
+      "ui/e2e/p11-core-v2/s7-p11-same-title-active-settled.checkpoint.json",
+      "ui/e2e/p11-core-v2/s7-p11-same-title-active-settled.save.json",
+      "ui/e2e/p11-core-v2/s8-p11-incomplete-history.checkpoint.json",
+      "ui/e2e/p11-core-v2/s8-p11-incomplete-history.save.json",
+      "ui/e2e/p11-core-v3/manifest.json",
+      "ui/e2e/p11-core-v3/p11-long-portfolio-finance-projection.json",
+      "ui/e2e/p11-core-v3/p11-long-portfolio-measurement.json",
+      "ui/e2e/p11-core-v3/s1-p11-preconstruction.checkpoint.json",
+      "ui/e2e/p11-core-v3/s1-p11-preconstruction.save.json",
+      "ui/e2e/p11-core-v3/s10-p11-ready-package.checkpoint.json",
+      "ui/e2e/p11-core-v3/s10-p11-ready-package.save.json",
+      "ui/e2e/p11-core-v3/s11-p11-in-production.checkpoint.json",
+      "ui/e2e/p11-core-v3/s11-p11-in-production.save.json",
+      "ui/e2e/p11-core-v3/s12-p11-post-production.checkpoint.json",
+      "ui/e2e/p11-core-v3/s12-p11-post-production.save.json",
+      "ui/e2e/p11-core-v3/s13-p11-release-ready.checkpoint.json",
+      "ui/e2e/p11-core-v3/s13-p11-release-ready.save.json",
+      "ui/e2e/p11-core-v3/s14-p11-renewal-window.checkpoint.json",
+      "ui/e2e/p11-core-v3/s14-p11-renewal-window.save.json",
+      "ui/e2e/p11-core-v3/s15-p11-greenlight-queue-ready.checkpoint.json",
+      "ui/e2e/p11-core-v3/s15-p11-greenlight-queue-ready.save.json",
+      "ui/e2e/p11-core-v3/s16-p11-long-portfolio.checkpoint.json",
+      "ui/e2e/p11-core-v3/s16-p11-long-portfolio.save.json",
+      "ui/e2e/p11-core-v3/s2-p11-capital-heavy.checkpoint.json",
+      "ui/e2e/p11-core-v3/s2-p11-capital-heavy.save.json",
+      "ui/e2e/p11-core-v3/s3-p11-ongoing-deficit.checkpoint.json",
+      "ui/e2e/p11-core-v3/s3-p11-ongoing-deficit.save.json",
+      "ui/e2e/p11-core-v3/s4-p11-in-red.checkpoint.json",
+      "ui/e2e/p11-core-v3/s4-p11-in-red.save.json",
+      "ui/e2e/p11-core-v3/s5-p11-steady.checkpoint.json",
+      "ui/e2e/p11-core-v3/s5-p11-steady.save.json",
+      "ui/e2e/p11-core-v3/s6-p11-positive-long-payroll.checkpoint.json",
+      "ui/e2e/p11-core-v3/s6-p11-positive-long-payroll.save.json",
+      "ui/e2e/p11-core-v3/s7-p11-same-title-active-settled.checkpoint.json",
+      "ui/e2e/p11-core-v3/s7-p11-same-title-active-settled.save.json",
+      "ui/e2e/p11-core-v3/s8-p11-incomplete-history.checkpoint.json",
+      "ui/e2e/p11-core-v3/s8-p11-incomplete-history.save.json",
+      "ui/e2e/p11-core-v3/s9-p11-development-review.checkpoint.json",
+      "ui/e2e/p11-core-v3/s9-p11-development-review.save.json",
+      "ui/e2e/p11-core-v4/manifest.json",
+      "ui/e2e/p11-core-v4/p11-long-portfolio-finance-projection.json",
+      "ui/e2e/p11-core-v4/s1-p11-preconstruction.checkpoint.json",
+      "ui/e2e/p11-core-v4/s1-p11-preconstruction.save.json",
+      "ui/e2e/p11-core-v4/s10-p11-ready-package.checkpoint.json",
+      "ui/e2e/p11-core-v4/s10-p11-ready-package.save.json",
+      "ui/e2e/p11-core-v4/s11-p11-in-production.checkpoint.json",
+      "ui/e2e/p11-core-v4/s11-p11-in-production.save.json",
+      "ui/e2e/p11-core-v4/s12-p11-post-production.checkpoint.json",
+      "ui/e2e/p11-core-v4/s12-p11-post-production.save.json",
+      "ui/e2e/p11-core-v4/s13-p11-release-ready.checkpoint.json",
+      "ui/e2e/p11-core-v4/s13-p11-release-ready.save.json",
+      "ui/e2e/p11-core-v4/s14-p11-renewal-window.checkpoint.json",
+      "ui/e2e/p11-core-v4/s14-p11-renewal-window.save.json",
+      "ui/e2e/p11-core-v4/s15-p11-greenlight-queue-ready.checkpoint.json",
+      "ui/e2e/p11-core-v4/s15-p11-greenlight-queue-ready.save.json",
+      "ui/e2e/p11-core-v4/s16-p11-long-portfolio.checkpoint.json",
+      "ui/e2e/p11-core-v4/s16-p11-long-portfolio.save.json",
+      "ui/e2e/p11-core-v4/s2-p11-capital-heavy.checkpoint.json",
+      "ui/e2e/p11-core-v4/s2-p11-capital-heavy.save.json",
+      "ui/e2e/p11-core-v4/s3-p11-ongoing-deficit.checkpoint.json",
+      "ui/e2e/p11-core-v4/s3-p11-ongoing-deficit.save.json",
+      "ui/e2e/p11-core-v4/s4-p11-in-red.checkpoint.json",
+      "ui/e2e/p11-core-v4/s4-p11-in-red.save.json",
+      "ui/e2e/p11-core-v4/s5-p11-steady.checkpoint.json",
+      "ui/e2e/p11-core-v4/s5-p11-steady.save.json",
+      "ui/e2e/p11-core-v4/s6-p11-positive-long-payroll.checkpoint.json",
+      "ui/e2e/p11-core-v4/s6-p11-positive-long-payroll.save.json",
+      "ui/e2e/p11-core-v4/s7-p11-same-title-active-settled.checkpoint.json",
+      "ui/e2e/p11-core-v4/s7-p11-same-title-active-settled.save.json",
+      "ui/e2e/p11-core-v4/s8-p11-incomplete-history.checkpoint.json",
+      "ui/e2e/p11-core-v4/s8-p11-incomplete-history.save.json",
+      "ui/e2e/p11-core-v4/s9-p11-development-review.checkpoint.json",
+      "ui/e2e/p11-core-v4/s9-p11-development-review.save.json",
+      "ui/e2e/pf1-muted-reduced.spec.ts",
+      "ui/e2e/player-enablement.spec.ts",
+      "ui/e2e/publicity-campaign-v1.spec.ts",
+      "ui/e2e/recap.spec.ts",
+      "ui/e2e/session-recovery.spec.ts",
+      "ui/e2e/smoke.spec.ts",
+      "ui/e2e/stage-a-adoption.spec.ts",
+      "ui/e2e/stage7-production-detail-handoff-v1.spec.ts",
+      "ui/e2e/studio-gate-talent-arrival-v1.spec.ts",
+      "ui/e2e/studio-home-v1.spec.ts",
+      "ui/e2e/two-film-autopsy.spec.ts",
+      "ui/e2e/tycoon-build-catalog-v1.spec.ts",
+      "ui/e2e/tycoon-build-mode-v1.spec.ts",
+      "ui/e2e/tycoon-legacy-parcel-refusal-v1.spec.ts",
+      "ui/e2e/tycoon-move-demolish-v1.spec.ts",
+      "ui/e2e/tycoon-presence-on-the-lot-v1.spec.ts",
+      "ui/e2e/world-first-operational-annex-work-presence-v1/manifest.json",
+      "ui/e2e/world-first-operational-annex-work-presence-v1/week-13-operational-annex-available.save.json",
+      "ui/e2e/world-first-operational-annex-work-presence-v1/week-13-operational-annex-script-working.save.json",
+      "ui/e2e/world-first-operational-annex-work-presence-v1/week-14-operational-annex-production-development-working.save.json",
+      "ui/e2e/world-first-scenery-load-in-v1/manifest.json",
+      "ui/e2e/world-first-scenery-load-in-v1/week-30-nights-of-watchtower-stage-7-blocked.save.json",
+      "ui/e2e/world-first-scenery-load-in-v1/week-30-nights-of-watchtower-stage-7-ready.save.json",
+      "ui/public/audio/ambience-construction.m4a",
+      "ui/public/audio/ambience-lot-1948.m4a",
+      "ui/public/audio/cue-cancel.m4a",
+      "ui/public/audio/cue-commit.m4a",
+      "ui/public/audio/cue-completion.m4a",
+      "ui/public/audio/cue-construction-started.m4a",
+      "ui/public/audio/cue-positive.m4a",
+      "ui/public/audio/cue-refusal.m4a",
+      "ui/public/audio/cue-select.m4a",
+      "ui/public/audio/cue-sting-completion.m4a",
+      "ui/public/audio/cue-sting-greenlight.m4a",
+      "ui/public/audio/cue-sting-release.m4a",
+      "ui/public/audio/cue-warning.m4a",
+      "ui/public/audio/music-1948.m4a",
+      "ui/public/favicon-180.png",
+      "ui/public/favicon-32.png",
+      "ui/public/lot/b-stage-a-h2-ud.png",
+      "ui/public/lot/b-stage-a-h2.png",
+      "ui/public/lot/b-stage-b-ud.png",
+      "ui/public/lot/b-stage-b.png",
+      "ui/public/lot/hollywood/camera-dolly-occluder.png",
+      "ui/public/lot/hollywood/district-base.png",
+      "ui/public/lot/hollywood/district-manifest.json",
+      "ui/public/lot/hollywood/gate-foreground-occluder.png",
+      "ui/public/lot/hollywood/role-atlas-v1.json",
+      "ui/public/lot/hollywood/role-atlas-v1.png",
+      "ui/public/lot/hollywood/truck-occluder.png",
+      "ui/public/spike3d/PROVENANCE-REGISTER.md",
+      "ui/public/spike3d/PROVENANCE-lab05h.json",
+      "ui/public/spike3d/arch/Arch_M01_StageWall.glb",
+      "ui/public/spike3d/arch/Arch_M02_ElephantDoor.glb",
+      "ui/public/spike3d/arch/Arch_M03_BarrelRoof.glb",
+      "ui/public/spike3d/arch/Arch_M04_StageCorner.glb",
+      "ui/public/spike3d/arch/Arch_M10_BoundaryWall.glb",
+      "ui/public/spike3d/arch/Arch_M11_MarqueeGate.glb",
+      "ui/public/spike3d/arch/Arch_M13_WaterTower.glb",
+      "ui/public/spike3d/arch/Arch_M14_GroundTile.glb",
+      "ui/public/spike3d/arch/studio_hero_set.glb",
+      "ui/public/spike3d/characters/Char_CameraDP_Standard.glb",
+      "ui/public/spike3d/characters/Char_Carpenter_Heavy.glb",
+      "ui/public/spike3d/characters/Char_Director_Standard.glb",
+      "ui/public/spike3d/characters/Char_Electric_Heavy.glb",
+      "ui/public/spike3d/characters/Char_Grip_Standard.glb",
+      "ui/public/spike3d/characters/Char_Maintenance_Heavy.glb",
+      "ui/public/spike3d/characters/Char_Office_Standard.glb",
+      "ui/public/spike3d/characters/Char_PA_Standard.glb",
+      "ui/public/spike3d/props/Prop_AppleBox_Full.glb",
+      "ui/public/spike3d/props/Prop_Boom_attach_hand_r.glb",
+      "ui/public/spike3d/props/Prop_CStand.glb",
+      "ui/public/spike3d/props/Prop_CableReel.glb",
+      "ui/public/spike3d/props/Prop_DirectorsChair.glb",
+      "ui/public/spike3d/props/Prop_Fresnel.glb",
+      "ui/public/spike3d/props/Prop_Megaphone_attach_hand_r.glb",
+      "ui/public/spike3d/props/Prop_Slate_attach_hand_l.glb",
+      "ui/public/spike3d/props/Prop_StudioCamera.glb"
+    ],
+    "trackedPathCount": 1827,
+    "includedPathCount": 1214,
+    "authorizedManualInputsSeparate": true
+  },
+  "time": "2026-10-05T13:13:19.154796+00:00",
+  "head": "0960fa73bbe2672b5a51eb5d97d5579b1f035c02",
+  "sourcePaths": [
+    "src",
+    "bridge",
+    "tests",
+    "ui",
+    "generated",
+    "scripts",
+    "package.json",
+    "package-lock.json",
+    "vitest.config.ts",
+    "vitest.workspace.ts",
+    "tsconfig.json",
+    "tsconfig.bridge.json",
+    "tsconfig.src.json"
+  ],
+  "sourceFiles": 1214,
+  "sourceInventory": {
+    "bytes": 173532,
+    "sha256": "19efb8eb17e981ec7d5cf21c7711cf7a91a1a8efe52969c9e92cc0a9980312bf"
+  },
+  "manual": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-A-p4p5-initial-source-handback.md",
+      "bytes": 6555,
+      "sha256": "f664bbee7b60cf98b873d9e1306aa7098d461639d66d17e8321725c7e7d8bb61"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-B-p4p5-initial-source-review.md",
+      "bytes": 4817,
+      "sha256": "612c6e03516eae2d97409b6a2e8dd9413cd4e748e8d033567eb8673ca6bd01c0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-C-parent-application.json",
+      "bytes": 1073,
+      "sha256": "e9e4def058bdd0d83042ff1080e8d8457a56f56db3218e637f5b0f669e93aab8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-p4p5-initial-source-manifest.json",
+      "bytes": 9292,
+      "sha256": "f9b5a1aa719f6dbae60bb4771408c1e27c2d89c5f71e5552e92b27cbb1d99d23"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-p4p5-initial-tests.patch",
+      "bytes": 22208,
+      "sha256": "1280605d37280c444da5cd421233d3947985c427a73c1921a5d925e920a48bdd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-A-p4p5-concrete-contract-candidate.md",
+      "bytes": 11137,
+      "sha256": "13e09d9650970c50590fcacba05380fedeaad474c78e8cf0236fbb69b6773c93"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-B-p4p5-concrete-contract-review.md",
+      "bytes": 6254,
+      "sha256": "99cd64b99cefbadb9c81faa06240526490788fbd5654592d14c21edcbd8dd7bb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-C-p4p5-contract-refinements.md",
+      "bytes": 9541,
+      "sha256": "7cdb5961901f8185ffeca096732c38c51c5a2b7875a65b65249c5094992624c2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-D-p4p5-refined-contract-review.md",
+      "bytes": 4408,
+      "sha256": "ba78d2a66a485fd5dffe3f2c7e04628db8d506db5ce55e4102f25ad00468906b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-E-parent-contract-adoption.md",
+      "bytes": 2421,
+      "sha256": "4831b2daaaef568576d3f54d3d602146715bbfe53fbc4240c88ba583f4026cb5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-F-assignment-owner-clarifications.md",
+      "bytes": 2460,
+      "sha256": "242a780dc92ee428b29bb62a56bc36dc83c80329b021804692b7828c9f1e0940"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md",
+      "bytes": 13965,
+      "sha256": "b402b10beb7f31cc01bc866e7fa1aae680fca48abe1f96c1e2801f18dd024fa9"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1224-A-p4p5-preservation-attribution.md",
+      "bytes": 3699,
+      "sha256": "7c331be57ec964367f38511fc7ce2e4905314ada5489ffaabfdba0d2f4b062ab"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1224-B-p4p5-preservation-review.md",
+      "bytes": 6291,
+      "sha256": "b660ce5ac2b03ea04a0edcd9595b67af411f8227c3b3703ab60d9314db9ba0d3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json",
+      "bytes": 11550,
+      "sha256": "a261fc3177527d05d5a8daf624de7af015df8c9a8fedd3e11b37fe1597a2f4b6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+      "bytes": 86995,
+      "sha256": "12799a849b0b4aff49cd9707ea8c1b87c64b4e787ff261b2e9cf4b109a953117",
+      "raw": {
+        "bytes": 751294,
+        "sha256": "e7401f2578a7ad151383ca905df4253c2bbd82d6823c406c28b7e76aa809c5af"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json",
+      "bytes": 21306,
+      "sha256": "02115df5d6e7d4c33284b9a439a7c79601e1b2e807f4fa96c20149f5c84186f3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-bound-week52.json.gz",
+      "bytes": 93047,
+      "sha256": "b894a85ffad37378f93dc8a8e83bad926ab7a1bb857dd76e9b9926b520fec6e1",
+      "raw": {
+        "bytes": 811917,
+        "sha256": "eae34cd10d457ad551028f3d0a160a55a74d5153b73653b257dc89a4338b040b"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-earned-week61.json.gz",
+      "bytes": 101049,
+      "sha256": "97a1a96c32f0abe290a798734b322611e0be1f5a1c29461753c1d0b50feeceeb",
+      "raw": {
+        "bytes": 881829,
+        "sha256": "94558001e85aef5f46d709c07397dedda296416fe86e4f7482caeee88470cace"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-satisfied-week78.json.gz",
+      "bytes": 114159,
+      "sha256": "788fdd550d240751c0ca4d89991b7dfd925495341f19b6e09c30d6efd8520e29",
+      "raw": {
+        "bytes": 1007748,
+        "sha256": "d0ce6b5427f2ca880214024019798e3372123e8148f542a6e22578b11c18ee80"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-canceled-work-week61.json.gz",
+      "bytes": 99923,
+      "sha256": "c6492f5660b2e8fb20d48c6f054566b25f47500512d2b9ff87a8a6ebb46788b6",
+      "raw": {
+        "bytes": 877528,
+        "sha256": "8ebb7ca8758c79c8ada73889d24ecc4038e1e3b0edf5bd77c56c723cffee290d"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-waived-week61.json.gz",
+      "bytes": 101260,
+      "sha256": "95ca93ba0a0f16b1c11ad34960a9617217685a681e8ad27ebf896e75f1debb0e",
+      "raw": {
+        "bytes": 882749,
+        "sha256": "ad25e44bde2ec18bef17a37a252de4ee9323dd0d7b50dbdaf424be50a5d9abce"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-D-p4p5-test-syntax-correction.md",
+      "bytes": 2646,
+      "sha256": "84626eb03dd948156558a6c713fdcc55057585c8858719c06643cc2ea837db7f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-E-p4p5-syntax-correction-review.md",
+      "bytes": 2822,
+      "sha256": "e010f0b50400fd4a2897f9bf93b014b85a19d230c1221b01c6312cd89ba7d13c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-F-parent-correction-application.json",
+      "bytes": 469,
+      "sha256": "c774736a2738be3fe0bd46f8c7c926d22f89fa85a5288f4d077c860d5347bc5c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-d-syntax-correction-manifest.json",
+      "bytes": 11807,
+      "sha256": "1549a654de1e776304a546605ca8f014d4a44d8b35fe741fd3acfc9be70c6687"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-d-syntax-correction.patch",
+      "bytes": 480,
+      "sha256": "a3843bd68c16cf410d9cb0eff61d467d6fd9d46c73ecc493b74df58740c6773f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-d-syntax-stage/tests/p14p4p5-opportunities.test.ts",
+      "bytes": 21703,
+      "sha256": "73a358bafa523282e24abbac64748877eda4a4cdc934a40783a665c791e26005"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1231-A-core-draft-checkpoint.json",
+      "bytes": 3019,
+      "sha256": "a58ee5c217cbc2d719163007c6de411f12d37c5aa8ae23cfbbacfec8814d32be"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt",
+      "bytes": 1226,
+      "sha256": "36921548246e8ec4cc2241353cf62fa1e9868cc037a62e2a8a1a0bf26cc35342"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1231-B-core-integration-corrections.json",
+      "bytes": 1914,
+      "sha256": "41d7347508d430f376b74f3316af7bc6861055999934c221647a528cffa0109d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1231-C-physical-reason-review.json",
+      "bytes": 555,
+      "sha256": "176862e08350d3a5304a9822bdc99c22b74f020ce5d94bbe6c196222f2d6bfc0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1231-D-tie-ranking-source-review.json",
+      "bytes": 520,
+      "sha256": "09cdd9106fc4991ea6d783d24de9e647a56ed1891d923ba19bbb83ebc00611e5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-C-p4p5-binding-source-handback.md",
+      "bytes": 7993,
+      "sha256": "ca97ab7d25d01ce4908442644cc2cd13662f87a3661f80f3225959a7508e8406"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-D-p4p5-binding-source-review.md",
+      "bytes": 5243,
+      "sha256": "121f50c7366b6251f01386f4c7a7d54aa08250f4e62bfe6c80dc87c204b86bfa"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-E-parent-application.json",
+      "bytes": 1584,
+      "sha256": "be550310315b666e91040b1da6e35b9a56bee81f87459449f701594bd6d70714"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-p4p5-binding-source-manifest.json",
+      "bytes": 10462,
+      "sha256": "d355ffa68c376ab0d2c97cac6912a2f9e2bae95643d3360f55401144e12b8f4b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-p4p5-binding-tests.patch",
+      "bytes": 27707,
+      "sha256": "3d76aeca932195de5907dde292f265f05b81e33464bc101aefbe3bc798d48a35"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1234-A-p4p5-initial-candidate-attribution.md",
+      "bytes": 11500,
+      "sha256": "c8e66783d787f70f7742953c1347ab39b9c0976d78a55e0b4ce20c2ff62fc33f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1234-B-p4p5-initial-verification-review.md",
+      "bytes": 6058,
+      "sha256": "2b6baa3dae5dcbee9cef09c6a4a99adf529324ce8baa6bed27a5a8b76b92f127"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-A-test-compatibility-handback.md",
+      "bytes": 5711,
+      "sha256": "cdff9102432c0165d101b68a7e2f9b86fab332984e7951ac87bcb57d0dbde78d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-B-test-compatibility-source-review.md",
+      "bytes": 4299,
+      "sha256": "9dfb75f01411d9c55461ff01de17bd3133854ad681f548efd9aa1da64840d7cd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-C-parent-application.json",
+      "bytes": 1115,
+      "sha256": "4e9dba15a036c352dc5ce6988fcc1951221bb5cac94a2d99f64d7432e374ab58"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-manifest.json",
+      "bytes": 21695,
+      "sha256": "f3518aac7bd692dbf00421b3d8e6101c5f5f99e60b8e2eb8aeaf43268ea2dc10"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility.patch",
+      "bytes": 53344,
+      "sha256": "31e4a909be8e224d8edfbca789cdfc67d9d6c2aa9422d21106f7bab41c72210b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-A-bridge55-test-plan.md",
+      "bytes": 11658,
+      "sha256": "6f29b6a056c935f3e5a842f29a05c176b0b65c00d9a2d7b0c88c5c9212c114cb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-B-bridge55-plan-review.md",
+      "bytes": 5418,
+      "sha256": "5caf5bf36c636282c3fd88d7f78fb66721a352acbcc00dfbf0d1168f6944fe62"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-C-bridge55-source-handback.md",
+      "bytes": 10977,
+      "sha256": "de6124779601e5ea89f465e290afa14c169eb01f037d4a6918ddaa62919148af"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-D-bridge55-source-review.md",
+      "bytes": 7462,
+      "sha256": "140846ced0209ba098a5574ccfe21651bcebc5ed373803e9c6392a01a3f43a61"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-E-parent-application.json",
+      "bytes": 1704,
+      "sha256": "82ff374c64cc74c73de5be2fe3a6e1355a2064cb9457ce6588965e115161e9c8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-F-save-response-schema-correction.md",
+      "bytes": 2666,
+      "sha256": "1badf6f1b2b299be61c5fe84ade4dd2aa08bfbdec8b5b74e34d016b4063b7c9f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-G-save-response-schema-review.md",
+      "bytes": 2585,
+      "sha256": "218a6c02248efcb111dbabcb78f9a3cab06543de2bc164cf9f0153674b38f4ae"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-H-bridge55-ui-gate-review.md",
+      "bytes": 2855,
+      "sha256": "16e7649fcc533ddf7271ca13876b7c80c1e7f47031b2d0b3a199316db59db31f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-I-parent-ui-and-compiler-closure.json",
+      "bytes": 2890,
+      "sha256": "0feb2f0ee18c01b939fb000c288e389bb64202e04ba72cdaba7e73b88f0f9dbd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-J-bridge55-targeted-attribution.md",
+      "bytes": 8641,
+      "sha256": "474139c022a3bc2cef8edafeb6c7f79176cd2df0494be0a66ae89ad91598ab0e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-K-bridge55-targeted-review.md",
+      "bytes": 5819,
+      "sha256": "1ec72e4da65ac062fe31787d1c03a4094b9288104856cb15c5e94a84b4d2687d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-L-parent-runtime-closure.json",
+      "bytes": 8179,
+      "sha256": "c14ad9324b0c5e452014c487dbd380152ff23641b28686587956f8ee62ef8aca"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-A-p4p5-retained-authority-controls-plan.md",
+      "bytes": 12313,
+      "sha256": "43b07070d8ba50c7a7a0e52bf57a0f9012478b8539b58379f25f19a443774e17"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-B-retained-authority-controls-plan-review.md",
+      "bytes": 3134,
+      "sha256": "198d8bcda6dfacb99342bc06d3a466c936143ecb9aabe14576ec6716260fe8a1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-C-retained-authority-source-handback.md",
+      "bytes": 7852,
+      "sha256": "f74dcdd387bc2217e9545e0206784b6c01fae2b7c1b57c18468f8bdf87b44257"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-D-retained-authority-source-review.md",
+      "bytes": 5417,
+      "sha256": "8d09191f1e9c4c9b5c82b80a6b8240759b2404da4c8751188f51964344f60f53"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-E-parent-application.json",
+      "bytes": 2523,
+      "sha256": "40b96262bf9a84bbea549f57ccca4ad979ca3be1c14738e78894faf24d4b7fd2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-F-nonempty-reservation-witness-addendum.md",
+      "bytes": 3374,
+      "sha256": "3114aa4a2ac6e4484d20f7ab9c3a690fed6ead1bbd00f3a3c1fff6b61c373cfb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-G-readonly-facts-correction.md",
+      "bytes": 2119,
+      "sha256": "436b27f98ef6809a8ad3dbf4d907a602e28acb058c44b66185e0a0680390b1f5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-H-readonly-facts-correction-review.md",
+      "bytes": 2252,
+      "sha256": "9a22b2910b76c539c1dcf5c3c4e686fb77ce49dd96a1cd0c9d4c043c87194fb9"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-I-retained-authority-verification-attribution.md",
+      "bytes": 10745,
+      "sha256": "e3f2cd27af72a3d6c079b770e34c46d454d6dbc612246311f307d0fafbd795f8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-J-retained-authority-verification-review.md",
+      "bytes": 7487,
+      "sha256": "98669356507cbd57fe01a15b6b64861de211258e4631e12dd3bdf34575068c94"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-K-parent-controls-closure.json",
+      "bytes": 19280,
+      "sha256": "112e67037799d2e10d04146ec92a13452d73062c48bbbb0f6c6756853f1fe550"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-A-screenplay-status-plan.md",
+      "bytes": 13707,
+      "sha256": "f54de0ba95c57bb1152107e1cd3f7164b2ab1bfed27a6315a54308632cc3a051"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-B-screenplay-status-plan-review.md",
+      "bytes": 4741,
+      "sha256": "825027b2501f69268f66993c29300641ab342e2209fc6a1806c15e1251c03d58"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-C-screenplay-status-source-handback.md",
+      "bytes": 7047,
+      "sha256": "c742e7817b98d80b5d3f15aa1e733a7267dbfa48db516013c5df1ef62420bd9d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-D-screenplay-status-source-review.md",
+      "bytes": 5676,
+      "sha256": "c75d9c872615ee6284c225a1806184d767adaf608074e7d0ddea25bb5f5be7f5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-E-parent-application.json",
+      "bytes": 1500,
+      "sha256": "f5527de3751286d8009fb31b05cce67d838fcccd90602d5354a59d2b47ea1105"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-F-casting-clock-addendum.md",
+      "bytes": 4584,
+      "sha256": "40f88047a14a6b25a9d120c2a91d85e26af957e37523090dc2af36f74de4e731"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-G-arrival-and-fact-only-addendum.md",
+      "bytes": 4766,
+      "sha256": "02266e23fa60d98f5fc791d5d93dae69a5b066aac7af8d0092e80b1780b25dc5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-H-arrival-and-fact-only-plan-review.md",
+      "bytes": 3685,
+      "sha256": "77f23a5e89c983de94eada50a2900fde31b7de0c9312ac71bbc76c7446f55869"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-I-screenplay-status-verification-attribution.md",
+      "bytes": 10804,
+      "sha256": "627c4a3d64cfe1e29289714a44d2925dee33af0a1913e90b2e04254a00860aa8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-J-screenplay-status-verification-review.md",
+      "bytes": 7299,
+      "sha256": "4469afb14bc1f50cfcf8bdfc5a5785204abcce666fb8677d79f8751792afd7a5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-K-parent-status-closure.json",
+      "bytes": 31043,
+      "sha256": "8635a4561cf208cc44a9201b8647e6b4b76a89b86a1e7986a24b5d2f2f311a06"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-screenplay-status-source-manifest.json",
+      "bytes": 9559,
+      "sha256": "4f6445ff9229525b3b6bf9183734bc8e49d1aaeba9dd80c7e3814ae97b720d70"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-screenplay-status.patch",
+      "bytes": 27033,
+      "sha256": "5b5973b9ee8c76daadff5a75cd6f9dc065008cbea9b27e0d8b5aecd4241f8738"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-status-stage/tests/p14p4p5-screenplay-status.test.ts",
+      "bytes": 26435,
+      "sha256": "496ea58490a0695410ab88bf98ca41830594718061ad9051c3e011e86b6d0506"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-A-root6-receipt7-settlement-proposal.md",
+      "bytes": 5182,
+      "sha256": "cf97fedca87584c917397cee58f36b3f3f90c673ce4453b75c66d7d591cb59ec"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-B-root6-receipt7-plan-review.md",
+      "bytes": 4523,
+      "sha256": "63619e6bd9e76758c5e16e3ca3001a052cd44dc9fe105742a5e0887615b29a68"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-C-root6-receipt7-source-handback.md",
+      "bytes": 7550,
+      "sha256": "d6447ea808e59dfa3d38267cef7aed360871dcb32192fe3e6f1f258e3f03bf38"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-D-root6-receipt7-source-review.md",
+      "bytes": 6869,
+      "sha256": "e3f5ac0be623701d8082ef73bcc8e9adc742e43cf21624a0ab0cf2f426a931bd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-E-parent-application.json",
+      "bytes": 1479,
+      "sha256": "c51310bc5aeaa6431543ef5569760eb39c40b77f3f816c237839003de83366dd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-F-observation-bounds-addendum.md",
+      "bytes": 5400,
+      "sha256": "f8ebc70e167de528808f848207161554c38a3fecf4bbc0f914003ebfe0def4b3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-G-observation-bounds-review.md",
+      "bytes": 3486,
+      "sha256": "415c5a548fc4aed37dc09bcd4f7ef25eed6774b109d009afd1051264825d2216"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-I-root6-receipt7-verification-attribution.md",
+      "bytes": 10476,
+      "sha256": "38dab747cd5b98d7da6c1c51b582549618e0a6f3f77b33c5fa4644c85c500c4f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-J-root6-receipt7-verification-review.md",
+      "bytes": 7474,
+      "sha256": "fe8cd6cf30d313bdea00069d99685d85b817546dce058f6fd0eca60c66dc6acd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-K-parent-settlement-closure.json",
+      "bytes": 46455,
+      "sha256": "3be427fc9eadf412218424041724310f1caadb39cdccb3e0eea5f44627ac8096"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-L-type-narrowing-handback.md",
+      "bytes": 2319,
+      "sha256": "8c5bf64f36cb27332346c0709fc81ce2044a19c859c814313611f4a54df1d226"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-M-type-narrowing-review.md",
+      "bytes": 2965,
+      "sha256": "0c91b3459985f8792c4fb1cab985bbf94075aace4dba0428e29dd3910da6f1e5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-N-parent-narrowing-application.json",
+      "bytes": 1694,
+      "sha256": "ed7f4fa0adbafe4f89fc4e8d040df85bf99a612d987b59f2653e81ddf0047bd6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-root6-receipt7-source-manifest.json",
+      "bytes": 8976,
+      "sha256": "272744f5f6a918be0431709a4b0a3709a2c000aa5021a50993fdd3e6178dcebd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-root6-receipt7.patch",
+      "bytes": 26031,
+      "sha256": "e22d5ddad8d12ac1290bd541ac90fdd091c94690d1d9c70038746205b40d4b38"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-type-narrowing-source-manifest.json",
+      "bytes": 10464,
+      "sha256": "565a01652e442be2f171836e209c9829ac1e070f80b2cd8d43ec3b57c733b34d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-type-narrowing.patch",
+      "bytes": 970,
+      "sha256": "4cde95b42163d3a9dc1eb3b4978dbd3318acff08857e7865d56cc1a4d1b7b39d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-receipt-stage/tests/p14p4p5-receipt-freeze.test.ts",
+      "bytes": 25474,
+      "sha256": "548cd0c48e0a30b923c20d9ab6acc962c12537ca439235cc98be197d0f37583e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-type-stage/tests/p14p4p5-receipt-freeze.test.ts",
+      "bytes": 25498,
+      "sha256": "c1ee22dec887614a2b1489ca4c1578f670841e11fc0157a67921967674c913d3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-A-active-writer-availability-proposal.md",
+      "bytes": 4741,
+      "sha256": "3e9deaca5756fde0f391d9485be8fa81ae113952cb44da066cd1bc2028606807"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-B-writer-and-development-plan-review.md",
+      "bytes": 5788,
+      "sha256": "ba141376c166035b1e24cb0ca75a526a72af4a79bfe4214294e1cb7358f13a0c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-C-writer-resource-source-handback.md",
+      "bytes": 7211,
+      "sha256": "54238ca8506bee328b6af60ad98032a2859441c5461684ebf7802cd6103d9f75"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-D-writer-resource-source-review.md",
+      "bytes": 6994,
+      "sha256": "2aa9a50ce005923cc904f27753386edbb743b73c873273eed98e1ba232f27d3c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-E-parent-application.json",
+      "bytes": 1487,
+      "sha256": "4c9cbb477e595142783f4a1ded1b701e28941191f77414d5f5e883125b6dfd29"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-F-development-capacity-proposal.md",
+      "bytes": 4696,
+      "sha256": "06387d3fa533df088be5d3f5d20e0c5b211349381d58725194b53564e9d3aa8b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-I-writer-resource-verification-attribution.md",
+      "bytes": 10630,
+      "sha256": "6b69d42bcd8bbea47a3d15da4e0df3f108089e3f486c77384df1e1ec56d84071"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-J-writer-resource-verification-review.md",
+      "bytes": 8865,
+      "sha256": "9c557d3e0dcd69afa91d6c83491ede0551b8c5503d1dd285c2eb21d9959d4351"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-K-parent-writer-resource-closure.json",
+      "bytes": 60333,
+      "sha256": "d1ec02f56db436a166b8484eb1bc5d6f0c5c17ada8b2ad778a8dbdeaf1c68984"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-writer-resource-source-manifest.json",
+      "bytes": 8512,
+      "sha256": "53969597117d24f6d1b05f03f2413ec784d1bd8b387466ff210228c2e7780c84"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-writer-resource.patch",
+      "bytes": 24393,
+      "sha256": "53111943f78f7642bf09dac1e71667cf844e8c8618860a8b310341ac2edef498"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-writer-stage/tests/p14p4p5-writer-resources.test.ts",
+      "bytes": 23883,
+      "sha256": "4e2f660b54501150e016ec757e675163b1de972f804be3457f23444b45b6aed0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-A-stock-subject-route-proposal.md",
+      "bytes": 5796,
+      "sha256": "1a2f4119c5d576f14a2c7dae44ce7f4e1d9b734fea2bef43fa82ffbb79838cd2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-B-stock-subject-plan-review.md",
+      "bytes": 6095,
+      "sha256": "077bfb94caf85af1a1bed89359c33e068e4294b8842cbc278585b2165162f941"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-C-stock-subject-source-handback.md",
+      "bytes": 9991,
+      "sha256": "42b126a829dceaad1b2908961430899a3d03c012730c111ac5b5559ac15ae831"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-D-stock-subject-source-review.md",
+      "bytes": 8203,
+      "sha256": "78f35aca12f6752dd3e81b7465ca214a820b093265f80b3cbccf5ace6b6fccc5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-E-parent-application.json",
+      "bytes": 1545,
+      "sha256": "03c571043ccb77aebbb0b5414ac220de930c3be21069a3cd6136255156dae0f0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-F-release-authority-addendum.md",
+      "bytes": 2585,
+      "sha256": "87fc917172a016b39ae297799e460467bdfe19eb4fa49d002a352ce2a521f958"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-G-release-stamp-correction-handback.md",
+      "bytes": 11322,
+      "sha256": "920f02d64a9fcfb00797ee3ad60f3dcb6932e85b4b33e96e69995f9480559fd4"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-H-release-stamp-correction-review.md",
+      "bytes": 3914,
+      "sha256": "29ee9912f9dc09c064ee381885218686c9431f37d35d75a1c7a77e22be65c009"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-I-stock-subject-verification-attribution.md",
+      "bytes": 12409,
+      "sha256": "42e3dc94227a9df1066b477f151e5083792e42c4782244b84190caeecbc2fa53"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-J-stock-subject-verification-review.md",
+      "bytes": 9282,
+      "sha256": "f7d344d7fda7fa880cafb64e8ee949bc2512cc59eedf4c3af61d0f090cd06979"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-K-parent-stock-subject-closure.json",
+      "bytes": 32752,
+      "sha256": "89671c1d26de2b7f209c4b59682d3953edef4e8704a98fee44cffdedc2641d0f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-L-parent-initial-failure.json",
+      "bytes": 29177,
+      "sha256": "8deae25f665d2c92a33bcbf05f04c167aa3a798a1ca3ff780551dc1702d23bfb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-M-parent-stamp-application.json",
+      "bytes": 1790,
+      "sha256": "ad22bb76a554e61cbb8328aeff5d4277e4fb979781c1a3605e4e89e57c5d75c7"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-release-stamp-source-manifest.json",
+      "bytes": 13229,
+      "sha256": "aecf5919d946eed14862e9dab876a18084046235fe986e43f63b58bf904f7f12"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-release-stamp.patch",
+      "bytes": 1140,
+      "sha256": "91846140da9ba1f0ec75a2f881ebf08030a127740c1ee8c3d1adb8d39892dcbc"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-stock-subject-source-manifest.json",
+      "bytes": 9136,
+      "sha256": "9dbe98eae36de4ddd46feddc9b2eeddb6dd3ece60a9075f636d7dd1e779ff767"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-stock-subject.patch",
+      "bytes": 25690,
+      "sha256": "4c1df6ee29042f3c29de7781786afef1846cb24f6a1b5c228240f79a9d9656d1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-release-stamp-stage/tests/p14p4p5-stock-subject.test.ts",
+      "bytes": 25170,
+      "sha256": "060ac12b20b2cce1310d940589c2a9e886a8be0dbbbd904036fe6d5e848ebed8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-stock-stage/tests/p14p4p5-stock-subject.test.ts",
+      "bytes": 25170,
+      "sha256": "9222330c3734325fb934c2d98c684cb3b71eaa3611c4748c5accbeb963e6ebd3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-A-retired-acting-material-proposal.md",
+      "bytes": 5199,
+      "sha256": "75b62c7b5e62cf6ecba437aa1423839095a190c1714f6f0c01ce8cc66a3f55f0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-B-retired-acting-material-plan-review.md",
+      "bytes": 6236,
+      "sha256": "76fcb9c7c80fec3b79b68fb176838a90db17358b0c1a54bf8f6e5f4ae68ab661"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-C-retired-acting-source-handback.md",
+      "bytes": 5727,
+      "sha256": "9f448b1e4d246451084256104eb4cf080edcb9108c55170572f34c16070ceb56"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-D-retired-acting-source-review.md",
+      "bytes": 4653,
+      "sha256": "933df9d621a7d069a459ba8015788b3baf8f0d2d00ccc1889a6ef838cab658c2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-E-parent-application.json",
+      "bytes": 1733,
+      "sha256": "6dbcb6774c0e25b72f41d45ad6aaa2b7636819dc80979ebfe7eb223debe6a5fd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-F-provenance-limits-addendum.md",
+      "bytes": 1437,
+      "sha256": "639336bde7a56605fade1f28c6ed3131168bff4e258aa9f47af348cefccbbb96"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-I-retired-acting-verification-attribution.md",
+      "bytes": 5977,
+      "sha256": "f6dbc4278fad04caa424161ce9d7e253f406365394120f19be8f10b9cdeffab1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-J-retired-acting-verification-review.md",
+      "bytes": 5834,
+      "sha256": "cc16489c12d7fe2c2a863652aab71fbb10798de7857ee7881099c82408e24c74"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-K-parent-retired-acting-closure.json",
+      "bytes": 34731,
+      "sha256": "43e008fc6305b3cb1f8fdaf0ede57d13c4dac40dd3d37fdd9e68be177546bdea"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-retired-acting-source-manifest.json",
+      "bytes": 9085,
+      "sha256": "20a84158da19b55cd89f886c95d076547855b6e377dee330a6979f04522132f8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-retired-acting.patch",
+      "bytes": 16074,
+      "sha256": "a5a7b710a919c916622c87c9d460311a6f70a12db358755a342800c35c71883f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-retired-acting-stage/tests/p14p4p5-retired-acting.test.ts",
+      "bytes": 15682,
+      "sha256": "1ce0b6e6247226b2d513cf7b12cab494e4247e190f87ad6c8a0093c39d8a4ffd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-A-cross-owner-availability-proposal.md",
+      "bytes": 6521,
+      "sha256": "58fd273f44ed2e089459531aaaf9cba97a9e55cfa8a32737143d7ca2934eadae"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-B-cross-owner-availability-plan-review.md",
+      "bytes": 7146,
+      "sha256": "e97d67ec3ba0b362a9a6d5d51a02d17eed9251689b37c5bbb23c7532ab2d739c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-C-cross-owner-source-handback.md",
+      "bytes": 4833,
+      "sha256": "ae03d783d1ff059417147ad423928a24e21e0baacd5eb47adc1df8ddbd0952c2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-D-cross-owner-source-review.md",
+      "bytes": 3990,
+      "sha256": "fa0518a27d7fcb4be6c54e4885b5734adc418ae550050a9ef592792efe8c8117"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-E-parent-application.json",
+      "bytes": 1739,
+      "sha256": "d4d9fe83bfcbc312c9dcafea75143a19f5e8c101ce7691a60a2bc74e1a7ac653"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-I-cross-owner-verification-attribution.md",
+      "bytes": 5973,
+      "sha256": "11ef6f1e2dfa86cb17e0ebb99ba39843c7ac11fb183d3f40e169ed75e1e453f3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-J-cross-owner-verification-review.md",
+      "bytes": 5635,
+      "sha256": "918c0c695e3c8be19af9b542f0da4ca8de7ae56a1dc0617779adb225810e79fb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-K-parent-cross-owner-closure.json",
+      "bytes": 72933,
+      "sha256": "1a93102c6e9900e8e299b056081c0f1bd7c55c1c108738c9b23ba0c4869f485f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-cross-owner-source-manifest.json",
+      "bytes": 9844,
+      "sha256": "769ceb5c84bf068720fb695acf8143f9697a3d2b4f786ecf12fab66869ea9aa0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-cross-owner.patch",
+      "bytes": 18882,
+      "sha256": "94e1bbe1cab580d156e44fa336ec1acce2be77aa69c5c6723316ac27a57a21d7"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-cross-owner-stage/tests/p14p4p5-cross-owner.test.ts",
+      "bytes": 18482,
+      "sha256": "301acd4a82ee48c71da6002c095c296c0c8fe306d0866848141f7ac2d130ca3c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-A-finishing-material-proposal.md",
+      "bytes": 7984,
+      "sha256": "14444aa9877823bc6f133726a8c232842c72021b569b7f5070891b5f930e1d9e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-B-finishing-material-plan-review.md",
+      "bytes": 9265,
+      "sha256": "f2269607f693a8535dc41266b23183ffcb876c0d48a628920075aa118a064865"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-C-finishing-material-source-handback.md",
+      "bytes": 5922,
+      "sha256": "6db3e95be91c9c9cb7e1b56536daf07343867a0639522e3ceff7184b07c83d11"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-D-finishing-material-source-review.md",
+      "bytes": 5775,
+      "sha256": "c70afae6795314722b25d88ae307745616ecf214ab165876e346857aff71f476"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-E-parent-application.json",
+      "bytes": 1991,
+      "sha256": "fd2edc5f1b332dadccca0a492b4936c515b3ae243da434cebffcb24a0eeb4724"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-F-original-provenance-addendum.md",
+      "bytes": 1470,
+      "sha256": "b1850bac86cd9a3155ef124279515d571fdbe9119483eb776a33e84e4537996d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-I-finishing-material-verification-attribution.md",
+      "bytes": 5960,
+      "sha256": "1199ba4116b3349a4dc9a23441a5a4bda28f76d0586e9bc74149e029efb13aca"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-J-finishing-material-verification-review.md",
+      "bytes": 6090,
+      "sha256": "82ee5475bbdcbe9a96f058a9ae492b6747c9b7fe921079ce6340c7ad52d43006"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-K-parent-finishing-material-closure.json",
+      "bytes": 128611,
+      "sha256": "b487014b13cbbf90c525568abf8ee74b3681df34e99d8f1358f57dcf7c318fab"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-finishing-material-provisional-preimage.ts",
+      "bytes": 29211,
+      "sha256": "f0ffa3c8b249396040c0d6806ce7bc24ec13260d14d99fcb92155b484d3341a7"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-finishing-material-source-manifest.json",
+      "bytes": 13487,
+      "sha256": "97d733da4a6b1242df61cc01c186fdd9b78b7a0d02ba45d56dc1e4da7a938961"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-finishing-material.patch",
+      "bytes": 30590,
+      "sha256": "0b926c3fd701c8fb92a1559710e8fa271d53b46fb7072baf6e8ed06028e039dc"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-finishing-material-stage/tests/p14p4p5-finishing-material.test.ts",
+      "bytes": 30044,
+      "sha256": "6ac099679b6f5e0b0bf04a37db3608fa9e7b56a8d6bf513996fb268aa3350fa5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-A-grouped-witness-proposal.md",
+      "bytes": 9370,
+      "sha256": "cb312abe44af8bc071688547ada363e9dab555b6e3f6ddf51fee10bff65d3da2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-B-grouped-witness-plan-review.md",
+      "bytes": 7426,
+      "sha256": "859b6a0a5f56f797310f0f705d9caf645a4f37231f47fcdd81bba681c29fd51e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-C-grouped-witness-source-handback.md",
+      "bytes": 6575,
+      "sha256": "56b159f24d15ce997e6687089ad2913ed052ca385512591517b74a7e59fcd60e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-D-grouped-witness-source-review.md",
+      "bytes": 5565,
+      "sha256": "d2ed2722a4c6714486a83cc3eb09528f5d4458d178b958d8145f3b45979a5b58"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-E-parent-application.json",
+      "bytes": 2014,
+      "sha256": "313e593817ad155a9455e4442cc062815914c4a91c9d0908e15e483040e4b95c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-I-grouped-witness-verification-attribution.md",
+      "bytes": 8420,
+      "sha256": "4af3b894df0cab2f578019ff711b4282dd51c797d62e0cf262ae1b7090427648"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-J-grouped-witness-verification-review.md",
+      "bytes": 6913,
+      "sha256": "e443224dd5fe742c43fea41856d39ffdae793a771d3367d74a4d987c4250671d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-K-parent-grouped-witness-closure.json",
+      "bytes": 180638,
+      "sha256": "ce544b9f5a101e057a1c966264cb7ee4b88d4fd603296603db569407e1bc27b4"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-grouped-witness-source-manifest.json",
+      "bytes": 13113,
+      "sha256": "b6dbc3c57fc63ee479afe70afd71abce012366a1c8fb0c5cc2931682fa1bb5ab"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-grouped-witness.patch",
+      "bytes": 46891,
+      "sha256": "04a9d1362f898b72334f00fef5cf7ce8e5e446958163b887b45d621e963d3b2c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-grouped-witness-stage/tests/p14p4p5-grouped-witness.test.ts",
+      "bytes": 46119,
+      "sha256": "781937cda4f29caf34de4d86629eee473350a878cad0758b2ea3f6a269d23ddf"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-A-casting-reservation-proposal.md",
+      "bytes": 7486,
+      "sha256": "5fbdf0928d87fe87ba0a86bec735a0f2acc899eaf645eb24f7f76ee0b7061bf0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-B-casting-reservation-plan-review.md",
+      "bytes": 5647,
+      "sha256": "9c9182d08dc98b3ba6346bb441dbd368d87f143b2cefae8bf9e7c36a4b03a09e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-C-casting-reservation-source-handback.md",
+      "bytes": 6766,
+      "sha256": "8ea91d0a88cd4aedc7bdd3fcb7daef24c85f43a20b43ae02eab71b116c9b94c2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-D-casting-reservation-source-review.md",
+      "bytes": 5664,
+      "sha256": "451341008a23998d64b50f8976de5b3a76204e064bb823aedc4fe8383de38d66"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-E-parent-application.json",
+      "bytes": 2104,
+      "sha256": "43fc4faa34a884ce9aecdec130665861bd51d65d7e2af2614e12d5088b86682f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-I-casting-reservation-verification-attribution.md",
+      "bytes": 8503,
+      "sha256": "6678a1ffd993dc6bfda3c3dea4e013f6ca4e4d95a512db1b04c3b0a3397b4576"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-J-casting-reservation-verification-review.md",
+      "bytes": 6744,
+      "sha256": "e6b5533bb6d5faa7a87a134440184b12edfd3dfbf64b360a64cff81e85243921"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-K-parent-casting-reservation-closure.json",
+      "bytes": 21720,
+      "sha256": "586954580ba785b118138966dd0c9d78b23eda78b13af61fa1075d44cb9d00e1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-casting-reservation-source-manifest.json",
+      "bytes": 11005,
+      "sha256": "c97e352d7cfe7afbfa8d8ce5be6543de264e9fd26583bcf395a23b0b261e8ffc"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-casting-reservation.patch",
+      "bytes": 25066,
+      "sha256": "8e3ad5b75eb462d91b0ffee071b376a45f6d1f601d2c7d630dedaf119a2eafb0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-casting-reservation-stage/tests/p14p4p5-casting-reservation.test.ts",
+      "bytes": 24532,
+      "sha256": "9157ad0cdd1a3e1c1f6afed086e2488c934758a7fa487e38a158d21d5f1bd822"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-A-delayed-retirement-proposal.md",
+      "bytes": 8240,
+      "sha256": "ddf58eef3e098780a7d335a2efc8063542b038ad6ed238229c30837f12a20c56"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-B-delayed-retirement-plan-review.md",
+      "bytes": 6049,
+      "sha256": "91bbde7d433998c45a99def253f5011a72ecbfd906d79f72a5ec10ca6f7dcbb2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-C-delayed-retirement-source-handback.md",
+      "bytes": 8803,
+      "sha256": "6cd44474852aa0264ee41c82a5b79ba97272609d5a5d8706cb5cb89285f5b8dc"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-D-delayed-retirement-source-review.md",
+      "bytes": 7590,
+      "sha256": "2adb9ae304f4c89881bedbd00e9d57324e405e51d79b1a59b3bbfa6dde995f7a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-E-parent-application.json",
+      "bytes": 2352,
+      "sha256": "442c3e7fc5dfcc35d326e1d5157fea9c3c93fd5fa4ae2047da05e2002f0e97a3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-I-delayed-retirement-verification-attribution.md",
+      "bytes": 11480,
+      "sha256": "bed93302b45aa719d3d843f4a9d75ab6f4af9bae94cea5ffd3b04d88f6226a1a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-J-delayed-retirement-verification-review.md",
+      "bytes": 8485,
+      "sha256": "6d64f57247d0970427ed4680105b7a1ab818c7d6fea65763ec331f3d8bed3634"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-K-parent-delayed-retirement-closure.json",
+      "bytes": 35520,
+      "sha256": "83251c497ad9d5af3fa2ee4019e397002261ae6e4c6f942e52fa46d4d20c87f7"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-delayed-retirement-source-manifest.json",
+      "bytes": 11919,
+      "sha256": "dade598ebded86848dab04f65521879b22d03369ba004780f252386e73cdf632"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-delayed-retirement.patch",
+      "bytes": 43553,
+      "sha256": "5175c10587abb37188656b5f95c423bd5da8edac99b29b2354ac819d7fcb35de"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-delayed-retirement-stage/tests/p14p4p5-delayed-retirement.test.ts",
+      "bytes": 42810,
+      "sha256": "d7de5234ff171dc330aa4472bd5482e18a99a86ea1f1dda377f3b107b9acc579"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-A-soundstage-capacity-proposal.md",
+      "bytes": 6434,
+      "sha256": "68fc856074e84d2570006361cf4b0b7975f4b8463decb18bbb7b1f0b93bfb23b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-B-soundstage-capacity-plan-review.md",
+      "bytes": 5693,
+      "sha256": "150a5c17115dbf45ea0d93475f3e6767d39cd46afc76e5f0c48a040bebe97867"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-C-soundstage-capacity-source-handback.md",
+      "bytes": 7350,
+      "sha256": "79bacfa66b21b53271f60ca979dc5b9c0eff11a00751566f924e3407dac856dd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-D-soundstage-capacity-source-review.md",
+      "bytes": 5851,
+      "sha256": "6ad52d5d8b3dd647ea39b48947b37616a475eaa588b91b76d9e4d4eb599fe863"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-E-parent-application.json",
+      "bytes": 2354,
+      "sha256": "01091af183d146b73755c36695ba5397ab90b14b45f0e15cb408a4301fabfab0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-I-soundstage-capacity-verification-attribution.md",
+      "bytes": 10540,
+      "sha256": "cbb65c3339babd74aeecdd8d559ca4ea7a183a5143df444ce28e5b1dd7414cf7"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-J-soundstage-capacity-verification-review.md",
+      "bytes": 7376,
+      "sha256": "484869ab6f8b9845ef0c10e3f218a8bf5f9f81ac8690fb4a4380a11430c2cd95"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-K-parent-soundstage-capacity-closure.json",
+      "bytes": 23869,
+      "sha256": "cb946612b87b0b1ba8fff2a6d75e021b0ebdd0339a4507e9db623bda2b54949d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-soundstage-capacity-source-manifest.json",
+      "bytes": 14419,
+      "sha256": "ccc5d7d5c5a28ebc3449d3229d650975a128c0d865a73f954454a21ade353b36"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-soundstage-capacity.patch",
+      "bytes": 28168,
+      "sha256": "de9b38cb7595a6e66fcf7a20538ef5b69ed132689a6a7e18c66eac2f6c8c8389"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-soundstage-capacity-stage/tests/p14p4p5-soundstage-capacity.test.ts",
+      "bytes": 27651,
+      "sha256": "a858733f70b30d35c4bb7c614981513d640567ac552ac63c47dffe209f8b2b8e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-A-queued-project-outcome-proposal.md",
+      "bytes": 8144,
+      "sha256": "ae4805cef549e22aea780ad625975d8c852a4b33008225cdb30fcd41244078aa"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-B-queued-project-outcome-plan-review.md",
+      "bytes": 7154,
+      "sha256": "5c5d3d065bb4607961921e021712b962285574eabeac8faa1646fe8ed75099ea"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-C-queued-project-outcome-source-handback.md",
+      "bytes": 8550,
+      "sha256": "33471b3ac32bddfa20c8825724736f9cbe1b76abeb27472d9a5b38b9e4c82de6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-D-queued-project-outcome-source-review.md",
+      "bytes": 6330,
+      "sha256": "d836ea276c295e245020c969dd78af94e115f54e7276ab10389c47d1ca5f59fc"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-E-parent-application.json",
+      "bytes": 2431,
+      "sha256": "cfbe044e8db88ded386d4a01b45e71b1045c504c6e13b8a80932be4fd16d7f42"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-F-parent-plan-precision.md",
+      "bytes": 1123,
+      "sha256": "1e457ea7cf965de0f4f3f272865bbeb4a64ada8397a1a51a61980d80bf3cc0ea"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-I-queued-project-outcome-verification-attribution.md",
+      "bytes": 13367,
+      "sha256": "f2c2c1c7a42c42a493119a23d6ffc996cbca34a854b32e05fcbaabbe6d069a23"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-I-wording-correction.md",
+      "bytes": 1323,
+      "sha256": "9d337a87f7453d6603f1751493140bda524ae29e570cc6e0253ca85f073e9e02"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-J-queued-project-outcome-verification-review.md",
+      "bytes": 7973,
+      "sha256": "7bf29d4091210fe930e10c3a5fe59f644f81b07dec089b3500be69d1a49d1372"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-K-parent-queued-project-outcome-closure.json",
+      "bytes": 59170,
+      "sha256": "5767571732b6bece7515ff0f1316a46dffb037643b87c0f03638ae06736cc0ee"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-queued-project-outcome-source-manifest.json",
+      "bytes": 14703,
+      "sha256": "3ae084700f7ea789e2ecfb0d23ba7776d65c90dbb2f46cf4b81bc39425200d4d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-queued-project-outcome.patch",
+      "bytes": 47673,
+      "sha256": "8ff1e445f999e2ac5e25f2aa8a46bb9d6e1f1411bfb5758d5696b81d85d9acce"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-queued-project-outcome-stage/tests/p14p4p5-queued-project-outcome.test.ts",
+      "bytes": 46898,
+      "sha256": "e1a4c0789e0546085c44e91aaddaa72754fcedc8f50c18ef48e5d6e26ca8ea33"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-A-scenery-capacity-proposal.md",
+      "bytes": 8137,
+      "sha256": "2cbfcbf68fba87c60bcff404868325d4c8dbd97d6c00c5ac2555a2d44bc6f6b6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-B-scenery-capacity-plan-review.md",
+      "bytes": 6052,
+      "sha256": "f10909d0b104ead7b7682333f1bd571e5e2f02027bf3cfaf7740fcbcdca5421d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-C-scenery-capacity-source-handback.md",
+      "bytes": 6872,
+      "sha256": "99987d9cc539cf9c64d5a776e1489e93d476d4fa0566678ae658c64d52c72d9e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-D-scenery-capacity-source-review.md",
+      "bytes": 5418,
+      "sha256": "6a23fc3c0307fc7e942a3760a3a3900e7f33714d3ea51fcbb3213a2989e70ba0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-E-parent-application.json",
+      "bytes": 2355,
+      "sha256": "3ff7970594119e82fe9e7ea813ee1181492215efb918ada9484b709df7a6214d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-F-parent-plan-adoption.md",
+      "bytes": 2042,
+      "sha256": "6ffcd2b34d9d9e68b5b4ad7e123d65e0adaaa3518030f7349f5902c87e01ab76"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-I-scenery-capacity-verification-attribution.md",
+      "bytes": 9854,
+      "sha256": "f52e68e3afb197e1809b54b8bc01fcdadd00052da8785a69ce237bdd39b672eb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-J-scenery-capacity-verification-review.md",
+      "bytes": 7506,
+      "sha256": "eb351d72f534160e482aaecce9eced0088777220e9b32fbce0778bc9ec055c15"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-K-parent-scenery-capacity-closure.json",
+      "bytes": 16623,
+      "sha256": "e81e2500b4b3caf97f4db3c36e60dbec17ced8765e10bb5350af1f1241e2c739"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-scenery-capacity-source-manifest.json",
+      "bytes": 15680,
+      "sha256": "e2dcd184d9fab71e1c6984d1a2350562793ea9d788240a8e86d1370f505e1cad"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-scenery-capacity.patch",
+      "bytes": 26115,
+      "sha256": "1d1ee10cb6178699e3a01218a4a73a0ffbe26ed8161bcd5d5a5ae3915b14897a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-scenery-capacity-stage/tests/p14p4p5-scenery-capacity.test.ts",
+      "bytes": 25606,
+      "sha256": "439cda265df237532c6e64be97f83790b4c40e6bcd182bfd8ee0e9738457a412"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-A-post-capacity-proposal.md",
+      "bytes": 14186,
+      "sha256": "97be0fdd7dbfcb16cc97c3a972078ebc9a9521ec82062779585d10432689c661"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-B-post-capacity-plan-review.md",
+      "bytes": 8069,
+      "sha256": "4951ac4342e33623d6953e07d48d6d81824502e2f2d141644dcd549788b1250d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-C-post-capacity-source-handback.md",
+      "bytes": 9089,
+      "sha256": "f10089ea6984b9c23e270046bd4ccb84c185f5b6219cee53ef548994af31f738"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-D-post-capacity-source-review.md",
+      "bytes": 7615,
+      "sha256": "305a6d08b486bb71f7447252caf8dabe089ac1acd604887227d49611f03fa4d2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-E-parent-application.json",
+      "bytes": 2495,
+      "sha256": "a953c3c028c3edff5a6478498cb230c029e9897e3ede28b679541b50da829885"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-F-parent-plan-adoption.md",
+      "bytes": 2879,
+      "sha256": "fd2c198b91176b9dda97b19a185b4f4397c9be88eb6cb2a368e026868b352c5f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-G-type-narrowing-handback.md",
+      "bytes": 3656,
+      "sha256": "363cceed8376696af496171fa74ddb715c7b2e0fdb7f98e6898a943c42af46be"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-H-type-narrowing-review.md",
+      "bytes": 3545,
+      "sha256": "b09a81dc979c8ef134917647d83da127e33000608698b2d18505ddb69f43eda4"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-I-post-capacity-verification-attribution.md",
+      "bytes": 11964,
+      "sha256": "6b9297521282bd28976ed69099308f120caf707890649d46ee25748ff73428c2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-J-post-capacity-verification-review.md",
+      "bytes": 9476,
+      "sha256": "58ec8453aed93ca79145e8e8b74963251a1116a6e0f4e79f05e4c9a453eeae67"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-K-parent-post-capacity-closure.json",
+      "bytes": 44000,
+      "sha256": "268e5dd89e3a8ac1e816a5a80c99d6ed15c702abe06d705dc109997d4f4de485"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-initial-types-failure.md",
+      "bytes": 1513,
+      "sha256": "4da78f460fb2c9223c856f165f4cb3608f097ad96dd79210834c57f3b82f89b4"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-parent-type-application.json",
+      "bytes": 1596,
+      "sha256": "6bbc17c7a82e107b4fde24da4506017cda85f1be8168621a39123cd1a42a5b65"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-post-capacity-source-manifest.json",
+      "bytes": 18522,
+      "sha256": "2f457cd81d090318a9af621df6fd1a1c70cf3f0445f7c689249b479cdad85b4c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-post-capacity.patch",
+      "bytes": 50831,
+      "sha256": "a159ccf5d60be067c6e498c7d621368b868eb99f61a9acfb450a75d474cfad51"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-type-narrowing-manifest.json",
+      "bytes": 14449,
+      "sha256": "a996ce07ea6e365ceec4109e60d7ac86e65dffe9721a58e01006a151561e225e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-type-narrowing.patch",
+      "bytes": 1954,
+      "sha256": "e411332127febb268a45343458f00cd87a21d34fa0cef0f4ff671c6843e3cd13"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-post-capacity-stage/tests/p14p4p5-post-capacity.test.ts",
+      "bytes": 50058,
+      "sha256": "0b3907b1cd997318e55291fd33a6d580beb1c5b40eddadf70ccfe612e5bfc133"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-type-stage/tests/p14p4p5-post-capacity.test.ts",
+      "bytes": 50088,
+      "sha256": "3527d3468da5cc8baf2bc30545c01eee75ca92371f0d27ac8c223e450afd4369"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-readonly-facts-manifest.json",
+      "bytes": 3514,
+      "sha256": "bf6c3247d30bf064a19dd1f06465b3d2c59e7eb5cdcafe8226f6014858131175"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-readonly-facts.patch",
+      "bytes": 1710,
+      "sha256": "2ff0341545efd4892a26606572edc9a9e970a09aafbfcc3ee38c211edc3f2c61"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-retained-controls-manifest.json",
+      "bytes": 9767,
+      "sha256": "3e9e6a59c1305f1d1794e673f0a94cb1e20eb7e4f853f5df1278ef2de3d23894"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-retained-controls.patch",
+      "bytes": 32674,
+      "sha256": "9b8678e824c0fea3ed66052f433e9cae0c50407f8fd026e4773e91c6ff352e71"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-save-response-manifest.json",
+      "bytes": 3342,
+      "sha256": "fdfaf75f20f7ad3e874032625393e01c7b02b5e5db3b256834035ab9a7365c82"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-save-response.patch",
+      "bytes": 764,
+      "sha256": "b9d0e9c4d52e7ca740db5860c4fa4ec541957d001b61edf13e79dad39cc324d5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-bridge-source-manifest.json",
+      "bytes": 13153,
+      "sha256": "d6ccaf192f0074e5f2cb5f82a90f66fc8515327b3cb385968bb4f9e66aca3f93"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-bridge-tests.patch",
+      "bytes": 43966,
+      "sha256": "989aad5097989aacb14ef672082c390bd53ed56884e9e5e0d5ecd7d50690a22c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1239-A-p4p5-binding-cast-attribution.md",
+      "bytes": 9448,
+      "sha256": "290d7a49a166736749d3da0729afb328893d575bcc8cd6bb53bb48f65f7072ac"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1239-B-p4p5-binding-cast-review.md",
+      "bytes": 6368,
+      "sha256": "7f7f5c7fce54d2f10c7636708398b19ec4d7c6ae6568b0da5d8e800d301d8d42"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1239-C-attribution-correction.md",
+      "bytes": 634,
+      "sha256": "2ce34d6ac60b3cc27f13dbeb6151df1c2662b0cb1d29c583f3cb4d2c31132cbc"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1240-A-bridge55-draft-checkpoint.json",
+      "bytes": 2325,
+      "sha256": "83d7e26f7f9bf12cafb514622882e4b8384981948480a95f79ff49b233a34308"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1240-B-bridge55-source-review.md",
+      "bytes": 7232,
+      "sha256": "9a1e3c9d1a046c5d5a1fab02fd5fff4507b30dce7f7d4c3b0f2fa70e9ac0378a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1240-C-frozen-driver-type-isolation.json",
+      "bytes": 819,
+      "sha256": "36483baa3322ec5daad0857ddd44ef9ab6b4dbbd602415a25d248bbf64651a2a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1240-D-bridge55-static-gate-review.md",
+      "bytes": 2900,
+      "sha256": "aef839b99d401c031657a4efb4eb70150c7b15872dca4e97b2872f9206fd3f8a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1240-bridge55-generation.json",
+      "bytes": 3475,
+      "sha256": "d4dcbadfea96173a4ac91553cd86e178188442168784e49eaa06802e2584ef65"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1240-bridge55-generation.txt",
+      "bytes": 438,
+      "sha256": "dd990d4494604452caef1fa1315c8378c6fad7d0927e8af2e51c9ff6e4ee0b9c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1240-bridge55-pre-generation.patch",
+      "bytes": 25287,
+      "sha256": "b3ec5b0657818cebbbb81bf7fb09119ec42d58f54ba064a3b92cc8066804a69e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-A-bridge-compatibility-handback.md",
+      "bytes": 4687,
+      "sha256": "16d75b9aed1331ac33feb6d7573b11ab70503073c063264e3bb4c24f8b8f3417"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-B-bridge-compatibility-source-review.md",
+      "bytes": 4186,
+      "sha256": "abc8c69e70e418aacc40e9928784ab10dfab8f661d50a780d3afd6d7dd781ee4"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-C-parent-application.json",
+      "bytes": 741,
+      "sha256": "2bb58c8030c6fdbb5404e1115fa7539b6caaa4510a07b6105e283ce479a3bb6f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-D-pending-quote-alias-correction.md",
+      "bytes": 1779,
+      "sha256": "3e246c1618fc0698b9a178ac32da238dee133c6648f4adf05916b652b49ee13c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-E-pending-quote-alias-review.md",
+      "bytes": 2371,
+      "sha256": "94ce96f412831b9b4454dff428f9d14a0911cac1984a7702ee7332ac7eb3e2b8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-bridge-compat-manifest.json",
+      "bytes": 3706,
+      "sha256": "af79cb8374cc23498ae50e8f1e9cc88840aeb054f34b5d6b0345db38fc14cb2c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-bridge-compat.patch",
+      "bytes": 12851,
+      "sha256": "0a1d1cb7b1b9da7b10e807a0e449b6d32a35043e39d61720f524497f63d1a94a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-pending-alias-manifest.json",
+      "bytes": 1820,
+      "sha256": "dc937018a582e874688e64e79be41da30c41660790ada44e5af5e20f9ce26cd9"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-pending-alias.patch",
+      "bytes": 575,
+      "sha256": "e84f477cae631a5a22b4a9be10008d5d71d7a4f3ac43e74ede28bcbda730e692"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/975-A-c3-historical-controls-producer.ts",
+      "bytes": 16163,
+      "sha256": "5de47c19d3c665e79590126c3c7155d517ef65fc3285a69a751a539cc355e161"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/978-c3-historical-controls.json",
+      "bytes": 2980,
+      "sha256": "8ce1f5fc19b5b416324df3832d594fdd40a12cf2ad042a9f7b8e6836a7d41559"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/978-c3-historical-controls.txt",
+      "bytes": 52939,
+      "sha256": "94cb438c8251dcf3c8194b3ab13146398c38158c8ef677d24ab124095d6150bf"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/978-c3-historical-controls.patch",
+      "bytes": 214642,
+      "sha256": "3acb791a875fcce2403ebe2809e8e312e3318d41b7c2834ff45d964c33a5aa92"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v31-pre-b7/MANIFEST.json",
+      "bytes": 57343,
+      "sha256": "e48480c30d4dab1775e1728f5e254443dc4343727efb4130ca17cce9166284c7"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-bound-open-p1.provenance.json",
+      "bytes": 8210,
+      "sha256": "84172a3f26ece7ca62af118ed2fc86ce467fba3c12d3b9c9f584776fd8a92905"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v31-pre-b7/genuine-v31-bound-open-p1.json.gz",
+      "bytes": 88981,
+      "sha256": "6b5d54b485cdf661118506dcc26d42fd798fb29721154709a6bd208fd4ab769b",
+      "raw": {
+        "bytes": 753251,
+        "sha256": "0ff9044f4529b3821efe3be92911bce10768fa03ff08653db2ac4ac0dda000eb"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v38-pre-p3/MANIFEST.json",
+      "bytes": 345615,
+      "sha256": "87db7cc4885f5e9a9464d8e2c3e586be84078550aebf1155a672fa2782a2c987"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-natural-week208.json.gz",
+      "bytes": 174916,
+      "sha256": "a7418eb0f90fa2d10ae65e78e3c3b9e75ec19346970c677c1cfdeefce42b2960",
+      "raw": {
+        "bytes": 1705876,
+        "sha256": "ebb00ca54328ef3340d959d830045d28c73dc493b8f069220256183e718fc4bb"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-pre38-validation-controls/MANIFEST.json",
+      "bytes": 48338,
+      "sha256": "c9609b940ae77bf3d5c99c81463152d2c4b8782372da59249b942d1e51f1b101"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-all-statuses-week312.json.gz",
+      "bytes": 221085,
+      "sha256": "4c53ede9e7b548b60f09385a7d0427bedcfca98654bb62d3619ed6b549121d18",
+      "raw": {
+        "bytes": 2185646,
+        "sha256": "f0316e4966e2bd4ce092accc0abe2b0c2e83b6f2a047827d866e08102ca6ff33"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-all-statuses.provenance.json",
+      "bytes": 7589,
+      "sha256": "043b645d0dc808164f85c24e31d69665429609921ef018669f705bfff9770769"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-active-endurance-driver.ts",
+      "bytes": 66372,
+      "sha256": "f7d19d39218b9570b3be65a14a0e3cd0a346dd06be1beb283a9bdcc830dfff4d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-bounded-source-c2.mjs",
+      "bytes": 3581,
+      "sha256": "ae167b103ddaa714268cd63e163daa4966b0c3b8f07bfa3e9bd8f0c7d07751a2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-bounded-source-guards.py",
+      "bytes": 6092,
+      "sha256": "1a1e144c25dd36320c64237d5b58f19d848eb85171fa777e5772c2c3fff1a20e"
+    }
+  ],
+  "index": {
+    "bytes": 1841242,
+    "sha256": "6bac221de4c6dacca9b6a2b43246b849ea23a6fd138c8aabe8fb2fd75f3c4b89"
+  },
+  "stageEntries": {
+    "bytes": 1635956,
+    "sha256": "0c7b9b5c53615e2b58539f7758b4d0d7139dc19d26d502694b1419547eccdbab"
+  },
+  "record": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-trust-import-r2-c0-types-source-r1.json",
+    "bytes": 56095,
+    "sha256": "8107c2374247865512c7d36457a43de3a8f77f63ec3bc17a0751fa3f7f9c6689"
+  },
+  "raw": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-trust-import-r2-c0-types-source-r1.txt",
+    "bytes": 47242,
+    "sha256": "795c5fc7aadd8c3ec1095f83edb8f9b550695535358879280e889b7fb68b4f3b"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-trust-import-r2-c0-types-source-r1.patch",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fixedSource": true,
+  "exitCode": 0,
+  "allGuardsExact": true
+}

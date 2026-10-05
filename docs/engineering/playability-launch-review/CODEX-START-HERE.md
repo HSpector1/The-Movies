@@ -1,5 +1,11 @@
 # CODEX continuation — Project Studio
 
+## CURRENT —1368-H: writing routes and lawful witness evidence accepted; integrated recovery remains open
+
+[1368-H](evidence/p14b4-20260919/1368-H-writing-trust-and-termination-evidence.md) preserves both guarded416 writing routes with all417 admissions and full replay; independently accepted genuine Save45 week195 imported-current trust witnesses; and exact six-termination contract/accounting attribution. The original trust and R3 test corrections have static approval; final integrated execution is pending. The accepted trust fixture is adopted without alteration.
+
+Ledger r2's timeout remains. Optimized r3 C0 p13a416 completed within the original budget: count40/status/RNG match, but four protected digests differ. No repin or historical equivalence is claimed. Continue fixed matched attribution, combined test execution, landing/broad gates and1363-V/G-P/G-L/K3. Fullr4 remains unlanded, main unchanged, recovery IN PROGRESS. HANDOFF owns exact next commands; older CURRENT blocks are historical.
+
 ## CURRENT —1368-G: Guarded integrated focused verification GREEN; recovery remains open
 
 [1368-G](evidence/p14b4-20260919/1368-G-guarded-integrated-focused-verification.md) records full swept r4 with the reviewed writing guard: all4 typechecks and2 generators exit0; writing4PASS, retirement9PASS, original protected comparisons3PASS; original recovery scopes46/52/2/24/111/2PASS. Exact source/index/recorder guards passed. Tests retain original assertions, budgets and genuine fixtures. The candidate remains unlanded; live Save45+F6 is unchanged.

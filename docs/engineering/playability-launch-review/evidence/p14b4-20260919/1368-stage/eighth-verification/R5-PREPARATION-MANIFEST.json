@@ -1,0 +1,118 @@
+{
+  "status": "PREPARED_KIT_PRESERVED_NOT_EXECUTED",
+  "archive_sha256": "f2386fe511d437ac7545be165f1983ad5d96f8ac4a6ca8e3ef13b6542a83679c",
+  "archive_bytes": 151081,
+  "file_count": 18,
+  "logical_bytes": 918476,
+  "files": [
+    {
+      "path": "scratch/1368-r5-integration-prep/ASSEMBLER-DELTA.diff",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/ASSEMBLER-DELTA.diff",
+      "size": 6438,
+      "sha256": "16f2c77042e39f95fb14f5588683893849b8bdea1814916536934f1caea75efc"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/EXPECTED-ASSEMBLY.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/EXPECTED-ASSEMBLY.json",
+      "size": 3314,
+      "sha256": "a9ad5137718a81158f986f4bd50a63a84fbc24c8cd0f05e52d584f6b98a037ca"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/EXPECTED-SOURCE-PINS.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/EXPECTED-SOURCE-PINS.json",
+      "size": 184175,
+      "sha256": "9af6eb3fad4efd27cf2a231d70dca0f3239ae05e97e1ce0d2db0ca1cf1054704"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/FIXTURE-ADOPTION.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/FIXTURE-ADOPTION.json",
+      "size": 548,
+      "sha256": "84f55fd50b66bf7d7960cca2bab95f0d224b86ae01afecb1560ea5f1d6dbcf34"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/FIXTURE-PINS.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/FIXTURE-PINS.json",
+      "size": 4363,
+      "sha256": "4193c02f8e0279ab2feb8d48b25ac945db73215745cc170ebbd4c466bd6fadde"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/HANDBACK.md",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/HANDBACK.md",
+      "size": 7160,
+      "sha256": "851762375262ca857a987c27ba0f34a3f7199d08cde7ca339fffe2151f72c004"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/INTEGRATION.patch",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/INTEGRATION.patch",
+      "size": 20057,
+      "sha256": "ef0788e09a2c94709e9d1ea5f722d68fb84b9074bf4b2c09c6bc4378df2eb0a4"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/MANIFEST.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/MANIFEST.json",
+      "size": 2383,
+      "sha256": "54a4edccec2faaf2610f636667c01fb9a339756ad87dcac334fa28cd40b1a2c2"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/PATCH-RECONSTRUCTION.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/PATCH-RECONSTRUCTION.json",
+      "size": 759,
+      "sha256": "33605d74ff1def5c6a74b6bc10236350e382091355160f9235081274fe402681"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/PREIMAGES.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/PREIMAGES.json",
+      "size": 5556,
+      "sha256": "4ae9d48ba1f93cc46d7198bbf9be5fab10356979d48a18bdb039dc7187889f20"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/RUNNER-REBIND.diff",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/RUNNER-REBIND.diff",
+      "size": 11894,
+      "sha256": "270c1f3ee3b740b904c99a2a6262524a99d990f2431227a608071ac31110c7ca"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/SELECTION-DELTA.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/SELECTION-DELTA.json",
+      "size": 446,
+      "sha256": "28ef024075b4263830a7495355c682a43bd94bcf2db6d95214b4661088df655c"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/SELECTIONS.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/SELECTIONS.json",
+      "size": 638046,
+      "sha256": "0bf14c6aed5eca51c959a7031e518e3899bb930a15f479d32d1122906eda18d8"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/SOURCE-DIFFERENCE-PROOF.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/SOURCE-DIFFERENCE-PROOF.json",
+      "size": 1331,
+      "sha256": "2de4639c0a839076ec41f94a927039022f6dac4a6c8dcffd9af7e32d678f58f3"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/assemble.py",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/assemble.py",
+      "size": 6077,
+      "sha256": "05535fa13808c691638043a2b9e3a0659a57bfaf36fbe801db3a0da47db613d8"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/author.py",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/author.py",
+      "size": 14166,
+      "sha256": "62a5f47080f9ed2d30d4bdf4aa3d0d17b756ea86c06267283b807119f918c2a4"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/run.py",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/run.py",
+      "size": 11213,
+      "sha256": "f5c5ff296587a37703497bc82e37f28e76c61541a626f213a497e91b4ab77cb6"
+    },
+    {
+      "path": "scratch/1368-r5-integration-prep/tsconfig.producers.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-r5-integration-prep/tsconfig.producers.json",
+      "size": 550,
+      "sha256": "c3d3fff642f0b14c1f4d8a118613fd5379edc769a4fd04bb629ee2c0818bc553"
+    }
+  ],
+  "kitManifestSha256": "54a4edccec2faaf2610f636667c01fb9a339756ad87dcac334fa28cd40b1a2c2"
+}
