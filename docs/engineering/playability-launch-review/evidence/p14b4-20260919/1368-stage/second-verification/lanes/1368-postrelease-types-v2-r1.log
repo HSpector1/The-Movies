@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/run-types-v2.py", line 9, in <module>
+    head=m.git('rev-parse','HEAD');idx=m.R/'.git/index';ih=m.sha(idx);diff=m.git('diff','--no-ext-diff','HEAD','--binary');selfhash=m.sha(__file__)
+                                                           ~~~~~^^^^^
+  File "/Users/zacheryspector/studio-scratch/1368-postrelease-prep-v2/run-delayed.py", line 26, in sha
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                          ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 777, in read_bytes
+    with self.open(mode='rb', buffering=0) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotADirectoryError: [Errno 20] Not a directory: '/Users/zacheryspector/The-Movies-headless-program/.git/index'

@@ -1,0 +1,16 @@
+{
+  "BASE-PINS.json": "d4100c22690ef9e31a7c8eb0d8ee3665741132169f4ef1af68f040a14891519a",
+  "HANDBACK.md": "3d8ce29298fd4e8d22b733f9c926076b14f2c2337ed1443869726ddb587b2230",
+  "author_consumers.py": "1570c79d168ca50b6f3ae1df8b63d2732212a67aa39dfbd56ed3f13128a4871d",
+  "c-consumers.patch": "a3f59623d3a044c135feb2584f9b61e9d4b9ee9d04e4a27250580c47e0630d38",
+  "files/tests/1368-recovery-witness-producer.test.ts": "4a2c5da3ca4a0cdc90cc6c6a71add79ae0adc22f57a53f0b465bde3d6b4c335a",
+  "files/tests/helpers/1368-archived-route.ts": "84f0f7f1e7e3536a14eb9ca33b1fafec73a0b4dd56e7598af2cb5dbde3e59210",
+  "files/tests/helpers/1368-recovery-witnesses.ts": "2919acd2af9e63d8c6fdd7ecbaf5b6b0386c5da2533d1a0ed1653fd633995801",
+  "files/tests/p13b-s8-old-era-period.test.ts": "30306f038533a0ea60767e6ae89164729afee5092311a448e865beba56fbc81c",
+  "files/tests/p14d2-rival-facility-disposal.test.ts": "3ffe9dc23ab9559be0f24641f02a8efdc6a96c696ddf147f2075e3ace00223d2",
+  "files/tests/p14d2-save46-migration.test.ts": "94a688d7f2df36cc37e3ecc0afc6faaf5f5a3f887f1c0e11eb4d7ae519572efc",
+  "files/tsconfig.1368-witness.json": "564582b932f2873c93335b6cbcd0ac17feb9b619cbdf7135932fdf96e9cbce2d",
+  "files/vitest.1368-witness.config.ts": "5fb4e41913304fe5d1773482df7e23355c025eee365f30ba700daec5cef678f6",
+  "period-consumer.patch": "647c17884161fee1763c7b1b31f884da620b23960154e9b5f12e78d09a34b678",
+  "producer-and-loaders.patch": "eb854335d41f0c679bd9b8a189de2e3addcd1c0f3fe0cec389fb42157a4e11e0"
+}

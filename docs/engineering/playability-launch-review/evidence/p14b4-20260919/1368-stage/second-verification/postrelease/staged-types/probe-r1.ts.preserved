@@ -1,0 +1,203 @@
+// Original Save45; seed-b only; one unengaged genesis, fixed 6240 + 104 bound.
+import { createHash } from 'node:crypto'
+import { readFileSync, writeFileSync, mkdirSync, lstatSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { gzipSync, gunzipSync } from 'node:zlib'
+import { performance } from 'node:perf_hooks'
+import { applyActions } from '../tree/src/core/actions.js'
+import { generateWorld } from '../tree/src/core/worldgen.js'
+import { initializeHollywood } from '../tree/src/core/hollywood.js'
+import { activeContract, hiringMarketIds } from '../tree/src/core/employment.js'
+import { contractEndRefusal, retirementRecordFor } from '../tree/src/core/careerLifecycle.js'
+import { playerOffer } from '../tree/src/core/talentMarket.js'
+import { makeSave, validateSaveV45, stableStringify, importSave, exportSave } from '../tree/src/core/save.js'
+import { tick } from '../tree/src/core/tick.js'
+import { TUNING } from '../tree/src/core/tuning.js'
+import { runRosterWallOperatingWeek, ROSTER_WALL_OPERATING_POLICIES } from '../tree/src/harness/roster-wall/campaign.js'
+import type { Action, GameState } from '../tree/src/core/types.js'
+
+const ORIGINAL_HEAD = 'd5e2dad1e23183f1a94fe7b7d30e65ed88617f34'
+const ORIGINAL_SRC = '88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837'
+const output = process.env.P1368_OUTPUT!
+const binding = JSON.parse(readFileSync(process.env.P1368_BINDING!, 'utf8')) as Record<string, unknown>
+if (binding.originalHead !== ORIGINAL_HEAD || binding.originalSrc !== ORIGINAL_SRC || !output || output !== resolve(output)) throw new Error('1368: exact source/output binding required')
+try { lstatSync(output); throw new Error('1368: output already exists') } catch (e) { if ((e as NodeJS.ErrnoException).code !== 'ENOENT') throw e }
+mkdirSync(output)
+const started = performance.now()
+const sha = (bytes: string | Buffer) => createHash('sha256').update(bytes).digest('hex')
+const hash = (value: unknown) => sha(stableStringify(value))
+const artifacts: Record<string, { sha256: string; bytes: number }> = {}
+const report: Record<string, unknown> = { binding, seed: 'seed-b', startWeek: 0, engagementWeek: 6240, horizon: 6344,
+  controller: 'delayed ordinary paid signing then unchanged direct-package/default tick', status: 'RUNNING', closureComplete: false }
+function write(name: string, bytes: string | Buffer) {
+  writeFileSync(resolve(output, name), bytes, { flag: 'wx' })
+  const reread = readFileSync(resolve(output, name))
+  if (sha(reread) !== sha(bytes)) throw new Error('1368: output reread differs')
+  artifacts[name] = { sha256: sha(reread), bytes: reread.length }
+}
+function check(ok: unknown, message: string): asserts ok { if (!ok) throw new Error('1368: ' + message) }
+function ceiling() { check(performance.now() - started < 7_200_000, 'internal two-hour operational cap exceeded') }
+function saveControl(state: GameState, name?: string) {
+  const before = hash(state)
+  const save = makeSave(state), envelopeBefore = stableStringify(save)
+  check(save.saveVersion === 45, 'original writer is not Save45')
+  validateSaveV45(save)
+  check(stableStringify(save) === envelopeBefore && hash(state) === before, 'writer/reader mutated input')
+  const exported = exportSave(save)
+  check(exported === envelopeBefore && stableStringify(save) === envelopeBefore && hash(state) === before, 'export mutated state/envelope')
+  const imported = importSave(exported)
+  check(stableStringify(imported) === exported && exportSave(imported) === exported, 'original codec roundtrip differs')
+  if (name) {
+    const gzip = gzipSync(Buffer.from(exported))
+    check(gunzipSync(gzip).toString('utf8') === exported, 'gzip roundtrip differs')
+    write(name, gzip)
+  }
+  return { stateSha256: before, saveSha256: sha(exported), saveBytes: Buffer.byteLength(exported), saveVersion: 45, week: state.market.tick }
+}
+const roles = ['actor', 'director', 'writer', 'craft'] as const
+const desired = ROSTER_WALL_OPERATING_POLICIES['direct-package'].desiredRoster
+function snapshot(state: GameState) {
+  return { week: state.market.tick, cash: state.studio.cash, economyEngagedEver: state.economyEngagedEver,
+    founding: state.founding, contracts: state.contracts, roster: Object.fromEntries(roles.map(role => [role,
+      state.talent.filter(p => p.role === role && activeContract(state, p.id) !== undefined).map(p => ({
+        id: p.id, age: p.age, role: p.role, retirement: retirementRecordFor(state, p.id) ?? null }))])),
+    operations: state.operations, sets: state.sets, scripts: state.scriptDevelopment,
+    production: state.studio.activeProductions, releasedFilms: state.studio.releasedFilms,
+    playerEmployment: state.hollywood?.employment.filter(e => e.studioId === state.hollywood!.playerStudioId),
+    history: state.studioHistory, ledger: state.ledger }
+}
+function finish(status: string, state: GameState, exitCode: number) {
+  report.status = status; report.final = snapshot(state); report.finalControl = saveControl(state, 'final.save45.json.gz')
+  report.elapsedMs = performance.now() - started; report.artifacts = artifacts
+  write('RESULT.json', JSON.stringify(report, null, 2) + '\n')
+  process.stdout.write(JSON.stringify({ status, week: state.market.tick, postReleaseMeasured: status === 'MEASURED', output }) + '\n')
+  process.exitCode = exitCode
+}
+
+let state: GameState | undefined
+try {
+  const world = generateWorld('seed-b'), worldBefore = hash(world)
+  state = initializeHollywood(world, 'fresh')
+  check(hash(world) === worldBefore, 'initializeHollywood changed generated input')
+  check(state.market.tick === 0 && state.hollywood !== null && !state.economyEngagedEver && state.founding === null, 'not an unengaged public genesis')
+  check(state.studio.cash === TUNING.INITIAL_CASH && state.ledger.length === 0, 'genesis cash/ledger premise')
+  report.genesis = saveControl(state, 'genesis.save45.json.gz')
+  const originalCash = state.studio.cash, originalLedger = hash(state.ledger)
+  while (state.market.tick < 6240) {
+    ceiling()
+    state = tick(state)
+    check(!state.economyEngagedEver && state.founding === null && state.contracts.length === 0 && state.studio.activeProductions.length === 0 && state.studio.releasedFilms.length === 0, 'idle route engaged or produced player facts')
+    check(state.studio.cash === originalCash && hash(state.ledger) === originalLedger, 'idle route changed cash/ledger')
+    if (state.market.tick % 520 === 0) process.stderr.write(`1368 unengaged week ${state.market.tick}, cash ${state.studio.cash}\n`)
+  }
+  check(state.campaignLegacy.official !== null, 'no actual 6240 official freeze')
+  const official = stableStringify(state.campaignLegacy.official)
+  report.before = snapshot(state)
+  report.beforeControl = saveControl(state, 'week6240-unengaged.save45.json.gz')
+  write('official-6240.json', official + '\n')
+  // Preserve the real pre-action checkpoint BEFORE any hiring attempt. No reopening or cash repair.
+  const replayStart = importSave(exportSave(makeSave(state)))
+  check(replayStart.saveVersion === 45, 'replay baseline is not genuine45')
+  const initialActions: Action[] = []
+  const hiring: unknown[] = []
+  function action(action: Action) {
+    const before = state!, bytes = hash(before), cash = before.studio.cash
+    try {
+      const next = applyActions(before, [action])
+      check(hash(before) === bytes, 'accepted action mutated input')
+      if (action.kind === 'signContract') {
+        const quote = playerOffer(before, action.talentId, action.termWeeks)
+        const rows = next.ledger.slice(before.ledger.length)
+        check(next.studio.cash === cash - quote.signingBonus && rows.length === 1 && rows[0]!.kind === 'signingBonus' && rows[0]!.amount === -quote.signingBonus && rows[0]!.talentId === action.talentId && rows[0]!.week === 6240, 'ordinary hiring did not pay exact source bonus')
+        check(next.founding === null && activeContract(next, action.talentId)?.startWeek === 6240, 'late founding or backdated contract')
+      }
+      hiring.push({ action, accepted: true, cashBefore: cash, cashAfter: next.studio.cash, ledger: next.ledger.slice(before.ledger.length) })
+      initialActions.push(action); state = next; return true
+    } catch (error) {
+      check(hash(before) === bytes, 'refused action mutated input')
+      const reason = error instanceof Error ? error.message : String(error)
+      if (!reason.startsWith(`applyActions: ${action.kind} rejected`)) throw error
+      hiring.push({ action, accepted: false, cashBefore: cash, reason }); return false
+    }
+  }
+  for (const role of roles) {
+    const candidates = hiringMarketIds(state).flatMap(id => {
+      const person = state!.talent.find(p => p.id === id)!
+      if (person.role !== role) return []
+      // 208 is an existing public term; no smaller-term retry, override, or extra market epoch search.
+      const refusal = contractEndRefusal(state!, id, 6240 + 208)
+      const quote = playerOffer(state!, id, 208)
+      return [{ id, age: person.age, role, inFreeAgents: state!.freeAgents.includes(id), retirement: retirementRecordFor(state!, id) ?? null, refusal, quote }]
+    }).sort((a, b) => a.quote.annualSalary - b.quote.annualSalary || a.quote.signingBonus - b.quote.signingBonus || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+    hiring.push({ role, candidates })
+    for (const candidate of candidates) {
+      if (state.talent.filter(p => p.role === role && activeContract(state!, p.id) !== undefined).length >= desired[role]) break
+      if (candidate.refusal === null) action({ kind: 'signContract', talentId: candidate.id, termWeeks: 208 })
+    }
+  }
+  report.hiring = hiring; report.initialActions = initialActions
+  const covered = roles.every(role => state!.talent.filter(p => p.role === role && activeContract(state!, p.id) !== undefined).length >= desired[role])
+  if (!covered) { finish('QUALIFICATION_ABSENT_ROSTER', state, 2) }
+  else if (!action({ kind: 'activateStudioOperations' }) || !action({ kind: 'activateScriptDevelopment' })) { finish('QUALIFICATION_ABSENT_ACTIVATION', state, 2) }
+  else {
+    report.qualified = snapshot(state)
+    report.qualifiedControl = saveControl(state, 'week6240-qualified.save45.json.gz')
+    check(state.studio.cash > 0 && state.founding === null && state.operations.mode === 'managed' && state.scriptDevelopment.mode === 'managed', 'qualification control did not admit operating studio')
+    const weeks: { week: number; actions: Action[]; stateHash: string; intents: unknown[]; cashBefore: number; cashAfter: number; ledger: GameState['ledger'] }[] = []
+    report.weeks = weeks
+    let released: GameState['studio']['releasedFilms'][number] | undefined
+    while (state.market.tick < 6344) {
+      ceiling()
+      const before = state, beforeHash = hash(before)
+      const driven = runRosterWallOperatingWeek({ state: before, operatingPolicyId: 'direct-package', captureIntents: true })
+      check(hash(before) === beforeHash, 'controller mutated its input')
+      const actions = driven.intents.filter(i => i.accepted && i.action !== null).map(i => i.action!)
+      const actionReplay = actions.reduce((s, a) => applyActions(s, [a]), before)
+      check(hash(actionReplay) === hash(driven.stateAfterActions), 'accepted public actions do not explain controller result')
+      state = driven.stateAfterTick // Ordinary tick, exactly once; no alternate growth branch.
+      check(state.market.tick === before.market.tick + 1, 'non-unit advance')
+      check(stableStringify(state.campaignLegacy.official) === official, 'official freeze changed')
+      weeks.push({ week: before.market.tick, actions, stateHash: hash(state), intents: driven.intents,
+        cashBefore: before.studio.cash, cashAfter: state.studio.cash, ledger: state.ledger.slice(before.ledger.length) })
+      released = state.studio.releasedFilms.slice(before.studio.releasedFilms.length).find(f => f.releaseTick > 6240)
+      if (released) break
+    }
+    if (!released) finish('RELEASE_ABSENT_WITHIN_6344', state, 2)
+    else {
+      const releaseHistory = state.studioHistory.rows.filter(e => e.kind === 'filmReleased' && e.subjects.some(s => s.kind === 'film' && s.productionId === released!.productionId))
+      check(releaseHistory.length === 1 && releaseHistory[0]!.week === released.releaseTick, 'real player release lacks matching dated history')
+      report.release = { film: released, history: releaseHistory, officialSha256: sha(official) }
+      report.afterReleaseControl = saveControl(state, 'first-post2040-release.save45.json.gz')
+      // Independent exact-action replay from the preserved, publicly imported 6240 boundary.
+      let replay = replayStart.state as GameState
+      for (const a of initialActions) replay = applyActions(replay, [a])
+      for (const row of weeks) {
+        ceiling(); check(replay.market.tick === row.week, 'replay week drift')
+        for (const a of row.actions) replay = applyActions(replay, [a])
+        replay = tick(replay)
+        check(hash(replay) === row.stateHash, 'replay differs from actual original route')
+      }
+      report.replay = { exact: true, weeks: weeks.length, control: saveControl(replay) }
+      const timings = []
+      const timingInput = hash(state)
+      for (let sample = 0; sample < 3; sample++) {
+        ceiling(); const begin = performance.now(), save = makeSave(state), made = performance.now()
+        validateSaveV45(save); const validated = performance.now()
+        const raw = stableStringify(save)
+        check(hash(state) === timingInput, 'timing mutated input')
+        timings.push({ sample, makeSaveMs: made - begin, additionalValidateSaveV45Ms: validated - made,
+          combinedMs: validated - begin, saveBytes: Buffer.byteLength(raw), saveSha256: sha(raw) })
+      }
+      report.timings = timings
+      report.postReleaseMeasured = true
+      // Completion here concerns this cost witness; overall original G-L needs parent synthesis.
+      finish('MEASURED', state, 0)
+    }
+  }
+} catch (error) {
+  report.status = 'EXECUTION_ERROR'; report.error = error instanceof Error ? error.stack : String(error)
+  report.lastWeek = state?.market.tick ?? null; report.elapsedMs = performance.now() - started; report.artifacts = artifacts
+  // Preserve the exact error separately; never turn reader/action/runtime failure into ABSENT.
+  write('ERROR.json', JSON.stringify(report, null, 2) + '\n')
+  process.stderr.write(String(report.error) + '\n'); process.exitCode = 1
+}

@@ -1,0 +1,11 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate
+
+ ✓ |core| tests/1368-recovery-witness-producer.test.ts > 1368 original-source fixed route captures only publicly admitted premises 8183ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  22:38:55
+   Duration  11.05s (transform 3.01s, setup 0ms, collect 2.39s, tests 8.18s, environment 0ms, prepare 128ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 12013.14893597737}

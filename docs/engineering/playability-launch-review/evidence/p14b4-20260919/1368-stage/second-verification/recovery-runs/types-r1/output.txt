@@ -1,0 +1,2 @@
+tests/1368-recovery-witness-producer.test.ts(66,17): error TS18046: 'oldReader' is of type 'unknown'.
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 2, "elapsedMs": 10832.009760895744}

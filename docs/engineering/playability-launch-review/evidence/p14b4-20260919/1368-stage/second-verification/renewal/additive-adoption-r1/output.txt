@@ -1,0 +1,11 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate
+
+ ✓ |core| tests/p14d2-b-adoption-boundary-1368.test.ts > B adoption: public migration entry at actual416 funds an ordinary adoption; cutting blocks all new commitments 8363ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  22:56:19
+   Duration  11.06s (transform 1.74s, setup 0ms, collect 2.30s, tests 8.36s, environment 0ms, prepare 90ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 11939.037887030281}

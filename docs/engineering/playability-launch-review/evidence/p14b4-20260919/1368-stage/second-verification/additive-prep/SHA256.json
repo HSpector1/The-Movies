@@ -1,0 +1,15 @@
+{
+  "BASE-PINS.json": "3bf37d5d9df2116d5bec65fb2b64a5e7e2c9807039ea63f6aa30032db0e30cab",
+  "HANDBACK.md": "016e96d69729d158ed2bb521d1a0e9769b7a2e3670d22610c5beb6cc560aaa41",
+  "adoption-consumer.patch": "a3b6e7d901570649aaafd74f5c03bd46f78d4409c92535c0af00cc26af71cbe0",
+  "baseline265-additive.patch": "769c4ea3af8eba8c95c116e652ef07d25a573a707e3364c312c9054dd6a8cba2",
+  "files/tests/1368-recovery-witness-producer.test.ts": "c84f91cc86bf99f85a5b57e0d366b411e4f224c8aa060fff690af039212b4d94",
+  "files/tests/helpers/1368-recovery-witnesses.ts": "9eae454d4cd9c6272f8738468ca43320857eea0afeab3a2d96c5cfb07faa3607",
+  "files/tests/p14d2-b-adoption-boundary-1368.test.ts": "3cc60227e84154b3a9973fb5f66c319ed89dabdbc5300ee3989a710b439ea540",
+  "files/tests/p14d2-b-research-witnesses-1368.test.ts": "ce1fd4fdaaaf28c6ff2bcbf5d76d9b56bc8a02b99f76890b020b0daa71f5fd49",
+  "files/tests/p14d2-c-operational-boundary-1368.test.ts": "7e0c3551eb813cc80ff8c7b367a1e4253d3ef4d90e3d939ff868e74c8afdbb8d",
+  "files/tsconfig.1368-b-research.json": "d230aa2c93ceb96744c136300acbe1ef07762c93e5990bf47bf6b3822178c909",
+  "operational-consumer.patch": "610b94b7fa10a1c967ce3aa48a53d4a512d67531d9c0e83d11e24acd8b3085f2",
+  "research-consumers.patch": "43b6e6fc48f62a08e96704c77ec52140dcd3fb4c30a1276ebb9595c63e8307d0",
+  "type-config.patch": "04f0868aa687201ec4fc4d674b98c030a625c298839d6ba46f25cc6d63f0a54b"
+}

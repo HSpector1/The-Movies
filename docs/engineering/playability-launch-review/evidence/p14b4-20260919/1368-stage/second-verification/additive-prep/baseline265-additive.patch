@@ -1,0 +1,28 @@
+--- a/tests/1368-recovery-witness-producer.test.ts
++++ b/tests/1368-recovery-witness-producer.test.ts
+@@ -91,7 +91,7 @@
+       // Cheap source-shaped filter, then full archived/public45/public46 admission.
+       // It never mutates or ticks a migrated/synthetic state.
+       const rawState = state as GameState
+-      const interesting = week === 280 || rawState.hollywood!.businesses.some(b =>
++      const interesting = week === 265 || week === 280 || rawState.hollywood!.businesses.some(b =>
+         b.productions.length === 0 && b.runs.length === 0 && b.operations.facilities.some(f => f.capability === 'laboratory')
+         && !rawState.talentMarket.proposals.some(p => p.issuerStudioId === b.studioId))
+       if (interesting) {
+@@ -99,6 +99,7 @@
+         const live = save.convertV45ToV46(old)
+         requireFact(save.validateSaveV46(live) === live && bytes(old) === oldBefore, 'real45 migration/admission failed neutrality')
+         requireFact(bytes(save.convertV46ToV45(live)) === oldBefore, 'zero-initialization roundtrip differs')
++        if (week === 265) capture('baseline265', old, { qualification: 'Public45/46 admitted named instrument-boundary baseline only; no demand/hire/project/seat witness claim' })
+         if (week === 280) capture('baseline280', old, { qualification: 'Public45/46 admitted ordinary baseline only; no C/B witness claim' })
+         for (const owner of live.state.hollywood!.businesses) {
+           if (owner.productions.length || owner.runs.length || owner.costCutting.since !== null
+@@ -170,7 +171,7 @@
+   requireFact(execFileSync('git', ['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8' }).trim() === recordingHead, 'recording HEAD postflight differs')
+   requireFact(qualifierSource() === qualifierPin, 'qualifier source postflight differs')
+   for (const row of authoringFiles) requireFact(sha256(readFileSync(row.path)) === row.sha256, 'producer changed during run')
+-  const required = version === 45 ? ['ordinary', 'calendar', 'operational', 'research', 'baseline280'] : ['period52']
++  const required = version === 45 ? ['ordinary', 'calendar', 'operational', 'research', 'baseline265', 'baseline280'] : ['period52']
+   const missing = required.filter(key => !rows.some(r => r.key === key))
+   const manifest = { format: '1368-recovery-witness/v1', mode, historicalGeneratingHead: engine.pre.head,
+     archiveSha256: engine.pre.sha256, archivePostflightSha256: post.sha256,

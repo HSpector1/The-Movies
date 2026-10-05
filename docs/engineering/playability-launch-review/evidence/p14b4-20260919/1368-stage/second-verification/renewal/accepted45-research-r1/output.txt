@@ -1,0 +1,69 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate
+
+ ✓ |core| tests/p14d2-b-research-witnesses-1368.test.ts > 1368 genuine original45 instrument boundary supplies independent B positives > demand remains positive ordinarily and becomes zero with only admitted since changed 1892ms
+ × |core| tests/p14d2-b-research-witnesses-1368.test.ts > 1368 genuine original45 instrument boundary supplies independent B positives > blocks new replacement with a real ordinary265→266 positive
+   → UNMET ACTUAL265 PREMISE: idle paid replacement control: expected undefined to be defined
+ × |core| tests/p14d2-b-research-witnesses-1368.test.ts > 1368 genuine original45 instrument boundary supplies independent B positives > blocks new project with a real ordinary265→266 positive
+   → UNMET ACTUAL265 PREMISE: idle paid project control: expected undefined to be defined
+ × |core| tests/p14d2-b-research-witnesses-1368.test.ts > 1368 genuine original45 instrument boundary supplies independent B positives > blocks new seat with a real ordinary265→266 positive
+   → UNMET ACTUAL265 PREMISE: idle paid seat control: expected undefined to be defined
+ × |core| tests/p14d2-b-research-witnesses-1368.test.ts > 1368 genuine original45 instrument boundary supplies independent B positives > continues and pays actual active seated work at266 after the ordinary first project tick 557ms
+   → UNMET ACTUAL266 PREMISE: idle ordinary active-work positive: expected undefined to be defined
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14d2-b-research-witnesses-1368.test.ts > 1368 genuine original45 instrument boundary supplies independent B positives > blocks new replacement with a real ordinary265→266 positive
+AssertionError: UNMET ACTUAL265 PREMISE: idle paid replacement control: expected undefined to be defined
+ ❯ tests/p14d2-b-research-witnesses-1368.test.ts:78:69
+     76|     const { input, control } = controlPair()
+     77|     const b = input.hollywood!.businesses.find(b => eligible(input, b.…
+     78|     expect(b, `UNMET ACTUAL265 PREMISE: idle paid ${kind} control`).to…
+       |                                                                     ^
+     79|     const id = b!.studioId, old = own(input, id)
+     80|     expect(positive(input, control, id, kind)).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL |core|  tests/p14d2-b-research-witnesses-1368.test.ts > 1368 genuine original45 instrument boundary supplies independent B positives > blocks new project with a real ordinary265→266 positive
+AssertionError: UNMET ACTUAL265 PREMISE: idle paid project control: expected undefined to be defined
+ ❯ tests/p14d2-b-research-witnesses-1368.test.ts:78:69
+     76|     const { input, control } = controlPair()
+     77|     const b = input.hollywood!.businesses.find(b => eligible(input, b.…
+     78|     expect(b, `UNMET ACTUAL265 PREMISE: idle paid ${kind} control`).to…
+       |                                                                     ^
+     79|     const id = b!.studioId, old = own(input, id)
+     80|     expect(positive(input, control, id, kind)).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL |core|  tests/p14d2-b-research-witnesses-1368.test.ts > 1368 genuine original45 instrument boundary supplies independent B positives > blocks new seat with a real ordinary265→266 positive
+AssertionError: UNMET ACTUAL265 PREMISE: idle paid seat control: expected undefined to be defined
+ ❯ tests/p14d2-b-research-witnesses-1368.test.ts:78:69
+     76|     const { input, control } = controlPair()
+     77|     const b = input.hollywood!.businesses.find(b => eligible(input, b.…
+     78|     expect(b, `UNMET ACTUAL265 PREMISE: idle paid ${kind} control`).to…
+       |                                                                     ^
+     79|     const id = b!.studioId, old = own(input, id)
+     80|     expect(positive(input, control, id, kind)).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL |core|  tests/p14d2-b-research-witnesses-1368.test.ts > 1368 genuine original45 instrument boundary supplies independent B positives > continues and pays actual active seated work at266 after the ordinary first project tick
+AssertionError: UNMET ACTUAL266 PREMISE: idle ordinary active-work positive: expected undefined to be defined
+ ❯ tests/p14d2-b-research-witnesses-1368.test.ts:103:78
+    101|     expect(input.market.tick).toBe(266)
+    102|     const b = input.hollywood!.businesses.find(b => eligible(input, b.…
+    103|     expect(b, 'UNMET ACTUAL266 PREMISE: idle ordinary active-work posi…
+       |                                                                              ^
+    104|     const id = b!.studioId, working = workProjects(input, control, id)
+    105|     expect(working.length).toBeGreaterThan(0)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 1 passed (5)
+   Start at  23:01:12
+   Duration  5.51s (transform 1.82s, setup 0ms, collect 2.50s, tests 2.55s, environment 0ms, prepare 117ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 1, "elapsedMs": 6539.9159690132365}

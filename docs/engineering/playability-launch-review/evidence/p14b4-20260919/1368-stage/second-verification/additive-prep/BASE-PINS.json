@@ -1,0 +1,10 @@
+{
+  "accepted45Helper": {
+    "path": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-prep/files/tests/helpers/1368-recovery-witnesses.ts",
+    "sha256": "2919acd2af9e63d8c6fdd7ecbaf5b6b0386c5da2533d1a0ed1653fd633995801"
+  },
+  "genuineRenewal196Helper": {
+    "path": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/consumer/tests/helpers/1368-renewal-fixture.ts",
+    "sha256": "b2d808a51a2f37bdf22c77323bed31a6c3f4e9f37cf64e50f7fa20b43f7e3582"
+  }
+}

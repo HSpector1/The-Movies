@@ -1,0 +1,12 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate
+
+ ✓ |core| tests/p13b-s8-old-era-period.test.ts > 1363 explicit V27 staging keeps its finance era across a calendar boundary > control: actual week309 admission retains the current old period and public V27 validity 713ms
+ ✓ |core| tests/p13b-s8-old-era-period.test.ts > 1363 explicit V27 staging keeps its finance era across a calendar boundary > real original26 week52 first charge opens exactly one old-era period without termination or disposal fields 405ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  22:45:49
+   Duration  3.84s (transform 1.79s, setup 0ms, collect 2.31s, tests 1.12s, environment 0ms, prepare 113ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 4810.730135068297}

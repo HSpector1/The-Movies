@@ -1,0 +1,1 @@
+capture child must be the pinned Node command

@@ -1,0 +1,7 @@
+{
+  "manifestSha256": "11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5",
+  "status": "PARTIAL_PREMISES",
+  "missing": [
+    "operational"
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "head": "d5e2dad1e23183f1a94fe7b7d30e65ed88617f34",
+  "srcTree": "88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837",
+  "files": [
+    {
+      "path": "src/core/worldgen.ts",
+      "gitBlob": "eba1733c811fe3033ab764af898228e4aa3e673f",
+      "sha256": "7c38162376e5a5d69fd5f7ee56c4c76c2958dbde6a9940b097ccb257f5755f58",
+      "bytes": 36190
+    },
+    {
+      "path": "src/core/hollywood.ts",
+      "gitBlob": "c4ad7ae9529318431cc7d47f04a496f813289115",
+      "sha256": "c9281b85fab7fe6ce72568f318a545fce01343da86c8fd9c7db8ee5e3bd17f1f",
+      "bytes": 17327
+    },
+    {
+      "path": "src/core/employment.ts",
+      "gitBlob": "4f8849fff44b2a680740b0a612f54f9f7ee704e8",
+      "sha256": "6c3fec2129c0a461ec0de8e3e20f4bb47e4150bb9f0c39fd7201fae6a3951ce0",
+      "bytes": 28207
+    },
+    {
+      "path": "src/core/actions.ts",
+      "gitBlob": "27a46da6c7d8fdf1651abad5f4006438db07941c",
+      "sha256": "88acf224e5bf9dbe7234eb6933d0f7e02bea55fc1ac68b65711f4b7d54e1898f",
+      "bytes": 130337
+    },
+    {
+      "path": "src/core/talentMarket.ts",
+      "gitBlob": "c5fd8cf73969bb14084d4cbd3a58fdfc8ecb2c95",
+      "sha256": "010ed07634a5991674dc867f61b3b78ab022c91699366d29fea26a4d5585c087",
+      "bytes": 92358
+    },
+    {
+      "path": "src/core/careerLifecycle.ts",
+      "gitBlob": "766cff4aa2573c6b42d1c3032a83a7f1fb343280",
+      "sha256": "338510e570d2ace8bdeaa24b989fe7783c2d4e4250e1929eb56fc8f149c5d1f6",
+      "bytes": 24706
+    },
+    {
+      "path": "src/core/tick.ts",
+      "gitBlob": "0ec94abd5afefcadcc5ae8fcad1f29f63e287415",
+      "sha256": "f923eb1694a030b3212e4f6f9881e83fd027f5ce5882a148623f58eca9cb0224",
+      "bytes": 64135
+    },
+    {
+      "path": "src/core/save.ts",
+      "gitBlob": "a678a2c3335dc3326fa36828df0b9255ed6a1236",
+      "sha256": "3f852f997feaa77effd581858f56bf59a9cfa87069afec6e0a895cc653dced72",
+      "bytes": 515001
+    },
+    {
+      "path": "src/core/sets.ts",
+      "gitBlob": "097e2ffdd719718ae4843a30b210609b9a529f3f",
+      "sha256": "7f18032b877f1215e7d8a6f8906509887bb0de4f899c66ba9d12c6cc66c98ab5",
+      "bytes": 35772
+    },
+    {
+      "path": "src/core/tuning.ts",
+      "gitBlob": "0010838c18afb3e301488bbd98ec1c1234087a0e",
+      "sha256": "dbc81b7b2c1e3b160266a792c2485506db906858dcc6a34bcc7a62e9a2072125",
+      "bytes": 143696
+    },
+    {
+      "path": "src/harness/roster-wall/campaign.ts",
+      "gitBlob": "26f1b41466b604e4a2a0d5c8850c63cabcd8b30d",
+      "sha256": "24ff204180c3e8adf21e978ea76669536259574eaa69d2d2b531e42065736b1e",
+      "bytes": 60099
+    },
+    {
+      "path": "src/harness/roster-wall/historical-control.ts",
+      "gitBlob": "9a0a2410b85896a60f39ddb1aa66c43cd06ab95f",
+      "sha256": "2b7b69a5fed68faa618735d1f0d26473d451bd7fbaecc2678fb1b7c002bd08c7",
+      "bytes": 12273
+    },
+    {
+      "path": "tsconfig.json",
+      "gitBlob": "7521893ef93467ed05ef19a1768fc092edac2f2d",
+      "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f",
+      "bytes": 706
+    },
+    {
+      "path": "package.json",
+      "gitBlob": "4f6123b0dfb634faaf1a64a7b6162e284320e0a4",
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f",
+      "bytes": 2726
+    },
+    {
+      "path": "package-lock.json",
+      "gitBlob": "d4151fcc2ca6fe54f38b307ee4d9ae4ea219a344",
+      "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de",
+      "bytes": 149287
+    }
+  ]
+}

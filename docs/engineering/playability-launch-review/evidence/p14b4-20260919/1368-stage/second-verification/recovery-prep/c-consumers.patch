@@ -1,0 +1,113 @@
+--- a/tests/p14d2-rival-facility-disposal.test.ts
++++ b/tests/p14d2-rival-facility-disposal.test.ts
+@@ -6,6 +6,7 @@
+ import { blueprintById, facilityDemolitionRefund } from '../src/core/placement.js'
+ import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+ import { tick } from '../src/core/tick.js'
++import { accepted45 } from './helpers/1368-recovery-witnesses.js'
+ import type { GameState } from '../src/core/types.js'
+ 
+ type Envelope = { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown }
+@@ -85,16 +86,21 @@
+ }
+ // Real plan/receipt/cash/clock route. Setting only since is SYNTHETIC POLICY STATE,
+ // explicitly not proof of naturally reached entry. Full validation must admit it.
+-function bareAt(week = 12) {
+-  const state = generatedAt(week)
++function bareAt(kind: 'ordinary' | 'calendar' | 'operational' = 'ordinary') {
++  const witness = accepted45(kind)
++  const state = witness.live.state
++  const week = state.market.tick
++  if (kind === 'calendar') expect(week > 0 && week % 52 === 0).toBe(true)
++  if (kind === 'ordinary') expect(week % 52).not.toBe(0)
+   const candidate = state.hollywood!.businesses.flatMap(owner => owner.operations.facilities
+     .filter(f => f.capability === 'laboratory').map(f => ({ owner, f })))
+-    .find(({ owner, f }) => canMarkCutting(state, owner.studioId)
++    .find(({ owner, f }) => owner.studioId === witness.row.studioId && f.id === witness.row.facilityId
++      && canMarkCutting(state, owner.studioId)
+       && !state.technology.projects.some(p => p.studioId === owner.studioId
+         && (p.laboratoryFacilityId === f.id || p.seats.some(seat => seat.laboratoryFacilityId === f.id)))
+       && !state.physicalPlans.plans.some(p => p.studioId === owner.studioId && p.work.kind === 'installation'
+         && 'facilityId' in p.work.target && p.work.target.facilityId === f.id && p.status !== 'cancelled'))
+-  expect(candidate, 'UNMET VALID PREMISE: bare lab owner with null since, no production/run/proposals at named week').toBeDefined()
++  expect(candidate, 'UNMET ACCEPTED WITNESS: exact named body with null since, no production/run/proposals').toBeDefined()
+   const studioId = candidate!.owner.studioId, facilityId = candidate!.f.id
+   markCutting(state, studioId)
+   const commitment = state.hollywood!.receipts.find(r => r.kind === 'laboratoryCommitted'
+@@ -202,10 +208,12 @@
+     refuse(state, plan.studioId, facilityId, 'instrument-commitment', plan.id)
+   }, 120_000)
+ 
+-  it('C4 actual retained research reference protects its laboratory (bounded week 280 premise)', () => {
+-    const state = generatedAt(280)
+-    const project = state.technology.projects.find(p => p.studioId !== state.hollywood!.playerStudioId
+-      && canMarkCutting(state, p.studioId))
++  it('C4 actual retained research reference protects its laboratory (accepted original45 idle witness)', () => {
++    const witness = accepted45('research')
++    const state = witness.live.state
++    const project = state.technology.projects.find(p => p.id === witness.row.projectId
++      && p.studioId === witness.row.studioId && p.laboratoryFacilityId === witness.row.facilityId
++      && p.studioId !== state.hollywood!.playerStudioId && canMarkCutting(state, p.studioId))
+     expect(project, 'UNMET VALID PREMISE: actual rival research on an admissible cutting owner').toBeDefined()
+     if (!project) throw new Error('research premise')
+     markCutting(state, project.studioId)
+@@ -215,8 +223,9 @@
+     expect(bytes(state.technology)).toBe(history)
+   }, 120_000)
+ 
+-  it.each([12, 52])('C5 disposal at ordinary/year boundary %i stops only this body opex before next booking', week => {
+-    const { state, studioId, facilityId, operational } = bareAt(week)
++  it.each(['ordinary', 'calendar'] as const)('C5 disposal at accepted %s boundary stops only this body opex before next booking', kind => {
++    const { state, studioId, facilityId, operational } = bareAt(kind)
++    const week = state.market.tick
+     const before = bytes(state)
+     const after = api().disposeRivalFacility(state, studioId, facilityId)
+     admitted(after)
+@@ -243,8 +252,7 @@
+   }, 120_000)
+ 
+   it('C5 disposal at the actual operational boundary owes zero laboratory operating weeks', () => {
+-    const observed = bareAt()
+-    const { state, studioId, facilityId, operational } = bareAt(observed.operational.week)
++    const { state, studioId, facilityId, operational } = bareAt('operational')
+     expect(state.market.tick).toBe(operational.week)
+     expect(b(state, studioId).operations.facilities).toHaveLength(5)
+     const entered = state.hollywood!.identities.find(row => row.studioId === studioId)!.enteredWeek!
+--- a/tests/p14d2-save46-migration.test.ts
++++ b/tests/p14d2-save46-migration.test.ts
+@@ -4,6 +4,7 @@
+ import * as research from '../src/core/rivalResearch.js'
+ import type { GameState } from '../src/core/types.js'
+ import { recoveryPredecessor45 } from './helpers/1367-recovery-predecessors.js'
++import { accepted45 } from './helpers/1368-recovery-witnesses.js'
+ 
+ type Envelope = { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown }
+ type RecoveryBusiness = { costCutting: { version: 1; since: number | null } }
+@@ -202,12 +203,16 @@
+     }
+     expect(typeof future.rivalFacilityDisposalEligibility).toBe('function')
+     expect(typeof future.disposeRivalFacility).toBe('function')
+-    const initial = admitted(api().convertV45ToV46(predecessor(HISTORY)))
++    // Original week53 null/zero/history tests above remain unchanged.
++    // This distinct positive disposal witness has separately accepted genuine45 provenance.
++    const witness = accepted45('ordinary')
++    const initial = admitted(witness.live as unknown as Envelope)
+     let selected: { envelope: Envelope; studioId: string; facilityId: string } | undefined
+     for (const original of initial.state.hollywood!.businesses) {
++      if (original.studioId !== witness.row.studioId) continue
+       if (original.productions.length || original.runs.length
+         || initial.state.talentMarket.proposals.some(p => p.issuerStudioId === original.studioId)) continue
+-      for (const facility of original.operations.facilities.filter(f => f.capability === 'laboratory')) {
++      for (const facility of original.operations.facilities.filter(f => f.capability === 'laboratory' && f.id === witness.row.facilityId)) {
+         const candidate = structuredClone(initial)
+         const owner = candidate.state.hollywood!.businesses.find(b => b.studioId === original.studioId)!
+         expect((owner as unknown as RecoveryBusiness).costCutting.since).toBeNull()
+@@ -219,7 +224,7 @@
+       }
+       if (selected) break
+     }
+-    expect(selected, 'UNMET VALID PREMISE: captured week 53 has no eligible paid bare lab on an idle owner; do not alter history or widen route').toBeDefined()
++    expect(selected, 'UNMET ACCEPTED WITNESS: named original45 idle body must satisfy the unchanged disposal premise').toBeDefined()
+     const { envelope, studioId, facilityId } = selected!
+     const before = bytes(envelope)
+     const result = future.disposeRivalFacility(envelope.state, studioId, facilityId)

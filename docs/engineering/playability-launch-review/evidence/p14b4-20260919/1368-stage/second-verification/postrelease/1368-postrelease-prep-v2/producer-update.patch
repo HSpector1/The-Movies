@@ -1,0 +1,82 @@
+diff --git a/probe/postrelease.ts b/probe/postrelease.ts
+--- a/probe/postrelease.ts
++++ b/probe/postrelease.ts
+@@ -54,6 +54,21 @@
+   }
+   return { stateSha256: before, saveSha256: sha(exported), saveBytes: Buffer.byteLength(exported), saveVersion: 45, week: state.market.tick }
+ }
++// Identical three writer + additional-reader pairs at each named actual boundary.
++// Hashing/serialization and neutrality checks are outside the measured pair.
++function measureSaveCost(input: GameState) {
++  const timings = []
++  const timingInput = hash(input)
++  for (let sample = 0; sample < 3; sample++) {
++    ceiling(); const begin = performance.now(), save = makeSave(input), made = performance.now()
++    validateSaveV45(save); const validated = performance.now()
++    const raw = stableStringify(save)
++    check(hash(input) === timingInput, 'timing mutated input')
++    timings.push({ sample, makeSaveMs: made - begin, additionalValidateSaveV45Ms: validated - made,
++      combinedMs: validated - begin, saveBytes: Buffer.byteLength(raw), saveSha256: sha(raw) })
++  }
++  return timings
++}
+ const roles = ['actor', 'director', 'writer', 'craft'] as const
+ const desired = ROSTER_WALL_OPERATING_POLICIES['direct-package'].desiredRoster
+ function snapshot(state: GameState) {
+@@ -93,7 +108,11 @@
+   check(state.campaignLegacy.official !== null, 'no actual 6240 official freeze')
+   const official = stableStringify(state.campaignLegacy.official)
+   report.before = snapshot(state)
+-  report.beforeControl = saveControl(state, 'week6240-unengaged.save45.json.gz')
++  const beforeControl = saveControl(state, 'week6240-unengaged.save45.json.gz')
++  report.beforeControl = beforeControl
++  const beforeTimings = measureSaveCost(state)
++  check(beforeTimings.every(row => row.saveSha256 === beforeControl.saveSha256), 'before timings differ from admitted 6240 save')
++  report.beforeTimings = beforeTimings
+   write('official-6240.json', official + '\n')
+   // Preserve the real pre-action checkpoint BEFORE any hiring attempt. No reopening or cash repair.
+   const replayStart = importSave(exportSave(makeSave(state)))
+@@ -143,13 +162,15 @@
+     report.qualified = snapshot(state)
+     report.qualifiedControl = saveControl(state, 'week6240-qualified.save45.json.gz')
+     check(state.studio.cash > 0 && state.founding === null && state.operations.mode === 'managed' && state.scriptDevelopment.mode === 'managed', 'qualification control did not admit operating studio')
+-    const weeks: { week: number; actions: Action[]; stateHash: string; intents: unknown[]; cashBefore: number; cashAfter: number; ledger: GameState['ledger'] }[] = []
++    const weeks: { week: number; driverExecutionMs: number; actions: Action[]; stateHash: string; intents: unknown[]; cashBefore: number; cashAfter: number; ledger: GameState['ledger'] }[] = []
+     report.weeks = weeks
+     let released: GameState['studio']['releasedFilms'][number] | undefined
+     while (state.market.tick < 6344) {
+       ceiling()
+       const before = state, beforeHash = hash(before)
++      const driverStarted = performance.now()
+       const driven = runRosterWallOperatingWeek({ state: before, operatingPolicyId: 'direct-package', captureIntents: true })
++      const driverFinished = performance.now()
+       check(hash(before) === beforeHash, 'controller mutated its input')
+       const actions = driven.intents.filter(i => i.accepted && i.action !== null).map(i => i.action!)
+       const actionReplay = actions.reduce((s, a) => applyActions(s, [a]), before)
+@@ -157,7 +178,7 @@
+       state = driven.stateAfterTick // Ordinary tick, exactly once; no alternate growth branch.
+       check(state.market.tick === before.market.tick + 1, 'non-unit advance')
+       check(stableStringify(state.campaignLegacy.official) === official, 'official freeze changed')
+-      weeks.push({ week: before.market.tick, actions, stateHash: hash(state), intents: driven.intents,
++      weeks.push({ week: before.market.tick, driverExecutionMs: driverFinished - driverStarted, actions, stateHash: hash(state), intents: driven.intents,
+         cashBefore: before.studio.cash, cashAfter: state.studio.cash, ledger: state.ledger.slice(before.ledger.length) })
+       released = state.studio.releasedFilms.slice(before.studio.releasedFilms.length).find(f => f.releaseTick > 6240)
+       if (released) break
+@@ -178,16 +199,7 @@
+         check(hash(replay) === row.stateHash, 'replay differs from actual original route')
+       }
+       report.replay = { exact: true, weeks: weeks.length, control: saveControl(replay) }
+-      const timings = []
+-      const timingInput = hash(state)
+-      for (let sample = 0; sample < 3; sample++) {
+-        ceiling(); const begin = performance.now(), save = makeSave(state), made = performance.now()
+-        validateSaveV45(save); const validated = performance.now()
+-        const raw = stableStringify(save)
+-        check(hash(state) === timingInput, 'timing mutated input')
+-        timings.push({ sample, makeSaveMs: made - begin, additionalValidateSaveV45Ms: validated - made,
+-          combinedMs: validated - begin, saveBytes: Buffer.byteLength(raw), saveSha256: sha(raw) })
+-      }
++      const timings = measureSaveCost(state)
+       report.timings = timings
+       report.postReleaseMeasured = true
+       // Completion here concerns this cost witness; overall original G-L needs parent synthesis.

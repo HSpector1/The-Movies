@@ -1,0 +1,6 @@
+diff --git a/tsconfig.renewal-consumer.json b/tsconfig.renewal-consumer.json
+new file mode 100644
+--- /dev/null
++++ b/tsconfig.renewal-consumer.json
+@@ -0,0 +1 @@
++{"extends": "./tsconfig.json", "compilerOptions": {"noEmit": true, "allowImportingTsExtensions": true}, "include": ["src/**/*.ts", "tests/p14d2-rival-cost-cutting.test.ts", "tests/p14d2-rival-cost-cutting-adapter.test.ts", "tests/helpers/1368-renewal-fixture.ts"]}

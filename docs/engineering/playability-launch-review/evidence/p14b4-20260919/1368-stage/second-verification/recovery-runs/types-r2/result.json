@@ -1,0 +1,36 @@
+{
+  "mode": "types",
+  "producerEnvironment": {
+    "P1368_MODE": "types",
+    "P1368_REPO": "/Users/zacheryspector/The-Movies-headless-program",
+    "P1368_RECORDING_HEAD": "636f1c42f5de8bce6776b51873d763514a739914",
+    "P1368_ARCHIVE": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/base",
+    "P1368_ARCHIVE_SHA256": "bc31af5423ef1912f258bcf34e887fa2f687d4675c5b3ac1e89d2eb7f21ac810",
+    "P1368_QUALIFIER_SRC_SHA256": "30322b64091ded0daaa080bc4f600654a6aa759583be23829faab517b24d72b8",
+    "P1368_OUTPUT": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-45-01"
+  },
+  "exitCode": 0,
+  "elapsedSeconds": 10.84915528493002,
+  "command": [
+    "python3",
+    "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+    "330",
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.1368-witness.json"
+  ],
+  "pinsSha256": "9c960a0d29ad158085c453649b3d08ea2e9702839654eaa69293b946917f3f8c",
+  "wrapperSha256": "fc16b297907fe5c5fb909f503612f07fc9b67b8120634b4945b893ae3d1541ce",
+  "head": "636f1c42f5de8bce6776b51873d763514a739914",
+  "indexSha256": "0763908c407463e71c1b942c8b5a9f6df5e5281909fea3e7223e89dfee88c862",
+  "liveDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "additionalFixturePins": {
+    "tests/fixtures/p14/genuine-v45-recovery-predecessors-1363/MANIFEST.json": "0cee53cb3c0a09d3b1afef8e9200f26a570423533a468864a9233cf6ce85001d",
+    "tests/fixtures/p14/genuine-v45-recovery-predecessors-1363/p13a-week-0.save45.json.gz": "4bded8663feb1cd20d7425405d7daf4864a3f3b5a840e9deaf86b09ce45bb8ae",
+    "tests/fixtures/p14/genuine-v45-recovery-predecessors-1363/p13a-week-53.save45.json.gz": "fd4b8f0986453d1b735dda8410ffd05c841289d0fd51d9fe1a6707128947dc68",
+    "tests/fixtures/p13b/genuine-v26-old-era-period-1363/MANIFEST.json": "bd0df3d065934c22275120bb6e0b340a76885f3ac0c4790a3f2e4ff92e7ef7fd",
+    "tests/fixtures/p13b/genuine-v26-old-era-period-1363/genuine-v26-sound-mid-deployment-week312.json.gz": "d8b36ff43d7ad1e6a1b41ae3888e786f0266211875084f6d9d23b33bf5510757"
+  },
+  "allFilesExactBeforeAfter": true
+}

@@ -1,0 +1,41 @@
+--- a/tests/1368-recovery-witness-producer.test.ts
++++ b/tests/1368-recovery-witness-producer.test.ts
+@@ -92,8 +92,22 @@
+       // Cheap source-shaped filter, then full archived/public45/public46 admission.
+       // It never mutates or ticks a migrated/synthetic state.
+       const rawState = state as GameState
++      const missingCategory = (key: string) => !rows.some(row => row.key === key)
++      // Necessary conditions only. Every possible first capture still goes through
++      // the unchanged complete admission, migration, synthetic-since and eligibility checks.
++      const couldSupply = (owner: NonNullable<GameState['hollywood']>['businesses'][number], facilityId: string): boolean => {
++        const five = owner.operations.facilities.length === 5
++        return (five && missingCategory('ordinary') && week % 52 !== 0)
++          || (five && missingCategory('calendar') && week > 0 && week % 52 === 0)
++          || (five && missingCategory('operational') && rawState.hollywood!.receipts.some(r =>
++            r.kind === 'laboratoryOperational' && r.studioId === owner.studioId && r.facilityId === facilityId && r.week === week))
++          || (missingCategory('research') && rawState.technology.projects.some(project =>
++            project.studioId === owner.studioId && project.laboratoryFacilityId === facilityId))
++      }
++      const possibleOwner = (owner: NonNullable<GameState['hollywood']>['businesses'][number]): boolean =>
++        owner.operations.facilities.some(f => f.capability === 'laboratory' && couldSupply(owner, f.id))
+       const interesting = week === 265 || week === 280 || rawState.hollywood!.businesses.some(b =>
+-        b.productions.length === 0 && b.runs.length === 0 && b.operations.facilities.some(f => f.capability === 'laboratory')
++        b.productions.length === 0 && b.runs.length === 0 && possibleOwner(b)
+         && !rawState.talentMarket.proposals.some(p => p.issuerStudioId === b.studioId))
+       if (interesting) {
+         const old = save.validateSaveV45(envelope(state)), oldBefore = bytes(old)
+@@ -105,12 +119,14 @@
+         for (const owner of live.state.hollywood!.businesses) {
+           if (owner.productions.length || owner.runs.length || owner.costCutting.since !== null
+             || live.state.talentMarket.proposals.some(p => p.issuerStudioId === owner.studioId)) continue
++          if (!possibleOwner(owner)) continue
+           const candidate = structuredClone(live), selected = candidate.state.hollywood!.businesses.find(b => b.studioId === owner.studioId)!
+           selected.costCutting.since = week
+           save.validateSaveV46(candidate) // Only explicitly synthetic since; never written as historical payload.
+           const inverse = structuredClone(candidate); inverse.state.hollywood!.businesses.find(b => b.studioId === owner.studioId)!.costCutting.since = null
+           requireFact(bytes(inverse) === bytes(live), 'synthetic since changed unrelated authority')
+           for (const facility of owner.operations.facilities.filter(f => f.capability === 'laboratory')) {
++            if (!couldSupply(owner, facility.id)) continue
+             const candidateBefore = bytes(candidate)
+             const eligibility = rivalFacilityDisposalEligibility(candidate.state, owner.studioId, facility.id)
+             requireFact(bytes(candidate) === candidateBefore, 'eligibility mutated synthetic control')

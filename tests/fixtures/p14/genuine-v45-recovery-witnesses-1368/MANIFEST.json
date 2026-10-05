@@ -1,0 +1,88 @@
+{
+  "format": "1368-recovery-witness/v1",
+  "mode": "save45",
+  "historicalGeneratingHead": "2eaa697effc38538c37da28b486786ce267a2284",
+  "archiveSha256": "bc31af5423ef1912f258bcf34e887fa2f687d4675c5b3ac1e89d2eb7f21ac810",
+  "archivePostflightSha256": "bc31af5423ef1912f258bcf34e887fa2f687d4675c5b3ac1e89d2eb7f21ac810",
+  "qualifierSourceSha256": "30322b64091ded0daaa080bc4f600654a6aa759583be23829faab517b24d72b8",
+  "recordingRepositoryHead": "636f1c42f5de8bce6776b51873d763514a739914",
+  "authoringFiles": [
+    {
+      "path": "tests/1368-recovery-witness-producer.test.ts",
+      "sha256": "e3a298cf99c360b13fbe9c1e226c7503d46e9455d10a14556cc1122af9e2642f"
+    },
+    {
+      "path": "tests/helpers/1368-archived-route.ts",
+      "sha256": "84f0f7f1e7e3536a14eb9ca33b1fafec73a0b4dd56e7598af2cb5dbde3e59210"
+    }
+  ],
+  "seed": "p13a-core-causal-01",
+  "start": 0,
+  "horizon": 520,
+  "ticks": 520,
+  "options": {
+    "develop": true
+  },
+  "originSha256": "eb0aa9897e964ec56ffe287d2dba7853c953689f50d7348aaadc9330348e4f7b",
+  "finalStateSha256": "c84d0f19129ebb60e5c3009267646e163b55cc9ed6b9ac67a08bccaa66b1ea63",
+  "rows": [
+    {
+      "key": "ordinary",
+      "file": "ordinary.json.gz",
+      "version": 45,
+      "week": 91,
+      "rawSha256": "e33c122c1b7d73bdd45c29d1bce59843099a6d838123fdc1a56046c5ee288e22",
+      "gzipSha256": "89b2ba8b46a13c6958e9e1955ecf3d4a38662c1d11c7a99c0e3c86713c3a1100",
+      "studioId": "studio-aca408ec-r04",
+      "facilityId": "studio-aca408ec-r04:laboratory:0",
+      "qualification": "Original45 idle/no-run/no-proposal; public46 null since; only-since synthetic control admitted and exact disposal eligibility true; five total facilities"
+    },
+    {
+      "key": "calendar",
+      "file": "calendar.json.gz",
+      "version": 45,
+      "week": 104,
+      "rawSha256": "6632462c2ba1c350859e3d185afbf35e5a50cc6b6a9035693d8e71cbf79b09da",
+      "gzipSha256": "9b4732127aa6bae8d77da1ea9bf0afe22acdb1a1b15cf2ae80a727dc14181dc9",
+      "studioId": "studio-aca408ec-r01",
+      "facilityId": "studio-aca408ec-r01:laboratory:0",
+      "qualification": "Original45 idle/no-run/no-proposal; public46 null since; only-since synthetic control admitted and exact disposal eligibility true; five total facilities"
+    },
+    {
+      "key": "baseline265",
+      "file": "baseline265.json.gz",
+      "version": 45,
+      "week": 265,
+      "rawSha256": "050acfff9d9ff8da7e4359adfee9a5bad6c75bf7299ff7597eae5f8ad142d238",
+      "gzipSha256": "41954ef182836c94f3242644d10929930b438f71ffce1d7bbb4899797de1b805",
+      "qualification": "Public45/46 admitted named instrument-boundary baseline only; no demand/hire/project/seat witness claim"
+    },
+    {
+      "key": "research",
+      "file": "research.json.gz",
+      "version": 45,
+      "week": 267,
+      "rawSha256": "2b27ca1517b8fcf5329b4742e329e252dfb40fe2dbafe3868244bd6f81b0f3b1",
+      "gzipSha256": "c3f78360efc6ff30f7ef63a873ee49174dac4b5cf8a4e683672e3aac20591a56",
+      "studioId": "studio-aca408ec-r01",
+      "facilityId": "studio-aca408ec-r01:laboratory:0",
+      "projectId": "studio-aca408ec-r01:research:synchronized-sound",
+      "qualification": "Original45 idle/null-since control; actual retained primary project; synthetic since admitted; exact research-history refusal"
+    },
+    {
+      "key": "baseline280",
+      "file": "baseline280.json.gz",
+      "version": 45,
+      "week": 280,
+      "rawSha256": "8330e8a9ed5244c9898554408b49747a9e753347605933407f9af841167f8a1f",
+      "gzipSha256": "2f52fe05d0a0668e4ecade3399696d491e726a7e9ca923b51087c32ec91e2b2e",
+      "qualification": "Public45/46 admitted ordinary baseline only; no C/B witness claim"
+    }
+  ],
+  "missing": [
+    "operational"
+  ],
+  "observations": [],
+  "status": "PARTIAL_PREMISES",
+  "limitation": "Capture route only. Individual rows require independent provenance acceptance and full consumer assertions; absent rows are not waived."
+}

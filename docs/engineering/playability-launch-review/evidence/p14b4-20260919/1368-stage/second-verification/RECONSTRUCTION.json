@@ -1,0 +1,310 @@
+[
+  {
+    "name": "renewal-consumer",
+    "inputPins": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/SOURCE-PINS-consumer.json",
+    "inputPinsSha256": "e53016e31ff924f38cab0fb506558cf6bebfeb2c2c1c7d9e18577ea22d4aea20",
+    "base": "fullABC candidate reconstructed by preserved full-abc.patch c6941628c03b4cbf56273d0dbf6a7541b994cdf71da81c1df41302fd31982cf7 against d1e084b65093a940ff2f224941e8cf52ac69a08a",
+    "basePinsSha256": "d8920b5c747237e76b96f7e90cf0a4cf2fb305f22109e59fbfe198456c716ec2",
+    "consumedFiles": 713,
+    "unchangedBaseFiles": 706,
+    "patchSha256": "20064068a710ebacc0a69a29bd8cdfb183411f42ea008532e3255b95fc0b0d36",
+    "changedFiles": [
+      {
+        "path": "tests/p14d2-rival-cost-cutting.test.ts",
+        "sha256": "096bcf27a75e1e288e2206585d2c6dcd21213c4138c80f8a77feb193a6f1e1aa",
+        "authority": "existing first-verification exact file",
+        "existingPublication": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/first-verification/renewal/consumer/tests/p14d2-rival-cost-cutting.test.ts"
+      },
+      {
+        "path": "tests/p14d2-rival-cost-cutting-adapter.test.ts",
+        "sha256": "f1d5c5f55012aa93174b180ef4d8b9763ea1a0c66974504e013d4b7fc8f53c28",
+        "authority": "existing first-verification exact file",
+        "existingPublication": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/first-verification/renewal/consumer/tests/p14d2-rival-cost-cutting-adapter.test.ts"
+      },
+      {
+        "path": "tests/1368-renewal196-capture.test.ts",
+        "sha256": "dd477145a674b85a081eb52927262febde399f0891247903de705dc795f3c3de",
+        "authority": "existing first-verification exact file",
+        "existingPublication": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/first-verification/renewal/producer/tests/1368-renewal196-capture.test.ts"
+      },
+      {
+        "path": "tests/helpers/1368-archived-route.ts",
+        "sha256": "9cf6a963a2ef4580b0f167f7083ec2dd0749f74f3b3898ce455e5c1fa0961aff",
+        "authority": "existing first-verification exact file",
+        "existingPublication": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/first-verification/renewal/producer/tests/helpers/1368-archived-route.ts"
+      },
+      {
+        "path": "tsconfig.renewal196.json",
+        "sha256": "694cd0904c83a11a0b58bdf6759aa637b0a9e2d2259597aa39048409cbc92357",
+        "authority": "existing first-verification exact file",
+        "existingPublication": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/first-verification/renewal/producer/tsconfig.renewal196.json"
+      },
+      {
+        "path": "tests/helpers/1368-renewal-fixture.ts",
+        "sha256": "b2d808a51a2f37bdf22c77323bed31a6c3f4e9f37cf64e50f7fa20b43f7e3582",
+        "authority": "existing first-verification exact file",
+        "existingPublication": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/first-verification/renewal/consumer/tests/helpers/1368-renewal-fixture.ts"
+      },
+      {
+        "path": "tsconfig.renewal-consumer.json",
+        "sha256": "d30ce29548049d838bbf376582ab9d75f59d097307071ae26d300ba1b1d367e2",
+        "bytes": 264,
+        "baseSha256": null,
+        "authority": "exact small delta in renewal-consumer.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate/tsconfig.renewal-consumer.json"
+      }
+    ],
+    "application": "Start from ABC; apply this variant delta, then replace the listed exact first-verification file references. Verify every file against inputPins. Variants are alternatives, not patches to stack."
+  },
+  {
+    "name": "additive-consumers",
+    "inputPins": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/SOURCE-PINS-additive.json",
+    "inputPinsSha256": "baa59b96178d942ee7bd6dd3516521886611a887a947dde5b8803446e4be0907",
+    "base": "fullABC candidate reconstructed by preserved full-abc.patch c6941628c03b4cbf56273d0dbf6a7541b994cdf71da81c1df41302fd31982cf7 against d1e084b65093a940ff2f224941e8cf52ac69a08a",
+    "basePinsSha256": "d8920b5c747237e76b96f7e90cf0a4cf2fb305f22109e59fbfe198456c716ec2",
+    "consumedFiles": 718,
+    "unchangedBaseFiles": 706,
+    "patchSha256": "4eb27b2a90689f36fff3637a5fd37e487b5a0524c49e3d159f0797754a92ea46",
+    "changedFiles": [
+      {
+        "path": "tests/p14d2-rival-cost-cutting.test.ts",
+        "sha256": "096bcf27a75e1e288e2206585d2c6dcd21213c4138c80f8a77feb193a6f1e1aa",
+        "authority": "existing first-verification exact file",
+        "existingPublication": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/first-verification/renewal/consumer/tests/p14d2-rival-cost-cutting.test.ts"
+      },
+      {
+        "path": "tests/p14d2-rival-cost-cutting-adapter.test.ts",
+        "sha256": "f1d5c5f55012aa93174b180ef4d8b9763ea1a0c66974504e013d4b7fc8f53c28",
+        "authority": "existing first-verification exact file",
+        "existingPublication": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/first-verification/renewal/consumer/tests/p14d2-rival-cost-cutting-adapter.test.ts"
+      },
+      {
+        "path": "tests/1368-renewal196-capture.test.ts",
+        "sha256": "dd477145a674b85a081eb52927262febde399f0891247903de705dc795f3c3de",
+        "authority": "existing first-verification exact file",
+        "existingPublication": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/first-verification/renewal/producer/tests/1368-renewal196-capture.test.ts"
+      },
+      {
+        "path": "tests/helpers/1368-archived-route.ts",
+        "sha256": "9cf6a963a2ef4580b0f167f7083ec2dd0749f74f3b3898ce455e5c1fa0961aff",
+        "authority": "existing first-verification exact file",
+        "existingPublication": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/first-verification/renewal/producer/tests/helpers/1368-archived-route.ts"
+      },
+      {
+        "path": "tsconfig.renewal196.json",
+        "sha256": "694cd0904c83a11a0b58bdf6759aa637b0a9e2d2259597aa39048409cbc92357",
+        "authority": "existing first-verification exact file",
+        "existingPublication": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/first-verification/renewal/producer/tsconfig.renewal196.json"
+      },
+      {
+        "path": "tests/helpers/1368-renewal-fixture.ts",
+        "sha256": "b2d808a51a2f37bdf22c77323bed31a6c3f4e9f37cf64e50f7fa20b43f7e3582",
+        "authority": "existing first-verification exact file",
+        "existingPublication": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/first-verification/renewal/consumer/tests/helpers/1368-renewal-fixture.ts"
+      },
+      {
+        "path": "tsconfig.renewal-consumer.json",
+        "sha256": "d30ce29548049d838bbf376582ab9d75f59d097307071ae26d300ba1b1d367e2",
+        "bytes": 264,
+        "baseSha256": null,
+        "authority": "exact small delta in additive-consumers.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate/tsconfig.renewal-consumer.json"
+      },
+      {
+        "path": "tests/helpers/1368-recovery-witnesses.ts",
+        "sha256": "9eae454d4cd9c6272f8738468ca43320857eea0afeab3a2d96c5cfb07faa3607",
+        "bytes": 3577,
+        "baseSha256": null,
+        "authority": "exact small delta in additive-consumers.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate/tests/helpers/1368-recovery-witnesses.ts"
+      },
+      {
+        "path": "tests/p14d2-b-research-witnesses-1368.test.ts",
+        "sha256": "ce1fd4fdaaaf28c6ff2bcbf5d76d9b56bc8a02b99f76890b020b0daa71f5fd49",
+        "bytes": 7442,
+        "baseSha256": null,
+        "authority": "exact small delta in additive-consumers.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate/tests/p14d2-b-research-witnesses-1368.test.ts"
+      },
+      {
+        "path": "tests/p14d2-b-adoption-boundary-1368.test.ts",
+        "sha256": "3cc60227e84154b3a9973fb5f66c319ed89dabdbc5300ee3989a710b439ea540",
+        "bytes": 6498,
+        "baseSha256": null,
+        "authority": "exact small delta in additive-consumers.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate/tests/p14d2-b-adoption-boundary-1368.test.ts"
+      },
+      {
+        "path": "tests/p14d2-c-operational-boundary-1368.test.ts",
+        "sha256": "7e0c3551eb813cc80ff8c7b367a1e4253d3ef4d90e3d939ff868e74c8afdbb8d",
+        "bytes": 5675,
+        "baseSha256": null,
+        "authority": "exact small delta in additive-consumers.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate/tests/p14d2-c-operational-boundary-1368.test.ts"
+      },
+      {
+        "path": "tsconfig.1368-b-research.json",
+        "sha256": "d230aa2c93ceb96744c136300acbe1ef07762c93e5990bf47bf6b3822178c909",
+        "bytes": 343,
+        "baseSha256": null,
+        "authority": "exact small delta in additive-consumers.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate/tsconfig.1368-b-research.json"
+      }
+    ],
+    "application": "Start from ABC; apply this variant delta, then replace the listed exact first-verification file references. Verify every file against inputPins. Variants are alternatives, not patches to stack."
+  },
+  {
+    "name": "period-save45-r2",
+    "inputPins": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/SOURCE-PINS-v2.json",
+    "inputPinsSha256": "9c960a0d29ad158085c453649b3d08ea2e9702839654eaa69293b946917f3f8c",
+    "base": "fullABC candidate reconstructed by preserved full-abc.patch c6941628c03b4cbf56273d0dbf6a7541b994cdf71da81c1df41302fd31982cf7 against d1e084b65093a940ff2f224941e8cf52ac69a08a",
+    "basePinsSha256": "d8920b5c747237e76b96f7e90cf0a4cf2fb305f22109e59fbfe198456c716ec2",
+    "consumedFiles": 713,
+    "unchangedBaseFiles": 705,
+    "patchSha256": "0eef4a084e4cbdbb5be546669f5bdaccefab9eb1b23b27cc2a3d4545cada8342",
+    "changedFiles": [
+      {
+        "path": "tests/p14d2-save46-migration.test.ts",
+        "sha256": "94a688d7f2df36cc37e3ecc0afc6faaf5f5a3f887f1c0e11eb4d7ae519572efc",
+        "bytes": 14585,
+        "baseSha256": "7e141e5255154f6be88d9418a2b4c8549b0a451aff97ac3d13e4d266aebe504c",
+        "authority": "exact small delta in period-save45-r2.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tests/p14d2-save46-migration.test.ts"
+      },
+      {
+        "path": "tests/p13b-s8-old-era-period.test.ts",
+        "sha256": "30306f038533a0ea60767e6ae89164729afee5092311a448e865beba56fbc81c",
+        "bytes": 6326,
+        "baseSha256": "d17705986eeb363440f1a48e8d79a164a207253a95ba11f360b9919f7c8e24bd",
+        "authority": "exact small delta in period-save45-r2.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tests/p13b-s8-old-era-period.test.ts"
+      },
+      {
+        "path": "tests/p14d2-rival-facility-disposal.test.ts",
+        "sha256": "3ffe9dc23ab9559be0f24641f02a8efdc6a96c696ddf147f2075e3ace00223d2",
+        "bytes": 24525,
+        "baseSha256": "a64637e8c5eb86ebe7d126be62f2c0e2c22ccbfa819187626c08d2bd83252a69",
+        "authority": "exact small delta in period-save45-r2.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tests/p14d2-rival-facility-disposal.test.ts"
+      },
+      {
+        "path": "vitest.1368-witness.config.ts",
+        "sha256": "5fb4e41913304fe5d1773482df7e23355c025eee365f30ba700daec5cef678f6",
+        "bytes": 223,
+        "baseSha256": null,
+        "authority": "exact small delta in period-save45-r2.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/vitest.1368-witness.config.ts"
+      },
+      {
+        "path": "tsconfig.1368-witness.json",
+        "sha256": "da1cba0a64f6669a17c547ff56a8b7e1894d76e5ca408fd4d3a624ec11b9a396",
+        "bytes": 459,
+        "baseSha256": null,
+        "authority": "exact small delta in period-save45-r2.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tsconfig.1368-witness.json"
+      },
+      {
+        "path": "tests/1368-recovery-witness-producer.test.ts",
+        "sha256": "c8477e93c59fbd7d11b79e22913d3d1bdb2ea3d094ca85da12fcdceeb5cdf427",
+        "bytes": 14524,
+        "baseSha256": null,
+        "authority": "exact small delta in period-save45-r2.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/producer-r2.ts"
+      },
+      {
+        "path": "tests/helpers/1368-archived-route.ts",
+        "sha256": "84f0f7f1e7e3536a14eb9ca33b1fafec73a0b4dd56e7598af2cb5dbde3e59210",
+        "bytes": 4106,
+        "baseSha256": null,
+        "authority": "exact small delta in period-save45-r2.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tests/helpers/1368-archived-route.ts"
+      },
+      {
+        "path": "tests/helpers/1368-recovery-witnesses.ts",
+        "sha256": "2919acd2af9e63d8c6fdd7ecbaf5b6b0386c5da2533d1a0ed1653fd633995801",
+        "bytes": 3563,
+        "baseSha256": null,
+        "authority": "exact small delta in period-save45-r2.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tests/helpers/1368-recovery-witnesses.ts"
+      }
+    ],
+    "application": "Start from ABC; apply this variant delta, then replace the listed exact first-verification file references. Verify every file against inputPins. Variants are alternatives, not patches to stack."
+  },
+  {
+    "name": "save45-r3",
+    "inputPins": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/SOURCE-PINS-v3.json",
+    "inputPinsSha256": "c17d8ba7b27238a3d9d19666ff1813d1dd96152904bd7b6ce9a615205d60b2d8",
+    "base": "fullABC candidate reconstructed by preserved full-abc.patch c6941628c03b4cbf56273d0dbf6a7541b994cdf71da81c1df41302fd31982cf7 against d1e084b65093a940ff2f224941e8cf52ac69a08a",
+    "basePinsSha256": "d8920b5c747237e76b96f7e90cf0a4cf2fb305f22109e59fbfe198456c716ec2",
+    "consumedFiles": 713,
+    "unchangedBaseFiles": 705,
+    "patchSha256": "59d56c6305a4e5a622c7ad30c00e5f896732776af136a41eaca2cb5708c57774",
+    "changedFiles": [
+      {
+        "path": "tests/p14d2-save46-migration.test.ts",
+        "sha256": "94a688d7f2df36cc37e3ecc0afc6faaf5f5a3f887f1c0e11eb4d7ae519572efc",
+        "bytes": 14585,
+        "baseSha256": "7e141e5255154f6be88d9418a2b4c8549b0a451aff97ac3d13e4d266aebe504c",
+        "authority": "exact small delta in save45-r3.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tests/p14d2-save46-migration.test.ts"
+      },
+      {
+        "path": "tests/p13b-s8-old-era-period.test.ts",
+        "sha256": "30306f038533a0ea60767e6ae89164729afee5092311a448e865beba56fbc81c",
+        "bytes": 6326,
+        "baseSha256": "d17705986eeb363440f1a48e8d79a164a207253a95ba11f360b9919f7c8e24bd",
+        "authority": "exact small delta in save45-r3.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tests/p13b-s8-old-era-period.test.ts"
+      },
+      {
+        "path": "tests/p14d2-rival-facility-disposal.test.ts",
+        "sha256": "3ffe9dc23ab9559be0f24641f02a8efdc6a96c696ddf147f2075e3ace00223d2",
+        "bytes": 24525,
+        "baseSha256": "a64637e8c5eb86ebe7d126be62f2c0e2c22ccbfa819187626c08d2bd83252a69",
+        "authority": "exact small delta in save45-r3.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tests/p14d2-rival-facility-disposal.test.ts"
+      },
+      {
+        "path": "vitest.1368-witness.config.ts",
+        "sha256": "5fb4e41913304fe5d1773482df7e23355c025eee365f30ba700daec5cef678f6",
+        "bytes": 223,
+        "baseSha256": null,
+        "authority": "exact small delta in save45-r3.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/vitest.1368-witness.config.ts"
+      },
+      {
+        "path": "tsconfig.1368-witness.json",
+        "sha256": "da1cba0a64f6669a17c547ff56a8b7e1894d76e5ca408fd4d3a624ec11b9a396",
+        "bytes": 459,
+        "baseSha256": null,
+        "authority": "exact small delta in save45-r3.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tsconfig.1368-witness.json"
+      },
+      {
+        "path": "tests/1368-recovery-witness-producer.test.ts",
+        "sha256": "e3a298cf99c360b13fbe9c1e226c7503d46e9455d10a14556cc1122af9e2642f",
+        "bytes": 15818,
+        "baseSha256": null,
+        "authority": "exact small delta in save45-r3.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tests/1368-recovery-witness-producer.test.ts"
+      },
+      {
+        "path": "tests/helpers/1368-archived-route.ts",
+        "sha256": "84f0f7f1e7e3536a14eb9ca33b1fafec73a0b4dd56e7598af2cb5dbde3e59210",
+        "bytes": 4106,
+        "baseSha256": null,
+        "authority": "exact small delta in save45-r3.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tests/helpers/1368-archived-route.ts"
+      },
+      {
+        "path": "tests/helpers/1368-recovery-witnesses.ts",
+        "sha256": "2919acd2af9e63d8c6fdd7ecbaf5b6b0386c5da2533d1a0ed1653fd633995801",
+        "bytes": 3563,
+        "baseSha256": null,
+        "authority": "exact small delta in save45-r3.patch",
+        "source": "/Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate/tests/helpers/1368-recovery-witnesses.ts"
+      }
+    ],
+    "application": "Start from ABC; apply this variant delta, then replace the listed exact first-verification file references. Verify every file against inputPins. Variants are alternatives, not patches to stack."
+  }
+]

@@ -1,0 +1,4 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": true, "childExit": -15, "elapsedMs": 330127.1937619895}

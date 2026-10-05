@@ -1,0 +1,11 @@
+{
+  "probe/postrelease.ts": "f84034bcc8aa5acc220240f591f8970b85c2acb7ce8fdab2dab8da7326f7c762",
+  "probe/vite.config.ts": "06f583d578f009208180e140d4358a50a72719d2ebf9047b998f01ae901e0877",
+  "tsconfig.postrelease.json": "fcda9416cdf1ad30faad90936b84467f87cdb466364aeb12f5fde2f101dd4b76",
+  "run-delayed.py": "e53886bd3c0f9054c115f127c43101bb1eb29cec0963a428380545f406ac046b",
+  "producer.patch": "09b44ad35880b07877946da5a586228a422a720cb40040966e990b85e6943e29",
+  "producer-update.patch": "0060038cc6c80b7c984586793c9a33dcf2560183051bd57aa622c2eb3894c20d",
+  "v1-to-v2.patch": "d1bf65d9fb6e1b9a3f31e297561a46de68456d7622f70e28dd58ca6f3efa921b",
+  "HANDBACK.md": "78a0cf27100483e2f46d7b54ae38a47278365fcde212ec224c1512f1f7839794",
+  "ORIGINAL-SOURCE-PINS.json": "597d5ea72d23a082cd163f2fa8b7f7d8fbd7e6d39e2bee15767118793dde39d8"
+}

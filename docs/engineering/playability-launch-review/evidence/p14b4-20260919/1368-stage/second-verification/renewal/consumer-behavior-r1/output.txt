@@ -1,0 +1,11 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-b-witness-prep/candidate
+
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new renewal with an observed ordinary positive control 10853ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 51 skipped (52)
+   Start at  22:32:50
+   Duration  14.08s (transform 2.12s, setup 0ms, collect 2.82s, tests 10.86s, environment 0ms, prepare 111ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 15037.889320054092}

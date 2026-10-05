@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "noEmit": true, "types": ["node"] },
+  "include": ["tests/1368-recovery-witness-producer.test.ts", "tests/helpers/1368-archived-route.ts", "tests/helpers/1368-recovery-witnesses.ts", "tests/p14d2-rival-facility-disposal.test.ts", "tests/p14d2-save46-migration.test.ts", "tests/p13b-s8-old-era-period.test.ts"]
+}

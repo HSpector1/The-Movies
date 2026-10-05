@@ -1,0 +1,2 @@
+probe/vite.config.ts(2,1): error TS2742: The inferred type of 'default' cannot be named without a reference to '../tree/node_modules/vite/dist/node/index.js'. This is likely not portable. A type annotation is necessary.
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 2, "elapsedMs": 11091.602068045177}

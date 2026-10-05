@@ -1,0 +1,209 @@
+{
+  "format": "1368-recovery-witness/v1",
+  "mode": "period26",
+  "historicalGeneratingHead": "ce6945d58257f70c1b222a8c00e06038db73f6e4",
+  "archiveSha256": "942359540dafb615549c58df2cf1ea5067e1c7acd0d8df0dda24187241a67a14",
+  "archivePostflightSha256": "942359540dafb615549c58df2cf1ea5067e1c7acd0d8df0dda24187241a67a14",
+  "qualifierSourceSha256": "30322b64091ded0daaa080bc4f600654a6aa759583be23829faab517b24d72b8",
+  "recordingRepositoryHead": "636f1c42f5de8bce6776b51873d763514a739914",
+  "authoringFiles": [
+    {
+      "path": "tests/1368-recovery-witness-producer.test.ts",
+      "sha256": "c8477e93c59fbd7d11b79e22913d3d1bdb2ea3d094ca85da12fcdceeb5cdf427"
+    },
+    {
+      "path": "tests/helpers/1368-archived-route.ts",
+      "sha256": "84f0f7f1e7e3536a14eb9ca33b1fafec73a0b4dd56e7598af2cb5dbde3e59210"
+    }
+  ],
+  "seed": "p13a-core-causal-01",
+  "start": 0,
+  "horizon": 52,
+  "ticks": 52,
+  "options": {
+    "develop": true
+  },
+  "originSha256": "1ff23c001877af8a3a40e32871e0077d132702d5f930f84fdc966e06234fd920",
+  "finalStateSha256": "8e2fdfb351fdc9f698358a15911c6d7230680a5d55144440f68cfdafb2f91dca",
+  "rows": [
+    {
+      "key": "period52",
+      "file": "period52.json.gz",
+      "version": 26,
+      "week": 52,
+      "rawSha256": "8e2fdfb351fdc9f698358a15911c6d7230680a5d55144440f68cfdafb2f91dca",
+      "gzipSha256": "90c45a6154b924b0998239d6b385dce6f1ba17b896b7d6c5840f24d3f041b582",
+      "qualification": "Genuine26 boundary52; real public27 lift and paid rival lab admission opens prior-year period; exact target assertions remain consumer responsibility"
+    }
+  ],
+  "missing": [],
+  "observations": [
+    {
+      "week": 52,
+      "added": [
+        {
+          "planId": "studio-aca408ec-r01:plan:1",
+          "studioId": "studio-aca408ec-r01",
+          "paid": 900000,
+          "work": {
+            "kind": "placement",
+            "blueprintId": "research-laboratory",
+            "origin": {
+              "gx": 0,
+              "gy": 0
+            }
+          },
+          "previousThrough": 51,
+          "previousFrom": 0,
+          "last": {
+            "fromWeek": 52,
+            "throughWeek": 52,
+            "opening": 21003064.564764466,
+            "closing": 20103064.564764466,
+            "movements": {
+              "capacity": 0,
+              "signing": 0,
+              "payroll": 0,
+              "overhead": 0,
+              "facilityOpex": 0,
+              "development": 0,
+              "production": 0,
+              "marketing": 0,
+              "studioRevenue": 0,
+              "technologyAdoption": 0,
+              "researchSpend": 0,
+              "researchCapacity": -900000,
+              "technologyRestoration": 0,
+              "technologyRefund": 0
+            }
+          },
+          "cashBefore": 21003064.564764466,
+          "cashAfter": 20103064.564764466,
+          "opensNewOldPeriod": true
+        },
+        {
+          "planId": "studio-aca408ec-r02:plan:1",
+          "studioId": "studio-aca408ec-r02",
+          "paid": 900000,
+          "work": {
+            "kind": "placement",
+            "blueprintId": "research-laboratory",
+            "origin": {
+              "gx": 0,
+              "gy": 0
+            }
+          },
+          "previousThrough": 51,
+          "previousFrom": 0,
+          "last": {
+            "fromWeek": 52,
+            "throughWeek": 52,
+            "opening": 19973825.171434097,
+            "closing": 19073825.171434097,
+            "movements": {
+              "capacity": 0,
+              "signing": 0,
+              "payroll": 0,
+              "overhead": 0,
+              "facilityOpex": 0,
+              "development": 0,
+              "production": 0,
+              "marketing": 0,
+              "studioRevenue": 0,
+              "technologyAdoption": 0,
+              "researchSpend": 0,
+              "researchCapacity": -900000,
+              "technologyRestoration": 0,
+              "technologyRefund": 0
+            }
+          },
+          "cashBefore": 19973825.171434097,
+          "cashAfter": 19073825.171434097,
+          "opensNewOldPeriod": true
+        },
+        {
+          "planId": "studio-aca408ec-r03:plan:1",
+          "studioId": "studio-aca408ec-r03",
+          "paid": 900000,
+          "work": {
+            "kind": "placement",
+            "blueprintId": "research-laboratory",
+            "origin": {
+              "gx": 0,
+              "gy": 0
+            }
+          },
+          "previousThrough": 51,
+          "previousFrom": 0,
+          "last": {
+            "fromWeek": 52,
+            "throughWeek": 52,
+            "opening": 12514342.999042425,
+            "closing": 11614342.999042425,
+            "movements": {
+              "capacity": 0,
+              "signing": 0,
+              "payroll": 0,
+              "overhead": 0,
+              "facilityOpex": 0,
+              "development": 0,
+              "production": 0,
+              "marketing": 0,
+              "studioRevenue": 0,
+              "technologyAdoption": 0,
+              "researchSpend": 0,
+              "researchCapacity": -900000,
+              "technologyRestoration": 0,
+              "technologyRefund": 0
+            }
+          },
+          "cashBefore": 12514342.999042425,
+          "cashAfter": 11614342.999042425,
+          "opensNewOldPeriod": true
+        },
+        {
+          "planId": "studio-aca408ec-r04:plan:1",
+          "studioId": "studio-aca408ec-r04",
+          "paid": 900000,
+          "work": {
+            "kind": "placement",
+            "blueprintId": "research-laboratory",
+            "origin": {
+              "gx": 0,
+              "gy": 0
+            }
+          },
+          "previousThrough": 51,
+          "previousFrom": 0,
+          "last": {
+            "fromWeek": 52,
+            "throughWeek": 52,
+            "opening": 8789188.85164001,
+            "closing": 7889188.85164001,
+            "movements": {
+              "capacity": 0,
+              "signing": 0,
+              "payroll": 0,
+              "overhead": 0,
+              "facilityOpex": 0,
+              "development": 0,
+              "production": 0,
+              "marketing": 0,
+              "studioRevenue": 0,
+              "technologyAdoption": 0,
+              "researchSpend": 0,
+              "researchCapacity": -900000,
+              "technologyRestoration": 0,
+              "technologyRefund": 0
+            }
+          },
+          "cashBefore": 8789188.85164001,
+          "cashAfter": 7889188.85164001,
+          "opensNewOldPeriod": true
+        }
+      ]
+    }
+  ],
+  "status": "COMPLETE_PREMISES",
+  "limitation": "Capture route only. Individual rows require independent provenance acceptance and full consumer assertions; absent rows are not waived."
+}

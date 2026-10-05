@@ -1,0 +1,46 @@
+--- a/tests/p13b-s8-old-era-period.test.ts
++++ b/tests/p13b-s8-old-era-period.test.ts
+@@ -6,7 +6,7 @@
+ import * as save from '../src/core/save.js'
+ import { admitRivalPlans } from '../src/core/rivalResearch.js'
+ import type { GameState } from '../src/core/types.js'
+-import { recoveryOldPeriod26 } from './helpers/1367-recovery-predecessors.js'
++import { acceptedPeriod52 } from './helpers/1368-recovery-witnesses.js'
+ 
+ const INPUT_RAW_SHA = '11ef05be4131d3d3c4a19484f31e79cb50fa1936868f96ace7d0d18ea86e2d72'
+ const INPUT = './fixtures/p13b/legacy-v26-sound-mid-deployment-309.json.gz'
+@@ -27,7 +27,6 @@
+   expect(value.state.market.tick).toBe(309)
+   return value
+ }
+-const original312 = recoveryOldPeriod26
+ function admittedLift(value: ReturnType<typeof initial309>) {
+   expect(save.validateSaveV26(value)).toBe(value)
+   const before = bytes(value)
+@@ -75,10 +74,10 @@
+     expect(Math.floor(previous.fromWeek / 52) === Math.floor(lifted.state.market.tick / 52)).toBe(!rollover)
+     expect(owner.account.periods.length).toBe(original.account.periods.length + Number(rollover))
+     if (rollover) {
+-      expect(previous.throughWeek).toBeLessThan(312)
++      expect(previous.throughWeek).toBeLessThan(lifted.state.market.tick)
+       expect(owner.account.periods.slice(0, -1)).toEqual(original.account.periods)
+-      expect(last.fromWeek).toBe(312)
+-      expect(last.throughWeek).toBe(312)
++      expect(last.fromWeek).toBe(lifted.state.market.tick)
++      expect(last.throughWeek).toBe(lifted.state.market.tick)
+       expect(last.opening).toBe(original.account.cash)
+       expect(last.closing).toBe(owner.account.cash)
+       expect(last.movements.researchCapacity).toBe(-debit)
+@@ -103,7 +102,10 @@
+   it('control: actual week309 admission retains the current old period and public V27 validity', () => {
+     stage(admittedLift(initial309()), false)
+   })
+-  it('real week312 first charge opens exactly one old-era period without termination or disposal fields', () => {
+-    stage(admittedLift(original312()), true)
++  it('real original26 week52 first charge opens exactly one old-era period without termination or disposal fields', () => {
++    // The original312 missing-affordability run and input remain retained evidence.
++    const original = acceptedPeriod52()
++    expect(original.state.market.tick).toBe(52)
++    stage(admittedLift(original), true)
+   })
+ })

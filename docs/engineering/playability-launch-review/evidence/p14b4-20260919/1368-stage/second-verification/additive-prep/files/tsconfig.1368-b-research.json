@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "noEmit": true, "types": ["node"] },
+  "include": ["tests/p14d2-b-research-witnesses-1368.test.ts", "tests/p14d2-b-adoption-boundary-1368.test.ts", "tests/p14d2-c-operational-boundary-1368.test.ts", "tests/helpers/1368-recovery-witnesses.ts", "tests/helpers/1368-renewal-fixture.ts"]
+}

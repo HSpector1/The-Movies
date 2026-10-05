@@ -1,0 +1,379 @@
+diff --git a/tsconfig.renewal-consumer.json b/tsconfig.renewal-consumer.json
+new file mode 100644
+--- /dev/null
++++ b/tsconfig.renewal-consumer.json
+@@ -0,0 +1 @@
++{"extends": "./tsconfig.json", "compilerOptions": {"noEmit": true, "allowImportingTsExtensions": true}, "include": ["src/**/*.ts", "tests/p14d2-rival-cost-cutting.test.ts", "tests/p14d2-rival-cost-cutting-adapter.test.ts", "tests/helpers/1368-renewal-fixture.ts"]}diff --git a/tests/helpers/1368-recovery-witnesses.ts b/tests/helpers/1368-recovery-witnesses.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/helpers/1368-recovery-witnesses.ts
+@@ -0,0 +1,48 @@
++// Named accepted capture loader, reusable by C/migration and separately reviewed B consumers.
++import { readFileSync } from 'node:fs'
++import { join } from 'node:path'
++import { gunzipSync } from 'node:zlib'
++import * as save from '../../src/core/save.js'
++import { HISTORICAL_HEADS, ordinaryPath, requireFact, sha256 } from './1368-archived-route.js'
++
++type Row = { key: string; file: string; rawSha256: string; gzipSha256: string; week: number; version: number;
++  studioId?: string; facilityId?: string; projectId?: string; qualification: string }
++function load(version: 26 | 45, key: string) {
++  const prefix = version === 45 ? 'P1368_ACCEPTED45' : 'P1368_ACCEPTED26'
++  const root = process.env[prefix + '_ROOT'], pin = process.env[prefix + '_MANIFEST_SHA256']
++  requireFact(root && pin && /^[0-9a-f]{64}$/.test(pin), 'independently accepted capture path/manifest pin required')
++  ordinaryPath(root)
++  const manifestPath = ordinaryPath(join(root, 'MANIFEST.json')), rawManifest = readFileSync(manifestPath)
++  requireFact(sha256(rawManifest) === pin, 'accepted manifest bytes differ')
++  const manifest = JSON.parse(rawManifest.toString('utf8')) as { format: string; historicalGeneratingHead: string;
++    seed: string; start: number; horizon: number; ticks: number; options: { develop: boolean }; rows: Row[] }
++  requireFact(manifest.format === '1368-recovery-witness/v1' && manifest.historicalGeneratingHead === HISTORICAL_HEADS[version], 'wrong historical capture authority')
++  requireFact(manifest.seed === 'p13a-core-causal-01' && manifest.start === 0
++    && manifest.horizon === (version === 45 ? 520 : 52) && manifest.ticks === manifest.horizon && manifest.options.develop === true, 'wrong fixed capture route')
++  const rows = manifest.rows.filter(row => row.key === key)
++  requireFact(rows.length === 1, `required accepted witness absent: ${key}`)
++  const row = rows[0]!
++  requireFact(row.version === version && row.file === key + '.json.gz', 'wrong named witness file')
++  const gzip = readFileSync(ordinaryPath(join(root, row.file))), raw = gunzipSync(gzip)
++  requireFact(sha256(gzip) === row.gzipSha256 && sha256(raw) === row.rawSha256, 'capture payload pins differ')
++  const parsed: unknown = JSON.parse(raw.toString('utf8')), before = save.stableStringify(parsed)
++  const value = version === 45 ? save.validateSaveV45(parsed) : save.validateSaveV26(parsed)
++  requireFact(save.stableStringify(parsed) === before && value.state.market.tick === row.week, 'public predecessor reader neutrality/clock differs')
++  return { value, row }
++}
++export function accepted45(key: 'ordinary'|'calendar'|'operational'|'research'|'baseline265'|'baseline280') {
++  const { value, row } = load(45, key), old = save.validateSaveV45(value), before = save.stableStringify(old)
++  const live = save.convertV45ToV46(old)
++  requireFact(save.validateSaveV46(live) === live && save.stableStringify(old) === before, 'actual45→46 neutral admission failed')
++  requireFact(save.stableStringify(save.convertV46ToV45(live)) === before, 'only null/zero initialized roundtrip differs')
++  for (const b of live.state.hollywood!.businesses) {
++    requireFact(b.costCutting.since === null && b.costCutting.version === 1, 'new recovery authority is not empty')
++    requireFact(b.account.periods.every(p => p.movements.facilityDemolitionRefund === 0), 'retroactive refund not empty')
++  }
++  return { old, live, row }
++}
++export function acceptedPeriod52() {
++  const { value, row } = load(26, 'period52')
++  requireFact(row.week === 52, 'exact first calendar boundary required')
++  return save.validateSaveV26(value)
++}
+diff --git a/tests/p14d2-b-research-witnesses-1368.test.ts b/tests/p14d2-b-research-witnesses-1368.test.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/p14d2-b-research-witnesses-1368.test.ts
+@@ -0,0 +1,124 @@
++// Separate genuine-original45 control input; no main B test expectations are relaxed.
++import { describe, expect, it } from 'vitest'
++import { accepted45 } from './helpers/1368-recovery-witnesses.js'
++import { tick } from '../src/core/tick.js'
++import { makeSave, validateSaveV46, stableStringify } from '../src/core/save.js'
++import { rivalScientistDemand } from '../src/core/rivalResearch.js'
++import type { GameState } from '../src/core/types.js'
++const bytes = stableStringify
++const owner = (s: GameState, id: string) => s.hollywood!.businesses.find(b => b.studioId === id)!
++function admitted(s: GameState): void {
++  const before = bytes(s), value = makeSave(s)
++  expect(validateSaveV46(value)).toBe(value); expect(bytes(s)).toBe(before)
++}
++function eligible(s: GameState, id: string): boolean {
++  const b = owner(s, id)
++  return b.costCutting.since === null && b.productions.length === 0 && b.runs.length === 0
++    && !s.talentMarket.proposals.some(p => p.issuerStudioId === id)
++}
++function own(s: GameState, id: string) {
++  return {
++    employment: s.hollywood!.employment.filter(e => e.studioId === id),
++    plans: s.physicalPlans.plans.filter(p => p.studioId === id),
++    adoptions: s.technology.adoptions.filter(a => a.studioId === id),
++    projects: s.technology.projects.filter(p => p.studioId === id),
++    seats: s.technology.projects.filter(p => p.studioId === id).flatMap(p => p.seats.map(seat => ({ projectId: p.id, ...seat }))),
++  }
++}
++function cutting(input: GameState, id: string): GameState {
++  admitted(input); expect(eligible(input, id), 'original null-since/idle/proposal-free premise').toBe(true)
++  const state = structuredClone(input)
++  expect(owner(state, id).costCutting).toEqual({ version: 1, since: null })
++  owner(state, id).costCutting.since = state.market.tick
++  admitted(state)
++  return state
++}
++function step(input: GameState): GameState {
++  admitted(input); const before = bytes(input), next = tick(input)
++  expect(bytes(input)).toBe(before); admitted(next); expect(next.market.tick).toBe(input.market.tick + 1)
++  return next
++}
++let pair: { input: GameState; control: GameState } | undefined
++function controlPair() {
++  if (!pair) {
++    const input = accepted45('baseline265').live.state
++    expect(input.market.tick).toBe(265)
++    pair = { input, control: step(input) }
++  }
++  return structuredClone(pair)
++}
++type Kind = 'replacement'|'project'|'seat'
++function positive(input: GameState, control: GameState, id: string, kind: Kind): boolean {
++  const before = own(input, id), after = own(control, id)
++  if (kind === 'replacement') return after.employment.slice(before.employment.length).some(e => e.reason === 'replacement')
++  if (kind === 'project') return after.projects.length > before.projects.length
++  return after.seats.length > before.seats.length
++}
++function workProjects(input: GameState, control: GameState, id: string) {
++  return own(input, id).projects.filter(p => p.status === 'active'
++    && control.technology.projects.some(n => n.id === p.id && n.status === 'active' && n.verifiedWork > p.verifiedWork))
++}
++
++describe('1368 genuine original45 instrument boundary supplies independent B positives', () => {
++  it('demand remains positive ordinarily and becomes zero with only admitted since changed', () => {
++    const { input } = controlPair()
++    const b = input.hollywood!.businesses.find(b => eligible(input, b.studioId)
++      && rivalScientistDemand(input, input.hollywood!, b, input.talent, input.market.tick) > 0)
++    expect(b, 'UNMET ACTUAL265 PREMISE: idle genuine instrument-equipped Scientist demand').toBeDefined()
++    const before = bytes(input), id = b!.studioId
++    expect(rivalScientistDemand(input, input.hollywood!, b!, input.talent, input.market.tick)).toBeGreaterThan(0)
++    const candidate = cutting(input, id)
++    expect(rivalScientistDemand(candidate, candidate.hollywood!, owner(candidate, id), candidate.talent, candidate.market.tick)).toBe(0)
++    expect(bytes(input)).toBe(before)
++  }, 120_000)
++
++  it.each(['replacement', 'project', 'seat'] as const)('blocks new %s with a real ordinary265→266 positive', kind => {
++    const { input, control } = controlPair()
++    const b = input.hollywood!.businesses.find(b => eligible(input, b.studioId) && positive(input, control, b.studioId, kind))
++    expect(b, `UNMET ACTUAL265 PREMISE: idle paid ${kind} control`).toBeDefined()
++    const id = b!.studioId, old = own(input, id)
++    expect(positive(input, control, id, kind)).toBe(true)
++    if (kind === 'replacement') {
++      const fresh = own(control, id).employment.slice(old.employment.length).filter(e => e.reason === 'replacement')
++      expect(fresh.length).toBeGreaterThan(0)
++      for (const e of fresh) {
++        expect(e.terms.startWeek).toBe(265)
++        expect(e.terms.signingBonus).toBeGreaterThan(0)
++        expect(control.hollywood!.receipts.some(r => r.kind === 'employment' && r.contractId === e.contractId && r.reason === 'replacement')).toBe(true)
++      }
++    }
++    const candidate = cutting(input, id), before = bytes(candidate), next = step(candidate), after = own(next, id)
++    expect(after.employment.map(e => e.contractId)).toEqual(old.employment.map(e => e.contractId))
++    expect(after.plans.map(p => p.id)).toEqual(old.plans.map(p => p.id))
++    expect(after.adoptions.map(a => [a.id, a.committedWeek])).toEqual(old.adoptions.map(a => [a.id, a.committedWeek]))
++    expect(after.projects.map(p => [p.id, p.startedWeek])).toEqual(old.projects.map(p => [p.id, p.startedWeek]))
++    expect(after.seats.map(s => [s.projectId, s.talentId, s.assignedWeek])).toEqual(old.seats.map(s => [s.projectId, s.talentId, s.assignedWeek]))
++    expect(bytes(candidate)).toBe(before)
++  }, 120_000)
++
++  it('continues and pays actual active seated work at266 after the ordinary first project tick', () => {
++    const input = controlPair().control, control = step(input)
++    expect(input.market.tick).toBe(266)
++    const b = input.hollywood!.businesses.find(b => eligible(input, b.studioId) && workProjects(input, control, b.studioId).length > 0)
++    expect(b, 'UNMET ACTUAL266 PREMISE: idle ordinary active-work positive').toBeDefined()
++    const id = b!.studioId, working = workProjects(input, control, id)
++    expect(working.length).toBeGreaterThan(0)
++    const candidate = cutting(input, id), before = bytes(candidate), next = step(candidate)
++    for (const project of working) {
++      const after = next.technology.projects.find(p => p.id === project.id)!
++      expect(after.verifiedWork).toBeGreaterThan(project.verifiedWork)
++      expect(after.expenditure).toBeGreaterThan(project.expenditure)
++      expect(after.seats.filter(s => s.releasedWeek === null).map(s => s.talentId)).toEqual(project.seats.filter(s => s.releasedWeek === null).map(s => s.talentId))
++      for (const seat of project.seats.filter(s => s.releasedWeek === null)) {
++        const ordinal = input.hollywood!.activeEmploymentOrdinals.find(i => input.hollywood!.employment[i]!.studioId === id
++          && input.hollywood!.employment[i]!.terms.talentId === seat.talentId)
++        expect(ordinal).toBeDefined()
++        expect(next.hollywood!.employment[ordinal!]!.endedWeek).toBeNull()
++        expect(next.hollywood!.activeEmploymentOrdinals).toContain(ordinal!)
++      }
++    }
++    const movement = (s: GameState) => owner(s, id).account.periods.reduce((n, p) => n + p.movements.researchSpend, 0)
++    expect(movement(next) - movement(input)).toBeLessThan(0)
++    expect(bytes(candidate)).toBe(before)
++  }, 120_000)
++})
+diff --git a/tests/p14d2-b-adoption-boundary-1368.test.ts b/tests/p14d2-b-adoption-boundary-1368.test.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/p14d2-b-adoption-boundary-1368.test.ts
+@@ -0,0 +1,93 @@
++// Authored public engine-migration boundary fixture, not a natural fresh-industry campaign.
++import { expect, it } from 'vitest'
++import { generateWorld } from '../src/core/worldgen.js'
++import { tick } from '../src/core/tick.js'
++import { initializeHollywood, rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
++import { HOLLYWOOD_STARTING_MANIFEST } from '../src/core/hollywoodStartingData.js'
++import { commercialAccessRefusal } from '../src/core/technology.js'
++import { equipmentPlan, installationCatalogueCost } from '../src/core/technologyAdoption.js'
++import { technologyEntry } from '../src/core/technologyCatalogue.js'
++import { ageAt } from '../src/core/aging.js'
++import { makeSave, validateSaveV46, stableStringify } from '../src/core/save.js'
++import type { GameState } from '../src/core/types.js'
++const bytes = stableStringify
++function admitted(s: GameState): void {
++  const before = bytes(s), envelope = makeSave(s)
++  expect(validateSaveV46(envelope)).toBe(envelope); expect(bytes(s)).toBe(before)
++}
++function commitments(s: GameState, id: string) {
++  return {
++    employment: s.hollywood!.employment.filter(e => e.studioId === id).map(e => e.contractId),
++    plans: s.physicalPlans.plans.filter(p => p.studioId === id).map(p => p.id),
++    adoptions: s.technology.adoptions.filter(a => a.studioId === id).map(a => [a.id, a.committedWeek]),
++    projects: s.technology.projects.filter(p => p.studioId === id).map(p => [p.id, p.startedWeek]),
++    seats: s.technology.projects.filter(p => p.studioId === id).flatMap(p => p.seats.map(seat => [p.id, seat.talentId, seat.assignedWeek])),
++  }
++}
++it('B adoption: public migration entry at actual416 funds an ordinary adoption; cutting blocks all new commitments', () => {
++  let original = generateWorld('p13a-core-causal-01')
++  admitted(original); expect(original.hollywood).toBeNull(); expect(original.founding).toBeNull()
++  for (let week = 0; week < 416; week++) {
++    const before = bytes(original), next = tick(original)
++    expect(bytes(original)).toBe(before)
++    expect(next.market.tick).toBe(week + 1); expect(next.hollywood).toBeNull()
++    original = next
++  }
++  admitted(original); expect(original.market.tick).toBe(416); expect(original.founding).toBeNull()
++  const old = bytes(original), input = initializeHollywood(original, 'migration')
++  expect(bytes(original)).toBe(old); admitted(input)
++  expect(input.hollywood).toMatchObject({ origin: 'migration', originWeek: 416 })
++  expect(input.market).toEqual(original.market)
++  expect(input.ledger).toEqual(original.ledger)
++  expect(input.studio).toEqual(original.studio)
++  expect(input.hollywood!.films).toHaveLength(0) // no forged historical starter films
++  for (const person of input.talent) {
++    const provenance = input.talentProvenance.rows.filter(r => r.personId === person.id)
++    expect(provenance).toHaveLength(1); expect(person.age).toBe(ageAt(provenance[0]!, 416))
++    const prior = original.talent.find(t => t.id === person.id)
++    if (prior) expect(person).toEqual(prior)
++    else expect(provenance[0]).toMatchObject({ kind: 'authored_exact_week', entryWeek: 416 })
++  }
++  for (const b of input.hollywood!.businesses) {
++    const identity = input.hollywood!.identities.find(r => r.studioId === b.studioId)!
++    const authored = HOLLYWOOD_STARTING_MANIFEST.studios[identity.row - 1]!
++    expect(identity.enteredWeek).toBe(416); expect(identity.recordedFromWeek).toBe(416)
++    expect(b.account.openingBalance).toBe(authored.capital)
++    expect(b.account.periods).toHaveLength(1)
++    const period = b.account.periods[0]!
++    expect(period.fromWeek).toBe(416); expect(period.opening).toBe(authored.capital)
++    expect(b.account.cash).toBe(authored.capital + Object.values(period.movements).reduce((n, amount) => n + amount, 0))
++    expect(period.movements.capacity).toBeLessThan(0); expect(period.movements.signing).toBeLessThan(0)
++    for (const [kind, amount] of Object.entries(period.movements)) if (kind !== 'capacity' && kind !== 'signing') expect(amount).toBe(0)
++    expect(b.productions).toHaveLength(0); expect(b.runs).toHaveLength(0)
++    expect(b.costCutting).toEqual({ version: 1, since: null })
++    for (const e of input.hollywood!.employment.filter(e => e.studioId === b.studioId)) {
++      expect(e.reason).toBe('entry'); expect(e.terms.startWeek).toBe(416)
++      expect(input.hollywood!.receipts.some(r => r.kind === 'employment' && r.contractId === e.contractId && r.week === 416)).toBe(true)
++    }
++  }
++  const inputBefore = bytes(input), control = tick(input)
++  expect(bytes(input)).toBe(inputBefore); admitted(control)
++  const b = input.hollywood!.businesses.find(b => control.technology.adoptions.some(a => a.studioId === b.studioId
++    && !input.technology.adoptions.some(old => old.id === a.id)))
++  const entry = technologyEntry('synchronized-sound')
++  const refusalFacts = input.hollywood!.businesses.map(b => ({ studioId: b.studioId,
++    commercialRefusal: commercialAccessRefusal(input, b.studioId, entry.id), cash: b.account.cash,
++    reserve: rivalWeeklyOperatingCost(b, input.hollywood!, 416) * b.policy.reserveWeeks,
++    cost: entry.accessCost + equipmentPlan(input, b.studioId, entry.id).cost + installationCatalogueCost(entry),
++    stage: b.operations.facilities.filter(f => f.capability === 'soundstage' || f.capability === 'post').map(f => f.id),
++    workflows: b.operations.workflows.map(w => w.productionId) }))
++  expect(b, 'UNMET PUBLIC416 ADOPTION PREMISE: ' + JSON.stringify(refusalFacts)).toBeDefined()
++  const id = b!.studioId, adopted = control.technology.adoptions.filter(a => a.studioId === id)
++  expect(adopted.length).toBeGreaterThan(0)
++  expect(adopted.every(a => a.committedWeek === 416 && a.route === 'purchase')).toBe(true)
++  const expectedCost = entry.accessCost + entry.commercialEquipmentCost + installationCatalogueCost(entry)
++  expect(control.hollywood!.businesses.find(row => row.studioId === id)!.account.periods[0]!.movements.technologyAdoption).toBe(-expectedCost)
++  const candidate = structuredClone(input), selected = candidate.hollywood!.businesses.find(row => row.studioId === id)!
++  expect(candidate.talentMarket.proposals.some(p => p.issuerStudioId === id)).toBe(false)
++  selected.costCutting.since = 416; admitted(candidate)
++  const candidateBefore = bytes(candidate), result = tick(candidate)
++  admitted(result); expect(bytes(candidate)).toBe(candidateBefore)
++  expect(commitments(result, id)).toEqual(commitments(input, id))
++  expect(bytes(input)).toBe(inputBefore); expect(bytes(original)).toBe(old)
++}, 120_000)
+diff --git a/tests/p14d2-c-operational-boundary-1368.test.ts b/tests/p14d2-c-operational-boundary-1368.test.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/p14d2-c-operational-boundary-1368.test.ts
+@@ -0,0 +1,79 @@
++// Separately named genuine26→46 paid construction route. No synthetic body, cash or history.
++import { expect, it } from 'vitest'
++import { genuineRenewal196 } from './helpers/1368-renewal-fixture.js'
++import { admitRivalPlans, rivalFacilityDisposalEligibility, disposeRivalFacility } from '../src/core/rivalResearch.js'
++import { blueprintById, facilityDemolitionRefund } from '../src/core/placement.js'
++import { tick } from '../src/core/tick.js'
++import { makeSave, validateSaveV46, stableStringify } from '../src/core/save.js'
++import type { GameState } from '../src/core/types.js'
++const bytes = stableStringify
++function admitted(s: GameState) {
++  const before = bytes(s), value = makeSave(s)
++  expect(validateSaveV46(value)).toBe(value); expect(bytes(s)).toBe(before)
++}
++it('C5 genuine26 idle input, actual paid first labs and12 ordinary ticks reach zero lab-opex operational boundary', () => {
++  const original = genuineRenewal196(); admitted(original)
++  expect(original.market.tick).toBe(196)
++  const prior = bytes(original), result = admitRivalPlans(original)
++  expect(result.history).toEqual([]); expect(bytes(original)).toBe(prior)
++  let state = result.state; admitted(state)
++  const firstLabs = state.physicalPlans.plans.filter(plan => plan.commitReceipt?.week === 196
++    && plan.work.kind === 'placement' && plan.work.blueprintId === 'research-laboratory'
++    && !original.physicalPlans.plans.some(old => old.id === plan.id))
++  expect(firstLabs.length, 'UNMET GENUINE196 PREMISE: real quote/reserve must admit paid first laboratory').toBeGreaterThan(0)
++  const blueprint = blueprintById('research-laboratory')!
++  expect(blueprint.buildWeeks).toBe(12)
++  for (const plan of firstLabs) {
++    expect(plan.status).toBe('started')
++    expect(plan.commitReceipt!.cost).toBe(blueprint.capex)
++    expect(plan.approvedQuote.cost).toBe(blueprint.capex)
++    const oldOwner = original.hollywood!.businesses.find(row => row.studioId === plan.studioId)!
++    const paidOwner = state.hollywood!.businesses.find(row => row.studioId === plan.studioId)!
++    expect(paidOwner.account.cash).toBe(oldOwner.account.cash - blueprint.capex)
++    expect(oldOwner.operations.facilities.filter(f => f.capability === 'laboratory')).toHaveLength(0)
++    expect(state.hollywood!.receipts.filter(r => r.kind === 'laboratoryCommitted' && r.planId === plan.id)).toHaveLength(1)
++  }
++  for (let count = 0; count < 12; count++) {
++    const before = bytes(state), next = tick(state)
++    expect(bytes(state)).toBe(before); admitted(next); state = next
++  }
++  expect(state.market.tick).toBe(208)
++  const beforeSelection = bytes(state)
++  let witness: { state: GameState; id: string; facilityId: string; naturalSince: number | null } | undefined
++  for (const plan of firstLabs) {
++    const b = state.hollywood!.businesses.find(row => row.studioId === plan.studioId)!
++    const initialOwner = original.hollywood!.businesses.find(row => row.studioId === plan.studioId)!
++    if (initialOwner.productions.length || initialOwner.runs.length || original.talentMarket.proposals.some(p => p.issuerStudioId === b.studioId)) continue
++    const receipt = state.hollywood!.receipts.find(r => r.kind === 'laboratoryCommitted' && r.planId === plan.id)
++    if (receipt?.kind !== 'laboratoryCommitted' || b.operations.facilities.length !== 5) continue
++    const candidate = structuredClone(state), selected = candidate.hollywood!.businesses.find(row => row.studioId === b.studioId)!
++    const naturalSince = selected.costCutting.since
++    if (naturalSince === null) {
++      if (selected.productions.length || selected.runs.length || candidate.talentMarket.proposals.some(p => p.issuerStudioId === b.studioId)) continue
++      selected.costCutting.since = 208 // explicit synthetic policy control only when actual null/idle premise holds
++    }
++    admitted(candidate)
++    if (rivalFacilityDisposalEligibility(candidate, b.studioId, receipt.facilityId).eligible) {
++      witness = { state: candidate, id: b.studioId, facilityId: receipt.facilityId, naturalSince }; break
++    }
++  }
++  expect(bytes(state)).toBe(beforeSelection)
++  expect(witness, 'UNMET OPERATIONAL208 PREMISE: actual completed first body, five facilities and eligible natural/synthetic cutting owner').toBeDefined()
++  const { state: input, id, facilityId, naturalSince } = witness!
++  const b = input.hollywood!.businesses.find(row => row.studioId === id)!
++  const operation = input.hollywood!.receipts.find(r => r.kind === 'laboratoryOperational' && r.studioId === id && r.facilityId === facilityId)!
++  expect(operation.week).toBe(208)
++  const entered = input.hollywood!.identities.find(row => row.studioId === id)!.enteredWeek!
++  const core = ['development-casting-office', 'stage-standard', 'scenery-shop', 'post-building']
++    .reduce((n, id) => n + blueprintById(id)!.weeklyOperatingCost, 0)
++  const opex = b.account.periods.reduce((n, period) => n + period.movements.facilityOpex, 0)
++  expect(opex).toBe(-(208 - entered) * core) // exact original C5 cumulative assertion
++  const before = bytes(input), after = disposeRivalFacility(input, id, facilityId); admitted(after)
++  expect(bytes(input)).toBe(before)
++  const afterOwner = after.hollywood!.businesses.find(row => row.studioId === id)!
++  expect(afterOwner.account.periods.reduce((n, period) => n + period.movements.facilityOpex, 0)).toBe(opex)
++  expect(afterOwner.account.cash - b.account.cash).toBe(facilityDemolitionRefund(blueprint))
++  console.log('1368_C_OPERATIONAL_WITNESS', JSON.stringify({ week: 208, studioId: id, facilityId,
++    entryKind: naturalSince === null ? 'explicit-synthetic-since208' : 'actual-natural-cutting-retained', naturalSince }))
++  expect(bytes(original)).toBe(prior)
++}, 120_000)
+diff --git a/tsconfig.1368-b-research.json b/tsconfig.1368-b-research.json
+new file mode 100644
+--- /dev/null
++++ b/tsconfig.1368-b-research.json
+@@ -0,0 +1,5 @@
++{
++  "extends": "./tsconfig.json",
++  "compilerOptions": { "noEmit": true, "types": ["node"] },
++  "include": ["tests/p14d2-b-research-witnesses-1368.test.ts", "tests/p14d2-b-adoption-boundary-1368.test.ts", "tests/p14d2-c-operational-boundary-1368.test.ts", "tests/helpers/1368-recovery-witnesses.ts", "tests/helpers/1368-renewal-fixture.ts"]
++}

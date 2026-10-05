@@ -1,5 +1,11 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Owner1368 autonomous recovery continuation; main untouched
+
+[1368-O](evidence/p14b4-20260919/1368-O-owner-long-autonomous-run.md) supersedes the older blocked-stop endpoint. [1368-A](evidence/p14b4-20260919/1368-A-integrated-focused-and-renewal-witness.md) and [1368-B](evidence/p14b4-20260919/1368-B-valid-witness-progress.md) record actual integrated focused results and lawful replacement controls. Renewal/period/adoption/operational controls pass their named assertions; four research positives still lack premises. The original45 bounded producer has five individually accepted rows but remains PARTIAL/FAIL because its operational row is absent. No full recovery closure is claimed.
+
+HANDOFF owns exact current runs and next commands. Full recovery source remains scratch Save46; live source is Save45+F6. The reviewed original45 delayed-player post2040 route is staged/typesGREEN, runtime pending at publication. Promotion remains conditional on the genuine checkpoint and every1367-O2 gate. Preserve all original failures and history; CURRENT-BEST Owner identity is unchanged. After closure/promotion continue1364→1365→P15→qualifiedP16→canonicalP17→boundedP18, noP19. Older CURRENT blocks below are historical.
+
 ## CURRENT — promotion stopped; required recovery verification remains open
 
 [1367-T](evidence/p14b4-20260919/1367-T-promotion-gate-blocked.md) records the proved promotion stop. Both bounded witness diagnostics completed successfully and independently explain the missing premises: all four historical312 owners cannot afford the required laboratory plus reserve; C's fixed early owners are active and later bodies are protected or already disposed. The original positive tests remain failed. Full original post2040 release-cost measurement also remains open before step10. No checkpoint closure, PR or main merge is claimed. Complete unlanded candidate source is preserved losslessly with exact base,708filepins,31filepatch and reconstruction proof. The source branch/evidence are pushed normally; HANDOFF owns final publication identity and next actions.

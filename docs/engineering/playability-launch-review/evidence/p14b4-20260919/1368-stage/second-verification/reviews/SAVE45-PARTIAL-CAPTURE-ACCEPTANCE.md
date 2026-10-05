@@ -1,0 +1,19 @@
+# Independent original45 partial-row capture acceptance
+
+ACCEPT the five exact qualified rows individually: ordinary91, calendar104, research267, baseline265 and baseline280. Do not mark the producer GREEN: actual child1, no timeout56748.299ms, runner57.532s, one failed required-missing assertion for operational only. Completed archive/parent postflight and final manifest distinguish these qualified rows from the earlier timed-out unaccepted attempt.
+
+Manifest SHA25611ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5 binds exact original2eaa697effc38538c37da28b486786ce267a2284, archive pre/postbc31af5423ef1912f258bcf34e887fa2f687d4675c5b3ac1e89d2eb7f21ac810, qualifier30322b64091ded0daaa080bc4f600654a6aa759583be23829faab517b24d72b8 and current recording636f1c42f5de8bce6776b51873d763514a739914. One actual original p13a-core-causal-01 develop prefix0→520, unchanged deadlines and deterministic first qualifying selection, completes. Reviewed filtered producere3a298cf99c360b13fbe9c1e226c7503d46e9455d10a14556cc1122af9e2642f is exact.
+
+Only five named new gzip files decoded. Every envelope is actual45 with the exact row week, no costCutting or disposal history. Ordinary91 selects r04/laboratory0; calendar104 selects r01/laboratory0. Both owners are idle/proposal-free with five facilities and a retained started paid900000 laboratory plan and no primary/seat research dependency. Research267 selects idle/proposal-free r01 and its actual synchronized-sound primary laboratory0 project. Producer execution additionally establishes public45/full46 admission, exact empty roundtrip and admitted synthetic since eligibility/refusal without writing since into the historical payload. No reviewer engine replay was run. Baseline265/280 admission establishes ordinary snapshots only, not B demand/hire/work effects.
+
+| Row | Week | Gzip bytes | Raw bytes | Gzip SHA256 | Raw SHA256 |
+| --- | ---: | ---: | ---: | --- | --- |
+| ordinary | 91 | 114078 | 982039 | `89b2ba8b46a13c6958e9e1955ecf3d4a38662c1d11c7a99c0e3c86713c3a1100` | `e33c122c1b7d73bdd45c29d1bce59843099a6d838123fdc1a56046c5ee288e22` |
+| calendar | 104 | 118274 | 1021677 | `9b4732127aa6bae8d77da1ea9bf0afe22acdb1a1b15cf2ae80a727dc14181dc9` | `6632462c2ba1c350859e3d185afbf35e5a50cc6b6a9035693d8e71cbf79b09da` |
+| baseline265 | 265 | 149897 | 1357160 | `41954ef182836c94f3242644d10929930b438f71ffce1d7bbb4899797de1b805` | `050acfff9d9ff8da7e4359adfee9a5bad6c75bf7299ff7597eae5f8ad142d238` |
+| research | 267 | 152446 | 1381344 | `c3f78360efc6ff30f7ef63a873ee49174dac4b5cf8a4e683672e3aac20591a56` | `2b27ca1517b8fcf5329b4742e329e252dfb40fe2dbafe3868244bd6f81b0f3b1` |
+| baseline280 | 280 | 153528 | 1398331 | `2f52fe05d0a0668e4ecade3399696d491e726a7e9ca923b51087c32ec91e2b2e` | `8330e8a9ed5244c9898554408b49747a9e753347605933407f9af841167f8a1f` |
+
+Runner2b6a0a842562f3a51ed484efb704582b5780751c2c724a9446c187d4a0c6f014 and pin manifestc17d8ba7b27238a3d9d19666ff1813d1dd96152904bd7b6ce9a615205d60b2d8 independently match current exact files; every named non-fixture candidate pin matches. Completed receipt records exact source/HEAD/index/empty live diff and explicit fixture guards. Output SHA256 `8af6b5484046022e2bdb60f42442e6f86dabe5b6193fa2a1844f2a7c122ef4c0`; receipt SHA256 `c124279fc24ae7fcb23e875770a3522e806719315dcd58e0f729c380390cc394`.
+
+Use the independently accepted manifest pin for reviewed consumers. C/migration/research actual target assertions still require execution. Operational is absent under this original45 route and must remain explicitly missing; the separately accepted genuine26→208 operational test supplies its own measured assertion, not an invented row here. No blanket capture success, fixture repair, further search or whole recovery closure follows. Original timed-out files and failed12/52/280/53 controls remain preserved. No old fixture access, runtime, source/index mutation or directory scan performed by reviewer.

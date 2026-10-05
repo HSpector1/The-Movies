@@ -1,0 +1,35 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-recovery-witness-candidate/candidate
+
+ × |core| tests/1368-recovery-witness-producer.test.ts > 1368 original-source fixed route captures only publicly admitted premises 53356ms
+   → bounded route completed but required witness is absent; retain partial bytes, no automatic widening: expected [ 'operational' ] to deeply equal []
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/1368-recovery-witness-producer.test.ts > 1368 original-source fixed route captures only publicly admitted premises
+AssertionError: bounded route completed but required witness is absent; retain partial bytes, no automatic widening: expected [ 'operational' ] to deeply equal []
+
+- Expected
++ Received
+
+- Array []
++ Array [
++   "operational",
++ ]
+
+ ❯ tests/1368-recovery-witness-producer.test.ts:204:122
+    202|   writeFileSync(join(out, 'RESULT.json'), JSON.stringify({ manifestSha…
+    203|   expect(engine.postflight().sha256).toBe(engine.pre.sha256)
+    204|   expect(missing, 'bounded route completed but required witness is abs…
+       |                                                                                                                          ^
+    205| }, 300_000)
+    206| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  22:58:05
+   Duration  55.87s (transform 3.20s, setup 0ms, collect 2.07s, tests 53.36s, environment 0ms, prepare 111ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 1, "elapsedMs": 56748.29947494436}

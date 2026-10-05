@@ -1,0 +1,400 @@
+// 1363-A2 C1-C9 / S5-S6; Save46 allocated by 1367-H.
+// Preparation only: no claimed runtime, natural cutting witness or fixture mint.
+import { describe, expect, it } from 'vitest'
+import * as save from '../src/core/save.js'
+import * as research from '../src/core/rivalResearch.js'
+import { blueprintById, facilityDemolitionRefund } from '../src/core/placement.js'
+import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import { tick } from '../src/core/tick.js'
+import { accepted45 } from './helpers/1368-recovery-witnesses.js'
+import type { GameState } from '../src/core/types.js'
+
+type Envelope = { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown }
+type Eligibility = { eligible: true; planId: string; refund: number }
+  | { eligible: false; reason: string; subjectId: string }
+type DisposalApi = {
+  rivalFacilityDisposalEligibility: (state: GameState, studioId: string, facilityId: string) => Eligibility
+  disposeRivalFacility: (state: GameState, studioId: string, facilityId: string) => GameState
+  disposeEligibleRivalFacilities: (state: GameState, studioId: string) => GameState
+  validateRivalFacilityDisposal: (state: GameState) => void
+}
+type EraApi = {
+  validateSaveV46: (value: unknown) => Envelope
+  convertV46ToV45: (value: unknown) => unknown
+  convertV45ToV46: (value: unknown) => Envelope
+}
+type Disposed = { kind: 'facilityDisposed'; eventId: string; week: number; studioId: string;
+  facilityId: string; planId: string; blueprintId: 'research-laboratory'; refund: number }
+const bytes = save.stableStringify
+const b = (s: GameState, id: string) => {
+  const found = s.hollywood!.businesses.find(row => row.studioId === id)
+  expect(found, 'actual studio exists').toBeDefined()
+  return found!
+}
+const cutting = (s: GameState, id: string) => b(s, id) as unknown as {
+  costCutting: { version: 1; since: number | null }
+}
+const movements = (s: GameState, id: string, kind: string) => b(s, id).account.periods.reduce(
+  (sum, p) => sum + (p.movements as unknown as Record<string, number>)[kind]!, 0)
+const disposals = (s: GameState): Disposed[] => s.hollywood!.receipts.filter(
+  row => (row as unknown as { kind: string }).kind === 'facilityDisposed') as unknown as Disposed[]
+function api(): DisposalApi {
+  const future = research as unknown as DisposalApi
+  for (const key of ['rivalFacilityDisposalEligibility', 'disposeRivalFacility',
+    'disposeEligibleRivalFacilities', 'validateRivalFacilityDisposal'] as const)
+    expect(typeof future[key], 'explicit proposed Part C export: ' + key).toBe('function')
+  return future
+}
+function era(): EraApi {
+  const future = save as unknown as EraApi
+  for (const key of ['validateSaveV46', 'convertV46ToV45', 'convertV45ToV46'] as const)
+    expect(typeof future[key], '1367-H allocated Save46 export: ' + key).toBe('function')
+  return future
+}
+function admitted(s: GameState): GameState {
+  const envelope = save.makeSave(s)
+  expect(envelope.saveVersion).toBe(46)
+  expect(era().validateSaveV46(envelope)).toBe(envelope)
+  return s
+}
+const worlds = new Map<number, GameState>()
+function generatedAt(week: number): GameState {
+  if (!worlds.has(week)) {
+    let state = p13aGeneratedStudio('p13a-core-causal-01')
+    for (let i = 0; i < week; i++) state = tick(state, { develop: true })
+    expect(state.market.tick).toBe(week)
+    admitted(state)
+    worlds.set(week, state)
+  }
+  return structuredClone(worlds.get(week)!)
+}
+// Shared admission premise before the explicitly synthetic policy-state change.
+// Select another existing owner at the SAME named week, never remove commitments.
+function canMarkCutting(state: GameState, studioId: string): boolean {
+  const owner = state.hollywood!.businesses.find(row => row.studioId === studioId)
+  return owner !== undefined && owner.productions.length === 0 && owner.runs.length === 0
+    && cutting(state, studioId).costCutting.since === null
+    && !state.talentMarket.proposals.some(p => p.issuerStudioId === studioId)
+}
+function markCutting(state: GameState, studioId: string): void {
+  expect(canMarkCutting(state, studioId),
+    'UNMET VALID PREMISE: owner needs null since, no production/run and no current issuer proposal').toBe(true)
+  expect(cutting(state, studioId).costCutting).toEqual({ version: 1, since: null })
+  expect(state.talentMarket.proposals.some(p => p.issuerStudioId === studioId)).toBe(false)
+  cutting(state, studioId).costCutting.since = state.market.tick
+  admitted(state)
+}
+// Real plan/receipt/cash/clock route. Setting only since is SYNTHETIC POLICY STATE,
+// explicitly not proof of naturally reached entry. Full validation must admit it.
+function bareAt(kind: 'ordinary' | 'calendar' | 'operational' = 'ordinary') {
+  const witness = accepted45(kind)
+  const state = witness.live.state
+  const week = state.market.tick
+  if (kind === 'calendar') expect(week > 0 && week % 52 === 0).toBe(true)
+  if (kind === 'ordinary') expect(week % 52).not.toBe(0)
+  const candidate = state.hollywood!.businesses.flatMap(owner => owner.operations.facilities
+    .filter(f => f.capability === 'laboratory').map(f => ({ owner, f })))
+    .find(({ owner, f }) => owner.studioId === witness.row.studioId && f.id === witness.row.facilityId
+      && canMarkCutting(state, owner.studioId)
+      && !state.technology.projects.some(p => p.studioId === owner.studioId
+        && (p.laboratoryFacilityId === f.id || p.seats.some(seat => seat.laboratoryFacilityId === f.id)))
+      && !state.physicalPlans.plans.some(p => p.studioId === owner.studioId && p.work.kind === 'installation'
+        && 'facilityId' in p.work.target && p.work.target.facilityId === f.id && p.status !== 'cancelled'))
+  expect(candidate, 'UNMET ACCEPTED WITNESS: exact named body with null since, no production/run/proposals').toBeDefined()
+  const studioId = candidate!.owner.studioId, facilityId = candidate!.f.id
+  markCutting(state, studioId)
+  const commitment = state.hollywood!.receipts.find(r => r.kind === 'laboratoryCommitted'
+    && r.studioId === studioId && r.facilityId === facilityId)
+  expect(commitment?.kind).toBe('laboratoryCommitted')
+  if (commitment?.kind !== 'laboratoryCommitted') throw new Error('missing genuine body commitment')
+  const plan = state.physicalPlans.plans.find(p => p.id === commitment.planId)!
+  const operational = state.hollywood!.receipts.find(r => r.kind === 'laboratoryOperational'
+    && r.studioId === studioId && r.facilityId === facilityId)!
+  expect(plan.status).toBe('started') // completed bodies KEEP this actual lifecycle value
+  expect(plan.commitReceipt).not.toBeNull()
+  expect(plan.work).toMatchObject({ kind: 'placement', blueprintId: 'research-laboratory' })
+  expect(operational.week).toBe(plan.commitReceipt!.week + plan.approvedQuote.buildWeeks)
+  return { state, studioId, facilityId, plan, operational }
+}
+function refuse(s: GameState, studioId: string, facilityId: string, reason: string, subjectId = facilityId) {
+  admitted(s)
+  const before = bytes(s)
+  expect(api().rivalFacilityDisposalEligibility(s, studioId, facilityId))
+    .toEqual({ eligible: false, reason, subjectId })
+  expect(() => api().disposeRivalFacility(s, studioId, facilityId))
+    .toThrow(new Error(`rival facility disposal: ${reason} (${subjectId})`))
+  expect(bytes(s)).toBe(before)
+}
+
+describe('1363-A2 Part C: admitted synthetic policy-state controls over genuine plant', () => {
+  it('C1 real paid bare body: exact shared refund, only backed movement and receipt, no input mutation', () => {
+    const { state, studioId, facilityId, plan } = bareAt()
+    const before = bytes(state), blueprint = blueprintById('research-laboratory')!
+    const refund = facilityDemolitionRefund(blueprint)
+    expect(refund).toBe(450_000)
+    expect(plan.commitReceipt!.cost).toBeGreaterThan(refund)
+    expect(api().rivalFacilityDisposalEligibility(state, studioId, facilityId))
+      .toEqual({ eligible: true, planId: plan.id, refund })
+    const after = api().disposeRivalFacility(state, studioId, facilityId)
+    admitted(after)
+    expect(bytes(state)).toBe(before)
+    expect(b(after, studioId).operations.facilities).toEqual(b(state, studioId).operations.facilities.filter(f => f.id !== facilityId))
+    expect(b(after, studioId).account.cash - b(state, studioId).account.cash).toBe(refund)
+    expect(movements(after, studioId, 'facilityDemolitionRefund') - movements(state, studioId, 'facilityDemolitionRefund')).toBe(refund)
+    expect(disposals(after)).toEqual([{ kind: 'facilityDisposed',
+      eventId: `industry-event-${state.hollywood!.nextReceipt}`, week: state.market.tick,
+      studioId, facilityId, planId: plan.id, blueprintId: 'research-laboratory', refund }])
+    expect(after.hollywood!.receipts.slice(0, -1)).toEqual(state.hollywood!.receipts)
+    expect(after.hollywood!.nextReceipt).toBe(state.hollywood!.nextReceipt + 1)
+    expect(after.physicalPlans).toEqual(state.physicalPlans)
+    expect(after.technology).toEqual(state.technology)
+    expect(after.rngState).toEqual(state.rngState)
+    expect(after.ledger).toEqual(state.ledger)
+    expect(cutting(after, studioId).costCutting.since).toBe(state.market.tick)
+    const unchanged = structuredClone(after)
+    unchanged.hollywood!.receipts = structuredClone(state.hollywood!.receipts)
+    unchanged.hollywood!.nextReceipt = state.hollywood!.nextReceipt
+    b(unchanged, studioId).operations = structuredClone(b(state, studioId).operations)
+    b(unchanged, studioId).account = structuredClone(b(state, studioId).account)
+    expect(bytes(unchanged)).toBe(before) // every other state path, including other studios
+    for (const kind of Object.keys(b(state, studioId).account.periods[0]!.movements))
+      if (kind !== 'facilityDemolitionRefund') expect(movements(after, studioId, kind)).toBe(movements(state, studioId, kind))
+  }, 120_000)
+
+  it('C2 four exact protected core IDs refuse on otherwise admitted cutting state', () => {
+    const { state, studioId } = bareAt()
+    for (const suffix of ['development', 'stage', 'scenery', 'post'])
+      refuse(state, studioId, `${studioId}:${suffix}`, 'core-facility')
+  }, 120_000)
+
+  it('C2 player, unknown owner, foreign body, unknown body and non-cutting refusals are precise', () => {
+    const { state, studioId, facilityId } = bareAt()
+    const own = state.hollywood!.playerStudioId
+    refuse(state, own, facilityId, 'not-rival', own)
+    refuse(state, 'missing-studio', facilityId, 'unknown-studio', 'missing-studio')
+    const other = state.hollywood!.businesses.find(row => row.studioId !== studioId)!
+    expect(other).toBeDefined()
+    // Subject ownership precedes cutting status, so this remains the foreign-body guard.
+    refuse(state, other.studioId, facilityId, 'foreign-facility')
+    refuse(state, studioId, 'missing-facility', 'unknown-facility', 'missing-facility')
+    const ordinary = structuredClone(state)
+    cutting(ordinary, studioId).costCutting.since = null
+    refuse(ordinary, studioId, facilityId, 'not-cutting', studioId)
+  }, 120_000)
+
+  it('C3 genuine admitted unfinished body refuses before it becomes operational', () => {
+    const state = generatedAt(1)
+    const receipt = state.hollywood!.receipts.find(r => r.kind === 'laboratoryCommitted'
+      && canMarkCutting(state, r.studioId))
+    expect(receipt?.kind, 'UNMET VALID PREMISE: real first-week lab commitment on an admissible cutting owner').toBe('laboratoryCommitted')
+    if (receipt?.kind !== 'laboratoryCommitted') throw new Error('missing commitment')
+    markCutting(state, receipt.studioId)
+    expect(b(state, receipt.studioId).operations.facilities.some(f => f.id === receipt.facilityId)).toBe(false)
+    refuse(state, receipt.studioId, receipt.facilityId, 'not-operational')
+  }, 120_000)
+
+  it('C3 real admitted instrument protects its target before completion (bounded week 261 premise)', () => {
+    const state = generatedAt(261)
+    const plan = state.physicalPlans.plans.find(p => p.studioId !== state.hollywood!.playerStudioId
+      && canMarkCutting(state, p.studioId)
+      && p.work.kind === 'installation' && 'facilityId' in p.work.target && p.status === 'started'
+      && p.commitReceipt !== null && state.market.tick < p.commitReceipt.week + p.approvedQuote.buildWeeks)
+    expect(plan, 'UNMET VALID PREMISE: actual instrument admission on an admissible cutting owner').toBeDefined()
+    if (!plan || plan.work.kind !== 'installation' || !('facilityId' in plan.work.target)) throw new Error('instrument premise')
+    const facilityId = plan.work.target.facilityId
+    expect(state.technology.projects.some(p => p.studioId === plan.studioId
+      && (p.laboratoryFacilityId === facilityId || p.seats.some(seat => seat.laboratoryFacilityId === facilityId)))).toBe(false)
+    markCutting(state, plan.studioId)
+    refuse(state, plan.studioId, facilityId, 'instrument-commitment', plan.id)
+  }, 120_000)
+
+  it('C4 actual retained research reference protects its laboratory (accepted original45 idle witness)', () => {
+    const witness = accepted45('research')
+    const state = witness.live.state
+    const project = state.technology.projects.find(p => p.id === witness.row.projectId
+      && p.studioId === witness.row.studioId && p.laboratoryFacilityId === witness.row.facilityId
+      && p.studioId !== state.hollywood!.playerStudioId && canMarkCutting(state, p.studioId))
+    expect(project, 'UNMET VALID PREMISE: actual rival research on an admissible cutting owner').toBeDefined()
+    if (!project) throw new Error('research premise')
+    markCutting(state, project.studioId)
+    const history = bytes(state.technology)
+    // Research history precedes instrument checks: the exact protected subject is this project.
+    refuse(state, project.studioId, project.laboratoryFacilityId, 'research-history', project.id)
+    expect(bytes(state.technology)).toBe(history)
+  }, 120_000)
+
+  it.each(['ordinary', 'calendar'] as const)('C5 disposal at accepted %s boundary stops only this body opex before next booking', kind => {
+    const { state, studioId, facilityId, operational } = bareAt(kind)
+    const week = state.market.tick
+    const before = bytes(state)
+    const after = api().disposeRivalFacility(state, studioId, facilityId)
+    admitted(after)
+    expect(bytes(state)).toBe(before)
+    expect(movements(after, studioId, 'facilityOpex')).toBe(movements(state, studioId, 'facilityOpex'))
+    expect(after.physicalPlans).toEqual(state.physicalPlans)
+    expect(state.market.tick - operational.week).toBeGreaterThanOrEqual(0)
+    const arrived = tick(after, { develop: true })
+    admitted(arrived)
+    const retained = b(after, studioId).operations.facilities
+    expect(retained.some(f => f.id === facilityId)).toBe(false)
+    expect(disposals(arrived).filter(r => r.facilityId === facilityId)).toHaveLength(1)
+    // Independent core-capacity costs come from authored blueprints, not the implementation sum helper.
+    const coreWeekly = ['development-casting-office', 'stage-standard', 'scenery-shop', 'post-building']
+      .map(id => blueprintById(id))
+    expect(coreWeekly.every(row => row !== null), 'exact blueprint IDs must be source refreshed').toBe(true)
+    const expected = coreWeekly.reduce((sum, row) => sum + row!.weeklyOperatingCost, 0)
+    expect(retained).toHaveLength(4)
+    expect(movements(arrived, studioId, 'facilityOpex') - movements(after, studioId, 'facilityOpex')).toBe(-expected)
+    const receipt = disposals(after).find(r => r.facilityId === facilityId)!
+    expect(receipt.week).toBe(week)
+    const period = b(after, studioId).account.periods.find(p => p.fromWeek <= week && week <= p.throughWeek)!
+    expect((period.movements as unknown as Record<string, number>).facilityDemolitionRefund).toBe(450_000)
+  }, 120_000)
+
+  it('C5 disposal at the actual operational boundary owes zero laboratory operating weeks', () => {
+    const { state, studioId, facilityId, operational } = bareAt('operational')
+    expect(state.market.tick).toBe(operational.week)
+    expect(b(state, studioId).operations.facilities).toHaveLength(5)
+    const entered = state.hollywood!.identities.find(row => row.studioId === studioId)!.enteredWeek!
+    const core = ['development-casting-office', 'stage-standard', 'scenery-shop', 'post-building']
+      .reduce((sum, id) => sum + blueprintById(id)!.weeklyOperatingCost, 0)
+    expect(movements(state, studioId, 'facilityOpex')).toBe(-(state.market.tick - entered) * core)
+    const after = api().disposeRivalFacility(state, studioId, facilityId)
+    admitted(after)
+    expect(movements(after, studioId, 'facilityOpex')).toBe(movements(state, studioId, 'facilityOpex'))
+  }, 120_000)
+
+  it('C6 explicit retry refuses; policy and completion cannot rematerialize or repay the retained started plan', () => {
+    const { state, studioId, facilityId, plan } = bareAt()
+    const disposed = api().disposeRivalFacility(state, studioId, facilityId)
+    admitted(disposed)
+    refuse(disposed, studioId, facilityId, 'already-disposed')
+    const before = bytes(disposed)
+    expect(bytes(api().disposeEligibleRivalFacilities(disposed, studioId))).toBe(before)
+    expect(bytes(research.completeRivalPlans(disposed))).toBe(before)
+    expect(disposed.physicalPlans.plans.find(p => p.id === plan.id)!.status).toBe('started')
+    let uninterrupted = structuredClone(disposed)
+    let loaded = save.importSave(save.exportSave(save.makeSave(disposed))).state as GameState
+    for (let i = 0; i < 60; i++) {
+      uninterrupted = tick(uninterrupted, { develop: true })
+      loaded = tick(loaded, { develop: true })
+    }
+    admitted(uninterrupted); admitted(loaded)
+    expect(bytes(loaded)).toBe(bytes(uninterrupted))
+    expect(b(loaded, studioId).operations.facilities.some(f => f.id === facilityId)).toBe(false)
+    expect(disposals(loaded).filter(r => r.facilityId === facilityId)).toHaveLength(1)
+    expect(movements(loaded, studioId, 'facilityDemolitionRefund')).toBe(450_000)
+  }, 120_000)
+
+  it.each([
+    ['wrong-refund', (_s: GameState, r: Disposed) => { r.refund++ }],
+    ['wrong-blueprint', (_s: GameState, r: Disposed) => { (r as unknown as { blueprintId: string }).blueprintId = 'post-building' }],
+    ['future-disposal', (s: GameState, r: Disposed) => { r.week = s.market.tick + 1 }],
+    ['missing-body-plan', (_s: GameState, r: Disposed) => { r.planId = 'missing-plan' }],
+    ['wrong-owner', (_s: GameState, r: Disposed) => { r.studioId = 'missing-studio' }],
+    ['wrong-body', (_s: GameState, r: Disposed) => { r.facilityId = 'missing-body' }],
+    ['duplicate-disposal', (s: GameState, r: Disposed) => {
+      const copy = { ...r, eventId: `industry-event-${s.hollywood!.nextReceipt++}` }
+      ;(s.hollywood!.receipts as unknown as Disposed[]).push(copy)
+    }],
+    ['refund-movement-mismatch', (s: GameState, r: Disposed) => {
+      const p = b(s, r.studioId).account.periods.find(p => p.fromWeek <= r.week && r.week <= p.throughWeek)!
+      ;(p.movements as unknown as Record<string, number>).facilityDemolitionRefund! += 1
+    }],
+    ['negative-refund-movement', (s: GameState, r: Disposed) => {
+      const p = b(s, r.studioId).account.periods.find(p => p.fromWeek <= r.week && r.week <= p.throughWeek)!
+      ;(p.movements as unknown as Record<string, number>).facilityDemolitionRefund = -1
+    }],
+  ] as const)('C7 synthetic single-field authority mutant: %s', (reason, mutate) => {
+    const { state, studioId, facilityId } = bareAt()
+    const valid = api().disposeRivalFacility(state, studioId, facilityId)
+    admitted(valid)
+    expect(() => api().validateRivalFacilityDisposal(valid)).not.toThrow()
+    const mutant = structuredClone(valid), receipt = disposals(mutant)[0]!
+    mutate(mutant, receipt)
+    const before = bytes(mutant)
+    // These objects intentionally are invalid. They are never described as natural controls.
+    const expected = new Error(`rival facility disposal invariant: ${reason}`)
+    expect(() => api().validateRivalFacilityDisposal(mutant)).toThrow(expected)
+    expect(() => era().validateSaveV46({ saveVersion: 46, seed: mutant.seed,
+      state: mutant, broadcastCache: mutant.broadcastItems })).toThrow(expected)
+    expect(bytes(mutant)).toBe(before)
+  }, 120_000)
+
+  it('C7 standing-and-disposed and missing tombstone cannot hide behind valid prior history', () => {
+    const { state, studioId, facilityId } = bareAt()
+    const valid = api().disposeRivalFacility(state, studioId, facilityId)
+    admitted(valid)
+    const standing = structuredClone(valid)
+    b(standing, studioId).operations.facilities.push(structuredClone(b(state, studioId).operations.facilities.find(f => f.id === facilityId)!))
+    const missing = structuredClone(valid)
+    missing.hollywood!.receipts = missing.hollywood!.receipts.filter(row => (row as unknown as { kind: string }).kind !== 'facilityDisposed')
+    for (const [mutant, reason] of [[standing, 'standing-and-disposed'], [missing, 'operational-body-missing']] as const) {
+      const before = bytes(mutant)
+      const expected = new Error(`rival facility disposal invariant: ${reason}`)
+      expect(() => api().validateRivalFacilityDisposal(mutant)).toThrow(expected)
+      expect(() => era().validateSaveV46({ saveVersion: 46, seed: mutant.seed,
+        state: mutant, broadcastCache: mutant.broadcastItems })).toThrow(expected)
+      expect(bytes(mutant)).toBe(before)
+    }
+  }, 120_000)
+
+  it('C9 refund alone preserves cutting and does not create a hire, commission or production', () => {
+    const { state, studioId, facilityId } = bareAt()
+    const before = cutting(state, studioId).costCutting.since
+    const after = api().disposeRivalFacility(state, studioId, facilityId)
+    admitted(after)
+    expect(cutting(after, studioId).costCutting.since).toBe(before)
+    expect(after.hollywood!.employment).toEqual(state.hollywood!.employment)
+    expect(b(after, studioId).projects).toEqual(b(state, studioId).projects)
+    expect(b(after, studioId).productions).toEqual(b(state, studioId).productions)
+    expect(b(after, studioId).development).toEqual(b(state, studioId).development)
+  }, 120_000)
+
+  it('S6 direct live profession proof retains the actual refund, missing body and disposal receipt', () => {
+    const { state, studioId, facilityId } = bareAt()
+    for (const admittedState of [state, api().disposeRivalFacility(state, studioId, facilityId)]) {
+      admitted(admittedState)
+      const before = bytes(admittedState)
+      expect(save.validatedLiveProfessionContext(admittedState)).toBeDefined()
+      expect(bytes(admittedState)).toBe(before)
+    }
+  }, 120_000)
+
+  it('S5 empty live-46 down/up control is lossless; it is not the required genuine pre-amendment capture', () => {
+    const state = generatedAt(0), before = bytes(save.makeSave(state))
+    const old = era().convertV46ToV45(save.makeSave(state))
+    expect(save.validateSaveV45(old)).toBe(old)
+    expect(bytes(era().convertV45ToV46(old))).toBe(before)
+    expect(bytes(save.makeSave(state))).toBe(before)
+  }, 120_000)
+})
+
+// This observation uses NO cash, clock, cost-cutting, plan or history mutation.
+// Zero refunds is an explicit natural-route finding, not synthetic coverage or a waiver.
+describe('1363-A2 Part C bounded natural route observation', () => {
+  it('records actual autonomous refunds or explicitly reports zero through week 520', () => {
+    api(); era()
+    let state = p13aGeneratedStudio('p13a-core-causal-01')
+    admitted(state)
+    const observed: Disposed[] = []
+    for (let i = 0; i < 520; i++) {
+      const previous = state
+      state = tick(state, { develop: true })
+      for (const receipt of disposals(state).filter(r => r.week === previous.market.tick)) {
+        expect(observed.some(r => r.eventId === receipt.eventId)).toBe(false)
+        expect(receipt.refund).toBe(facilityDemolitionRefund(blueprintById('research-laboratory')!))
+        expect(b(state, receipt.studioId).operations.facilities.some(f => f.id === receipt.facilityId)).toBe(false)
+        expect(state.physicalPlans.plans.find(p => p.id === receipt.planId)?.status).toBe('started')
+        admitted(state)
+        observed.push(receipt)
+      }
+    }
+    admitted(state)
+    expect(state.market.tick).toBe(520)
+    console.info('1363-C-natural-observation', JSON.stringify({ seed: state.seed, throughWeek: 520,
+      actualDisposals: observed, disposition: observed.length === 0
+        ? 'ZERO_REFUNDS: natural positive disposal integration not demonstrated; retain blocking-cause census requirement'
+        : 'OBSERVED_REFUNDS: inspect actual history and full acceptance gates before claiming recovery' }))
+  }, 300_000)
+})
