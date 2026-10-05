@@ -815,9 +815,10 @@ function evaluateLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind, de
 }
 
 /**
- * The tick's last step (Wave 2). Returns `root` itself unless the produced week is the
- * boundary and no official manifest exists; then a fresh root carrying it. The official
- * manifest is written once: a later week, or a second call at the boundary, changes nothing.
+ * Pure boundary freeze used by the Wave 2 tick wrapper. Returns `root` itself unless the
+ * produced week is the boundary and no official manifest exists; then a fresh root carries
+ * the unstamped manifest. freezeCampaignLegacyWeek performs the final live-tick allocation.
+ * A later week or a second call at the boundary changes nothing.
  */
 export function freezeLegacy(root: CampaignLegacy, producedWeek: number, facts: LegacyFacts): CampaignLegacy {
   if (producedWeek !== LEGACY_BOUNDARY_WEEK) return root
@@ -1182,7 +1183,8 @@ export function freezeCampaignLegacyWeek(state: GameState): GameState {
 /**
  * The root's validator. `validateSaveV45` runs it after the frozen chain and the sibling roots' validators have
  * proved the rest of the state, and the one allocator check after it (1361-F ruling 5). It judges a manifest by
- * the frozen entry its definition names, never by TUNING or the live exports, and it refuses by name.
+ * the frozen entry its definition names, then replays with the catalogue and archetype evaluators
+ * frozen by 1361-F6 ruling 2. It never reads TUNING and refuses malformed state by name.
  */
 export function validateCampaignLegacy(raw: Record<string, unknown>, label: string): void {
   // An explicit type on the binding makes every call a never-returning call for narrowing.
@@ -1311,6 +1313,7 @@ export function validateCampaignLegacy(raw: Record<string, unknown>, label: stri
     const lensIds = new Set<string>()
     studio.lenses.forEach((lens, k) => {
       const lat = `${at}.lenses[${k}]`
+      if (!isRow(lens)) refuse(lat, 'must be an object')
       exactKeys(lens as unknown as Row, ['lensId', 'status', 'counts', 'refs'], lat)
       if (!entry.lensIds.includes(lens.lensId) || lensIds.has(lens.lensId)) refuse(`${lat}.lensId`, 'must name a distinct lens of its definition')
       lensIds.add(lens.lensId)

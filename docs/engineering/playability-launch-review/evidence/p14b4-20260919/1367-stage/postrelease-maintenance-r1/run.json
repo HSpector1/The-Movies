@@ -1,0 +1,14 @@
+{
+  "sourceHead": "57aa8eeceee37c9b667f68098f2e9d1186a3de38",
+  "sourceTree": "88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837",
+  "policySha": "395cf1281313a686a0bee8e399a394bebb736f9b18c3c077a2308eb2a5de26c5",
+  "wrapperSha": "c8b4e494000fabe5956698733e4e68559f92474f9c47f526cc35a26d779ae4ad",
+  "qualification": null,
+  "mode": "trial",
+  "horizon": 520,
+  "resourceCapMs": 600000,
+  "start": "2026-10-05T00:34:32.611847+00:00",
+  "elapsedMs": 52898.279758985154,
+  "exitCode": 1,
+  "timedOut": false
+}

@@ -10863,7 +10863,8 @@ export function migrateToV44(save: SaveFile | { saveVersion: number }): SaveFile
 // with two top-level roots: the quarterly Power Ranking archive `powerRanking` (1356-A §5) and the
 // one P15 allocator `p15Sequence` (1355-F2 item 1). P15A.1 Wave 2 adds the shared-market root
 // `sharedMarket` (1355-A §3.3), and P15C Wave 2 the Campaign Legacy root `campaignLegacy` (1359-A
-// §5). Each root keeps its own validator, migration and refusal (1355-F Amendment 4), with one entry
+// §5). Each root keeps its validator and migration; non-empty roots join one ordered downgrade
+// refusal (1361-F ruling 4). Every root has an entry
 // in P15StepRoots (types.ts), P15_ROOT_KEYS, P15_SEQUENCED_ROOTS, P15_DOWNGRADE_REFUSALS,
 // initialP15Roots and validateSaveV45.
 
@@ -10885,9 +10886,9 @@ export function initialP15Roots(week: number): P15StepRoots {
     sharedMarket: initialSharedMarket(week), campaignLegacy: initialCampaignLegacy(week) };
 }
 
-/** The downgrade refusals, in the ruled order sharedMarket, powerRanking, campaignLegacy (1361-F
- * ruling 4). Each reads an unvalidated state, because the frozen builders ask too, and returns null
- * for an empty or absent root. */
+/** Root predicates for the one downgrade refusal, in the ruled order sharedMarket, powerRanking,
+ * campaignLegacy (1361-F ruling 4). Frozen builders also ask these shape-safe predicates; absence
+ * returns null. The actual downgrade validates the state before collecting refusal reasons. */
 const P15_DOWNGRADE_REFUSALS: readonly ((state: Record<string, unknown>) => string | null)[] = [
   (state) => isRecord(state.sharedMarket) && Array.isArray(state.sharedMarket.assessments) && state.sharedMarket.assessments.length > 0
     ? `cannot downgrade or discard a recorded shared-market assessment (${state.sharedMarket.assessments.length} recorded)` : null,

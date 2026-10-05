@@ -1,0 +1,70 @@
+{
+  "baselineHead": "57aa8eeceee37c9b667f68098f2e9d1186a3de38",
+  "originalSrcTree": "88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837",
+  "files": {
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-baseline/BASELINE-REVIEW.md": {
+      "sha256": "fc16bea3cc1c8fe009df55406453d79096d7e170b836968d2ecbe2329b679a29",
+      "bytes": 9660
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-baseline/BASELINE-ATTRIBUTION.json": {
+      "sha256": "9679a48c976b023c8b327b6c0c34741b7ad8bcca49f531d749d58af13451fb67",
+      "bytes": 21247
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-baseline/1367-pre-recovery-regressions-extra-guards.json": {
+      "sha256": "0159b639bad37c695597d9044517f9ffa721fe971e889f8ab5f35b6e70afa139",
+      "bytes": 1311
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/postrelease-maintenance-r1/run.json": {
+      "sha256": "8f448b7057843540e14f51c4cf7c49e7bdf7fe689546a15491b0b194d1d2b6b5",
+      "bytes": 499
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/postrelease-maintenance-r1/result.json": {
+      "sha256": "ab815504dc368e901b2b69fe25cebc952f40dcb364afaebd2cc729d5b7de19f6",
+      "bytes": 729871
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/postrelease-maintenance-r1/stderr.txt": {
+      "sha256": "5528920be4b4b204625c85f1861ccd37dbd73b2a20f331a13c13a2277af737c5",
+      "bytes": 1513
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/postrelease-maintenance-r1/executed-wrapper.sh": {
+      "sha256": "c8b4e494000fabe5956698733e4e68559f92474f9c47f526cc35a26d779ae4ad",
+      "bytes": 5551
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/postrelease-maintenance-r1/power.txt": {
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "bytes": 105
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/postrelease-maintenance-r1/INDEPENDENT-REVIEW.md": {
+      "sha256": "62ff1e15c2482f90fa55078e6e896912d380c8323ebdc4da3996b40ae56f136f",
+      "bytes": 11176
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-baseline/1367-pre-recovery-regressions.log.meta": {
+      "sha256": "4e657bd2b4b4ad73d075a23d51ee82b2adeae6c341deaccccc46f532855d8f8a",
+      "bytes": 261
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/recovery-baseline/1361-postrelease-maintenance-trial-r1.log.meta": {
+      "sha256": "41798497cafa04e1269879e2b769e8e3d10f66ab00156e3c12eec5ece82381ed",
+      "bytes": 269
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/historical-part-a-prep/INDEPENDENT-REVIEW.md": {
+      "sha256": "d6ea4a7a3bb5a283cb05ed505f5bce7e16b39f71f1eb201f18613b14b8c8117c",
+      "bytes": 3482
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/historical-part-a-prep/SHA256.json": {
+      "sha256": "09f9b33dfca4c2f169d4aa424bff1a04ea74199c55b47ab773c9265ca1946fb9",
+      "bytes": 2318
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/historical-part-a-prep/CURRENT-BASE-DIFFERENCES.diff": {
+      "sha256": "d2ffed7d0f2563e06fba78775277a97dfaebc5054ad10ecc2e5f012c8f4f8fc2",
+      "bytes": 2288
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/historical-part-a-prep/historical-part-a.patch": {
+      "sha256": "2b11a5c13259b69ddcea3476b826c6eba690b7ea82facfa11e2aff03352bd5d9",
+      "bytes": 5453
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/historical-part-a-prep/HANDBACK.md": {
+      "sha256": "30d5b2d032d56e8670f36c753f964549f73cec9413a1d552db2c99421d913c92",
+      "bytes": 7811
+    }
+  }
+}

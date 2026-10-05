@@ -1,0 +1,38 @@
+{
+  "scope": "H1 plus Part A only; no candidate commit or whole-tree hash minted",
+  "historicalBaseHead": "469a9547f1a3b53b7c9985ec53beaa55e2a65587",
+  "historicalBaseSrcTree": "db80ca312211a70b54fcb75cb80480ad5e8dc867",
+  "historicalComparisonHead": "ff803032e073a2c512192240ded2817b84632945",
+  "historicalComparisonSrcTree": "347cfcce5602570eaa39137e6490d7e6fa0228eb",
+  "reviewedModernPatchSha256": "2b11a5c13259b69ddcea3476b826c6eba690b7ea82facfa11e2aff03352bd5d9",
+  "historicalPatchSha256": "2b11a5c13259b69ddcea3476b826c6eba690b7ea82facfa11e2aff03352bd5d9",
+  "patchByteIdenticalToReviewedModernPatch": true,
+  "applicationMethod": "Python text transformation with exact original line-position and every hunk context checked; no git index/apply, archive or execution",
+  "files": [
+    {
+      "path": "src/core/hollywoodPolicy.ts",
+      "baseGitBlob": "e3eaf333657d9d9d5fe7d1583884804e01edfcf9",
+      "baseSha256": "843131da845b609ad133259ee82035bc129aad4b75394b757d5ac66341efd234",
+      "candidateGitBlob": "450c1675ab7f1c6ad2d29f5d5d03ec0f5e314b97",
+      "candidateSha256": "cfdde050a2aa2955bdea15f69a9600d7b57017eb09828c01109df03ea7b3695a",
+      "reviewedModernBaseSha256": "843131da845b609ad133259ee82035bc129aad4b75394b757d5ac66341efd234",
+      "reviewedModernCandidateSha256": "cfdde050a2aa2955bdea15f69a9600d7b57017eb09828c01109df03ea7b3695a",
+      "baseEqualsModernReviewedBase": true,
+      "candidateEqualsModernReviewedCandidate": true,
+      "exactHunksApplied": 3
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "baseGitBlob": "1c9c523d8bf90292f192bd3834f3152611035adb",
+      "baseSha256": "5fde94ee7d41d2e6fae441add74d907ff3348f835c486f7aa282966b6c667bb2",
+      "candidateGitBlob": "8c64cbc02f30945efa6b5cbbf20c0ae3068bb680",
+      "candidateSha256": "547ffb90ab8b951b5f1fb554a471af27e57f590dabdaff8e453485e058c1df31",
+      "reviewedModernBaseSha256": "d5963544fd591ee5abbb3584e3f0337db0210bfeaac05b69195a3c339452ac17",
+      "reviewedModernCandidateSha256": "21b00c62f0057786f81d1b821eb5984677f7e4251211ecaf7d5288840d5f719e",
+      "baseEqualsModernReviewedBase": false,
+      "candidateEqualsModernReviewedCandidate": false,
+      "exactHunksApplied": 1
+    }
+  ],
+  "currentBaseDifferencesSha256": "d2ffed7d0f2563e06fba78775277a97dfaebc5054ad10ecc2e5f012c8f4f8fc2"
+}

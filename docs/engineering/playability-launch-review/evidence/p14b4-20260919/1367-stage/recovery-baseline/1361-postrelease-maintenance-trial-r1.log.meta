@@ -1,0 +1,3 @@
+waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/1361-postrelease-maintenance-prep/run-maintenance.sh 57aa8eeceee37c9b667f68098f2e9d1186a3de38 trial-r1 trial; 2026-10-04 19:34:31 CDT
+start; 2026-10-04 19:34:31 CDT
+end, exit 1; 2026-10-04 19:35:25 CDT
