@@ -1,0 +1,50 @@
+# 1368-I — Integrated fallout and ledger execution safety
+
+Recovery remains **IN PROGRESS**, the full ABC/Save46 candidate remains unlanded, and protected main remains `c902a704eb948cc576083d0973c8c23e59937dc1`. This is a recoverable engineering publication, not checkpoint closure or promotion. It continues the Owner's 1368-O order and preserves all earlier failure evidence.
+
+## Integrated candidate
+
+R5 is an exact 1626-file integration of the previously accepted guarded R4 plus the independently reviewed original rival-release correction and genuine imported trust witness. Its 188 production files are unchanged from R4. Scratch commit `73d3d44d640dc885f5855f726a9edc9516eb9704`, tree `8860f82ac679c7dd1df52b25bd181fc2df66d508`, SOURCE-PINS SHA `9af6eb3fad4efd27cf2a231d70dca0f3239ae05e97e1ce0d2db0ca1cf1054704`, ASSEMBLY SHA `a9ad5137718a81158f986f4bd50a63a84fbc24c8cd0f05e52d584f6b98a037ca`. The completed runs used coordinator publication `ee7f700ff5b088a508c4a790a65378e36f131fa8` with exact source/index/recorder guards.
+
+| Original selection | Actual result | Qualification |
+| --- | --- | --- |
+| Root/UI/Bridge/producer types and two generators | all six commands exit 0 | Exact R5 source admitted |
+| Rival release whole file | 5 PASS, 2 original SKIP | Natural six-release accounting assertions reached; skipped exception coverage remains open |
+| Trust whole file | 10 PASS, 1 FAIL, 2 TODO | Genuine imported witness passes; opportunity/compensation tie failure is exactly SAME versus both comparison baselines |
+| Backward 16 files | 278 PASS, 7 FAIL | Two SAME D07/D18 identities; five NEW against accepted M3, explained below |
+
+These selections overlap other suites and do not add to a unique test total. R4's independently accepted 237 focused recovery passes, writing/protected checks and two guarded 416-week routes remain source-qualified evidence in 1368-G/H. They do not close remaining integrated or measurement obligations.
+
+The five NEW backward failures are confined to four original test files. J7 and both X5 paths have real nonempty recovery authority, so their public 46→45 converter correctly refuses before the older expected ranking refusal. The new bounded patch verifies the exact recovery premises, refusal, full input neutrality and strict current admission; it retains separate short-live step-boundary rank controls and the original older-owner controls. No current state is stripped or cast to an older era. D14 and Q04 each differ in the displayed full-state operands only by four null cutting objects and four zero refund fields. Their patch extends only the independently authored expected state through the existing empty-recovery helper, preserving the complete comparison and actual input. Later loop iterations and trailing assertions remain unmeasured and unchanged.
+
+The first patch's inaccurate description of the separate rank controls was corrected in a preserved second revision. Final patch SHA `7b55bd7f8755b89aa7b328c3b4f864a418188c4123d3b69c7a508e7cd5ab0871`, package manifest `de463ccd2ba578736d601b0895ca51930a724ad85153c702c9cba561590ce6a9`; independent static review `859d4fae4d912e8e062b75554d0f94e5becbfd40621f0298d9421aeec752f89e`. Static approval is not a passing execution or permission to repin newly unmasked assertions.
+
+The corrected R6 integration is now assembled and independently reviewed, but unexecuted: scratch root `a59301c631531d9189aef5ee1827d6886db78f45`, tree `80919a922661f9202bc64ad43ef93da3f8472b7c`, SOURCE-PINS `2d92af276435275d7ec45554e188962780f0e08467a17dbe42d7ced5f6c85f64`. Exactly those four tests differ from R5; all 188 production and 1622 other files are unchanged. Kit manifest `fd4251831e6e8241a3bafe913cc04039a629107b192ab70522845fcebb62bf31` preserves all prior whole-file selections and adds the four modified entire files as `backward-residual`. Static review `c6bd3868e4217a09f9758c06af5ac7e97e1210a137a86dc7bb23518247be1f26` permits fresh types and original assertions; no old type receipt is rebound.
+
+The approved R5 attribution adapter preserves the original parser and fixed M3/unswept baseline pins. Complete release, trust and backward comparisons retain raw identities, multiplicity, exact primary messages, renamed/absent qualifications and outside-selection entries. A renamed raw GONE identity is not automatically an executed pass. Backward has two SAME and five NEW against M3; relative to unswept it has two SAME, five CHANGED and 152 raw GONE, of which 151 are exact executed passes and one is an absent setup identity requiring qualification. Attribution success is not behavioral GREEN.
+
+## Ledger remains incomplete
+
+The original R2 timeout remains preserved. R3's C0 clean p13a route completed in 255.293 seconds: 40 rows, status mix and RNG match the historical expectation, while four protected digests differ. The ABC clean route completed in 258.580 seconds after fresh types: 18 rows, 12 settled and six declined, all 417 admissions, exact guards and no owned survivors. Neither result alone authorizes repinning or causal attribution.
+
+R3 ABC observed did **not** produce a completed child result. The formal recorder exits 1 after 331.522 seconds because an EPERM exception in legacy group probing escaped before CHILD/RESULT/data/Vitest outputs were written. Actual Node exit, timeout flag and owned-group cleanup disposition are unknown. Later process inspection found no matching test processes, but cannot reconstruct a missing child receipt. Original formal records, raw logs and audit `f373bc9c1d23e08d7b62f5dfda0bbb92b76b917214867da77d06e025308b8a8d` remain preserved; independent review `a1876b85da54f8f8b6dee805bcd7ecebbde83b7d67c5fcaf9db5a766d61df868` explicitly refuses causal acceptance.
+
+The new local R4 runner handles permission errors as UNKNOWN, stops signal escalation, records available errors and returns failure. It persists launch identity before waiting, attempts an honest incomplete receipt on failures, and adds at most eight separate progress rows after admitted 52-week boundaries. Safe record-identity and first-match lookup optimizations retain all seven full phase snapshots, 417 admissions, existing classifier/output/parity checks, 188 production files and original two seeds, 416 weeks and 300/330-second limits. The shared legacy helper remains unchanged.
+
+Independent static review accepted exact package `3675e4d50a12bef7c1ffb13186f161844795512b20dc41f736d5872f964b995f`. Seven standalone mocked safety tests passed in 0.006 seconds, actual child/recorder/postflight all 0 and exact guards. No simulator, real signal or actual child launch occurs in those tests. Independent measured review `984d43b709b486658339c492aafbe676f6e4909c580f23a4f493eb881cbee60f` accepts only this scope. Both 197-file R4 diagnostic arms are assembled exactly, combined ASSEMBLY `8d027bf8e9cd6aa5e874b6f053e14b5b17be3701c6f4966b3b42610cf7fd6b38`. Fresh types and same-source clean then observed runs remain required. Old C0 evidence is historical and must not be relabeled as arm04 execution.
+
+## Execution blocker and remaining gate
+
+The selected P15 R5 attempt was refused **before recording or testing** at the existing 5 GiB disk floor. Its empty output directory and lane failure log are retained. No binding, recorder run, test result or P15 GREEN exists. Current104, helper-consumers37 and UI7 selections also remain unrun.
+
+Three previously archived closed traces were losslessly filesystem-compressed under a reviewed exact whitelist, preserving bytes and named metadata while reclaiming 40,738,816 allocated bytes. Disk subsequently measured about 4.04 GiB free. The already-authorized npm download-cache deletion encountered root-owned directories and reclaimed no material space; its failure is recorded. Active application caches, unknown scratch, prior evidence and Owner saves remain preserved. The Owner was asked to free at least 1.5 GiB and subsequently reported cleanup. An immediate recheck reported approximately 4.03 GiB; a later check improved to 5,341,126,656 bytes (about 4.97 GiB), still 27,582,464 bytes below the floor. The Owner was informed that another 200 MiB would provide a buffer. Independent preparation and publication continue. The floor is unchanged.
+
+After disk is restored: execute the reviewed corrected integration and ledger sequence, complete classified selections, 1363-L landing, 1363-M broad core/UI/d16 and type/generator gates, then required final-source 1363-V/G-P/G-L/K3 measurements and reviews. Original Save45 post-2040 release measurement remains accepted under 1368-C; it is not final-recovery-source evidence. The final guarded comparison basis still requires its bounded parent engineering amendment, not a product-law waiver. No unexplained NEW regression may promote.
+
+No PR or main merge, Unity/native verification, Owner gameplay acceptance, Golden status, fun/balance acceptance or P15–P18 completion is claimed. CURRENT-BEST's Owner-accepted P11 identities remain unchanged.
+
+## Preservation
+
+The ninth archive is `1368-stage/ninth-verification/evidence.tar.gz`, SHA `45ef0712566cff7933a2be9fcdee432c8eed4187a33a327a7c77b8b996a13a74`: 2,570,379 compressed bytes, 239 new files containing 25,135,533 logical bytes, plus 86 explicit prior archive/member references. Manifest SHA `bcdfd632bea04cc6189893eaaeb0c7d49b6cc520b68de0df563f2d6c1b372cf3`. Independent review checked every new member and source preimage, every prior member mapping, and all six prior archive/manifest hashes. The late R6 supplement includes its exact reviewed patch/kit, assembled source descriptors and root commit; full trees are reconstructible from preserved prior source and deltas. No original scratch, prior failed attempt or campaign history was removed. Forty formal recorder files are published directly.
+
+Parent post-review editorial updates identify the finalized archive and the later 4.97 GiB disk reading. The independent publication review retains its exact inspected draft pins; no measured result, source, assertion or acceptance disposition changed.

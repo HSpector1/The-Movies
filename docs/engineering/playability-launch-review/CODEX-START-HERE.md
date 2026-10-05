@@ -1,5 +1,11 @@
 # CODEX continuation — Project Studio
 
+## CURRENT —1368-I: integrated residuals qualified; runtime waits on disk
+
+[1368-I](evidence/p14b4-20260919/1368-I-integrated-fallout-and-ledger-safety.md) records R5 types/generators all0, original release5PASS/2SKIP, trust10PASS/1baselineFAIL/2TODO and backward278PASS/7FAIL. Five new backward identities have a reviewed four-file test correction, now assembled as R6 but unexecuted. Two backward identities remain exact baseline failures. All188 production files are unchanged from the guarded candidate.
+
+Ledger r3 ABC clean completed; observed remains an incomplete failed attempt with unknown Node exit/timeout/cleanup disposition. New local runner cleanup passed7mocked safety tests and its diagnostic arms are assembled; fresh types/clean/observed remain required. P15 never launched because free space was below5GiB. Owner-reported cleanup has not yet cleared the measured floor. Main unchanged; recovery IN PROGRESS. HANDOFF owns exact pins/commands. No product-acceptance change. Older CURRENT blocks remain history.
+
 ## CURRENT —1368-H: writing routes and lawful witness evidence accepted; integrated recovery remains open
 
 [1368-H](evidence/p14b4-20260919/1368-H-writing-trust-and-termination-evidence.md) preserves both guarded416 writing routes with all417 admissions and full replay; independently accepted genuine Save45 week195 imported-current trust witnesses; and exact six-termination contract/accounting attribution. The original trust and R3 test corrections have static approval; final integrated execution is pending. The accepted trust fixture is adopted without alteration.
