@@ -1,0 +1,76 @@
+{
+  "status": "VERIFIED_PREPARATION_ONLY",
+  "archiveSha256": "313aa0a1c18a154af862e0e0424ce7067363fe8551af2f11c68b030952e1fcf8",
+  "archiveBytes": 17160,
+  "fileCount": 11,
+  "logicalBytes": 51688,
+  "files": [
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R6-ATTRIBUTION-ADAPTER-STATIC.md",
+      "path": "scratch/1368-independent-review/R6-ATTRIBUTION-ADAPTER-STATIC.md",
+      "size": 1762,
+      "sha256": "be4e995bdc33f388e128886682f4785bd85f40639f7d30ab0f46ac7de7cff327"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r6-fallout-comparison-prep/HANDBACK.md",
+      "path": "scratch/1368-r6-fallout-comparison-prep/HANDBACK.md",
+      "size": 4789,
+      "sha256": "5c636d1dac307c155499c0c771e8d8d5e9ce9e9566344defb9ecfd89fc69a356"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r6-fallout-comparison-prep/INPUT-PINS.json",
+      "path": "scratch/1368-r6-fallout-comparison-prep/INPUT-PINS.json",
+      "size": 5665,
+      "sha256": "492d63f43103cadb8570af32eb3e2291f697f17979727e4c909e84cf88a8fc60"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r6-fallout-comparison-prep/MANIFEST.json",
+      "path": "scratch/1368-r6-fallout-comparison-prep/MANIFEST.json",
+      "size": 1341,
+      "sha256": "713acfbe028d198944f36c5d55df94d236115caff5c989530efe01d5bfbb7cbf"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r6-fallout-comparison-prep/PARSER-ORIGIN.json",
+      "path": "scratch/1368-r6-fallout-comparison-prep/PARSER-ORIGIN.json",
+      "size": 476,
+      "sha256": "145ce06905141e4dcd94f462e0dd35395704e823786c1d6a77e3c56697af3f1e"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r6-fallout-comparison-prep/R6-BINDING.json",
+      "path": "scratch/1368-r6-fallout-comparison-prep/R6-BINDING.json",
+      "size": 2314,
+      "sha256": "8daad6c51239840d8cee6db834ef550c919c354e7f31936ab395e73b8648171c"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r6-fallout-comparison-prep/REBIND-PROOF.json",
+      "path": "scratch/1368-r6-fallout-comparison-prep/REBIND-PROOF.json",
+      "size": 1695,
+      "sha256": "0af99924eda71f205dd59196e042f4df3fe53118351f9a596eee915d410259fa"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r6-fallout-comparison-prep/attribute_r6.py",
+      "path": "scratch/1368-r6-fallout-comparison-prep/attribute_r6.py",
+      "size": 12812,
+      "sha256": "84cebdd4837e6fd9a0fa2d7f8fe938f5626e6dbb06caa745c9e5ce505b45be48"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r6-fallout-comparison-prep/legacy_raw_parser.py",
+      "path": "scratch/1368-r6-fallout-comparison-prep/legacy_raw_parser.py",
+      "size": 3108,
+      "sha256": "13bf103a99be3b066818052fce511ffacdde481991b280e2463b189534bbdf6c"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r6-fallout-comparison-prep/r5-to-r6.diff",
+      "path": "scratch/1368-r6-fallout-comparison-prep/r5-to-r6.diff",
+      "size": 2046,
+      "sha256": "fec3731a243bc6d30a57b10fb559f81b39043b81e7880b128969a3752ef76343"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r6-fallout-comparison-prep/reviewed_v2.py",
+      "path": "scratch/1368-r6-fallout-comparison-prep/reviewed_v2.py",
+      "size": 15680,
+      "sha256": "f9d449ec18327cecc58e0d3ce4ee4ba205adc5156ed4cb0a87916d6f115a878b"
+    }
+  ],
+  "scope": "Exact independently approved R6 source rebind and backward-residual selection; no attribution/runtime; dynamic publication HEAD is matched to future closed types/run/formal receipts."
+}
