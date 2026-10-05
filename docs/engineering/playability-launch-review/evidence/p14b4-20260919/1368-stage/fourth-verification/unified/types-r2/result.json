@@ -1,0 +1,43 @@
+{
+  "mode": "types",
+  "exitCode": 0,
+  "elapsedSeconds": 18.260803399025463,
+  "command": [
+    "python3",
+    "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+    "330",
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.1368-unified.json"
+  ],
+  "pinsSha256": "5bf64b69f9e87383e5c999300d920c99e1b15dd9b6aae4763e592a0517dc5c4d",
+  "wrapperSha256": "5d24f5a7efb5741af989e773d3af3af560dcc930525185637288474012c343ab",
+  "head": "6c60c26a1e4cd8a49b83e4798754e146416852a1",
+  "indexSha256": "12bd7ec2b72822a35eaa6d6e6c3883969d613c051b8511f52a4f81a7807e0219",
+  "liveDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "additionalFixturePins": {
+    "tests/fixtures/p14/genuine-v45-recovery-predecessors-1363/MANIFEST.json": "0cee53cb3c0a09d3b1afef8e9200f26a570423533a468864a9233cf6ce85001d",
+    "tests/fixtures/p14/genuine-v45-recovery-predecessors-1363/p13a-week-0.save45.json.gz": "4bded8663feb1cd20d7425405d7daf4864a3f3b5a840e9deaf86b09ce45bb8ae",
+    "tests/fixtures/p14/genuine-v45-recovery-predecessors-1363/p13a-week-53.save45.json.gz": "fd4b8f0986453d1b735dda8410ffd05c841289d0fd51d9fe1a6707128947dc68",
+    "tests/fixtures/p13b/genuine-v26-old-era-period-1363/MANIFEST.json": "bd0df3d065934c22275120bb6e0b340a76885f3ac0c4790a3f2e4ff92e7ef7fd",
+    "tests/fixtures/p13b/genuine-v26-old-era-period-1363/genuine-v26-sound-mid-deployment-week312.json.gz": "d8b36ff43d7ad1e6a1b41ae3888e786f0266211875084f6d9d23b33bf5510757",
+    "tests/fixtures/p14/genuine-v26-renewal196-1368/MANIFEST.json": "d377c3bd3ce25cc91ef9e0b6778f576a3df1274dcdd0daed706081b5a63205ca",
+    "tests/fixtures/p14/genuine-v26-renewal196-1368/genuine-v26-week196.json.gz": "195651d9501df2e65ca97eb736862e8ea5eab9433c780541ef79821ffdd20dd2",
+    "tests/fixtures/p13b/genuine-v26-period52-1368/MANIFEST.json": "8e40e51bb360ba6ff6c0d641a03e90aa8ed6f73f8c0b232a9a4b5861af358db4",
+    "tests/fixtures/p13b/genuine-v26-period52-1368/period52.json.gz": "90c45a6154b924b0998239d6b385dce6f1ba17b896b7d6c5840f24d3f041b582",
+    "tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/MANIFEST.json": "11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5",
+    "tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/ordinary.json.gz": "89b2ba8b46a13c6958e9e1955ecf3d4a38662c1d11c7a99c0e3c86713c3a1100",
+    "tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/calendar.json.gz": "9b4732127aa6bae8d77da1ea9bf0afe22acdb1a1b15cf2ae80a727dc14181dc9",
+    "tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/baseline265.json.gz": "41954ef182836c94f3242644d10929930b438f71ffce1d7bbb4899797de1b805",
+    "tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/research.json.gz": "c3f78360efc6ff30f7ef63a873ee49174dac4b5cf8a4e683672e3aac20591a56",
+    "tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/baseline280.json.gz": "2f52fe05d0a0668e4ecade3399696d491e726a7e9ca923b51087c32ec91e2b2e"
+  },
+  "fixtureOverrides": {
+    "P1368_ACCEPTED45_ROOT": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p14/genuine-v45-recovery-witnesses-1368",
+    "P1368_ACCEPTED45_MANIFEST_SHA256": "11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5",
+    "P1368_ACCEPTED26_ROOT": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13b/genuine-v26-period52-1368",
+    "P1368_ACCEPTED26_MANIFEST_SHA256": "8e40e51bb360ba6ff6c0d641a03e90aa8ed6f73f8c0b232a9a4b5861af358db4"
+  },
+  "allFilesExactBeforeAfter": true
+}

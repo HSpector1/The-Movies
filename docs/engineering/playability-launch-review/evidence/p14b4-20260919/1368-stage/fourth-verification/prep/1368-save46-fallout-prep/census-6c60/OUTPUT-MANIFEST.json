@@ -1,0 +1,50 @@
+{
+  "CENSUS.json": {
+    "sha256": "fdc721776f8c0ac84c8a061b719b1f825f34b842bae86519dfbf3ef830cff2e3",
+    "bytes": 2397
+  },
+  "CODE-INVENTORY.json": {
+    "sha256": "7cbcd3b20b6355fdd27b4508b34259b2e39bc929798b341dbe516b3643edb97f",
+    "bytes": 140750
+  },
+  "CONFIG-PINS.json": {
+    "sha256": "4c399b7bb98ac0b78cac2f13679127c230b7444597d392892678a01353f37496",
+    "bytes": 2095
+  },
+  "SOURCE-INVENTORY.json": {
+    "sha256": "e3df343826a2749ac36e2d45014ae7c228fc76e795a0d5004836b1ca470d9839",
+    "bytes": 62646
+  },
+  "STATIC-SITES.json": {
+    "sha256": "11e6eed50607e24d4b40f0368465b447d758037759429b55c6722f907eed4a0b",
+    "bytes": 1077099
+  },
+  "candidate-core-with-focused-459.txt": {
+    "sha256": "0a87ef14f2a18a25283d2809af394e86ea7203ed2ca0ab9c71ab63131ad13b30",
+    "bytes": 17080
+  },
+  "core-all-460.txt": {
+    "sha256": "794d9e09232bb5013cef541eed19140111f6eeb921e1380c4f842be42a284f27",
+    "bytes": 17147
+  },
+  "core-headless-454.txt": {
+    "sha256": "f8cd679d7cccea5df7a7736f8cee0485abada7edddd4ac955315b0d1f8995fd7",
+    "bytes": 16876
+  },
+  "core-owner-native-excluded-6.txt": {
+    "sha256": "cb749157074a8ae924c2109ad0e24b7da7ae081822471666714e9ca871e09eea",
+    "bytes": 271
+  },
+  "d16-10.txt": {
+    "sha256": "f424f88c8eaf3e42021b902c139eaaafad9ea3dfaa8f8634a250c1c57724c379",
+    "bytes": 338
+  },
+  "focused-new-5.txt": {
+    "sha256": "416ca00e8b3e8494203f11f1f933756d4632d5c2e6cc5a130c1d59d10345fc97",
+    "bytes": 204
+  },
+  "ui-204.txt": {
+    "sha256": "58830c8f27d867eb5720cd38fabff4d192ab2844269cefcc4a30542a82e38019",
+    "bytes": 9136
+  }
+}

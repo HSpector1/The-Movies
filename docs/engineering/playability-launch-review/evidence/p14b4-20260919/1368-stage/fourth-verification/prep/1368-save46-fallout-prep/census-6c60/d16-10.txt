@@ -1,0 +1,10 @@
+src/harness/d16/counterflow.test.ts
+src/harness/d16/driver.test.ts
+src/harness/d16/experiment.test.ts
+src/harness/d16/isolation.test.ts
+src/harness/d16/luck.test.ts
+src/harness/d16/packages.test.ts
+src/harness/d16/production-agreement.test.ts
+src/harness/d16/publicity.test.ts
+src/harness/d16/states.test.ts
+src/harness/d16/stats.test.ts

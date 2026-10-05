@@ -1,0 +1,61 @@
+{
+  "status": "STATIC_ONLY_NOT_FALLOUT_RESULT",
+  "baseHead": "6c60c26a1e4cd8a49b83e4798754e146416852a1",
+  "priorBroadHead": "2eaa697effc38538c37da28b486786ce267a2284",
+  "candidateRoot": "/Users/zacheryspector/studio-scratch/1367-recovery-integrated-candidate/candidate",
+  "candidatePinsPath": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/abc-pins.json",
+  "candidatePinsSha256": "d8920b5c747237e76b96f7e90cf0a4cf2fb305f22109e59fbfe198456c716ec2",
+  "sourceCount": 188,
+  "productionDiffs": [
+    "src/core/employment.ts",
+    "src/core/hollywood.ts",
+    "src/core/hollywoodPolicy.ts",
+    "src/core/hollywoodTick.ts",
+    "src/core/hollywoodTypes.ts",
+    "src/core/hollywoodValidation.ts",
+    "src/core/index.ts",
+    "src/core/productionIdentity.ts",
+    "src/core/rivalResearch.ts",
+    "src/core/save.ts",
+    "src/core/talentMarket.ts",
+    "src/core/technologyRival.ts",
+    "src/core/types.ts"
+  ],
+  "coreTracked": 460,
+  "coreHeadless": 454,
+  "ui": 204,
+  "d16": 10,
+  "coreAddedSincePriorBroad": [
+    "tests/p14d2-a8-binding-cash.test.ts",
+    "tests/p14d2-binding-cash.test.ts",
+    "tests/p15c2-legacy-lens-shape.test.ts",
+    "tests/p15c2-legacy-replay-inputs.test.ts",
+    "tests/save-masked-downgrade-own-era.test.ts",
+    "tests/save-v36-extension-own-era.test.ts"
+  ],
+  "coreRemovedSincePriorBroad": [],
+  "focusedAdditiveTestPaths": [
+    "tests/p13b-s8-old-era-period.test.ts",
+    "tests/p14d2-rival-cost-cutting.test.ts",
+    "tests/p14d2-rival-cost-cutting-adapter.test.ts",
+    "tests/p14d2-rival-facility-disposal.test.ts",
+    "tests/p14d2-save46-migration.test.ts"
+  ],
+  "provisionalFinalHeadlessFileCount": 459,
+  "codeFilesRead": 934,
+  "staticSiteCount": 4507,
+  "staticSiteTagCounts": {
+    "live_or_historical_v45_symbol": 399,
+    "version45_literal_or_error": 25,
+    "writer_reader_or_frozen_builder": 2778,
+    "historical_staging_caller": 14,
+    "capture_or_pin_site": 1378,
+    "natural_recovery_or_manifest_assertion": 343
+  },
+  "limits": [
+    "No game/types/tests executed. No fixture payload opened.",
+    "Static categories are candidate sites, not assertions that changes are required.",
+    "Five additive paths are a selection proposal; parent must bind final reviewed test bytes and helper closure separately.",
+    "Current parent HEAD must be reconciled against this fixed baseline before assembly."
+  ]
+}

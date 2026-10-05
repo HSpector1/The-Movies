@@ -1,0 +1,7 @@
+{
+  "source": "1367-recovery-schema-candidate/candidate",
+  "sourceAuthority": "1368-b-verification/schema-source-pins.json",
+  "testAuthority": "1368-unified-candidate/SOURCE-PINS-v4.json",
+  "sourceFiles": 188,
+  "preservesOldPredecessor": true
+}

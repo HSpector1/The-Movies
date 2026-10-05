@@ -1,0 +1,9 @@
+# Eight-copy measurement assembly
+
+Parent may execute `python3 assemble.py --output /Users/zacheryspector/studio-scratch/1368-recovery-measurement-arms-01 --dependencies /Users/zacheryspector/The-Movies-headless-program/node_modules`. The exclusive output owns `C0`, `A`, `AB`, `ABC`, each with `clean` and `observed`. It copies exactly the pinned 188 source files, declared original configs and reviewed v2 measurement files; only observed copies receive their exact observer patch. Dependencies are symlinks; no fixture payload is copied or read. No git repository/index is created or modified. Original sources and kit are verified again afterward. `--estimate-only` performs only the bounded source/pin reads.
+
+Payload estimate: 42,103,892 bytes (40.15 MiB), plus filesystem allocation and small receipts/symlinks; execution requires that payload plus 5 GiB headroom. No copies or game/type runtime were executed during preparation.
+
+The existing all-src strict type configuration also resolves `src/harness/p14/legacy-v28-fixtures.ts`'s static import of `tests/contracts/_contractFixtures.ts`. Therefore this one named published source helper is copied and pinned at `7554a6b11f0756c7cd286a7732ab888757a129fe0d9f10657c93c4d214f10de2` in every copy. It is type-only for this route: the natural520 driver imports no legacy capture generator and executes no fixture helper. Include its exact pin from ASSEMBLY.json in the parent type recorder. It is not a fixture payload or an extra test.
+
+For each of eight copies, parent runs its recorded strict command: `<Node20> node_modules/typescript/bin/tsc -p tsconfig.1368-measurement.json`. Then use the accepted v2 `bind-arm.py` with the concrete pair paths and published HEAD. No 60-process matrix is authorized as acceptance by this assembly; the parent retains the post-landing measurement order. Source-policy, bounds and save-version distinctions remain the reviewed v2 contract.

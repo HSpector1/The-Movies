@@ -1,0 +1,57 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-unified-candidate/tree
+
+stdout | tests/p14d2-b-public-research-1368.test.ts
+1368_PUBLIC_RESEARCH277 {"seed":"p13a-core-causal-01","origin":"public-migration260","nullIndustryTicks":260,"paidLabWeek":260,"paidInstrumentWeek":272,"ordinaryIndustryTicks":17,"inputWeek":277,"controlWeek":278,"noQuoteOverride":true,"facts":[{"studioId":"studio-aca408ec-r01","since":null,"nextDecisionWeek":277,"productions":1,"runs":1,"proposals":0,"cash":19588436.77639699,"reserve":1339221,"wholeInputDemand":4,"replacementContracts":["studio-aca408ec-r01:contract:person-studio-aca408ec-r01-supply-277-6:277","studio-aca408ec-r01:contract:person-studio-aca408ec-r01-supply-277-7:277","studio-aca408ec-r01:contract:person-studio-aca408ec-r01-supply-277-8:277","studio-aca408ec-r01:contract:person-studio-aca408ec-r01-supply-277-9:277"],"newProjects":1,"newSeats":4},{"studioId":"studio-aca408ec-r02","since":null,"nextDecisionWeek":277,"productions":1,"runs":1,"proposals":0,"cash":16751093.316437814,"reserve":2039112,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0},{"studioId":"studio-aca408ec-r03","since":null,"nextDecisionWeek":277,"productions":1,"runs":1,"proposals":0,"cash":10357173.008292612,"reserve":2887040,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0},{"studioId":"studio-aca408ec-r04","since":null,"nextDecisionWeek":277,"productions":1,"runs":0,"proposals":0,"cash":7059222.86606892,"reserve":2063355,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0}]}
+
+ × |core| tests/p14d2-b-public-research-1368.test.ts > B public migration277 blocks new replacement against a real idle positive
+   → UNMET FIXED277 PREMISE: idle null-since replacement positive under actual unchanged quotes; no fallback: expected undefined to be defined
+ × |core| tests/p14d2-b-public-research-1368.test.ts > B public migration277 blocks new project against a real idle positive
+   → UNMET FIXED277 PREMISE: idle null-since project positive under actual unchanged quotes; no fallback: expected undefined to be defined
+ × |core| tests/p14d2-b-public-research-1368.test.ts > B public migration277 blocks new seat against a real idle positive
+   → UNMET FIXED277 PREMISE: idle null-since seat positive under actual unchanged quotes; no fallback: expected undefined to be defined
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14d2-b-public-research-1368.test.ts > B public migration277 blocks new replacement against a real idle positive
+AssertionError: UNMET FIXED277 PREMISE: idle null-since replacement positive under actual unchanged quotes; no fallback: expected undefined to be defined
+ ❯ tests/p14d2-b-public-research-1368.test.ts:19:116
+     17|     return after.seats.length > before.seats.length
+     18|   })
+     19|   expect(b, `UNMET FIXED277 PREMISE: idle null-since ${kind} positive …
+       |                                                                                                                    ^
+     20|   const id = b!.studioId, old = researchCommitments(input, id), candid…
+     21|   candidate.hollywood!.businesses.find(row => row.studioId === id)!.co…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/p14d2-b-public-research-1368.test.ts > B public migration277 blocks new project against a real idle positive
+AssertionError: UNMET FIXED277 PREMISE: idle null-since project positive under actual unchanged quotes; no fallback: expected undefined to be defined
+ ❯ tests/p14d2-b-public-research-1368.test.ts:19:116
+     17|     return after.seats.length > before.seats.length
+     18|   })
+     19|   expect(b, `UNMET FIXED277 PREMISE: idle null-since ${kind} positive …
+       |                                                                                                                    ^
+     20|   const id = b!.studioId, old = researchCommitments(input, id), candid…
+     21|   candidate.hollywood!.businesses.find(row => row.studioId === id)!.co…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/p14d2-b-public-research-1368.test.ts > B public migration277 blocks new seat against a real idle positive
+AssertionError: UNMET FIXED277 PREMISE: idle null-since seat positive under actual unchanged quotes; no fallback: expected undefined to be defined
+ ❯ tests/p14d2-b-public-research-1368.test.ts:19:116
+     17|     return after.seats.length > before.seats.length
+     18|   })
+     19|   expect(b, `UNMET FIXED277 PREMISE: idle null-since ${kind} positive …
+       |                                                                                                                    ^
+     20|   const id = b!.studioId, old = researchCommitments(input, id), candid…
+     21|   candidate.hollywood!.businesses.find(row => row.studioId === id)!.co…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  23:34:02
+   Duration  19.15s (transform 1.76s, setup 0ms, collect 2.31s, tests 16.46s, environment 0ms, prepare 91ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 1, "elapsedMs": 20080.34135994967}

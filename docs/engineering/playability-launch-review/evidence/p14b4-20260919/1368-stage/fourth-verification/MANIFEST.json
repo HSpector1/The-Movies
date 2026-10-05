@@ -1,0 +1,821 @@
+{
+  "format": "1368-fourth-verification/v1",
+  "files": [
+    {
+      "path": "prep/1368-b-lowmarket-research-proposal/PROPOSAL.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-lowmarket-research-proposal/PROPOSAL.md",
+      "sha256": "383286fdd29389e3e35d7eba57887ad376a51955e7ed9ca16873404d306e15ae",
+      "bytes": 5940
+    },
+    {
+      "path": "prep/1368-b-lowmarket-research-prep/DELTA-FROM-MEASURED.diff",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-lowmarket-research-prep/DELTA-FROM-MEASURED.diff",
+      "sha256": "6ba65446229f84fa19ab02d1ae8db8a59322501c85dc0b2aa23c5fa99c05c440",
+      "bytes": 6468
+    },
+    {
+      "path": "prep/1368-b-lowmarket-research-prep/HANDBACK.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-lowmarket-research-prep/HANDBACK.md",
+      "sha256": "c65bd98aa3c788dd234e09183ceaa0d9ba5644dbda1d8cf70b097231ec56ddcf",
+      "bytes": 3162
+    },
+    {
+      "path": "prep/1368-b-lowmarket-research-prep/SHA256.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-lowmarket-research-prep/SHA256.json",
+      "sha256": "5bce8eb87ec4437ef130b8b5accf33ba47c029fcbb3d739033371febcd50313d",
+      "bytes": 988
+    },
+    {
+      "path": "prep/1368-b-lowmarket-research-prep/candidate/tests/helpers/1368-lowmarket-research-boundary.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-lowmarket-research-prep/candidate/tests/helpers/1368-lowmarket-research-boundary.ts",
+      "sha256": "74757c5183031557778fe9f5ffcacb4b074b6f8bc9d2b66f8acc1f92f531465f",
+      "bytes": 9758
+    },
+    {
+      "path": "prep/1368-b-lowmarket-research-prep/candidate/tests/p14d2-b-lowmarket-research-1368.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-lowmarket-research-prep/candidate/tests/p14d2-b-lowmarket-research-1368.test.ts",
+      "sha256": "f1a8e9e55d2294ccc80d147d37e2831df1c29632f7ea8794e6de3fd6ecec1c1c",
+      "bytes": 2332
+    },
+    {
+      "path": "prep/1368-b-lowmarket-research-prep/candidate/tsconfig.1368-lowmarket-research.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-lowmarket-research-prep/candidate/tsconfig.1368-lowmarket-research.json",
+      "sha256": "0eb34102db2a59f13ef5b26137e79f5aa5ea4a34ac9c060ce01202e81231ec03",
+      "bytes": 212
+    },
+    {
+      "path": "prep/1368-b-lowmarket-research-prep/lowmarket-research277.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-lowmarket-research-prep/lowmarket-research277.patch",
+      "sha256": "4c45cb71db854fe09a587f7d44133509d37f58db932051f0fcb4fda0405360bd",
+      "bytes": 12728
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/HANDBACK.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/HANDBACK.md",
+      "sha256": "acb93b06b1ccc21a4311d3118340eaa80b5f02e99e3990869e5498d607ba860d",
+      "bytes": 11458
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/KNOWN-ARM-SOURCES.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/KNOWN-ARM-SOURCES.json",
+      "sha256": "e5f0d81c05a0b1bedb26145974c38925ad8fe21ccc6cb7505dce38a4d7eed285",
+      "bytes": 83488
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/REVISION-FROM-R1.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/REVISION-FROM-R1.patch",
+      "sha256": "4d57120ed87b3d41c2ccc0664cc7bc124add9e953e4950d545ea14d2e6247c21",
+      "bytes": 32175
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/SHA256.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/SHA256.json",
+      "sha256": "d92dc83b6ac45817a85007d7a89e93d630f29573f74273253a99d7430a1260f5",
+      "bytes": 3398
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/WORKSPACE-TYPE-FIX.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/WORKSPACE-TYPE-FIX.patch",
+      "sha256": "dae8cdcd3a0726190209cb63bed05f0bae4b1e1d85116ba03cc4507810cafcba",
+      "bytes": 601
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/bind-arm.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/bind-arm.py",
+      "sha256": "6fd5107895defb37e3aa7f62122d51d08e2a0da8d7c90dbdc162ec397e075f1e",
+      "bytes": 3581
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/compare.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/compare.py",
+      "sha256": "00f38227ee0768b0a67c171af95f5ff06097fd0d0a1654c31bf55c344263a62a",
+      "bytes": 13371
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/files/tests/1368-measurement-observer.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/files/tests/1368-measurement-observer.ts",
+      "sha256": "66757b3433d5a0a101fd64c8a2d62df37037b4458c1241575c60e26eb15a02de",
+      "bytes": 481
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/files/tests/1368-natural-recovery.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/files/tests/1368-natural-recovery.test.ts",
+      "sha256": "9f746a9583a62f3cc521280bb710790540dfd7ce1491625a29d57b93957a6cea",
+      "bytes": 30544
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/files/tsconfig.1368-measurement.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/files/tsconfig.1368-measurement.json",
+      "sha256": "bf85e69ce1c49c517300e54a2a5b5f3dbd59ed43ebfda4eae388abc28b77733d",
+      "bytes": 358
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/files/vitest.1368-measurement.config.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/files/vitest.1368-measurement.config.ts",
+      "sha256": "46dec9000f18edaa4a674dfa9711e9e2e4b5689f0d77566726611219d1fa32ea",
+      "bytes": 271
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/files/vitest.1368-measurement.workspace.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/files/vitest.1368-measurement.workspace.ts",
+      "sha256": "c9e0ef2a8975e270ad27a453b05b898df186435b0bdb0cc6fcd54bd35cece22c",
+      "bytes": 239
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/measurement-driver.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/measurement-driver.patch",
+      "sha256": "a7f5509d2dd712b9ddf931d3d3585ff3529e94dcae8bfc68200a7a75a5f57cef",
+      "bytes": 32600
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/observer-patches/A.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/observer-patches/A.patch",
+      "sha256": "0ebcd1e07bae8b76dcaccf31a32865add2c23919fccc9c66bebb656438674d9e",
+      "bytes": 10291
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/observer-patches/A.patch.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/observer-patches/A.patch.json",
+      "sha256": "a4e220afcfc76ea7cf7c851583e70993b2877c0f6f9f468c0b8489bb9d13f8e2",
+      "bytes": 339
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/observer-patches/AB.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/observer-patches/AB.patch",
+      "sha256": "a525be9e21d2f2630ba69a0be939d9f20f2fb7087143e1194851174eda4a11ea",
+      "bytes": 8723
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/observer-patches/AB.patch.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/observer-patches/AB.patch.json",
+      "sha256": "15d446a112e47831a04aa44028126a1881f9b7fdedbc98585d88225abd7b305a",
+      "bytes": 573
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/observer-patches/ABC.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/observer-patches/ABC.patch",
+      "sha256": "20afaee5b35f7b6069d3ca7f5539496a0b530952f15ed8469b79d9498e992bbf",
+      "bytes": 8684
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/observer-patches/ABC.patch.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/observer-patches/ABC.patch.json",
+      "sha256": "88b9355dc0656275ba3e558cd2e33549dba6630317028c6a495b4af46e43dca9",
+      "bytes": 573
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/observer-patches/C0.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/observer-patches/C0.patch",
+      "sha256": "2f4f4966ebca2b9f335410478e3be477e10db4178109e3bf7b6eb547f08f3e28",
+      "bytes": 10291
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/observer-patches/C0.patch.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/observer-patches/C0.patch.json",
+      "sha256": "0723ddae0e2b736d6f10b47947fc5d4586a79e8057cea118fb4dcd6f1481bf36",
+      "bytes": 339
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/prepare-observer.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/prepare-observer.py",
+      "sha256": "b0920f59152b6c6f27dcebb2306de2cb74dc0613252553eebf736e0fa22d07d2",
+      "bytes": 8710
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/HANDBACK.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/HANDBACK.md",
+      "sha256": "bc16041018a715c1e0defb87d68a247f6832be566d385127ad53f3dce54f055b",
+      "bytes": 9662
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/KNOWN-ARM-SOURCES.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/KNOWN-ARM-SOURCES.json",
+      "sha256": "e5f0d81c05a0b1bedb26145974c38925ad8fe21ccc6cb7505dce38a4d7eed285",
+      "bytes": 83488
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/SHA256.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/SHA256.json",
+      "sha256": "ab590096c78657e20db17a12557381c1024acd3037376c91b19ed9490eb087b8",
+      "bytes": 2848
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/bind-arm.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/bind-arm.py",
+      "sha256": "c719c78c6e207410dc8b0101b348de7f04f398ae9125a769d712c8b345dcc33f",
+      "bytes": 3563
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/compare.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/compare.py",
+      "sha256": "51461589decf315e55517e6c21dbd21afc9ce9714151629ccd626317fdf2aef4",
+      "bytes": 11147
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/files/tests/1368-measurement-observer.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/files/tests/1368-measurement-observer.ts",
+      "sha256": "66757b3433d5a0a101fd64c8a2d62df37037b4458c1241575c60e26eb15a02de",
+      "bytes": 481
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/files/tests/1368-natural-recovery.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/files/tests/1368-natural-recovery.test.ts",
+      "sha256": "8e4f99be446c8d5c9f06dc45c778eb494a33e02237fb006acc19ba15c873b22a",
+      "bytes": 29446
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/files/tsconfig.1368-measurement.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/files/tsconfig.1368-measurement.json",
+      "sha256": "79215ba50f305869334aeaa0adf9d633309dd27a129b1b0fa8a530055ffa86b2",
+      "bytes": 318
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/files/vitest.1368-measurement.config.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/files/vitest.1368-measurement.config.ts",
+      "sha256": "46dec9000f18edaa4a674dfa9711e9e2e4b5689f0d77566726611219d1fa32ea",
+      "bytes": 271
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/measurement-driver.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/measurement-driver.patch",
+      "sha256": "54359827d526fa412dd122ecd9c14b55d5ca767e9d7190d48e243c69584a1ab3",
+      "bytes": 31134
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/observer-patches/A.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/observer-patches/A.patch",
+      "sha256": "0ebcd1e07bae8b76dcaccf31a32865add2c23919fccc9c66bebb656438674d9e",
+      "bytes": 10291
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/observer-patches/A.patch.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/observer-patches/A.patch.json",
+      "sha256": "a4e220afcfc76ea7cf7c851583e70993b2877c0f6f9f468c0b8489bb9d13f8e2",
+      "bytes": 339
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/observer-patches/AB.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/observer-patches/AB.patch",
+      "sha256": "a525be9e21d2f2630ba69a0be939d9f20f2fb7087143e1194851174eda4a11ea",
+      "bytes": 8723
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/observer-patches/AB.patch.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/observer-patches/AB.patch.json",
+      "sha256": "15d446a112e47831a04aa44028126a1881f9b7fdedbc98585d88225abd7b305a",
+      "bytes": 573
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/observer-patches/ABC.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/observer-patches/ABC.patch",
+      "sha256": "20afaee5b35f7b6069d3ca7f5539496a0b530952f15ed8469b79d9498e992bbf",
+      "bytes": 8684
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/observer-patches/ABC.patch.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/observer-patches/ABC.patch.json",
+      "sha256": "88b9355dc0656275ba3e558cd2e33549dba6630317028c6a495b4af46e43dca9",
+      "bytes": 573
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/observer-patches/C0.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/observer-patches/C0.patch",
+      "sha256": "2f4f4966ebca2b9f335410478e3be477e10db4178109e3bf7b6eb547f08f3e28",
+      "bytes": 10291
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/observer-patches/C0.patch.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/observer-patches/C0.patch.json",
+      "sha256": "0723ddae0e2b736d6f10b47947fc5d4586a79e8057cea118fb4dcd6f1481bf36",
+      "bytes": 339
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/prepare-observer.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/prepare-observer.py",
+      "sha256": "b0920f59152b6c6f27dcebb2306de2cb74dc0613252553eebf736e0fa22d07d2",
+      "bytes": 8710
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/review-r1/run-one.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/review-r1/run-one.py",
+      "sha256": "4a730ec53a84e39f42b53fa20d82fbf12e4f33dc242f1a7e22225150c6bc160e",
+      "bytes": 5853
+    },
+    {
+      "path": "prep/1368-recovery-measurement-prep-v2/run-one.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-prep-v2/run-one.py",
+      "sha256": "effa1cde271eae4ae3a82e4ff01debd92940db7187b090b067b43a57c5a3cddb",
+      "bytes": 9878
+    },
+    {
+      "path": "prep/1368-recovery-measurement-assembly-prep/HANDBACK.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-assembly-prep/HANDBACK.md",
+      "sha256": "261b8e5a3338163e03d01aa7e052864ffef3b142bbd276b70e8ca12cccc1aca0",
+      "bytes": 1933
+    },
+    {
+      "path": "prep/1368-recovery-measurement-assembly-prep/SHA256.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-assembly-prep/SHA256.json",
+      "sha256": "66d0b29d8c86bcce41160e209572b5b91189d15423be0968932fca6b93c0f180",
+      "bytes": 173
+    },
+    {
+      "path": "prep/1368-recovery-measurement-assembly-prep/assemble.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-assembly-prep/assemble.py",
+      "sha256": "0146ca0d03bc6d5d1f2904ea8453f3d2631ad55e0fe448519ce67c0f47df13f5",
+      "bytes": 4505
+    },
+    {
+      "path": "prep/1368-recovery-legacy-reuse-map/REUSE-MAP.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-legacy-reuse-map/REUSE-MAP.md",
+      "sha256": "d6d1d29c551bad31218ac16f905466b8f3d8019be8b61a7b17591569c20c4dff",
+      "bytes": 9264
+    },
+    {
+      "path": "prep/1368-recovery-legacy-reuse-map/SOURCE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-legacy-reuse-map/SOURCE-PINS.json",
+      "sha256": "4662ecc1d03b4bfda9157671312ba6db6b34cb94cc937ce01a109b154e88b907",
+      "bytes": 1144
+    },
+    {
+      "path": "prep/1368-original-lowmarket-integration-prep/HANDBACK.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-lowmarket-integration-prep/HANDBACK.md",
+      "sha256": "f2272a871182fb9c1294836e51b95686115bc89fa91e2cecd36cab8ccd9349e9",
+      "bytes": 2431
+    },
+    {
+      "path": "prep/1368-original-lowmarket-integration-prep/SHA256.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-lowmarket-integration-prep/SHA256.json",
+      "sha256": "6b5f397471388cf9efe05822128e5d168c125157dce5a7bf529de7cb129afc48",
+      "bytes": 596
+    },
+    {
+      "path": "prep/1368-original-lowmarket-integration-prep/candidate/tests/helpers/1368-lowmarket-research-control.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-lowmarket-integration-prep/candidate/tests/helpers/1368-lowmarket-research-control.ts",
+      "sha256": "cd68c20371a2073ca459f432eba012aea692068c9053b426e0daaa3634bad5bd",
+      "bytes": 1402
+    },
+    {
+      "path": "prep/1368-original-lowmarket-integration-prep/candidate/tests/p14d2-rival-cost-cutting.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-lowmarket-integration-prep/candidate/tests/p14d2-rival-cost-cutting.test.ts",
+      "sha256": "ccbaa75f9418483b7485edc321bad18399e2e797bf9303d9a4fbaa087eac2499",
+      "bytes": 32294
+    },
+    {
+      "path": "prep/1368-original-lowmarket-integration-prep/original-lowmarket-wiring.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-lowmarket-integration-prep/original-lowmarket-wiring.patch",
+      "sha256": "80d4c3ed962906b2b397a8093e11b343ecd4b365c872a9eb94afc1e6de7d1c8d",
+      "bytes": 3209
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/HANDBACK.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/HANDBACK.md",
+      "sha256": "e7f524162d36e2a9e0d71d661cc8cbd84ecd4858c9a5147cc9add538a363a339",
+      "bytes": 12673
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/MANIFEST.json",
+      "sha256": "9647ad911f59c3f60960d866a834081b78f8dffdea7db084a7e0f75a01ad28b0",
+      "bytes": 2358
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/CENSUS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/CENSUS.json",
+      "sha256": "fdc721776f8c0ac84c8a061b719b1f825f34b842bae86519dfbf3ef830cff2e3",
+      "bytes": 2397
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/CODE-INVENTORY.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/CODE-INVENTORY.json",
+      "sha256": "7cbcd3b20b6355fdd27b4508b34259b2e39bc929798b341dbe516b3643edb97f",
+      "bytes": 140750
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/CONFIG-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/CONFIG-PINS.json",
+      "sha256": "4c399b7bb98ac0b78cac2f13679127c230b7444597d392892678a01353f37496",
+      "bytes": 2095
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/OUTPUT-MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/OUTPUT-MANIFEST.json",
+      "sha256": "cf8fcb17fb1667e507399cc85be843890551547bf55b9c480402ae9b9cf5795d",
+      "bytes": 1590
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/SOURCE-INVENTORY.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/SOURCE-INVENTORY.json",
+      "sha256": "e3df343826a2749ac36e2d45014ae7c228fc76e795a0d5004836b1ca470d9839",
+      "bytes": 62646
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/STATIC-SITES.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/STATIC-SITES.json",
+      "sha256": "11e6eed50607e24d4b40f0368465b447d758037759429b55c6722f907eed4a0b",
+      "bytes": 1077099
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/candidate-core-with-focused-459.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/candidate-core-with-focused-459.txt",
+      "sha256": "0a87ef14f2a18a25283d2809af394e86ea7203ed2ca0ab9c71ab63131ad13b30",
+      "bytes": 17080
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/core-all-460.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/core-all-460.txt",
+      "sha256": "794d9e09232bb5013cef541eed19140111f6eeb921e1380c4f842be42a284f27",
+      "bytes": 17147
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/core-headless-454.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/core-headless-454.txt",
+      "sha256": "f8cd679d7cccea5df7a7736f8cee0485abada7edddd4ac955315b0d1f8995fd7",
+      "bytes": 16876
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/core-owner-native-excluded-6.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/core-owner-native-excluded-6.txt",
+      "sha256": "cb749157074a8ae924c2109ad0e24b7da7ae081822471666714e9ca871e09eea",
+      "bytes": 271
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/d16-10.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/d16-10.txt",
+      "sha256": "f424f88c8eaf3e42021b902c139eaaafad9ea3dfaa8f8634a250c1c57724c379",
+      "bytes": 338
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/focused-new-5.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/focused-new-5.txt",
+      "sha256": "416ca00e8b3e8494203f11f1f933756d4632d5c2e6cc5a130c1d59d10345fc97",
+      "bytes": 204
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census-6c60/ui-204.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census-6c60/ui-204.txt",
+      "sha256": "58830c8f27d867eb5720cd38fabff4d192ab2844269cefcc4a30542a82e38019",
+      "bytes": 9136
+    },
+    {
+      "path": "prep/1368-save46-fallout-prep/census.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-save46-fallout-prep/census.py",
+      "sha256": "e6a5674b949082c9e652f67459bccaa0eaaa3a088f124fbbc87f7685ce075853",
+      "bytes": 6932
+    },
+    {
+      "path": "unified/b-updated-r2/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/b-updated-r2/output.txt",
+      "sha256": "a892b0266727deaeaba2c356507cce56f8d8bbf42c446759e49629df7923f4a1",
+      "bytes": 835
+    },
+    {
+      "path": "unified/b-updated-r2/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/b-updated-r2/result.json",
+      "sha256": "a21dbef5cb2830bc04e178995f48130633f5877fbee349f16f335a18ef360c8e",
+      "bytes": 3744
+    },
+    {
+      "path": "unified/public277-r2/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/public277-r2/output.txt",
+      "sha256": "cac7cb34a5925dec56a2ae0671a82cc80d0e8f56cfd62f924b5d877059106f7d",
+      "bytes": 5367
+    },
+    {
+      "path": "unified/public277-r2/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/public277-r2/result.json",
+      "sha256": "04ec7624cb09af22843aaf7c602dbd8338625b6954f622705ddcd59065589310",
+      "bytes": 3653
+    },
+    {
+      "path": "unified/types-r2/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/types-r2/output.txt",
+      "sha256": "ebfc45e0009c4a68752d9f36b39ab9bb6940128a57e71d09322d6d25c11ac3c5",
+      "bytes": 121
+    },
+    {
+      "path": "unified/types-r2/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/types-r2/result.json",
+      "sha256": "d7810a7918eb26dca3dd784bb223dec03eeba1d08deec82dd9625def6db0e514",
+      "bytes": 3505
+    },
+    {
+      "path": "unified/types-r3/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/types-r3/output.txt",
+      "sha256": "4d70760f489d5043c3488805abaa5c1278ae3e0cde0c2454b02117eab451f0af",
+      "bytes": 120
+    },
+    {
+      "path": "unified/types-r3/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/types-r3/result.json",
+      "sha256": "48e613192f24174f971a8665aec46a5945903a6954b80ab085e94f489673da2d",
+      "bytes": 3516
+    },
+    {
+      "path": "unified/lowmarket277-r3/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/lowmarket277-r3/output.txt",
+      "sha256": "42e67415736aa8c37c2b92acb9362ec1bf5f082a4a6e7af1f49249c88e815280",
+      "bytes": 2375
+    },
+    {
+      "path": "unified/lowmarket277-r3/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/lowmarket277-r3/result.json",
+      "sha256": "a0fd2552521c38cf3ffbc122dfdff3e5837f9f35f2888107a44f4302f8966a8d",
+      "bytes": 3659
+    },
+    {
+      "path": "unified/types-r4/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/types-r4/output.txt",
+      "sha256": "de1c96ff1b36848d307ac58239a0f2dd9b6866342acb7e5f4fe941451c9ac111",
+      "bytes": 120
+    },
+    {
+      "path": "unified/types-r4/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/types-r4/result.json",
+      "sha256": "3d74a008a006255beacb65835e42e44a1e962f7428f1cc06a5c9485d0a431793",
+      "bytes": 3505
+    },
+    {
+      "path": "unified/b-full-r4/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/b-full-r4/output.txt",
+      "sha256": "7ea7ebf0c6d3138bf72c3c0818698de22cec305af0595aa198d9c9d5eba32b21",
+      "bytes": 11239
+    },
+    {
+      "path": "unified/b-full-r4/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/b-full-r4/result.json",
+      "sha256": "8fcf5a2193036050c12b3967976e564b53f20a10598773ebac1c26e1653abc47",
+      "bytes": 3645
+    },
+    {
+      "path": "unified/adapter-r4/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/adapter-r4/output.txt",
+      "sha256": "070eaac6d54de2e09343b47e8fa57657344186f14aa1f1440dac2fcfad6e7476",
+      "bytes": 775
+    },
+    {
+      "path": "unified/adapter-r4/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/adapter-r4/result.json",
+      "sha256": "2995c986456ec8a489acd917f4ce19c5c2a623a4e1e0f69f95beb58944924d02",
+      "bytes": 3655
+    },
+    {
+      "path": "unified/SOURCE-PINS-v2.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/SOURCE-PINS-v2.json",
+      "sha256": "5bf64b69f9e87383e5c999300d920c99e1b15dd9b6aae4763e592a0517dc5c4d",
+      "bytes": 77992
+    },
+    {
+      "path": "unified/SOURCE-PINS-v3.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/SOURCE-PINS-v3.json",
+      "sha256": "7467943f36a5317e462b729b3e7bba5b071b152da2a16744ec7f39179d8da1a1",
+      "bytes": 78345
+    },
+    {
+      "path": "unified/run-v2.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/run-v2.py",
+      "sha256": "5d24f5a7efb5741af989e773d3af3af560dcc930525185637288474012c343ab",
+      "bytes": 3240
+    },
+    {
+      "path": "unified/run-v3.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/run-v3.py",
+      "sha256": "bf4c18ab5c9a9521bf72645ea804ecf82504392cb1704ef8e97b4d35f3f79798",
+      "bytes": 3296
+    },
+    {
+      "path": "unified/SOURCE-PINS-v4.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/SOURCE-PINS-v4.json",
+      "sha256": "e7fa3f6c37fe66378bb9ee1b180aef9e92a6ffea0f141c694167d5c59f8d7f36",
+      "bytes": 78467
+    },
+    {
+      "path": "unified/run-v4.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/run-v4.py",
+      "sha256": "73713e0cccb6bd6d3a0d3fb82a8d4de85b721a40be9fe3d2ef91d36892a12d15",
+      "bytes": 3285
+    },
+    {
+      "path": "c6/run.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-c6-completion-exclusion/run.py",
+      "sha256": "bd64379a57e372b07b516e8449ec338ef4bdf67d1bfc2ae3f4645d779df013e6",
+      "bytes": 2892
+    },
+    {
+      "path": "c6/SOURCE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-c6-completion-exclusion/SOURCE-PINS.json",
+      "sha256": "feaa9cad18498beaa5cc160fcb368dbb847aba45a1d84dde73956d23d0256307",
+      "bytes": 77992
+    },
+    {
+      "path": "c6/completion-guard-exclusion.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-c6-completion-exclusion/completion-guard-exclusion.patch",
+      "sha256": "7ca72c81f48cb2cc3c65512b4ef5d934233c2cfc6af307e35cfd10dd380d7464",
+      "bytes": 1014
+    },
+    {
+      "path": "c6/FIXTURE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-c6-completion-exclusion/FIXTURE-PINS.json",
+      "sha256": "be51ccddc7dd78c8f6329f93389b736ac4ca6ddec3cb3bc5bf828807fa8415b6",
+      "bytes": 2202
+    },
+    {
+      "path": "c6/PURPOSE.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-c6-completion-exclusion/PURPOSE.md",
+      "sha256": "dd72c0e2f222b149f9fde117c87d1104e36a87379d93a757c543d6986a6225cd",
+      "bytes": 1036
+    },
+    {
+      "path": "c6/c6-r1/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-c6-completion-exclusion/c6-r1/output.txt",
+      "sha256": "9145bee31fc0eb67f9ec55ab2743e77037a57ca841e6fbd3bc9518b8068a5863",
+      "bytes": 1967057
+    },
+    {
+      "path": "c6/c6-r1/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-c6-completion-exclusion/c6-r1/result.json",
+      "sha256": "179d6f619430d859db26a4001060042492ad32aef39c4ecbbb11a3be7cb30294",
+      "bytes": 3696
+    },
+    {
+      "path": "reviews/C6-COMPLETION-EXCLUSION-STATIC.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/C6-COMPLETION-EXCLUSION-STATIC.md",
+      "sha256": "ce8c01595a684b79e2df7af0d976dd19df10c1ffdd2d9854c394493885975753",
+      "bytes": 1388
+    },
+    {
+      "path": "reviews/C6-AND-B-FOLLOWUP-MEASURED.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/C6-AND-B-FOLLOWUP-MEASURED.md",
+      "sha256": "6fceb0254f217ccd4cfeecff4c848bd80cd9aef76baf159a764aa86378e09fab",
+      "bytes": 2154
+    },
+    {
+      "path": "reviews/LOWMARKET277-STATIC.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/LOWMARKET277-STATIC.md",
+      "sha256": "70b152b5ed9e9bc181db0a70b0f88c718933a37d0ad3bbd990d7b96a70c7c039",
+      "bytes": 1266
+    },
+    {
+      "path": "reviews/LOWMARKET277-MEASURED.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/LOWMARKET277-MEASURED.md",
+      "sha256": "ab2f9606cb4afb9b1a2c3e675c11ce342e6be3519c78adc47cc257a05a9673db",
+      "bytes": 2060
+    },
+    {
+      "path": "reviews/CURRENT520-MEASUREMENT-STATIC.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/CURRENT520-MEASUREMENT-STATIC.md",
+      "sha256": "d3957feede7edaefe1f98b35533f8b118a45f008a81c8debe2e6d3b909b0058f",
+      "bytes": 4238
+    },
+    {
+      "path": "reviews/MEASUREMENT-ASSEMBLY-STATIC.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/MEASUREMENT-ASSEMBLY-STATIC.md",
+      "sha256": "dd8f9ff63f7d6f3dc401472236b22402003e1d543b95f23c5a9398057848bbaa",
+      "bytes": 1370
+    },
+    {
+      "path": "reviews/ORIGINAL-LOWMARKET-WIRING.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/ORIGINAL-LOWMARKET-WIRING.md",
+      "sha256": "d2d5379ed0914f4df7b87278c1f111be69a508495fa4acd857a11b2c66040575",
+      "bytes": 1794
+    },
+    {
+      "path": "reviews/LOWMARKET-PREDECESSOR-ASSEMBLY.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/LOWMARKET-PREDECESSOR-ASSEMBLY.md",
+      "sha256": "57d15f12fcde6fbe1395605a8f86093f1e943d42442b4b68a52c59bb5ac27585",
+      "bytes": 1222
+    },
+    {
+      "path": "reviews/B-FULL-MEASURED.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/B-FULL-MEASURED.md",
+      "sha256": "ff80ca736db11efe478df8756b66e71fa6698314b826d9c455f0f48223fdfef0",
+      "bytes": 2581
+    },
+    {
+      "path": "reviews/LOWMARKET-PREDECESSOR-MEASURED.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/LOWMARKET-PREDECESSOR-MEASURED.md",
+      "sha256": "d233f373131b40a496f55f2420518ae861a642998a5eaa8e88b751268483a28a",
+      "bytes": 1768
+    },
+    {
+      "path": "measurement-types/ASSEMBLY.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-arms-01/ASSEMBLY.json",
+      "sha256": "90cce8665bb7731d1582681a9307cace378c2ae96be7716365aeeed3b5ffbdfd",
+      "bytes": 176439
+    },
+    {
+      "path": "measurement-types/run-types.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-arms-01/run-types.py",
+      "sha256": "689b6f1416b8f14da50c242ea63d5e5822c75823bf826307d5663601ba13e26f",
+      "bytes": 2122
+    },
+    {
+      "path": "measurement-types/types-r1/A-clean.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-arms-01/types-r1/A-clean.txt",
+      "sha256": "d5b5f7c0f6de2409650ce0639267731b02a8c5c081b768cace1b275c273b0b1e",
+      "bytes": 120
+    },
+    {
+      "path": "measurement-types/types-r1/A-observed.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-arms-01/types-r1/A-observed.txt",
+      "sha256": "ccd53d3aa8c0f0be4c77cf2e86208a0f53b3aa6e6c4df85c7693f2fbf714c756",
+      "bytes": 120
+    },
+    {
+      "path": "measurement-types/types-r1/AB-clean.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-arms-01/types-r1/AB-clean.txt",
+      "sha256": "7960831c929bd48ac95815bae54c26e635cd17f04237c68a6a1710ccb74b6f6c",
+      "bytes": 121
+    },
+    {
+      "path": "measurement-types/types-r1/AB-observed.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-arms-01/types-r1/AB-observed.txt",
+      "sha256": "324302f015f2ba317e9bb52146631b39017e9d76027650e9d3df8eec071176b3",
+      "bytes": 121
+    },
+    {
+      "path": "measurement-types/types-r1/ABC-clean.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-arms-01/types-r1/ABC-clean.txt",
+      "sha256": "00d2a8e36e946cd9b3bb596082e61a783b609e4c165eb1b89cb972aa49c5d053",
+      "bytes": 121
+    },
+    {
+      "path": "measurement-types/types-r1/ABC-observed.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-arms-01/types-r1/ABC-observed.txt",
+      "sha256": "5e57f0b2c21b0a92a8c926d84f3d276110ac4ccb1c653da66309c3178f4db0cc",
+      "bytes": 120
+    },
+    {
+      "path": "measurement-types/types-r1/C0-clean.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-arms-01/types-r1/C0-clean.txt",
+      "sha256": "3c16db7a399f9351fa418e800254912b89c0cac04f0bdacbdc9956c5af6b2be2",
+      "bytes": 121
+    },
+    {
+      "path": "measurement-types/types-r1/C0-observed.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-arms-01/types-r1/C0-observed.txt",
+      "sha256": "9c076f4c27702e683667f64c1135992d284401afb16e78e718f40038d77e93c0",
+      "bytes": 121
+    },
+    {
+      "path": "measurement-types/types-r1/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-recovery-measurement-arms-01/types-r1/result.json",
+      "sha256": "5d578116b1fe53ae4d5556ea069d1a0c55d1236e4eedfc5fad82102a98402f46",
+      "bytes": 4388
+    },
+    {
+      "path": "predecessor/ASSEMBLY.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-lowmarket-predecessor/ASSEMBLY.json",
+      "sha256": "53d9448075c84bd271b9e1e90567c8e6915403f6d6481b0af71b2b5953055530",
+      "bytes": 249
+    },
+    {
+      "path": "predecessor/run.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-lowmarket-predecessor/run.py",
+      "sha256": "afc2bf20796bc645f9435e82c4ba7a6df11579aaae304f16a1656df05c69d676",
+      "bytes": 3249
+    },
+    {
+      "path": "predecessor/SOURCE-PINS-v4.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-lowmarket-predecessor/SOURCE-PINS-v4.json",
+      "sha256": "42e3015ece1e1feb57e939dbae1ac8043dd242d3ff4dd296a3b1ac24a41f4f5f",
+      "bytes": 78467
+    },
+    {
+      "path": "predecessor/FIXTURE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-lowmarket-predecessor/FIXTURE-PINS.json",
+      "sha256": "be51ccddc7dd78c8f6329f93389b736ac4ca6ddec3cb3bc5bf828807fa8415b6",
+      "bytes": 2202
+    },
+    {
+      "path": "predecessor/types-r1/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-lowmarket-predecessor/types-r1/output.txt",
+      "sha256": "5954c7ce5d80258bbae3ca1c66408dd3754bc4e2afe0fcfe94941f67d316b099",
+      "bytes": 121
+    },
+    {
+      "path": "predecessor/types-r1/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-lowmarket-predecessor/types-r1/result.json",
+      "sha256": "6ebd3ae22d7faad045b416fa9520517b0ee6661baa7309e2b03d542f1d9893a5",
+      "bytes": 3504
+    },
+    {
+      "path": "predecessor/b-full-r1/output.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-lowmarket-predecessor/b-full-r1/output.txt",
+      "sha256": "7434037a671f7682a1cf4d9512331eee0f27f8e920be796f53be558d5339cea0",
+      "bytes": 4809
+    },
+    {
+      "path": "predecessor/b-full-r1/result.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-lowmarket-predecessor/b-full-r1/result.json",
+      "sha256": "c20c688c21000f146180ef72dd48e69b91e9745eac6850df174562cb1992d5fb",
+      "bytes": 3717
+    },
+    {
+      "path": "stage.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-fourth-publication-prep/stage.py",
+      "sha256": "b6d2190221472ad1c9893ac7ff083415ebe6ca131c0c4f5449e26198bcf0e448",
+      "bytes": 2533
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "base": {
+    "tests/p14d2-rival-cost-cutting.test.ts": "94a74df112bb5d6d7cf5ff7cf005a71bdcb37d2d3b1a38dafab8c91862841588",
+    "tests/helpers/1368-lowmarket-research-boundary.ts": "74757c5183031557778fe9f5ffcacb4b074b6f8bc9d2b66f8acc1f92f531465f"
+  },
+  "candidate": {
+    "tests/p14d2-rival-cost-cutting.test.ts": "ccbaa75f9418483b7485edc321bad18399e2e797bf9303d9a4fbaa087eac2499",
+    "tests/helpers/1368-lowmarket-research-control.ts": "cd68c20371a2073ca459f432eba012aea692068c9053b426e0daaa3634bad5bd"
+  },
+  "patch": "80d4c3ed962906b2b397a8093e11b343ecd4b365c872a9eb94afc1e6de7d1c8d"
+}

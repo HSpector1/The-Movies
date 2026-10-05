@@ -1,0 +1,15 @@
+{
+  "sourceBase": "current fixed unified candidate; see exact copied-base hashes",
+  "base": {
+    "tests/helpers/1368-public-research-boundary.ts": "69e49aef4ebcc2c1865ee7f59a7216d02eb82b04e73d191a3667fbf3b047b1f0",
+    "tests/p14d2-b-public-research-1368.test.ts": "64e72bfe184f8a8f3f087aca51d40ac4684222d8efb396673c8e295a91a65312",
+    "tsconfig.1368-public-research.json": "9cf9ef309685633d8b530ea87cc6e8c76f24bf2e312abc600cee021141993879"
+  },
+  "candidate": {
+    "tests/helpers/1368-lowmarket-research-boundary.ts": "74757c5183031557778fe9f5ffcacb4b074b6f8bc9d2b66f8acc1f92f531465f",
+    "tests/p14d2-b-lowmarket-research-1368.test.ts": "f1a8e9e55d2294ccc80d147d37e2831df1c29632f7ea8794e6de3fd6ecec1c1c",
+    "tsconfig.1368-lowmarket-research.json": "0eb34102db2a59f13ef5b26137e79f5aa5ea4a34ac9c060ce01202e81231ec03"
+  },
+  "patch": "4c45cb71db854fe09a587f7d44133509d37f58db932051f0fcb4fda0405360bd",
+  "delta": "6ba65446229f84fa19ab02d1ae8db8a59322501c85dc0b2aa23c5fa99c05c440"
+}

@@ -1,0 +1,57 @@
+{
+  "package.json": {
+    "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f",
+    "bytes": 2726,
+    "gitBlob": "4f6123b0dfb634faaf1a64a7b6162e284320e0a4"
+  },
+  "package-lock.json": {
+    "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de",
+    "bytes": 149287,
+    "gitBlob": "d4151fcc2ca6fe54f38b307ee4d9ae4ea219a344"
+  },
+  "vitest.config.ts": {
+    "sha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa",
+    "bytes": 176,
+    "gitBlob": "3416b9e0bc1dbcbf901af6dd67e19a473127f190"
+  },
+  "vitest.workspace.ts": {
+    "sha256": "423ba7332b1348114c751b71d1ed551c48aa57ecb4de75daf876b20d8ab34a82",
+    "bytes": 1489,
+    "gitBlob": "f7e6a817c71088865397657e378c40a83cb5ccad"
+  },
+  "tsconfig.json": {
+    "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f",
+    "bytes": 706,
+    "gitBlob": "7521893ef93467ed05ef19a1768fc092edac2f2d"
+  },
+  "tsconfig.src.json": {
+    "sha256": "8c3f09111bb20bd51e8611caf00775a9bb78ea20290b765cc82f0ae0663e1dae",
+    "bytes": 119,
+    "gitBlob": "95c6e861b815acd2409c0bd981d8f8af3fa95245"
+  },
+  "tsconfig.bridge.json": {
+    "sha256": "000b30ca444be7669cac8b43bb1c23730945617801feae27eaa73927b27792ca",
+    "bytes": 528,
+    "gitBlob": "95208dbd0c7ebe557e8626c84188128d95457444"
+  },
+  "ui/tsconfig.json": {
+    "sha256": "294e1c6b2bacc3fefb0aec00c5093c5372b7d3c6e1175279aa551b6023f42d9e",
+    "bytes": 1074,
+    "gitBlob": "870b43b2f6db084fbd8ae6539657744b07e4fe68"
+  },
+  "ui/vite.config.ts": {
+    "sha256": "13f335b521b233f8ea20f0079575f0645e8f4a4051de0151f2b79cb5f19e499b",
+    "bytes": 1204,
+    "gitBlob": "0a590acd64b22cc5137ee8f6990ee43e6e9b6496"
+  },
+  "ui/src/test/setup.ts": {
+    "sha256": "569a266d5e0da3c5c7407572559bf0b7b3e0c35d839f93338ce8b6f6fd8ec14a",
+    "bytes": 3382,
+    "gitBlob": "92db85d92a48639bf5333498d4db5bdec280bd9c"
+  },
+  "src/harness/d16/vitest.d16.config.ts": {
+    "sha256": "c28600c717ab3a318a1b7b6879d099aead67dc946355c877a58d75ad398b4cb2",
+    "bytes": 883,
+    "gitBlob": "b86a450645fcc0dd14a0bac865ae5cae6e774119"
+  }
+}

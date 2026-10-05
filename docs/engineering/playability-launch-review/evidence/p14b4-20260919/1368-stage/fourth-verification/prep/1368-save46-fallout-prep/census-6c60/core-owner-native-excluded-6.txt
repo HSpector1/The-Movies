@@ -1,0 +1,6 @@
+tests/bridge-contract-consumer-lock.test.ts
+tests/bridge-owner-ux-projection20-migration.test.ts
+tests/bridge-p05a1-owner-greenlight.test.ts
+tests/bridge-p05a3-roster-liveness.test.ts
+tests/bridge-p06-checkpoint-recovery.test.ts
+tests/bridge-p12-campaign-library.test.ts

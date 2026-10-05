@@ -1,0 +1,104 @@
+--- measured/tests/helpers/1368-public-research-boundary.ts
++++ proposed/tests/helpers/1368-lowmarket-research-boundary.ts
+@@ -50,18 +50,28 @@
+   return { state: result.state, fresh }
+ }
+ let cache: { input: GameState; control: GameState } | undefined
+-export function publicResearch277() {
++export function lowMarketResearch277() {
+   if (cache) return structuredClone(cache)
+-  let state = generateWorld('p13a-core-causal-01')
++  const genesis = generateWorld('p15a1-w2-market-01'), genesisBytes = bytes(genesis)
++  const genesisMarket = structuredClone(genesis.market), genesisEra = structuredClone(genesis.era)
++  expect(Math.round(genesisMarket.baseMarketValue)).toBe(23_554_590) // 1355-C4 recorded rounded value
++  function comparable(state: GameState): void {
++    expect(state.market).toEqual({ ...genesisMarket, tick: state.market.tick })
++    expect(state.era).toEqual(genesisEra)
++    expect(bytes(genesis)).toBe(genesisBytes)
++  }
++  let state = genesis
+   admitPublicResearchFixture(state)
+   for (let week = 0; week < 260; week++) {
+     expect(state.hollywood).toBeNull(); expect(state.founding).toBeNull()
+     state = ordinary(state)
+   }
+   expect(state.market.tick).toBe(260); expect(state.hollywood).toBeNull(); expect(state.founding).toBeNull()
++  comparable(state) // actual null-industry week260, no clock or market rewrite
+   const predecessor = state, predecessorBytes = bytes(predecessor)
+   state = initializeHollywood(predecessor, 'migration')
+   expect(bytes(predecessor)).toBe(predecessorBytes); admitPublicResearchFixture(state)
++  comparable(state)
+   expect(state.hollywood).toMatchObject({ origin: 'migration', originWeek: 260 })
+   expect(state.ledger).toEqual(predecessor.ledger); expect(state.studio).toEqual(predecessor.studio)
+   expect(state.hollywood!.films).toHaveLength(0)
+@@ -94,7 +104,7 @@
+   expect(sound.researchableWeek).toBe(260); expect(lab.buildWeeks).toBe(12); expect(instrument.buildWeeks).toBe(5)
+   const labs = paidAdmission(state, lab.id); state = labs.state
+   for (let n = 0; n < 12; n++) state = ordinary(state)
+-  expect(state.market.tick).toBe(272)
++  expect(state.market.tick).toBe(272); comparable(state)
+   for (const plan of labs.fresh) {
+     const commitment = state.hollywood!.receipts.find(r => r.kind === 'laboratoryCommitted' && r.planId === plan.id)
+     expect(commitment?.kind).toBe('laboratoryCommitted')
+@@ -105,7 +115,7 @@
+   // Public standalone research admission, with the exact same quote/reserve law as its tick caller.
+   const instruments = paidAdmission(state, instrument.id); state = instruments.state
+   for (let n = 0; n < 5; n++) state = ordinary(state)
+-  expect(state.market.tick).toBe(277)
++  expect(state.market.tick).toBe(277); comparable(state)
+   for (const plan of instruments.fresh) {
+     expect(plan.work.kind).toBe('installation')
+     if (plan.work.kind !== 'installation' || !('facilityId' in plan.work.target)) throw new Error('actual module target required')
+@@ -124,10 +134,12 @@
+       replacementContracts: after.employment.slice(before.employment.length).filter(e => e.reason === 'replacement').map(e => e.contractId),
+       newProjects: after.projects.length - before.projects.length, newSeats: after.seats.length - before.seats.length }
+   })
+-  console.log('1368_PUBLIC_RESEARCH277', JSON.stringify({ seed: 'p13a-core-causal-01', origin: 'public-migration260',
++  console.log('1368_LOWMARKET_RESEARCH277', JSON.stringify({ seed: 'p15a1-w2-market-01', origin: 'public-migration260',
+     nullIndustryTicks: 260, paidLabWeek: 260, paidInstrumentWeek: 272, ordinaryIndustryTicks: 17,
+-    inputWeek: 277, controlWeek: 278, noQuoteOverride: true, facts }))
++    inputWeek: 277, controlWeek: 278, noQuoteOverride: true,
++    baseMarketValue: input.market.baseMarketValue, genesisMarketAndEraPreserved: true, facts }))
+   expect(bytes(predecessor)).toBe(predecessorBytes)
++  comparable(control)
+   cache = { input, control }
+   return structuredClone(cache)
+ }
+--- measured/tests/p14d2-b-public-research-1368.test.ts
++++ proposed/tests/p14d2-b-lowmarket-research-1368.test.ts
+@@ -1,13 +1,13 @@
+ // Strict three-way acceptance candidate, not a search or a promised healthy campaign.
+ import { beforeAll, expect, it } from 'vitest'
+-import { publicResearch277, researchCommitments, admitPublicResearchFixture } from './helpers/1368-public-research-boundary.js'
++import { lowMarketResearch277, researchCommitments, admitPublicResearchFixture } from './helpers/1368-lowmarket-research-boundary.js'
+ import { tick } from '../src/core/tick.js'
+ import { stableStringify } from '../src/core/save.js'
+ 
+-beforeAll(() => { publicResearch277() }, 120_000)
++beforeAll(() => { lowMarketResearch277() }, 120_000)
+ 
+-it.each(['replacement', 'project', 'seat'] as const)('B public migration277 blocks new %s against a real idle positive', kind => {
+-  const { input, control } = publicResearch277(), bytes = stableStringify
++it.each(['replacement', 'project', 'seat'] as const)('B low-market public migration277 blocks new %s against a real idle positive', kind => {
++  const { input, control } = lowMarketResearch277(), bytes = stableStringify
+   const b = input.hollywood!.businesses.find(b => {
+     if (b.costCutting.since !== null || b.productions.length || b.runs.length
+       || input.talentMarket.proposals.some(p => p.issuerStudioId === b.studioId)) return false
+@@ -16,7 +16,7 @@
+     if (kind === 'project') return after.projects.length > before.projects.length
+     return after.seats.length > before.seats.length
+   })
+-  expect(b, `UNMET FIXED277 PREMISE: idle null-since ${kind} positive under actual unchanged quotes; no fallback`).toBeDefined()
++  expect(b, `UNMET LOWMARKET277 PREMISE: idle null-since ${kind} positive under actual unchanged quotes; no fallback`).toBeDefined()
+   const id = b!.studioId, old = researchCommitments(input, id), candidate = structuredClone(input)
+   candidate.hollywood!.businesses.find(row => row.studioId === id)!.costCutting.since = 277
+   admitPublicResearchFixture(candidate)
+--- measured/tsconfig.1368-public-research.json
++++ proposed/tsconfig.1368-lowmarket-research.json
+@@ -1,5 +1,5 @@
+ {
+   "extends": "./tsconfig.json",
+   "compilerOptions": { "noEmit": true, "types": ["node"] },
+-  "include": ["tests/p14d2-b-public-research-1368.test.ts", "tests/helpers/1368-public-research-boundary.ts"]
++  "include": ["tests/p14d2-b-lowmarket-research-1368.test.ts", "tests/helpers/1368-lowmarket-research-boundary.ts"]
+ }

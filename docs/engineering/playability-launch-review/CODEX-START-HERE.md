@@ -1,10 +1,10 @@
 # CODEX continuation — Project Studio
 
-## CURRENT — Owner1368 autonomous recovery continuation; main untouched
+## CURRENT — Owner1368 autonomous recovery: focused acceptance; main untouched
 
-[1368-O](evidence/p14b4-20260919/1368-O-owner-long-autonomous-run.md) supersedes the older blocked-stop endpoint. [1368-A](evidence/p14b4-20260919/1368-A-integrated-focused-and-renewal-witness.md) and [1368-B](evidence/p14b4-20260919/1368-B-valid-witness-progress.md) record actual integrated focused results and lawful replacement controls. Renewal/period/adoption/operational controls pass their named assertions; four research positives still lack premises. The original45 bounded producer has five individually accepted rows but remains PARTIAL/FAIL because its operational row is absent. No full recovery closure is claimed.
+[1368-D](evidence/p14b4-20260919/1368-D-integrated-recovery-focused-acceptance.md): originalB52PASS/adapter2PASS, C24PASS, migration111PASS, PartA46PASS and period2PASS. The final three research controls use an independently qualified, genuinely paid public-migration lowmarket witness; original failures remain preserved. Same schemaS three controls reach integrated forbidden-employment RED; fullABC reaches all original comparisons. OriginalSave45 post2040release accepted1368-C. Eight measurement builds pass strict types.
 
-[1368-C](evidence/p14b4-20260919/1368-C-postrelease-accepted-and-recovery-green.md) now records original45 post2040 release-cost ACCEPTED, C24PASS and migration111PASS. Remaining Bnewcommitment controls and broader recovery closure still block promotion. HANDOFF owns exact current runs and next commands. Full recovery source remains scratch Save46; live source is Save45+F6. The original45 delayed-player post2040 route completed realrelease6249 andexact10weekreplay; its reviewed result does not replace required recovery-source reruns. Promotion remains conditional on the genuine checkpoint and every1367-O2 gate. Preserve all original failures and history; CURRENT-BEST Owner identity is unchanged. After closure/promotion continue1364→1365→P15→qualifiedP16→canonicalP17→boundedP18, noP19. Older CURRENT blocks below are historical.
+ABC/Save46 remains unlanded. Next is measured1363 fallout/sweep, landing/broad/type/generator, then recovery1363V and same-candidateG-P/G-L/K3. Main remains c902a704; no PR/merge/overallclosure.1367O2 conditionalauthorization stands, CURRENT-BEST Owneracceptedidentity unchanged. HANDOFF owns exactsourcepins, agents andcommands. Owner1368O requires continuing through the authorized dependency program, not stopping at this milestone. Older CURRENT blocks are historical.
 
 ## CURRENT — P15A.1 Wave 1 landed (gates pending); shelving production running; P15B charter in review
 

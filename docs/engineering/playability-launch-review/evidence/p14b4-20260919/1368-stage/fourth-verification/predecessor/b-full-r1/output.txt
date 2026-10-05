@@ -1,0 +1,52 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-lowmarket-predecessor/tree
+
+stdout | tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new replacement with an observed ordinary positive control
+1368_LOWMARKET_RESEARCH277 {"seed":"p15a1-w2-market-01","origin":"public-migration260","nullIndustryTicks":260,"paidLabWeek":260,"paidInstrumentWeek":272,"ordinaryIndustryTicks":17,"inputWeek":277,"controlWeek":278,"noQuoteOverride":true,"baseMarketValue":23554590.49809724,"genesisMarketAndEraPreserved":true,"facts":[{"studioId":"studio-ff9bdb2b-r01","since":null,"nextDecisionWeek":277,"productions":0,"runs":0,"proposals":0,"cash":22895819,"reserve":1240616,"wholeInputDemand":4,"replacementContracts":["studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-6:277","studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-7:277","studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-8:277","studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-9:277"],"newProjects":1,"newSeats":4},{"studioId":"studio-ff9bdb2b-r02","since":null,"nextDecisionWeek":277,"productions":0,"runs":0,"proposals":0,"cash":19577645,"reserve":1935036,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0},{"studioId":"studio-ff9bdb2b-r03","since":null,"nextDecisionWeek":277,"productions":0,"runs":0,"proposals":0,"cash":13715995,"reserve":2045080,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0},{"studioId":"studio-ff9bdb2b-r04","since":null,"nextDecisionWeek":277,"productions":0,"runs":1,"proposals":0,"cash":10078550.22182101,"reserve":1585635,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0}]}
+
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new replacement with an observed ordinary positive control 18384ms
+   → expected [ …(10) ] to deeply equal [ …(6) ]
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new project with an observed ordinary positive control
+   → expected [ …(10) ] to deeply equal [ …(6) ]
+ × |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new seat with an observed ordinary positive control
+   → expected [ …(10) ] to deeply equal [ …(6) ]
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new replacement with an observed ordinary positive control
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new project with an observed ordinary positive control
+ FAIL |core|  tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new seat with an observed ordinary positive control
+AssertionError: expected [ …(10) ] to deeply equal [ …(6) ]
+
+- Expected
++ Received
+
+  Array [
+    "studio-ff9bdb2b-r01:contract:t-wri-00:260",
+    "studio-ff9bdb2b-r01:contract:t-dir-00:260",
+    "studio-ff9bdb2b-r01:contract:t-act-00:260",
+    "studio-ff9bdb2b-r01:contract:t-act-01:260",
+    "studio-ff9bdb2b-r01:contract:t-act-02:260",
+    "studio-ff9bdb2b-r01:contract:t-cra-00:260",
++   "studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-6:277",
++   "studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-7:277",
++   "studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-8:277",
++   "studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-9:277",
+  ]
+
+ ❯ tests/p14d2-rival-cost-cutting.test.ts:358:55
+    356|       makeSave(next)
+    357|       const old = ownCommitments(input, id), after = ownCommitments(ne…
+    358|       expect(after.employment.map(e => e.contractId)).toEqual(old.empl…
+       |                                                       ^
+    359|       expect(after.plans.map(p => p.id)).toEqual(old.plans.map(p => p.…
+    360|       expect(after.adoptions.map(a => [a.id, a.committedWeek])).toEqua…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 49 skipped (52)
+   Start at  23:50:07
+   Duration  22.25s (transform 2.21s, setup 0ms, collect 3.07s, tests 18.76s, environment 0ms, prepare 91ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 1, "elapsedMs": 23125.12963102199}

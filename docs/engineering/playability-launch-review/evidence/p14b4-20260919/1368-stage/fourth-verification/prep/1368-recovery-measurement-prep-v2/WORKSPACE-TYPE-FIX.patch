@@ -1,0 +1,6 @@
+--- a/files/vitest.1368-measurement.workspace.ts
++++ b/files/vitest.1368-measurement.workspace.ts
+@@ -1,2 +1,2 @@
+ import { defineWorkspace } from 'vitest/config'
+-export default defineWorkspace([{ test: { name: 'core', include: ['tests/1368-natural-recovery.test.ts'], environment: 'node', pool: 'forks', maxWorkers: 1, minWorkers: 1, fileParallelism: false, testTimeout: 300_000, hookTimeout: 300_000 } }])
++export default defineWorkspace([{ test: { name: 'core', include: ['tests/1368-natural-recovery.test.ts'], environment: 'node', pool: 'forks', testTimeout: 300_000, hookTimeout: 300_000 } }])

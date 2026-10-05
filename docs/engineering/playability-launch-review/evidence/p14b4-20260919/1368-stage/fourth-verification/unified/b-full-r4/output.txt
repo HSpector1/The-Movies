@@ -1,0 +1,65 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-unified-candidate/tree
+
+stdout | tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new replacement with an observed ordinary positive control
+1368_LOWMARKET_RESEARCH277 {"seed":"p15a1-w2-market-01","origin":"public-migration260","nullIndustryTicks":260,"paidLabWeek":260,"paidInstrumentWeek":272,"ordinaryIndustryTicks":17,"inputWeek":277,"controlWeek":278,"noQuoteOverride":true,"baseMarketValue":23554590.49809724,"genesisMarketAndEraPreserved":true,"facts":[{"studioId":"studio-ff9bdb2b-r01","since":null,"nextDecisionWeek":277,"productions":0,"runs":0,"proposals":0,"cash":22895819,"reserve":1240616,"wholeInputDemand":4,"replacementContracts":["studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-6:277","studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-7:277","studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-8:277","studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-9:277"],"newProjects":1,"newSeats":4},{"studioId":"studio-ff9bdb2b-r02","since":null,"nextDecisionWeek":277,"productions":0,"runs":0,"proposals":0,"cash":19577645,"reserve":1935036,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0},{"studioId":"studio-ff9bdb2b-r03","since":null,"nextDecisionWeek":277,"productions":0,"runs":0,"proposals":0,"cash":13715995,"reserve":2045080,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0},{"studioId":"studio-ff9bdb2b-r04","since":null,"nextDecisionWeek":277,"productions":0,"runs":1,"proposals":0,"cash":10078550.22182101,"reserve":1585635,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0}]}
+
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > below reserve
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > exact reserve alone
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > commission package entirely unaffordable
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > writer vacancy refused at staff cash gate
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > team vacancy refused at staff cash gate
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > failed renewal is not a vacancy
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > unrelated Scientist vacancy cash refusal
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > noncash staffing block
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > hold above reserve
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > busy writer above reserve
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > economic refusal alone
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full-index reason without evaluated screenplay evidence
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index all genuinely cash-bound
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index cash and cash-caused staffing
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index one economic rejection
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index noncash staffing
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > no decision opportunity
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > a production
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > a run
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > drafting or rewriting work
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > greenlit this decision
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > commissioned this decision
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > the separately retained legacy reserve-plus-one staffing setup enters cutting 800ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > accepts equality but refuses a one-dollar payback shortfall even when reserve passes
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > retains the separate R3 reserve guard when payback itself passes
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects productionSeat independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects writingSeat independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects unreleasedResearchSeat independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects openPromise independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects a contract with 0 weeks remaining
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects a contract with 1 weeks remaining
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects a contract with 26 weeks remaining
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > the pure release guard has no profession exclusion; a research seat protects the same facts
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > retains a genuinely occupied writing seat while cutting 739ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > releases in employment order with recomputed cash/cost and exact receipts, payroll and free agency 557ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2/B5: Part B restrictions and no inflow, separate from disposal > does not rehire next week, create positive money, remove plant or discard history 441ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B7/B8 and the direct live profession proof > a real ordinary greenlight clears cutting; the release policy is isolated as a refusal control 502ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B7/B8 and the direct live profession proof > direct profession proof accepts a valid cutting state without relying on tick swallowing a refusal
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B7/B8 and the direct live profession proof > has no player cost-cutting field or player termination effect
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B7/B8 and the direct live profession proof > never invokes recovery policy in a genuine hollywood-null world
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > sets new Scientist staffing demand to zero with a real positive demand control 1086ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new renewal with an observed ordinary positive control 11761ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new replacement with an observed ordinary positive control 17027ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new laboratoryPlan with an observed ordinary positive control
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new adoption with an observed ordinary positive control 8599ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new project with an observed ordinary positive control
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new seat with an observed ordinary positive control
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > continues an already active, already seated research project and pays its work 1194ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: every market case, including the extension bypass > expiryNew refuses new proposals and withdraws existing proposals before settlement 11304ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: every market case, including the extension bypass > extensionNew refuses new proposals and withdraws existing proposals before settlement 594ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: every market case, including the extension bypass > expiryWithdraw refuses new proposals and withdraws existing proposals before settlement
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: every market case, including the extension bypass > extensionWithdraw refuses new proposals and withdraws existing proposals before settlement 557ms
+
+ Test Files  1 passed (1)
+      Tests  52 passed (52)
+   Start at  23:47:30
+   Duration  59.77s (transform 2.29s, setup 0ms, collect 3.22s, tests 56.05s, environment 0ms, prepare 99ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 60676.04447994381}

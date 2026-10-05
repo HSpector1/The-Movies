@@ -1,0 +1,13 @@
+--- a/src/core/rivalResearch.ts
++++ b/src/core/rivalResearch.ts
+@@ -293,10 +293,6 @@
+       if (plan.work.blueprintId === LABORATORY_BLUEPRINT_ID) {
+         const commitment = h.receipts.find(r => r.kind === 'laboratoryCommitted' && r.planId === plan.id)
+         if (commitment?.kind !== 'laboratoryCommitted') throw new Error(`Rival plan ${plan.id} has no commitment receipt to name its Laboratory`)
+-        // The paid plan remains started forever; a lawful tombstone makes its
+-        // already completed body terminal rather than a missing body to rebuild.
+-        if (h.receipts.some(r => r.kind === 'facilityDisposed' && r.studioId === business.studioId
+-          && r.planId === plan.id && r.facilityId === commitment.facilityId)) continue
+         if (operations.facilities.some(f => f.id === commitment.facilityId)) continue
+         operations = { ...operations, facilities: [...operations.facilities, {
+           id: commitment.facilityId, name: 'Research Laboratory', capability: 'laboratory',

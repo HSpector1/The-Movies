@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "noEmit": true, "declaration": false, "types": ["node", "vitest/globals"] },
+  "include": ["src/**/*.ts", "tests/1368-natural-recovery.test.ts", "tests/1368-measurement-observer.ts", "vitest.1368-measurement.config.ts", "vitest.1368-measurement.workspace.ts"],
+  "exclude": ["node_modules", "dist"]
+}

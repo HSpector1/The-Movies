@@ -1,0 +1,350 @@
+--- a/HANDBACK.md
++++ b/HANDBACK.md
+@@ -1,4 +1,4 @@
+-# Current natural recovery measurement: executable preparation
++# Current natural recovery measurement: executable preparation v2
+ 
+ This is the bounded current-source 0 → 520 measurement portion of 1363-V. It implements the existing measurement map and 1363-A §6, 1363-F rulings 6, 9, 10 and 12, and 1363-A2 §7. It neither completes 1363-V nor grants a checkpoint, closure, tuning change or playable partial landing. No game, Node, typecheck or test ran during authoring.
+ 
+@@ -12,7 +12,7 @@
+ 
+ ## Exact supplied code
+ 
+-`measurement-driver.patch` adds the test, observer sink, dedicated Vitest config, and strict no-emit type config. `files/` contains the same exact new files. The test reads actual source APIs and never supplies altered policy inputs. Source observation patches for all four arms are in `observer-patches/`; their sidecars bind original and instrumented file hashes. `prepare-observer.py` generated these using exact pins and unique anchors, without changing any supplied tree. It adds copied observations inside actual executed branches; its disposal observation caches the exact predicate call once and returns its unchanged result. No policy, order, cash, people, dates, receipts, or history is authored by the observer.
++`measurement-driver.patch` adds the test, observer sink, dedicated single-core Vitest config/workspace, and strict no-emit type config. `files/` contains the same exact new files. The test reads actual source APIs and never supplies altered policy inputs. Source observation patches for all four arms are in `observer-patches/`; their sidecars bind original and instrumented file hashes. `prepare-observer.py` generated these using exact pins and unique anchors, without changing any supplied tree. It adds copied observations inside actual executed branches; its disposal observation caches the exact predicate call once and returns its unchanged result. No policy, order, cash, people, dates, receipts, or history is authored by the observer.
+ 
+ Source observations record actual staffing reserve refusals, scheduled/non-due decisions, ready/retry outcomes, commissioning gates, termination charges and fixed-cost booking, and actual C candidate/refusal facts. Vitest spies call the original chooser, actual refusal re-search, B entry/release predicates, and standing update, returning their original results. The locked-package observer independently enumerates billings/scales/marketing, verifies original affordable/viable counts and chooser result, and forecasts skipped packages under the same seed/key. The commission-price observer uses the separate six-shape/six-billing menu, perceived inputs and authored promise ranges; it does not apply the locked viability rule to commissions. Input hashes and untouched-source replay are required neutrality controls.
+ 
+@@ -26,7 +26,7 @@
+ python3 bind-arm.py --arm ABC --clean /absolute/ABC-clean --observed /absolute/ABC-observed --published-head FULL_PUBLISHED_HEAD --publication-repo /Users/zacheryspector/The-Movies-headless-program --node /absolute/node20 --output /absolute/manifests/ABC.json
+ ```
+ 
+-4. Run one explicit process at a time. `run-one.py` owns a 330-second process-group watchdog, requires 5 GiB free disk and Node v20.20.2, verifies the pinned full source/config/kit/runtime/manifest plus publication HEAD before and after, and preserves five recorder files: `source-pre.json`, `raw.txt`, `exit.json`, `source-post.json`, and `result.json`. No automatic retry or budget change is made. Its child test has a 300-second operational timeout; neither timer replaces the 1356 whole-harness acceptance ceiling. A timeout is not ABSENT.
++4. Run one explicit process at a time. `run-one.py` owns a 330-second process-group watchdog, requires 5 GiB free disk and Node v20.20.2, verifies the pinned full source inventory/config/kit/runtime/manifest before and after, plus publication HEAD, index, stage entries, and the established bounded clean-source diff/untracked scope (fixture/UI payload prefixes excluded before content reads), and preserves five recorder files: `source-pre.json`, `raw.txt`, `exit.json`, `source-post.json`, and `result.json`. The explicit workspace and CLI select only the one named core test with one fork worker and no file parallelism; the machine report must confirm exactly that test. Timeout cleanup polls and kills the entire owned process group independently of leader exit, then records whether anything remains. No automatic retry or budget change is made. Its child test has a 300-second operational timeout; neither timer replaces the 1356 whole-harness acceptance ceiling. A timeout is not ABSENT. The exact test report, raw output, pre/post guard records and every completed data-file hash/size (including branch observations) are bound into `result.json`. Output must be external to both source copies, the publication repository and this kit.
+ 
+ ```bash
+ python3 run-one.py --manifest /absolute/manifests/ABC.json --manifest-sha256 ACTUAL_MANIFEST_SHA256 --seed p13a-core-causal-01 --mode clean --output /Users/zacheryspector/studio-scratch/1368-recovery-measurement-runs/current520-01/ABC/p13a-core-causal-01/clean
+@@ -34,7 +34,7 @@
+ 
+ The named run root is `S/1368-recovery-measurement-runs/current520-01`; each of the fixed arm/seed/mode leaves is exclusive. Parent creates their parent directories. Source archive construction, dependency installation, exact publication HEAD, concrete manifests, the recorder lane and all runtime belong to the parent. No placeholder hash is accepted as an actual pin.
+ 
+-5. After all complete, make a pinned JSON run index `{ "runs": [{ "arm": "ABC", "seed": "p13a-core-causal-01", "mode": "clean", "path": "/absolute/completed/run", "resultSha256": "actual" }, ...] }` with exactly the 60 prescribed rows. Run `python3 compare.py --runs /absolute/runs.json --runs-sha256 ACTUAL_SHA256 --output /absolute/new-comparison-directory`. It rejects any failed/missing process and reports findings without accepting the checkpoint.
++5. After all complete, make a pinned JSON run index `{ "arms": { "C0": { "path": "/absolute/manifests/C0.json", "sha256": "actual" }, "A": { "path": "/absolute/manifests/A.json", "sha256": "actual" }, "AB": { "path": "/absolute/manifests/AB.json", "sha256": "actual" }, "ABC": { "path": "/absolute/manifests/ABC.json", "sha256": "actual" } }, "runs": [{ "arm": "ABC", "seed": "p13a-core-causal-01", "mode": "clean", "path": "/absolute/completed/run", "resultSha256": "actual" }, ...] }` with exactly the 60 prescribed rows. Run `python3 compare.py --runs /absolute/runs.json --runs-sha256 ACTUAL_SHA256 --output /absolute/new-comparison-directory`. It verifies every result and data pin, exact arm/seed/mode, fixed manifest, runner and clean/observed source identities, rejects any failed/missing process, and reports findings without accepting the checkpoint.
+ 
+ ## Produced facts and limits
+ 
+@@ -49,3 +49,7 @@
+ ## Static author verification and remaining gates
+ 
+ Python syntax parsed. Exact C0/A/AB/ABC source inventories were read and pinned; A, AB and ABC matched their named authority maps. All observer anchors generated with expected multiplicity. New-file patch bytes match the supplied files. No runtime, fixture payload, live source, index or HEAD mutation occurred. Independent static review, parent typechecks, actual observer binding, the complete clean/observed/repeat matrix and all finding dispositions remain required.
++
++## Review revision
++
++The original package is preserved exactly at `S/1368-recovery-measurement-prep`, manifest `ab590096c78657e20db17a12557381c1024acd3037376c91b19ed9490eb087b8`. This separate v2 corrects the independent review's recorder completeness, output ownership, missing-config, source inventory, process-group cleanup and identity binding findings. It also joins each actual non-staffing evaluation and refusal re-search to its exact observed package, checking the independent count and the appropriate old/amended label. `REVISION-FROM-R1.patch` contains the bounded authoring changes. No seed, horizon, source policy, economic rule or test law changed.
+--- a/bind-arm.py
++++ b/bind-arm.py
+@@ -33,11 +33,11 @@
+   f=root/rel
+   if f.is_symlink() or sha(f.read_bytes())!=pin:raise SystemExit('driver/config pin mismatch '+rel)
+   actual[rel]=pin
+- for rel in ['package.json','package-lock.json','tsconfig.json','vitest.workspace.ts']:
++ for rel,pin in known['configs'].items():
+   f=root/rel
+-  if f.is_file():
+-   actual[rel]=sha(f.read_bytes())
+-   if actual[rel]!=known['configs'].get(rel):raise SystemExit('original config changed: '+rel)
++  if not f.is_file() or f.is_symlink():raise SystemExit('declared original config missing/symlink: '+rel)
++  actual[rel]=sha(f.read_bytes())
++  if actual[rel]!=pin:raise SystemExit('original config changed: '+rel)
+  entry=sha((root/'node_modules/vitest/vitest.mjs').read_bytes())
+  if vitest_hash is not None and entry!=vitest_hash:raise SystemExit('unequal runtime entrypoints')
+  vitest_hash=entry;variants[kind]={'root':str(root),'files':actual}
+--- a/compare.py
++++ b/compare.py
+@@ -8,7 +8,8 @@
+ sha=lambda b:hashlib.sha256(b).hexdigest()
+ raw=Path(a.runs).read_bytes()
+ if sha(raw)!=a.runs_sha256:raise SystemExit('run index pin mismatch')
+-rows=json.loads(raw)['runs'];seeds=['p13a-core-causal-01','seed-b','p13b-s8-bridge-probe-01','p13-public-commercial-adoption','p15a1-w2-market-01'];arms=['C0','A','AB','ABC'];modes=['clean','observed','repeat']
++index=json.loads(raw);rows=index['runs'];arm_manifests=index['arms'];seeds=['p13a-core-causal-01','seed-b','p13b-s8-bridge-probe-01','p13-public-commercial-adoption','p15a1-w2-market-01'];arms=['C0','A','AB','ABC'];modes=['clean','observed','repeat']
++if set(arm_manifests)!=set(arms):raise SystemExit('exact four fixed arm manifest pins required')
+ expected={(x,y,z) for x in arms for y in seeds for z in modes};keys=[(r['arm'],r['seed'],r['mode']) for r in rows]
+ if len(keys)!=len(set(keys)) or set(keys)!=expected:raise SystemExit('exact 60 process index required; missing run is unmet prerequisite')
+ out=Path(a.output)
+@@ -19,10 +20,29 @@
+ data={};bindings=[]
+ for r in rows:
+  root=Path(r['path']);result=json.loads((root/'result.json').read_text())
+- if result['status']!='MEASURED' or not result['allGuardsExact']:raise SystemExit('execution prerequisite failed: '+str(root))
++ if result['status']!='MEASURED' or not result['allGuardsExact'] or result['childExit']!=0 or result['timedOut'] or not result['exactOneTestSelected'] or result['groupRemainingAfterCleanup']:raise SystemExit('execution prerequisite failed: '+str(root))
++ if any(result[k]!=r[k] for k in ['arm','seed','mode']):raise SystemExit('relabeled run index row')
+  resultsha=sha((root/'result.json').read_bytes())
+  if resultsha!=r['resultSha256']:raise SystemExit('result pin changed')
+- d=root/'data';weekly=loadlines(d/'weekly.jsonl');summary=json.loads((d/'summary.json').read_text())
++ pin=arm_manifests[r['arm']];manifestbytes=Path(pin['path']).read_bytes()
++ if sha(manifestbytes)!=pin['sha256'] or result['manifestSha256']!=pin['sha256']:raise SystemExit('fixed arm manifest mismatch')
++ manifest=json.loads(manifestbytes)
++ if manifest['arm']!=r['arm'] or result['runnerSha256']!=manifest['kitPins']['run-one.py']:raise SystemExit('runner/arm identity mismatch')
++ variant=manifest['clean'] if r['mode']=='clean' else manifest['observed']
++ if result['cwd']!=variant['root']:raise SystemExit('run used wrong clean/observed source root')
++ for name,key in [('source-pre.json','sourcePreSha256'),('source-post.json','sourcePostSha256'),('raw.txt','rawSha256'),('test-report.json','testReportSha256')]:
++  if sha((root/name).read_bytes())!=result[key]:raise SystemExit('recorded artifact changed: '+name)
++ pre=json.loads((root/'source-pre.json').read_text());post=json.loads((root/'source-post.json').read_text())
++ if pre!=post or pre['files']!=variant['files'] or pre['manifestSha256']!=pin['sha256'] or pre['sourceIdentity']!=manifest['sourceIdentity']:raise SystemExit('source guard does not prove the manifest arm')
++ d=root/'data';expected_files={'summary.json','weekly.jsonl','money.jsonl','receipts.jsonl','research.jsonl','annual.json','timing.json'} | (set() if r['mode']=='clean' else {'branches.jsonl'})
++ if set(result['dataFiles'])!=expected_files:raise SystemExit('incomplete data binding')
++ for name,bound in result['dataFiles'].items():
++  f=d/name
++  if f.is_symlink():raise SystemExit('data symlink refused')
++  payload=f.read_bytes()
++  if {'sha256':sha(payload),'bytes':len(payload)}!=bound:raise SystemExit('completed data changed: '+name)
++ weekly=loadlines(d/'weekly.jsonl');summary=json.loads((d/'summary.json').read_text())
++ if any(summary[k]!=r[k] for k in ['arm','seed','mode']) or summary['manifestSha256']!=pin['sha256'] or summary['sourceIdentity']!=manifest['sourceIdentity']:raise SystemExit('summary/source identity mismatch')
+  if [w['week'] for w in weekly]!=list(range(521)):raise SystemExit('not exact 0..520 weekly data')
+  key=(r['arm'],r['seed'],r['mode']);data[key]={'weekly':weekly,'summary':summary,'branches':loadlines(d/'branches.jsonl') if (d/'branches.jsonl').is_file() else [],'money':loadlines(d/'money.jsonl'),'receipts':loadlines(d/'receipts.jsonl'),'timing':json.loads((d/'timing.json').read_text())}
+  bindings.append({'key':key,'resultSha256':resultsha,'files':{name:sha((d/name).read_bytes()) for name in ['summary.json','weekly.jsonl','money.jsonl','receipts.jsonl','research.jsonl','annual.json','timing.json']}})
+--- a/files/tests/1368-natural-recovery.test.ts
++++ b/files/tests/1368-natural-recovery.test.ts
+@@ -130,7 +130,21 @@
+     branchRows++
+     if (typeof facts.studioId === 'string') currentStudio = facts.studioId
+     if (kind === 'decision-start') decisions.set(`${currentWeek}:${currentStudio}`, (decisions.get(`${currentWeek}:${currentStudio}`) ?? 0) + 1)
+-    if (kind === 'evaluation') evaluationRows++
++    if (kind === 'evaluation') {
++      evaluationRows++
++      if(facts.outcome!=='staffingBlocked'){
++        const row=packages.get(`${currentWeek}:${currentStudio}`)
++        requireFact(row?.key===`${currentStudio}:package:${facts.scriptProjectId}`,'evaluation did not join its actual package')
++        requireFact(facts.outcome===(arm==='C0'?row!.oldLabel:row!.amendedLabel),'actual evaluation label differs from independent arm law')
++      }
++    }
++    if(kind==='actual-refusal-research'){
++      const row=packages.get(`${currentWeek}:${currentStudio}`)
++      requireFact(row?.key===facts.key && row?.lockScreenplay===true,'actual refusal re-search lacks exact package join')
++      const result=facts.result as {affordable:number;unaffordable:number;viable:number;unaffordableViable?:number}
++      requireFact(result.affordable===row!.affordable && result.unaffordable===row!.unaffordable && result.viable===row!.viable,'actual refusal count differs from independent enumeration')
++      if(arm!=='C0')requireFact(result.unaffordableViable===row!.unaffordableViable,'actual opt-in skipped viability differs from independent enumeration')
++    }
+     if (kind === 'termination-charge') {
+       const f = facts as { cutting: number | null; cash: number; charge: number; saving: number; weeklyCostBefore: number; reserveAfter: number }
+       requireFact(f.cash - f.charge >= f.reserveAfter, 'actual termination failed reserve')
+--- a/files/tsconfig.1368-measurement.json
++++ b/files/tsconfig.1368-measurement.json
+@@ -1,6 +1,6 @@
+ {
+   "extends": "./tsconfig.json",
+   "compilerOptions": { "noEmit": true, "declaration": false, "types": ["node", "vitest/globals"] },
+-  "include": ["src/**/*.ts", "tests/1368-natural-recovery.test.ts", "tests/1368-measurement-observer.ts", "vitest.1368-measurement.config.ts"],
++  "include": ["src/**/*.ts", "tests/1368-natural-recovery.test.ts", "tests/1368-measurement-observer.ts", "vitest.1368-measurement.config.ts", "vitest.1368-measurement.workspace.ts"],
+   "exclude": ["node_modules", "dist"]
+ }
+--- a/files/vitest.1368-measurement.workspace.ts
++++ b/files/vitest.1368-measurement.workspace.ts
+@@ -0,0 +1,2 @@
++import { defineWorkspace } from 'vitest/config'
++export default defineWorkspace([{ test: { name: 'core', include: ['tests/1368-natural-recovery.test.ts'], environment: 'node', pool: 'forks', testTimeout: 300_000, hookTimeout: 300_000 } }])
+--- a/measurement-driver.patch
++++ b/measurement-driver.patch
+@@ -10,7 +10,7 @@
+ +}
+ --- /dev/null
+ +++ b/tests/1368-natural-recovery.test.ts
+-@@ -0,0 +1,321 @@
++@@ -0,0 +1,335 @@
+ +import { it, vi } from 'vitest'
+ +import { createHash } from 'node:crypto'
+ +import { appendFileSync, existsSync, lstatSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+@@ -143,7 +143,21 @@
+ +    branchRows++
+ +    if (typeof facts.studioId === 'string') currentStudio = facts.studioId
+ +    if (kind === 'decision-start') decisions.set(`${currentWeek}:${currentStudio}`, (decisions.get(`${currentWeek}:${currentStudio}`) ?? 0) + 1)
+-+    if (kind === 'evaluation') evaluationRows++
+++    if (kind === 'evaluation') {
+++      evaluationRows++
+++      if(facts.outcome!=='staffingBlocked'){
+++        const row=packages.get(`${currentWeek}:${currentStudio}`)
+++        requireFact(row?.key===`${currentStudio}:package:${facts.scriptProjectId}`,'evaluation did not join its actual package')
+++        requireFact(facts.outcome===(arm==='C0'?row!.oldLabel:row!.amendedLabel),'actual evaluation label differs from independent arm law')
+++      }
+++    }
+++    if(kind==='actual-refusal-research'){
+++      const row=packages.get(`${currentWeek}:${currentStudio}`)
+++      requireFact(row?.key===facts.key && row?.lockScreenplay===true,'actual refusal re-search lacks exact package join')
+++      const result=facts.result as {affordable:number;unaffordable:number;viable:number;unaffordableViable?:number}
+++      requireFact(result.affordable===row!.affordable && result.unaffordable===row!.unaffordable && result.viable===row!.viable,'actual refusal count differs from independent enumeration')
+++      if(arm!=='C0')requireFact(result.unaffordableViable===row!.unaffordableViable,'actual opt-in skipped viability differs from independent enumeration')
+++    }
+ +    if (kind === 'termination-charge') {
+ +      const f = facts as { cutting: number | null; cash: number; charge: number; saving: number; weeklyCostBefore: number; reserveAfter: number }
+ +      requireFact(f.cash - f.charge >= f.reserveAfter, 'actual termination failed reserve')
+@@ -338,7 +352,7 @@
+ +{
+ +  "extends": "./tsconfig.json",
+ +  "compilerOptions": { "noEmit": true, "declaration": false, "types": ["node", "vitest/globals"] },
+-+  "include": ["src/**/*.ts", "tests/1368-natural-recovery.test.ts", "tests/1368-measurement-observer.ts", "vitest.1368-measurement.config.ts"],
+++  "include": ["src/**/*.ts", "tests/1368-natural-recovery.test.ts", "tests/1368-measurement-observer.ts", "vitest.1368-measurement.config.ts", "vitest.1368-measurement.workspace.ts"],
+ +  "exclude": ["node_modules", "dist"]
+ +}
+ --- /dev/null
+@@ -346,3 +360,8 @@
+ @@ -0,0 +1,2 @@
+ +import { defineConfig } from 'vitest/config'
+ +export default defineConfig({ test: { include: ['tests/1368-natural-recovery.test.ts'], environment: 'node', pool: 'forks', maxWorkers: 1, minWorkers: 1, fileParallelism: false, testTimeout: 300_000, hookTimeout: 300_000 } })
++--- /dev/null
+++++ b/vitest.1368-measurement.workspace.ts
++@@ -0,0 +1,2 @@
+++import { defineWorkspace } from 'vitest/config'
+++export default defineWorkspace([{ test: { name: 'core', include: ['tests/1368-natural-recovery.test.ts'], environment: 'node', pool: 'forks', testTimeout: 300_000, hookTimeout: 300_000 } }])
+--- a/run-one.py
++++ b/run-one.py
+@@ -1,13 +1,13 @@
+ #!/usr/bin/env python3
+-"""One fixed arm/seed/mode, under the parent's sole heavy lane. Never assemble/modify a tree.
+-Five completed recorder outputs plus exclusive data/. 330 s operational watchdog is not an acceptance threshold.
++"""One fixed arm/seed/mode under the parent's sole heavy lane. No tree modifications.
++Five recorder outputs plus data/ and the exact-test JSON. 330 s is an operational watchdog.
+ """
+ import argparse, hashlib, json, os, re, shutil, signal, subprocess, time
+ from pathlib import Path
+ p=argparse.ArgumentParser();p.add_argument('--manifest',required=True);p.add_argument('--manifest-sha256',required=True);p.add_argument('--seed',required=True);p.add_argument('--mode',choices=['clean','observed','repeat'],required=True);p.add_argument('--output',required=True);a=p.parse_args()
+ SEEDS=['p13a-core-causal-01','seed-b','p13b-s8-bridge-probe-01','p13-public-commercial-adoption','p15a1-w2-market-01']
+-if a.seed not in SEEDS: raise SystemExit('fixed five seeds only')
+-def sha(b):return hashlib.sha256(b).hexdigest()
++if a.seed not in SEEDS:raise SystemExit('fixed five seeds only')
++sha=lambda b:hashlib.sha256(b).hexdigest()
+ def no_links(path):
+  for x in [path,*path.parents]:
+   if x.is_symlink():raise RuntimeError('symlink path refused: '+str(x))
+@@ -17,59 +17,105 @@
+ if m['arm'] not in ['C0','A','AB','ABC'] or m['pressure']!='as-authored' or m['saveVersion'] not in [45,46]:raise SystemExit('wrong arm manifest')
+ if not m.get('sourceIdentity') or not re.fullmatch('[0-9a-f]{40}',m['publishedHead']):raise SystemExit('exact source provenance required')
+ variant=m['clean'] if a.mode=='clean' else m['observed'];root=Path(variant['root']).absolute();no_links(root)
+-out=Path(a.output).absolute();no_links(out)
++repo=Path(m['publicationRepo']).absolute();kit=Path(m['kitRoot']).absolute();out=Path(a.output).absolute();no_links(out)
+ if out.exists() or out.is_symlink():raise SystemExit('exclusive recorder output required')
+ if not out.parent.is_dir():raise SystemExit('existing external output parent required')
+-if root==out or root in out.parents or out in root.parents:raise SystemExit('output must be outside consumed tree')
++for consumed in [repo,kit,Path(m['clean']['root']).absolute(),Path(m['observed']['root']).absolute()]:
++ no_links(consumed)
++ if consumed==out or consumed in out.parents or out in consumed.parents:raise SystemExit('output overlaps publication/source/kit tree')
+ if shutil.disk_usage(out.parent).free<5*1024**3:raise SystemExit('5 GiB free disk required')
+-files=variant['files'];required={'package.json','tsconfig.json','tests/1368-natural-recovery.test.ts','tests/1368-measurement-observer.ts','vitest.1368-measurement.config.ts','tsconfig.1368-measurement.json'}
++files=variant['files'];required={'package.json','tsconfig.json','tests/1368-natural-recovery.test.ts','tests/1368-measurement-observer.ts','vitest.1368-measurement.config.ts','vitest.1368-measurement.workspace.ts','tsconfig.1368-measurement.json'}
+ if not required<=files.keys():raise SystemExit('missing consumed config/driver pins')
+ for rel in files:
+  if not (rel.startswith('src/') or rel in required or rel in ['package-lock.json','pnpm-lock.yaml','vitest.workspace.ts']):raise SystemExit('out-of-scope automatic read: '+rel)
+  if '..' in Path(rel).parts or Path(rel).is_absolute():raise SystemExit('invalid relative pin path')
+-actual_source=set()
+-for d,dirs,names in os.walk(root/'src',followlinks=False):
+- for name in dirs+names:
+-  if (Path(d)/name).is_symlink():raise SystemExit('source symlink refused')
+- for name in names:
+-  f=Path(d)/name
+-  if f.is_file():actual_source.add(f.relative_to(root).as_posix())
+-if actual_source!={k for k in files if k.startswith('src/')}:raise SystemExit('full source inventory mismatch')
++def source_inventory():
++ actual=set()
++ for d,dirs,names in os.walk(root/'src',followlinks=False):
++  for name in dirs+names:
++   if (Path(d)/name).is_symlink():raise RuntimeError('source symlink refused')
++  for name in names:
++   f=Path(d)/name
++   if f.is_file():actual.add(f.relative_to(root).as_posix())
++ if actual!={k for k in files if k.startswith('src/')}:raise RuntimeError('full source inventory mismatch')
++ return sorted(actual)
+ node=Path(m['node']).absolute();entry=root/'node_modules/vitest/vitest.mjs'
+ if sha(node.read_bytes())!=m['nodeSha256'] or sha(entry.read_bytes())!=m['vitestEntrySha256']:raise SystemExit('runtime pin mismatch')
+ version=subprocess.check_output([str(node),'--version'],text=True).strip()
+ if version!='v20.20.2':raise SystemExit('Node v20.20.2 required')
+-repo=Path(m['publicationRepo']).absolute()
++gitenv={**os.environ,'GIT_OPTIONAL_LOCKS':'0'}
++def git(*args):return subprocess.check_output(['git','-C',str(repo),*args],env=gitenv)
++# Exact established bounded recorder scope. Exclude payload paths BEFORE content reads.
++SOURCE=['src','bridge','tests','ui','generated','scripts','package.json','package-lock.json','vitest.config.ts','vitest.workspace.ts','tsconfig.json','tsconfig.bridge.json','tsconfig.src.json']
++EXCLUDED=('tests/fixtures/','ui/e2e/','ui/public/')
++def publication_guard():
++ head=git('rev-parse','HEAD').decode().strip()
++ if head!=m['publishedHead']:raise RuntimeError('publication HEAD changed')
++ paths=sorted(x for x in git('ls-files','--',*SOURCE).decode().splitlines() if not x.startswith(EXCLUDED))
++ if not paths:raise RuntimeError('empty publication source inventory')
++ diff=git('diff','HEAD','--binary','--',*paths)
++ untracked=sorted(x for x in git('ls-files','--others','--exclude-standard','--',*SOURCE).decode().splitlines() if not x.startswith(EXCLUDED))
++ if diff or untracked:raise RuntimeError('publication gameplay source must be clean; docs-only dirt is not gameplay')
++ idx=Path(git('rev-parse','--git-path','index').decode().strip());idx=idx if idx.is_absolute() else repo/idx
++ return {'head':head,'includedPaths':paths,'excludedAutomaticReadPrefixes':list(EXCLUDED),'boundedDiffSha256':sha(diff),'untrackedSource':untracked,'indexSha256':sha(idx.read_bytes()),'stageEntriesSha256':sha(git('ls-files','--stage','-z'))}
+ def guard():
+- rows={}
+- kit=Path(m['kitRoot']);kitrows={}
++ inventory=source_inventory();rows={};kitrows={}
+  for rel,pin in m['kitPins'].items():
++  if Path(rel).is_absolute() or '..' in Path(rel).parts:raise RuntimeError('invalid kit path')
+   f=kit/rel;no_links(f);kitrows[rel]=sha(f.read_bytes())
+   if kitrows[rel]!=pin:raise RuntimeError('producer/kit pin mismatch: '+rel)
+  if Path(__file__).resolve()!=kit/'run-one.py':raise RuntimeError('wrong runner identity')
+  for rel,pin in files.items():
+-  f=root/rel;no_links(f);actual=sha(f.read_bytes());rows[rel]=actual
+-  if actual!=pin:raise RuntimeError('source pin mismatch: '+rel)
++  f=root/rel;no_links(f);rows[rel]=sha(f.read_bytes())
++  if rows[rel]!=pin:raise RuntimeError('source pin mismatch: '+rel)
+  if mp.read_bytes()!=raw:raise RuntimeError('manifest changed')
+- head=subprocess.check_output(['git','-C',str(repo),'rev-parse','HEAD'],text=True).strip()
+- if head!=m['publishedHead']:raise RuntimeError('publication HEAD changed')
+- return {'kitFiles':kitrows,'manifestSha256':sha(raw),'publishedHead':head,'sourceIdentity':m['sourceIdentity'],'files':rows,'nodeVersion':version,'nodeSha256':sha(node.read_bytes()),'vitestEntrySha256':sha(entry.read_bytes())}
++ return {'kitFiles':kitrows,'manifestSha256':sha(raw),'publication':publication_guard(),'sourceIdentity':m['sourceIdentity'],'inventory':inventory,'files':rows,'nodeVersion':version,'nodeSha256':sha(node.read_bytes()),'vitestEntrySha256':sha(entry.read_bytes())}
+ pre=guard();out.mkdir();(out/'source-pre.json').write_text(json.dumps(pre,indent=2)+'\n')
+ env=os.environ.copy();env.update(M1368_ARM=m['arm'],M1368_SEED=a.seed,M1368_MODE=a.mode,M1368_OUTPUT=str(out/'data'),M1368_ARM_MANIFEST=str(mp),M1368_ARM_MANIFEST_SHA256=sha(raw))
+-cmd=[str(node),str(entry),'run','--config','vitest.1368-measurement.config.ts','--no-cache','tests/1368-natural-recovery.test.ts']
+-started=time.monotonic();timed_out=False
++cmd=[str(node),str(entry),'run','--config','vitest.1368-measurement.config.ts','--workspace','vitest.1368-measurement.workspace.ts','--project','core','--no-cache','--maxWorkers=1','--minWorkers=1','--no-file-parallelism','--pool=forks','--reporter=verbose','--reporter=json','--outputFile='+str(out/'test-report.json'),'tests/1368-natural-recovery.test.ts']
++started=time.monotonic();timed_out=False;cleanup=[]
++def group_alive(pgid):
++ try:os.killpg(pgid,0);return True
++ except ProcessLookupError:return False
++def group_signal(pgid,sig):
++ try:os.killpg(pgid,sig);cleanup.append(signal.Signals(sig).name)
++ except ProcessLookupError:cleanup.append('already-exited')
+ with (out/'raw.txt').open('wb') as log:
+  proc=subprocess.Popen(cmd,cwd=root,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+  try:code=proc.wait(timeout=330)
+  except subprocess.TimeoutExpired:
+-  timed_out=True;os.killpg(proc.pid,signal.SIGTERM)
+-  try:code=proc.wait(timeout=5)
+-  except subprocess.TimeoutExpired:os.killpg(proc.pid,signal.SIGKILL);code=proc.wait()
+-exitrow={'command':cmd,'cwd':str(root),'seed':a.seed,'mode':a.mode,'childExit':code,'timedOut':timed_out,'elapsedSeconds':time.monotonic()-started}
++  timed_out=True;group_signal(proc.pid,signal.SIGTERM);deadline=time.monotonic()+5
++  while time.monotonic()<deadline and group_alive(proc.pid):
++   proc.poll();time.sleep(.05)
++  if group_alive(proc.pid):group_signal(proc.pid,signal.SIGKILL)
++  code=proc.wait()
++ # A normally-exited leader also cannot leave its owned worker group running.
++ if group_alive(proc.pid):
++  group_signal(proc.pid,signal.SIGTERM);deadline=time.monotonic()+5
++  while time.monotonic()<deadline and group_alive(proc.pid):time.sleep(.05)
++  if group_alive(proc.pid):group_signal(proc.pid,signal.SIGKILL)
++ deadline=time.monotonic()+5
++ while group_alive(proc.pid) and time.monotonic()<deadline:time.sleep(.05)
++ group_remaining=group_alive(proc.pid)
++exitrow={'groupRemainingAfterCleanup':group_remaining,'command':cmd,'cwd':str(root),'arm':m['arm'],'seed':a.seed,'mode':a.mode,'childExit':code,'timedOut':timed_out,'cleanupSignals':cleanup,'manifestSha256':sha(raw),'elapsedSeconds':time.monotonic()-started}
+ (out/'exit.json').write_text(json.dumps(exitrow,indent=2)+'\n')
+ try:post=guard();guard_error=None
+ except Exception as e:post={'error':str(e)};guard_error=str(e)
+ (out/'source-post.json').write_text(json.dumps(post,indent=2)+'\n')
+-passed=code==0 and not timed_out and pre==post and (out/'data/summary.json').is_file()
+-(out/'result.json').write_text(json.dumps({**exitrow,'allGuardsExact':pre==post,'guardError':guard_error,'status':'MEASURED' if passed else 'EXECUTION-FAILURE-NOT-ABSENT','rawSha256':sha((out/'raw.txt').read_bytes())},indent=2)+'\n')
++selection=False;report_sha=None
++selection_error=None
++try:
++ if (out/'test-report.json').is_file():
++  reportbytes=(out/'test-report.json').read_bytes();report_sha=sha(reportbytes);report=json.loads(reportbytes)
++  results=report.get('testResults',[]);assertions=[x for r in results for x in r.get('assertionResults',[])]
++  selection=report.get('numTotalTests')==1 and len(results)==1 and len(assertions)==1 and results[0]['name']==str(root/'tests/1368-natural-recovery.test.ts') and assertions[0].get('title')=='1368 fixed natural recovery measurement'
++except Exception as e:selection_error=str(e)
++expected_data=['summary.json','weekly.jsonl','money.jsonl','receipts.jsonl','research.jsonl','annual.json','timing.json']+([] if a.mode=='clean' else ['branches.jsonl'])
++data={}
++for name in expected_data:
++ f=out/'data'/name
++ if f.is_file() and not f.is_symlink():b=f.read_bytes();data[name]={'sha256':sha(b),'bytes':len(b)}
++passed=code==0 and not timed_out and not group_remaining and pre==post and selection and set(data)==set(expected_data)
++result={**exitrow,'runnerSha256':sha(Path(__file__).read_bytes()),'allGuardsExact':pre==post,'guardError':guard_error,'exactOneTestSelected':selection,'selectionError':selection_error,'testReportSha256':report_sha,'dataFiles':data,'status':'MEASURED' if passed else 'EXECUTION-FAILURE-NOT-ABSENT','rawSha256':sha((out/'raw.txt').read_bytes()),'sourcePreSha256':sha((out/'source-pre.json').read_bytes()),'sourcePostSha256':sha((out/'source-post.json').read_bytes())}
++(out/'result.json').write_text(json.dumps(result,indent=2)+'\n')
+ raise SystemExit(0 if passed else 1)

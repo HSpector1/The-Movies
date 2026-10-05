@@ -1,0 +1,15 @@
+# Fixed low-market public research candidate
+
+Parent authorized exactly one bounded candidate after accepting the source proposal at `1368-b-lowmarket-research-proposal/PROPOSAL.md` SHA 383286fdd29389e3e35d7eba57887ad376a51955e7ed9ca16873404d306e15ae. This package adds three separately named files to the unified candidate; it does not alter the original public277 helper, leaves or failed run.
+
+The source is copied from the exact current unified files used for the measured public277 route, including the parent's type corrections. `SHA256.json` pins each base and candidate. `DELTA-FROM-MEASURED.diff` exposes the small derived change; `lowmarket-research277.patch` is the additive installation patch.
+
+The sole route change is the fixed governed seed `p15a1-w2-market-01`. The actual public operations remain identical: 260 Hollywood-null ordinary ticks; public industry initialization at 260; paid laboratory admission; 12 ordinary ticks; paid acoustic admission at 272; 5 ordinary ticks; exactly one ordinary 277→278 control. All real capex/receipt/history, capital, employment/provenance, age, public-save and neutrality checks remain. No quote, cash, forecast, owner order, commitment, clock or production law is changed.
+
+Added comparability checks bind the rounded genesis market to the previously recorded 23,554,590 and require the entire market except its actual tick, plus era, to equal genesis at 260 (before and after initialization), 272, 277 and control 278. The immutable genesis bytes are also checked. The existing owner observation gains only baseMarketValue and the checked comparability flag. No chooser spies, duplicate control replay, additional dates or search are added.
+
+The three original test bodies still require an actual idle, null-since, proposal-free owner with a genuine corresponding new paid replacement, new research project or new seat. They then clone the exact input, author only the explicitly synthetic since 277, publicly admit it, tick ordinarily and run all five original no-new-commitment comparisons plus input neutrality. A missing input remains `UNMET LOWMARKET277 PREMISE`; it is not behavioral RED. Setup executes once and each leaf receives a separate clone. No original B wiring is changed before measured qualification.
+
+Source supports persistent low market and historical economic rejection, but the fresh historical team's attributes differ from the real late-migration team. Idle week277 is therefore still a measured prerequisite. Failure ends this candidate; do not vary the date, seed, quotes or policy, or silently add a fallback. The previous route's three failures remain retained findings.
+
+No Node, runtime, typecheck, fixture payload access, live/index edits or existing-candidate writes occurred. Parent stages after independent review, runs `tsc --noEmit -p tsconfig.1368-lowmarket-research.json`, then the single `tests/p14d2-b-lowmarket-research-1368.test.ts` file under the existing recorded 330-second lane. Existing 120-second test/setup ceilings are unchanged. Actual commands use the parent's pinned executable/runner and source guards; this package claims no execution or GREEN.

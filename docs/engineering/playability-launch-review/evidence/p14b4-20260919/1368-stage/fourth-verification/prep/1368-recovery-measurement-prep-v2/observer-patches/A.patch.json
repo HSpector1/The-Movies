@@ -1,0 +1,10 @@
+{
+  "patchSha256": "0ebcd1e07bae8b76dcaccf31a32865add2c23919fccc9c66bebb656438674d9e",
+  "files": [
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "beforeSha256": "21b00c62f0057786f81d1b821eb5984677f7e4251211ecaf7d5288840d5f719e",
+      "afterSha256": "f63a5fa8ca87ce5c89d36ba8f0b66ef7c6d3af89a80675ef3fa870959d0a6b39"
+    }
+  ]
+}

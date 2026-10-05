@@ -1,0 +1,48 @@
+--- a/tests/p14d2-rival-cost-cutting.test.ts
++++ b/tests/p14d2-rival-cost-cutting.test.ts
+@@ -5,6 +5,7 @@
+ import { genuineRenewal196 } from './helpers/1368-renewal-fixture.js'
+ import { adoptionBoundary416 } from './helpers/1368-adoption-boundary.js'
+ import { demandBoundary265, activeResearchBoundary267 } from './helpers/1368-research-controls.js'
++import { lowMarketResearchControl } from './helpers/1368-lowmarket-research-control.js'
+ import * as policyModule from '../src/core/hollywoodPolicy.js'
+ import * as marketModule from '../src/core/talentMarket.js'
+ import * as researchModule from '../src/core/rivalResearch.js'
+@@ -343,9 +344,11 @@
+   }, 120_000)
+   it.each(['renewal', 'replacement', 'laboratoryPlan', 'adoption', 'project', 'seat'] as const)(
+     'blocks a new %s with an observed ordinary positive control', kind => {
+-      // Only adoption uses the separately accepted public-migration fixture.
+-      // The original S8 discovery route and its missing-input evidence are preserved.
+-      const witness = kind === 'adoption' ? adoptionBoundary416() : commitmentControls().get(kind)
++      // These named public-migration inputs were independently qualified; they
++      // do not replace the original S8 route or its retained missing-input evidence.
++      const witness = kind === 'adoption' ? adoptionBoundary416()
++        : kind === 'replacement' || kind === 'project' || kind === 'seat' ? lowMarketResearchControl(kind)
++        : commitmentControls().get(kind)
+       expect(witness, `named control lacks a valid idle ${kind} positive; report prerequisite failure`).toBeDefined()
+       const { input, control, id } = witness!
+       makeSave(input); makeSave(control)
+--- /dev/null
++++ b/tests/helpers/1368-lowmarket-research-control.ts
+@@ -0,0 +1,20 @@
++// Strict selector over the independently measured low-market public-migration input.
++// The original B leaf retains its five restriction assertions and synthetic-since control.
++import { expect } from 'vitest'
++import { lowMarketResearch277, researchCommitments } from './1368-lowmarket-research-boundary.js'
++
++export function lowMarketResearchControl(kind: 'replacement' | 'project' | 'seat') {
++  // The shared builder validates actual paid operations and returns independent clones.
++  const { input, control } = lowMarketResearch277()
++  expect(input.market.tick).toBe(277); expect(control.market.tick).toBe(278)
++  const owner = input.hollywood!.businesses.find(b => {
++    if (b.costCutting.since !== null || b.productions.length || b.runs.length
++      || input.talentMarket.proposals.some(p => p.issuerStudioId === b.studioId)) return false
++    const before = researchCommitments(input, b.studioId), after = researchCommitments(control, b.studioId)
++    if (kind === 'replacement') return after.employment.slice(before.employment.length).some(e => e.reason === 'replacement')
++    if (kind === 'project') return after.projects.length > before.projects.length
++    return after.seats.length > before.seats.length
++  })
++  expect(owner, `UNMET LOWMARKET277 PREMISE: idle null-since ${kind} positive under actual unchanged quotes; no fallback`).toBeDefined()
++  return { input, control, id: owner!.studioId }
++}

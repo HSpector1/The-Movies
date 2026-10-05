@@ -1,0 +1,94 @@
+{
+  "format": "1368-current-natural520-prep/v2",
+  "preservedR1ManifestSha256": "ab590096c78657e20db17a12557381c1024acd3037376c91b19ed9490eb087b8",
+  "files": {
+    "HANDBACK.md": {
+      "sha256": "acb93b06b1ccc21a4311d3118340eaa80b5f02e99e3990869e5498d607ba860d",
+      "bytes": 11458
+    },
+    "KNOWN-ARM-SOURCES.json": {
+      "sha256": "e5f0d81c05a0b1bedb26145974c38925ad8fe21ccc6cb7505dce38a4d7eed285",
+      "bytes": 83488
+    },
+    "REVISION-FROM-R1.patch": {
+      "sha256": "4d57120ed87b3d41c2ccc0664cc7bc124add9e953e4950d545ea14d2e6247c21",
+      "bytes": 32175
+    },
+    "WORKSPACE-TYPE-FIX.patch": {
+      "sha256": "dae8cdcd3a0726190209cb63bed05f0bae4b1e1d85116ba03cc4507810cafcba",
+      "bytes": 601
+    },
+    "bind-arm.py": {
+      "sha256": "6fd5107895defb37e3aa7f62122d51d08e2a0da8d7c90dbdc162ec397e075f1e",
+      "bytes": 3581
+    },
+    "compare.py": {
+      "sha256": "00f38227ee0768b0a67c171af95f5ff06097fd0d0a1654c31bf55c344263a62a",
+      "bytes": 13371
+    },
+    "files/tests/1368-measurement-observer.ts": {
+      "sha256": "66757b3433d5a0a101fd64c8a2d62df37037b4458c1241575c60e26eb15a02de",
+      "bytes": 481
+    },
+    "files/tests/1368-natural-recovery.test.ts": {
+      "sha256": "9f746a9583a62f3cc521280bb710790540dfd7ce1491625a29d57b93957a6cea",
+      "bytes": 30544
+    },
+    "files/tsconfig.1368-measurement.json": {
+      "sha256": "bf85e69ce1c49c517300e54a2a5b5f3dbd59ed43ebfda4eae388abc28b77733d",
+      "bytes": 358
+    },
+    "files/vitest.1368-measurement.config.ts": {
+      "sha256": "46dec9000f18edaa4a674dfa9711e9e2e4b5689f0d77566726611219d1fa32ea",
+      "bytes": 271
+    },
+    "files/vitest.1368-measurement.workspace.ts": {
+      "sha256": "c9e0ef2a8975e270ad27a453b05b898df186435b0bdb0cc6fcd54bd35cece22c",
+      "bytes": 239
+    },
+    "measurement-driver.patch": {
+      "sha256": "a7f5509d2dd712b9ddf931d3d3585ff3529e94dcae8bfc68200a7a75a5f57cef",
+      "bytes": 32600
+    },
+    "observer-patches/A.patch": {
+      "sha256": "0ebcd1e07bae8b76dcaccf31a32865add2c23919fccc9c66bebb656438674d9e",
+      "bytes": 10291
+    },
+    "observer-patches/A.patch.json": {
+      "sha256": "a4e220afcfc76ea7cf7c851583e70993b2877c0f6f9f468c0b8489bb9d13f8e2",
+      "bytes": 339
+    },
+    "observer-patches/AB.patch": {
+      "sha256": "a525be9e21d2f2630ba69a0be939d9f20f2fb7087143e1194851174eda4a11ea",
+      "bytes": 8723
+    },
+    "observer-patches/AB.patch.json": {
+      "sha256": "15d446a112e47831a04aa44028126a1881f9b7fdedbc98585d88225abd7b305a",
+      "bytes": 573
+    },
+    "observer-patches/ABC.patch": {
+      "sha256": "20afaee5b35f7b6069d3ca7f5539496a0b530952f15ed8469b79d9498e992bbf",
+      "bytes": 8684
+    },
+    "observer-patches/ABC.patch.json": {
+      "sha256": "88b9355dc0656275ba3e558cd2e33549dba6630317028c6a495b4af46e43dca9",
+      "bytes": 573
+    },
+    "observer-patches/C0.patch": {
+      "sha256": "2f4f4966ebca2b9f335410478e3be477e10db4178109e3bf7b6eb547f08f3e28",
+      "bytes": 10291
+    },
+    "observer-patches/C0.patch.json": {
+      "sha256": "0723ddae0e2b736d6f10b47947fc5d4586a79e8057cea118fb4dcd6f1481bf36",
+      "bytes": 339
+    },
+    "prepare-observer.py": {
+      "sha256": "b0920f59152b6c6f27dcebb2306de2cb74dc0613252553eebf736e0fa22d07d2",
+      "bytes": 8710
+    },
+    "run-one.py": {
+      "sha256": "effa1cde271eae4ae3a82e4ff01debd92940db7187b090b067b43a57c5a3cddb",
+      "bytes": 9878
+    }
+  }
+}

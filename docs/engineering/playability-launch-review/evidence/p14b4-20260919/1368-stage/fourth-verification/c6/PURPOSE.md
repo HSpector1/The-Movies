@@ -1,0 +1,5 @@
+# C6 targeted completion mutation exclusion
+
+Exact unifiedv2 ABC source plus ONE deletion: the completed-plan tombstone skip in rivalResearch.completeRivalPlans. All actual disposal APIs, policy, validators, fixtures and original C6 assertions remain unchanged. This restores the old completion behavior at that call site to prove the C6 assertion detects rematerialization after a genuine paid body is lawfully disposed. It is a targeted mutation check, NOT historical schemaS, naturalAB, acceptance source or proposed production. FinalABC C24GREEN already includes this guard; no live source edits. C6 first publicly admits the real disposed state, then checks direct completion is byte-identical. Original S missingAPI attempt is preserved as setup-only. No changed assertion/premise, timeout, route or fixture.
+
+Parent may run only after independent exactdiff review. One existing C6 test,330s wrapper unchanged; no fullsuite mutation acceptance claim. Fullpins/source/index/HEAD/fixture guards retained. Runtime not yet performed.

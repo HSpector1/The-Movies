@@ -1,0 +1,5 @@
+tests/p13b-s8-old-era-period.test.ts
+tests/p14d2-rival-cost-cutting.test.ts
+tests/p14d2-rival-cost-cutting-adapter.test.ts
+tests/p14d2-rival-facility-disposal.test.ts
+tests/p14d2-save46-migration.test.ts

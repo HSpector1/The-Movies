@@ -1,0 +1,16 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-unified-candidate/tree
+
+stdout | tests/p14d2-b-lowmarket-research-1368.test.ts
+1368_LOWMARKET_RESEARCH277 {"seed":"p15a1-w2-market-01","origin":"public-migration260","nullIndustryTicks":260,"paidLabWeek":260,"paidInstrumentWeek":272,"ordinaryIndustryTicks":17,"inputWeek":277,"controlWeek":278,"noQuoteOverride":true,"baseMarketValue":23554590.49809724,"genesisMarketAndEraPreserved":true,"facts":[{"studioId":"studio-ff9bdb2b-r01","since":null,"nextDecisionWeek":277,"productions":0,"runs":0,"proposals":0,"cash":22895819,"reserve":1240616,"wholeInputDemand":4,"replacementContracts":["studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-6:277","studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-7:277","studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-8:277","studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-9:277"],"newProjects":1,"newSeats":4},{"studioId":"studio-ff9bdb2b-r02","since":null,"nextDecisionWeek":277,"productions":0,"runs":0,"proposals":0,"cash":19577645,"reserve":1935036,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0},{"studioId":"studio-ff9bdb2b-r03","since":null,"nextDecisionWeek":277,"productions":0,"runs":0,"proposals":0,"cash":13715995,"reserve":2045080,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0},{"studioId":"studio-ff9bdb2b-r04","since":null,"nextDecisionWeek":277,"productions":0,"runs":1,"proposals":0,"cash":10078550.22182101,"reserve":1585635,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0}]}
+
+ ✓ |core| tests/p14d2-b-lowmarket-research-1368.test.ts > B low-market public migration277 blocks new replacement against a real idle positive
+ ✓ |core| tests/p14d2-b-lowmarket-research-1368.test.ts > B low-market public migration277 blocks new project against a real idle positive
+ ✓ |core| tests/p14d2-b-lowmarket-research-1368.test.ts > B low-market public migration277 blocks new seat against a real idle positive
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  23:42:14
+   Duration  20.97s (transform 2.01s, setup 0ms, collect 2.64s, tests 17.94s, environment 0ms, prepare 101ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 21724.46774994023}

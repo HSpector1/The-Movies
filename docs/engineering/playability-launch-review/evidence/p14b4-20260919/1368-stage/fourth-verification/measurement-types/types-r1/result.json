@@ -1,0 +1,146 @@
+{
+  "assemblySha256": "90cce8665bb7731d1582681a9307cace378c2ae96be7716365aeeed3b5ffbdfd",
+  "wrapperSha256": "689b6f1416b8f14da50c242ea63d5e5822c75823bf826307d5663601ba13e26f",
+  "head": "6c60c26a1e4cd8a49b83e4798754e146416852a1",
+  "indexSha256": "12bd7ec2b72822a35eaa6d6e6c3883969d613c051b8511f52a4f81a7807e0219",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "allFilesExactBeforeAfter": true,
+  "rows": [
+    {
+      "arm": "C0",
+      "mode": "clean",
+      "exitCode": 0,
+      "seconds": 16.752814000006765,
+      "raw": "C0-clean.txt",
+      "rawSha256": "3c16db7a399f9351fa418e800254912b89c0cac04f0bdacbdc9956c5af6b2be2",
+      "command": [
+        "python3",
+        "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+        "330",
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.1368-measurement.json"
+      ]
+    },
+    {
+      "arm": "C0",
+      "mode": "observed",
+      "exitCode": 0,
+      "seconds": 16.072174093918875,
+      "raw": "C0-observed.txt",
+      "rawSha256": "9c076f4c27702e683667f64c1135992d284401afb16e78e718f40038d77e93c0",
+      "command": [
+        "python3",
+        "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+        "330",
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.1368-measurement.json"
+      ]
+    },
+    {
+      "arm": "A",
+      "mode": "clean",
+      "exitCode": 0,
+      "seconds": 19.694976730039343,
+      "raw": "A-clean.txt",
+      "rawSha256": "d5b5f7c0f6de2409650ce0639267731b02a8c5c081b768cace1b275c273b0b1e",
+      "command": [
+        "python3",
+        "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+        "330",
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.1368-measurement.json"
+      ]
+    },
+    {
+      "arm": "A",
+      "mode": "observed",
+      "exitCode": 0,
+      "seconds": 15.585071027977392,
+      "raw": "A-observed.txt",
+      "rawSha256": "ccd53d3aa8c0f0be4c77cf2e86208a0f53b3aa6e6c4df85c7693f2fbf714c756",
+      "command": [
+        "python3",
+        "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+        "330",
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.1368-measurement.json"
+      ]
+    },
+    {
+      "arm": "AB",
+      "mode": "clean",
+      "exitCode": 0,
+      "seconds": 16.488159440108575,
+      "raw": "AB-clean.txt",
+      "rawSha256": "7960831c929bd48ac95815bae54c26e635cd17f04237c68a6a1710ccb74b6f6c",
+      "command": [
+        "python3",
+        "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+        "330",
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.1368-measurement.json"
+      ]
+    },
+    {
+      "arm": "AB",
+      "mode": "observed",
+      "exitCode": 0,
+      "seconds": 16.586866357945837,
+      "raw": "AB-observed.txt",
+      "rawSha256": "324302f015f2ba317e9bb52146631b39017e9d76027650e9d3df8eec071176b3",
+      "command": [
+        "python3",
+        "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+        "330",
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.1368-measurement.json"
+      ]
+    },
+    {
+      "arm": "ABC",
+      "mode": "clean",
+      "exitCode": 0,
+      "seconds": 15.225501765031368,
+      "raw": "ABC-clean.txt",
+      "rawSha256": "00d2a8e36e946cd9b3bb596082e61a783b609e4c165eb1b89cb972aa49c5d053",
+      "command": [
+        "python3",
+        "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+        "330",
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.1368-measurement.json"
+      ]
+    },
+    {
+      "arm": "ABC",
+      "mode": "observed",
+      "exitCode": 0,
+      "seconds": 16.88879709003959,
+      "raw": "ABC-observed.txt",
+      "rawSha256": "5e57f0b2c21b0a92a8c926d84f3d276110ac4ccb1c653da66309c3178f4db0cc",
+      "command": [
+        "python3",
+        "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+        "330",
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.1368-measurement.json"
+      ]
+    }
+  ]
+}

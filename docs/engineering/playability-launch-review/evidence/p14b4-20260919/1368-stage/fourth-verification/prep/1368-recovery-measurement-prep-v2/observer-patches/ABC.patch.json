@@ -1,0 +1,15 @@
+{
+  "patchSha256": "20afaee5b35f7b6069d3ca7f5539496a0b530952f15ed8469b79d9498e992bbf",
+  "files": [
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "beforeSha256": "6da40c08e4aee457f01b6c1804acb2a79679d7a49f8b7db15b184ad0b1c7eaf0",
+      "afterSha256": "c312f631f0cbb0aa174bc180903d8a775db7eb764de88598f6c26466697f6778"
+    },
+    {
+      "path": "src/core/rivalResearch.ts",
+      "beforeSha256": "e24566c984414a66fbfb896481dbc6d8f742bf7fa36702aec0a211b15d513d18",
+      "afterSha256": "694735b2da9b7c1130bc2a33c60cde6fec317b6d54ef57d608610968a2f87485"
+    }
+  ]
+}

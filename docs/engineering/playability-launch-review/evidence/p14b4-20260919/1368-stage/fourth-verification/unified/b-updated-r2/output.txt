@@ -1,0 +1,12 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-unified-candidate/tree
+
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > sets new Scientist staffing demand to zero with a real positive demand control 1035ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > continues an already active, already seated research project and pays its work 1361ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 50 skipped (52)
+   Start at  23:34:46
+   Duration  5.66s (transform 2.10s, setup 0ms, collect 2.85s, tests 2.40s, environment 0ms, prepare 93ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 6392.202676041052}
