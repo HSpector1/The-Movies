@@ -1,0 +1,20 @@
+{
+  "mode": "diagnostic-observation-only",
+  "neverQualifiesFullRoute": true,
+  "sourceHead": "689a69f314a61a71c2ee4fc813fb4f16c7245ec1",
+  "sourceTree": "88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837",
+  "diagnosticProbeSha": "07e2d1e4b03f3a37f460f953bb94156ea6fd3960684674ab334ce9be40f74cec",
+  "originalPolicySha": "87e45c65f8972da3106c2e4d9e3382db90962377f1686fb67069a181507b505d",
+  "baselineResultSha": "4aec19502c0da86a9de96ac160526371d4d7041abb35f9f92b55edb9d34296dc",
+  "baselineRunSha": "c4d1f1b7e8e83b4bc8a2ff1dbe50e9573bf7839966c8f19fda102bc9b128a414",
+  "wrapperSha": "2dc023792f953f2bbbfb037ba21a23792a6f541dda298e0ddab4351a40f81886",
+  "horizon": 520,
+  "resourceCapMs": 600000,
+  "start": "2026-10-05T00:20:38.120640+00:00",
+  "elapsedMs": 47807.57665797137,
+  "exitCode": 0,
+  "timedOut": false,
+  "postflightPassed": true,
+  "resultSha256": "ef21d9cee1325947ff61978afa97f0736846f3a4c153d35326e956187e118ca7",
+  "stderrSha256": "eb63ea1ecf1afb7216d92167b6a6f5a989eda267d96da0b04a1ec05ad98dd085"
+}

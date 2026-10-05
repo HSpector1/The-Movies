@@ -1,0 +1,149 @@
+{
+  "format": "genuine-v36-extension-controls/v1",
+  "generatedAt": "2026-10-05T00:18:32.577Z",
+  "generatingHead": "c000479d6e888d3a02f5c2ff534f5dfcbb32af3f",
+  "currentValidationHead": "689a69f314a61a71c2ee4fc813fb4f16c7245ec1",
+  "producerSha256": "714be0ea30e3e236b55c5e54454909adbf358264fca66e50f0de2d652d5dc77c",
+  "configSha256": "71c006047d7b2887b2f2f6fec5f75f70dd07626fc95221f84b45fcf6dd540029",
+  "archiveFilesSha256": "1583d5c7d6311cc8de99429a4ead13d8d82a4abdc73602eb436cf5dac6280816",
+  "input": {
+    "path": "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-contract-gap-freeagent-expiry.json.gz",
+    "gzipSha256": "f35bd6868904b9b6308e27400ce862d503951c904e4e8007ee25003f187ffee4",
+    "rawSha256": "e13625bc7366adbaf819c0635d0be8acbd79287b0fca4337f39929e10815f5c6",
+    "manifestPath": "tests/fixtures/p14/genuine-v35-c2b-corpus/MANIFEST.json",
+    "manifestSha256": "f47f781a4063ed53dc52adb361fabddded63909bf888d217ae9b2c9fc799531b"
+  },
+  "ticks": 46,
+  "proposal": {
+    "week": 92,
+    "talentId": "authored-0000",
+    "issuerStudioId": "studio-d7df6c8e-player",
+    "termWeeks": 58,
+    "premiumTier": 1.1
+  },
+  "description": "New original-engine reproduction; not an earlier capture date or current-engine gameplay.",
+  "artifacts": [
+    {
+      "filename": "reproduced-v36-extension-open-week92.json.gz",
+      "facts": {
+        "week": 92,
+        "payloadSaveVersion": 36,
+        "archivedRuntimeSaveVersion": 37,
+        "personId": "authored-0000",
+        "record": {
+          "ageAtAnnouncement": 71,
+          "announcedWeek": 52,
+          "cause": "hardBoundary",
+          "effectiveWeek": 104,
+          "finishingFromWeek": null,
+          "intentRulesVersion": 1,
+          "personId": "authored-0000",
+          "profession": "actor",
+          "retiredWeek": null,
+          "status": "announced",
+          "extensionUsed": false,
+          "extendedFromWeek": null
+        },
+        "extensionCase": {
+          "talentId": "authored-0000",
+          "subjectStudioId": "studio-d7df6c8e-player",
+          "contractId": "studio-d7df6c8e-player:contract:authored-0000:0:player-24",
+          "openedWeek": 92,
+          "outcome": null,
+          "closedWeek": null,
+          "reason": null,
+          "variant": "retirementExtension"
+        },
+        "expectedRefusal": "migrateToV35: cannot downgrade SaveFileV36 or discard the retirement extension — it holds 1 retirementExtension case(s) and 0 used extension(s) (first: authored-0000), and V35 has nowhere to record the one final extension",
+        "settlementEmployment": [
+          {
+            "contractId": "studio-d7df6c8e-player:contract:authored-0000:0:player-24",
+            "endedWeek": null,
+            "reason": "player-contract",
+            "studioId": "studio-d7df6c8e-player",
+            "terms": {
+              "annualSalary": 63508,
+              "endWeekExclusive": 98,
+              "signingBonus": 11431,
+              "startWeek": 0,
+              "talentId": "authored-0000",
+              "termWeeks": 98
+            }
+          }
+        ],
+        "projectedFrom37Sha256": "1b3024a955cd2723a05f29d3404096c0c81cd41ccc0388ac3900ca5a35611d20",
+        "rawSha256": "59fa201e30be28acac4d7406fc3bf4ab76ee995cc0e3dd8a2103d42ab8be5d1d"
+      },
+      "rawSha256": "59fa201e30be28acac4d7406fc3bf4ab76ee995cc0e3dd8a2103d42ab8be5d1d",
+      "gzipSha256": "88293028366023ac5ffb3cf48838391a27e80ef0d7e5c95eddff8247e36f77af"
+    },
+    {
+      "filename": "reproduced-v36-extension-used-week98.json.gz",
+      "facts": {
+        "week": 98,
+        "payloadSaveVersion": 36,
+        "archivedRuntimeSaveVersion": 37,
+        "personId": "authored-0000",
+        "record": {
+          "ageAtAnnouncement": 71,
+          "announcedWeek": 52,
+          "cause": "hardBoundary",
+          "effectiveWeek": 156,
+          "finishingFromWeek": null,
+          "intentRulesVersion": 1,
+          "personId": "authored-0000",
+          "profession": "actor",
+          "retiredWeek": null,
+          "status": "announced",
+          "extensionUsed": true,
+          "extendedFromWeek": 104
+        },
+        "extensionCase": {
+          "talentId": "authored-0000",
+          "subjectStudioId": "studio-d7df6c8e-player",
+          "contractId": "studio-d7df6c8e-player:contract:authored-0000:0:player-24",
+          "openedWeek": 92,
+          "outcome": "settled",
+          "closedWeek": 98,
+          "reason": "settled at the decision week",
+          "variant": "retirementExtension"
+        },
+        "expectedRefusal": "migrateToV35: cannot downgrade SaveFileV36 or discard the retirement extension — it holds 1 retirementExtension case(s) and 1 used extension(s) (first: authored-0000), and V35 has nowhere to record the one final extension",
+        "settlementEmployment": [
+          {
+            "contractId": "studio-d7df6c8e-player:contract:authored-0000:0:player-24",
+            "endedWeek": 98,
+            "reason": "player-contract",
+            "studioId": "studio-d7df6c8e-player",
+            "terms": {
+              "annualSalary": 63508,
+              "endWeekExclusive": 98,
+              "signingBonus": 11431,
+              "startWeek": 0,
+              "talentId": "authored-0000",
+              "termWeeks": 98
+            }
+          },
+          {
+            "contractId": "studio-d7df6c8e-player:contract:authored-0000:98:player-26",
+            "studioId": "studio-d7df6c8e-player",
+            "terms": {
+              "talentId": "authored-0000",
+              "annualSalary": 75448,
+              "signingBonus": 13581,
+              "startWeek": 98,
+              "endWeekExclusive": 156,
+              "termWeeks": 58
+            },
+            "endedWeek": null,
+            "reason": "player-contract"
+          }
+        ],
+        "projectedFrom37Sha256": "8672c6bcac0d39eadfbbe149bea55a5c92004f7ea2c57e0964ac5c86f63efc35",
+        "rawSha256": "37ed808d53ab76d45fdc2afbd4d4be03e2010b25b819794c2ad4db70ed6b9eba"
+      },
+      "rawSha256": "37ed808d53ab76d45fdc2afbd4d4be03e2010b25b819794c2ad4db70ed6b9eba",
+      "gzipSha256": "69339e4af679bf39270619d2d73196b0a17958cf96e8b932b8f03015bc0bbc26"
+    }
+  ]
+}

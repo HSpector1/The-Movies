@@ -1,0 +1,9 @@
+# Parent independent capture orchestration review
+
+PROCEED with runner SHA256 b587ca59134a5f5e7459ae84418505c816027e59d4a8ddda89891cc6ebfbf36a. Parent read the full wrapper and handback, reviewed producer/result paths, and compared actual completed recorder/postflight keys against all final assertions. Installed producers/configs already passed explicit strict types; the wrapper itself passes Python AST parsing. This is static orchestration approval, not execution or capture acceptance.
+
+Three exact modes preserve original paths, producer hashes and environments. Source/publication/5GiB/new-output checks precede preflight; fixture discovery stays excluded, named manual input hashes remain explicit. Source-only archive construction is external and no overwrite/cleanup exists. Wrapper identity is pinned before child execution and after postflight. Original archived generating HEAD remains distinct from current validation HEAD.
+
+The period26 mode invokes the already reviewed exact-command watchdog. Other modes start an owned session, enforce300s, TERM only that process group then KILL after at most5s even if the group leader exits. The outer recorder remains alive and postflight runs in finally. Actual recorder process/postprocess results are checked separately from recorded child status. Zero requires MINTED, exit2 requires ABSENT; errors/timeouts cannot become success. Source and final guard keys match the actual recorder schema inspected from A8r2. Fixed capture-specific environment replaces ambient pins. No node/runtime/fixture read accompanied this review.
+
+Parent must run one mode at a time through the existing heavy lane, retain every attempted result, freeze all tracked files including HANDOFF until postflight, and independently review and pin generated artifacts. A8 remains with its own reviewed runner. No implicit gameplay or historical affordability premise is approved here.

@@ -1,0 +1,16 @@
+# 1367-M: genuine capture prerequisites accepted
+
+All four bounded captures succeeded at published `689a69f314a61a71c2ee4fc813fb4f16c7245ec1`, with unchanged game source `88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837`. Each actual child exited0 and the five-file recorder/postflight confirmed fixed source and exact source/manual/index/stage guards. Each generated result passed independent review. [Artifact adoption manifest](1367-stage/capture-adoption-manifest.json) pins preserved evidence and exact new fixture copies. This accepts historical inputs, not unexecuted recovery behavior.
+
+| Capture | Observed result | Manifest SHA256 | Evidence/review |
+| --- | --- | --- | --- |
+| A8 natural Save45 | Week247, r02/script0021 count12;48affordable+6unaffordable candidates, all54nonviable; old tick retains12 | bd6d51a93b532d3f02de6bd0bae821588c70a7f63ac5251b092d518a12231b89 | [Review](1367-stage/a8-capture-r2/INDEPENDENT-REVIEW.md); recorder1363-a8-natural-capture-r2 |
+| Genuine Save45 predecessor | Real generated weeks0/53,53development-enabledticks; all4rivals have real two-period accounts at53 | 0cee53cb3c0a09d3b1afef8e9200f26a570423533a468864a9233cf6ce85001d | [Review](1367-stage/save45-predecessor-mint/INDEPENDENT-REVIEW.md); recorder1367-save45-predecessor-mint |
+| Old Save26 year boundary | Archivedce6945d,3ordinaryticks309→312;4rivals retain previous-year periods ending311 | bd0df3d065934c22275120bb6e0b340a76885f3ac0c4790a3f2e4ff92e7ef7fd | [Review](1367-stage/old-era-period-mint/INDEPENDENT-REVIEW.md); recorder1367-old-era-period-mint |
+| Original-engine extension controls | Archivedc000479d Save37,46ticks52→92→98 with real proposal; lawfully projected Save36 open/used controls | e62713cc60ecfce007b11ee381c5346a1fa98a430978983d47068d61addbb7ee | [Review](1367-stage/extension-mint/INDEPENDENT-REVIEW.md); recorder1367-extension-mint |
+
+A8 and extension corpora were copied byte-for-byte into their previously named new real fixture directories. The invalidated first A8 attempt remains preserved under1363-a8-natural-capture and is not adopted. Save45 predecessor and old-period payloads remain in their exact named external capture directories; manifests/results and independent pins are preserved here. Consumers must use independently bound actual artifacts; this record does not authorize relabeling live saves as old captures.
+
+The [reviewed orchestration](1367-stage/predecessor-capture-runner/INDEPENDENT-REVIEW.md) binds actual published/current validation HEAD separately from historical generating source. Both archived source inventories independently match original Git blobs. Named manual inputs were hashed without fixture discovery. Exactly declared ticks/actions ran, with writer/readers/codec/input-neutrality assertions and no cash, contract, account or clock repair. No route was expanded.
+
+Remaining checks: A8 pinned valid controls and intended old-source RED, then Part A GREEN; actual Save46 migration/disposal controls; actual affordable V27 old-period admission; separately pinned extension consumers; the preserved genuine-finance-only guard-order gap; and any earlier old-source pre-shelving comparison required by measured Part A. Captures alone do not close these. F6qualityguard and all recovery gameplay remain unapplied.

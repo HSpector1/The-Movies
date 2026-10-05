@@ -1,0 +1,12 @@
+{
+  "files": {
+    "run-capture.py": "b587ca59134a5f5e7459ae84418505c816027e59d4a8ddda89891cc6ebfbf36a",
+    "HANDBACK.md": "01f1ce8a5f2f68d8e2155cff678954f209ab17f5325c234d022e3f1e0c5527d4"
+  },
+  "syntax": "Python ast.parse only; no script execution",
+  "producerPatches": {
+    "save45": "63897a2c27393f860f2773cd9fbf03fe31229014e92431fa3dc668bedf0a5221",
+    "extension37": "dcd18acd106a9c5c4cb4a27fe559fbf30ad7840096d6b608481c6377c90db805",
+    "period26": "2e28d9245e761b945d5bdad80e7cf430078cc6f834d98d07eff57671c5f22b17"
+  }
+}

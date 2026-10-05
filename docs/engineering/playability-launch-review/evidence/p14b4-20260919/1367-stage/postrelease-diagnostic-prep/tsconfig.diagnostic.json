@@ -1,0 +1,11 @@
+{
+  "extends": "./tree/tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": ".",
+    "types": ["node"],
+    "typeRoots": ["./tree/node_modules/@types"]
+  },
+  "include": ["probe/postrelease.ts"],
+  "exclude": ["node_modules", "tree/node_modules", "tree/tests", "tree/dist"]
+}

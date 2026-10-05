@@ -1,0 +1,28 @@
+{
+  "status": "MINTED",
+  "generatingHead": "689a69f314a61a71c2ee4fc813fb4f16c7245ec1",
+  "srcTree": "88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837",
+  "output": "/Users/zacheryspector/studio-scratch/1363-save45-predecessor-capture-01",
+  "manifestSha256": "0cee53cb3c0a09d3b1afef8e9200f26a570423533a468864a9233cf6ce85001d",
+  "captures": [
+    {
+      "name": "p13a-week-0.save45.json.gz",
+      "week": 0,
+      "gzipSha256": "4bded8663feb1cd20d7425405d7daf4864a3f3b5a840e9deaf86b09ce45bb8ae",
+      "rawSha256": "eb0aa9897e964ec56ffe287d2dba7853c953689f50d7348aaadc9330348e4f7b",
+      "stateSha256": "ee4f81b834c726f0dc0166786ecd2cdc95ffa98856db238a1b41bf59dabc38e0",
+      "gzipBytes": 48875,
+      "rawBytes": 402008
+    },
+    {
+      "name": "p13a-week-53.save45.json.gz",
+      "week": 53,
+      "gzipSha256": "fd4b8f0986453d1b735dda8410ffd05c841289d0fd51d9fe1a6707128947dc68",
+      "rawSha256": "d66a6809c3fc3dacf6a83386cad320d94c70264384f47e5f83a0bd0320768d07",
+      "stateSha256": "dc973949b9ae006ec113a76727511ecf0d69f53d623356a57c4ec6e555112abe",
+      "gzipBytes": 90405,
+      "rawBytes": 774318
+    }
+  ],
+  "elapsedMs": 7606
+}

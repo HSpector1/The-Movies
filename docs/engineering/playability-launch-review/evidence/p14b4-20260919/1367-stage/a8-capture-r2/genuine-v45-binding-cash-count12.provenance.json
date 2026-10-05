@@ -1,0 +1,1156 @@
+{
+  "purpose": "generated test campaigns only; never Owner saves",
+  "record": "1363-A8",
+  "executionHead": "689a69f314a61a71c2ee4fc813fb4f16c7245ec1",
+  "saveVersion": 45,
+  "projectionVersion": 57,
+  "schemaId": "sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253",
+  "sourceFiles": {
+    "src/core/hollywoodPolicy.ts": {
+      "bytes": 6684,
+      "sha256": "843131da845b609ad133259ee82035bc129aad4b75394b757d5ac66341efd234"
+    },
+    "src/core/hollywoodTick.ts": {
+      "bytes": 37323,
+      "sha256": "d5963544fd591ee5abbb3584e3f0337db0210bfeaac05b69195a3c339452ac17"
+    },
+    "src/core/forecast.ts": {
+      "bytes": 20511,
+      "sha256": "13add49ffbcf0811b56de03c3978e0122c0f901226b405a76359b8b8fda6ae04"
+    },
+    "src/core/marketingMenu.ts": {
+      "bytes": 6600,
+      "sha256": "61d6e1efef70b880b8e2c1d3d8573d6acbb7d78b6bd781663c9af4e07e5c4e7d"
+    },
+    "src/core/save.ts": {
+      "bytes": 515001,
+      "sha256": "3f852f997feaa77effd581858f56bf59a9cfa87069afec6e0a895cc653dced72"
+    },
+    "src/harness/p13a/fixtures.ts": {
+      "bytes": 2130,
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+    },
+    "tests/probes/1363-a8-capture.probe.ts": {
+      "bytes": 16412,
+      "sha256": "54b184a3c44f7652870f090706cc5240caed02023ae4bfb4f982f3a2d8c711b3"
+    },
+    "tests/probes/1363-a8.workspace.ts": {
+      "bytes": 318,
+      "sha256": "ba8be6d9169e9d6ecd82a1604ed50bee4da079b735020e3388e87cc1f3787c35"
+    }
+  },
+  "route": "p13aGeneratedStudio('p13a-core-causal-01'); natural ticks only",
+  "seed": "p13a-core-causal-01",
+  "decisionWeeks": [
+    0,
+    520
+  ],
+  "fixtureDirectory": "tests/fixtures/p14/genuine-v45-binding-cash-1363/",
+  "lockedChoices": 524,
+  "diagnosticSearches": 472,
+  "observation": "original chooser and diagnostic search each called once with unchanged arguments/results; cash-free enumeration after spies restored",
+  "status": "MINTED",
+  "producer": "tests/probes/1363-a8-capture.probe.ts",
+  "gzip": {
+    "bytes": 142226,
+    "sha256": "505c1335601ebd292fd0b341631ccb33ad4898eec652b4378c8f913d22064623"
+  },
+  "decoded": {
+    "bytes": 1339547,
+    "sha256": "54938083c4d088fad71ca1c5088dd67427c316d9fee81fdaba1ea66161ca954c"
+  },
+  "facts": {
+    "week": 247,
+    "afterWeek": 248,
+    "studioId": "studio-aca408ec-r02",
+    "studioRow": 2,
+    "scriptId": "script-0021",
+    "ordinal": 21,
+    "countBefore": 12,
+    "countAfter": 12,
+    "productionsBefore": 0,
+    "productionsAfter": 0,
+    "readyAndActive": true,
+    "actualSeatableTeamReachedChooser": true,
+    "oldOutcome": "cashBlocked",
+    "candidateOutcome": "economicRejection",
+    "director": "person-studio-aca408ec-r02-1",
+    "writer": "person-studio-aca408ec-r02-0",
+    "cast": {
+      "lead": "person-studio-aca408ec-r01-2",
+      "antagonist": "person-studio-aca408ec-r01-3",
+      "support": "person-studio-aca408ec-r01-4"
+    },
+    "craft": [
+      "person-studio-aca408ec-r01-5"
+    ],
+    "cashAvailable": 7111165.913428143,
+    "weeklyCost": 116524,
+    "searchCounts": {
+      "affordable": 48,
+      "unaffordable": 6,
+      "viable": 0
+    },
+    "allCashFreeViable": 0,
+    "candidates": [
+      {
+        "billing": [
+          0,
+          1,
+          2
+        ],
+        "negative": 3475169,
+        "marketing": 508594,
+        "cost": 3983763,
+        "contribution": -543300.4358601645,
+        "preference": 341.22829709864465,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          1,
+          2
+        ],
+        "negative": 3475169,
+        "marketing": 938943,
+        "cost": 4414112,
+        "contribution": -544105.2646265351,
+        "preference": 2754.6571116397504,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          1,
+          2
+        ],
+        "negative": 3475169,
+        "marketing": 1447538,
+        "cost": 4922707,
+        "contribution": -803297.8680230035,
+        "preference": 6413.4360084358495,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          1,
+          2
+        ],
+        "negative": 4544451,
+        "marketing": 529313,
+        "cost": 5073764,
+        "contribution": -1173892.7120307167,
+        "preference": 1088.1356185818706,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          1,
+          2
+        ],
+        "negative": 4544451,
+        "marketing": 977194,
+        "cost": 5521645,
+        "contribution": -1130163.2493222626,
+        "preference": 1375.753858936976,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          1,
+          2
+        ],
+        "negative": 4544451,
+        "marketing": 1506507,
+        "cost": 6050958,
+        "contribution": -1374017.1855950775,
+        "preference": 4287.618240355106,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          1,
+          2
+        ],
+        "negative": 5613734,
+        "marketing": 543341,
+        "cost": 6157075,
+        "contribution": -1933937.08755155,
+        "preference": 1580.3048380988484,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          1,
+          2
+        ],
+        "negative": 5613734,
+        "marketing": 1003090,
+        "cost": 6616824,
+        "contribution": -1857951.4703348428,
+        "preference": 467.12473373337616,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          1,
+          2
+        ],
+        "negative": 5613734,
+        "marketing": 1546431,
+        "cost": 7160165,
+        "contribution": -2090195.77780033,
+        "preference": 2886.8198956345273,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          2,
+          1
+        ],
+        "negative": 3475169,
+        "marketing": 505562,
+        "cost": 3980731,
+        "contribution": -595651.0910349493,
+        "preference": 363.0401859593013,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          2,
+          1
+        ],
+        "negative": 3475169,
+        "marketing": 933346,
+        "cost": 4408515,
+        "contribution": -601412.5655142516,
+        "preference": 2714.3928827633995,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          2,
+          1
+        ],
+        "negative": 3475169,
+        "marketing": 1438908,
+        "cost": 4914077,
+        "contribution": -861942.721402443,
+        "preference": 6351.352696804097,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          2,
+          1
+        ],
+        "negative": 4544451,
+        "marketing": 526128,
+        "cost": 5070579,
+        "contribution": -1231525.3520013602,
+        "preference": 1105.6569869495786,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          2,
+          1
+        ],
+        "negative": 4544451,
+        "marketing": 971313,
+        "cost": 5515764,
+        "contribution": -1193471.946572489,
+        "preference": 1343.4012161204948,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          2,
+          1
+        ],
+        "negative": 4544451,
+        "marketing": 1497441,
+        "cost": 6041892,
+        "contribution": -1439004.5795742916,
+        "preference": 4237.744229170917,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          2,
+          1
+        ],
+        "negative": 5613734,
+        "marketing": 540054,
+        "cost": 6153788,
+        "contribution": -1995212.5283890157,
+        "preference": 1594.9430450391842,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          2,
+          1
+        ],
+        "negative": 5613734,
+        "marketing": 997023,
+        "cost": 6610757,
+        "contribution": -1925409.1982166395,
+        "preference": 440.1061753193151,
+        "viable": false
+      },
+      {
+        "billing": [
+          0,
+          2,
+          1
+        ],
+        "negative": 5613734,
+        "marketing": 1537078,
+        "cost": 7150812,
+        "contribution": -2159575.849555487,
+        "preference": 2845.16758364397,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          0,
+          2
+        ],
+        "negative": 3475169,
+        "marketing": 515210,
+        "cost": 3990379,
+        "contribution": -371732.94747465383,
+        "preference": 293.63348947921696,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          0,
+          2
+        ],
+        "negative": 3475169,
+        "marketing": 951157,
+        "cost": 4426326,
+        "contribution": -354481.72427675547,
+        "preference": 2842.5233420302725,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          0,
+          2
+        ],
+        "negative": 3475169,
+        "marketing": 1466367,
+        "cost": 4941536,
+        "contribution": -606549.502665353,
+        "preference": 6548.889852551057,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          0,
+          2
+        ],
+        "negative": 4544451,
+        "marketing": 536265,
+        "cost": 5080716,
+        "contribution": -984266.0954029355,
+        "preference": 1049.8911749736105,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          0,
+          2
+        ],
+        "negative": 4544451,
+        "marketing": 990027,
+        "cost": 5534478,
+        "contribution": -920008.6466344204,
+        "preference": 1446.350945361717,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          0,
+          2
+        ],
+        "negative": 4544451,
+        "marketing": 1526292,
+        "cost": 6070743,
+        "contribution": -1155471.5661232853,
+        "preference": 4396.459770388106,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          0,
+          2
+        ],
+        "negative": 5613734,
+        "marketing": 550513,
+        "cost": 6164247,
+        "contribution": -1731856.6156914495,
+        "preference": 1548.3653126421739,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          0,
+          2
+        ],
+        "negative": 5613734,
+        "marketing": 1016331,
+        "cost": 6630065,
+        "contribution": -1633607.138582931,
+        "preference": 526.0917243317905,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          0,
+          2
+        ],
+        "negative": 5613734,
+        "marketing": 1566844,
+        "cost": 7180578,
+        "contribution": -1856563.092160413,
+        "preference": 2977.7264116896163,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          2,
+          0
+        ],
+        "negative": 3475169,
+        "marketing": 517312,
+        "cost": 3992481,
+        "contribution": -296105.01223642845,
+        "preference": 278.5119227295137,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          2,
+          0
+        ],
+        "negative": 3475169,
+        "marketing": 955038,
+        "cost": 4430207,
+        "contribution": -270443.2501588585,
+        "preference": 2870.4428475277023,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          2,
+          0
+        ],
+        "negative": 3475169,
+        "marketing": 1472350,
+        "cost": 4947519,
+        "contribution": -518694.95365293976,
+        "preference": 6591.930924798189,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          2,
+          0
+        ],
+        "negative": 4544451,
+        "marketing": 538462,
+        "cost": 5082913,
+        "contribution": -900726.6986840023,
+        "preference": 1037.8050065893547,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          2,
+          0
+        ],
+        "negative": 4544451,
+        "marketing": 994084,
+        "cost": 5538535,
+        "contribution": -826963.3564089956,
+        "preference": 1468.669372824132,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          2,
+          0
+        ],
+        "negative": 4544451,
+        "marketing": 1532547,
+        "cost": 6076998,
+        "contribution": -1058022.3947787052,
+        "preference": 4430.869867449335,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          2,
+          0
+        ],
+        "negative": 5613734,
+        "marketing": 552773,
+        "cost": 6166507,
+        "contribution": -1642863.2283050837,
+        "preference": 1538.300710364973,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          2,
+          0
+        ],
+        "negative": 5613734,
+        "marketing": 1020504,
+        "cost": 6634238,
+        "contribution": -1534341.6015128698,
+        "preference": 544.6756116338963,
+        "viable": false
+      },
+      {
+        "billing": [
+          1,
+          2,
+          0
+        ],
+        "negative": 5613734,
+        "marketing": 1573277,
+        "cost": 7187011,
+        "contribution": -1752479.5697615156,
+        "preference": 3006.374901268923,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          0,
+          1
+        ],
+        "negative": 3475169,
+        "marketing": 511776,
+        "cost": 3986945,
+        "contribution": -413441.0976516339,
+        "preference": 318.33732402654357,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          0,
+          1
+        ],
+        "negative": 3475169,
+        "marketing": 944817,
+        "cost": 4419986,
+        "contribution": -399658.1367820157,
+        "preference": 2796.914049359902,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          0,
+          1
+        ],
+        "negative": 3475169,
+        "marketing": 1456592,
+        "cost": 4931761,
+        "contribution": -651995.3213412166,
+        "preference": 6478.569531438616,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          0,
+          1
+        ],
+        "negative": 4544451,
+        "marketing": 532679,
+        "cost": 5077130,
+        "contribution": -1029537.1256763348,
+        "preference": 1069.6185303791372,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          0,
+          1
+        ],
+        "negative": 4544451,
+        "marketing": 983408,
+        "cost": 5527859,
+        "contribution": -969252.822029829,
+        "preference": 1409.9384062013214,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          0,
+          1
+        ],
+        "negative": 4544451,
+        "marketing": 1516087,
+        "cost": 6060538,
+        "contribution": -1205202.7445723368,
+        "preference": 4340.319875822184,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          0,
+          1
+        ],
+        "negative": 5613734,
+        "marketing": 546827,
+        "cost": 6160561,
+        "contribution": -1779577.98327431,
+        "preference": 1564.7804117544579,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          0,
+          1
+        ],
+        "negative": 5613734,
+        "marketing": 1009527,
+        "cost": 6623261,
+        "contribution": -1685657.3332835278,
+        "preference": 495.79103676804027,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          0,
+          1
+        ],
+        "negative": 5613734,
+        "marketing": 1556355,
+        "cost": 7170089,
+        "contribution": -1909257.0431798156,
+        "preference": 2931.0150783774225,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          1,
+          0
+        ],
+        "negative": 3475169,
+        "marketing": 517245,
+        "cost": 3992414,
+        "contribution": -276564.87090029754,
+        "preference": 278.99391367729174,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          1,
+          0
+        ],
+        "negative": 3475169,
+        "marketing": 954914,
+        "cost": 4430083,
+        "contribution": -248419.90080480138,
+        "preference": 2869.550804579576,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          1,
+          0
+        ],
+        "negative": 3475169,
+        "marketing": 1472159,
+        "cost": 4947328,
+        "contribution": -495195.72849911544,
+        "preference": 6590.556890902286,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          1,
+          0
+        ],
+        "negative": 4544451,
+        "marketing": 538412,
+        "cost": 5082863,
+        "contribution": -878631.7967802724,
+        "preference": 1038.0800673172625,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          1,
+          0
+        ],
+        "negative": 4544451,
+        "marketing": 993991,
+        "cost": 5538442,
+        "contribution": -802047.7615931723,
+        "preference": 1468.1577598702243,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          1,
+          0
+        ],
+        "negative": 4544451,
+        "marketing": 1532403,
+        "cost": 6076854,
+        "contribution": -1031442.7866845392,
+        "preference": 4430.077692552962,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          1,
+          0
+        ],
+        "negative": 5613734,
+        "marketing": 552734,
+        "cost": 6166468,
+        "contribution": -1619003.15456165,
+        "preference": 1538.474391554712,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          1,
+          0
+        ],
+        "negative": 5613734,
+        "marketing": 1020431,
+        "cost": 6634165,
+        "contribution": -1507424.0416529737,
+        "preference": 544.3505160736148,
+        "viable": false
+      },
+      {
+        "billing": [
+          2,
+          1,
+          0
+        ],
+        "negative": 5613734,
+        "marketing": 1573165,
+        "cost": 7186899,
+        "contribution": -1723766.4502166156,
+        "preference": 3005.876124518903,
+        "viable": false
+      }
+    ],
+    "rawBefore": {
+      "bytes": 1339547,
+      "sha256": "54938083c4d088fad71ca1c5088dd67427c316d9fee81fdaba1ea66161ca954c"
+    },
+    "rawAfter": {
+      "bytes": 1340208,
+      "sha256": "71a1c0c8d042b0135fd7e9af6aa229d271fffa1cc1bcc64fab9065ee0ca83648"
+    },
+    "accountBefore": {
+      "openingBalance": 29000000,
+      "openingBasis": "before-capacity-and-signing",
+      "cash": 9208597.913428143,
+      "periods": [
+        {
+          "fromWeek": 0,
+          "throughWeek": 51,
+          "opening": 29000000,
+          "closing": 18948554.171434097,
+          "movements": {
+            "capacity": -5900000,
+            "signing": -385932,
+            "payroll": -2144064,
+            "overhead": -1248000,
+            "facilityOpex": -1342000,
+            "development": 0,
+            "production": -16425891,
+            "marketing": -5297095,
+            "studioRevenue": 23591536.171434112,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": -900000,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0
+          }
+        },
+        {
+          "fromWeek": 52,
+          "throughWeek": 103,
+          "opening": 18948554.171434097,
+          "closing": 18698738.741487663,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2144064,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": -14387225,
+            "marketing": -3555086,
+            "studioRevenue": 22462559.570053574,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0
+          }
+        },
+        {
+          "fromWeek": 104,
+          "throughWeek": 155,
+          "opening": 18698738.741487663,
+          "closing": 16884192.266372655,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2144064,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": -3969498,
+            "marketing": -1058432,
+            "studioRevenue": 7983447.524884997,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0
+          }
+        },
+        {
+          "fromWeek": 156,
+          "throughWeek": 207,
+          "opening": 16884192.266372655,
+          "closing": 12559954.591538567,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2144064,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 445826.32516590983,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0
+          }
+        },
+        {
+          "fromWeek": 208,
+          "throughWeek": 246,
+          "opening": 12559954.591538567,
+          "closing": 9208597.913428143,
+          "movements": {
+            "capacity": 0,
+            "signing": -617987,
+            "payroll": -2574936,
+            "overhead": -936000,
+            "facilityOpex": -1033500,
+            "development": 0,
+            "production": -6651738,
+            "marketing": -1704934,
+            "studioRevenue": 10167738.321889576,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0
+          }
+        }
+      ]
+    },
+    "accountAfter": {
+      "openingBalance": 29000000,
+      "openingBasis": "before-capacity-and-signing",
+      "cash": 9092073.913428143,
+      "periods": [
+        {
+          "fromWeek": 0,
+          "throughWeek": 51,
+          "opening": 29000000,
+          "closing": 18948554.171434097,
+          "movements": {
+            "capacity": -5900000,
+            "signing": -385932,
+            "payroll": -2144064,
+            "overhead": -1248000,
+            "facilityOpex": -1342000,
+            "development": 0,
+            "production": -16425891,
+            "marketing": -5297095,
+            "studioRevenue": 23591536.171434112,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": -900000,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0
+          }
+        },
+        {
+          "fromWeek": 52,
+          "throughWeek": 103,
+          "opening": 18948554.171434097,
+          "closing": 18698738.741487663,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2144064,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": -14387225,
+            "marketing": -3555086,
+            "studioRevenue": 22462559.570053574,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0
+          }
+        },
+        {
+          "fromWeek": 104,
+          "throughWeek": 155,
+          "opening": 18698738.741487663,
+          "closing": 16884192.266372655,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2144064,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": -3969498,
+            "marketing": -1058432,
+            "studioRevenue": 7983447.524884997,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0
+          }
+        },
+        {
+          "fromWeek": 156,
+          "throughWeek": 207,
+          "opening": 16884192.266372655,
+          "closing": 12559954.591538567,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2144064,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 445826.32516590983,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0
+          }
+        },
+        {
+          "fromWeek": 208,
+          "throughWeek": 247,
+          "opening": 12559954.591538567,
+          "closing": 9092073.913428143,
+          "movements": {
+            "capacity": 0,
+            "signing": -617987,
+            "payroll": -2640960,
+            "overhead": -960000,
+            "facilityOpex": -1060000,
+            "development": 0,
+            "production": -6651738,
+            "marketing": -1704934,
+            "studioRevenue": 10167738.321889576,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0
+          }
+        }
+      ]
+    },
+    "shelvingBefore": {
+      "version": 1,
+      "rejections": [
+        {
+          "ordinal": 21,
+          "count": 12
+        },
+        {
+          "ordinal": 22,
+          "count": 8
+        }
+      ],
+      "shelved": [
+        {
+          "ordinal": 11,
+          "week": 123,
+          "retryWeek": 232
+        },
+        {
+          "ordinal": 13,
+          "week": 130,
+          "retryWeek": 223
+        },
+        {
+          "ordinal": 15,
+          "week": 166,
+          "retryWeek": 224
+        },
+        {
+          "ordinal": 16,
+          "week": 169,
+          "retryWeek": 225
+        },
+        {
+          "ordinal": 17,
+          "week": 197,
+          "retryWeek": 223
+        },
+        {
+          "ordinal": 18,
+          "week": 200,
+          "retryWeek": 226
+        }
+      ],
+      "commissionHoldUntilWeek": 213
+    },
+    "shelvingAfter": {
+      "version": 1,
+      "rejections": [
+        {
+          "ordinal": 21,
+          "count": 12
+        },
+        {
+          "ordinal": 22,
+          "count": 8
+        }
+      ],
+      "shelved": [
+        {
+          "ordinal": 11,
+          "week": 123,
+          "retryWeek": 232
+        },
+        {
+          "ordinal": 13,
+          "week": 130,
+          "retryWeek": 223
+        },
+        {
+          "ordinal": 15,
+          "week": 166,
+          "retryWeek": 224
+        },
+        {
+          "ordinal": 16,
+          "week": 169,
+          "retryWeek": 225
+        },
+        {
+          "ordinal": 17,
+          "week": 197,
+          "retryWeek": 223
+        },
+        {
+          "ordinal": 18,
+          "week": 200,
+          "retryWeek": 226
+        }
+      ],
+      "commissionHoldUntilWeek": 213
+    },
+    "appendedIndustryReceipts": [],
+    "rngBefore": "2598418427,508725886,1318803286,3129010527",
+    "rngAfter": "2598418427,508725886,1318803286,3129010527",
+    "inputArgs": {
+      "seed": "p13a-core-causal-01",
+      "key": "studio-aca408ec-r02:package:script-0021",
+      "cashAvailable": 7111165.913428143,
+      "weeklyCost": 116524,
+      "lockScreenplay": true,
+      "promisedMasks": []
+    },
+    "decisionInputSha256": "1f1d3c8c0da7f66ec313b8674da05f3ec606539da88a736df8d5f072a07e5364"
+  }
+}

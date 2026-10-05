@@ -1,0 +1,36 @@
+{
+  "archives": [
+    {
+      "mode": "period26",
+      "generatingHead": "ce6945d58257f70c1b222a8c00e06038db73f6e4",
+      "archiveRoot": "/Users/zacheryspector/studio-scratch/1363-old-era-v26-archive-01",
+      "archiveSha256": "942359540dafb615549c58df2cf1ea5067e1c7acd0d8df0dda24187241a67a14",
+      "fileCount": 157
+    },
+    {
+      "mode": "extension37",
+      "generatingHead": "c000479d6e888d3a02f5c2ff534f5dfcbb32af3f",
+      "archiveRoot": "/Users/zacheryspector/studio-scratch/1367-extension-v37-archive-01",
+      "archiveSha256": "1583d5c7d6311cc8de99429a4ead13d8d82a4abdc73602eb436cf5dac6280816",
+      "fileCount": 174
+    }
+  ],
+  "namedInputs": {
+    "tests/fixtures/p13b/legacy-v26-sound-mid-deployment-309.json.gz": {
+      "bytes": 123142,
+      "sha256": "4b99361166c2503b80ede0dfe3a3cafc7521db235bbf6a2a411212a3257bb288"
+    },
+    "tests/fixtures/p13b/PROVENANCE.md": {
+      "bytes": 21332,
+      "sha256": "f58776f25e636e95238d5ff246ebf643d99068cdb58a781accbcc216e5db4ec3"
+    },
+    "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-contract-gap-freeagent-expiry.json.gz": {
+      "bytes": 92767,
+      "sha256": "f35bd6868904b9b6308e27400ce862d503951c904e4e8007ee25003f187ffee4"
+    },
+    "tests/fixtures/p14/genuine-v35-c2b-corpus/MANIFEST.json": {
+      "bytes": 9417,
+      "sha256": "f47f781a4063ed53dc52adb361fabddded63909bf888d217ae9b2c9fc799531b"
+    }
+  }
+}

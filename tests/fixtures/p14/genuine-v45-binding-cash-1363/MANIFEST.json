@@ -1,0 +1,72 @@
+{
+  "purpose": "generated test campaigns only; never Owner saves",
+  "record": "1363-A8",
+  "executionHead": "689a69f314a61a71c2ee4fc813fb4f16c7245ec1",
+  "saveVersion": 45,
+  "projectionVersion": 57,
+  "schemaId": "sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253",
+  "sourceFiles": {
+    "src/core/hollywoodPolicy.ts": {
+      "bytes": 6684,
+      "sha256": "843131da845b609ad133259ee82035bc129aad4b75394b757d5ac66341efd234"
+    },
+    "src/core/hollywoodTick.ts": {
+      "bytes": 37323,
+      "sha256": "d5963544fd591ee5abbb3584e3f0337db0210bfeaac05b69195a3c339452ac17"
+    },
+    "src/core/forecast.ts": {
+      "bytes": 20511,
+      "sha256": "13add49ffbcf0811b56de03c3978e0122c0f901226b405a76359b8b8fda6ae04"
+    },
+    "src/core/marketingMenu.ts": {
+      "bytes": 6600,
+      "sha256": "61d6e1efef70b880b8e2c1d3d8573d6acbb7d78b6bd781663c9af4e07e5c4e7d"
+    },
+    "src/core/save.ts": {
+      "bytes": 515001,
+      "sha256": "3f852f997feaa77effd581858f56bf59a9cfa87069afec6e0a895cc653dced72"
+    },
+    "src/harness/p13a/fixtures.ts": {
+      "bytes": 2130,
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+    },
+    "tests/probes/1363-a8-capture.probe.ts": {
+      "bytes": 16412,
+      "sha256": "54b184a3c44f7652870f090706cc5240caed02023ae4bfb4f982f3a2d8c711b3"
+    },
+    "tests/probes/1363-a8.workspace.ts": {
+      "bytes": 318,
+      "sha256": "ba8be6d9169e9d6ecd82a1604ed50bee4da079b735020e3388e87cc1f3787c35"
+    }
+  },
+  "route": "p13aGeneratedStudio('p13a-core-causal-01'); natural ticks only",
+  "seed": "p13a-core-causal-01",
+  "decisionWeeks": [
+    0,
+    520
+  ],
+  "fixtureDirectory": "tests/fixtures/p14/genuine-v45-binding-cash-1363/",
+  "lockedChoices": 524,
+  "diagnosticSearches": 472,
+  "observation": "original chooser and diagnostic search each called once with unchanged arguments/results; cash-free enumeration after spies restored",
+  "elapsedMs": 22929.593624999998,
+  "inputs": [
+    {
+      "name": "genuine-v45-binding-cash-count12",
+      "gzip": {
+        "bytes": 142226,
+        "sha256": "505c1335601ebd292fd0b341631ccb33ad4898eec652b4378c8f913d22064623"
+      },
+      "decoded": {
+        "bytes": 1339547,
+        "sha256": "54938083c4d088fad71ca1c5088dd67427c316d9fee81fdaba1ea66161ca954c"
+      },
+      "facts": {
+        "week": 247,
+        "studioId": "studio-aca408ec-r02",
+        "scriptId": "script-0021",
+        "count": 12
+      }
+    }
+  ]
+}
