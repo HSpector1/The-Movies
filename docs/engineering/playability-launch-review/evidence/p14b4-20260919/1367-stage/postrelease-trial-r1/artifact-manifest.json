@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "path": "result.json",
+      "bytes": 11737,
+      "sha256": "4aec19502c0da86a9de96ac160526371d4d7041abb35f9f92b55edb9d34296dc"
+    },
+    {
+      "path": "run.json",
+      "bytes": 498,
+      "sha256": "c4d1f1b7e8e83b4bc8a2ff1dbe50e9573bf7839966c8f19fda102bc9b128a414"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 1489,
+      "sha256": "e841d233a70bd8ecc6a9ce0f6b0e01cf92391376cb46bd6c749777590b832736"
+    },
+    {
+      "path": "power.txt",
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    {
+      "path": "executed-wrapper.sh",
+      "bytes": 5296,
+      "sha256": "3e58c19c16ac7e086d4d7c39881b681431cc675bea979ed6983c3b67b7f56909"
+    }
+  ]
+}

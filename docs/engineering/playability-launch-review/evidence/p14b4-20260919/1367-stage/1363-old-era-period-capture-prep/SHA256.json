@@ -1,0 +1,13 @@
+{
+  "files": {
+    "producer.patch": "2e28d9245e761b945d5bdad80e7cf430078cc6f834d98d07eff57671c5f22b17",
+    "HANDBACK.md": "b9da1587248b9da4059086ed71d01dad2ca6ee7a5ac1d911818e2c3244ee5f9e",
+    "scripts/captures/1363-old-era-period-capture.ts": "84643aa7517682b1c090fd74581419c30fa5e3bed02a52f30ff96536ba53ef86",
+    "scripts/captures/1363-old-era-period-capture.config.ts": "e9fa6a3653caed8b63f7b82d2254a7ed6ee514f5a1aef6ed6273d120d411c485",
+    "scripts/captures/1363-old-era-period-watchdog.py": "c077dbb9a8a4351fd2fc058054782ff603285ed39ec11ade8c4be519f5f573fa",
+    "scripts/captures/tsconfig.1363-old-era-period-capture.json": "c47667c5277e4b4219de75f9a7bef3dff642bad72b15aa2aec23ff3ea3083ee7"
+  },
+  "historicalGeneratingHead": "ce6945d58257f70c1b222a8c00e06038db73f6e4",
+  "consumerPatchSha256": "20a0893996b4d557bcd0538da39777e2985fae1bc7ea1fb450ce94e5035b3209",
+  "consumerReviewSha256": "7b7a7683b03dbb782bdd64aab8bfe396ecd4f213680bbc08c648f8428cedf54a"
+}

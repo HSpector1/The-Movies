@@ -1,0 +1,36 @@
+{
+  "sourceHead": "d5e2dad1e23183f1a94fe7b7d30e65ed88617f34",
+  "wrapperSessionExit": 0,
+  "files": [
+    {
+      "path": "gl.json",
+      "bytes": 267038,
+      "sha256": "7ddb636898d9aed1bf518c29cf7de3db678944cdc396b61d96f48227b6b3995a"
+    },
+    {
+      "path": "gl.err",
+      "bytes": 1169,
+      "sha256": "d062d5409894716f0a1d2f598fcd17b73be841e4b6e90e11457d2cb8520fba9b"
+    },
+    {
+      "path": "run.meta",
+      "bytes": 163,
+      "sha256": "aa36939062c4f31eeee493e008db38ed98bc993d39287460428c9e9f45d325f6"
+    },
+    {
+      "path": "power.txt",
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    {
+      "path": "SHA256.json",
+      "bytes": 471,
+      "sha256": "4c622cbd2bd4e950de0d9e1c49e5a241619dcff4dddfc804437103bda4891896"
+    },
+    {
+      "path": "GP-SOURCE.txt",
+      "bytes": 288,
+      "sha256": "fb0a2a7fef7393928a971904f2423c9a98f83cceb0d6fb0c0a589ba0d385c4af"
+    }
+  ]
+}

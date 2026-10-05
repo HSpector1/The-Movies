@@ -1,0 +1,23 @@
+postrelease week52, films5
+postrelease week104, films11
+postrelease week156, films16
+postrelease week208, films16
+postrelease week260, films16
+postrelease week312, films16
+postrelease week364, films16
+postrelease week416, films16
+postrelease week468, films16
+postrelease week520, films16
+/Users/zacheryspector/studio-scratch/1361-postrelease-runs/trial-r1/probe/postrelease.ts:161
+if (horizon === 520 && !trialQualified) throw new Error("postrelease: staffing/production trial did not qualify; full route is not authorized by this result");
+                                              ^
+
+Error: postrelease: staffing/production trial did not qualify; full route is not authorized by this result
+    at /Users/zacheryspector/studio-scratch/1361-postrelease-runs/trial-r1/probe/postrelease.ts:142:47
+    at ViteNodeRunner.runModule (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:399:5)
+    at ViteNodeRunner.directRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:381:5)
+    at ViteNodeRunner.cachedRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:206:14)
+    at ViteNodeRunner.executeFile (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:169:12)
+    at CAC.run (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/cli.mjs:99:5)
+
+Node.js v20.20.2

@@ -1,0 +1,64 @@
+{
+  "gameSourceTree": "88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837",
+  "rootCommand": "node node_modules/typescript/bin/tsc --noEmit --allowImportingTsExtensions",
+  "rootExit": 0,
+  "scriptsCommand": "node node_modules/typescript/bin/tsc --project scripts/captures/tsconfig.1367-predecessor-captures.json --noEmit",
+  "scriptsExit": 0,
+  "files": [
+    {
+      "path": "tests/probes/1363-a8-capture.probe.ts",
+      "bytes": 16412,
+      "sha256": "54b184a3c44f7652870f090706cc5240caed02023ae4bfb4f982f3a2d8c711b3"
+    },
+    {
+      "path": "tests/probes/1363-a8.workspace.ts",
+      "bytes": 318,
+      "sha256": "ba8be6d9169e9d6ecd82a1604ed50bee4da079b735020e3388e87cc1f3787c35"
+    },
+    {
+      "path": "scripts/captures/1363-save45-predecessor.ts",
+      "bytes": 9215,
+      "sha256": "7c94086ca4787a931f0bd61b7eb94cacee3062ec14973a7132799f37036eebac"
+    },
+    {
+      "path": "scripts/captures/1363-save45-predecessor.config.ts",
+      "bytes": 131,
+      "sha256": "7b935bef9808c4bae3371515c31ee3fb25bc78744070decab92e7c995a28abff"
+    },
+    {
+      "path": "scripts/captures/1367-extension-capture.ts",
+      "bytes": 19250,
+      "sha256": "714be0ea30e3e236b55c5e54454909adbf358264fca66e50f0de2d652d5dc77c"
+    },
+    {
+      "path": "scripts/captures/1367-extension-capture.config.ts",
+      "bytes": 141,
+      "sha256": "71c006047d7b2887b2f2f6fec5f75f70dd07626fc95221f84b45fcf6dd540029"
+    },
+    {
+      "path": "scripts/captures/1363-old-era-period-capture.ts",
+      "bytes": 18181,
+      "sha256": "84643aa7517682b1c090fd74581419c30fa5e3bed02a52f30ff96536ba53ef86"
+    },
+    {
+      "path": "scripts/captures/1363-old-era-period-capture.config.ts",
+      "bytes": 141,
+      "sha256": "e9fa6a3653caed8b63f7b82d2254a7ed6ee514f5a1aef6ed6273d120d411c485"
+    },
+    {
+      "path": "scripts/captures/1363-old-era-period-watchdog.py",
+      "bytes": 1466,
+      "sha256": "c077dbb9a8a4351fd2fc058054782ff603285ed39ec11ade8c4be519f5f573fa"
+    },
+    {
+      "path": "scripts/captures/tsconfig.1363-old-era-period-capture.json",
+      "bytes": 232,
+      "sha256": "c47667c5277e4b4219de75f9a7bef3dff642bad72b15aa2aec23ff3ea3083ee7"
+    },
+    {
+      "path": "scripts/captures/tsconfig.1367-predecessor-captures.json",
+      "bytes": 426,
+      "sha256": "3a81fc6e32e981988c7539dd70ec9a81e8fa32fd599d51b70a5e8bd14603399d"
+    }
+  ]
+}

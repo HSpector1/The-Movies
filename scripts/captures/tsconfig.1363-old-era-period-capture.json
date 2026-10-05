@@ -1,0 +1,6 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": { "noEmit": true, "declaration": false, "types": ["node"] },
+  "include": ["./1363-old-era-period-capture.ts", "./1363-old-era-period-capture.config.ts"],
+  "exclude": []
+}

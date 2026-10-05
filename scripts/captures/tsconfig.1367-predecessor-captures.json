@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "declaration": false,
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "./1363-save45-predecessor.ts",
+    "./1363-save45-predecessor.config.ts",
+    "./1367-extension-capture.ts",
+    "./1367-extension-capture.config.ts",
+    "./1363-old-era-period-capture.ts",
+    "./1363-old-era-period-capture.config.ts"
+  ],
+  "exclude": []
+}

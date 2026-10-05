@@ -1,0 +1,223 @@
+// 1363-F rule11: bounded genuine pre-PartA Save45 capture. Never an ordinary test.
+// Install at tests/probes/ and run only through 1363-a8.workspace.ts in the heavy lane.
+import assert from 'node:assert/strict'
+import { execFileSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
+import { mkdirSync, readFileSync, realpathSync, writeFileSync } from 'node:fs'
+import { basename, dirname, isAbsolute, relative, resolve } from 'node:path'
+import { performance } from 'node:perf_hooks'
+import { gzipSync, gunzipSync } from 'node:zlib'
+import { it, vi } from 'vitest'
+import { PROJECTION_VERSION, SCHEMA_ID } from '../../bridge/protocol.js'
+import { p13aGeneratedStudio } from '../../src/harness/p13a/fixtures.js'
+import { tick } from '../../src/core/tick.js'
+import * as policyModule from '../../src/core/hollywoodPolicy.js'
+import { computeForecast } from '../../src/core/forecast.js'
+import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../../src/core/marketingMenu.js'
+import { resolveShape } from '../../src/core/shape.js'
+import { isOpportunityPredicate } from '../../src/core/opportunityPromises.js'
+import { TUNING } from '../../src/core/tuning.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, stableStringify, validateSaveV45 } from '../../src/core/save.js'
+import type { GameState } from '../../src/core/types.js'
+
+const SEED = 'p13a-core-causal-01'
+const LAST_DECISION_WEEK = 520
+const CEILING_MS = 300_000 // Existing 1356 harness ceiling; also checked inside loop.
+const FIXTURE_DIRECTORY = 'tests/fixtures/p14/genuine-v45-binding-cash-1363/'
+const CAPTURE_NAME = 'genuine-v45-binding-cash-count12'
+type Args = Parameters<typeof policyModule.chooseIndustryPackage>
+type SearchResult = ReturnType<typeof policyModule.searchIndustryPackages>
+type Candidate = { billing: number[]; negative: number; marketing: number; cost: number; contribution: number; preference: number; viable: boolean }
+type Observation = { studioId: string; ordinal: number; scriptId: string; args: Args; result: SearchResult }
+const digest = (value: string | Uint8Array) => ({ bytes: typeof value === 'string' ? Buffer.byteLength(value) : value.byteLength,
+  sha256: createHash('sha256').update(value).digest('hex') })
+const json = (value: unknown): string => `${JSON.stringify(value, null, 2)}\n`
+
+/** Independent full bounded enumeration, not an unaffordable production search.
+ * Builds permutations explicitly; same real planning/menu/forecast laws, cash-free
+ * contribution-minus-preference gate. No source choice supplies the oracle result. */
+function enumerate([input, policy, options]: Args): Candidate[] {
+  assert.equal(options.lockScreenplay, true)
+  const planning = policyModule.perceivedPlanningInputs(input)
+  const actors = [planning.cast.lead, planning.cast.antagonist, planning.cast.support]
+  const rows: Candidate[] = []
+  for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) for (let c = 0; c < 3; c++) {
+    if (a === b || a === c || b === c) continue
+    const inp = { ...planning, shapeEffects: resolveShape(planning.shape), cast: { lead: actors[a]!, antagonist: actors[b]!, support: actors[c]! } }
+    const required = inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale
+    for (const scale of TUNING.HOLLYWOOD_NEGATIVE_CHOICES) {
+      const negative = Math.round(required * scale * policy.negativeScale)
+      const base = { ...inp, budget: { negative, marketing: 0 } }
+      for (const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base, true))) {
+        const forecast = computeForecast({ ...base, budget: { negative, marketing } }, {
+          seed: options.seed, productionId: options.key, directorId: inp.director.id,
+          releasedFilms: [], concepts: [inp.concept],
+        }, true, true)
+        const contribution = forecast.expectedTotal * TUNING.STUDIO_RENTAL_BLENDED - negative - marketing
+        const preference = Math.abs(marketing / Math.max(negative, 1) - policy.marketingRatio) * TUNING.HOLLYWOOD_POLICY_PREFERENCE_COST
+        rows.push({ billing: [a, b, c], negative, marketing, cost: negative + marketing, contribution, preference, viable: contribution > preference })
+      }
+    }
+  }
+  return rows
+}
+
+function count(state: GameState, studioId: string, ordinal: number): number {
+  return state.hollywood!.businesses.find(b => b.studioId === studioId)!.screenplayShelving.rejections.find(r => r.ordinal === ordinal)?.count ?? 0
+}
+function namedPromise(state: GameState, studioId: string, scriptId: string): boolean {
+  return state.promises.some(p => p.outcome === null && p.issuerStudioId === studioId && isOpportunityPredicate(p.predicate)
+    && p.predicate.kind === 'projectOpportunity' && p.predicate.scriptProjectId === scriptId)
+}
+/** The chooser and refusal re-search each execute their original once, unchanged.
+ * enumerate() is deliberately called after tick returns and all spies are restored. */
+function observedTick(state: GameState): { next: GameState; observations: Observation[]; lockedChoices: number; searches: number } {
+  const choose = policyModule.chooseIndustryPackage
+  const search = policyModule.searchIndustryPackages
+  const choices = new Map<string, { args: Args; refused: boolean }>()
+  const observations: Observation[] = []
+  let lockedChoices = 0, searches = 0
+  const chooseSpy = vi.spyOn(policyModule, 'chooseIndustryPackage').mockImplementation((...args) => {
+    const result = choose(...args)
+    if (args[2].lockScreenplay) {
+      lockedChoices++
+      choices.set(args[2].key, { args: structuredClone(args), refused: result === null })
+    }
+    return result
+  })
+  const searchSpy = vi.spyOn(policyModule, 'searchIndustryPackages').mockImplementation((...args) => {
+    const result = search(...args)
+    if (args[2].lockScreenplay) {
+      searches++
+      assert.deepEqual(Object.keys(result).sort(), ['affordable', 'choice', 'unaffordable', 'viable'], 'A8 requires the actual pre-PartA search result')
+      const chosen = choices.get(args[2].key)
+      assert.ok(chosen?.refused, 'instrumentation must observe the real refused chooser before its diagnostic re-search')
+      assert.deepEqual(args, chosen.args, 'diagnostic must re-search the exact original chooser inputs')
+      assert.equal(result.choice, null)
+      const match = /^(.*):package:(script-(\d+))$/.exec(args[2].key)
+      assert.ok(match, 'locked package identity must identify a studio and canonical screenplay')
+      observations.push({ studioId: match[1]!, scriptId: match[2]!, ordinal: Number(match[3]), args: chosen.args, result: structuredClone(result) })
+    }
+    return result
+  })
+  try { return { next: tick(state), observations, lockedChoices, searches } }
+  finally { searchSpy.mockRestore(); chooseSpy.mockRestore() }
+}
+
+it('1363-A8 bounded natural v1 count12 capture — produce or explicitly report absence', () => {
+  const root = realpathSync(process.cwd())
+  const git = (...args: string[]): string => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim()
+  assert.equal(realpathSync(git('rev-parse', '--show-toplevel')), root)
+  const head = process.env.P1363_A8_HEAD ?? ''
+  assert.match(head, /^[0-9a-f]{40}$/)
+  assert.equal(git('rev-parse', 'HEAD'), head)
+  assert.equal(git('status', '--porcelain', '--untracked-files=no'), '')
+  const paths = ['src/core/hollywoodPolicy.ts', 'src/core/hollywoodTick.ts', 'src/core/forecast.ts',
+    'src/core/marketingMenu.ts', 'src/core/save.ts', 'src/harness/p13a/fixtures.ts',
+    'tests/probes/1363-a8-capture.probe.ts', 'tests/probes/1363-a8.workspace.ts']
+  for (const path of paths) git('ls-files', '--error-unmatch', '--', path)
+  const sources = Object.fromEntries(paths.map(path => [path, digest(readFileSync(resolve(root, path)))]))
+  assert.ok(!readFileSync(resolve(root, 'src/core/hollywoodPolicy.ts'), 'utf8').includes('diagnoseUnaffordableViability'), 'PartA must not be installed before the v1 capture')
+  assert.equal(LIVE_SAVE_VERSION, 45)
+  assert.equal(TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS, 13, 'count12 must be exactly one economic rejection below the threshold')
+  const outArg = process.env.P1363_A8_OUTPUT ?? ''
+  assert.ok(isAbsolute(outArg), 'P1363_A8_OUTPUT must name a new absolute external scratch directory')
+  const output = resolve(realpathSync(dirname(outArg)), basename(outArg))
+  const rel = relative(root, output)
+  assert.ok(rel === '..' || rel.startsWith('../'), 'capture cannot write inside the repository')
+  mkdirSync(output) // Exclusive; refusal on an existing directory, never overwrite.
+  const out = (name: string, value: string | Uint8Array): void => writeFileSync(resolve(output, name), value, { flag: 'wx' })
+  const started = performance.now()
+  const ceiling = (): void => { assert.ok(performance.now() - started <= CEILING_MS, '1363-A8 bounded search exceeded the existing 300000 ms ceiling') }
+  let state = p13aGeneratedStudio(SEED)
+  let lockedChoices = 0, searches = 0
+  const considered: object[] = []
+  let witness: { before: GameState; after: GameState; observation: Observation; candidates: Candidate[] } | null = null
+  while (state.market.tick <= LAST_DECISION_WEEK) {
+    ceiling()
+    const before = state
+    const inputDigest = digest(stableStringify(before))
+    const observed = observedTick(before)
+    lockedChoices += observed.lockedChoices; searches += observed.searches
+    assert.deepEqual(digest(stableStringify(before)), inputDigest, 'observer/tick mutated the actual input')
+    const ranks = new Map(before.hollywood!.identities.map(s => [s.studioId, s.row]))
+    for (const observation of observed.observations.sort((a, b) => ranks.get(a.studioId)! - ranks.get(b.studioId)! || a.ordinal - b.ordinal)) {
+      const { studioId, ordinal, scriptId, args, result } = observation
+      const business = before.hollywood!.businesses.find(b => b.studioId === studioId)
+      if (business === undefined || count(before, studioId, ordinal) !== 12 || business.productions.length !== 0
+        || !business.activeScriptOrdinals.includes(ordinal) || business.development.projects[ordinal]?.status !== 'ready') continue
+      ceiling()
+      const argsBefore = stableStringify(args)
+      const candidates = enumerate(args)
+      assert.equal(stableStringify(args), argsBefore, 'independent forecasts mutated their real decision inputs')
+      assert.ok(candidates.length > 0)
+      assert.equal(result.affordable, candidates.filter(c => c.cost <= args[2].cashAvailable).length)
+      assert.equal(result.unaffordable, candidates.filter(c => c.cost > args[2].cashAvailable).length)
+      assert.equal(result.viable, candidates.filter(c => c.cost <= args[2].cashAvailable && c.viable).length)
+      const viable = candidates.filter(c => c.viable).length
+      const promiseBlocks = namedPromise(before, studioId, scriptId) || namedPromise(observed.next, studioId, scriptId)
+      considered.push({ week: before.market.tick, studioId, ordinal, scriptId, countBefore: 12, countAfter: count(observed.next, studioId, ordinal),
+        affordable: result.affordable, unaffordable: result.unaffordable, affordableViable: result.viable, allViable: viable,
+        cashAvailable: args[2].cashAvailable, promiseBlocks })
+      if (result.unaffordable > 0 && viable === 0 && !promiseBlocks && count(observed.next, studioId, ordinal) === 12) {
+        witness = { before, after: observed.next, observation, candidates }
+        break
+      }
+    }
+    if (witness !== null) break
+    state = observed.next
+  }
+  ceiling()
+  assert.ok(lockedChoices > 0 && searches > 0, 'observer did not bind to real policy calls; this is not evidence of witness absence')
+  assert.equal(git('rev-parse', 'HEAD'), head)
+  assert.equal(git('status', '--porcelain', '--untracked-files=no'), '')
+  const common = { purpose: 'generated test campaigns only; never Owner saves', record: '1363-A8', executionHead: head,
+    saveVersion: 45, projectionVersion: PROJECTION_VERSION, schemaId: SCHEMA_ID, sourceFiles: sources,
+    route: `p13aGeneratedStudio('${SEED}'); natural ticks only`, seed: SEED, decisionWeeks: [0, LAST_DECISION_WEEK],
+    fixtureDirectory: FIXTURE_DIRECTORY, lockedChoices, diagnosticSearches: searches,
+    observation: 'original chooser and diagnostic search each called once with unchanged arguments/results; cash-free enumeration after spies restored' }
+  if (witness === null) {
+    out('ABSENCE.json', json({ ...common, status: 'ABSENT', lastInputWeek: LAST_DECISION_WEEK, finalOutputWeek: state.market.tick, considered,
+      elapsedMs: performance.now() - started }))
+    throw new Error('1363-A8 ABSENT: no qualifying natural count12 witness in decision weeks0..520; no fixture minted; new search scope requires parent decision')
+  }
+  const { before, after, observation, candidates } = witness
+  assert.deepEqual(tick(before), after, 'unobserved original tick differs from observed tick')
+  const raw = exportSave(validateSaveV45(makeSave(before)))
+  assert.equal(exportSave(importSave(raw)), raw, 'actual Save45 writer/import round trip')
+  const afterRaw = exportSave(validateSaveV45(makeSave(after)))
+  const gz = gzipSync(Buffer.from(raw, 'utf8'), { level: 9 })
+  assert.equal(gunzipSync(gz).toString('utf8'), raw)
+  const business = before.hollywood!.businesses.find(b => b.studioId === observation.studioId)!
+  const later = after.hollywood!.businesses.find(b => b.studioId === observation.studioId)!
+  const input = observation.args[0]
+  const facts = { week: before.market.tick, afterWeek: after.market.tick, studioId: observation.studioId,
+    studioRow: before.hollywood!.identities.find(s => s.studioId === observation.studioId)!.row,
+    scriptId: observation.scriptId, ordinal: observation.ordinal, countBefore: 12, countAfter: count(after, observation.studioId, observation.ordinal),
+    productionsBefore: business.productions.length, productionsAfter: later.productions.length,
+    readyAndActive: true, actualSeatableTeamReachedChooser: true, oldOutcome: 'cashBlocked', candidateOutcome: 'economicRejection',
+    director: input.director.id, writer: input.writer.id, cast: Object.fromEntries(Object.entries(input.cast).map(([key, person]) => [key, person.id])), craft: input.craftHires.map(p => p.id),
+    cashAvailable: observation.args[2].cashAvailable, weeklyCost: observation.args[2].weeklyCost,
+    searchCounts: { affordable: observation.result.affordable, unaffordable: observation.result.unaffordable, viable: observation.result.viable },
+    allCashFreeViable: candidates.filter(c => c.viable).length, candidates,
+    rawBefore: digest(raw), rawAfter: digest(afterRaw),
+    accountBefore: business.account, accountAfter: later.account,
+    shelvingBefore: business.screenplayShelving, shelvingAfter: later.screenplayShelving,
+    appendedIndustryReceipts: after.hollywood!.receipts.slice(before.hollywood!.receipts.length),
+    rngBefore: before.rngState, rngAfter: after.rngState,
+    inputArgs: { ...observation.args[2], promisedMasks: [...(observation.args[2].promisedMasks ?? new Map())] },
+    decisionInputSha256: digest(stableStringify(observation.args)).sha256 }
+  ceiling()
+  assert.equal(git('rev-parse', 'HEAD'), head)
+  assert.equal(git('status', '--porcelain', '--untracked-files=no'), '')
+  const provenance = { ...common, status: 'MINTED', producer: 'tests/probes/1363-a8-capture.probe.ts', gzip: digest(gz), decoded: digest(raw), facts }
+  // Existing producer convention: capture basename + .provenance.json, not a generic invented schema.
+  out(`${CAPTURE_NAME}.json.gz`, gz)
+  out(`${CAPTURE_NAME}.provenance.json`, json(provenance))
+  out('MANIFEST.json', json({ ...common, elapsedMs: performance.now() - started,
+    inputs: [{ name: CAPTURE_NAME, gzip: digest(gz), decoded: digest(raw), facts: { week: facts.week, studioId: facts.studioId, scriptId: facts.scriptId, count: 12 } }] }))
+  out('SEARCH.json', json({ considered, selected: { week: facts.week, studioId: facts.studioId, ordinal: facts.ordinal }, naturalOrder: 'week; studio identity row; script ordinal' }))
+  out('old-source-after.json.gz', gzipSync(Buffer.from(afterRaw, 'utf8'), { level: 9 }))
+  process.stdout.write(json({ output, fixtureDirectory: FIXTURE_DIRECTORY, status: 'MINTED', executionHead: head,
+    selected: { week: facts.week, studioId: facts.studioId, ordinal: facts.ordinal }, inputs: [{ name: CAPTURE_NAME, gzip: digest(gz), decoded: digest(raw) }] }))
+}, CEILING_MS)
