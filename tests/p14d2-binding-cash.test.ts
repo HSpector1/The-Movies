@@ -1,0 +1,219 @@
+// 1363-A/F Part A only. Staged RED, not run. No Part B fields or policy.
+// Genuine fixtures load only through the existing pinned helper at test runtime.
+// Cash limits in integration cases are explicit policy-seam inputs, never forged accounts.
+import { beforeAll, describe, expect, it, vi } from 'vitest'
+import { tick, TUNING } from '../src/core/index.js'
+import * as policyModule from '../src/core/hollywoodPolicy.js'
+import * as forecasts from '../src/core/forecast.js'
+import { resolveShape } from '../src/core/shape.js'
+import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
+import { makeSave, validateSaveV45 } from '../src/core/save.js'
+import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import { liveWeek130, RIVAL_R01 } from './p14d1-rival-shelving-fixtures.js'
+import type { GameState } from '../src/core/types.js'
+
+type Args = Parameters<typeof policyModule.chooseIndustryPackage>
+type Options = Args[2] & { diagnoseUnaffordableViability?: boolean }
+type Search = ReturnType<typeof policyModule.searchIndustryPackages> & { unaffordableViable: number }
+const search = policyModule.searchIndustryPackages as (input: Args[0], policy: Args[1], options: Options) => Search
+const own = (s: GameState) => s.hollywood!.businesses.find(b => b.studioId === RIVAL_R01)!
+const count = (s: GameState, ordinal: number) => own(s).screenplayShelving.rejections.find(r => r.ordinal === ordinal)?.count ?? 0
+const target = (o: Args[2]) => o.lockScreenplay && o.key.startsWith(`${RIVAL_R01}:package:`)
+let hopeless: Args
+let viable: Args
+
+/** Captures actual decide inputs, calling the chooser once with unmodified arguments. */
+function capture(state: GameState): Args[] {
+  const original = policyModule.chooseIndustryPackage
+  const calls: Args[] = []
+  const spy = vi.spyOn(policyModule, 'chooseIndustryPackage').mockImplementation((...args) => {
+    if (target(args[2])) calls.push(args)
+    return original(...args)
+  })
+  try { tick(state) } finally { spy.mockRestore() }
+  return calls
+}
+
+/** Independent bounded enumeration: no production search result supplies the oracle.
+ * The charter's strict contribution-minus-preference test is cash-free; permutations
+ * are generated rather than imported from production's private BILLINGS. */
+function oracle(args: Args): { cost: number; viable: boolean }[] {
+  const [input, policy, options] = args
+  const planning = policyModule.perceivedPlanningInputs(input)
+  const actors = [planning.cast.lead, planning.cast.antagonist, planning.cast.support]
+  const rows: { cost: number; viable: boolean }[] = []
+  for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) for (let c = 0; c < 3; c++) {
+    if (a === b || a === c || b === c) continue
+    const inp = { ...planning, shapeEffects: resolveShape(planning.shape),
+      cast: { lead: actors[a]!, antagonist: actors[b]!, support: actors[c]! } }
+    const required = inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale
+    for (const scale of TUNING.HOLLYWOOD_NEGATIVE_CHOICES) {
+      const negative = Math.round(required * scale * policy.negativeScale)
+      const base = { ...inp, budget: { negative, marketing: 0 } }
+      for (const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base, true))) {
+        const f = forecasts.computeForecast({ ...base, budget: { negative, marketing } }, {
+          seed: options.seed, productionId: options.key, directorId: inp.director.id,
+          releasedFilms: [], concepts: [inp.concept],
+        }, true, true)
+        const contribution = f.expectedTotal * TUNING.STUDIO_RENTAL_BLENDED - negative - marketing
+        const preference = Math.abs(marketing / Math.max(negative, 1) - policy.marketingRatio) * TUNING.HOLLYWOOD_POLICY_PREFERENCE_COST
+        rows.push({ cost: negative + marketing, viable: contribution > preference })
+      }
+    }
+  }
+  return rows
+}
+
+/** Real search, forecast, tick and state; only the target rival's search cash gate
+ * is supplied by the test. This is a seam test, not a natural low-cash campaign.
+ * Legacy control emulates only the superseded label by reporting skipped count
+ * as skipped-viable count. It never alters choice or any persisted root. */
+function withCash<T>(cash: number, run: () => T, legacy = false): T {
+  const chooseOriginal = policyModule.chooseIndustryPackage
+  const searchOriginal = policyModule.searchIndustryPackages as typeof search
+  const chooseSpy = vi.spyOn(policyModule, 'chooseIndustryPackage').mockImplementation((input, policy, options) =>
+    chooseOriginal(input, policy, target(options) ? { ...options, cashAvailable: cash } : options))
+  const searchSpy = vi.spyOn(policyModule, 'searchIndustryPackages').mockImplementation((input, policy, options) => {
+    const effective: Options = target(options) ? { ...options, cashAvailable: cash,
+      ...(legacy ? { diagnoseUnaffordableViability: false } : {}) } : options
+    const result = searchOriginal(input, policy, effective)
+    return legacy && target(options) ? { ...result, unaffordableViable: result.unaffordable } : result
+  })
+  try { return run() } finally { searchSpy.mockRestore(); chooseSpy.mockRestore() }
+}
+
+/** A legal synthetic shelving state, not a claimed historical capture. */
+function dueState(ordinals: number[], source = liveWeek130(), delay = 0): GameState {
+  const state = structuredClone(source)
+  const h = state.hollywood!, b = own(state), week = state.market.tick
+  expect(b.productions).toHaveLength(0)
+  for (const ordinal of ordinals) {
+    expect(b.development.projects[ordinal]!.status).toBe('ready')
+    b.activeScriptOrdinals = b.activeScriptOrdinals.filter(i => i !== ordinal)
+    b.screenplayShelving.rejections = b.screenplayShelving.rejections.filter(r => r.ordinal !== ordinal)
+    b.screenplayShelving.shelved.push({ ordinal, week: week - 1 + delay, retryWeek: week + delay })
+    h.receipts.push({ eventId: `industry-event-${h.nextReceipt++}`, week: week - 1 + delay, studioId: RIVAL_R01,
+      kind: 'screenplayShelved', scriptProjectId: b.development.projects[ordinal]!.id,
+      conceptId: b.projects[ordinal]!.conceptId, rejections: TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS })
+  }
+  b.screenplayShelving.shelved.sort((a, b) => a.ordinal - b.ordinal)
+  b.screenplayShelving.commissionHoldUntilWeek = week + 3
+  validateSaveV45(makeSave(state))
+  return state
+}
+
+beforeAll(() => {
+  const refused = capture(liveWeek130())
+  hopeless = refused.find(args => args[2].key.endsWith(':script-0006'))!
+  expect(hopeless, 'genuine week-130 refusal input').toBeDefined()
+  expect(oracle(hopeless).some(row => row.viable)).toBe(false)
+  let genesis = p13aGeneratedStudio('p13a-core-causal-01')
+  for (let i = 0; i < 3; i++) genesis = tick(genesis)
+  viable = capture(genesis).find(args => args[2].key.endsWith(':script-0000'))!
+  expect(viable, 'genuine week-3 ready screenplay input').toBeDefined()
+  expect(oracle(viable).some(row => row.viable)).toBe(true)
+}, 30_000)
+
+describe('1363 Part A — binding cash', () => {
+  it('A1: opt-in skipped-viable counts match independent candidates; existing results and opt-out forecast cost stay unchanged', () => {
+    const rows = oracle(viable), cash = Math.min(...rows.filter(r => r.viable).map(r => r.cost)) - 1
+    const options = { ...viable[2], cashAvailable: cash }
+    const base = search(viable[0], viable[1], options)
+    const enabled = search(viable[0], viable[1], { ...options, diagnoseUnaffordableViability: true })
+    expect(enabled.unaffordableViable).toBe(rows.filter(r => r.cost > cash && r.viable).length)
+    expect(enabled.unaffordableViable).toBeGreaterThan(0)
+    expect({ choice: enabled.choice, affordable: enabled.affordable, unaffordable: enabled.unaffordable, viable: enabled.viable }).toEqual({ choice: base.choice, affordable: base.affordable, unaffordable: base.unaffordable, viable: base.viable })
+    expect(enabled.affordable).toBe(rows.filter(r => r.cost <= cash).length)
+    expect(enabled.unaffordable).toBe(rows.filter(r => r.cost > cash).length)
+    expect(enabled.viable).toBe(rows.filter(r => r.cost <= cash && r.viable).length)
+    const spy = vi.spyOn(forecasts, 'computeForecast')
+    try {
+      expect(policyModule.chooseIndustryPackage(viable[0], viable[1], options)).toEqual(base.choice)
+      expect(spy).toHaveBeenCalledTimes(base.affordable)
+    } finally { spy.mockRestore() }
+  })
+
+  it('A2: viable membership is cash-free across no, partial and full affordability', () => {
+    const rows = oracle(viable), low = Math.min(...rows.map(r => r.cost)), high = Math.max(...rows.map(r => r.cost))
+    for (const cash of [-1, low, Math.floor((low + high) / 2), high]) {
+      const result = search(viable[0], viable[1], { ...viable[2], cashAvailable: cash, diagnoseUnaffordableViability: true })
+      expect(result.unaffordableViable).toBe(rows.filter(r => r.viable && r.cost > cash).length)
+      expect(result.viable + result.unaffordableViable).toBe(rows.filter(r => r.viable).length)
+    }
+  })
+
+  it('A3: an all-hopeless partial-affordability refusal advances its rejection count', () => {
+    const rows = oracle(hopeless), low = Math.min(...rows.map(r => r.cost)), high = Math.max(...rows.map(r => r.cost))
+    const cash = Math.floor((low + high) / 2)
+    expect(cash).toBeGreaterThan(low); expect(cash).toBeLessThan(high)
+    const start = liveWeek130()
+    const end = withCash(cash, () => tick(start))
+    expect(count(end, 6)).toBe(count(start, 6) + 1)
+    expect(own(end).development.projects[6]!.status).toBe('ready')
+  })
+
+  it('A4: an all-hopeless refusal with every candidate unaffordable still advances', () => {
+    const start = liveWeek130(), end = withCash(-1, () => tick(start))
+    expect(count(end, 6)).toBe(count(start, 6) + 1)
+  })
+
+  it('A5: genuinely viable but unaffordable packages retain the count and do not greenlight', () => {
+    let start = p13aGeneratedStudio('p13a-core-causal-01')
+    for (let i = 0; i < 3; i++) start = tick(start)
+    const end = withCash(-1, () => tick(start))
+    expect(count(end, 0)).toBe(count(start, 0))
+    expect(own(end).development.projects[0]!.status).toBe('ready')
+    expect(end.hollywood!.receipts.slice(start.hollywood!.receipts.length).some(r => r.studioId === RIVAL_R01 && r.kind === 'filmAnnounced')).toBe(false)
+  })
+
+  it('A6: hopeless due retry advances, allowing the next due ordinal its next decision', () => {
+    const start = dueState([6, 11]), week = start.market.tick
+    const calls = capture(liveWeek130())
+    for (const ordinal of [6, 11]) {
+      const args = calls.find(row => row[2].key.endsWith(`:script-${String(ordinal).padStart(4, '0')}`))!
+      expect(args).toBeDefined(); expect(oracle(args).some(r => r.viable)).toBe(false)
+    }
+    const once = withCash(-1, () => tick(start))
+    expect(own(once).screenplayShelving.shelved.find(r => r.ordinal === 6)!.retryWeek).toBe(week + TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS)
+    expect(own(once).screenplayShelving.shelved.find(r => r.ordinal === 11)!.retryWeek).toBe(week)
+    const twice = withCash(-1, () => tick(once))
+    expect(own(twice).screenplayShelving.shelved.find(r => r.ordinal === 11)!.retryWeek).toBe(week + 1 + TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS)
+  })
+
+  it('A6: a truly cash-bound due retry keeps its due date', () => {
+    let genesis = p13aGeneratedStudio('p13a-core-causal-01')
+    for (let i = 0; i < 3; i++) genesis = tick(genesis)
+    const prepared = dueState([0], genesis, 1)
+    const due = withCash(-1, () => tick(prepared))
+    const retry = own(due).screenplayShelving.shelved.find(r => r.ordinal === 0)!
+    expect(retry.retryWeek).toBe(due.market.tick)
+    const observed = capture(due).find(row => row[2].key.endsWith(':script-0000'))!
+    expect(observed).toBeDefined(); expect(oracle(observed).some(r => r.viable)).toBe(true)
+    const next = withCash(-1, () => tick(due))
+    expect(own(next).screenplayShelving.shelved.find(r => r.ordinal === 0)).toEqual(retry)
+    expect(own(next).activeScriptOrdinals).not.toContain(0)
+  })
+
+  it('A7: where every candidate is affordable, live tick equals the legacy-classification control', () => {
+    const start = liveWeek130()
+    const candidate = withCash(Number.MAX_SAFE_INTEGER, () => tick(start))
+    const control = withCash(Number.MAX_SAFE_INTEGER, () => tick(start), true)
+    expect(candidate).toEqual(control)
+  })
+
+  it('A9: extra skipped-candidate forecasts do not move simulation RNG or mutate their input', () => {
+    const start = liveWeek130(), input = structuredClone(start)
+    const forecastSpy = vi.spyOn(forecasts, 'computeForecast')
+    try {
+      const candidate = withCash(-1, () => tick(start))
+      const candidateCalls = forecastSpy.mock.calls.length
+      forecastSpy.mockClear()
+      const control = withCash(-1, () => tick(start), true)
+      expect(candidateCalls, 'candidate really scored extra skipped packages').toBeGreaterThan(forecastSpy.mock.calls.length)
+      expect(candidate.rngState).toBe(control.rngState)
+      expect(start).toEqual(input)
+      // Ensure the comparison exercised changed classification, not two no-op paths.
+      expect(count(candidate, 6)).toBe(count(control, 6) + 1)
+    } finally { forecastSpy.mockRestore() }
+  })
+})

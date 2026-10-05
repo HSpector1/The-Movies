@@ -1,0 +1,36 @@
+{
+  "status": "Static draft only; no Node/typecheck/tests/runtime",
+  "generatingHead": "689a69f314a61a71c2ee4fc813fb4f16c7245ec1",
+  "files": {
+    "tests/p14d2-a8-fixture.ts": "98e21aef4a2d91c5b2718e261c2cd22bf39b6cbc6f1b0c9b45aa7658bafe548f",
+    "tests/p14d2-a8-binding-cash.test.ts": "86d4d7a9cda92a6d8259d6c3ac831c86fdfbcf2fae113d2138b5acc17086a5e7",
+    "a8-consumer.patch": "3d157d60b88db94c4ddd916587d30dafe19b098d8f4ffa5e09d0de6bc0ae1dda",
+    "HANDBACK.md": "2bb6842157e22274af109b106c595a3441861ed2630826be6f4f910d286b1723"
+  },
+  "newCaptureInputs": {
+    "MANIFEST.json": {
+      "bytes": 2463,
+      "sha256": "bd6d51a93b532d3f02de6bd0bae821588c70a7f63ac5251b092d518a12231b89"
+    },
+    "genuine-v45-binding-cash-count12.provenance.json": {
+      "bytes": 28287,
+      "sha256": "209b1fbdeaff37ff0f1228eeefebf201161bb3f878f1704072c67f9315a35597"
+    },
+    "genuine-v45-binding-cash-count12.json.gz": {
+      "bytes": 142226,
+      "sha256": "505c1335601ebd292fd0b341631ccb33ad4898eec652b4378c8f913d22064623"
+    },
+    "SEARCH.json": {
+      "bytes": 5378,
+      "sha256": "8eaa6e0660226d2244a7eecd2503186b11dbd27d4c436960e9d0c12ed1a33bff"
+    },
+    "old-source-after.json.gz": {
+      "bytes": 142260,
+      "sha256": "9f82c7b583f2d39e7436d68a7ab8d6034d4cb294a694a160c3acbe46c5000550"
+    }
+  },
+  "reviewedSourceProposals": {
+    "/Users/zacheryspector/studio-scratch/1363-prep/part-a-red/part-a-red.patch": "fa1240a2c754c44ae51880ee971e2f81bfc310f9eb412683b398ef96e6f17eac",
+    "/Users/zacheryspector/studio-scratch/1363-part-a-production-prep/part-a-production.patch": "2b11a5c13259b69ddcea3476b826c6eba690b7ea82facfa11e2aff03352bd5d9"
+  }
+}

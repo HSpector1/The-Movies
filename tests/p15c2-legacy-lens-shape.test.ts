@@ -1,0 +1,25 @@
+// 1361-F6 ruling 4: malformed lens rows must refuse by name, before object-key access.
+import { describe, expect, it } from 'vitest'
+import { makeSave, validateSaveV45 } from '../src/core/save.js'
+import { routeAt } from './helpers/p15c2-route-l.js'
+
+describe('P15C closure: named lens-shape refusal', () => {
+  it('rejects non-object lenses and preserves the valid baseline and input', () => {
+    const valid = makeSave(routeAt(6240))
+    expect(() => validateSaveV45(valid)).not.toThrow()
+    const original = structuredClone(valid)
+    for (const lens of [null, undefined, 0, 'lens', []]) {
+      const changed = structuredClone(valid)
+      const official = changed.state.campaignLegacy.official as unknown as { studios: { lenses: unknown[] }[] }
+      expect(official.studios[0]!.lenses.length).toBeGreaterThan(0)
+      official.studios[0]!.lenses[0] = lens
+      const before = structuredClone(changed)
+      expect(() => validateSaveV45(changed)).toThrowError(
+        /^validateSaveV45: campaignLegacy\.official\.studios\[0\]\.lenses\[0\] must be an object$/,
+      )
+      expect(changed).toEqual(before)
+    }
+    expect(valid).toEqual(original)
+    expect(() => validateSaveV45(valid)).not.toThrow()
+  }, 120_000)
+})

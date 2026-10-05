@@ -1,0 +1,8 @@
+{
+  "tests/fixtures/p14/genuine-v45-binding-cash-1363/MANIFEST.json": "bd6d51a93b532d3f02de6bd0bae821588c70a7f63ac5251b092d518a12231b89",
+  "tests/fixtures/p14/genuine-v45-binding-cash-1363/genuine-v45-binding-cash-count12.provenance.json": "209b1fbdeaff37ff0f1228eeefebf201161bb3f878f1704072c67f9315a35597",
+  "tests/fixtures/p14/genuine-v45-binding-cash-1363/genuine-v45-binding-cash-count12.json.gz": "505c1335601ebd292fd0b341631ccb33ad4898eec652b4378c8f913d22064623",
+  "tests/fixtures/p14/genuine-v36-downgrade-extension-controls/MANIFEST.json": "e62713cc60ecfce007b11ee381c5346a1fa98a430978983d47068d61addbb7ee",
+  "tests/fixtures/p14/genuine-v36-downgrade-extension-controls/reproduced-v36-extension-open-week92.json.gz": "88293028366023ac5ffb3cf48838391a27e80ef0d7e5c95eddff8247e36f77af",
+  "tests/fixtures/p14/genuine-v36-downgrade-extension-controls/reproduced-v36-extension-used-week98.json.gz": "69339e4af679bf39270619d2d73196b0a17958cf96e8b932b8f03015bc0bbc26"
+}

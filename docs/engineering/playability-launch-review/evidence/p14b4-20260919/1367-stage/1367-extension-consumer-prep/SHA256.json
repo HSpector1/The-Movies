@@ -1,0 +1,30 @@
+{
+  "status": "Static preparation only; no Node/typecheck/tests/runtime",
+  "files": {
+    "tests/helpers/1367-extension-fixtures.ts": "fe180e74a00bd48cb20f273d516a8fccab56edc9465f630b6858709aedc2946c",
+    "tests/save-v36-extension-own-era.test.ts": "3d4cbb0c16b748f2a167235602c1ba03d0e54be344aa15c6d459b70c2b9a4c96",
+    "extension-consumer.patch": "2dbd0ff0951cba74d958096007ec750f4d9291c5c9b027664651b079bc2f30da",
+    "HANDBACK.md": "b9c8850c6db075e09e9b49203ca4fb83062b1abd148839d7d8b471622f71de64"
+  },
+  "newCaptureFiles": {
+    "RESULT.json": {
+      "bytes": 157645,
+      "sha256": "244f47cb2dbca49b6ba052e18e228b22658c58edfeef7b5eed82fa35739dd520"
+    },
+    "genuine-v36-downgrade-extension-controls/MANIFEST.json": {
+      "bytes": 6182,
+      "sha256": "e62713cc60ecfce007b11ee381c5346a1fa98a430978983d47068d61addbb7ee"
+    },
+    "genuine-v36-downgrade-extension-controls/reproduced-v36-extension-open-week92.json.gz": {
+      "bytes": 112390,
+      "sha256": "88293028366023ac5ffb3cf48838391a27e80ef0d7e5c95eddff8247e36f77af"
+    },
+    "genuine-v36-downgrade-extension-controls/reproduced-v36-extension-used-week98.json.gz": {
+      "bytes": 118267,
+      "sha256": "69339e4af679bf39270619d2d73196b0a17958cf96e8b932b8f03015bc0bbc26"
+    }
+  },
+  "unchangedPriorPatch": {
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/1367-downgrade-prep/own-era-tests.patch": "98dd0d6218078e7c556da61ff57894b96d40266880446e9b20e2b9bd75796f00"
+  }
+}

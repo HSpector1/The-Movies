@@ -1,0 +1,98 @@
+--- original-operated-trial/probe/postrelease.ts
++++ maintenance-policy/probe/postrelease.ts
+@@ -1,10 +1,11 @@
+-// Analysis-only policy, no engine state edits. Review and bounded 520-week trial first.
++// Original operated policy plus paid public set maintenance only. New 520-week qualification required.
+ import { createHash } from 'node:crypto'
+ import { performance } from 'node:perf_hooks'
+ import { readFileSync } from 'node:fs'
+ import { fileURLToPath } from 'node:url'
+ import { applyActions } from '../tree/src/core/actions.js'
+-import { activeContract, contractOffer, hiringMarketIds, renewalWindowOpen } from '../tree/src/core/employment.js'
++import { repairSetRefusal, setIsUsable } from '../tree/src/core/sets.js'
++import { activeContract, canAfford, contractOffer, hiringMarketIds, renewalWindowOpen } from '../tree/src/core/employment.js'
+ import { initializeHollywood } from '../tree/src/core/hollywood.js'
+ import { makeSave, stableStringify, validateSaveV45 } from '../tree/src/core/save.js'
+ import { tick } from '../tree/src/core/tick.js'
+@@ -96,6 +97,63 @@
+   return next
+ }
+ 
++// This is controller maintenance, not a source/economic change. Existing public admission
++// owns price, shared scenery capacity, set holders, solvency and the paid work clock.
++type MaintenanceRecord = { week: number; setId: string; conditionBefore: number; quotedCost: number;
++  cashBefore: number; cashAfter: number; predictedRefusal: ReturnType<typeof repairSetRefusal>;
++  accepted: boolean; refusal: string | null; conditionAfter: number; statusAfter: string;
++  completesWeek: number | null; paid: number; ledger: GameState['ledger'] }
++const maintenance = { attempts: 0, accepted: 0, refused: 0, paid: 0, omittedRecords: 0,
++  recordLimit: 512, records: [] as MaintenanceRecord[], refusalCounts: {} as Record<string, number> }
++function maintainSets(input: GameState): GameState {
++  let next = input
++  // No proactive refurbishment, replacement, novel set, strike or policy-specific price.
++  const ids = input.sets.filter(set => set.status === 'standing' && !setIsUsable(set))
++    .map(set => set.id).sort((a, b) => a < b ? -1 : a > b ? 1 : 0)
++  for (const id of ids) {
++    const before = next
++    const set = before.sets.find(candidate => candidate.id === id)
++    if (set === undefined) throw new Error('postrelease maintenance: selected set disappeared')
++    const quotedCost = TUNING.SET_REPAIR_COST
++    const predictedRefusal = repairSetRefusal(before, id, cost => canAfford(before, cost).ok)
++    let refusal: string | null = null
++    try {
++      next = applyActions(before, [{ kind: 'repairSet', setId: id }])
++    } catch (error) {
++      const message = error instanceof Error ? error.message : String(error)
++      if (!message.startsWith('applyActions: repairSet rejected')) throw error
++      refusal = message
++      next = before
++    }
++    const acceptedRepair = refusal === null
++    const after = next.sets.find(candidate => candidate.id === id)
++    if (after === undefined) throw new Error('postrelease maintenance: public repair lost its set')
++    const ledger = next.ledger.slice(before.ledger.length)
++    if (acceptedRepair && (next === before || predictedRefusal !== null ||
++      next.studio.cash !== before.studio.cash - quotedCost || ledger.length !== 1 ||
++      ledger[0]!.kind !== 'setMaintenance' || ledger[0]!.amount !== -quotedCost ||
++      ledger[0]!.week !== before.market.tick || after.status !== 'under-construction' ||
++      after.completesWeek !== before.market.tick + TUNING.SET_REPAIR_WEEKS ||
++      after.condition !== set.condition || after.novelty !== set.novelty || after.quality !== set.quality)) {
++      throw new Error('postrelease maintenance: public paid repair did not match existing source law')
++    }
++    maintenance.attempts++
++    if (acceptedRepair) { maintenance.accepted++; maintenance.paid += quotedCost }
++    else {
++      if (predictedRefusal === null) throw new Error('postrelease maintenance: public refusal disagrees with its source guard: ' + refusal)
++      maintenance.refused++
++      maintenance.refusalCounts[predictedRefusal.code] = (maintenance.refusalCounts[predictedRefusal.code] ?? 0) + 1
++    }
++    const row: MaintenanceRecord = { week: before.market.tick, setId: id, conditionBefore: set.condition,
++      quotedCost, cashBefore: before.studio.cash, cashAfter: next.studio.cash, predictedRefusal,
++      accepted: acceptedRepair, refusal, conditionAfter: after.condition, statusAfter: after.status,
++      completesWeek: after.completesWeek, paid: acceptedRepair ? quotedCost : 0, ledger: structuredClone(ledger) }
++    if (maintenance.records.length < maintenance.recordLimit) maintenance.records.push(row)
++    else maintenance.omittedRecords++
++  }
++  return next
++}
++
+ function timing(input: GameState) {
+   const observations = []
+   for (let i = 0; i < 3; i++) {
+@@ -109,7 +167,7 @@
+ 
+ while (state.market.tick < horizon) {
+   if (performance.now() - started > ceiling) throw new Error(`postrelease: bounded wall ceiling at week${state.market.tick}`)
+-  const staffed = staff(state)
++  const staffed = maintainSets(staff(state))
+   const beforeFilms = staffed.studio.releasedFilms.length
+   // Existing WaveR branch: helper's ordinary tick is discarded, actual route takes develop:true.
+   const driven = runRosterWallOperatingWeek({ state: staffed, operatingPolicyId: 'direct-package', captureIntents: false })
+@@ -136,7 +194,7 @@
+   && state.studio.cash > 0 && roles.every(role => state.talent.filter(t => t.role === role && activeContract(state, t.id) !== undefined).length >= desired[role])
+ process.stdout.write(JSON.stringify({ policySha, trialQualified, recentReleases, scope: 'distinct seed-b fully operated route; not idle G-P/K3', horizon,
+   qualifiedPolicySha: process.env.QUALIFIED_POLICY_SHA ?? null, finalWeek: state.market.tick,
+-  elapsedMs: performance.now() - started, accepted, replacementHires, refusals, samples, checkpoints, postRelease,
++  elapsedMs: performance.now() - started, accepted, replacementHires, refusals, samples, checkpoints, maintenance, postRelease,
+   postReleaseMeasured: postRelease !== null, finalStateHash: hash(state) }) + '\n')
+ if (horizon === 6344 && postRelease === null) throw new Error('postrelease: no lawful post2040 release within bounded route')
+ if (horizon === 520 && !trialQualified) throw new Error('postrelease: staffing/production trial did not qualify; full route is not authorized by this result')

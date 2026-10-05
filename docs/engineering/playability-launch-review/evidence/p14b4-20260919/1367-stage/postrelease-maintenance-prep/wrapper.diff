@@ -1,0 +1,36 @@
+--- original-operated-trial/executed-wrapper.sh
++++ maintenance-policy/run-maintenance.sh
+@@ -3,7 +3,7 @@
+ # Arguments: accepted full HEAD, exclusive run leaf, trial|full, [qualified trial output dir].
+ set -euo pipefail
+ R=/Users/zacheryspector/The-Movies-headless-program
+-PREP=/Users/zacheryspector/studio-scratch/1361-postrelease-prep
++PREP=/Users/zacheryspector/studio-scratch/1361-postrelease-maintenance-prep
+ HEAD_PIN=${1:?accepted source HEAD required}
+ LEAF=${2:?exclusive run leaf required}
+ MODE=${3:?trial or full required}
+@@ -14,7 +14,7 @@
+ [ "$(node --version)" = v20.20.2 ] || exit 2
+ FREE_KIB=$(df -k / | awk 'NR==2 {print $4}')
+ [ "$FREE_KIB" -ge 5242880 ] || { echo 'requires5GiB free' >&2; exit 2; }
+-X=/Users/zacheryspector/studio-scratch/1361-postrelease-runs/$LEAF
++X=/Users/zacheryspector/studio-scratch/1361-postrelease-maintenance-runs/$LEAF
+ case "$MODE" in
+   trial) WEEKS=520; CAP_MS=600000 ;;
+   full) WEEKS=6344; CAP_MS=7200000 ;;
+@@ -25,6 +25,7 @@
+ QUALIFIED_SHA=
+ TRIAL=
+ SOURCE_TREE=$(git -C "$R" rev-parse "$HEAD_PIN:src")
++[ "$SOURCE_TREE" = 88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837 ] || { echo 'original Save45 source required' >&2; exit 2; }
+ WRAPPER_SHA=$(shasum -a 256 "$0" | awk '{print $1}')
+ if [ "$MODE" = full ]; then
+   TRIAL=${4:?qualified trial output directory required}
+@@ -36,6 +37,7 @@
+ assert meta['exitCode']==0 and meta['timedOut'] is False and meta['mode']=='trial'
+ assert result['trialQualified'] is True and result['policySha']==sys.argv[3] and result['finalWeek']==520
+ assert len(result['replacementHires'])>0 and result['recentReleases']>0
++assert result['maintenance']['accepted']>0, 'qualified maintenance policy must actually exercise paid repair'
+ PY
+   QUALIFIED_SHA=$POLICY_SHA
+ fi

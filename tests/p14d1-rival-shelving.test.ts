@@ -253,7 +253,7 @@ describe('searchIndustryPackages counts contract (1344-D Blocking 1)', () => {
     expect(searched.choice === null).toBe(searched.viable === 0)
   }, 15_000)
 
-  it('decide-level: a partly cash-constrained week (cash strictly between the cheapest and dearest real candidate cost) reads cashBlocked — the rejection count stays unchanged', () => {
+  it('decide-level: partly unaffordable but all-hopeless packages count as economic rejection under 1363 Part A', () => {
     const original = hollywoodPolicy.chooseIndustryPackage
     type PackageArgs = Parameters<typeof original>
     const captured: { input: PackageArgs[0]; policy: PackageArgs[1]; result: ReturnType<typeof original> }[] = []
@@ -304,7 +304,7 @@ describe('searchIndustryPackages counts contract (1344-D Blocking 1)', () => {
       blocked = tick(blocked)
       const b = business(blocked, RIVAL_R01)
       expect(shelving(b).rejections.find(r => r.ordinal === 6)?.count,
-        `partial-cashBlocked week ${i} holds the count (real cost range [${minCost},${maxCost}], cash set to reserve+${cashBetween})`).toBe(1)
+        `1363 economic-rejection week ${i} advances despite partial unaffordability (real cost range [${minCost},${maxCost}], cash set to reserve+${cashBetween})`).toBe(i + 2)
     }
   }, 15_000)
 })
@@ -436,7 +436,7 @@ describe('shelving-blocked-weeks-hold (1344-A §6.2)', () => {
     expect(evaluated, 'no package is evaluated for r01 across the staffingBlocked weeks (cash blocks the re-hire, not the package)').toEqual([])
   }, 15_000)
 
-  it('cashBlocked weeks (cash below every candidate) leave the rejection count unchanged', () => {
+  it('all-hopeless weeks below every candidate still advance the rejection count under 1363 Part A', () => {
     let state = liveWeek130()
     const RIVAL = RIVAL_R01
     state = tick(state)
@@ -444,7 +444,8 @@ describe('shelving-blocked-weeks-hold (1344-A §6.2)', () => {
     const b1 = business(state, RIVAL)
     expect(shelving(b1).rejections.find(r => r.ordinal === ordinal)?.count).toBe(1)
     // Drive cash to zero: every (negative,marketing) candidate exceeds cashAvailable,
-    // so chooseIndustryPackage sees zero affordable candidates (cashBlocked, §3.1).
+    // so chooseIndustryPackage sees zero affordable candidates. 1363 Part A asks whether
+    // any skipped candidate is viable; on this all-hopeless premise none is.
     let blocked: GameState = {
       ...state,
       hollywood: {
@@ -456,7 +457,7 @@ describe('shelving-blocked-weeks-hold (1344-A §6.2)', () => {
     for (let i = 0; i < 3; i++) {
       blocked = tick(blocked)
       const b = business(blocked, RIVAL)
-      expect(shelving(b).rejections.find(r => r.ordinal === ordinal)?.count, `cashBlocked week ${i} holds the count`).toBe(1)
+      expect(shelving(b).rejections.find(r => r.ordinal === ordinal)?.count, `1363 economic-rejection week ${i} advances despite no affordable package`).toBe(i + 2)
     }
   }, 15_000)
 
