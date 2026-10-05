@@ -1,0 +1,436 @@
+diff --git a/tests/helpers/1367-recovery-predecessors.ts b/tests/helpers/1367-recovery-predecessors.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/helpers/1367-recovery-predecessors.ts
+@@ -0,0 +1,91 @@
++// Accepted 1367-M captures, copied byte-for-byte at the repository paths below.
++// Literal pins come from preserved independent mint reviews, never live reconstruction.
++import { createHash } from 'node:crypto'
++import { readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { expect } from 'vitest'
++import { exportSave, importSave, stableStringify, validateSaveV26, validateSaveV45 } from '../../src/core/save.js'
++
++const ROOT45 = new URL('../fixtures/p14/genuine-v45-recovery-predecessors-1363/', import.meta.url)
++const ROOT26 = new URL('../fixtures/p13b/genuine-v26-old-era-period-1363/', import.meta.url)
++const HEAD = '689a69f314a61a71c2ee4fc813fb4f16c7245ec1'
++const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
++const PINS45 = {
++  0: { name: 'p13a-week-0.save45.json.gz', week: 0, gzipBytes: 48875, rawBytes: 402008,
++    gzipSha256: '4bded8663feb1cd20d7425405d7daf4864a3f3b5a840e9deaf86b09ce45bb8ae',
++    rawSha256: 'eb0aa9897e964ec56ffe287d2dba7853c953689f50d7348aaadc9330348e4f7b',
++    stateSha256: 'ee4f81b834c726f0dc0166786ecd2cdc95ffa98856db238a1b41bf59dabc38e0' },
++  53: { name: 'p13a-week-53.save45.json.gz', week: 53, gzipBytes: 90405, rawBytes: 774318,
++    gzipSha256: 'fd4b8f0986453d1b735dda8410ffd05c841289d0fd51d9fe1a6707128947dc68',
++    rawSha256: 'd66a6809c3fc3dacf6a83386cad320d94c70264384f47e5f83a0bd0320768d07',
++    stateSha256: 'dc973949b9ae006ec113a76727511ecf0d69f53d623356a57c4ec6e555112abe' },
++} as const
++function pinned(root: URL, name: string, bytes: number, hash: string): Buffer {
++  const value = readFileSync(new URL(name, root))
++  expect(value.byteLength, `${name}: accepted capture byte pin`).toBe(bytes)
++  expect(sha(value), `${name}: accepted capture SHA pin`).toBe(hash)
++  return value
++}
++function decoded(root: URL, pin: { name: string; gzipBytes: number; rawBytes: number; gzipSha256: string; rawSha256: string }): string {
++  const raw = gunzipSync(pinned(root, pin.name, pin.gzipBytes, pin.gzipSha256)).toString('utf8')
++  expect(Buffer.byteLength(raw)).toBe(pin.rawBytes)
++  expect(sha(raw)).toBe(pin.rawSha256)
++  return raw
++}
++export function recoveryPredecessor45(week: 0 | 53) {
++  const manifest = JSON.parse(pinned(ROOT45, 'MANIFEST.json', 118645,
++    '0cee53cb3c0a09d3b1afef8e9200f26a570423533a468864a9233cf6ce85001d').toString('utf8')) as {
++    format: string; generatingHead: string; originalSourceHead: string; srcTree: string; sourceSaveVersion: number;
++    seed: string; bound: { ticks: number; weeks: number[] }; files: Record<string, string>; captures: unknown[];
++  }
++  expect(manifest.format).toBe('1363-save45-predecessor/v1')
++  expect(manifest.generatingHead).toBe(HEAD)
++  expect(manifest.originalSourceHead).toBe('2eaa697effc38538c37da28b486786ce267a2284')
++  expect(manifest.srcTree).toBe('88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837')
++  expect(manifest.sourceSaveVersion).toBe(45)
++  expect(manifest.seed).toBe('p13a-core-causal-01')
++  expect(manifest.bound).toMatchObject({ ticks: 53, weeks: [0, 53] })
++  expect(manifest.files['scripts/captures/1363-save45-predecessor.ts']).toBe('7c94086ca4787a931f0bd61b7eb94cacee3062ec14973a7132799f37036eebac')
++  expect(manifest.files['scripts/captures/1363-save45-predecessor.config.ts']).toBe('7b935bef9808c4bae3371515c31ee3fb25bc78744070decab92e7c995a28abff')
++  expect(manifest.captures).toEqual([PINS45[0], PINS45[53]])
++  const pin = PINS45[week], raw = decoded(ROOT45, pin), parsed: unknown = JSON.parse(raw)
++  const before = stableStringify(parsed), save = validateSaveV45(parsed)
++  expect(save).toBe(parsed)
++  expect(stableStringify(parsed), 'genuine45 reader cannot repair the predecessor').toBe(before)
++  expect(save.saveVersion).toBe(45)
++  expect(save.state.market.tick).toBe(week)
++  expect(sha(stableStringify(save.state))).toBe(pin.stateSha256)
++  expect(exportSave(save)).toBe(raw)
++  expect(validateSaveV45(importSave(raw))).toEqual(save)
++  expect(stableStringify(save)).toBe(before)
++  return save
++}
++export function recoveryOldPeriod26() {
++  const manifest = JSON.parse(pinned(ROOT26, 'MANIFEST.json', 2935,
++    'bd0df3d065934c22275120bb6e0b340a76885f3ac0c4790a3f2e4ff92e7ef7fd').toString('utf8')) as {
++    format: string; generatingHead: string; currentValidationHead: string; producerSha256: string;
++    archivedSourceFilesSha256: string; sourceSaveVersion: number; startWeek: number; ticks: number; week: number;
++    inputRawSha256: string; capture: { name: string; gzipBytes: number; rawBytes: number; gzipSha256: string; rawSha256: string };
++  }
++  expect(manifest.format).toBe('1363-old-era-period-capture/v1')
++  expect(manifest.generatingHead).toBe('ce6945d58257f70c1b222a8c00e06038db73f6e4')
++  expect(manifest.currentValidationHead).toBe(HEAD)
++  expect(manifest.producerSha256).toBe('84643aa7517682b1c090fd74581419c30fa5e3bed02a52f30ff96536ba53ef86')
++  expect(manifest.archivedSourceFilesSha256).toBe('942359540dafb615549c58df2cf1ea5067e1c7acd0d8df0dda24187241a67a14')
++  expect(manifest.sourceSaveVersion).toBe(26)
++  expect([manifest.startWeek, manifest.ticks, manifest.week]).toEqual([309, 3, 312])
++  expect(manifest.inputRawSha256).toBe('11ef05be4131d3d3c4a19484f31e79cb50fa1936868f96ace7d0d18ea86e2d72')
++  const pin = { name: 'genuine-v26-sound-mid-deployment-week312.json.gz', gzipBytes: 121310, rawBytes: 1106746,
++    gzipSha256: 'd8b36ff43d7ad1e6a1b41ae3888e786f0266211875084f6d9d23b33bf5510757',
++    rawSha256: 'fcbf32c3bc133cf6154b07603610d00a7c2533cdc6e70a0533d0a80f826d8868' }
++  expect(manifest.capture).toEqual(pin)
++  const raw = decoded(ROOT26, pin), parsed: unknown = JSON.parse(raw), before = stableStringify(parsed)
++  const save = validateSaveV26(parsed)
++  expect(save).toBe(parsed)
++  expect(stableStringify(parsed), 'genuine26 reader cannot repair the predecessor').toBe(before)
++  expect(save.state.market.tick).toBe(312)
++  expect(exportSave(save)).toBe(raw)
++  expect(validateSaveV26(importSave(raw))).toEqual(save)
++  expect(stableStringify(save)).toBe(before)
++  return save
++}
+diff --git a/tests/p14d2-save46-migration.test.ts b/tests/p14d2-save46-migration.test.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/p14d2-save46-migration.test.ts
+@@ -0,0 +1,221 @@
++// 1367-H combined B+C; capture prerequisite is real, separately minted Save45.
++import { describe, expect, it } from 'vitest'
++import * as save from '../src/core/save.js'
++import * as research from '../src/core/rivalResearch.js'
++import type { GameState } from '../src/core/types.js'
++import { recoveryPredecessor45 } from './helpers/1367-recovery-predecessors.js'
++
++type Envelope = { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown }
++type RecoveryBusiness = { costCutting: { version: 1; since: number | null } }
++type Era = {
++  validateSaveV46(value: unknown): Envelope
++  convertV45ToV46(value: unknown): Envelope
++  convertV46ToV45(value: unknown): Envelope
++  migrateToV46(value: unknown): Envelope
++}
++const bytes = save.stableStringify
++const ZERO = 'p13a-week-0.save45.json.gz'
++const HISTORY = 'p13a-week-53.save45.json.gz'
++const lowerVersions = Array.from({ length: 42 }, (_, i) => i + 4) // every public migrateToV4 .. V45
++const frozenVersions = Array.from({ length: 18 }, (_, i) => i + 1)
++const sinceRefusal = 'migrateToV45: cannot downgrade or discard recovery authority: costCutting.since'
++const allRefusal = sinceRefusal + ', facilityDemolitionRefund, facilityDisposed'
++function api(): Era {
++  const future = save as unknown as Era
++  for (const name of ['validateSaveV46', 'convertV45ToV46', 'convertV46ToV45', 'migrateToV46'] as const)
++    expect(typeof future[name], 'MISSING SAVE46 API: ' + name).toBe('function')
++  return future
++}
++function entry(name: string): (value: unknown) => unknown {
++  const fn = (save as unknown as Record<string, unknown>)[name]
++  expect(typeof fn, 'named real save entry: ' + name).toBe('function')
++  return fn as (value: unknown) => unknown
++}
++const cache = new Map<string, Envelope>()
++function predecessor(name: typeof ZERO | typeof HISTORY): Envelope {
++  if (!cache.has(name)) {
++    const old = recoveryPredecessor45(name === ZERO ? 0 : 53) as unknown as Envelope
++    expect(old.state.hollywood).not.toBeNull()
++    for (const business of old.state.hollywood!.businesses) {
++      expect(Object.hasOwn(business, 'costCutting')).toBe(false)
++      for (const period of business.account.periods) expect(Object.hasOwn(period.movements, 'facilityDemolitionRefund')).toBe(false)
++    }
++    expect(old.state.hollywood!.receipts.some(r => (r.kind as string) === 'facilityDisposed')).toBe(false)
++    cache.set(name, old)
++  }
++  return structuredClone(cache.get(name)!)
++}
++function admitted(value: Envelope): Envelope {
++  expect(value.saveVersion).toBe(46)
++  expect(api().validateSaveV46(value)).toBe(value)
++  return value
++}
++function withSince(): Envelope {
++  const old = predecessor(ZERO)
++  const current = admitted(api().convertV45ToV46(old))
++  const owner = current.state.hollywood!.businesses.find(b => b.productions.length === 0 && b.runs.length === 0
++    && !current.state.talentMarket.proposals.some(p => p.issuerStudioId === b.studioId))
++  expect(owner, 'UNMET VALID PREMISE: genuine week-zero idle owner').toBeDefined()
++  const cutting = owner! as unknown as RecoveryBusiness
++  expect(cutting.costCutting).toEqual({ version: 1, since: null })
++  // Explicit synthetic policy-state control; not a claim of natural decision entry.
++  cutting.costCutting.since = current.state.market.tick
++  return admitted(current)
++}
++function observed(fn: () => unknown): { kind: 'value'; bytes: string } | { kind: 'error'; message: string } {
++  try { return { kind: 'value', bytes: bytes(fn()) } }
++  catch (error) { expect(error).toBeInstanceOf(Error); return { kind: 'error', message: (error as Error).message } }
++}
++function errorMessage(fn: () => unknown): string {
++  const result = observed(fn)
++  expect(result.kind, 'expected a refusal from an admitted baseline').toBe('error')
++  return result.kind === 'error' ? result.message : ''
++}
++
++describe('1363 Save46 genuine predecessor migration and boundary law', () => {
++  it.each([ZERO, HISTORY] as const)('adds only null/zero to %s, preserving all old facts, detached and idempotent', name => {
++    const old = predecessor(name), before = bytes(old)
++    if (name === HISTORY) expect(old.state.hollywood!.businesses.some(b => b.account.periods.length > 1),
++      'UNMET VALID PREMISE: actual old multi-period finance').toBe(true)
++    const current = admitted(api().convertV45ToV46(old))
++    expect(current).not.toBe(old)
++    expect(current.state).not.toBe(old.state)
++    const projected = structuredClone(current)
++    projected.saveVersion = 45
++    for (const owner of projected.state.hollywood!.businesses) {
++      expect((owner as unknown as RecoveryBusiness).costCutting).toEqual({ version: 1, since: null })
++      Reflect.deleteProperty(owner, 'costCutting')
++      for (const period of owner.account.periods) {
++        expect((period.movements as unknown as Record<string, number>).facilityDemolitionRefund).toBe(0)
++        Reflect.deleteProperty(period.movements, 'facilityDemolitionRefund')
++      }
++    }
++    // Test-only exact inverse oracle, never used as an input to a historical reader.
++    expect(bytes(projected)).toBe(before)
++    expect(bytes(api().convertV46ToV45(current))).toBe(before)
++    expect(bytes(api().migrateToV46(old))).toBe(bytes(current))
++    expect(bytes(api().migrateToV46(current))).toBe(bytes(current))
++    expect(bytes(entry('migrateToLive')(old))).toBe(bytes(current))
++    expect(bytes(entry('migrateToLive')(current))).toBe(bytes(current))
++    expect(bytes(old)).toBe(before)
++    const first = current.state.hollywood!.businesses[0]!
++    expect(first).not.toBe(old.state.hollywood!.businesses[0])
++    const oldFirst = old.state.hollywood!.businesses[0]!
++    expect(first.account).not.toBe(oldFirst.account)
++    expect(first.account.periods).not.toBe(oldFirst.account.periods)
++    expect(first.account.periods[0]).not.toBe(oldFirst.account.periods[0])
++    expect(first.account.periods[0]!.movements).not.toBe(oldFirst.account.periods[0]!.movements)
++    expect(current.state.hollywood!.receipts).not.toBe(old.state.hollywood!.receipts)
++    expect(bytes(old)).toBe(before)
++  })
++
++  it('validates the predecessor before up-migration and the full current save before any authority refusal', () => {
++    const old = predecessor(ZERO)
++    const invalidOld = structuredClone(old)
++    invalidOld.seed += '-envelope-mismatch'
++    const oldRefusal = errorMessage(() => save.validateSaveV45(invalidOld))
++    const before = bytes(invalidOld)
++    expect(errorMessage(() => api().convertV45ToV46(invalidOld))).toBe(oldRefusal)
++    expect(bytes(invalidOld)).toBe(before)
++    const current = withSince()
++    current.seed += '-envelope-mismatch'
++    const currentRefusal = errorMessage(() => api().validateSaveV46(current))
++    expect(currentRefusal).not.toBe(sinceRefusal)
++    const currentBytes = bytes(current)
++    expect(errorMessage(() => api().convertV46ToV45(current))).toBe(currentRefusal)
++    expect(bytes(current)).toBe(currentBytes)
++  })
++
++  it.each(lowerVersions)('migrateToV%i handles empty recovery through exactly the existing predecessor law', version => {
++    const old = predecessor(HISTORY), before = bytes(old)
++    const fn = entry('migrateToV' + version)
++    const control = observed(() => fn(structuredClone(old)))
++    // An existing historical refusal is a valid parity result, not a claimed successful downgrade.
++    const current = admitted(api().convertV45ToV46(old)), currentBytes = bytes(current)
++    expect(observed(() => fn(current))).toEqual(control)
++    expect(bytes(current)).toBe(currentBytes)
++    expect(bytes(old)).toBe(before)
++  })
++
++  it.each(lowerVersions)('migrateToV%i refuses real since before any older-era authority can mask it', version => {
++    const current = withSince(), before = bytes(current)
++    expect(errorMessage(() => entry('migrateToV' + version)(current))).toBe(sinceRefusal)
++    expect(bytes(current)).toBe(before)
++  })
++
++  it.each(frozenVersions)('makeSaveV%i preserves predecessor outcome when recovery is empty, names nonempty recovery', version => {
++    const fn = entry('makeSaveV' + version), old = predecessor(ZERO)
++    const control = observed(() => fn(structuredClone(old.state)))
++    const empty = admitted(api().convertV45ToV46(old)), emptyBytes = bytes(empty)
++    expect(observed(() => fn(empty.state))).toEqual(control)
++    expect(bytes(empty)).toBe(emptyBytes)
++    const full = withSince(), before = bytes(full)
++    expect(errorMessage(() => fn(full.state))).toBe(
++      `makeSaveV${version}: cannot downgrade or discard recovery authority: costCutting.since`)
++    expect(bytes(full)).toBe(before)
++  })
++
++  it.each([45, 44, 43, 42, 41])('public V%i keeps its own business and money key law', version => {
++    const old = predecessor(ZERO)
++    const own = entry('migrateToV' + version)(old) as Envelope
++    const validate = entry('validateSaveV' + version)
++    expect(validate(own)).toBe(own) // valid own-era control FIRST
++    const baseline = bytes(own)
++    for (const kind of ['cuttingKey', 'refundKey'] as const) {
++      const mutant = structuredClone(own)
++      const owner = mutant.state.hollywood!.businesses[0]!
++      if (kind === 'cuttingKey') Object.assign(owner, { costCutting: { version: 1, since: null } })
++      else Object.assign(owner.account.periods[0]!.movements, { facilityDemolitionRefund: 0 })
++      const refusal = errorMessage(() => validate(mutant))
++      expect(refusal.startsWith('Hollywood save: exact keys required: ')).toBe(true)
++      // Since the only mutation is one added field on an otherwise admitted object,
++      // an earlier unrelated old-root refusal cannot satisfy this expectation.
++      expect(refusal).not.toContain(kind === 'cuttingKey' ? 'costCutting' : 'facilityDemolitionRefund')
++    }
++    expect(bytes(own)).toBe(baseline)
++  })
++
++  it('a real disposal names every inseparable authority rather than hiding refund/tombstone behind since', () => {
++    const future = research as unknown as {
++      rivalFacilityDisposalEligibility(s: GameState, studioId: string, facilityId: string): { eligible: boolean }
++      disposeRivalFacility(s: GameState, studioId: string, facilityId: string): GameState
++    }
++    expect(typeof future.rivalFacilityDisposalEligibility).toBe('function')
++    expect(typeof future.disposeRivalFacility).toBe('function')
++    const initial = admitted(api().convertV45ToV46(predecessor(HISTORY)))
++    let selected: { envelope: Envelope; studioId: string; facilityId: string } | undefined
++    for (const original of initial.state.hollywood!.businesses) {
++      if (original.productions.length || original.runs.length
++        || initial.state.talentMarket.proposals.some(p => p.issuerStudioId === original.studioId)) continue
++      for (const facility of original.operations.facilities.filter(f => f.capability === 'laboratory')) {
++        const candidate = structuredClone(initial)
++        const owner = candidate.state.hollywood!.businesses.find(b => b.studioId === original.studioId)!
++        expect((owner as unknown as RecoveryBusiness).costCutting.since).toBeNull()
++        ;(owner as unknown as RecoveryBusiness).costCutting.since = candidate.state.market.tick
++        admitted(candidate) // synthetic cutting control must be valid before invoking the real producer
++        if (future.rivalFacilityDisposalEligibility(candidate.state, owner.studioId, facility.id).eligible) {
++          selected = { envelope: candidate, studioId: owner.studioId, facilityId: facility.id }; break
++        }
++      }
++      if (selected) break
++    }
++    expect(selected, 'UNMET VALID PREMISE: captured week 53 has no eligible paid bare lab on an idle owner; do not alter history or widen route').toBeDefined()
++    const { envelope, studioId, facilityId } = selected!
++    const before = bytes(envelope)
++    const result = future.disposeRivalFacility(envelope.state, studioId, facilityId)
++    const disposed = admitted(save.makeSave(result) as unknown as Envelope)
++    expect(bytes(envelope)).toBe(before)
++    const receipts = disposed.state.hollywood!.receipts.filter(r => (r.kind as string) === 'facilityDisposed')
++    expect(receipts).toHaveLength(1)
++    const owner = disposed.state.hollywood!.businesses.find(b => b.studioId === studioId)!
++    expect(owner.operations.facilities.some(f => f.id === facilityId)).toBe(false)
++    expect(owner.account.periods.reduce((sum, p) => sum +
++      (p.movements as unknown as Record<string, number>).facilityDemolitionRefund!, 0)).toBeGreaterThan(0)
++    const immutable = bytes(disposed)
++    expect(errorMessage(() => api().convertV46ToV45(disposed))).toBe(allRefusal)
++    for (const version of lowerVersions) expect(errorMessage(() => entry('migrateToV' + version)(disposed))).toBe(allRefusal)
++    for (const version of frozenVersions) expect(errorMessage(() => entry('makeSaveV' + version)(disposed.state))).toBe(
++      `makeSaveV${version}: cannot downgrade or discard recovery authority: costCutting.since, facilityDemolitionRefund, facilityDisposed`)
++    expect(bytes(disposed)).toBe(immutable)
++  }, 120_000)
++})
+diff --git a/tests/p13b-s8-old-era-period.test.ts b/tests/p13b-s8-old-era-period.test.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/p13b-s8-old-era-period.test.ts
+@@ -0,0 +1,109 @@
++// Explicit historical admission regression. No root stripping, clock edit or cash repair.
++import { createHash } from 'node:crypto'
++import { readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { describe, expect, it } from 'vitest'
++import * as save from '../src/core/save.js'
++import { admitRivalPlans } from '../src/core/rivalResearch.js'
++import type { GameState } from '../src/core/types.js'
++import { recoveryOldPeriod26 } from './helpers/1367-recovery-predecessors.js'
++
++const INPUT_RAW_SHA = '11ef05be4131d3d3c4a19484f31e79cb50fa1936868f96ace7d0d18ea86e2d72'
++const INPUT = './fixtures/p13b/legacy-v26-sound-mid-deployment-309.json.gz'
++const V27_KINDS = ['capacity', 'signing', 'payroll', 'overhead', 'facilityOpex', 'development',
++  'production', 'marketing', 'studioRevenue', 'technologyAdoption', 'researchSpend',
++  'researchCapacity', 'technologyRestoration', 'technologyRefund'].sort()
++const sha = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
++const bytes = save.stableStringify
++const historicalAdmission = admitRivalPlans as unknown as (state: GameState, era: 'pre-recovery') => {
++  state: GameState; history: readonly unknown[]
++}
++function initial309() {
++  const raw = gunzipSync(readFileSync(new URL(INPUT, import.meta.url))).toString('utf8')
++  expect(sha(raw)).toBe(INPUT_RAW_SHA)
++  const parsed: unknown = JSON.parse(raw), before = bytes(parsed)
++  const value = save.validateSaveV26(parsed)
++  expect(bytes(parsed)).toBe(before)
++  expect(value.state.market.tick).toBe(309)
++  return value
++}
++const original312 = recoveryOldPeriod26
++function admittedLift(value: ReturnType<typeof initial309>) {
++  expect(save.validateSaveV26(value)).toBe(value)
++  const before = bytes(value)
++  const lifted = save.migrateToV27(value)
++  expect(save.validateSaveV27(lifted)).toBe(lifted)
++  expect(bytes(value)).toBe(before)
++  expect(lifted.state.hollywood).not.toBeNull()
++  for (const b of lifted.state.hollywood!.businesses) {
++    expect(Object.hasOwn(b, 'costCutting')).toBe(false)
++    for (const p of b.account.periods) expect(Object.keys(p.movements).sort()).toEqual(V27_KINDS)
++  }
++  return lifted
++}
++function stage(lifted: ReturnType<typeof admittedLift>, rollover: boolean) {
++  const before = bytes(lifted)
++  const result = historicalAdmission(lifted.state as unknown as GameState, 'pre-recovery')
++  expect(result.history).toEqual([])
++  expect(bytes(lifted)).toBe(before)
++  const oldIds = new Set(lifted.state.physicalPlans.plans.map(p => p.id))
++  const newPlans = result.state.physicalPlans.plans.filter(p => !oldIds.has(p.id))
++  expect(newPlans.length, 'UNMET VALID PREMISE: actual admitted V27 rival must afford at least one new Laboratory').toBeGreaterThan(0)
++  expect(result.state.market.tick).toBe(lifted.state.market.tick)
++  expect(result.state.hollywood!.receipts.slice(0, lifted.state.hollywood!.receipts.length)).toEqual(lifted.state.hollywood!.receipts)
++  let changed = 0
++  for (const owner of result.state.hollywood!.businesses) {
++    const original = lifted.state.hollywood!.businesses.find(b => b.studioId === owner.studioId)!
++    const ownNew = newPlans.filter(p => p.studioId === owner.studioId)
++    if (!ownNew.length) { expect(owner).toEqual(original); continue }
++    changed++
++    // The real V26 predecessor has no rival research plant; actual V27 admission
++    // therefore commits paid body plans, not a forged finance-only movement.
++    for (const plan of ownNew) {
++      expect(plan.work).toMatchObject({ kind: 'placement', blueprintId: 'research-laboratory' })
++      expect(plan.status).toBe('started')
++      expect(plan.commitReceipt).not.toBeNull()
++      expect(plan.commitReceipt!.week).toBe(lifted.state.market.tick)
++      expect(plan.commitReceipt!.cost).toBe(plan.approvedQuote.cost)
++      expect(plan.commitReceipt!.cost).toBeGreaterThan(0)
++      expect(result.state.hollywood!.receipts.filter(r => r.kind === 'laboratoryCommitted' && r.planId === plan.id)).toHaveLength(1)
++    }
++    const debit = ownNew.reduce((sum, p) => sum + p.commitReceipt!.cost, 0)
++    expect(owner.account.cash).toBe(original.account.cash - debit)
++    const previous = original.account.periods.at(-1)!
++    const last = owner.account.periods.at(-1)!
++    expect(Math.floor(previous.fromWeek / 52) === Math.floor(lifted.state.market.tick / 52)).toBe(!rollover)
++    expect(owner.account.periods.length).toBe(original.account.periods.length + Number(rollover))
++    if (rollover) {
++      expect(previous.throughWeek).toBeLessThan(312)
++      expect(owner.account.periods.slice(0, -1)).toEqual(original.account.periods)
++      expect(last.fromWeek).toBe(312)
++      expect(last.throughWeek).toBe(312)
++      expect(last.opening).toBe(original.account.cash)
++      expect(last.closing).toBe(owner.account.cash)
++      expect(last.movements.researchCapacity).toBe(-debit)
++      for (const [kind, amount] of Object.entries(last.movements)) if (kind !== 'researchCapacity') expect(amount).toBe(0)
++    }
++    // Target regression: a new period must keep the admitted V27 money roster.
++    // Explicitly protects against BOTH inherited Save41 and new Save46 leakage.
++    expect(Object.keys(last.movements).sort()).toEqual(V27_KINDS)
++    expect(Object.hasOwn(last.movements, 'termination')).toBe(false)
++    expect(Object.hasOwn(last.movements, 'facilityDemolitionRefund')).toBe(false)
++    expect(Object.hasOwn(owner, 'costCutting')).toBe(false)
++  }
++  expect(changed).toBeGreaterThan(0)
++  const out = { ...lifted, state: result.state }
++  expect(save.validateSaveV27(out)).toBe(out)
++  const serialized = save.exportSave(out as unknown as Parameters<typeof save.exportSave>[0])
++  expect(bytes(save.importSave(serialized))).toBe(bytes(out))
++  expect(bytes(lifted)).toBe(before)
++}
++
++describe('1363 explicit V27 staging keeps its finance era across a calendar boundary', () => {
++  it('control: actual week309 admission retains the current old period and public V27 validity', () => {
++    stage(admittedLift(initial309()), false)
++  })
++  it('real week312 first charge opens exactly one old-era period without termination or disposal fields', () => {
++    stage(admittedLift(original312()), true)
++  })
++})

@@ -1,0 +1,303 @@
+// Genuine original Save42 route: one fixed seed, exactly 77 default ticks from genesis.
+// Installed only after review; no current gameplay or synthetic state repair.
+import assert from 'node:assert/strict'
+import { execFileSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
+import { lstatSync, mkdirSync, readFileSync, readdirSync, realpathSync, writeFileSync } from 'node:fs'
+import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { gzipSync, gunzipSync } from 'node:zlib'
+import type { GameStateV42 } from '../../src/core/types.js'
+import type { SaveFileV42 } from '../../src/core/save.js'
+
+const GENERATING_HEAD = 'e62c944fef2966ea2ba4b5d28594dd061bc33a94'
+const SEED = 'p13a-core-causal-01'
+const ARCHIVE_PATHS = ['src', 'bridge/protocol.ts', 'bridge/schema', 'tsconfig.json']
+const ORIGINAL_NAMED_PINS = {
+  "src/core/save.ts": {
+    "gitBlob": "6faa80466b4fca363cf70987aed62cb440db9632",
+    "sha256": "f3356ab210932f395814791e937f375d0366cc8200d5843d0b4c969cd13de4be",
+    "bytes": 487382
+  },
+  "src/core/tick.ts": {
+    "gitBlob": "fee78464256a1053f5e2cff21d5c83aeda083d58",
+    "sha256": "cd487a1b68f1b95582895ae73a9d9fb0c1d0300a2e1a212b0d83ae6bce30dcb9",
+    "bytes": 62182
+  },
+  "src/harness/p13a/fixtures.ts": {
+    "gitBlob": "9ab3eee75b0b2b2733f350bbc3964aa5ba176de8",
+    "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+    "bytes": 2130
+  },
+  "bridge/protocol.ts": {
+    "gitBlob": "d8e01e315b7ff800aa42b9e7cc206e8f03c4c8f2",
+    "sha256": "71b920d90ce9a54214c7dd82208a168bd71cab9be60efa11d2ae3a81d7e0b7fa",
+    "bytes": 5409
+  },
+  "tsconfig.json": {
+    "gitBlob": "7521893ef93467ed05ef19a1768fc092edac2f2d",
+    "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f",
+    "bytes": 706
+  }
+} as const
+const PRODUCER = 'scripts/captures/1367-week77-capture.ts'
+const CONFIG = 'scripts/captures/1367-week77-capture.config.ts'
+const WATCHDOG = 'scripts/captures/1367-week77-watchdog.py'
+const TYPES = 'scripts/captures/tsconfig.1367-week77-capture.json'
+const OUTPUT = '/Users/zacheryspector/studio-scratch/1367-week77-capture-01'
+const CAPTURE = 'genuine-v42-rival-stall-week-77.json.gz'
+const SOURCE = ['src', 'bridge', 'tests', 'ui', 'generated', 'scripts', 'package.json', 'package-lock.json',
+  'vitest.config.ts', 'vitest.workspace.ts', 'tsconfig.json', 'tsconfig.bridge.json', 'tsconfig.src.json']
+const EXCLUDED = ['tests/fixtures/', 'ui/e2e/', 'ui/public/']
+const PATHS = [...SOURCE, ...EXCLUDED.map(prefix => ':(exclude)' + prefix.slice(0, -1))]
+const allowed = (path: string) => !EXCLUDED.some(prefix => path.startsWith(prefix))
+const sha = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
+const required = (name: string): string => { const value = process.env[name]; assert.ok(value, 'required environment: ' + name); return value }
+const pin = (name: string): string => { const value = required(name); assert.match(value, /^[0-9a-f]{64}$/); return value }
+const inside = (child: string, parent: string) => child === parent || child.startsWith(parent + sep)
+function exists(path: string): boolean {
+  try { lstatSync(path); return true } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return false
+    throw error
+  }
+}
+function noSymlinkPath(path: string): void {
+  assert.ok(isAbsolute(path))
+  let at = path
+  while (true) {
+    assert.ok(!lstatSync(at).isSymbolicLink(), 'symlink path component: ' + at)
+    const parent = dirname(at)
+    if (parent === at) break
+    at = parent
+  }
+}
+type ArchivedSave = {
+  LIVE_SAVE_VERSION: number
+  makeSave(state: GameStateV42): SaveFileV42
+  validateSaveV42(value: unknown): SaveFileV42
+  stableStringify(value: unknown): string
+  exportSave(value: SaveFileV42): string
+  importSave(value: string): unknown
+}
+const started = new Date().toISOString(), startedMs = Date.now()
+const bound = () => assert.ok(Date.now() - startedMs <= 300_000, 'five-minute internal elapsed bound exceeded')
+let outputRoot: string | undefined
+let ticks = 0
+let evidence: Record<string, unknown> = { started, generatingHead: GENERATING_HEAD,
+  declaredBound: { startWeek: 0, ticks: 77, endWeek: 77, timeoutMs: 300_000 } }
+
+async function main(): Promise<void> {
+  const requestedRepo = resolve(process.cwd())
+  noSymlinkPath(requestedRepo)
+  const repo = realpathSync(requestedRepo)
+  const git = (...args: string[]) => execFileSync('git', args, { cwd: repo, encoding: 'utf8',
+    maxBuffer: 64 * 1024 * 1024, env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' } })
+  assert.equal(realpathSync(git('rev-parse', '--show-toplevel').trim()), repo, 'run from repository top level')
+  const currentHead = required('P1367_WEEK77_CURRENT_HEAD')
+  assert.match(currentHead, /^[0-9a-f]{40}$/)
+  assert.equal(git('rev-parse', 'HEAD').trim(), currentHead)
+  assert.equal(realpathSync(fileURLToPath(import.meta.url)), join(repo, PRODUCER))
+  const namedFiles = [PRODUCER, CONFIG, WATCHDOG, TYPES, 'src/core/save.ts', 'package.json', 'package-lock.json']
+  for (const path of namedFiles) {
+    git('ls-files', '--error-unmatch', '--', path)
+    noSymlinkPath(join(repo, path))
+    assert.ok(lstatSync(join(repo, path)).isFile(), 'named input must be regular')
+  }
+  const producerSha = sha(readFileSync(join(repo, PRODUCER)))
+  const configSha = sha(readFileSync(join(repo, CONFIG)))
+  const watchdogSha = sha(readFileSync(join(repo, WATCHDOG)))
+  const typesSha = sha(readFileSync(join(repo, TYPES)))
+  assert.equal(producerSha, pin('P1367_WEEK77_PRODUCER_SHA256'))
+  assert.equal(configSha, pin('P1367_WEEK77_CONFIG_SHA256'))
+  assert.equal(watchdogSha, pin('P1367_WEEK77_WATCHDOG_SHA256'))
+  assert.equal(typesSha, pin('P1367_WEEK77_TYPES_SHA256'))
+  const identity = () => {
+    const included = git('ls-files', '--', ...PATHS).split('\n').filter(Boolean).filter(allowed).sort()
+    assert.ok(included.length > 0)
+    return { head: git('rev-parse', 'HEAD').trim(),
+      scope: { roots: SOURCE, included, excludedAutomaticReadPrefixes: EXCLUDED, authorizedManualInputsSeparate: true },
+      diffSha256: sha(git('diff', '--no-ext-diff', 'HEAD', '--binary', '--', ...included)),
+      untracked: git('ls-files', '--others', '--exclude-standard', '--', ...PATHS).split('\n').filter(Boolean).filter(allowed).sort(),
+      indexSha256: sha(readFileSync(resolve(repo, git('rev-parse', '--git-path', 'index').trim()))),
+      stageEntriesSha256: sha(git('ls-files', '--stage', '-z')) }
+  }
+  const sourceBefore = identity()
+  assert.equal(sourceBefore.diffSha256, sha(''), 'bounded current source must be clean')
+  assert.deepEqual(sourceBefore.untracked, [], 'no untracked consumed source/helpers')
+
+  const archiveArg = required('P1367_WEEK77_ARCHIVE_ROOT')
+  assert.ok(isAbsolute(archiveArg)); noSymlinkPath(archiveArg)
+  const archive = realpathSync(archiveArg)
+  assert.ok(!inside(archive, repo) && !inside(repo, archive), 'archive/current trees must be disjoint')
+  const rows = git('ls-tree', '-r', '-z', GENERATING_HEAD, '--', ...ARCHIVE_PATHS).split('\0').filter(Boolean).map(entry => {
+    const match = /^(100644|100755) blob ([0-9a-f]{40})\t(.+)$/.exec(entry)
+    assert.ok(match, 'archive requires original ordinary source blobs')
+    return { path: match[3]!, gitBlob: match[2]! }
+  })
+  assert.ok(rows.length > 0)
+  const archiveIdentity = () => {
+    noSymlinkPath(archive)
+    assert.deepEqual(readdirSync(archive).sort(), ['bridge', 'src', 'tsconfig.json'], 'only named archived roots permitted')
+    assert.deepEqual(readdirSync(join(archive, 'bridge')).sort(), ['protocol.ts', 'schema'], 'only protocol and schema bridge files permitted')
+    const actual: string[] = []
+    const walk = (path: string): void => {
+      const stat = lstatSync(path)
+      assert.ok(!stat.isSymbolicLink(), 'archive contains a symlink')
+      if (stat.isDirectory()) for (const name of readdirSync(path).sort()) walk(join(path, name))
+      else { assert.ok(stat.isFile(), 'archive contains nonregular source'); actual.push(relative(archive, path).split(sep).join('/')) }
+    }
+    for (const path of ARCHIVE_PATHS) walk(join(archive, path))
+    assert.deepEqual(actual.sort(), rows.map(row => row.path).sort(), 'no added or omitted archived source file')
+    const files = rows.map(row => {
+      const data = readFileSync(join(archive, row.path))
+      assert.equal(createHash('sha1').update('blob ' + data.length + '\0').update(data).digest('hex'), row.gitBlob, row.path)
+      return { ...row, sha256: sha(data) }
+    })
+    return { generatingHead: GENERATING_HEAD, files, filesSha256: sha(JSON.stringify(files)), fileCount: files.length }
+  }
+  const archivedBefore = archiveIdentity()
+  for (const [path, expected] of Object.entries(ORIGINAL_NAMED_PINS)) {
+    const actual = archivedBefore.files.find(row => row.path === path)
+    assert.ok(actual); assert.equal(actual.gitBlob, expected.gitBlob); assert.equal(actual.sha256, expected.sha256)
+    assert.equal(readFileSync(join(archive, path)).length, expected.bytes)
+  }
+  assert.equal(archivedBefore.filesSha256, pin('P1367_WEEK77_ARCHIVE_SHA256'))
+  const dependencies = ['package.json', 'package-lock.json', 'node_modules/vite/package.json', 'node_modules/vite-node/package.json']
+    .map(path => { noSymlinkPath(join(repo, path)); return { path, sha256: sha(readFileSync(join(repo, path))) } })
+  assert.equal(required('P1367_WEEK77_OUTPUT'), OUTPUT, 'new attempt/output naming requires explicit review')
+  assert.ok(!exists(OUTPUT), 'output already exists, including dangling symlink; no overwrite or cleanup')
+  noSymlinkPath(dirname(OUTPUT))
+  assert.equal(realpathSync(dirname(OUTPUT)), dirname(OUTPUT))
+  for (const source of [repo, archive]) assert.ok(!inside(OUTPUT, source) && !inside(source, OUTPUT), 'output/source must be disjoint')
+  mkdirSync(OUTPUT)
+  outputRoot = OUTPUT
+  evidence = { ...evidence, currentValidationHead: currentHead, producer: PRODUCER, producerSha256: producerSha,
+    config: CONFIG, configSha256: configSha, watchdog: WATCHDOG, watchdogSha256: watchdogSha,
+    types: TYPES, typesSha256: typesSha,
+    sourceIdentityBefore: sourceBefore, archivedBefore, archiveRoot: archive, outputRoot,
+    seed: SEED, originalNamedPins: ORIGINAL_NAMED_PINS,
+    dependencies, command: process.argv, nodeVersion: process.version,
+    declaredOutputs: [CAPTURE, 'MANIFEST.json', 'RESULT.json'] }
+  const postflight = () => {
+    bound(); assert.deepEqual(identity(), sourceBefore, 'current source/index changed')
+    assert.deepEqual(archiveIdentity(), archivedBefore, 'archived source changed')
+    for (const path of namedFiles) noSymlinkPath(join(repo, path))
+    assert.equal(sha(readFileSync(join(repo, PRODUCER))), producerSha)
+    assert.equal(sha(readFileSync(join(repo, CONFIG))), configSha)
+    assert.equal(sha(readFileSync(join(repo, WATCHDOG))), watchdogSha)
+    assert.equal(sha(readFileSync(join(repo, TYPES))), typesSha)
+    for (const row of dependencies) { noSymlinkPath(join(repo, row.path)); assert.equal(sha(readFileSync(join(repo, row.path))), row.sha256) }
+  }
+  const old: ArchivedSave = await import('/@fs/' + join(archive, 'src/core/save.ts'))
+  const { tick }: { tick(state: GameStateV42): GameStateV42 } = await import('/@fs/' + join(archive, 'src/core/tick.ts'))
+  const current: typeof import('../../src/core/save.js') = await import('/@fs/' + join(repo, 'src/core/save.ts'))
+  const { p13aGeneratedStudio }: { p13aGeneratedStudio(seed: string): GameStateV42 } = await import('/@fs/' + join(archive, 'src/harness/p13a/fixtures.ts'))
+  const protocol: { PROJECTION_VERSION: number; SCHEMA_ID: string } = await import('/@fs/' + join(archive, 'bridge/protocol.ts'))
+  assert.equal(old.LIVE_SAVE_VERSION, 42)
+  const currentVersion = Number(required('P1367_WEEK77_CURRENT_VERSION'))
+  assert.ok(currentVersion === 45 || currentVersion === 46, 'explicit current validator era must be 45 or 46')
+  assert.equal(current.LIVE_SAVE_VERSION, currentVersion)
+  const initial = p13aGeneratedStudio(SEED)
+  const initialBytes = old.stableStringify(initial)
+  assert.equal(initial.market.tick, 0)
+  let state = initial
+  const boundaries: { week: number; envelopeSha256: string; stateSha256: string }[] = []
+  const validateBoundary = (expected: number): SaveFileV42 => {
+    bound(); assert.equal(state.market.tick, expected)
+    const before = old.stableStringify(state)
+    const envelope = old.makeSave(state)
+    assert.equal(envelope.saveVersion, 42)
+    const envelopeBytes = old.stableStringify(envelope)
+    assert.equal(old.validateSaveV42(envelope), envelope)
+    assert.equal(old.stableStringify(envelope), envelopeBytes, 'archived boundary reader mutated envelope')
+    assert.equal(current.validateSaveV42(envelope), envelope)
+    assert.equal(old.stableStringify(envelope), envelopeBytes, 'current boundary reader mutated envelope')
+    assert.equal(old.stableStringify(state), before, 'boundary writers/readers mutated source state')
+    boundaries.push({ week: expected, envelopeSha256: sha(envelopeBytes), stateSha256: sha(before) })
+    return envelope
+  }
+  validateBoundary(0)
+  for (let expected = 1; expected <= 77; expected++) {
+    bound(); assert.ok(ticks < 77)
+    const previous = state, before = old.stableStringify(previous)
+    state = tick(previous) // Original Save42 default tick only; no current gameplay or options.
+    ticks++
+    assert.equal(old.stableStringify(previous), before, 'archived tick mutated its input')
+    validateBoundary(expected)
+    assert.equal(old.stableStringify(initial), initialBytes, 'original generated state mutated')
+  }
+  assert.equal(ticks, 77)
+  const rivals = (state.hollywood?.businesses ?? []).map(b => ({ studioId: b.studioId, cash: b.account.cash,
+    productions: b.productions.length, activeScriptOrdinals: [...b.activeScriptOrdinals],
+    statuses: b.development.projects.map(p => p.status),
+    readyActive: b.activeScriptOrdinals.filter(i => b.development.projects[i]!.status === 'ready').length,
+    films: state.hollywood!.films.filter(f => f.studioId === b.studioId).length }))
+  const facts = { week: state.market.tick, rivals, firstTakes: state.firstTakes.length,
+    industryFilms: state.hollywood?.films.length ?? 0 }
+  evidence = { ...evidence, boundaries, currentValidationVersion: currentVersion, facts,
+    projectionVersion: protocol.PROJECTION_VERSION, schemaId: protocol.SCHEMA_ID }
+  const finalStateBytes = old.stableStringify(state)
+  const final = old.makeSave(state)
+  assert.equal(old.stableStringify(state), finalStateBytes, 'final writer mutated state')
+  const finalBytes = old.stableStringify(final)
+  assert.equal(old.validateSaveV42(final), final)
+  assert.equal(old.stableStringify(final), finalBytes, 'final archived reader mutated envelope')
+  assert.equal(current.validateSaveV42(final), final)
+  assert.equal(old.stableStringify(final), finalBytes, 'final current reader mutated envelope')
+  const raw = old.exportSave(final)
+  assert.equal(old.stableStringify(final), finalBytes, 'archived export mutated final envelope')
+  const imported = old.importSave(raw)
+  const importedBytes = old.stableStringify(imported)
+  const reloaded = old.validateSaveV42(imported)
+  assert.equal(reloaded, imported)
+  assert.equal(old.stableStringify(imported), importedBytes, 'archived reader mutated imported envelope')
+  assert.equal(current.validateSaveV42(reloaded), reloaded)
+  assert.equal(old.stableStringify(reloaded), importedBytes, 'current reader mutated imported envelope')
+  assert.equal(old.exportSave(reloaded), raw)
+  assert.equal(old.stableStringify(reloaded), importedBytes, 'archived re-export mutated imported envelope')
+  const currentParsed: unknown = JSON.parse(raw)
+  const currentParsedBytes = old.stableStringify(currentParsed)
+  const currentRead = current.validateSaveV42(currentParsed)
+  assert.equal(currentRead, currentParsed)
+  assert.equal(old.stableStringify(currentParsed), currentParsedBytes, 'current codec reader mutated envelope')
+  assert.equal(current.exportSave(currentRead), raw)
+  assert.equal(old.stableStringify(currentRead), currentParsedBytes, 'current export mutated envelope')
+  assert.equal(old.stableStringify(final), finalBytes)
+  assert.equal(old.stableStringify(state), finalStateBytes)
+  assert.equal(old.stableStringify(initial), initialBytes)
+  const compressed = gzipSync(raw, { level: 9 })
+  assert.equal(gunzipSync(compressed).toString('utf8'), raw)
+  postflight()
+  const capture = { name: CAPTURE, gzipSha256: sha(compressed), rawSha256: sha(raw),
+    gzipBytes: compressed.length, rawBytes: Buffer.byteLength(raw) }
+  const manifest = { format: '1367-week77-save42-capture/v1', generatedAt: new Date().toISOString(),
+    generatingHead: GENERATING_HEAD, currentValidationHead: currentHead, currentValidationVersion: currentVersion,
+    producerSha256: producerSha, configSha256: configSha, watchdogSha256: watchdogSha, typesSha256: typesSha,
+    archivedSourceFilesSha256: archivedBefore.filesSha256, originalNamedPins: ORIGINAL_NAMED_PINS,
+    sourceSaveVersion: 42, seed: SEED, startWeek: 0, ticks, week: 77, capture, boundaries, facts,
+    projectionVersion: protocol.PROJECTION_VERSION, schemaId: protocol.SCHEMA_ID,
+    route: 'Original e62c944f Save42 harness genesis; exactly tick(state) 77 times; public42 validation at every boundary; no current gameplay or state edits.',
+    limitation: 'Fixed historical input only. Candidate pre-shelving equality and null/zero recovery premises must be tested separately; no witness search.' }
+  const manifestText = JSON.stringify(manifest, null, 2) + '\n'
+  writeFileSync(join(OUTPUT, CAPTURE), compressed, { flag: 'wx' })
+  assert.equal(sha(readFileSync(join(OUTPUT, CAPTURE))), capture.gzipSha256)
+  writeFileSync(join(OUTPUT, 'MANIFEST.json'), manifestText, { flag: 'wx' })
+  assert.equal(sha(readFileSync(join(OUTPUT, 'MANIFEST.json'))), sha(manifestText))
+  postflight()
+  assert.deepEqual(readdirSync(OUTPUT).sort(), [CAPTURE, 'MANIFEST.json'].sort())
+  const result = { ...evidence, status: 'MINTED', ticks, ended: new Date().toISOString(), elapsedMs: Date.now() - startedMs,
+    sourceIdentityAfter: identity(), archivedSourceFilesSha256After: archivedBefore.filesSha256,
+    capture, manifestSha256: sha(manifestText) }
+  writeFileSync(join(OUTPUT, 'RESULT.json'), JSON.stringify(result, null, 2) + '\n', { flag: 'wx' })
+  process.stdout.write(JSON.stringify({ status: 'MINTED', ticks, output: OUTPUT, capture, manifestSha256: sha(manifestText) }) + '\n')
+}
+try { await main() }
+catch (error) {
+  const result = { ...evidence, status: 'EXECUTION_ERROR', ticks,
+    ended: new Date().toISOString(), elapsedMs: Date.now() - startedMs,
+    error: error instanceof Error ? { name: error.name, message: error.message, stack: error.stack } : String(error),
+    instruction: 'No overwrite or repair. Execution errors/partial artifacts are not an absent witness or a successful capture.' }
+  if (outputRoot && !exists(join(outputRoot, 'RESULT.json'))) writeFileSync(join(outputRoot, 'RESULT.json'), JSON.stringify(result, null, 2) + '\n', { flag: 'wx' })
+  process.stderr.write(JSON.stringify(result) + '\n')
+  process.exitCode = 1
+}

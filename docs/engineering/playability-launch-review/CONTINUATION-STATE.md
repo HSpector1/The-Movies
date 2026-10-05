@@ -1,12 +1,12 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## CURRENT — 2026-10-04 Save45 recorded baseline verified; capture closure next
+## CURRENT — recovery implementation in progress; conditional main promotion authorized
 
-[1361-M3](evidence/p14b4-20260919/1361-M3-save45-recorded-broad-gates.md) records completed source-fixed gates at2eaa697e: core133FAIL/5118PASS/3SKIP/11TODO, UI2692PASS/5SKIP, d16exact12FAIL/164PASS. Core preserves85prior identities and45declared held-c failures. Three additional waits did not reproduce in unchanged-source full-file followups (22/22 and14/14PASS); broad failures remain recorded, with no environmental-cause or all-green claim. Independent reviews approve this recorded-baseline checkpoint. Types/generators/parity and four focused runs remain verified under1361-L.
+[1367-Q](evidence/p14b4-20260919/1367-Q-recovery-candidate-first-verification.md) preserves F6 quality GREEN and isolated Part A45PASS/1historical comparisonFAIL. Both93-week comparison arms now complete: first full-state divergence at50, first r04/script0005 shelving booked77/visible78. The original week93 fixture stays; a governed earlier original-engine week77capture is being prepared. Combined A+B+C/Save46 source types pass; matching test compilation/schema/observer controls remain active. No recovery landing or full checkpoint closure is claimed.
 
-Next: unchangedSave45 G-L/K3, F6 genuine frozen-v2/catalogue pins, qualified post-release timings and required pre-recovery captures. Reviewed recovery production/test preparation remains scratch-only and uncompiled (1367-I); downstream contracts are adopted1367-G and joint recovery Save46 allocated1367-H. P15A.1(c) remains held for1365.
+[1367-O2](evidence/p14b4-20260919/1367-O2-owner-conditional-main-promotion.md) records the Owner's new conditional promotion authority. Finish the existing next real engineering checkpoint, then freeze and apply every promotion gate before a normal history-preserving PR merge to main. In-progress/status/preparation commits cannot qualify. Initial remote main c902a704 is an ancestor of working bc5f3b0e,1547commits ahead/no divergence; re-resolve at promotion. No settings or main changes were made. CURRENT-BEST's P11 acceptance remains unchanged.
 
-Owner1367-O authorizes the [remainder plan](plans/HEADLESS-REMAINDER-IMPLEMENTATION-PLAN.md) through boundedP18, agents and milestone handoff/commit/push. Continue recovery→founding→activation→P15B/P16/P17/P18 in dependency order. Root HANDOFF.md owns actual jobs and next actions. Older CURRENT sections below are historical.
+Original broad baseline and retained failures remain1361-M3; naturalG-L/F6capture/required genuine predecessor captures are accepted in1367-J/K/M. Original post2040 player-release cost remains unmeasured after failed bounded controllers and is not waived. Recovery schema/behavior/measurement gates remain open. Owner1367-O's plan continues through boundedP18 after the governed closure/promotion; HANDOFF owns actual jobs and next commands. Older CURRENT sections below are historical.
 
 ## CURRENT: Owner response recorded (1362-O): 1357-Q1 (a), numpy approved; Save45 productions in progress (1361-F)
 

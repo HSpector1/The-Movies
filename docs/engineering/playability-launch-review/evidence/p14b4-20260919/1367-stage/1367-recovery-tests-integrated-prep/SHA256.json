@@ -1,0 +1,142 @@
+{
+  "format": "1367-recovery-tests-integrated/v1",
+  "baseHead": "57aa8eeceee37c9b667f68098f2e9d1186a3de38",
+  "reviewedProductionAssemblyPatchSha256": "7f1a89d2b55f423e068b8a56254e736a1daeb056812e565538260cd7c1dbcf0d",
+  "limits": "Scratch-only static reconstruction. Parent later production amendments/typecheck are not measured here. No runtime or fixture payload access.",
+  "groups": {
+    "01-reviewed-b-c-tests.patch": [
+      "tests/p14d2-rival-cost-cutting.test.ts",
+      "tests/p14d2-rival-cost-cutting-adapter.test.ts",
+      "tests/p14d2-rival-facility-disposal.test.ts"
+    ],
+    "02-pinned-migration-period-tests.patch": [
+      "tests/helpers/1367-recovery-predecessors.ts",
+      "tests/p14d2-save46-migration.test.ts",
+      "tests/p13b-s8-old-era-period.test.ts"
+    ],
+    "03-integrated-existing-callers.patch": [
+      "tests/p14d1-rival-shelving.test.ts",
+      "tests/p14d2-binding-cash.test.ts",
+      "tests/p14d2-a8-fixture.ts",
+      "tests/p14d2-a8-binding-cash.test.ts",
+      "tests/save-masked-downgrade-own-era.test.ts",
+      "tests/p13b-s8-save-v27.test.ts",
+      "tests/p15c2-legacy-lens-shape.test.ts"
+    ]
+  },
+  "files": {
+    "base/tests/p13b-s8-save-v27.test.ts": {
+      "bytes": 17887,
+      "sha256": "ffe07d9ca39b43f646d034a2984497c5bfe593f065ff2d906cfb811e206c84ef"
+    },
+    "base/tests/p14d1-rival-shelving.test.ts": {
+      "bytes": 66093,
+      "sha256": "c972b9bc3d0b1102d2c91b1c3256a807e9d147b7d65380d0d087674161203a14"
+    },
+    "base/tests/p14d2-a8-binding-cash.test.ts": {
+      "bytes": 9071,
+      "sha256": "86d4d7a9cda92a6d8259d6c3ac831c86fdfbcf2fae113d2138b5acc17086a5e7"
+    },
+    "base/tests/p14d2-a8-fixture.ts": {
+      "bytes": 5003,
+      "sha256": "98e21aef4a2d91c5b2718e261c2cd22bf39b6cbc6f1b0c9b45aa7658bafe548f"
+    },
+    "base/tests/p14d2-binding-cash.test.ts": {
+      "bytes": 13233,
+      "sha256": "e93b273769950b15754a9cfaa885645ecd53594203e525816a26425c13f97e77"
+    },
+    "base/tests/p15c2-legacy-lens-shape.test.ts": {
+      "bytes": 1230,
+      "sha256": "2fd689f6927876fbc47eecfb6b2d1bee23a32185e45356c866e815e205af14a2"
+    },
+    "base/tests/save-masked-downgrade-own-era.test.ts": {
+      "bytes": 6957,
+      "sha256": "2d1744b0a7baa747876e58674f4f319be196e896febe6fc986f66d03c1cd7fa7"
+    },
+    "candidate/tests/helpers/1367-recovery-predecessors.ts": {
+      "bytes": 5969,
+      "sha256": "6f397222010d03b94f86607f27d83038413749bcf2b2d87b6e375d468ae455dd"
+    },
+    "candidate/tests/p13b-s8-old-era-period.test.ts": {
+      "bytes": 6131,
+      "sha256": "d17705986eeb363440f1a48e8d79a164a207253a95ba11f360b9919f7c8e24bd"
+    },
+    "candidate/tests/p13b-s8-save-v27.test.ts": {
+      "bytes": 18136,
+      "sha256": "1863180b34dbfd7d12629dcda5472f1ff0490433951d211f5633b53f2e272780"
+    },
+    "candidate/tests/p14d1-rival-shelving.test.ts": {
+      "bytes": 65517,
+      "sha256": "3fdade5b60cab21dac2bf2438d168819c3516273b52af1e3cf4692822456f59b"
+    },
+    "candidate/tests/p14d2-a8-binding-cash.test.ts": {
+      "bytes": 9134,
+      "sha256": "7d4fc3e65a4f9b20e5f9840a1a6dcd7f24ce9153e45205d8c0c1cffab271948d"
+    },
+    "candidate/tests/p14d2-a8-fixture.ts": {
+      "bytes": 5969,
+      "sha256": "2a5799a61f46041eea43b72cd89fa6ca7127d32ce98bb15a9be248fed59f4740"
+    },
+    "candidate/tests/p14d2-binding-cash.test.ts": {
+      "bytes": 13233,
+      "sha256": "aca55d39be1f069604530e367b5a5092619c8fa3791114339efdfa067fabd871"
+    },
+    "candidate/tests/p14d2-rival-cost-cutting-adapter.test.ts": {
+      "bytes": 14065,
+      "sha256": "39e6985c71a19b1c10b0f3255a923caa831a860da7cd14543ff08654571e8486"
+    },
+    "candidate/tests/p14d2-rival-cost-cutting.test.ts": {
+      "bytes": 30718,
+      "sha256": "5f15b798494527ae25e1d3d0fd550d0c57654007295a43310466ec10af2a4a49"
+    },
+    "candidate/tests/p14d2-rival-facility-disposal.test.ts": {
+      "bytes": 23937,
+      "sha256": "a64637e8c5eb86ebe7d126be62f2c0e2c22ccbfa819187626c08d2bd83252a69"
+    },
+    "candidate/tests/p14d2-save46-migration.test.ts": {
+      "bytes": 12875,
+      "sha256": "2e9afd796e30622578c7d7c7bd73bd8a4411faa6501c328adfcb4a10ca869bc0"
+    },
+    "candidate/tests/p15c2-legacy-lens-shape.test.ts": {
+      "bytes": 1230,
+      "sha256": "059bb3acd2b536bea0a77ce653bd9001f6c9a17063d6f25ca84fe49fadc06ccb"
+    },
+    "candidate/tests/save-masked-downgrade-own-era.test.ts": {
+      "bytes": 6973,
+      "sha256": "70ac5b8752470ed36bb570a562a610f630322b326e3f85b7081d053fcb8a4c57"
+    }
+  },
+  "patches": {
+    "01-reviewed-b-c-tests.patch": "47f20748180ed3043805f7a6ddc28635a8ac097ff7e023b2e52876d43fe02e40",
+    "02-pinned-migration-period-tests.patch": "bd92b9d73e55479afbbd83b1250b0745b46b1888ff148f1a5c80c6d2aa580cc1",
+    "03-integrated-existing-callers.patch": "58030317df1de5d81404f42aae13fb984fed1c73d449f0517f33b73c1ee8cdad",
+    "integrated-tests.patch": "2a4abddf8125d5c9d1336a7029799fbb4511dc1f38474881ca8dd82627d6001a"
+  },
+  "reviewedSourcePatches": {
+    "1363-part-b-red-prep/part-b-red.patch": "aaf3788ecbb0dc550dc5369f6e5cf91b836a9fb02ba7c85dfd274c531ca72b6a",
+    "1363-part-b-adapter-red-prep/part-b-adapter-red.patch": "e9449542d4977ac7dff72a279ee43f6693eb76e830f24573effcbdc5e87c4408",
+    "1363-part-c-red-prep/part-c-red.patch": "96ce467b85e4dc2c9e5aee477f6f578dab30763280b8513831849ad030841594",
+    "1363-save46-red-prep/save46-migration-red.patch": "9807d01dc0c6b06429e02e404a6f5afd3068363d4511456b3713216e384bb6af",
+    "1363-old-era-period-prep/old-era-period-red.patch": "20a0893996b4d557bcd0538da39777e2985fae1bc7ea1fb450ce94e5035b3209",
+    "1363-part-b-red-prep/mixed-sequence-input.patch": "145d198242778af57e173a979401c866aa0ae6cde2300ceddc8835753efc1180",
+    "1363-part-b-commitments-production-prep/historical-staging-callers.patch": "8a95be91469de3949724173d4e1cfb7fc8908957f13501e0f341b1e3e21d45cb"
+  },
+  "staticChecks": [
+    "Every generated unified hunk reconstructs exact candidate from scratch base",
+    "Three reviewed B/C additive test bodies exactly unchanged"
+  ],
+  "artifacts": {
+    "HANDBACK.md": {
+      "bytes": 10129,
+      "sha256": "f4034468776876658a0ac56d97b33dc9a2ea02ed94addb915f5c808d66635a64"
+    },
+    "fixture-copy-plan.json": {
+      "bytes": 1866,
+      "sha256": "55c436902a6b37ff073496c397a24a90c74c502e75585b11c7b68b388e5c91f0"
+    },
+    "new-input-pins.json": {
+      "bytes": 778,
+      "sha256": "3e56ca677ceec34c997f560bb1325582de0848367cc9e4ff088fd7d3b3da0fce"
+    }
+  }
+}

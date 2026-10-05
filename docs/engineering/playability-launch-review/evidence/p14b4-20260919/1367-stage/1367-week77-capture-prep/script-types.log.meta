@@ -1,0 +1,3 @@
+waiting for pid 0; then: /Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node node_modules/typescript/bin/tsc --project scripts/captures/tsconfig.1367-week77-capture.json --noEmit; 2026-10-04 20:10:45 CDT
+start; 2026-10-04 20:10:45 CDT
+end, exit 0; 2026-10-04 20:11:03 CDT

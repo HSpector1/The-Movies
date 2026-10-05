@@ -1,0 +1,36 @@
+{
+  "head": "e62c944fef2966ea2ba4b5d28594dd061bc33a94",
+  "archivePaths": [
+    "src",
+    "bridge/protocol.ts",
+    "bridge/schema",
+    "tsconfig.json"
+  ],
+  "namedFiles": {
+    "src/core/save.ts": {
+      "gitBlob": "6faa80466b4fca363cf70987aed62cb440db9632",
+      "sha256": "f3356ab210932f395814791e937f375d0366cc8200d5843d0b4c969cd13de4be",
+      "bytes": 487382
+    },
+    "src/core/tick.ts": {
+      "gitBlob": "fee78464256a1053f5e2cff21d5c83aeda083d58",
+      "sha256": "cd487a1b68f1b95582895ae73a9d9fb0c1d0300a2e1a212b0d83ae6bce30dcb9",
+      "bytes": 62182
+    },
+    "src/harness/p13a/fixtures.ts": {
+      "gitBlob": "9ab3eee75b0b2b2733f350bbc3964aa5ba176de8",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+      "bytes": 2130
+    },
+    "bridge/protocol.ts": {
+      "gitBlob": "d8e01e315b7ff800aa42b9e7cc206e8f03c4c8f2",
+      "sha256": "71b920d90ce9a54214c7dd82208a168bd71cab9be60efa11d2ae3a81d7e0b7fa",
+      "bytes": 5409
+    },
+    "tsconfig.json": {
+      "gitBlob": "7521893ef93467ed05ef19a1768fc092edac2f2d",
+      "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f",
+      "bytes": 706
+    }
+  }
+}

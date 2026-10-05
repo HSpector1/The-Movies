@@ -1,0 +1,7 @@
+{
+  "source": "/Users/zacheryspector/studio-scratch/1367-recovery-schema-candidate/candidate/src/core/hollywoodTick.ts",
+  "sourceSha256": "21b00c62f0057786f81d1b821eb5984677f7e4251211ecaf7d5288840d5f719e",
+  "controlPath": "tests/helpers/recovery-schema-policy-control.ts",
+  "controlSha256": "78f11cd35c506d21f8012e0317ac33c14a2184e4e9c817b46f46dcece11c68d4",
+  "transformation": "Only from './ and import('./ prefixes relocated to ../../src/core/; reverse transform exactly equals S source."
+}

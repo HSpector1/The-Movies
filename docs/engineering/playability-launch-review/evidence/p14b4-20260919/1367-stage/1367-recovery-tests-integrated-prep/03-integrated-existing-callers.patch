@@ -1,0 +1,314 @@
+diff --git a/tests/p14d1-rival-shelving.test.ts b/tests/p14d1-rival-shelving.test.ts
+--- a/tests/p14d1-rival-shelving.test.ts
++++ b/tests/p14d1-rival-shelving.test.ts
+@@ -28,6 +28,7 @@
+ import { tick, TUNING } from '../src/core/index.js'
+ import * as hollywoodPolicy from '../src/core/hollywoodPolicy.js'
+ import * as talentMarket from '../src/core/talentMarket.js'
++import * as careerLifecycle from '../src/core/careerLifecycle.js'
+ import * as saveModule from '../src/core/save.js'
+ import { promiseFeasibility } from '../src/core/promises.js'
+ import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
+@@ -184,8 +185,8 @@
+     const fn = (hollywoodPolicy as unknown as Record<string, unknown>).searchIndustryPackages
+     expect(typeof fn).toBe('function')
+   })
+-  it('save.ts LIVE_SAVE_VERSION is 45, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {
+-    expect(saveModule.LIVE_SAVE_VERSION).toBe(45)
++  it('save.ts LIVE_SAVE_VERSION is 46, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {
++    expect(saveModule.LIVE_SAVE_VERSION).toBe(46)
+     const mods = saveModule as unknown as Record<string, unknown>
+     expect(typeof mods.validateSaveV43).toBe('function')
+     expect(typeof mods.convertV42ToV43).toBe('function')
+@@ -491,23 +492,16 @@
+       const e = h.employment[i]!
+       return e.studioId === RIVAL && state.talent.find(t => t.id === e.terms.talentId)?.role === 'actor'
+     })!
+-    const week = state.market.tick
+-    const b0 = business(state, RIVAL)
+-    const originalCash = b0.account.cash
+-    // 3 staffing-blocked weeks first: same unseatable construction as the staffingBlocked
+-    // leaf above (staff() runs before decide() within one weekly pass and would otherwise
+-    // re-hire before decide() reads the roster; cash at the pre-hire reserve+1 fails the
+-    // re-hire's own affordability gate, hollywoodTick.ts staff() ~:158).
+-    const reserve = rivalWeeklyOperatingCost(b0, h, week) * b0.policy.reserveWeeks
+-    let mixed: GameState = {
+-      ...state,
+-      hollywood: {
+-        ...h,
+-        employment: h.employment.map((e, i) => i === actorOrdinal ? { ...e, endedWeek: week } : e),
+-        activeEmploymentOrdinals: h.activeEmploymentOrdinals.filter(i => i !== actorOrdinal),
+-        businesses: h.businesses.map(row => row.studioId === RIVAL ? { ...row, account: { ...row.account, cash: reserve + 1 } } : row),
+-      },
+-    }
++    // 1363-F ruling 5: an actual cash refusal now correctly enters cost-cutting.
++    // Keep this counting leaf on a noncash staffing block. The original reserve+1
++    // arrangement remains a separately labeled Part B entry unit case.
++    saveModule.makeSave(state)
++    const actorId = h.employment[actorOrdinal]!.terms.talentId
++    const originalAssignmentRefusal = careerLifecycle.assignmentRefusal
++    const unavailable = vi.spyOn(careerLifecycle, 'assignmentRefusal').mockImplementation((input, personId, atWeek, profession) =>
++      personId === actorId ? 'test-only temporary staffing unavailability'
++        : originalAssignmentRefusal(input, personId, atWeek, profession))
++    let mixed: GameState = state
+     const originalChoose = hollywoodPolicy.chooseIndustryPackage
+     const evaluatedDuringBlock: unknown[] = []
+     const spy = vi.spyOn(hollywoodPolicy, 'chooseIndustryPackage').mockImplementation((input, policy, options) => {
+@@ -518,23 +512,15 @@
+       for (let i = 0; i < 3; i++) mixed = tick(mixed)
+     } finally {
+       spy.mockRestore()
++      unavailable.mockRestore()
+     }
+     expect(shelving(business(mixed, RIVAL)).rejections.find(r => r.ordinal === ordinal)?.count ?? 0).toBe(0)
+     expect(evaluatedDuringBlock, 'no package is evaluated for r01 across the staffingBlocked weeks').toEqual([])
+-    // Restore staffing AND cash; the remaining decisions are economic rejections (route
+-    // premise: this screenplay's package fails viability every week on this seed,
+-    // per 1329-A). 13 more economic-rejection weeks must shelve it; fewer must not.
+-    const restoredEmployment = mixed.hollywood!.employment.map((e, i) => i === actorOrdinal ? { ...e, endedWeek: null } : e)
+-    const restoredActive = [...mixed.hollywood!.activeEmploymentOrdinals, actorOrdinal].sort((a, b) => a - b)
+-    mixed = {
+-      ...mixed,
+-      hollywood: {
+-        ...mixed.hollywood!,
+-        employment: restoredEmployment,
+-        activeEmploymentOrdinals: restoredActive,
+-        businesses: mixed.hollywood!.businesses.map(row => row.studioId === RIVAL ? { ...row, account: { ...row.account, cash: originalCash } } : row),
+-      },
+-    }
++    // Removing the noncash availability control restores the real unchanged
++    // employment and accounting state. No cash, contract or receipt is restored.
++    saveModule.makeSave(mixed)
++    const cutting = business(mixed, RIVAL) as RivalBusiness & { costCutting: { version: 1; since: number | null } }
++    expect(cutting.costCutting.since, 'noncash staffing must not enter cost-cutting').toBeNull()
+     let shelvedAt: number | null = null
+     for (let i = 0; i < 16; i++) {
+       const before = mixed
+@@ -1015,8 +1001,8 @@
+     const releasedSimulationCount = h.films.filter(f => f.studioId === RIVAL && f.provenance === 'simulation/v1' && f.result.releaseTick < state.market.tick).length
+     expect(authoredCount, 'route premise: r01 has its two canonical starting (authored) films').toBe(2)
+     expect(row!.output).toBe(releasedSimulationCount + authoredCount)
+-    const mods = saveModule as unknown as { validateSaveV45: (s: unknown) => unknown }
+-    expect(() => mods.validateSaveV45(saveModule.makeSave(state))).not.toThrow()
++    const mods = saveModule as unknown as { validateSaveV46: (s: unknown) => unknown }
++    expect(() => mods.validateSaveV46(saveModule.makeSave(state))).not.toThrow()
+   }, 20_000)
+ })
+ 
+diff --git a/tests/p14d2-binding-cash.test.ts b/tests/p14d2-binding-cash.test.ts
+--- a/tests/p14d2-binding-cash.test.ts
++++ b/tests/p14d2-binding-cash.test.ts
+@@ -7,7 +7,7 @@
+ import * as forecasts from '../src/core/forecast.js'
+ import { resolveShape } from '../src/core/shape.js'
+ import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
+-import { makeSave, validateSaveV45 } from '../src/core/save.js'
++import { makeSave, validateSaveV46 } from '../src/core/save.js'
+ import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+ import { liveWeek130, RIVAL_R01 } from './p14d1-rival-shelving-fixtures.js'
+ import type { GameState } from '../src/core/types.js'
+@@ -98,7 +98,7 @@
+   }
+   b.screenplayShelving.shelved.sort((a, b) => a.ordinal - b.ordinal)
+   b.screenplayShelving.commissionHoldUntilWeek = week + 3
+-  validateSaveV45(makeSave(state))
++  validateSaveV46(makeSave(state))
+   return state
+ }
+ 
+diff --git a/tests/p14d2-a8-fixture.ts b/tests/p14d2-a8-fixture.ts
+--- a/tests/p14d2-a8-fixture.ts
++++ b/tests/p14d2-a8-fixture.ts
+@@ -3,8 +3,9 @@
+ import { readFileSync } from 'node:fs'
+ import { gunzipSync } from 'node:zlib'
+ import { expect } from 'vitest'
+-import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45 } from '../src/core/save.js'
++import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV46, convertV46ToV45 } from '../src/core/save.js'
+ import type { RivalBusiness } from '../src/core/hollywoodTypes.js'
++type HistoricalAccount = NonNullable<ReturnType<typeof validateSaveV45>['state']['hollywood']>['businesses'][number]['account']
+ 
+ export const A8_STUDIO = 'studio-aca408ec-r02'
+ export const A8_SCRIPT = 'script-0021'
+@@ -22,7 +23,7 @@
+     countBefore: number; countAfter: number; oldOutcome: string; candidateOutcome: string;
+     actualSeatableTeamReachedChooser: boolean; allCashFreeViable: number;
+     searchCounts: { affordable: number; unaffordable: number; viable: number };
+-    accountBefore: RivalBusiness['account']; accountAfter: RivalBusiness['account'];
++    accountBefore: HistoricalAccount; accountAfter: HistoricalAccount;
+     shelvingBefore: RivalBusiness['screenplayShelving']; shelvingAfter: RivalBusiness['screenplayShelving'];
+     appendedIndustryReceipts: unknown[]; rngBefore: string; rngAfter: string;
+     decisionInputSha256: string; candidates: A8Candidate[];
+@@ -67,13 +68,29 @@
+   expect(imported.saveVersion).toBe(45)
+   const live = migrateToLive(imported)
+   expect(stableStringify(imported), 'migration preserves the imported predecessor').toBe(importedBytes)
+-  expect(live.state).toEqual(historical.state) // Part A changes policy only; no save migration authority.
++  expect(live.saveVersion).toBe(46)
++  const expectedState = structuredClone(historical.state)
++  for (const owner of expectedState.hollywood!.businesses) {
++    Object.assign(owner, { costCutting: { version: 1, since: null } })
++    for (const period of owner.account.periods) Object.assign(period.movements, { facilityDemolitionRefund: 0 })
++  }
++  expect(live.state).toEqual(expectedState) // Comparison oracle only; never a producer/reader input.
+   const stateBytes = stableStringify(live.state)
+   const current = makeSave(live.state)
+-  expect(current.saveVersion).toBe(45) // This is the pre-Save46 Part A checkpoint.
+-  validateSaveV45(current)
+-  expect(exportSave(current)).toBe(raw)
++  expect(current.saveVersion).toBe(46)
++  validateSaveV46(current)
++  const actualOld = convertV46ToV45(current)
++  validateSaveV45(actualOld)
++  expect(exportSave(actualOld)).toBe(raw)
++  expect(exportSave(importSave(exportSave(current)))).toBe(exportSave(current))
+   expect(stableStringify(live.state)).toBe(stateBytes)
+   expect(a8Raw()).toBe(raw)
+   return { raw, state: live.state, provenance }
+ }
++
++/** Expected migration adds zeros; no real refund is removed to satisfy comparison. */
++export function a8AccountInRecovery(account: HistoricalAccount): RivalBusiness['account'] {
++  return { ...structuredClone(account), periods: account.periods.map(period => ({ ...structuredClone(period),
++    movements: { ...period.movements, facilityDemolitionRefund: 0 },
++  })) }
++}
+diff --git a/tests/p14d2-a8-binding-cash.test.ts b/tests/p14d2-a8-binding-cash.test.ts
+--- a/tests/p14d2-a8-binding-cash.test.ts
++++ b/tests/p14d2-a8-binding-cash.test.ts
+@@ -6,9 +6,9 @@
+ import { resolveShape } from '../src/core/shape.js'
+ import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
+ import { isOpportunityPredicate } from '../src/core/opportunityPromises.js'
+-import { exportSave, importSave, makeSave, stableStringify, validateSaveV45 } from '../src/core/save.js'
++import { exportSave, importSave, makeSave, stableStringify, validateSaveV46 } from '../src/core/save.js'
+ import type { GameState } from '../src/core/types.js'
+-import { A8_ORDINAL, A8_SCRIPT, A8_STUDIO, a8Raw, a8Sha, loadA8 } from './p14d2-a8-fixture.js'
++import { A8_ORDINAL, A8_SCRIPT, A8_STUDIO, a8Raw, a8Sha, loadA8, a8AccountInRecovery } from './p14d2-a8-fixture.js'
+ import type { A8Candidate } from './p14d2-a8-fixture.js'
+ 
+ type Args = Parameters<typeof policyModule.chooseIndustryPackage>
+@@ -59,7 +59,7 @@
+   expect(facts).toMatchObject({ week: 247, afterWeek: 248, studioId: A8_STUDIO, scriptId: A8_SCRIPT, ordinal: 21,
+     countBefore: 12, countAfter: 12, oldOutcome: 'cashBlocked', candidateOutcome: 'economicRejection',
+     actualSeatableTeamReachedChooser: true, allCashFreeViable: 0 })
+-  expect(b.account).toEqual(facts.accountBefore)
++  expect(b.account).toEqual(a8AccountInRecovery(facts.accountBefore))
+   expect(b.screenplayShelving).toEqual(facts.shelvingBefore)
+   expect(facts.shelvingAfter).toEqual(facts.shelvingBefore)
+   expect(facts.appendedIndustryReceipts).toEqual([])
+@@ -93,7 +93,7 @@
+     expect(candidates.filter(r => r.cost > args[2].cashAvailable)).toHaveLength(6)
+     expect(policyModule.searchIndustryPackages(...args)).toEqual({ choice: null, ...provenance.facts.searchCounts })
+     expect(stableStringify(args)).toBe(before)
+-    validateSaveV45(makeSave(observed))
++    validateSaveV46(makeSave(observed))
+     expect(tick(state), 'transparent observer cannot change the actual tick').toEqual(observed)
+     expect(stableStringify(state)).toBe(stateBytes)
+     expect(a8Raw()).toBe(raw)
+@@ -104,7 +104,7 @@
+     const after = tick(state), later = business(after)
+     // Valid input and valid resulting save are prerequisites, never the intended RED.
+     const saved = makeSave(after)
+-    validateSaveV45(saved)
++    validateSaveV46(saved)
+     const afterBytes = stableStringify(after), savedRaw = exportSave(saved)
+     expect(exportSave(importSave(savedRaw))).toBe(savedRaw)
+     expect(stableStringify(after)).toBe(afterBytes)
+@@ -129,7 +129,7 @@
+     expect(after.firstTakes).toEqual(state.firstTakes)
+     expect(later.development).toEqual(before.development)
+     expect(later.projects).toEqual(before.projects)
+-    expect(later.account).toEqual(provenance.facts.accountAfter)
++    expect(later.account).toEqual(a8AccountInRecovery(provenance.facts.accountAfter))
+     expect(later.account.periods.slice(0, -1)).toEqual(before.account.periods.slice(0, -1))
+     expect(later.account.cash).toBe(before.account.cash - 116524) // Genuine ordinary weekly charge, no shelving charge/refund.
+     expect(after.rngState).toBe(provenance.facts.rngAfter)
+diff --git a/tests/save-masked-downgrade-own-era.test.ts b/tests/save-masked-downgrade-own-era.test.ts
+--- a/tests/save-masked-downgrade-own-era.test.ts
++++ b/tests/save-masked-downgrade-own-era.test.ts
+@@ -99,7 +99,7 @@
+     expect(validateSaveV27(lifted)).toBe(lifted)
+     expect(bytes(convertV27ToV26(lifted))).toBe(oldBytes)
+     const liftedBytes = bytes(lifted)
+-    const produced = admitRivalPlans(lifted.state as unknown as GameState)
++    const produced = admitRivalPlans(lifted.state as unknown as GameState, 'pre-recovery')
+     const staged = validateSaveV27({ ...lifted, state: produced.state })
+     const kinds = new Set(['laboratoryCommitted', 'laboratoryOperational', 'instrumentOperational', 'researchSeatAssigned', 'researchCompleted'])
+     const receipt = staged.state.hollywood!.receipts.find(row => kinds.has(row.kind))
+diff --git a/tests/p13b-s8-save-v27.test.ts b/tests/p13b-s8-save-v27.test.ts
+--- a/tests/p13b-s8-save-v27.test.ts
++++ b/tests/p13b-s8-save-v27.test.ts
+@@ -216,7 +216,7 @@
+     // laboratoryCommitted receipt and the researchCapacity movement. Nothing is stripped. Measured in
+     // 1358-X7t (probe F1-V27): the week-309 fixture admits a Laboratory, and the receipt arm refuses it.
+     const staged = Object.values(V26_FIXTURES).map(fixture => withV27.migrateToV27(JSON.parse(load(fixture.file))))
+-      .map(lifted => ({ ...lifted, state: admitRivalPlans(lifted.state).state }))
++      .map(lifted => ({ ...lifted, state: admitRivalPlans(lifted.state, 'pre-recovery').state }))
+       .find(lifted => lifted.state.hollywood!.receipts.some(r => r.kind === 'laboratoryCommitted'))
+     expect(staged, 'staging premise: a rival in a genuine V26 fixture can afford a Laboratory').toBeDefined()
+     expect(() => save.convertV27ToV26(staged as never)).toThrow(/^migrateToV26: cannot downgrade SaveFileV27 or discard rival research \u2014 frozen save projection cannot discard authoritative V27 rival research state on receipt industry-event-\d+$/)
+@@ -235,21 +235,25 @@
+     })).toThrow()
+   })
+ 
+-  it('an unknown saveVersion 46 is refused, naming the handled range "1 through 45 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
++  it('an unknown saveVersion 47 is refused, naming the handled range "1 through 46 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
+     const json = load(V26_FIXTURES.soundMidDeployment.file)
+     const v27 = withV27.migrateToV27(JSON.parse(json))
+-    const forged = { ...v27, saveVersion: 46 }
+-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)
++    const forged = { ...v27, saveVersion: 47 }
++    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 46 only/)
+   })
+ 
+   it('genuine usage of admitRivalPlans (not just an unused import — the same measured-risk guard tests/p13b-s6-save-v26.test.ts names for cancellationQuote): admitting a well-funded rival Laboratory books a real, nonzero researchCapacity movement — the same fact the natural-campaign downgrade-refused cases above observe emerging on their own', () => {
+     const json = load(V26_FIXTURES.soundMidDeployment.file)
+-    const genuine = (save.validateSave(JSON.parse(json) as never).state as GameState)
++    // Explicit historical V27 staging: public26 admission and real lift precede the producer.
++    const old = save.validateSaveV26(JSON.parse(json))
++    const lifted = save.migrateToV27(old)
++    expect(save.validateSaveV27(lifted)).toBe(lifted)
++    const genuine = lifted.state as unknown as GameState
+     const { business } = bellwether(genuine)
+     const week = genuine.market.tick
+     const requiredReserve = rivalWeeklyOperatingCost(business, genuine.hollywood!, week) * business.policy.reserveWeeks
+     expect(TUNING.RESEARCH_LABORATORY_CAPEX + requiredReserve).toBeGreaterThan(0)
+-    const result = admitRivalPlans(genuine) // the ONE call to the new module — proves the import is not a dead specifier
++    const result = admitRivalPlans(genuine, 'pre-recovery') // the ONE call to the new module — proves the import is not a dead specifier
+     expect(result).toBeDefined()
+   })
+ })
+diff --git a/tests/p15c2-legacy-lens-shape.test.ts b/tests/p15c2-legacy-lens-shape.test.ts
+--- a/tests/p15c2-legacy-lens-shape.test.ts
++++ b/tests/p15c2-legacy-lens-shape.test.ts
+@@ -1,12 +1,12 @@
+ // 1361-F6 ruling 4: malformed lens rows must refuse by name, before object-key access.
+ import { describe, expect, it } from 'vitest'
+-import { makeSave, validateSaveV45 } from '../src/core/save.js'
++import { makeSave, validateSaveV46 } from '../src/core/save.js'
+ import { routeAt } from './helpers/p15c2-route-l.js'
+ 
+ describe('P15C closure: named lens-shape refusal', () => {
+   it('rejects non-object lenses and preserves the valid baseline and input', () => {
+     const valid = makeSave(routeAt(6240))
+-    expect(() => validateSaveV45(valid)).not.toThrow()
++    expect(() => validateSaveV46(valid)).not.toThrow()
+     const original = structuredClone(valid)
+     for (const lens of [null, undefined, 0, 'lens', []]) {
+       const changed = structuredClone(valid)
+@@ -14,12 +14,12 @@
+       expect(official.studios[0]!.lenses.length).toBeGreaterThan(0)
+       official.studios[0]!.lenses[0] = lens
+       const before = structuredClone(changed)
+-      expect(() => validateSaveV45(changed)).toThrowError(
++      expect(() => validateSaveV46(changed)).toThrowError(
+         /^validateSaveV45: campaignLegacy\.official\.studios\[0\]\.lenses\[0\] must be an object$/,
+       )
+       expect(changed).toEqual(before)
+     }
+     expect(valid).toEqual(original)
+-    expect(() => validateSaveV45(valid)).not.toThrow()
++    expect(() => validateSaveV46(valid)).not.toThrow()
+   }, 120_000)
+ })

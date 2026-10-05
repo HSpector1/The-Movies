@@ -12,6 +12,10 @@ order). Marathon-era "no successor" language below is historical.**
 This is a compact routing index, not a replacement for the contracts, evidence, Owner records, or
 canonical Lessons Learned.
 
+## Conditional main promotion, 2026-10-04
+
+[1367-O2](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-O2-owner-conditional-main-promotion.md) authorizes a normal history-preserving PR merge from `wip/headless-program-20260916-ts` to `main` only at the next genuinely closed engineering checkpoint and after every stated verification, review, source, CI and ownership gate. No early promotion, forced history change, protection bypass or new gameplay/native acceptance. Existing CURRENT-BEST product identity stays factual. This qualified authorization supersedes historical blanket no-main instructions; all other scope/gates remain.
+
 ## Owner execution decisions, 2026-10-04
 
 [1367-O](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-O-owner-execution-decisions-20261004.md) records execution through bounded P18, sub-agent authority and checkpoint handoffs. The Owner delegates bounded P17 cameo capability/era and fee contract authoring with independent review before coding. Spin-off branch rights stay with the parent property until explicit independent-property promotion; no branch-rights market is added. [Implementation plan](docs/engineering/playability-launch-review/plans/HEADLESS-REMAINDER-IMPLEMENTATION-PLAN.md).

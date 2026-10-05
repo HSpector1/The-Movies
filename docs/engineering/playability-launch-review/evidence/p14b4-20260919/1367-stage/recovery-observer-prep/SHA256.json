@@ -1,0 +1,15 @@
+{
+  "observer-production.patch": "d0bd3c6bcfffb8244e98dcfd9a692bc51275f5601747fe81678df3778c561079",
+  "observer-parity-tests.patch": "b6fb482b1d57c291460429f562782079d48507be0ea8f160810caf2b42e08c92",
+  "HANDBACK.md": "8697a74d4162edf031c723612ae2feb1c8ab0bb80d07b66eff060e3adeabfc8e",
+  "CONTROL-PROVENANCE.json": "efddad798429d71efd994bbb59d4bd00f688c0074d58a84d753d1d2c2e3d24d9",
+  "candidate/src/core/hollywoodTick.ts": "4778acf787dede707c23216f777de978592ed329fad5f1586a167533eea414e7",
+  "tests/helpers/recovery-schema-policy-control.ts": "78f11cd35c506d21f8012e0317ac33c14a2184e4e9c817b46f46dcece11c68d4",
+  "tests/p14d2-schema-observer-parity.test.ts": "81407802652bbfc6979314e0741a39997322291ef50d5a0e80705616d5290b45",
+  "author-observer.py": "b321e0ed3a8262aed8fc7fb5e6368115759bca5e220810c90d79d9f5d9c5fee1",
+  "parity-review-r2.delta.patch": "6b23fbbc9d091350c48f7a821d9daa7f23ee490dc59f58a7cb52e8acc4fc0280",
+  "revision-history/HANDBACK-r1.md": "734cec95f5e5c635483f9ab285dbf48ad21a9bf63255378cba67e2a153b1225d",
+  "revision-history/SHA256-r1.json": "a96cfd5abd9173ed80b30fde018426d2c7ede05a407e323062909bdc8e716381",
+  "revision-history/observer-parity-tests-r1.patch": "a1b0fe7e1e6abd8fadd8c5f794b0f194e1f8132b6f2bcfbc6b510bfec45a55a8",
+  "revision-history/p14d2-schema-observer-parity-r1.test.ts": "4624fee88a38bf02c7ee9f14f8aed1be2aad7560cb4e0db2ea48e3641449f1f6"
+}

@@ -1,0 +1,6 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": { "noEmit": true, "declaration": false, "types": ["node"] },
+  "include": ["./1367-week77-capture.ts", "./1367-week77-capture.config.ts"],
+  "exclude": []
+}

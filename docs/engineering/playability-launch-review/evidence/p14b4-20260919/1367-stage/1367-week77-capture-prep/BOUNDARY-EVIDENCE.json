@@ -1,0 +1,25 @@
+{
+  "controlReportSha256": "ce64a96b15544e1f041f24c95be05c6d10b268d377e0f02258b7d73244f62145",
+  "partAReportSha256": "bdb4e1a87be92e4beab27711d4570da2e8086f184c65142c664197fe24aa1b37",
+  "firstFullStateDivergence": {
+    "week": 50,
+    "roots": [
+      "hollywood"
+    ]
+  },
+  "controlFirstShelving": null,
+  "partAFirstShelving": {
+    "firstVisibleAtProducedWeek": 78,
+    "receipt": {
+      "week": 77,
+      "studioId": "studio-aca408ec-r04",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0005",
+      "conceptId": "studio-aca408ec-r04:concept:5",
+      "rejections": 13,
+      "eventId": "industry-event-126"
+    }
+  },
+  "week77Control": 0,
+  "week77PartA": 0
+}

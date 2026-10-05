@@ -1,0 +1,45 @@
+--- a/tests/p14d2-schema-observer-parity.test.ts
++++ b/tests/p14d2-schema-observer-parity.test.ts
+@@ -14,7 +14,11 @@
+ import type { RivalPolicyObservation } from '../src/core/hollywoodTick.js'
+ 
+ const json = (value: unknown) => JSON.stringify(value)
+-const digest = (value: unknown) => createHash('sha256').update(json(value)).digest('hex')
++// Preserve actual insertion order and recursively serialized values in promisedMasks.
++// Ordinary JSON alone turns every Map into {}, hiding materially different arguments.
++const digest = (value: unknown) => createHash('sha256').update(JSON.stringify(value,
++  (_key, nested: unknown) => nested instanceof Map
++    ? { __recoveryObserverMapEntries: [...nested.entries()] } : nested)).digest('hex')
+ const clone = (state: GameState): GameState => JSON.parse(json(state)) as GameState
+ const observedIndustry = industry.advanceHollywoodWeek
+ 
+@@ -24,8 +28,10 @@
+   forecastCalls: number; phaseCadence: { studioId: string; week: number; nextDecisionWeek: number }[]
+ }
+ function step(input: GameState, mode: Mode): Step {
++  const before = json(input)
+   validateSaveV46(makeSave(input))
+-  const before = json(input), events: RivalPolicyObservation[] = []
++  expect(json(input), 'reader input neutrality before the tick').toBe(before)
++  const events: RivalPolicyObservation[] = []
+   const choices: string[] = [], searches: string[] = []
+   const phaseCadence: Step['phaseCadence'] = []
+   let forecastCalls = 0
+@@ -120,6 +126,17 @@
+ }
+ 
+ describe('1363 schema-only policy observations', () => {
++  it('retains ordered promised-mask entries and nested values in trace digests', () => {
++    const first = { promisedMasks: new Map([['person-a', [1, 2]], ['person-b', [3]]]) }
++    const equal = { promisedMasks: new Map([['person-a', [1, 2]], ['person-b', [3]]]) }
++    const changed = { promisedMasks: new Map([['person-a', [1, 4]], ['person-b', [3]]]) }
++    const reordered = { promisedMasks: new Map([['person-b', [3]], ['person-a', [1, 2]]]) }
++    expect(digest(first)).toBe(digest(equal))
++    expect(digest(first)).not.toBe(digest(changed))
++    expect(digest(first)).not.toBe(digest(reordered))
++    expect(digest(first)).not.toBe(digest({ promisedMasks: new Map() }))
++  })
++
+   it('matches exact uninstrumented policy, with and without observer, for 53 genuine ticks', () => {
+     let control = p13aGeneratedStudio('p13a-core-causal-01')
+     let absent = clone(control), present = clone(control)

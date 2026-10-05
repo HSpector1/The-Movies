@@ -1,0 +1,62 @@
+{
+  "format": "1363-old-era-period-capture/v1",
+  "generatedAt": "2026-10-05T00:17:39.757Z",
+  "generatingHead": "ce6945d58257f70c1b222a8c00e06038db73f6e4",
+  "currentValidationHead": "689a69f314a61a71c2ee4fc813fb4f16c7245ec1",
+  "producerSha256": "84643aa7517682b1c090fd74581419c30fa5e3bed02a52f30ff96536ba53ef86",
+  "configSha256": "e9fa6a3653caed8b63f7b82d2254a7ed6ee514f5a1aef6ed6273d120d411c485",
+  "watchdogSha256": "c077dbb9a8a4351fd2fc058054782ff603285ed39ec11ade8c4be519f5f573fa",
+  "typesSha256": "c47667c5277e4b4219de75f9a7bef3dff642bad72b15aa2aec23ff3ea3083ee7",
+  "archivedSourceFilesSha256": "942359540dafb615549c58df2cf1ea5067e1c7acd0d8df0dda24187241a67a14",
+  "sourceSaveVersion": 26,
+  "startWeek": 309,
+  "ticks": 3,
+  "week": 312,
+  "inputRawSha256": "11ef05be4131d3d3c4a19484f31e79cb50fa1936868f96ace7d0d18ea86e2d72",
+  "input": {
+    "path": "tests/fixtures/p13b/legacy-v26-sound-mid-deployment-309.json.gz",
+    "gzipSha256": "4b99361166c2503b80ede0dfe3a3cafc7521db235bbf6a2a411212a3257bb288",
+    "rawSha256": "11ef05be4131d3d3c4a19484f31e79cb50fa1936868f96ace7d0d18ea86e2d72",
+    "gzipBytes": 123142,
+    "rawBytes": 1134074,
+    "provenancePath": "tests/fixtures/p13b/PROVENANCE.md",
+    "provenanceSha256": "f58776f25e636e95238d5ff246ebf643d99068cdb58a781accbcc216e5db4ec3"
+  },
+  "capture": {
+    "name": "genuine-v26-sound-mid-deployment-week312.json.gz",
+    "gzipSha256": "d8b36ff43d7ad1e6a1b41ae3888e786f0266211875084f6d9d23b33bf5510757",
+    "rawSha256": "fcbf32c3bc133cf6154b07603610d00a7c2533cdc6e70a0533d0a80f826d8868",
+    "gzipBytes": 121310,
+    "rawBytes": 1106746
+  },
+  "boundaries": [
+    {
+      "week": 309,
+      "envelopeSha256": "11ef05be4131d3d3c4a19484f31e79cb50fa1936868f96ace7d0d18ea86e2d72",
+      "stateSha256": "be7614f02fdf4d4d09b6b14fde03b817ee265026cb0bd9fa1538262a313c0489"
+    },
+    {
+      "week": 310,
+      "envelopeSha256": "b1a9154f8c78f907f615a36d4a801c069bf4bd9922e7bc1edb34b2974d49fcee",
+      "stateSha256": "26dda2241b36966b4f5d4492ebeac15fbadf6cddba2e8508ab0bea44b7e2b5f2"
+    },
+    {
+      "week": 311,
+      "envelopeSha256": "a56940ffcf1f73510458f962bd6cdb2d3d1ed3660b2a3aa0cc7cfe82a9becec9",
+      "stateSha256": "68e7c9e92ae835f083d48d9daca2f11365bddf0afe6da67d4f89dbb9fb717253"
+    },
+    {
+      "week": 312,
+      "envelopeSha256": "fcbf32c3bc133cf6154b07603610d00a7c2533cdc6e70a0533d0a80f826d8868",
+      "stateSha256": "6b7848b0e0c267de9553afa3f91a8bfdf64ff8da115ca4f0fee89523e7083c46"
+    }
+  ],
+  "previousYearOwners": [
+    "studio-aca408ec-r01",
+    "studio-aca408ec-r02",
+    "studio-aca408ec-r03",
+    "studio-aca408ec-r04"
+  ],
+  "route": "Original ce6945d Save26 writer/input; exactly tick(state) three times, public26 validation at 309/310/311/312; no current gameplay or state edits.",
+  "limitation": "Produces an old-period boundary input only; actual affordable V27 laboratory admission remains the separate reviewed test prerequisite."
+}
