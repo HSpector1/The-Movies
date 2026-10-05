@@ -1,0 +1,790 @@
+{
+  "scope": "Completed R6 types/P15/current selected verification and attribution, independent measured reviews, preserved ranking residual diagnosis and reviewed unexecuted capture and current-test correction preparation. No landing or closure.",
+  "coordinatorHead": "45bcb9359eeecdcaa92020746a0af35150167eb7",
+  "archive": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/eleventh-verification/evidence.tar.gz",
+    "sha256": "0d8a49b0defcd7a8b53a59c4769b6904a7a1eda86e9206874f298229dec2c1b9",
+    "bytes": 6582145
+  },
+  "memberCount": 155,
+  "logicalBytes": 74442908,
+  "members": {
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-current-r1-postflight.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-current-r1-postflight.json",
+      "sha256": "1f1522ad4bb84eb3986286f21a5d7de3d38d0607c0f005f97d88eaf316f8ee2e",
+      "bytes": 119881
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-current-r1-preflight.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-current-r1-preflight.json",
+      "sha256": "ca8db8c954b8300e3f136b78a6e537eb05a31b2ea2978c331b00b2668e1e4abf",
+      "bytes": 119202
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-current-r1.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-current-r1.json",
+      "sha256": "a761ef65708d7134a85e640b0fc99f69c6a8f27555d0c38c224ea1aa6706e752",
+      "bytes": 56140
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-current-r1.patch": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-current-r1.patch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-current-r1.txt": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-current-r1.txt",
+      "sha256": "ec1bce1ace3ef5fca551a70f2cad4bb622ef0a1453a73e00b3c3c84c37693524",
+      "bytes": 51911
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-p15-r2-postflight.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-p15-r2-postflight.json",
+      "sha256": "073d84aff9e3cf2759fa70fee84c4655a3b3fbeb74b94b8fde84e9cac7295e78",
+      "bytes": 119869
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-p15-r2-preflight.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-p15-r2-preflight.json",
+      "sha256": "72800b2e7dbdf1b39ec8c645cf0334ba0a8d2a2777fa1b73aad07b10c2ab7e20",
+      "bytes": 119202
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-p15-r2.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-p15-r2.json",
+      "sha256": "31ba1814f2cf97c815bc2ad55ddc83c14229b251de3aa17b4e0f608f01305506",
+      "bytes": 56136
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-p15-r2.patch": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-p15-r2.patch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-p15-r2.txt": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-p15-r2.txt",
+      "sha256": "41dc88313e078c7c32ae6c75a0f89f0ec835a56a0bc0ab981268e8ebe1eba7ba",
+      "bytes": 47818
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r2-postflight.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r2-postflight.json",
+      "sha256": "a43cd3fb93947f83d32f5df1d41847368c0dd9a028f75847f5d9e071bc72ba7e",
+      "bytes": 119875
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r2-preflight.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r2-preflight.json",
+      "sha256": "d749080e8b332258302db6af7aead6b9483fcbb241bf30a161a0f130d47cbf0b",
+      "bytes": 119202
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r2.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r2.json",
+      "sha256": "d8a4e5b144b276a8122f9ff19e265c5e6ba2fb74cc74d836e623b61297a6cab9",
+      "bytes": 56106
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r2.patch": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r2.patch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r2.txt": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r2.txt",
+      "sha256": "35f5fae9773a874933addc43fe1234c5b2066bb9d16e2e761987504220e8fb98",
+      "bytes": 48799
+    },
+    "scratch/1368-independent-review/R6-CURRENT-EXPECTATION-STATIC.md": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/R6-CURRENT-EXPECTATION-STATIC.md",
+      "sha256": "5cadf06fd75dbdb222a75ade0e8c5e78d97608f6c3aa0fafe38b7626b7603d1e",
+      "bytes": 9243
+    },
+    "scratch/1368-independent-review/R6-CURRENT-MEASURED.md": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/R6-CURRENT-MEASURED.md",
+      "sha256": "893046765c60d931fb7715a9a96cad386bd865aa1e3c9fbfca24691972e4c591",
+      "bytes": 8710
+    },
+    "scratch/1368-independent-review/R6-P15-MEASURED.md": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/R6-P15-MEASURED.md",
+      "sha256": "d1f8105ee0e5aa58dbd3e1c4aab623d657dc0ad4b40211193dca2f5a32019585",
+      "bytes": 8059
+    },
+    "scratch/1368-independent-review/R6-P15-RANK-CAPTURE-R2-STATIC.md": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/R6-P15-RANK-CAPTURE-R2-STATIC.md",
+      "sha256": "10ddabe5350d92b1399c698e11b9f4e71e8955b592399be926c98fa0766a814f",
+      "bytes": 8543
+    },
+    "scratch/1368-independent-review/R6-P15-RANK-DIAGNOSIS-STATIC.md": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/R6-P15-RANK-DIAGNOSIS-STATIC.md",
+      "sha256": "5db68e45073cf0b38ef61f8d1a0a88401520313d8b1d0092fc70b27a4d98b44c",
+      "bytes": 9649
+    },
+    "scratch/1368-independent-review/R6-SCIENTIST-RESIDUAL-R2-STATIC.md": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/R6-SCIENTIST-RESIDUAL-R2-STATIC.md",
+      "sha256": "2c394b6ca10159cb1103f56548745726e658f0099912a6670ff960ff5a19c211",
+      "bytes": 3227
+    },
+    "scratch/1368-independent-review/R6-SCIENTIST-RESIDUAL-STATIC.md": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/R6-SCIENTIST-RESIDUAL-STATIC.md",
+      "sha256": "52f4ae0d2da041d6e9759e3f0d122495699e4e250e2a952c385468fbfeed545e",
+      "bytes": 7371
+    },
+    "scratch/1368-r6-attribution-current-r1/MANIFEST.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/MANIFEST.json",
+      "sha256": "148aca0c8f5e49644ce9522a15f6f052f1732017e1b4a5731ffd92df0592e217",
+      "bytes": 1799
+    },
+    "scratch/1368-r6-attribution-current-r1/SUMMARY.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/SUMMARY.json",
+      "sha256": "a5a1f877a0745452e873d8b741753510b5ba541acbf60a2cc02095a2dbd4c4de",
+      "bytes": 18557
+    },
+    "scratch/1368-r6-attribution-current-r1/case-rows.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/case-rows.json",
+      "sha256": "41c0583d7bcf1e795cf1d9bf0c3e73797edc258d31cf60467cc5ba4ac168830a",
+      "bytes": 2176947
+    },
+    "scratch/1368-r6-attribution-current-r1/comparison-vs1361M3.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/comparison-vs1361M3.json",
+      "sha256": "990980cab80d40ac6ece23e52b077db0e259e1bc98994e1916e52f905051c564",
+      "bytes": 138153
+    },
+    "scratch/1368-r6-attribution-current-r1/comparison-vsunswept1368E.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/comparison-vsunswept1368E.json",
+      "sha256": "cdd66b38e15db1ee9a867ae2307699ba48cdad31fb4ab5a711eb906845b42f36",
+      "bytes": 1770344
+    },
+    "scratch/1368-r6-attribution-current-r1/declared-title-relationships.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/declared-title-relationships.json",
+      "sha256": "b1e8e5da5dde88f749ace85120c76b8e430d6de555ce5474e803c3e9a98623f6",
+      "bytes": 5905
+    },
+    "scratch/1368-r6-attribution-current-r1/duplicate-display-titles.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/duplicate-display-titles.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3
+    },
+    "scratch/1368-r6-attribution-current-r1/raw-failure-blocks.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/raw-failure-blocks.json",
+      "sha256": "55109ae75fcd44ef31c4b79077cf8dc3bbae074385b6758a9573576440303c54",
+      "bytes": 26895795
+    },
+    "scratch/1368-r6-attribution-current-r1/raw-failure-rows.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/raw-failure-rows.json",
+      "sha256": "082b8165e2403c4f33d1929e7a1034d01a427638e1af4bbb40e3a9829eaa3542",
+      "bytes": 46094
+    },
+    "scratch/1368-r6-attribution-current-r1/raw-json-identity-difference.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/raw-json-identity-difference.json",
+      "sha256": "7e09a9cc21af36905142ef0023a8cae0aa245f19568b94417618fbbffcda5732",
+      "bytes": 123
+    },
+    "scratch/1368-r6-attribution-current-r1/suite-errors.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/suite-errors.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "scratch/1368-r6-attribution-current-r1/unhandled-markers.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/unhandled-markers.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "scratch/1368-r6-attribution-current-r1/unswept-selected-case-rows.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/unswept-selected-case-rows.json",
+      "sha256": "b39bd91f0d0adf6704efb06ad2d8c481dbce9e57271556c0be9832315ff41536",
+      "bytes": 3416987
+    },
+    "scratch/1368-r6-attribution-current-r1/unswept-selected-suite-errors.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-current-r1/unswept-selected-suite-errors.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "scratch/1368-r6-attribution-p15-r2/MANIFEST.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/MANIFEST.json",
+      "sha256": "1d317e72e1a2180d88adb15e46350d4a4bd1d86947b770fd6aac3deda8f9b9cb",
+      "bytes": 1793
+    },
+    "scratch/1368-r6-attribution-p15-r2/SUMMARY.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/SUMMARY.json",
+      "sha256": "9bf6d9e96cec36231b67a8b3354a78492b7aa5a729f3d5e29a1893920a575d9c",
+      "bytes": 14009
+    },
+    "scratch/1368-r6-attribution-p15-r2/case-rows.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/case-rows.json",
+      "sha256": "e79c961082d50ecb58600560d6dd3054bd1d5bd376ffaaffadd1474990dd02f4",
+      "bytes": 308497
+    },
+    "scratch/1368-r6-attribution-p15-r2/comparison-vs1361M3.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/comparison-vs1361M3.json",
+      "sha256": "8512b82e30a0f22c216cf41cdb58d75eebbfeab743cf0c7725263f3e03c17064",
+      "bytes": 127716
+    },
+    "scratch/1368-r6-attribution-p15-r2/comparison-vsunswept1368E.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/comparison-vsunswept1368E.json",
+      "sha256": "36525a87b9128f474c07ec5c11ba70862a6da1e0e353ea468472eb7694a11d26",
+      "bytes": 741622
+    },
+    "scratch/1368-r6-attribution-p15-r2/declared-title-relationships.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/declared-title-relationships.json",
+      "sha256": "b1e8e5da5dde88f749ace85120c76b8e430d6de555ce5474e803c3e9a98623f6",
+      "bytes": 5905
+    },
+    "scratch/1368-r6-attribution-p15-r2/duplicate-display-titles.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/duplicate-display-titles.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3
+    },
+    "scratch/1368-r6-attribution-p15-r2/raw-failure-blocks.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/raw-failure-blocks.json",
+      "sha256": "b13026dce4b99e053e8f6137288d989077887c3906c466c0232ca97848436bb3",
+      "bytes": 39910
+    },
+    "scratch/1368-r6-attribution-p15-r2/raw-failure-rows.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/raw-failure-rows.json",
+      "sha256": "f679b015a1f1da3421126770f7ebd932913d3069dc7e1cdf1031de4c38e68455",
+      "bytes": 28448
+    },
+    "scratch/1368-r6-attribution-p15-r2/raw-json-identity-difference.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/raw-json-identity-difference.json",
+      "sha256": "c098cd16f6683e087a4f21a12e72c365c0cd77e4ed0eb55d945de16dfaf1c230",
+      "bytes": 123
+    },
+    "scratch/1368-r6-attribution-p15-r2/suite-errors.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/suite-errors.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "scratch/1368-r6-attribution-p15-r2/unhandled-markers.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/unhandled-markers.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "scratch/1368-r6-attribution-p15-r2/unswept-selected-case-rows.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/unswept-selected-case-rows.json",
+      "sha256": "db46c0fbacbb7e16f576dd3be45300c1be4b807e82dc1bcfc5c64106176639b6",
+      "bytes": 343085
+    },
+    "scratch/1368-r6-attribution-p15-r2/unswept-selected-suite-errors.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-p15-r2/unswept-selected-suite-errors.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/CHANGES.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/CHANGES.json",
+      "sha256": "c6e19d17d43ef8e68be2c5b44a539a4e470915cb8ce4cb0136b7925c4afc7f54",
+      "bytes": 8125
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/HANDBACK.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/HANDBACK.txt",
+      "sha256": "3cc48b30f2a35246078d47a5371a6937aec139fad77c5e18aea2ce327dffbb72",
+      "bytes": 6692
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/INPUT-PINS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/INPUT-PINS.json",
+      "sha256": "da5c26172ff4981b9d3e3f806a8649d63568a67a61e4f006d9a387addb11f349",
+      "bytes": 6805
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/MANIFEST.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/MANIFEST.json",
+      "sha256": "f98dfd7f8c3ce081aba33f6142963cd6717cf2b0ec15252a06c9268bdd2ad917",
+      "bytes": 3565
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/OPERAND-DIFFS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/OPERAND-DIFFS.json",
+      "sha256": "d263656e00706552319a593d131404fbd725bca013bdfcf1690af826862a29ae",
+      "bytes": 50992
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/PATCH.diff": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/PATCH.diff",
+      "sha256": "02eaf6bfcf7a469ba692f3cf462de47239fd17ed0300f3219e06ea3d1cbcf87c",
+      "bytes": 11017
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/PER-LEAF-EVIDENCE.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/PER-LEAF-EVIDENCE.json",
+      "sha256": "275e3d1736b8e033cbcb1191bd71afa257ba0e7ba65ef8b2d3fbb0ef354e4dee",
+      "bytes": 31208
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/STATIC-CHECKS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/STATIC-CHECKS.json",
+      "sha256": "cf42398215ce908f495d1fb14673eb551c7999da9c88c69aaada5a8393a2af8c",
+      "bytes": 2149
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/analyze_operands.py": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/analyze_operands.py",
+      "sha256": "ebe296d76d1293fb90ad969de7e1faf69faede5fe4692d017267a3cc26d2aef5",
+      "bytes": 5729
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/files/tests/bridge-p14c2rm-runtime.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/files/tests/bridge-p14c2rm-runtime.test.ts",
+      "sha256": "56ed6545d0f5f496cd77970df5a4457f1702262e4fb429b2619369120d7fc190",
+      "bytes": 14211
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/files/tests/bridge-p14c2s-scientist-runtime.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/files/tests/bridge-p14c2s-scientist-runtime.test.ts",
+      "sha256": "504cd1d7c52d5f98d96264c562fd5c21db83687a37ca90c6f439782ad0503ab0",
+      "bytes": 16822
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/files/tests/bridge-p14c3-promise-digest-continuity.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/files/tests/bridge-p14c3-promise-digest-continuity.test.ts",
+      "sha256": "114146cbcb5852db182956c932fee4823f424b3e54b1d840b2983f80d59abaed",
+      "bytes": 13313
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/files/tests/bridge-p14p3-directing-promises.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/files/tests/bridge-p14p3-directing-promises.test.ts",
+      "sha256": "77e79156ff2a341d0f7f8a1f8ff9b38f404fd44c06835330b3b614e3eea7334f",
+      "bytes": 50693
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/files/tests/bridge-p14p4p5-opportunities.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/files/tests/bridge-p14p4p5-opportunities.test.ts",
+      "sha256": "1e6535c76a391133ce8bcc9b6170b4e09d4ea835263f6b55478aa8df3502a27e",
+      "bytes": 43525
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/files/tests/bridge-p14r2r3-prior55.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/files/tests/bridge-p14r2r3-prior55.test.ts",
+      "sha256": "0cacf0fb0b8d7a64f0e9a00a4e5ac37be792bbb6627e1133d38ae44851de4d25",
+      "bytes": 15777
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/files/tests/p14p4p5-cross-owner.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/files/tests/p14p4p5-cross-owner.test.ts",
+      "sha256": "c4d52b190504ed317726990600fe0a67e4fcb89e8b6b59a711e20060c4e120d5",
+      "bytes": 22102
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/preimages/tests/bridge-p14c2rm-runtime.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/preimages/tests/bridge-p14c2rm-runtime.test.ts",
+      "sha256": "cacc8913c6041488b1e0f0485e0304be2c0f12ca6b84a61a68382ff981a1a271",
+      "bytes": 14112
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/preimages/tests/bridge-p14c2s-scientist-runtime.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/preimages/tests/bridge-p14c2s-scientist-runtime.test.ts",
+      "sha256": "120d9296ae094347bbf93b81c700ffe8e263be07beb0741a3cb47e38c605dc1a",
+      "bytes": 16723
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/preimages/tests/bridge-p14c3-promise-digest-continuity.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/preimages/tests/bridge-p14c3-promise-digest-continuity.test.ts",
+      "sha256": "0671844abde4560fde76120f6cb882b98f795b2fd12e61f7cd6a02a82a19ed61",
+      "bytes": 13313
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/preimages/tests/bridge-p14p3-directing-promises.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/preimages/tests/bridge-p14p3-directing-promises.test.ts",
+      "sha256": "95ad3a75f07e7aad118723f8941a65201dab6c9cc95086cfc3a1c068b19c9268",
+      "bytes": 50575
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/preimages/tests/bridge-p14p4p5-opportunities.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/preimages/tests/bridge-p14p4p5-opportunities.test.ts",
+      "sha256": "fb20d0fbbecd9be51e87b9b6b7be13b0be7922cad733f46167d5e4f252d7f7b0",
+      "bytes": 43407
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/preimages/tests/bridge-p14r2r3-prior55.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/preimages/tests/bridge-p14r2r3-prior55.test.ts",
+      "sha256": "7a5ad1794442475badf87d1006df82c83e015546c1146dfff10bc5fff7c44de1",
+      "bytes": 15678
+    },
+    "scratch/1368-r6-current-expectation-residual-prep/preimages/tests/p14p4p5-cross-owner.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-current-expectation-residual-prep/preimages/tests/p14p4p5-cross-owner.test.ts",
+      "sha256": "b73a41d0d97f0ad8a1638101547c77ec5fc26169082c913d2e2c512e67b29680",
+      "bytes": 22003
+    },
+    "scratch/1368-r6-integration-prep/run-current-r1/RESULT.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-current-r1/RESULT.json",
+      "sha256": "303d64a9d9c990cea5556f403a9039d71f5488112fb9363d246dbdf107b38c02",
+      "bytes": 10669
+    },
+    "scratch/1368-r6-integration-prep/run-current-r1/binding.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-current-r1/binding.json",
+      "sha256": "78c340496c30ca4aec6a791639d327b4340f24868613a32978e0055b00fd0cb6",
+      "bytes": 14507
+    },
+    "scratch/1368-r6-integration-prep/run-current-r1/current.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-current-r1/current.txt",
+      "sha256": "d3addf8f9874cb63b87147f7f76e97d863ce8ca5420ff31935e801c721f4b8ca",
+      "bytes": 35109869
+    },
+    "scratch/1368-r6-integration-prep/run-current-r1/power.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-current-r1/power.txt",
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "bytes": 105
+    },
+    "scratch/1368-r6-integration-prep/run-current-r1/vitest.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-current-r1/vitest.json",
+      "sha256": "89573f9dd335e37bd93a1fd265368e8846586a7284318753fd1c076125cecffe",
+      "bytes": 760616
+    },
+    "scratch/1368-r6-integration-prep/run-p15-r2/RESULT.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-p15-r2/RESULT.json",
+      "sha256": "93bd3e568990c075fbdfb918425e5aef03c32e6c88673b79806c92211fb109ba",
+      "bytes": 1295
+    },
+    "scratch/1368-r6-integration-prep/run-p15-r2/binding.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-p15-r2/binding.json",
+      "sha256": "075835bcba916767c02ef17ceb1f4b82ee79e7080288ad70cb09f05d670c831f",
+      "bytes": 10026
+    },
+    "scratch/1368-r6-integration-prep/run-p15-r2/p15.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-p15-r2/p15.txt",
+      "sha256": "56637f2b8fab4906353044e2522a3692d7eb94c63af41e29c205a96345964ca8",
+      "bytes": 68582
+    },
+    "scratch/1368-r6-integration-prep/run-p15-r2/power.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-p15-r2/power.txt",
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "bytes": 105
+    },
+    "scratch/1368-r6-integration-prep/run-p15-r2/vitest.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-p15-r2/vitest.json",
+      "sha256": "0d11ef06565b847068d0a60458606daac7b091500df899c40edf3d0576bb1155",
+      "bytes": 112987
+    },
+    "scratch/1368-r6-integration-prep/run-types-r2/RESULT.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r2/RESULT.json",
+      "sha256": "6d487059dfee5b4d87d2a7c77930ecc0cf235a7f289d23a65843376bf63e0230",
+      "bytes": 2295
+    },
+    "scratch/1368-r6-integration-prep/run-types-r2/binding.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r2/binding.json",
+      "sha256": "754262eebd0b408a65421bfab794c6538a1a2872b135bdc3c34a85210fafe8b3",
+      "bytes": 7401
+    },
+    "scratch/1368-r6-integration-prep/run-types-r2/bridge.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r2/bridge.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "scratch/1368-r6-integration-prep/run-types-r2/contract-fixtures.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r2/contract-fixtures.txt",
+      "sha256": "98c9a4d6901e053e421df830770b9c3322ebfe5183c2d53b70352ec8eaa7a822",
+      "bytes": 142
+    },
+    "scratch/1368-r6-integration-prep/run-types-r2/contract.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r2/contract.txt",
+      "sha256": "40863f2858fed1d1ec2045d15350eaa315f0ff1d268b09cd28f276d55cdfabe1",
+      "bytes": 398
+    },
+    "scratch/1368-r6-integration-prep/run-types-r2/power.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r2/power.txt",
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "bytes": 105
+    },
+    "scratch/1368-r6-integration-prep/run-types-r2/producers.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r2/producers.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "scratch/1368-r6-integration-prep/run-types-r2/root.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r2/root.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "scratch/1368-r6-integration-prep/run-types-r2/ui.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r2/ui.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r1/EXPECTED-SOURCE-PINS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r1/EXPECTED-SOURCE-PINS.json",
+      "sha256": "218cba8be73e60055d63ba417e6a625a36fea25b921a3e508ed0075a7b3649ec",
+      "bytes": 20540
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r1/MANIFEST.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r1/MANIFEST.json",
+      "sha256": "a6e3300064ca34d70c5576c0c3f4b85795fefb20fecf3ce232c986bc6be224f8",
+      "bytes": 1445
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r1/ORIGINS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r1/ORIGINS.json",
+      "sha256": "e4bf883f1801811b36234e1721b33d91a7ff0f34499fd8f966966ef6b85d53b4",
+      "bytes": 50237
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r1/PREPARATION.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r1/PREPARATION.txt",
+      "sha256": "4457281672c56ebbd2daf3ecd464a5770e0d6e338ca7fca327589c5a2b1416e7",
+      "bytes": 4956
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r1/REFERENCE-PINS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r1/REFERENCE-PINS.json",
+      "sha256": "2d2ae43563500c6543351aa9291d0a113e80134e15c2091ee183459dc04e69d4",
+      "bytes": 2006
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r1/files/C0/tests/1368-rank-capture.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r1/files/C0/tests/1368-rank-capture.test.ts",
+      "sha256": "985eaecd6a2f3ae79cae8536b411d8e7127a29337ad0c157763d7f32005b5614",
+      "bytes": 5380
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r1/files/C0/tsconfig.1368-rank-capture.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r1/files/C0/tsconfig.1368-rank-capture.json",
+      "sha256": "bae27d953e0448a7557992d40b039626859c817ac9c5c397bcfa84f947fdd1e2",
+      "bytes": 250
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r1/files/C0/vitest.1368-rank-capture.config.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r1/files/C0/vitest.1368-rank-capture.config.ts",
+      "sha256": "63461e8cde46693f38399f2c90529bd736656706aa54548a31fc01cc05d1d43c",
+      "bytes": 230
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r1/files/C0/vitest.1368-rank-capture.workspace.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r1/files/C0/vitest.1368-rank-capture.workspace.ts",
+      "sha256": "cf46dd8f0a00fb3ddf833b9efe34dd8385f60b1f36db08064e6d7c874c8ddef4",
+      "bytes": 121
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r1/files/common/tests/1368-rank-common.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r1/files/common/tests/1368-rank-common.ts",
+      "sha256": "35180dda22d441edc103dabf0b6da077b9f92090397d7267779ba1a74a1ce9d2",
+      "bytes": 3007
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/FIXED-PINS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/FIXED-PINS.json",
+      "sha256": "d364e3c101bd20bb3ea6f618d3449da0b963c6cae7717b0d3aec0f311cdb0f87",
+      "bytes": 3192
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/HANDBACK.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/HANDBACK.txt",
+      "sha256": "3030cf052711d35efaef6cf1f4a6a44d2c8e0452bb331e1efec64d80e6e62f7b",
+      "bytes": 9299
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/MANIFEST.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/MANIFEST.json",
+      "sha256": "36d7e09cb618ec6892489794971bae03a74c7b3eb060056009ff5657229418dd",
+      "bytes": 3750
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/ORIGIN-DELTA.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/ORIGIN-DELTA.json",
+      "sha256": "705ac93bf56847000fc0e8efca48d18d658ced6aa3cd9181ac471cb12c58a238",
+      "bytes": 1674
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/ORIGINS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/ORIGINS.json",
+      "sha256": "006eee46f32b4a45823683e6f3defcec2c9d8a83d62603f426d8e710f66d4b1e",
+      "bytes": 106948
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/R1-COMMON-TO-R2.diff": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/R1-COMMON-TO-R2.diff",
+      "sha256": "7a9dd7067135da8b7fdaac54c185c4814de949a1c2b8e0e3bff422b735049c1e",
+      "bytes": 865
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/RUN-LIFECYCLE-DELTA.diff": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/RUN-LIFECYCLE-DELTA.diff",
+      "sha256": "4963847463f65be421d5df507971c0e0bb7a8e7917a52184e9bc945299362fb9",
+      "bytes": 36627
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/STATIC-CHECKS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/STATIC-CHECKS.json",
+      "sha256": "e68a6f496764e1f34a22e7ea434d4b9f474e7b19b583efbf4dd503dac6490eef",
+      "bytes": 698
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/assemble.py": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/assemble.py",
+      "sha256": "4497b9269a75234f48c467f5aa1e82fbb2e6b44d9a9e7518abd5b3dadf0ed503",
+      "bytes": 1802
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/cleanup.py": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/cleanup.py",
+      "sha256": "4698b610b50289fd289e3235c564c087774b443422ca7e0ac6635284babc49e4",
+      "bytes": 4420
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/common.py": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/common.py",
+      "sha256": "2ccd21e79fac77379b938d340652e4566f5c4fef898f8405e5a239e1e73591ed",
+      "bytes": 5037
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/files/ABC/tests/1368-rank-capture.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/files/ABC/tests/1368-rank-capture.test.ts",
+      "sha256": "b6250a94e17440b97086d007febe8e7d7aa7dfd5bfab4018af8f64e7f39749e5",
+      "bytes": 4050
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/files/ABC/tsconfig.1368-rank-capture.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/files/ABC/tsconfig.1368-rank-capture.json",
+      "sha256": "bae27d953e0448a7557992d40b039626859c817ac9c5c397bcfa84f947fdd1e2",
+      "bytes": 250
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/files/ABC/vitest.1368-rank-capture.config.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/files/ABC/vitest.1368-rank-capture.config.ts",
+      "sha256": "63461e8cde46693f38399f2c90529bd736656706aa54548a31fc01cc05d1d43c",
+      "bytes": 230
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/files/ABC/vitest.1368-rank-capture.workspace.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/files/ABC/vitest.1368-rank-capture.workspace.ts",
+      "sha256": "cf46dd8f0a00fb3ddf833b9efe34dd8385f60b1f36db08064e6d7c874c8ddef4",
+      "bytes": 121
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/files/C0/tests/1368-rank-capture.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/files/C0/tests/1368-rank-capture.test.ts",
+      "sha256": "985eaecd6a2f3ae79cae8536b411d8e7127a29337ad0c157763d7f32005b5614",
+      "bytes": 5380
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/files/C0/tsconfig.1368-rank-capture.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/files/C0/tsconfig.1368-rank-capture.json",
+      "sha256": "bae27d953e0448a7557992d40b039626859c817ac9c5c397bcfa84f947fdd1e2",
+      "bytes": 250
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/files/C0/vitest.1368-rank-capture.config.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/files/C0/vitest.1368-rank-capture.config.ts",
+      "sha256": "63461e8cde46693f38399f2c90529bd736656706aa54548a31fc01cc05d1d43c",
+      "bytes": 230
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/files/C0/vitest.1368-rank-capture.workspace.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/files/C0/vitest.1368-rank-capture.workspace.ts",
+      "sha256": "cf46dd8f0a00fb3ddf833b9efe34dd8385f60b1f36db08064e6d7c874c8ddef4",
+      "bytes": 121
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/files/common/tests/1368-rank-common.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/files/common/tests/1368-rank-common.ts",
+      "sha256": "b34ed51e97e033125f472ccab99d3d3f916c3a220cc827f04836de49d4e95253",
+      "bytes": 3007
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/run.py": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/run.py",
+      "sha256": "663cdf822d7d0919d341454931174a044bccbe3614a70776a29c307155681558",
+      "bytes": 15262
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/templates/ABC-ASSEMBLY.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/templates/ABC-ASSEMBLY.json",
+      "sha256": "963dba1fdfd24e324962cd477de093ccdee7007cb2591973cb9a314595adca61",
+      "bytes": 53767
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/templates/ABC-SOURCE-PINS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/templates/ABC-SOURCE-PINS.json",
+      "sha256": "64444842bc40ca6fba76664760bf277e942044632af64adea1eec5de08794d56",
+      "bytes": 20351
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/templates/ASSEMBLY.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/templates/ASSEMBLY.json",
+      "sha256": "7fcd151d025c4e834afc7086a818c314226ccf4bd77561d8a892ac2835351878",
+      "bytes": 977
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/templates/C0-ASSEMBLY.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/templates/C0-ASSEMBLY.json",
+      "sha256": "65918bb8c372610b9ee3c6e1022d66154e6eca38512748ab498c8ecc5cf7a005",
+      "bytes": 53914
+    },
+    "scratch/1368-r6-p15-rank-capture-prep-r2/templates/C0-SOURCE-PINS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-capture-prep-r2/templates/C0-SOURCE-PINS.json",
+      "sha256": "ac6bedc73bfecf0bc268acea6cad030e1168bf1b5f858277a2eeafbf1aa938a5",
+      "bytes": 20540
+    },
+    "scratch/1368-r6-p15-rank-residual-prep/ATTRIBUTION-EXTRACT.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-residual-prep/ATTRIBUTION-EXTRACT.json",
+      "sha256": "0428862ff285dab07606b03b7da32dd5892fb54b303b49a08daeaf82918cd1cb",
+      "bytes": 3375
+    },
+    "scratch/1368-r6-p15-rank-residual-prep/DIAGNOSIS.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-residual-prep/DIAGNOSIS.txt",
+      "sha256": "52900f192269c96ebbd9b2f649e05d2177aaee99cf936a920ebc5251dada35c0",
+      "bytes": 6695
+    },
+    "scratch/1368-r6-p15-rank-residual-prep/INPUT-PINS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-residual-prep/INPUT-PINS.json",
+      "sha256": "928d27702735b8dbf3f4d25ba291ea0f6f037d13c2d599c36b6e4f53a2c96b3d",
+      "bytes": 4716
+    },
+    "scratch/1368-r6-p15-rank-residual-prep/MANIFEST.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-residual-prep/MANIFEST.json",
+      "sha256": "4220dcd879a88d5ecac4dd03415720297e8ca0cd0624319329a77cb8134cf3c9",
+      "bytes": 552
+    },
+    "scratch/1368-r6-p15-rank-residual-prep/p15a2-power-ranking-archive.test.ts.preimage": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-p15-rank-residual-prep/p15a2-power-ranking-archive.test.ts.preimage",
+      "sha256": "30fd9cea600237773b92ee1c828999c5bc518a298deb109711464f7320a831b5",
+      "bytes": 80714
+    },
+    "scratch/1368-r6-scientist-residual-prep-r2/EVIDENCE.md": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep-r2/EVIDENCE.md",
+      "sha256": "0c3827db81583873f3fc87a945172445859e49db0261ec5f0503a4a4a2d2e582",
+      "bytes": 6443
+    },
+    "scratch/1368-r6-scientist-residual-prep-r2/MANIFEST.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep-r2/MANIFEST.json",
+      "sha256": "0888e61e0e9b5453e51331966d837e7def6d799d94fa9af11600c7a71129e326",
+      "bytes": 2915
+    },
+    "scratch/1368-r6-scientist-residual-prep-r2/ORIGINPINS.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep-r2/ORIGINPINS.json",
+      "sha256": "8b31d06289a6c4ea4da360d69cb6a08e1a5a773dcddf52418c7fbd74799eb8c8",
+      "bytes": 1225
+    },
+    "scratch/1368-r6-scientist-residual-prep-r2/failure-evidence.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep-r2/failure-evidence.json",
+      "sha256": "b37f55751cab22ec59201b88925cc9a74a0dfa786aae1d058dc333d33683e2ff",
+      "bytes": 3342
+    },
+    "scratch/1368-r6-scientist-residual-prep-r2/preimages/tests/p14c2s-scientist-retirement.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep-r2/preimages/tests/p14c2s-scientist-retirement.test.ts",
+      "sha256": "98e866e3f689590124d96a0ca40253efb1bd82ba880ace43dd961bd24ece1668",
+      "bytes": 26247
+    },
+    "scratch/1368-r6-scientist-residual-prep-r2/r1-to-r2.diff": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep-r2/r1-to-r2.diff",
+      "sha256": "2ea0fd5d82c602f1bbdacdc890e4e44dabaa12d1a4e4d0045020e8851899d035",
+      "bytes": 906
+    },
+    "scratch/1368-r6-scientist-residual-prep-r2/scientist-residual.patch": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep-r2/scientist-residual.patch",
+      "sha256": "6d7810aaac8effa263139d7b474f2485eab5507730b7a2fb8b9c6984628664ba",
+      "bytes": 9707
+    },
+    "scratch/1368-r6-scientist-residual-prep-r2/tree/tests/p14c2s-scientist-retirement.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep-r2/tree/tests/p14c2s-scientist-retirement.test.ts",
+      "sha256": "0be00fd164af9fcf030bd3f4151afc1e67431ed4664c424c186dbc7b8e25ccb4",
+      "bytes": 25036
+    },
+    "scratch/1368-r6-scientist-residual-prep/EVIDENCE.md": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep/EVIDENCE.md",
+      "sha256": "ec74cb54bebad2ebe8ccd136e9b8edff92a69004f230de5653db81070ac3c9bd",
+      "bytes": 5807
+    },
+    "scratch/1368-r6-scientist-residual-prep/MANIFEST.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep/MANIFEST.json",
+      "sha256": "84cf52216da015b5819c6be6e75d2159bb01d64b4d8a4059ae3ff22109e54c3f",
+      "bytes": 2528
+    },
+    "scratch/1368-r6-scientist-residual-prep/failure-evidence.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep/failure-evidence.json",
+      "sha256": "b37f55751cab22ec59201b88925cc9a74a0dfa786aae1d058dc333d33683e2ff",
+      "bytes": 3342
+    },
+    "scratch/1368-r6-scientist-residual-prep/preimages/tests/p14c2s-scientist-retirement.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep/preimages/tests/p14c2s-scientist-retirement.test.ts",
+      "sha256": "98e866e3f689590124d96a0ca40253efb1bd82ba880ace43dd961bd24ece1668",
+      "bytes": 26247
+    },
+    "scratch/1368-r6-scientist-residual-prep/scientist-residual.patch": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep/scientist-residual.patch",
+      "sha256": "da860681833c14330ec09adbd1bd8347ef50564e4f6932291fd2a6ff1f614cd8",
+      "bytes": 9527
+    },
+    "scratch/1368-r6-scientist-residual-prep/tree/tests/p14c2s-scientist-retirement.test.ts": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-scientist-residual-prep/tree/tests/p14c2s-scientist-retirement.test.ts",
+      "sha256": "7b6893f136015a59cb1465e06c547790e078e010b07b8751c8ba3906c4334bcd",
+      "bytes": 24858
+    },
+    "scratch/1368-r6-selected-followup-publication/RECONCILIATION.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-selected-followup-publication/RECONCILIATION.json",
+      "sha256": "48a34ced4edf9fce6f23f29b84b36ea539e9c11fc045e568ff80d5fc2366f36a",
+      "bytes": 2681
+    },
+    "scratch/1368-r6-selected-followup-publication/preserve.py": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-selected-followup-publication/preserve.py",
+      "sha256": "f331cfd1589af5fbc97c61d4ab9456a694f44567c28d5bef4ecfbc49c74ba3cb",
+      "bytes": 3484
+    },
+    "scratch/heavy-queue/1368-r6-current-r1-resume.log": {
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-r6-current-r1-resume.log",
+      "sha256": "5f408088a2a47a6f7168f04f13f0245051345e4d375b2c2a3a4f9f0838dc430d",
+      "bytes": 803
+    },
+    "scratch/heavy-queue/1368-r6-current-r1-resume.log.meta": {
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-r6-current-r1-resume.log.meta",
+      "sha256": "741ea94437aebc921efee9e57c9cb1c2eb4cb5f577a545cd80077c85daabc803",
+      "bytes": 281
+    },
+    "scratch/heavy-queue/1368-r6-p15-r2-resume.log": {
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-r6-p15-r2-resume.log",
+      "sha256": "5d65d11243331cb8c54b2c082cfc5e0a2e3531aff3cb995a7904e149944bc98c",
+      "bytes": 791
+    },
+    "scratch/heavy-queue/1368-r6-p15-r2-resume.log.meta": {
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-r6-p15-r2-resume.log.meta",
+      "sha256": "aac3503167c63b60e2dba7417aa264d920a3b2d1d68cd6458cdeb34516349974",
+      "bytes": 277
+    },
+    "scratch/heavy-queue/1368-r6-types-r2-resume.log": {
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-r6-types-r2-resume.log",
+      "sha256": "69ad2c3359876884c16ead9aa1b49dea7764f1a5939ce36c9e03bc40ac02bb82",
+      "bytes": 797
+    },
+    "scratch/heavy-queue/1368-r6-types-r2-resume.log.meta": {
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-r6-types-r2-resume.log.meta",
+      "sha256": "792ef4c7ec52be2137e2e0f09d2ad74fe4c12dbe0aad36c2208fbd97b69af81f",
+      "bytes": 261
+    }
+  },
+  "originalsRetained": true,
+  "priorSources": "Original45 production is pinned historicalGit2eaa697e; R6 full source/root and approved runner/parser are already preserved in earlier publications. New preparation origin maps and all added source/configs are included; existing inputs are not regenerated."
+}

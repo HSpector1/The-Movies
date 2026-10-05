@@ -1,6 +1,13 @@
 # CODEX continuation — Project Studio
 
 
+## CURRENT —1368-K: P15/current verification completed; residual corrections unexecuted
+
+[1368-K](evidence/p14b4-20260919/1368-K-r6-selected-followup.md) records fresh R6 types/generators all0, P15four124PASS/41FAIL (40SAME/1NEW vsM3), and current1041381PASS/60FAIL/1TODO (42SAME/15NEW/3CHANGED). Exact source/recording guards and independent measured attribution pass; all14/487unsweptGONE are executed passes. Both required freshcurrentweek13 ranking-refusal controls pass. NEW/CHANGED findings remain open.
+
+Reviewed historical ranking-capture preparation and narrow current-test corrections preserve real recovery authority and complete historical controls; they are unexecuted. Disk again fell below5GiB after successful launch, blocking helper/UI, capture, ledger and corrected-source runs. HANDOFF owns exact pins, review status and commands. Full candidate unlanded; main/CURRENT-BEST unchanged; recovery IN PROGRESS. Older CURRENT blocks remain history.
+
+
 ## CURRENT —1368-J: live-repository resume; R6 residual corrections verified
 
 [1368-J](evidence/p14b4-20260919/1368-J-r6-resumed-verification.md) reconciles the live repository and remote at already-published d82f451e. The pending-supplement instruction was stale; no work was replayed. Fresh R6 four typechecks and two generators pass. Four whole residual test files produce49PASS/2FAIL: all five corrected cases pass, including D14/Q04 trailing assertions; only exact baseline D07/D18 remain. No NEW/CHANGED failures in that selection; all32unsweptGONE executePASS. Exact guards and attribution are complete.
