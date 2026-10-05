@@ -1,0 +1,252 @@
+{
+  "scope": "Completed exact R6 types/residual results, selected attribution, independent review, pre-recording P15 refusal and live-repository reconciliation. No candidate source or assertion changes.",
+  "coordinatorHead": "d82f451e14d31de44c92472bb38130a4b9b04419",
+  "archive": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/tenth-verification/evidence.tar.gz",
+    "sha256": "8a83ad62389199858c86cf7ab1e3431601b216b22481624624324f7951632aa7",
+    "bytes": 265199
+  },
+  "memberCount": 47,
+  "logicalBytes": 2103849,
+  "members": {
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-backward-residual-r1-postflight.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-backward-residual-r1-postflight.json",
+      "sha256": "906b616c2a88ba39c3a77fdfd7c1ec45ccd1a8af2b004dc7946c4d6175f4e29b",
+      "bytes": 119911
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-backward-residual-r1-preflight.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-backward-residual-r1-preflight.json",
+      "sha256": "57a519da173410e1da036dcb3071ec4cfe9f295e2832af6ee0cf6554cada6395",
+      "bytes": 119202
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-backward-residual-r1.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-backward-residual-r1.json",
+      "sha256": "08c99212d87f130c9c6145a6232c745b7d12cf5f186d9023d6c8e7c92d52e2b4",
+      "bytes": 56150
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-backward-residual-r1.patch": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-backward-residual-r1.patch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-backward-residual-r1.txt": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-backward-residual-r1.txt",
+      "sha256": "9bc02fb0f4169d1777e005d5f775f70fad7a98cbff6c32faf02df80574a28838",
+      "bytes": 47834
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r1-postflight.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r1-postflight.json",
+      "sha256": "ab0ba3a4029b5ed6196cde2d1ddbacf3bb6c286257d11e04d4f1b3f8011fb1b3",
+      "bytes": 119875
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r1-preflight.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r1-preflight.json",
+      "sha256": "eff391f16d8c5e2af1c5bc12e601c617198ebe4e16a0a78a1519df56cd40fb4c",
+      "bytes": 119202
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r1.json": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r1.json",
+      "sha256": "3c3fee0f2d49d38f780da2ecad44379e3ccd357863d4aecdde01ed30245aa6d5",
+      "bytes": 56106
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r1.patch": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r1.patch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r1.txt": {
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r6-types-r1.txt",
+      "sha256": "a4f53236f85adf7f12a9e3d976061ed4688d4dcd2bf0c9d3f818c2b62aab2e28",
+      "bytes": 48797
+    },
+    "scratch/1368-independent-review/R6-BACKWARD-RESIDUAL-MEASURED.md": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/R6-BACKWARD-RESIDUAL-MEASURED.md",
+      "sha256": "e3b8d8460bb3b6537baa998c9b50aa9794eb7a25f601456c00122ffc83f932b9",
+      "bytes": 8839
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/MANIFEST.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/MANIFEST.json",
+      "sha256": "c756f76c0ea326c537f75880d181135e2646b6aaf871303cbc8ccb3ba6340cda",
+      "bytes": 1790
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/SUMMARY.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/SUMMARY.json",
+      "sha256": "ec33faa767b406f3daa7ba36a501ff5e67eb7a874eeb7db13618c8c3abf01545",
+      "bytes": 14136
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/case-rows.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/case-rows.json",
+      "sha256": "15ea53b4892665855e17a5869f0462675dc25a7e327293b1ebba60c20dd5212d",
+      "bytes": 72717
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/comparison-vs1361M3.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/comparison-vs1361M3.json",
+      "sha256": "0629113f31d26de6cf7f81a293fc3a71f181ff9502a61b22be62f91cbd159867",
+      "bytes": 120236
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/comparison-vsunswept1368E.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/comparison-vsunswept1368E.json",
+      "sha256": "27b6556e950c2f0214fe8fe97f0f3073179d78ffb4297384284e8ebb43a60a92",
+      "bytes": 771524
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/declared-title-relationships.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/declared-title-relationships.json",
+      "sha256": "b1e8e5da5dde88f749ace85120c76b8e430d6de555ce5474e803c3e9a98623f6",
+      "bytes": 5905
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/duplicate-display-titles.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/duplicate-display-titles.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/raw-failure-blocks.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/raw-failure-blocks.json",
+      "sha256": "a48d48457d4c7c43e6fa838da051b2466b91a9982ebc3af4c5c3140600ee3a72",
+      "bytes": 2286
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/raw-failure-rows.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/raw-failure-rows.json",
+      "sha256": "dcdc2b94f0e89e9054284fd97ffe0c2cb235ca9b8ea95c9956766dfb7a46e6c6",
+      "bytes": 1529
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/raw-json-identity-difference.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/raw-json-identity-difference.json",
+      "sha256": "08856de99f078c8c88a832e702b39bbe9f3e09be35cd892765e2996c678968ed",
+      "bytes": 121
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/suite-errors.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/suite-errors.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/unhandled-markers.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/unhandled-markers.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/unswept-selected-case-rows.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/unswept-selected-case-rows.json",
+      "sha256": "c20bc835133bef1d24479ce40fdd6108a2f4564af8893049aba45d59bd41fba7",
+      "bytes": 156679
+    },
+    "scratch/1368-r6-attribution-backward-residual-r1/unswept-selected-suite-errors.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-attribution-backward-residual-r1/unswept-selected-suite-errors.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "scratch/1368-r6-integration-prep/run-backward-residual-r1/RESULT.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-backward-residual-r1/RESULT.json",
+      "sha256": "ffd8e636c754736d9164cefd3c6ad41b8bcfbe4474d53595e130572d657f714f",
+      "bytes": 1287
+    },
+    "scratch/1368-r6-integration-prep/run-backward-residual-r1/backward-residual.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-backward-residual-r1/backward-residual.txt",
+      "sha256": "c659c7676856e652a97b7fbc1b1ad5bec69f2eb825f1b6135c6776de761fcc97",
+      "bytes": 206687
+    },
+    "scratch/1368-r6-integration-prep/run-backward-residual-r1/binding.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-backward-residual-r1/binding.json",
+      "sha256": "98c83949cf18332a214ed49fdc690f8c2ad22b591005e763ab7e67bd044ba83b",
+      "bytes": 10002
+    },
+    "scratch/1368-r6-integration-prep/run-backward-residual-r1/power.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-backward-residual-r1/power.txt",
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "bytes": 105
+    },
+    "scratch/1368-r6-integration-prep/run-backward-residual-r1/vitest.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-backward-residual-r1/vitest.json",
+      "sha256": "162a8147d7361577c801c29543e9ba60f4edfd70d6a67f83ea698ebaba3c3d48",
+      "bytes": 25406
+    },
+    "scratch/1368-r6-integration-prep/run-types-r1/RESULT.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r1/RESULT.json",
+      "sha256": "ddff16e75c29364016f787985fbac5f581bd25affdb7a95fbda89238e12f5414",
+      "bytes": 2293
+    },
+    "scratch/1368-r6-integration-prep/run-types-r1/binding.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r1/binding.json",
+      "sha256": "2ea8397df170b7a3ff7ea56aa70e11993f36e02826fc37d14e2fe26e198c39c2",
+      "bytes": 7401
+    },
+    "scratch/1368-r6-integration-prep/run-types-r1/bridge.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r1/bridge.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "scratch/1368-r6-integration-prep/run-types-r1/contract-fixtures.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r1/contract-fixtures.txt",
+      "sha256": "98c9a4d6901e053e421df830770b9c3322ebfe5183c2d53b70352ec8eaa7a822",
+      "bytes": 142
+    },
+    "scratch/1368-r6-integration-prep/run-types-r1/contract.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r1/contract.txt",
+      "sha256": "40863f2858fed1d1ec2045d15350eaa315f0ff1d268b09cd28f276d55cdfabe1",
+      "bytes": 398
+    },
+    "scratch/1368-r6-integration-prep/run-types-r1/power.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r1/power.txt",
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "bytes": 105
+    },
+    "scratch/1368-r6-integration-prep/run-types-r1/producers.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r1/producers.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "scratch/1368-r6-integration-prep/run-types-r1/root.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r1/root.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "scratch/1368-r6-integration-prep/run-types-r1/ui.txt": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-types-r1/ui.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "scratch/1368-resume-reconciliation-20261005/RECONCILIATION.json": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-resume-reconciliation-20261005/RECONCILIATION.json",
+      "sha256": "a54e60ef13cedf8c441c9250ebb0554bac210c2ddabc738142b3a24514b8c056",
+      "bytes": 1565
+    },
+    "scratch/1368-resume-reconciliation-20261005/build-preservation.py": {
+      "source": "/Users/zacheryspector/studio-scratch/1368-resume-reconciliation-20261005/build-preservation.py",
+      "sha256": "0be3f9e1a895f884d4ea28e1e14148a9d5b914017b7fcd153545937fca224740",
+      "bytes": 2736
+    },
+    "scratch/heavy-queue/1368-r6-backward-residual-r1-resume.log": {
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-r6-backward-residual-r1-resume.log",
+      "sha256": "a4a3f848146700469f3c439b1c60e4db8031e912f82f1632683801e7ad473090",
+      "bytes": 833
+    },
+    "scratch/heavy-queue/1368-r6-backward-residual-r1-resume.log.meta": {
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-r6-backward-residual-r1-resume.log.meta",
+      "sha256": "8bc4fd679fb393bee47a15a331a05dcbf1ae8e690fa8dd0c9debe87a4bd38b34",
+      "bytes": 291
+    },
+    "scratch/heavy-queue/1368-r6-p15-r1-resume.log": {
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-r6-p15-r1-resume.log",
+      "sha256": "2f58edbeead9b31efdd9860d469160d449a13c761121176cd47ac169e60e07f6",
+      "bytes": 412
+    },
+    "scratch/heavy-queue/1368-r6-p15-r1-resume.log.meta": {
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-r6-p15-r1-resume.log.meta",
+      "sha256": "933fa43d18a5d50100065aa92374c6f08a82221417d82fc9de5ac923ddc53053",
+      "bytes": 277
+    },
+    "scratch/heavy-queue/1368-r6-types-r1-resume.log": {
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-r6-types-r1-resume.log",
+      "sha256": "22ec1e1a8d4dfc3358847bf7304b6eb67dd247b81dd51b4fc51f7e5cea22cdbe",
+      "bytes": 797
+    },
+    "scratch/heavy-queue/1368-r6-types-r1-resume.log.meta": {
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-r6-types-r1-resume.log.meta",
+      "sha256": "cdc42a264798ca2a3e81b5ece318cbc8d9ffd4758009b6714b91d15fca143806",
+      "bytes": 261
+    }
+  },
+  "emptyDirectoriesPreservedAtOrigin": [
+    "/Users/zacheryspector/studio-scratch/1368-r6-integration-prep/run-p15-r1"
+  ],
+  "priorSourceAndKits": "Already published in eighth/ninth archives and attribution supplement at d82f451e; not copied or regenerated. Original scratch retained."
+}

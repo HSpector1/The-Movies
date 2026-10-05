@@ -1,5 +1,12 @@
 # CODEX continuation — Project Studio
 
+
+## CURRENT —1368-J: live-repository resume; R6 residual corrections verified
+
+[1368-J](evidence/p14b4-20260919/1368-J-r6-resumed-verification.md) reconciles the live repository and remote at already-published d82f451e. The pending-supplement instruction was stale; no work was replayed. Fresh R6 four typechecks and two generators pass. Four whole residual test files produce49PASS/2FAIL: all five corrected cases pass, including D14/Q04 trailing assertions; only exact baseline D07/D18 remain. No NEW/CHANGED failures in that selection; all32unsweptGONE executePASS. Exact guards and attribution are complete.
+
+Disk then fell below5GiB and R6P15r1 was refused before recording/tests. P15/current/helper/UI, ledger, landing/broad and final recovery gates remain open. HANDOFF owns exact pins, refusal paths and new-HEAD fresh-type requirements. Full candidate remains unlanded, main unchanged, recovery IN PROGRESS. Older CURRENT blocks remain history.
+
 ## CURRENT —1368-I: integrated residuals qualified; runtime waits on disk
 
 [1368-I](evidence/p14b4-20260919/1368-I-integrated-fallout-and-ledger-safety.md) records R5 types/generators all0, original release5PASS/2SKIP, trust10PASS/1baselineFAIL/2TODO and backward278PASS/7FAIL. Five new backward identities have a reviewed four-file test correction, now assembled as R6 but unexecuted. Two backward identities remain exact baseline failures. All188 production files are unchanged from the guarded candidate.
