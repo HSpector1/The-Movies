@@ -1,5 +1,8 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1368-L: helper and UI selected verification complete
+
+[1368-L](evidence/p14b4-20260919/1368-L-r6-helper-ui-verification.md) preserves the remaining R6 helper37 and UI7 whole-file results. Helper has 490 PASS/27 FAIL/1 SKIP/5 TODO, including two NEW transition failures against M3. UI has 50 PASS/0 FAIL, with 11 prior unswept failures now exact executed passes. All runs have fresh matching types, formal postflight and complete attribution; neither broad recovery nor product acceptance is claimed. The 5 GiB launch check was lowered only in a separate, pinned 3 GiB UI runner. Follow HANDOFF for exact pins, pending ranking capture, helper correction, ledger and landing gates.
 
 ## CURRENT —1368-K: P15/current verification completed; residual corrections unexecuted
 

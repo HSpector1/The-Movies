@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1368-L: helper and UI selections completed
+
+[1368-L](evidence/p14b4-20260919/1368-L-r6-helper-ui-verification.md) records the remaining R6 helper and UI selected runs. Fresh types/generators pass on each runner binding. Helper consumers: 490 PASS/27 FAIL/1 SKIP/5 TODO across 37 whole files; 25 SAME/2 NEW against M3, with the two NEW transition leaves reaching the Save45 validator on current Save46 input. UI: 50 PASS/0 FAIL across 7 whole files, with 11 exact executed passing GONE against unswept. Both have exact source and formal postflight checks and complete attribution. The unchanged original runner's arbitrary 5 GiB launch check was reduced to 3 GiB only in a versioned scratch runner for UI; full source/test/deadline guards remain. Helper failures and all earlier NEW/CHANGED findings remain open. The frozen candidate is unlanded; main and CURRENT-BEST are unchanged. HANDOFF owns the next exact actions and identities.
+
 
 ## CURRENT —1368-K: P15/current verification completed; residual corrections unexecuted
 
