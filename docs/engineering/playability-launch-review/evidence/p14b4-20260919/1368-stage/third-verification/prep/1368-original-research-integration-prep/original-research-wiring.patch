@@ -1,0 +1,77 @@
+--- a/tests/p14d2-rival-cost-cutting.test.ts
++++ b/tests/p14d2-rival-cost-cutting.test.ts
+@@ -4,6 +4,7 @@
+ import { describe, expect, it, vi } from 'vitest'
+ import { genuineRenewal196 } from './helpers/1368-renewal-fixture.js'
+ import { adoptionBoundary416 } from './helpers/1368-adoption-boundary.js'
++import { demandBoundary265, activeResearchBoundary267 } from './helpers/1368-research-controls.js'
+ import * as policyModule from '../src/core/hollywoodPolicy.js'
+ import * as marketModule from '../src/core/talentMarket.js'
+ import * as researchModule from '../src/core/rivalResearch.js'
+@@ -332,8 +333,8 @@
+ 
+ describe('1363 B2: positive controls for staffing, research and technology restrictions', () => {
+   it('sets new Scientist staffing demand to zero with a real positive demand control', () => {
+-    const witness = commitmentControls().get('demand')
+-    expect(witness, 'bounded S8 route requires positive Scientist demand at an idle studio').toBeDefined()
++    const witness = demandBoundary265()
++    expect(witness, 'accepted original45 week265 requires positive whole-input Scientist demand at an idle studio').toBeDefined()
+     const { input, id } = witness!
+     makeSave(input)
+     expect(researchModule.rivalScientistDemand(input, input.hollywood!, business(input, id), input.talent, input.market.tick)).toBeGreaterThan(0)
+@@ -362,8 +363,8 @@
+     }, 120_000,
+   )
+   it('continues an already active, already seated research project and pays its work', () => {
+-    const witness = commitmentControls().get('activeWork')
+-    expect(witness, 'bounded S8 route requires an observed active-work positive control').toBeDefined()
++    const witness = activeResearchBoundary267()
++    expect(witness, 'accepted original45 week267 requires an idle active-work positive control at week268').toBeDefined()
+     const { input, control, id } = witness!
+     makeSave(input); makeSave(control)
+     const prior = ownCommitments(input, id)
+--- /dev/null
++++ b/tests/helpers/1368-research-controls.ts
+@@ -0,0 +1,42 @@
++// Accepted genuine historical inputs; only the original leaf authors synthetic cutting state.
++import { expect } from 'vitest'
++import { accepted45 } from './1368-recovery-witnesses.js'
++import { rivalScientistDemand } from '../../src/core/rivalResearch.js'
++import { tick } from '../../src/core/tick.js'
++import { makeSave, validateSaveV46, stableStringify } from '../../src/core/save.js'
++import type { GameState } from '../../src/core/types.js'
++import type { RivalBusiness } from '../../src/core/hollywoodTypes.js'
++
++function admitted(input: GameState): void {
++  const before = stableStringify(input), envelope = makeSave(input)
++  expect(validateSaveV46(envelope)).toBe(envelope)
++  expect(stableStringify(input)).toBe(before)
++}
++function idle(input: GameState, b: RivalBusiness): boolean {
++  return b.costCutting.since === null && b.productions.length === 0 && b.runs.length === 0
++    && !input.talentMarket.proposals.some(p => p.issuerStudioId === b.studioId)
++}
++export function demandBoundary265() {
++  const input = accepted45('baseline265').live.state
++  expect(input.market.tick).toBe(265); admitted(input)
++  const before = stableStringify(input)
++  // Whole-input demand is the original pure-policy control. This does not claim
++  // this owner still needs Scientists after an earlier owner starts research.
++  const owner = input.hollywood!.businesses.find(b => idle(input, b)
++    && rivalScientistDemand(input, input.hollywood!, b, input.talent, 265) > 0)
++  expect(owner, 'UNMET accepted265 idle whole-input demand premise').toBeDefined()
++  expect(stableStringify(input)).toBe(before)
++  return { input, id: owner!.studioId }
++}
++export function activeResearchBoundary267() {
++  const input = accepted45('research').live.state
++  expect(input.market.tick).toBe(267); admitted(input)
++  const before = stableStringify(input), control = tick(input)
++  expect(stableStringify(input)).toBe(before); admitted(control)
++  expect(control.market.tick).toBe(268)
++  const owner = input.hollywood!.businesses.find(b => idle(input, b)
++    && input.technology.projects.some(p => p.studioId === b.studioId && p.status === 'active'
++      && control.technology.projects.some(n => n.id === p.id && n.status === 'active' && n.verifiedWork > p.verifiedWork)))
++  expect(owner, 'UNMET accepted267 idle project progressing at268 premise').toBeDefined()
++  return { input, control, id: owner!.studioId }
++}

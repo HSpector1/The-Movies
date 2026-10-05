@@ -1,0 +1,89 @@
+--- /dev/null
++++ b/tests/p14d2-b-research-phase-diagnostic.test.ts
+@@ -0,0 +1,86 @@
++// Diagnostic only: three exact accepted/derived inputs, no witness search or policy mutation.
++import { expect, it, vi } from 'vitest'
++import { accepted45 } from './helpers/1368-recovery-witnesses.js'
++import * as research from '../src/core/rivalResearch.js'
++import * as policy from '../src/core/hollywoodPolicy.js'
++import { rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
++import { tick } from '../src/core/tick.js'
++import { makeSave, validateSaveV46, stableStringify } from '../src/core/save.js'
++import type { GameState } from '../src/core/types.js'
++const bytes = stableStringify
++function admit(state: GameState): void {
++  const before = bytes(state), envelope = makeSave(state)
++  expect(validateSaveV46(envelope)).toBe(envelope); expect(bytes(state)).toBe(before)
++}
++function ownerFacts(state: GameState) {
++  return state.hollywood!.businesses.map(b => ({ studioId: b.studioId, since: b.costCutting.since,
++    nextDecisionWeek: b.nextDecisionWeek, cash: b.account.cash,
++    reserve: rivalWeeklyOperatingCost(b, state.hollywood!, state.market.tick) * b.policy.reserveWeeks,
++    productionIds: b.productions.map(p => p.id), runIds: b.runs.map(r => r.productionId),
++    issuerProposals: state.talentMarket.proposals.filter(p => p.issuerStudioId === b.studioId).map(p => ({ talentId: p.talentId, submittedWeek: p.submittedWeek })),
++    wholeInputDemand: research.rivalScientistDemand(state, state.hollywood!, b, state.talent, state.market.tick),
++    employment: state.hollywood!.activeEmploymentOrdinals.filter(i => state.hollywood!.employment[i]!.studioId === b.studioId)
++      .map(i => { const e = state.hollywood!.employment[i]!; return { ordinal: i, contractId: e.contractId, talentId: e.terms.talentId,
++        role: state.talent.find(t => t.id === e.terms.talentId)?.role, reason: e.reason, start: e.terms.startWeek, end: e.terms.endWeekExclusive } }),
++    projects: state.technology.projects.filter(p => p.studioId === b.studioId).map(p => ({ id: p.id, status: p.status,
++      startedWeek: p.startedWeek, verifiedWork: p.verifiedWork, expenditure: p.expenditure,
++      seats: p.seats.map(s => ({ talentId: s.talentId, assignedWeek: s.assignedWeek, releasedWeek: s.releasedWeek })) })),
++  }))
++}
++function inspect(label: string, input: GameState): GameState {
++  admit(input); const before = bytes(input), beforeFacts = ownerFacts(input)
++  expect(bytes(input)).toBe(before)
++  const control = tick(input); admit(control); expect(bytes(input)).toBe(before)
++  const demandCalls: unknown[] = [], entryCalls: unknown[] = []
++  const realDemand = research.rivalScientistDemand, realEntry = policy.rivalCostCuttingEntry
++  const demandSpy = vi.spyOn(research, 'rivalScientistDemand').mockImplementation((state, h, b, talent, week) => {
++    const result = realDemand(state, h, b, talent, week)
++    demandCalls.push({ week, studioId: b.studioId, demand: result, since: b.costCutting.since,
++      nextDecisionWeek: b.nextDecisionWeek, cash: b.account.cash, productionCount: b.productions.length, runCount: b.runs.length,
++      incomingProjects: state.technology.projects.map(p => ({ id: p.id, studioId: p.studioId, technologyId: p.technologyId, status: p.status })),
++      labs: b.operations.facilities.filter(f => f.capability === 'laboratory').map(f => f.id),
++      instruments: h.receipts.filter(r => r.kind === 'instrumentOperational' && r.studioId === b.studioId),
++      scientists: h.activeEmploymentOrdinals.map(i => h.employment[i]!).filter(e => e.studioId === b.studioId
++        && talent.find(t => t.id === e.terms.talentId)?.role === 'scientist').map(e => e.terms.talentId) })
++    return result
++  })
++  const entrySpy = vi.spyOn(policy, 'rivalCostCuttingEntry').mockImplementation(facts => {
++    const result = realEntry(facts)
++    entryCalls.push({ facts: structuredClone(facts), result })
++    return result
++  })
++  let observed: GameState
++  try { observed = tick(input) }
++  finally { demandSpy.mockRestore(); entrySpy.mockRestore() }
++  admit(observed); expect(bytes(input)).toBe(before)
++  expect(bytes(observed)).toBe(bytes(control))
++  expect(demandCalls.length).toBeLessThanOrEqual(input.hollywood!.businesses.length); expect(entryCalls.length).toBeLessThanOrEqual(input.hollywood!.businesses.length)
++  const afterFacts = ownerFacts(control)
++  const possibleControls = input.hollywood!.businesses.map(b => {
++    const id = b.studioId, oldEmployment = input.hollywood!.employment.filter(e => e.studioId === id)
++    const fresh = control.hollywood!.employment.filter(e => e.studioId === id).slice(oldEmployment.length)
++    const oldProjects = input.technology.projects.filter(p => p.studioId === id)
++    const newProjects = control.technology.projects.filter(p => p.studioId === id)
++    return { studioId: id, eligibleInput: b.costCutting.since === null && b.productions.length === 0 && b.runs.length === 0
++      && !input.talentMarket.proposals.some(p => p.issuerStudioId === id),
++      replacementContracts: fresh.filter(e => e.reason === 'replacement').map(e => e.contractId),
++      newProjects: newProjects.filter(p => !oldProjects.some(old => old.id === p.id)).map(p => p.id),
++      newSeatCount: newProjects.reduce((n, p) => n + p.seats.length, 0) - oldProjects.reduce((n, p) => n + p.seats.length, 0),
++      activeWork: oldProjects.filter(p => p.status === 'active' && newProjects.some(n => n.id === p.id && n.status === 'active'
++        && n.verifiedWork > p.verifiedWork)).map(p => p.id) }
++  })
++  console.log('1368_B_RESEARCH_PHASE', JSON.stringify({ label, inputWeek: input.market.tick, outputWeek: control.market.tick,
++    beforeFacts, demandCalls, entryCalls, afterFacts, possibleControls, inputNeutral: true, observedControlParity: true }))
++  return control
++}
++it('diagnoses exact265/266/current267 and accepted research267 phases without changing outcomes', () => {
++  const input265 = accepted45('baseline265').live.state
++  expect(input265.market.tick).toBe(265)
++  const input266 = inspect('accepted-original45-265', input265)
++  expect(input266.market.tick).toBe(266)
++  const current267 = inspect('current-derived-266', input266)
++  expect(current267.market.tick).toBe(267)
++  const original267 = accepted45('research').live.state
++  expect(original267.market.tick).toBe(267)
++  inspect('accepted-original45-research-267', original267)
++}, 120_000)

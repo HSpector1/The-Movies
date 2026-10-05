@@ -1,0 +1,11 @@
+# Full original C suite: independent measured review
+
+ACCEPT the completed focused C result: 24 PASS, zero skipped/failing leaves. Actual bounded child exit0, no timeout, wrapper34.663 seconds; strict types exit0. This is focused C acceptance, not broad/checkpoint promotion.
+
+Evidence: S/1368-unified-candidate/c-r1. Result SHA256 `2dba2d6cd135afa3975a6df2878e1bc4a8803987512ad1b1fcb2860fe787434b`; output `04f460973889fe26b4f7d125703a67be1b731442c5087d219eca1de850eb9b4a`; source pins `ef9efadc5572e1ba6ec7be3ab96389d6e72f7d5a55437a0792f857a5740b22e6`; runner `0b618bfc71f5de6c5e365a17e90b41a49bb778e6d0a56f465e6b739214c9e5af`. Independently verified all716 named candidate source/test/config pins and runner/pin identity. Receipt binds live HEAD1e0a8f9d7b22d4235c16a609881845c257eb1a15, unchanged index and empty diff, explicit adopted fixture hashes and allFilesExactBeforeAfter=true. No fixture payloads were reread.
+
+The original full file ran without name filtering. It reaches C1 exact refund/atomicity, protected identities and ownership refusals, unfinished/instrument/research protection, ordinary/calendar/operational opex boundaries, C6 retry/completion/replay protection, all C7 authority mutations, C9 no refund-triggered commitment, direct S6 profession proof and S5 empty down/up. The previously reviewed witness adapters preserve these assertions. Actual operational208 control explicitly reports naturalSince=null and synthetic since208; it is not falsely labeled natural cutting entry.
+
+The separate genuine genesis→520 observation ran and reported three actual automatic450,000 refunds: week91 r04 laboratory0, week195 r03 laboratory0, week278 r01 laboratory1. These are autonomous integration observations, distinct from the synthetic policy-state controls. They do not prove healthier recovery economics or make every desired lab naturally disposable. The partial original45 capture remains partial: its missing operational row was not invented or excused.
+
+The former setup-only failures are now resolved for this exact C suite by valid admitted controls and completed assertions. Schema-predecessor C6 intended RED remains a separate sequencing obligation; migration acceptance awaits its own completed receipt. No runtime, source/index mutation or new tests were performed in this review.

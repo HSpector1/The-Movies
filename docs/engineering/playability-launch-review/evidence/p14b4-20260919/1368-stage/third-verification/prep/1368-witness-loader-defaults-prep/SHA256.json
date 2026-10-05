@@ -1,0 +1,7 @@
+{
+  "BASE-PINS.json": "276fe52d1e38f13162021033905fecfb5168071d75cc64218f5cfaad6d1633de",
+  "HANDBACK.md": "79b9bc3f2d84b55c3fb44dca6c27e997409d68b22ab8b2eaa4ea13056675e20e",
+  "base.ts": "9eae454d4cd9c6272f8738468ca43320857eea0afeab3a2d96c5cfb07faa3607",
+  "candidate.ts": "fb1cf55b3417701b14bb7bea8a692282c44881ed57afc0ef0ba3259ee930c5bf",
+  "literal-fixture-defaults.patch": "a70ca5e069357c969bd7617b49787e8820a5b0a6df185bc1a05e5b88e0483cc8"
+}

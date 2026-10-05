@@ -1,0 +1,11 @@
+{
+  "BASE-PINS.json": "159ead93c02f689093cb73484e140239cb42f513ee7f7eb3629bd5853290dd6d",
+  "HANDBACK.md": "8ee24417f598565ccffee365d71726880a4f753d431041f5de169f3d54d4abf7",
+  "author.py": "669c530f8e0b2a4cebe712fb4e489f97c602f2e909748d3414da5c211980c729",
+  "files/tests/helpers/1368-adoption-boundary.ts": "6d3cbaed18ff9f21f73780dc15050649adee7f29af61e88c8f443a98bbda2818",
+  "files/tests/helpers/1368-operational-boundary.ts": "f7debea7fb182403a492ef4007eb408158481c11afe08d66a6bebe562b0d8dbf",
+  "files/tests/p14d2-rival-cost-cutting.test.ts": "172be738495cd39a1eff167c14efce6452e9eb6c75b0301eea7e5aaecec52768",
+  "files/tests/p14d2-rival-facility-disposal.test.ts": "7995cf8dbda02c65daf8ea9058531385397ed77701a852810138077cd6e04141",
+  "original-b-adoption-wiring.patch": "054092efb265cbd1d5667adf4d10cac9498ce46ace958e22fcf3f8976dd10fa1",
+  "original-c-operational-wiring.patch": "2fc06469125a78aec5d57fbce4938097c35a0ba4431651997441b4f182b0331c"
+}

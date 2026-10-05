@@ -1,0 +1,11 @@
+# Independent accepted265 research selection attribution
+
+Measured1PASS/4FAIL, child1/no timeout6539.916ms. Demand positive→admitted cutting zero passes. Replacement/project/seat at265 and active-work at266 fail only their named ordinary idle-witness lookup. Target restriction/continuation assertions in those four cases are not reached; do not label them behavior REDs or close their gaps. Exact source/fixture guards are reported by the completed receipt; original failed input remains retained.
+
+Independently inspected only accepted baseline265 and research267 payloads, without an engine run. At265 r01 is due265 with no production but one active run; it therefore cannot meet the idle selector. r02 is due265, idle, cash6761165.913428143, with no Scientist or project. r03/r04 are idle but negative cash. At267 original r01 is idle with four actual supply-265 Scientists and active synchronized-sound project, verifiedWork12 and four seats. That historical267 is a plausible alternate active-work control input, but does not prove the result of current265→267 or current267→268.
+
+Source causal constraint: hollywoodTick runs owners in order, staffing then research then decide, threading updated technology into later owners. rivalResearch interests excludes a noncancelled project belonging to another studio for the same technology. Therefore an earlier r01 project can suppress r02 phase demand even though the full265 input query yields positive demand. This is a concrete source-supported hypothesis, not a measured phase observation; minimal diagnosis should observe actual incoming projects/demand for each owner and ordinary actions, not reorder owners or remove r01's project.
+
+Coordinate next existing-input observation with recovery author: actual265 staffing/research per-owner inputs and current267 active-work positive. No duplicate probe, expanded seed/horizon, deleted work, altered money or synthetic staff is recommended. Positive demand alone never guarantees same-tick hire/project/seat on an idle owner. The author is preparing the bounded diagnostic; this review adds no runtime.
+
+Output SHA256 `d40c8fb3f7b780b08a7e98958bee1b141736a5e43e494905a5a752b7dae6e951`; receipt SHA256 `36b4f1f290ea160bc487a71f916412b2a409cc440849775b1fca5dd45e4e8b92`.

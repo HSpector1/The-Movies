@@ -1,0 +1,12 @@
+[
+  {
+    "path": "src/core/hollywoodTick.ts",
+    "before": "6da40c08e4aee457f01b6c1804acb2a79679d7a49f8b7db15b184ad0b1c7eaf0",
+    "after": "8808d5dd7dd21ee3f1eace4e0fe267d1e02f0935a2be9b5a4ed7063849466658"
+  },
+  {
+    "path": "src/core/rivalResearch.ts",
+    "before": "e24566c984414a66fbfb896481dbc6d8f742bf7fa36702aec0a211b15d513d18",
+    "after": "6850a7a666dd4514224020d40ddf7513c457f94e004a113244c2d019e6140ef6"
+  }
+]

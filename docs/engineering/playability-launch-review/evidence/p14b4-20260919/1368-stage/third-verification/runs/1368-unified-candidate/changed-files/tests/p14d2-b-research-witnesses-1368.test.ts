@@ -1,0 +1,124 @@
+// Separate genuine-original45 control input; no main B test expectations are relaxed.
+import { describe, expect, it } from 'vitest'
+import { accepted45 } from './helpers/1368-recovery-witnesses.js'
+import { tick } from '../src/core/tick.js'
+import { makeSave, validateSaveV46, stableStringify } from '../src/core/save.js'
+import { rivalScientistDemand } from '../src/core/rivalResearch.js'
+import type { GameState } from '../src/core/types.js'
+const bytes = stableStringify
+const owner = (s: GameState, id: string) => s.hollywood!.businesses.find(b => b.studioId === id)!
+function admitted(s: GameState): void {
+  const before = bytes(s), value = makeSave(s)
+  expect(validateSaveV46(value)).toBe(value); expect(bytes(s)).toBe(before)
+}
+function eligible(s: GameState, id: string): boolean {
+  const b = owner(s, id)
+  return b.costCutting.since === null && b.productions.length === 0 && b.runs.length === 0
+    && !s.talentMarket.proposals.some(p => p.issuerStudioId === id)
+}
+function own(s: GameState, id: string) {
+  return {
+    employment: s.hollywood!.employment.filter(e => e.studioId === id),
+    plans: s.physicalPlans.plans.filter(p => p.studioId === id),
+    adoptions: s.technology.adoptions.filter(a => a.studioId === id),
+    projects: s.technology.projects.filter(p => p.studioId === id),
+    seats: s.technology.projects.filter(p => p.studioId === id).flatMap(p => p.seats.map(seat => ({ projectId: p.id, ...seat }))),
+  }
+}
+function cutting(input: GameState, id: string): GameState {
+  admitted(input); expect(eligible(input, id), 'original null-since/idle/proposal-free premise').toBe(true)
+  const state = structuredClone(input)
+  expect(owner(state, id).costCutting).toEqual({ version: 1, since: null })
+  owner(state, id).costCutting.since = state.market.tick
+  admitted(state)
+  return state
+}
+function step(input: GameState): GameState {
+  admitted(input); const before = bytes(input), next = tick(input)
+  expect(bytes(input)).toBe(before); admitted(next); expect(next.market.tick).toBe(input.market.tick + 1)
+  return next
+}
+let pair: { input: GameState; control: GameState } | undefined
+function controlPair() {
+  if (!pair) {
+    const input = accepted45('baseline265').live.state
+    expect(input.market.tick).toBe(265)
+    pair = { input, control: step(input) }
+  }
+  return structuredClone(pair)
+}
+type Kind = 'replacement'|'project'|'seat'
+function positive(input: GameState, control: GameState, id: string, kind: Kind): boolean {
+  const before = own(input, id), after = own(control, id)
+  if (kind === 'replacement') return after.employment.slice(before.employment.length).some(e => e.reason === 'replacement')
+  if (kind === 'project') return after.projects.length > before.projects.length
+  return after.seats.length > before.seats.length
+}
+function workProjects(input: GameState, control: GameState, id: string) {
+  return own(input, id).projects.filter(p => p.status === 'active'
+    && control.technology.projects.some(n => n.id === p.id && n.status === 'active' && n.verifiedWork > p.verifiedWork))
+}
+
+describe('1368 genuine original45 instrument boundary supplies independent B positives', () => {
+  it('demand remains positive ordinarily and becomes zero with only admitted since changed', () => {
+    const { input } = controlPair()
+    const b = input.hollywood!.businesses.find(b => eligible(input, b.studioId)
+      && rivalScientistDemand(input, input.hollywood!, b, input.talent, input.market.tick) > 0)
+    expect(b, 'UNMET ACTUAL265 PREMISE: idle genuine instrument-equipped Scientist demand').toBeDefined()
+    const before = bytes(input), id = b!.studioId
+    expect(rivalScientistDemand(input, input.hollywood!, b!, input.talent, input.market.tick)).toBeGreaterThan(0)
+    const candidate = cutting(input, id)
+    expect(rivalScientistDemand(candidate, candidate.hollywood!, owner(candidate, id), candidate.talent, candidate.market.tick)).toBe(0)
+    expect(bytes(input)).toBe(before)
+  }, 120_000)
+
+  it.each(['replacement', 'project', 'seat'] as const)('blocks new %s with a real ordinary265→266 positive', kind => {
+    const { input, control } = controlPair()
+    const b = input.hollywood!.businesses.find(b => eligible(input, b.studioId) && positive(input, control, b.studioId, kind))
+    expect(b, `UNMET ACTUAL265 PREMISE: idle paid ${kind} control`).toBeDefined()
+    const id = b!.studioId, old = own(input, id)
+    expect(positive(input, control, id, kind)).toBe(true)
+    if (kind === 'replacement') {
+      const fresh = own(control, id).employment.slice(old.employment.length).filter(e => e.reason === 'replacement')
+      expect(fresh.length).toBeGreaterThan(0)
+      for (const e of fresh) {
+        expect(e.terms.startWeek).toBe(265)
+        expect(e.terms.signingBonus).toBeGreaterThan(0)
+        expect(control.hollywood!.receipts.some(r => r.kind === 'employment' && r.contractId === e.contractId && r.reason === 'replacement')).toBe(true)
+      }
+    }
+    const candidate = cutting(input, id), before = bytes(candidate), next = step(candidate), after = own(next, id)
+    expect(after.employment.map(e => e.contractId)).toEqual(old.employment.map(e => e.contractId))
+    expect(after.plans.map(p => p.id)).toEqual(old.plans.map(p => p.id))
+    expect(after.adoptions.map(a => [a.id, a.committedWeek])).toEqual(old.adoptions.map(a => [a.id, a.committedWeek]))
+    expect(after.projects.map(p => [p.id, p.startedWeek])).toEqual(old.projects.map(p => [p.id, p.startedWeek]))
+    expect(after.seats.map(s => [s.projectId, s.talentId, s.assignedWeek])).toEqual(old.seats.map(s => [s.projectId, s.talentId, s.assignedWeek]))
+    expect(bytes(candidate)).toBe(before)
+  }, 120_000)
+
+  it('continues and pays actual active seated work at266 after the ordinary first project tick', () => {
+    const input = controlPair().control, control = step(input)
+    expect(input.market.tick).toBe(266)
+    const b = input.hollywood!.businesses.find(b => eligible(input, b.studioId) && workProjects(input, control, b.studioId).length > 0)
+    expect(b, 'UNMET ACTUAL266 PREMISE: idle ordinary active-work positive').toBeDefined()
+    const id = b!.studioId, working = workProjects(input, control, id)
+    expect(working.length).toBeGreaterThan(0)
+    const candidate = cutting(input, id), before = bytes(candidate), next = step(candidate)
+    for (const project of working) {
+      const after = next.technology.projects.find(p => p.id === project.id)!
+      expect(after.verifiedWork).toBeGreaterThan(project.verifiedWork)
+      expect(after.expenditure).toBeGreaterThan(project.expenditure)
+      expect(after.seats.filter(s => s.releasedWeek === null).map(s => s.talentId)).toEqual(project.seats.filter(s => s.releasedWeek === null).map(s => s.talentId))
+      for (const seat of project.seats.filter(s => s.releasedWeek === null)) {
+        const ordinal = input.hollywood!.activeEmploymentOrdinals.find(i => input.hollywood!.employment[i]!.studioId === id
+          && input.hollywood!.employment[i]!.terms.talentId === seat.talentId)
+        expect(ordinal).toBeDefined()
+        expect(next.hollywood!.employment[ordinal!]!.endedWeek).toBeNull()
+        expect(next.hollywood!.activeEmploymentOrdinals).toContain(ordinal!)
+      }
+    }
+    const movement = (s: GameState) => owner(s, id).account.periods.reduce((n, p) => n + p.movements.researchSpend, 0)
+    expect(movement(next) - movement(input)).toBeLessThan(0)
+    expect(bytes(candidate)).toBe(before)
+  }, 120_000)
+})

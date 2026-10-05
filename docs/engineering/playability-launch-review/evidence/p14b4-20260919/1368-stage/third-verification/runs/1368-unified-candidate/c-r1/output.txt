@@ -1,0 +1,40 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-unified-candidate/tree
+
+stdout | tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at the actual operational boundary owes zero laboratory operating weeks
+1368_C_OPERATIONAL_WITNESS {"week":208,"studioId":"studio-aca408ec-r01","facilityId":"studio-aca408ec-r01:laboratory:0","entryKind":"explicit-synthetic-since208","naturalSince":null}
+
+stdout | tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C bounded natural route observation > records actual autonomous refunds or explicitly reports zero through week 520
+1363-C-natural-observation {"seed":"p13a-core-causal-01","throughWeek":520,"actualDisposals":[{"kind":"facilityDisposed","week":91,"studioId":"studio-aca408ec-r04","facilityId":"studio-aca408ec-r04:laboratory:0","planId":"studio-aca408ec-r04:plan:1","blueprintId":"research-laboratory","refund":450000,"eventId":"industry-event-142"},{"kind":"facilityDisposed","week":195,"studioId":"studio-aca408ec-r03","facilityId":"studio-aca408ec-r03:laboratory:0","planId":"studio-aca408ec-r03:plan:1","blueprintId":"research-laboratory","refund":450000,"eventId":"industry-event-201"},{"kind":"facilityDisposed","week":278,"studioId":"studio-aca408ec-r01","facilityId":"studio-aca408ec-r01:laboratory:1","planId":"studio-aca408ec-r01:plan:3","blueprintId":"research-laboratory","refund":450000,"eventId":"industry-event-269"}],"disposition":"OBSERVED_REFUNDS: inspect actual history and full acceptance gates before claiming recovery"}
+
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C1 real paid bare body: exact shared refund, only backed movement and receipt, no input mutation 761ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C2 four exact protected core IDs refuse on otherwise admitted cutting state 836ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C2 player, unknown owner, foreign body, unknown body and non-cutting refusals are precise 1011ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C3 genuine admitted unfinished body refuses before it becomes operational
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C3 real admitted instrument protects its target before completion (bounded week 261 premise) 4936ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C4 actual retained research reference protects its laboratory (accepted original45 idle witness) 731ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at accepted ordinary boundary stops only this body opex before next booking 506ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at accepted calendar boundary stops only this body opex before next booking 726ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at the actual operational boundary owes zero laboratory operating weeks 5155ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C6 explicit retry refuses; policy and completion cannot rematerialize or repay the retained started plan 2934ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-refund 474ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-blueprint 495ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: future-disposal 572ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: missing-body-plan 620ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-owner 539ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-body 512ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: duplicate-disposal 527ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: refund-movement-mismatch 524ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: negative-refund-movement 528ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 standing-and-disposed and missing tombstone cannot hide behind valid prior history 593ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C9 refund alone preserves cutting and does not create a hire, commission or production 672ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > S6 direct live profession proof retains the actual refund, missing body and disposal receipt 693ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > S5 empty live-46 down/up control is lossless; it is not the required genuine pre-amendment capture
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C bounded natural route observation > records actual autonomous refunds or explicitly reports zero through week 520 5181ms
+
+ Test Files  1 passed (1)
+      Tests  24 passed (24)
+   Start at  23:22:51
+   Duration  33.18s (transform 2.05s, setup 0ms, collect 2.77s, tests 29.98s, environment 0ms, prepare 89ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 34354.317437973805}

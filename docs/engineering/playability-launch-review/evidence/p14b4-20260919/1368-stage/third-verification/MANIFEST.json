@@ -1,0 +1,978 @@
+{
+  "scope": "completed facts and explicitly unlanded preparation; no checkpoint closure",
+  "baseABCSourcePins": "/Users/zacheryspector/studio-scratch/1367-recovery-witness-diagnostic-prep/abc-pins.json",
+  "files": [
+    {
+      "path": "postrelease/MANIFEST.json",
+      "sha256": "fbf800e72d33d3ee325fa95664b6db73fc0653afc534056f46106bdc6d00f6ca",
+      "bytes": 3475,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/MANIFEST.json"
+    },
+    {
+      "path": "postrelease/RUN.json",
+      "sha256": "e7932ccf4219ee062f8f2331c19b8c10f5d459ee04b964fe0fde766766302938",
+      "bytes": 823,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/RUN.json"
+    },
+    {
+      "path": "postrelease/SUMMARY.json",
+      "sha256": "eeb871c5010d798c1e48a23e7a36670628fc74c57c405dcc08909e664f3b6d40",
+      "bytes": 2241,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/SUMMARY.json"
+    },
+    {
+      "path": "postrelease/binding.json",
+      "sha256": "ccbdf52597ad047b8a9450d72c3c970c6555658852f668df05a15eeb975a4d10",
+      "bytes": 44454,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/binding.json"
+    },
+    {
+      "path": "postrelease/out/RESULT.json",
+      "sha256": "3319f49ac5782f2847b3e0cbc67abfc0268eaa93bdb13da5d56a3e202f3ebe73",
+      "bytes": 145791,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/out/RESULT.json"
+    },
+    {
+      "path": "postrelease/out/final.save45.json.gz",
+      "sha256": "414c05b191706eadc39cd3893b7cfbb373c9808a7cb1c258d436a79acf014f86",
+      "bytes": 3331602,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/out/final.save45.json.gz"
+    },
+    {
+      "path": "postrelease/out/first-post2040-release.save45.json.gz",
+      "sha256": "414c05b191706eadc39cd3893b7cfbb373c9808a7cb1c258d436a79acf014f86",
+      "bytes": 3331602,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/out/first-post2040-release.save45.json.gz"
+    },
+    {
+      "path": "postrelease/out/genesis.save45.json.gz",
+      "sha256": "08f1226f03f76a448b4cf1017dd002404b0bb770b24a55262bdcf25abdf108ca",
+      "bytes": 50120,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/out/genesis.save45.json.gz"
+    },
+    {
+      "path": "postrelease/out/official-6240.json",
+      "sha256": "919ccc57d3ec447b132c20bca81103145b89ad5f0817da14b24f80b7118273f1",
+      "bytes": 67415,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/out/official-6240.json"
+    },
+    {
+      "path": "postrelease/out/week6240-qualified.save45.json.gz",
+      "sha256": "df0c4142cf3f45a41e1b1069e9fba27151bbdab04046f7360ecd5cbcb7d67a86",
+      "bytes": 3326732,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/out/week6240-qualified.save45.json.gz"
+    },
+    {
+      "path": "postrelease/out/week6240-unengaged.save45.json.gz",
+      "sha256": "c3f67a55de4be81fd5eade30d63fd140ca7fd7fd6eaaa2ee95958da150ec8ca7",
+      "bytes": 3325682,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/out/week6240-unengaged.save45.json.gz"
+    },
+    {
+      "path": "postrelease/power.txt",
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "bytes": 105,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/power.txt"
+    },
+    {
+      "path": "postrelease/stderr.txt",
+      "sha256": "906f50c8a272878363a2ef33eaeedcef98b541784f581e58e57e33b1bcebc788",
+      "bytes": 479,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/stderr.txt"
+    },
+    {
+      "path": "postrelease/stdout.txt",
+      "sha256": "fa21bdbfe871d4f0acd8c923fdc6d8246b764cd8766c87965fe1b1f88d4fb30f",
+      "bytes": 137,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-publication/stdout.txt"
+    },
+    {
+      "path": "prep/1368-original-control-integration-prep/BASE-PINS.json",
+      "sha256": "159ead93c02f689093cb73484e140239cb42f513ee7f7eb3629bd5853290dd6d",
+      "bytes": 751,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-control-integration-prep/BASE-PINS.json"
+    },
+    {
+      "path": "prep/1368-original-control-integration-prep/HANDBACK.md",
+      "sha256": "8ee24417f598565ccffee365d71726880a4f753d431041f5de169f3d54d4abf7",
+      "bytes": 3904,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-control-integration-prep/HANDBACK.md"
+    },
+    {
+      "path": "prep/1368-original-control-integration-prep/SHA256.json",
+      "sha256": "d345c9cdc1098aebe163d78e863f90517717a1fcee7adb6a5b336f30d4bd0268",
+      "bytes": 956,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-control-integration-prep/SHA256.json"
+    },
+    {
+      "path": "prep/1368-original-control-integration-prep/author.py",
+      "sha256": "669c530f8e0b2a4cebe712fb4e489f97c602f2e909748d3414da5c211980c729",
+      "bytes": 5650,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-control-integration-prep/author.py"
+    },
+    {
+      "path": "prep/1368-original-control-integration-prep/files/tests/helpers/1368-adoption-boundary.ts",
+      "sha256": "6d3cbaed18ff9f21f73780dc15050649adee7f29af61e88c8f443a98bbda2818",
+      "bytes": 5590,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-control-integration-prep/files/tests/helpers/1368-adoption-boundary.ts"
+    },
+    {
+      "path": "prep/1368-original-control-integration-prep/files/tests/helpers/1368-operational-boundary.ts",
+      "sha256": "f7debea7fb182403a492ef4007eb408158481c11afe08d66a6bebe562b0d8dbf",
+      "bytes": 4539,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-control-integration-prep/files/tests/helpers/1368-operational-boundary.ts"
+    },
+    {
+      "path": "prep/1368-original-control-integration-prep/files/tests/p14d2-rival-cost-cutting.test.ts",
+      "sha256": "172be738495cd39a1eff167c14efce6452e9eb6c75b0301eea7e5aaecec52768",
+      "bytes": 31976,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-control-integration-prep/files/tests/p14d2-rival-cost-cutting.test.ts"
+    },
+    {
+      "path": "prep/1368-original-control-integration-prep/files/tests/p14d2-rival-facility-disposal.test.ts",
+      "sha256": "7995cf8dbda02c65daf8ea9058531385397ed77701a852810138077cd6e04141",
+      "bytes": 25182,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-control-integration-prep/files/tests/p14d2-rival-facility-disposal.test.ts"
+    },
+    {
+      "path": "prep/1368-original-control-integration-prep/original-b-adoption-wiring.patch",
+      "sha256": "054092efb265cbd1d5667adf4d10cac9498ce46ace958e22fcf3f8976dd10fa1",
+      "bytes": 7306,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-control-integration-prep/original-b-adoption-wiring.patch"
+    },
+    {
+      "path": "prep/1368-original-control-integration-prep/original-c-operational-wiring.patch",
+      "sha256": "2fc06469125a78aec5d57fbce4938097c35a0ba4431651997441b4f182b0331c",
+      "bytes": 6947,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-control-integration-prep/original-c-operational-wiring.patch"
+    },
+    {
+      "path": "prep/1368-witness-loader-defaults-prep/BASE-PINS.json",
+      "sha256": "276fe52d1e38f13162021033905fecfb5168071d75cc64218f5cfaad6d1633de",
+      "bytes": 184,
+      "source": "/Users/zacheryspector/studio-scratch/1368-witness-loader-defaults-prep/BASE-PINS.json"
+    },
+    {
+      "path": "prep/1368-witness-loader-defaults-prep/HANDBACK.md",
+      "sha256": "79b9bc3f2d84b55c3fb44dca6c27e997409d68b22ab8b2eaa4ea13056675e20e",
+      "bytes": 1855,
+      "source": "/Users/zacheryspector/studio-scratch/1368-witness-loader-defaults-prep/HANDBACK.md"
+    },
+    {
+      "path": "prep/1368-witness-loader-defaults-prep/SHA256.json",
+      "sha256": "2b6ba26c98a48d1b35e405d5b76eed468e9500707d3410fbc3042445abd99513",
+      "bytes": 447,
+      "source": "/Users/zacheryspector/studio-scratch/1368-witness-loader-defaults-prep/SHA256.json"
+    },
+    {
+      "path": "prep/1368-witness-loader-defaults-prep/base.ts",
+      "sha256": "9eae454d4cd9c6272f8738468ca43320857eea0afeab3a2d96c5cfb07faa3607",
+      "bytes": 3577,
+      "source": "/Users/zacheryspector/studio-scratch/1368-witness-loader-defaults-prep/base.ts"
+    },
+    {
+      "path": "prep/1368-witness-loader-defaults-prep/candidate.ts",
+      "sha256": "fb1cf55b3417701b14bb7bea8a692282c44881ed57afc0ef0ba3259ee930c5bf",
+      "bytes": 4335,
+      "source": "/Users/zacheryspector/studio-scratch/1368-witness-loader-defaults-prep/candidate.ts"
+    },
+    {
+      "path": "prep/1368-witness-loader-defaults-prep/literal-fixture-defaults.patch",
+      "sha256": "a70ca5e069357c969bd7617b49787e8820a5b0a6df185bc1a05e5b88e0483cc8",
+      "bytes": 2094,
+      "source": "/Users/zacheryspector/studio-scratch/1368-witness-loader-defaults-prep/literal-fixture-defaults.patch"
+    },
+    {
+      "path": "prep/1368-original-research-integration-prep/HANDBACK.md",
+      "sha256": "39c6d3b733413831dbf29a6ce5b54e33e3557eb52584bbbcbaa6a9fad2a68822",
+      "bytes": 2633,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-research-integration-prep/HANDBACK.md"
+    },
+    {
+      "path": "prep/1368-original-research-integration-prep/SHA256.json",
+      "sha256": "328d79f975600f7488a8f3df8d93fd9ae731dbf1e28d8c3ed9e208725f45a05b",
+      "bytes": 578,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-research-integration-prep/SHA256.json"
+    },
+    {
+      "path": "prep/1368-original-research-integration-prep/candidate/tests/helpers/1368-research-controls.ts",
+      "sha256": "895714e9b425bc108c0920edc4d4fc7846e8cdbb498cc1e848002f53f79ceeb9",
+      "bytes": 2372,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-research-integration-prep/candidate/tests/helpers/1368-research-controls.ts"
+    },
+    {
+      "path": "prep/1368-original-research-integration-prep/candidate/tests/p14d2-rival-cost-cutting.test.ts",
+      "sha256": "94a74df112bb5d6d7cf5ff7cf005a71bdcb37d2d3b1a38dafab8c91862841588",
+      "bytes": 32090,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-research-integration-prep/candidate/tests/p14d2-rival-cost-cutting.test.ts"
+    },
+    {
+      "path": "prep/1368-original-research-integration-prep/original-research-wiring.patch",
+      "sha256": "83649fd566d381534111f8edb187a6ab178038a97d777c740fb1db05a3e63292",
+      "bytes": 4445,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original-research-integration-prep/original-research-wiring.patch"
+    },
+    {
+      "path": "prep/1368-b-research-diagnostic-prep/HANDBACK.md",
+      "sha256": "51f1c28f11ab3322c9d154670e1fe16ade8868b795b0b87a8d13ea2bcee481f9",
+      "bytes": 3475,
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-research-diagnostic-prep/HANDBACK.md"
+    },
+    {
+      "path": "prep/1368-b-research-diagnostic-prep/SHA256.json",
+      "sha256": "160a74dcb0439ef090e19782a89df23ac96d4e677180e2192712775ac4524996",
+      "bytes": 293,
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-research-diagnostic-prep/SHA256.json"
+    },
+    {
+      "path": "prep/1368-b-research-diagnostic-prep/diagnostic.patch",
+      "sha256": "f0bac1719e36f98fec33561162c763153b06d7caa6bec794507a8a2ccfc79acf",
+      "bytes": 6437,
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-research-diagnostic-prep/diagnostic.patch"
+    },
+    {
+      "path": "prep/1368-b-research-diagnostic-prep/p14d2-b-research-phase-diagnostic.test.ts",
+      "sha256": "1df56bbf139b600dd55cda4819c6d528890aae06ec68034a17164f18b729abc5",
+      "bytes": 6266,
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-research-diagnostic-prep/p14d2-b-research-phase-diagnostic.test.ts"
+    },
+    {
+      "path": "prep/1368-b-public-research-prep/HANDBACK.md",
+      "sha256": "955bdfb3ab7b505cd8607cb4889a80b30f362a6556b25ae0cddb2562086eb2e6",
+      "bytes": 6800,
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-public-research-prep/HANDBACK.md"
+    },
+    {
+      "path": "prep/1368-b-public-research-prep/SHA256.json",
+      "sha256": "39743753332e9ff1444c7558168fac9a714eabe61a569406617fd682e4119b32",
+      "bytes": 548,
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-public-research-prep/SHA256.json"
+    },
+    {
+      "path": "prep/1368-b-public-research-prep/files/tests/helpers/1368-public-research-boundary.ts",
+      "sha256": "69e49aef4ebcc2c1865ee7f59a7216d02eb82b04e73d191a3667fbf3b047b1f0",
+      "bytes": 9028,
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-public-research-prep/files/tests/helpers/1368-public-research-boundary.ts"
+    },
+    {
+      "path": "prep/1368-b-public-research-prep/files/tests/p14d2-b-public-research-1368.test.ts",
+      "sha256": "64e72bfe184f8a8f3f087aca51d40ac4684222d8efb396673c8e295a91a65312",
+      "bytes": 2305,
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-public-research-prep/files/tests/p14d2-b-public-research-1368.test.ts"
+    },
+    {
+      "path": "prep/1368-b-public-research-prep/files/tsconfig.1368-public-research.json",
+      "sha256": "9cf9ef309685633d8b530ea87cc6e8c76f24bf2e312abc600cee021141993879",
+      "bytes": 206,
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-public-research-prep/files/tsconfig.1368-public-research.json"
+    },
+    {
+      "path": "prep/1368-b-public-research-prep/public-research277.patch",
+      "sha256": "d1d35bbf9bfb4e678a8b65b63d679ca88cc7bc78e3346cbbf2381b2a121c4ff9",
+      "bytes": 11944,
+      "source": "/Users/zacheryspector/studio-scratch/1368-b-public-research-prep/public-research277.patch"
+    },
+    {
+      "path": "prep/1368-ab-measurement-prep/CHANGES.json",
+      "sha256": "50736b2757a4339dc14313b84787c058cc76037ee817915cb230f47a16cc6fcb",
+      "bytes": 427,
+      "source": "/Users/zacheryspector/studio-scratch/1368-ab-measurement-prep/CHANGES.json"
+    },
+    {
+      "path": "prep/1368-ab-measurement-prep/HANDBACK.md",
+      "sha256": "91af65cb4f191a34993ce019c26e269dbd641f7523df76486a6760441b65f79b",
+      "bytes": 1596,
+      "source": "/Users/zacheryspector/studio-scratch/1368-ab-measurement-prep/HANDBACK.md"
+    },
+    {
+      "path": "prep/1368-ab-measurement-prep/SHA256.json",
+      "sha256": "fc38d92aee56e672c20393b895f33561020daec2811f02267f7726da34067802",
+      "bytes": 488,
+      "source": "/Users/zacheryspector/studio-scratch/1368-ab-measurement-prep/SHA256.json"
+    },
+    {
+      "path": "prep/1368-ab-measurement-prep/ab-without-c-integration.patch",
+      "sha256": "5610900410a1eb408666d2be4b67444bed571aa9fc1de944bceefb3046bdf3bf",
+      "bytes": 3064,
+      "source": "/Users/zacheryspector/studio-scratch/1368-ab-measurement-prep/ab-without-c-integration.patch"
+    },
+    {
+      "path": "prep/1368-ab-measurement-prep/files/src/core/hollywoodTick.ts",
+      "sha256": "8808d5dd7dd21ee3f1eace4e0fe267d1e02f0935a2be9b5a4ed7063849466658",
+      "bytes": 40257,
+      "source": "/Users/zacheryspector/studio-scratch/1368-ab-measurement-prep/files/src/core/hollywoodTick.ts"
+    },
+    {
+      "path": "prep/1368-ab-measurement-prep/files/src/core/rivalResearch.ts",
+      "sha256": "6850a7a666dd4514224020d40ddf7513c457f94e004a113244c2d019e6140ef6",
+      "bytes": 36125,
+      "source": "/Users/zacheryspector/studio-scratch/1368-ab-measurement-prep/files/src/core/rivalResearch.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/SOURCE-PINS-v1.json",
+      "sha256": "ef9efadc5572e1ba6ec7be3ab96389d6e72f7d5a55437a0792f857a5740b22e6",
+      "bytes": 77435,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/SOURCE-PINS-v1.json"
+    },
+    {
+      "path": "runs/1368-unified-candidate/FIXTURE-PINS.json",
+      "sha256": "be51ccddc7dd78c8f6329f93389b736ac4ca6ddec3cb3bc5bf828807fa8415b6",
+      "bytes": 2202,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/FIXTURE-PINS.json"
+    },
+    {
+      "path": "runs/1368-unified-candidate/run.py",
+      "sha256": "0b618bfc71f5de6c5e365a17e90b41a49bb778e6d0a56f465e6b739214c9e5af",
+      "bytes": 3390,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/run.py"
+    },
+    {
+      "path": "runs/1368-unified-candidate/ASSEMBLY-v1.json",
+      "sha256": "52a5078fce460b7a8a4110ee37632e766f96b3ac575521d3bac85af83199f2f4",
+      "bytes": 193844,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/ASSEMBLY-v1.json"
+    },
+    {
+      "path": "runs/1368-unified-candidate/types-r1/output.txt",
+      "sha256": "eb2cbd781f8a0a055757dda813c52df4d73e882331ad1a093404be9595df0c34",
+      "bytes": 121,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/types-r1/output.txt"
+    },
+    {
+      "path": "runs/1368-unified-candidate/types-r1/result.json",
+      "sha256": "1f5f6633da1dcfcc8bfd43087a0dc2f2a508c03777b8b8744093aa3f28c3cae7",
+      "bytes": 3507,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/types-r1/result.json"
+    },
+    {
+      "path": "runs/1368-unified-candidate/c-r1/output.txt",
+      "sha256": "04f460973889fe26b4f7d125703a67be1b731442c5087d219eca1de850eb9b4a",
+      "bytes": 7160,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/c-r1/output.txt"
+    },
+    {
+      "path": "runs/1368-unified-candidate/c-r1/result.json",
+      "sha256": "2dba2d6cd135afa3975a6df2878e1bc4a8803987512ad1b1fcb2860fe787434b",
+      "bytes": 3645,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/c-r1/result.json"
+    },
+    {
+      "path": "runs/1368-unified-candidate/migration-r1/output.txt",
+      "sha256": "dc2aa64c38fe994c800792aea5d6055810b3ed64a35ecebbf6ca9e57b5bba3ad",
+      "bytes": 21872,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/migration-r1/output.txt"
+    },
+    {
+      "path": "runs/1368-unified-candidate/migration-r1/result.json",
+      "sha256": "5c4094bd0e93601273e5b3aacbc263f012123eadd34f0c2fcb7154beeeb91325",
+      "bytes": 3647,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/migration-r1/result.json"
+    },
+    {
+      "path": "runs/1368-unified-candidate/b-wired-r1/output.txt",
+      "sha256": "226fe32383779c38086386a0d60b048557f4f09e5bb6fd4cd8bcc5c990816128",
+      "bytes": 810,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/b-wired-r1/output.txt"
+    },
+    {
+      "path": "runs/1368-unified-candidate/b-wired-r1/result.json",
+      "sha256": "adb90369eec3310ad2fee4217b6a40237d864e3968d675ef6c101a4411de8eaa",
+      "bytes": 3711,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/b-wired-r1/result.json"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/p14d2-save46-migration.test.ts",
+      "sha256": "94a688d7f2df36cc37e3ecc0afc6faaf5f5a3f887f1c0e11eb4d7ae519572efc",
+      "bytes": 14585,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/p14d2-save46-migration.test.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/p13b-s8-old-era-period.test.ts",
+      "sha256": "30306f038533a0ea60767e6ae89164729afee5092311a448e865beba56fbc81c",
+      "bytes": 6326,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/p13b-s8-old-era-period.test.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/p14d2-rival-cost-cutting.test.ts",
+      "sha256": "172be738495cd39a1eff167c14efce6452e9eb6c75b0301eea7e5aaecec52768",
+      "bytes": 31976,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/p14d2-rival-cost-cutting.test.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/p14d2-rival-cost-cutting-adapter.test.ts",
+      "sha256": "f1d5c5f55012aa93174b180ef4d8b9763ea1a0c66974504e013d4b7fc8f53c28",
+      "bytes": 14528,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/p14d2-rival-cost-cutting-adapter.test.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/p14d2-rival-facility-disposal.test.ts",
+      "sha256": "7995cf8dbda02c65daf8ea9058531385397ed77701a852810138077cd6e04141",
+      "bytes": 25182,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/p14d2-rival-facility-disposal.test.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/helpers/1368-archived-route.ts",
+      "sha256": "9cf6a963a2ef4580b0f167f7083ec2dd0749f74f3b3898ce455e5c1fa0961aff",
+      "bytes": 4125,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/helpers/1368-archived-route.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/helpers/1368-renewal-fixture.ts",
+      "sha256": "b2d808a51a2f37bdf22c77323bed31a6c3f4e9f37cf64e50f7fa20b43f7e3582",
+      "bytes": 2427,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/helpers/1368-renewal-fixture.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tsconfig.renewal-consumer.json",
+      "sha256": "d30ce29548049d838bbf376582ab9d75f59d097307071ae26d300ba1b1d367e2",
+      "bytes": 264,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tsconfig.renewal-consumer.json"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/helpers/1368-recovery-witnesses.ts",
+      "sha256": "fb1cf55b3417701b14bb7bea8a692282c44881ed57afc0ef0ba3259ee930c5bf",
+      "bytes": 4335,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/helpers/1368-recovery-witnesses.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/p14d2-b-research-witnesses-1368.test.ts",
+      "sha256": "ce1fd4fdaaaf28c6ff2bcbf5d76d9b56bc8a02b99f76890b020b0daa71f5fd49",
+      "bytes": 7442,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/p14d2-b-research-witnesses-1368.test.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/p14d2-b-adoption-boundary-1368.test.ts",
+      "sha256": "3cc60227e84154b3a9973fb5f66c319ed89dabdbc5300ee3989a710b439ea540",
+      "bytes": 6498,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/p14d2-b-adoption-boundary-1368.test.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/p14d2-c-operational-boundary-1368.test.ts",
+      "sha256": "7e0c3551eb813cc80ff8c7b367a1e4253d3ef4d90e3d939ff868e74c8afdbb8d",
+      "bytes": 5675,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/p14d2-c-operational-boundary-1368.test.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tsconfig.1368-b-research.json",
+      "sha256": "d230aa2c93ceb96744c136300acbe1ef07762c93e5990bf47bf6b3822178c909",
+      "bytes": 343,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tsconfig.1368-b-research.json"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/helpers/1368-adoption-boundary.ts",
+      "sha256": "6d3cbaed18ff9f21f73780dc15050649adee7f29af61e88c8f443a98bbda2818",
+      "bytes": 5590,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/helpers/1368-adoption-boundary.ts"
+    },
+    {
+      "path": "runs/1368-unified-candidate/changed-files/tests/helpers/1368-operational-boundary.ts",
+      "sha256": "f7debea7fb182403a492ef4007eb408158481c11afe08d66a6bebe562b0d8dbf",
+      "bytes": 4539,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree/tests/helpers/1368-operational-boundary.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/SOURCE-PINS-v1.json",
+      "sha256": "43bb6327f2700e5917d716ddf3a3727d5af813706bb29759e27006bd5572592c",
+      "bytes": 77659,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/SOURCE-PINS-v1.json"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/FIXTURE-PINS.json",
+      "sha256": "be51ccddc7dd78c8f6329f93389b736ac4ca6ddec3cb3bc5bf828807fa8415b6",
+      "bytes": 2202,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/FIXTURE-PINS.json"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/run.py",
+      "sha256": "4f251834e8e7c31793aae5a39e2eef54b34393f0dca34ea0a487e2792ded57aa",
+      "bytes": 3013,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/run.py"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/types-r1/output.txt",
+      "sha256": "7271176d74d9600661b6ee18dfb6193c9375c722290566a9a621b0fefff9c7af",
+      "bytes": 121,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/types-r1/output.txt"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/types-r1/result.json",
+      "sha256": "7207d8cb0a789b863305b3f69c509a3bbbaf0778c4c3f5760f9ee415c4510286",
+      "bytes": 3508,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/types-r1/result.json"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/diagnostic-r1/output.txt",
+      "sha256": "0a371c691a9c7e0b0dac06797f6e4e45c01dc4b391daa5700ecf9c99276226ad",
+      "bytes": 44729,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/diagnostic-r1/output.txt"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/diagnostic-r1/result.json",
+      "sha256": "f293b02a6f201b7c93bfdd6c8fc3fd556b4f3a2add3560c5c92fea376504bdac",
+      "bytes": 3659,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/diagnostic-r1/result.json"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/p14d2-save46-migration.test.ts",
+      "sha256": "94a688d7f2df36cc37e3ecc0afc6faaf5f5a3f887f1c0e11eb4d7ae519572efc",
+      "bytes": 14585,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/p14d2-save46-migration.test.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/p13b-s8-old-era-period.test.ts",
+      "sha256": "30306f038533a0ea60767e6ae89164729afee5092311a448e865beba56fbc81c",
+      "bytes": 6326,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/p13b-s8-old-era-period.test.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/p14d2-rival-cost-cutting.test.ts",
+      "sha256": "172be738495cd39a1eff167c14efce6452e9eb6c75b0301eea7e5aaecec52768",
+      "bytes": 31976,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/p14d2-rival-cost-cutting.test.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/p14d2-rival-cost-cutting-adapter.test.ts",
+      "sha256": "f1d5c5f55012aa93174b180ef4d8b9763ea1a0c66974504e013d4b7fc8f53c28",
+      "bytes": 14528,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/p14d2-rival-cost-cutting-adapter.test.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/p14d2-rival-facility-disposal.test.ts",
+      "sha256": "7995cf8dbda02c65daf8ea9058531385397ed77701a852810138077cd6e04141",
+      "bytes": 25182,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/p14d2-rival-facility-disposal.test.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/helpers/1368-archived-route.ts",
+      "sha256": "9cf6a963a2ef4580b0f167f7083ec2dd0749f74f3b3898ce455e5c1fa0961aff",
+      "bytes": 4125,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/helpers/1368-archived-route.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/helpers/1368-renewal-fixture.ts",
+      "sha256": "b2d808a51a2f37bdf22c77323bed31a6c3f4e9f37cf64e50f7fa20b43f7e3582",
+      "bytes": 2427,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/helpers/1368-renewal-fixture.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tsconfig.renewal-consumer.json",
+      "sha256": "d30ce29548049d838bbf376582ab9d75f59d097307071ae26d300ba1b1d367e2",
+      "bytes": 264,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tsconfig.renewal-consumer.json"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/helpers/1368-recovery-witnesses.ts",
+      "sha256": "fb1cf55b3417701b14bb7bea8a692282c44881ed57afc0ef0ba3259ee930c5bf",
+      "bytes": 4335,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/helpers/1368-recovery-witnesses.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/p14d2-b-research-witnesses-1368.test.ts",
+      "sha256": "ce1fd4fdaaaf28c6ff2bcbf5d76d9b56bc8a02b99f76890b020b0daa71f5fd49",
+      "bytes": 7442,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/p14d2-b-research-witnesses-1368.test.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/p14d2-b-adoption-boundary-1368.test.ts",
+      "sha256": "3cc60227e84154b3a9973fb5f66c319ed89dabdbc5300ee3989a710b439ea540",
+      "bytes": 6498,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/p14d2-b-adoption-boundary-1368.test.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/p14d2-c-operational-boundary-1368.test.ts",
+      "sha256": "7e0c3551eb813cc80ff8c7b367a1e4253d3ef4d90e3d939ff868e74c8afdbb8d",
+      "bytes": 5675,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/p14d2-c-operational-boundary-1368.test.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tsconfig.1368-b-research.json",
+      "sha256": "d230aa2c93ceb96744c136300acbe1ef07762c93e5990bf47bf6b3822178c909",
+      "bytes": 343,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tsconfig.1368-b-research.json"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/helpers/1368-adoption-boundary.ts",
+      "sha256": "6d3cbaed18ff9f21f73780dc15050649adee7f29af61e88c8f443a98bbda2818",
+      "bytes": 5590,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/helpers/1368-adoption-boundary.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/helpers/1368-operational-boundary.ts",
+      "sha256": "f7debea7fb182403a492ef4007eb408158481c11afe08d66a6bebe562b0d8dbf",
+      "bytes": 4539,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/helpers/1368-operational-boundary.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tests/p14d2-b-research-phase-diagnostic.test.ts",
+      "sha256": "1df56bbf139b600dd55cda4819c6d528890aae06ec68034a17164f18b729abc5",
+      "bytes": 6266,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tests/p14d2-b-research-phase-diagnostic.test.ts"
+    },
+    {
+      "path": "runs/1368-research-diagnostic-candidate/changed-files/tsconfig.1368-diagnostic.json",
+      "sha256": "6b9c9c2425c9e15913b6e058f4f9fef4a4d197f411175ecd42866755b78f72b9",
+      "bytes": 196,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-candidate/tree/tsconfig.1368-diagnostic.json"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/SOURCE-PINS-v1.json",
+      "sha256": "33e42f3b78a6a03fdd3b5d090f1e660f66ded3abe1a53fed97716ab9487d6ed4",
+      "bytes": 77328,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/SOURCE-PINS-v1.json"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/FIXTURE-PINS.json",
+      "sha256": "be51ccddc7dd78c8f6329f93389b736ac4ca6ddec3cb3bc5bf828807fa8415b6",
+      "bytes": 2202,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/FIXTURE-PINS.json"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/run.py",
+      "sha256": "03254219745c244b6b85060dd146aba40acd8f151be509e7eda2882ab48b9b8a",
+      "bytes": 3252,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/run.py"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/ASSEMBLY.json",
+      "sha256": "2b6f8d19d860f175addc5557dab86f363a615a0697fa52e5a9d6ac73a61adcca",
+      "bytes": 689,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/ASSEMBLY.json"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/types-r1/output.txt",
+      "sha256": "9a40f07c00d0c760e347d9391707e29ddc639997f5354bf43e7003eea5c013d2",
+      "bytes": 121,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/types-r1/output.txt"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/types-r1/result.json",
+      "sha256": "261baa91d64f04663e8ab383ddef3b260aa6848e7e55be3d253c161d1ce400e2",
+      "bytes": 3509,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/types-r1/result.json"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/c6-r1/output.txt",
+      "sha256": "bae56dc76ee425debf13d3593e12e134b04829228c8952a35b11b3f371c019bd",
+      "bytes": 1821,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/c6-r1/output.txt"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/c6-r1/result.json",
+      "sha256": "c53aba810451d8b81cae0b012318bdb1553b0798927d776ac0f5ead3da0b4d11",
+      "bytes": 3696,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/c6-r1/result.json"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/b-restrictions-r1/output.txt",
+      "sha256": "0dbe831bc6a647062e5e8c0640381aad23c096dffe05008198f22b8215fd9e6a",
+      "bytes": 4803,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/b-restrictions-r1/output.txt"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/b-restrictions-r1/result.json",
+      "sha256": "e39d174a586cc6a771d6f0f3d40da5f1f2cd280827ee2ac72abd40924398beac",
+      "bytes": 3794,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/b-restrictions-r1/result.json"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tsconfig.schema-tests.json",
+      "sha256": "8e77f4dec362be5c6b4b3b6f98dc2821c23747c23415cd0abf1dae5fb38d7bff",
+      "bytes": 294,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tsconfig.schema-tests.json"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tests/p14d1-rival-shelving.test.ts",
+      "sha256": "3fdade5b60cab21dac2bf2438d168819c3516273b52af1e3cf4692822456f59b",
+      "bytes": 65517,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tests/p14d1-rival-shelving.test.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tests/p14d2-rival-cost-cutting.test.ts",
+      "sha256": "172be738495cd39a1eff167c14efce6452e9eb6c75b0301eea7e5aaecec52768",
+      "bytes": 31976,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tests/p14d2-rival-cost-cutting.test.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tests/p14d2-rival-facility-disposal.test.ts",
+      "sha256": "7995cf8dbda02c65daf8ea9058531385397ed77701a852810138077cd6e04141",
+      "bytes": 25182,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tests/p14d2-rival-facility-disposal.test.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/src/core/technologyRival.ts",
+      "sha256": "69c8fa5ab2446b0cb3c74678538bd4b308917e0c8021e71355e5c54d07803520",
+      "bytes": 6810,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/src/core/technologyRival.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/src/core/hollywoodTick.ts",
+      "sha256": "21b00c62f0057786f81d1b821eb5984677f7e4251211ecaf7d5288840d5f719e",
+      "bytes": 37515,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/src/core/hollywoodTick.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/src/core/rivalResearch.ts",
+      "sha256": "c7a1cfe81d284d8f40ff18fd91cf6ea2c2965541ac617c1dc1ad9db8ee24e9e7",
+      "bytes": 33948,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/src/core/rivalResearch.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/src/core/talentMarket.ts",
+      "sha256": "010ed07634a5991674dc867f61b3b78ab022c91699366d29fea26a4d5585c087",
+      "bytes": 92358,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/src/core/talentMarket.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tests/p13b-s8-period312-diagnostic.test.ts",
+      "sha256": "6db9f4727782c7b6b8c4319be4e9c8d1225b546e1507dcc341082f544205dc42",
+      "bytes": 5086,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tests/p13b-s8-period312-diagnostic.test.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tsconfig.witness-diagnostic.json",
+      "sha256": "5981eb49c45fb3d46c01d684db55c3731fd0e1b8ce4a7e46452ba783d17b2192",
+      "bytes": 210,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tsconfig.witness-diagnostic.json"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tests/p14d2-b-adoption-boundary-1368.test.ts",
+      "sha256": "3cc60227e84154b3a9973fb5f66c319ed89dabdbc5300ee3989a710b439ea540",
+      "bytes": 6498,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tests/p14d2-b-adoption-boundary-1368.test.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tests/p14d2-b-research-witnesses-1368.test.ts",
+      "sha256": "ce1fd4fdaaaf28c6ff2bcbf5d76d9b56bc8a02b99f76890b020b0daa71f5fd49",
+      "bytes": 7442,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tests/p14d2-b-research-witnesses-1368.test.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tests/helpers/1368-archived-route.ts",
+      "sha256": "9cf6a963a2ef4580b0f167f7083ec2dd0749f74f3b3898ce455e5c1fa0961aff",
+      "bytes": 4125,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tests/helpers/1368-archived-route.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tests/helpers/1368-recovery-witnesses.ts",
+      "sha256": "fb1cf55b3417701b14bb7bea8a692282c44881ed57afc0ef0ba3259ee930c5bf",
+      "bytes": 4335,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tests/helpers/1368-recovery-witnesses.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tests/helpers/1368-renewal-fixture.ts",
+      "sha256": "b2d808a51a2f37bdf22c77323bed31a6c3f4e9f37cf64e50f7fa20b43f7e3582",
+      "bytes": 2427,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tests/helpers/1368-renewal-fixture.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tests/helpers/1368-adoption-boundary.ts",
+      "sha256": "6d3cbaed18ff9f21f73780dc15050649adee7f29af61e88c8f443a98bbda2818",
+      "bytes": 5590,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tests/helpers/1368-adoption-boundary.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tests/helpers/1368-operational-boundary.ts",
+      "sha256": "f7debea7fb182403a492ef4007eb408158481c11afe08d66a6bebe562b0d8dbf",
+      "bytes": 4539,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tests/helpers/1368-operational-boundary.ts"
+    },
+    {
+      "path": "runs/1368-valid-control-predecessor/changed-files/tsconfig.1368-predecessor.json",
+      "sha256": "a72f4c71fb7969bc163b6b7c6080b6cd3e932355855c40688d311bd2b6c4be1b",
+      "bytes": 596,
+      "source": "/Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree/tsconfig.1368-predecessor.json"
+    },
+    {
+      "path": "reviews/DELAYED-POSTRELEASE-MEASURED.md",
+      "sha256": "524d5f3ebcf52d68a7995c84d6ce54fa268ebd85845f56962f5d93ec46947b8a",
+      "bytes": 5972,
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/DELAYED-POSTRELEASE-MEASURED.md"
+    },
+    {
+      "path": "reviews/C-FULL-MEASURED.md",
+      "sha256": "b72f925653a3f40492303d46075445b4bd2a8868ce775556a698e51b48bf2dfb",
+      "bytes": 2317,
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/C-FULL-MEASURED.md"
+    },
+    {
+      "path": "reviews/MIGRATION-FULL-MEASURED.md",
+      "sha256": "eb797d9cb705751faf96aa4982a7b6ee7ed4b9edd3c3e660832c6b3a7c537dda",
+      "bytes": 1881,
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/MIGRATION-FULL-MEASURED.md"
+    },
+    {
+      "path": "reviews/B-RESEARCH-PHASE-MEASURED.md",
+      "sha256": "5f73e383a0d18b32fb9301846dc9835a864772a7dd48ee667499aa04888f6976",
+      "bytes": 2327,
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/B-RESEARCH-PHASE-MEASURED.md"
+    },
+    {
+      "path": "reviews/RESEARCH265-ATTRIBUTION.md",
+      "sha256": "9a9129f32719de407cddf5c9d9db4dcb535bc060998a3010a14028aad0583636",
+      "bytes": 2281,
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/RESEARCH265-ATTRIBUTION.md"
+    },
+    {
+      "path": "reviews/VALID-CONTROL-PREDECESSOR-SELECTION.md",
+      "sha256": "72432283757ff8df31832cb639c141892f0888448110cde4d2a09fb161e896a8",
+      "bytes": 4831,
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/VALID-CONTROL-PREDECESSOR-SELECTION.md"
+    },
+    {
+      "path": "reviews/ORIGINAL-ADOPTION-OPERATIONAL-WIRING.md",
+      "sha256": "edd46dfc8ce0ab5557d6f4fa6250be5df0ce57175b722e7bab2fe0720c1a5b44",
+      "bytes": 1627,
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/ORIGINAL-ADOPTION-OPERATIONAL-WIRING.md"
+    },
+    {
+      "path": "reviews/WITNESS-LOADER-DEFAULTS-REVIEW.md",
+      "sha256": "ace3147e63645c7b4e5b7ef56bee0a54eeb7954d54221f092fb32294099523e6",
+      "bytes": 1080,
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/WITNESS-LOADER-DEFAULTS-REVIEW.md"
+    },
+    {
+      "path": "reviews/B-RESEARCH-PHASE-DIAGNOSTIC-REVIEW.md",
+      "sha256": "748aee2056a7576312afadc77575ed7a143553293599528d2e4fa6b7e858785d",
+      "bytes": 1796,
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/B-RESEARCH-PHASE-DIAGNOSTIC-REVIEW.md"
+    },
+    {
+      "path": "reviews/B-RESEARCH-WIRING-AND-PUBLIC277-REVIEW.md",
+      "sha256": "22e67f88263b6274b52bf17ac270898c1fb141ece4090231f54c8db3446d472c",
+      "bytes": 2378,
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/B-RESEARCH-WIRING-AND-PUBLIC277-REVIEW.md"
+    },
+    {
+      "path": "reviews/AB-MEASUREMENT-DELTA-REVIEW.md",
+      "sha256": "a6c66a94e184611f166892e602ccbcc8354c659784471e60d5f4a0957d11da9d",
+      "bytes": 2378,
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/AB-MEASUREMENT-DELTA-REVIEW.md"
+    },
+    {
+      "path": "lanes/1368-original45-delayed-postrelease-r1.log",
+      "sha256": "dd8cc10cee427b75fe068a0637aeceb849f5a650c76cbc1520be04a387399ec0",
+      "bytes": 1001,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original45-delayed-postrelease-r1.log"
+    },
+    {
+      "path": "lanes/1368-original45-delayed-postrelease-r1.log.meta",
+      "sha256": "7403f4cfbd1fb7fc4ef692b22284bfa203dbc21c1a11f3a23ec3f9c5e6bb0ca4",
+      "bytes": 339,
+      "source": "/Users/zacheryspector/studio-scratch/1368-original45-delayed-postrelease-r1.log.meta"
+    },
+    {
+      "path": "lanes/1368-research-diagnostic-types-r1.log",
+      "sha256": "6e3d4a1cd9c1e37ab33825c7ce2d4dbc813a64e2360dce9abf3e796f87eff955",
+      "bytes": 3366,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-types-r1.log"
+    },
+    {
+      "path": "lanes/1368-research-diagnostic-types-r1.log.meta",
+      "sha256": "5dceef14eab031a775adeb9516b27a38963fab803a8bdc41a89a48229aa1e851",
+      "bytes": 211,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-types-r1.log.meta"
+    },
+    {
+      "path": "lanes/1368-research-diagnostic-r1.log",
+      "sha256": "c360e9efef541d888f293e142fee7471c9028e1fbc9137fb8fc737bcdd030992",
+      "bytes": 3493,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-r1.log"
+    },
+    {
+      "path": "lanes/1368-research-diagnostic-r1.log.meta",
+      "sha256": "99f374cc5c57e1cb0ee940e25f88d8b347b7a1e1978fbdf66a2ad77e6a8781ac",
+      "bytes": 216,
+      "source": "/Users/zacheryspector/studio-scratch/1368-research-diagnostic-r1.log.meta"
+    },
+    {
+      "path": "lanes/1368-unified-types-r1.log",
+      "sha256": "65abb3d4f4c0be5aa3ba35b39902b7f450c21b12229f05bb519f7bf346cf17f4",
+      "bytes": 3365,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-types-r1.log"
+    },
+    {
+      "path": "lanes/1368-unified-types-r1.log.meta",
+      "sha256": "477409cccba46f6a442c7d832eb68afbd891ca29ad9f83adf90e56f7ab88b5ab",
+      "bytes": 199,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-types-r1.log.meta"
+    },
+    {
+      "path": "lanes/1368-unified-c-r1.log",
+      "sha256": "65963966942a8ecf0bb8d4fab49d595f36868a6c8d43a2a93e8221da64a7bb6f",
+      "bytes": 3479,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-c-r1.log"
+    },
+    {
+      "path": "lanes/1368-unified-c-r1.log.meta",
+      "sha256": "a8376d02c4d6ab51e8097a897212a818d1e81675700a73e58ee3bf0fe49574a4",
+      "bytes": 195,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-c-r1.log.meta"
+    },
+    {
+      "path": "lanes/1368-unified-migration-r1.log",
+      "sha256": "712ea9d3cb571318d06704d4a4784fc9a721ffe307dd65647af25647a3c087e0",
+      "bytes": 3481,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-migration-r1.log"
+    },
+    {
+      "path": "lanes/1368-unified-migration-r1.log.meta",
+      "sha256": "2d1e54424d7c197011f0ea0b60088e964ca5e90b13ec7db154135989201d634c",
+      "bytes": 203,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-migration-r1.log.meta"
+    },
+    {
+      "path": "lanes/1368-unified-b-wired-r1.log",
+      "sha256": "01015fda3513a890e46bfa0459913b64ef02fedf9f8d74a05954a551f5e76353",
+      "bytes": 3537,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-b-wired-r1.log"
+    },
+    {
+      "path": "lanes/1368-unified-b-wired-r1.log.meta",
+      "sha256": "09f4ae3c37e0cad68399d540f4ee1568ab9137e39e3b29c0b2eb351c41fb1575",
+      "bytes": 201,
+      "source": "/Users/zacheryspector/studio-scratch/1368-unified-b-wired-r1.log.meta"
+    },
+    {
+      "path": "lanes/1368-predecessor-types-r1.log",
+      "sha256": "355e514f572d527fc149172ec32cabf13da556ae7918482e666866eaf6b33ba4",
+      "bytes": 3367,
+      "source": "/Users/zacheryspector/studio-scratch/1368-predecessor-types-r1.log"
+    },
+    {
+      "path": "lanes/1368-predecessor-types-r1.log.meta",
+      "sha256": "91168e3d253cc37ec7925e5c6ee3c9e4e2c2853897f30cf183e634be601aa095",
+      "bytes": 207,
+      "source": "/Users/zacheryspector/studio-scratch/1368-predecessor-types-r1.log.meta"
+    },
+    {
+      "path": "lanes/1368-predecessor-c6-r1.log",
+      "sha256": "851ee12567bf504d543198ec198c61414407474a29aa0e690cedaea1a3872ffe",
+      "bytes": 3522,
+      "source": "/Users/zacheryspector/studio-scratch/1368-predecessor-c6-r1.log"
+    },
+    {
+      "path": "lanes/1368-predecessor-c6-r1.log.meta",
+      "sha256": "9dbd2b6bd9d662d5260991c397816974d2921ab753d20fa00202be9faf130c3e",
+      "bytes": 204,
+      "source": "/Users/zacheryspector/studio-scratch/1368-predecessor-c6-r1.log.meta"
+    },
+    {
+      "path": "lanes/1368-predecessor-b-restrictions-r1.log",
+      "sha256": "05a09a47c9d2da88b8ea7d3a2338acb052eeb6978a2339d56721ab67d3080608",
+      "bytes": 3616,
+      "source": "/Users/zacheryspector/studio-scratch/1368-predecessor-b-restrictions-r1.log"
+    },
+    {
+      "path": "lanes/1368-predecessor-b-restrictions-r1.log.meta",
+      "sha256": "4a12968d23b80700064e9fe139eb2248926fae0ee89bde2b6466ef0b6ec12413",
+      "bytes": 216,
+      "source": "/Users/zacheryspector/studio-scratch/1368-predecessor-b-restrictions-r1.log.meta"
+    },
+    {
+      "path": "reviews/B-PREDECESSOR-THREE-RESTRICTIONS.md",
+      "sha256": "5dd54b296a2b56e8901acb6cc6e7a8db32e51c41d9d649ee37a3c96564264c5f",
+      "bytes": 1841,
+      "source": "/Users/zacheryspector/studio-scratch/1368-independent-review/B-PREDECESSOR-THREE-RESTRICTIONS.md"
+    }
+  ]
+}

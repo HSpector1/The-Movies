@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/**/*.ts",
+    "tests/p14d2-save46-migration.test.ts",
+    "tests/p13b-s8-old-era-period.test.ts",
+    "tests/p14d2-rival-cost-cutting.test.ts"
+  ],
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true
+  }
+}

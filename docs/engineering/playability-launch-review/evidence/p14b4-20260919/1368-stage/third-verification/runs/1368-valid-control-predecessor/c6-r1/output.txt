@@ -1,0 +1,31 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-valid-control-predecessor/tree
+
+ × |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C6 explicit retry refuses; policy and completion cannot rematerialize or repay the retained started plan 553ms
+   → explicit proposed Part C export: disposeRivalFacility: expected 'undefined' to be 'function' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C6 explicit retry refuses; policy and completion cannot rematerialize or repay the retained started plan
+AssertionError: explicit proposed Part C export: disposeRivalFacility: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ api tests/p14d2-rival-facility-disposal.test.ts:46:75
+     44|   for (const key of ['rivalFacilityDisposalEligibility', 'disposeRival…
+     45|     'disposeEligibleRivalFacilities', 'validateRivalFacilityDisposal']…
+     46|     expect(typeof future[key], 'explicit proposed Part C export: ' + k…
+       |                                                                           ^
+     47|   return future
+     48| }
+ ❯ tests/p14d2-rival-facility-disposal.test.ts:276:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 23 skipped (24)
+   Start at  23:25:15
+   Duration  3.62s (transform 1.97s, setup 0ms, collect 2.64s, tests 555ms, environment 0ms, prepare 105ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 1, "elapsedMs": 4508.516352972947}

@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "tests/p14d2-rival-cost-cutting.test.ts",
+    "tests/p14d2-rival-facility-disposal.test.ts",
+    "tests/p14d2-b-adoption-boundary-1368.test.ts",
+    "tests/p14d2-b-research-witnesses-1368.test.ts",
+    "tests/helpers/1368-archived-route.ts",
+    "tests/helpers/1368-recovery-witnesses.ts",
+    "tests/helpers/1368-renewal-fixture.ts",
+    "tests/helpers/1368-adoption-boundary.ts",
+    "tests/helpers/1368-operational-boundary.ts"
+  ]
+}

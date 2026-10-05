@@ -1,0 +1,3 @@
+waiting for pid 0; then: python3 /Users/zacheryspector/studio-scratch/1368-postrelease-prep-v3/run-delayed.py --head 1e0a8f9d7b22d4235c16a609881845c257eb1a15 --prep-manifest-sha256 05a756e93afaaf8074b8329b4de487dd5178af7e54e00034bf877e1acdb2fac7; 2026-10-04 23:09:07 CDT
+start; 2026-10-04 23:09:07 CDT
+end, exit 0; 2026-10-04 23:19:40 CDT

@@ -1,0 +1,12 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-unified-candidate/tree
+
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new renewal with an observed ordinary positive control 11199ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new adoption with an observed ordinary positive control 8193ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 50 skipped (52)
+   Start at  23:27:10
+   Duration  22.88s (transform 2.26s, setup 0ms, collect 3.00s, tests 19.39s, environment 0ms, prepare 149ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 23643.79309793003}

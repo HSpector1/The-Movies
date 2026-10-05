@@ -1,0 +1,11 @@
+{
+  "base": {
+    "tests/p14d2-rival-cost-cutting.test.ts": "172be738495cd39a1eff167c14efce6452e9eb6c75b0301eea7e5aaecec52768",
+    "tests/helpers/1368-recovery-witnesses.ts": "fb1cf55b3417701b14bb7bea8a692282c44881ed57afc0ef0ba3259ee930c5bf"
+  },
+  "candidate": {
+    "tests/p14d2-rival-cost-cutting.test.ts": "94a74df112bb5d6d7cf5ff7cf005a71bdcb37d2d3b1a38dafab8c91862841588",
+    "tests/helpers/1368-research-controls.ts": "895714e9b425bc108c0920edc4d4fc7846e8cdbb498cc1e848002f53f79ceeb9"
+  },
+  "patch": "83649fd566d381534111f8edb187a6ab178038a97d777c740fb1db05a3e63292"
+}

@@ -1,0 +1,30 @@
+--- a/tests/helpers/1368-recovery-witnesses.ts
++++ b/tests/helpers/1368-recovery-witnesses.ts
+@@ -1,6 +1,7 @@
+ // Named accepted capture loader, reusable by C/migration and separately reviewed B consumers.
+ import { readFileSync } from 'node:fs'
+ import { join } from 'node:path'
++import { fileURLToPath } from 'node:url'
+ import { gunzipSync } from 'node:zlib'
+ import * as save from '../../src/core/save.js'
+ import { HISTORICAL_HEADS, ordinaryPath, requireFact, sha256 } from './1368-archived-route.js'
+@@ -9,8 +10,17 @@
+   studioId?: string; facilityId?: string; projectId?: string; qualification: string }
+ function load(version: 26 | 45, key: string) {
+   const prefix = version === 45 ? 'P1368_ACCEPTED45' : 'P1368_ACCEPTED26'
+-  const root = process.env[prefix + '_ROOT'], pin = process.env[prefix + '_MANIFEST_SHA256']
+-  requireFact(root && pin && /^[0-9a-f]{64}$/.test(pin), 'independently accepted capture path/manifest pin required')
++  // Independently accepted repository fixtures make normal broad tests self-contained.
++  // Controlled scratch overrides must supply both the root and its independently accepted pin.
++  const suppliedRoot = process.env[prefix + '_ROOT'], suppliedPin = process.env[prefix + '_MANIFEST_SHA256']
++  requireFact((suppliedRoot === undefined) === (suppliedPin === undefined), 'capture root/pin overrides must be supplied together')
++  const root = suppliedRoot ?? fileURLToPath(new URL(version === 45
++    ? '../fixtures/p14/genuine-v45-recovery-witnesses-1368/'
++    : '../fixtures/p13b/genuine-v26-period52-1368/', import.meta.url))
++  const pin = suppliedPin ?? (version === 45
++    ? '11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5'
++    : '8e40e51bb360ba6ff6c0d641a03e90aa8ed6f73f8c0b232a9a4b5861af358db4')
++  requireFact(root && /^[0-9a-f]{64}$/.test(pin), 'independently accepted capture path/manifest pin required')
+   ordinaryPath(root)
+   const manifestPath = ordinaryPath(join(root, 'MANIFEST.json')), rawManifest = readFileSync(manifestPath)
+   requireFact(sha256(rawManifest) === pin, 'accepted manifest bytes differ')

@@ -1,0 +1,13 @@
+# Original B demand and active-work wiring
+
+This additive test-only patch targets `/Users/zacheryspector/studio-scratch/1368-unified-candidate/tree`. Its original B base already includes the accepted adoption fixture. The patch replaces exactly two witness lookups and their premise messages, adds one import and one helper. All existing restriction and retained-work assertions remain verbatim. Source and dependency pins are in `SHA256.json`.
+
+The parent reports the fixed phase diagnostic at `1368-research-diagnostic-candidate/diagnostic-r1` completed with types exit 0 and one runtime PASS, 7.63 seconds, exact input and observed/unobserved output parity. That measurement establishes that original45 week265 r02 is idle with positive whole-input demand, even though r01 starts research earlier in the subsequent tick and reduces r02's actual staffing demand to zero. The pure demand test needs only the first fact. The helper expressly does not claim an actual r02 hire.
+
+The separately accepted original45 research row is at week267. The measured current tick progresses idle r01's retained research from 12 to 18 work units at week268. The helper repeats the actual ordinary tick and requires an idle owner with an active project that remains active and progresses. Original assertions still independently require candidate work and expenditure increases, the same unreleased seat IDs, all seated employment remaining active, and an aggregate research debit. Neither helper changes funds, clocks, employment, commitments, histories or fixture bytes. Existing `cuttingInput` remains the sole author of the explicitly synthetic since control.
+
+Both helpers use fresh, pinned `accepted45` loads with the existing public45 admission, actual46 lift, exact roundtrip and null/zero initialization checks. They additionally prove public46 reader neutrality. The active-work helper proves tick input neutrality and validates the real output. The input weeks and positive premises are strict; there is no fallback or search horizon.
+
+The original S8 discovery implementation and earlier missing-witness evidence are retained. Replacement, project and seat controls remain unresolved here; the separate fixed public-migration277 proposal must qualify before any wiring of those leaves. The original45 producer's missing operational category remains a recorded failure.
+
+No runtime, typecheck or fixture payload reads were performed for this patch. Parent should install only after review, then run dedicated typecheck and the two original B leaves on the pinned unified candidate. No claim of new GREEN is made by this static handback.

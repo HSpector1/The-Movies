@@ -1,0 +1,19 @@
+{
+  "command": [
+    "node",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/vite-node.mjs",
+    "--config",
+    "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/probe/vite.config.ts",
+    "--script",
+    "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/probe/postrelease.ts"
+  ],
+  "elapsedSeconds": 624.4586786839645,
+  "actualChildExit": 0,
+  "timedOut": false,
+  "archiveAndHelpersExact": true,
+  "stdoutSha256": "fa21bdbfe871d4f0acd8c923fdc6d8246b764cd8766c87965fe1b1f88d4fb30f",
+  "stderrSha256": "906f50c8a272878363a2ef33eaeedcef98b541784f581e58e57e33b1bcebc788",
+  "bindingSha256": "ccbdf52597ad047b8a9450d72c3c970c6555658852f668df05a15eeb975a4d10",
+  "resultSha256": "3319f49ac5782f2847b3e0cbc67abfc0268eaa93bdb13da5d56a3e202f3ebe73",
+  "errorSha256": null
+}

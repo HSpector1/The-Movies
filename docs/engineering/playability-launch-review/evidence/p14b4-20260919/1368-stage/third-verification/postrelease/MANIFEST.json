@@ -1,0 +1,84 @@
+{
+  "files": [
+    {
+      "path": "binding.json",
+      "sha256": "ccbdf52597ad047b8a9450d72c3c970c6555658852f668df05a15eeb975a4d10",
+      "bytes": 44454,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/binding.json"
+    },
+    {
+      "path": "RUN.json",
+      "sha256": "e7932ccf4219ee062f8f2331c19b8c10f5d459ee04b964fe0fde766766302938",
+      "bytes": 823,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/RUN.json"
+    },
+    {
+      "path": "power.txt",
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "bytes": 105,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/power.txt"
+    },
+    {
+      "path": "stdout.txt",
+      "sha256": "fa21bdbfe871d4f0acd8c923fdc6d8246b764cd8766c87965fe1b1f88d4fb30f",
+      "bytes": 137,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/stdout.txt"
+    },
+    {
+      "path": "stderr.txt",
+      "sha256": "906f50c8a272878363a2ef33eaeedcef98b541784f581e58e57e33b1bcebc788",
+      "bytes": 479,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/stderr.txt"
+    },
+    {
+      "path": "out/RESULT.json",
+      "sha256": "3319f49ac5782f2847b3e0cbc67abfc0268eaa93bdb13da5d56a3e202f3ebe73",
+      "bytes": 145791,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/out/RESULT.json"
+    },
+    {
+      "path": "out/genesis.save45.json.gz",
+      "sha256": "08f1226f03f76a448b4cf1017dd002404b0bb770b24a55262bdcf25abdf108ca",
+      "bytes": 50120,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/out/genesis.save45.json.gz"
+    },
+    {
+      "path": "out/week6240-unengaged.save45.json.gz",
+      "sha256": "c3f67a55de4be81fd5eade30d63fd140ca7fd7fd6eaaa2ee95958da150ec8ca7",
+      "bytes": 3325682,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/out/week6240-unengaged.save45.json.gz"
+    },
+    {
+      "path": "out/official-6240.json",
+      "sha256": "919ccc57d3ec447b132c20bca81103145b89ad5f0817da14b24f80b7118273f1",
+      "bytes": 67415,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/out/official-6240.json"
+    },
+    {
+      "path": "out/week6240-qualified.save45.json.gz",
+      "sha256": "df0c4142cf3f45a41e1b1069e9fba27151bbdab04046f7360ecd5cbcb7d67a86",
+      "bytes": 3326732,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/out/week6240-qualified.save45.json.gz"
+    },
+    {
+      "path": "out/first-post2040-release.save45.json.gz",
+      "sha256": "414c05b191706eadc39cd3893b7cfbb373c9808a7cb1c258d436a79acf014f86",
+      "bytes": 3331602,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/out/first-post2040-release.save45.json.gz"
+    },
+    {
+      "path": "out/final.save45.json.gz",
+      "sha256": "414c05b191706eadc39cd3893b7cfbb373c9808a7cb1c258d436a79acf014f86",
+      "bytes": 3331602,
+      "source": "/Users/zacheryspector/studio-scratch/1368-postrelease-run-01/out/final.save45.json.gz"
+    },
+    {
+      "path": "SUMMARY.json",
+      "sha256": "eeb871c5010d798c1e48a23e7a36670628fc74c57c405dcc08909e664f3b6d40",
+      "bytes": 2241,
+      "source": "parent arithmetic from fixed RESULT.json"
+    }
+  ],
+  "status": "MEASURED; independent review pending at staging",
+  "sourceGuards": "E/1368-original45-delayed-postrelease-r1-postflight.json"
+}

@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "noEmit": true, "types": ["node"] },
+  "include": ["tests/p14d2-b-public-research-1368.test.ts", "tests/helpers/1368-public-research-boundary.ts"]
+}

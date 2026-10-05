@@ -1,0 +1,121 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1368-unified-candidate/tree
+
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > adds only null/zero to p13a-week-0.save45.json.gz, preserving all old facts, detached and idempotent 772ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > adds only null/zero to p13a-week-53.save45.json.gz, preserving all old facts, detached and idempotent 1106ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > validates the predecessor before up-migration and the full current save before any authority refusal
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV4 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV5 handles empty recovery through exactly the existing predecessor law 307ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV6 handles empty recovery through exactly the existing predecessor law 311ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV7 handles empty recovery through exactly the existing predecessor law 301ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV8 handles empty recovery through exactly the existing predecessor law 316ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV9 handles empty recovery through exactly the existing predecessor law 356ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV10 handles empty recovery through exactly the existing predecessor law 325ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV11 handles empty recovery through exactly the existing predecessor law 312ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV12 handles empty recovery through exactly the existing predecessor law 486ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV13 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV14 handles empty recovery through exactly the existing predecessor law 344ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV15 handles empty recovery through exactly the existing predecessor law 328ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV16 handles empty recovery through exactly the existing predecessor law 302ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV17 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV18 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV19 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV20 handles empty recovery through exactly the existing predecessor law 388ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV21 handles empty recovery through exactly the existing predecessor law 372ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV22 handles empty recovery through exactly the existing predecessor law 320ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV23 handles empty recovery through exactly the existing predecessor law 325ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV24 handles empty recovery through exactly the existing predecessor law 338ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV25 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV26 handles empty recovery through exactly the existing predecessor law 315ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV27 handles empty recovery through exactly the existing predecessor law 304ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV28 handles empty recovery through exactly the existing predecessor law 341ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV29 handles empty recovery through exactly the existing predecessor law 316ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV30 handles empty recovery through exactly the existing predecessor law 459ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV31 handles empty recovery through exactly the existing predecessor law 320ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV32 handles empty recovery through exactly the existing predecessor law 409ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV33 handles empty recovery through exactly the existing predecessor law 366ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV34 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV35 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV36 handles empty recovery through exactly the existing predecessor law 447ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV37 handles empty recovery through exactly the existing predecessor law 391ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV38 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV39 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV40 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV41 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV42 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV43 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV44 handles empty recovery through exactly the existing predecessor law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV45 handles empty recovery through exactly the existing predecessor law 312ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV4 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV5 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV6 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV7 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV8 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV9 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV10 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV11 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV12 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV13 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV14 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV15 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV16 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV17 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV18 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV19 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV20 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV21 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV22 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV23 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV24 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV25 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV26 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV27 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV28 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV29 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV30 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV31 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV32 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV33 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV34 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV35 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV36 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV37 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV38 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV39 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV40 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV41 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV42 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV43 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV44 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV45 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV1 preserves predecessor outcome when recovery is empty, names nonempty recovery
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV2 preserves predecessor outcome when recovery is empty, names nonempty recovery
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV3 preserves predecessor outcome when recovery is empty, names nonempty recovery 309ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV4 preserves predecessor outcome when recovery is empty, names nonempty recovery
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV5 preserves predecessor outcome when recovery is empty, names nonempty recovery
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV6 preserves predecessor outcome when recovery is empty, names nonempty recovery
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV7 preserves predecessor outcome when recovery is empty, names nonempty recovery 346ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV8 preserves predecessor outcome when recovery is empty, names nonempty recovery
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV9 preserves predecessor outcome when recovery is empty, names nonempty recovery
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV10 preserves predecessor outcome when recovery is empty, names nonempty recovery 457ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV11 preserves predecessor outcome when recovery is empty, names nonempty recovery 634ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV12 preserves predecessor outcome when recovery is empty, names nonempty recovery 355ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV13 preserves predecessor outcome when recovery is empty, names nonempty recovery 373ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV14 preserves predecessor outcome when recovery is empty, names nonempty recovery
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV15 preserves predecessor outcome when recovery is empty, names nonempty recovery
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV16 preserves predecessor outcome when recovery is empty, names nonempty recovery 303ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV17 preserves predecessor outcome when recovery is empty, names nonempty recovery
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV18 preserves predecessor outcome when recovery is empty, names nonempty recovery
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > public V45 keeps its own business and money key law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > public V44 keeps its own business and money key law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > public V43 keeps its own business and money key law 314ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > public V42 keeps its own business and money key law
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > public V41 keeps its own business and money key law 417ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > a real disposal names every inseparable authority rather than hiding refund/tombstone behind since 2693ms
+
+ Test Files  1 passed (1)
+      Tests  111 passed (111)
+   Start at  23:24:11
+   Duration  32.27s (transform 1.59s, setup 0ms, collect 2.10s, tests 29.74s, environment 0ms, prepare 91ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 33039.666465017945}

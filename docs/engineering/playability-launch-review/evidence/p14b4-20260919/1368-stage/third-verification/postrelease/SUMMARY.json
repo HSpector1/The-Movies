@@ -1,0 +1,71 @@
+{
+  "sourceHead": "d5e2dad1e23183f1a94fe7b7d30e65ed88617f34",
+  "sourceTree": "88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837",
+  "recordingHead": "1e0a8f9d7b22d4235c16a609881845c257eb1a15",
+  "runSeconds": 624.4586786839645,
+  "releaseTick": 6249,
+  "arrivalWeek": 6250,
+  "filmId": "prod-6241",
+  "replayWeeks": 10,
+  "replayExact": true,
+  "officialSha256": "709ef4ab302cd40d667bdc13a5343f37ef6bdcb0611eceb7c4161d42397d1a4a",
+  "before": {
+    "stateSha256": "f872ddb087b5c2f305550296d0b0e4dc27e54cdcc01dee0ad8f418de4aea9fd6",
+    "saveSha256": "5aeaf559db2bb6eb8ed0e75dbcd240452578c325e74dc096a230830427cd511f",
+    "saveBytes": 33033972,
+    "saveVersion": 45,
+    "week": 6240
+  },
+  "after": {
+    "stateSha256": "e900adbfd467714589ee95b01286ff0e396e1e0b2cfa26529b0293f1af13c71c",
+    "saveSha256": "16f6b9fb87da7137e35c47d77309425f2cc605371a9f5126e1baa10ea2141390",
+    "saveBytes": 33084716,
+    "saveVersion": 45,
+    "week": 6250
+  },
+  "medians": {
+    "beforeTimings": {
+      "makeSaveMs": 4204.450267999957,
+      "additionalValidateSaveV45Ms": 1831.8664030000218,
+      "combinedMs": 6121.250643000007,
+      "saveBytes": 33033972
+    },
+    "timings": {
+      "makeSaveMs": 2776.5966300000437,
+      "additionalValidateSaveV45Ms": 1543.4816570000257,
+      "combinedMs": 4639.523668000009,
+      "saveBytes": 33084716
+    }
+  },
+  "cash": {
+    "before": 20000000,
+    "qualified": 19812106,
+    "final": 20764724.314692847
+  },
+  "ledgerTotals": {
+    "overhead": -255000,
+    "payroll": -200750,
+    "production": -2193981.6310587823,
+    "signingBonus": -187894,
+    "studioRevenue": 3602349.9457516307
+  },
+  "employmentRows": 7,
+  "driverMs": [
+    840.6647809999995,
+    888.9510520000476,
+    747.4969920000294,
+    792.0004390000249,
+    709.6629630000098,
+    779.6469139999826,
+    1114.93124299997,
+    713.3956580000231,
+    704.8517490000231,
+    734.13091300003
+  ],
+  "limits": [
+    "6240\u21926250 change includes lawful hiring and ten ordinary weeks; not isolated-release causal timing",
+    "apparent timing decrease is not an attributed speedup",
+    "new unengaged route does not replace prior natural G-L routes",
+    "independent acceptance and integrated recovery checkpoint closure remain separate"
+  ]
+}
