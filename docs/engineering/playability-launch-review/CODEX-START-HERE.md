@@ -1,5 +1,11 @@
 # CODEX continuation — Project Studio
 
+## CURRENT —1368-E: Save46 fallout complete; reviewed sweep and diagnostics next
+
+[1368-E](evidence/p14b4-20260919/1368-E-save46-fallout-and-sweep-adoption.md) preserves the exact unswept candidate and all completed types/core/UI/d16 evidence. Core4500PASS/926FAIL/39SKIP/11TODO plus one failed suite; UI2681PASS/11FAIL/5SKIP; d16164PASS/12FAIL, all12 retained exact failures. Types fail at attributed boundary sites; both generators pass. All recorded guards exact. [1363-N](evidence/p14b4-20260919/1363-N-save46-recovery-fallout-sweep.md) adopts the independently reviewed seven mechanical groups; behavioral/protected cases remain separately diagnosed.
+
+ABC/Save46 remains unlanded and recovery IN PROGRESS. Next: exact writing diagnostic types/probe and isolated reviewed sweep, then landing/broad/types/recovery measurements. Main c902a704 untouched. Original focused acceptance1368-D and originalSave45 post2040 measurement1368-C remain valid. CURRENT-BEST Owner acceptance unchanged. HANDOFF owns exact next commands; older CURRENT blocks are historical.
+
 ## CURRENT — Owner1368 autonomous recovery: focused acceptance; main untouched
 
 [1368-D](evidence/p14b4-20260919/1368-D-integrated-recovery-focused-acceptance.md): originalB52PASS/adapter2PASS, C24PASS, migration111PASS, PartA46PASS and period2PASS. The final three research controls use an independently qualified, genuinely paid public-migration lowmarket witness; original failures remain preserved. Same schemaS three controls reach integrated forbidden-employment RED; fullABC reaches all original comparisons. OriginalSave45 post2040release accepted1368-C. Eight measurement builds pass strict types.
