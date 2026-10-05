@@ -1,0 +1,2564 @@
+{
+  "status": "ARCHIVE_VERIFIED",
+  "source_head": "f5cba8b7ea41a1b3ec87cff43c1bcb1a7b7b0f9a",
+  "archive_sha256": "2c3374f4a705d649de01e2d064e2d0b810220b6384ad6a3aa4a30b1678692ee8",
+  "archive_bytes": 1008238,
+  "file_count": 190,
+  "logical_bytes": 5436605,
+  "files": [
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-market-r1-postflight.json",
+      "path": "evidence/1368-r4-original-market-r1-postflight.json",
+      "size": 119712,
+      "sha256": "d808115292fe14a695f33aec30f825caf94d5e88e3d1691038c12231a8de271b",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-market-r1-preflight.json",
+      "path": "evidence/1368-r4-original-market-r1-preflight.json",
+      "size": 119027,
+      "sha256": "c0a5e170e04312800fe5a5ac42d6f88d9ab23e363b21cd26d63168cc96dbc1b9",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-market-r1.json",
+      "path": "evidence/1368-r4-original-market-r1.json",
+      "size": 56343,
+      "sha256": "97193795d416c8e4fd360ce71d3ceaa07f96911487877d03b09e1b998ffd7579",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-market-r1.txt",
+      "path": "evidence/1368-r4-original-market-r1.txt",
+      "size": 48489,
+      "sha256": "14a335140b51e5ecebb8d92ff39625d0e355eaad9bdef0c58f95647217fe59a8",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-retirement-r1-postflight.json",
+      "path": "evidence/1368-r4-original-retirement-r1-postflight.json",
+      "size": 119724,
+      "sha256": "2f63fa6828eda70bab694e4ea4645c0ddcbda1fc10e4daa132b7391b61011a00",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-retirement-r1-preflight.json",
+      "path": "evidence/1368-r4-original-retirement-r1-preflight.json",
+      "size": 119027,
+      "sha256": "d85ff612d30c41cf10e2549ce6d491f1eacbc4b0249340263d2237aa06ede713",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-retirement-r1.json",
+      "path": "evidence/1368-r4-original-retirement-r1.json",
+      "size": 56347,
+      "sha256": "4ca99877fbcabd225ddf9d0fe888bfe118c10463326d8291be69853102a7b9e2",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-retirement-r1.txt",
+      "path": "evidence/1368-r4-original-retirement-r1.txt",
+      "size": 49456,
+      "sha256": "3b34dfb75de24b814e3b7e946ad092a13dca7f17705c3f8bafe2ac9dd0a30622",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-take-r1-postflight.json",
+      "path": "evidence/1368-r4-original-take-r1-postflight.json",
+      "size": 119706,
+      "sha256": "877bb1dd4405a862ccce40f1cff32c574b8077de08f9780f72ddc02c17374bb6",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-take-r1-preflight.json",
+      "path": "evidence/1368-r4-original-take-r1-preflight.json",
+      "size": 119027,
+      "sha256": "eaedfd59444db7f1f296a07f4257c77075b65a68f2099091765dceea09c4a98c",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-take-r1.json",
+      "path": "evidence/1368-r4-original-take-r1.json",
+      "size": 56341,
+      "sha256": "2359fc810b7c5dd045d220d18d80dd35be972f4607b65425c11ef6dfe290515b",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-take-r1.txt",
+      "path": "evidence/1368-r4-original-take-r1.txt",
+      "size": 48292,
+      "sha256": "8a27a9e7684965ad13d5b59485322c8ea5334f31c6ee9877e05cdad885aebec4",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-adapter-r1-postflight.json",
+      "path": "evidence/1368-r4-recovery-adapter-r1-postflight.json",
+      "size": 119715,
+      "sha256": "d50ceb3d488c84fec839965d4520f297003bf32dc9073ccc4b2fc4f0c69f11d8",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-adapter-r1-preflight.json",
+      "path": "evidence/1368-r4-recovery-adapter-r1-preflight.json",
+      "size": 119027,
+      "sha256": "38a7a53dbe8f775c544bb52972ed08c91d47a32cac6995ea048630871567ad2c",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-adapter-r1.json",
+      "path": "evidence/1368-r4-recovery-adapter-r1.json",
+      "size": 56344,
+      "sha256": "4b1c3a34acfa88e1df9b85670d4e251129f14e95c7eab0f8fc22e1093d0c2687",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-adapter-r1.txt",
+      "path": "evidence/1368-r4-recovery-adapter-r1.txt",
+      "size": 48601,
+      "sha256": "61588573e1f654c777488833879d8329afe5be91f58c64a507c4a6e85b3cd8b9",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-b-r1-postflight.json",
+      "path": "evidence/1368-r4-recovery-b-r1-postflight.json",
+      "size": 119697,
+      "sha256": "bb90a317bb9cc50c5a972dd3a1136bc698481febeddc3a015d954a74697aad4a",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-b-r1-preflight.json",
+      "path": "evidence/1368-r4-recovery-b-r1-preflight.json",
+      "size": 119027,
+      "sha256": "ec5afb26d9c24fa78d748222287c48181900d3c5038e8dc0ba5908452caf8071",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-b-r1.json",
+      "path": "evidence/1368-r4-recovery-b-r1.json",
+      "size": 56338,
+      "sha256": "c6cdd5273ae273a21efa8ba3a681c945fc6ba3311b9b640f116fdfb67f612fd1",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-b-r1.txt",
+      "path": "evidence/1368-r4-recovery-b-r1.txt",
+      "size": 48560,
+      "sha256": "dc88f9a4fa0d1c4513421e5a4cff8154128cc31d492ae85374ec657fd9e9cfdf",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-c-r1-postflight.json",
+      "path": "evidence/1368-r4-recovery-c-r1-postflight.json",
+      "size": 119697,
+      "sha256": "b4992b9a0dd1d7ef01267f1dafd6e69867a7680daf1c5d0afda37866dc448be6",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-c-r1-preflight.json",
+      "path": "evidence/1368-r4-recovery-c-r1-preflight.json",
+      "size": 119027,
+      "sha256": "e743f27190e04d14e5b96bc74e671a0c25fb4f8eaa28911802094b2cee8d0e7a",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-c-r1.json",
+      "path": "evidence/1368-r4-recovery-c-r1.json",
+      "size": 56338,
+      "sha256": "30332a23447f96ed2ba55a5c535ebb0a4a512662bf69bf323fa939ef7a4da878",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-c-r1.txt",
+      "path": "evidence/1368-r4-recovery-c-r1.txt",
+      "size": 48570,
+      "sha256": "89d98c5e070a9cc3100398c1a80ccb9334139c73bf261b14025f9226a57eb675",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-migration-r1-postflight.json",
+      "path": "evidence/1368-r4-recovery-migration-r1-postflight.json",
+      "size": 119721,
+      "sha256": "e98c999b6ccab0d420d7d91971e20825b81bb919361dc02e24444acf90541482",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-migration-r1-preflight.json",
+      "path": "evidence/1368-r4-recovery-migration-r1-preflight.json",
+      "size": 119027,
+      "sha256": "346d0688664e1ebebcc3471b06a95630ce3248fbaa521cb21054214530ab695b",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-migration-r1.json",
+      "path": "evidence/1368-r4-recovery-migration-r1.json",
+      "size": 56346,
+      "sha256": "e536bce18073454592ddb0106bd173c9b96a4e7c706348bdfa9d10278282a090",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-migration-r1.txt",
+      "path": "evidence/1368-r4-recovery-migration-r1.txt",
+      "size": 48589,
+      "sha256": "be37c18126433ba03a969f44d6b76404526ca12043b21797d1af6caab5dddd50",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-part-a-r1-postflight.json",
+      "path": "evidence/1368-r4-recovery-part-a-r1-postflight.json",
+      "size": 119712,
+      "sha256": "97515f76fbaa33308d62837ce556caa7be293c797798026e150c1f3a9004ac46",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-part-a-r1-preflight.json",
+      "path": "evidence/1368-r4-recovery-part-a-r1-preflight.json",
+      "size": 119027,
+      "sha256": "b541877949ec1b9a7d08c7926db9d9fe42a62fbd80b4e95b9b46797aabc760a5",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-part-a-r1.json",
+      "path": "evidence/1368-r4-recovery-part-a-r1.json",
+      "size": 56343,
+      "sha256": "f247152cc1c4893fe54517c35d36ddbcbd0b315568e8639fa6ca6218852626ac",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-part-a-r1.txt",
+      "path": "evidence/1368-r4-recovery-part-a-r1.txt",
+      "size": 48984,
+      "sha256": "81df7429d338fe18df61b6fbc6b8695801a05003af763fbabc0acd4e256e7513",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-period-r1-postflight.json",
+      "path": "evidence/1368-r4-recovery-period-r1-postflight.json",
+      "size": 119712,
+      "sha256": "2fd3f78221f6c625e9a4ee0acc51562c0bca8802541e3ef0ea81223dda25df47",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-period-r1-preflight.json",
+      "path": "evidence/1368-r4-recovery-period-r1-preflight.json",
+      "size": 119027,
+      "sha256": "a925676ff7085ac19c7ec7a6b149f3e08d49309ac619d0cf84a574e7a486afa0",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-period-r1.json",
+      "path": "evidence/1368-r4-recovery-period-r1.json",
+      "size": 56343,
+      "sha256": "ab92a977172ff4e7fb8ca148a0d33e7781ab3ff5d8de18bf966719ccba7b8ae7",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-period-r1.txt",
+      "path": "evidence/1368-r4-recovery-period-r1.txt",
+      "size": 48575,
+      "sha256": "e3be3c091cf02f2b38f9f26990fd56bb341f49ced1962397b6c2169923edb4ff",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r4-types-r1-postflight.json",
+      "path": "evidence/1368-swept-r4-types-r1-postflight.json",
+      "size": 119700,
+      "sha256": "b7672440edbc71b7db5e4ce4b89514d466eb9fb8877f34994cd68e622d4f2a31",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r4-types-r1-preflight.json",
+      "path": "evidence/1368-swept-r4-types-r1-preflight.json",
+      "size": 119027,
+      "sha256": "132ff78f4d0463c43aca5c5617f1b71f2250a8a2aae92b75ce16db2bff721ffb",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r4-types-r1.json",
+      "path": "evidence/1368-swept-r4-types-r1.json",
+      "size": 56117,
+      "sha256": "fd433036b9e395535663bd76ee2f4b9a379cdc48bbcd092324e9403da564f5f2",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r4-types-r1.txt",
+      "path": "evidence/1368-swept-r4-types-r1.txt",
+      "size": 48821,
+      "sha256": "6ca7b505e94e5b4dcb463d712ef9f9aa7c38ff61353e9655186d620fdd903705",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r4-writing-r1-postflight.json",
+      "path": "evidence/1368-swept-r4-writing-r1-postflight.json",
+      "size": 119706,
+      "sha256": "546e875cbc1adf8a87681cac4992163efcbb7dc40b2b9fe3f694dd46d8b2919d",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r4-writing-r1-preflight.json",
+      "path": "evidence/1368-swept-r4-writing-r1-preflight.json",
+      "size": 119027,
+      "sha256": "39b78b4edbe16b50793fa8728eda79d7fdd511598987fdb323e22d6bd5843310",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r4-writing-r1.json",
+      "path": "evidence/1368-swept-r4-writing-r1.json",
+      "size": 56119,
+      "sha256": "f7e21eb56b7c706492a7ac9fb9cf0c2d93f66a7da25f35240b30c8c9ff918b51",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r4-writing-r1.txt",
+      "path": "evidence/1368-swept-r4-writing-r1.txt",
+      "size": 47736,
+      "sha256": "851c7ec1ad5ea8b114854fdb44b8934f48a3f388d981220458555fc94e5af35b",
+      "category": "formal-record"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/CENSUS.json",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/CENSUS.json",
+      "size": 285834,
+      "sha256": "78784b8abe6201894fa229dc72f8d861d51c6164f97e4c66b1cbb7e89af0a186",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/COMPLETION-EVIDENCE.json",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/COMPLETION-EVIDENCE.json",
+      "size": 3610,
+      "sha256": "3cdab61ba801181bcb322bb0685936019800c7c30500f31e74d053c73b7f7a1e",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/HANDBACK.md",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/HANDBACK.md",
+      "size": 4815,
+      "sha256": "6dc6b775c8c82b42a6319e262021f8e3dc2a5bba55c05a211350f63d1118c515",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/LSOF-CENSUS.json",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/LSOF-CENSUS.json",
+      "size": 1534,
+      "sha256": "13865aa14ef283ff01cfad33515aa04572781fe71bd51741cc5e344e33fb7a3e",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/MANIFEST.json",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/MANIFEST.json",
+      "size": 1376,
+      "sha256": "66af492114370effcb058de8f6c986cb4c38ed28f60bfc7a92b7b423eac42008",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/PREIMAGES.json",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/PREIMAGES.json",
+      "size": 690,
+      "sha256": "16bc689929eb1da515d7657899f755bbd00f8617d305db24c60c869ba0898e0b",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/SELECTION.json",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/SELECTION.json",
+      "size": 40161,
+      "sha256": "b98acb9301885fb025d1e86ea128beeeef1681f5a14fe94f9d18e3088bad6a1d",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/TRACE-LSOF.json",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/TRACE-LSOF.json",
+      "size": 1085,
+      "sha256": "dc7d036c985b38cca8be59190b24c33ef5fe257997c319389d958b4b7ae5ac95",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/WHITELIST.json",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/WHITELIST.json",
+      "size": 17441,
+      "sha256": "1b5dee177d889e81468865bcc20c5f3fecad9f5201974dc48b61c6cf9b4afcae",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/compress.diff",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/compress.diff",
+      "size": 2147,
+      "sha256": "40801e35dcf2e85835a2fee6be9ab926793cd174cd8a7f413088e1eac600d51a",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/compress.py",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/compress.py",
+      "size": 7570,
+      "sha256": "a189b1a588aaffc0046e7f3f2c22d5b51e416758fb10506fbb85d74a5f365391",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/results/apply-r1.jsonl",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/results/apply-r1.jsonl",
+      "size": 230725,
+      "sha256": "5023589af63fcd114decee31e4a7300aa632b27f755eb50919c027c39855b3cc",
+      "category": "completed-storage"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-cold-dependency-compression-next-prep/results/plan-r1.json",
+      "path": "scratch/1368-cold-dependency-compression-next-prep/results/plan-r1.json",
+      "size": 78176,
+      "sha256": "f6495b7a45d84e628cf02ff135db35bb8ae5cc8e903f67008881dc9b4f638b10",
+      "category": "completed-storage"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-final-guarded-measurement-basis-note/MANIFEST.json",
+      "path": "scratch/1368-final-guarded-measurement-basis-note/MANIFEST.json",
+      "size": 295,
+      "sha256": "3a73f0f2c8cedba909a16e9e6caf4f70dffacd3908220c9eca1f585b178145f7",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-final-guarded-measurement-basis-note/RECOMMENDATION.md",
+      "path": "scratch/1368-final-guarded-measurement-basis-note/RECOMMENDATION.md",
+      "size": 8354,
+      "sha256": "85ab9596c20f86ede70c8b04f2acc651149a2fa501eaa6645350a32d1ccfbc96",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-final-guarded-measurement-basis-note/SOURCE-PINS.json",
+      "path": "scratch/1368-final-guarded-measurement-basis-note/SOURCE-PINS.json",
+      "size": 6946,
+      "sha256": "2bdda3373eea06868a06151947d74c93bf50e8e73048f284e5eac196068ddb52",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/COLD-DEPENDENCY-NEXT-MEASURED.md",
+      "path": "scratch/1368-independent-review/COLD-DEPENDENCY-NEXT-MEASURED.md",
+      "size": 1405,
+      "sha256": "544e28027ee032e1128773f0f0853e97f30190f9e10423f6f949e13b4b843e5f",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/COLD-DEPENDENCY-NEXT-PLAN.md",
+      "path": "scratch/1368-independent-review/COLD-DEPENDENCY-NEXT-PLAN.md",
+      "size": 893,
+      "sha256": "0f070ef890e5f09348c02c418e3287d7ac8093ff9428794521507e32252595da",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/COLD-DEPENDENCY-NEXT-STATIC.md",
+      "path": "scratch/1368-independent-review/COLD-DEPENDENCY-NEXT-STATIC.md",
+      "size": 1829,
+      "sha256": "1e2363f71073836b88c80052c569234eb0bc4da98d0cfa465f9db4ef009b47ce",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-ADAPTER-MEASURED.md",
+      "path": "scratch/1368-independent-review/R4-ADAPTER-MEASURED.md",
+      "size": 819,
+      "sha256": "ec0f27e8a576cbcb3b48325000dbffceb3ff1b8d73bda16165a078e429b2dc93",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-B-MEASURED.md",
+      "path": "scratch/1368-independent-review/R4-B-MEASURED.md",
+      "size": 965,
+      "sha256": "7a0cbe3c7ec919c27329364012b540eef60723e2b822cd9eacea14a6770309a6",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-C-MEASURED.md",
+      "path": "scratch/1368-independent-review/R4-C-MEASURED.md",
+      "size": 1060,
+      "sha256": "cc192d41fadaedcc307f86c6af2b2770e2094652deae94aa14a341452f0c1875",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-MIGRATION-MEASURED.md",
+      "path": "scratch/1368-independent-review/R4-MIGRATION-MEASURED.md",
+      "size": 992,
+      "sha256": "acf2466063db2200dc8d3712e2c1b9439d8624c48c87c3a0186aff7f8cee8920",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-ORIGINAL-SELECTOR-STATIC.md",
+      "path": "scratch/1368-independent-review/R4-ORIGINAL-SELECTOR-STATIC.md",
+      "size": 2313,
+      "sha256": "e0c5f6cd1bc9ae3e73d1c8fed9b219337acbf272381c1d395b85d44ff790925e",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-PART-A-MEASURED.md",
+      "path": "scratch/1368-independent-review/R4-PART-A-MEASURED.md",
+      "size": 1111,
+      "sha256": "ec9c1302624a5a4bec381743baff6b246edcdbfcf196f2b96dfb59b230ceff9d",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-PROTECTED-COMPARISONS-MEASURED.md",
+      "path": "scratch/1368-independent-review/R4-PROTECTED-COMPARISONS-MEASURED.md",
+      "size": 1330,
+      "sha256": "c9d0c38f597ed976bd86587fe41f27b080142f484a31521d465914fea855643a",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-RECOVERY-FOCUSED-MEASURED.md",
+      "path": "scratch/1368-independent-review/R4-RECOVERY-FOCUSED-MEASURED.md",
+      "size": 1841,
+      "sha256": "0adf92b6f5bce8ccccbcff5e2c8fa5ab816a0d12d0469f2703ad9001469574fd",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-RECOVERY-SELECTOR-STATIC.md",
+      "path": "scratch/1368-independent-review/R4-RECOVERY-SELECTOR-STATIC.md",
+      "size": 2181,
+      "sha256": "671358cff64ef29a3163bcaba0078f59e2f38a3c60007e09dcdebe5f7236dd85",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-RETIREMENT-MEASURED.md",
+      "path": "scratch/1368-independent-review/R4-RETIREMENT-MEASURED.md",
+      "size": 1207,
+      "sha256": "19596424f682130579e84816f23378d6c4e29c46702f40eedb91c1dff156f79d",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-TAKE-MEASURED.md",
+      "path": "scratch/1368-independent-review/R4-TAKE-MEASURED.md",
+      "size": 1049,
+      "sha256": "77a6681975e0a157c4f7cc1379fd575c9a125afedb24fabee6db4a5d1a66ab6c",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-TYPES-MEASURED.md",
+      "path": "scratch/1368-independent-review/R4-TYPES-MEASURED.md",
+      "size": 1488,
+      "sha256": "a9f4743a69c1415fc023d9e875bafecefac31310317348721613524a9a889cae",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/R4-WRITING-MEASURED.md",
+      "path": "scratch/1368-independent-review/R4-WRITING-MEASURED.md",
+      "size": 1495,
+      "sha256": "9ee08c9f74a84797b5787a6975ca472cf667ca8c2fb51e0385f56c1f30e6916e",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/WRITING-GUARDED-SPLIT-STATIC.md",
+      "path": "scratch/1368-independent-review/WRITING-GUARDED-SPLIT-STATIC.md",
+      "size": 2130,
+      "sha256": "5c7b221cfe415736b2cecb09a39589cb760555b83a5261861438600bf82739bf",
+      "category": "completed-review"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/HANDBACK.md",
+      "path": "scratch/1368-r4-original-selector-prep/HANDBACK.md",
+      "size": 7223,
+      "sha256": "c313d765f4add1986f519ba12dae9446f8c4d9d6107c24511940f8b588122509",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/MANIFEST.json",
+      "path": "scratch/1368-r4-original-selector-prep/MANIFEST.json",
+      "size": 875,
+      "sha256": "56d1fc784c7229848f982685aadb241554bef4d182dd23fe335d87d8adb94a8c",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/RUNNER-DELTA.diff",
+      "path": "scratch/1368-r4-original-selector-prep/RUNNER-DELTA.diff",
+      "size": 16796,
+      "sha256": "88135096216231a2c8fc89e41dc780a35dbafb72b94ba4d7808242003e51c604",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/SELECTED-SOURCE-PINS.json",
+      "path": "scratch/1368-r4-original-selector-prep/SELECTED-SOURCE-PINS.json",
+      "size": 860,
+      "sha256": "1541dfa8c3e80cbaf94218b398cafd9b9746b5b6ac28700009ff1f3f41d9caa9",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/SELECTIONS.json",
+      "path": "scratch/1368-r4-original-selector-prep/SELECTIONS.json",
+      "size": 4978,
+      "sha256": "3bfd0152799a0c816a28e21099229d14f33517a04944537ba35ec5807d3a773f",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/market-r1.lane.log",
+      "path": "scratch/1368-r4-original-selector-prep/market-r1.lane.log",
+      "size": 806,
+      "sha256": "af88053a08423fbe4ffead3809e6c907620c6b60c45a536f3a9015873862389c",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/market-r1.lane.log.meta",
+      "path": "scratch/1368-r4-original-selector-prep/market-r1.lane.log.meta",
+      "size": 470,
+      "sha256": "208b3654a8f105e511ff0e3f8bbc9c4e3801097fae3718f997fc1a02a28b5124",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/retirement-r1.lane.log",
+      "path": "scratch/1368-r4-original-selector-prep/retirement-r1.lane.log",
+      "size": 818,
+      "sha256": "a06c9f848517ff5e8db16d7b4eef6095a0f598573e0ab166520a91db97aeba5b",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/retirement-r1.lane.log.meta",
+      "path": "scratch/1368-r4-original-selector-prep/retirement-r1.lane.log.meta",
+      "size": 474,
+      "sha256": "f9828dc3980404c2ac3ceda09e7c747a6b5c524d2ca408c774dfd1136baba3bf",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-market-r1/POSTFLIGHT-RECEIPT.json",
+      "path": "scratch/1368-r4-original-selector-prep/run-market-r1/POSTFLIGHT-RECEIPT.json",
+      "size": 6282,
+      "sha256": "75c4b40fd83d18e47dbac7478096c709f1fb34903ee34cf93271ef45d08b3fbc",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-market-r1/RESULT.json",
+      "path": "scratch/1368-r4-original-selector-prep/run-market-r1/RESULT.json",
+      "size": 3443,
+      "sha256": "96925be2e29f7c8ebfa950c55cbb644d695bdd341346b019635fc571203fd409",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-market-r1/binding.json",
+      "path": "scratch/1368-r4-original-selector-prep/run-market-r1/binding.json",
+      "size": 10293,
+      "sha256": "8d4c568b81aef99da51c78fe59c67dbd8405875fd576921ad1e2f6483f5c0e17",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-market-r1/market.txt",
+      "path": "scratch/1368-r4-original-selector-prep/run-market-r1/market.txt",
+      "size": 929,
+      "sha256": "82bd98cbe4efeb973ded7727b30ae0203a0dce168879d73a1ccadd15ec301127",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-market-r1/vitest.json",
+      "path": "scratch/1368-r4-original-selector-prep/run-market-r1/vitest.json",
+      "size": 21372,
+      "sha256": "3a20a707eeefb9163aab42e7f987c5f7ccf12d40a6f42c73bb57e677bdfa89e7",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-retirement-r1/POSTFLIGHT-RECEIPT.json",
+      "path": "scratch/1368-r4-original-selector-prep/run-retirement-r1/POSTFLIGHT-RECEIPT.json",
+      "size": 6331,
+      "sha256": "8c598a98d4fad4cc83535711b8c1609d8a125fc228bd3458abba63123b868cae",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-retirement-r1/RESULT.json",
+      "path": "scratch/1368-r4-original-selector-prep/run-retirement-r1/RESULT.json",
+      "size": 8241,
+      "sha256": "962e13f824f1f0d4131f720e929e64c141aa4c6c2788e91f6606a82d48d58167",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-retirement-r1/binding.json",
+      "path": "scratch/1368-r4-original-selector-prep/run-retirement-r1/binding.json",
+      "size": 11126,
+      "sha256": "5a980a05e2fe28a51402799eccac0e743d953e5fc75271abe8cf5a468b32341c",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-retirement-r1/retirement.txt",
+      "path": "scratch/1368-r4-original-selector-prep/run-retirement-r1/retirement.txt",
+      "size": 2184,
+      "sha256": "aab5f5f3a9b0b05f448b88cff10f9e6adf24c5d9cf4902a16735e283b3fb843a",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-retirement-r1/vitest.json",
+      "path": "scratch/1368-r4-original-selector-prep/run-retirement-r1/vitest.json",
+      "size": 23782,
+      "sha256": "553ff0116a4abf900f27f50fb6edaa523deb436a0eaf8aca4a7af9f5e397e986",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-take-r1/POSTFLIGHT-RECEIPT.json",
+      "path": "scratch/1368-r4-original-selector-prep/run-take-r1/POSTFLIGHT-RECEIPT.json",
+      "size": 6258,
+      "sha256": "f1436809296361f986b4ea2f718f5fe298259a8339046465b06518a883c9c82a",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-take-r1/RESULT.json",
+      "path": "scratch/1368-r4-original-selector-prep/run-take-r1/RESULT.json",
+      "size": 2611,
+      "sha256": "a6bc28513f363d01147694f0e60a5e4797dff7705c0db7fed5bfa173d0aadf8d",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-take-r1/binding.json",
+      "path": "scratch/1368-r4-original-selector-prep/run-take-r1/binding.json",
+      "size": 10145,
+      "sha256": "1fb124a074f827b0a339cfd4bd4dbeb864bdbbaf8373d86022a4b3ffa41fd081",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-take-r1/take.txt",
+      "path": "scratch/1368-r4-original-selector-prep/run-take-r1/take.txt",
+      "size": 736,
+      "sha256": "6f9e1bfd76c338df29e1b7cf378258d8335fa16547d3375d744464d75f2cebc0",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-take-r1/vitest.json",
+      "path": "scratch/1368-r4-original-selector-prep/run-take-r1/vitest.json",
+      "size": 28942,
+      "sha256": "38bbe20d1dd985e7a2796b4e65d95c0b9233c2817f4a6b1435da20717de6e4ef",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run.py",
+      "path": "scratch/1368-r4-original-selector-prep/run.py",
+      "size": 13250,
+      "sha256": "2756d040882421e53d089ed21a95c2f2c2ef2a2256276caaaaa8587b3e7ff163",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/take-r1.lane.log",
+      "path": "scratch/1368-r4-original-selector-prep/take-r1.lane.log",
+      "size": 800,
+      "sha256": "3faf8da62366a5270a6a6499b0c01169a738748feca740d5fd0519335ecf3409",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/take-r1.lane.log.meta",
+      "path": "scratch/1368-r4-original-selector-prep/take-r1.lane.log.meta",
+      "size": 468,
+      "sha256": "faf64fa395aa8401faa54380acced489ee3edabc6bc36d37abfe86ee4e4bfe34",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/DEADLINE-SITES.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/DEADLINE-SITES.json",
+      "size": 4268,
+      "sha256": "8edc127e68f57ae621df9a7dfc76490f1cd3628b98e82c31edd80270f2bbb744",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/EVIDENCE-PINS.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/EVIDENCE-PINS.json",
+      "size": 2664,
+      "sha256": "226d33432431bf4db0c6358a3a45bc4a96c2862977d7a835f71816993c7b2500",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/HANDBACK.md",
+      "path": "scratch/1368-r4-recovery-selector-prep/HANDBACK.md",
+      "size": 7977,
+      "sha256": "6ed5cba7325a879299943af3f4e8d1512a3d176b32d39a2d788527c9e66d6bc4",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/HISTORICAL-SELECTION-PROVENANCE.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/HISTORICAL-SELECTION-PROVENANCE.json",
+      "size": 9147,
+      "sha256": "70e4c63c289d24f00b6609bc059bc4de9a27c62eb42a0a55771638dc5b937989",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/MANIFEST.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/MANIFEST.json",
+      "size": 1462,
+      "sha256": "3d41ada02f4098a8609dd301780a71e6e7adc00434def719e4d10f0d815bed3a",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/RUNNER-DELTA.diff",
+      "path": "scratch/1368-r4-recovery-selector-prep/RUNNER-DELTA.diff",
+      "size": 13939,
+      "sha256": "365c65ecaece4045daefa591858842b5d82a727f4f857f7eb7e874ed125d3d67",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/RUNNER-FROM-INTEGRATION.diff",
+      "path": "scratch/1368-r4-recovery-selector-prep/RUNNER-FROM-INTEGRATION.diff",
+      "size": 17799,
+      "sha256": "0700ab160feaa2e76acc971251763ed8caacc2c4f616cad57698cfbeba9f1ef5",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/SELECTED-SOURCE-PINS.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/SELECTED-SOURCE-PINS.json",
+      "size": 1237,
+      "sha256": "ebd9d08b5babbd51d8f040672ca10d942f12cae257d99396963a7acad80dde79",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/SELECTIONS.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/SELECTIONS.json",
+      "size": 1498,
+      "sha256": "220d461705378a34a25324ef90bf751e709547ee9fc7069a009d87a468728dba",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/adapter-r1.lane.log",
+      "path": "scratch/1368-r4-recovery-selector-prep/adapter-r1.lane.log",
+      "size": 809,
+      "sha256": "15e48ac36231f308f90101a3ca483eaa048cb32cd2a1024d37851d7b2bb85a8f",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/adapter-r1.lane.log.meta",
+      "path": "scratch/1368-r4-recovery-selector-prep/adapter-r1.lane.log.meta",
+      "size": 471,
+      "sha256": "18eb71c3194edea9c5e00a05cd8ee8fe19e6121fa2a2227e9d5c280b55e27c41",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/b-r1.lane.log",
+      "path": "scratch/1368-r4-recovery-selector-prep/b-r1.lane.log",
+      "size": 791,
+      "sha256": "bda022f57d4a1925d4aec57cd3f0032d147b084c45787a1c3979aaca294e3bbe",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/b-r1.lane.log.meta",
+      "path": "scratch/1368-r4-recovery-selector-prep/b-r1.lane.log.meta",
+      "size": 465,
+      "sha256": "84f7c5425c01e459c65e4d246bd63b635aabf8628073d94f6b48cf03d70f4487",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/c-r1.lane.log",
+      "path": "scratch/1368-r4-recovery-selector-prep/c-r1.lane.log",
+      "size": 791,
+      "sha256": "88829b5e7be607f6a7e56db0c6fd0c6f1fcc0de9b4eeaebd77a17f1e90308e26",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/c-r1.lane.log.meta",
+      "path": "scratch/1368-r4-recovery-selector-prep/c-r1.lane.log.meta",
+      "size": 465,
+      "sha256": "7720349adb009772152b84a66e593d69de5b4936f0181d876bfb82ea14637867",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/migration-r1.lane.log",
+      "path": "scratch/1368-r4-recovery-selector-prep/migration-r1.lane.log",
+      "size": 815,
+      "sha256": "50ab123d2fe8efc259f93122cd468790c35bb79b3887ec29894658bdef62ad00",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/migration-r1.lane.log.meta",
+      "path": "scratch/1368-r4-recovery-selector-prep/migration-r1.lane.log.meta",
+      "size": 473,
+      "sha256": "e6d87e37774b33d7586261635b2d748a2683f0d82b17e9e0e7f2e529609eabcd",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/part-a-r1.lane.log",
+      "path": "scratch/1368-r4-recovery-selector-prep/part-a-r1.lane.log",
+      "size": 806,
+      "sha256": "e5896416a7b36479d58844ceae1a0aef2ae679255bec096b86965c8d16e20355",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/part-a-r1.lane.log.meta",
+      "path": "scratch/1368-r4-recovery-selector-prep/part-a-r1.lane.log.meta",
+      "size": 470,
+      "sha256": "c9e96cfa25ebb8449ce8abe25cee095845848eac21891f5141547ab55e9e0009",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/period-r1.lane.log",
+      "path": "scratch/1368-r4-recovery-selector-prep/period-r1.lane.log",
+      "size": 806,
+      "sha256": "06e88dfc20db14ba186249d2b4dc2843fcdb7c85a8f3818e5b922157214c0505",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/period-r1.lane.log.meta",
+      "path": "scratch/1368-r4-recovery-selector-prep/period-r1.lane.log.meta",
+      "size": 470,
+      "sha256": "52e111d8146f7436178c7097618c59661fb08af4202900b90bae4a4e7dfa1d56",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-adapter-r1/POSTFLIGHT-RECEIPT.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-adapter-r1/POSTFLIGHT-RECEIPT.json",
+      "size": 6387,
+      "sha256": "1d364da33fe2e53183ddb8c45c5b9e4517abaaa06a66ba025fe41b68bbf329d1",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-adapter-r1/RESULT.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-adapter-r1/RESULT.json",
+      "size": 3008,
+      "sha256": "f70aaacc611f0f41b29cb98874b2106c88cbb52e5a33fd5506dc0fe33eba263a",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-adapter-r1/adapter.txt",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-adapter-r1/adapter.txt",
+      "size": 899,
+      "sha256": "cf4e17528332886304199943b2397c48ddff2b37d357560e3872ed44b44df1c7",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-adapter-r1/binding.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-adapter-r1/binding.json",
+      "size": 9968,
+      "sha256": "2bdc3e261b9a0e5fb9b87770d7812e0d7e15efbce9cd4c7cf36dd655f85694e3",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-adapter-r1/vitest.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-adapter-r1/vitest.json",
+      "size": 1460,
+      "sha256": "28a06101184d172904f61e986db9b6a36cbc0de84aa3a9651ada9f8f859b7a8f",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-b-r1/POSTFLIGHT-RECEIPT.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-b-r1/POSTFLIGHT-RECEIPT.json",
+      "size": 6319,
+      "sha256": "88e571959d10bab55d8007609efdafcb3dfb4887f626bfbac5efbb9e1b8c204c",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-b-r1/RESULT.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-b-r1/RESULT.json",
+      "size": 25196,
+      "sha256": "407191669816928a1a6e45d72f6f203d4763c7fb5c4556fd1d8ddea44fa023dc",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-b-r1/b.txt",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-b-r1/b.txt",
+      "size": 11351,
+      "sha256": "ffa17574e720b083a320e4fbe0e8decd2e30092cdfdd1f95d690d86b62eafa31",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-b-r1/binding.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-b-r1/binding.json",
+      "size": 9961,
+      "sha256": "d3d790e4fcb3b5131e8d845730c8e1397ae537889db4bc4e0da1d994033b6004",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-b-r1/vitest.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-b-r1/vitest.json",
+      "size": 19588,
+      "sha256": "c98f332984f35215c23f6e8d674c00490f2ef0353cced6a5fb250209ebae00aa",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-c-r1/POSTFLIGHT-RECEIPT.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-c-r1/POSTFLIGHT-RECEIPT.json",
+      "size": 6318,
+      "sha256": "8fd543fcf74f631e51886fa94aef616b878ce53091dc1d26a8ab2b864876a137",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-c-r1/RESULT.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-c-r1/RESULT.json",
+      "size": 14371,
+      "sha256": "94a908ea0c50ddc713969b957f95472023c1fe220f6aeb148f4613ed5d0bb0eb",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-c-r1/binding.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-c-r1/binding.json",
+      "size": 9966,
+      "sha256": "4dfb8bd7e806349de213f25d44e4faf0ddc3ba062c0d559fa39db87099853448",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-c-r1/c.txt",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-c-r1/c.txt",
+      "size": 7279,
+      "sha256": "1228861227b4d111e5f19dce0691a9acc38902e1bcb05ba8227d6f0c01e80741",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-c-r1/vitest.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-c-r1/vitest.json",
+      "size": 11049,
+      "sha256": "06e726d6df07f2c93c433eee39fabd187a837daf0a488752d183f8700d3810ea",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-migration-r1/POSTFLIGHT-RECEIPT.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-migration-r1/POSTFLIGHT-RECEIPT.json",
+      "size": 6415,
+      "sha256": "db46c5f20b088da9eec03d5ff144126807e2a6c370eab3ce08d0b82446fd3fb2",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-migration-r1/RESULT.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-migration-r1/RESULT.json",
+      "size": 55695,
+      "sha256": "24007ae4f745026396e01c6bc55ef3cb6d485a7b324339950b0073efcb014ea2",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-migration-r1/binding.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-migration-r1/binding.json",
+      "size": 9960,
+      "sha256": "ad2404c22b2b7ff342ee5292ccae893bd77e61ba27df27a2a176d256b0d3c1d7",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-migration-r1/migration.txt",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-migration-r1/migration.txt",
+      "size": 21904,
+      "sha256": "9278da0b2bb152f68f20a715cf2f15e63a64275b6994c494e4ae0873bf533154",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-migration-r1/vitest.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-migration-r1/vitest.json",
+      "size": 45219,
+      "sha256": "eb2d51d6e3282a47d775918605134eae799d0b7ff9868ad1e262899fc5f523fd",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-part-a-r1/POSTFLIGHT-RECEIPT.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-part-a-r1/POSTFLIGHT-RECEIPT.json",
+      "size": 6380,
+      "sha256": "3e73c1d7db7d563b407dccbbace0e63e6e18533c5ca9f53f98a9197928f9dbd1",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-part-a-r1/RESULT.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-part-a-r1/RESULT.json",
+      "size": 26871,
+      "sha256": "85e1f1b0068bd0c310a41bffd0a9985ebbb0bcabfc9101140d98e130bdf2ee11",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-part-a-r1/binding.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-part-a-r1/binding.json",
+      "size": 10184,
+      "sha256": "2dc94beada5f9b1eb57597577786985dea687a2a6551374a6e7efba678b48798",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-part-a-r1/part-a.txt",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-part-a-r1/part-a.txt",
+      "size": 10329,
+      "sha256": "1dfc637f63b42a6367ed371122b2558c7f5379a24c929a947c3d95799f830f54",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-part-a-r1/vitest.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-part-a-r1/vitest.json",
+      "size": 21998,
+      "sha256": "395aebae02ee5eeec56c24b7c1a708fe31ecf9d682cbd41db298e7c3b752cf80",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-period-r1/POSTFLIGHT-RECEIPT.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-period-r1/POSTFLIGHT-RECEIPT.json",
+      "size": 6375,
+      "sha256": "8a3042c1373aded35f152519e60c83f55de8eb0f6d6ab692477cae03045be22f",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-period-r1/RESULT.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-period-r1/RESULT.json",
+      "size": 3172,
+      "sha256": "1d86b5456c08b80990e18432b4c56f1a72dc93953bdd03103b31a78f015fe392",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-period-r1/binding.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-period-r1/binding.json",
+      "size": 9958,
+      "sha256": "0d92f7f49bde797a7c6290f8d1679c866f6ebfadbe352b02d0be042fb33e1ee8",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-period-r1/period.txt",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-period-r1/period.txt",
+      "size": 972,
+      "sha256": "09ed22655bd46762b61e93e4a8c33e3fe41da27fd8509136ff1d72794c38810d",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-period-r1/vitest.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-period-r1/vitest.json",
+      "size": 1649,
+      "sha256": "71e3e231976c544ab0b09efcc740dcf9389c630486afcdba3c025c751dcde24b",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run.py",
+      "path": "scratch/1368-r4-recovery-selector-prep/run.py",
+      "size": 14038,
+      "sha256": "b82606867e253555d3667065c659baa2bb5458cf89e971988313b3d489d9ca21",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r4/GIT-SNAPSHOT.json",
+      "path": "scratch/1368-save46-swept-proposal-r4/GIT-SNAPSHOT.json",
+      "size": 2252,
+      "sha256": "f211b1182aa323751944a93d2c9ae4c787a47a470a26c2f211b908a30c974c44",
+      "category": "arm-metadata"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r4/PROVENANCE.json",
+      "path": "scratch/1368-save46-swept-proposal-r4/PROVENANCE.json",
+      "size": 3093,
+      "sha256": "2a3d867186f78a88b7313a0865fe8707e3c83891d154c9fc9099349b33a4d957",
+      "category": "arm-metadata"
+    },
+    {
+      "path": "scratch/1368-seventh-publication-input-inventory/INPUTS.json",
+      "original": "/Users/zacheryspector/studio-scratch/1368-seventh-publication-input-inventory/INPUTS.json",
+      "size": 143830,
+      "sha256": "784493282b0a42f2394827a8c30cc5d082a4a94ae9ccf75e89b117ee6f088612"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-seventh-publication-input-inventory/r4-commit.raw",
+      "path": "scratch/1368-seventh-publication-input-inventory/r4-commit.raw",
+      "size": 244,
+      "sha256": "504898be5ba2b0ea4c62b9aceb56f0b95b12b3d03124bb4c8f8ac50788e09c05",
+      "category": "raw-root-commit"
+    },
+    {
+      "path": "scratch/1368-seventh-publication-prep/build.py",
+      "original": "/Users/zacheryspector/studio-scratch/1368-seventh-publication-prep/build.py",
+      "size": 3014,
+      "sha256": "74ea7ffcbaa80911b61bf84817917ecb34336c2c2785bbc1df513e03e91842df"
+    },
+    {
+      "path": "scratch/1368-seventh-publication-prep/r4-commit.raw",
+      "original": "/Users/zacheryspector/studio-scratch/1368-seventh-publication-prep/r4-commit.raw",
+      "size": 244,
+      "sha256": "504898be5ba2b0ea4c62b9aceb56f0b95b12b3d03124bb4c8f8ac50788e09c05"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-arm-02/PROVENANCE.json",
+      "path": "scratch/1368-six-termination-arm-02/PROVENANCE.json",
+      "size": 545,
+      "sha256": "1ccbade77809f7062ab31d46c2327dd5396d5b680f57d796759d2892bfdf958b",
+      "category": "arm-metadata"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-types-r1/RESULT.json",
+      "path": "scratch/1368-writing-guard-integration-prep/run-types-r1/RESULT.json",
+      "size": 2306,
+      "sha256": "ea2dc1bf0e744bd53cf8eba3e303bcd39b01f88f0480b1d1aeb643ab4e594947",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-types-r1/binding.json",
+      "path": "scratch/1368-writing-guard-integration-prep/run-types-r1/binding.json",
+      "size": 7238,
+      "sha256": "b717179fdb044c5aa1211cc5087a403d8a45148647fbdfa2589f95a8ee55e857",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-types-r1/contract-fixtures.txt",
+      "path": "scratch/1368-writing-guard-integration-prep/run-types-r1/contract-fixtures.txt",
+      "size": 142,
+      "sha256": "e6b36bd35e794b30cedad748585c94a535bcb59fbd357f152db9a14441872011",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-types-r1/contract.txt",
+      "path": "scratch/1368-writing-guard-integration-prep/run-types-r1/contract.txt",
+      "size": 398,
+      "sha256": "cca0bdca9c5e2673ea4f6d7edbe8c69bb1e762ba037dce9e147ed878b535a226",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-writing-r1/RESULT.json",
+      "path": "scratch/1368-writing-guard-integration-prep/run-writing-r1/RESULT.json",
+      "size": 1106,
+      "sha256": "8029a91c8ba20e992807981b1c6961ad8cda584fffd142b7653584263d77fb07",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-writing-r1/binding.json",
+      "path": "scratch/1368-writing-guard-integration-prep/run-writing-r1/binding.json",
+      "size": 7339,
+      "sha256": "5cf2c7ca20e9a066a850b544d091dfcfc37b089fbe0290227c0744ba6ae59fd3",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-writing-r1/vitest.json",
+      "path": "scratch/1368-writing-guard-integration-prep/run-writing-r1/vitest.json",
+      "size": 2612,
+      "sha256": "43dabb0352c01593bae0ea4388e728f1c95945a50b64fa3e3d8416138a5b9c60",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-writing-r1/writing.txt",
+      "path": "scratch/1368-writing-guard-integration-prep/run-writing-r1/writing.txt",
+      "size": 1247,
+      "sha256": "a26985582f5878feee37100728445ee3d6462cfcbc0768757ddc6172b6665889",
+      "category": "closed-run"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/types-r1.lane.log",
+      "path": "scratch/1368-writing-guard-integration-prep/types-r1.lane.log",
+      "size": 797,
+      "sha256": "756ab71fc999c02573d6efa97d1d2cea593e26bd086e8f1427edcc1796ad3644",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/types-r1.lane.log.meta",
+      "path": "scratch/1368-writing-guard-integration-prep/types-r1.lane.log.meta",
+      "size": 272,
+      "sha256": "2110092dc475a295dc13e8e643d002fe22c5ebcb56c59cb47e416bad88c284d0",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/writing-r1.lane.log",
+      "path": "scratch/1368-writing-guard-integration-prep/writing-r1.lane.log",
+      "size": 803,
+      "sha256": "cc1c69baea373827ff23942ba13990d9082016543cdb95104515516fddd6234e",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/writing-r1.lane.log.meta",
+      "path": "scratch/1368-writing-guard-integration-prep/writing-r1.lane.log.meta",
+      "size": 274,
+      "sha256": "c7cbb666c0716a2d7b52714fa5ec04b79c384562c2e0f6a914dd23a13d55d8dc",
+      "category": "closed-lane"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/ASSEMBLY-TEMPLATE.json",
+      "path": "scratch/1368-writing-guarded-split-prep/ASSEMBLY-TEMPLATE.json",
+      "size": 768,
+      "sha256": "8407a4c8a974945e0305b8f01a38cb9a95a1f08379c9f5dfa72df67575d6ccef",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/HANDBACK.md",
+      "path": "scratch/1368-writing-guarded-split-prep/HANDBACK.md",
+      "size": 5885,
+      "sha256": "74bc24aec3edea7065d101f73797c2422bd1e91b57d823f680d017891b60dc0d",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/INPUT-PINS.json",
+      "path": "scratch/1368-writing-guarded-split-prep/INPUT-PINS.json",
+      "size": 29355,
+      "sha256": "97ee1e66b0d9db7b6ae0ffab0730cdb91d51f6eb0bd17d35ef93674d83c72f0b",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/MANIFEST.json",
+      "path": "scratch/1368-writing-guarded-split-prep/MANIFEST.json",
+      "size": 4352,
+      "sha256": "ae30e5ae9dd8294806aa8d558f29ba258b2f856b28036817448ce6ccc70b9592",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/PREIMAGES.json",
+      "path": "scratch/1368-writing-guarded-split-prep/PREIMAGES.json",
+      "size": 439,
+      "sha256": "88188e5d46fa4b40f4e24115fb8e1d9583edfca2d64687dbd378e6272c43bfbb",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/SOURCE-DIFFERENCE.json",
+      "path": "scratch/1368-writing-guarded-split-prep/SOURCE-DIFFERENCE.json",
+      "size": 932,
+      "sha256": "57394118cc5f08b25fcbca982a0d56facfa8491238b2fb441c8429f64ab4f350",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/SOURCE-PINS.json",
+      "path": "scratch/1368-writing-guarded-split-prep/SOURCE-PINS.json",
+      "size": 20401,
+      "sha256": "bc0afb6504dc7eae6c6810fe52ced0554229c3d0080acc9d932086c10d812c56",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/aggregate.py",
+      "path": "scratch/1368-writing-guarded-split-prep/aggregate.py",
+      "size": 5122,
+      "sha256": "238dbd5d2dbd04c620efad960befa63aadcf3bf34dc15966877c921c69e80a09",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/aggregate.py.diff",
+      "path": "scratch/1368-writing-guarded-split-prep/aggregate.py.diff",
+      "size": 4197,
+      "sha256": "de91303b63520ecd518c01e7e59ce41b02a0d33d707a251536dd451606b5475a",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/assemble.py",
+      "path": "scratch/1368-writing-guarded-split-prep/assemble.py",
+      "size": 2200,
+      "sha256": "479c7ff90067528494b613eacc6a9cf2e0bad95843b1ebf298df072b75de768c",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/assemble.py.diff",
+      "path": "scratch/1368-writing-guarded-split-prep/assemble.py.diff",
+      "size": 1828,
+      "sha256": "42f8ca21e760749f9bf140c2cf6bfdea0306430b7174a193f72ba2c98f4ded7a",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/files/tests/probes/1368-writing-admission.probe.ts",
+      "path": "scratch/1368-writing-guarded-split-prep/files/tests/probes/1368-writing-admission.probe.ts",
+      "size": 15873,
+      "sha256": "c331b2eccd1a57b771f785ff7133ba7c68b3ba04b022d469e9780b670693431a",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/probe-pin.diff",
+      "path": "scratch/1368-writing-guarded-split-prep/probe-pin.diff",
+      "size": 612,
+      "sha256": "089f6036d793b83c5b855fe532dc81a7c732c6ed8457aa924b957a964e540aa6",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/run.py",
+      "path": "scratch/1368-writing-guarded-split-prep/run.py",
+      "size": 13374,
+      "sha256": "93c5b10627e4397359e2b05f46437d023155f8e2092c373aa559472ebed51ca7",
+      "category": "fixed-package"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/run.py.diff",
+      "path": "scratch/1368-writing-guarded-split-prep/run.py.diff",
+      "size": 6198,
+      "sha256": "0c32637283785550144edcecd312b8c28c4d62cd2e003ae943813bdf227f1b11",
+      "category": "fixed-package"
+    }
+  ],
+  "priorReferences": [
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-market-r1.patch",
+      "path": "evidence/1368-r4-original-market-r1.patch",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "formal-record",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-retirement-r1.patch",
+      "path": "evidence/1368-r4-original-retirement-r1.patch",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "formal-record",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-original-take-r1.patch",
+      "path": "evidence/1368-r4-original-take-r1.patch",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "formal-record",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-adapter-r1.patch",
+      "path": "evidence/1368-r4-recovery-adapter-r1.patch",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "formal-record",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-b-r1.patch",
+      "path": "evidence/1368-r4-recovery-b-r1.patch",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "formal-record",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-c-r1.patch",
+      "path": "evidence/1368-r4-recovery-c-r1.patch",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "formal-record",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-migration-r1.patch",
+      "path": "evidence/1368-r4-recovery-migration-r1.patch",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "formal-record",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-part-a-r1.patch",
+      "path": "evidence/1368-r4-recovery-part-a-r1.patch",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "formal-record",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-r4-recovery-period-r1.patch",
+      "path": "evidence/1368-r4-recovery-period-r1.patch",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "formal-record",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r4-types-r1.patch",
+      "path": "evidence/1368-swept-r4-types-r1.patch",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "formal-record",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-swept-r4-writing-r1.patch",
+      "path": "evidence/1368-swept-r4-writing-r1.patch",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "formal-record",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-independent-review/WRITING-GUARD-R4-INTEGRATION-STATIC.md",
+      "path": "scratch/1368-independent-review/WRITING-GUARD-R4-INTEGRATION-STATIC.md",
+      "size": 1815,
+      "sha256": "3ed254a9027e00c830b800619eddaeed4d3633a50700fbf1d91c3b511453ae26",
+      "category": "completed-review",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-independent-review/WRITING-GUARD-R4-INTEGRATION-STATIC.md",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/FIXTURE-PINS.json",
+      "path": "scratch/1368-r4-original-selector-prep/FIXTURE-PINS.json",
+      "size": 4060,
+      "sha256": "618cdf309eeff5c17dac32d18a4a278363da59fd10d4e800b18aacdc1e8c44a9",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/FIXTURE-PINS.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-market-r1/power.txt",
+      "path": "scratch/1368-r4-original-selector-prep/run-market-r1/power.txt",
+      "size": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/power.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-retirement-r1/power.txt",
+      "path": "scratch/1368-r4-original-selector-prep/run-retirement-r1/power.txt",
+      "size": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/power.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-original-selector-prep/run-take-r1/power.txt",
+      "path": "scratch/1368-r4-original-selector-prep/run-take-r1/power.txt",
+      "size": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/power.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/FIXTURE-PINS.json",
+      "path": "scratch/1368-r4-recovery-selector-prep/FIXTURE-PINS.json",
+      "size": 4060,
+      "sha256": "618cdf309eeff5c17dac32d18a4a278363da59fd10d4e800b18aacdc1e8c44a9",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/FIXTURE-PINS.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-adapter-r1/power.txt",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-adapter-r1/power.txt",
+      "size": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/power.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-b-r1/power.txt",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-b-r1/power.txt",
+      "size": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/power.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-c-r1/power.txt",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-c-r1/power.txt",
+      "size": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/power.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-migration-r1/power.txt",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-migration-r1/power.txt",
+      "size": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/power.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-part-a-r1/power.txt",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-part-a-r1/power.txt",
+      "size": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/power.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-r4-recovery-selector-prep/run-period-r1/power.txt",
+      "path": "scratch/1368-r4-recovery-selector-prep/run-period-r1/power.txt",
+      "size": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/power.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-guard-prep/HANDBACK.md",
+      "path": "scratch/1368-rival-writing-guard-prep/HANDBACK.md",
+      "size": 1546,
+      "sha256": "60ee7ee5ab567da3ddfd2233a54a170682d8e16bc28e05f1660b0e33bb11f04d",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-guard-prep/HANDBACK.md",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-guard-prep/MANIFEST.json",
+      "path": "scratch/1368-rival-writing-guard-prep/MANIFEST.json",
+      "size": 679,
+      "sha256": "727183f5a89fbd5318af4bda67b6605871dcd5a270c82e142e625bd0c00e42ca",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-guard-prep/MANIFEST.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-guard-prep/files/src/core/hollywoodTick.ts",
+      "path": "scratch/1368-rival-writing-guard-prep/files/src/core/hollywoodTick.ts",
+      "size": 41246,
+      "sha256": "c540c6830537aaaca6cb448993e4c9648f7141bcf498ca92e239b9ebd1cee5b8",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-guard-prep/files/src/core/hollywoodTick.ts",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-guard-prep/production.patch",
+      "path": "scratch/1368-rival-writing-guard-prep/production.patch",
+      "size": 1003,
+      "sha256": "2a4ea2dc9b0fd87c211c9cf600d9691081f158fa45982ce42dcada4b703de058",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-guard-prep/production.patch",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-landing-tests-prep/FIXTURE-ADOPTION.json",
+      "path": "scratch/1368-rival-writing-landing-tests-prep/FIXTURE-ADOPTION.json",
+      "size": 1356,
+      "sha256": "01697f287628679ccb1c808414192e0b1bf84e2b3e3ff98bcc4e8c34ef5986dc",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-landing-tests-prep/FIXTURE-ADOPTION.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-landing-tests-prep/HANDBACK.md",
+      "path": "scratch/1368-rival-writing-landing-tests-prep/HANDBACK.md",
+      "size": 4392,
+      "sha256": "3338d3c4fcccdbb50dce3fca4ac5449e0a6bf370ab94bfd2849d245b1c6aff3e",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-landing-tests-prep/HANDBACK.md",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-landing-tests-prep/MANIFEST.json",
+      "path": "scratch/1368-rival-writing-landing-tests-prep/MANIFEST.json",
+      "size": 1263,
+      "sha256": "e886c1d8a68f139ecb3fbc635f17f4a890587d7137be29f8868025dca9a0c1c9",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-landing-tests-prep/MANIFEST.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-landing-tests-prep/PREIMAGES.json",
+      "path": "scratch/1368-rival-writing-landing-tests-prep/PREIMAGES.json",
+      "size": 1629,
+      "sha256": "9a2531272723f71fd96c7036866fbfb072c81f763ea2eb255d7b3e6fb8802c77",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-landing-tests-prep/PREIMAGES.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-landing-tests-prep/files/tests/1368-rival-writing-term.test.ts",
+      "path": "scratch/1368-rival-writing-landing-tests-prep/files/tests/1368-rival-writing-term.test.ts",
+      "size": 2910,
+      "sha256": "29d28006360df549335a729c5931001e1da8ef76ace4c8b481b4156a01e1647a",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-landing-tests-prep/files/tests/1368-rival-writing-term.test.ts",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-landing-tests-prep/files/tests/1368-writing-completion-boundary.test.ts",
+      "path": "scratch/1368-rival-writing-landing-tests-prep/files/tests/1368-writing-completion-boundary.test.ts",
+      "size": 4882,
+      "sha256": "8f283430824ae8d82bd080e3f804d94093a8e1cfd46218e0f2e996dae10fa743",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-landing-tests-prep/files/tests/1368-writing-completion-boundary.test.ts",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-landing-tests-prep/files/tests/helpers/1368-rival-writing.ts",
+      "path": "scratch/1368-rival-writing-landing-tests-prep/files/tests/helpers/1368-rival-writing.ts",
+      "size": 7366,
+      "sha256": "56510335b3c654f023bd4a5d4fd9147f0eed1525401ff01781b7655f4b2380ea",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-landing-tests-prep/files/tests/helpers/1368-rival-writing.ts",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-landing-tests-prep/landing-tests.patch",
+      "path": "scratch/1368-rival-writing-landing-tests-prep/landing-tests.patch",
+      "size": 15636,
+      "sha256": "c4dbd3fd059624b20a046a0b65a2a5f2e281c22ad5ab20a1db1d707fd46cf4e3",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-landing-tests-prep/landing-tests.patch",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-rival-writing-landing-tests-prep/loader-adaptation.diff",
+      "path": "scratch/1368-rival-writing-landing-tests-prep/loader-adaptation.diff",
+      "size": 2764,
+      "sha256": "6a6a25b71e2d2e4583a12d1ba65dbf4ff854d148d0b9ae76c7b7e9551632a991",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-landing-tests-prep/loader-adaptation.diff",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r3/ASSEMBLY.json",
+      "path": "scratch/1368-save46-swept-proposal-r3/ASSEMBLY.json",
+      "size": 3299,
+      "sha256": "406e34a2d01e79d2d48dd61984b881a1962627c24279bce1fa9728dbcc3e5a19",
+      "category": "r3-prior-metadata",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-save46-swept-proposal-r3/ASSEMBLY.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r3/GIT-SNAPSHOT.json",
+      "path": "scratch/1368-save46-swept-proposal-r3/GIT-SNAPSHOT.json",
+      "size": 2252,
+      "sha256": "29c59c2c0ef51d62bc9e728ff5af29cd6ee305236f8f66a0627092507f04cfce",
+      "category": "r3-prior-metadata",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-save46-swept-proposal-r3/GIT-SNAPSHOT.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r3/PROVENANCE.json",
+      "path": "scratch/1368-save46-swept-proposal-r3/PROVENANCE.json",
+      "size": 2681,
+      "sha256": "a9f73dcc5ea059b192a5fa607c7ab36ac0a5021ce6f71fcd50b0be871e4b1ce2",
+      "category": "r3-prior-metadata",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-save46-swept-proposal-r3/PROVENANCE.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r3/SOURCE-PINS.json",
+      "path": "scratch/1368-save46-swept-proposal-r3/SOURCE-PINS.json",
+      "size": 183727,
+      "sha256": "ee24fe3f3600565c180e70a2e6072a33d65a94f650c67731fb806c4a30eae8d2",
+      "category": "r3-prior-metadata",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-save46-swept-proposal-r3/SOURCE-PINS.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r4/ASSEMBLY.json",
+      "path": "scratch/1368-save46-swept-proposal-r4/ASSEMBLY.json",
+      "size": 3120,
+      "sha256": "604e0a722f5248ef7003ba5dc9216462564d6dad29ba86519612198fb53b94f5",
+      "category": "arm-metadata",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/EXPECTED-ASSEMBLY.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r4/SOURCE-PINS.json",
+      "path": "scratch/1368-save46-swept-proposal-r4/SOURCE-PINS.json",
+      "size": 184067,
+      "sha256": "ca96ecb42e78ddf4442e17804bd15a80d70e5808a5e78ed42f43b4f06a0320d2",
+      "category": "arm-metadata",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/EXPECTED-SOURCE-PINS.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r4/tree/src/core/hollywoodTick.ts",
+      "path": "scratch/1368-save46-swept-proposal-r4/tree/src/core/hollywoodTick.ts",
+      "size": 41246,
+      "sha256": "c540c6830537aaaca6cb448993e4c9648f7141bcf498ca92e239b9ebd1cee5b8",
+      "category": "r4-source-delta",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-guard-prep/files/src/core/hollywoodTick.ts",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r4/tree/tests/1368-rival-writing-term.test.ts",
+      "path": "scratch/1368-save46-swept-proposal-r4/tree/tests/1368-rival-writing-term.test.ts",
+      "size": 2910,
+      "sha256": "29d28006360df549335a729c5931001e1da8ef76ace4c8b481b4156a01e1647a",
+      "category": "r4-source-delta",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-green-prep/files/tests/1368-rival-writing-term.test.ts",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r4/tree/tests/1368-writing-completion-boundary.test.ts",
+      "path": "scratch/1368-save46-swept-proposal-r4/tree/tests/1368-writing-completion-boundary.test.ts",
+      "size": 4882,
+      "sha256": "8f283430824ae8d82bd080e3f804d94093a8e1cfd46218e0f2e996dae10fa743",
+      "category": "r4-source-delta",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-green-prep/files/tests/1368-writing-completion-boundary.test.ts",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r4/tree/tests/helpers/1368-rival-writing.ts",
+      "path": "scratch/1368-save46-swept-proposal-r4/tree/tests/helpers/1368-rival-writing.ts",
+      "size": 7366,
+      "sha256": "56510335b3c654f023bd4a5d4fd9147f0eed1525401ff01781b7655f4b2380ea",
+      "category": "r4-source-delta",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-landing-tests-prep/files/tests/helpers/1368-rival-writing.ts",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-arm-02/ASSEMBLY.json",
+      "path": "scratch/1368-six-termination-arm-02/ASSEMBLY.json",
+      "size": 72379,
+      "sha256": "8d46fdbe65ba82f220eb8392205f82321891665b141033e373b2d8ea5a03a631",
+      "category": "arm-metadata",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-parent-prep-r2/ASSEMBLY-TEMPLATE.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-arm-02/SOURCE-PINS.json",
+      "path": "scratch/1368-six-termination-arm-02/SOURCE-PINS.json",
+      "size": 19967,
+      "sha256": "4bc61f72fa3d18da73d922ebf01830aa58ff1c120196209df233d43c466b8caf",
+      "category": "arm-metadata",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-parent-prep-r2/SOURCE-PINS.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-parent-prep-r2/ASSEMBLY-TEMPLATE.json",
+      "path": "scratch/1368-six-termination-parent-prep-r2/ASSEMBLY-TEMPLATE.json",
+      "size": 72379,
+      "sha256": "8d46fdbe65ba82f220eb8392205f82321891665b141033e373b2d8ea5a03a631",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-parent-prep-r2/ASSEMBLY-TEMPLATE.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-parent-prep-r2/HANDBACK.md",
+      "path": "scratch/1368-six-termination-parent-prep-r2/HANDBACK.md",
+      "size": 3776,
+      "sha256": "734db80ed405222cfac74bfc5aa29a67689a5c03c6d8b28efab30d545b2727e7",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-parent-prep-r2/HANDBACK.md",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-parent-prep-r2/MANIFEST.json",
+      "path": "scratch/1368-six-termination-parent-prep-r2/MANIFEST.json",
+      "size": 1165,
+      "sha256": "ae5c94361d0feb2a97c9b957b70684e1a2c93f7ce62b56d2bb91b604894404b0",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-parent-prep-r2/MANIFEST.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-parent-prep-r2/PREIMAGES.json",
+      "path": "scratch/1368-six-termination-parent-prep-r2/PREIMAGES.json",
+      "size": 1384,
+      "sha256": "f39d42f6f2ffff457b0ad2efef086d49d031a4764e85b27e8a3a3b5430d466c5",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-parent-prep-r2/PREIMAGES.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-parent-prep-r2/RUNNER-REBIND.diff",
+      "path": "scratch/1368-six-termination-parent-prep-r2/RUNNER-REBIND.diff",
+      "size": 4010,
+      "sha256": "c37256ceca710f2de6b66fd0dce0de268122a7d93314518fa581c9352c93c06a",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-parent-prep-r2/RUNNER-REBIND.diff",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-parent-prep-r2/SOURCE-PINS.json",
+      "path": "scratch/1368-six-termination-parent-prep-r2/SOURCE-PINS.json",
+      "size": 19967,
+      "sha256": "4bc61f72fa3d18da73d922ebf01830aa58ff1c120196209df233d43c466b8caf",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-parent-prep-r2/SOURCE-PINS.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-parent-prep-r2/assemble.py",
+      "path": "scratch/1368-six-termination-parent-prep-r2/assemble.py",
+      "size": 3482,
+      "sha256": "3d1271fb70357d59f353483dd5c17ccb4c545587675aaba9cac3d7ee20b36569",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-parent-prep-r2/assemble.py",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-parent-prep-r2/run.py",
+      "path": "scratch/1368-six-termination-parent-prep-r2/run.py",
+      "size": 13607,
+      "sha256": "cf10c378bc94e6e3e61127eb94a188417374c44bc0a0ebe455e61530c11fd035",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-parent-prep-r2/run.py",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/HANDBACK.md",
+      "path": "scratch/1368-six-termination-prep-r2/HANDBACK.md",
+      "size": 12487,
+      "sha256": "c1408061d3acdadd44f94cbe903031a787422841619327257120128f1de49de1",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/HANDBACK.md",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/MANIFEST.json",
+      "path": "scratch/1368-six-termination-prep-r2/MANIFEST.json",
+      "size": 1748,
+      "sha256": "d98e465572a7c4621f0d788edd30e2e440a481fb1afb03a6b6d5f7a5c35e8417",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/MANIFEST.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/ORIGINAL-CASE-EVIDENCE.json",
+      "path": "scratch/1368-six-termination-prep-r2/ORIGINAL-CASE-EVIDENCE.json",
+      "size": 4475,
+      "sha256": "a70d1bcd147ebbbaf7a4ae672f4509da4bf60a263378fc084149f43aa0ad5e86",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/ORIGINAL-CASE-EVIDENCE.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/PREIMAGES.json",
+      "path": "scratch/1368-six-termination-prep-r2/PREIMAGES.json",
+      "size": 904,
+      "sha256": "0582f6e15bfb2ca9600a13e293633822a2b558237d3a10b4cab227b21b7ef1c8",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/PREIMAGES.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/SOURCE-PINS.json",
+      "path": "scratch/1368-six-termination-prep-r2/SOURCE-PINS.json",
+      "size": 19456,
+      "sha256": "8f837bd0167986a832fd95293660102f17792af3f4abd4a1f199ee7055222743",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/SOURCE-PINS.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/compare.py",
+      "path": "scratch/1368-six-termination-prep-r2/compare.py",
+      "size": 2306,
+      "sha256": "7550cb5e878372229458e19c7c0087063ce0842dc2cf0dd3571f174a40c088f6",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/compare.py",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/diagnostic.patch",
+      "path": "scratch/1368-six-termination-prep-r2/diagnostic.patch",
+      "size": 41413,
+      "sha256": "1e652a8d3a7b72f808d34203f0d9dfb708a4d86b2cd95e99c64244d179c49ea2",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/diagnostic.patch",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/driver-head.txt",
+      "path": "scratch/1368-six-termination-prep-r2/driver-head.txt",
+      "size": 2868,
+      "sha256": "a5fa439ddf6a798d220011e0ee18bfdf3a7318e327d11d0b8158958d1b859b7c",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/driver-head.txt",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/driver-tail.txt",
+      "path": "scratch/1368-six-termination-prep-r2/driver-tail.txt",
+      "size": 17901,
+      "sha256": "bfdbf7c670e23085153f9dee381142337fa19144a40779e1dc99e3a832465b83",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/driver-tail.txt",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/r1-to-r2.patch",
+      "path": "scratch/1368-six-termination-prep-r2/r1-to-r2.patch",
+      "size": 957,
+      "sha256": "7a7201823577ecbe1ee788c28609ea10053a26ecc8a9d45a736b4bedba87688e",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/r1-to-r2.patch",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/source-constants.txt",
+      "path": "scratch/1368-six-termination-prep-r2/source-constants.txt",
+      "size": 19500,
+      "sha256": "0408f9e6d4657eb4abef2a5d8a3786c4344a8406a2113c24f02adff93a78f461",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/source-constants.txt",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/tests/1368-six-termination-diagnostic.test.ts",
+      "path": "scratch/1368-six-termination-prep-r2/tests/1368-six-termination-diagnostic.test.ts",
+      "size": 40269,
+      "sha256": "df08842585a34157d23786f5ead943a4682c38ed866d5221fa0452a0de46f683",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/tests/1368-six-termination-diagnostic.test.ts",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/tsconfig.1368-six-termination.json",
+      "path": "scratch/1368-six-termination-prep-r2/tsconfig.1368-six-termination.json",
+      "size": 193,
+      "sha256": "a147a682dbbe6743f9fe16f2ba86f21a16e4737090eda89db08fbcedec93e53b",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/tsconfig.1368-six-termination.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-six-termination-prep-r2/vitest.1368-six-termination.config.ts",
+      "path": "scratch/1368-six-termination-prep-r2/vitest.1368-six-termination.config.ts",
+      "size": 244,
+      "sha256": "bf1af754939b7544e64997d04d894f56f620de9a39d96c4ca3394631876f1397",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-six-termination-prep-r2/vitest.1368-six-termination.config.ts",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/ASSEMBLER-DELTA.diff",
+      "path": "scratch/1368-writing-guard-integration-prep/ASSEMBLER-DELTA.diff",
+      "size": 6039,
+      "sha256": "2353e3c2e5ffe71682f5cf8ee8cba8f63ee5d54afd90ed089c748e352a2e10c7",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/ASSEMBLER-DELTA.diff",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/EXPECTED-ASSEMBLY.json",
+      "path": "scratch/1368-writing-guard-integration-prep/EXPECTED-ASSEMBLY.json",
+      "size": 3120,
+      "sha256": "604e0a722f5248ef7003ba5dc9216462564d6dad29ba86519612198fb53b94f5",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/EXPECTED-ASSEMBLY.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/EXPECTED-SOURCE-PINS.json",
+      "path": "scratch/1368-writing-guard-integration-prep/EXPECTED-SOURCE-PINS.json",
+      "size": 184067,
+      "sha256": "ca96ecb42e78ddf4442e17804bd15a80d70e5808a5e78ed42f43b4f06a0320d2",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/EXPECTED-SOURCE-PINS.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/FIXTURE-PINS.json",
+      "path": "scratch/1368-writing-guard-integration-prep/FIXTURE-PINS.json",
+      "size": 4060,
+      "sha256": "618cdf309eeff5c17dac32d18a4a278363da59fd10d4e800b18aacdc1e8c44a9",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/FIXTURE-PINS.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/HANDBACK.md",
+      "path": "scratch/1368-writing-guard-integration-prep/HANDBACK.md",
+      "size": 6197,
+      "sha256": "f80e0eb3cafd88bdfb2480097a80626f49d3ccb8694fca567b44407b8dd536c7",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/HANDBACK.md",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/MANIFEST.json",
+      "path": "scratch/1368-writing-guard-integration-prep/MANIFEST.json",
+      "size": 1677,
+      "sha256": "742c6c0a44f2a7d78430ca0988c0087a70b01a14eb7fa284f8d88ffe98eea2bd",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/MANIFEST.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/PREIMAGES.json",
+      "path": "scratch/1368-writing-guard-integration-prep/PREIMAGES.json",
+      "size": 2652,
+      "sha256": "07ede896d150b811f08eba02047bf28b8db8349678ef64e46b83944c4efb5658",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/PREIMAGES.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/RUNNER-REBIND.diff",
+      "path": "scratch/1368-writing-guard-integration-prep/RUNNER-REBIND.diff",
+      "size": 5687,
+      "sha256": "3f92bd4714d865d625e0d75cf4ae106c11c34126eaad6f5279f2016346dc7439",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/RUNNER-REBIND.diff",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/SELECTION-DELTA.json",
+      "path": "scratch/1368-writing-guard-integration-prep/SELECTION-DELTA.json",
+      "size": 2351,
+      "sha256": "051ecc1259988811959d33460e859c821af1b4691b7e793559665c043d04b86e",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/SELECTION-DELTA.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/SELECTIONS.json",
+      "path": "scratch/1368-writing-guard-integration-prep/SELECTIONS.json",
+      "size": 637262,
+      "sha256": "dd39479ff422a8e63bbaf2c1516689218e6960ea6d99e9fba13962ef3dd2430c",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/SELECTIONS.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/assemble.py",
+      "path": "scratch/1368-writing-guard-integration-prep/assemble.py",
+      "size": 5768,
+      "sha256": "bb8241256684da412d42863ccb9f51dcb2b50b033c4715b59ee61e5b81e4abee",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/assemble.py",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-types-r1/bridge.txt",
+      "path": "scratch/1368-writing-guard-integration-prep/run-types-r1/bridge.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-types-r1/power.txt",
+      "path": "scratch/1368-writing-guard-integration-prep/run-types-r1/power.txt",
+      "size": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/power.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-types-r1/producers.txt",
+      "path": "scratch/1368-writing-guard-integration-prep/run-types-r1/producers.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-types-r1/root.txt",
+      "path": "scratch/1368-writing-guard-integration-prep/run-types-r1/root.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-types-r1/ui.txt",
+      "path": "scratch/1368-writing-guard-integration-prep/run-types-r1/ui.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/bridge.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run-writing-r1/power.txt",
+      "path": "scratch/1368-writing-guard-integration-prep/run-writing-r1/power.txt",
+      "size": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "category": "closed-run",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-protected-comparison-integration-prep/run-types-r1/power.txt",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/run.py",
+      "path": "scratch/1368-writing-guard-integration-prep/run.py",
+      "size": 8513,
+      "sha256": "26ac8dfd421c777b0c38f9b046711a78afb796d421e2c84a959064caa16fae3c",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/run.py",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guard-integration-prep/tsconfig.producers.json",
+      "path": "scratch/1368-writing-guard-integration-prep/tsconfig.producers.json",
+      "size": 550,
+      "sha256": "24eaf19d3c7decbac18b573f8e627305a2e9001aeadf55ad26c40a3b2622a0ea",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "priorArchiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "priorArchiveMember": "scratch/1368-writing-guard-integration-prep/tsconfig.producers.json",
+      "referenceKind": "same-original-and-bytes"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/CURRENT-PRODUCTION-PINS.json",
+      "path": "scratch/1368-writing-guarded-split-prep/CURRENT-PRODUCTION-PINS.json",
+      "size": 19349,
+      "sha256": "01f904f311df24ab19f5b4d718a430ab7b85e4eaf1b16c23b1958f36f5a0fd1a",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-green-prep/CURRENT-PRODUCTION-PINS.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/ORIGINAL-PRODUCTION-PINS.json",
+      "path": "scratch/1368-writing-guarded-split-prep/ORIGINAL-PRODUCTION-PINS.json",
+      "size": 19349,
+      "sha256": "af2657f5da4dba3aea631084ffaee0543541a239c63d85de967c255489bb4a9e",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-green-prep/ORIGINAL-SOURCE-PINS.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/files/src/core/hollywoodTick.ts",
+      "path": "scratch/1368-writing-guarded-split-prep/files/src/core/hollywoodTick.ts",
+      "size": 41246,
+      "sha256": "c540c6830537aaaca6cb448993e4c9648f7141bcf498ca92e239b9ebd1cee5b8",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-guard-prep/files/src/core/hollywoodTick.ts",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/files/tsconfig.1368-writing-admission.json",
+      "path": "scratch/1368-writing-guarded-split-prep/files/tsconfig.1368-writing-admission.json",
+      "size": 341,
+      "sha256": "086f9de080cb695d5e9e1576ac8df385d904c25a0a1016c2c35507cfb2a2dfe9",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-writing-split-prep/files/tsconfig.1368-writing-admission.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/files/vitest.1368-writing-admission.config.ts",
+      "path": "scratch/1368-writing-guarded-split-prep/files/vitest.1368-writing-admission.config.ts",
+      "size": 280,
+      "sha256": "167b14d4e255c20944961ae54d82233dfa0e5fe3adce16f4cc775d47837deabe",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-writing-split-prep/files/vitest.1368-writing-admission.config.ts",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/files/vitest.1368-writing-admission.workspace.ts",
+      "path": "scratch/1368-writing-guarded-split-prep/files/vitest.1368-writing-admission.workspace.ts",
+      "size": 248,
+      "sha256": "2e18751aea4d29e8a5d377524525d81586ce9f1b3716c2d03acf30ee486aa43d",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-writing-split-prep/files/vitest.1368-writing-admission.workspace.ts",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/preimages/ASSEMBLY-TEMPLATE.json",
+      "path": "scratch/1368-writing-guarded-split-prep/preimages/ASSEMBLY-TEMPLATE.json",
+      "size": 628,
+      "sha256": "2fa3f5b1491be353d0605cf17fcaeb7c571803bd0a3f6a7e6dbe99fa3e3a70ee",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-writing-split-arm-01/ASSEMBLY.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/preimages/INPUT-PINS.json",
+      "path": "scratch/1368-writing-guarded-split-prep/preimages/INPUT-PINS.json",
+      "size": 29280,
+      "sha256": "61e85840a618ab407acce6b7be8ccd0dddd7c73dd9e8c2105f25e57886981fe4",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-writing-split-prep/INPUT-PINS.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/preimages/MANIFEST.json",
+      "path": "scratch/1368-writing-guarded-split-prep/preimages/MANIFEST.json",
+      "size": 2038,
+      "sha256": "f7cdfdf4d58387af054a98763a335527c35e9a47dd221d241b62c55b955b3c85",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-writing-split-prep/MANIFEST.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/preimages/SOURCE-PINS.json",
+      "path": "scratch/1368-writing-guarded-split-prep/preimages/SOURCE-PINS.json",
+      "size": 20401,
+      "sha256": "dd34eaf0908abf5854588b24cef680de5e3c58d271682ae78eb74fcbff952806",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-writing-split-arm-01/SOURCE-PINS.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/preimages/aggregate.py",
+      "path": "scratch/1368-writing-guarded-split-prep/preimages/aggregate.py",
+      "size": 4289,
+      "sha256": "bb9c5f4a09c16e1c08001b06e99a04874cba82a9cee9ac1f6c27bffa2d5a4ad1",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-writing-split-prep/aggregate.py",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/preimages/assemble.py",
+      "path": "scratch/1368-writing-guarded-split-prep/preimages/assemble.py",
+      "size": 1843,
+      "sha256": "f8b5a6e280cb1f06d2523847ccce823bbc9a19ce51b782e3ae5a15705b9209ef",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-writing-split-prep/assemble.py",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/preimages/guard-MANIFEST.json",
+      "path": "scratch/1368-writing-guarded-split-prep/preimages/guard-MANIFEST.json",
+      "size": 679,
+      "sha256": "727183f5a89fbd5318af4bda67b6605871dcd5a270c82e142e625bd0c00e42ca",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-guard-prep/MANIFEST.json",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/preimages/guard-production.patch",
+      "path": "scratch/1368-writing-guarded-split-prep/preimages/guard-production.patch",
+      "size": 1003,
+      "sha256": "2a4ea2dc9b0fd87c211c9cf600d9691081f158fa45982ce42dcada4b703de058",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-guard-prep/production.patch",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/preimages/run.py",
+      "path": "scratch/1368-writing-guarded-split-prep/preimages/run.py",
+      "size": 13198,
+      "sha256": "2ca08aa77adfbf6ef714b346272122ddafc11bf3f88daf5dd8cff347f971accf",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-writing-split-prep/run.py",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    },
+    {
+      "original": "/Users/zacheryspector/studio-scratch/1368-writing-guarded-split-prep/production.diff",
+      "path": "scratch/1368-writing-guarded-split-prep/production.diff",
+      "size": 1003,
+      "sha256": "2a4ea2dc9b0fd87c211c9cf600d9691081f158fa45982ce42dcada4b703de058",
+      "category": "fixed-package",
+      "priorArchive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "priorArchiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "priorArchiveMember": "scratch/1368-rival-writing-guard-prep/production.patch",
+      "referenceKind": "same-bytes-at-explicit-other-member"
+    }
+  ],
+  "priorArchives": [
+    {
+      "manifest": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/sixth-verification/MANIFEST.json",
+      "manifestSha256": "7720268555e72b0d148ed7ca57dcd5baedd75be7d735b59187b9fef3067eeae2",
+      "archive": "1368-stage/sixth-verification/evidence.tar.gz",
+      "archiveSha256": "8917224a3dc0edeb341154090b8ba9e07765ec1097771e690876a286f62725b0",
+      "archiveBytes": 23397269,
+      "archiveHashSource": "accepted manifest; no compressed archive reread during this inventory"
+    },
+    {
+      "manifest": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/sixth-verification/SUPPLEMENT-MANIFEST.json",
+      "manifestSha256": "be28721a68e247778b96cf32d6886fd94d99c9ca9a3cc710e8784c9652cb49d9",
+      "archive": "1368-stage/sixth-verification/supplement.tar.gz",
+      "archiveSha256": "646ed13a3228ccf516df7c78398b8460eb5c435b6bad6bd3417c868a1508e615",
+      "archiveBytes": 253365,
+      "archiveHashSource": "accepted manifest; no compressed archive reread during this inventory"
+    }
+  ],
+  "inputInventorySha256": "784493282b0a42f2394827a8c30cc5d082a4a94ae9ccf75e89b117ee6f088612",
+  "r4Reconstruction": {
+    "rootCommit": "956fc30e340a13461b701e70aa3d3aa34397b653",
+    "tree": "055f8e8a2cbe64530f15f906959efa6d5c810ddb",
+    "rawCommitSha256": "504898be5ba2b0ea4c62b9aceb56f0b95b12b3d03124bb4c8f8ac50788e09c05",
+    "rawCommitBytes": 244,
+    "sourcePinsSha256": "ca96ecb42e78ddf4442e17804bd15a80d70e5808a5e78ed42f43b4f06a0320d2",
+    "assemblySha256": "604e0a722f5248ef7003ba5dc9216462564d6dad29ba86519612198fb53b94f5",
+    "deltas": [
+      {
+        "path": "src/core/hollywoodTick.ts",
+        "before": "6da40c08e4aee457f01b6c1804acb2a79679d7a49f8b7db15b184ad0b1c7eaf0",
+        "after": "c540c6830537aaaca6cb448993e4c9648f7141bcf498ca92e239b9ebd1cee5b8",
+        "mode": "0o644"
+      },
+      {
+        "path": "tests/1368-rival-writing-term.test.ts",
+        "before": null,
+        "after": "29d28006360df549335a729c5931001e1da8ef76ace4c8b481b4156a01e1647a",
+        "mode": "0o644"
+      },
+      {
+        "path": "tests/1368-writing-completion-boundary.test.ts",
+        "before": null,
+        "after": "8f283430824ae8d82bd080e3f804d94093a8e1cfd46218e0f2e996dae10fa743",
+        "mode": "0o644"
+      },
+      {
+        "path": "tests/helpers/1368-rival-writing.ts",
+        "before": null,
+        "after": "56510335b3c654f023bd4a5d4fd9147f0eed1525401ff01781b7655f4b2380ea",
+        "mode": "0o644"
+      }
+    ],
+    "patches": [
+      {
+        "path": "/Users/zacheryspector/studio-scratch/1368-rival-writing-guard-prep/production.patch",
+        "sha256": "2a4ea2dc9b0fd87c211c9cf600d9691081f158fa45982ce42dcada4b703de058"
+      },
+      {
+        "path": "/Users/zacheryspector/studio-scratch/1368-rival-writing-landing-tests-prep/landing-tests.patch",
+        "sha256": "c4dbd3fd059624b20a046a0b65a2a5f2e281c22ad5ab20a1db1d707fd46cf4e3"
+      }
+    ]
+  },
+  "r3BundleReference": {
+    "path": "scratch/1368-sixth-publication-prep/swept-r3.bundle",
+    "original": "/Users/zacheryspector/studio-scratch/1368-sixth-publication-prep/swept-r3.bundle",
+    "size": 16617272,
+    "sha256": "0072a6341c388b6d11d56e41591c337c51fcba1a20a95d65fbcb07ab78f90bbb"
+  },
+  "scope": "Guarded r4 focused verification and recovery history preserved; no full checkpoint closure or main promotion."
+}

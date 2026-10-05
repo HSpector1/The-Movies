@@ -1,5 +1,11 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT —1368-G: Guarded integrated focused verification GREEN; recovery remains open
+
+[1368-G](evidence/p14b4-20260919/1368-G-guarded-integrated-focused-verification.md) records full swept r4 with the reviewed writing guard: all4 typechecks and2 generators exit0; writing4PASS, retirement9PASS, original protected comparisons3PASS; original recovery scopes46/52/2/24/111/2PASS. Exact source/index/recorder guards passed. Tests retain original assertions, budgets and genuine fixtures. The candidate remains unlanded; live Save45+F6 is unchanged.
+
+Next: preserve/push this evidence, then guarded416 routes, six/trust/ledger attribution and required swept runtime selections, landing/broad comparison, final-source recovery measurements and promotion gate. Main c902a704 remains untouched; no overallclosure, PR/merge, Unity/native/gameplay/Golden or P15–P18 completion. HANDOFF owns exact pins and next commands. Older CURRENT blocks are historical.
+
 ## CURRENT —1368-F: Writing correction GREEN; swept types accepted; recovery remains open
 
 [1368-F](evidence/p14b4-20260919/1368-F-writing-guard-and-swept-types.md) preserves the full original writing diagnosis, genuine pre414 input, two intended REDs, independently accepted unchanged2GREEN and guarded paid-boundary2PASS. The four-line rival guard prevents a new draft extending beyond its actual paid term and preserves completion at equality. It remains isolated and unlanded. Swept r3 passes root/UI/Bridge/producer types and both generators; all14 supervisor cases pass in isolation, without claiming the earlier broad failures repaired. Protected expected hashes remain unchanged.
