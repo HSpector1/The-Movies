@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1368-T: full exploratory observed parity; original cap still fails
+
+[1368-T](evidence/p14b4-20260919/1368-T-r6-state-and-r7-exploratory-parity.md) records a source-bound r6 clean final-state fixture and a separate r7 `EXPLORATORY_NOT_ACCEPTANCE` 600/630 wall-clock route. R7 types/clean/observed completed with exact formal guards; clean data match accepted r5 byte-for-byte, and independently reviewed descriptive comparison finds every shared clean/observed field equal over 416 weeks. The observed result took 584.898 seconds, so it does **not** repair the original 300/330-second timeout or admit its comparator. Protected ledger row changes still lack source-matched cause; no pin, production source, main or CURRENT-BEST changed. The eighteenth archive and direct records preserve exact evidence. Resume from HANDOFF.
+
 ## CURRENT — 1368-S: r5 observed profiling timed out; exact cost attribution published
 
 [1368-S](evidence/p14b4-20260919/1368-S-r5-profile-measured-timeout.md) records r5 ABC types PASS and a 416-week clean p13a PASS whose data bytes equal the accepted r4 clean run. The observed diagnostic retains all original bounds and guards but times out after week 260, with verified TERM/cleanup and no complete observed data. Independent audits accept its five partial profile rows as diagnostic evidence only. At week 260 extra `snap` work accounts for 104.556 of the 108.779-second observed/clean wall gap; lookup helpers total about 0.211 seconds observed, so the static index proposal is not a plausible timeout fix. No safe serializer optimization was demonstrated. Seventeenth archive/direct formal records preserve the exact inputs and outcomes. Continue from HANDOFF; no comparator, protected repin, source landing, main merge or recovery closure is justified.

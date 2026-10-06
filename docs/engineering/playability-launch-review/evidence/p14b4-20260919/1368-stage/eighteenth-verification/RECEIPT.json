@@ -1,0 +1,25 @@
+{
+  "decision": "ACCEPT",
+  "archive": "/Users/zacheryspector/studio-scratch/1368-eighteenth-publication-prep-r4/evidence.tar.gz",
+  "archiveSha256": "3f42e3644a22532ea9845b17e93661a9e90beff79da790333d3c1d993f5e3ded",
+  "manifest": "/Users/zacheryspector/studio-scratch/1368-eighteenth-publication-prep-r4/MANIFEST.json",
+  "manifestSha256": "7dbd826d32b86b1037e1377812f656c18375263390613f2433288a20e7508a9f",
+  "membersVerified": 833,
+  "logicalBytes": 71565363,
+  "directoriesComplete": 31,
+  "formalFiles": 25,
+  "laneFiles": 10,
+  "threePackageArmFiles": 197,
+  "threePackageProductionFiles": 188,
+  "skippedSymlinks": [
+    "/Users/zacheryspector/studio-scratch/1368-ledger-r6-state-capture-proposal-20261005-r1/arm/tree/node_modules",
+    "/Users/zacheryspector/studio-scratch/1368-ledger-r7-exploratory-proposal-20261005-r1/arm/tree/node_modules",
+    "/Users/zacheryspector/studio-scratch/1368-ledger-r7-exploratory-proposal-20261005-r2/arm/tree/node_modules"
+  ],
+  "skippedCaches": [
+    "/Users/zacheryspector/studio-scratch/1368-ledger-r6-state-capture-proposal-20261005-r1/runner/__pycache__",
+    "/Users/zacheryspector/studio-scratch/1368-ledger-r7-exploratory-proposal-20261005-r2/runner/__pycache__"
+  ],
+  "sourceAndTarReadbackExact": true,
+  "omittedIncludedRegularFiles": false
+}
