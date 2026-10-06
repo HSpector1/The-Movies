@@ -1,0 +1,16 @@
+{
+  "bOnlyAttribution": false,
+  "changedProductionPaths": 7,
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "equalKitPaths": 9,
+  "equalProductionPaths": 181,
+  "longRouteAuthorized": false,
+  "manifestSha256": "ae4d0b78deeebc2cbcdab869505fc3e2ddf7f7d56f7593ab2f7af58c3d4a0174",
+  "neutralityMeasured": false,
+  "planSha256": "90bfe10b7673fbefac404e197c680ef181f8b6c0c65ce734ccb468f963c6a04f",
+  "productionFilesPerArm": 188,
+  "reviewSha256": "44253da6d43aab49bbcdc49dbea7f21e904727f8441506e228deca4921da9c70",
+  "schema": "1370-ag-e0g-neutrality-route-plan-independent-review-r2",
+  "sourceFilesPerArm": 197,
+  "sourcePinsSha256": "5769ca0b8f2bb89b3efd7a86c36a3dd13d2b880466de525cb32f3c133c5ca9f6"
+}

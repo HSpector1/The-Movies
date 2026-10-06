@@ -1,0 +1,201 @@
+{
+  "exclusions": [
+    "node_modules targets are never traversed",
+    "__pycache__",
+    ".vite",
+    ".git",
+    "unrelated work and owner saves"
+  ],
+  "formalCount": 20,
+  "notes": "S1 source r1/refine retained alongside r2 acceptance; route r1/refine retained alongside r2 acceptance. No implicit wildcard beyond the 20 frozen formal file roots.",
+  "roots": [
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-salary-control-proposal-r1",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-proposal-r1"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-salary-control-independent-review-r1",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-independent-review-r1"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-salary-control-proposal-r2",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-proposal-r2"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-salary-control-independent-review-r2",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-independent-review-r2"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-four-stage-route-proposal-r1",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-proposal-r1"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-four-stage-route-independent-review-r1",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-independent-review-r1"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-four-stage-route-proposal-r2",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-proposal-r2"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-four-stage-route-independent-review-r2",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-independent-review-r2"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-four-stage-route-recorded-runs-r2",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-recorded-runs-r2"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-four-stage-observed-result-independent-review-r1",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-observed-result-independent-review-r1"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-four-stage-route-proposal-r1.EXACT-LAUNCH-TEMPLATE.txt",
+      "kind": "file",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-proposal-r1.EXACT-LAUNCH-TEMPLATE.txt"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-four-stage-route-proposal-r2.EXACT-LANE-LAUNCH-TEMPLATE.txt",
+      "kind": "file",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-proposal-r2.EXACT-LANE-LAUNCH-TEMPLATE.txt"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-four-stage-route-s1-control-20261006-r1.launch.sh",
+      "kind": "file",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-s1-control-20261006-r1.launch.sh"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-four-stage-route-s1-control-20261006-r1.log",
+      "kind": "file",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-s1-control-20261006-r1.log"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-s1-four-stage-route-s1-control-20261006-r1.log.meta",
+      "kind": "file",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-s1-control-20261006-r1.log.meta"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-clean-s1-control-20261006-r1-m0-clean-postflight.json",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-clean-s1-control-20261006-r1-m0-clean-postflight.json"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-clean-s1-control-20261006-r1-m0-clean-preflight.json",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-clean-s1-control-20261006-r1-m0-clean-preflight.json"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-clean-s1-control-20261006-r1-m0-clean.json",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-clean-s1-control-20261006-r1-m0-clean.json"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-clean-s1-control-20261006-r1-m0-clean.patch",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-clean-s1-control-20261006-r1-m0-clean.patch"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-clean-s1-control-20261006-r1-m0-clean.txt",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-clean-s1-control-20261006-r1-m0-clean.txt"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-types-s1-control-20261006-r1-m0-types-postflight.json",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-types-s1-control-20261006-r1-m0-types-postflight.json"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-types-s1-control-20261006-r1-m0-types-preflight.json",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-types-s1-control-20261006-r1-m0-types-preflight.json"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-types-s1-control-20261006-r1-m0-types.json",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-types-s1-control-20261006-r1-m0-types.json"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-types-s1-control-20261006-r1-m0-types.patch",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-types-s1-control-20261006-r1-m0-types.patch"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-types-s1-control-20261006-r1-m0-types.txt",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-m0-types-s1-control-20261006-r1-m0-types.txt"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean-postflight.json",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean-postflight.json"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean-preflight.json",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean-preflight.json"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean.json",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean.json"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean.patch",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean.patch"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean.txt",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean.txt"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-types-s1-control-20261006-r1-s1-types-postflight.json",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-types-s1-control-20261006-r1-s1-types-postflight.json"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-types-s1-control-20261006-r1-s1-types-preflight.json",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-types-s1-control-20261006-r1-s1-types-preflight.json"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-types-s1-control-20261006-r1-s1-types.json",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-types-s1-control-20261006-r1-s1-types.json"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-types-s1-control-20261006-r1-s1-types.patch",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-types-s1-control-20261006-r1-s1-types.patch"
+    },
+    {
+      "archivePath": "repo/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-types-s1-control-20261006-r1-s1-types.txt",
+      "kind": "file",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-types-s1-control-20261006-r1-s1-types.txt"
+    }
+  ],
+  "runLeaves": [
+    "m0-types",
+    "m0-clean",
+    "s1-types",
+    "s1-clean"
+  ],
+  "schema": "1370-c0-s1-exact-evidence-r1",
+  "status": "archive_proposal_requires_independent_scope_readback"
+}

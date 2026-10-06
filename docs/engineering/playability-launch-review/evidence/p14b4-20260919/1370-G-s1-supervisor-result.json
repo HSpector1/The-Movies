@@ -1,0 +1,31 @@
+{
+  "accepted": true,
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "elapsedSeconds": 147.5468556029955,
+  "head": "0cf94974144b2edb9ff3a34c62674ffaaf366a9e",
+  "knownProcessGroups": [
+    7241,
+    7272,
+    7387,
+    14523,
+    15116,
+    16038,
+    16439,
+    17398,
+    19272
+  ],
+  "noSurvivors": true,
+  "observedLeaves": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/m0-clean-s1-control-20261006-r1-m0-clean",
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/m0-types-s1-control-20261006-r1-m0-types",
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean",
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-types-s1-control-20261006-r1-s1-types"
+  ],
+  "ownershipComplete": true,
+  "package": "1370-C0-S1-FOUR-STAGE-ROUTE-R2",
+  "receiptErrors": [],
+  "routeExit": 0,
+  "routeResultSha256": "d1476135e1268dea984742b07a2211e9ee73d811d8bdce1cdd5ea342598eecd3",
+  "runId": "s1-control-20261006-r1",
+  "timedOut": false
+}

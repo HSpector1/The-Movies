@@ -1,0 +1,44 @@
+{
+  "counts": {
+    "directory": 83,
+    "file": 938,
+    "symlink": 4
+  },
+  "files": {
+    "EVIDENCE.tar": {
+      "bytes": 65771520,
+      "sha256": "16f113748342bb0c3855544aab8bed6e9bf95d633553ba53b0da18800f6c7cb1"
+    },
+    "EVIDENCE.tar.gz": {
+      "bytes": 8147032,
+      "sha256": "20c4605caca8352bbfc5a9d7b2929f4a372b8d536aac1ea26c47dcafdaaa1cf7"
+    },
+    "MEMBERS.json": {
+      "bytes": 418640,
+      "sha256": "ffaa9d1135b98597d995d875c2a8471c6bb8d61a6c66ab0b011be91d3d3e74d8"
+    },
+    "REPORT.md": {
+      "bytes": 2401,
+      "sha256": "fcc27d923f5d032c9eb3261e3168f46ff28cedca1da5f4406cac305c3a16b1d7"
+    },
+    "SCOPE.json": {
+      "bytes": 12522,
+      "sha256": "54dac89e5a800d3918dd17ab8b45e1e77da454a8ec38f49477bf93c2b9e36578"
+    },
+    "build.py": {
+      "bytes": 3283,
+      "sha256": "a7b62d6a7bcf2bfd2bba628ad92c03996d8920f5fbff78b705914092e18b6654"
+    },
+    "gzip_archive.py": {
+      "bytes": 1031,
+      "sha256": "584c166893fdae0f9fcfb5be9e5aa8e85245906d61b3c6467b0fad480ff08016"
+    }
+  },
+  "logicalFileBytes": 64717462,
+  "memberCount": 1025,
+  "primaryArchive": "EVIDENCE.tar.gz",
+  "rootCount": 36,
+  "schema": "1370-c0-s1-evidence-archive-proposal-r1",
+  "scratchOnlyArchive": "EVIDENCE.tar",
+  "status": "PENDING_INDEPENDENT_REVIEW"
+}

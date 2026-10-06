@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1370-G: S1 salary control observed; B-only finance seam clarified
+
+[1370-G](evidence/p14b4-20260919/1370-G-s1-observed-and-b-only-finance.md) preserves the independently audited S1 four-stage exploratory run and complete twenty-fourth archive. Exact-age salary input changed the employment digest but did not reproduce the historical digest; takes, receipts and settlement stayed equal. S1 comparator r1 is REFINE. The Save46 B-only finance seam and authority r4 are independently accepted for a versioned source/test proposal, but EBG GREEN and 416-week B-only controls have not run. Production source, main and CURRENT-BEST remain unchanged. HANDOFF gives the next gates.
+
 ## CURRENT — 1370-F: static source/route REFINEs and Save46 authority clarification
 
 [1370-F](evidence/p14b4-20260919/1370-F-b-only-source-and-s1-route-review.md) preserves independent EBG r1 REFINE for a genuine V27 admission/finance regression, and S1 route r1 REFINE for incomplete outer deadline and timeout cleanup. The independently accepted r3 clarification distinguishes actual writer entry from the approved persisted Save46 reader checks. The opportunity overlay is STOP_FIXTURE; no forged `since` is admitted as RED. S1 route r2 and EBG source r2 require independent review and measured gates. Production source, protected pins, main and CURRENT-BEST remain unchanged; continue from HANDOFF.

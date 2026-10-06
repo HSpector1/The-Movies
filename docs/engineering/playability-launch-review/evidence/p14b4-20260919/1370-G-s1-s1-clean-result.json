@@ -1,0 +1,197 @@
+{
+  "accepted": true,
+  "actualChildExit": 0,
+  "allGuardsExact": true,
+  "arm": "s1",
+  "artifacts": {
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean-postflight.json": {
+      "bytes": 119995,
+      "sha256": "604fcca00a4075c0dc5e1e934418b3279496e19b104a066e5cb97abb39834688"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean-preflight.json": {
+      "bytes": 119202,
+      "sha256": "345994a6d79bc33ab3628644cd634d8206df9cc3f0c73c8195bf01f5ab74aad6"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean.json": {
+      "bytes": 57594,
+      "sha256": "6ff2e67e5ac9e98edc0218cd3d269b812fde41d2cb9f2e43662275cbe0842eab"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean.patch": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-s1-control-r2-s1-clean-s1-control-20261006-r1-s1-clean.txt": {
+      "bytes": 48975,
+      "sha256": "1c8dde5b2954ac98a0c2220b26dda60f8e590370220976a2920ce88d8468aca4"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/CHILD.json": {
+      "bytes": 1151,
+      "sha256": "6dbb8a7a284d9d063b6a277b0e63385f64b79da545694126e120a89b2cc8e5ca"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/LAUNCH.json": {
+      "bytes": 720,
+      "sha256": "22028a272cf3aecfb195a833def76a85b18e83f06a76d59802c5fd3463ed73c7"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/binding.json": {
+      "bytes": 3970,
+      "sha256": "77d2900bdb1c6a1bf7aa5223d69b462bebdb0ae513aebd72f0892e8915071bea"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/power-post.txt": {
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/power.txt": {
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/preimages/employment.json": {
+      "bytes": 13113,
+      "sha256": "6a93703a0c45ea62c9613769ca1c06ace265ecac8548688b93b06837b70d5f8a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/preimages/final.json": {
+      "bytes": 1064,
+      "sha256": "2d56fd8efdfc73ebdde6d0311d9a1a64c34fb1a4a6957115a7a20a8ec9522fdb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/preimages/first-offer-witness.ndjson": {
+      "bytes": 9011,
+      "sha256": "8eda096faa024f52d5382aaa7eb01d4f3253e1483816792584a05fc0d16c9487"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/preimages/receipts.json": {
+      "bytes": 33215,
+      "sha256": "1c3f415bf98e969c3af783e2613b19bd6c573e935a49fd93289626ce956720f9"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/preimages/settlement.json": {
+      "bytes": 10229,
+      "sha256": "8a4df62fdd64ba26fc6e00e438c47c25749921fcad0e849921a7909f2f8b85f9"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/preimages/takes.json": {
+      "bytes": 15758,
+      "sha256": "e88c6b792a493768e766bbdf59698ed32a48b1c9cf4982cc9f5dfd894983e593"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/preimages/terminal-context.ndjson": {
+      "bytes": 3483409,
+      "sha256": "a1390d4ea874046791e7cdad06206e763c99df92ceb07b82af2de7806e899da5"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/preimages/trace-schema.json": {
+      "bytes": 829,
+      "sha256": "84f1c95937cc4a8b3f93a7b90fdaeb643dc7b7b2cae36bd5bb618e11010fb7e1"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/preimages/trace.ndjson": {
+      "bytes": 80647,
+      "sha256": "7be6d1a06204c22b9202e8744d18bd36fc7419785599fc1ad4fdd8eb95b94b1e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/preimages/weekly.ndjson": {
+      "bytes": 17000976,
+      "sha256": "6abce954e2a69c2e9b7b0b8602a7e27de546ca79029f47bd0b975543bf81e8da"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/stdout.txt": {
+      "bytes": 540,
+      "sha256": "4f6e56906459919479af7e96cce7c2e34824e1471c6232d89237ca9a0ec0fb7f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/vitest.json": {
+      "bytes": 939,
+      "sha256": "86c9b7005e5efcb863a50833cb1b136b1bba62f48427f165aeb35b1258eaa8a1"
+    }
+  },
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "vitest.preimage.config.ts",
+    "--maxWorkers",
+    "1",
+    "--minWorkers",
+    "1",
+    "--no-file-parallelism",
+    "--reporter=verbose",
+    "--reporter=json",
+    "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean/vitest.json"
+  ],
+  "diskReserveBreached": false,
+  "diskReservePostflight": true,
+  "elapsedSeconds": 15.195803490001708,
+  "interpretation": "Exploratory preimage evidence only; no protected acceptance.",
+  "livePostflightExact": true,
+  "mode": "clean",
+  "outputBoundExact": true,
+  "outputBytes": 20654525,
+  "outputLimitExceeded": false,
+  "package": "1370-C0-S1-SALARY-CONTROL-R2",
+  "pins": {
+    "arm": "s1",
+    "armFilePinsSha256": "3bf4faa3faac012a4c98dfa61881bf72c8b3c6d1a318a19188b0f272012f2610",
+    "boundedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "branch": "refs/heads/wip/headless-program-20260916-ts",
+    "childBootstrapSha256": "a81dddc91e3f07441a88d57a322446da030f3f727ee105c47dffdfa4dc345616",
+    "diagnosticSha256": "96cce686d73b470c50885244b2da2768dec13f9723ec9fe68ac0ca9f7a782199",
+    "entrypoints": {
+      "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+      "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-bounded-source-c2.mjs": "ae167b103ddaa714268cd63e163daa4966b0c3b8f07bfa3e9bd8f0c7d07751a2",
+      "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-bounded-source-guards.py": "1a1e144c25dd36320c64237d5b58f19d848eb85171fa777e5772c2c3fff1a20e",
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0",
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs": "39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6",
+      "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/cleanup.py": "4698b610b50289fd289e3235c564c087774b443422ca7e0ac6635284babc49e4"
+    },
+    "head": "0cf94974144b2edb9ff3a34c62674ffaaf366a9e",
+    "horizon": 416,
+    "indexSha256": "054d0860c21121e7e647940106cc630870e2f75e58336ba01fccf251054cfc89",
+    "manifestSha256": "db80afc0083c69815fba93cbd87c7e93f52f6b90f555739313bc5283600dcdb0",
+    "originHead": "0cf94974144b2edb9ff3a34c62674ffaaf366a9e",
+    "outerTimeoutSeconds": 630,
+    "package": "1370-C0-S1-SALARY-CONTROL-R2",
+    "runnerSha256": "7dad5eed2969cbacc82ed005d99045410b97e7a8d664078a604714a6d8615365",
+    "seed": "p13a-core-causal-01",
+    "stageSha256": "d51d2f82d5e1cc266db57ca278bcb2ff7b7dee4f2f2d12932896e54f16df598e",
+    "testTimeoutSeconds": 600
+  },
+  "powerPostflightError": null,
+  "processGroup": {
+    "cleanupVerified": true,
+    "errors": [],
+    "leaderReaped": true,
+    "noSurvivors": true,
+    "ownedProcessGroup": 19272,
+    "signalAttempts": [],
+    "signals": [],
+    "statusAfterCleanup": "ABSENT",
+    "statusBeforeCleanup": "ABSENT"
+  },
+  "recorderChildExit": 0,
+  "recorderStatus": 0,
+  "reportingErrors": [],
+  "runOutputBytes": 20655781,
+  "seed": "p13a-core-causal-01",
+  "staticReviewSha256": "c7ae69629133bbb20aac081c6a84370e1c2ef40ef2a5ef037853c0ea58e645e4",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutSha256": "4f6e56906459919479af7e96cce7c2e34824e1471c6232d89237ca9a0ec0fb7f",
+  "timedOut": false,
+  "validation": {
+    "actual": {
+      "employment": "6a93703a0c45ea62c9613769ca1c06ace265ecac8548688b93b06837b70d5f8a",
+      "receipts": "1c3f415bf98e969c3af783e2613b19bd6c573e935a49fd93289626ce956720f9",
+      "settlement": "8a4df62fdd64ba26fc6e00e438c47c25749921fcad0e849921a7909f2f8b85f9",
+      "takes": "e88c6b792a493768e766bbdf59698ed32a48b1c9cf4982cc9f5dfd894983e593"
+    },
+    "allPinsMatch": null,
+    "expected": null,
+    "firstOfferWitnessSha256": "8eda096faa024f52d5382aaa7eb01d4f3253e1483816792584a05fc0d16c9487",
+    "preimageBytes": {
+      "employment": 13113,
+      "receipts": 33215,
+      "settlement": 10229,
+      "takes": 15758
+    },
+    "rng": "2598418427,508725886,1318803286,3129010527",
+    "terminalContexts": 40,
+    "traceRows": 43,
+    "traceSha256": "7be6d1a06204c22b9202e8744d18bd36fc7419785599fc1ad4fdd8eb95b94b1e",
+    "weeklyRows": 417
+  },
+  "validationError": null
+}

@@ -1,0 +1,10 @@
+{
+  "decision": "ACCEPT_AUTHORITY_AMENDMENT_ONLY",
+  "designR3Sha256": "50d1d3a9e0bbb18c8c72b085d160f5536cdf4c8bd2307ece97d0cdfe86268846",
+  "designR4Sha256": "bbc6bb26df2e6a881dd2de8bd0b03b22db31f6875f5733141a6a85981b3fecb4",
+  "financeSeamIndependentReviewSha256": "1876a72839ba799b3887d1f130e0130301f709a90cb552a2f9e085cdbf32f43f",
+  "financeSeamRoleMapSha256": "f62333f1f9c2083c82879955eb1b08bbb6a347dbce53eda662680e940272f9b0",
+  "requires": "parent adoption; EBG r3 source and test-kit review; no execution approved",
+  "reviewSha256": "0a54c0e690d16a942806cf5aa7957390b869acee2645798cc1560141994640ea",
+  "sourceMapSha256": "c768104af655b833ed33e86566d1525238ea25a1e61ffba59425ee4359fe1d27"
+}

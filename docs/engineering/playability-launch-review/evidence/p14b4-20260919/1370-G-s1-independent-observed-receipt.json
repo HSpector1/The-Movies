@@ -1,0 +1,10 @@
+{
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "decision": "ACCEPT_OBSERVED_EXPLORATORY_ONLY",
+  "head": "0cf94974144b2edb9ff3a34c62674ffaaf366a9e",
+  "package": "1370-C0-S1-FOUR-STAGE-ROUTE-R2",
+  "routeResultSha256": "d1476135e1268dea984742b07a2211e9ee73d811d8bdce1cdd5ea342598eecd3",
+  "runId": "s1-control-20261006-r1",
+  "sourceManifestSha256": "db80afc0083c69815fba93cbd87c7e93f52f6b90f555739313bc5283600dcdb0",
+  "supervisorResultSha256": "fbb6cfe9eee92edcff406b97b244eb895397c984eef7bd532615262618969035"
+}

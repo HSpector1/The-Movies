@@ -1,0 +1,13 @@
+{
+  "compareSha256": "7b71638c94fde213ab70984a2d2b189bf6fa582f8e423e82c0eea34984c67e21",
+  "decision": "REFINE",
+  "findings": [
+    "missing externally frozen literal bootstrap/one-lane command",
+    "preimage artifacts reread after hash before comparison"
+  ],
+  "inputsSha256": "e0d5840996a4626a26b9d431d9ca2c20d385c00bc8a374d541c327f33f621e09",
+  "manifestSha256": "7a65fad7f095c3a3efd3903ff26f00a05c230e738e6cb7403a0325b84419d75c",
+  "package": "1370-C0-S1-EXACT-SOURCE-COMPARATOR-R1",
+  "reviewSha256": "75a069440791cdba4a4af2b2d975e4891ed1fb3f1b7eba326c9b905b9ef35597",
+  "scope": "independent static only; no comparator execution"
+}

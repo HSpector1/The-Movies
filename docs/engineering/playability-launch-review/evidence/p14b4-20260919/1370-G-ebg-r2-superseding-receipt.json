@@ -1,0 +1,10 @@
+{
+  "candidateHollywoodSha256": "898788ed4998aaf29434a959caa9cce5bca641a6a20fc3884fb9e3ca23b9e191",
+  "candidateRivalResearchSha256": "ca5ac7b9ca69c2e67a743f9a6aea30ada72a93d4de46d47060f3072d900745e4",
+  "decision": "REFINE_SOURCE_R2",
+  "patchSha256": "db13674673f8e3f4e1d66ef3eed7520fb8e99d66b318b3dac6edc1eae5bae961",
+  "priorReceiptSha256": "6f9c86b0574e225d45af37aa1249940e1710425ab482a9333d05bfc2ca23f93b",
+  "reviewSha256": "6d44480fc638beedb688b1fe0d61585783b88ffefba89aa1a912e9b1188e7de7",
+  "scope": "static addendum; no execution",
+  "sourceReviewManifestSha256": "02d17af14a062a5b93494e5e46d488d3d8fbe9152faa2f2adcaca891b2e19956"
+}

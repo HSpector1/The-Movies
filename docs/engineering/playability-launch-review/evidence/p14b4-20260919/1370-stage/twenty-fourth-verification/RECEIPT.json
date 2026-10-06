@@ -1,0 +1,18 @@
+{
+  "byteIdenticalRebuild": true,
+  "causalAttribution": false,
+  "decision": "ACCEPT_ARCHIVE_SCOPE_ONLY",
+  "directories": 83,
+  "files": 938,
+  "formalFiles": 20,
+  "members": 1025,
+  "membersSha256": "ffaa9d1135b98597d995d875c2a8471c6bb8d61a6c66ab0b011be91d3d3e74d8",
+  "observedResultReReviewed": false,
+  "primaryArchiveSha256": "20c4605caca8352bbfc5a9d7b2929f4a372b8d536aac1ea26c47dcafdaaa1cf7",
+  "proposalManifestSha256": "17c5e59d029992b17f2fe9f9825840df38c63a5fc76770dbd1f6afd0e750f682",
+  "rawArchiveSha256": "16f113748342bb0c3855544aab8bed6e9bf95d633553ba53b0da18800f6c7cb1",
+  "reviewSha256": "2599ef7e5b31003538dfc9a8414aaa3a941a6dafd7a9d6a31550059eeb5f9bf9",
+  "schema": "1370-c0-s1-evidence-archive-independent-review-r1",
+  "scopeSha256": "54dac89e5a800d3918dd17ab8b45e1e77da454a8ec38f49477bf93c2b9e36578",
+  "symlinks": 4
+}

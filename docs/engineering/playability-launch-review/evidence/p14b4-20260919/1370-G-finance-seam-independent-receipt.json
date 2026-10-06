@@ -1,0 +1,8 @@
+{
+  "decision": "ACCEPT_DESIGN_AMENDMENT_ONLY",
+  "designSha256": "cd5cf77c0e994672ef76fa9d41edb0fb8a502fd422d945882380cbde90e4ff37",
+  "priorR2RefineAddendumSha256": "6d44480fc638beedb688b1fe0d61585783b88ffefba89aa1a912e9b1188e7de7",
+  "reviewSha256": "1876a72839ba799b3887d1f130e0130301f709a90cb552a2f9e085cdbf32f43f",
+  "roleMapSha256": "f62333f1f9c2083c82879955eb1b08bbb6a347dbce53eda662680e940272f9b0",
+  "scope": "static authority/design only; parent adoption and test-kit review required; no run"
+}

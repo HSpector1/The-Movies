@@ -1,0 +1,67 @@
+{
+  "accepted": true,
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "failure": null,
+  "head": "0cf94974144b2edb9ff3a34c62674ffaaf366a9e",
+  "interpretation": "Exploratory controlled salary input evidence only; independent result audit required.",
+  "package": "1370-C0-S1-FOUR-STAGE-ROUTE-R2",
+  "runId": "s1-control-20261006-r1",
+  "stages": [
+    {
+      "accepted": true,
+      "arm": "m0",
+      "elapsedSeconds": 43.95502352993935,
+      "externalTimedOut": false,
+      "launcherExit": 0,
+      "leaf": "s1-control-20261006-r1-m0-types",
+      "mode": "types",
+      "output": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/m0-types-s1-control-20261006-r1-m0-types",
+      "resultSha256": "be4fefdcc2489c33daa36a4997d501ac6d9fa4583fcb2774a061666d0059a20a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "94b99c1eba6ee660e7b8350b160cad0b9ec2e1cbb199280ce00f2c6dfb1e0690",
+      "timeoutCleanup": null
+    },
+    {
+      "accepted": true,
+      "arm": "m0",
+      "elapsedSeconds": 23.939013506053016,
+      "externalTimedOut": false,
+      "launcherExit": 0,
+      "leaf": "s1-control-20261006-r1-m0-clean",
+      "mode": "clean",
+      "output": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/m0-clean-s1-control-20261006-r1-m0-clean",
+      "resultSha256": "9ee5beb6386e1ed4d034a9f92c81fe18d5d7f738e3bf967675536d7717453fb1",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "83501ffaf4486d0ac7ef0d0afa528151eb03479897d38bc450048101981bdeb8",
+      "timeoutCleanup": null
+    },
+    {
+      "accepted": true,
+      "arm": "s1",
+      "elapsedSeconds": 39.50555915106088,
+      "externalTimedOut": false,
+      "launcherExit": 0,
+      "leaf": "s1-control-20261006-r1-s1-types",
+      "mode": "types",
+      "output": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-types-s1-control-20261006-r1-s1-types",
+      "resultSha256": "08f8d754c3c9975955581f0ff65f4edea07c29ae44eb3e58fd37ecc562d92a73",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "ffac39e27dc76a5610b530c6fe9c7c304eb993dcd26aaa4b35d46d23cd7870eb",
+      "timeoutCleanup": null
+    },
+    {
+      "accepted": true,
+      "arm": "s1",
+      "elapsedSeconds": 31.44494139892049,
+      "externalTimedOut": false,
+      "launcherExit": 0,
+      "leaf": "s1-control-20261006-r1-s1-clean",
+      "mode": "clean",
+      "output": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2/s1-clean-s1-control-20261006-r1-s1-clean",
+      "resultSha256": "1d4654c9b98652f7277795ad5daf5a5f42a7f06155bdab93e465367a91e31055",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "965f2e7f4c8d7d6f9c82a941e4a66f1af82cfe0698d1d784e1a8c15d96bc974e",
+      "timeoutCleanup": null
+    }
+  ]
+}

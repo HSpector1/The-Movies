@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1370-G: S1 salary control observed; B-only finance seam clarified
+
+[1370-G](evidence/p14b4-20260919/1370-G-s1-observed-and-b-only-finance.md) preserves the independently audited S1 four-stage exploratory run and complete twenty-fourth archive. Exact-age salary input changed the employment digest but did not reproduce the historical digest; takes, receipts and settlement stayed equal. S1 comparator r1 is REFINE. The Save46 B-only finance seam and authority r4 are independently accepted for a versioned source/test proposal, but EBG GREEN and 416-week B-only controls have not run. Production source, main and CURRENT-BEST remain unchanged. HANDOFF gives the next gates.
+
 ## CURRENT — 1370-F: EBG source and S1 route require versioned repairs
 
 [1370-F](evidence/p14b4-20260919/1370-F-b-only-source-and-s1-route-review.md) preserves the independent EBG r1 source REFINE (genuine V27 research admission and finance seam) and S1 outer route r1 REFINE (deadline/cleanup). A separately reviewed design clarification keeps real cash-closed writer entry while applying the approved Save46 persisted-state checks; it does not pass EBG source. Controlled opportunity cases remain STOP_FIXTURE until a genuine B episode and positive null controls exist. No S1 run, EBG GREEN, 416-week B-only attribution, 1363 closure or main merge is claimed. HANDOFF has the next exact reviewed route and source gates.

@@ -1,0 +1,8 @@
+{
+  "decision": "ACCEPT_STATIC_ONLY",
+  "designR3Sha256": "50d1d3a9e0bbb18c8c72b085d160f5536cdf4c8bd2307ece97d0cdfe86268846",
+  "package": "1369-SAVE46-B-ONLY-GREEN-SOURCE-R2",
+  "patchSha256": "db13674673f8e3f4e1d66ef3eed7520fb8e99d66b318b3dac6edc1eae5bae961",
+  "sourceMapSha256": "6089be85bb81c16428c0417d80e19f571196431008db543f9fb037d4093370b0",
+  "sourceReviewManifestSha256": "02d17af14a062a5b93494e5e46d488d3d8fbe9152faa2f2adcaca891b2e19956"
+}
