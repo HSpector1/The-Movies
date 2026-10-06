@@ -1,0 +1,13 @@
+--- a/src/core/hollywoodTick.ts
++++ b/src/core/hollywoodTick.ts
+@@ -319,6 +319,10 @@
+   const craft=employees.find(t=>t.role==='craft')
+   if(!director||cast.length<3||!craft)return
+   const draftWeeks=scriptDraftWeeks({origin:'original',officeTierAtMint:'baseline',writerExperience:writingPaceExperience([writer],genre),writerCount:1})
++  const writerTerms=currentEmployees(h,b.studioId).find(e=>e.terms.talentId===writer.id)!.terms
++  // Work due at the term end completes before ordinary expiry. Later work needs a paid term
++  // already in force; an open market case does not guarantee a future renewal.
++  if(week+draftWeeks>writerTerms.endWeekExclusive)return
+   const weeklyCost=rivalWeeklyOperatingCost(b,h,week)
+   const reserve=weeklyCost*Math.max(b.policy.reserveWeeks,draftWeeks+TUNING.PRODUCTION_TICKS+1)
+   const candidate=chooseIndustryPackage({concept,shape,shapeEffects:resolveShape(shape),promise,budget:{negative:concept.baseNegativeCost,marketing:0},

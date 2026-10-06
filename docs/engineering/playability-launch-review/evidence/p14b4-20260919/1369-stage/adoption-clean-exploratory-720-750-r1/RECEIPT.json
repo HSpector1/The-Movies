@@ -1,0 +1,37 @@
+{
+  "archive_sha256": "f616d42ffe6f25738c2c130da37dcb73e91c21f5631364af3a97ca05e730927f",
+  "builder_sha256": "6154dfe2edd48191fe411c8ed209ebd7ea45c755c5e5edaf6773f9d4ba7b0812",
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "decision": "ACCEPT",
+  "duplicate_extra_or_missing_members": 0,
+  "groups": {
+    "comparator": 5,
+    "comparison": 2,
+    "formal": 20,
+    "lane": 8,
+    "package": 420,
+    "reviews": 13,
+    "runs": 34,
+    "static-check.json": 1
+  },
+  "limitations": [
+    "no observed acceptance run",
+    "four C0 protected digests differ",
+    "ABC 42 versus original 48 adoption rows",
+    "no individual intervention causality",
+    "excluded node_modules symlinks and historical archives remain external"
+  ],
+  "logical_bytes": 31458570,
+  "manifest_sha256": "1e790a426a623561e4bad82e27f73841c1f5056206ae30e20377c14dd361715d",
+  "members": 503,
+  "pins_sha256": "6c72e81221ae4a12cb73a87ef47e05c5c67aa6a41d929dbd9c910ec54dd47f84",
+  "rebuild": {
+    "archive_sha256": "f616d42ffe6f25738c2c130da37dcb73e91c21f5631364af3a97ca05e730927f",
+    "manifest_sha256": "1e790a426a623561e4bad82e27f73841c1f5056206ae30e20377c14dd361715d",
+    "scope_sha256": "76940618bf979f100cfde953cc5eef79094691c16e1be299ff90b1230736b3f5"
+  },
+  "review_sha256": "7775bb87cebf07ab4a061ac5796b38c6f7a349630dee60c0366ffd85fd166988",
+  "scope": "byte-exact Git publication of EXPLORATORY_NOT_ACCEPTANCE archive only",
+  "source_byte_mismatches": 0,
+  "unsafe_or_nonregular_members": 0
+}

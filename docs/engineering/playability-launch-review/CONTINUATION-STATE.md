@@ -1,8 +1,8 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## CURRENT — 1369-A: adoption timeout and versioned wall-cap decision
+## CURRENT — 1369-B/C: adoption clean rows source-bound; recovery still open
 
-[1369-A](evidence/p14b4-20260919/1369-A-adoption-timeout-and-observed-cap-amendment.md) preserves the original-cap C0 adoption clean timeout: exact source/formal guards and cleanup, six progress marks through week 312, but no complete ledger data or Vitest JSON. Per 1368-U, original-cap ABC did not launch after that failure. The Owner selected a new 720/750-second **observed acceptance** wall route; the corrected operational amendment passed independent planning review, while fresh package, run and identity-bound comparator remain unbuilt/unmeasured. A longer adoption clean route is only a proposed exploratory diagnostic. Protected row/digest differences and 1363 closure remain open. Resume from HANDOFF.
+[1369-B](evidence/p14b4-20260919/1369-B-adoption-exploratory-clean-pair.md) publishes four fresh exploratory types/clean leaves, formal guards, independent reviews and a 503-member archive. C0 adoption has 48 rows, ABC 42, over 416 weeks under separately versioned 720/750 **exploratory** wall bounds. A reviewed comparator pairs 42 stable identities and locates six C0-only week-416 declines; 18 paired event IDs shift with otherwise equal row content. [1369-C](evidence/p14b4-20260919/1369-C-c0-preimage-and-next-routes.md) preserves distinct C0 protected digest failures, historical preimage limits, static guarded C0+G/F6+G candidates and the reviewed planning design for a future 720/750 observed acceptance route. The original 300/330 adoption U timeout remains failed; no observed acceptance, individual A/F6/B/C causal claim, repin, recovery closure, source landing or main merge follows. Resume from HANDOFF.
 
 ## CURRENT — 1368-T: clean state captured; full observed parity under exploratory wall bounds
 

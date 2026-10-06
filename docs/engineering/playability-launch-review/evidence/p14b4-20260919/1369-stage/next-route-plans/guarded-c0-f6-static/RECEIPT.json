@@ -1,0 +1,11 @@
+{
+  "disposition": "ACCEPT_STATIC_SOURCE_ONLY",
+  "reviewSha256": "f4ab7048137b9bb1e7756cdbfed5b75e6860cd38d0410ec07c352085541989e9",
+  "proposalReportSha256": "00bceec4b960559a26ee9d5792cc1483c26a43e310d0ac1343e0117bed4cdbe8",
+  "proposalInventorySha256": "aa068d2d22b7396d8aa97ba7e387143da23d2d7497a6df204bd99fb85d909e04",
+  "f6Commit": "2253bcb128f6c4d3593982703289b746d3fcf171",
+  "regularFilesPerTree": 197,
+  "productionFilesPerTree": 188,
+  "runAuthorized": false,
+  "testsRun": false
+}

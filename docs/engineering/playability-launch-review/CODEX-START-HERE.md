@@ -1,8 +1,8 @@
 # CODEX continuation — Project Studio
 
-## CURRENT — 1369-A: original-cap adoption clean timed out; revised observed cap approved prospectively
+## CURRENT — 1369-B/C: exploratory adoption pair measured; causality and acceptance open
 
-[1369-A](evidence/p14b4-20260919/1369-A-adoption-timeout-and-observed-cap-amendment.md) records the frozen C0 adoption clean run as a guarded 300/330 **TIMEOUT** through week 312, with no complete data and no ABC U run. The Owner-approved 720/750 observed acceptance timing has an independently reviewed prospective amendment; no acceptance package or new comparator has run. A separate extended adoption clean diagnostic is being prepared and must remain exploratory. The first descriptive comparator draft was independently marked REFINE for missing executable admission guards. HANDOFF owns the exact next actions. Source, main and CURRENT-BEST remain unchanged.
+[1369-B](evidence/p14b4-20260919/1369-B-adoption-exploratory-clean-pair.md) preserves an independently reviewed, source-bound **exploratory** 720/750 adoption clean pair: C0 completes 416 weeks with 48 rows, ABC with 42, both with child/recorder zero and exact guards/cleanup. Reviewed stable-identity pairing gives 42 paired and six C0-only week-416 declines; 18 paired rows differ only by shifted event IDs. [1369-C](evidence/p14b4-20260919/1369-C-c0-preimage-and-next-routes.md) records the four unresolved C0 protected digests, historical preimage gap, guarded source-role construction, and planning-only reviewed 720/750 observed acceptance design. The original 300/330 U C0 timeout remains failed, no observed acceptance route ran, and no individual causal attribution, repin, 1363 closure, source landing or main merge is claimed. HANDOFF owns exact next steps. Source, main and CURRENT-BEST are unchanged.
 
 ## CURRENT — 1368-T: full exploratory observed parity; original cap still fails
 

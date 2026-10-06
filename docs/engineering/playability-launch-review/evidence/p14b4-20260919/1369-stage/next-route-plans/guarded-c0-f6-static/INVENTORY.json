@@ -1,0 +1,23 @@
+{
+  "reportSha256": "de2e60f15fe7471f0afda235093539377e581fca1fcb5d6c2587e5629dc4d07f",
+  "gPatchSha256": "2a4ea2dc9b0fd87c211c9cf600d9691081f158fa45982ce42dcada4b703de058",
+  "f6Commit": "2253bcb128f6c4d3593982703289b746d3fcf171",
+  "f6SrcGitTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "c0SourcePinsSha256": "00d4b886c0acbeb64ebc413348427723c7b5dcf0fbbce845fceb4a149d4d3a7f",
+  "sourceFileCount": 188,
+  "regularFileCountPerCandidate": 197,
+  "copiedKitRoot": "/Users/zacheryspector/studio-scratch/1368-ledger-arms-04/C0/tree",
+  "nodeModulesSymlink": "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+  "edges": {
+    "C0-to-C0+G": [
+      "src/core/hollywoodTick.ts"
+    ],
+    "F6-to-F6+G": [
+      "src/core/hollywoodTick.ts"
+    ],
+    "C0+G-to-F6+G": [
+      "src/core/campaignLegacy.ts",
+      "src/core/save.ts"
+    ]
+  }
+}
