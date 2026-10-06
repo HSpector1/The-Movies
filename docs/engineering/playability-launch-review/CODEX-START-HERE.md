@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1370-H: Save46 closure pinned; first runnable route stopped
+
+[1370-H](evidence/p14b4-20260919/1370-H-ebg-closure-and-route-refines.md) preserves limited static acceptance of the EBG r3 B-only source and three explicit historical test-call edits, plus the full focused test/fixture closure. The first executable GREEN package is REFINE for receipt reread, incomplete nested launch roster and final timeout handling. S1 comparator r2 is also REFINE for a final deadline gap. No GREEN or comparator ran; production source/main remain unchanged. HANDOFF gives the versioned gates.
+
 ## CURRENT — 1370-G: S1 salary control observed; B-only finance seam clarified
 
 [1370-G](evidence/p14b4-20260919/1370-G-s1-observed-and-b-only-finance.md) preserves the independently audited S1 four-stage exploratory run and complete twenty-fourth archive. Exact-age salary input changed the employment digest but did not reproduce the historical digest; takes, receipts and settlement stayed equal. S1 comparator r1 is REFINE. The Save46 B-only finance seam and authority r4 are independently accepted for a versioned source/test proposal, but EBG GREEN and 416-week B-only controls have not run. Production source, main and CURRENT-BEST remain unchanged. HANDOFF gives the next gates.

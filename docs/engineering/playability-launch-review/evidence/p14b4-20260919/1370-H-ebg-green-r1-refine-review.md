@@ -1,0 +1,9 @@
+# EBG r3 GREEN direct focused proposal r1 — independent static review
+
+**REFINE.** Frozen manifest `0d1c2f64268fd80b8e75f4da037458b7898dd68c63bcd6d7dfd587e2ad2e0b1a` remains preserved. No TypeScript, Vitest, Node game, or heavy process ran in this review. The 245-file tree map has 197/197 byte-equal reviewed source-map members; the extra file roles include unchanged RED tests, historical closure inputs, two reviewed V27 test postimages, and two generated configs. This is static identity only.
+
+1. The outer reads the review receipt again in `main()` after the external bootstrap authenticated an earlier buffer. The nested child similarly reopens the receipt and does not execute only from the externally authenticated immutable receipt buffer. A receipt replacement between reads can change the authority considered by stages. Pass and parse the same authenticated receipt bytes through the outer and child; reject a changed on-disk receipt on postflight.
+2. `outer.py`'s `groups()` returns an unused empty `missing` list and never asserts that all four expected stage LAUNCH receipts exist. A missing or malformed nested LAUNCH can leave stage-group ownership unproved; a fast departing parent can make descendant scanning incomplete. Fail closed on exactly four named stage receipts, record missing/malformed paths, and use known process groups for TERM/KILL even when receipts are damaged.
+3. The active alarm now spans `finally`, but `final_alarm` raises during cleanup or RESULT writing without a fallback failure receipt. Keep the hard deadline and ensure an interruption cannot leave a successful classification or erase the only durable timeout/cleanup record.
+
+These are launcher/ownership refinements. The reviewed source/test role counts and suite selectors do not authorize execution of r1. The r2 package must be independently frozen and reviewed; do not mutate r1.

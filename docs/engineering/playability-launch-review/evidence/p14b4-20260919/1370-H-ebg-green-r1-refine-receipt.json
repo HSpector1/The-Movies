@@ -1,0 +1,8 @@
+{
+  "classification": "GREEN_CANDIDATE_NOT_ACCEPTANCE",
+  "decision": "REFINE",
+  "manifestSha256": "0d1c2f64268fd80b8e75f4da037458b7898dd68c63bcd6d7dfd587e2ad2e0b1a",
+  "outerSha256": "c017fdd3e7edbb9b090322b0d1db77ca7f55138ea0c51cac9713c99e62764190",
+  "reviewSha256": "a0017d1ce39720bb78e0f9a82706e874b113f64a0581ed15adbd514bf39906e9",
+  "runnerSha256": "75e32ee67c2aba46be577bf8f40c6b3bcc4ad9407562873b57a4789ba6d3116e"
+}

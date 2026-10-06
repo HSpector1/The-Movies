@@ -1,0 +1,9 @@
+{
+  "decision": "ACCEPT_STATIC_SOURCE_ONLY",
+  "designR4Sha256": "bbc6bb26df2e6a881dd2de8bd0b03b22db31f6875f5733141a6a85981b3fecb4",
+  "productionMapSha256": "eeca1d827204230ce195387a780e04fab005f8d9d878b62190290b0a9dbcc1c9",
+  "reviewSha256": "2b69c99f824e15d4477a4a7d9d279cb8c0179a31eb1ca75f967af0d837044f39",
+  "scope": "static source only; no executable GREEN",
+  "sourceMapSha256": "7c27c80c19e72061e23088cb9b00fc38aa5716d4a6dac8ff11cda9a7d9428272",
+  "sourceReviewManifestSha256": "73b8d72565bf456844aeb70417485aef601d883bdbcad8b8680d8c0fdd1257e8"
+}

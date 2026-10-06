@@ -1,0 +1,348 @@
+{
+  "allTestHelperFixturePreimagePins": {
+    "tests/fixtures/p13b/PROVENANCE.md": {
+      "bytes": 21332,
+      "headSha256": "f58776f25e636e95238d5ff246ebf643d99068cdb58a781accbcc216e5db4ec3",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p13b/legacy-v26-lighting-cancelled-793.json.gz": {
+      "bytes": 142016,
+      "headSha256": "b347a3952585e1bf24068ae2f42e069e32ade8407e507c6a0df6cd739ad9bf07",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p13b/legacy-v26-lighting-restored-795.json.gz": {
+      "bytes": 142099,
+      "headSha256": "47d266bccb7871450e089f886d4565c970e97ad1b0af54d297733b064416312f",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p13b/legacy-v26-sound-mid-deployment-309.json.gz": {
+      "bytes": 123142,
+      "headSha256": "4b99361166c2503b80ede0dfe3a3cafc7521db235bbf6a2a411212a3257bb288",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-pre38-validation-controls/MANIFEST.json": {
+      "bytes": 48338,
+      "headSha256": "c9609b940ae77bf3d5c99c81463152d2c4b8782372da59249b942d1e51f1b101",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-all-statuses-week312.json.gz": {
+      "bytes": 221085,
+      "headSha256": "4c53ede9e7b548b60f09385a7d0427bedcfca98654bb62d3619ed6b549121d18",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-cohort-week-week156.json.gz": {
+      "bytes": 146765,
+      "headSha256": "4d7a46d08a456f01dfa561dfc57cdde4c93aa8fd42bb8ca7de148bd8c8380f41",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-deep-deficit-week2652.json.gz": {
+      "bytes": 112908,
+      "headSha256": "b2c50a92a2c0f8d69169fc77b58fd4769d1d55ed2dddb70cd788192b1163e6ff",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v37-writer-commissioned311-finishing312.json.gz": {
+      "bytes": 518401,
+      "headSha256": "db162c4a2576a2b828bae198a57f56ed20cf05bfd431d6896d53894a18588b1d",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-projection51-runtime-c2rm/MANIFEST.json": {
+      "bytes": 3729,
+      "headSha256": "9c6dc13f98ee5b1f17864ea35afca6dfca5c7b08740f2612ab33dc56e1587e47",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week617.json.gz": {
+      "bytes": 156066,
+      "headSha256": "ce1ff03c6c23516fc356ae9f5ad595c49f2ff095b905e860ec3096e44177c3fe",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week618.json.gz": {
+      "bytes": 156140,
+      "headSha256": "d166d42cd47d36fdeec62e093bc008402e40f49ffe41b2bfc91c184c088d44d2",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week669.json.gz": {
+      "bytes": 158350,
+      "headSha256": "a957c4a6d7d3c549a3e4e65c2a3268ec484deffc53592d17f82aa98cd10e0fb1",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week670.json.gz": {
+      "bytes": 158386,
+      "headSha256": "34f0ac18280f8e5fef2482e6e1dcc5c48f30a1ef10d3ca9eaece8699ece99861",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-projection51-runtime-c2rm/runtime51-current670-saved669.json.gz": {
+      "bytes": 385853,
+      "headSha256": "6a5b2566d061464fd3c352266535e491b5bcbe90a5e6f48e52548029178b403c",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v35-c2b-corpus/MANIFEST.json": {
+      "bytes": 9417,
+      "headSha256": "f47f781a4063ed53dc52adb361fabddded63909bf888d217ae9b2c9fc799531b",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-contract-at-effective-week.json.gz": {
+      "bytes": 93155,
+      "headSha256": "c339695f855e2daf97be959a7a0c75a6ccae72878dc070aef25da4890d694bf3",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-contract-at-effective-week.provenance.json": {
+      "bytes": 5313,
+      "headSha256": "9aa96a9ec8935252a74e630428b61df628744d62f712a63f789f87cda9693ab0",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-contract-gap-freeagent-expiry.json.gz": {
+      "bytes": 92767,
+      "headSha256": "f35bd6868904b9b6308e27400ce862d503951c904e4e8007ee25003f187ffee4",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-contract-gap-freeagent-expiry.provenance.json": {
+      "bytes": 6279,
+      "headSha256": "20c506617e075a5e1fca99ec15ff5effcf16d3c5c84a7543786aa1605b3a9d17",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-rival-incumbent-cohorts.json.gz": {
+      "bytes": 566384,
+      "headSha256": "afb89ad0a5f1e972564d1389c800fb544e5082e8a8dddb4bbd5a2a43520e085d",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-rival-incumbent-cohorts.provenance.json": {
+      "bytes": 5277,
+      "headSha256": "bd1c071c0ff37fa03e9e2c4e0ad324ac4c1fdb05da1f242ebeb914f3d2f477b2",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v37-c3-corpus/MANIFEST.json": {
+      "bytes": 32532,
+      "headSha256": "b3a3251ae7b3df96a1e2a615991744c5d1e5966a095424693f086a1581244294",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-announced-week104.json.gz": {
+      "bytes": 123549,
+      "headSha256": "2bbd85b176ec99befebff675dcc52b22faa3dcac38d11b91e540854c026fef0c",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-created-week0.json.gz": {
+      "bytes": 49887,
+      "headSha256": "0ce43de9abe897631f415f94ac79e584b87d6001c8bb4b5c37fccf3dcb8204a2",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-postretirement-week209.json.gz": {
+      "bytes": 173951,
+      "headSha256": "8ee70174c2d8fddf5ea8c236dccf61c0ed5fbff82f946a5fcc94f8bb5c5540f0",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-preannouncement-week103.json.gz": {
+      "bytes": 120538,
+      "headSha256": "9eb5326f7c77f392f3bd87f4cc5687e762d1e5dc394058db5b022a94cc9b9bba",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-preretirement-week207.json.gz": {
+      "bytes": 174595,
+      "headSha256": "926de1b20fa0cba9b822c05f542f0a3949c7e4b21560c2fa508b6fa3168af5a0",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-retired-week208.json.gz": {
+      "bytes": 173919,
+      "headSha256": "1676652628a7a5e079c755fffa9dff50770ca3a7824b8d7c02f3db9d25b09be9",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-runtime-current208.json.gz": {
+      "bytes": 173914,
+      "headSha256": "731e4d6d6015569d479fe6e1cdec3bc46c63ca8149a79e6fb39b2c0b7b2eca3e",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-three-real-releases.json.gz": {
+      "bytes": 82414,
+      "headSha256": "b4186f1eaa718d6e6235d19cbf2efb7454fe5ac0f9a75c7a84ed497c6ad4e2d1",
+      "role": "fixture_or_provenance"
+    },
+    "tests/fixtures/p14/genuine-v37-c3-corpus/runtime52-current208-saved207.json.gz": {
+      "bytes": 421226,
+      "headSha256": "42a04c37f36760c3c7605aff66773a5463f2107dfeaa84d0a2607e6a7e0061b1",
+      "role": "fixture_or_provenance"
+    },
+    "tests/helpers/p14b2-fixtures.ts": {
+      "bytes": 18074,
+      "headSha256": "145e71f5820e5a39d9a278df75910282dda5cf6a7b2e72ec29f3136d61bc68e6",
+      "role": "helper"
+    },
+    "tests/helpers/p14c2b-fixtures.ts": {
+      "bytes": 5517,
+      "headSha256": "a90d1433134128452b85b4101491fa1879236a600cdfa6f1a048760795f876fd",
+      "role": "helper"
+    },
+    "tests/helpers/p14c2c-fixtures.ts": {
+      "bytes": 9259,
+      "headSha256": "cb6bac539b04ff9305a3f42e96c229cee31d7a3ad1d45b629ebf67f2b38f6a32",
+      "role": "helper"
+    },
+    "tests/helpers/p14c2rm-fixtures.ts": {
+      "bytes": 19149,
+      "headSha256": "576b4f73f79f35209b10273cc0efc127bc1458bd8e361ac793600cbde959d0d0",
+      "role": "helper"
+    },
+    "tests/helpers/p14c3-fixtures.ts": {
+      "bytes": 23504,
+      "headSha256": "d55c4c7546ed5d87bd53c57c705f69bcc8c4120ada75f189dbc8b60b08e8269e",
+      "role": "helper"
+    },
+    "tests/p13b-s8-capacity.test.ts": {
+      "bytes": 13723,
+      "headSha256": "b79dfe705af747e068c11400ce3fd1026d8a0c185582920a7dd8cfe08f6869f5",
+      "role": "test"
+    },
+    "tests/p13b-s8-finance.test.ts": {
+      "bytes": 13225,
+      "headSha256": "22cccdca5e445d48b3a78b9584e0d9010afacbb9ca4a5d24ab8f8f702e5f6937",
+      "role": "test"
+    },
+    "tests/p13b-s8-save-v27.test.ts": {
+      "bytes": 17887,
+      "headSha256": "ffe07d9ca39b43f646d034a2984497c5bfe593f065ff2d906cfb811e206c84ef",
+      "role": "test"
+    },
+    "tests/save-masked-downgrade-own-era.test.ts": {
+      "bytes": 6957,
+      "headSha256": "2d1744b0a7baa747876e58674f4f319be196e896febe6fc986f66d03c1cd7fa7",
+      "role": "test"
+    }
+  },
+  "assetRoots": [
+    "tests/fixtures/p13b/PROVENANCE.md",
+    "tests/fixtures/p13b/legacy-v26-*.json.gz",
+    "tests/fixtures/p14/genuine-projection51-runtime-c2rm",
+    "tests/fixtures/p14/genuine-pre38-validation-controls",
+    "tests/fixtures/p14/genuine-v35-c2b-corpus",
+    "tests/fixtures/p14/genuine-v37-c3-corpus"
+  ],
+  "counts": {
+    "fixturesAndProvenance": 32,
+    "helpers": 5,
+    "productionModules": 105,
+    "tests": 4
+  },
+  "helpers": [
+    "tests/helpers/p14b2-fixtures.ts",
+    "tests/helpers/p14c2b-fixtures.ts",
+    "tests/helpers/p14c2c-fixtures.ts",
+    "tests/helpers/p14c2rm-fixtures.ts",
+    "tests/helpers/p14c3-fixtures.ts"
+  ],
+  "productionImportClosure": [
+    "src/core/actions.ts",
+    "src/core/agents.ts",
+    "src/core/aging.ts",
+    "src/core/blueprintRequirements.ts",
+    "src/core/boundedStableSort.ts",
+    "src/core/broadcast.ts",
+    "src/core/calendar.ts",
+    "src/core/campaignLegacy.ts",
+    "src/core/candidates.ts",
+    "src/core/careerLifecycle.ts",
+    "src/core/castingPackageReadModel.ts",
+    "src/core/castingReadModel.ts",
+    "src/core/castingSessions.ts",
+    "src/core/construction.ts",
+    "src/core/data/screenplay.ts",
+    "src/core/data/wordlists.ts",
+    "src/core/development.ts",
+    "src/core/economy.ts",
+    "src/core/economyView.ts",
+    "src/core/employment.ts",
+    "src/core/facilityEffects.ts",
+    "src/core/filmPackage.ts",
+    "src/core/filmParticipants.ts",
+    "src/core/firstFilmJourney.ts",
+    "src/core/firstTakeSubjects.ts",
+    "src/core/fixedCostAllocation.ts",
+    "src/core/forecast.ts",
+    "src/core/grid.ts",
+    "src/core/hollywood.ts",
+    "src/core/hollywoodPolicy.ts",
+    "src/core/hollywoodStartingData.ts",
+    "src/core/hollywoodTick.ts",
+    "src/core/hollywoodTypes.ts",
+    "src/core/hollywoodValidation.ts",
+    "src/core/index.ts",
+    "src/core/industryCareer.ts",
+    "src/core/industryEmployment.ts",
+    "src/core/installationCancellation.ts",
+    "src/core/liveRetirementWriting.ts",
+    "src/core/lot.ts",
+    "src/core/marketIntegration.ts",
+    "src/core/marketingMenu.ts",
+    "src/core/math.ts",
+    "src/core/newspaper.ts",
+    "src/core/occupancy.ts",
+    "src/core/officeConversion.ts",
+    "src/core/operations.ts",
+    "src/core/opportunityPromises.ts",
+    "src/core/p15Phases.ts",
+    "src/core/physicalPlans.ts",
+    "src/core/placement.ts",
+    "src/core/powerRanking.ts",
+    "src/core/powerRankingArchive.ts",
+    "src/core/presence.ts",
+    "src/core/productionAdmission.ts",
+    "src/core/productionIdentity.ts",
+    "src/core/productionPeople.ts",
+    "src/core/productionPhases.ts",
+    "src/core/productionQueue.ts",
+    "src/core/productionSetup.ts",
+    "src/core/professionHistory.ts",
+    "src/core/professionTransitions.ts",
+    "src/core/promises.ts",
+    "src/core/publicity.ts",
+    "src/core/queueAdmission.ts",
+    "src/core/reception.ts",
+    "src/core/receptionVerdict.ts",
+    "src/core/relationships.ts",
+    "src/core/releaseAuthority.ts",
+    "src/core/releaseCareers.ts",
+    "src/core/researchPeople.ts",
+    "src/core/retirementWriting.ts",
+    "src/core/rivalResearch.ts",
+    "src/core/rng.ts",
+    "src/core/save.ts",
+    "src/core/sceneryLoadIn.ts",
+    "src/core/screenplay.ts",
+    "src/core/scriptDevelopment.ts",
+    "src/core/scriptReadModel.ts",
+    "src/core/sets.ts",
+    "src/core/shape.ts",
+    "src/core/sharedMarket.ts",
+    "src/core/standing.ts",
+    "src/core/starPower.ts",
+    "src/core/studioCalendar.ts",
+    "src/core/studioEvents.ts",
+    "src/core/studioHistory.ts",
+    "src/core/studioQueueView.ts",
+    "src/core/studioRunRecap.ts",
+    "src/core/studioWeekTheater.ts",
+    "src/core/talentMarket.ts",
+    "src/core/talentSummary.ts",
+    "src/core/technology.ts",
+    "src/core/technologyAdoption.ts",
+    "src/core/technologyCatalogue.ts",
+    "src/core/technologyMilestones.ts",
+    "src/core/technologyProduction.ts",
+    "src/core/technologyRival.ts",
+    "src/core/technologyTypes.ts",
+    "src/core/tick.ts",
+    "src/core/tuning.ts",
+    "src/core/types.ts",
+    "src/core/vector.ts",
+    "src/core/worldgen.ts",
+    "src/harness/p13a/fixtures.ts"
+  ],
+  "publishedHead": "0cf94974144b2edb9ff3a34c62674ffaaf366a9e",
+  "schema": "1369-ebg-r3-focused-green-import-and-fixture-closure-r1",
+  "sourceManifestSha256": "73b8d72565bf456844aeb70417485aef601d883bdbcad8b8680d8c0fdd1257e8",
+  "sourceMapCoversProductionClosure": true,
+  "testFiles": [
+    "tests/p13b-s8-capacity.test.ts",
+    "tests/p13b-s8-finance.test.ts",
+    "tests/p13b-s8-save-v27.test.ts",
+    "tests/save-masked-downgrade-own-era.test.ts"
+  ],
+  "testKitManifestSha256": "f5e786a8c5f4ef6c02a99829e91bf2971f6f248c899a57da46b536ae1190c22c"
+}

@@ -1,0 +1,7 @@
+{
+  "decision": "ACCEPT_STATIC_DELTA_ONLY",
+  "ebgR3SourceManifestSha256": "73b8d72565bf456844aeb70417485aef601d883bdbcad8b8680d8c0fdd1257e8",
+  "kitManifestSha256": "f5e786a8c5f4ef6c02a99829e91bf2971f6f248c899a57da46b536ae1190c22c",
+  "requires": "complete transitive imported helper/fixture closure and independent executable kit/launcher review before tests",
+  "reviewSha256": "afb9e09c7e92bda05d3bf3d042448ee7f7860c7f900db6fdbe8695d08f362ea5"
+}

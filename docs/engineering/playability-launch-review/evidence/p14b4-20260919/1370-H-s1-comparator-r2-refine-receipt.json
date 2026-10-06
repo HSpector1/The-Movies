@@ -1,0 +1,12 @@
+{
+  "compareSha256": "d5f65ed7cd270fc16c69ea21ae8707fb93d3876a49c400e85e060d4c65f64746",
+  "decision": "REFINE",
+  "externalLaunchTemplateSha256": "642b7bbb90ac24163a2d535bcbf02420ac879127dcccc15570bf77808c177119",
+  "finding": "active alarm disabled before recorder RESULT/exit; no separate whole-route deadline",
+  "inputsSha256": "e6eb59f674d4abb9f6cc23dfc80310f95eb9f673a9d58a13667a0602aa8f928f",
+  "manifestSha256": "2c3cbf77cc4cb1a82c3a7183d2abe8ced9c8035c038741dfb5a69f3d634ff05d",
+  "package": "1370-C0-S1-EXACT-SOURCE-COMPARATOR-R2",
+  "recorderSha256": "abf5f936dbc7931cd455607de2dab5da7935ffc0e44e73573fab1a426f797265",
+  "reviewSha256": "fe323a4a7f4cb40d0e0d56d995648daf484c0d49dbe0ae2f10542f550c066e16",
+  "scope": "static only; no comparator execution"
+}
