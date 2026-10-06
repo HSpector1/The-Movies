@@ -1,0 +1,43 @@
+{
+  "allSourceBytesMatched": true,
+  "archiveSha256": "e06cd73d4fbe10b2195d50d9fd88443baa96190969e259d2650762529762edb0",
+  "builderSha256": "78019c7a643f7b97259a71fa3da1deb55e65307e7e7161c368c5b6babd29b75f",
+  "excludedCacheEntries": 0,
+  "excludedSymlinks": [
+    "1369-causal-p13a-original-proposal-r2/arms/AG/tree/node_modules",
+    "1369-causal-p13a-original-proposal-r2/arms/ABG/tree/node_modules",
+    "1369-causal-p13a-original-proposal-r2/arms/F6G/tree/node_modules",
+    "1369-causal-p13a-original-proposal-r2/arms/C0G/tree/node_modules",
+    "1369-causal-p13a-original-proposal-r3/arms/AG/tree/node_modules",
+    "1369-causal-p13a-original-proposal-r3/arms/ABG/tree/node_modules",
+    "1369-causal-p13a-original-proposal-r3/arms/F6G/tree/node_modules",
+    "1369-causal-p13a-original-proposal-r3/arms/C0G/tree/node_modules",
+    "1369-causal-adoption-exploratory-proposal-r1/arms/AG/tree/node_modules",
+    "1369-causal-adoption-exploratory-proposal-r1/arms/ABG/tree/node_modules",
+    "1369-causal-adoption-exploratory-proposal-r1/arms/F6G/tree/node_modules",
+    "1369-causal-adoption-exploratory-proposal-r1/arms/C0G/tree/node_modules",
+    "1369-c0-preimage-replay-proposal-r6/arms/modern/tree/node_modules",
+    "1369-c0-preimage-replay-proposal-r6/arms/historical/tree/node_modules"
+  ],
+  "formalFiles": 50,
+  "formalRoutes": {
+    "1369-c0-preimage-r6-historical-types-h1": 2,
+    "1369-causal-p13a-clean-r2-c0g-types-source-q1": 2,
+    "1369-causal-p13a-clean-r3-abg-clean-p13a-q1": 0,
+    "1369-causal-p13a-clean-r3-abg-types-source-q1": 0,
+    "1369-causal-p13a-clean-r3-ag-clean-p13a-q1": 0,
+    "1369-causal-p13a-clean-r3-ag-types-source-q1": 0,
+    "1369-causal-p13a-clean-r3-c0g-clean-p13a-q1": 0,
+    "1369-causal-p13a-clean-r3-c0g-types-source-q1": 0,
+    "1369-causal-p13a-clean-r3-f6g-clean-p13a-q1": 0,
+    "1369-causal-p13a-clean-r3-f6g-types-source-q1": 0
+  },
+  "independentRepeatSha256": "e06cd73d4fbe10b2195d50d9fd88443baa96190969e259d2650762529762edb0",
+  "logicalBytes": 114352288,
+  "manifestSha256": "abe4dc2c648e82fa68ec8b6893081027bebbff38a5fdd9ab6b3b1220ae2244fb",
+  "membersIndexSha256": "973d648f27f371da7a0c0ab9bceed01f4175cbe51f90f14bd9671e8896930374",
+  "noMissingOrExtra": true,
+  "regularMembers": 3047,
+  "tarPathsSafeAndRegular": true,
+  "verdict": "ACCEPT"
+}

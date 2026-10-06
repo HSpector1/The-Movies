@@ -1,8 +1,10 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## CURRENT — 1369-B/C: adoption clean rows source-bound; recovery still open
+## CURRENT — 1369-D: guarded p13a roles source-bound; recovery still open
 
 [1369-B](evidence/p14b4-20260919/1369-B-adoption-exploratory-clean-pair.md) publishes four fresh exploratory types/clean leaves, formal guards, independent reviews and a 503-member archive. C0 adoption has 48 rows, ABC 42, over 416 weeks under separately versioned 720/750 **exploratory** wall bounds. A reviewed comparator pairs 42 stable identities and locates six C0-only week-416 declines; 18 paired event IDs shift with otherwise equal row content. [1369-C](evidence/p14b4-20260919/1369-C-c0-preimage-and-next-routes.md) preserves distinct C0 protected digest failures, historical preimage limits, static guarded C0+G/F6+G candidates and the reviewed planning design for a future 720/750 observed acceptance route. The original 300/330 adoption U timeout remains failed; no observed acceptance, individual A/F6/B/C causal claim, repin, recovery closure, source landing or main merge follows. Resume from HANDOFF.
+
+[1369-D](evidence/p14b4-20260919/1369-D-guarded-causal-p13a-and-preimage-bootstrap.md) adds four independently audited original-cap p13a types/clean arms and a twentieth archive with 3,047 members plus 50 direct formal files. C0G→F6G is neutral on this seed; A changes content while total rows remain 40; AG→ABG drops to 18 in a B+Save46/C-plumbing bundle. Four C0 protected content digests remain false. Historical full-preimage r6 types failed on a missing genuine scratch fixture, before any replay. Adoption causal and comparator drafts are REFINE. HANDOFF contains the exact next routes and stopping conditions; 1363 remains open.
 
 ## CURRENT — 1368-T: clean state captured; full observed parity under exploratory wall bounds
 

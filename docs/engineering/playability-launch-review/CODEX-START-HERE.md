@@ -1,8 +1,10 @@
 # CODEX continuation — Project Studio
 
-## CURRENT — 1369-B/C: exploratory adoption pair measured; causality and acceptance open
+## CURRENT — 1369-D: guarded p13a roles measured; causality and acceptance open
 
 [1369-B](evidence/p14b4-20260919/1369-B-adoption-exploratory-clean-pair.md) preserves an independently reviewed, source-bound **exploratory** 720/750 adoption clean pair: C0 completes 416 weeks with 48 rows, ABC with 42, both with child/recorder zero and exact guards/cleanup. Reviewed stable-identity pairing gives 42 paired and six C0-only week-416 declines; 18 paired rows differ only by shifted event IDs. [1369-C](evidence/p14b4-20260919/1369-C-c0-preimage-and-next-routes.md) records the four unresolved C0 protected digests, historical preimage gap, guarded source-role construction, and planning-only reviewed 720/750 observed acceptance design. The original 300/330 U C0 timeout remains failed, no observed acceptance route ran, and no individual causal attribution, repin, 1363 closure, source landing or main merge is claimed. HANDOFF owns exact next steps. Source, main and CURRENT-BEST are unchanged.
+
+[1369-D](evidence/p14b4-20260919/1369-D-guarded-causal-p13a-and-preimage-bootstrap.md) adds four independently audited original-cap p13a clean arms: C0G and F6G each have 40 identical measured rows; A changes content but keeps 40; the ABG bundle has 18. The ABG edge also changes Save representation and C plumbing, so B alone is not established. Historical full-preimage r6 types failed on a missing original scratch fixture; no replay ran. Adoption/intermediate comparator drafts remain REFINE. The 3,047-member twentieth archive and 50 direct formal files preserve successful and failed receipts. Continue from HANDOFF; 1363 remains open.
 
 ## CURRENT — 1368-T: full exploratory observed parity; original cap still fails
 
