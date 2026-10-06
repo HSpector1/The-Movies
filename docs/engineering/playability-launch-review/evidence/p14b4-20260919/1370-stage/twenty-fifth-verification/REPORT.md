@@ -1,0 +1,3 @@
+# 1370-K narrow raw-evidence archive
+
+This deterministic archive preserves exact F0 r3 and EBG r7/r8 scratch packages, full run outputs and reviews under 13 explicit roots. It does not decide any source/test/ledger result; direct published evidence and independent reviews govern those conclusions. Symlinks are archived as symlinks, never traversed. The tar uses sorted source order and normalized uid/gid/name/mtime; gzip has zero mtime and no filename. The 1,441-member inventory pins 70,378,672 logical bytes; archive SHA-256 is `4026eca5b58355ac2832bdf82c766a5754f6e2ad72ddeac5424fdf69a753456c`. Independent rebuild review is required before publication or deletion of the raw tar.

@@ -1,0 +1,37 @@
+{
+  "classification": "BYTE_PRESERVATION_ONLY",
+  "counts": {
+    "directory": 128,
+    "file": 1308,
+    "symlink": 5
+  },
+  "files": {
+    "EVIDENCE.tar": {
+      "bytes": 71874560,
+      "sha256": "a9cb87a253d483d609cb810a7ca5a1525c0fd438acaf5d383b73e6b9c95448f0"
+    },
+    "EVIDENCE.tar.gz": {
+      "bytes": 28142680,
+      "sha256": "4026eca5b58355ac2832bdf82c766a5754f6e2ad72ddeac5424fdf69a753456c"
+    },
+    "MEMBERS.json": {
+      "bytes": 595176,
+      "sha256": "b4f3fbfb603b94e3dcf69cf3dd6dc5beb93fbdff5c21c1073f6d01655ce5ce84"
+    },
+    "SCOPE.json": {
+      "bytes": 3159,
+      "sha256": "d1e3a946b746b6f5d3471724ac9338ec2b0837208690d325305145fe5056d674"
+    },
+    "build.py": {
+      "bytes": 3277,
+      "sha256": "467c12b169311c17f8f619e58979daf8c4b43515f47f597655dcc58e324b49aa"
+    },
+    "gzip_archive.py": {
+      "bytes": 1035,
+      "sha256": "1df0786193650c120d03af69eeff673467377bc572971bb1fb385f7a2f19ee42"
+    }
+  },
+  "logicalBytes": 70378672,
+  "memberCount": 1441,
+  "schema": "1370-k-evidence-archive-manifest-r1"
+}

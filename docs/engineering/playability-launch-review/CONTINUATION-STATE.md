@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1370-L: F0 and EBG raw evidence archived
+
+[1370-L](evidence/p14b4-20260919/1370-L-raw-evidence-archive.md) publishes the independently rebuilt 1,441-object F0 r3/EBG r7/r8 raw-evidence archive. This preserves bytes only; 1370-K focused GREEN candidate and its 416-week limits are unchanged. The AG→E0G and F1 drafts must bind the new clean HEAD before executable review. Production source/main unchanged. HANDOFF gives the next gates.
+
 ## CURRENT — 1370-K: B-only focused GREEN candidate; 416-week controls next
 
 [1370-K](evidence/p14b4-20260919/1370-K-ebg-focused-green-and-controls.md) preserves the independently audited EBG r8 four-stage focused candidate: both type gates, six B-only consumer assertions and 22 whole historical assertions pass with exact source/cleanup. R7's three historical V27 failures and the narrowly reviewed overlay remain visible. The revised AG→E0G/E0G→EBG/EBG→ABG 416-week control ladder is accepted as design only; no B-only long route or C0 protected digest reconciliation exists. Production source/main unchanged; 1363 and P16 incomplete. HANDOFF gives the next gates.

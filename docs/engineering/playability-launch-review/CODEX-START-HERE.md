@@ -1,4 +1,4 @@
-> Current checkpoint: [1370-K](evidence/p14b4-20260919/1370-K-ebg-focused-green-and-controls.md). Read [HANDOFF.md](../../HANDOFF.md) before running any route. EBG focused GREEN is independently audited; B-only 416-week controls remain unrun.
+> Current checkpoint: [1370-L](evidence/p14b4-20260919/1370-L-raw-evidence-archive.md). Read [HANDOFF.md](../../HANDOFF.md) before running any route. EBG focused GREEN and raw bytes are preserved; B-only 416-week controls remain unrun.
 
 # CODEX continuation — Project Studio
 

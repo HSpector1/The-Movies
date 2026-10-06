@@ -1,0 +1,11 @@
+{
+  "decision": "ACCEPT_ARCHIVE_PRESERVATION_ONLY",
+  "gzipSha256": "4026eca5b58355ac2832bdf82c766a5754f6e2ad72ddeac5424fdf69a753456c",
+  "manifestSha256": "f3d39a10ef729b41fb5144bd496bb823f57e3a952f86a9e9d30b8f8ccf0cc4a2",
+  "memberCount": 1441,
+  "membersSha256": "b4f3fbfb603b94e3dcf69cf3dd6dc5beb93fbdff5c21c1073f6d01655ce5ce84",
+  "reviewSha256": "36181978f2feef1aa9aa2c70437c7c994ee68d0b8a01587384989033ab195473",
+  "schema": "1370-k-evidence-archive-independent-review-r1",
+  "scopeSha256": "d1e3a946b746b6f5d3471724ac9338ec2b0837208690d325305145fe5056d674",
+  "tarSha256": "a9cb87a253d483d609cb810a7ca5a1525c0fd438acaf5d383b73e6b9c95448f0"
+}

@@ -1,0 +1,71 @@
+{
+  "notes": "Frozen F0 r3 and EBG r7/r8 source packages, actual outputs and observed review; direct formal records are published separately. No wildcard outside exact roots.",
+  "roots": [
+    {
+      "archivePath": "studio-scratch/1370-c0-f0-film-hold-observer-proposal-r3",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-hold-observer-proposal-r3"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-f0-two-stage-route-proposal-r3",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f0-two-stage-route-proposal-r3"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-f0-two-stage-route-independent-review-r3",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f0-two-stage-route-independent-review-r3"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3"
+    },
+    {
+      "archivePath": "studio-scratch/1370-c0-f0-two-stage-route-recorded-runs-r3",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f0-two-stage-route-recorded-runs-r3"
+    },
+    {
+      "archivePath": "studio-scratch/1369-ebg-r3-green-direct-focused-proposal-r7",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-proposal-r7"
+    },
+    {
+      "archivePath": "studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r7",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r7"
+    },
+    {
+      "archivePath": "studio-scratch/1369-ebg-r3-green-direct-focused-outer-recorded-r7",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-outer-recorded-r7"
+    },
+    {
+      "archivePath": "studio-scratch/1369-ebg-r3-green-direct-focused-proposal-r8",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-proposal-r8"
+    },
+    {
+      "archivePath": "studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r8",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r8"
+    },
+    {
+      "archivePath": "studio-scratch/1369-ebg-r3-green-direct-focused-outer-recorded-r8",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-outer-recorded-r8"
+    },
+    {
+      "archivePath": "studio-scratch/1369-ebg-r8-v27-whole-file-overlay-proposal-r1",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1369-ebg-r8-v27-whole-file-overlay-proposal-r1"
+    },
+    {
+      "archivePath": "studio-scratch/1369-ebg-r8-observed-green-independent-review-r1",
+      "kind": "directory",
+      "source": "/Users/zacheryspector/studio-scratch/1369-ebg-r8-observed-green-independent-review-r1"
+    }
+  ],
+  "schema": "1370-k-evidence-r1"
+}
