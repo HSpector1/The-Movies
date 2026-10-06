@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1370-B: focused Save46 direct control passed; B-only 416-week gates open
+
+[1370-B](evidence/p14b4-20260919/1370-B-save46-direct-control-and-causal-traces.md) preserves the independently reviewed adoption four-arm descriptive comparison and the Save46 direct sequence: first source-types failure on a missing genuine fixture, a functional pass qualified by a scratch typecheck overlap, then an exclusive three-child/four-test pass on the same versioned source. E0G/EBG B-only routes, four C0 protected digest causes and the prospective 720/750 observed acceptance remain open. Source, main and CURRENT-BEST are unchanged; follow HANDOFF for the exact next gate.
+
 ## CURRENT — 1370-A: full preimages and adoption role ladder measured; 1363 still open
 
 [1370-A](evidence/p14b4-20260919/1370-A-historical-preimages-and-adoption-role-diagnostics.md) records independently audited historical and modern C0 full-preimage runs and four guarded adoption-seed types/clean arms. The historical four original digests match; modern C0 differs first in employment at week 0, takes at week 101, and market receipts/settlement at week 208. Adoption rows are C0G48, F6G48, AG48, ABG42; the final drop remains a B+Save46/C-plumbing bundle, not B alone. All runs are exploratory or original-cap diagnostics, not observed acceptance. The reviewed p13a comparator confirms its distinct 40→40→40→18 role ladder. Save46 empty/B-only controls and the prospective 720/750 observed acceptance route remain open; no production source, main, CURRENT-BEST or protected pins changed. HANDOFF owns exact next steps.

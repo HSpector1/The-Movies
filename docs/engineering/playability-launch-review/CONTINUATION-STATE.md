@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1370-B: focused Save46 gate closed; causal ledger still open
+
+[1370-B](evidence/p14b4-20260919/1370-B-save46-direct-control-and-causal-traces.md) records an independently accepted exclusive Save46 source-types, fixture-types and four-case direct result while preserving its failed and overlapped predecessors. The adoption four-arm comparator is independently descriptive-only: C0G48→F6G48 equal, AG48 with a week-215 state change, ABG42 with a B+Save46/C bundle. Four C0 protected content pins and the 416-week B-only controls remain unresolved; no observed acceptance, production landing or main merge follows. Continue from HANDOFF.
+
 ## CURRENT — 1370-A: protected preimage fields located; guarded adoption roles measured
 
 [1370-A](evidence/p14b4-20260919/1370-A-historical-preimages-and-adoption-role-diagnostics.md) preserves independently audited historical and modern C0 full preimages, four original historical digest matches, and separate modern field differences at weeks 0, 101 and 208. Four guarded adoption-seed types/clean arms completed 416 weeks with exact source/formal/cleanup gates and row counts C0G48→F6G48→AG48→ABG42. The six-row drop is still a B+Save46/C-plumbing bundle, not a B-only attribution. A separately reviewed p13a comparator confirms its original-cap 40→40→40→18 ladder. Save46 empty and B-only controls, adoption comparator final input, observed acceptance, 1363 closure and promotion remain open. Source, main, CURRENT-BEST and protected pins are unchanged; resume from HANDOFF.
