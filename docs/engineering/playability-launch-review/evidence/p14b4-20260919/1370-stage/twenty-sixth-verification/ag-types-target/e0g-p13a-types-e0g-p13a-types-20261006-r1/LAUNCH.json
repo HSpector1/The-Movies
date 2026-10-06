@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+    "--noEmit",
+    "-p",
+    "tsconfig.json"
+  ],
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-types-only-proposal-r4/arms/E0G/tree",
+  "pgid": 64187,
+  "pid": 64187,
+  "startNewSession": true
+}

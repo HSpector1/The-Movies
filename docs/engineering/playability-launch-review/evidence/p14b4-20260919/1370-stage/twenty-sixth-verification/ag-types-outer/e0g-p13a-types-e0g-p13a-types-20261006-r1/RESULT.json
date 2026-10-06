@@ -1,0 +1,32 @@
+{
+  "arm": "E0G",
+  "childExit": 0,
+  "childStderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "childStdoutSha256": "84e2e0d1c3d6a33f61dba6bff4ef92199b53897c0065e0bb9d0b16a61cebc2d3",
+  "cleanup": {
+    "64151": true,
+    "64187": true
+  },
+  "deadlineSeconds": 330,
+  "elapsedSeconds": 36.9228578240145,
+  "finishedUtc": "2026-10-06T19:08:14Z",
+  "head": "5bfae40e1c1a68356fca4df601ed398d2b4dec1a",
+  "knownGroups": [
+    64151,
+    64187
+  ],
+  "manifestSha256": "0cfa8742a10498d4ca1c68137ca9cb75e3ed9d3e6e8307764e7b729febed507e",
+  "ownershipErrors": [],
+  "reviewSha256": "fcbf643168b69dd8505d0a08de6414dd2bf0ab3f025c9b6d0bdce6829ece451f",
+  "runId": "e0g-p13a-types-20261006-r1",
+  "schema": "1370-ag-e0g-full-state-types-outer-result-r4",
+  "seed": "p13a-core-causal-01",
+  "stage": "types",
+  "stagePassed": true,
+  "startedMonotonic": 773191.577627229,
+  "status": "STAGE_PASS",
+  "survivedBeforeCleanup": [],
+  "survivors": [],
+  "targetPath": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-types-recorded-r4/e0g-p13a-types-e0g-p13a-types-20261006-r1",
+  "targetResultSha256": "9c0c8d537ee0aa94811638fa37de337e74e1b0d31a3b27d59bba806183feb397"
+}

@@ -1,0 +1,31 @@
+{
+  "arm": "AG",
+  "child": {
+    "elapsedCapSeconds": 300,
+    "exit": 0,
+    "timedOut": false
+  },
+  "childStderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "childStdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "classification": "TYPES_ONLY_DIAGNOSTIC_NOT_CLEAN",
+  "finishedUtc": "2026-10-06T19:07:28Z",
+  "head": "5bfae40e1c1a68356fca4df601ed398d2b4dec1a",
+  "manifestSha256": "0cfa8742a10498d4ca1c68137ca9cb75e3ed9d3e6e8307764e7b729febed507e",
+  "postflight": {
+    "head": "5bfae40e1c1a68356fca4df601ed398d2b4dec1a",
+    "inventorySha256": "f6e004a6bd1b2fa7e3448172acf36958c3b33c94f2205ba8e8639eedde88005a",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "preflight": {
+    "head": "5bfae40e1c1a68356fca4df601ed398d2b4dec1a",
+    "inventorySha256": "f6e004a6bd1b2fa7e3448172acf36958c3b33c94f2205ba8e8639eedde88005a",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "schema": "1370-ag-e0g-full-state-types-leaf-route-r4",
+  "seed": "p13-public-commercial-adoption",
+  "stage": "types",
+  "stagePassed": true,
+  "status": "STAGE_PASS"
+}

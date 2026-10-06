@@ -1,0 +1,11 @@
+# AG→E0G r6 clean-only independent static review
+
+Decision: **ACCEPT_STATIC_CLEAN_ONLY**. This permits only the four pinned 416-week clean capture attempts. It is not an observed clean pass, an AG→E0G neutrality result, a B-only attribution, or 1363 closure.
+
+The frozen 409-file, 30-directory, two-symlink package inventory and 12 external pins all match. Both 200-file arm trees are byte-identical to the independently types-checked r4 arms. Their genuine contract fixture and identical observer test match the pinned hashes. All four exact r4 type target/outer results match the independent observed-types receipt; the prior r3 failed types leaf remains separate.
+
+The four exact lane commands pass Bash syntax, parse into one isolated Python bootstrap each, and the quoted bootstrap code compiles. They cover AG and E0G for both exact seeds, bind the fixed HEAD, manifest, runner/outer bytes and this five-key review receipt, and use fresh run IDs. Runner guards enforce clean-only stage, live HEAD/source tree, clean worktree, remote branch identity, complete package/runtime inventory, and pre/post equivalence. The observer writes 417 full state/save boundaries for 416 natural weeks, tests save export/import admission and caller/RNG purity, checks append-only receipts, and records all output with bounded per-row and total capture size. No clean run has been executed.
+
+The r5 disk defect is repaired in r6: preflight requires 4.25 GiB free (3 GiB retained floor + 1 GiB maximum boundary capture + 256 MiB headroom), the outer loop monitors a 3 GiB floor and 128 MiB combined logs, and both runner and outer check AC power before/after while the outer loop checks during execution. The child/recorder limits remain 300/330 seconds for p13a and separately labeled exploratory 720/750 seconds for adoption. Timeouts and environment breaches fail, and recorded known process groups are terminated and checked for survivors.
+
+At review, the Mac is on Battery Power and has about 3.02 GiB free; the reviewed launch therefore must fail its preflight until AC and disk reserves are restored. Recheck those conditions before attempting a leaf. Each actual result still requires independent observed audit before any neutrality comparison or admission.

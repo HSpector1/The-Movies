@@ -1,0 +1,57 @@
+{
+  "acceptedF1DesignSha256": "c3fa12d6919fab5a0bea468c5d4e6b78aca9122c93f2bf57b511cc35218c9256",
+  "acceptedF1SourceReviewSha256": "39750793422006581c4c49cd7a19359279f64ea4bd8ffc1e4f5dbfde4ca71a57",
+  "activeWholeRouteDeadlineSeconds": 1200,
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "headSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "internalCapsSeconds": {
+    "cleanRecorder": 630,
+    "cleanTest": 600,
+    "types": 300
+  },
+  "objectInventory": {
+    "MANIFEST.json": {
+      "kind": "manifest"
+    },
+    "README.md": {
+      "kind": "file",
+      "sha256": "a67bb547b7ecdca13d5dbb82f459b51402e77772e0192d29c1a94b5f1ed4364a"
+    },
+    "route.py": {
+      "kind": "file",
+      "sha256": "72746891cef46e1cc9c1e99e5f5f41a155d559fcc2e26a84af2af07a53bde580"
+    },
+    "supervisor.py": {
+      "kind": "file",
+      "sha256": "01fb58f10e9ba1ae464bfe8f7b36828e7e93e6049dffa106a094690593dcdf9c"
+    }
+  },
+  "package": "1370-C0-F1-TWO-STAGE-ROUTE-R1",
+  "predecessorF0RouteManifestSha256": "4b645d9aabb138f21dc1752e8c873aeaf61504b2da0c76772fd422d117fc0642",
+  "publishedHead": "5bfae40e1c1a68356fca4df601ed398d2b4dec1a",
+  "routeSha256": "72746891cef46e1cc9c1e99e5f5f41a155d559fcc2e26a84af2af07a53bde580",
+  "sourcePins": {
+    "filmSource": "e02e21bcbfed759d647ebb1afd7e99ba78cfed10670498c41f29b772c6f324ee",
+    "guardLogic": "a4fd160ff3a2f3dc08cfd222000e15b60a12d90f272939f17bdfb02f9b9b205f",
+    "manifest": "2cdcd929748f632c07943d55025d5849bcdf9ded25aff1f0ba1539f27ca0c777",
+    "review": "358470bb104f45b5cdf14b749d6affd31a52750e15742695469a72de80409c13",
+    "reviewMd": "39750793422006581c4c49cd7a19359279f64ea4bd8ffc1e4f5dbfde4ca71a57",
+    "runner": "f4217cc10702c774eb243be69dc3f444cb2aa5302bd5ada7af4254992872e81c"
+  },
+  "stageDeadlinesSeconds": {
+    "clean": 690,
+    "types": 360
+  },
+  "stages": [
+    [
+      "f1",
+      "types"
+    ],
+    [
+      "f1",
+      "clean"
+    ]
+  ],
+  "status": "STATIC_PROPOSAL_AWAITING_INDEPENDENT_REVIEW",
+  "supervisorSha256": "01fb58f10e9ba1ae464bfe8f7b36828e7e93e6049dffa106a094690593dcdf9c"
+}

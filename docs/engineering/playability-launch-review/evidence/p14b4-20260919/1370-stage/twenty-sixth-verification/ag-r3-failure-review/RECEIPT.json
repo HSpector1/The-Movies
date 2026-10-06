@@ -1,0 +1,7 @@
+{
+  "decision": "CONFIRMED_TYPES_FAILURE_MISSING_ORIGINAL_FIXTURE",
+  "manifestSha256": "e8e62977589983b879af994eea850fe858b09c0f1635da7ee4c4088c9d4dcdcd",
+  "outerResultSha256": "6df3dc59dc6ef72bf66c93ce347e651bc88bd6504afd1271152b728ba998bb51",
+  "reviewSha256": "3ff26ce2a14fe03eb305798752c416ba86f8d6c967c409b315beba3b97908cfb",
+  "targetResultSha256": "9a480cc98ed600ff6d246f3c235cd96b2402f2414d0f634226ff6e1c8690be77"
+}

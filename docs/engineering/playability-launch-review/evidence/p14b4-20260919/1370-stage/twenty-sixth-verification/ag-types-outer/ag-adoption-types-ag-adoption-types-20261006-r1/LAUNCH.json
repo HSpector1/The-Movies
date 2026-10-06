@@ -1,0 +1,6 @@
+{
+  "commandKind": "authenticated immutable runner bootstrap",
+  "pgid": 59250,
+  "pid": 59250,
+  "startNewSession": true
+}

@@ -1,0 +1,19 @@
+{
+  "archive": "/Users/zacheryspector/studio-scratch/1370-save46-nine-superseded-archive-proposal-r1/starter-r7-interrupted-01.tar.gz",
+  "compressedBytes": 10606035,
+  "counts": {
+    "directory": 51,
+    "file": 1095,
+    "symlink": 0
+  },
+  "fullInventoryGzipSha256": "a31786e333df4e13e43dbf7b59d749327263ee075c6cfedc5fc8134e2c03941b",
+  "fullInventoryRawSha256": "53613e2992e8f57bc1abbe128c60b5e9049bbd947bd1d814c9dee9a34d87be78",
+  "logicalFileBytes": 57847534,
+  "members": 1146,
+  "restoreCommand": "mkdir -p /ABSOLUTE/RESTORE/TARGET && tar -xzf /Users/zacheryspector/studio-scratch/1370-save46-nine-superseded-archive-proposal-r1/starter-r7-interrupted-01.tar.gz -C /ABSOLUTE/RESTORE/TARGET",
+  "scope": [
+    "1368-save46-swept-proposal-r7-interrupted-01"
+  ],
+  "sha256": "f6f08c4826392ed5bcce9a8e000a13591b04b55d2585ada48d05c92e216c2279",
+  "subsetInventorySha256": "3be92db4b2593b66cec0b4b7cd2fc8859e1bc60efbc944e2720b766bfe7c23cd"
+}

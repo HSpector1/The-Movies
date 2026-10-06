@@ -1,0 +1,12 @@
+{
+  "arm": "f1",
+  "elapsedSeconds": 2.9233970179921016,
+  "externalTimedOut": false,
+  "launcherExit": 1,
+  "leaf": "f1-film-20261006-r1-f1-types",
+  "mode": "types",
+  "output": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-recorded-runs-r2/f1-types-f1-film-20261006-r1-f1-types",
+  "stderrSha256": "4532110d3d766a7801217e21ec53f2fff0740e2b37c4eba41b10cd1374a0c183",
+  "stdoutSha256": "98170a9c7da7261a4ecfd67323b156d4e18880c062d19db6e6a4b3dfae9e64ca",
+  "timeoutCleanup": null
+}

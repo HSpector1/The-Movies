@@ -1,0 +1,23 @@
+{
+  "accepted": false,
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "failure": "stage child failed or external deadline",
+  "head": "5bfae40e1c1a68356fca4df601ed398d2b4dec1a",
+  "interpretation": "Exploratory F1 film-hold observer evidence only; independent result audit required.",
+  "package": "1370-C0-F1-TWO-STAGE-ROUTE-R1",
+  "runId": "f1-film-20261006-r2",
+  "stages": [
+    {
+      "arm": "f1",
+      "elapsedSeconds": 2.6966804990079254,
+      "externalTimedOut": false,
+      "launcherExit": 1,
+      "leaf": "f1-film-20261006-r2-f1-types",
+      "mode": "types",
+      "output": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-recorded-runs-r2/f1-types-f1-film-20261006-r2-f1-types",
+      "stderrSha256": "f6c070ec77db7c044cdf754351643a7799d3523e907f65de7ae518f09f8801ae",
+      "stdoutSha256": "98170a9c7da7261a4ecfd67323b156d4e18880c062d19db6e6a4b3dfae9e64ca",
+      "timeoutCleanup": null
+    }
+  ]
+}

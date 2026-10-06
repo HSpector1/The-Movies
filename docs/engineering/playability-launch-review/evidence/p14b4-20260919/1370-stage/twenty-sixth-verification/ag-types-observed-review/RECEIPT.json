@@ -1,0 +1,24 @@
+{
+  "decision": "ACCEPT_OBSERVED_TYPES_ONLY",
+  "manifestSha256": "0cfa8742a10498d4ca1c68137ca9cb75e3ed9d3e6e8307764e7b729febed507e",
+  "outerResults": {
+    "ag-adoption-types-ag-adoption-types-20261006-r1": "9109be566301fee947885e2626bb4edf503bc89b3e79a79f86b8ccf1c610236b",
+    "ag-p13a-types-ag-p13a-types-20261006-r2": "80f7f6a108d619178478bb1b4026e864692fd63fffb5047f9bdffbc966c771c5",
+    "e0g-adoption-types-e0g-adoption-types-20261006-r1": "cc24ee9452abd0125aef7c21b5664c3c8291b02ff7e71fee102643fbe6ed2af8",
+    "e0g-p13a-types-e0g-p13a-types-20261006-r1": "74bdd36b7a0c3a1543224192af9139fdc0f15e0596e4fd0340b1ac51c2955a5b"
+  },
+  "reportSha256": "507378880500c6d7f1091835918ba3be92643b230e32163f27418ab8af97f310",
+  "reviewReceiptSha256": "fcbf643168b69dd8505d0a08de6414dd2bf0ab3f025c9b6d0bdce6829ece451f",
+  "runIds": [
+    "ag-adoption-types-ag-adoption-types-20261006-r1",
+    "ag-p13a-types-ag-p13a-types-20261006-r2",
+    "e0g-adoption-types-e0g-adoption-types-20261006-r1",
+    "e0g-p13a-types-e0g-p13a-types-20261006-r1"
+  ],
+  "targetResults": {
+    "ag-adoption-types-ag-adoption-types-20261006-r1": "6268df61f75d1dc508f773be1ccd6b8ae0c24abee91c63c4bc89f3d5be30ac09",
+    "ag-p13a-types-ag-p13a-types-20261006-r2": "19970bd28d8c2cb06eea285cc1a9d6875254794ba4e0df920fe3f387db299971",
+    "e0g-adoption-types-e0g-adoption-types-20261006-r1": "bdf40a42c8519f47fe051861c1c913aae4dfd217e0bfddcbc6b31b31575b048f",
+    "e0g-p13a-types-e0g-p13a-types-20261006-r1": "9c0c8d537ee0aa94811638fa37de337e74e1b0d31a3b27d59bba806183feb397"
+  }
+}

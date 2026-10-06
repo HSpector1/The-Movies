@@ -1,0 +1,9 @@
+# AG→E0G r5 clean-only static review
+
+Decision: **REFINE**. Do not launch r5 clean leaves.
+
+The frozen manifest SHA-256 is `c7d7be038f245654be7727d426fbe40d99fea5b471dbc34c3df144c9969a53a3`, runner `25989b022f285af36d610828b18f0c4351fc5f2616dab7275c013bc765471e00`, outer `47177d4281d5099b08eb399f2b352cc84f43680d37ca56ff68fe472611e78256`, and exact command file `6fb5ab145b37cc87a726797d8167913492dd75bd6cf616727f0bd6c27cf3b177`. `bash -n` passed the four-command file. The code retains the p13a 300/330-second and adoption exploratory 720/750-second caps, a 416-week/417-boundary capture, and the r4 observed-types receipt binding. This review stops at the concrete launch-safety defect below; it does not grant complete static acceptance.
+
+At review, `df -k` reported `3,174,268` KiB available, just `28,540` KiB above the 3 GiB minimum-free floor. The observer permits up to 1 GiB of boundary data in a single leaf, plus summary, progress, Vitest, and process logs. The exact r5 bootstrap and runner/outer have no preflight reserve for that bounded output and no continuous free-space check. A clean leaf can therefore pass initial identity checks while exhausting the floor mid-capture. Four retained leaves can compound that risk. The existing F1 recorded heavy route also uses AC and minimum-free guards; r5 has neither.
+
+Version a new immutable package. Before each launch require available space for the retained 3 GiB floor plus the maximum permitted capture and a stated margin for other outputs, then monitor free space during execution and fail closed while preserving evidence. Apply the established AC pre/post checks for long recorded routes. Re-review the full new package and exact command bytes independently before any clean run. A failed or stopped route remains a failure, and the prior r4 type result establishes types only.

@@ -1,0 +1,32 @@
+{
+  "arm": "AG",
+  "childExit": 0,
+  "childStderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "childStdoutSha256": "8115b5293cb32d4353e34f1ca37a171e559507ee186daca7402c33ed38e037d1",
+  "cleanup": {
+    "59250": true,
+    "60536": true
+  },
+  "deadlineSeconds": 330,
+  "elapsedSeconds": 49.85802198096644,
+  "finishedUtc": "2026-10-06T19:07:28Z",
+  "head": "5bfae40e1c1a68356fca4df601ed398d2b4dec1a",
+  "knownGroups": [
+    59250,
+    60536
+  ],
+  "manifestSha256": "0cfa8742a10498d4ca1c68137ca9cb75e3ed9d3e6e8307764e7b729febed507e",
+  "ownershipErrors": [],
+  "reviewSha256": "fcbf643168b69dd8505d0a08de6414dd2bf0ab3f025c9b6d0bdce6829ece451f",
+  "runId": "ag-adoption-types-20261006-r1",
+  "schema": "1370-ag-e0g-full-state-types-outer-result-r4",
+  "seed": "p13-public-commercial-adoption",
+  "stage": "types",
+  "stagePassed": true,
+  "startedMonotonic": 773132.558200084,
+  "status": "STAGE_PASS",
+  "survivedBeforeCleanup": [],
+  "survivors": [],
+  "targetPath": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-types-recorded-r4/ag-adoption-types-ag-adoption-types-20261006-r1",
+  "targetResultSha256": "6268df61f75d1dc508f773be1ccd6b8ae0c24abee91c63c4bc89f3d5be30ac09"
+}

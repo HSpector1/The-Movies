@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "<string>", line 17, in <module>
+    exec(compile(code,str(runner),"exec"),{"__name__":"__main__","__file__":str(runner),"_EXTERNAL_EXECUTED_RUNNER_BYTES":code,"_EXTERNAL_REVIEW_BYTES":rb})
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-proposal-r2/runner.py", line 363, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-proposal-r2/runner.py", line 278, in main
+    power=ac_power(); stem='1370-c0-f1-film-control-r2-'+tag
+  File "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-proposal-r2/runner.py", line 128, in ac_power
+    assert "Now drawing from 'AC Power'" in output,'AC power required'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: AC power required

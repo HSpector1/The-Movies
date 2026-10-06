@@ -1,0 +1,9 @@
+# Independent archive audit: 1368-save46-swept-proposal-r7-interrupted-01
+
+Decision: **SAFE_TO_DELETE_ONLY_NAMED_SUPERSEDED_ROOT_AFTER_KEEPING_ARCHIVE**. This applies only to `/Users/zacheryspector/studio-scratch/1368-save46-swept-proposal-r7-interrupted-01`. No original was deleted during this review. Preserve the archive, inventories, verification result, and this review.
+
+The `starter-r7-interrupted-01.tar.gz` archive is 10,606,035 bytes with SHA-256 `f6f08c4826392ed5bcce9a8e000a13591b04b55d2585ada48d05c92e216c2279`. I independently read every tar member and compared type, Unix mode, size, and file SHA-256 with the subset inventory SHA-256 `3be92db4b2593b66cec0b4b7cd2fc8859e1bc60efbc944e2720b766bfe7c23cd` and the live original root. All 1,146 members match: 1,095 files and 51 directories, 57,847,534 logical file bytes, no symlinks, hard links, special members, duplicate names, absolute paths, or traversal components. The live root has exactly the same named entries, hashes, sizes, modes, and types.
+
+The full nine-root inventory gzip SHA-256 is `a31786e333df4e13e43dbf7b59d749327263ee075c6cfedc5fc8134e2c03941b` and its decompressed raw SHA-256 is `53613e2992e8f57bc1abbe128c60b5e9049bbd947bd1d814c9dee9a34d87be78`; its subset for this root equals the dedicated subset inventory. The tar contains only the one named root. The nine-root index includes an `r8-preliminary` proposal, while this tar contains no final r8 or recorded result root. The full inventory is an index, not an archive of the other eight roots.
+
+The recorded restore command creates an absolute target directory and extracts the tar into it. Every member has the same single relative root prefix, so extraction reconstructs `1368-save46-swept-proposal-r7-interrupted-01` below that target. Restored content and modes are covered by this audit; timestamps and ownership are outside the inventory contract. A future restore should rehash against the subset inventory.

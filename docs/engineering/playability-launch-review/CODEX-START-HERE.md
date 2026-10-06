@@ -1,4 +1,4 @@
-> Current checkpoint: [1370-L](evidence/p14b4-20260919/1370-L-raw-evidence-archive.md). Read [HANDOFF.md](../../HANDOFF.md) before running any route. EBG focused GREEN and raw bytes are preserved; B-only 416-week controls remain unrun.
+> Current checkpoint: [1370-M](evidence/p14b4-20260919/1370-M-types-clean-package-and-storage.md). Read [HANDOFF.md](../../HANDOFF.md) before running any route. Four AG/E0G type leaves passed; clean capture remains unrun pending AC, space and new HEAD binding. EBG focused GREEN is still a candidate only; B-only 416-week controls remain unrun.
 
 # CODEX continuation — Project Studio
 

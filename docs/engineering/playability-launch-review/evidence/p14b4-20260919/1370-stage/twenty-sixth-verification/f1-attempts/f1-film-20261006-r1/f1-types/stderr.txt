@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "<string>", line 17, in <module>
+    exec(compile(code,str(runner),"exec"),{"__name__":"__main__","__file__":str(runner),"_EXTERNAL_EXECUTED_RUNNER_BYTES":code,"_EXTERNAL_REVIEW_BYTES":rb})
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-proposal-r2/runner.py", line 363, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-proposal-r2/runner.py", line 277, in main
+    assert shutil.disk_usage(ROOT).free>=manifest()['minimumFreeBytes']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

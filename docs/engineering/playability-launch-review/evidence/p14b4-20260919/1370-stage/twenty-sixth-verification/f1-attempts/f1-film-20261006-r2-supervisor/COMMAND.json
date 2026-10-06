@@ -1,0 +1,21 @@
+{
+  "activeWholeRouteDeadlineSeconds": 1200,
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "-c",
+    "import base64,hashlib,json,os,sys\nfrom pathlib import Path\nassert sys.flags.isolated and sys.dont_write_bytecode\nroot=Path(\"/Users/zacheryspector/studio-scratch/1370-c0-f1-two-stage-route-proposal-r1\")\nreview=Path(\"/Users/zacheryspector/studio-scratch/1370-c0-f1-two-stage-route-independent-review-r1/RECEIPT.json\")\nmanifest_pin,route_pin,supervisor_pin,review_pin=sys.argv[1:5]\nsha=lambda b:hashlib.sha256(b).hexdigest()\nassert str(root) not in sys.path and not root.is_symlink()\nmb=(root/\"MANIFEST.json\").read_bytes(); assert sha(mb)==manifest_pin\ncode=(root/\"route.py\").read_bytes(); assert sha(code)==route_pin\nsb=(root/\"supervisor.py\").read_bytes(); assert sha(sb)==supervisor_pin\nrb=base64.b64decode(os.environ[\"F1_ROUTE_REVIEW_B64\"],validate=True); assert sha(rb)==review_pin\nassert review.read_bytes()==rb\nassert json.loads(rb)=={\"decision\":\"ACCEPT\",\"package\":\"1370-C0-F1-TWO-STAGE-ROUTE-R1\",\"classification\":\"EXPLORATORY_NOT_ACCEPTANCE\",\"manifestSha256\":manifest_pin,\"routeSha256\":route_pin,\"supervisorSha256\":supervisor_pin}\nos.environ[\"F1_ROUTE_EXTERNAL_MANIFEST_SHA256\"]=manifest_pin\nsys.argv=[str(root/\"route.py\"),*sys.argv[5:]]\nexec(compile(code,str(root/\"route.py\"),\"exec\"),{\"__name__\":\"__main__\",\"__file__\":str(root/\"route.py\"),\"_EXTERNAL_EXECUTED_ROUTE_BYTES\":code,\"_EXTERNAL_ROUTE_REVIEW_BYTES\":rb})",
+    "d435e81ef6fed39c812940ea4bb7980c9394f1eb270301a728918c37b031ddba",
+    "72746891cef46e1cc9c1e99e5f5f41a155d559fcc2e26a84af2af07a53bde580",
+    "01fb58f10e9ba1ae464bfe8f7b36828e7e93e6049dffa106a094690593dcdf9c",
+    "f80e48ae4f81df61f6a47ba9be0706360a940d67bc7d09d9e0ffde07ad3ce8b8",
+    "--head",
+    "5bfae40e1c1a68356fca4df601ed398d2b4dec1a",
+    "--run-id",
+    "f1-film-20261006-r2",
+    "--route-review-sha256",
+    "f80e48ae4f81df61f6a47ba9be0706360a940d67bc7d09d9e0ffde07ad3ce8b8"
+  ],
+  "startedMonotonic": 772301.300522484
+}

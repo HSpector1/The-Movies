@@ -1,0 +1,23 @@
+{
+  "accepted": false,
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "elapsedSeconds": 5.970682441955432,
+  "error": "AssertionError()",
+  "groupStopResults": {
+    "27618": true,
+    "27656": true
+  },
+  "head": "5bfae40e1c1a68356fca4df601ed398d2b4dec1a",
+  "knownProcessGroups": [
+    27618,
+    27656
+  ],
+  "noSurvivors": false,
+  "observedLeaves": [],
+  "ownershipComplete": false,
+  "package": "1370-C0-F1-TWO-STAGE-ROUTE-R1",
+  "receiptErrors": [],
+  "routeExit": 1,
+  "runId": "f1-film-20261006-r2",
+  "timedOut": false
+}

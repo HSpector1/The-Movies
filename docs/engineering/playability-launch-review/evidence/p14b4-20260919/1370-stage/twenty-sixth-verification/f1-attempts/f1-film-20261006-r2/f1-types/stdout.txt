@@ -1,0 +1,1 @@
+STATIC_CHECK_PASS: 200 equal files, one exact five-condition F1 source hunk, F0 observer unchanged

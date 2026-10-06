@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "-c",
+    "import hashlib,json,os,sys\nfrom pathlib import Path\nassert sys.flags.isolated and sys.dont_write_bytecode\nroot=Path(\"/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-proposal-r2\")\nrunner=root/\"runner.py\"; manifest=root/\"MANIFEST.json\"\nreview=Path(\"/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-source-independent-review-r2/RECEIPT.json\")\nmanifest_pin,runner_pin,review_pin=sys.argv[1:4]\nsha=lambda b:hashlib.sha256(b).hexdigest()\nassert str(root) not in sys.path and not root.is_symlink()\nmb=manifest.read_bytes(); assert sha(mb)==manifest_pin\ncode=runner.read_bytes(); assert sha(code)==runner_pin\nrb=review.read_bytes(); assert sha(rb)==review_pin\nassert json.loads(rb)=={\"decision\":\"ACCEPT\",\"package\":\"1370-C0-F1-FILM-CONTROL-R2\",\"classification\":\"EXPLORATORY_NOT_ACCEPTANCE\",\"manifestSha256\":manifest_pin,\"runnerSha256\":runner_pin}\nos.environ[\"C0_F1_FILM_CONTROL_R2_EXTERNAL_MANIFEST_SHA256\"]=manifest_pin\nos.environ[\"C0_F1_FILM_CONTROL_R2_EXTERNAL_REVIEW_SHA256\"]=review_pin\nsys.argv=[str(runner),*sys.argv[4:]]\nexec(compile(code,str(runner),\"exec\"),{\"__name__\":\"__main__\",\"__file__\":str(runner),\"_EXTERNAL_EXECUTED_RUNNER_BYTES\":code,\"_EXTERNAL_REVIEW_BYTES\":rb})",
+    "2cdcd929748f632c07943d55025d5849bcdf9ded25aff1f0ba1539f27ca0c777",
+    "f4217cc10702c774eb243be69dc3f444cb2aa5302bd5ada7af4254992872e81c",
+    "358470bb104f45b5cdf14b749d6affd31a52750e15742695469a72de80409c13",
+    "types",
+    "--arm",
+    "f1",
+    "--head",
+    "5bfae40e1c1a68356fca4df601ed398d2b4dec1a",
+    "--manifest-sha256",
+    "2cdcd929748f632c07943d55025d5849bcdf9ded25aff1f0ba1539f27ca0c777",
+    "--self-runner-sha256",
+    "f4217cc10702c774eb243be69dc3f444cb2aa5302bd5ada7af4254992872e81c",
+    "--leaf",
+    "f1-film-20261006-r2-f1-types",
+    "--static-review-receipt",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-source-independent-review-r2/RECEIPT.json",
+    "--static-review-sha256",
+    "358470bb104f45b5cdf14b749d6affd31a52750e15742695469a72de80409c13"
+  ],
+  "externalDeadlineSeconds": 360
+}

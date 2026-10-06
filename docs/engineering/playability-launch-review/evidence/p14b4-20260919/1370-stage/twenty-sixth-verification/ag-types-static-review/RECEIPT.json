@@ -1,0 +1,7 @@
+{
+  "commandSha256": "11b294565adbd74396b1dfe956260f584d6e31b2920ecb79f6da486950dedc3d",
+  "decision": "ACCEPT_STATIC_TYPES_ONLY",
+  "manifestSha256": "0cfa8742a10498d4ca1c68137ca9cb75e3ed9d3e6e8307764e7b729febed507e",
+  "outerSha256": "8a27af96f974412932091ee8f163550d5efcdcbb356f334eef6ce62f630f44eb",
+  "runnerSha256": "045baed3966328a88817be69bcdc157efe252d506e8a912a496fec0fbe0d3600"
+}

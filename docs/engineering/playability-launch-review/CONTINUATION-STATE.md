@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1370-M: four AG/E0G type leaves observed; clean capture held
+
+[1370-M](evidence/p14b4-20260919/1370-M-types-clean-package-and-storage.md) publishes the independently audited four AG/E0G p13a/adoption TypeScript passes, preserves the r3 fixture failure, r5 disk-safety REFINE and two F1 preflight failures, and records an independently static-approved r6 clean-only package. No 416-week AG/E0G clean capture or neutrality comparison ran because AC and 4.25 GiB free space are absent. The verified starter archive preserves one removed superseded temporary root; APFS shared extents freed only ~4 MiB, so cleanup stopped. After this docs checkpoint r6/F1 require fresh HEAD binding. Production source/main unchanged; HANDOFF gives exact gates.
+
 ## CURRENT — 1370-L: F0 and EBG raw evidence archived
 
 [1370-L](evidence/p14b4-20260919/1370-L-raw-evidence-archive.md) publishes the independently rebuilt 1,441-object F0 r3/EBG r7/r8 raw-evidence archive. This preserves bytes only; 1370-K focused GREEN candidate and its 416-week limits are unchanged. The AG→E0G and F1 drafts must bind the new clean HEAD before executable review. Production source/main unchanged. HANDOFF gives the next gates.

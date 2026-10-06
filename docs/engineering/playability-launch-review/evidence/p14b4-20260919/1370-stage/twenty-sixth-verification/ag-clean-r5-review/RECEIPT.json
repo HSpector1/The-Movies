@@ -1,0 +1,11 @@
+{
+  "commandSha256": "6fb5ab145b37cc87a726797d8167913492dd75bd6cf616727f0bd6c27cf3b177",
+  "decision": "REFINE",
+  "freeKiBAtReview": 3174268,
+  "manifestSha256": "c7d7be038f245654be7727d426fbe40d99fea5b471dbc34c3df144c9969a53a3",
+  "marginAbove3GiBKiB": 28540,
+  "outerSha256": "47177d4281d5099b08eb399f2b352cc84f43680d37ca56ff68fe472611e78256",
+  "reason": "missing disk reserve and monitoring for up-to-1GiB clean capture; missing established AC guard",
+  "reportSha256": "7a87d5ee69f8d5f5cfb8bf17a648d55acf0cb4dac7f731fcc2da0d44b208c8c5",
+  "runnerSha256": "25989b022f285af36d610828b18f0c4351fc5f2616dab7275c013bc765471e00"
+}

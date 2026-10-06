@@ -1,0 +1,8 @@
+{
+  "decision": "CONFIRMED_PREFLIGHT_AC_POWER_FAILURE",
+  "retry": "FRESH_RUN_ID_ONLY_AFTER_AC_RESTORED_AND_ALL_GUARDS_PASS",
+  "reviewSha256": "fa1bcaaa9da9ca6cf4e580ebb7f4e95a8d835223dbcf7c92a1f97bce31a477df",
+  "routeManifestSha256": "d435e81ef6fed39c812940ea4bb7980c9394f1eb270301a728918c37b031ddba",
+  "routeResultSha256": "3a362bcc20ec07aef52228d767fd294e12f1c612cc51cfb8638063f697d6d9ac",
+  "supervisorResultSha256": "3b153ca83b6416625d11f59a20ee71a7d60eb381e1ee95f97f067c0f71d81b33"
+}
