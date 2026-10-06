@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1370-E: E0G B-only RED observed; C0 evidence archived
+
+[1370-E](evidence/p14b4-20260919/1370-E-e0g-red-and-c0-archive.md) preserves the independently audited E0G B-only RED: types passed, the no-C control passed, and five assertions failed on the missing B episode; populated-B Save46 behavior remains untested. The exact twenty-third archive preserves C0 C/D scratch evidence. S1 salary control is static-reviewed but unrun. B-only 416-week attribution, C0 causal reconciliation, prospective observed acceptance, 1363 closure, source landing and main merge remain open. HANDOFF gives the next exact gate.
+
 ## CURRENT — 1370-D: exact C0 observer differences, no causal admission
 
 [1370-D](evidence/p14b4-20260919/1370-D-c0-observer-comparison.md) records an independently recomputed source-order comparison on the completed C0 observer. The salary age-floor quote is visible, film10 first takes differ at weeks 101/114, and week-208 market/settlement outcomes differ. The four protected digests still need controlled attribution; the Save46 E0G RED route awaits a reviewed launcher. HANDOFF has the exact next step and preserves failed reviews.

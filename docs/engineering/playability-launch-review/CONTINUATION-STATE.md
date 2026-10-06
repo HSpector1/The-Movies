@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1370-E: E0G B-only RED observed; C0 C/D archive preserved
+
+[1370-E](evidence/p14b4-20260919/1370-E-e0g-red-and-c0-archive.md) records an independently audited E0G B-only RED: source/fixture types exited zero, one no-C control passed, and five assertions failed because the B episode was absent. The three Save46 assertions stopped at a real-episode precondition, so no populated-B Save46 behavior is claimed. The reviewed twenty-third archive preserves exact C0 observer/comparator scratch bytes and 20 formal records. S1 salary control is static accepted but unrun; C0 four-digest causality, B-only 416-week controls, prospective 720/750 observed acceptance, 1363 closure and main promotion remain open. Continue from HANDOFF.
+
 ## CURRENT — 1370-D: C0 comparison audited by occurrence; causes remain open
 
 [1370-D](evidence/p14b4-20260919/1370-D-c0-observer-comparison.md) preserves the independently audited read-only comparison of the C0 historical/modern observer. It verifies complete artifact inventories and occurrence-matched differences: employment 44/44, takes 51/53, market receipts 164/156 and settlement 40/40. Week-zero salary, later film hold/take and week-208 market branches are located but not isolated as terminal causes. No protected repin, B-only result, observed acceptance, 1363 closure or main merge follows. Continue from HANDOFF.

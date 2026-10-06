@@ -1,0 +1,101 @@
+{
+  "accepted": false,
+  "elapsedSeconds": 120.82462969608605,
+  "executedTreeSha256": "54fa4aa4367982e4290f3ce9c26cf970cee032b1ab545c879dba0df3e2fbcbb9",
+  "executionTreePostflightSha256": "54fa4aa4367982e4290f3ce9c26cf970cee032b1ab545c879dba0df3e2fbcbb9",
+  "executionTreeUnchanged": true,
+  "finishedUtc": "2026-10-06T16:49:13Z",
+  "fixturePassed": true,
+  "guardsAfter": {
+    "overlayFiles": 5,
+    "packageFiles": 12,
+    "packageManifestSha256": "da2cb88654932e6f5f212576ec10a2a56ff9a29adead3dcfc0e753020e254a00",
+    "repoHead": "69e63af6cb4751b155c4ac280b7cb2d810fe639e",
+    "sourceFiles": 197,
+    "sourceManifestSha256": "21df0988f808b4468ea19866949d354d29c49a1f9556ab87e9add1396289ab8d"
+  },
+  "guardsBefore": {
+    "overlayFiles": 5,
+    "packageFiles": 12,
+    "packageManifestSha256": "da2cb88654932e6f5f212576ec10a2a56ff9a29adead3dcfc0e753020e254a00",
+    "repoHead": "69e63af6cb4751b155c4ac280b7cb2d810fe639e",
+    "sourceFiles": 197,
+    "sourceManifestSha256": "21df0988f808b4468ea19866949d354d29c49a1f9556ab87e9add1396289ab8d"
+  },
+  "redCandidate": true,
+  "runtimePostflightSha256": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+  "runtimeSha256": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+  "runtimeUnchanged": true,
+  "sourceAndRepoUnchanged": true,
+  "sourcePassed": true,
+  "startedUtc": "2026-10-06T16:47:08Z",
+  "status": "OBSERVED_RED_CANDIDATE",
+  "steps": {
+    "fixtureTypes": {
+      "cleanupSucceeded": true,
+      "command": [
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.b-only-red.json"
+      ],
+      "exit": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "survivedBeforeCleanup": false,
+      "survivingProcessGroup": false,
+      "timedOut": false
+    },
+    "redVitest": {
+      "cleanupSucceeded": true,
+      "command": [
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "vitest.b-only-red.config.ts",
+        "--reporter=json",
+        "--outputFile",
+        "/Users/zacheryspector/studio-scratch/1369-e0g-b-only-red-external-recorded-r5/package/runs/e0g-red-r1/vitest.json"
+      ],
+      "exit": 1,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "c83b7f1174c97f6a1c0706040e148365638d8ebc7dbad546979aa7d3136df887",
+      "survivedBeforeCleanup": false,
+      "survivingProcessGroup": false,
+      "timedOut": false
+    },
+    "sourceTypes": {
+      "cleanupSucceeded": true,
+      "command": [
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.json"
+      ],
+      "exit": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "survivedBeforeCleanup": false,
+      "survivingProcessGroup": false,
+      "timedOut": false
+    }
+  },
+  "testPass": false,
+  "vitestSha256": "76cfabbd47837a14b99859dced445f267b0080ce736f959c28383d642d96d531",
+  "vitestSummary": {
+    "candidateReason": "named episode assertion failed; independent review must verify exact failure messages",
+    "failed": 5,
+    "failedNames": [
+      "B cost cutting through the public weekly world enters after a scheduled cash-closed decision and retains its dated episode",
+      "B cost cutting through the public weekly world ends real contracts with exact charge and receipt, without a post-episode hire or renewal",
+      "B episode authority through current Save46 consumers saves, validates, loads and resaves an actual non-null episode without erasing it",
+      "B episode authority through current Save46 consumers refuses to erase a real B episode in a V46 to V45 downgrade",
+      "B episode authority through current Save46 consumers keeps zero refund and refuses C disposal even with an actual B episode"
+    ],
+    "passed": 1,
+    "total": 6
+  }
+}

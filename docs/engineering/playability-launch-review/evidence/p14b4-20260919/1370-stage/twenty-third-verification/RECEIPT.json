@@ -1,0 +1,8 @@
+{
+  "decision": "ACCEPT_ARCHIVE_SCOPE_ONLY",
+  "package": "1370-CD-EVIDENCE-ARCHIVE-R1",
+  "buildSha256": "86b3408899d66a7b4fc2fb07ffc2d68b074f52e617d4680b4130d289e181458c",
+  "manifestSha256": "11087369c3d52c8eae19017942f9c17f1e398583d46d387011935de39a456f68",
+  "archiveSha256": "00f6888a1ea3c7a8209d3194010ec0d0dcaad77dd0664da234df6dae45712a19",
+  "members": 560
+}

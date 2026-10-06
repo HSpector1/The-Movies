@@ -1,0 +1,12 @@
+{
+  "archiveSha256": "00f6888a1ea3c7a8209d3194010ec0d0dcaad77dd0664da234df6dae45712a19",
+  "compressedBytes": 5204705,
+  "directories": 53,
+  "logicalBytes": 52416773,
+  "members": 560,
+  "membersSha256": "dc13613225440452ee879c73e1c836d2e90b08dd7ed2f71e7283aefc40a7c874",
+  "regular": 505,
+  "schema": "1370-cd-evidence-archive-r1",
+  "scopeSha256": "3cc2a9ad78cf4d587728abb07334b7058cc427ba348ef86b3252894265caf577",
+  "symlinks": 2
+}

@@ -1,0 +1,8 @@
+{
+  "decision": "ACCEPT_OBSERVED_RED_ONLY",
+  "head": "69e63af6cb4751b155c4ac280b7cb2d810fe639e",
+  "outerResultSha256": "27059b56fb53bc1654b64b153abb5cbdfa5c2c3d0d04e8e5c979d848e97da35b",
+  "supervisorResultSha256": "fabf11588ff3c08440319bf34092cb01b745b9973bb371be50372795487edc3e",
+  "targetResultSha256": "09434c741f84e6709cb67c668493292d67d3e5edae6538391abb9427d513b7aa",
+  "vitestSha256": "76cfabbd47837a14b99859dced445f267b0080ce736f959c28383d642d96d531"
+}
