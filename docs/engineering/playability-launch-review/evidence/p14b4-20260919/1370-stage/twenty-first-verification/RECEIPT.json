@@ -1,0 +1,22 @@
+{
+  "allMembersRehashedAgainstLiveSource": true,
+  "archiveBytes": 12522880,
+  "archiveSha256": "888eb31c4e63981367d9a8058dc7ceb140ef53b2161b387f2ec45217bdcc9072",
+  "builderSha256": "51c10e3de89786b64cbe19132a4afb34c1b532a350976f63a1185f74f1ca5fb5",
+  "decision": "ACCEPT_BYTE_AND_SCOPE_READBACK",
+  "deterministicRebuildByteIdentical": true,
+  "directories": 138,
+  "limits": [
+    "Archive integrity and selected scope only; no underlying gameplay or source acceptance."
+  ],
+  "logicalBytes": 109837991,
+  "manifestSha256": "68c11894625e1cbf318b11082600e7588b2fdc48d2668e6dc6d91cf09ac4b746",
+  "members": 1603,
+  "membersSha256": "a06815dec64d5da54e6888c4015ce95413a82489cf72fbfb2810554e7520f26e",
+  "regular": 1459,
+  "reviewSha256": "c2f3d3cc7dcdfe65db794ef81a1685c241c16a8e3d6521eea555c7f967f4ba64",
+  "schema": "1370-a-twenty-first-archive-independent-readback-r1",
+  "scopeSha256": "4e820ace740107f664061bf6ac64eaa4447700bef4d60275ff5ae7248e0694af",
+  "symlinks": 6,
+  "symlinksNotDereferenced": true
+}

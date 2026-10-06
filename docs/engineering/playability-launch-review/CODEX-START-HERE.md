@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1370-A: full preimages and adoption role ladder measured; 1363 still open
+
+[1370-A](evidence/p14b4-20260919/1370-A-historical-preimages-and-adoption-role-diagnostics.md) records independently audited historical and modern C0 full-preimage runs and four guarded adoption-seed types/clean arms. The historical four original digests match; modern C0 differs first in employment at week 0, takes at week 101, and market receipts/settlement at week 208. Adoption rows are C0G48, F6G48, AG48, ABG42; the final drop remains a B+Save46/C-plumbing bundle, not B alone. All runs are exploratory or original-cap diagnostics, not observed acceptance. The reviewed p13a comparator confirms its distinct 40→40→40→18 role ladder. Save46 empty/B-only controls and the prospective 720/750 observed acceptance route remain open; no production source, main, CURRENT-BEST or protected pins changed. HANDOFF owns exact next steps.
+
 ## CURRENT — 1369-D: guarded p13a roles measured; causality and acceptance open
 
 [1369-B](evidence/p14b4-20260919/1369-B-adoption-exploratory-clean-pair.md) preserves an independently reviewed, source-bound **exploratory** 720/750 adoption clean pair: C0 completes 416 weeks with 48 rows, ABC with 42, both with child/recorder zero and exact guards/cleanup. Reviewed stable-identity pairing gives 42 paired and six C0-only week-416 declines; 18 paired rows differ only by shifted event IDs. [1369-C](evidence/p14b4-20260919/1369-C-c0-preimage-and-next-routes.md) records the four unresolved C0 protected digests, historical preimage gap, guarded source-role construction, and planning-only reviewed 720/750 observed acceptance design. The original 300/330 U C0 timeout remains failed, no observed acceptance route ran, and no individual causal attribution, repin, 1363 closure, source landing or main merge is claimed. HANDOFF owns exact next steps. Source, main and CURRENT-BEST are unchanged.

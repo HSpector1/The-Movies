@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1370-A: protected preimage fields located; guarded adoption roles measured
+
+[1370-A](evidence/p14b4-20260919/1370-A-historical-preimages-and-adoption-role-diagnostics.md) preserves independently audited historical and modern C0 full preimages, four original historical digest matches, and separate modern field differences at weeks 0, 101 and 208. Four guarded adoption-seed types/clean arms completed 416 weeks with exact source/formal/cleanup gates and row counts C0G48→F6G48→AG48→ABG42. The six-row drop is still a B+Save46/C-plumbing bundle, not a B-only attribution. A separately reviewed p13a comparator confirms its original-cap 40→40→40→18 ladder. Save46 empty and B-only controls, adoption comparator final input, observed acceptance, 1363 closure and promotion remain open. Source, main, CURRENT-BEST and protected pins are unchanged; resume from HANDOFF.
+
 ## CURRENT — 1369-D: guarded p13a roles source-bound; recovery still open
 
 [1369-B](evidence/p14b4-20260919/1369-B-adoption-exploratory-clean-pair.md) publishes four fresh exploratory types/clean leaves, formal guards, independent reviews and a 503-member archive. C0 adoption has 48 rows, ABC 42, over 416 weeks under separately versioned 720/750 **exploratory** wall bounds. A reviewed comparator pairs 42 stable identities and locates six C0-only week-416 declines; 18 paired event IDs shift with otherwise equal row content. [1369-C](evidence/p14b4-20260919/1369-C-c0-preimage-and-next-routes.md) preserves distinct C0 protected digest failures, historical preimage limits, static guarded C0+G/F6+G candidates and the reviewed planning design for a future 720/750 observed acceptance route. The original 300/330 adoption U timeout remains failed; no observed acceptance, individual A/F6/B/C causal claim, repin, recovery closure, source landing or main merge follows. Resume from HANDOFF.
