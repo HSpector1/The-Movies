@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1370-F: static source/route REFINEs and Save46 authority clarification
+
+[1370-F](evidence/p14b4-20260919/1370-F-b-only-source-and-s1-route-review.md) preserves independent EBG r1 REFINE for a genuine V27 admission/finance regression, and S1 route r1 REFINE for incomplete outer deadline and timeout cleanup. The independently accepted r3 clarification distinguishes actual writer entry from the approved persisted Save46 reader checks. The opportunity overlay is STOP_FIXTURE; no forged `since` is admitted as RED. S1 route r2 and EBG source r2 require independent review and measured gates. Production source, protected pins, main and CURRENT-BEST remain unchanged; continue from HANDOFF.
+
 ## CURRENT — 1370-E: E0G B-only RED observed; C0 C/D archive preserved
 
 [1370-E](evidence/p14b4-20260919/1370-E-e0g-red-and-c0-archive.md) records an independently audited E0G B-only RED: source/fixture types exited zero, one no-C control passed, and five assertions failed because the B episode was absent. The three Save46 assertions stopped at a real-episode precondition, so no populated-B Save46 behavior is claimed. The reviewed twenty-third archive preserves exact C0 observer/comparator scratch bytes and 20 formal records. S1 salary control is static accepted but unrun; C0 four-digest causality, B-only 416-week controls, prospective 720/750 observed acceptance, 1363 closure and main promotion remain open. Continue from HANDOFF.

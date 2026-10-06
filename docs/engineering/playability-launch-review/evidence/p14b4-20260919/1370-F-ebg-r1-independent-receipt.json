@@ -1,0 +1,12 @@
+{
+  "classification": "STATIC_SOURCE_ONLY",
+  "decision": "REFINE",
+  "package": "1369-SAVE46-B-ONLY-GREEN-SOURCE-R1",
+  "patchSha256": "1a307c17cb1e151190d6efa61ae82ef320d0bba814c15c01cbef20379eb38d9b",
+  "reasons": [
+    "HISTORICAL_V27_ADMISSION_SEAM",
+    "UNPROVEN_B_EPISODE_ORIGIN"
+  ],
+  "sourceMapSha256": "7c27c80c19e72061e23088cb9b00fc38aa5716d4a6dac8ff11cda9a7d9428272",
+  "sourceReviewManifestSha256": "f8eee1a420ef3ccc4e457aa8e7d410e2cb379796018821124a48c9e29dc2a214"
+}

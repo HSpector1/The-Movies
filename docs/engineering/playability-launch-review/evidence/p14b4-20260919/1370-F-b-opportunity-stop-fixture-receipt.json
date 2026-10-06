@@ -1,0 +1,17 @@
+{
+  "claims": {
+    "executableOverlay": false,
+    "gameRun": false,
+    "observedRed": false,
+    "repoEdited": false,
+    "typesRun": false
+  },
+  "pins": {
+    "bOnlyDesignSha256": "b3317ffad786a84bf8af08257d66f0e4312b2b2f395d19e1b056fadd283f39d6",
+    "casesReviewSha256": "f2908ecf7eb48ad1a01075dc7519960f6e808a9cba426779037551c379d6819c",
+    "casesSha256": "5daeb5171812ae8c31b2a13e09b4fee9128021df65c0580539d3dddac6a0b150",
+    "e0gSourceMapSha256": "21df0988f808b4468ea19866949d354d29c49a1f9556ab87e9add1396289ab8d"
+  },
+  "reportSha256": "8e97a7ac1a9e0dd5d5b6004837c9f84f09fe9032919e72ce7728e006f70fa473",
+  "status": "STOP_FIXTURE"
+}

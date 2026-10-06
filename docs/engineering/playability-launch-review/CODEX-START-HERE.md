@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1370-F: EBG source and S1 route require versioned repairs
+
+[1370-F](evidence/p14b4-20260919/1370-F-b-only-source-and-s1-route-review.md) preserves the independent EBG r1 source REFINE (genuine V27 research admission and finance seam) and S1 outer route r1 REFINE (deadline/cleanup). A separately reviewed design clarification keeps real cash-closed writer entry while applying the approved Save46 persisted-state checks; it does not pass EBG source. Controlled opportunity cases remain STOP_FIXTURE until a genuine B episode and positive null controls exist. No S1 run, EBG GREEN, 416-week B-only attribution, 1363 closure or main merge is claimed. HANDOFF has the next exact reviewed route and source gates.
+
 ## CURRENT — 1370-E: E0G B-only RED observed; C0 evidence archived
 
 [1370-E](evidence/p14b4-20260919/1370-E-e0g-red-and-c0-archive.md) preserves the independently audited E0G B-only RED: types passed, the no-C control passed, and five assertions failed on the missing B episode; populated-B Save46 behavior remains untested. The exact twenty-third archive preserves C0 C/D scratch evidence. S1 salary control is static-reviewed but unrun. B-only 416-week attribution, C0 causal reconciliation, prospective observed acceptance, 1363 closure, source landing and main merge remain open. HANDOFF gives the next exact gate.
