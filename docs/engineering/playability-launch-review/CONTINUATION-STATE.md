@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1370-I: S1 comparison observed; EBG and F0 remain stopped
+
+[1370-I](evidence/p14b4-20260919/1370-I-observed-controls-and-stopped-green.md) preserves the independently audited S1 exact-source comparator, a real EBG Save46 helper type failure, and an F0 film-hold witness whose route failed on internal versus post-tick week coordinates. EBG helper and F0 guard corrections have static acceptance only; new-HEAD packages and fresh runs are required. Production source/main unchanged; 1363 and P16 incomplete. HANDOFF gives the next gates.
+
 ## CURRENT — 1370-H: Save46 closure pinned; first runnable route stopped
 
 [1370-H](evidence/p14b4-20260919/1370-H-ebg-closure-and-route-refines.md) preserves limited static acceptance of the EBG r3 B-only source and three explicit historical test-call edits, plus the full focused test/fixture closure. The first executable GREEN package is REFINE for receipt reread, incomplete nested launch roster and final timeout handling. S1 comparator r2 is also REFINE for a final deadline gap. No GREEN or comparator ran; production source/main remain unchanged. HANDOFF gives the versioned gates.

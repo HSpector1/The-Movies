@@ -1,0 +1,7 @@
+{
+  "decision": "ACCEPT_STATIC_HELPER_ONLY",
+  "manifestSha256": "cf6cc761bac36d193b3a61fd60e985a77caa5ae56ebc82ed59dd8c193fbe64ae",
+  "patchSha256": "52b00a2e6d1b809ee484d2f16d2631b7a0e031d1a1af3113239bcfd1400fb605",
+  "postimageSha256": "a91a8252664eca4b2af6f702cc0b34f183cede4e98fdeebbae39b7241d5de522",
+  "reviewSha256": "049831e47b5a288f789d845d1b9891e07712919c826c04f586737dd0ce61d5bb"
+}

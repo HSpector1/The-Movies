@@ -1,0 +1,14 @@
+{
+  "accepted": true,
+  "classification": "EXPLORATORY_COMPARISON_ONLY",
+  "elapsedSeconds": 4.942630060017109,
+  "laneExit": 0,
+  "laneLogSha256": "f17970608e4684558a7ebc95529a189005e191514deeb85e192da4f5bacc4a01",
+  "laneMetaSha256": "1f3fd64686b4c23ed20068834b0153eb8c9ffc610cb7e05fa6cde5650d106b14",
+  "noSurvivors": true,
+  "ownedProcessGroup": 53433,
+  "package": "1370-C0-S1-EXACT-SOURCE-COMPARATOR-R6",
+  "recorderResultSha256": "ed9b2f3096dee66b48094b566bdb2ceddbb59858c29924467666c9a475199ad0",
+  "timedOut": false,
+  "wholeLaneCapSeconds": 180
+}

@@ -1,0 +1,37 @@
+{
+  "accepted": false,
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "failure": "stage child failed or external deadline",
+  "head": "9bcd250b490e006acf004155ec9df68bf4f84746",
+  "interpretation": "Exploratory F0 film-hold observer evidence only; independent result audit required.",
+  "package": "1370-C0-F0-TWO-STAGE-ROUTE-R1",
+  "runId": "f0-film-20261006-r1",
+  "stages": [
+    {
+      "accepted": true,
+      "arm": "f0",
+      "elapsedSeconds": 36.971224052947946,
+      "externalTimedOut": false,
+      "launcherExit": 0,
+      "leaf": "f0-film-20261006-r1-f0-types",
+      "mode": "types",
+      "output": "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r2/f0-types-f0-film-20261006-r1-f0-types",
+      "resultSha256": "683ed65e9ea1f167507ccc51ef12ac425d89151025967dccf97d7c4d632ac628",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "34135dcd50a770c27570427f8eb700b627dbf12cd406b38a471ccf1077fb2209",
+      "timeoutCleanup": null
+    },
+    {
+      "arm": "f0",
+      "elapsedSeconds": 25.323562288074754,
+      "externalTimedOut": false,
+      "launcherExit": 1,
+      "leaf": "f0-film-20261006-r1-f0-clean",
+      "mode": "clean",
+      "output": "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r2/f0-clean-f0-film-20261006-r1-f0-clean",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "0042d7f19618e6f13f52401fe1431b422abdceef160e180a595a47441b621b72",
+      "timeoutCleanup": null
+    }
+  ]
+}

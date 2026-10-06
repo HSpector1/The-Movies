@@ -1,0 +1,8 @@
+{
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "decision": "ACCEPT",
+  "manifestSha256": "fe94b3ece79062ffe28ead55a10acb810c78f25d31ff025496f44deeb419d6f2",
+  "package": "1370-C0-F0-TWO-STAGE-ROUTE-R1",
+  "routeSha256": "5c737b629ae4658fb4219ac72e2a395a0b69b555b453e192cb5376a1245e8478",
+  "supervisorSha256": "82a997c71add37c8b92c8488f0f767ed620e2f8fe28a7786cc99dc44443447b8"
+}

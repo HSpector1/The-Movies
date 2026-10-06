@@ -1,0 +1,44 @@
+{
+  "accepted": false,
+  "executionTreePostflightSha256": "02e0d7cc6909d270e6690ed1873092513b38fc139849f8661084a79cbfd11d5b",
+  "executionTreeUnchanged": true,
+  "finishedUtc": "2026-10-06T17:44:39Z",
+  "greenCandidate": false,
+  "guardsAfter": {
+    "head": "9bcd250b490e006acf004155ec9df68bf4f84746",
+    "headSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "treeDigest": "02e0d7cc6909d270e6690ed1873092513b38fc139849f8661084a79cbfd11d5b"
+  },
+  "guardsBefore": {
+    "head": "9bcd250b490e006acf004155ec9df68bf4f84746",
+    "headSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "treeDigest": "02e0d7cc6909d270e6690ed1873092513b38fc139849f8661084a79cbfd11d5b"
+  },
+  "head": "9bcd250b490e006acf004155ec9df68bf4f84746",
+  "packageManifestSha256": "b6d4f0b2940e47a43a8c8e0fc2011cf8e61d3ddb9309ebb8219c24ffd55a7755",
+  "schema": "1369-ebg-r3-green-direct-focused-result-r3",
+  "sourceAndRepoUnchanged": true,
+  "sourceMapSha256": "7c27c80c19e72061e23088cb9b00fc38aa5716d4a6dac8ff11cda9a7d9428272",
+  "startedUtc": "2026-10-06T17:42:58Z",
+  "status": "SOURCETYPES_FAILURE",
+  "steps": {
+    "sourceTypes": {
+      "cleanupSucceeded": true,
+      "command": [
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.json"
+      ],
+      "exit": 2,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "59bca025349ff9e2279ecf3ab5a283a26c35889c407d741926983d190732ca11",
+      "survivedBeforeCleanup": false,
+      "survivingProcessGroup": false,
+      "timedOut": false
+    }
+  }
+}

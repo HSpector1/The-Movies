@@ -1,0 +1,32 @@
+{
+  "accepted": false,
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "elapsedSeconds": 66.6967234800104,
+  "error": "AssertionError()",
+  "groupStopResults": {
+    "59416": true,
+    "59453": true,
+    "59811": true,
+    "61509": true,
+    "61859": true
+  },
+  "head": "9bcd250b490e006acf004155ec9df68bf4f84746",
+  "knownProcessGroups": [
+    59416,
+    59453,
+    59811,
+    61509,
+    61859
+  ],
+  "noSurvivors": true,
+  "observedLeaves": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r2/f0-clean-f0-film-20261006-r1-f0-clean",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r2/f0-types-f0-film-20261006-r1-f0-types"
+  ],
+  "ownershipComplete": true,
+  "package": "1370-C0-F0-TWO-STAGE-ROUTE-R1",
+  "receiptErrors": [],
+  "routeExit": 1,
+  "runId": "f0-film-20261006-r1",
+  "timedOut": false
+}

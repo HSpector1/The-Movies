@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "childExit": 0,
+  "classification": "EXPLORATORY_COMPARISON_ONLY",
+  "elapsedSeconds": 4.8513350820867345,
+  "noSurvivors": true,
+  "ownedProcessGroup": 53444,
+  "package": "1370-C0-S1-EXACT-SOURCE-COMPARATOR-R6",
+  "targetResult": "/Users/zacheryspector/studio-scratch/1370-c0-s1-exact-source-comparator-recorded-r6/s1-compare-20261006-r2/RESULT.json",
+  "targetResultSha256": "b13e24a09bd20f3af3874833934129f6a41be3bc7d6a3a8f88ad4f3a42f50237",
+  "timedOut": false
+}

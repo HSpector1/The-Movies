@@ -1,0 +1,7 @@
+{
+  "elapsedSeconds": 117.9952647209866,
+  "greenCandidate": false,
+  "resultSha256": "e0617fd2515f6f8648100bc357c66262d25dc7024af39dceae896a8fbf0f66f1",
+  "resultStatus": "OWNERSHIP_OR_CLEANUP_FAILURE",
+  "status": "FINALIZED_AFTER_RESULT"
+}

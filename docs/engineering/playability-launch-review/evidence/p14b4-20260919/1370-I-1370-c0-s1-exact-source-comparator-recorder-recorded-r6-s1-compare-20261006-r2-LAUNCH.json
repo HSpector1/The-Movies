@@ -1,0 +1,21 @@
+{
+  "childPid": 53444,
+  "command": [
+    "/usr/local/opt/python@3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "-c",
+    "import hashlib,json,os,sys\nfrom pathlib import Path\nassert sys.flags.isolated and sys.dont_write_bytecode\nroot=Path(\"/Users/zacheryspector/studio-scratch/1370-c0-s1-exact-source-comparator-proposal-r6\")\nreview=Path(\"/Users/zacheryspector/studio-scratch/1370-c0-s1-exact-source-comparator-independent-review-r6/RECEIPT.json\")\nmanifest_pin,code_pin,recorder_pin,inputs_pin,outer_pin,review_pin=sys.argv[1:7]\nsha=lambda b:hashlib.sha256(b).hexdigest()\nassert str(root) not in sys.path and not root.is_symlink()\nmb=(root/\"MANIFEST.json\").read_bytes();assert sha(mb)==manifest_pin\ncode=(root/\"compare.py\").read_bytes();assert sha(code)==code_pin\nrec=(root/\"recorder.py\").read_bytes();assert sha(rec)==recorder_pin\nib=(root/\"INPUTS.json\").read_bytes();assert sha(ib)==inputs_pin\nouter=(root/\"outer.py\").read_bytes();assert sha(outer)==outer_pin\nrb=review.read_bytes();assert sha(rb)==review_pin\nassert json.loads(rb)=={\"decision\":\"ACCEPT_STATIC_EXPLORATORY_ONLY\",\"package\":\"1370-C0-S1-EXACT-SOURCE-COMPARATOR-R6\",\"manifestSha256\":manifest_pin,\"compareSha256\":code_pin,\"recorderSha256\":recorder_pin,\"outerSha256\":outer_pin,\"inputsSha256\":inputs_pin}\nos.environ[\"S1_COMPARE_EXTERNAL_MANIFEST_SHA256\"]=manifest_pin\nos.environ[\"S1_COMPARE_EXTERNAL_REVIEW_SHA256\"]=review_pin\nsys.argv=[str(root/\"compare.py\"),*sys.argv[7:]]\nexec(compile(code,str(root/\"compare.py\"),\"exec\"),{\"__name__\":\"__main__\",\"__file__\":str(root/\"compare.py\"),\"_EXTERNAL_CODE\":code,\"_EXTERNAL_REVIEW\":rb})",
+    "654d51cabe49cf5415cbc0c8ca549060b1ac6e375f5317681f5bebeab4cd434c",
+    "b507b926d45865402b05946e51dea1955e3a56b910b93eb17948a06c07c88e85",
+    "9c81caa7f8d6207a7233cfcd411b827925f8dce807a69da61e84fc351afc4914",
+    "44aa25da39f68c264701564d7d0e12f5d4a003a8316c3204ee1eb05bc977dd42",
+    "09100d3c649f73994204a97bd2f63bb893f175b2b35777fcdf2d64e75e4fa622",
+    "2873f4f1644ef3bf39049030ef65344d35dcb5901a4fecd32792e76e45ba4be7",
+    "--out",
+    "/Users/zacheryspector/studio-scratch/1370-c0-s1-exact-source-comparator-recorded-r6/s1-compare-20261006-r2"
+  ],
+  "ownedProcessGroup": 53444,
+  "startNewSession": true,
+  "startedMonotonic": 768335.878221446
+}

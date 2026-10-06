@@ -1,3 +1,5 @@
+> Current checkpoint: [1370-I](evidence/p14b4-20260919/1370-I-observed-controls-and-stopped-green.md). Read [HANDOFF.md](../../HANDOFF.md) before running any route. S1 comparison completed; EBG GREEN and F0 r3 remain unrun.
+
 # CODEX continuation — Project Studio
 
 ## CURRENT — 1370-H: Save46 closure pinned; first runnable route stopped

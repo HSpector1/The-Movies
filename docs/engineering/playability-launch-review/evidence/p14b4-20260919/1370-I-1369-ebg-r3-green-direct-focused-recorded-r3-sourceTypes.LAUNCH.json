@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+    "--noEmit",
+    "-p",
+    "tsconfig.json"
+  ],
+  "name": "sourceTypes",
+  "pgid": 44200,
+  "pid": 44200,
+  "startNewSession": true
+}

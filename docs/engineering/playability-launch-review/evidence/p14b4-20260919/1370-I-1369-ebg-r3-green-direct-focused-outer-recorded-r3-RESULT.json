@@ -1,0 +1,35 @@
+{
+  "accepted": false,
+  "childExit": 1,
+  "childStderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "childStdoutSha256": "2188a8108ae434c653061bdece1ece600aaa9005b8766e79aacb43b611e3f91b",
+  "cleanup": {
+    "42490": true,
+    "44200": true
+  },
+  "deadlineSeconds": 1600,
+  "deadlineStartMonotonic": 768096.260144271,
+  "elapsedSeconds": 117.99228296801448,
+  "error": "AssertionError('STOP ownership errors or incomplete four-stage launch roster')",
+  "finishedUtc": "2026-10-06T17:44:40Z",
+  "greenCandidate": false,
+  "head": "9bcd250b490e006acf004155ec9df68bf4f84746",
+  "manifestSha256": "b6d4f0b2940e47a43a8c8e0fc2011cf8e61d3ddb9309ebb8219c24ffd55a7755",
+  "missingLaunchReceipts": [
+    "consumerVitest",
+    "fixtureTypes",
+    "focusedVitest"
+  ],
+  "ownedGroups": [
+    42490,
+    44200
+  ],
+  "ownershipErrors": [],
+  "reviewSha256": "90d29fb9951c1c36a23e30597f63a68b50880612a5f9db01b3034a71cdc611fb",
+  "schema": "1369-ebg-r3-green-outer-result-r3",
+  "startedUtc": "2026-10-06T17:42:42Z",
+  "status": "OWNERSHIP_OR_CLEANUP_FAILURE",
+  "survivedBeforeCleanup": [],
+  "survivingGroups": [],
+  "targetPath": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r3"
+}

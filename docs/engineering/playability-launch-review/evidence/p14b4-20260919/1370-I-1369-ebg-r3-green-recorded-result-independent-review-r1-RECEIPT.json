@@ -1,0 +1,7 @@
+{
+  "decision": "ACCEPT_FAILURE_ATTRIBUTION_ONLY",
+  "outerResultSha256": "e0617fd2515f6f8648100bc357c66262d25dc7024af39dceae896a8fbf0f66f1",
+  "repairScope": "one historical helper V46-to-V45 conversion; separately review exact overlay",
+  "reviewSha256": "422337f45da0a7548c1befe6929209895de01c226e784e71e9a128994ff359d2",
+  "targetResultSha256": "2c2b4687fbe8194f7c8f2848fbd187ed9f99b8018fba7081e01e1fcd0cf199a6"
+}
