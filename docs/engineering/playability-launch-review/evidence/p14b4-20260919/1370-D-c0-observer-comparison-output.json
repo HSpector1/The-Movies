@@ -1,0 +1,533 @@
+{
+  "boundHead": "ec81334589982378032bc21715c23dd09d88f201",
+  "classification": "OBSERVATIONAL_DIFFERENCES_ONLY_NO_CAUSAL_CLAIM",
+  "comparisons": {
+    "employment": {
+      "changedMatchedCount": 34,
+      "changedMatchedSample": [
+        {
+          "historical": 394607,
+          "historicalIndex": 0,
+          "identityOccurrence": "[\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0\",0]",
+          "modern": 395548,
+          "modernIndex": 0,
+          "path": "$.terms.annualSalary"
+        },
+        {
+          "historical": 140129,
+          "historicalIndex": 1,
+          "identityOccurrence": "[\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0\",0]",
+          "modern": 141075,
+          "modernIndex": 1,
+          "path": "$.terms.annualSalary"
+        },
+        {
+          "historical": 221213,
+          "historicalIndex": 2,
+          "identityOccurrence": "[\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0\",0]",
+          "modern": 220859,
+          "modernIndex": 2,
+          "path": "$.terms.annualSalary"
+        },
+        {
+          "historical": 745778,
+          "historicalIndex": 3,
+          "identityOccurrence": "[\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0\",0]",
+          "modern": 745914,
+          "modernIndex": 3,
+          "path": "$.terms.annualSalary"
+        },
+        {
+          "historical": 915853,
+          "historicalIndex": 4,
+          "identityOccurrence": "[\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0\",0]",
+          "modern": 916051,
+          "modernIndex": 4,
+          "path": "$.terms.annualSalary"
+        },
+        {
+          "historical": 191719,
+          "historicalIndex": 5,
+          "identityOccurrence": "[\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0\",0]",
+          "modern": 191216,
+          "modernIndex": 5,
+          "path": "$.terms.annualSalary"
+        },
+        {
+          "historical": 225703,
+          "historicalIndex": 6,
+          "identityOccurrence": "[\"studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0\",0]",
+          "modern": 225992,
+          "modernIndex": 6,
+          "path": "$.terms.annualSalary"
+        },
+        {
+          "historical": 312775,
+          "historicalIndex": 7,
+          "identityOccurrence": "[\"studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0\",0]",
+          "modern": 313082,
+          "modernIndex": 7,
+          "path": "$.terms.annualSalary"
+        },
+        {
+          "historical": 115168,
+          "historicalIndex": 8,
+          "identityOccurrence": "[\"studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0\",0]",
+          "modern": 115209,
+          "modernIndex": 8,
+          "path": "$.terms.annualSalary"
+        },
+        {
+          "historical": 764724,
+          "historicalIndex": 9,
+          "identityOccurrence": "[\"studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0\",0]",
+          "modern": 765621,
+          "modernIndex": 9,
+          "path": "$.terms.annualSalary"
+        }
+      ],
+      "firstMatchedFieldDifference": {
+        "historical": 394607,
+        "historicalIndex": 0,
+        "identityOccurrence": "[\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0\",0]",
+        "modern": 395548,
+        "modernIndex": 0,
+        "path": "$.terms.annualSalary"
+      },
+      "firstSourceOrderDifference": {
+        "historical": "[\"studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208\",0]",
+        "index": 24,
+        "modern": "[\"studio-aca408ec-r03:contract:person-studio-aca408ec-r01-0:208\",0]"
+      },
+      "historicalOnly": [
+        "[\"studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208\",0]",
+        "[\"studio-aca408ec-r02:contract:person-studio-aca408ec-r01-1:208\",0]",
+        "[\"studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208\",0]",
+        "[\"studio-aca408ec-r01:contract:person-studio-aca408ec-r02-1:208\",0]",
+        "[\"studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:208\",0]"
+      ],
+      "historicalOnlyCount": 5,
+      "historicalRows": 44,
+      "modernOnly": [
+        "[\"studio-aca408ec-r03:contract:person-studio-aca408ec-r01-0:208\",0]",
+        "[\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:208\",0]",
+        "[\"studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:208\",0]",
+        "[\"studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:208\",0]",
+        "[\"studio-aca408ec-r01:contract:person-studio-aca408ec-r03-0:208\",0]"
+      ],
+      "modernOnlyCount": 5,
+      "modernRows": 44
+    },
+    "receipts": {
+      "changedMatchedCount": 31,
+      "changedMatchedSample": [
+        {
+          "historical": "they offered an opportunity",
+          "historicalIndex": 104,
+          "identityOccurrence": "[208,\"settled\",\"person-studio-aca408ec-r02-2\",\"studio-aca408ec-r01\",0]",
+          "modern": "their studio standing ranked higher",
+          "modernIndex": 104,
+          "path": "$.reasons[0]"
+        },
+        {
+          "historical": "they offered an opportunity",
+          "historicalIndex": 105,
+          "identityOccurrence": "[208,\"settled\",\"person-studio-aca408ec-r02-3\",\"studio-aca408ec-r01\",0]",
+          "modern": "their studio standing ranked higher",
+          "modernIndex": 105,
+          "path": "$.reasons[0]"
+        },
+        {
+          "historical": "they offered an opportunity",
+          "historicalIndex": 106,
+          "identityOccurrence": "[208,\"settled\",\"person-studio-aca408ec-r02-4\",\"studio-aca408ec-r01\",0]",
+          "modern": "their studio standing ranked higher",
+          "modernIndex": 106,
+          "path": "$.reasons[0]"
+        },
+        {
+          "historical": "they offered an opportunity",
+          "historicalIndex": 107,
+          "identityOccurrence": "[208,\"settled\",\"person-studio-aca408ec-r02-5\",\"studio-aca408ec-r01\",0]",
+          "modern": "their studio standing ranked higher",
+          "modernIndex": 107,
+          "path": "$.reasons[0]"
+        },
+        {
+          "historical": "talent-market-event-126",
+          "historicalIndex": 126,
+          "identityOccurrence": "[404,\"discovered\",\"person-studio-aca408ec-r01-2\",\"studio-aca408ec-r02\",0]",
+          "modern": "talent-market-event-122",
+          "modernIndex": 122,
+          "path": "$.eventId"
+        },
+        {
+          "historical": "talent-market-event-127",
+          "historicalIndex": 127,
+          "identityOccurrence": "[404,\"discovered\",\"person-studio-aca408ec-r01-3\",\"studio-aca408ec-r02\",0]",
+          "modern": "talent-market-event-123",
+          "modernIndex": 123,
+          "path": "$.eventId"
+        },
+        {
+          "historical": "talent-market-event-128",
+          "historicalIndex": 128,
+          "identityOccurrence": "[404,\"discovered\",\"person-studio-aca408ec-r01-4\",\"studio-aca408ec-r02\",0]",
+          "modern": "talent-market-event-124",
+          "modernIndex": 124,
+          "path": "$.eventId"
+        },
+        {
+          "historical": "talent-market-event-129",
+          "historicalIndex": 129,
+          "identityOccurrence": "[404,\"discovered\",\"person-studio-aca408ec-r01-5\",\"studio-aca408ec-r02\",0]",
+          "modern": "talent-market-event-125",
+          "modernIndex": 125,
+          "path": "$.eventId"
+        },
+        {
+          "historical": "talent-market-event-132",
+          "historicalIndex": 132,
+          "identityOccurrence": "[404,\"discovered\",\"person-studio-aca408ec-r02-2\",\"studio-aca408ec-r01\",0]",
+          "modern": "talent-market-event-128",
+          "modernIndex": 128,
+          "path": "$.eventId"
+        },
+        {
+          "historical": "talent-market-event-133",
+          "historicalIndex": 133,
+          "identityOccurrence": "[404,\"discovered\",\"person-studio-aca408ec-r02-3\",\"studio-aca408ec-r01\",0]",
+          "modern": "talent-market-event-129",
+          "modernIndex": 129,
+          "path": "$.eventId"
+        }
+      ],
+      "firstMatchedFieldDifference": {
+        "historical": "they offered an opportunity",
+        "historicalIndex": 104,
+        "identityOccurrence": "[208,\"settled\",\"person-studio-aca408ec-r02-2\",\"studio-aca408ec-r01\",0]",
+        "modern": "their studio standing ranked higher",
+        "modernIndex": 104,
+        "path": "$.reasons[0]"
+      },
+      "firstSourceOrderDifference": {
+        "historical": "[208,\"settled\",\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r02\",0]",
+        "index": 96,
+        "modern": "[208,\"settled\",\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r03\",0]"
+      },
+      "historicalOnly": [
+        "[208,\"settled\",\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r02\",0]",
+        "[208,\"settled\",\"person-studio-aca408ec-r01-1\",\"studio-aca408ec-r02\",0]",
+        "[208,\"settled\",\"person-studio-aca408ec-r02-0\",\"studio-aca408ec-r01\",0]",
+        "[208,\"settled\",\"person-studio-aca408ec-r02-1\",\"studio-aca408ec-r01\",0]",
+        "[208,\"settled\",\"person-studio-aca408ec-r03-0\",\"studio-aca408ec-r03\",0]",
+        "[213,\"promiseOutcome\",\"person-studio-aca408ec-r02-0\",\"studio-aca408ec-r01\",0]",
+        "[213,\"promiseOutcome\",\"person-studio-aca408ec-r02-2\",\"studio-aca408ec-r01\",0]",
+        "[213,\"promiseOutcome\",\"person-studio-aca408ec-r02-3\",\"studio-aca408ec-r01\",0]",
+        "[222,\"promiseOutcome\",\"person-studio-aca408ec-r02-4\",\"studio-aca408ec-r01\",0]",
+        "[404,\"discovered\",\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r02\",0]",
+        "[404,\"discovered\",\"person-studio-aca408ec-r01-1\",\"studio-aca408ec-r02\",0]",
+        "[404,\"discovered\",\"person-studio-aca408ec-r02-0\",\"studio-aca408ec-r01\",0]",
+        "[404,\"discovered\",\"person-studio-aca408ec-r02-1\",\"studio-aca408ec-r01\",0]",
+        "[404,\"discovered\",\"person-studio-aca408ec-r03-0\",\"studio-aca408ec-r03\",0]",
+        "[416,\"promiseOutcome\",\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r02\",0]",
+        "[416,\"promiseOutcome\",\"person-studio-aca408ec-r01-1\",\"studio-aca408ec-r02\",0]",
+        "[416,\"promiseOutcome\",\"person-studio-aca408ec-r01-2\",\"studio-aca408ec-r02\",0]",
+        "[416,\"promiseOutcome\",\"person-studio-aca408ec-r01-3\",\"studio-aca408ec-r02\",0]",
+        "[416,\"promiseOutcome\",\"person-studio-aca408ec-r01-4\",\"studio-aca408ec-r02\",0]",
+        "[416,\"promiseOutcome\",\"person-studio-aca408ec-r01-5\",\"studio-aca408ec-r02\",0]"
+      ],
+      "historicalOnlyCount": 22,
+      "historicalRows": 164,
+      "modernOnly": [
+        "[208,\"settled\",\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r03\",0]",
+        "[208,\"settled\",\"person-studio-aca408ec-r01-1\",\"studio-aca408ec-r01\",0]",
+        "[208,\"settled\",\"person-studio-aca408ec-r02-0\",\"studio-aca408ec-r02\",0]",
+        "[208,\"settled\",\"person-studio-aca408ec-r02-1\",\"studio-aca408ec-r02\",0]",
+        "[208,\"settled\",\"person-studio-aca408ec-r03-0\",\"studio-aca408ec-r01\",0]",
+        "[404,\"discovered\",\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r03\",0]",
+        "[404,\"discovered\",\"person-studio-aca408ec-r01-1\",\"studio-aca408ec-r01\",0]",
+        "[404,\"discovered\",\"person-studio-aca408ec-r02-0\",\"studio-aca408ec-r02\",0]",
+        "[404,\"discovered\",\"person-studio-aca408ec-r02-1\",\"studio-aca408ec-r02\",0]",
+        "[404,\"discovered\",\"person-studio-aca408ec-r03-0\",\"studio-aca408ec-r01\",0]",
+        "[416,\"promiseOutcome\",\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r03\",0]",
+        "[416,\"promiseOutcome\",\"person-studio-aca408ec-r03-1\",\"studio-aca408ec-r03\",0]",
+        "[416,\"promiseOutcome\",\"person-studio-aca408ec-r03-2\",\"studio-aca408ec-r03\",0]",
+        "[416,\"promiseOutcome\",\"person-studio-aca408ec-r03-3\",\"studio-aca408ec-r03\",0]"
+      ],
+      "modernOnlyCount": 14,
+      "modernRows": 156
+    },
+    "settlement": {
+      "changedMatchedCount": 25,
+      "changedMatchedSample": [
+        {
+          "historical": "studio-aca408ec-r02",
+          "historicalIndex": 0,
+          "identityOccurrence": "[208,\"person-studio-aca408ec-r01-0\",\"settled\",0]",
+          "modern": "studio-aca408ec-r03",
+          "modernIndex": 0,
+          "path": "$[4]"
+        },
+        {
+          "historical": "studio-aca408ec-r02",
+          "historicalIndex": 1,
+          "identityOccurrence": "[208,\"person-studio-aca408ec-r01-1\",\"settled\",0]",
+          "modern": "studio-aca408ec-r01",
+          "modernIndex": 1,
+          "path": "$[4]"
+        },
+        {
+          "historical": "studio-aca408ec-r01",
+          "historicalIndex": 6,
+          "identityOccurrence": "[208,\"person-studio-aca408ec-r02-0\",\"settled\",0]",
+          "modern": "studio-aca408ec-r02",
+          "modernIndex": 6,
+          "path": "$[4]"
+        },
+        {
+          "historical": "studio-aca408ec-r01",
+          "historicalIndex": 7,
+          "identityOccurrence": "[208,\"person-studio-aca408ec-r02-1\",\"settled\",0]",
+          "modern": "studio-aca408ec-r02",
+          "modernIndex": 7,
+          "path": "$[4]"
+        },
+        {
+          "historical": "they offered an opportunity",
+          "historicalIndex": 8,
+          "identityOccurrence": "[208,\"person-studio-aca408ec-r02-2\",\"settled\",0]",
+          "modern": "their studio standing ranked higher",
+          "modernIndex": 8,
+          "path": "$[5][0]"
+        },
+        {
+          "historical": "they offered an opportunity",
+          "historicalIndex": 9,
+          "identityOccurrence": "[208,\"person-studio-aca408ec-r02-3\",\"settled\",0]",
+          "modern": "their studio standing ranked higher",
+          "modernIndex": 9,
+          "path": "$[5][0]"
+        },
+        {
+          "historical": "they offered an opportunity",
+          "historicalIndex": 10,
+          "identityOccurrence": "[208,\"person-studio-aca408ec-r02-4\",\"settled\",0]",
+          "modern": "their studio standing ranked higher",
+          "modernIndex": 10,
+          "path": "$[5][0]"
+        },
+        {
+          "historical": "they offered an opportunity",
+          "historicalIndex": 11,
+          "identityOccurrence": "[208,\"person-studio-aca408ec-r02-5\",\"settled\",0]",
+          "modern": "their studio standing ranked higher",
+          "modernIndex": 11,
+          "path": "$[5][0]"
+        },
+        {
+          "historical": "studio-aca408ec-r03",
+          "historicalIndex": 12,
+          "identityOccurrence": "[208,\"person-studio-aca408ec-r03-0\",\"settled\",0]",
+          "modern": "studio-aca408ec-r01",
+          "modernIndex": 12,
+          "path": "$[4]"
+        },
+        {
+          "historical": "talent-market-event-148",
+          "historicalIndex": 24,
+          "identityOccurrence": "[416,\"person-studio-aca408ec-r01-0\",\"expired\",0]",
+          "modern": "talent-market-event-140",
+          "modernIndex": 24,
+          "path": "$[0]"
+        }
+      ],
+      "firstMatchedFieldDifference": {
+        "historical": "studio-aca408ec-r02",
+        "historicalIndex": 0,
+        "identityOccurrence": "[208,\"person-studio-aca408ec-r01-0\",\"settled\",0]",
+        "modern": "studio-aca408ec-r03",
+        "modernIndex": 0,
+        "path": "$[4]"
+      },
+      "firstSourceOrderDifference": null,
+      "historicalOnly": [],
+      "historicalOnlyCount": 0,
+      "historicalRows": 40,
+      "modernOnly": [],
+      "modernOnlyCount": 0,
+      "modernRows": 40
+    },
+    "takes": {
+      "changedMatchedCount": 2,
+      "changedMatchedSample": [
+        {
+          "historical": "first-take-event-40",
+          "historicalIndex": 40,
+          "identityOccurrence": "[107,\"studio-aca408ec-r03:film:11\",\"studio-aca408ec-r03\",0]",
+          "modern": "first-take-event-39",
+          "modernIndex": 39,
+          "path": "$.eventId"
+        },
+        {
+          "historical": "first-take-event-41",
+          "historicalIndex": 41,
+          "identityOccurrence": "[111,\"studio-aca408ec-r02:film:12\",\"studio-aca408ec-r02\",0]",
+          "modern": "first-take-event-40",
+          "modernIndex": 40,
+          "path": "$.eventId"
+        }
+      ],
+      "firstMatchedFieldDifference": {
+        "historical": "first-take-event-40",
+        "historicalIndex": 40,
+        "identityOccurrence": "[107,\"studio-aca408ec-r03:film:11\",\"studio-aca408ec-r03\",0]",
+        "modern": "first-take-event-39",
+        "modernIndex": 39,
+        "path": "$.eventId"
+      },
+      "firstSourceOrderDifference": {
+        "historical": "[101,\"studio-aca408ec-r01:film:10\",\"studio-aca408ec-r01\",0]",
+        "index": 39,
+        "modern": "[107,\"studio-aca408ec-r03:film:11\",\"studio-aca408ec-r03\",0]"
+      },
+      "historicalOnly": [
+        "[101,\"studio-aca408ec-r01:film:10\",\"studio-aca408ec-r01\",0]",
+        "[213,\"studio-aca408ec-r01:film:11\",\"studio-aca408ec-r01\",0]",
+        "[222,\"studio-aca408ec-r01:film:6\",\"studio-aca408ec-r01\",0]",
+        "[234,\"studio-aca408ec-r01:film:12\",\"studio-aca408ec-r01\",0]",
+        "[247,\"studio-aca408ec-r01:film:13\",\"studio-aca408ec-r01\",0]",
+        "[260,\"studio-aca408ec-r01:film:14\",\"studio-aca408ec-r01\",0]",
+        "[269,\"studio-aca408ec-r01:film:15\",\"studio-aca408ec-r01\",0]"
+      ],
+      "historicalOnlyCount": 7,
+      "historicalRows": 51,
+      "modernOnly": [
+        "[114,\"studio-aca408ec-r01:film:10\",\"studio-aca408ec-r01\",0]",
+        "[150,\"studio-aca408ec-r02:film:14\",\"studio-aca408ec-r02\",0]",
+        "[154,\"studio-aca408ec-r01:film:13\",\"studio-aca408ec-r01\",0]",
+        "[166,\"studio-aca408ec-r01:film:15\",\"studio-aca408ec-r01\",0]",
+        "[206,\"studio-aca408ec-r01:film:17\",\"studio-aca408ec-r01\",0]",
+        "[221,\"studio-aca408ec-r02:film:19\",\"studio-aca408ec-r02\",0]",
+        "[230,\"studio-aca408ec-r02:film:20\",\"studio-aca408ec-r02\",0]",
+        "[246,\"studio-aca408ec-r01:film:20\",\"studio-aca408ec-r01\",0]",
+        "[258,\"studio-aca408ec-r01:film:22\",\"studio-aca408ec-r01\",0]"
+      ],
+      "modernOnlyCount": 9,
+      "modernRows": 53
+    },
+    "trace": {
+      "changedMatchedCount": 43,
+      "changedMatchedSample": [
+        {
+          "historical": 394607,
+          "historicalIndex": 0,
+          "identityOccurrence": "[\"salary\",0,\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0\",0]",
+          "modern": 395548,
+          "modernIndex": 0,
+          "path": "$.initialEmployment[0].annualSalary"
+        },
+        {
+          "historical": 19989736.293190815,
+          "historicalIndex": 1,
+          "identityOccurrence": "[\"film\",75,\"studio-aca408ec-r01:film:10\",0]",
+          "modern": 19987613.293190815,
+          "modernIndex": 1,
+          "path": "$.cash"
+        },
+        {
+          "historical": 19889056.293190815,
+          "historicalIndex": 2,
+          "identityOccurrence": "[\"film\",76,\"studio-aca408ec-r01:film:10\",0]",
+          "modern": 19886908.293190815,
+          "modernIndex": 2,
+          "path": "$.cash"
+        },
+        {
+          "historical": 19788376.293190815,
+          "historicalIndex": 3,
+          "identityOccurrence": "[\"film\",77,\"studio-aca408ec-r01:film:10\",0]",
+          "modern": 19786203.293190815,
+          "modernIndex": 3,
+          "path": "$.cash"
+        },
+        {
+          "historical": 19687696.293190815,
+          "historicalIndex": 4,
+          "identityOccurrence": "[\"film\",78,\"studio-aca408ec-r01:film:10\",0]",
+          "modern": 19685498.293190815,
+          "modernIndex": 4,
+          "path": "$.cash"
+        },
+        {
+          "historical": 19587016.293190815,
+          "historicalIndex": 5,
+          "identityOccurrence": "[\"film\",79,\"studio-aca408ec-r01:film:10\",0]",
+          "modern": 19584793.293190815,
+          "modernIndex": 5,
+          "path": "$.cash"
+        },
+        {
+          "historical": 19486336.293190815,
+          "historicalIndex": 6,
+          "identityOccurrence": "[\"film\",80,\"studio-aca408ec-r01:film:10\",0]",
+          "modern": 19484088.293190815,
+          "modernIndex": 6,
+          "path": "$.cash"
+        },
+        {
+          "historical": 20683658.053247306,
+          "historicalIndex": 7,
+          "identityOccurrence": "[\"film\",81,\"studio-aca408ec-r01:film:10\",0]",
+          "modern": 20681385.053247306,
+          "modernIndex": 7,
+          "path": "$.cash"
+        },
+        {
+          "historical": 21458862.07598331,
+          "historicalIndex": 8,
+          "identityOccurrence": "[\"film\",82,\"studio-aca408ec-r01:film:10\",0]",
+          "modern": 21456564.07598331,
+          "modernIndex": 8,
+          "path": "$.cash"
+        },
+        {
+          "historical": 21769987.010777466,
+          "historicalIndex": 9,
+          "identityOccurrence": "[\"film\",83,\"studio-aca408ec-r01:film:10\",0]",
+          "modern": 21767664.010777466,
+          "modernIndex": 9,
+          "path": "$.cash"
+        }
+      ],
+      "firstMatchedFieldDifference": {
+        "historical": 394607,
+        "historicalIndex": 0,
+        "identityOccurrence": "[\"salary\",0,\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0\",0]",
+        "modern": 395548,
+        "modernIndex": 0,
+        "path": "$.initialEmployment[0].annualSalary"
+      },
+      "firstSourceOrderDifference": null,
+      "historicalOnly": [],
+      "historicalOnlyCount": 0,
+      "historicalRows": 43,
+      "modernOnly": [],
+      "modernOnlyCount": 0,
+      "modernRows": 43
+    }
+  },
+  "historicalOriginalPins": {
+    "employment": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750",
+    "receipts": "af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766",
+    "settlement": "706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77",
+    "takes": "8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694"
+  },
+  "modernRecordedPins": {
+    "employment": "7e64d2fbfd525edf40daa4fb952fe08ac68d4a877b4d212afd7adcfdca25237d",
+    "receipts": "1c3f415bf98e969c3af783e2613b19bd6c573e935a49fd93289626ce956720f9",
+    "settlement": "8a4df62fdd64ba26fc6e00e438c47c25749921fcad0e849921a7909f2f8b85f9",
+    "takes": "e88c6b792a493768e766bbdf59698ed32a48b1c9cf4982cc9f5dfd894983e593"
+  },
+  "routeResultSha256": "9622b578c516c12289cd43016aeb3315bbd4cb5aa636e2235a8ef823a4f2bf9a"
+}

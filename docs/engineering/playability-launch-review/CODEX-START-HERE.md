@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1370-D: exact C0 observer differences, no causal admission
+
+[1370-D](evidence/p14b4-20260919/1370-D-c0-observer-comparison.md) records an independently recomputed source-order comparison on the completed C0 observer. The salary age-floor quote is visible, film10 first takes differ at weeks 101/114, and week-208 market/settlement outcomes differ. The four protected digests still need controlled attribution; the Save46 E0G RED route awaits a reviewed launcher. HANDOFF has the exact next step and preserves failed reviews.
+
 ## CURRENT — 1370-C: recorded C0 observer is exploratory evidence only
 
 [1370-C](evidence/p14b4-20260919/1370-C-c0-observer-recorded-exploratory.md) preserves four independently audited historical/modern C0 types/clean results, exact original and modern pins, and a 43-row read-only trace. The week-zero salary mechanism is visible, but the film/market branches and four protected terminal digests still require controlled source attribution. The first comparator proposal was REFINE; no comparator output, B-only 416-week route, observed acceptance, production landing or main promotion is claimed. HANDOFF gives the next gates.

@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1370-D: C0 comparison audited by occurrence; causes remain open
+
+[1370-D](evidence/p14b4-20260919/1370-D-c0-observer-comparison.md) preserves the independently audited read-only comparison of the C0 historical/modern observer. It verifies complete artifact inventories and occurrence-matched differences: employment 44/44, takes 51/53, market receipts 164/156 and settlement 40/40. Week-zero salary, later film hold/take and week-208 market branches are located but not isolated as terminal causes. No protected repin, B-only result, observed acceptance, 1363 closure or main merge follows. Continue from HANDOFF.
+
 ## CURRENT — 1370-C: C0 observer route audited; causal ledger remains open
 
 [1370-C](evidence/p14b4-20260919/1370-C-c0-observer-recorded-exploratory.md) records an independently audited four-route historical/modern C0 observer. All types/clean children and recorders exited zero, 416 natural weeks and 43 trace rows were captured, and each arm matched its own protected pins. The trace reproduces the week-zero age-floor salary difference and locates later film and market changes; it does not isolate all four terminal digest causes. The first comparator was REFINE and unrun. E0G/EBG B-only routes, observed acceptance, 1363 closure and main merge remain open. Continue from HANDOFF.
