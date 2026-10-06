@@ -1,0 +1,25 @@
+{
+  "decision": "ACCEPT",
+  "archive": "/Users/zacheryspector/studio-scratch/1368-sixteenth-publication-prep-r1/evidence.tar.gz",
+  "archiveSha256": "8cca3370c901c21b33539b0ce48747738a5f1b98ae738120f0273848f109bfcb",
+  "manifest": "/Users/zacheryspector/studio-scratch/1368-sixteenth-publication-prep-r1/MANIFEST.json",
+  "manifestSha256": "92384616452ec593f62e78f68ba716b981e60b59caab42d45fd3dfa10f6dc117",
+  "memberCount": 154,
+  "logicalBytes": 19215664,
+  "formalFiles": 25,
+  "laneFiles": 10,
+  "runDirectories": [
+    "ABC-types-source-r1",
+    "ABC-clean-p13a-r1",
+    "ABC-observed-p13a-r1",
+    "C0-types-source-baseline-r1",
+    "C0-clean-p13a-baseline-r1"
+  ],
+  "includedDirectories": 18,
+  "sourceAndTarReadbackExact": true,
+  "symlinksOrTrees": false,
+  "omittedIncludedRegularFiles": false,
+  "optionalOmitted": [
+    "1368-ledger-r5-index-r2-refine-review-20261005"
+  ]
+}

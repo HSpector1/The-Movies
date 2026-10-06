@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1368-R: source-bound ledger clean results and observed timeout
+
+[1368-R](evidence/p14b4-20260919/1368-R-ledger-r4-source-bound-clean-and-timeout.md) records fresh arm04 ABC/C0 types and clean p13a results: ABC 18 rows, C0 40 rows, both 416-week/one-PASS with exact guards. ABC observed hit the original 330-second cap at week 208; child TERM and verified cleanup are recorded, but no observed data/JSON exists. The unchanged comparator and protected ledger disposition stay blocked. A bounded two-clean report identifies 22 C0-only rows without assigning cause; four C0 protected digests still disagree. The sixteenth archive preserves runs and reviews. The r5 speed proposals are scratch-only and unmeasured. HANDOFF owns next steps; R8 source/main/CURRENT-BEST remain unchanged.
+
 ## CURRENT — 1368-Q: R8 selected runs and attribution complete
 
 [1368-Q](evidence/p14b4-20260919/1368-Q-r8-formal-selected-fallout.md) preserves fresh R8 types/generators all zero, current104 1396 PASS/45 FAIL/1 TODO, helper37 492 PASS/25 FAIL/1 SKIP/5 TODO, and P15four 125 PASS/40 FAIL, with exact formal guards and independent artifact/attribution review. Against R6, all 15 current, 2 helper and 1 P15 NEW failures now execute and pass; every remaining failed occurrence is SAME. Two protected current ledger identities still fail earlier on row counts and need source-matched causal reconciliation; no repin or broad closure. Fifteenth archive and direct formal receipts are published. R8 source is still frozen and unlanded. HANDOFF owns ledger types→clean→observed and subsequent landing/broad/final recovery gates. Main and CURRENT-BEST unchanged.

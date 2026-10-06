@@ -1,0 +1,958 @@
+{
+  "archive": "/Users/zacheryspector/studio-scratch/1368-sixteenth-publication-prep-r1/evidence.tar.gz",
+  "archiveBytes": 1001119,
+  "archiveSha256": "8cca3370c901c21b33539b0ce48747738a5f1b98ae738120f0273848f109bfcb",
+  "memberCount": 154,
+  "logicalBytes": 19215664,
+  "readbackVerified": true,
+  "includedDirectories": [
+    "1368-ledger-lowspace-runner-proposal-r2",
+    "1368-ledger-lowspace-independent-review-r1",
+    "1368-ledger-r4-abc-clean-gate-independent-review-20261005",
+    "1368-ledger-r4-observed-timeout-review-20261005",
+    "1368-ledger-r4-two-clean-descriptive-20261005",
+    "1368-ledger-r4-c0-baseline-prep-20261005-r1",
+    "1368-ledger-r4-readiness-review-20261005-r1",
+    "1368-ledger-lowspace-r2-execution-plan-20261005-r1",
+    "1368-ledger-r5-observed-proposal-20261005-r1",
+    "1368-ledger-r5-observed-proposal-20261005-r2",
+    "1368-ledger-r5-observed-profile-design-20261005-r1",
+    "1368-ledger-r5-index-independent-review-20261005",
+    "1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1",
+    "1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1",
+    "1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1",
+    "1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1",
+    "1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1",
+    "1368-ledger-r4-c0-baseline-independent-audit-20261005"
+  ],
+  "optionalOmitted": [
+    "1368-ledger-r5-index-r2-refine-review-20261005"
+  ],
+  "skippedSymlinks": [],
+  "members": [
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-clean-p13a-r1-postflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-clean-p13a-r1-postflight.json",
+      "bytes": 119941,
+      "sha256": "6a7157c5b562cfe9fc1ec2155b0448a383142d59c9c41719e03a82796fd9777d"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-clean-p13a-r1-preflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-clean-p13a-r1-preflight.json",
+      "bytes": 119202,
+      "sha256": "651961b8d1a1d25abd22e1d08c35cb60ccf525d2586e0bbecb8f727b6e120a41"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-clean-p13a-r1.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-clean-p13a-r1.json",
+      "bytes": 56123,
+      "sha256": "d7bb2388c34aad643f0b98c7c34a5a165f311e1f226142fce317496b69009264"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-clean-p13a-r1.patch",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-clean-p13a-r1.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-clean-p13a-r1.txt",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-clean-p13a-r1.txt",
+      "bytes": 47270,
+      "sha256": "4c3c0c694c5853efad52e8fb62c80cc37075aa06535cb2fc599852b96d0f4a0d"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-observed-p13a-r1-postflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-observed-p13a-r1-postflight.json",
+      "bytes": 119952,
+      "sha256": "d1172dc21e204512f07441078828b6f109728acb6f0b0bf0cfb21a7c1c8ffdce"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-observed-p13a-r1-preflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-observed-p13a-r1-preflight.json",
+      "bytes": 119202,
+      "sha256": "3c5c8eaa6f20326e0b4ba06243a080fcb2a76c0f1639da4811e2d6eb472d81fd"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-observed-p13a-r1.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-observed-p13a-r1.json",
+      "bytes": 56128,
+      "sha256": "8bef78ce8e878be97d6814b608f6051d6792c429b9af5890ba3fcf362915bc0b"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-observed-p13a-r1.patch",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-observed-p13a-r1.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-observed-p13a-r1.txt",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-observed-p13a-r1.txt",
+      "bytes": 47273,
+      "sha256": "37a7b2da289420915d2e105d42f04e7a300e71b9ba32ffe6bdf25bb2a14c633b"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-types-source-r1-postflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-types-source-r1-postflight.json",
+      "bytes": 119947,
+      "sha256": "15e55bbf89f42102625410d20f6daaec991659c5a2020af64ebfba7b8b7dd5a3"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-types-source-r1-preflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-types-source-r1-preflight.json",
+      "bytes": 119202,
+      "sha256": "34f6cf1f49820bd25142bbe41016328f5c382e201717366f2cf831e34bd02fa4"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-types-source-r1.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-types-source-r1.json",
+      "bytes": 56125,
+      "sha256": "3e9387058ad1a27226cfbcbb3f3aefebcc905389136ba8423bcf52d6664d89d0"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-types-source-r1.patch",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-types-source-r1.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-abc-types-source-r1.txt",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-abc-types-source-r1.txt",
+      "bytes": 47272,
+      "sha256": "59f863236fbc5d23160db59452258c89b8f5cd8417653f3240ea5317286bc7d6"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1-postflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1-postflight.json",
+      "bytes": 119965,
+      "sha256": "47df1f8342fd3c04782ae2275652324e75080b507feaa8bd0a86ba1eb0e1d07a"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1-preflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1-preflight.json",
+      "bytes": 119202,
+      "sha256": "6f628129d045a937302841f16ab82fc95e85111e8f9e48214268289c0781655d"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1.json",
+      "bytes": 56131,
+      "sha256": "8b6f58c2cfda04bbf50453dfa9818a86108fc39e7824b095bc662ee688b9b0f8"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1.patch",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1.txt",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1.txt",
+      "bytes": 47278,
+      "sha256": "7d09ad30328bdd590c9b244afe29443afcf2d9a8629065e285da5750513e1938"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1-postflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1-postflight.json",
+      "bytes": 119971,
+      "sha256": "3f8d4ca7e1e7af0a3eb7ee67c94d5dff3a9f55bb23240038914cf35b32a110e9"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1-preflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1-preflight.json",
+      "bytes": 119202,
+      "sha256": "b9d1fa057ada77e4037f076b359f8167c6771c87e4cf2aa00e21e755fa95b132"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1.json",
+      "bytes": 56133,
+      "sha256": "2dc13512c32e3aae445b1b758f551fb7898a90d618f817633205d3a8ed79b724"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1.patch",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1.txt",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1.txt",
+      "bytes": 47280,
+      "sha256": "6b040bbc0dc21281b7c4751b818a29cca63aa4f986938be562869b95cbbfe02a"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r4-lowspace-r2-execution-plan.md",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-execution-plan.md",
+      "bytes": 8279,
+      "sha256": "03f25cbc3158b481e850e19c54092850e360484d041ce30a68010ec7a65ef53a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-arms-04/ABC/ASSEMBLY.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-arms-04/ABC/ASSEMBLY.json",
+      "bytes": 72882,
+      "sha256": "c37c8d1a1c58a6729cc75a6fb5f38fd1158f60c9cf17a54c7b290aeec1a9f259"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-arms-04/ABC/SOURCE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-arms-04/ABC/SOURCE-PINS.json",
+      "bytes": 20247,
+      "sha256": "43ee074d7833ddae4993794b9084d603bb7eebd2943de7b7949e31759b5de336"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-arms-04/ASSEMBLY.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-arms-04/ASSEMBLY.json",
+      "bytes": 490,
+      "sha256": "8d027bf8e9cd6aa5e874b6f053e14b5b17be3701c6f4966b3b42610cf7fd6b38"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-arms-04/C0/ASSEMBLY.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-arms-04/C0/ASSEMBLY.json",
+      "bytes": 72621,
+      "sha256": "7134409ad5d09a9d2dbb16080165b1161cc351c0042fc893d5d78874e13ed303"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-arms-04/C0/SOURCE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-arms-04/C0/SOURCE-PINS.json",
+      "bytes": 20247,
+      "sha256": "00d4b886c0acbeb64ebc413348427723c7b5dcf0fbbce845fceb4a149d4d3a7f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-lowspace-independent-review-r1/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-lowspace-independent-review-r1/RECEIPT.json",
+      "bytes": 2771,
+      "sha256": "e06f949b8cdd0f82bbbf0a55b987b8af87e1e666f91a8d0c9b11564f03e1e3d9"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-lowspace-r2-execution-plan-20261005-r1/PLAN.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-lowspace-r2-execution-plan-20261005-r1/PLAN.md",
+      "bytes": 8279,
+      "sha256": "03f25cbc3158b481e850e19c54092850e360484d041ce30a68010ec7a65ef53a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-lowspace-runner-proposal-r2/MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-lowspace-runner-proposal-r2/MANIFEST.json",
+      "bytes": 594,
+      "sha256": "c22813f8145742b0a8a418d663447e7ed80f1963b419a9ef7bcb823a339dd414"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-lowspace-runner-proposal-r2/REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-lowspace-runner-proposal-r2/REVIEW.md",
+      "bytes": 3591,
+      "sha256": "9471ae2abf6466dc144fa21c80a533d5a08a31ef5187be2dfa437203e3a7e6c7"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-lowspace-runner-proposal-r2/RUNNER-DELTA.diff",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-lowspace-runner-proposal-r2/RUNNER-DELTA.diff",
+      "bytes": 11216,
+      "sha256": "b0f47366ea0f3cc80daf10d13ab8b5601e81d0fa544bbec8d8ed71a321157b53"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-lowspace-runner-proposal-r2/STATIC-REVIEW.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-lowspace-runner-proposal-r2/STATIC-REVIEW.json",
+      "bytes": 1091,
+      "sha256": "f3071c41448548da099b804df85e29af8b3ac717b3eec33ec2f6f7fd62e91e2b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-lowspace-runner-proposal-r2/run.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-lowspace-runner-proposal-r2/run.py",
+      "bytes": 21473,
+      "sha256": "7eb654ebd6b45ab297262b38315414643a1ac26d08b3a03c7b78dcd875aa6f4d"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/CLEANUP-DELTA.diff",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/CLEANUP-DELTA.diff",
+      "bytes": 5893,
+      "sha256": "e26a9d8557054b308d120ddaab18aabc1b9a2b8b1119772fa8fbeb5f166c8b1e"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/HANDBACK.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/HANDBACK.md",
+      "bytes": 7228,
+      "sha256": "c160f37928acc855d1bbfe41aed7d3930c59092c311d71eb577eba50e2acf9b5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/INVARIANT-MAP.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/INVARIANT-MAP.json",
+      "bytes": 1089,
+      "sha256": "c5ae38a905ee3c4e44b8e358ceedf1af670dc100a216c61aad15be53fd736d22"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/MANIFEST.json",
+      "bytes": 4630,
+      "sha256": "3675e4d50a12bef7c1ffb13186f161844795512b20dc41f736d5872f964b995f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/ORIGINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/ORIGINS.json",
+      "bytes": 53248,
+      "sha256": "8f524060910d1f0cda9e74decf5feb8b4876f92bd0ef87e13d9166cc2422dcf0"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/PREIMAGES.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/PREIMAGES.json",
+      "bytes": 1750,
+      "sha256": "8e08ebbd5110951ada3fc929cbf944564090a2a7a629625631685ce423b81de3"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/PROBE-R3-TO-R4.diff",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/PROBE-R3-TO-R4.diff",
+      "bytes": 4622,
+      "sha256": "49a1bb156e56fd7985fa00faf5d68307b2cf3b7d4d5ea7ebef1474872c57dc18"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/SOURCE-DIFFERENCE-PROOF.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/SOURCE-DIFFERENCE-PROOF.json",
+      "bytes": 1070,
+      "sha256": "34161d35e2556f9ae35b2858043d869ee67d5a87e42253703f4802b5307d8abf"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/assemble.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/assemble.py",
+      "bytes": 3725,
+      "sha256": "4b95f913b2873bfd29695c45f6bc980adf4769f4f8822d2a11fd4352c2c286d0"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/assemble.py.diff",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/assemble.py.diff",
+      "bytes": 1550,
+      "sha256": "8d2f093973322ed8fd7c727abc1b08ac5b14134ae027836f06444d4df2d698b4"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/author.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/author.py",
+      "bytes": 14411,
+      "sha256": "cfd92a5484726766e2ba85d1514260f3fb03b43879561a47ecb9a1d5a26e7e4f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/cleanup.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/cleanup.py",
+      "bytes": 4420,
+      "sha256": "4698b610b50289fd289e3235c564c087774b443422ca7e0ac6635284babc49e4"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/BASELINE-BLOB-PROOF.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/BASELINE-BLOB-PROOF.json",
+      "bytes": 38473,
+      "sha256": "06cc083ef5b30c018b639845eb4286048736d4b1a7f0526700d2ab2f3435edcf"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/MANIFEST.json",
+      "bytes": 1225,
+      "sha256": "01cea5e3beffcb65032dbd45bbb8c56a44016c913bff27c0f756e58d04353a53"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/ORIGINAL-EXTRACTION.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/ORIGINAL-EXTRACTION.json",
+      "bytes": 704,
+      "sha256": "04e6b583c0ada07b4f47643bf0ad7b1c3bf2f56dfbdf878d743348543a03dee2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/ORIGINAL-FAILURES.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/ORIGINAL-FAILURES.json",
+      "bytes": 9289,
+      "sha256": "f8ffd0a447ae11502156fe2fdd6d41ded13390648e9666c3621780903e86c6aa"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/RECORDED-BASELINE-COMPARISON.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/RECORDED-BASELINE-COMPARISON.json",
+      "bytes": 1338,
+      "sha256": "7f99a0f80d3875ecb349fbada23a213122bd65bea3a29676a47b5cc33329cc91"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/ROUTE-BASELINE-PROOF.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/ROUTE-BASELINE-PROOF.json",
+      "bytes": 746,
+      "sha256": "9220bb1324946e909547b53e92d50faf2b16ab3d89631ed32a8adbe2f99b7978"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/SOURCE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/SOURCE-PINS.json",
+      "bytes": 39708,
+      "sha256": "a2ba20f3ac5009f11c938ec55b7cb21371f1f8d3b74b7febe0f344e95f93a61a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/compare.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/compare.py",
+      "bytes": 8933,
+      "sha256": "b0aa4ac69e6bd981e181269dab56c08f538b498f26bb17bf9dff8e31ffb79891"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/files/tests/1368-ledger-attribution.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/files/tests/1368-ledger-attribution.test.ts",
+      "bytes": 53244,
+      "sha256": "76fb3eddf1b6bab3e8723908d9d2840ef4df491f4f41a23f864c6ea45ddff755"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/files/tests/1368-ledger-original.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/files/tests/1368-ledger-original.ts",
+      "bytes": 15098,
+      "sha256": "e76148d283054a864176dfaa247447169edba449f0bfdb5dbb92e8736733b618"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/files/tsconfig.1368-ledger.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/files/tsconfig.1368-ledger.json",
+      "bytes": 222,
+      "sha256": "3e8a3b07416bb03e9c859c514308fc8fc0a1ab538fbc0600746a4ae957a5b1aa"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/files/vitest.1368-ledger.config.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/files/vitest.1368-ledger.config.ts",
+      "bytes": 236,
+      "sha256": "a38a64e53b22daebb0953e1e7271c972fc54e4f6643a35f306bda6124bc6b7cf"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/kit/files/vitest.1368-ledger.workspace.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/kit/files/vitest.1368-ledger.workspace.ts",
+      "bytes": 115,
+      "sha256": "27326ff66aced4a8f1de8c60336ed72d9524e0b01249da1bef7a91b6561391e3"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/run.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/run.py",
+      "bytes": 21001,
+      "sha256": "80e156a5aa24c8f901eee765b4a31d54e94160ed4567736c3adfb1accad390c8"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/run.py.diff",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/run.py.diff",
+      "bytes": 18027,
+      "sha256": "f16ff35e1bd978780d133758b4b1f054197b834e9327066f66b6a7bf9d274e19"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/templates/ABC-ASSEMBLY.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/templates/ABC-ASSEMBLY.json",
+      "bytes": 72882,
+      "sha256": "c37c8d1a1c58a6729cc75a6fb5f38fd1158f60c9cf17a54c7b290aeec1a9f259"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/templates/ABC-SOURCE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/templates/ABC-SOURCE-PINS.json",
+      "bytes": 20247,
+      "sha256": "43ee074d7833ddae4993794b9084d603bb7eebd2943de7b7949e31759b5de336"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/templates/ASSEMBLY.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/templates/ASSEMBLY.json",
+      "bytes": 490,
+      "sha256": "8d027bf8e9cd6aa5e874b6f053e14b5b17be3701c6f4966b3b42610cf7fd6b38"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/templates/C0-ASSEMBLY.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/templates/C0-ASSEMBLY.json",
+      "bytes": 72621,
+      "sha256": "7134409ad5d09a9d2dbb16080165b1161cc351c0042fc893d5d78874e13ed303"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/templates/C0-SOURCE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/templates/C0-SOURCE-PINS.json",
+      "bytes": 20247,
+      "sha256": "00d4b886c0acbeb64ebc413348427723c7b5dcf0fbbce845fceb4a149d4d3a7f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-parent-prep-r4/test_cleanup.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/test_cleanup.py",
+      "bytes": 5211,
+      "sha256": "6b7316693bc3fd8a39f2395d80e2ad8456d25eb28a2685974b7d76c37b89f76c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-abc-clean-gate-independent-review-20261005/C0-RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-abc-clean-gate-independent-review-20261005/C0-RECEIPT.json",
+      "bytes": 1335,
+      "sha256": "a3116207ba969c99c9c9e35f4831a4c71698976a07da0a44da72ea70896ef3fe"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-abc-clean-gate-independent-review-20261005/C0-RECOMMENDATION.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-abc-clean-gate-independent-review-20261005/C0-RECOMMENDATION.md",
+      "bytes": 1877,
+      "sha256": "e8d4a79aa6162db68fad58791fbfb47f34b64bd602c58530904b26694294d675"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-abc-clean-gate-independent-review-20261005/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-abc-clean-gate-independent-review-20261005/RECEIPT.json",
+      "bytes": 2994,
+      "sha256": "f5e209cddf0285b719a1d6f26c03be0e4a012e1dfdc339056d4e29b79d9a7025"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-abc-clean-gate-independent-review-20261005/REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-abc-clean-gate-independent-review-20261005/REVIEW.md",
+      "bytes": 2452,
+      "sha256": "f6706cee865244f9fc81074ef960353c333cc620b479333d11c58cbf648755c4"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-abc-clean-gate-independent-review-20261005/verify.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-abc-clean-gate-independent-review-20261005/verify.py",
+      "bytes": 8122,
+      "sha256": "5feaabc312bc586b4766ef5d47e8f511341c0fe24bc05b76ca6c9e9190d570b5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-c0-baseline-independent-audit-20261005/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-c0-baseline-independent-audit-20261005/RECEIPT.json",
+      "bytes": 3843,
+      "sha256": "f11b633979c00679027b761434ab0f52df6876dc32a0fa67165c872f52fae601"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-c0-baseline-independent-audit-20261005/REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-c0-baseline-independent-audit-20261005/REVIEW.md",
+      "bytes": 2387,
+      "sha256": "0ea4a871d1f2fb370824d8cecfe754a34e43ef2e57f4a9c5a3abb4d014487fef"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-c0-baseline-independent-audit-20261005/verify.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-c0-baseline-independent-audit-20261005/verify.py",
+      "bytes": 9394,
+      "sha256": "52bfb1438b8fc853dffdaafa7478ae5bcdc8cece893f506b13baa4399a0523f5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-c0-baseline-prep-20261005-r1/PLAN.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-c0-baseline-prep-20261005-r1/PLAN.md",
+      "bytes": 7406,
+      "sha256": "d9786ecd48e7eca0cdc582557ec77f2b600937bccf1e9b41c3b285b5174715f1"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-c0-baseline-prep-20261005-r1/REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-c0-baseline-prep-20261005-r1/REVIEW.md",
+      "bytes": 3573,
+      "sha256": "3a822968b15e2b5be894e22fddb711bb1da12eaf5b614f77b4adef9eb2b947f1"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-observed-timeout-review-20261005/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-observed-timeout-review-20261005/RECEIPT.json",
+      "bytes": 1543,
+      "sha256": "7d2ec79bcb9eb7a1d27dfabd51033eb3e5a9baba0db3d6c6d1deb9f27fca1927"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-observed-timeout-review-20261005/REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-observed-timeout-review-20261005/REVIEW.md",
+      "bytes": 3443,
+      "sha256": "33d159b2548de6f0a6479bcc1dd4d8d402430d8e9a6b46dec2a655a5182b5606"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-observed-timeout-review-20261005/verify.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-observed-timeout-review-20261005/verify.py",
+      "bytes": 4239,
+      "sha256": "583c26afd36c7bfd8360bc1ff68c82a6eb004c84e7108083ee2f1bab5fee6d6e"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-readiness-review-20261005-r1/REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-readiness-review-20261005-r1/REVIEW.md",
+      "bytes": 6308,
+      "sha256": "9c9a8767cfadfbcfbf20f93dd39f705ccdb32e889e5715112283c3dc6e51ed16"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-two-clean-descriptive-20261005/DIFFERENCES.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-two-clean-descriptive-20261005/DIFFERENCES.json",
+      "bytes": 120912,
+      "sha256": "5267e408caf4f0ed54e35c6ec589028c4db3e3556f61d5e6ffc671a8ba7f449b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-two-clean-descriptive-20261005/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-two-clean-descriptive-20261005/RECEIPT.json",
+      "bytes": 6245,
+      "sha256": "63583bd2a7eab1d7345fd94af84cf6911f9212ecb5f6105cd0cfc4366a7da404"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-two-clean-descriptive-20261005/REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-two-clean-descriptive-20261005/REVIEW.md",
+      "bytes": 2375,
+      "sha256": "5fb4418566344cba0f9d613d39c9c91663796a5b9e7c2d84cf87d888ce69a2b6"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r4-two-clean-descriptive-20261005/describe.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r4-two-clean-descriptive-20261005/describe.py",
+      "bytes": 4592,
+      "sha256": "1af7bda6c909c18a3020d8582c4a391a94ead66583546fea49063765a1be2b2a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-index-independent-review-20261005/R2-RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-index-independent-review-20261005/R2-RECEIPT.json",
+      "bytes": 1171,
+      "sha256": "be6d42847d425d0abfe44a1a73c493fd97a182bd18c585b2a8506decd4f459a4"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-index-independent-review-20261005/R2-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-index-independent-review-20261005/R2-REVIEW.md",
+      "bytes": 1543,
+      "sha256": "0d4d44b7b1e01b89b58b9dffd914ace8b4307316791a21825f0db8f739d3a909"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-index-independent-review-20261005/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-index-independent-review-20261005/RECEIPT.json",
+      "bytes": 1285,
+      "sha256": "f6b3f1a7dcbcd0f0225b17baa59009e9dae66ba01e0894894ff0a565aca8c02b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-index-independent-review-20261005/REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-index-independent-review-20261005/REVIEW.md",
+      "bytes": 2089,
+      "sha256": "2643ebbb0dfdd1a32b9788bb5f529eda70e060ea7fb0d93a880040ea9e9faf0a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-observed-profile-design-20261005-r1/README.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-observed-profile-design-20261005-r1/README.md",
+      "bytes": 9503,
+      "sha256": "dbb005407b5e5bfd5ecc7eb5f8b25d237fa9bac3161e26b7f26c3c850fd6e308"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-observed-proposal-20261005-r1/PROPOSED-attribution.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-observed-proposal-20261005-r1/PROPOSED-attribution.test.ts",
+      "bytes": 53817,
+      "sha256": "a9ac0a14070ab0384e2d42504e5c19187a7f7326f0c017c816d04886a3abb4ec"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-observed-proposal-20261005-r1/PROPOSED.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-observed-proposal-20261005-r1/PROPOSED.patch",
+      "bytes": 2826,
+      "sha256": "3ce5bd4c3db5d73c2d3fad123f30afb51be9bc7bca15c035ce600c3285cefedd"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-observed-proposal-20261005-r1/README.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-observed-proposal-20261005-r1/README.md",
+      "bytes": 6361,
+      "sha256": "a65969b2425e65868ed8cf6ddcb95c88b82fdcb0afd7f10958671d1ebb0bb336"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-observed-proposal-20261005-r1/check_index_equivalence.cjs",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-observed-proposal-20261005-r1/check_index_equivalence.cjs",
+      "bytes": 3153,
+      "sha256": "cd229572e972eaa4eb535eb42c138d7a54c50bf35fae5721c7e9dc85928fe5dd"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-observed-proposal-20261005-r2/PROPOSED-attribution.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-observed-proposal-20261005-r2/PROPOSED-attribution.test.ts",
+      "bytes": 53827,
+      "sha256": "8867150bc60d5c15f612d86df192d0cf15f9eb674d165d55eed863f2fd94251b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-observed-proposal-20261005-r2/PROPOSED.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-observed-proposal-20261005-r2/PROPOSED.patch",
+      "bytes": 2836,
+      "sha256": "a3d51cc21a6ff33dd935cd61b1a1cef87c6dfcffed2a9f16eaf57a4e807ffcd7"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-observed-proposal-20261005-r2/README.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-observed-proposal-20261005-r2/README.md",
+      "bytes": 6645,
+      "sha256": "34dd5a5ad76ef06c6e291f218a253adb6b3d51d14d9d113835cf1fdb8c0a623a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-observed-proposal-20261005-r2/check_index_equivalence.cjs",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-observed-proposal-20261005-r2/check_index_equivalence.cjs",
+      "bytes": 3153,
+      "sha256": "baa0344617be15174477c33c157f2eb5d06f2823ec8a80f662cc61388b75b208"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/CHILD.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/CHILD.json",
+      "bytes": 1096,
+      "sha256": "1d621e9cd7ab6d413a9c1f3d9abd3bb3f7d65b03a0c25ed9daf87a97da118c0a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/LAUNCH.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/LAUNCH.json",
+      "bytes": 720,
+      "sha256": "390c778bd3c071ca26e52ea4220497e09b939ca42ad928bcdac7b299cf05ed30"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/RESULT.json",
+      "bytes": 6366,
+      "sha256": "95631b3a7aa3b743e5edaf5c60772826a06783a5ab74ef355efb8c42c0b6b8b5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/binding.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/binding.json",
+      "bytes": 2836,
+      "sha256": "e6ae546c0e4e55fe0108ff1a9dfab5fbc92b46a0fd10a80564e27bc4e6e33b9f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/data.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/data.json",
+      "bytes": 8315235,
+      "sha256": "18f1a6b913061f92a43f0ab432fff159714afadc0e781b62cadf6e923d01c108"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/power.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/power.txt",
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/progress.jsonl",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/progress.jsonl",
+      "bytes": 347,
+      "sha256": "1a41103459b735f4059e59017cd26eb38d59ee9f7872c79c9b817008e23cece1"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/stderr.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/stdout.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/stdout.txt",
+      "bytes": 520,
+      "sha256": "b7cf3c6bd31c1bd8f441ae6a07b63a072d3a39527e1eabd208f300c1a3c63764"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/vitest.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-clean-p13a-r1/vitest.json",
+      "bytes": 953,
+      "sha256": "84bdc78aa8eb2f3c8b7b71f6ce533411272d8b496da814447705eb42e5d8bca2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/CHILD.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/CHILD.json",
+      "bytes": 1137,
+      "sha256": "d6e5f573921aaeabfdcb3d1b15f84dca159e363f53b9c2d78750bd63908ffcd6"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/LAUNCH.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/LAUNCH.json",
+      "bytes": 723,
+      "sha256": "6622e4760af551aee26c6dcbbeba85a92d5c4bc59ad1918162b8383ab4481022"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/RESULT.json",
+      "bytes": 5991,
+      "sha256": "5bfea272f0d26015aea7760134729c6f1715aba83dd6d981d719f5554129f1fe"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/binding.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/binding.json",
+      "bytes": 3009,
+      "sha256": "f0e049b348e25877d219729861dd983ff2d04822385aae4f54a4c7ea55839966"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/power.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/power.txt",
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/progress.jsonl",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/progress.jsonl",
+      "bytes": 174,
+      "sha256": "c073a43e014e43d9283d6ac37f0e432e23940311f3b8a52221da4a15a96e14f9"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/stderr.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/stdout.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-observed-p13a-r1/stdout.txt",
+      "bytes": 81,
+      "sha256": "615f137a9a4db7f67dab401ad6936c601e04b7a9de7bc6dcc84d72800678c81a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/CHILD.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/CHILD.json",
+      "bytes": 766,
+      "sha256": "8256004ae63f26c4acc0c7855f223705763dd28a07a7cb75e101c23b618d4b9d"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/LAUNCH.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/LAUNCH.json",
+      "bytes": 389,
+      "sha256": "9c0a1867e092a30455213d9c0b4b50edd7b640f67b497944b5fd49a36da88cac"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/RESULT.json",
+      "bytes": 5352,
+      "sha256": "2801e79ec559642fc405040c2b7e4191ff648778f7950edf26411b19d653d918"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/binding.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/binding.json",
+      "bytes": 2320,
+      "sha256": "d7ed7cc873b7c26c18dcc8205fc2924b3e16be3889018bfcad07b80995655643"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/power.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/power.txt",
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/stderr.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/stdout.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/ABC-types-source-r1/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/CHILD.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/CHILD.json",
+      "bytes": 1104,
+      "sha256": "76de03aa2fbf3dc6ff3493f1e48ea57df825441160ac274a11a9aa25e95c8825"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/LAUNCH.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/LAUNCH.json",
+      "bytes": 728,
+      "sha256": "8166435e24579b2c3f5416d7bb01e8a7051340346b8184cd299b27dc13a60100"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/RESULT.json",
+      "bytes": 6482,
+      "sha256": "cfdf38f6462e01937ca11217eb1bd0c6f09c7461097583661e79a34eb3531dc6"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/binding.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/binding.json",
+      "bytes": 2848,
+      "sha256": "450689e7e847e5bff15324ed509f23613c10890e97eab6c376bfa90bbd1bf78c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/data.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/data.json",
+      "bytes": 8035347,
+      "sha256": "0cdddc7b050264efb98a2c5b370333bf5208000bca83c7297cf57a8286accfd5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/power.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/power.txt",
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/progress.jsonl",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/progress.jsonl",
+      "bytes": 348,
+      "sha256": "cdfdabb8d2c75cc41448925f8ce16099786f5c7692c802c537544089314a1117"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/stderr.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/stdout.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/stdout.txt",
+      "bytes": 527,
+      "sha256": "31b2177351f21a4431860e35fac700337960338f622991d488e253b5d8c1187d"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/vitest.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-p13a-baseline-r1/vitest.json",
+      "bytes": 949,
+      "sha256": "567be3f1fc808ad83126668fbf7276f61ecce6da10d6c5c2412afd6f88923cb9"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/CHILD.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/CHILD.json",
+      "bytes": 765,
+      "sha256": "ec95824fb0844be7c1de16987eea1d3bf53ba11f5a46a095145d1c3e2d5b7f94"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/LAUNCH.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/LAUNCH.json",
+      "bytes": 390,
+      "sha256": "b98b1e8b3a5b3cb66ea23960be6fc5abcbdcbeafe4e800b36b6b7cb38ce08939"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/RESULT.json",
+      "bytes": 5435,
+      "sha256": "f1fc83c5301c973c623f7f84c46ebaaabe7bf427adb1a616c602d02bfdc5daf7"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/binding.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/binding.json",
+      "bytes": 2316,
+      "sha256": "f3410a5a859dd3bf517601a62f7a8a52ac447a7330bcc81f4958fd2cc4eb204b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/power.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/power.txt",
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/stderr.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/stdout.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1.log",
+      "bytes": 1033,
+      "sha256": "2dd33c3d158404492c25df0dfc9b25f29d20f489d5ea1273b16175a2ecf4d98d"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-c0-clean-p13a-baseline-r1.log.meta",
+      "bytes": 713,
+      "sha256": "926f777ce765f04cd481908f8e425fcece593e67a74b94c3a01431d924e839c3"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1.log",
+      "bytes": 1039,
+      "sha256": "fa6b0584852d83d694b335ebe919150cb8ef40f36eba01e47d17747ec1314b54"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-c0-types-source-baseline-r1.log.meta",
+      "bytes": 464,
+      "sha256": "33b87afdcefcf4febaaac366b85c284d47dae4dcb8c1ff49a317615202a1c46a"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-clean-p13a-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-clean-p13a-r1.log",
+      "bytes": 1009,
+      "sha256": "cdf6c92e54961bb1341af47af5b28ac71dbab77537734b1cbfeeae531c4bde62"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-clean-p13a-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-clean-p13a-r1.log.meta",
+      "bytes": 697,
+      "sha256": "8a629ac650f7aa18ba63b8933af06042be6481fe53cdb21109d8aeb610910997"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-observed-p13a-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-observed-p13a-r1.log",
+      "bytes": 1023,
+      "sha256": "71c7e115987deec04fff684efa621acd4e67807dd593af14a509612a3fd3a3c2"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-observed-p13a-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-observed-p13a-r1.log.meta",
+      "bytes": 914,
+      "sha256": "83cfe47f8d7504c2262975667b48a7abb77ab63d1f889cb4e82938b41fdf4467"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-types-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-types-r1.log",
+      "bytes": 1015,
+      "sha256": "83f2bff8e963c39b6d42c2385f60356a8bc220dce69c3eacb1a86ec430409e26"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-types-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r4-lowspace-r2-types-r1.log.meta",
+      "bytes": 456,
+      "sha256": "f6892440771c4d0c58e47e39fc47c77a2658fa29b7930640e940a2ad8f2447fd"
+    }
+  ]
+}
