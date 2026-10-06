@@ -1,0 +1,7 @@
+# F1 one-decision film-hold design r2 — independent review
+
+**ACCEPT_DESIGN_ONLY.** The r2 change accurately binds the independently accepted F0 r3 observed audit and removes the stale audit-pending language from r1. The five conjunctive conditions still exempt only the internal week-93 `if(held)return` for the one seed/studio/hold/project-count. F0's pinned witness shows the 13th rejection and shelving, no inventory or reserve block, a writer available, and the first true hold return; modern film 10 first take is internal week 113/external week 114. The proposed F1 result is explicitly a counterfactual diagnosis, not product-law approval or protected-ledger admission.
+
+The design properly keeps later holds, chooser, costs, RNG keys and fixture unchanged, and treats a failed chooser as a boundary rather than a reason to expand the intervention. It separates the first changed branch from any later film timing or terminal digest. Historical H remains a reference, not an F1 expected pin. F0 exact modern/RNG pins stay controls; F1 measured digests are unpinned.
+
+Executable review must prove the exact one-hunk diff, the ten-project predicate and actual one-decision activation, source/fixture/observer equality, and all type/clean, 416-week, 417-boundary, 43-trace, formal, timeout and cleanup gates. The design still names published HEAD `292d6fd3`; current docs-only `a438feacc9b440a90882bb3b117e9d4b4761fed9` requires an explicit independent rebind with unchanged `HEAD:src`, never silent substitution. No source or heavy process was run here.

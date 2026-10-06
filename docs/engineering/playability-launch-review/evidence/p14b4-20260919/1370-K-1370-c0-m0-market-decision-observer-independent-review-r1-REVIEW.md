@@ -1,0 +1,9 @@
+# M0 market-decision observer design r1 — independent review
+
+**ACCEPT_DESIGN_ONLY.** The comparator SHA and its independent audit match, as do the three named modern source-file SHA pins. Historical and modern source trees are distinct and pinned. The week-208 r02-versus-r03 settlement discrepancy is a valid observational target; the draft does not assign salary, promise, opportunity or ranking as a cause from the external trace alone.
+
+The proposed paired side channel is narrow: the one subject and r01/r02/r03 issuers, opening/authoring through decision, with source-order events and `NOT_EVALUATED`/`NOT_REACHED`/`NOT_PRESENT_IN_ERA` for absent branches. Capturing values from already executed calls, including inside feasibility when needed, avoids extra evaluations or RNG. Separate historical and modern neutrality against each era's own four protected preimages plus RNG is essential. A different input and a different decision must remain distinct findings; differing survivor sets make chooser ranking downstream.
+
+Before executable review, pin historical hook/file hashes as well as the named modern ones, map each era's actual candidate and freeze-predicate order, and specify a numeric row/output cap. Capture the full feasibility receipt on its existing call path; modern `authorRivalPromise` currently reads only `.classification`, so no second feasibility call may be added to obtain bottleneck or inputsDigest. Any side-channel input digest must use the exact decision inputs as read without mutating state or materializing an unevaluated branch. Bind a current clean published HEAD for the modern arm, since the draft names earlier `292d6fd3`; historical H stays separate. Require exact observer neutrality and a static executable review before the lane is used. No product rule or causal control is authorized by this design verdict.
+
+No source, TypeScript, Vitest, Node game or heavy process was run here.

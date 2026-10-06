@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "vitest.ebg-focused.config.ts",
+    "--reporter=json",
+    "--outputFile",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r8/focused.vitest.json"
+  ],
+  "name": "focusedVitest",
+  "pgid": 57779,
+  "pid": 57779,
+  "startNewSession": true
+}

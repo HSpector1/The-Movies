@@ -1,0 +1,6 @@
+{
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "designSha256": "c3fa12d6919fab5a0bea468c5d4e6b78aca9122c93f2bf57b511cc35218c9256",
+  "reviewSha256": "f4a13bde03e54b3c351b3613849416dd79f23b6dd6e0e4fc802a70dc227e5caf",
+  "scope": "STATIC_DESIGN_ONLY_NO_EXECUTION"
+}

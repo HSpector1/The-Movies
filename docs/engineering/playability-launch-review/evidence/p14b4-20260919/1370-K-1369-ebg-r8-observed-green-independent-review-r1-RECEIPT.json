@@ -1,0 +1,11 @@
+{
+  "consumerAssertions": 6,
+  "decision": "ACCEPT_OBSERVED_FOCUSED_GREEN_CANDIDATE_ONLY",
+  "focusedAssertions": 22,
+  "head": "a438feacc9b440a90882bb3b117e9d4b4761fed9",
+  "manifestSha256": "c1b9d9b6aa891d73c5087f30e1967bf53ab4d1f39c86006851fcefc4ef545149",
+  "outerResultSha256": "24b07fbf8dac5d505832c55d9586fd5b0dfeeed83088a8a0bb981c4154a6b269",
+  "reviewSha256": "ae1db921a8e4d3db1ff4349adcc16990eaa18b8fa13ff82e81ce5355e8313681",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "targetResultSha256": "c980c557b88899909b33b09bd2f3ee3631d12a228dd5a0ebd92fca5f0066b4e9"
+}

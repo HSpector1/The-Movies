@@ -1,0 +1,104 @@
+{
+  "accepted": false,
+  "consumerVitestSummary": {
+    "assertions": 6,
+    "passed": 6,
+    "sha256": "b536183a32667339a9ff980fd0b3cc09d225f3a9fbe52f3b8fae6a7e90fdc46d",
+    "suites": 2
+  },
+  "executionTreePostflightSha256": "36ddd944bdb3684facb10ecfe4a1a06b432de330b40d70674c5199760c1dbba4",
+  "executionTreeUnchanged": true,
+  "finishedUtc": "2026-10-06T18:16:06Z",
+  "greenCandidate": false,
+  "guardsAfter": {
+    "head": "a438feacc9b440a90882bb3b117e9d4b4761fed9",
+    "headSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "treeDigest": "36ddd944bdb3684facb10ecfe4a1a06b432de330b40d70674c5199760c1dbba4"
+  },
+  "guardsBefore": {
+    "head": "a438feacc9b440a90882bb3b117e9d4b4761fed9",
+    "headSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "treeDigest": "36ddd944bdb3684facb10ecfe4a1a06b432de330b40d70674c5199760c1dbba4"
+  },
+  "head": "a438feacc9b440a90882bb3b117e9d4b4761fed9",
+  "packageManifestSha256": "c71e4717dc8fd1208c857add4bfc7c4b94c38ef4b327f7f830e38eaee18e0c0a",
+  "schema": "1369-ebg-r3-green-direct-focused-result-r7",
+  "sourceAndRepoUnchanged": true,
+  "sourceMapSha256": "7c27c80c19e72061e23088cb9b00fc38aa5716d4a6dac8ff11cda9a7d9428272",
+  "startedUtc": "2026-10-06T18:12:49Z",
+  "status": "FOCUSEDVITEST_FAILURE",
+  "steps": {
+    "consumerVitest": {
+      "cleanupSucceeded": true,
+      "command": [
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "vitest.b-only-red.config.ts",
+        "--reporter=json",
+        "--outputFile",
+        "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r7/consumer.vitest.json"
+      ],
+      "exit": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "904dbbd8808316d6ff53a88c578c0917008c31be71958e78c66db13435a300c0",
+      "survivedBeforeCleanup": false,
+      "survivingProcessGroup": false,
+      "timedOut": false
+    },
+    "fixtureTypes": {
+      "cleanupSucceeded": true,
+      "command": [
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.ebg-green.json"
+      ],
+      "exit": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "survivedBeforeCleanup": false,
+      "survivingProcessGroup": false,
+      "timedOut": false
+    },
+    "focusedVitest": {
+      "cleanupSucceeded": true,
+      "command": [
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "vitest.ebg-focused.config.ts",
+        "--reporter=json",
+        "--outputFile",
+        "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r7/focused.vitest.json"
+      ],
+      "exit": 1,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "ca76b7297adddcd48a88c0a4f5513fdc19b51196dc139240228bfa3bfa491798",
+      "survivedBeforeCleanup": false,
+      "survivingProcessGroup": false,
+      "timedOut": false
+    },
+    "sourceTypes": {
+      "cleanupSucceeded": true,
+      "command": [
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.json"
+      ],
+      "exit": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "survivedBeforeCleanup": false,
+      "survivingProcessGroup": false,
+      "timedOut": false
+    }
+  }
+}

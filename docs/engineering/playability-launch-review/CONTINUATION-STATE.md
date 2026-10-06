@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1370-K: B-only focused GREEN candidate; 416-week controls next
+
+[1370-K](evidence/p14b4-20260919/1370-K-ebg-focused-green-and-controls.md) preserves the independently audited EBG r8 four-stage focused candidate: both type gates, six B-only consumer assertions and 22 whole historical assertions pass with exact source/cleanup. R7's three historical V27 failures and the narrowly reviewed overlay remain visible. The revised AG→E0G/E0G→EBG/EBG→ABG 416-week control ladder is accepted as design only; no B-only long route or C0 protected digest reconciliation exists. Production source/main unchanged; 1363 and P16 incomplete. HANDOFF gives the next gates.
+
 ## CURRENT — 1370-J: F0 film-hold witness accepted; EBG remote preflight stopped
 
 [1370-J](evidence/p14b4-20260919/1370-J-f0-witness-and-ebg-remote-stop.md) preserves an independently audited equal-source F0 film-hold witness with modern digests/RNG unchanged, plus EBG r5's real pre-stage Git remote timeout and cleanup. The F1 counterfactual and EBG GREEN remain unrun; r6 is static-only and needs new-HEAD rebind. Production source/main unchanged; 1363 and P16 incomplete. HANDOFF gives the next gates.

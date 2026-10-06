@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "vitest.b-only-red.config.ts",
+    "--reporter=json",
+    "--outputFile",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r8/consumer.vitest.json"
+  ],
+  "name": "consumerVitest",
+  "pgid": 56129,
+  "pid": 56129,
+  "startNewSession": true
+}

@@ -1,0 +1,10 @@
+{
+  "bOnlyAttribution": false,
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "designSha256": "a4478c7b075033e83726b4a52794f8863cd393608d396e5009c8f48a6389d9ac",
+  "longRouteAuthorized": false,
+  "neutralityMeasured": false,
+  "priorRefineReviewSha256": "c3f1317c2311cb14c7cecda9edbbe4f13489de96bd6af911c420c49ea99b3a58",
+  "reviewSha256": "713b8909d9e95bee65201e265a3948911142d8e27967c27522c359688ae457c3",
+  "schema": "1369-ebg-416-week-controls-independent-review-r2"
+}

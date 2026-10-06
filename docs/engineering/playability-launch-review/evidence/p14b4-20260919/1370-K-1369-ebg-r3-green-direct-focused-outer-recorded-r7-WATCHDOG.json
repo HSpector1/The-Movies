@@ -1,0 +1,7 @@
+{
+  "elapsedSeconds": 213.8761251809774,
+  "greenCandidate": false,
+  "resultSha256": "90fab740dcbf5bcc1959c239bfe5de2ae5f27a34eca362c7e0769ace22668dfa",
+  "resultStatus": "GUARD_OR_CHILD_FAILURE",
+  "status": "FINALIZED_AFTER_RESULT"
+}

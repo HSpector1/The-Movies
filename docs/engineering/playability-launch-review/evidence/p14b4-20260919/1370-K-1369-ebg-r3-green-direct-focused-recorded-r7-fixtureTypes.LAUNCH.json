@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+    "--noEmit",
+    "-p",
+    "tsconfig.ebg-green.json"
+  ],
+  "name": "fixtureTypes",
+  "pgid": 32442,
+  "pid": 32442,
+  "startNewSession": true
+}

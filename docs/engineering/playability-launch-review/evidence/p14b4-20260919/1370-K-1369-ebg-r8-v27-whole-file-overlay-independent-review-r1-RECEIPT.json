@@ -1,0 +1,9 @@
+{
+  "decision": "ACCEPT_STATIC_TEST_OVERLAY_ONLY",
+  "manifestSha256": "b9815aadb65243b625c3b6d2baab31d539b8711b06b8330e47c330e91647ce4c",
+  "patchSha256": "36fa5c4b5982b9276775838bcb4638e44604ece5f696dc183768c3a95a58b21d",
+  "postimageSha256": "a05b145f241209f35f8dd0cbb948367e0f610bafc8446667fe1850f8689f3931",
+  "reviewSha256": "4a865db50b2c5cf9c71df376a442c4db6cd1cf3997ee09e496fe8fd42ff463e6",
+  "schema": "1369-ebg-r8-v27-whole-file-overlay-independent-review-r1",
+  "sourceSha256": "f44c990cfeb641203c908ac44595ed2d811b4bed000188ef09d041285097ec58"
+}

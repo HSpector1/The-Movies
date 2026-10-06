@@ -1,0 +1,110 @@
+{
+  "accepted": false,
+  "consumerVitestSummary": {
+    "assertions": 6,
+    "passed": 6,
+    "sha256": "1436fefd394fb4aebd504df204a1a0d16ddff311a3084708ff8edcac410f8891",
+    "suites": 2
+  },
+  "executionTreePostflightSha256": "e72cf41bbe72d3fefb1ebe802a93fa5bc34ae84cfdb14ce33ea432c31f66fc3c",
+  "executionTreeUnchanged": true,
+  "finishedUtc": "2026-10-06T18:27:20Z",
+  "focusedVitestSummary": {
+    "assertions": 22,
+    "passed": 22,
+    "sha256": "795b2c276c4a0faa1d43bd5d4b821cbb80cf3288ea755d886c61d17d2f63ffb2",
+    "suites": 4
+  },
+  "greenCandidate": true,
+  "guardsAfter": {
+    "head": "a438feacc9b440a90882bb3b117e9d4b4761fed9",
+    "headSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "treeDigest": "e72cf41bbe72d3fefb1ebe802a93fa5bc34ae84cfdb14ce33ea432c31f66fc3c"
+  },
+  "guardsBefore": {
+    "head": "a438feacc9b440a90882bb3b117e9d4b4761fed9",
+    "headSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "treeDigest": "e72cf41bbe72d3fefb1ebe802a93fa5bc34ae84cfdb14ce33ea432c31f66fc3c"
+  },
+  "head": "a438feacc9b440a90882bb3b117e9d4b4761fed9",
+  "packageManifestSha256": "c1b9d9b6aa891d73c5087f30e1967bf53ab4d1f39c86006851fcefc4ef545149",
+  "schema": "1369-ebg-r3-green-direct-focused-result-r8",
+  "sourceAndRepoUnchanged": true,
+  "sourceMapSha256": "7c27c80c19e72061e23088cb9b00fc38aa5716d4a6dac8ff11cda9a7d9428272",
+  "startedUtc": "2026-10-06T18:24:08Z",
+  "status": "OBSERVED_GREEN_CANDIDATE",
+  "steps": {
+    "consumerVitest": {
+      "cleanupSucceeded": true,
+      "command": [
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "vitest.b-only-red.config.ts",
+        "--reporter=json",
+        "--outputFile",
+        "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r8/consumer.vitest.json"
+      ],
+      "exit": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "1b5fc8d1a7c2efd5898fe796dca9d20ded76d17c95b7561aa1187d314fb9fdcc",
+      "survivedBeforeCleanup": false,
+      "survivingProcessGroup": false,
+      "timedOut": false
+    },
+    "fixtureTypes": {
+      "cleanupSucceeded": true,
+      "command": [
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.ebg-green.json"
+      ],
+      "exit": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "survivedBeforeCleanup": false,
+      "survivingProcessGroup": false,
+      "timedOut": false
+    },
+    "focusedVitest": {
+      "cleanupSucceeded": true,
+      "command": [
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "vitest.ebg-focused.config.ts",
+        "--reporter=json",
+        "--outputFile",
+        "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r8/focused.vitest.json"
+      ],
+      "exit": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "636b167002b8c4e2f9b2b64bbd18dffbb10c16435e59a64e92f9a2e27fdd08b3",
+      "survivedBeforeCleanup": false,
+      "survivingProcessGroup": false,
+      "timedOut": false
+    },
+    "sourceTypes": {
+      "cleanupSucceeded": true,
+      "command": [
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.json"
+      ],
+      "exit": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "survivedBeforeCleanup": false,
+      "survivingProcessGroup": false,
+      "timedOut": false
+    }
+  }
+}

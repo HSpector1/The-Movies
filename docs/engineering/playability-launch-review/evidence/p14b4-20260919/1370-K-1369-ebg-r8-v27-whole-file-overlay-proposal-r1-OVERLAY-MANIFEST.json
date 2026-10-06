@@ -1,0 +1,15 @@
+{
+  "failedFocusedVitestSha256": "96195ca2195090621dbc6cf34eae27470546a175f59a65d5c5ef42a21bebfee9",
+  "failedTargetResultSha256": "646ba584054b8fdbf05ebcd642dec74b0342965b16a17c7e7294da5958040649",
+  "head": "a438feacc9b440a90882bb3b117e9d4b4761fed9",
+  "noProductionChanges": true,
+  "packageTreeMapSha256": "5f4fafcd0ec46330384b52ef1f4f8179fcba0379093fcdad85825d3a54b27f99",
+  "patchSha256": "36fa5c4b5982b9276775838bcb4638e44604ece5f696dc183768c3a95a58b21d",
+  "postimageSha256": "a05b145f241209f35f8dd0cbb948367e0f610bafc8446667fe1850f8689f3931",
+  "productionSourceMapSha256": "7c27c80c19e72061e23088cb9b00fc38aa5716d4a6dac8ff11cda9a7d9428272",
+  "schema": "1369-ebg-r8-v27-whole-file-overlay-proposal-r1",
+  "sourcePackageManifestSha256": "c71e4717dc8fd1208c857add4bfc7c4b94c38ef4b327f7f830e38eaee18e0c0a",
+  "sourcePath": "tests/p13b-s8-save-v27.test.ts",
+  "sourceSha256": "f44c990cfeb641203c908ac44595ed2d811b4bed000188ef09d041285097ec58",
+  "status": "STATIC_PROPOSAL_AWAITING_INDEPENDENT_REVIEW"
+}

@@ -1,0 +1,37 @@
+{
+  "accepted": false,
+  "childExit": 1,
+  "childStderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "childStdoutSha256": "c9f3caae58a6748782b9119247018e0522f37c46d1eac035aae4a8a4399d9143",
+  "cleanup": {
+    "30180": true,
+    "31144": true,
+    "32442": true,
+    "33503": true,
+    "35617": true
+  },
+  "deadlineSeconds": 1600,
+  "deadlineStartMonotonic": 769887.294661025,
+  "elapsedSeconds": 213.87336950399913,
+  "error": "AssertionError('STOP child failure')",
+  "finishedUtc": "2026-10-06T18:16:07Z",
+  "greenCandidate": false,
+  "head": "a438feacc9b440a90882bb3b117e9d4b4761fed9",
+  "manifestSha256": "c71e4717dc8fd1208c857add4bfc7c4b94c38ef4b327f7f830e38eaee18e0c0a",
+  "missingLaunchReceipts": [],
+  "ownedGroups": [
+    30180,
+    31144,
+    32442,
+    33503,
+    35617
+  ],
+  "ownershipErrors": [],
+  "reviewSha256": "d9f814cda5929139cf1a67ab51bb514dc0617ebc08aceabda127ecb19e3c8d18",
+  "schema": "1369-ebg-r3-green-outer-result-r7",
+  "startedUtc": "2026-10-06T18:12:33Z",
+  "status": "GUARD_OR_CHILD_FAILURE",
+  "survivedBeforeCleanup": [],
+  "survivingGroups": [],
+  "targetPath": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r7"
+}

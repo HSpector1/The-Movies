@@ -1,0 +1,7 @@
+{
+  "elapsedSeconds": 210.5138485999778,
+  "greenCandidate": true,
+  "resultSha256": "24b07fbf8dac5d505832c55d9586fd5b0dfeeed83088a8a0bb981c4154a6b269",
+  "resultStatus": "OBSERVED_GREEN_CANDIDATE",
+  "status": "FINALIZED_AFTER_RESULT"
+}
