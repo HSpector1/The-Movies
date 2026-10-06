@@ -1,0 +1,28 @@
+{
+  "accepted": false,
+  "error": "CalledProcessError(128, ['git', 'ls-remote', '--exit-code', 'origin', 'refs/heads/wip/headless-program-20260916-ts'])",
+  "executionTreePostflightSha256": "36ddd944bdb3684facb10ecfe4a1a06b432de330b40d70674c5199760c1dbba4",
+  "executionTreeUnchanged": true,
+  "finishedUtc": "2026-10-06T18:00:55Z",
+  "greenCandidate": false,
+  "guardsAfter": {
+    "head": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+    "headSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "treeDigest": "36ddd944bdb3684facb10ecfe4a1a06b432de330b40d70674c5199760c1dbba4"
+  },
+  "guardsBefore": {
+    "head": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+    "headSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "treeDigest": "36ddd944bdb3684facb10ecfe4a1a06b432de330b40d70674c5199760c1dbba4"
+  },
+  "head": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "packageManifestSha256": "86f9a4fcde803fa0b471ec067f2950f028554225c8f57077cc5f1fa9bbc8844e",
+  "schema": "1369-ebg-r3-green-direct-focused-result-r5",
+  "sourceAndRepoUnchanged": true,
+  "sourceMapSha256": "7c27c80c19e72061e23088cb9b00fc38aa5716d4a6dac8ff11cda9a7d9428272",
+  "startedUtc": "2026-10-06T17:58:37Z",
+  "status": "GUARD_OR_CLASSIFICATION_FAILURE",
+  "steps": {}
+}

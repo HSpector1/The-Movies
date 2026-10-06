@@ -1,0 +1,8 @@
+{
+  "cleanResultSha256": "85db85a85dae2ea87eb8c7f058ddd0c3e37c0ee60b9ea9ce0d306a53452454e5",
+  "decision": "ACCEPT_OBSERVED_EXPLORATORY_F0_ONLY",
+  "reviewSha256": "7921ef0228be739e675322111848bf71a85792af5cf2de588671f51c7bb6a8a7",
+  "routeResultSha256": "021a73620988dc8de033697811fecc8d1a4561d4aa0905dac769a3dfaac1fae0",
+  "supervisorResultSha256": "8e11509d6e23e643b3371dcf4b724c2ebd68bc3ff3caa49ff03f897c14342a0f",
+  "typesResultSha256": "f1fed0a448d01e0523149e292ea8a1ccdc6138b36922d99fc928e3f37475b335"
+}

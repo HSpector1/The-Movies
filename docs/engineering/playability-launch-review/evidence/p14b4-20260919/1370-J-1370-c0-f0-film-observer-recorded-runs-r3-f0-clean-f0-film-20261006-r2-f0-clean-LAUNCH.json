@@ -1,0 +1,23 @@
+{
+  "actualWaitTimeoutSeconds": 630,
+  "bindingSha256": "f6c70445ab79992e907e16b7176175172fef51d7fd9d40781a0303c7e39df9f7",
+  "childPid": 11947,
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "vitest.preimage.config.ts",
+    "--maxWorkers",
+    "1",
+    "--minWorkers",
+    "1",
+    "--no-file-parallelism",
+    "--reporter=verbose",
+    "--reporter=json",
+    "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/vitest.json"
+  ],
+  "monotonicStarted": 769527.335434744,
+  "ownedProcessGroup": 11947,
+  "startNewSession": true
+}

@@ -1,0 +1,218 @@
+{
+  "accepted": true,
+  "actualChildExit": 0,
+  "allGuardsExact": true,
+  "arm": "f0",
+  "artifacts": {
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-f0-film-observer-r3-f0-clean-f0-film-20261006-r2-f0-clean-postflight.json": {
+      "bytes": 120004,
+      "sha256": "fba15aeac59b6e076bb04e7b9e6f4976359b541bf21e2246a9ec8747d451688a"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-f0-film-observer-r3-f0-clean-f0-film-20261006-r2-f0-clean-preflight.json": {
+      "bytes": 119202,
+      "sha256": "202d001163049f1b02aa819d38538729fccc376a4baf2635ef983777e58654d8"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-f0-film-observer-r3-f0-clean-f0-film-20261006-r2-f0-clean.json": {
+      "bytes": 57604,
+      "sha256": "a2a1f1e1d9ce554861266674991479a19e9c6aa82315a74ceea09a8536914ec8"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-f0-film-observer-r3-f0-clean-f0-film-20261006-r2-f0-clean.patch": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-c0-f0-film-observer-r3-f0-clean-f0-film-20261006-r2-f0-clean.txt": {
+      "bytes": 48923,
+      "sha256": "66d29210e3636615763d20b95049bd8283ab414a83eb66a4496fc80abab34c83"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/CHILD.json": {
+      "bytes": 1147,
+      "sha256": "764372d4e0eb9106463a8334f1327cbc00d93e2cda85c38ab0c436548f81d1b0"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/LAUNCH.json": {
+      "bytes": 716,
+      "sha256": "48a4884be3b1398aebd605278f317c2d3712cc8a12ccc1f2fb4176f5df0a530f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/binding.json": {
+      "bytes": 3722,
+      "sha256": "f6c70445ab79992e907e16b7176175172fef51d7fd9d40781a0303c7e39df9f7"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/power-post.txt": {
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/power.txt": {
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/preimages/employment.json": {
+      "bytes": 13113,
+      "sha256": "7e64d2fbfd525edf40daa4fb952fe08ac68d4a877b4d212afd7adcfdca25237d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/preimages/film-hold-witness.ndjson": {
+      "bytes": 14591,
+      "sha256": "9eb6ffe62a74dec8ce6fbf1d2d07cf0a4e99ec16491e5fc074dedc21b6e9b6ee"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/preimages/final.json": {
+      "bytes": 1097,
+      "sha256": "450c2b380c4eb845294e37e8f994c85a524250c4abf15e0b1f14d0b7346a68ca"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/preimages/receipts.json": {
+      "bytes": 33215,
+      "sha256": "1c3f415bf98e969c3af783e2613b19bd6c573e935a49fd93289626ce956720f9"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/preimages/settlement.json": {
+      "bytes": 10229,
+      "sha256": "8a4df62fdd64ba26fc6e00e438c47c25749921fcad0e849921a7909f2f8b85f9"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/preimages/takes.json": {
+      "bytes": 15758,
+      "sha256": "e88c6b792a493768e766bbdf59698ed32a48b1c9cf4982cc9f5dfd894983e593"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/preimages/terminal-context.ndjson": {
+      "bytes": 3483449,
+      "sha256": "82654656f929b5c3b933668a3f12e56d81d9d370dfc7785c6524fe28674e1db4"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/preimages/trace-schema.json": {
+      "bytes": 829,
+      "sha256": "84f1c95937cc4a8b3f93a7b90fdaeb643dc7b7b2cae36bd5bb618e11010fb7e1"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/preimages/trace.ndjson": {
+      "bytes": 66516,
+      "sha256": "f2c7bd802c39d813832380d9e1ef060d5e11638808df60813d0c91fbc08a6ae4"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/preimages/weekly.ndjson": {
+      "bytes": 17000976,
+      "sha256": "93b501bfefa958a0e2291abbecea68932d3ee4068a771ff03f3d34ae6879008b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/stdout.txt": {
+      "bytes": 540,
+      "sha256": "7aef8e31b5430ebf622fc5604580726fc080a287081f2681b729a84b021b5653"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/vitest.json": {
+      "bytes": 944,
+      "sha256": "45cb0e9f6f1ef48dc9ebad1870fd9bd8d891592f2375dd88ccc72f2f0847d4cc"
+    }
+  },
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "vitest.preimage.config.ts",
+    "--maxWorkers",
+    "1",
+    "--minWorkers",
+    "1",
+    "--no-file-parallelism",
+    "--reporter=verbose",
+    "--reporter=json",
+    "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean/vitest.json"
+  ],
+  "diskReserveBreached": false,
+  "diskReservePostflight": true,
+  "elapsedSeconds": 15.113110978039913,
+  "interpretation": "Exploratory preimage evidence only; no protected acceptance.",
+  "livePostflightExact": true,
+  "mode": "clean",
+  "outputBoundExact": true,
+  "outputBytes": 20645800,
+  "outputLimitExceeded": false,
+  "package": "1370-C0-F0-FILM-OBSERVER-R3",
+  "pins": {
+    "arm": "f0",
+    "armFilePinsSha256": "a0e8664e061fa989161e3977d700b262b226fe397aa59160946b6286f35f7082",
+    "boundedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "branch": "refs/heads/wip/headless-program-20260916-ts",
+    "childBootstrapSha256": "0fe1177ce4549329dfcbf2f72c717a0924c61811818bb26d9700261583dbc42a",
+    "diagnosticSha256": "3426a44f77cf7eb20439943ab1729e67a2c7356998c51cf204cdb0b4845da50a",
+    "entrypoints": {
+      "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+      "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-bounded-source-c2.mjs": "ae167b103ddaa714268cd63e163daa4966b0c3b8f07bfa3e9bd8f0c7d07751a2",
+      "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-bounded-source-guards.py": "1a1e144c25dd36320c64237d5b58f19d848eb85171fa777e5772c2c3fff1a20e",
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0",
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs": "39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6",
+      "/Users/zacheryspector/studio-scratch/1368-ledger-parent-prep-r4/cleanup.py": "4698b610b50289fd289e3235c564c087774b443422ca7e0ac6635284babc49e4"
+    },
+    "head": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+    "horizon": 416,
+    "indexSha256": "f78cfbf62fcae73e3b0f9e7bd23a771250cc766aa205dcde793c60ba137d9426",
+    "manifestSha256": "d9647746111eaa1a91739555bf41e72983bfc7b446083cea59ac0afb3f156b21",
+    "originHead": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+    "outerTimeoutSeconds": 630,
+    "package": "1370-C0-F0-FILM-OBSERVER-R3",
+    "runnerSha256": "9e7f9cac6af49947a8a68da2ea443bf976be2ef4305147c0e8285cb5b3bc0ccd",
+    "seed": "p13a-core-causal-01",
+    "stageSha256": "5fbb6f87444aeff1e5da8f7b789f30f22b6ad015f3794dd8ada04add817a80ec",
+    "testTimeoutSeconds": 600
+  },
+  "powerPostflightError": null,
+  "processGroup": {
+    "cleanupVerified": true,
+    "errors": [],
+    "leaderReaped": true,
+    "noSurvivors": true,
+    "ownedProcessGroup": 11947,
+    "signalAttempts": [],
+    "signals": [],
+    "statusAfterCleanup": "ABSENT",
+    "statusBeforeCleanup": "ABSENT"
+  },
+  "recorderChildExit": 0,
+  "recorderStatus": 0,
+  "reportingErrors": [],
+  "runOutputBytes": 20647052,
+  "seed": "p13a-core-causal-01",
+  "staticReviewSha256": "71b69bb2194dc0681ad89bdd3e4f7610529ba0cb648f7f4c7683c2ce7e93eb7d",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutSha256": "7aef8e31b5430ebf622fc5604580726fc080a287081f2681b729a84b021b5653",
+  "timedOut": false,
+  "validation": {
+    "actual": {
+      "employment": "7e64d2fbfd525edf40daa4fb952fe08ac68d4a877b4d212afd7adcfdca25237d",
+      "receipts": "1c3f415bf98e969c3af783e2613b19bd6c573e935a49fd93289626ce956720f9",
+      "settlement": "8a4df62fdd64ba26fc6e00e438c47c25749921fcad0e849921a7909f2f8b85f9",
+      "takes": "e88c6b792a493768e766bbdf59698ed32a48b1c9cf4982cc9f5dfd894983e593"
+    },
+    "allPinsMatch": true,
+    "expected": {
+      "employment": "7e64d2fbfd525edf40daa4fb952fe08ac68d4a877b4d212afd7adcfdca25237d",
+      "receipts": "1c3f415bf98e969c3af783e2613b19bd6c573e935a49fd93289626ce956720f9",
+      "settlement": "8a4df62fdd64ba26fc6e00e438c47c25749921fcad0e849921a7909f2f8b85f9",
+      "takes": "e88c6b792a493768e766bbdf59698ed32a48b1c9cf4982cc9f5dfd894983e593"
+    },
+    "filmHoldRows": 56,
+    "filmHoldWitnessSha256": "9eb6ffe62a74dec8ce6fbf1d2d07cf0a4e99ec16491e5fc074dedc21b6e9b6ee",
+    "firstPositiveHold": {
+      "cash": 20353125.09244066,
+      "holdUntil": 106,
+      "index": 8,
+      "reserve": 1309165,
+      "shelvedOrdinal": 6,
+      "week": 93,
+      "writerAvailable": true
+    },
+    "firstTakeLink": {
+      "externalWeek": 114,
+      "internalWeek": 113,
+      "productionId": "studio-aca408ec-r01:film:10",
+      "startTick": 109
+    },
+    "preimageBytes": {
+      "employment": 13113,
+      "receipts": 33215,
+      "settlement": 10229,
+      "takes": 15758
+    },
+    "rng": "2598418427,508725886,1318803286,3129010527",
+    "terminalContexts": 40,
+    "traceRows": 43,
+    "traceSha256": "f2c7bd802c39d813832380d9e1ef060d5e11638808df60813d0c91fbc08a6ae4",
+    "weeklyRows": 417
+  },
+  "validationError": null
+}

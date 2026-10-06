@@ -1,0 +1,39 @@
+{
+  "accepted": true,
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "failure": null,
+  "head": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "interpretation": "Exploratory F0 film-hold observer evidence only; independent result audit required.",
+  "package": "1370-C0-F0-TWO-STAGE-ROUTE-R3",
+  "runId": "f0-film-20261006-r2",
+  "stages": [
+    {
+      "accepted": true,
+      "arm": "f0",
+      "elapsedSeconds": 41.591020705061965,
+      "externalTimedOut": false,
+      "launcherExit": 0,
+      "leaf": "f0-film-20261006-r2-f0-types",
+      "mode": "types",
+      "output": "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-types-f0-film-20261006-r2-f0-types",
+      "resultSha256": "f1fed0a448d01e0523149e292ea8a1ccdc6138b36922d99fc928e3f37475b335",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "a68ee2ad3e9484e273382dae2acea60cf5ff4eab4766629294e19b1cf4883340",
+      "timeoutCleanup": null
+    },
+    {
+      "accepted": true,
+      "arm": "f0",
+      "elapsedSeconds": 26.78442504897248,
+      "externalTimedOut": false,
+      "launcherExit": 0,
+      "leaf": "f0-film-20261006-r2-f0-clean",
+      "mode": "clean",
+      "output": "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean",
+      "resultSha256": "85db85a85dae2ea87eb8c7f058ddd0c3e37c0ee60b9ea9ce0d306a53452454e5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "8a769447091b159823f0516bb46ed107cabc05bb87cae388452cb850bdc8bf54",
+      "timeoutCleanup": null
+    }
+  ]
+}

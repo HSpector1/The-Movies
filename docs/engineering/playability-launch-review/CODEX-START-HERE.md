@@ -1,4 +1,4 @@
-> Current checkpoint: [1370-I](evidence/p14b4-20260919/1370-I-observed-controls-and-stopped-green.md). Read [HANDOFF.md](../../HANDOFF.md) before running any route. S1 comparison completed; EBG GREEN and F0 r3 remain unrun.
+> Current checkpoint: [1370-J](evidence/p14b4-20260919/1370-J-f0-witness-and-ebg-remote-stop.md). Read [HANDOFF.md](../../HANDOFF.md) before running any route. F0 r3 is exploratory observed; EBG GREEN remains unrun.
 
 # CODEX continuation — Project Studio
 

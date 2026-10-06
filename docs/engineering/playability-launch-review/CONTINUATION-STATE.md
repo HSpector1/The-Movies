@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1370-J: F0 film-hold witness accepted; EBG remote preflight stopped
+
+[1370-J](evidence/p14b4-20260919/1370-J-f0-witness-and-ebg-remote-stop.md) preserves an independently audited equal-source F0 film-hold witness with modern digests/RNG unchanged, plus EBG r5's real pre-stage Git remote timeout and cleanup. The F1 counterfactual and EBG GREEN remain unrun; r6 is static-only and needs new-HEAD rebind. Production source/main unchanged; 1363 and P16 incomplete. HANDOFF gives the next gates.
+
 ## CURRENT — 1370-I: S1 comparison observed; EBG and F0 remain stopped
 
 [1370-I](evidence/p14b4-20260919/1370-I-observed-controls-and-stopped-green.md) preserves the independently audited S1 exact-source comparator, a real EBG Save46 helper type failure, and an F0 film-hold witness whose route failed on internal versus post-tick week coordinates. EBG helper and F0 guard corrections have static acceptance only; new-HEAD packages and fresh runs are required. Production source/main unchanged; 1363 and P16 incomplete. HANDOFF gives the next gates.

@@ -1,0 +1,25 @@
+{
+  "accepted": true,
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "elapsedSeconds": 74.0651648400817,
+  "head": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "knownProcessGroups": [
+    9463,
+    9979,
+    10591,
+    11598,
+    11947
+  ],
+  "noSurvivors": true,
+  "observedLeaves": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-clean-f0-film-20261006-r2-f0-clean",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3/f0-types-f0-film-20261006-r2-f0-types"
+  ],
+  "ownershipComplete": true,
+  "package": "1370-C0-F0-TWO-STAGE-ROUTE-R3",
+  "receiptErrors": [],
+  "routeExit": 0,
+  "routeResultSha256": "021a73620988dc8de033697811fecc8d1a4561d4aa0905dac769a3dfaac1fae0",
+  "runId": "f0-film-20261006-r2",
+  "timedOut": false
+}

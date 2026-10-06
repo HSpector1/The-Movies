@@ -1,0 +1,6 @@
+{
+  "decision": "ACCEPT_STATIC_EXECUTABLE_ONLY",
+  "manifestSha256": "86f9a4fcde803fa0b471ec067f2950f028554225c8f57077cc5f1fa9bbc8844e",
+  "outerSha256": "7c6ed7f52d2d63cb346ce4b78ae1112d98b3acff7ae0a5a82720ca05212b4214",
+  "runnerSha256": "01d20d3e37d08fde5a392000d2c6b2da8775c21143acfe43948cc8d8c049ac65"
+}

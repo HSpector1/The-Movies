@@ -1,0 +1,9 @@
+# F0 r3 two-stage route: independent static review
+
+**Verdict: ACCEPT_STATIC_EXPLORATORY_ONLY.** This authorizes one recorded exploratory execution after the exact fixed receipt is pinned. It does not establish an observed result or 1363 acceptance.
+
+The r3 package contains exactly the four manifest-listed regular, single-link files. All member digests and the source r3 manifest, runner, review, and receipt match the manifest. The published HEAD is `292d6fd3b5293fe2a520b681ae4c1dde997dc113`, with source tree `13880d9b0ba72aff5d4c5bcf5d12fe682c5de554`. The package uses the same r3 source and two stages as r2: types, then clean, with 300/600/630 internal and 360/690 stage limits under an active 1200-second whole-route alarm. The exact bash lane template authenticates the complete package and fixed review receipt before executing the immutable supervisor buffer; that supervisor authenticates the immutable route buffer and passes one review buffer through the nested route. The route retains source, remote, postflight, formal-artifact, and no-survivor gates.
+
+The only behavioral change from r2 is `assert not errors, errors` after final receipt-state checks and before the accepted result. Thus a malformed LAUNCH/monitor receipt accumulated during scanning cannot be silently accepted. The r2 REFINE receipt and prior failed observation remain untouched. The r3 fixed receipt schema is exactly the one demanded by its immutable bootstrap. Static parsing and inventory checks passed; no TypeScript, Vitest, Node game, recorder, or heavy process was run.
+
+Execution still requires the literal template to be filled with this receipt SHA and one fresh run ID, a clean published HEAD, and exclusive heavy lane. Any deadline, missing receipt, mismatch, nonzero stage, or survivor remains a failure.

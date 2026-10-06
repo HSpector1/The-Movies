@@ -1,0 +1,7 @@
+{
+  "decision": "ACCEPT_FAILURE_ATTRIBUTION_ONLY",
+  "failure": "git ls-remote HTTPS timeout before any stage launch",
+  "outerResultSha256": "38129309cbd67767c0df1e2e4324716cf0af95d1b708f50d6b0ace5f4e0a0f84",
+  "reviewSha256": "f1f896cafee6f4df231b1e267fb71e8f624345d4e848160b7acd70754193ce7f",
+  "targetResultSha256": "340188f8e26b3b3fd98e180e243d962eb843bfe25017445ab195476990f8d7d6"
+}

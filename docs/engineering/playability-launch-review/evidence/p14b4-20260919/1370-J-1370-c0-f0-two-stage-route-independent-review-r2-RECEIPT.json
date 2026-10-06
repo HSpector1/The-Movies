@@ -1,0 +1,11 @@
+{
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE",
+  "decision": "REFINE",
+  "finding": "accumulated-monitor-receipt-errors-not-gated-on-success",
+  "manifestSha256": "dc8702c967e00e5b8cf34b03d4f2723cfc82ebf30d872906e2e77b38dd6a4fdc",
+  "package": "1370-C0-F0-TWO-STAGE-ROUTE-R2",
+  "reviewSha256": "932c5a1115c101c0eca7daa0f7770e779ea02094eba0b8535d3f23bafcef981e",
+  "routeSha256": "2bc5d17ae8b607664f7b801e9943a9ccb0c42b2374b45744a4d7af31ede2e37f",
+  "scope": "STATIC_ROUTE_ONLY_NO_HEAVY",
+  "supervisorSha256": "d0080d3097a5e4a5ea88dac4e9ecd6af297cc4b24822c38ee7abb676330b53c3"
+}

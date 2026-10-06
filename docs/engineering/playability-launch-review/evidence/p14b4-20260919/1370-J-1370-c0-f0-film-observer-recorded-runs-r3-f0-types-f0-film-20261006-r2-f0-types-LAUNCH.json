@@ -1,0 +1,15 @@
+{
+  "actualWaitTimeoutSeconds": 300,
+  "bindingSha256": "7da0f640ceda8297abe5abb657d6df96c3dde2ecbf2c065973b8334d219639f2",
+  "childPid": 10591,
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "node_modules/typescript/bin/tsc",
+    "--noEmit",
+    "-p",
+    "tsconfig.json"
+  ],
+  "monotonicStarted": 769487.133335286,
+  "ownedProcessGroup": 10591,
+  "startNewSession": true
+}
