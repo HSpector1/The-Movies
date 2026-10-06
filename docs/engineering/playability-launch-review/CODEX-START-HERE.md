@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1370-C: recorded C0 observer is exploratory evidence only
+
+[1370-C](evidence/p14b4-20260919/1370-C-c0-observer-recorded-exploratory.md) preserves four independently audited historical/modern C0 types/clean results, exact original and modern pins, and a 43-row read-only trace. The week-zero salary mechanism is visible, but the film/market branches and four protected terminal digests still require controlled source attribution. The first comparator proposal was REFINE; no comparator output, B-only 416-week route, observed acceptance, production landing or main promotion is claimed. HANDOFF gives the next gates.
+
 ## CURRENT — 1370-B: focused Save46 direct control passed; B-only 416-week gates open
 
 [1370-B](evidence/p14b4-20260919/1370-B-save46-direct-control-and-causal-traces.md) preserves the independently reviewed adoption four-arm descriptive comparison and the Save46 direct sequence: first source-types failure on a missing genuine fixture, a functional pass qualified by a scratch typecheck overlap, then an exclusive three-child/four-test pass on the same versioned source. E0G/EBG B-only routes, four C0 protected digest causes and the prospective 720/750 observed acceptance remain open. Source, main and CURRENT-BEST are unchanged; follow HANDOFF for the exact next gate.

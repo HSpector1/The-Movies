@@ -1,5 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1370-C: C0 observer route audited; causal ledger remains open
+
+[1370-C](evidence/p14b4-20260919/1370-C-c0-observer-recorded-exploratory.md) records an independently audited four-route historical/modern C0 observer. All types/clean children and recorders exited zero, 416 natural weeks and 43 trace rows were captured, and each arm matched its own protected pins. The trace reproduces the week-zero age-floor salary difference and locates later film and market changes; it does not isolate all four terminal digest causes. The first comparator was REFINE and unrun. E0G/EBG B-only routes, observed acceptance, 1363 closure and main merge remain open. Continue from HANDOFF.
+
 ## CURRENT — 1370-B: focused Save46 gate closed; causal ledger still open
 
 [1370-B](evidence/p14b4-20260919/1370-B-save46-direct-control-and-causal-traces.md) records an independently accepted exclusive Save46 source-types, fixture-types and four-case direct result while preserving its failed and overlapped predecessors. The adoption four-arm comparator is independently descriptive-only: C0G48→F6G48 equal, AG48 with a week-215 state change, ABG42 with a B+Save46/C bundle. Four C0 protected content pins and the 416-week B-only controls remain unresolved; no observed acceptance, production landing or main merge follows. Continue from HANDOFF.
