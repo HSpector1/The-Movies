@@ -1,0 +1,1854 @@
+{
+  "archive": "/Users/zacheryspector/studio-scratch/1368-seventeenth-publication-prep-r1/evidence.tar.gz",
+  "archiveBytes": 1978621,
+  "archiveSha256": "d0ff1fdb5afcf2c9dace670b098ca708f2220f6d73d7821dbc0c2d5bcffe73a2",
+  "memberCount": 304,
+  "logicalBytes": 15300326,
+  "readbackVerified": true,
+  "includedDirectories": [
+    "1368-ledger-r5-profile-proposal-20261005-r1",
+    "1368-ledger-r5-profile-independent-review-20261005",
+    "1368-ledger-r5-profile-clean-gate-independent-20261005",
+    "1368-ledger-r5-observed-profile-design-20261005-r1",
+    "1368-ledger-r5-snap-optimization-proposal-20261005-r1",
+    "1368-ledger-r5-snap-optimization-proposal-20261005-r2",
+    "1368-ledger-r5-snap-optimization-proposal-20261005-r3",
+    "1368-ledger-r5-snap-optimization-review-20261005-r1",
+    "1368-ledger-r5-profile-observed-independent-audit-20261005",
+    "1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1",
+    "1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1",
+    "1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1"
+  ],
+  "skippedSymlinks": [
+    "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/node_modules"
+  ],
+  "skippedCaches": [
+    "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/runner/__pycache__"
+  ],
+  "members": [
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-clean-p13a-r1-postflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-clean-p13a-r1-postflight.json",
+      "bytes": 119938,
+      "sha256": "d72c204e1d32874eab53ca1ae4bf72280e5e8f19360103ea05a1b6b4614a659e"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-clean-p13a-r1-preflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-clean-p13a-r1-preflight.json",
+      "bytes": 119202,
+      "sha256": "d8abdf141f44d772cbd703a74c723183577926ff3395db1b5ed162281c78f8e9"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-clean-p13a-r1.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-clean-p13a-r1.json",
+      "bytes": 56133,
+      "sha256": "f4d5b8770e1bd86dfb89ad8231a0df983ad4f9b9f82fe00bd139ed8532a16b18"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-clean-p13a-r1.patch",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-clean-p13a-r1.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-clean-p13a-r1.txt",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-clean-p13a-r1.txt",
+      "bytes": 47280,
+      "sha256": "366282d631e7a3abc9e0840cce7437520c1fb505fc67fa1e1991a3d52d634586"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-observed-p13a-r1-postflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-observed-p13a-r1-postflight.json",
+      "bytes": 119949,
+      "sha256": "7efd1046e708b90dae0fc925a85568617372b49e26def26d93b42af3569bb89a"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-observed-p13a-r1-preflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-observed-p13a-r1-preflight.json",
+      "bytes": 119202,
+      "sha256": "8a3924809d04016856e83c34ca10e77e4ab0e7b0f52cc5569d59c2e77f2f7802"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-observed-p13a-r1.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-observed-p13a-r1.json",
+      "bytes": 56138,
+      "sha256": "b94f30ccd88cbae41c38286f2c38ff8494147f19b20a37b521c4b1c8d2ceee1f"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-observed-p13a-r1.patch",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-observed-p13a-r1.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-observed-p13a-r1.txt",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-observed-p13a-r1.txt",
+      "bytes": 47283,
+      "sha256": "8865af94fcc1fc0af596fd5d379066b13bb7957eb0a668cf4a537ce38687f377"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-types-source-r1-postflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-types-source-r1-postflight.json",
+      "bytes": 119944,
+      "sha256": "b302e10f77e3a5bf1ae55e9b712fde780ef4a1632098a471329227181f991829"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-types-source-r1-preflight.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-types-source-r1-preflight.json",
+      "bytes": 119202,
+      "sha256": "f3523bfc439159577bfce7478e826a94d4303b080e5bdd616ac6fe6127243bda"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-types-source-r1.json",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-types-source-r1.json",
+      "bytes": 56135,
+      "sha256": "fef0d364bacd72949dc51686723f80d14434beac8b5de7bdeef15d7213c1cda9"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-types-source-r1.patch",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-types-source-r1.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "formal-evidence/1368-ledger-r5-profile-r1-abc-types-source-r1.txt",
+      "source": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r5-profile-r1-abc-types-source-r1.txt",
+      "bytes": 47282,
+      "sha256": "7c2272bf84a0f7a085d55601483103e3c48de9c1f25b402e54abe5d77c232f9f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-observed-profile-design-20261005-r1/README.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-observed-profile-design-20261005-r1/README.md",
+      "bytes": 9515,
+      "sha256": "df4d9cafb0879ba9e32810b4bc76dba784ef3c991f83363592ac982fbe779478"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-clean-gate-independent-20261005/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-clean-gate-independent-20261005/RECEIPT.json",
+      "bytes": 1270,
+      "sha256": "fabb556f3dfe4070d7017d18fc53b210042bfb6126021855f4718da3f7a2c07f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-clean-gate-independent-20261005/REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-clean-gate-independent-20261005/REVIEW.md",
+      "bytes": 2762,
+      "sha256": "90310a2a4e389a4aa2ccb21bfef46ddef58e141bce5f894eb1e9de4c8598385c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-clean-gate-independent-20261005/verify.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-clean-gate-independent-20261005/verify.py",
+      "bytes": 7164,
+      "sha256": "4b278121de71c7626d43e7510fea53f88a27f6ae57d70fe07795fa4883e1e06e"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-independent-review-20261005/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-independent-review-20261005/RECEIPT.json",
+      "bytes": 890,
+      "sha256": "73fde9ddc9edd014e30a0ce5e1e241978c46aabb2d9886ce16ce95e3219067e1"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-independent-review-20261005/REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-independent-review-20261005/REVIEW.md",
+      "bytes": 3017,
+      "sha256": "0bdbc78724e4a1c1ee1c822678acf2f56a8b3e1ecd04a8797aba9ff40776b3a6"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-independent-review-20261005/verify.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-independent-review-20261005/verify.py",
+      "bytes": 4271,
+      "sha256": "c49be2e820075a1dfff579d643376a63acdc90414fbfd76966623ddeecb9e29d"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-observed-independent-audit-20261005/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-observed-independent-audit-20261005/RECEIPT.json",
+      "bytes": 5319,
+      "sha256": "0aa848c0619e59495b929ef79c3971c6aa098bfacbda8a1173100e9ab29985be"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-observed-independent-audit-20261005/REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-observed-independent-audit-20261005/REVIEW.md",
+      "bytes": 3132,
+      "sha256": "e7b4521bc87842711cd96add23a9fd26fd5f8f8d448c3eb352482a21aa914881"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-observed-independent-audit-20261005/verify.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-observed-independent-audit-20261005/verify.py",
+      "bytes": 6262,
+      "sha256": "3f73b5124a5195b32e645f0a6de21e1493bcce7e534a55ab2a5857db6a54a2f2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/MANIFEST.json",
+      "bytes": 35067,
+      "sha256": "55c993b5f350e5133603aa13c224fa2c62d2304924ade0d075f62cb0c2a4260a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/PROBE.diff",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/PROBE.diff",
+      "bytes": 6039,
+      "sha256": "3fdceb6473f586a1a59bfa647f354f2ace5d4b1d66b004cd97e12afe8422f698"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/README.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/README.md",
+      "bytes": 6022,
+      "sha256": "7b961028a72fe06cda2bdf87e22a6539f94caaa00f3a3574e56137695104dff7"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/RUNNER.diff",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/RUNNER.diff",
+      "bytes": 12684,
+      "sha256": "9e73a5c74c2b9cb2f7def6aa7b10b996b187ffa04c9f1c277455f9d3d51e8265"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/ASSEMBLY.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/ASSEMBLY.json",
+      "bytes": 72751,
+      "sha256": "a61a8062dbe318a1afe418b9bcb41311b2c635c85f91f0bba933e34a6d373f2c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/SOURCE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/SOURCE-PINS.json",
+      "bytes": 20247,
+      "sha256": "b43d6f8fd5ff87797f6c36ed27ab1aa5a6293dba897518c67a56ff1a7ebb5d8d"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/package-lock.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/package-lock.json",
+      "bytes": 149287,
+      "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/package.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/package.json",
+      "bytes": 2726,
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/actions.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/actions.ts",
+      "bytes": 130337,
+      "sha256": "88acf224e5bf9dbe7234eb6933d0f7e02bea55fc1ac68b65711f4b7d54e1898f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/agents.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/agents.ts",
+      "bytes": 6701,
+      "sha256": "ee68473f551a90541d5cb8d64ce39499649c4848034d2f7403ca44e048234a73"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/aging.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/aging.ts",
+      "bytes": 15022,
+      "sha256": "f0fa2af61d7b8cfaff9923be46c07c21134f899ec2321dccc618a1160aa75c34"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/blueprintRequirements.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/blueprintRequirements.ts",
+      "bytes": 13965,
+      "sha256": "abf32723f6530c8d2fda94067d6b793daab33154e636e2e906587211f4d456e0"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/boundedStableSort.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/boundedStableSort.ts",
+      "bytes": 2094,
+      "sha256": "87861f3ceefe2b2a9163a34bd9762a991d5c8a7f1640b84fbe6d1133f33ff964"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/broadcast.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/broadcast.ts",
+      "bytes": 15744,
+      "sha256": "81809e230570dd795bef921716a2c300dd062298878705e5d5b6c4582c667e85"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/calendar.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/calendar.ts",
+      "bytes": 1223,
+      "sha256": "c54fe83ab161d4c80727c3ece021e6340eda3a7ff0bf134f5288d76de8f811ef"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/campaignLegacy.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/campaignLegacy.ts",
+      "bytes": 85340,
+      "sha256": "48e1d086deaaf82a82d05f0a8065bca9b7a7ea35bc68051ea06c33ceb3a0e8de"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/candidates.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/candidates.ts",
+      "bytes": 17875,
+      "sha256": "85a6d18e32cfca3e554977825ea06f10d2928eca68331a1b7b801ee320fe4104"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/careerLifecycle.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/careerLifecycle.ts",
+      "bytes": 24706,
+      "sha256": "338510e570d2ace8bdeaa24b989fe7783c2d4e4250e1929eb56fc8f149c5d1f6"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/castingPackageReadModel.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/castingPackageReadModel.ts",
+      "bytes": 25400,
+      "sha256": "0a6615639ce224665f059790d39f33d95270398fbd1158d310647a7aaf0f94c6"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/castingReadModel.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/castingReadModel.ts",
+      "bytes": 17269,
+      "sha256": "56e0021c14337f333863be25ade1450ec59503b94e3ccb257ff31ceed5deb1c8"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/castingSessions.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/castingSessions.ts",
+      "bytes": 24255,
+      "sha256": "497a8a32152e556378db96d8363be6de9a0719f2eed1fbec4a4fcfe222cf3a3b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/construction.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/construction.ts",
+      "bytes": 23947,
+      "sha256": "24cad343abe3122e919e4dae57b85bdac24418a360723a3055b76ae82fefdf36"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/corporateCondition.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/corporateCondition.ts",
+      "bytes": 10410,
+      "sha256": "428f2e59c141ad765b0a04cb032de7801a0006cfe3ddd5953ef429a835fadf44"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/data/screenplay.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/data/screenplay.ts",
+      "bytes": 11569,
+      "sha256": "176f5fd2c0f01d2af16ce0c6a3e77344bd6030a9b3660232f17a14e4baae15ad"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/data/wordlists.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/data/wordlists.ts",
+      "bytes": 4101,
+      "sha256": "6642296c7a0a4d385c6eb00e7b9ff4eb3213f72a6799b197549cba23718ebfac"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/development.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/development.ts",
+      "bytes": 8137,
+      "sha256": "ce37f726f18270f6d9d0aa6444ed23104cf963418365f00192a13f5fc55153fc"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/economy.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/economy.ts",
+      "bytes": 4416,
+      "sha256": "caa6f20444be1544d64e2226f8eb89823c8d787c1460473169e0954ef15d0e10"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/economyView.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/economyView.ts",
+      "bytes": 32318,
+      "sha256": "64c51d1e58ff994dea3250db3a8b11a0d146ae58cd50799c4a06747646e28a9a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/employment.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/employment.ts",
+      "bytes": 28250,
+      "sha256": "ad7f32db9f5a5ed6b5d11a26a25604ab71df07daba0e273214336e92d8c0f1bf"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/facilityEffects.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/facilityEffects.ts",
+      "bytes": 9673,
+      "sha256": "2250d163627b28ad70603e422294a90372521c24111b5eb29303b4070e8c4814"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/filmPackage.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/filmPackage.ts",
+      "bytes": 59840,
+      "sha256": "f0dce46007d5f3b778f62f237c58e049c14a84764ae2545bd52258cfb2b4bd3b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/filmParticipants.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/filmParticipants.ts",
+      "bytes": 2311,
+      "sha256": "e26410299b9a7a0527cf6413b53a482f6280a137f3b32871ba729516ba4cf849"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/financeReport.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/financeReport.ts",
+      "bytes": 18156,
+      "sha256": "53667586cbeb4456a2b2f150b11bb1233c41ee7e9e36dcbe0952522eb3fc18ea"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/firstFilmJourney.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/firstFilmJourney.ts",
+      "bytes": 54310,
+      "sha256": "3c4bbde1ad298fc40103558cd1dc5dc73849ba73d4eba2e8a675b193295d0412"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/firstTakeSubjects.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/firstTakeSubjects.ts",
+      "bytes": 6350,
+      "sha256": "2525b7e04a2449fbb91f8fb73765448eacf791f1854f5c054c093641f388993a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/fixedCostAllocation.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/fixedCostAllocation.ts",
+      "bytes": 10662,
+      "sha256": "72252b6e87557f9ed94eb922fd41a855a92c6540d2328efd168a26c22db9440e"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/forecast.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/forecast.ts",
+      "bytes": 20511,
+      "sha256": "13add49ffbcf0811b56de03c3978e0122c0f901226b405a76359b8b8fda6ae04"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/grid.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/grid.ts",
+      "bytes": 931,
+      "sha256": "67fe3355621e630de8c69e520348600bdb57445122daee791fcbbe59f803ce89"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/hollywood.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/hollywood.ts",
+      "bytes": 17927,
+      "sha256": "7e9e26ac92689a2db5ad9e239c90b6203b4f1084b1aca8f68064c9908569a441"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/hollywoodPolicy.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/hollywoodPolicy.ts",
+      "bytes": 10166,
+      "sha256": "ea2994dbb980aa60ce70d1e53ecc6c2a0acf1365145f0e6aad148e5cd0a9bce1"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/hollywoodStartingData.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/hollywoodStartingData.ts",
+      "bytes": 4152,
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/hollywoodTick.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/hollywoodTick.ts",
+      "bytes": 41246,
+      "sha256": "c540c6830537aaaca6cb448993e4c9648f7141bcf498ca92e239b9ebd1cee5b8"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/hollywoodTypes.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/hollywoodTypes.ts",
+      "bytes": 7442,
+      "sha256": "65a54dc851cd1f61f8b97674ed825b343a8ec94ab7b8328ad113f12343a41a84"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/hollywoodValidation.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/hollywoodValidation.ts",
+      "bytes": 58650,
+      "sha256": "ec8cf7290a63389087750967fcbe456159eaf2840770341ce3c9cf7d9f75c214"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/index.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/index.ts",
+      "bytes": 50606,
+      "sha256": "25b07f15ee0fe71484faab449b5c50aa407832cae1b4f4196b70c4944244de4b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/industryCareer.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/industryCareer.ts",
+      "bytes": 1433,
+      "sha256": "088a95368557cd893a4c93d90b403a9c3debf95710fcc4d055c01726e81e2d7e"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/industryEmployment.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/industryEmployment.ts",
+      "bytes": 2560,
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/installationCancellation.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/installationCancellation.ts",
+      "bytes": 24997,
+      "sha256": "eabfe77872df9e6b4d388b888152a20b1c46d8442dc1c96538e1bac9d2d728e0"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/liveRetirementWriting.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/liveRetirementWriting.ts",
+      "bytes": 1419,
+      "sha256": "eb8736770ae2d96ad90069d981327acbebb661852101143ca53afa8d1553530b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/lot.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/lot.ts",
+      "bytes": 25395,
+      "sha256": "b4366332889e113736ab788eee74f55fd3e5b89af2984a56436a355924b4cdf5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/marketIntegration.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/marketIntegration.ts",
+      "bytes": 11774,
+      "sha256": "99219178fe1c906d36c25c410a03e1b3bac8d9287536c7a026eb3e19b73570f5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/marketingMenu.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/marketingMenu.ts",
+      "bytes": 6600,
+      "sha256": "61d6e1efef70b880b8e2c1d3d8573d6acbb7d78b6bd781663c9af4e07e5c4e7d"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/math.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/math.ts",
+      "bytes": 3704,
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/newspaper.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/newspaper.ts",
+      "bytes": 25821,
+      "sha256": "a29d5922dcf613bd9794f204d11ed3991543099c9b058c5e894fa67f68f7b1a4"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/occupancy.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/occupancy.ts",
+      "bytes": 31596,
+      "sha256": "e9f66c3d225d8fe9f47d52ce18fc1ca00c587d24ec84f4dc70e9b0ab29a85122"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/officeConversion.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/officeConversion.ts",
+      "bytes": 14124,
+      "sha256": "bf9d928f8bbdc46e01488dae84266f686be6f1cc1bafd9c11febb090a30971f8"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/operations.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/operations.ts",
+      "bytes": 81366,
+      "sha256": "9935b09495df1d11f39bf3b1a37b244c3d7bf7d0994cd4c8ce286571b3be3411"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/opportunityPromises.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/opportunityPromises.ts",
+      "bytes": 22184,
+      "sha256": "a4acd02eb0151af8c873f939a546bdc26265ca0c680c3c004def056e124a4461"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/p15Phases.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/p15Phases.ts",
+      "bytes": 1924,
+      "sha256": "a29f102947567e283eee93763c1d603bad7e5c2a53efae703cf2ef414fe5cfc8"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/physicalPlans.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/physicalPlans.ts",
+      "bytes": 39535,
+      "sha256": "52e5901b41d97fa384888b88671ae97723a33a6c695898f22f7dd8adaafd67de"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/placement.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/placement.ts",
+      "bytes": 120850,
+      "sha256": "28c2f23521d752ecdccf260c25b0ee06a7b8fd0a01a29b39060796d05e4086ed"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/powerRanking.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/powerRanking.ts",
+      "bytes": 8759,
+      "sha256": "95b094724fbaee2689edfd577b542e7e9ce99a8d5ca9bf160250d1f658290c8b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/powerRankingArchive.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/powerRankingArchive.ts",
+      "bytes": 13514,
+      "sha256": "f8b768d0bf628c836471f62721c776fa8a43a0669eddb124620554801cc13a6e"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/presence.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/presence.ts",
+      "bytes": 37268,
+      "sha256": "fe1eb5cc044e5193a68a848e025f3acf1714775a53d479286033de87bee2c6f9"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/productionAdmission.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/productionAdmission.ts",
+      "bytes": 9366,
+      "sha256": "fba9441b361920491e430ca87306912e7e54b40ee9bb0ce25a05c3da3d9ecd6e"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/productionIdentity.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/productionIdentity.ts",
+      "bytes": 10755,
+      "sha256": "2093668d7b1fb878d45a19923a6d3196fbf50a91c1ce5cc38e80598c27741d84"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/productionPeople.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/productionPeople.ts",
+      "bytes": 505,
+      "sha256": "2c6ea9affd6811d25cd36d85808d9470441f579153a7f0a2fb5b6a2c8a118d58"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/productionPhases.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/productionPhases.ts",
+      "bytes": 8788,
+      "sha256": "f043868f28db91c518fbf821fdd952cde4da6509662a468131599cf48aafaf40"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/productionQueue.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/productionQueue.ts",
+      "bytes": 10648,
+      "sha256": "38672a2d2c0d7c5a4b7434545d9b4ebb7400865349a3ec5568fb31ddae4c6c92"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/productionSetup.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/productionSetup.ts",
+      "bytes": 17470,
+      "sha256": "778a40bb189b53501e5d796d3db8c12d46eaf0eeababbc0d463a45882b549935"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/professionHistory.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/professionHistory.ts",
+      "bytes": 24313,
+      "sha256": "aa28b6283f9738726bc649d840e5a25e744671d614a04a804534992c6204fccf"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/professionTransitions.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/professionTransitions.ts",
+      "bytes": 14954,
+      "sha256": "945a911700f8ce8ea493f1ff080d906132b80ab9cf4d6c790a336bed1a95439d"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/promiseCapacityEnumerator.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/promiseCapacityEnumerator.ts",
+      "bytes": 8606,
+      "sha256": "c0be83a91cf15e5bbf779e9336a697bd19c0b65d95f660866ad85d5c80c697d6"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/promiseCapacityKernel.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/promiseCapacityKernel.ts",
+      "bytes": 58994,
+      "sha256": "1faa6fcac443dac046bd97fa3e27c61bada80c7297f8e69ea4ebcff76d899332"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/promiseCapacityOwnerReplay.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/promiseCapacityOwnerReplay.ts",
+      "bytes": 157726,
+      "sha256": "9e97ffed9911af55a1a5ff5e819cf53c17dfc3214bc729cc995ae72cb956ebd5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/promiseCapacityOwners.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/promiseCapacityOwners.ts",
+      "bytes": 14197,
+      "sha256": "d6b6f8887d321aa2c52e8f555c40803d14381a8118c4fc84e1c9aaf037016734"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/promises.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/promises.ts",
+      "bytes": 110822,
+      "sha256": "580ddb7d1e8c5a198f18beb5843d1cecf77680b8b735e1f2603e2c86099e950d"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/publicity.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/publicity.ts",
+      "bytes": 2990,
+      "sha256": "01f6b900730273f02f66e3148efe1904499e81f6d78f1f61c03e586fea1da3e5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/queueAdmission.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/queueAdmission.ts",
+      "bytes": 4411,
+      "sha256": "ad74544f539f1d383839cbbe8b19d6324b5c5fffd3e7249ae6a2cc1b330b1047"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/reception.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/reception.ts",
+      "bytes": 37951,
+      "sha256": "ca27b0c299c463e8356615c013a4fa7acd7a7bb65c67b132480ec53c878c4095"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/receptionVerdict.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/receptionVerdict.ts",
+      "bytes": 6164,
+      "sha256": "825e474ccce57e8de4a0d3aeb1d7ad5071b8d46121f95b7544946243af03e3d7"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/relationshipLabels.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/relationshipLabels.ts",
+      "bytes": 3481,
+      "sha256": "e1d5d635b9e61867ba27bc0291315ac8fb63e8c57de5343876a2fb6fa85ec956"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/relationships.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/relationships.ts",
+      "bytes": 49637,
+      "sha256": "27026dd3020190762aa6a95da5ce3012f79face854045b06cf968d5d9b129265"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/releaseAuthority.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/releaseAuthority.ts",
+      "bytes": 9646,
+      "sha256": "9ab259623d3b5f5f75f1d750168e68ccb5c14d27d96f06f4656985db8064b218"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/releaseCareers.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/releaseCareers.ts",
+      "bytes": 4411,
+      "sha256": "b8050c8a70b165e42ed2841bbcfd99eb27ff5986529aa94dc511e5bd196ee965"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/researchPeople.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/researchPeople.ts",
+      "bytes": 1990,
+      "sha256": "5202ec8a75b396a25418183c765cb8a1f10cb4b26e6e2f74bf83eee2c818e7fa"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/retirementWriting.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/retirementWriting.ts",
+      "bytes": 8965,
+      "sha256": "73590d43ce9e374fdfa784b24e6e11a5751a91f1cecf581f128be6483ecf4f0d"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/rivalResearch.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/rivalResearch.ts",
+      "bytes": 36472,
+      "sha256": "e24566c984414a66fbfb896481dbc6d8f742bf7fa36702aec0a211b15d513d18"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/rng.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/rng.ts",
+      "bytes": 8555,
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/save.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/save.ts",
+      "bytes": 526723,
+      "sha256": "cd4a1d42d02fee6280e2a658ba304448c0ab93c0e57fd8866ef5a65e0072c035"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/sceneryLoadIn.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/sceneryLoadIn.ts",
+      "bytes": 13224,
+      "sha256": "f9240de85704a29aa1040694a53f2d0f7761856b579fb0dc93abf89fb8176766"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/screenplay.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/screenplay.ts",
+      "bytes": 26479,
+      "sha256": "1cb32a9ccd23dd7dc51d11cf080370feeb985de66fd36d4670c936ca6d1f929f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/scriptDevelopment.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/scriptDevelopment.ts",
+      "bytes": 46802,
+      "sha256": "88ab848828a7eadad1a818a61d37cf0ab7d962ef06858c58d923ab50a56181b0"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/scriptReadModel.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/scriptReadModel.ts",
+      "bytes": 58205,
+      "sha256": "c0ee15d37264b8329de70cb37e525a4644518497527763eccdf00fc5cac73616"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/sets.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/sets.ts",
+      "bytes": 35772,
+      "sha256": "7f18032b877f1215e7d8a6f8906509887bb0de4f899c66ba9d12c6cc66c98ab5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/shape.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/shape.ts",
+      "bytes": 5562,
+      "sha256": "30f1530ac6f3d144818747aa0e5bdae846e1f5c4963c8eb447eb722efc4d92a2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/sharedMarket.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/sharedMarket.ts",
+      "bytes": 18746,
+      "sha256": "eaf076da2b2a398d2ffb6153393e17051b4fe46a8f774b675eb21057ca2bd0c2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/standing.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/standing.ts",
+      "bytes": 11131,
+      "sha256": "5e1ec7279553014099077a8e5cbe02c1b78454256bf3f400634accc2209c6893"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/starPower.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/starPower.ts",
+      "bytes": 9011,
+      "sha256": "007c98dcaf612f87f7197bd14ddeb89df7a2cb0ae6542027f33d398976ccb881"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioCalendar.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioCalendar.ts",
+      "bytes": 35975,
+      "sha256": "67ebbbe36e8c136bb7806543b9bba39b37681bafb8e51d927c35f293eb0042c2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioEvents.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioEvents.ts",
+      "bytes": 11218,
+      "sha256": "570521afd32d96490092236d0041b358bd4b72abce08a79d929736a57ffbdc31"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioHistory.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioHistory.ts",
+      "bytes": 18011,
+      "sha256": "6c363326c75aa1359b55ead36577beab0250bd8e35d2603ee09c1eb262f02697"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioLoan.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioLoan.ts",
+      "bytes": 4307,
+      "sha256": "def5bd5b03e45b307615e33935ac6064e01e239735ee4128f61eae8a5b6f57b2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioQueueView.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioQueueView.ts",
+      "bytes": 21163,
+      "sha256": "fc3f5136d402414d1603557f2b10e661f41655d488be77959bd64d8ec7b5e7e2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioRunRecap.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioRunRecap.ts",
+      "bytes": 48435,
+      "sha256": "1d61386ded5144e1663e72831c072d932b7c8d61bec4746885c195509f586962"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioWeekTheater.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/studioWeekTheater.ts",
+      "bytes": 29812,
+      "sha256": "b7d3be0569fc2cd4e4394403f9b4f5e4a5c5b335b9c5b57955e7edbf43175c87"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/talentMarket.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/talentMarket.ts",
+      "bytes": 92904,
+      "sha256": "feaf3ef75051583820addb8b3b00065925464e5a2ca265c3d328102c22aa5957"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/talentSummary.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/talentSummary.ts",
+      "bytes": 25267,
+      "sha256": "ef4ff968b8348bab6b31fdc9f1fed0d5293c1da13dd9c0a755da64beafd1cce1"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technology.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technology.ts",
+      "bytes": 97036,
+      "sha256": "2842cb82fe703921d03bf73463dc5ae0a6724057bbb24588d299e32ce23d6fda"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyAdoption.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyAdoption.ts",
+      "bytes": 20247,
+      "sha256": "ccd6ce36f219e271a93374dd42e7b9c9c7b8cb99f9c0e513a841e441e7eb8027"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyCatalogue.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyCatalogue.ts",
+      "bytes": 6284,
+      "sha256": "c9117fcff0944ffa9a518190f642fd46acddfe65d9f67f5df559558b3b941428"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyDisclosure.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyDisclosure.ts",
+      "bytes": 2215,
+      "sha256": "cff15e66dbe6e71a3a04dffdf9c7171b864113d305bfe4b2fa753f8a87b0c290"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyMilestones.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyMilestones.ts",
+      "bytes": 1934,
+      "sha256": "8d8f7df921950fd9845c79e892da1da6177599a6c2514f5dc0fb5dc1cd556832"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyProduction.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyProduction.ts",
+      "bytes": 9909,
+      "sha256": "aa77c468b2b59742fcf5fea9d24229ab0e0f01d656b25a18af59ce987fa3f176"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyRival.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyRival.ts",
+      "bytes": 6877,
+      "sha256": "fd9764c20f5a649be3b51e23533cd4208fd59c049b1b2a166d89a9bbb35c0336"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyTypes.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/technologyTypes.ts",
+      "bytes": 7851,
+      "sha256": "158776e65d9a0411c5857f79515a7e2ddc16d0a8482d4437ee55c89c8a3e3bae"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/tick.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/tick.ts",
+      "bytes": 64135,
+      "sha256": "f923eb1694a030b3212e4f6f9881e83fd027f5ce5882a148623f58eca9cb0224"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/tuning.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/tuning.ts",
+      "bytes": 143696,
+      "sha256": "dbc81b7b2c1e3b160266a792c2485506db906858dcc6a34bcc7a62e9a2072125"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/types.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/types.ts",
+      "bytes": 127502,
+      "sha256": "114efba3aece83977c63fc8c5f5f77e9ce966807fcaed9b89625e608d715f9ee"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/vector.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/vector.ts",
+      "bytes": 1881,
+      "sha256": "b692a62a7167be503a45bf752eedc04fc62e861fbaa67d0398584ca0af01898b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/worldgen.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/core/worldgen.ts",
+      "bytes": 36190,
+      "sha256": "7c38162376e5a5d69fd5f7ee56c4c76c2958dbde6a9940b097ccb257f5755f58"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/aggregate.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/aggregate.ts",
+      "bytes": 27217,
+      "sha256": "9562e875073428832db05438d3bd46ba5cf14d361bf38cb81ac11f1b7b73720c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/compare-d17b-production.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/compare-d17b-production.ts",
+      "bytes": 17871,
+      "sha256": "60f9fd2c2750eae3cff511ed67b63d1021c3b5f85e67de3d8212b4405e24bcb5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/counterflow.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/counterflow.test.ts",
+      "bytes": 12283,
+      "sha256": "cb46fef7d5ee5bd67c1968c3bad735151c1fad353d6d012ed9c30bb84bd7a6f1"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/counterflow.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/counterflow.ts",
+      "bytes": 18065,
+      "sha256": "c17648540b48a80d53bdb002ee46aeb468bb3bc498292d714422db64c77b4f97"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/driver.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/driver.test.ts",
+      "bytes": 19909,
+      "sha256": "b0c5e127d215ab1ec674de33f918d9c8bf1b541d699a459913bdf0665fdab66d"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/driver.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/driver.ts",
+      "bytes": 55312,
+      "sha256": "47cd9431caa79c9a4c17f9a771f32996fa9e9ffd179f9d56fbeee2f584d52301"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/experiment.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/experiment.test.ts",
+      "bytes": 10027,
+      "sha256": "ccaef3262ba6f4c5205cf16831e0693a2958148f880d86f675849fc59378274f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/experiment.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/experiment.ts",
+      "bytes": 19512,
+      "sha256": "3c08c67fe4076e3fc317d6f1adc126aa95053afdf36daf243e7742ec0eeaa530"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/isolation.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/isolation.test.ts",
+      "bytes": 24158,
+      "sha256": "59dfb64a3e17108d65d5b64114b63bee8e8ea262833ea34a24ac56cea29d8abe"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/luck.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/luck.test.ts",
+      "bytes": 3230,
+      "sha256": "230358d9f8ce418f17e368387faa12bf508947b990348d8ccc8d79151912a16b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/luck.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/luck.ts",
+      "bytes": 5261,
+      "sha256": "cad58de739921d7c09e9a7ecca48c56fd53e28c319737956059f62cff083ced1"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/packages.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/packages.test.ts",
+      "bytes": 17981,
+      "sha256": "dc855509e2185ff10a1d08d5188f4a5f5b797acb392963b0656044dd7be20625"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/packages.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/packages.ts",
+      "bytes": 39998,
+      "sha256": "dabd00dc7cfa87ffe99c0cb9a1aabc5c574d1720f350a08a006c423181e7650b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/policies.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/policies.ts",
+      "bytes": 45775,
+      "sha256": "56c9e358ea307309327c1abfdfc8fcbea76ec5b73b7dfeccd15577d44768ddbb"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/production-agreement.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/production-agreement.test.ts",
+      "bytes": 3302,
+      "sha256": "15983af90316fd0c387e7077b2f143104ac4f942f38771fdf2a1a3debc5400f0"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/productionIdentity.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/productionIdentity.ts",
+      "bytes": 1213,
+      "sha256": "0e472c916ad5aac3a181d367b155fe599fa15511b99e3815007766246ac8a1d0"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/publicity.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/publicity.test.ts",
+      "bytes": 16860,
+      "sha256": "35cb17c4ff59e83854258b920a071399f40ae81ffb9deaa69b9463e36dc30483"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/publicity.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/publicity.ts",
+      "bytes": 19349,
+      "sha256": "77f7fd9481e94dca9e91c79d9ac5428a2f40afd3e61392cb4fbbe19f7e2ad5b2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/run-d16-corpus.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/run-d16-corpus.ts",
+      "bytes": 43622,
+      "sha256": "91130cba5f1d78e1c0520010196892ef03392b730cc91e02d803598d1b9d3a3a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/run-d17b-continuation.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/run-d17b-continuation.ts",
+      "bytes": 21350,
+      "sha256": "8fabf8806167281db95a99b769094d98f45262e6f30cb0a53f8dadceff070c04"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/run-d17b-week86.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/run-d17b-week86.ts",
+      "bytes": 12501,
+      "sha256": "b172a567a98a4d16ce8d5d0ba3d9bcfd3e806f04de4dcb55ea6bfc2cad503701"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/sourceProvenance.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/sourceProvenance.ts",
+      "bytes": 917,
+      "sha256": "b071c131add5c96e351afacbdad6a27fd6e359ae1a4330c9e0c2dbb8b85bc8c8"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/states.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/states.test.ts",
+      "bytes": 11336,
+      "sha256": "d867f547a3a698501688d66054d7157a238111e45fc65fa2950b28b052d8ed23"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/states.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/states.ts",
+      "bytes": 14544,
+      "sha256": "dd12173c5784d336b40b580d9ed87bd727bd895b1284de3bf70f775cba50ca23"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/stats.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/stats.test.ts",
+      "bytes": 4869,
+      "sha256": "d3b09d7689fc7db92d955bc6aa9ba75934ecef63e05c5bd80a6338b1c3eab8b3"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/stats.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/stats.ts",
+      "bytes": 7216,
+      "sha256": "2d779d930ba6661d9d05ba0a47fe1a46ef1e66482dbfc9f8bcded15bc44c1225"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/view.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/view.ts",
+      "bytes": 20846,
+      "sha256": "f32ea92a667d3dcc78d93fd12978f6a1c4112918de566ea8bf6b6b4c887a2bb2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/vitest.d16.config.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/d16/vitest.d16.config.ts",
+      "bytes": 883,
+      "sha256": "c28600c717ab3a318a1b7b6879d099aead67dc946355c877a58d75ad398b4cb2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/facilities/index.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/facilities/index.ts",
+      "bytes": 105531,
+      "sha256": "2dacfaaaeef073c472b94180fede2f58b96e49393a8b1108e9a4988e22a89953"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/measure.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/measure.ts",
+      "bytes": 11014,
+      "sha256": "ffd2acb87e1b1cc7104c9bbb77060339c333699d7be3342e1f5a35558b2b8185"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13a/fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13a/fixtures.ts",
+      "bytes": 2130,
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/fixtures.ts",
+      "bytes": 9137,
+      "sha256": "6f2d51bb6cf6d77847c1e86340f6c3dba3f026c115c92773c534f3d8f3d31770"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v20-fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v20-fixtures.ts",
+      "bytes": 2668,
+      "sha256": "f777d57ca4cc9b00667433ed8817095a7ad9c0ef3e6068df9132fb4564a96a02"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v21-fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v21-fixtures.ts",
+      "bytes": 3895,
+      "sha256": "d1740e4a0f9983154cf5948548a9b1ad685ebdafa2681d5130b44e2438cd78f8"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v22-fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v22-fixtures.ts",
+      "bytes": 2917,
+      "sha256": "0704482264a60848cd63915c93b941910650a048f5c7d1e34aa1282e1ad85e02"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v23-fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v23-fixtures.ts",
+      "bytes": 4220,
+      "sha256": "9d27aa0e64c11fc752f3fa503565969e034dc89c934a898bb15a8331df192c6a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v24-fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v24-fixtures.ts",
+      "bytes": 4517,
+      "sha256": "9bcabdcf0e6e8560bfe79249d92f1232e06e9ad6f0e2123567270a518f8154ad"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v25-fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v25-fixtures.ts",
+      "bytes": 4424,
+      "sha256": "bda365faa71820f8294e9e85114c21f112cdadb878f47a54fbd4a5e385494799"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v26-fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v26-fixtures.ts",
+      "bytes": 3844,
+      "sha256": "9486527b6d6c324d90d0e62c8a47ce1172cdd3ea638c5212d5b7dcd286a1daed"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v27-fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/legacy-v27-fixtures.ts",
+      "bytes": 3589,
+      "sha256": "c834ebecacf04338897493b6eec7e9844e0e1024d084c359af919bb7e7fcb40f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/s3-fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/s3-fixtures.ts",
+      "bytes": 1692,
+      "sha256": "790d542939ec2ef08d7bc932fbb6335e73cdaf36faf7d8bc868b2bbd924cd0ca"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/s4-fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/s4-fixtures.ts",
+      "bytes": 5270,
+      "sha256": "b9ff6f2c42c3c8ba54c2d3b28ba808e182a8f365059693e58dbf1ffcfa2fc2f7"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/s6-fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p13b/s6-fixtures.ts",
+      "bytes": 4854,
+      "sha256": "4ccc74fc7be78d954f5e44d746a5fbf55b7f5228c18ce3c17df24c3b90398169"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p14/legacy-v28-fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/p14/legacy-v28-fixtures.ts",
+      "bytes": 15128,
+      "sha256": "b4bfd704545be85ef81aa7cdb18f5390809983c5357a714182084a60aa5f38bc"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/artifacts.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/artifacts.ts",
+      "bytes": 143102,
+      "sha256": "a797f939d1ccefce7ea40b8535ad1af57191b0789401050d3b2abae97d101b11"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/campaign.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/campaign.ts",
+      "bytes": 60099,
+      "sha256": "24ff204180c3e8adf21e978ea76669536259574eaa69d2d2b531e42065736b1e"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/continuation.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/continuation.ts",
+      "bytes": 62670,
+      "sha256": "db487c2cdd70e412fbc819819e8b52df979817d84a246b08f4570d42f8530389"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/corpus.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/corpus.ts",
+      "bytes": 12059,
+      "sha256": "80b4a344469540741fcc1281bfe24b02e40e90d1fef457fc2ee24c78d61f7fdf"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/fixtures.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/fixtures.ts",
+      "bytes": 36939,
+      "sha256": "2f25a9ae771a9052a20a15ee075062e47922a6eb8ecc220521011069ca6d2b7f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/historical-control.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/historical-control.ts",
+      "bytes": 12273,
+      "sha256": "2b7b69a5fed68faa618735d1f0d26473d451bd7fbaecc2678fb1b7c002bd08c7"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/player-policy.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/player-policy.ts",
+      "bytes": 56513,
+      "sha256": "e20381593a39929ea7cbdcb106903cc69138b694dfad13835898f6c0df6445fd"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/provenance.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/provenance.ts",
+      "bytes": 11057,
+      "sha256": "f4782ee266c3e933f61003b2a56e10aa03c66f324b5c85a875f8998a02b27b21"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/records.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/records.ts",
+      "bytes": 1575,
+      "sha256": "0c14448a22a36553b82beb19f65790dfce13374003dc216a336c93ce529ba7a0"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/renewal.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/renewal.ts",
+      "bytes": 18640,
+      "sha256": "f699af2b240476c470d7f4a167523f087702662f0a229235ca1fd0d1a7fce1c3"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/schema.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/schema.ts",
+      "bytes": 18601,
+      "sha256": "f7c5f93de1ebba0b8285c1f3c0905efbe1025fde6efb592dfe84dfeb5874e2aa"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/summary.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/roster-wall/summary.ts",
+      "bytes": 92651,
+      "sha256": "df380b54886409874bb1301456ce3827777dfa557f412679d4eaab05192f6ec9"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-capital-risk-reward-audit.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-capital-risk-reward-audit.ts",
+      "bytes": 45553,
+      "sha256": "5cb07b311353b886612989c0c8869f082bad79c1b174cc14c016340bbc9c2105"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-corpus.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-corpus.ts",
+      "bytes": 10051,
+      "sha256": "0c334b66db9c340342e8b74195ea932cefe2838a6d0c6cb00a8069c396bce735"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-creator-baseline-study.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-creator-baseline-study.ts",
+      "bytes": 10355,
+      "sha256": "c8abae6627f8f644fcaa3b03ec7f7539a134643e499c873d90f36fe4154ee3d4"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-creator-development-study.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-creator-development-study.ts",
+      "bytes": 5689,
+      "sha256": "a75b122490ea161968babbcc0f268bfc5e5ef2ae6fefd471a68ef54786a5c70b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-dev-study.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-dev-study.ts",
+      "bytes": 18360,
+      "sha256": "7eb8da0d7b9125b19c92460544834d3e4993462c65cf93fc6664c0573b939a55"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-driver.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-driver.ts",
+      "bytes": 19469,
+      "sha256": "55e2cf7a6bf3a0da57d2ceeb6718ffabd136dbff91b14adc79a784b0b453d85f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-economy-balance-study.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-economy-balance-study.ts",
+      "bytes": 38781,
+      "sha256": "0c4344c4753bccab61ec92958900e122ad758b36568bb1d31c2caa4231ac25ec"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-facilities-observatory.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-facilities-observatory.ts",
+      "bytes": 19369,
+      "sha256": "ce6fd8ca62d8581ba06f8ad86cb943fa199cc8fcb8b82f263966446109a97efe"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-final-balance.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-final-balance.ts",
+      "bytes": 20323,
+      "sha256": "0c6b7901cb177a73a15176d630c3f19b9cbf888c2164c1f6b72c1181dc78c767"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-integrated-balance.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-integrated-balance.ts",
+      "bytes": 14182,
+      "sha256": "92c29027fcc8617219ef71ae62f1b1b3472b3cae4920d604256f26a33dd8526b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-microbudget-dominance-audit.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-microbudget-dominance-audit.ts",
+      "bytes": 48407,
+      "sha256": "2d300f4e02d6be28dd0d8240b37d4fbde702d0499be729722cc3deb60cbdf67b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-multihyphenate-stats.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-multihyphenate-stats.ts",
+      "bytes": 8421,
+      "sha256": "ec00a0722c2152555265dee1eb27d33da284f2ead4ce98eeb6f23fabc04abb2c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-owner-calibration-study.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-owner-calibration-study.ts",
+      "bytes": 57748,
+      "sha256": "95e2ba022fc77fbdfc069ed4d334a27bc25e586ca5a6224150a776ea2d14266f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-roster-balance-study.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-roster-balance-study.ts",
+      "bytes": 14619,
+      "sha256": "789d25830d974e70a529f70ba6b5154394d752dc5ee9aacf2603ac7030758577"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-roster-wall-observatory.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-roster-wall-observatory.ts",
+      "bytes": 5261,
+      "sha256": "9f2c167c614bdd246aebec25f07024a63f2660b860ecdb60ceb70cfa3b06db11"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-selection-stats.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-selection-stats.ts",
+      "bytes": 5117,
+      "sha256": "5eecfa59c1624650c5665e80de8c7cbc01b7e94720b84acecd5248b0d8aee113"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-shape-sensitivity.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-shape-sensitivity.ts",
+      "bytes": 8924,
+      "sha256": "09b289bfcde6f0d0fa6a05e2a33dedbff233e0638b0a9e4c5d9f8f206f9bfde5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-star-power-calibration.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-star-power-calibration.ts",
+      "bytes": 8829,
+      "sha256": "ea04887ca850a6ad340b09dbc17ed25d37e71e89a3e67c04db2ec85635022ce7"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-writer-bottleneck-study.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/src/harness/run-writer-bottleneck-study.ts",
+      "bytes": 17537,
+      "sha256": "2eb0d26a12d447e055060237811e7c7d179a8b1ec1e25030fcc37e3ab4cf5b7f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/tests/1368-ledger-attribution.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/tests/1368-ledger-attribution.test.ts",
+      "bytes": 55511,
+      "sha256": "5d8340d2c7b61aa7864a24c92a9d2aba7fc0cc7f9b497146f1653d24c1519d60"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/tests/1368-ledger-original.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/tests/1368-ledger-original.ts",
+      "bytes": 15098,
+      "sha256": "e76148d283054a864176dfaa247447169edba449f0bfdb5dbb92e8736733b618"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/tests/bridge-p14b5-relationships.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/tests/bridge-p14b5-relationships.test.ts",
+      "bytes": 49189,
+      "sha256": "7477288c2430681c2c5dd0ee959fd46d2d7d9cdb40e9bf1edf8249eac76da4b7"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/tsconfig.1368-ledger.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/tsconfig.1368-ledger.json",
+      "bytes": 222,
+      "sha256": "3e8a3b07416bb03e9c859c514308fc8fc0a1ab538fbc0600746a4ae957a5b1aa"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/tsconfig.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/tsconfig.json",
+      "bytes": 706,
+      "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/vitest.1368-ledger.config.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/vitest.1368-ledger.config.ts",
+      "bytes": 236,
+      "sha256": "a38a64e53b22daebb0953e1e7271c972fc54e4f6643a35f306bda6124bc6b7cf"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/vitest.1368-ledger.workspace.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/vitest.1368-ledger.workspace.ts",
+      "bytes": 115,
+      "sha256": "27326ff66aced4a8f1de8c60336ed72d9524e0b01249da1bef7a91b6561391e3"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/check_accounting.cjs",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/check_accounting.cjs",
+      "bytes": 1911,
+      "sha256": "4538c85807306c27d56abc0d9aa00ea05cdca0357919f1b3603f7d933b527dc0"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/check_static.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/check_static.py",
+      "bytes": 1808,
+      "sha256": "612c0e898ee49d36410de59c4392a0aa35495b87075130c30e303662150e3458"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/edit_runner.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/edit_runner.py",
+      "bytes": 4954,
+      "sha256": "1d4b0fbfe73382b37b4054140031ff1b333c165499818efb044bff432418db6f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/instrument.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/instrument.py",
+      "bytes": 3932,
+      "sha256": "e9b5ef0f9e9d0d7ddbbd280ee69bc929e98c5ccd9dcf27f70b679fe87789fcc0"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/BASELINE-BLOB-PROOF.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/BASELINE-BLOB-PROOF.json",
+      "bytes": 38473,
+      "sha256": "06cc083ef5b30c018b639845eb4286048736d4b1a7f0526700d2ab2f3435edcf"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/MANIFEST.json",
+      "bytes": 1225,
+      "sha256": "54df74bd6feb7c136ffd7e68cd78ebced1b4e5ada9aca2b17510b4f44cea8bf5"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/ORIGINAL-EXTRACTION.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/ORIGINAL-EXTRACTION.json",
+      "bytes": 704,
+      "sha256": "04e6b583c0ada07b4f47643bf0ad7b1c3bf2f56dfbdf878d743348543a03dee2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/ORIGINAL-FAILURES.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/ORIGINAL-FAILURES.json",
+      "bytes": 9289,
+      "sha256": "f8ffd0a447ae11502156fe2fdd6d41ded13390648e9666c3621780903e86c6aa"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/RECORDED-BASELINE-COMPARISON.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/RECORDED-BASELINE-COMPARISON.json",
+      "bytes": 1338,
+      "sha256": "7f99a0f80d3875ecb349fbada23a213122bd65bea3a29676a47b5cc33329cc91"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/ROUTE-BASELINE-PROOF.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/ROUTE-BASELINE-PROOF.json",
+      "bytes": 746,
+      "sha256": "9220bb1324946e909547b53e92d50faf2b16ab3d89631ed32a8adbe2f99b7978"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/SOURCE-PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/SOURCE-PINS.json",
+      "bytes": 39708,
+      "sha256": "a2ba20f3ac5009f11c938ec55b7cb21371f1f8d3b74b7febe0f344e95f93a61a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/compare.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/compare.py",
+      "bytes": 8933,
+      "sha256": "b0aa4ac69e6bd981e181269dab56c08f538b498f26bb17bf9dff8e31ffb79891"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/files/tests/1368-ledger-attribution.test.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/files/tests/1368-ledger-attribution.test.ts",
+      "bytes": 55511,
+      "sha256": "5d8340d2c7b61aa7864a24c92a9d2aba7fc0cc7f9b497146f1653d24c1519d60"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/files/tests/1368-ledger-original.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/files/tests/1368-ledger-original.ts",
+      "bytes": 15098,
+      "sha256": "e76148d283054a864176dfaa247447169edba449f0bfdb5dbb92e8736733b618"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/files/tsconfig.1368-ledger.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/files/tsconfig.1368-ledger.json",
+      "bytes": 222,
+      "sha256": "3e8a3b07416bb03e9c859c514308fc8fc0a1ab538fbc0600746a4ae957a5b1aa"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/files/vitest.1368-ledger.config.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/files/vitest.1368-ledger.config.ts",
+      "bytes": 236,
+      "sha256": "a38a64e53b22daebb0953e1e7271c972fc54e4f6643a35f306bda6124bc6b7cf"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/files/vitest.1368-ledger.workspace.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/kit/files/vitest.1368-ledger.workspace.ts",
+      "bytes": 115,
+      "sha256": "27326ff66aced4a8f1de8c60336ed72d9524e0b01249da1bef7a91b6561391e3"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/runner/run.py",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/runner/run.py",
+      "bytes": 24364,
+      "sha256": "74ae1b3a965bd1b6034f055d714b066faf8868535d65187638d98ddeb1d5ad47"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r1/CHECK.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r1/CHECK.json",
+      "bytes": 3075,
+      "sha256": "e847650322da59cfad11e8e374f4ab84afabe0992bfc33bebb7ff817f665c426"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r1/SNAP.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r1/SNAP.patch",
+      "bytes": 3772,
+      "sha256": "5636bf490af8b162ff8cbcee6f6eef51a97977b02e181e351f65242725af2895"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r1/check_and_bench.cjs",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r1/check_and_bench.cjs",
+      "bytes": 3828,
+      "sha256": "1b4c099bff59be7f601c36023e502a6b48672fc1cabdba94188f9f8b1e018289"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r1/snap-candidate.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r1/snap-candidate.ts",
+      "bytes": 2623,
+      "sha256": "335809459f739a43b03c915a2fa11fc64b7c07688a31dd0dae10eac7ee04a8a9"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r1/snap-frozen.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r1/snap-frozen.ts",
+      "bytes": 1614,
+      "sha256": "24f961760749b22b9de901fc90708db464fb5fefffe75856729b467d96de3d15"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/ALIAS-CHECK.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/ALIAS-CHECK.json",
+      "bytes": 644,
+      "sha256": "976cb5854aabee7df2bc895245e7b88007e5671bb25f25555da5542654cd44d0"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/CHECK.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/CHECK.json",
+      "bytes": 3045,
+      "sha256": "3682a5444c71d40326f3bdfc1722bb6fc8b0fca36fe7a921766c114ee08cdd1b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/REPEATED-BENCH.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/REPEATED-BENCH.json",
+      "bytes": 2249,
+      "sha256": "8cdab3e0d122ab0f0f7bcfbf1b84df19306f7799d70fbddf6f9a650cb0845d9d"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/SNAP.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/SNAP.patch",
+      "bytes": 1420,
+      "sha256": "828d22baa5183663956d0693dd7f693db40c23e1a329e32599b2e3951abca9b1"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/bench_repeated.cjs",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/bench_repeated.cjs",
+      "bytes": 2184,
+      "sha256": "b45255e301de691d7b2e51ed03e7f7206c441e9ecf898c48a48e7263834e9265"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/check_alias.cjs",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/check_alias.cjs",
+      "bytes": 2455,
+      "sha256": "c2d509e62802dcccf2e9f4e762ca76517afddd04cda86329147cc3e7934ea471"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/check_and_bench.cjs",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/check_and_bench.cjs",
+      "bytes": 3828,
+      "sha256": "83be2f5d2da71f2746f87a10d8a35ca1961f67aa6a388cacfd013b667eb72d5b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/snap-candidate.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/snap-candidate.ts",
+      "bytes": 1910,
+      "sha256": "7153dbbadc3fb8ccaf9fb31ecee24763f78464708df8536a2d160428f454baee"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/snap-frozen.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/snap-frozen.ts",
+      "bytes": 1614,
+      "sha256": "24f961760749b22b9de901fc90708db464fb5fefffe75856729b467d96de3d15"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/typecheck.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r2/typecheck.ts",
+      "bytes": 1967,
+      "sha256": "2596c9c20fef2602de578ef91f0e817d0a196460ddc4015962c389ce3f26d831"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/ALIAS-CHECK.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/ALIAS-CHECK.json",
+      "bytes": 638,
+      "sha256": "2c0345163c9e7e42eb1de8faedeffaa4de6ae5008f77781928de7cf2af73eb4e"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/CHECK.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/CHECK.json",
+      "bytes": 3040,
+      "sha256": "e131fadafa787b3dfb53783eb89546f1def097a22697c689f3170198797b8d5b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/SNAP.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/SNAP.patch",
+      "bytes": 2627,
+      "sha256": "a48f520555f3aa68b4366980b61571c1336ee3b090d3d956504e9e228187aa72"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/check_alias.cjs",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/check_alias.cjs",
+      "bytes": 2455,
+      "sha256": "8c5f64badb7854a54bd7dbefb1112abf3479c6a9a1c8d602d8064b4a4ec68eb3"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/check_and_bench.cjs",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/check_and_bench.cjs",
+      "bytes": 3828,
+      "sha256": "2eec7ce4b45496f2a185be875754b620e276389042008e642bfede86175d1f9b"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/snap-candidate.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/snap-candidate.ts",
+      "bytes": 1937,
+      "sha256": "02122750fac85c7926f47c8184934aaa9bb20cc577b82edbedafd35ccf4ade1a"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/snap-frozen.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-proposal-20261005-r3/snap-frozen.ts",
+      "bytes": 1614,
+      "sha256": "24f961760749b22b9de901fc90708db464fb5fefffe75856729b467d96de3d15"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-r5-snap-optimization-review-20261005-r1/README.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-r5-snap-optimization-review-20261005-r1/README.md",
+      "bytes": 4743,
+      "sha256": "b9acfec3b7aa2c3655b2036a849b8c0d3f7de0c0aa63f6135cb729601bee3258"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/CHILD.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/CHILD.json",
+      "bytes": 1094,
+      "sha256": "294b8a0e08798dae487f7f58a4b7407cc110ae003f5d1d05c2b2071c0f0f2876"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/LAUNCH.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/LAUNCH.json",
+      "bytes": 719,
+      "sha256": "009f307a4433201f5a89046d846aaa81f87c3fcd86810da7517e2c98b33fb13e"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/RESULT.json",
+      "bytes": 6908,
+      "sha256": "64c942ae10bd4648ee2269a4453980fb0ea77f8e75e289d00874c15aae5225a6"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/binding.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/binding.json",
+      "bytes": 3034,
+      "sha256": "c4ce0dc3ccf2dab5ffb78a6021744742ee8902383cd5e25371ed0f8be70ecdea"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/data.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/data.json",
+      "bytes": 8315235,
+      "sha256": "18f1a6b913061f92a43f0ab432fff159714afadc0e781b62cadf6e923d01c108"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/power.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/power.txt",
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/profile.jsonl",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/profile.jsonl",
+      "bytes": 3405,
+      "sha256": "a274d41311c85102c9744c2a1970900165781b73af84fb4c5e6a1dd99ddca4c8"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/progress.jsonl",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/progress.jsonl",
+      "bytes": 347,
+      "sha256": "3b0b182b4eded27299180e42c2ad6b71e649066b0fea9641cb5c4b7e35ac0b22"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/stderr.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/stdout.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/stdout.txt",
+      "bytes": 543,
+      "sha256": "4be7546ad257a35e9ec6dedf3fec9288de47176351c9854ae2fb4f156aef5417"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/vitest.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-clean-p13a-r1/vitest.json",
+      "bytes": 978,
+      "sha256": "5033a6c2c036311d4663392fe8b10c4f38e019beb4787bc086222dc022bb01b2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/CHILD.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/CHILD.json",
+      "bytes": 1135,
+      "sha256": "b79549d6a7b39258ac8aab2b56de15067c5d3b25ce0bfc5deb600eaa230ee6c1"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/LAUNCH.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/LAUNCH.json",
+      "bytes": 722,
+      "sha256": "bdec40d83513e4ff5bda4d46c6fed3e891da64cc0214ab1c466a1ddb9e5e1853"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/RESULT.json",
+      "bytes": 6506,
+      "sha256": "b97e94b3c15526d43bd2895946290909c5fb6335550154b170e973b9bd79d535"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/binding.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/binding.json",
+      "bytes": 3209,
+      "sha256": "971e2226da0f5e204d47109f809b8a50bb89ddf5587e1aac63dd1a0bbec21a91"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/power.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/power.txt",
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/profile.jsonl",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/profile.jsonl",
+      "bytes": 2209,
+      "sha256": "fb320e67aeac5ed255d2e8aa30278fdc61505364e720e28e938a978f4e4125c7"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/progress.jsonl",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/progress.jsonl",
+      "bytes": 216,
+      "sha256": "4ccfce6b1cf9a229c4b3b3f46fc7f72f5b5cc31f4b2f7fc7a26e38e96fc2615f"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/stderr.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/stdout.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-observed-p13a-r1/stdout.txt",
+      "bytes": 105,
+      "sha256": "e6b34a940b33b9af2e92e1511cb05a93747e8257105cd07596f00154c6d50a9d"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/CHILD.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/CHILD.json",
+      "bytes": 765,
+      "sha256": "b276d5e74cbe708b1c2a7bcb31b2558e2015388cdc28c1b6768f68a7aef8e367"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/LAUNCH.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/LAUNCH.json",
+      "bytes": 390,
+      "sha256": "d49b092d42bd09477de0f1600acd485a383e6cbe71732cf690902840c84d4e27"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/RESULT.json",
+      "bytes": 5520,
+      "sha256": "fa9724bf0742ce21b284ed479ef3816a267f098d2881a29407c9f1228c5ff1f2"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/binding.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/binding.json",
+      "bytes": 2414,
+      "sha256": "6ec75b9ef81b51bfd9384861f40c5a703aa2ada6b270c92cf153778ae96aff1c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/power.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/power.txt",
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/stderr.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/stdout.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r5-profile-r1/ABC-types-source-r1/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "studio-scratch/1368-sixteenth-independent-archive-review-20261005/REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1368-sixteenth-independent-archive-review-20261005/REVIEW.md",
+      "bytes": 1467,
+      "sha256": "39ea042246e0d86591723719f0cb19fb028f537c39f29392293225248168d2f2"
+    },
+    {
+      "member": "studio-scratch/1368-sixteenth-publication-prep-r1/MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1368-sixteenth-publication-prep-r1/MANIFEST.json",
+      "bytes": 54521,
+      "sha256": "92384616452ec593f62e78f68ba716b981e60b59caab42d45fd3dfa10f6dc117"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r5-profile-clean-p13a-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r5-profile-clean-p13a-r1.log",
+      "bytes": 1006,
+      "sha256": "e6c2a57977a8ceacc644463c61a4ff412f43a842b9b39219bf4542ccc9a913db"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r5-profile-clean-p13a-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r5-profile-clean-p13a-r1.log.meta",
+      "bytes": 707,
+      "sha256": "b5e83e310772208284fe1bb9bab2f989a358e01829027c3c16f1eb96c48e1827"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r5-profile-observed-p13a-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r5-profile-observed-p13a-r1.log",
+      "bytes": 1020,
+      "sha256": "49844df9b696f83acc8730d812220d9b5e95f71bfbcda2fa10abc81a13021e2a"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r5-profile-observed-p13a-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r5-profile-observed-p13a-r1.log.meta",
+      "bytes": 923,
+      "sha256": "4c20a5d7deb27a0b26ce40dd31a914f5aea2d07f00e8e06ceeae9ba3a8a64627"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r5-profile-types-r1.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r5-profile-types-r1.log",
+      "bytes": 1012,
+      "sha256": "45d79939eb7db09338b72862ed96b22756c44c6a06e1713e68f79531341ca995"
+    },
+    {
+      "member": "studio-scratch/heavy-queue/1368-ledger-r5-profile-types-r1.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1368-ledger-r5-profile-types-r1.log.meta",
+      "bytes": 467,
+      "sha256": "31a8bde1918c31b9af9a3c2034ad2162745a982b2d7247bfc55c586f2745acea"
+    }
+  ]
+}

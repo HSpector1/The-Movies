@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1368-S: r5 observed profiling timed out; exact cost attribution published
+
+[1368-S](evidence/p14b4-20260919/1368-S-r5-profile-measured-timeout.md) records r5 ABC types PASS and a 416-week clean p13a PASS whose data bytes equal the accepted r4 clean run. The observed diagnostic retains all original bounds and guards but times out after week 260, with verified TERM/cleanup and no complete observed data. Independent audits accept its five partial profile rows as diagnostic evidence only. At week 260 extra `snap` work accounts for 104.556 of the 108.779-second observed/clean wall gap; lookup helpers total about 0.211 seconds observed, so the static index proposal is not a plausible timeout fix. No safe serializer optimization was demonstrated. Seventeenth archive/direct formal records preserve the exact inputs and outcomes. Continue from HANDOFF; no comparator, protected repin, source landing, main merge or recovery closure is justified.
+
 ## CURRENT — 1368-R: source-bound ledger clean results and observed timeout
 
 [1368-R](evidence/p14b4-20260919/1368-R-ledger-r4-source-bound-clean-and-timeout.md) records fresh arm04 ABC/C0 types and clean p13a results: ABC 18 rows, C0 40 rows, both 416-week/one-PASS with exact guards. ABC observed hit the original 330-second cap at week 208; child TERM and verified cleanup are recorded, but no observed data/JSON exists. The unchanged comparator and protected ledger disposition stay blocked. A bounded two-clean report identifies 22 C0-only rows without assigning cause; four C0 protected digests still disagree. The sixteenth archive preserves runs and reviews. The r5 speed proposals are scratch-only and unmeasured. HANDOFF owns next steps; R8 source/main/CURRENT-BEST remain unchanged.

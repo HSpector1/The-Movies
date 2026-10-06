@@ -1,0 +1,20 @@
+{
+  "decision": "ACCEPT",
+  "archiveSha256": "d0ff1fdb5afcf2c9dace670b098ca708f2220f6d73d7821dbc0c2d5bcffe73a2",
+  "manifestSha256": "5f71a7e0a55ebc62db54cad64746301e70eec93b28b9b8504a6790293edd1c7d",
+  "membersVerified": 304,
+  "logicalBytes": 15300326,
+  "directoriesComplete": 12,
+  "formalFiles": 15,
+  "laneFiles": 6,
+  "armFiles": 197,
+  "productionFiles": 188,
+  "excludedSymlink": [
+    "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/arm/tree/node_modules"
+  ],
+  "excludedCache": [
+    "/Users/zacheryspector/studio-scratch/1368-ledger-r5-profile-proposal-20261005-r1/runner/__pycache__"
+  ],
+  "sourceAndTarReadbackExact": true,
+  "omittedRegularFiles": false
+}
