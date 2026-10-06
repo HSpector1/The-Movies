@@ -1,0 +1,116 @@
+{
+  "actualChildExit": -15,
+  "timedOut": true,
+  "processGroup": {
+    "ownedProcessGroup": 47494,
+    "statusBeforeCleanup": "PRESENT",
+    "statusAfterCleanup": "ABSENT",
+    "signals": [
+      "TERM"
+    ],
+    "signalAttempts": [
+      "TERM"
+    ],
+    "errors": [],
+    "noSurvivors": true,
+    "leaderReaped": true,
+    "cleanupVerified": true
+  },
+  "elapsedSeconds": 331.19106180407107,
+  "allGuardsExact": true,
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--workspace",
+    "vitest.1368-ledger.workspace.ts",
+    "--config",
+    "vitest.1368-ledger.config.ts",
+    "--maxWorkers",
+    "1",
+    "--minWorkers",
+    "1",
+    "--no-file-parallelism",
+    "--reporter=verbose",
+    "--reporter=json",
+    "--outputFile.json=/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/vitest.json"
+  ],
+  "reportingErrors": [],
+  "stdoutSha256": "cbfe49a0c8642087502242c91fe988fbdd475a55741766fe35dc584fa0d453eb",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mode": "clean",
+  "arm": "C0",
+  "seed": "p13-public-commercial-adoption",
+  "pins": {
+    "arm": "C0",
+    "publicationHead": "4b70e2058a8dc8adf6bef1269cfdb86fb49b1509",
+    "publicationIndexSha256": "62d4f619e06f16a1e87ca5722c3455eebef40e1c53692a581156537b2ae377f4",
+    "publicationStageSha256": "e03085f2997b8f2d9a884e7f169516a9271c9dc556a68d98b08c6223740be5d1",
+    "boundedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sourcePinsSha256": "00d4b886c0acbeb64ebc413348427723c7b5dcf0fbbce845fceb4a149d4d3a7f",
+    "assemblySha256": "7134409ad5d09a9d2dbb16080165b1161cc351c0042fc893d5d78874e13ed303",
+    "kitManifestSha256": "01cea5e3beffcb65032dbd45bbb8c56a44016c913bff27c0f756e58d04353a53",
+    "inputPinsSha256": "a2ba20f3ac5009f11c938ec55b7cb21371f1f8d3b74b7febe0f344e95f93a61a",
+    "runnerManifestSha256": "3675e4d50a12bef7c1ffb13186f161844795512b20dc41f736d5872f964b995f",
+    "selfRunnerSha256": "7eb654ebd6b45ab297262b38315414643a1ac26d08b3a03c7b78dcd875aa6f4d",
+    "entrypoints": {
+      "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+      "/Users/zacheryspector/studio-scratch/1368-ledger-arms-04/C0/tree/node_modules/typescript/bin/tsc": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0",
+      "/Users/zacheryspector/studio-scratch/1368-ledger-arms-04/C0/tree/node_modules/vitest/vitest.mjs": "39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6"
+    },
+    "regularFiles": 197
+  },
+  "recorderChildExit": 124,
+  "livePostflightExact": true,
+  "artifacts": {
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-adoption-u1-postflight.json": {
+      "sha256": "ef77435657f2ff83330300c82007e5a17f51f5944dca21de22804f2e4e1727c0",
+      "bytes": 119952
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-adoption-u1-preflight.json": {
+      "sha256": "536d07ef63b9b8102f715edfecddef2f0d25ee4e336cc4ad42158014959cb15d",
+      "bytes": 119202
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-adoption-u1.json": {
+      "sha256": "0d99f8b3007c8153c5e801a54ffdd65fdef4699db48dd27e6110b0070ee64302",
+      "bytes": 56128
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-adoption-u1.patch": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-adoption-u1.txt": {
+      "sha256": "caaea66b85d49ff543a67ea763d8e1eda59683e6fbe1fe5cfa3b7b601e3a746e",
+      "bytes": 47273
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/CHILD.json": {
+      "sha256": "310d0a23e6465544de6c35bf86632d20ce30ef94624cad436052381bc71b6782",
+      "bytes": 1137
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/LAUNCH.json": {
+      "sha256": "9b19260ef7cd216d2c9a0340b2c3183b5f8c01dc96862146380000ec66cb00e0",
+      "bytes": 723
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/binding.json": {
+      "sha256": "8b59a744ea12ffcd827a1ab7b7b3845e6953f75e4a54d78251e0184ddeb4cb72",
+      "bytes": 2854
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/power.txt": {
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c",
+      "bytes": 105
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/progress.jsonl": {
+      "sha256": "858aa3bbcc6555a6f5a37af16fc875d3a32d9fc3d0f91a37f2aa00c848cb060d",
+      "bytes": 261
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/stdout.txt": {
+      "sha256": "cbfe49a0c8642087502242c91fe988fbdd475a55741766fe35dc584fa0d453eb",
+      "bytes": 80
+    }
+  },
+  "interpretation": "Actual Node exit retained separately from recorder/wrapper status; diagnostic completion is not gameplay acceptance."
+}

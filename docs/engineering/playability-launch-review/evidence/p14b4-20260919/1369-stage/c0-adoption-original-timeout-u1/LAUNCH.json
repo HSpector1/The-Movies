@@ -1,0 +1,24 @@
+{
+  "nodePid": 47494,
+  "ownedProcessGroup": 47494,
+  "startNewSession": true,
+  "monotonicStarted": 716242.905975955,
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--workspace",
+    "vitest.1368-ledger.workspace.ts",
+    "--config",
+    "vitest.1368-ledger.config.ts",
+    "--maxWorkers",
+    "1",
+    "--minWorkers",
+    "1",
+    "--no-file-parallelism",
+    "--reporter=verbose",
+    "--reporter=json",
+    "--outputFile.json=/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/vitest.json"
+  ],
+  "bindingSha256": "8b59a744ea12ffcd827a1ab7b7b3845e6953f75e4a54d78251e0184ddeb4cb72"
+}

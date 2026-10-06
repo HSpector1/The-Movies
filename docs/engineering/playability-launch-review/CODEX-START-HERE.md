@@ -1,5 +1,9 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1369-A: original-cap adoption clean timed out; revised observed cap approved prospectively
+
+[1369-A](evidence/p14b4-20260919/1369-A-adoption-timeout-and-observed-cap-amendment.md) records the frozen C0 adoption clean run as a guarded 300/330 **TIMEOUT** through week 312, with no complete data and no ABC U run. The Owner-approved 720/750 observed acceptance timing has an independently reviewed prospective amendment; no acceptance package or new comparator has run. A separate extended adoption clean diagnostic is being prepared and must remain exploratory. The first descriptive comparator draft was independently marked REFINE for missing executable admission guards. HANDOFF owns the exact next actions. Source, main and CURRENT-BEST remain unchanged.
+
 ## CURRENT — 1368-T: full exploratory observed parity; original cap still fails
 
 [1368-T](evidence/p14b4-20260919/1368-T-r6-state-and-r7-exploratory-parity.md) records a source-bound r6 clean final-state fixture and a separate r7 `EXPLORATORY_NOT_ACCEPTANCE` 600/630 wall-clock route. R7 types/clean/observed completed with exact formal guards; clean data match accepted r5 byte-for-byte, and independently reviewed descriptive comparison finds every shared clean/observed field equal over 416 weeks. The observed result took 584.898 seconds, so it does **not** repair the original 300/330-second timeout or admit its comparator. Protected ledger row changes still lack source-matched cause; no pin, production source, main or CURRENT-BEST changed. The eighteenth archive and direct records preserve exact evidence. Resume from HANDOFF.

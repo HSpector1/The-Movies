@@ -1,0 +1,86 @@
+{
+  "status": "TIMEOUT_INCOMPLETE",
+  "classification": "independent read-only completed-run audit",
+  "reviewSha256": "1c63f8267324fc91410dd790e8615d82cc531c194c528929e3737ec9f3b9ca7b",
+  "resultSha256": "30be7652482164bce49ca0c7aae455d21d465a103e642d337d596ec4817bb55e",
+  "files": {
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/RESULT.json": {
+      "bytes": 5995,
+      "sha256": "30be7652482164bce49ca0c7aae455d21d465a103e642d337d596ec4817bb55e"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-adoption-u1-postflight.json": {
+      "bytes": 119952,
+      "sha256": "ef77435657f2ff83330300c82007e5a17f51f5944dca21de22804f2e4e1727c0"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-adoption-u1-preflight.json": {
+      "bytes": 119202,
+      "sha256": "536d07ef63b9b8102f715edfecddef2f0d25ee4e336cc4ad42158014959cb15d"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-adoption-u1.json": {
+      "bytes": 56128,
+      "sha256": "0d99f8b3007c8153c5e801a54ffdd65fdef4699db48dd27e6110b0070ee64302"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-adoption-u1.patch": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-ledger-r4-lowspace-r2-c0-clean-adoption-u1.txt": {
+      "bytes": 47273,
+      "sha256": "caaea66b85d49ff543a67ea763d8e1eda59683e6fbe1fe5cfa3b7b601e3a746e"
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/CHILD.json": {
+      "bytes": 1137,
+      "sha256": "310d0a23e6465544de6c35bf86632d20ce30ef94624cad436052381bc71b6782"
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/LAUNCH.json": {
+      "bytes": 723,
+      "sha256": "9b19260ef7cd216d2c9a0340b2c3183b5f8c01dc96862146380000ec66cb00e0"
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/binding.json": {
+      "bytes": 2854,
+      "sha256": "8b59a744ea12ffcd827a1ab7b7b3845e6953f75e4a54d78251e0184ddeb4cb72"
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/power.txt": {
+      "bytes": 105,
+      "sha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/progress.jsonl": {
+      "bytes": 261,
+      "sha256": "858aa3bbcc6555a6f5a37af16fc875d3a32d9fc3d0f91a37f2aa00c848cb060d"
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/stdout.txt": {
+      "bytes": 80,
+      "sha256": "cbfe49a0c8642087502242c91fe988fbdd475a55741766fe35dc584fa0d453eb"
+    },
+    "/Users/zacheryspector/studio-scratch/heavy-queue/1369-ledger-c0-clean-adoption-u1.log": {
+      "bytes": 1023,
+      "sha256": "82760c5d7055fb572d0384a07ac5e8193d6c46a91bdc6a7e35acb01259c01b25"
+    },
+    "/Users/zacheryspector/studio-scratch/heavy-queue/1369-ledger-c0-clean-adoption-u1.log.meta": {
+      "bytes": 717,
+      "sha256": "6c3ddadba6b13d74f49419f071f3f3f6262aa64697a53e2d6d0a800dc792bf86"
+    }
+  },
+  "artifactCount": 12,
+  "artifactHashesExact": true,
+  "armRegularFilesVerified": 197,
+  "kitEntriesVerified": 12,
+  "typesArtifactsVerified": 11,
+  "actualChildExit": -15,
+  "recorderChildExit": 124,
+  "wrapperExit": 124,
+  "timedOut": true,
+  "allGuardsExact": true,
+  "livePostflightExact": true,
+  "cleanupVerified": true,
+  "noSurvivors": true,
+  "lastProgressWeek": 312,
+  "progressRows": 6,
+  "dataJsonExists": false,
+  "vitestJsonExists": false,
+  "abcAuthorized": false
+}

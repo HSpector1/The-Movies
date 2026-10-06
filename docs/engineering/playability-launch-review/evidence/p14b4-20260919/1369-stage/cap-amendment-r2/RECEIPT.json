@@ -1,0 +1,12 @@
+{
+  "decision": "ACCEPT_PROSPECTIVE_AMENDMENT_ONLY",
+  "proposal": "/Users/zacheryspector/studio-scratch/1369-cap-amendment-proposal-20261005-r2/AMENDMENT.md",
+  "proposalSha256": "300ee6493cc0f3fe8b5adbf8a86b0d5b83857445c55d0aca617080424795b05c",
+  "review": "/Users/zacheryspector/studio-scratch/1369-cap-independent-review-r2/REVIEW.md",
+  "reviewSha256": "f2fcf9d4106f8f26143d68547a9544f69ff9cf84acb3c1f10fb482722d91c34b",
+  "priorR1Decision": "REFINE",
+  "r1IssueClosed": "The comparator/admission gate must be separately versioned, independently reviewed, and freshly run for 720/750 identity.",
+  "implementationOrRunAudited": false,
+  "trackedRepoEdited": false,
+  "heavyRunLaunched": false
+}

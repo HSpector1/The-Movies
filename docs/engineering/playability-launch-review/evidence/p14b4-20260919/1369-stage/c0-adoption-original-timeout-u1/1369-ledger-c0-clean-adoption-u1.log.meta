@@ -1,0 +1,3 @@
+waiting for pid 0; then: python3 -B /Users/zacheryspector/studio-scratch/1368-ledger-lowspace-runner-proposal-r2/run.py clean --arm C0 --seed p13-public-commercial-adoption --head 4b70e2058a8dc8adf6bef1269cfdb86fb49b1509 --manifest-sha256 3675e4d50a12bef7c1ffb13186f161844795512b20dc41f736d5872f964b995f --self-runner-sha256 7eb654ebd6b45ab297262b38315414643a1ac26d08b3a03c7b78dcd875aa6f4d --leaf u1 --types-receipt /Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-types-source-baseline-r1/RESULT.json --types-receipt-sha256 f1fc83c5301c973c623f7f84c46ebaaabe7bf427adb1a616c602d02bfdc5daf7; 2026-10-05 22:18:16 CDT
+start; 2026-10-05 22:18:16 CDT
+end, exit 124; 2026-10-05 22:24:00 CDT

@@ -1,0 +1,41 @@
+{
+  "actualChildExit": -15,
+  "timedOut": true,
+  "processGroup": {
+    "ownedProcessGroup": 47494,
+    "statusBeforeCleanup": "PRESENT",
+    "statusAfterCleanup": "ABSENT",
+    "signals": [
+      "TERM"
+    ],
+    "signalAttempts": [
+      "TERM"
+    ],
+    "errors": [],
+    "noSurvivors": true,
+    "leaderReaped": true,
+    "cleanupVerified": true
+  },
+  "elapsedSeconds": 331.19106180407107,
+  "allGuardsExact": true,
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--workspace",
+    "vitest.1368-ledger.workspace.ts",
+    "--config",
+    "vitest.1368-ledger.config.ts",
+    "--maxWorkers",
+    "1",
+    "--minWorkers",
+    "1",
+    "--no-file-parallelism",
+    "--reporter=verbose",
+    "--reporter=json",
+    "--outputFile.json=/Users/zacheryspector/studio-scratch/1368-ledger-recorded-runs-r4-lowspace-r2/C0-clean-adoption-u1/vitest.json"
+  ],
+  "reportingErrors": [],
+  "stdoutSha256": "cbfe49a0c8642087502242c91fe988fbdd475a55741766fe35dc584fa0d453eb",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}
