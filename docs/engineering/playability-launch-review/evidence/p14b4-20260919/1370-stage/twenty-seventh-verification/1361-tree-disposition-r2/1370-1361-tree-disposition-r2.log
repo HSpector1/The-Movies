@@ -1,0 +1,4 @@
+{"entries": {"x2": 3717, "x3": 3717}, "event": "preflight_pass", "free_kib": 4117432, "manifest_sha256": "2ca6045473034b1c28218ed06de30dc26e47a2ff25ca12e564edeecedc9acf11", "receipt_sha256": "b1377e297efcd979b5af8f412bba944e8e27950669ececa7c3f47e3ce12d7187", "remote_head": "f90aed0908cf1963288936f444811ad698649fc3"}
+{"event": "removed_exact_tree", "free_kib_after": 4248348, "free_kib_before": 4117420, "free_kib_gained": 130928, "removed": {"directories": 347, "files": 3356, "symlinks": 15}, "source": "/Users/zacheryspector/studio-scratch/1361-sweep/x2/tree", "unit": "x2"}
+{"event": "removed_exact_tree", "free_kib_after": 4379164, "free_kib_before": 4248348, "free_kib_gained": 130816, "removed": {"directories": 347, "files": 3356, "symlinks": 15}, "source": "/Users/zacheryspector/studio-scratch/1361-sweep/x3/tree", "unit": "x3"}
+{"event": "disposition_complete", "free_kib": 4379164, "preflight_kib": 4456448, "reserve_met": false}
