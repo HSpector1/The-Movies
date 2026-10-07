@@ -1,0 +1,23 @@
+{
+  "copy_files_checked": {
+    "x2_bundle": "f6aefbf6b601fb9e24823ff0800001e6ae295e7521125a7fa630e717a1020e8f",
+    "x2_extras": "cfc21cdf4ef3d29c5760eafd60670f376aa934f58dbda6fc64d0be7e8b75a8ae",
+    "x3_bundle": "cc8ff0e976f661f71faca52b1adff11df1d37afeebfaebf479e61fce90349133",
+    "x3_extras": "cfc21cdf4ef3d29c5760eafd60670f376aa934f58dbda6fc64d0be7e8b75a8ae"
+  },
+  "decision": "ACCEPT_PREPUBLICATION",
+  "ignored_files_requiring_force_add": [
+    "1361-sweep-tree-preservation-r2/README.md",
+    "1361-sweep-tree-preservation-r2/SUPPORT/BUILD.log",
+    "1361-sweep-tree-preservation-r2/VERIFY-STAGED-R2.log",
+    "raw-disposition/DELETE-R1.log",
+    "raw-disposition/DELETE-R2.log"
+  ],
+  "manifest_sha256": "2ca6045473034b1c28218ed06de30dc26e47a2ff25ca12e564edeecedc9acf11",
+  "report_sha256": "31a384f4caedf035f99b296540669e15e51ffe21c30927f0ec922168ff4aab45",
+  "scope": "prepublication only; no Git edit, remote retrieval, or deletion",
+  "source_state_match": [
+    "x2",
+    "x3"
+  ]
+}

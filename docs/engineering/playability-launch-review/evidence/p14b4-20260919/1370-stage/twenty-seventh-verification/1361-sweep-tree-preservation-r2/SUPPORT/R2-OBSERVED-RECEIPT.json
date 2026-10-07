@@ -1,0 +1,18 @@
+{
+  "actual_child_exit": 0,
+  "decision": "ACCEPT_STAGED_RESTORATION_ONLY",
+  "lane_meta_sha256": "e99f4025c4ed59b64343cf35cdf72878979fe41ab2ebd7a1774c4eb123c35ca4",
+  "manifest_sha256": "2ca6045473034b1c28218ed06de30dc26e47a2ff25ca12e564edeecedc9acf11",
+  "observed_log_sha256": "b26324111f8541479d16e2a692c02127c68d2ca682d7b4c2ec9b508a6ffbc2b0",
+  "report_sha256": "8039e1dc6b1539a43de883835a3cc8a6932d19aa488861d0f3125cfd094c16ee",
+  "restored_clean_checkouts": [
+    "x2",
+    "x3"
+  ],
+  "scope": "staged bytes only; remote retrieval and deletion unreviewed",
+  "source_state_match": [
+    "x2",
+    "x3"
+  ],
+  "verifier_sha256": "078130d2a23a50d2b4153056dfabaf2a8d2bda1afd185d9bbe0faa5be747c801"
+}

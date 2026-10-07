@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-r10-raw-leaf-disposition-proposal/delete_exact_raw_leaf.py", line 255, in <module>
+    main()
+    ~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-r10-raw-leaf-disposition-proposal/delete_exact_raw_leaf.py", line 236, in main
+    no_active_writer()
+    ~~~~~~~~~~~~~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-r10-raw-leaf-disposition-proposal/delete_exact_raw_leaf.py", line 51, in no_active_writer
+    raise RuntimeError('heavy lane is active')
+RuntimeError: heavy lane is active

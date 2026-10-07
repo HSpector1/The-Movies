@@ -1,0 +1,734 @@
+{
+  "format": "1361-sweep-complete-bundles-v2",
+  "rows": [
+    {
+      "bundle": {
+        "bytes": 16004270,
+        "segment_bytes_max": 48000000,
+        "segments": [
+          {
+            "bytes": 16004270,
+            "name": "COMPLETE.bundle.part-0001",
+            "sha256": "f6aefbf6b601fb9e24823ff0800001e6ae295e7521125a7fa630e717a1020e8f"
+          }
+        ],
+        "sha256": "f6aefbf6b601fb9e24823ff0800001e6ae295e7521125a7fa630e717a1020e8f"
+      },
+      "external_dependencies": [
+        {
+          "kind": "directory",
+          "path": "art",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/art"
+        },
+        {
+          "kind": "directory",
+          "path": "docs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/docs"
+        },
+        {
+          "kind": "directory",
+          "path": "node_modules",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/fake-unity-supervisor.mjs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/fake-unity-supervisor.mjs"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/p05a1-owner-profile-rev2.save.json",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a1-owner-profile-rev2.save.json"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/p05a3-owner-profile-rev10.save.json",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a3-owner-profile-rev10.save.json"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/p06-recovery.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p06-recovery.checkpoint.json.gz"
+        },
+        {
+          "kind": "directory",
+          "path": "tests/fixtures/p13a",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13a"
+        },
+        {
+          "kind": "directory",
+          "path": "tests/fixtures/p13b",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13b"
+        },
+        {
+          "kind": "directory",
+          "path": "tests/fixtures/p14",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p14"
+        },
+        {
+          "kind": "directory",
+          "path": "tests/fixtures/p15",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p15"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/p20-after-hire.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p20-after-hire.checkpoint.json.gz"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/p20-before-hire.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p20-before-hire.checkpoint.json.gz"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/runtime-worker-fixture.mjs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/runtime-worker-fixture.mjs"
+        },
+        {
+          "kind": "directory",
+          "path": "tools",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tools"
+        }
+      ],
+      "external_dependency_root": "/Users/zacheryspector/The-Movies-headless-program",
+      "extras": {
+        "bytes": 2336244,
+        "name": "IGNORED-EXTRAS.tar.gz",
+        "sha256": "cfc21cdf4ef3d29c5760eafd60670f376aa934f58dbda6fc64d0be7e8b75a8ae"
+      },
+      "head": "838dce0218d5c940cdcfd57e01232fbcd1082bf0",
+      "ignored_inventory": [
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "art",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/art"
+        },
+        {
+          "kind": "directory",
+          "mode": 493,
+          "path": "dist"
+        },
+        {
+          "kind": "directory",
+          "mode": 493,
+          "path": "dist/studio"
+        },
+        {
+          "bytes": 181290,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/engine.mjs",
+          "sha256": "fbc5cc728ca8b3cbfde2f31547a2a7c96ceaa0e4ccb7d4f2e3ccf22c79ff8451"
+        },
+        {
+          "bytes": 367123,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/engine.mjs.map",
+          "sha256": "d5a16af91d1e2c217eda78b2da90c8dcab27f24d1be9f195f66e4cb9bd1e135b"
+        },
+        {
+          "bytes": 175498,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/meta.json",
+          "sha256": "478538e4a89132cfd6884d0a6b24ca4bd58dd6e3d9d69ef83b1cafc34779a581"
+        },
+        {
+          "bytes": 21268,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/runtime-worker-source.json",
+          "sha256": "2ea1061cb8b67ca219936c63aa85368f4c349e963286b35f4c88ca3ba75fcc5c"
+        },
+        {
+          "bytes": 2542590,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/runtime-worker.mjs",
+          "sha256": "ba3b53db106bc2247bf5654d139e47a9b65b755cbf78a81a14838f0d8f284b13"
+        },
+        {
+          "bytes": 6080922,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/runtime-worker.mjs.map",
+          "sha256": "1261efb71c1703b133c477ad105da71c761c426b2e0fb30e932279d2eb44239f"
+        },
+        {
+          "bytes": 249266,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/studio.mjs",
+          "sha256": "6dec077c8eaf23e1abb8de472de0703b1c2f84a42d977b95321979ac4756a436"
+        },
+        {
+          "bytes": 487422,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/studio.mjs.map",
+          "sha256": "7f483b91a39b5db4faa40b5088e9f399ebe29d7a49788a84617ae6ed2a6758e1"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "docs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/docs"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "node_modules",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+        },
+        {
+          "kind": "directory",
+          "mode": 493,
+          "path": "scripts/art"
+        },
+        {
+          "bytes": 33321,
+          "kind": "file",
+          "mode": 493,
+          "path": "scripts/art/authored-asset-pipeline.py",
+          "sha256": "fc3c4c465597f71fb5d397cb0e95454500bab401dd40e5e9c4d5dd73b4775b4d"
+        },
+        {
+          "kind": "directory",
+          "mode": 493,
+          "path": "tests/fixtures"
+        },
+        {
+          "bytes": 10210,
+          "kind": "file",
+          "mode": 420,
+          "path": "tests/fixtures/bridge-contract-union-fixtures.ts",
+          "sha256": "0689507dd4e5407ec9fdc5ba3834ab9304d29120040ccac2af254cb51b637e8f"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/fake-unity-supervisor.mjs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/fake-unity-supervisor.mjs"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p05a1-owner-profile-rev2.save.json",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a1-owner-profile-rev2.save.json"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p05a3-owner-profile-rev10.save.json",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a3-owner-profile-rev10.save.json"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p06-recovery.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p06-recovery.checkpoint.json.gz"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p13a",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13a"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p13b",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13b"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p14",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p14"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p15",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p15"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p20-after-hire.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p20-after-hire.checkpoint.json.gz"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p20-before-hire.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p20-before-hire.checkpoint.json.gz"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/runtime-worker-fixture.mjs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/runtime-worker-fixture.mjs"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tools",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tools"
+        }
+      ],
+      "ignored_roots": [
+        "art",
+        "dist",
+        "docs",
+        "node_modules",
+        "scripts/art",
+        "tests/fixtures",
+        "tools"
+      ],
+      "info_exclude": {
+        "bytes": 50,
+        "sha256": "da1bb2c36690457c8cbc58389837217aef5656df3daac7ecd14494bb492bfaa3"
+      },
+      "refs": {
+        "refs/heads/main": "838dce0218d5c940cdcfd57e01232fbcd1082bf0",
+        "refs/tags/base": "91b1938f910ad1d039fcee0d4050b2fcdc7452c0",
+        "refs/tags/production": "ded10cdb154b3517b2126fb83ccb66f7d515a69d"
+      },
+      "source": "/Users/zacheryspector/studio-scratch/1361-sweep/x2/tree",
+      "status": "clean",
+      "symlinks": [
+        {
+          "path": "art",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/art"
+        },
+        {
+          "path": "docs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/docs"
+        },
+        {
+          "path": "node_modules",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+        },
+        {
+          "path": "tests/fixtures/fake-unity-supervisor.mjs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/fake-unity-supervisor.mjs"
+        },
+        {
+          "path": "tests/fixtures/p05a1-owner-profile-rev2.save.json",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a1-owner-profile-rev2.save.json"
+        },
+        {
+          "path": "tests/fixtures/p05a3-owner-profile-rev10.save.json",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a3-owner-profile-rev10.save.json"
+        },
+        {
+          "path": "tests/fixtures/p06-recovery.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p06-recovery.checkpoint.json.gz"
+        },
+        {
+          "path": "tests/fixtures/p13a",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13a"
+        },
+        {
+          "path": "tests/fixtures/p13b",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13b"
+        },
+        {
+          "path": "tests/fixtures/p14",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p14"
+        },
+        {
+          "path": "tests/fixtures/p15",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p15"
+        },
+        {
+          "path": "tests/fixtures/p20-after-hire.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p20-after-hire.checkpoint.json.gz"
+        },
+        {
+          "path": "tests/fixtures/p20-before-hire.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p20-before-hire.checkpoint.json.gz"
+        },
+        {
+          "path": "tests/fixtures/runtime-worker-fixture.mjs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/runtime-worker-fixture.mjs"
+        },
+        {
+          "path": "tools",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tools"
+        }
+      ],
+      "tree": "0165274ffeedc3783ef215e68b773b7e8a6b5410",
+      "unit": "x2"
+    },
+    {
+      "bundle": {
+        "bytes": 16007385,
+        "segment_bytes_max": 48000000,
+        "segments": [
+          {
+            "bytes": 16007385,
+            "name": "COMPLETE.bundle.part-0001",
+            "sha256": "cc8ff0e976f661f71faca52b1adff11df1d37afeebfaebf479e61fce90349133"
+          }
+        ],
+        "sha256": "cc8ff0e976f661f71faca52b1adff11df1d37afeebfaebf479e61fce90349133"
+      },
+      "external_dependencies": [
+        {
+          "kind": "directory",
+          "path": "art",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/art"
+        },
+        {
+          "kind": "directory",
+          "path": "docs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/docs"
+        },
+        {
+          "kind": "directory",
+          "path": "node_modules",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/fake-unity-supervisor.mjs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/fake-unity-supervisor.mjs"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/p05a1-owner-profile-rev2.save.json",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a1-owner-profile-rev2.save.json"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/p05a3-owner-profile-rev10.save.json",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a3-owner-profile-rev10.save.json"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/p06-recovery.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p06-recovery.checkpoint.json.gz"
+        },
+        {
+          "kind": "directory",
+          "path": "tests/fixtures/p13a",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13a"
+        },
+        {
+          "kind": "directory",
+          "path": "tests/fixtures/p13b",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13b"
+        },
+        {
+          "kind": "directory",
+          "path": "tests/fixtures/p14",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p14"
+        },
+        {
+          "kind": "directory",
+          "path": "tests/fixtures/p15",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p15"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/p20-after-hire.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p20-after-hire.checkpoint.json.gz"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/p20-before-hire.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p20-before-hire.checkpoint.json.gz"
+        },
+        {
+          "kind": "file",
+          "path": "tests/fixtures/runtime-worker-fixture.mjs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/runtime-worker-fixture.mjs"
+        },
+        {
+          "kind": "directory",
+          "path": "tools",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tools"
+        }
+      ],
+      "external_dependency_root": "/Users/zacheryspector/The-Movies-headless-program",
+      "extras": {
+        "bytes": 2336244,
+        "name": "IGNORED-EXTRAS.tar.gz",
+        "sha256": "cfc21cdf4ef3d29c5760eafd60670f376aa934f58dbda6fc64d0be7e8b75a8ae"
+      },
+      "head": "ee289de67e453ce269c98d840a48799265c62993",
+      "ignored_inventory": [
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "art",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/art"
+        },
+        {
+          "kind": "directory",
+          "mode": 493,
+          "path": "dist"
+        },
+        {
+          "kind": "directory",
+          "mode": 493,
+          "path": "dist/studio"
+        },
+        {
+          "bytes": 181290,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/engine.mjs",
+          "sha256": "fbc5cc728ca8b3cbfde2f31547a2a7c96ceaa0e4ccb7d4f2e3ccf22c79ff8451"
+        },
+        {
+          "bytes": 367123,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/engine.mjs.map",
+          "sha256": "d5a16af91d1e2c217eda78b2da90c8dcab27f24d1be9f195f66e4cb9bd1e135b"
+        },
+        {
+          "bytes": 175498,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/meta.json",
+          "sha256": "478538e4a89132cfd6884d0a6b24ca4bd58dd6e3d9d69ef83b1cafc34779a581"
+        },
+        {
+          "bytes": 21268,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/runtime-worker-source.json",
+          "sha256": "2ea1061cb8b67ca219936c63aa85368f4c349e963286b35f4c88ca3ba75fcc5c"
+        },
+        {
+          "bytes": 2542590,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/runtime-worker.mjs",
+          "sha256": "ba3b53db106bc2247bf5654d139e47a9b65b755cbf78a81a14838f0d8f284b13"
+        },
+        {
+          "bytes": 6080922,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/runtime-worker.mjs.map",
+          "sha256": "1261efb71c1703b133c477ad105da71c761c426b2e0fb30e932279d2eb44239f"
+        },
+        {
+          "bytes": 249266,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/studio.mjs",
+          "sha256": "6dec077c8eaf23e1abb8de472de0703b1c2f84a42d977b95321979ac4756a436"
+        },
+        {
+          "bytes": 487422,
+          "kind": "file",
+          "mode": 420,
+          "path": "dist/studio/studio.mjs.map",
+          "sha256": "7f483b91a39b5db4faa40b5088e9f399ebe29d7a49788a84617ae6ed2a6758e1"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "docs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/docs"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "node_modules",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+        },
+        {
+          "kind": "directory",
+          "mode": 493,
+          "path": "scripts/art"
+        },
+        {
+          "bytes": 33321,
+          "kind": "file",
+          "mode": 493,
+          "path": "scripts/art/authored-asset-pipeline.py",
+          "sha256": "fc3c4c465597f71fb5d397cb0e95454500bab401dd40e5e9c4d5dd73b4775b4d"
+        },
+        {
+          "kind": "directory",
+          "mode": 493,
+          "path": "tests/fixtures"
+        },
+        {
+          "bytes": 10210,
+          "kind": "file",
+          "mode": 420,
+          "path": "tests/fixtures/bridge-contract-union-fixtures.ts",
+          "sha256": "0689507dd4e5407ec9fdc5ba3834ab9304d29120040ccac2af254cb51b637e8f"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/fake-unity-supervisor.mjs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/fake-unity-supervisor.mjs"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p05a1-owner-profile-rev2.save.json",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a1-owner-profile-rev2.save.json"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p05a3-owner-profile-rev10.save.json",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a3-owner-profile-rev10.save.json"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p06-recovery.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p06-recovery.checkpoint.json.gz"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p13a",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13a"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p13b",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13b"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p14",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p14"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p15",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p15"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p20-after-hire.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p20-after-hire.checkpoint.json.gz"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/p20-before-hire.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p20-before-hire.checkpoint.json.gz"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tests/fixtures/runtime-worker-fixture.mjs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/runtime-worker-fixture.mjs"
+        },
+        {
+          "kind": "symlink",
+          "mode": 493,
+          "path": "tools",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tools"
+        }
+      ],
+      "ignored_roots": [
+        "art",
+        "dist",
+        "docs",
+        "node_modules",
+        "scripts/art",
+        "tests/fixtures",
+        "tools"
+      ],
+      "info_exclude": {
+        "bytes": 50,
+        "sha256": "da1bb2c36690457c8cbc58389837217aef5656df3daac7ecd14494bb492bfaa3"
+      },
+      "refs": {
+        "refs/heads/main": "ee289de67e453ce269c98d840a48799265c62993",
+        "refs/tags/base": "39d5dc5dc9c53bc28738c5785b60f4b816e63655",
+        "refs/tags/production": "f830ddf7cfbe70acaaa72ad64285b968a3d6c71e"
+      },
+      "source": "/Users/zacheryspector/studio-scratch/1361-sweep/x3/tree",
+      "status": "clean",
+      "symlinks": [
+        {
+          "path": "art",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/art"
+        },
+        {
+          "path": "docs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/docs"
+        },
+        {
+          "path": "node_modules",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+        },
+        {
+          "path": "tests/fixtures/fake-unity-supervisor.mjs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/fake-unity-supervisor.mjs"
+        },
+        {
+          "path": "tests/fixtures/p05a1-owner-profile-rev2.save.json",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a1-owner-profile-rev2.save.json"
+        },
+        {
+          "path": "tests/fixtures/p05a3-owner-profile-rev10.save.json",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a3-owner-profile-rev10.save.json"
+        },
+        {
+          "path": "tests/fixtures/p06-recovery.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p06-recovery.checkpoint.json.gz"
+        },
+        {
+          "path": "tests/fixtures/p13a",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13a"
+        },
+        {
+          "path": "tests/fixtures/p13b",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13b"
+        },
+        {
+          "path": "tests/fixtures/p14",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p14"
+        },
+        {
+          "path": "tests/fixtures/p15",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p15"
+        },
+        {
+          "path": "tests/fixtures/p20-after-hire.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p20-after-hire.checkpoint.json.gz"
+        },
+        {
+          "path": "tests/fixtures/p20-before-hire.checkpoint.json.gz",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p20-before-hire.checkpoint.json.gz"
+        },
+        {
+          "path": "tests/fixtures/runtime-worker-fixture.mjs",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/runtime-worker-fixture.mjs"
+        },
+        {
+          "path": "tools",
+          "target": "/Users/zacheryspector/The-Movies-headless-program/tools"
+        }
+      ],
+      "tree": "d8b993bb0c078613baa07313f7845367d5e90829",
+      "unit": "x3"
+    }
+  ],
+  "scope": "Git history and local tree extras are archived; absolute symlink targets remain live-repository dependencies."
+}

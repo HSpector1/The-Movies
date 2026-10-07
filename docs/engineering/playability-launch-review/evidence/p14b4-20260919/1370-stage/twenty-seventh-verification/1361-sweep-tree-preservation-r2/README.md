@@ -1,0 +1,5 @@
+# Reproducible 1361 x2/x3 scratch checkouts
+
+This package preserves two clean but private 1361 sweep Git checkouts before local storage cleanup. `MANIFEST.json` pins each exact HEAD, tree, refs, ignored file inventory and absolute symlink target. Each `x2/` or `x3/` directory contains a complete self-contained Git bundle part, `INFO-EXCLUDE`, and a deterministic archive of ignored files. `SUPPORT/VERIFY.py` independently reconstructs a normal checkout, restores ignored files, and checks the clean worktree, refs, types, modes and symlinks.
+
+The two Git histories are self-contained, but 15 absolute symlinks per checkout point into `/Users/zacheryspector/The-Movies-headless-program`. Restoring those symlinks on another machine requires mapping the live repository path. The observed staged review passed both restorations; the original scratch trees remain until this exact package is retrieved from GitHub and verified again. This archive is disk-preservation evidence only, not a new game regression result.

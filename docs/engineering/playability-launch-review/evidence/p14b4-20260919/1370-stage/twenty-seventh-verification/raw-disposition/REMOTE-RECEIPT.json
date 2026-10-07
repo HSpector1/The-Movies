@@ -1,0 +1,31 @@
+{
+  "schema": "1370-r10-adoption-remote-publication-verification-r1",
+  "decision": "ACCEPT_REMOTE_SEGMENTED_BYTE_PRESERVATION_ONLY",
+  "remoteEvidenceHead": "6413324956a98b0426e7959843b72dfd8bcb34fe",
+  "localEvidenceHead": "6413324956a98b0426e7959843b72dfd8bcb34fe",
+  "priorEvidenceHeadAncestor": "900573e4fee9da765a9937ef948b0030ef367e2f",
+  "newTrackedFileCount": 56,
+  "remoteWorkHeadUnchanged": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "workSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "archiveBytes": 113296808,
+  "archiveSha256": "1d065ca4f946269a464c526a80e8d34b932cf56c06bf04fc812fc96590d567df",
+  "partGitBlobOids": [
+    "b66c20d5812e41f37965e4c7da44c1bad5754548",
+    "11d756e9e58647a34328b392f81c1d2f511b873e",
+    "70edae2c5e9ba9266e7fccaa310b30def0feb868"
+  ],
+  "partBytes": [50331648, 50331648, 12633512],
+  "partSha256": [
+    "1063ae48fc0772f0dab73cb4559f5bb06b4e11e72b52583d83366110452b5f60",
+    "cf6863d2ee30bd31e965ffc7279cd8b0875a510e6df28c050688565b221ed2b9",
+    "715f91806f36908594b7383eb24518e021a9accea576492544653bda8ddddaee"
+  ],
+  "oversizedMonolithTracked": false,
+  "incompleteR1ChildTracked": false,
+  "rawBoundariesBytes": 1069911027,
+  "rawBoundariesSha256": "d8fef4ae3a56021778764c121fccd261621e50b6bcc8027819ef8ecd381ec12b",
+  "rawResultSha256": "3e1f9a8b67f0d03090c1e1641812d87a816c6b91ac7f22cbe81abbf7a83e9515",
+  "rawSummaryPresent": false,
+  "reportSha256": "92425d824baad6b6ab73b95dd9542b7e4e55e3e42570eae5214bb7fda666a3c3",
+  "scope": "remote publication of failed-run bytes only; exact raw-leaf disposition separate"
+}

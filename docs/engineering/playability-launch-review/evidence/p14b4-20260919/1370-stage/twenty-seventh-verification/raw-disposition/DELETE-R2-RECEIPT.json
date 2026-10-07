@@ -1,0 +1,20 @@
+{
+  "schema": "1370-r10-failed-raw-leaf-exact-disposition-static-review-r2",
+  "decision": "ACCEPT_STATIC_EXACT_REMOVAL_WITH_OWN_LANE_LOCK_ONLY",
+  "scriptExecutedInThisReview": false,
+  "scriptSha256": "e37b6113e37af8fd90e4873c49fdfc8366311e31ff7e5085adbe7790cf62ff07",
+  "reportSha256": "6039506a7e17daea96598bbf05b25e01c0a771315a8ed7e7f33b9f8b4316bafe",
+  "r1ActualChildExit": 1,
+  "r1Disposition": "PREFLIGHT_ONLY_NO_DELETION",
+  "r1FailureLogSha256": "6def8151da0aa83fa976e9a20c659faf29e8755e48ddf46dd",
+  "r1FailureMetaSha256": "bc4340b4a34768d009899a50beb2d2c22e0afa0fb45c47120747b162eae8247c",
+  "exactSource": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r10/ag-adoption-clean-r10-ag-adoption-20261007-224614",
+  "remoteEvidenceHead": "6413324956a98b0426e7959843b72dfd8bcb34fe",
+  "publishedArchiveSha256": "1d065ca4f946269a464c526a80e8d34b932cf56c06bf04fc812fc96590d567df",
+  "rawLeafAllocatedKiB": 1050528,
+  "freeBeforeKiB": 3198560,
+  "projectedFreeAfterKiB": 4249088,
+  "r12PreflightRequiredKiB": 4456448,
+  "projectedShortfallKiB": 207360,
+  "scope": "exact r2 child command under exact self-owned heavy lane only; no execution or acceptance claim"
+}

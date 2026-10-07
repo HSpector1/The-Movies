@@ -1,0 +1,14 @@
+{
+  "decision": "ACCEPT_STATIC_FOR_BOUNDED_BUILD_AND_RUNTIME_VERIFICATION",
+  "report_sha256": "89102d7395d343dac329822273105e1ccaff9adf0eb9228c7ecde1c692281e53",
+  "reviewed": {
+    "REVIEW-REQUEST.md": "ac46c757a3ca11d1b6e7bb1fabfac5d90b3da1211839d4267638935c33051aa1",
+    "build.py": "7fd06d6bd8555409d7e1bdefee3f2afce1731d8f1b4e23c8a99d21fdd04f1688",
+    "verify.py": "078130d2a23a50d2b4153056dfabaf2a8d2bda1afd185d9bbe0faa5be747c801"
+  },
+  "scope": "static review only; no bundle build, source mutation, Git edit, or deletion",
+  "source_heads": {
+    "x2": "838dce0218d5c940cdcfd57e01232fbcd1082bf0",
+    "x3": "ee289de67e453ce269c98d840a48799265c62993"
+  }
+}

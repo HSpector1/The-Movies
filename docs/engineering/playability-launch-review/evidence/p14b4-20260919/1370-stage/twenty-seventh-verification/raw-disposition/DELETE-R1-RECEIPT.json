@@ -1,0 +1,18 @@
+{
+  "schema": "1370-r10-failed-raw-leaf-exact-disposition-static-review-r1",
+  "decision": "ACCEPT_STATIC_EXACT_REMOVAL_WITH_PRECONDITIONS",
+  "scriptExecuted": false,
+  "scriptSha256": "ebfa3a1779cb4db12d49e3f0e21a35b8f3766bfa9f978239234e583605216491",
+  "reportSha256": "e91999655b55a1d4c9fc89330e34370fed19972c405a7a6e4a69744159c9197d",
+  "exactSource": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r10/ag-adoption-clean-r10-ag-adoption-20261007-224614",
+  "remoteEvidenceHead": "6413324956a98b0426e7959843b72dfd8bcb34fe",
+  "workHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "publishedMemberCount": 223,
+  "publishedArchiveSha256": "1d065ca4f946269a464c526a80e8d34b932cf56c06bf04fc812fc96590d567df",
+  "rawLeafAllocatedKiB": 1050528,
+  "freeBeforeKiB": 3201316,
+  "projectedFreeAfterKiB": 4251844,
+  "r12PreflightRequiredKiB": 4456448,
+  "projectedShortfallKiB": 204604,
+  "scope": "static exact raw-leaf deletion only; no execution or acceptance claim"
+}
