@@ -1,0 +1,15 @@
+{
+  "schema": "1370-r10-ag-adoption-failure-archive-static-review-r1",
+  "decision": "ACCEPT_STATIC_BUILD_ONLY",
+  "proposal": "/Users/zacheryspector/studio-scratch/1370-r10-ag-adoption-failure-archive-proposal-r1",
+  "builderSha256": "c43432b18cd85c382c0743656413970e7be79072812fa25760d50e6398d4c379",
+  "requestSha256": "002dcf70f61c2662a18f5d22dc2811055223947b3d7c71ee7006354aeaa25403",
+  "failureAuditSha256": "69e1e7f5d59a5275fdb63ccc525bd29ed7f7b7c0828c8b4924d240bb344ca13f",
+  "workHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "evidenceHead": "900573e4fee9da765a9937ef948b0030ef367e2f",
+  "sourceLeaf": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r10/ag-adoption-clean-r10-ag-adoption-20261007-224614",
+  "output": "/Users/zacheryspector/studio-scratch/1370-r10-clean-evidence-worktree/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-seventh-verification/ag-adoption-r10-failure",
+  "reportSha256": "87c32d3b1faf9c0259cd5334a55814375ab9b2aaf2d6ede04eb905b205366d2b",
+  "scope": "static build authorization only; observed archive review and remote publication required before raw-leaf disposition"
+}

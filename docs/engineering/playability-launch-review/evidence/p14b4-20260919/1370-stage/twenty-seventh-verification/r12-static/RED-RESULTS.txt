@@ -1,0 +1,23 @@
+baseline ACCEPT
+forged_save REJECT:AssertionError:detached save state differs from original state
+forged_owner REJECT:AssertionError:owner view differs from state
+forged_rng REJECT:AssertionError:
+forged_receipt_count REJECT:AssertionError:
+forged_proof REJECT:AssertionError:representation proof disagrees with state
+missing_field REJECT:AssertionError:complete boundary field set
+extra_field REJECT:AssertionError:complete boundary field set
+save_version REJECT:AssertionError:
+wrong_seed REJECT:AssertionError:
+wrong_order REJECT:AssertionError:
+missing_member REJECT:AssertionError:
+extra_member REJECT:AssertionError:
+bad_crc REJECT:error:Error -3 while decompressing data: incorrect data check
+truncated REJECT:AssertionError:truncated gzip member
+trailing_junk REJECT:error:Error -3 while decompressing data: incorrect header check
+wrong_raw_digest REJECT:AssertionError:
+wrong_compressed_digest REJECT:AssertionError:
+raw_bound REJECT:AssertionError:
+compressed_bound REJECT:AssertionError:
+one_test REJECT:AssertionError:
+wrong_audit REJECT:AssertionError:
+forged_digest_only ACCEPT

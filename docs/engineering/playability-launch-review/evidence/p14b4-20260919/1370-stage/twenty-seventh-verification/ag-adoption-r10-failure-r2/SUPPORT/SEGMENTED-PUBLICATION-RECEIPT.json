@@ -1,0 +1,20 @@
+{
+  "schema": "1370-r10-adoption-segmented-publication-precheck-r1",
+  "decision": "ACCEPT_SEGMENTED_PREPUBLICATION_ONLY",
+  "workHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "evidenceHeadBeforeCommit": "900573e4fee9da765a9937ef948b0030ef367e2f",
+  "inTreeArchiveBytes": 113296808,
+  "inTreeArchiveSha256": "1d065ca4f946269a464c526a80e8d34b932cf56c06bf04fc812fc96590d567df",
+  "segmentManifestSha256": "b712ca1cb7bd36b1d705330633b1bb68c5ca28cf946f5935d49271cdb9a957ec",
+  "partBytes": [50331648, 50331648, 12633512],
+  "inTreePartsByteEqualLocalOriginal": true,
+  "newCopyPairsChecked": 13,
+  "newCopyMismatches": 0,
+  "ignoredIntendedFilesRequireForceAdd": 7,
+  "excludedOversizedLocalOriginal": "ag-adoption-r10-failure-r2/EVIDENCE.tar.xz",
+  "localOriginalMayBeRemovedAfterExactRecheck": true,
+  "excludedIncompleteR1PreliminaryChild": "ag-adoption-r10-failure",
+  "rawFailedLeafRemovalRequiresRemoteVerification": true,
+  "reportSha256": "b8fca58497e2e9afa22a4e315b73579bf99b608273bf7900fdf183eb395a8189"
+}

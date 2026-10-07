@@ -1,0 +1,26 @@
+{
+  "archive": "EVIDENCE.tar.xz",
+  "archiveBytes": 113296808,
+  "archiveSha256": "1d065ca4f946269a464c526a80e8d34b932cf56c06bf04fc812fc96590d567df",
+  "chunkBytesMaximum": 50331648,
+  "parts": [
+    {
+      "bytes": 50331648,
+      "name": "EVIDENCE.tar.xz.part-0001-of-0003",
+      "sha256": "1063ae48fc0772f0dab73cb4559f5bb06b4e11e72b52583d83366110452b5f60"
+    },
+    {
+      "bytes": 50331648,
+      "name": "EVIDENCE.tar.xz.part-0002-of-0003",
+      "sha256": "cf6863d2ee30bd31e965ffc7279cd8b0875a510e6df28c050688565b221ed2b9"
+    },
+    {
+      "bytes": 12633512,
+      "name": "EVIDENCE.tar.xz.part-0003-of-0003",
+      "sha256": "715f91806f36908594b7383eb24518e021a9accea576492544653bda8ddddaee"
+    }
+  ],
+  "schema": "movies.evidence.archive-segments.v1",
+  "sourceRereadSha256": "1d065ca4f946269a464c526a80e8d34b932cf56c06bf04fc812fc96590d567df",
+  "stagedReadbackSha256": "1d065ca4f946269a464c526a80e8d34b932cf56c06bf04fc812fc96590d567df"
+}

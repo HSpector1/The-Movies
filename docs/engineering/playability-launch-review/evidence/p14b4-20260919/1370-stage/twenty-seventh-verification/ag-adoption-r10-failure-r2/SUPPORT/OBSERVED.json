@@ -1,0 +1,21 @@
+{
+  "archive": {
+    "bytes": 113296808,
+    "sha256": "1d065ca4f946269a464c526a80e8d34b932cf56c06bf04fc812fc96590d567df",
+    "tarBytes": 1075496960,
+    "tarSha256": "110e7d6b85848c71c24913382f6496f183282176ccfe5bacdece45931762673f"
+  },
+  "boundaryRows": 365,
+  "childExit": 1,
+  "counts": {
+    "directory": 14,
+    "file": 208,
+    "symlink": 1
+  },
+  "deterministicRebuild": true,
+  "lastWeek": 364,
+  "memberCount": 223,
+  "packageBytes": 113404990,
+  "status": "ACCEPT_FAILED_RUN_BYTE_PRESERVATION_ONLY",
+  "summaryPresent": false
+}

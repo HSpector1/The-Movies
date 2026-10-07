@@ -1,0 +1,41 @@
+{
+  "arm": "AG",
+  "child": {
+    "elapsedCapSeconds": 720,
+    "exit": 1,
+    "timedOut": false
+  },
+  "classification": "EXPLORATORY_720_750",
+  "error": "AssertionError('child exited nonzero')",
+  "finishedUtc": "2026-10-07T22:49:03Z",
+  "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "manifestSha256": "29495648e2bb4da45e90fd49c0e708d7c8338e22ff4ea2365a38c96e35ce2844",
+  "mirrorPostflightSha256": "599d1730b586f9577fd4b6f3cde5c575e3bc1d4c32cee6a3960189e604735005",
+  "mirrorPreflightSha256": "599d1730b586f9577fd4b6f3cde5c575e3bc1d4c32cee6a3960189e604735005",
+  "postflight": {
+    "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+    "inventorySha256": "1de4eaa378ad4bc965738e458cd14cf80439ef7510732c40ac011dc764012351",
+    "power": "AC Power",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "preflight": {
+    "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+    "inventorySha256": "1de4eaa378ad4bc965738e458cd14cf80439ef7510732c40ac011dc764012351",
+    "power": "AC Power",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "schema": "1370-ag-e0g-full-state-clean-leaf-route-r10",
+  "seed": "p13-public-commercial-adoption",
+  "stage": "clean",
+  "stagePassed": false,
+  "status": "STAGE_OR_GUARD_FAILURE",
+  "timedOut": false,
+  "typesAdmission": {
+    "observedAuditReceiptSha256": "41eff321c12d42dee98e8202baa7e9b7e61ebde3d80f3279faa41b14ae8a3238",
+    "outerResultSha256": "9109be566301fee947885e2626bb4edf503bc89b3e79a79f86b8ccf1c610236b",
+    "targetResultSha256": "6268df61f75d1dc508f773be1ccd6b8ae0c24abee91c63c4bc89f3d5be30ac09",
+    "typesRunId": "ag-adoption-types-ag-adoption-types-20261006-r1"
+  }
+}

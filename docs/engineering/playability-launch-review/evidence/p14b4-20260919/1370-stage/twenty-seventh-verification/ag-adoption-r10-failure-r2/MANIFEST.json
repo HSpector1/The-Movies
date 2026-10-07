@@ -1,0 +1,69 @@
+{
+  "boundaries": {
+    "bytes": 1069911027,
+    "completeRows": 365,
+    "lastWeek": 364,
+    "sha256": "d8fef4ae3a56021778764c121fccd261621e50b6bcc8027819ef8ecd381ec12b"
+  },
+  "classification": "FAILED_RUN_BYTE_PRESERVATION_ONLY",
+  "counts": {
+    "directory": 14,
+    "file": 208,
+    "symlink": 1
+  },
+  "direct": {
+    "LAUNCH.json": {
+      "bytes": 641,
+      "sha256": "87d41e68b261e22898148511ac389d3ff1d3c15e57023a4f6a07f291cbdb9b84"
+    },
+    "RESULT.json": {
+      "bytes": 1852,
+      "sha256": "3e1f9a8b67f0d03090c1e1641812d87a816c6b91ac7f22cbe81abbf7a83e9515"
+    },
+    "RESULT.sha256.json": {
+      "bytes": 83,
+      "sha256": "aa353279006268a7f78448c74002aa0b36f07365d5e6babe5e01fecc81937727"
+    },
+    "child.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "child.stdout.log": {
+      "bytes": 164,
+      "sha256": "ff5a514b3e7adb20ce055f34b97f663487b3b51630a6ba50e7c2895b19882b6a"
+    },
+    "progress.ndjson": {
+      "bytes": 301,
+      "sha256": "e3337a06f594ec7d448067e8d81d64b4b0d1cc868044d925eef016a189a7d550"
+    },
+    "vitest.json": {
+      "bytes": 2415,
+      "sha256": "91344daf8b1257d9f71805a29b93a9d667df0630f48c1d5139321279af82247d"
+    }
+  },
+  "files": {
+    "EVIDENCE.tar.xz": {
+      "bytes": 113296808,
+      "sha256": "1d065ca4f946269a464c526a80e8d34b932cf56c06bf04fc812fc96590d567df",
+      "tarBytes": 1075496960,
+      "tarSha256": "110e7d6b85848c71c24913382f6496f183282176ccfe5bacdece45931762673f"
+    },
+    "MEMBERS.json": {
+      "bytes": 85865,
+      "sha256": "dd066bf7fe8db551bf7f7cfc6642a39ce8b61a188fb82fe40bbc19762ef4c104"
+    },
+    "build.py": {
+      "bytes": 14583,
+      "sha256": "076a2034d6a30f11f37e69db3782a1b1f24045aa481fb447c574efb12e7a2c7f"
+    }
+  },
+  "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "logicalBytes": 1075290402,
+  "memberCount": 223,
+  "resultStatus": "STAGE_OR_GUARD_FAILURE",
+  "reviewRequiredBeforeRawRemoval": true,
+  "schema": "1370-r10-ag-adoption-failure-raw-archive-r2",
+  "source": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r10/ag-adoption-clean-r10-ag-adoption-20261007-224614",
+  "summaryPresent": false,
+  "vitestFailure": "complete captures exceed 1 GiB"
+}

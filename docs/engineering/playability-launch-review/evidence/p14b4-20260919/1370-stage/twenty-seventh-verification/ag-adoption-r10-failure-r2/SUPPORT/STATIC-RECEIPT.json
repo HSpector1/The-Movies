@@ -1,0 +1,15 @@
+{
+  "schema": "1370-r10-ag-adoption-failure-archive-static-review-r2",
+  "decision": "ACCEPT_STATIC_BUILD_ONLY",
+  "builderSha256": "076a2034d6a30f11f37e69db3782a1b1f24045aa481fb447c574efb12e7a2c7f",
+  "requestSha256": "49f762741417b9e505ef2c419558e3c5e5261a8c14c7a690986777120382687c",
+  "r1AttemptAssessmentSha256": "f689ae7c4d0ff2b2495a4ae731212c5e74f720bd12d1e5dc16c64402a7d8d851",
+  "workHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "evidenceHead": "900573e4fee9da765a9937ef948b0030ef367e2f",
+  "sourceLeaf": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r10/ag-adoption-clean-r10-ag-adoption-20261007-224614",
+  "output": "/Users/zacheryspector/studio-scratch/1370-r10-clean-evidence-worktree/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-seventh-verification/ag-adoption-r10-failure-r2",
+  "maxPackageMiB": 256,
+  "reportSha256": "1eb0e47245db45804479707f6eb20a7a70e70d05a13367d40752cb8984c3a9e9",
+  "scope": "static exact-command build authorization only; observed byte review and remote publication required before raw-leaf disposition"
+}

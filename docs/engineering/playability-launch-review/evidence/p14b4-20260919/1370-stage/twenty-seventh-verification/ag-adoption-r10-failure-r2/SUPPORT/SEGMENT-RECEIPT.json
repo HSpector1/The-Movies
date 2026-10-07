@@ -1,0 +1,22 @@
+{
+  "schema": "1370-r10-adoption-r2-segment-observed-review-r1",
+  "decision": "ACCEPT_SEGMENT_BYTE_PRESERVATION_ONLY",
+  "archiveBytes": 113296808,
+  "archiveSha256": "1d065ca4f946269a464c526a80e8d34b932cf56c06bf04fc812fc96590d567df",
+  "partBytes": [50331648, 50331648, 12633512],
+  "partSha256": [
+    "1063ae48fc0772f0dab73cb4559f5bb06b4e11e72b52583d83366110452b5f60",
+    "cf6863d2ee30bd31e965ffc7279cd8b0875a510e6df28c050688565b221ed2b9",
+    "715f91806f36908594b7383eb24518e021a9accea576492544653bda8ddddaee"
+  ],
+  "manifestSha256": "b712ca1cb7bd36b1d705330633b1bb68c5ca28cf946f5935d49271cdb9a957ec",
+  "readmeSha256": "a6bf3d927e0e4cdf524f87cff2cb23cce2d8f6ede4060829e80e599a4d27fdef",
+  "sourceComparedByteForByte": true,
+  "actualBuildChildExit": 0,
+  "actualReviewChildExit": 0,
+  "reportSha256": "17ce9a6bf27dc8e2a55412bb96523403ec1642bb432684ac270ef1254ae122dc",
+  "observedJsonSha256": "02dc056a5430df1c79285c3c01f7fe564a25fac59453c39aa17b2f7211eb2ccd",
+  "reviewScriptSha256": "dee30ac7f5756c45ccd5269005611caa893841679f87829df341a12be5b1b2e2",
+  "reviewLaneMetaSha256": "a5465b857b5f00f62308af304e5c0b38f9fc859c4d603610c48a87e6fbaa733c",
+  "scope": "segment byte preservation only; segment-aware publication review and remote verification required"
+}

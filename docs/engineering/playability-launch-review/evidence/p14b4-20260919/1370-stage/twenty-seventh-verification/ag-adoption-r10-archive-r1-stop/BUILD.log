@@ -1,0 +1,46 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-r10-ag-adoption-failure-archive-proposal-r1/archive-ag-adoption-failure-r10-r1.py", line 238, in make_archive
+    tar.addfile(info, reader)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tarfile.py", line 2382, in addfile
+    copyfileobj(fileobj, self.fileobj, tarinfo.size, bufsize=bufsize)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tarfile.py", line 252, in copyfileobj
+    dst.write(buf)
+    ~~~~~~~~~^^^^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tarfile.py", line 451, in write
+    self.__write(s)
+    ~~~~~~~~~~~~^^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tarfile.py", line 459, in __write
+    self.fileobj.write(self.buf[:self.bufsize])
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-r10-ag-adoption-failure-archive-proposal-r1/archive-ag-adoption-failure-r10-r1.py", line 196, in write
+    self.compressed(self.compressor.compress(data))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-r10-ag-adoption-failure-archive-proposal-r1/archive-ag-adoption-failure-r10-r1.py", line 201, in compressed
+    raise RuntimeError('xz output exceeded the 64 MiB maximum; retain raw leaf')
+RuntimeError: xz output exceeded the 64 MiB maximum; retain raw leaf
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-r10-ag-adoption-failure-archive-proposal-r1/archive-ag-adoption-failure-r10-r1.py", line 321, in <module>
+    main()
+    ~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-r10-ag-adoption-failure-archive-proposal-r1/archive-ag-adoption-failure-r10-r1.py", line 292, in main
+    archive = make_archive(items, partial, archive_cap)
+  File "/Users/zacheryspector/studio-scratch/1370-r10-ag-adoption-failure-archive-proposal-r1/archive-ag-adoption-failure-r10-r1.py", line 213, in make_archive
+    with tarfile.open(fileobj=writer, mode='w|', format=tarfile.PAX_FORMAT) as tar:
+         ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tarfile.py", line 3030, in __exit__
+    self.fileobj.close()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tarfile.py", line 475, in close
+    self.fileobj.write(self.buf)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-r10-ag-adoption-failure-archive-proposal-r1/archive-ag-adoption-failure-r10-r1.py", line 196, in write
+    self.compressed(self.compressor.compress(data))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-r10-ag-adoption-failure-archive-proposal-r1/archive-ag-adoption-failure-r10-r1.py", line 201, in compressed
+    raise RuntimeError('xz output exceeded the 64 MiB maximum; retain raw leaf')
+RuntimeError: xz output exceeded the 64 MiB maximum; retain raw leaf

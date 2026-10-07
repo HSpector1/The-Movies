@@ -1,0 +1,16 @@
+{
+  "schema": "1370-r10-adoption-r2-segment-static-review-r1",
+  "decision": "ACCEPT_STATIC_SEGMENT_BUILD_ONLY",
+  "builderSha256": "c8f5b94d7b74635be5a6c6943bffa090525a839cc9b0404f70769d63aeb429ea",
+  "requestSha256": "69061bb3aff3b799072ce445bdf0d032717cc7c5a5c02beaa4869cac1de08729",
+  "archiveBytes": 113296808,
+  "archiveSha256": "1d065ca4f946269a464c526a80e8d34b932cf56c06bf04fc812fc96590d567df",
+  "partCount": 3,
+  "maximumPartBytes": 50331648,
+  "expectedLastPartBytes": 12633512,
+  "stage": "/Users/zacheryspector/studio-scratch/1370-r10-adoption-r2-segments",
+  "workHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "evidenceHeadBeforePublication": "900573e4fee9da765a9937ef948b0030ef367e2f",
+  "reportSha256": "4c4afb307fb54ca73b6ac7c0813a40e8df81fa27d47a546eb888856e895f53ca",
+  "scope": "exact static segment build only; observed part readback and segment-aware publication review required"
+}

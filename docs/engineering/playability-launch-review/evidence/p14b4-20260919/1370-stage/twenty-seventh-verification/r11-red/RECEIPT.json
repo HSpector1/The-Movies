@@ -1,0 +1,32 @@
+{
+  "commandTemplateSha256": "f35fa4912e53ede553c89f14025128ef6c51d56f800b081bdc220dff697fbf0f",
+  "decision": "REFINE",
+  "falseCaseAccepted": "forged_save_state_digest_owner",
+  "launchAuthorized": false,
+  "manifestSha256": "889bee8d3065d1e46e712326b926b9972b0965bdf41311861208223eba32716a",
+  "materialFinding": "Verifier accepts 417-member leaf with falsified save.state, owner, state/save hashes and matching summary digests.",
+  "negativeCasesRejected": [
+    "gzip_crc",
+    "truncated_member",
+    "trailing_junk",
+    "extra_member",
+    "missing_member",
+    "reordered_member",
+    "raw_digest",
+    "compressed_digest",
+    "raw_bound",
+    "compressed_bound",
+    "row_role",
+    "row_seed",
+    "save_version",
+    "basic_proof_relation"
+  ],
+  "observerSha256": "e00c174dbe5a1d5295acd39ec1977e261f67e2352911d9e1bcd1ff892bcfcc1d",
+  "operationalAmendmentSha256": "4c36a23e0d311fd58344a6e411e5d3c2373f6f923cfb0a84af44fdb674375b95",
+  "outerSha256": "e5070b2509f4c43ddf4a01ef7a758ddda18dc2daf1b9156daba1d1518dc4b900",
+  "reportSha256": "efeb4c80b609e74c347c6665d891ec9a4a76de6d98b7a0412daf6b009933eb1f",
+  "runnerSha256": "7b2f6f02558fc57d97546017b2d3c09ea97db4285c559bb75a1b1f419d0cdd47",
+  "schema": "1370-r11-independent-red-receipt-v1",
+  "syntheticScriptSha256": "e21799116d5cafb262654a74c39c82412fbc5aef022cee2782926694f17978cd",
+  "typesOrCleanRan": false
+}
