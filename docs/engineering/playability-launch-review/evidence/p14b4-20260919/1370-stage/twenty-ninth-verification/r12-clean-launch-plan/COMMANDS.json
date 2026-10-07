@@ -1,0 +1,53 @@
+{
+  "manifestSha256": "ed8826f5cdf563c4aceee2fc6a22dbe2263f6f705f43ec622cff281a52d9f703",
+  "observedTypesReceiptSha256": "2c0b373753393dae964cb21aa30b02929e53749f40ab38751e530a8e1b3f328b",
+  "rows": [
+    {
+      "arm": "AG",
+      "file": "/Users/zacheryspector/studio-scratch/1370-r12-clean-launch-plan/ag-p13a.command",
+      "laneLog": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-r12-ag-p13a-clean-r12-ag-p13a-clean-20261007-1850.lane.log",
+      "recorder": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-outer-recorded-r12/ag-p13a-clean-r12-ag-p13a-clean-20261007-1850",
+      "runId": "r12-ag-p13a-clean-20261007-1850",
+      "seed": "p13a-core-causal-01",
+      "sha256": "d3cf878d974563454ab37863ffec384c8c860576c9d2a8e0f9d106a97b89729e",
+      "slug": "ag-p13a",
+      "target": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r12/ag-p13a-clean-r12-ag-p13a-clean-20261007-1850"
+    },
+    {
+      "arm": "AG",
+      "file": "/Users/zacheryspector/studio-scratch/1370-r12-clean-launch-plan/ag-adoption.command",
+      "laneLog": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-r12-ag-adoption-clean-r12-ag-adoption-clean-20261007-1850.lane.log",
+      "recorder": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-outer-recorded-r12/ag-adoption-clean-r12-ag-adoption-clean-20261007-1850",
+      "runId": "r12-ag-adoption-clean-20261007-1850",
+      "seed": "p13-public-commercial-adoption",
+      "sha256": "790753ef3d243390d1483bdde6887d4599540cfc4e2026c581fe82bbcf7a6cd5",
+      "slug": "ag-adoption",
+      "target": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r12/ag-adoption-clean-r12-ag-adoption-clean-20261007-1850"
+    },
+    {
+      "arm": "E0G",
+      "file": "/Users/zacheryspector/studio-scratch/1370-r12-clean-launch-plan/e0g-p13a.command",
+      "laneLog": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-r12-e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850.lane.log",
+      "recorder": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-outer-recorded-r12/e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850",
+      "runId": "r12-e0g-p13a-clean-20261007-1850",
+      "seed": "p13a-core-causal-01",
+      "sha256": "c0c36cb116e434a521e70949de6011e43efcc237aa15c7fd68e9d85a315cd647",
+      "slug": "e0g-p13a",
+      "target": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r12/e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850"
+    },
+    {
+      "arm": "E0G",
+      "file": "/Users/zacheryspector/studio-scratch/1370-r12-clean-launch-plan/e0g-adoption.command",
+      "laneLog": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-r12-e0g-adoption-clean-r12-e0g-adoption-clean-20261007-1850.lane.log",
+      "recorder": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-outer-recorded-r12/e0g-adoption-clean-r12-e0g-adoption-clean-20261007-1850",
+      "runId": "r12-e0g-adoption-clean-20261007-1850",
+      "seed": "p13-public-commercial-adoption",
+      "sha256": "487fec7750236b67968f1ce6faeeff5bcd3249b821186f3eaa6a3702059b7b85",
+      "slug": "e0g-adoption",
+      "target": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r12/e0g-adoption-clean-r12-e0g-adoption-clean-20261007-1850"
+    }
+  ],
+  "schema": "1370-r12-clean-launch-commands-v1",
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "staticReceiptSha256": "a18026f9e5bff44945d956a548c5f80c19771f82bfab4d70b564eee77d9a9896"
+}

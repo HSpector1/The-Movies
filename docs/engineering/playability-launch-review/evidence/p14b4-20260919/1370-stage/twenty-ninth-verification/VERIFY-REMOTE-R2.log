@@ -1,0 +1,27 @@
+{
+  "manifest_sha256": "2ca6045473034b1c28218ed06de30dc26e47a2ff25ca12e564edeecedc9acf11",
+  "rows": [
+    {
+      "absolute_live_repo_links": 15,
+      "bundle_sha256": "f6aefbf6b601fb9e24823ff0800001e6ae295e7521125a7fa630e717a1020e8f",
+      "extras_sha256": "cfc21cdf4ef3d29c5760eafd60670f376aa934f58dbda6fc64d0be7e8b75a8ae",
+      "head": "838dce0218d5c940cdcfd57e01232fbcd1082bf0",
+      "ignored_entries": 29,
+      "restored_clean_checkout": true,
+      "result": "PASS",
+      "tree": "0165274ffeedc3783ef215e68b773b7e8a6b5410",
+      "unit": "x2"
+    },
+    {
+      "absolute_live_repo_links": 15,
+      "bundle_sha256": "cc8ff0e976f661f71faca52b1adff11df1d37afeebfaebf479e61fce90349133",
+      "extras_sha256": "cfc21cdf4ef3d29c5760eafd60670f376aa934f58dbda6fc64d0be7e8b75a8ae",
+      "head": "ee289de67e453ce269c98d840a48799265c62993",
+      "ignored_entries": 29,
+      "restored_clean_checkout": true,
+      "result": "PASS",
+      "tree": "d8b993bb0c078613baa07313f7845367d5e90829",
+      "unit": "x3"
+    }
+  ]
+}
