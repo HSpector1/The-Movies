@@ -1,0 +1,35 @@
+{
+  "arm": "E0G",
+  "child": {
+    "elapsedCapSeconds": 300,
+    "exit": 0,
+    "timedOut": false
+  },
+  "childStderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "childStdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "classification": "TYPES_ONLY",
+  "finishedUtc": "2026-10-07T23:44:25Z",
+  "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "manifestSha256": "ed8826f5cdf563c4aceee2fc6a22dbe2263f6f705f43ec622cff281a52d9f703",
+  "mirrorPostflightSha256": "b02deb1de37e7db14ce59070234b023bcdbb5299a1b0fbc15dd3b980577e5f48",
+  "mirrorPreflightSha256": "b02deb1de37e7db14ce59070234b023bcdbb5299a1b0fbc15dd3b980577e5f48",
+  "postflight": {
+    "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+    "inventorySha256": "a1e74c1e98e5f8c5ffe56f33a0c248a97062518a2a6fa5ebf574944cc2a9aabe",
+    "power": "AC Power",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "preflight": {
+    "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+    "inventorySha256": "a1e74c1e98e5f8c5ffe56f33a0c248a97062518a2a6fa5ebf574944cc2a9aabe",
+    "power": "AC Power",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "schema": "1370-ag-e0g-full-state-clean-leaf-route-r12",
+  "seed": "p13-public-commercial-adoption",
+  "stage": "types",
+  "stagePassed": true,
+  "status": "STAGE_PASS"
+}

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+    "--noEmit",
+    "-p",
+    "tsconfig.json"
+  ],
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r12/ag-p13a-types-r12-ag-p13a-types-20261007-1830/runtime-tree",
+  "pgid": 15171,
+  "pid": 15171,
+  "startNewSession": true
+}

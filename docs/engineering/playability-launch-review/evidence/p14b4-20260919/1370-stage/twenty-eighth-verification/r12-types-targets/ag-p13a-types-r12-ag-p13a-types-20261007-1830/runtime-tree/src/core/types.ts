@@ -1,0 +1,2906 @@
+// ── §2 Declarations ─────────────────────────────────────────────────────────
+// Verbatim from build-contract.md rev. 4 (§2.1–§2.6), with the rev. 4 type
+// amendments folded in where the resolutions document (docs/rev4-open-questions.md)
+// requires them (FilmResult gains conceptId/directorId per B12; SegmentForecast
+// gains estimate per M7). Nothing here is behaviour — types and the §2 top-level
+// primitives only.
+
+// §2 top-level unions
+export type Genre = 'comedy' | 'drama' | 'crime' | 'romance' | 'horror' | 'adventure'
+export type SegmentId = 'youngAdult' | 'family' | 'adult' | 'prestige'
+export type CulturalForce =
+  | 'escapism'
+  | 'patriotism'
+  | 'realism'
+  | 'darkness'
+  | 'optimism'
+  | 'spectacle'
+export type FilmCreativeRole = 'writer' | 'director' | 'actor' | 'craft'
+export type CreativeRole = FilmCreativeRole | 'scientist'
+export type CastSlot = 'lead' | 'antagonist' | 'support'
+export type Range = [min: number, max: number]
+
+// §2.1 Creative space
+export type Persona = {
+  // a performer's natural expressive profile. NOT ability. High warmth is
+  // "more warm", never "better". all axes -1 .. +1
+  warmth: number
+  gravity: number
+  physicality: number
+}
+
+export type Expression = {
+  // what the work does. -1 .. +1
+  intimacy: number
+  tonalWeight: number
+  kineticEnergy: number
+}
+
+// §2.2 People — D-9 Multi-Discipline Talent.
+//
+// D-9.1 vocab: four disciplines, six skills each (24 professional skills), every
+// skill an integer 1..99 with a perceived/actual split. Reception (§5) reads
+// actual; forecast (§7) reads perceived. See talentSummary.ts for the read-only
+// summaries (OVR/Fit/Potential/…) and effectiveSkill (the §5/§7 substitute).
+
+export type FilmDiscipline = 'acting' | 'writing' | 'directing' | 'craft'
+export type Discipline = FilmDiscipline | 'research'
+
+// The six skill keys of each discipline, in fixed SKILL_ORDER (D-9.1).
+export type ActingSkill =
+  | 'actingTechnique'
+  | 'emotionalRange'
+  | 'dialogueDelivery'
+  | 'comicTiming'
+  | 'physicalPerformance'
+  | 'screenPresence'
+export type WritingSkill =
+  | 'storyStructure'
+  | 'characterDevelopment'
+  | 'dialogue'
+  | 'originality'
+  | 'narrativePacing'
+  | 'rewriting'
+export type DirectingSkill =
+  | 'visualStorytelling'
+  | 'performanceDirection'
+  | 'toneControl'
+  | 'directingPacing'
+  | 'productionManagement'
+  | 'adaptability'
+export type CraftSkill =
+  | 'cinematography'
+  | 'editing'
+  | 'productionDesign'
+  | 'soundAndMusic'
+  | 'effectsExecution'
+  | 'technicalCoordination'
+
+export type ResearchSkill =
+  | 'scientificMethod'
+  | 'acoustics'
+  | 'instrumentation'
+  | 'experimentation'
+  | 'engineering'
+  | 'documentation'
+
+// a perceived/actual pair for one professional skill (both 1..99)
+export type SkillPair = { actual: number; perceived: number }
+
+// all six skills of one discipline; keys fixed in SKILL_ORDER[discipline]
+export type DisciplineSkills = Record<string, SkillPair> // 6 entries; keyed by that discipline's skill names
+
+// per-discipline skill profiles (24 SkillPairs total). Field order fixed:
+// acting → writing → directing → craft (D-9.16) so stableStringify is stable.
+export type SkillProfiles = {
+  acting: DisciplineSkills
+  writing: DisciplineSkills
+  directing: DisciplineSkills
+  craft: DisciplineSkills
+  research: DisciplineSkills
+}
+
+// hidden per-skill actual ceilings (1..99), one 6-vector per discipline (D-9.10)
+export type Ceilings = {
+  acting: Record<string, number>
+  writing: Record<string, number>
+  directing: Record<string, number>
+  craft: Record<string, number>
+  research: Record<string, number>
+}
+
+// per-(discipline,genre) experience, perceived+actual (0..100) (D-9.9)
+export type GenreExpEntry = { actual: number; perceived: number }
+export type GenreExperience = Record<Discipline, Record<Genre, GenreExpEntry>>
+
+export type DevRates = Record<Discipline, number> // 0.5..1.5 per discipline (D-9.10)
+export type WorkHistory = Record<Discipline, number> // completed-production counters (D-9.9)
+
+export type Talent = {
+  id: string
+  name: string
+  role: CreativeRole // PRIMARY profession (unchanged; drives worldgen counts)
+  age: number
+  actual: Persona // temperament (unchanged; reception/roleFit source)
+  perceived: Persona // temperament as believed (unchanged)
+  fame: number // 0..100 STAR POWER (unchanged; separate from OVR)
+  salary: number // per production; now from salaryCurve(talent) (D-9.13)
+  authored: boolean // true if player-created (§10)
+
+  // ── D-9 additions (all plain JSON) ──
+  skills: SkillProfiles // 24 perceived/actual professional skills (§ D-9.1)
+  ceilings: Ceilings // hidden per-skill actual ceilings (§ D-9.10)
+  devRate: DevRates // per-discipline development rate (§ D-9.10)
+  workEthic: number // 1..99 visible (§ D-9.11)
+  genreExperience: GenreExperience // per (discipline,genre) perceived+actual (§ D-9.9)
+  workHistory: WorkHistory // completed productions per discipline (§ D-9.9)
+
+  // legacy scalar retained for back-compat & the V1→V2 migration proxy; NOT read
+  // by §5/§7 after D-9 (OQ-5). Set to roleOVR(talent, primaryDiscipline) on
+  // perceived skills. (Owner ruling: D-9 talent lives in SaveFileV2, NOT V1.)
+  skill: number // = roleOVR(primary, perceived) proxy
+}
+
+// §10 authored-talent potential tiers (D-9.10 / D-9.14). 'GenerationalUpside' is
+// reserved for authored talent only (worldgen never produces it).
+export type PotentialTier =
+  | 'Limited'
+  | 'Steady'
+  | 'Promising'
+  | 'HighUpside'
+  | 'ExceptionalUpside'
+  | 'GenerationalUpside'
+
+// Optional per-discipline authored specialist/generalist emphasis (D-9.14). The
+// magnitude drives AUTHORED_BIAS_COST; a single spiked skill index within the
+// primary discipline raises that skill and sags the others by biasMagnitude.
+export type SkillBias = {
+  discipline: Discipline // which discipline to emphasize (defaults to primary)
+  skillIndex: number // 0..5 — the SKILL_ORDER index to spike
+  magnitude: number // 0..1 — sharper specialist ⇒ larger, costlier
+}
+
+// §2.3 Concept, shape, promise
+export type RoleRequirement = { target: Persona; tolerance: number } // tolerance 0.5 .. 3.0
+
+export type FilmConcept = {
+  id: string
+  title: string
+  genre: Genre
+  baselineStrength: number // 0..100
+  originalityRaw: number // 0..100
+  baseNegativeCost: number // currency
+  requiredSlots: CastSlot[]
+  roleRequirements: Record<CastSlot, RoleRequirement>
+}
+
+export type FilmShape = {
+  opening: 'immediateAction' | 'slowSetup' | 'mysteryHook'
+  midpoint: 'reversal' | 'escalation' | 'revelation'
+  ending: 'triumph' | 'bittersweet' | 'tragic' | 'ambiguous'
+}
+
+export type ShapeOption = {
+  expression: Expression
+  openingReachMod: number // percentage points
+  craftMod: number
+  budgetDemandMod: number
+  originalityMod: number
+  segmentAffinity: Partial<Record<SegmentId, number>>
+}
+
+export type ShapeEffects = {
+  expression: Expression
+  openingReachMod: number // clamped -15 .. +15
+  craftMod: number // clamped -10 .. +10
+  budgetDemandMultiplier: number // clamped 0.80 .. 1.40
+  originalityMod: number // clamped -15 .. +15
+  segmentAffinity: Record<SegmentId, number> // each clamped -12 .. +12
+}
+
+// The contract keeps the name `Promise`. The core is sync-only so shadowing the
+// global Promise is acceptable per rev. 4 (see build-contract.md rev. 4 note).
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export type Promise = {
+  genre: Genre
+  intendedSegments: SegmentId[]
+  ranges: { intimacy: Range; tonalWeight: Range; kineticEnergy: Range }
+}
+
+export type Budget = { negative: number; marketing: number }
+
+// ── D-11.A film-specific immutable participant history ────────────────────────
+// Captured at the LOCKED greenlight (perceived values); frozen onto the released
+// FilmResult so the autopsy renders each film's OWN participants — immune to later
+// talent development / Star-Power / contract / availability changes. Optional +
+// captured ONLY when employment is engaged, so old V3 saves and the M0A corpus
+// (employment-free) are unaffected (autopsy falls back to the session snapshot).
+export type FilmParticipantRole = 'writer' | 'director' | 'lead' | 'antagonist' | 'support' | 'craft'
+export type FilmParticipant = {
+  talentId: string
+  name: string // displayed name AT GREENLIGHT (frozen; the person may rename/leave later)
+  role: FilmParticipantRole
+  discipline: Discipline // the ASSIGNED discipline (D-11.12 relevant discipline)
+  greenlightOVR: number // perceived role OVR at greenlight
+  greenlightFit: number // Project Fit for this exact assignment at greenlight
+  greenlightEP: { low: number; high: number; expected: number } // Expected Performance band
+  freelancer: boolean // engaged as a freelancer (true) vs studio-contracted (false)
+}
+export type FilmParticipants = {
+  writer: FilmParticipant
+  director: FilmParticipant
+  cast: Record<CastSlot, FilmParticipant>
+  craft: FilmParticipant[] // the Production/Craft Lead(s)
+}
+
+// §2.4 Production and result
+export type Production = {
+  id: string
+  conceptId: string
+  shape: FilmShape
+  promise: Promise
+  writerId: string
+  directorId: string
+  craftIds: string[]
+  cast: Record<CastSlot, string>
+  budget: Budget
+  startTick: number
+  remainingTicks: number
+  forecastSnapshot: Forecast
+  participants?: FilmParticipants // D-11.A — locked at greenlight (engaged games only)
+}
+
+export type FilmResult = {
+  productionId: string
+  releaseTick: number
+  delivered: Expression
+  cohesion: number
+  craft: number
+  criticMean: number
+  criticSigma: number
+  criticScore: number
+  reviewVariance: number
+  segmentScores: Record<SegmentId, number>
+  boxOffice: { opening: number; total: number }
+  // rev. 4 additions (B12): keep released films attributable after the Production
+  // is gone (D-3's director-genre predicate needs them).
+  conceptId: string
+  directorId: string
+  // D-11.A — the film's OWN immutable participant record (present iff captured at an
+  // engaged greenlight). The autopsy renders from this; absent on M0A/legacy films.
+  participants?: FilmParticipants
+  // D-11.C — the LOCKED greenlight forecast, frozen here so the newspaper clipping can
+  // compare actual vs expected and reconstruct after save/reload (captured with
+  // participants; absent on M0A/legacy films). Additive optional field on V3.
+  forecast?: { expectedCriticScore: number; expectedTotal: number; expectedOpening: number }
+}
+
+// §2.5 World and state
+export type Standing = {
+  audienceAwareness: number // 0..100
+  industryPrestige: number
+  commercialConfidence: number
+}
+
+export type Segment = { id: SegmentId; share: number; taste: Expression } // shares sum to 1
+export type CompetingRelease = { marketPressure: number } // 0..1
+
+export type MarketState = {
+  tick: number
+  forces: Record<CulturalForce, number> // 0..100
+  segments: Segment[]
+  baseMarketValue: number // currency
+  competingSlate: CompetingRelease[]
+}
+
+export type EraConfig = {
+  soundRequired: boolean
+  televisionCompetition: boolean
+  censorship: 'none' | 'code' | 'ratings'
+  costScale: number
+}
+
+export type Studio = {
+  cash: number
+  standing: Standing
+  activeProductions: Production[]
+  releasedFilms: FilmResult[]
+}
+
+// ── D-12 theatrical runs ──────────────────────────────────────────────────────
+// A film's multi-week theatrical run, LOCKED at release from already-resolved reception
+// outputs (opening, legs) + TUNING. Kept as a HISTORY (never deleted); `status` filters
+// active vs completed. `legacyCompleted` = a migrated V3 release (full-gross, paid once,
+// never repaid). Additive; empty on M0A/legacy → byte-identical.
+export type TheatricalRunStatus = 'active' | 'completed' | 'legacyCompleted'
+export type TheatricalRun = {
+  productionId: string
+  conceptId: string
+  releaseTick: number
+  totalWeeks: number
+  weekIndex: number // weeks credited so far (0-based); === totalWeeks when finished
+  weeklyGross: number[] // locked; Σ = opening×legs (= FilmResult.boxOffice.total for D-12 runs)
+  studioShare: number // locked blended rental share (1.0 for legacyCompleted)
+  cumulativeGrossPaid: number
+  cumulativeStudioRevenuePaid: number // Studio Revenue ACTUALLY credited to cash
+  economyModelVersion: number // 1 = D-12 blended; 0 = legacy full-gross (migrated V3)
+  status: TheatricalRunStatus
+}
+
+// ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ──────────────
+// Employment/contract/ledger/founding state lives on GameState (studio-relative),
+// NOT on Talent (the person). Talent stays the shared "industry" population; the
+// studio's relationship to each person is derived (employmentStatus) or recorded
+// here (contracts / freeAgents / founding). See docs/rev4-open-questions.md D-11.
+
+// Five explicit employment statuses (D-11.1). Derived, never stored per talent.
+// The identifier space is deliberately extensible for future rival ownership; NO
+// rival behavior is simulated this milestone.
+export type EmploymentStatus =
+  | 'contracted'
+  | 'engagedFreelancer'
+  | 'availableFreelancer'
+  | 'freeAgent'
+  | 'unavailable'
+
+// A studio contract (D-11.4). Term stored in WEEKS (displayed in years). A contract
+// is active while startWeek ≤ week < endWeekExclusive.
+export type Contract = {
+  talentId: string
+  annualSalary: number // currency; paid weekly as round(annualSalary / TICKS_PER_YEAR)
+  signingBonus: number // currency; paid ONCE at signing (D-11.5)
+  startWeek: number // market.tick at signing
+  endWeekExclusive: number // startWeek + termWeeks; active while week < this
+  termWeeks: number // 52..208 (1..4 years)
+}
+
+// Financial ledger (D-11.18). Every cash movement recorded after ledger authority
+// began is retained so payroll never "silently disappears into production costs".
+// Native studios reconcile from INITIAL_CASH. A V11 studio migrated from a genuine
+// pre-ledger save may instead carry one explicit cash/ledger checkpoint; that
+// checkpoint preserves opaque V1/V2 history without inventing a transaction.
+// (founding recruitment-fund signing bonuses are the one deliberate exception —
+// they draw founding.budget, never cash, and are tracked in founding.spentBonus).
+export type LedgerKindV10 =
+  | 'production' // negative + marketing debited at greenlight
+  | 'boxOffice' // box-office total credited at release (LEGACY/M0A single-lump path only)
+  | 'payroll' // weekly Σ contracted salaries debited at tick
+  | 'signingBonus' // operating-phase contract signing bonus debited at signing
+  | 'termination' // early-release termination cost debited at release
+  | 'freelancerFee' // one-film freelancer fee debited at greenlight
+  | 'studioRevenue' // D-12: weekly Studio Revenue cash receipt (blended share of weekly gross)
+  | 'overhead' // D-12: weekly studio overhead (base + per-employee), engaged only
+  // D-17B §2/§5: a publicity campaign purchase. A STUDIO-LEVEL cost, never a per-film
+  // commitment — it carries no productionId and does NOT enter committed cost, film
+  // contribution, or the fixed-cost allocator. Engaged-only, integer dollars.
+  | 'publicity'
+
+// Frozen V3–V10 ledger row. The never-typed correlation makes accidental V11
+// authority a compile-time error even when an object is structurally wider.
+export type LedgerEntryV10 = {
+  week: number
+  kind: LedgerKindV10
+  amount: number // SIGNED: outflow negative, inflow positive
+  talentId?: string
+  productionId?: string
+  constructionProjectId?: never
+  note: string
+}
+
+export type LedgerKindV11 = LedgerKindV10 | 'constructionCapex'
+export type LedgerKindV12 = LedgerKindV11 | 'facilityOpex'
+// C1-M3a: the credit returned when a placed facility is demolished. Its own
+// kind, never a negative capex and never generic revenue, so the whole capital
+// life of a building — committed, operated, recovered — is one auditable trail
+// correlated by `constructionProjectId`.
+export type LedgerKindV13 = LedgerKindV12 | 'facilityDemolitionRefund'
+// C2a-M1 (charter §8.3): the three SET capital kinds. A Set is a first-class
+// entity with its own capital life — commissioned, maintained, struck — and that
+// life is auditable on its own kinds rather than laundered through the facility
+// family. No producer exists until M2 builds sets; the kinds and their historical
+// boundary legs land NOW so the V14 schema is complete in one milestone.
+// P13B-S6: the credit returned when a running installation is CANCELLED. Its own
+// kind for the same reason the demolition refund has one — the capital life of a
+// job (committed, part-worked, refunded) is one auditable trail correlated by
+// `constructionProjectId`, and an unworked component's money is never laundered
+// through generic revenue or a negative capex.
+export type LedgerKind =
+  | LedgerKindV13
+  | 'constructionRefund'
+  | 'setCapex'
+  | 'setMaintenance'
+  | 'setDemolitionRefund'
+  | 'researchPayroll'
+  | 'researchSpend'
+  | 'technologyAdoption'
+
+// Frozen V11 rows discriminate the one capital event and its exact correlation.
+// Construction capex cannot masquerade as film/talent spend, while historical
+// rows cannot carry constructionProjectId. SaveFileV11 stays anchored here so the
+// V12 placement catalog's project ids can never be written under version 11.
+export type LedgerEntryV11 =
+  | LedgerEntryV10
+  | {
+      week: number
+      kind: 'constructionCapex'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId: 'construction-development-casting-annex'
+      note: string
+    }
+
+// Live V12 rows. Construction capex now correlates to any catalog placement (the
+// canonical Annex project id remains legal and is what the first Annex-class
+// placement still uses), and the weekly operating cost of operational placed
+// facilities is its own auditable kind carrying no per-film correlation.
+export type LedgerEntry =
+  | LedgerEntryV10
+  | {
+      week: number
+      kind: 'researchPayroll' | 'researchSpend' | 'technologyAdoption'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId?: never
+      note: string
+    }
+  | {
+      week: number
+      kind: 'constructionCapex'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId: string
+      note: string
+    }
+  | {
+      week: number
+      kind: 'facilityOpex'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId?: never
+      note: string
+    }
+  // C1-M3a. A POSITIVE amount — the only inflow in the construction family —
+  // carrying the SAME `constructionProjectId` as the capex row it refunds. That
+  // shared id is the whole correlation: exactly one refund per project, never a
+  // refund without a prior capex, and never a refund for a facility still
+  // standing. All three are asserted by the placement invariants.
+  | {
+      week: number
+      kind: 'facilityDemolitionRefund'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId: string
+      note: string
+    }
+  // P13B-S6. A POSITIVE amount, exactly as the demolition refund is, carrying the
+  // SAME `constructionProjectId` as the capex row it partly returns: exactly one
+  // refund per cancelled project, never a refund without a prior capex, and never
+  // more than the component money that was never worked. All three are asserted by
+  // the placement invariants and by the V26 cancellation validator.
+  | {
+      week: number
+      kind: 'constructionRefund'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId: string
+      note: string
+    }
+  // C2a-M1. The Set capital family. A set is commissioned at a stage, maintained
+  // while it stands, and refunded at a depreciated fraction when struck — three
+  // events on ONE entity, so each is its own kind carrying the set's identity in
+  // its note rather than borrowing a facility correlation it does not have.
+  // Schema only at M1: no producer exists until M2.
+  | {
+      week: number
+      kind: 'setCapex' | 'setMaintenance' | 'setDemolitionRefund'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId?: never
+      note: string
+    }
+
+// The founding draft (D-11.2). Present only in a new PLAYER game until foundStudio
+// closes it; null in the headless world (generateWorld stays employment-free).
+export type FoundingState = {
+  applicantIds: string[] // the bounded deterministic applicant pool
+  budget: number // the recruitment fund (signing-bonus pool, separate from cash)
+  spentBonus: number // recruitment-fund signing bonus spent so far
+}
+
+// The pre-employment state shape, FROZEN as SaveFileV2's state (D-11.16). Anchoring
+// GameStateV1/V2 to this keeps the added employment fields out of the frozen shapes.
+export type GameStateV2 = {
+  seed: string
+  rngState: string
+  market: MarketState
+  era: EraConfig
+  studio: Studio
+  talent: Talent[]
+  concepts: FilmConcept[]
+  broadcastItems: BroadcastItem[]
+  coverageContexts: CoverageContext[]
+}
+
+// The D-11 employment surface, FROZEN as SaveFileV3's state (D-12.19). Anchoring
+// SaveFileV3 to GameStateV3 (not the live GameState) keeps the D-12 `theatricalRuns`
+// field out of the frozen V3 shape, exactly as GameStateV1/V2 are anchored.
+export type GameStateV3 = GameStateV2 & {
+  founding: FoundingState | null
+  contracts: Contract[]
+  ledger: LedgerEntryV10[]
+  freeAgents: string[] // ids immediately signable (former employees; expired/released)
+}
+
+// The D-12 V4 surface: the frozen V3 surface PLUS theatrical runs (empty on M0A/legacy).
+// Anchored so SaveFileV4 does NOT carry the D-14 careerEvents field.
+export type GameStateV4 = GameStateV3 & {
+  theatricalRuns: TheatricalRun[]
+}
+
+// The D-14 V5 surface: the V4 surface PLUS the append-only frozen career-event ledger
+// (empty on M0A/legacy/non-engaged → byte-identical). FROZEN as SaveFileV5's state
+// (D-17A/R2), so the D-17 `economyEngagedEver` field stays out of the frozen V5 shape,
+// exactly as GameStateV1/V2/V3/V4 are anchored.
+export type GameStateV5 = GameStateV4 & {
+  careerEvents: TalentCareerEvent[]
+}
+
+// The D-17A V6 surface: the V5 surface PLUS the persisted engagement fact (R2).
+// `economyEngagedEver` is an EXPLICIT, PERSISTED, MONOTONIC regime fact — set true at
+// founding/first signing and never cleared — so enduring regime membership is never
+// re-derived from mutable current collections (the D-16 engagement cliff: letting every
+// contract expire silently switched the D-12 economy back off).
+//
+// FROZEN as SaveFileV6's state (D-17B/E4), so the D-17B `publicity` field stays out of the
+// frozen V6 shape — exactly as GameStateV1/V2/V3/V4/V5 are anchored. SaveFileV6 is
+// re-anchored to THIS alias by the same house precedent.
+export type GameStateV6 = GameStateV5 & {
+  economyEngagedEver: boolean
+}
+
+// ── D-17B §2/§5/§6 — publicity campaign state (SaveFileV7) ────────────────────
+// The three legible tiers of the ONE authorized player Publicity action (contract §2;
+// Owner authorization §4 B / §5 "PUBLICITY CAMPAIGN, not a Publicity Office facility").
+export type PublicityTier = 'whisper' | 'push' | 'blitz'
+
+// The MINIMUM persisted state the mechanic needs (authorization §4 G: "save state strictly
+// required for the Publicity mechanic"). Cooldowns are the only thing publicity remembers:
+// the awareness lift itself lands on `studio.standing.audienceAwareness` and the cash on the
+// ledger, both of which already persist. `null` = never used.
+//   lastUsedWeek — the GLOBAL cooldown clock (PUBLICITY_GLOBAL_COOLDOWN_WEEKS).
+//   byTier       — the per-tier cooldown clocks, one entry per tier, always present.
+export type PublicityState = {
+  lastUsedWeek: number | null
+  byTier: { whisper: number | null; push: number | null; blitz: number | null }
+}
+
+// The frozen D-17B V7 surface: V6 plus publicity cooldown state. SaveFileV7 remains
+// anchored here when managed studio operations add the next live-state field.
+export type GameStateV7 = GameStateV6 & {
+  publicity: PublicityState
+}
+
+// ── Production Operations V1 (SaveFileV8) ────────────────────────────────────
+export type StudioOperationsMode = 'legacy' | 'managed'
+export type FacilityCapability =
+  | 'development-casting'
+  | 'soundstage'
+  | 'set-scenery'
+  | 'post'
+  | 'laboratory'
+
+export type StudioFacility = {
+  id: string
+  name: string
+  capability: FacilityCapability
+  capacity: number
+}
+
+export type ProductionPhase =
+  | 'development'
+  | 'preProduction'
+  | 'rehearsal'
+  | 'shooting'
+  | 'postProduction'
+  | 'releaseReady'
+
+export type FacilityReservation = {
+  productionId: string
+  facilityId: string
+  capability: FacilityCapability
+  slot: number
+  phase: ProductionPhase
+}
+
+export type ShootingTaskStatus = 'unassigned' | 'blocked' | 'ready' | 'scheduled' | 'completed'
+export type ShootingTask = {
+  id: string
+  productionId: string
+  directorId: string
+  soundstageFacilityId: string
+  status: ShootingTaskStatus
+}
+
+export type ProductionBlocker =
+  | {
+      kind: 'facility-capacity'
+      capability: FacilityCapability
+      targetPhase: ProductionPhase
+    }
+  | {
+      kind: 'scenery-load-in'
+      taskId: string
+    }
+  // C2a-M1 (charter §8.1): the ONE new persisted blocker arm. It carries NO
+  // capability — a picture waiting on a SET is not waiting on a facility slot,
+  // and pretending otherwise would put it through the capability cross-check
+  // that belongs to `facility-capacity` alone. `occupiedBy`, `remedies`, and
+  // `alsoMissing` are DERIVED studioQueueView fields and are never persisted.
+  // Schema only at M1: the producer lands with set binding at M2.
+  | {
+      kind: 'set-unavailable'
+      targetPhase: ProductionPhase
+    }
+
+// C2a-M1 (charter §8.1) — the persisted leaf that carries a production's claim on
+// PHYSICAL production capacity: which stage it holds, which set is bound to it,
+// and the two uplift terms locked at the moment of binding.
+//
+// Why the uplift terms are SNAPSHOTS and not lookups: a set's novelty depletes
+// and its condition wears while a picture is shooting on it. If the picture read
+// the set's live numbers at release, its own use of the set would retroactively
+// change what the set gave it. Locking at bind is the law (§3.1) and this leaf is
+// where the lock lives.
+export type WorkflowBindings = {
+  /** True iff greenlit in managed mode at V14+. M2 mints it true at greenlight. */
+  requiresSetBinding: boolean
+  /** The workflow's live soundstage reservation while one is held; null otherwise. */
+  stageFacilityId: string | null
+  /** Bound atomically with the stage at rehearsal entry (M2). */
+  setId: string | null
+  /** SET_NOVELTY snapshot at bind; null while nothing is bound. */
+  lockedNovelty: number | null
+  /** Set quality+fit uplift snapshot at bind; null while nothing is bound. */
+  lockedUplift: number | null
+  /** Stamped when the stage is acquired; preserved across sticky retention. */
+  heldSinceWeek: number | null
+}
+
+// ── P13B-S5-R07 — the setup subtask between rehearsal and Shooting ───────────
+//
+// A production whose plan names a setup recipe does not leave rehearsal until
+// its setup units are credited. The record below is the ONE authority for that
+// work: which recipe was reviewed, against which plan revision, which physical
+// stage and Set it was admitted against, which route it earned at admission and
+// how much of it has been done. It is `null` for every legacy production and
+// every production that never selected a recipe — those keep today's schedule
+// exactly.
+export type ProductionSetupRecipeId = 'ballroom-reveal-lighting-01' | 'ordinary-interior-01'
+export type ProductionSetupRoute = 'conventional' | 'lighting'
+
+export type ProductionSetupRecord = {
+  recipeId: ProductionSetupRecipeId
+  /** The workflow plan revision this recipe was REVIEWED against. */
+  planRevision: number
+  /**
+   * The sweep visit at which rehearsal work was done and the gate opened —
+   * stamped by `advanceManagedProductions`, not by the player's command. `null`
+   * between selection and that visit: a plan a player has chosen but the week
+   * has not yet reached earns no week it did not work.
+   */
+  admittedWeek: number | null
+  /** Fixed at admission and never re-read afterwards. */
+  route: ProductionSetupRoute
+  /** The exact adoption the lighting route was earned from; null on the conventional route. */
+  adoptionId: string | null
+  /** The exact equipment asset that adoption holds; null on the conventional route. */
+  equipmentAssetId: string | null
+  stageFacilityId: string
+  setId: string
+  requiredUnits: number
+  creditedUnits: number
+  /** The last week a unit was credited — the same-week guard, persisted. */
+  lastCreditedWeek: number | null
+  completedWeek: number | null
+  /**
+   * The retained work of earlier bindings of this same production. Preserved
+   * verbatim and NEVER recycled into `creditedUnits`: a picture that moves to a
+   * different stage or Set builds its setup again, and the week it already
+   * worked stays in its history rather than paying for the new one.
+   */
+  priorWork: readonly ProductionSetupRecord[]
+}
+
+/** What a route derivation yields at setup admission. */
+export type ProductionSetupProvenance = {
+  route: ProductionSetupRoute
+  adoptionId: string | null
+  equipmentAssetId: string | null
+  requiredUnits: number
+}
+
+/**
+ * The caller-owned route derivation the weekly advance consults at admission.
+ * Absent (rival and headless callers) the record keeps the route selection
+ * derived — nothing is invented inside the sweep.
+ */
+export type ProductionSetupRouteResolver = (input: {
+  stageFacilityId: string
+  recipeId: ProductionSetupRecipeId
+  week: number
+}) => ProductionSetupProvenance
+
+export type ProductionWorkflow = {
+  productionId: string
+  phase: ProductionPhase
+  reservations: FacilityReservation[]
+  shootingTask: ShootingTask | null
+  blocker: ProductionBlocker | null
+  // C2a-M1 leaf widening (§8.2/§8.3). Version-aware at the save boundary:
+  // pre-V14 boundaries REFUSE it, V14 REQUIRES it.
+  bindings: WorkflowBindings
+  // P13B-S5-R07 leaf widening, version-aware at the V25 boundary exactly as
+  // `bindings` is at V14: pre-V25 boundaries REFUSE both, V25 REQUIRES them.
+  setup: ProductionSetupRecord | null
+  /**
+   * This production plan's own monotonic revision. Bumped by a BINDING change
+   * (the stage or Set this picture stands on), never by an unrelated choice, so
+   * a reviewed recipe can name the exact plan it was reviewed against.
+   */
+  planRevision: number
+}
+
+export type StudioOperations = {
+  mode: StudioOperationsMode
+  facilities: StudioFacility[]
+  workflows: ProductionWorkflow[]
+}
+
+// The frozen Production Operations V1 state. SaveFileV8 remains anchored here so
+// Script Projects V1 cannot leak into its recursive state shape.
+export type GameStateV8 = GameStateV7 & {
+  operations: StudioOperations
+}
+
+// ── Script Projects V1 (SaveFileV9) ──────────────────────────────────────────
+export type ScriptDevelopmentMode = 'legacy' | 'managed'
+export type ScriptProjectStatus =
+  | 'drafting'
+  | 'review'
+  | 'rewriting'
+  | 'ready'
+  | 'inProduction'
+  | 'produced'
+export type ScriptRewriteCount = 0 | 1
+
+export type ScriptAssessment = {
+  actualStrength: number
+  perceivedStrength: number
+}
+
+// A screenplay task owns one exact slot in Development & Casting. `projectId`
+// makes the reservation independently auditable at save and shared-capacity
+// boundaries; the project status says whether the task is drafting or rewriting.
+export type ScriptReservation = {
+  projectId: string
+  facilityId: string
+  capability: 'development-casting'
+  slot: number
+}
+
+export type ScriptProject = {
+  id: string
+  conceptId: string
+  writerId: string
+  // C2a-M1 leaf widening (§8.1, owner ruling `00E`.9): the bounded writers list
+  // (≤ 5) that M3's pooling accelerates a draft with. `writerId` is KEPT beside
+  // it for compatibility and remains the project's attribution; `writerIds[0]`
+  // is that same writer. Present and validated from V14; unused until M3.
+  writerIds: readonly string[]
+  shape: FilmShape
+  promise: Promise
+  status: ScriptProjectStatus
+  rewriteCount: ScriptRewriteCount
+  commissionedWeek: number
+  // Persisted timing authority for the one-week Draft/Rewrite law. Present only
+  // while work is active; cleared when the task enters Review.
+  dueWeek: number | null
+  assessment: ScriptAssessment | null
+  reservation: ScriptReservation | null
+  productionId: string | null
+}
+
+export type ScriptDevelopment = {
+  mode: ScriptDevelopmentMode
+  projects: ScriptProject[]
+}
+
+export type CommissionScriptPayload = {
+  conceptId: string
+  writerId: string
+  shape: FilmShape
+  promise: Promise
+}
+
+// The screenplay owns concept/shape/promise/writer. The package command supplies
+// only the remaining production choices, preventing a UI from substituting facts.
+export type GreenlightScriptProjectPayload = {
+  projectId: string
+  directorId: string
+  craftIds: string[]
+  cast: Record<CastSlot, string>
+  budget: Budget
+}
+
+// Generalized, player-readable screenplay assignment truth. The display label is
+// deliberately resolved by core so roster surfaces never invent a raw-id reason.
+export type ScriptWriterAssignment = {
+  talentId: string
+  projectId: string
+  status: 'drafting' | 'rewriting'
+  title: string
+  label: string
+}
+
+// Exact shared Development & Casting occupancy for read models and diagnostics.
+export type DevelopmentCastingOccupancy = {
+  facilityId: string
+  facilityName: string
+  slot: number
+  owner: 'production' | 'script' | 'casting'
+  ownerId: string
+  activity: 'production-development' | 'drafting' | 'rewriting' | 'auditioning'
+}
+
+// The live V9 state. Legacy worlds carry an explicit empty screenplay surface;
+// managed mode is activated only at the governed player-studio boundary.
+export type GameStateV9 = GameStateV8 & {
+  scriptDevelopment: ScriptDevelopment
+}
+
+// ── Casting Sessions V1 (SaveFileV10) ───────────────────────────────────────
+export type CastingSessionsMode = 'legacy' | 'managed'
+export type CastingSessionStatus = 'auditioning' | 'review' | 'complete'
+
+export type CastingReservation = {
+  sessionId: string
+  facilityId: string
+  capability: 'development-casting'
+  slot: number
+}
+
+export type CastingSlate = Record<CastSlot, [string, string]>
+
+// Persisted camera-test evidence deliberately excludes hidden execution truth,
+// talent attributes, RNG state, and the run seed.
+export type AuditionResult = {
+  talentId: string
+  estimate: number
+  low: number
+  high: number
+}
+
+export type CastingResults = Record<CastSlot, [AuditionResult, AuditionResult]>
+
+export type CastingSession = {
+  id: string
+  projectId: string
+  status: CastingSessionStatus
+  slate: CastingSlate
+  startedWeek: number
+  dueWeek: number | null
+  reservation: CastingReservation | null
+  results: CastingResults | null
+}
+
+export type CastingSessions = {
+  mode: CastingSessionsMode
+  sessions: CastingSession[]
+}
+
+export type StartCastingSessionPayload = {
+  projectId: string
+  slate: CastingSlate
+}
+
+// SaveFileV9 stays recursively frozen above. SaveFileV10 owns the one new root.
+export type GameStateV10 = GameStateV9 & {
+  castingSessions: CastingSessions
+}
+
+// ── Development & Casting Annex V1 (SaveFileV11) ─────────────────────────
+export type ConstructionMode = 'legacy' | 'managed'
+export type ConstructionParcelId = 'expansion'
+export type ConstructionProjectId = 'construction-development-casting-annex'
+export type ConstructionProjectKind = 'development-casting-annex'
+export type ConstructionFacilityId = 'facility-development-casting-annex'
+export type ConstructionProjectStatus = 'building' | 'completed'
+
+export type ConstructionParcel = {
+  id: ConstructionParcelId
+  projectId: ConstructionProjectId | null
+}
+
+export type ConstructionProject = {
+  id: ConstructionProjectId
+  kind: ConstructionProjectKind
+  parcelId: ConstructionParcelId
+  facilityId: ConstructionFacilityId
+  status: ConstructionProjectStatus
+  capex: 780000
+  startedWeek: number
+  dueWeek: number
+  completedWeek: number | null
+}
+
+export type StudioConstruction = {
+  mode: ConstructionMode
+  parcels: ConstructionParcel[]
+  projects: ConstructionProject[]
+}
+
+// SaveFileV11 compatibility checkpoint. V1/V2 legitimately persisted cash but no
+// ledger, and the frozen V2→V3 law preserved that cash while seeding an empty
+// ledger. When such history cannot reconcile from INITIAL_CASH, migration records
+// the exact cash and ledger length at the V11 boundary. Every later cash movement
+// must reconcile exactly from this point; no balancing ledger row is fabricated.
+export type CashLedgerCheckpoint = {
+  cash: number
+  ledgerLength: number
+}
+
+// SaveFileV10 remains recursively frozen above. SaveFileV11 owns the construction
+// root and one optional migration-only cash/ledger checkpoint. Native and already-
+// reconciled states omit the checkpoint, preserving the original V11 byte shape.
+export type GameStateV11 = Omit<GameStateV10, 'ledger'> & {
+  ledger: LedgerEntryV11[]
+  construction: StudioConstruction
+  cashLedgerCheckpoint?: CashLedgerCheckpoint
+}
+
+// ── Placement Core V12 ───────────────────────────────────────────────────────
+// The tycoon build surface: an authored coarse parcel map over the studio lot, a
+// TUNING blueprint catalog, and monotonic placed-facility records. Occupancy is
+// DERIVED from `placement.facilities[].cells` and is never persisted.
+
+/** One grid cell of the studio lot. Integer coordinates only; there is no Z. */
+export type LotCell = { gx: number; gy: number }
+
+/** An INCLUSIVE grid rectangle (both bounds are inside the rectangle). */
+export type LotRect = { x0: number; y0: number; x1: number; y1: number }
+
+/** Buildable ground, or owned-but-protected ground the studio will not build on. */
+export type ParcelTerrain = 'buildable' | 'blocked'
+
+export type LotParcel = {
+  id: string
+  label: string
+  terrain: ParcelTerrain
+  rect: LotRect
+  // There is no land market this milestone: the studio owns its whole lot from
+  // week zero, so this is uniformly true and `notOwned` means "not the property".
+  ownedFromStart: true
+}
+
+// ── C1-M2 blueprint requirements — the declarative unlock schema ─────────────
+// LAW: what unlocks a building is DATA on the blueprint, never a branch in code.
+//
+// WHY: the recovered original engine gated its catalog with a numbered `requires`
+// list per blueprint (its 2005 data carries date_ and facility_ kinds). That shape
+// is right, and it is right for the same reason our property became state: a gate
+// expressed as data can be authored, inspected, explained to the player, and added
+// to without editing the evaluator. A gate expressed as an `if` cannot.
+//
+// THE HONEST-EVALUATION RULE: five of these kinds name systems that do not exist
+// yet (rank and certificates and awards in C3, research in C4, land zones with C3
+// acquisition). They are declared NOW so the vocabulary is fixed and M4 can author
+// against it, and they evaluate today as honestly UNMET with a reason that says
+// the gate is not yet attainable. They never throw and they are never silently
+// treated as satisfied. When C3/C4 land, each activates by adding a state accessor
+// to the evaluator — no new kind, no new rejection code, no UI change.
+
+/**
+ * One authored precondition on a blueprint. A blueprint is available when EVERY
+ * requirement in its list is met; an empty list means always available.
+ *
+ * The id-bearing kinds carry DISPLAY-READY ids (`tier: 'Respected Studio Head'`),
+ * not slugs. The evaluator renders them into player copy verbatim because it has
+ * no name table for systems that do not exist yet, and inventing one now would be
+ * a second place for that vocabulary to live. M4 authors them as the words the
+ * player should read.
+ */
+export type BlueprintRequirement =
+  /** Available from an absolute week of the studio calendar. */
+  | { kind: 'date'; week: number }
+  /** At least one OPERATIONAL placement of that blueprint exists. */
+  | { kind: 'facility'; blueprintId: string }
+  /** A named property structure exists (founding or landmark). */
+  | { kind: 'structure'; structureId: string }
+  /**
+   * P09 §10.3 (regime-derived, never authored on a blueprint): on a bare lot the
+   * founding Development & Casting Office must be OPERATIONAL before any other
+   * facility may be quoted. Endowed studios never carry it.
+   */
+  | { kind: 'foundingOffice' }
+  /** Studio Rank gate. The rank system lands in C3. */
+  | { kind: 'rank'; tier: string }
+  /** Achievement Certificate gate. Certificates land in C3. */
+  | { kind: 'certificate'; certificateId: string }
+  /** Award gate. Awards land in C3. */
+  | { kind: 'award'; awardId: string }
+  /** Research completion gate. Research lands in C4. */
+  | { kind: 'research'; packId: string }
+  /** Property zone ownership gate. Land acquisition lands in C3. */
+  | { kind: 'landZone'; zoneId: string }
+
+export type BlueprintRequirementKind = BlueprintRequirement['kind']
+
+/**
+ * One requirement that is NOT met, with the copy a player should be shown.
+ *
+ * `reason` is product copy, not a diagnostic: it is the locked-reason vocabulary
+ * the catalog UI renders verbatim (C1-M5). It never names an internal code, a
+ * milestone, or a campaign. Engine-side messages stay in the invariant strings.
+ *
+ * `notYetAttainable` separates "you have not done this yet" from "no amount of
+ * play can do this yet, because the system does not exist". Both are unmet and
+ * both block, but a catalog that renders them identically would be lying about
+ * which one is a goal. M5 is free to style them differently; the distinction is
+ * computed here so it cannot drift.
+ */
+export type UnmetRequirement = {
+  requirement: BlueprintRequirement
+  reason: string
+  notYetAttainable: boolean
+}
+
+/** The result of evaluating a blueprint's whole requirement list. */
+export type BlueprintAvailability = {
+  available: boolean
+  /** Unmet requirements in AUTHORED order — stable, so UI order never churns. */
+  unmet: UnmetRequirement[]
+}
+
+/**
+ * A catalog entry. Blueprints are authored TUNING constants, never persisted:
+ * a placed facility stores only its `blueprintId`, so a catalog correction can
+ * never rewrite a committed cost, duration, or footprint that already happened.
+ */
+export type FacilityBlueprint = {
+  id: string
+  name: string
+  capability: FacilityCapability
+  /** Capacity ONE operational placement of this blueprint contributes. */
+  capacity: number
+  /** Flat rectangular footprint in cells. No Z, no slopes, no rotation in V12. */
+  footprint: { width: number; depth: number }
+  /** Cells that must stay clear of other placed facilities around the footprint. */
+  clearanceRing: number
+  requiresRoadAccess: boolean
+  buildWeeks: number
+  capex: number
+  weeklyOperatingCost: number
+  /** P09 installation job inside an existing body; never a second lot body. */
+  installationTargetCapability?: FacilityCapability
+  /** Authored cost and sequential timing disclosure; no separate progress state. */
+  installationComponents?: readonly { label: string; cost: number; weeks: number }[]
+  /**
+   * P13B-S4: whether this installation CLOSES its target body for the duration of
+   * its build. TRUE takes the body's slots out of the shared-capacity registry
+   * (`capacity: 0`) and out of any effect ladder it feeds until the work
+   * completes; its baseline operating cost continues unchanged. ABSENT/false is
+   * the proven Laboratory/stage-module behaviour: work goes on around the fitters.
+   */
+  takesTargetOffline?: boolean
+  /** Identity bases; the first placement of the blueprint uses them verbatim. */
+  facilityIdBase: string
+  projectIdBase: string
+  ledgerNote: string
+  /**
+   * C1-M4: ONE player-safe sentence saying what building this actually DOES.
+   *
+   * The catalog card renders it verbatim (C1-M5), so it is written under the same
+   * copy discipline as the locked-reason vocabulary: a full sentence, in the
+   * player's language, naming no engine term, no code, and no milestone.
+   *
+   * It is a REQUIRED field because of the product law it enforces. "No decorative
+   * blueprints" is easy to agree to and easy to erode; making every entry state
+   * its effect in a sentence someone has to write means an entry that does
+   * nothing has nothing to say, and the emptiness shows up at authoring time
+   * instead of in a playtest.
+   */
+  effectSummary: string
+  /**
+   * C1-M2: everything that must be true before this may be built. An EMPTY list
+   * means unconditionally available, which is what every V12 blueprint was.
+   */
+  requires: readonly BlueprintRequirement[]
+  /**
+   * C1-M2: how many of this blueprint may stand at once. ABSENT means unlimited,
+   * which is the proven V12 behaviour and stays the default.
+   *
+   * Counted over PLACEMENTS of this blueprint in every status: a site under
+   * construction has already reserved its instance, because the alternative lets
+   * a player queue five of a one-per-studio building and discover the problem
+   * only when the fourth completes.
+   *
+   * Founding structures never count toward it. A structure is PROPERTY — authored
+   * ground the studio starts with — not a placement, and the two are deliberately
+   * different things (C1-M1a). A blueprint that says "one per studio" is a rule
+   * about what this studio may BUILD; the bodies it was founded with are not
+   * builds, have no blueprint, and cost nothing to keep. If a future blueprint
+   * genuinely needs to count a founding body, that is a `structure` requirement,
+   * which is exactly the kind that exists for it.
+   */
+  maxInstances?: number
+  /**
+   * C2a-M2: whether EVERY placement of this blueprint is numbered, including the
+   * first.
+   *
+   * ABSENT is the proven V12 behaviour and stays the default: the first placement
+   * takes the blueprint's identity verbatim ("Development & Casting Annex") and
+   * later ones are numbered. That reads correctly for a building the studio has
+   * exactly one canonical instance of.
+   *
+   * It reads WRONG for a building the studio was FOUNDED with siblings of. A
+   * player who owns Soundstage 7 and Soundstage 12 and builds a third would see it
+   * called "Soundstage" — which looks like a missing number rather than a name.
+   * Setting this makes the first one "Soundstage 5" and its id
+   * `facility-soundstage-5`, so the name and the id agree and no stage on the lot
+   * is anonymous.
+   */
+  numberedInstances?: boolean
+}
+
+/** C2a-M2 — what a commission names: a set class, and the stage to mount it on. */
+export type CommissionSetPayload = {
+  /** A `SET_BLUEPRINTS` entry. */
+  blueprintId: string
+  /** The `StudioFacility.id` of a soundstage the studio owns. */
+  stageFacilityId: string
+}
+
+/**
+ * P13B-S6: what a cancelled installation was charged and refunded, component by
+ * component, written ONCE at the cancel week and never recomputed. The components
+ * mirror the blueprint's own authored `installationComponents` in authored order;
+ * `paid + refunded === cost` on every line, and `refund` is the sum of the
+ * refunded column — the exact amount of the single `constructionRefund` ledger row
+ * this receipt is correlated with by `projectId`.
+ */
+export type CancellationReceipt = {
+  projectId: string
+  week: number
+  components: readonly {
+    label: string
+    cost: number
+    weeks: number
+    /** Derived at the cancel week from `placedWeek` and the authored order. */
+    status: 'completed' | 'inProgress' | 'unstarted'
+    paid: number
+    refunded: number
+  }[]
+  refund: number
+  /** The `projectId` of the restoration job this cancellation committed, or null. */
+  restorationProjectId: string | null
+}
+
+/**
+ * P13B-S6 adds the third value. A cancelled record is retained forever — it is
+ * the proof of what was paid — and is never operational, never completes, never
+ * claims its body and never counts as an installation standing on its target.
+ */
+export type PlacementStatus = 'underConstruction' | 'operational' | 'cancelled'
+
+export type PlacedFacility = {
+  /** Monotonic, never reused. Reserved through `StudioPlacement.nextPlacementId`. */
+  id: number
+  blueprintId: string
+  /** The parcel owning the ORIGIN cell. */
+  parcelId: string
+  origin: LotCell
+  /** Every occupied cell, in fixed reading order (ascending gy, then gx). */
+  cells: LotCell[]
+  /** The `StudioFacility.id` this placement contributes once operational. */
+  facilityId: string
+  /** The `constructionCapex` ledger correlation id. */
+  projectId: string
+  status: PlacementStatus
+  placedWeek: number
+  completesWeek: number
+  /** A P09 physical-work arm. Empty cells; exact existing body owns the ground. */
+  installation?: { targetFacilityId: string }
+  /**
+   * P13B-S6 leaf widening, version-aware at the V26 boundary exactly as
+   * `ProductionWorkflow.setup` is at V25: pre-V26 boundaries REFUSE it, V26
+   * REQUIRES it. Non-null EXACTLY when `status === 'cancelled'`.
+   */
+  cancellation: CancellationReceipt | null
+}
+
+// ── C1-M3a Move & Demolish V1 ────────────────────────────────────────────────
+
+/** Where an engagement on a facility comes from. One per persisted holder. */
+export type FacilityEngagementKind =
+  | 'installation'
+  | 'research'
+  /** A production workflow reservation. Open-ended: held for the whole phase. */
+  | 'production'
+  /** The shooting task's denormalized soundstage copy. */
+  | 'shootingTask'
+  /** A screenplay drafting or rewriting this week. */
+  | 'screenplay'
+  /** An audition session running this week. */
+  | 'castingSession'
+  /** The retired V11 construction root. Defensive; empty under V12 and later. */
+  | 'legacyConstructionProject'
+  /**
+   * C2a-M2 — a Set. Two different holds, both of them real:
+   *   * a set going up or being repaired holds one `set-scenery` slot;
+   *   * a STANDING set holds the MOUNT on the stage it is built on, which is why
+   *     a stage with a set on it cannot be demolished until the set is struck.
+   */
+  | 'set'
+
+/**
+ * One live claim on a facility, named precisely enough for a refusal to be
+ * explained without the UI having to re-derive it.
+ *
+ * `activity` is a short engine-side phrase ("shooting", "drafting a screenplay").
+ * It is NOT finished player copy — assembling the sentence is M3b's job, and it
+ * needs `holderId` to name the film or script the player recognises.
+ */
+export type FacilityEngagement = {
+  kind: FacilityEngagementKind
+  facilityId: string
+  /** The production, screenplay, or session id holding it. */
+  holderId: string
+  activity: string
+}
+
+/**
+ * Why a move or demolition was refused. Structured, never a string: the engine
+ * decides the FACT and the UI decides the words (C1-M3b).
+ *
+ * Every destructive refusal is FAIL-CLOSED — if the engine cannot prove a facility
+ * is idle, it refuses. There is deliberately no override.
+ */
+export type PlacementMutationRefusal =
+  /** Not a managed, founded, engaged studio — a caller error, as with placeFacility. */
+  | { code: 'regimeNotReady' }
+  | { code: 'unknownPlacement'; placementId: number }
+  /** The legacy Annex parcel's placement, excluded from both verbs until the C2 Flip. */
+  | { code: 'foundingPlacement'; placementId: number; parcelId: string }
+  /** Live work holds this facility. `holders` is every source, in a fixed order. */
+  | {
+      code: 'facilityEngaged'
+      placementId: number
+      facilityId: string
+      holders: FacilityEngagement[]
+    }
+  /** Move only: the destination failed the one legality authority. */
+  | { code: 'illegalDestination'; placementId: number; quote: PlacementQuote }
+
+export type StudioPlacementMode = 'legacy' | 'managed'
+
+export type StudioPlacement = {
+  mode: StudioPlacementMode
+  nextPlacementId: number
+  facilities: PlacedFacility[]
+}
+
+/**
+ * The twelve rejection codes, in their binding legality ORDER. `primary` is the
+ * first of these present in a quote; money is always last, so a placement that is
+ * both illegal and unaffordable reports the domain failure.
+ *
+ * C1-M2 adds `requirementsUnmet` and `instanceLimit`, both BEFORE
+ * `insufficientFunds` under the standing law that a domain failure outranks
+ * affordability. They sit after the geometry rules because geometry is about THIS
+ * site and these two are about the studio: told "you cannot build here" and "you
+ * cannot build this yet", a player needs the site answer first when both are true
+ * of the cell under the cursor. `requirementsUnmet` outranks `instanceLimit`
+ * because an unmet requirement means the building is not unlocked at all, which
+ * is a larger fact than having used up its allowance.
+ *
+ * C1-M8 adds `groundReserved`: ground an authored contract holds, which no other
+ * building may take. It sits with the other GROUND facts and directly after
+ * `terrainUnbuildable`, because a reservation is a permanent property of the
+ * ground itself — true whether or not anything is standing there yet — and so it
+ * is a more fundamental answer than `occupied`, which is only true this week.
+ * See `RESERVED_PARCEL_BLUEPRINTS` in placement.ts for the law it enforces.
+ */
+export type PlacementRejection =
+  | 'unknownBlueprint'
+  | 'offLot'
+  | 'notOwned'
+  | 'terrainUnbuildable'
+  | 'groundReserved'
+  | 'occupied'
+  | 'clearanceRing'
+  | 'noRoadAccess'
+  | 'seversLot'
+  | 'requirementsUnmet'
+  | 'instanceLimit'
+  | 'insufficientFunds'
+
+/** Per-cell verdict. Every cell is evaluated; the query never fails fast. */
+export type PlacementCellVerdict = {
+  cell: LotCell
+  ok: boolean
+  rejection: PlacementRejection | null
+}
+
+export type PlacementRequest = { blueprintId: string; origin: LotCell }
+
+/**
+ * C1-M3a: how to ask the one legality authority about a RELOCATION rather than a
+ * new build.
+ *
+ * `movingPlacementId` is an id the engine resolves itself, never a caller-supplied
+ * occupancy set — a caller who could hand in occupancy could hand in an empty one
+ * and legalise anything. See `quoteForBlueprint` for everything its presence
+ * changes and why each follows from the same single fact.
+ */
+export type PlacementQueryOptions = { movingPlacementId?: number }
+
+/** C1-M3a request shapes for the two destructive verbs. */
+export type FacilityMoveRequest = { placementId: number; origin: LotCell }
+export type FacilityDemolitionRequest = { placementId: number }
+
+export type PlacementQuote = {
+  ok: boolean
+  blueprintId: string
+  origin: LotCell
+  /** The parcel owning the origin cell, or null when it owns none. */
+  parcelId: string | null
+  cells: LotCell[]
+  cellLegality: PlacementCellVerdict[]
+  /** The authoritative capital cost. A commit charges THIS, never a caller value. */
+  cost: number
+  weeklyOperatingCost: number
+  buildWeeks: number
+  completesOnWeek: number
+  capability: FacilityCapability | null
+  capacityDelta: number
+  rejections: PlacementRejection[]
+  primary: PlacementRejection | null
+  /**
+   * C1-M2: why the blueprint is locked, if it is — the player-facing copy behind
+   * a `requirementsUnmet` rejection. Empty whenever every requirement is met, so
+   * a caller can read it without first checking `rejections`.
+   */
+  unmetRequirements: UnmetRequirement[]
+  /** C1-M2: placements of this blueprint that already exist, in any status. */
+  instanceCount: number
+  /** C1-M2: the blueprint's allowance, or null when it is unlimited. */
+  maxInstances: number | null
+}
+
+// SaveFileV11 remains recursively frozen above. SaveFileV12 owns the placement
+// root and widens the live ledger to the catalog's construction/opex rows.
+export type GameStateV12 = Omit<GameStateV11, 'ledger'> & {
+  ledger: LedgerEntry[]
+  placement: StudioPlacement
+}
+
+// ── C1-M1a Property State ────────────────────────────────────────────────────
+// LAW: the studio property is engine STATE, not module constants.
+//
+// WHY: through V12 the lot's dimensions, roads, and parcel map were authored
+// module constants, and the eight physical studio buildings existed only in the
+// renderer. That made three things architecturally impossible: the property could
+// never grow (a constant is not a savegame), today's buildings were privileged
+// (invisible to legality, so nothing could reason about them), and the engine had
+// no answer to "what physically stands on this ground?".
+//
+// Under V13 a GameState carries its whole property. The constants in `lot.ts`
+// remain, but only as THE INITIAL AUTHORED PROPERTY — the data a fresh state is
+// seeded from and the value `convertV12ToV13` synthesizes. No logic closes over
+// them any more: every geometry predicate takes the property it is asked about.
+//
+// This milestone is deliberately BEHAVIOR-NEUTRAL. Nothing here lets a player buy
+// land, move a structure, or build differently than they could under V12; the
+// representation changed, the game did not.
+
+/**
+ * Why a structure stands on the property.
+ *
+ * `landmark` — a civic body with no engine capacity (the Gate, Administration,
+ * the Theater). It occupies ground and nothing else.
+ * `founding` — a working body the studio started with, whose engine capacity is
+ * one or more entries of `INITIAL_STUDIO_FACILITIES` (see `providesFacilityIds`).
+ *
+ * The two differ ONLY by this field. A landmark is not a lesser kind of thing: it
+ * is a structure that provides no facility, which is exactly `providesFacilityIds`
+ * being empty. The role is retained because M1b's inspector and C2's Founding Flip
+ * both need to know which bodies were authored as the studio's founding plant.
+ */
+export type PropertyStructureRole = 'landmark' | 'founding'
+
+/**
+ * One authored physical body standing on the property.
+ *
+ * Geometry is ENGINE-OWNED pure data: `origin` + `footprint` are the same numbers
+ * the M1 renderer authored, lifted here verbatim so the engine no longer depends
+ * on presentation code to know what physically occupies its ground. The renderer
+ * keeps presentation metadata (textures, ground anchors, signage) and, from M1b,
+ * consumes these positions rather than authoring its own.
+ *
+ * Footprints are HALF-OPEN from the origin (`[gx, gx+width) × [gy, gy+depth)`),
+ * matching both the renderer's building rectangles and `FacilityBlueprint`. This
+ * is deliberately NOT the inclusive convention `LotRect` uses for ground zones.
+ *
+ * `providesFacilityIds` is the link between a body and the engine capacity that
+ * works inside it. It is a list because one body can house several facilities (the
+ * Production / Post building holds both Post and the Scenery Shop). Every id must
+ * name an `INITIAL_STUDIO_FACILITIES` entry and may be claimed by exactly one
+ * structure — a facility has one home.
+ */
+export type PropertyStructure = {
+  id: string
+  label: string
+  role: PropertyStructureRole
+  /** Half-open footprint origin, in the same grid as parcels and placements. */
+  origin: LotCell
+  /** Half-open footprint extent. No Z, no slopes, no rotation. */
+  footprint: { width: number; depth: number }
+  /** `StudioFacility.id`s whose bodies stand here. Empty for a landmark. */
+  providesFacilityIds: string[]
+}
+
+/**
+ * The studio property: everything the engine knows about its own ground.
+ *
+ * `bounds` is the addressable grid. `roads` is circulation (never ownable land, so
+ * roads are deliberately not parcels). `parcels` is the coarse ownership map that
+ * placement legality reads. `structures` is what physically stands there.
+ *
+ * All four are STATE. A property with a wider `bounds` and an extra parcel is a
+ * valid property and every predicate in `lot.ts` answers correctly about it with
+ * no code change — that is the whole point of this milestone, and it is asserted
+ * by the expandability test rather than left as an aspiration.
+ */
+export type PropertyState = {
+  bounds: { width: number; depth: number }
+  roads: LotRect[]
+  parcels: LotParcel[]
+  structures: PropertyStructure[]
+}
+
+// SaveFileV12 remains recursively frozen above. SaveFileV13 owns the property
+// root: the bounds, roads, parcel map, and authored structures that V12 held as
+// module constants. A migrated V12 world receives INITIAL_PROPERTY, which IS
+// those constants — so the migration invents nothing.
+export type GameStateV13 = GameStateV12 & {
+  property: PropertyState
+}
+
+// ── C2a-M1 SaveFileV14 — Sets, the production queue, original screenplays, and
+//    the studio event ledger (charter §8.1, verbatim) ──────────────────────────
+//
+// FOUR new roots land together and the COMPLETE migrator lands with them, because
+// a schema that arrives in pieces is a schema every later milestone has to
+// re-migrate. M2+ populate these roots through actions and add no schema member.
+
+/**
+ * The CLOSED authored location vocabulary a `BlueprintBeat` resolves against
+ * (charter §9). M1 defines the type and the ONE starter entry the endowed house
+ * sets need; M2 authors the full list, because M3's beats consume it.
+ */
+export type SetTypeId = string
+
+/**
+ * A standing physical Set — a first-class entity, not a facility. Shooting
+ * requires a stage AND a set (§3.1); WHICH set is the quality choice, and these
+ * are the numbers that choice is made on. Every one of quality / novelty /
+ * condition is SHOWN to the player.
+ */
+export type StudioSet = {
+  /** `'set-' + monotonic nextSetId`. Never rolled back, never recycled. */
+  id: string
+  name: string
+  /** SET_BLUEPRINTS entry. The catalog carries attractiveness as DATA — never persisted state. */
+  blueprintId: string
+  /** The facilityId of the stage it is mounted on (interior-only in V1). */
+  mountedOn: string
+  /** From its blueprint; what a BlueprintBeat's requiredSetType resolves against. */
+  setType: SetTypeId
+  status: 'under-construction' | 'standing' | 'retired'
+  completesWeek: number | null
+  /** 0..100, SHOWN. */
+  quality: number
+  /** 0..1, SET_NOVELTY_INITIAL at completion, SHOWN. Per-INSTANCE. */
+  novelty: number
+  /** 0..100, wears per production, SHOWN. */
+  condition: number
+  genreWeights: Readonly<Record<Genre, number>>
+  priorityGenre: Genre
+}
+
+/** The action payload M3 commissions an original screenplay with. No conceptId: the concept is MINTED at commit. */
+export type CommissionOriginalScreenplayPayload = {
+  writerId: string
+  genre: Genre
+  shape: FilmShape
+  promise: Promise
+}
+
+/**
+ * One admitted intent waiting at a front door (§3.3). The discriminants match the
+ * real Action arms and the payloads are persisted whole, because a queued intent
+ * is REVALIDATED at dequeue rather than trusted. Nothing is held while queued and
+ * no production id exists before greenlight — which is why a queue row can never
+ * carry one.
+ *
+ * Schema only at M1: the queue itself is M4.
+ */
+export type ProductionQueueEntry =
+  | {
+      kind: 'commissionScript'
+      ordinal: number
+      queuedWeek: number
+      payload: CommissionScriptPayload
+    }
+  | {
+      kind: 'commissionOriginalScreenplay'
+      ordinal: number
+      queuedWeek: number
+      payload: CommissionOriginalScreenplayPayload
+    }
+  | {
+      kind: 'startCastingSession'
+      ordinal: number
+      queuedWeek: number
+      payload: StartCastingSessionPayload
+    }
+  | {
+      kind: 'greenlightScriptProject'
+      ordinal: number
+      queuedWeek: number
+      scriptProjectId: string
+      payload: GreenlightScriptProjectPayload
+    }
+
+/** One beat of a Movie Blueprint: what the scene is, and the kind of set it demands. */
+export type BlueprintBeat = {
+  name: string
+  requiredSetType: SetTypeId
+}
+
+/**
+ * The persisted provenance of one screenplay: who wrote it, when it was minted,
+ * what it is called, and the seven beats that turn it into physical production
+ * demand. Blueprint provenance lives HERE, never on the shared-world FilmConcept
+ * (§8.2: no studio-relative fact is written onto a shared-world entity).
+ *
+ * Schema only at M1: the mint lands at M3.
+ */
+export type MovieBlueprint = {
+  /** `'concept-orig-NNNN'` (generated) or `'c-NN'` (pool, on first commission). */
+  conceptId: string
+  /** The mint ordinal for a generated concept; null for a pool concept. */
+  ordinal: number | null
+  mintedWeek: number
+  /** The commissioning ScriptProject (`script-NNNN`). */
+  projectId: string
+  writerId: string
+  /** Immutable once minted; null for pool concepts. Rename never touches it. */
+  generatedTitle: string | null
+  renamedWeek: number | null
+  beats: readonly BlueprintBeat[]
+  /** The ceiling lever record (§3.5): the Script Office tier at mint. */
+  officeTierAtMint: string
+}
+
+export type OriginalScreenplays = {
+  nextOrdinal: number
+  blueprints: readonly MovieBlueprint[]
+}
+
+/**
+ * One domain fact the studio's own history records (charter §5).
+ *
+ * TWO TIERS, and the tier is a property of the KIND, not of the row:
+ *   Tier D — identity-bearing and PERMANENT: `premiere`, `wrapped`,
+ *            `constructionCompleted`, `setBuilt`, `setRetired`.
+ *   Tier W — WINDOWED by `TUNING.STUDIO_EVENT_WINDOW_WEEKS`, compacted as a pure
+ *            function of `market.tick`.
+ *
+ * There is deliberately NO `seen` or `consumed` field, ever: a cursor is a
+ * consumer's business and writing one here would make two identical playthroughs
+ * export different bytes. Queue-intent rows reference SCRIPT PROJECTS and never a
+ * production id — a production does not exist until greenlight.
+ */
+export type StudioEvent =
+  // ── Tier D — permanent ──
+  | {
+      seq: number
+      week: number
+      kind: 'wrapped'
+      productionId: string
+      stageFacilityId: string
+      setId: string | null
+    }
+  | { seq: number; week: number; kind: 'premiere'; filmId: string }
+  // P06A: the ONE permanent commitment witness — deduplicates every world dispatch
+  // cue and truthfully records command order without ever ordering the release batch.
+  | { seq: number; week: number; kind: 'releaseCommitted'; productionId: string }
+  | { seq: number; week: number; kind: 'constructionCompleted'; placementId: string }
+  | { seq: number; week: number; kind: 'setBuilt'; setId: string }
+  | { seq: number; week: number; kind: 'setRetired'; setId: string; refund: number }
+  // ── Tier W — windowed ──
+  | { seq: number; week: number; kind: 'reservationGranted'; ownerId: string; resourceKey: string }
+  | { seq: number; week: number; kind: 'reservationReleased'; ownerId: string; resourceKey: string }
+  | { seq: number; week: number; kind: 'phaseEntered'; productionId: string; phase: ProductionPhase }
+  | { seq: number; week: number; kind: 'sceneryArrived'; productionId: string }
+  // P13B-S5-R07 setup history. Tier W: this is operating history of one
+  // production's preparation, and the durable record of it is the workflow's own
+  // `setup` leaf, which is never compacted.
+  | {
+      seq: number
+      week: number
+      kind: 'setupAdmitted'
+      productionId: string
+      recipeId: string
+      planRevision: number
+      route: string
+      stageFacilityId: string
+      setId: string
+      adoptionId: string | null
+      requiredUnits: number
+    }
+  | {
+      seq: number
+      week: number
+      kind: 'setupUnitCredited'
+      productionId: string
+      creditedUnits: number
+      requiredUnits: number
+    }
+  | { seq: number; week: number; kind: 'setupCompleted'; productionId: string; recipeId: string; creditedUnits: number }
+  | {
+      seq: number
+      week: number
+      kind: 'setupRebound'
+      productionId: string
+      recipeId: string
+      planRevision: number
+      stageFacilityId: string
+      setId: string
+    }
+  | { seq: number; week: number; kind: 'queueAdmitted'; entryKind: string; ordinal: number }
+  | {
+      seq: number
+      week: number
+      kind: 'queueIntentExpired'
+      entryKind: string
+      ordinal: number
+      reason: string
+      // P04A / SaveFileV15 (§2.5): the subject's identity, from
+      // `queueEntrySubjectId(entry)` captured before removal. `null` only for
+      // rows migrated forward from a pre-V15 save, which never recorded one —
+      // honest absence, never guessed from title.
+      subjectId: string | null
+    }
+
+export type StudioEventKind = StudioEvent['kind']
+
+/**
+ * The event ledger. `nextSeq` NEVER rewinds — compaction removes rows, it never
+ * renumbers them, so a consumer's cursor stays meaningful across a compaction.
+ */
+export type StudioEventLog = {
+  nextSeq: number
+  rows: readonly StudioEvent[]
+}
+
+// SaveFileV13 remains recursively frozen above. SaveFileV14 owns the four C2a
+// roots plus three widened persisted leaves (`ProductionWorkflow.bindings`, the
+// `set-unavailable` blocker arm, `ScriptProject.writerIds`) — none of which is a
+// frozen leaf (§8.2). Their version-aware boundary rule lives in `save.ts`.
+export type GameStateV14 = GameStateV13 & {
+  sets: readonly StudioSet[]
+  /** Monotonic set-id counter. Never rolled back, even when every set is struck. */
+  nextSetId: number
+  productionQueue: readonly ProductionQueueEntry[]
+  originalScreenplays: OriginalScreenplays
+  studioEvents: StudioEventLog
+}
+
+// P04A (§2.5): GameStateV15 owns NO new root — it is the same shape as
+// GameStateV14. The only change at this version is the widened
+// `queueIntentExpired.subjectId` leaf on the SHARED `StudioEvent` type above
+// (reached identically from both V14 and V15, exactly as `ProductionWorkflow
+// .bindings` and `ScriptProject.writerIds` were shared, version-aware-at-the-
+// -boundary leaves for V13/V14). The distinct name exists so save.ts's version
+// dispatch has a version to point `GameState` at; it carries no structural
+// difference of its own.
+export type GameStateV15 = GameStateV14
+
+// ── P06A release authority (charter W1; frozen design = P06A recon r2 §6) ────
+// One exact-ID current-authority root. A row exists only for an active
+// `releaseReady` tick-1 Production; ABSENCE MEANS UNCOMMITTED. Rows serialize in
+// canonical ascending-productionId order; insertion/click order is never
+// semantic. The row is removed atomically when its Production releases; durable
+// history lives in `studioEvents` ('releaseCommitted') and `releasedFilms`.
+export type ReleaseCommitment = {
+  /** Exact active Production id (never a title, never an index). */
+  productionId: string
+  /** Deterministic: `release-commitment-<productionId>`; no RNG/clock/order input. */
+  commitmentId: string
+  /** Authoritative studio week when the commitment was accepted. */
+  committedAtWeek: number
+}
+
+export type StudioReleaseAuthority = {
+  commitments: readonly ReleaseCommitment[]
+}
+
+// V16 mints exactly one new root (the placement/property precedent).
+export type GameStateV16 = GameStateV15 & {
+  releaseAuthority: StudioReleaseAuthority
+}
+
+// ── P08A Standing & Studio History Spine V1 (charter P08 §9–§11) ──────────────
+//
+// A NEW additive root, `studioHistory`, rather than a widening of the frozen
+// shared `StudioEvent` union. It records FORWARD, from an explicit recording
+// boundary, the sparse durable history of the studio: exact Standing-change
+// receipts at every authoritative mutation site, film releases and settled
+// theatrical results, the founding fact where authoritative, and — once their
+// producers exist (P09/P10) — exact facility and person milestones.
+//
+// Laws (P08-REQ-004/006/007/008/009/010/020):
+//   • monotonic `eventId`, append order == ascending id, weeks non-decreasing;
+//   • exact source ids (productionId / talentId / placementId), never titles;
+//   • frozen minimal display facts so a row survives later renames/removal;
+//   • deterministic significance decided by the engine (never presentation);
+//   • NO seen/read state (a consumer's cursor lives outside GameState);
+//   • nothing before `recordingStartedWeek` is ever reconstructed;
+//   • routine weekly settling receipts are bounded: after HISTORY_ROUTINE_WINDOW_WEEKS
+//     they fold into one exact per-window summary row (aggregate provenance is kept;
+//     per-week detail is what the window trades). Milestone rows are permanent.
+export type StandingChannelKey = 'audienceAwareness' | 'industryPrestige' | 'commercialConfidence'
+
+/** The three exact producers of a Standing change in the accepted engine. */
+export type StandingChangeSource =
+  | { kind: 'releaseResult'; productionId: string }
+  | { kind: 'publicity'; tier: PublicityTier; sourceId: string }
+  | { kind: 'awarenessDrift' }
+
+/** Player-safe driver facts captured at the mutation (already-public quantities; no hidden state). */
+export type StandingChangeFacts =
+  | {
+      kind: 'releaseResult'
+      reach01: number // clamped normalized audience reach (box office ÷ market ÷ AWARENESS_REACH_SCALE)
+      reachNeutral: number // the regime pivot the reach was measured against
+      starAttention01: number // mean cast Star Power / 100
+      criticScore: number
+      prestigeBenchmark: number
+      roi: number // (gross − committed cost) ÷ committed cost, floored basis
+      budgetOverrun01: number
+    }
+  | { kind: 'publicity'; tier: PublicityTier; cost: number; lift: number }
+  | { kind: 'awarenessDrift'; anchor: number; rate: number; excessBefore: number }
+
+export type StudioHistorySignificance = 'landmark' | 'major' | 'standard' | 'routine'
+
+export type StudioHistorySubject =
+  | { kind: 'studio' }
+  | { kind: 'film'; productionId: string }
+  | { kind: 'person'; talentId: string }
+  | { kind: 'facility'; placementId: number; facilityId: string }
+
+type StudioHistoryRowBase = {
+  eventId: number
+  week: number
+  significance: StudioHistorySignificance
+  subjects: readonly StudioHistorySubject[]
+}
+
+export type StudioHistoryEvent =
+  | (StudioHistoryRowBase & { kind: 'studioFounded' })
+  | (StudioHistoryRowBase & {
+      kind: 'technologyMilestone'
+      technologyId: import('./technologyTypes.js').TechnologyId
+      milestone: 'researchable' | 'commercialRelease'
+    })
+  | (StudioHistoryRowBase & {
+      kind: 'standingChanged'
+      source: StandingChangeSource
+      before: Standing
+      after: Standing
+      deltas: Standing
+      formulaVersion: string
+      facts: StandingChangeFacts
+    })
+  | (StudioHistoryRowBase & {
+      kind: 'standingDriftFolded'
+      weekStart: number
+      weekEnd: number
+      count: number
+      before: Standing
+      after: Standing
+      deltas: Standing
+      formulaVersion: string
+    })
+  | (StudioHistoryRowBase & {
+      kind: 'filmReleased'
+      productionId: string
+      conceptId: string
+      title: string // display title frozen AT RELEASE (identity is productionId)
+      firstRelease: boolean
+    })
+  | (StudioHistoryRowBase & {
+      kind: 'theatricalRunCompleted'
+      productionId: string
+      totalWeeks: number
+    })
+  // P09 producers (exact placement identity). Typed here so the adapter contract is
+  // fixed before the producer lands; no row of these kinds exists until P09 emits it.
+  | (StudioHistoryRowBase & {
+      kind: 'facilityCommitted' | 'facilityCompleted' | 'facilityDemolished' | 'facilityMoved'
+      placementId: number
+      facilityId: string
+      blueprintId: string
+      name: string
+    })
+  // P13B-S3 producer (exact plan identity). One row per recorded plan transition;
+  // `reason` carries the engine's own explanation, never a presentation string.
+  | (StudioHistoryRowBase & {
+      kind: 'planQueued' | 'planStarted' | 'planHeld' | 'planBlocked' | 'planCancelled'
+      planId: string
+      reason: string | null
+    })
+  // P10 producer (exact frozen career event identity). No row exists until P10 emits it.
+  | (StudioHistoryRowBase & {
+      kind: 'careerMilestone'
+      talentId: string
+      careerEventId: string
+      filmId: string
+      personName: string // frozen at the milestone
+    })
+
+export type StudioHistoryEventKind = StudioHistoryEvent['kind']
+
+export type StudioHistoryState = {
+  /** The first week from which changes were recorded. Nothing earlier is reconstructed. */
+  recordingStartedWeek: number
+  /** Monotonic. NEVER rewinds. */
+  nextEventId: number
+  /** Append order == ascending eventId; weeks non-decreasing. */
+  rows: readonly StudioHistoryEvent[]
+}
+
+// SaveFileV16 remains recursively frozen above. SaveFileV17 mints exactly one new
+// root: `studioHistory` (the additive forward-recording history authority).
+export type GameStateV17 = GameStateV16 & {
+  studioHistory: StudioHistoryState
+}
+
+// ── P09 — the founding regime (charter §16) ───────────────────────────────────
+// WHY A PERSISTED ROOT: "how was this studio founded" is exact immutable history,
+// never a guess from the current building count or an empty-looking property.
+// `endowed` is every save that existed before P09 (the authored founding plant:
+// five founding bodies, two house sets) and every new game that asks for it;
+// `bare-lot` is the sparse 1920 start (Gate + Administration + owned ground,
+// EMPTY operations roots at activation — nothing minted, nothing hidden).
+// The regime is written ONCE at world creation and never changes.
+export type FoundingRegime = 'endowed' | 'bare-lot'
+
+// SaveFileV17 remains recursively frozen above. SaveFileV18 mints exactly one new
+// root: `foundingRegime` (the immutable founding history). Every pre-V18 save
+// migrates to `endowed` with no other change.
+export type GameStateV18 = GameStateV17 & {
+  foundingRegime: FoundingRegime
+}
+
+export type GameStateV19 = GameStateV18 & { hollywood: import('./hollywoodTypes.js').HollywoodState | null }
+export type GameStateV20 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnologyV1 }
+export type GameStateV21 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnologyV2 }
+export type GameStateV22 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnologyV3 }
+
+// ── P13B-S3 — persistent physical plans (Save V23) ───────────────────────────
+// ONE persisted root of the studio's ORDERED physical intentions. A plan RESERVES
+// NOTHING: no cash, burn, capacity, engagement or slot moves when one is queued.
+// It is admitted at the weekly admission boundary through the SAME P09 commit the
+// front door calls, so an admitted commit and a hand commit that week are the same
+// placement and the same ledger row. See `src/core/physicalPlans.ts`.
+
+/** What a plan will build. `target: {planId}` names a body that is itself only planned. */
+export type PhysicalPlanWork =
+  | { kind: 'placement'; blueprintId: string; origin: LotCell }
+  | { kind: 'installation'; blueprintId: string; target: { facilityId: string } | { planId: string } }
+
+/**
+ * The scope-and-price facts of one P09 quote, frozen at approval. The completion
+ * week is DELIBERATELY absent: it moves every week and is neither scope nor price,
+ * so a fingerprint over these fields is stable while nothing real has changed.
+ */
+export type PlanQuoteSnapshot = {
+  fingerprint: string
+  cost: number
+  buildWeeks: number
+  weeklyOperatingCost: number
+  components: readonly { label: string; cost: number; weeks: number }[]
+}
+
+export type PhysicalPlanStatus = 'queued' | 'held' | 'blocked' | 'started' | 'cancelled'
+
+/** `reviewChangedQuote` (the default) needs the exact approved quote; `automatic` needs unchanged scope within the ceiling. */
+export type PhysicalPlanAdmission = 'reviewChangedQuote' | 'automatic'
+
+export type PhysicalPlan = {
+  /** `<studioId>:plan:<n>`, n < nextPlanId. */
+  id: string
+  studioId: string
+  /** Admission order within the studio. Unique per studio; rewritten only by an explicit reorder. */
+  ordinal: number
+  queuedWeek: number
+  work: PhysicalPlanWork
+  /** Plan ids of this studio. Acyclic; a dependency is met only once its placement is operational. */
+  dependsOn: readonly string[]
+  approvedMaximumDebit: number
+  earliestStartWeek: number
+  admission: PhysicalPlanAdmission
+  approvedQuote: PlanQuoteSnapshot
+  /** The live quote that caused a hold. Non-null exactly while `held`. */
+  pendingQuote: PlanQuoteSnapshot | null
+  status: PhysicalPlanStatus
+  statusWeek: number
+  reason: string | null
+  startedPlacementId: number | null
+  /** Written EXACTLY ONCE, at the admission that committed the work. */
+  commitReceipt: { week: number; fingerprint: string; cost: number } | null
+}
+
+export type StudioPhysicalPlans = {
+  version: 1
+  /** Monotonic. NEVER rewinds — a cancelled plan's number is never reissued. */
+  nextPlanId: number
+  plans: readonly PhysicalPlan[]
+}
+
+export type GameStateV23 = GameStateV22 & { physicalPlans: StudioPhysicalPlans }
+/** P13B-S5 (Save V24): technology root v4 — adoption component rows and durable equipment assets. */
+export type GameStateV24 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnology; physicalPlans: StudioPhysicalPlans }
+/**
+ * P13B-S5-R07 (Save V25). NO new root: the change at this version is the widened
+ * `ProductionWorkflow.setup` / `.planRevision` leaves and the four setup
+ * `StudioEvent` arms — shared, version-aware-at-the-boundary leaves, exactly as
+ * `ProductionWorkflow.bindings` was for V13/V14 and `queueIntentExpired
+ * .subjectId` was for V14/V15. The distinct name exists so save.ts's version
+ * dispatch has a version to point `GameState` at.
+ */
+export type GameStateV25 = GameStateV24
+/**
+ * P13B-S6 (Save V26). NO new root: the change at this version is the widened
+ * `PlacedFacility.cancellation` and `TechnologyAdoption.cancelledWeek` leaves, the
+ * third `PlacementStatus` value and the `constructionRefund` ledger kind — all
+ * version-aware at the boundary, exactly as V25's setup leaves were. The distinct
+ * name exists so save.ts's version dispatch has a version to point `GameState` at.
+ */
+export type GameStateV26 = GameStateV25
+/**
+ * P13B-S8 (Save V27). NO new root: the change at this version is the widened
+ * `RivalMoneyKind` movement record (the four research kinds) and the five rival
+ * research `IndustryReceipt` arms — version-aware at the boundary, exactly as
+ * V26's cancellation leaves were. The distinct name exists so save.ts's version
+ * dispatch has a version to point `GameState` at.
+ */
+export type GameStateV27 = GameStateV26
+
+// ── P14A.1 — the contested talent market (Save V28) ──────────────────────────
+// ONE persisted root of the market's own authority: the open/closed CASES, the
+// current PROPOSALS and the market RECEIPTS. It owns no person, contract, money,
+// employer interval or era fact — P10 owns the contract, P12 the employer truth
+// and the intervals, P11 the money (rulings §3.4.1 direction 14). Every fact the
+// market needs that another owner already holds is DERIVED on read, never copied:
+// the decision week is the subject's live `endWeekExclusive`, read through the
+// P12 employment row this case names by `contractId`.
+
+/** The six-state eligibility table of companion §2.1.2. The three P14C rows are
+ * declared here and are NOT reachable before P14C lands. */
+export type MarketEligibilityStatus =
+  | 'contracted_outside_window'
+  | 'renewal_window'
+  | 'retirement_announced'
+  | 'free_agent'
+  | 'finishing_commitments'
+  | 'retired_or_ineligible'
+
+/** companion §2.1.3: discovered → proposals_open → decision_pending → settled | declined | expired | invalidated. */
+export type MarketCaseStatus =
+  | 'discovered'
+  | 'proposals_open'
+  | 'decision_pending'
+  | 'settled'
+  | 'declined'
+  | 'expired'
+  | 'invalidated'
+
+/** The four TERMINAL states. A case's live status is derived; only its terminal
+ * outcome is persisted, because everything before it is a function of the week. */
+export type MarketCaseOutcome = 'settled' | 'declined' | 'expired' | 'invalidated'
+
+export type TalentMarketCase = {
+  talentId: string
+  /** The incumbent employer at discovery (player or rival). */
+  subjectStudioId: string
+  /** The P12 employment row whose LIVE `terms.endWeekExclusive` is the decision week. */
+  contractId: string
+  openedWeek: number
+  outcome: MarketCaseOutcome | null
+  closedWeek: number | null
+  reason: string | null
+}
+
+/** companion §2.1.4: a proposal REFERENCES a P10-priced draft (inputs + digest),
+ * it never copies a contract. A material-term change mints a new digest, which
+ * invalidates the prior version. */
+export type TalentMarketProposal = {
+  talentId: string
+  issuerStudioId: string
+  termWeeks: number
+  premiumTier: number
+  /** The effective week: the subject's decision week at submission. */
+  startWeek: number
+  /** The SUBMISSION-WEEK QUOTE. Derived, never material: it is the figure the
+   * issuer was shown and afforded when it submitted, and it is NOT read at
+   * settlement — reservation, ranking, affordability and the commit all
+   * re-derive the price from the material terms at the decision week
+   * (companion §2.1.4). */
+  annualSalary: number
+  signingBonus: number
+  submittedWeek: number
+  digest: string
+  /** P14B.1 (3): the attached promises BY ID (the draft-by-reference precedent),
+   * a MATERIAL term — the digest is `(talentId, issuerStudioId, termWeeks,
+   * startWeek, premiumTier, promiseDigest)`, so attaching, revising or removing
+   * one is a revision. At most ONE in B.1. Empty on every V28 proposal the
+   * migration lifts. */
+  promises: readonly string[]
+  /** R10 / direction 8: the representation seam. Required, pinned `null` under root version 1. */
+  representation: null
+}
+
+export type TalentMarketReceiptKind =
+  | 'discovered'
+  | 'proposalSubmitted'
+  | 'settled'
+  | 'declined'
+  | 'expired'
+  | 'invalidated'
+  /** P14B.1 (6): the ONE promise receipt kind, carrying the outcome as a typed
+   * field on the promise record it names and the causing event's id. */
+  | 'promiseOutcome'
+
+/** Reasons are ORDERING ONLY (companion §2.1.5): never an amount, never a formula. */
+export type TalentMarketReceipt = {
+  eventId: string
+  kind: TalentMarketReceiptKind
+  week: number
+  talentId: string
+  studioId: string | null
+  reasons: readonly string[]
+  /** Every proposal DROPPED at freeze on this case, one ordering-only sentence
+   * each, empty when nothing was dropped. Carried on a SETTLED receipt too, so a
+   * studio whose own proposal was dropped learns why even when someone else won.
+   * `reasons` is untouched by it: that stays the winner's order-only reasons, or
+   * the decline's own sentences. */
+  dropped: readonly string[]
+}
+
+/**
+ * R4 — ONE player termination this campaign ALREADY paid for under a pre-V28
+ * law, recorded at the migration boundary so a V28 reader reconciles it against
+ * what was ACTUALLY paid instead of back-charging today's law. Frozen there: a
+ * live V28 writer charges the cap law and never appends one of these.
+ */
+export type LegacyTermination = {
+  contractId: string
+  endedWeek: number
+  /** The termination ledger row's own charge, positive. Never re-derived. */
+  amountPaid: number
+}
+
+export type TalentMarketState = {
+  cases: readonly TalentMarketCase[]
+  proposals: readonly TalentMarketProposal[]
+  receipts: readonly TalentMarketReceipt[]
+  legacyTerminations: readonly LegacyTermination[]
+  /** R10 / direction 8. Required at the root and pinned `null`; nothing reads it.
+   * The root's VERSION is the save version itself (V28) — no second, drifting
+   * version field is persisted for a root that has shipped exactly once. */
+  representation: null
+}
+
+export type GameStateV28 = GameStateV27 & { talentMarket: TalentMarketState }
+
+// ── P14B.1 — the first kept promise (Save V29) ───────────────────────────────
+
+/** The QUALIFYING EVENT of the P1 family (companion §4.2): the first shooting
+ * week COMPLETING — the 5 → 4 advance inside `advanceManagedProductions`, for a
+ * player production and a rival one alike. Never shooting ENTRY (6 → 5), which is
+ * only capacity-gated. Append-only, once per production, in-state ordinal id.
+ * `cast` copies the accepted `Production.cast` shape exactly (one id per slot). */
+export type FirstTakeReceipt = {
+  eventId: string
+  week: number
+  productionId: string
+  studioId: string
+  directorId: string
+  cast: Record<CastSlot, string>
+}
+
+/** Companion §4.2's five families. P14B.1 OFFERS `APPEARANCE_COUNT` only; the
+ * other four are enumerated members that the feasibility service refuses with a
+ * typed reason, exactly as A.1 enumerates its three unreachable P14C statuses. */
+export type PromiseFamily =
+  | 'APPEARANCE_COUNT'
+  | 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'
+  | 'DIRECTING_COUNT'
+  | 'PREFERRED_GENRE_OPPORTUNITY'
+  | 'SPECIFIC_PROJECT'
+
+export type PromiseClassification = 'REASONABLY_ACHIEVABLE' | 'FRAGILE' | 'IMPOSSIBLE'
+
+/** Companion §4.3: written at offer time and again at settlement freeze, carried
+ * for the promise's life so a later reviewer can see exactly why it was offerable.
+ * `bottleneck` is the exact refusal reason and is null iff the promise is
+ * REASONABLY ACHIEVABLE. */
+export type PromiseFeasibilityReceipt = {
+  classification: PromiseClassification
+  bottleneck: string | null
+  /** The service's own inputs, digested — so "same inputs, byte-equal receipt" is
+   * checkable without re-running it. */
+  inputsDigest: string
+  rulesVersion: number
+  week: number
+}
+
+/** Companion §4.4. WAIVED and VOIDED are enumerated and unreachable in B.1 (no
+ * waiver acceptance rule, no P14C retirement), exactly as A.1's `decision_pending`
+ * was enumerated before it was reachable. */
+export type PromiseOutcome = 'SATISFIED' | 'BROKEN' | 'WAIVED' | 'VOIDED'
+
+/** Companion §4.1. Named `ProfessionalPromise` because `Promise` is already the
+ * accepted screenplay-promise type. Typed, versioned, attached to a proposal,
+ * evaluated by events and by its due week — never polled, never free text, never
+ * a salary term. */
+export type ProfessionalPromiseV29 = {
+  promiseId: string
+  family: PromiseFamily
+  version: number
+  issuerStudioId: string
+  beneficiaryPersonId: string
+  /** The typed predicate parameters. P1 carries the promised count X. */
+  predicate: { count: number }
+  windowStartWeek: number
+  dueWeekExclusive: number
+  feasibilityReceipt: PromiseFeasibilityReceipt
+  /** Event-derived, bounded by `predicate.count`. Never a second authority: it is
+   * recomputed from `firstTakes` at every weekly evaluation. */
+  progress: number
+  /** The `FirstTakeReceipt.eventId`s that satisfied it, by reference. */
+  evidenceRefs: readonly string[]
+  outcome: PromiseOutcome | null
+  outcomeWeek: number | null
+  outcomeCause: string | null
+  /** This promise's own `promiseOutcome` market receipt. Qualifying first takes
+   * are referenced separately by `evidenceRefs`, and may serve several people. */
+  outcomeEventId: string | null
+  /** Set once the proposal it rode in on is committed. */
+  contractId: string | null
+}
+
+export type GameStateV29 = GameStateV28 & {
+  /** P14B.1 (1): append-only, in-state ordinal. The ONE durable first-take fact. */
+  firstTakes: readonly FirstTakeReceipt[]
+  /** P14B.1 (2): every promise this world has minted, open or terminal. */
+  promises: readonly ProfessionalPromiseV29[]
+}
+
+/** V30 adds an explicitly selected P2 seat class. A historical count-only
+ * record, of ANY catalogue family or positive version, is not this shape. */
+export type CastRoleCountPredicate = {
+  kind: 'castRoleCount'
+  count: number
+  seatClass: 'lead' | 'leadOrAntagonist'
+}
+
+export type ProfessionalPromiseV30 = ProfessionalPromiseV29 | (
+  Omit<ProfessionalPromiseV29, 'family' | 'predicate'> & {
+    family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'
+    predicate: CastRoleCountPredicate
+  }
+)
+
+export type GameStateV30 = Omit<GameStateV29, 'promises'> & {
+  promises: readonly ProfessionalPromiseV30[]
+}
+
+// P14B.4 (record 600): V30 added the tagged predicate. V29 remains the frozen
+// prior save shape; a tagged predicate exists only on the V30 union. Since P14B.7
+// the LIVE promise row is `ProfessionalPromiseV32` (the waived-promise link);
+// V30 remains the frozen shape both later versions are built on.
+export type ProfessionalPromise = ProfessionalPromiseV40
+
+// ── P14B.5 — the first shared-work bond (Save V31) ──────────────────────────
+
+/** The eight-member friendship ladder (companion §5.3 :423-430), lowest first.
+ * Partners is the romance track, held ALONGSIDE the tier — never a rung. */
+export type RelationshipTier = 'Nemeses' | 'Enemies' | 'Strained' | 'Acquaintances' | 'Colleagues' | 'Friends' | 'CloseFriends' | 'Inseparable'
+
+/** The driver kinds (§5.4): shared first take with its proximity weight, the
+ * repeat accelerator, success/failure at release, the player cancel after a first
+ * take (B.5, Save31), and a lost casting competition with its repeat accelerator
+ * (1313-A/F, Save42). No conflict-record kind exists yet. */
+export type RelationshipDriverKind = 'sharedProduction' | 'repeatedCollaboration' | 'sharedSuccess' | 'sharedFailure' | 'cancelledAfterFirstTake'
+  | 'castingCompetitionLost' | 'repeatedCompetition'
+
+/** One evidence row: `ref` = the productionId; `week` = `state.market.tick` at
+ * the write; no prose persisted (kind → copy at read, the B.2 pattern). */
+export type RelationshipDriver = {
+  kind: RelationshipDriverKind
+  week: number
+  ref: string
+  delta: number
+}
+
+/** Save44 (1347-A §2.1): one counted casting competition, one row per pair per production;
+ * `slots` are the cast slots the pair contested there, in slot order. Never compacted. */
+export type RelationshipCompetition = {
+  week: number
+  productionId: string
+  slots: readonly CastSlot[]
+}
+
+/** Save44 (1347-A §2.3): one Partners bond. `endedWeek` stays null while the bond is open
+ * and is written once, at the next write after the derived ending. */
+export type RomanceBond = { formedWeek: number; endedWeek: number | null }
+
+/** Save44 (1347-A §2.3): the romance track, held beside the friendship tier. `value` is an
+ * integer 0..100 AT `anchorWeek`; separation decay is computed on read from that anchor. */
+export type RomanceTrack = {
+  value: number
+  anchorWeek: number
+  bonds: readonly RomanceBond[]
+}
+
+/** §5.2 :412's two facts per pair — CURRENT closeness (integer 0..100 AT
+ * `lastEventWeek`; drift is computed on read from that anchor) and CAREER history
+ * (the exact counters, never compacted; the peak; the bounded `recent` window,
+ * oldest first, whose overflow folds OUT at write into the counters). Keyed by
+ * the canonical pair `a < b` (code-unit order); in-state ordinal `edgeId`. */
+export type RelationshipEdge = {
+  edgeId: string
+  a: string
+  b: string
+  closeness: number
+  firstSharedWeek: number
+  lastEventWeek: number
+  sharedProductions: number
+  sharedSuccesses: number
+  sharedFailures: number
+  sharedCancellations: number
+  /** Save42 (1313-A/F): admitted productions on which the pair competed for a cast
+   * slot, one per pair per production; exact, never compacted. */
+  sharedCompetitions: number
+  peakTier: RelationshipTier
+  peakTierWeek: number
+  recent: readonly RelationshipDriver[]
+  /** Save44: the dated rows behind `sharedCompetitions`, appended by the same helper. A
+   * pre-Save44 competition keeps only its count; nothing is reconstructed (Q3). */
+  competitions: readonly RelationshipCompetition[]
+  /** Save44: null until the pair's first romance gain. */
+  romance: RomanceTrack | null
+}
+
+export type GameStateV31 = GameStateV30 & {
+  /** P14B.5 (1): the ONE relationship root, top level beside `firstTakes`/`promises`
+   * (R22), its version the save version. Minted only from live shared work. */
+  relationships: readonly RelationshipEdge[]
+}
+
+// P14B.5 added the `relationships` root at V31, P14B.7 the waived-promise link at
+// V32, P14C.1 the talent provenance root at V33, P14C.2a the career lifecycle root at
+// V34, P14C.4 the cohort receipts inside that root at V35. Since P14C.2b the live
+// gameplay shape includes V36's single final extension. V37 configures Scientist
+// retirement without adding fields; the save version distinguishes its semantic law.
+// V38 adds prospective profession history and its one actor transition catalogue.
+// V41 adds no field: the rival `termination` movement is version-aware at the boundary.
+// V42 adds the edge's `sharedCompetitions` counter and the two casting driver kinds.
+// V43 adds rival screenplay shelving: `screenplayShelving` per business and its receipt.
+// V44 adds the edge's `competitions` log and `romance` track.
+// V45 is the shared P15 step: slice 2a adds the Power Ranking archive and the one P15 allocator,
+// P15A.1 Wave 2 adds the shared-market root, and P15C Wave 2 adds the Campaign Legacy root.
+export type GameState = GameStateV45
+
+// ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
+
+/** V32 records WHICH substitute superseded a promise the person agreed to waive.
+ * `null` on every other record, and on every record a pre-V32 campaign wrote:
+ * the field opens empty and recomputes nothing. The live shape from P14B.7 until
+ * P14C.1 (`LIVE_SAVE_VERSION` is 33 and `makeSave` stamps it since then); the
+ * field survives unchanged into V33, so `waivePromise` still writes a durable
+ * link rather than leaving the successor recoverable only from prose. */
+export type ProfessionalPromiseV32 = ProfessionalPromiseV30 & {
+  supersededByPromiseId: string | null
+}
+
+export type GameStateV32 = Omit<GameStateV31, 'promises'> & {
+  promises: readonly ProfessionalPromiseV32[]
+}
+
+// ── P14C.1 — materialized aging (Save V33) ──────────────────────────────────
+//
+// Age is DERIVED and MATERIALIZED, never incremented. The whole law is one
+// formula (record 762 §1): `age(w) = floor(anchorAge + (w - anchorWeek) / 52)`.
+// No stored birth week exists to disagree with it.
+
+/** One person's origin. Record 762 §2 records the naming hazard rather than
+ * renaming it: `authored_exact_week` is the companion's own kind name and covers
+ * every person who ENTERED `state.talent` at a known week with a known exact age —
+ * worldgen's genesis population, rival hires, the player's own creations. It is NOT
+ * `Talent.authored`, which in this codebase means player-created. */
+export type TalentProvenanceRow =
+  | { personId: string; kind: 'authored_exact_week'; ageAtEntry: number; entryWeek: number }
+  | { personId: string; kind: 'legacy_age_anchor'; ageAtMigration: number; migrationWeek: number }
+
+/** The ONE top-level provenance root, on the `stripV31Root` pattern
+ * (`src/core/save.ts:8794`). `due` is an ARRAY and never an object keyed by week,
+ * because `save.ts:588` sorts object keys lexicographically and `"100"` would
+ * precede `"11"` (759-C amendment 14). `due` is a cache, and the validator
+ * recomputes it and refuses a mismatch — a cache nothing reconciles is the
+ * truth-loss class A8 closed. */
+export type TalentProvenanceRoot = {
+  /** `market.tick` when the root was created. */
+  boundaryWeek: number
+  /** Exactly one row per `state.talent` id. */
+  rows: readonly TalentProvenanceRow[]
+  /** The visit list, ASCENDING by week. */
+  due: readonly { week: number; personIds: readonly string[] }[]
+}
+
+export type GameStateV33 = GameStateV32 & {
+  /** P14C.1: the ONE provenance root, top level beside `relationships`. Every
+   * stored `Talent.age` is a cache of `ageAt(row, market.tick)` over it. */
+  talentProvenance: TalentProvenanceRoot
+}
+
+// ── P14C.2a — the retirement lifecycle core (Save V34; records 773 and 777) ────
+//
+// The live shape from P14C.2a until P14C.4 (V35 adds the cohort receipts). A record is
+// the P14 lifecycle fact for ONE person; nothing about a retirement is ever deleted.
+
+export type RetirementCause = 'hardBoundary' | 'idleInWindow'
+export type RetirementStatus = 'announced' | 'finishing_commitments' | 'retired'
+
+export type RetirementRecord = {
+  personId: string
+  /** `Talent.role` at announcement. */
+  profession: CreativeRole
+  intentRulesVersion: 1
+  cause: RetirementCause
+  announcedWeek: number
+  /** The materialized integer age that week, cross-checked against provenance. */
+  ageAtAnnouncement: number
+  /** `max(announcedWeek + 52, end of the contract or P12 interval in force)`. */
+  effectiveWeek: number
+  status: RetirementStatus
+  /** `=== effectiveWeek` when a seat held the person past it; otherwise null. */
+  finishingFromWeek: number | null
+  retiredWeek: number | null
+}
+
+/** Top level beside `talentProvenance` (R22). `boundaryWeek` is the recording
+ * boundary: no record is dated before it. At most one record per person in V34. */
+export type CareerLifecycleRoot = {
+  boundaryWeek: number
+  records: readonly RetirementRecord[]
+}
+
+export type GameStateV34 = GameStateV33 & { careerLifecycle: CareerLifecycleRoot }
+
+// ── P14C.4 — deterministic replenishment (Save V35; records 782 §7-8 and 793) ──
+// The live shape since P14C.4 (`GameState = GameStateV35`). `GameStateV34` keeps
+// `CareerLifecycleRoot`, so the frozen V34 chain never learns the new key.
+
+/** One annual cohort request and what it minted (companion §6.5 "one-to-one
+ * receipts"). `personIds` are exactly `state.talent.slice(talentCountBefore, …)`. */
+export type CohortReceipt = {
+  week: number
+  talentCountBefore: number
+  requested: Record<FilmCreativeRole, number>
+  clipped: number
+  personIds: readonly string[]
+}
+
+/** The V35 lifecycle root: the V34 root plus the append-only cohort receipts. */
+export type CareerLifecycleRootV35 = CareerLifecycleRoot & { cohorts: readonly CohortReceipt[] }
+
+export type GameStateV35 = Omit<GameStateV34, 'careerLifecycle'> & { careerLifecycle: CareerLifecycleRootV35 }
+
+// ── P14C.2b — the single final extension (Save V36; records 780 and 806) ──────
+// The shape introduced by P14C.2b. `GameStateV35` keeps the V34
+// record and the V28 case, so the frozen V35 chain never learns the new keys.
+
+/** 780 X10: whether the one extension was taken, and the effective week it moved from. */
+export type RetirementRecordV36 = RetirementRecord & { extensionUsed: boolean; extendedFromWeek: number | null }
+export type CareerLifecycleRootV36 = Omit<CareerLifecycleRootV35, 'records'> & { records: readonly RetirementRecordV36[] }
+/** 780 X3: an ordinary contested expiry, or the one-issuer retirement extension. */
+export type MarketCaseVariant = 'expiry' | 'retirementExtension'
+export type TalentMarketCaseV36 = TalentMarketCase & { variant: MarketCaseVariant }
+export type TalentMarketStateV36 = Omit<TalentMarketState, 'cases'> & { cases: readonly TalentMarketCaseV36[] }
+export type GameStateV36 = Omit<GameStateV35, 'careerLifecycle' | 'talentMarket'> & {
+  careerLifecycle: CareerLifecycleRootV36
+  talentMarket: TalentMarketStateV36
+}
+
+/** Record 840: Scientist retirement uses the existing lifecycle record shape.
+ * V37's validator selects the amended profession law; V34–V36 remain frozen. */
+export type GameStateV37 = GameStateV36
+
+// P14C.3 (942/946): a profession episode ends before a possible single actor
+// transition. All prior shapes remain frozen; these facts open prospectively.
+export type TransitionTarget = 'director' | 'writer'
+export type TransitionRoleTier = 'Highly unproven' | 'Raw prospect' | 'Limited-or-developing'
+  | 'Strong' | 'Major-studio' | 'Elite' | 'Generational'
+export type TransitionPotentialTier = 'Limited' | 'Steady' | 'Promising' | 'High Upside'
+  | 'Exceptional Upside' | 'Generational Upside'
+export type RetirementKey = { personId: string; profession: CreativeRole }
+export type ProfessionAnchor = {
+  personId: string; profession: CreativeRole; recordedWeek: number; kind: 'existing' | 'entrant'
+}
+export type TransitionPictureRef = { studioId: string; pictureId: string }
+export type TransitionContextWitness = {
+  counterpartId: string | null; pictures: readonly TransitionPictureRef[]
+}
+export type TransitionTargetInput = {
+  profession: TransitionTarget; capability: number; roleTier: TransitionRoleTier
+  workHistory: number; proven: boolean; potentialTier: TransitionPotentialTier
+  contextCount: number; contextBand: 0 | 1 | 2; contextWitness: TransitionContextWitness
+}
+export type TransitionInputs = {
+  age: number; actingFirstTakes: number; leadFirstTakes: number
+  actingWitnesses: readonly string[]
+  targets: readonly [TransitionTargetInput, TransitionTargetInput]
+}
+export type TransitionEvaluation = {
+  id: string; ordinal: number; week: number; personId: string; source: RetirementKey
+  rulesVersion: 1; inputs: TransitionInputs; inputsDigest: string
+  outcome: 'deferred' | 'chosen' | 'declinedAll' | 'ageBoundary'
+  selected: TransitionTarget | null
+  reason: 'noEligibleTarget' | 'onlyEligibleTarget' | 'strongerPublicTuple'
+    | 'equalPublicTuples' | 'waitingAgeReached'
+}
+export type ProfessionChange = {
+  id: string; ordinal: number; week: number; personId: string
+  from: 'actor'; to: TransitionTarget; evaluationId: string
+}
+export type IndustryRetirement = {
+  personId: string; week: number; profession: CreativeRole; source: RetirementKey
+  cause: 'noCatalogue' | 'declinedAll' | 'ageBoundary'; evaluationId: string | null
+}
+export type TransitionDue = { personId: string; week: number }
+export type CareerLifecycleRootV38 = CareerLifecycleRootV36 & {
+  transitionBoundaryWeek: number
+  professionAnchors: readonly ProfessionAnchor[]
+  transitionEvaluations: readonly TransitionEvaluation[]
+  professionChanges: readonly ProfessionChange[]
+  industryRetirements: readonly IndustryRetirement[]
+  transitionDue: readonly TransitionDue[]
+}
+export type GameStateV38 = Omit<GameStateV37, 'careerLifecycle'> & {
+  careerLifecycle: CareerLifecycleRootV38
+}
+
+/** Save39 adds an explicit Director domain. Frozen count-only promises,
+ * including old DIRECTING_COUNT rows, retain their original cast meaning. */
+export type DirectorCountPredicate = { kind: 'directorCount'; count: number }
+export type ProfessionalPromiseV39 = ProfessionalPromiseV32 | (
+  Omit<ProfessionalPromiseV32, 'family' | 'predicate'> & {
+    family: 'DIRECTING_COUNT'
+    predicate: DirectorCountPredicate
+  }
+)
+export type GameStateV39 = Omit<GameStateV38, 'promises'> & {
+  promises: readonly ProfessionalPromiseV39[]
+}
+
+/** Save40 records the subject of new takes without rewriting older receipts. */
+export type OpportunitySeatClass = 'allCast' | 'lead' | 'leadOrAntagonist'
+export type GenreOpportunityPredicate = {
+  kind: 'genreOpportunity'; count: 1; seatClass: OpportunitySeatClass; genre: Genre
+}
+export type ProjectOpportunityPredicate = {
+  kind: 'projectOpportunity'; count: 1; seatClass: OpportunitySeatClass; scriptProjectId: string
+}
+export type OpportunityPredicate = GenreOpportunityPredicate | ProjectOpportunityPredicate
+export type FirstTakeSubject = {
+  eventId: string; conceptId: string; genre: Genre; scriptProjectId: string | null
+}
+export type FirstTakeSubjects = {
+  version: 1; cutoverOrdinal: number; facts: readonly FirstTakeSubject[]
+}
+export type ProfessionalPromiseV40 = ProfessionalPromiseV39
+  | (Omit<ProfessionalPromiseV32, 'family' | 'predicate'> & {
+      family: 'PREFERRED_GENRE_OPPORTUNITY'; predicate: GenreOpportunityPredicate
+    })
+  | (Omit<ProfessionalPromiseV32, 'family' | 'predicate'> & {
+      family: 'SPECIFIC_PROJECT'; predicate: ProjectOpportunityPredicate
+    })
+export type GameStateV40 = Omit<GameStateV39, 'promises'> & {
+  promises: readonly ProfessionalPromiseV40[]
+  firstTakeSubjects: FirstTakeSubjects
+}
+/**
+ * R2/R3 (Save V41). NO new root: the widened `RivalMoneyKind` movement record (the
+ * rival `termination` kind) and a rival's own termination end receipt, version-aware
+ * at the boundary exactly as V27's research kinds were. The distinct name exists so
+ * save.ts's version dispatch has a version to point `GameState` at.
+ */
+export type GameStateV41 = GameStateV40
+/**
+ * Casting competition (Save V42, 1313-A/F). NO new root: every relationship edge gains
+ * `sharedCompetitions` and `recent` admits the two casting kinds. Frozen V31..V41
+ * readers validate the edge at era 31 (five kinds, no counter), exactly the V41 law.
+ */
+export type GameStateV42 = GameStateV41
+/**
+ * Rival screenplay shelving (Save V43, 1344-A/F). NO new root: every rival business gains
+ * `screenplayShelving` and the `screenplayShelved` receipt becomes lawful, version-aware at
+ * the boundary as V41's termination was. Frozen readers keep "unproduced ⇔ active".
+ */
+export type GameStateV43 = GameStateV42
+/**
+ * The competitions log and the romance track (Save V44, 1347-A §4). NO new root: every
+ * relationship edge gains `competitions` and `romance`. Frozen V31..V43 readers validate the
+ * edge projected to era 42, exactly the V43 law.
+ */
+export type GameStateV44 = GameStateV43
+/**
+ * P15A.2 slice 2a (1356-A §5; 1355-F2 items 1-5): the append-only quarterly Power Ranking archive.
+ * A record is the law's snapshot minus `pointsTenths`, `honors` and `distressStage`, plus its id,
+ * its P15 domain sequence and its phase triple.
+ */
+export type PowerRankingRecordRow = {
+  studioId: string; ranked: boolean; rank: number | null; filmsTenths: number; releases: number
+  releasesTenths: number; countedFilmIds: string[]; band: import('./powerRanking.js').FinancialStrengthBand
+}
+export type PowerRankingRecord = {
+  id: string; p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
+  week: number; definitionVersion: 'power-ranking/v1'; available: boolean; windowStartWeek: number
+  rows: PowerRankingRecordRow[]
+}
+export type PowerRankingArchive = { version: 1; recordedFromWeek: number; snapshots: PowerRankingRecord[] }
+/**
+ * P15A.1 Wave 2 (1355-A §3.3; 1355-F2 items 2-3; 1355-F3): one shared-market assessment as the root
+ * stores it, the Wave 1 law's record plus its P15 domain sequence and phase triple. `releaseId` is
+ * its identity and its film's id.
+ */
+export type PersistedMarketAssessment = import('./sharedMarket.js').MarketAssessment & {
+  p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
+}
+/** The shared-market root: every assessment from `recordedFromWeek`, in (week, releaseId) order. */
+export type SharedMarketRoot = { version: 1; recordedFromWeek: number; assessments: PersistedMarketAssessment[] }
+/**
+ * The roots of the shared P15 save step, Save45 (1360-F ruling 1; 1361-F ruling 3). Slice 2a brings
+ * the archive and the one P15 allocator (1355-F2 item 1), P15A.1 the shared market, and P15C the
+ * Campaign Legacy (1359-A §5), whose type and validator live in campaignLegacy.ts, so no other
+ * src/core file spells the manifest's mode field.
+ */
+export type P15StepRoots = {
+  powerRanking: PowerRankingArchive
+  p15Sequence: import('./p15Phases.js').P15Sequence
+  sharedMarket: SharedMarketRoot
+  campaignLegacy: import('./campaignLegacy.js').CampaignLegacyRoot
+}
+export type GameStateV45 = GameStateV44 & P15StepRoots
+
+// ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
+// The ONE canonical persisted record of a participant's outcome on one released film.
+// Autopsy (film-centric) and Talent Profile (talent-centric) BOTH render from this —
+// they never recompute a delta from present-day talent state. eventId is stable so a
+// reload/re-render cannot duplicate it.
+export type CareerReasonCode =
+  | 'substantialLeadExposure' // Lead billing created meaningful exposure
+  | 'supportingRoleVisibility' // a smaller-billing role, proportionally less opportunity
+  | 'limitedAudienceReach' // the film did not reach enough viewers to move recognition
+  | 'strongAudienceResponse' // audiences responded well; exposure was valuable
+  | 'weakAudienceResponse' // poor audience response limited the gain
+  | 'exceededCommercialExpectations' // realized reach materially beat the locked forecast
+  | 'missedCommercialExpectations' // realized reach materially missed the locked forecast
+  | 'establishedStarSaturation' // already near the top; large results are needed to move
+  | 'noMeaningfulCareerChange' // nothing material changed this release
+
+export type TalentCareerEvent = {
+  eventId: string // `${filmId}:${talentId}` — stable + unique per (film, participant)
+  talentId: string
+  filmId: string // productionId of the released film
+  filmTitle: string // concept title, snapshotted at release
+  releaseWeek: number
+  genre: Genre
+  role: FilmParticipantRole
+  billingWeight: number // the role-visibility weight applied (§5)
+  discipline: Discipline // the discipline the participant performed in
+  ovrBefore: number // perceived role OVR in `discipline` before this release's development
+  ovrAfter: number
+  skillsBefore: Record<string, number> // visible (perceived) skills of `discipline` before
+  skillsAfter: Record<string, number>
+  skillDeltas: Record<string, number>
+  genreExpBefore: number // perceived (discipline, genre) experience before
+  genreExpAfter: number
+  workHistoryBefore: number // completed-production counter for `discipline` before
+  workHistoryAfter: number
+  starPowerBefore: number // fame before the update
+  starPowerAfter: number // fame after the update (clamped 0..100)
+  starPowerDelta: number // starPowerAfter − starPowerBefore
+  realizedOpening: number
+  realizedTotal: number
+  audienceScore: number // weightedAudienceScore (0..100)
+  criticScore: number // recorded for context only — NOT a primary Star Power input in v1
+  forecastComparator: number // realizedTotal / locked expectedTotal (1 when no forecast)
+  reasonCodes: CareerReasonCode[]
+}
+
+// §2.6 Actions
+export type Action =
+  | import('./technologyTypes.js').TechnologyAction
+  | {
+      kind: 'greenlight'
+      production: Omit<Production, 'id' | 'startTick' | 'remainingTicks' | 'forecastSnapshot'>
+    }
+  | { kind: 'cancel'; productionId: string }
+  | { kind: 'createTalent'; talent: AuthoredTalentInput } // §10 (legacy budget creator)
+  | { kind: 'createBalancedTalent'; talent: BalancedTalentInput } // §10 / D-11.C (Balanced specialization)
+  | { kind: 'createCustomTalent'; talent: CustomTalentInput } // §10 / D-11.A (Full Custom)
+  // ── D-11 employment actions ──
+  | { kind: 'foundStudio' } // close the founding draft (minimums must be met)
+  | { kind: 'signContract'; talentId: string; termWeeks: number } // sign to studio contract
+  | { kind: 'renewContract'; talentId: string; termWeeks: number } // extend during renewal window
+  | { kind: 'releaseTalent'; talentId: string } // early release (financial cost only)
+  // ── D-17B §2 publicity action (the ONE authorized paid awareness lever) ──
+  | { kind: 'publicity'; tier: PublicityTier }
+  // ── Production Operations V1 ──
+  | { kind: 'activateStudioOperations' }
+  | { kind: 'assignShootingDirector'; productionId: string; directorId: string }
+  | { kind: 'clearSceneryLoadIn'; productionId: string }
+  | { kind: 'scheduleShootingTake'; productionId: string }
+  // ── Script Projects V1 ──
+  | { kind: 'activateScriptDevelopment' }
+  | { kind: 'commissionScript'; project: CommissionScriptPayload }
+  // ── C2a-M3 — Renewable Screenplay Generation V1 (charter §3.5) ──
+  // THREE verbs, and what they can reach is the shape of the design.
+  //   * `commissionOriginalScreenplay` names a writer and a creative direction
+  //     and NEVER a conceptId — the concept does not exist yet; it is minted at
+  //     the instant the Development & Casting slot is granted.
+  //   * `assignScreenplayWriter` puts another hand on a screenplay already being
+  //     written. It buys TIME and nothing else (`00E`.9).
+  //   * `renameScreenplay` names a concept and a title, never an identity: the
+  //     stable id, the deterministic keys and the blueprint's generated title are
+  //     all out of its reach by the shape of the action itself.
+  | { kind: 'commissionOriginalScreenplay'; screenplay: CommissionOriginalScreenplayPayload }
+  | { kind: 'assignScreenplayWriter'; projectId: string; writerId: string }
+  // C2a-M4 (§3.3): the `cancel-queued-intent` REMEDY, as a verb. A queued intent
+  // holds nothing, so cancelling one costs nothing and releases nothing — it is
+  // the player taking their own request back out of the line.
+  | { kind: 'cancelQueuedIntent'; ordinal: number }
+  | { kind: 'renameScreenplay'; conceptId: string; title: string }
+  | { kind: 'requestScriptRewrite'; projectId: string }
+  | { kind: 'acceptScript'; projectId: string }
+  | { kind: 'greenlightScriptProject'; production: GreenlightScriptProjectPayload }
+  // ── Casting Sessions V1 ──
+  | { kind: 'activateCastingSessions' }
+  | { kind: 'startCastingSession'; session: StartCastingSessionPayload }
+  | { kind: 'acknowledgeCastingSession'; sessionId: string }
+  // ── Development & Casting Annex V1 ──
+  // Retained and still legal in V12, where it is an ALIAS for placing the
+  // `development-casting-annex` blueprint at the legacy expansion parcel's origin.
+  | { kind: 'startDevelopmentCastingAnnex' }
+  // ── Placement Core V12 ──
+  | { kind: 'placeFacility'; placement: PlacementRequest }
+  // C1-M3a. Both take a placementId, never coordinates and never a facilityId:
+  // a placement is the only thing either verb may touch, so founding property
+  // structures are out of reach by the shape of the action itself.
+  | { kind: 'moveFacility'; move: FacilityMoveRequest }
+  | { kind: 'demolishFacility'; demolition: FacilityDemolitionRequest }
+  // ── C2a-M2 — Sets (charter §3.1) ──
+  // Three verbs on a first-class entity. `commissionSet` names a blueprint AND a
+  // stage because a set has no existence apart from the stage it stands on; the
+  // other two name a set, never a stage, so no verb can reach a stage's mount
+  // without going through the set that occupies it.
+  | { kind: 'commissionSet'; commission: CommissionSetPayload }
+  | { kind: 'repairSet'; setId: string }
+  | { kind: 'strikeSet'; setId: string }
+  // ── P06A release authority (charter W1) — the ONE explicit release commitment ──
+  | { kind: 'commitPictureToRelease'; productionId: string }
+  // ── P13B-S5-R07 — the reviewed setup-plan verb ──
+  // It names a production, a catalogue recipe and the plan revision it was
+  // reviewed against, and nothing else: a setup plan cannot reach a stage, a
+  // Set or a week of its own.
+  | {
+      kind: 'setProductionSetupRecipe'
+      productionId: string
+      recipeId: ProductionSetupRecipeId
+      expectedPlanRevision: number
+    }
+  // ── P13B-S6 — the two cancellation verbs. Each names ONE thing it may cancel:
+  // a committed installation project, or an adoption whose remaining physical work
+  // it stops. Neither can reach a price, a week or a refund of its own — the
+  // receipt is derived from the placement's own committed clock.
+  | { kind: 'cancelInstallation'; projectId: string }
+  | { kind: 'cancelAdoption'; adoptionId: string }
+  // ── P13B-S3 physical plans — five verbs, and what they can reach is the design.
+  // `queuePhysicalPlan` names WORK and a ceiling, never a placement id: a plan
+  // cannot reach an existing building. The other four name a plan id only.
+  | {
+      kind: 'queuePhysicalPlan'
+      work: PhysicalPlanWork
+      approvedMaximumDebit: number
+      dependsOn?: readonly string[]
+      earliestStartWeek?: number
+      admission?: PhysicalPlanAdmission
+    }
+  // P14B.7: waive an open promise for a substitute the person accepts in its
+  // place. The substitute mirrors `PromiseAttachment` (promises.ts), stated
+  // structurally here so the action union stays free of a module import.
+  | {
+      kind: 'waivePromise'
+      promiseId: string
+      substitute: {
+        family: PromiseFamily
+        predicate: { count: number } | CastRoleCountPredicate | DirectorCountPredicate
+        windowStartWeek: number
+        dueWeekExclusive: number
+      }
+    }
+  | { kind: 'reorderPhysicalPlans'; planIds: readonly string[] }
+  | { kind: 'cancelPhysicalPlan'; planId: string }
+  | { kind: 'reviewPhysicalPlan'; planId: string; approvedMaximumDebit: number }
+  | { kind: 'setPhysicalPlanAdmission'; planId: string; admission: PhysicalPlanAdmission }
+
+// §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
+// stays fully player-chosen; potential/workEthic/skillBias/secondary share a
+// bounded creation budget (AUTHORED_BUDGET). The player never sets skills/fame
+// directly — they are derived from the tier + bias (D-9.14).
+export type AuthoredTalentInput = {
+  name: string
+  role: CreativeRole
+  age: number // 18..70
+  actual: Persona // temperament, fully player-chosen (or a preset, D-9.8)
+  potentialTier: PotentialTier // hidden ceilings drawn from the tier band (D-9.10/14)
+  workEthic: number // 1..99, player-chosen numerically (D-9.11)
+  skillBias?: SkillBias // optional per-discipline emphasis (specialist vs generalist)
+  secondaryDiscipline?: CreativeRole // optional; costs budget (D-9.14)
+}
+
+// §10 / D-11.A Full Custom talent — the player edits the AUTHORITATIVE underlying
+// attributes DIRECTLY (no creation budget). perceived = actual at creation. Skills are
+// six values per discipline in SKILL_ORDER (1..99). Ceilings default to the skill value
+// (no hidden upside) unless supplied; genre experience defaults to 0. May deliberately
+// produce a powerful/unbalanced person. OVR is always DERIVED from these skills (never
+// an input); Fit is never stored (it is film/assignment-dependent). See D-11.A (A3).
+export type CustomTalentInput = {
+  name: string
+  role: CreativeRole // primary profession
+  age: number // 18..70
+  actual: Persona // Creative Temperament
+  workEthic: number // 1..99
+  fame: number // 0..100 Star Power
+  skills: Record<Discipline, number[]> // 6 per discipline in SKILL_ORDER, each 1..99
+  ceilings?: Partial<Record<Discipline, number[]>> // optional per-skill potential ceilings (≥ skill, ≤ 99)
+  genreExperience?: Partial<Record<Discipline, Partial<Record<Genre, number>>>> // optional 0..100
+}
+
+// §10 / D-11.C — an archetype preset: the profession-shaped Balanced-Career BASELINE
+// before the player spends specialization points. Populates ONLY authoritative
+// underlying values (no hidden modifiers / permanent bonuses). See BALANCED_ARCHETYPES.
+export type ArchetypePreset = {
+  id: string
+  label: string
+  appliesTo: Discipline | 'any' // profession-specific, or a cross-profession career path
+  primarySkills: number[] // 6 baseline values (SKILL_ORDER) for the primary discipline (OVR ≈ 38–45)
+  secondaryBaseline: number // non-primary skills baseline (secondary OVR ≈ 15–28; ≥ SKILL_FLOOR)
+  secondaryBoost?: { role: CreativeRole; skills: number[] } // multi-hyphenate: one raised secondary
+  genreBaseline: Partial<Record<Genre, number>> // small primary-discipline genre experience
+  defaultPotentialTier: PotentialTier
+  defaultWorkEthic: number
+  fame: number
+}
+
+// §10 / D-11.C — Balanced-Career creation: an archetype baseline + a 40-point allocation
+// + separately-chosen Potential/Work Ethic. Skills start at BALANCED_CREATOR_SKILL_FLOOR;
+// OVR is DERIVED from the resulting skills (never an input). Creation ≠ signing (D-11.A).
+export type BalancedTalentInput = {
+  name: string
+  role: CreativeRole
+  age: number // 18..70
+  actual: Persona
+  presetId: string // an ArchetypePreset id
+  potentialTier: PotentialTier // player-chosen tradeoff — NOT bought with specialization points
+  workEthic: number // player-chosen tradeoff — NOT bought with points
+  allocation: {
+    // the specialization budget (+1 per authoritative point), total ≤ SPECIALIZATION_POINTS
+    skills?: Partial<Record<Discipline, number[]>> // per-skill increments (SKILL_ORDER)
+    genre?: Partial<Record<Discipline, Partial<Record<Genre, number>>>> // per-genre increments
+  }
+}
+
+// ── §7 Forecast types ───────────────────────────────────────────────────────
+export type Confidence = 'low' | 'medium' | 'high'
+export type ForecastBand = 'weak' | 'mixed' | 'strong' // <40 | 40–70 | >70
+
+// rev. 4 item B14: the ForecastFactorKey union.
+export type ForecastFactorKey =
+  | 'castFame'
+  | 'roleFit'
+  | 'directorSkill'
+  | 'scriptStrength'
+  | 'shapeAffinity'
+  | 'segmentTaste'
+  | 'culturalTiming'
+  | 'unknownLead'
+  | 'untestedDirectorGenre'
+  | 'noSegmentHistory'
+  | 'vaguePromise'
+
+export type SegmentForecast = {
+  segmentId: SegmentId
+  center: number
+  // rev. 4 item M7: the noisy per-segment estimate the studio believes.
+  estimate: number
+  low: number
+  high: number
+  expectedBand: ForecastBand
+  confidence: Confidence
+  causalFactors: ForecastFactorKey[]
+  uncertaintyFactors: ForecastFactorKey[]
+  // D-12: the fame-saturated OPENING appeal band (=== the linear {center,estimate,low,high} above
+  // unless the economy is engaged → byte-identical). Feeds ONLY the opening-reach computation; the
+  // linear band above still feeds legs / audience. Lets a live re-forecast reproduce the same
+  // saturated opening the greenlight-locked forecast and realized release use (single fame helper).
+  opening: { center: number; estimate: number; low: number; high: number }
+}
+
+export type Forecast = {
+  segments: SegmentForecast[]
+  expectedOpening: number
+  expectedTotal: number
+  expectedCriticScore: number
+}
+
+// ── §8 Broadcast types ──────────────────────────────────────────────────────
+export type BroadcastFacts = {
+  subjectId: string
+  filmId?: string
+  forecastBand?: ForecastBand
+  realizedBand?: ForecastBand
+  primaryCause?: 'craft' | 'cohesion' | 'promise' | 'timing' | 'reach'
+  direction: 'better' | 'worse' | 'asExpected'
+}
+
+export type BroadcastItem = {
+  subjectId: string
+  topic: 'release' | 'talent' | 'studio' | 'cultural'
+  facts: BroadcastFacts
+  template: string // canonical, cached in save
+  generatedCopy?: string // never in this contract
+  tick: number
+}
+
+export type CoverageContext = {
+  subjectId: string
+  previousAngle: 'doubt' | 'praise' | 'neutral'
+  previousResult: 'better' | 'worse' | 'asExpected' | null
+  lastMentionTick: number
+}
