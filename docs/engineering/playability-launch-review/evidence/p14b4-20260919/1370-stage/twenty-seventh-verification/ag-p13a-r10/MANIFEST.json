@@ -1,0 +1,64 @@
+{
+  "classification": "BYTE_PRESERVATION_ONLY",
+  "counts": {
+    "directory": 14,
+    "file": 209,
+    "symlink": 1
+  },
+  "direct": {
+    "LAUNCH.json": {
+      "bytes": 627,
+      "sha256": "40d0873292b905b4e4cd36240d29d452a9e955b7b0e731f05c904dda66e67af5"
+    },
+    "RESULT.json": {
+      "bytes": 2892,
+      "sha256": "8c391a1394a75b4347fe5b6b2959a237c6044aee94563538eb57eccba5c22956"
+    },
+    "RESULT.sha256.json": {
+      "bytes": 83,
+      "sha256": "e71487e5d21d24e02fa5b98a8d9c9b165a894cd664509ef30aaab8d6b2603798"
+    },
+    "child.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "child.stdout.log": {
+      "bytes": 156,
+      "sha256": "0b48369425aa925d2524378505975979396492f1555fa17c64a74b9eaf86eea7"
+    },
+    "progress.ndjson": {
+      "bytes": 344,
+      "sha256": "9f26202389327312a59d2626831f388133e384b5ab830526d6700f2a5f02fd94"
+    },
+    "summary.json": {
+      "bytes": 876,
+      "sha256": "26d88f84dc1c38cbc97e21ad86403500ae9ae91ec6c1eadc8270fff9ddd7acac"
+    },
+    "vitest.json": {
+      "bytes": 1011,
+      "sha256": "fb15af7cb0560a83648a48322e08b323c8616665492205ca192fced27e4a1f29"
+    }
+  },
+  "files": {
+    "EVIDENCE.tar.xz": {
+      "bytes": 1516356,
+      "sha256": "dbf86c240a07b40be7d6c478dcf79d7f0fa58abb347bc8dae10a3ba47cc27bab",
+      "tarBytes": 973608960,
+      "tarSha256": "29dc90715b0691d6dd49fdaaad5b693c5ab3d21aa68d3fe5a2807c14e9b6d990"
+    },
+    "MEMBERS.json": {
+      "bytes": 56766,
+      "sha256": "3b43a7293f8608e88a100bd6c717f984a6d7d30041987fb87f99c47e3dae039f"
+    },
+    "build.py": {
+      "bytes": 8860,
+      "sha256": "ca4daffc68fbf943251cc84b15c9205dc1bc3772a6edd32877368b316d991dda"
+    }
+  },
+  "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "logicalBytes": 973436236,
+  "memberCount": 224,
+  "reviewRequiredBeforeRawRemoval": true,
+  "schema": "1370-r10-ag-p13a-raw-archive-r1",
+  "source": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r10/ag-p13a-clean-r10-ag-p13a-20261007-222146"
+}

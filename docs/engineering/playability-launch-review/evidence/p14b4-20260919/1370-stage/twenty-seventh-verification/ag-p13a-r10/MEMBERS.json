@@ -1,0 +1,1562 @@
+{
+  "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "members": [
+    {
+      "kind": "directory",
+      "mode": 493,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 420,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/LAUNCH.json",
+      "sha256": "40d0873292b905b4e4cd36240d29d452a9e955b7b0e731f05c904dda66e67af5",
+      "size": 627
+    },
+    {
+      "kind": "file",
+      "mode": 420,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/RESULT.json",
+      "sha256": "8c391a1394a75b4347fe5b6b2959a237c6044aee94563538eb57eccba5c22956",
+      "size": 2892
+    },
+    {
+      "kind": "file",
+      "mode": 420,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/RESULT.sha256.json",
+      "sha256": "e71487e5d21d24e02fa5b98a8d9c9b165a894cd664509ef30aaab8d6b2603798",
+      "size": 83
+    },
+    {
+      "kind": "file",
+      "mode": 420,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/boundaries.ndjson",
+      "sha256": "a1a7e36f4786c47083323a5701593c9d1ca10903708642783c5ad702d53f39b4",
+      "size": 968056328
+    },
+    {
+      "kind": "file",
+      "mode": 420,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/child.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 420,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/child.stdout.log",
+      "sha256": "0b48369425aa925d2524378505975979396492f1555fa17c64a74b9eaf86eea7",
+      "size": 156
+    },
+    {
+      "kind": "file",
+      "mode": 420,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/progress.ndjson",
+      "sha256": "9f26202389327312a59d2626831f388133e384b5ab830526d6700f2a5f02fd94",
+      "size": 344
+    },
+    {
+      "kind": "directory",
+      "mode": 493,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree",
+      "size": 0
+    },
+    {
+      "kind": "symlink",
+      "mode": 493,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/node_modules",
+      "sha256": "d2812503b51d9e6c0f09b1c3b4ca821a19f60caf751294e99e561e729325a4ab",
+      "size": 62,
+      "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/package-lock.json",
+      "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de",
+      "size": 149287
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/package.json",
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f",
+      "size": 2726
+    },
+    {
+      "kind": "directory",
+      "mode": 365,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src",
+      "size": 0
+    },
+    {
+      "kind": "directory",
+      "mode": 365,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/actions.ts",
+      "sha256": "88acf224e5bf9dbe7234eb6933d0f7e02bea55fc1ac68b65711f4b7d54e1898f",
+      "size": 130337
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/agents.ts",
+      "sha256": "ee68473f551a90541d5cb8d64ce39499649c4848034d2f7403ca44e048234a73",
+      "size": 6701
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/aging.ts",
+      "sha256": "f0fa2af61d7b8cfaff9923be46c07c21134f899ec2321dccc618a1160aa75c34",
+      "size": 15022
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/blueprintRequirements.ts",
+      "sha256": "abf32723f6530c8d2fda94067d6b793daab33154e636e2e906587211f4d456e0",
+      "size": 13965
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/boundedStableSort.ts",
+      "sha256": "87861f3ceefe2b2a9163a34bd9762a991d5c8a7f1640b84fbe6d1133f33ff964",
+      "size": 2094
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/broadcast.ts",
+      "sha256": "81809e230570dd795bef921716a2c300dd062298878705e5d5b6c4582c667e85",
+      "size": 15744
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/calendar.ts",
+      "sha256": "c54fe83ab161d4c80727c3ece021e6340eda3a7ff0bf134f5288d76de8f811ef",
+      "size": 1223
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/campaignLegacy.ts",
+      "sha256": "48e1d086deaaf82a82d05f0a8065bca9b7a7ea35bc68051ea06c33ceb3a0e8de",
+      "size": 85340
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/candidates.ts",
+      "sha256": "85a6d18e32cfca3e554977825ea06f10d2928eca68331a1b7b801ee320fe4104",
+      "size": 17875
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/careerLifecycle.ts",
+      "sha256": "338510e570d2ace8bdeaa24b989fe7783c2d4e4250e1929eb56fc8f149c5d1f6",
+      "size": 24706
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/castingPackageReadModel.ts",
+      "sha256": "0a6615639ce224665f059790d39f33d95270398fbd1158d310647a7aaf0f94c6",
+      "size": 25400
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/castingReadModel.ts",
+      "sha256": "56e0021c14337f333863be25ade1450ec59503b94e3ccb257ff31ceed5deb1c8",
+      "size": 17269
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/castingSessions.ts",
+      "sha256": "497a8a32152e556378db96d8363be6de9a0719f2eed1fbec4a4fcfe222cf3a3b",
+      "size": 24255
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/construction.ts",
+      "sha256": "24cad343abe3122e919e4dae57b85bdac24418a360723a3055b76ae82fefdf36",
+      "size": 23947
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/corporateCondition.ts",
+      "sha256": "428f2e59c141ad765b0a04cb032de7801a0006cfe3ddd5953ef429a835fadf44",
+      "size": 10410
+    },
+    {
+      "kind": "directory",
+      "mode": 365,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/data",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/data/screenplay.ts",
+      "sha256": "176f5fd2c0f01d2af16ce0c6a3e77344bd6030a9b3660232f17a14e4baae15ad",
+      "size": 11569
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/data/wordlists.ts",
+      "sha256": "6642296c7a0a4d385c6eb00e7b9ff4eb3213f72a6799b197549cba23718ebfac",
+      "size": 4101
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/development.ts",
+      "sha256": "ce37f726f18270f6d9d0aa6444ed23104cf963418365f00192a13f5fc55153fc",
+      "size": 8137
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/economy.ts",
+      "sha256": "caa6f20444be1544d64e2226f8eb89823c8d787c1460473169e0954ef15d0e10",
+      "size": 4416
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/economyView.ts",
+      "sha256": "64c51d1e58ff994dea3250db3a8b11a0d146ae58cd50799c4a06747646e28a9a",
+      "size": 32318
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/employment.ts",
+      "sha256": "6c3fec2129c0a461ec0de8e3e20f4bb47e4150bb9f0c39fd7201fae6a3951ce0",
+      "size": 28207
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/facilityEffects.ts",
+      "sha256": "2250d163627b28ad70603e422294a90372521c24111b5eb29303b4070e8c4814",
+      "size": 9673
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/filmPackage.ts",
+      "sha256": "f0dce46007d5f3b778f62f237c58e049c14a84764ae2545bd52258cfb2b4bd3b",
+      "size": 59840
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/filmParticipants.ts",
+      "sha256": "e26410299b9a7a0527cf6413b53a482f6280a137f3b32871ba729516ba4cf849",
+      "size": 2311
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/financeReport.ts",
+      "sha256": "53667586cbeb4456a2b2f150b11bb1233c41ee7e9e36dcbe0952522eb3fc18ea",
+      "size": 18156
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/firstFilmJourney.ts",
+      "sha256": "3c4bbde1ad298fc40103558cd1dc5dc73849ba73d4eba2e8a675b193295d0412",
+      "size": 54310
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/firstTakeSubjects.ts",
+      "sha256": "2525b7e04a2449fbb91f8fb73765448eacf791f1854f5c054c093641f388993a",
+      "size": 6350
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/fixedCostAllocation.ts",
+      "sha256": "72252b6e87557f9ed94eb922fd41a855a92c6540d2328efd168a26c22db9440e",
+      "size": 10662
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/forecast.ts",
+      "sha256": "13add49ffbcf0811b56de03c3978e0122c0f901226b405a76359b8b8fda6ae04",
+      "size": 20511
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/grid.ts",
+      "sha256": "67fe3355621e630de8c69e520348600bdb57445122daee791fcbbe59f803ce89",
+      "size": 931
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/hollywood.ts",
+      "sha256": "c9281b85fab7fe6ce72568f318a545fce01343da86c8fd9c7db8ee5e3bd17f1f",
+      "size": 17327
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/hollywoodPolicy.ts",
+      "sha256": "cfdde050a2aa2955bdea15f69a9600d7b57017eb09828c01109df03ea7b3695a",
+      "size": 7409
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/hollywoodStartingData.ts",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976",
+      "size": 4152
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/hollywoodTick.ts",
+      "sha256": "42ab330db43f3c4bf8079836e7e6e15c65a9f1dd8a9cdca50618e76f6eb37b33",
+      "size": 37841
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/hollywoodTypes.ts",
+      "sha256": "09606801a73c8c675737f972dae5b78ef41deef375aad0c9732286d13a08b68a",
+      "size": 7072
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/hollywoodValidation.ts",
+      "sha256": "b58d085621ff41e8fe6e3e8d7ebe0d2b60e4925f6faaa0e8ddc3aea622eb6aff",
+      "size": 56610
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/index.ts",
+      "sha256": "132372f417563651c7a31eec1629027b6eaef873746c5436d5b1d544d6237bea",
+      "size": 50457
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/industryCareer.ts",
+      "sha256": "088a95368557cd893a4c93d90b403a9c3debf95710fcc4d055c01726e81e2d7e",
+      "size": 1433
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/industryEmployment.ts",
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39",
+      "size": 2560
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/installationCancellation.ts",
+      "sha256": "eabfe77872df9e6b4d388b888152a20b1c46d8442dc1c96538e1bac9d2d728e0",
+      "size": 24997
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/liveRetirementWriting.ts",
+      "sha256": "eb8736770ae2d96ad90069d981327acbebb661852101143ca53afa8d1553530b",
+      "size": 1419
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/lot.ts",
+      "sha256": "b4366332889e113736ab788eee74f55fd3e5b89af2984a56436a355924b4cdf5",
+      "size": 25395
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/marketIntegration.ts",
+      "sha256": "99219178fe1c906d36c25c410a03e1b3bac8d9287536c7a026eb3e19b73570f5",
+      "size": 11774
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/marketingMenu.ts",
+      "sha256": "61d6e1efef70b880b8e2c1d3d8573d6acbb7d78b6bd781663c9af4e07e5c4e7d",
+      "size": 6600
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/math.ts",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670",
+      "size": 3704
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/newspaper.ts",
+      "sha256": "a29d5922dcf613bd9794f204d11ed3991543099c9b058c5e894fa67f68f7b1a4",
+      "size": 25821
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/occupancy.ts",
+      "sha256": "e9f66c3d225d8fe9f47d52ce18fc1ca00c587d24ec84f4dc70e9b0ab29a85122",
+      "size": 31596
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/officeConversion.ts",
+      "sha256": "bf9d928f8bbdc46e01488dae84266f686be6f1cc1bafd9c11febb090a30971f8",
+      "size": 14124
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/operations.ts",
+      "sha256": "9935b09495df1d11f39bf3b1a37b244c3d7bf7d0994cd4c8ce286571b3be3411",
+      "size": 81366
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/opportunityPromises.ts",
+      "sha256": "a4acd02eb0151af8c873f939a546bdc26265ca0c680c3c004def056e124a4461",
+      "size": 22184
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/p15Phases.ts",
+      "sha256": "a29f102947567e283eee93763c1d603bad7e5c2a53efae703cf2ef414fe5cfc8",
+      "size": 1924
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/physicalPlans.ts",
+      "sha256": "52e5901b41d97fa384888b88671ae97723a33a6c695898f22f7dd8adaafd67de",
+      "size": 39535
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/placement.ts",
+      "sha256": "28c2f23521d752ecdccf260c25b0ee06a7b8fd0a01a29b39060796d05e4086ed",
+      "size": 120850
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/powerRanking.ts",
+      "sha256": "95b094724fbaee2689edfd577b542e7e9ce99a8d5ca9bf160250d1f658290c8b",
+      "size": 8759
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/powerRankingArchive.ts",
+      "sha256": "f8b768d0bf628c836471f62721c776fa8a43a0669eddb124620554801cc13a6e",
+      "size": 13514
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/presence.ts",
+      "sha256": "fe1eb5cc044e5193a68a848e025f3acf1714775a53d479286033de87bee2c6f9",
+      "size": 37268
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/productionAdmission.ts",
+      "sha256": "fba9441b361920491e430ca87306912e7e54b40ee9bb0ce25a05c3da3d9ecd6e",
+      "size": 9366
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/productionIdentity.ts",
+      "sha256": "9e283644085782bbb951c266685040bfe648ef68bd3cf504db56a90de2d97fb6",
+      "size": 10639
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/productionPeople.ts",
+      "sha256": "2c6ea9affd6811d25cd36d85808d9470441f579153a7f0a2fb5b6a2c8a118d58",
+      "size": 505
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/productionPhases.ts",
+      "sha256": "f043868f28db91c518fbf821fdd952cde4da6509662a468131599cf48aafaf40",
+      "size": 8788
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/productionQueue.ts",
+      "sha256": "38672a2d2c0d7c5a4b7434545d9b4ebb7400865349a3ec5568fb31ddae4c6c92",
+      "size": 10648
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/productionSetup.ts",
+      "sha256": "778a40bb189b53501e5d796d3db8c12d46eaf0eeababbc0d463a45882b549935",
+      "size": 17470
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/professionHistory.ts",
+      "sha256": "aa28b6283f9738726bc649d840e5a25e744671d614a04a804534992c6204fccf",
+      "size": 24313
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/professionTransitions.ts",
+      "sha256": "945a911700f8ce8ea493f1ff080d906132b80ab9cf4d6c790a336bed1a95439d",
+      "size": 14954
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/promiseCapacityEnumerator.ts",
+      "sha256": "c0be83a91cf15e5bbf779e9336a697bd19c0b65d95f660866ad85d5c80c697d6",
+      "size": 8606
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/promiseCapacityKernel.ts",
+      "sha256": "1faa6fcac443dac046bd97fa3e27c61bada80c7297f8e69ea4ebcff76d899332",
+      "size": 58994
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/promiseCapacityOwnerReplay.ts",
+      "sha256": "9e97ffed9911af55a1a5ff5e819cf53c17dfc3214bc729cc995ae72cb956ebd5",
+      "size": 157726
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/promiseCapacityOwners.ts",
+      "sha256": "d6b6f8887d321aa2c52e8f555c40803d14381a8118c4fc84e1c9aaf037016734",
+      "size": 14197
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/promises.ts",
+      "sha256": "580ddb7d1e8c5a198f18beb5843d1cecf77680b8b735e1f2603e2c86099e950d",
+      "size": 110822
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/publicity.ts",
+      "sha256": "01f6b900730273f02f66e3148efe1904499e81f6d78f1f61c03e586fea1da3e5",
+      "size": 2990
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/queueAdmission.ts",
+      "sha256": "ad74544f539f1d383839cbbe8b19d6324b5c5fffd3e7249ae6a2cc1b330b1047",
+      "size": 4411
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/reception.ts",
+      "sha256": "ca27b0c299c463e8356615c013a4fa7acd7a7bb65c67b132480ec53c878c4095",
+      "size": 37951
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/receptionVerdict.ts",
+      "sha256": "825e474ccce57e8de4a0d3aeb1d7ad5071b8d46121f95b7544946243af03e3d7",
+      "size": 6164
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/relationshipLabels.ts",
+      "sha256": "e1d5d635b9e61867ba27bc0291315ac8fb63e8c57de5343876a2fb6fa85ec956",
+      "size": 3481
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/relationships.ts",
+      "sha256": "27026dd3020190762aa6a95da5ce3012f79face854045b06cf968d5d9b129265",
+      "size": 49637
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/releaseAuthority.ts",
+      "sha256": "9ab259623d3b5f5f75f1d750168e68ccb5c14d27d96f06f4656985db8064b218",
+      "size": 9646
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/releaseCareers.ts",
+      "sha256": "b8050c8a70b165e42ed2841bbcfd99eb27ff5986529aa94dc511e5bd196ee965",
+      "size": 4411
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/researchPeople.ts",
+      "sha256": "5202ec8a75b396a25418183c765cb8a1f10cb4b26e6e2f74bf83eee2c818e7fa",
+      "size": 1990
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/retirementWriting.ts",
+      "sha256": "73590d43ce9e374fdfa784b24e6e11a5751a91f1cecf581f128be6483ecf4f0d",
+      "size": 8965
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/rivalResearch.ts",
+      "sha256": "eb7753e88b31e980f504f28421346447eb6ece2308e42d1032fb7e9cc6e38d74",
+      "size": 18927
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+      "size": 8555
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/save.ts",
+      "sha256": "547d5bcbd982438e889c9bfd7f11c487ca2830e93e297b0ef989116b16949e14",
+      "size": 515108
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/sceneryLoadIn.ts",
+      "sha256": "f9240de85704a29aa1040694a53f2d0f7761856b579fb0dc93abf89fb8176766",
+      "size": 13224
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/screenplay.ts",
+      "sha256": "1cb32a9ccd23dd7dc51d11cf080370feeb985de66fd36d4670c936ca6d1f929f",
+      "size": 26479
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/scriptDevelopment.ts",
+      "sha256": "88ab848828a7eadad1a818a61d37cf0ab7d962ef06858c58d923ab50a56181b0",
+      "size": 46802
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/scriptReadModel.ts",
+      "sha256": "c0ee15d37264b8329de70cb37e525a4644518497527763eccdf00fc5cac73616",
+      "size": 58205
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/sets.ts",
+      "sha256": "7f18032b877f1215e7d8a6f8906509887bb0de4f899c66ba9d12c6cc66c98ab5",
+      "size": 35772
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/shape.ts",
+      "sha256": "30f1530ac6f3d144818747aa0e5bdae846e1f5c4963c8eb447eb722efc4d92a2",
+      "size": 5562
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/sharedMarket.ts",
+      "sha256": "eaf076da2b2a398d2ffb6153393e17051b4fe46a8f774b675eb21057ca2bd0c2",
+      "size": 18746
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/standing.ts",
+      "sha256": "5e1ec7279553014099077a8e5cbe02c1b78454256bf3f400634accc2209c6893",
+      "size": 11131
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/starPower.ts",
+      "sha256": "007c98dcaf612f87f7197bd14ddeb89df7a2cb0ae6542027f33d398976ccb881",
+      "size": 9011
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/studioCalendar.ts",
+      "sha256": "67ebbbe36e8c136bb7806543b9bba39b37681bafb8e51d927c35f293eb0042c2",
+      "size": 35975
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/studioEvents.ts",
+      "sha256": "570521afd32d96490092236d0041b358bd4b72abce08a79d929736a57ffbdc31",
+      "size": 11218
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/studioHistory.ts",
+      "sha256": "6c363326c75aa1359b55ead36577beab0250bd8e35d2603ee09c1eb262f02697",
+      "size": 18011
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/studioLoan.ts",
+      "sha256": "def5bd5b03e45b307615e33935ac6064e01e239735ee4128f61eae8a5b6f57b2",
+      "size": 4307
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/studioQueueView.ts",
+      "sha256": "fc3f5136d402414d1603557f2b10e661f41655d488be77959bd64d8ec7b5e7e2",
+      "size": 21163
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/studioRunRecap.ts",
+      "sha256": "1d61386ded5144e1663e72831c072d932b7c8d61bec4746885c195509f586962",
+      "size": 48435
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/studioWeekTheater.ts",
+      "sha256": "b7d3be0569fc2cd4e4394403f9b4f5e4a5c5b335b9c5b57955e7edbf43175c87",
+      "size": 29812
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/talentMarket.ts",
+      "sha256": "010ed07634a5991674dc867f61b3b78ab022c91699366d29fea26a4d5585c087",
+      "size": 92358
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/talentSummary.ts",
+      "sha256": "ef4ff968b8348bab6b31fdc9f1fed0d5293c1da13dd9c0a755da64beafd1cce1",
+      "size": 25267
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/technology.ts",
+      "sha256": "2842cb82fe703921d03bf73463dc5ae0a6724057bbb24588d299e32ce23d6fda",
+      "size": 97036
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/technologyAdoption.ts",
+      "sha256": "ccd6ce36f219e271a93374dd42e7b9c9c7b8cb99f9c0e513a841e441e7eb8027",
+      "size": 20247
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/technologyCatalogue.ts",
+      "sha256": "c9117fcff0944ffa9a518190f642fd46acddfe65d9f67f5df559558b3b941428",
+      "size": 6284
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/technologyDisclosure.ts",
+      "sha256": "cff15e66dbe6e71a3a04dffdf9c7171b864113d305bfe4b2fa753f8a87b0c290",
+      "size": 2215
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/technologyMilestones.ts",
+      "sha256": "8d8f7df921950fd9845c79e892da1da6177599a6c2514f5dc0fb5dc1cd556832",
+      "size": 1934
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/technologyProduction.ts",
+      "sha256": "aa77c468b2b59742fcf5fea9d24229ab0e0f01d656b25a18af59ce987fa3f176",
+      "size": 9909
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/technologyRival.ts",
+      "sha256": "69c8fa5ab2446b0cb3c74678538bd4b308917e0c8021e71355e5c54d07803520",
+      "size": 6810
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/technologyTypes.ts",
+      "sha256": "158776e65d9a0411c5857f79515a7e2ddc16d0a8482d4437ee55c89c8a3e3bae",
+      "size": 7851
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/tick.ts",
+      "sha256": "f923eb1694a030b3212e4f6f9881e83fd027f5ce5882a148623f58eca9cb0224",
+      "size": 64135
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/tuning.ts",
+      "sha256": "dbc81b7b2c1e3b160266a792c2485506db906858dcc6a34bcc7a62e9a2072125",
+      "size": 143696
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/types.ts",
+      "sha256": "d0d5c51ea08c8bec71d78f32b653f835d1d32c73c3f7d0d46aa3f9c541fa0dc2",
+      "size": 127306
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/vector.ts",
+      "sha256": "b692a62a7167be503a45bf752eedc04fc62e861fbaa67d0398584ca0af01898b",
+      "size": 1881
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/core/worldgen.ts",
+      "sha256": "7c38162376e5a5d69fd5f7ee56c4c76c2958dbde6a9940b097ccb257f5755f58",
+      "size": 36190
+    },
+    {
+      "kind": "directory",
+      "mode": 365,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/aggregate.ts",
+      "sha256": "9562e875073428832db05438d3bd46ba5cf14d361bf38cb81ac11f1b7b73720c",
+      "size": 27217
+    },
+    {
+      "kind": "directory",
+      "mode": 365,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/compare-d17b-production.ts",
+      "sha256": "60f9fd2c2750eae3cff511ed67b63d1021c3b5f85e67de3d8212b4405e24bcb5",
+      "size": 17871
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/counterflow.test.ts",
+      "sha256": "cb46fef7d5ee5bd67c1968c3bad735151c1fad353d6d012ed9c30bb84bd7a6f1",
+      "size": 12283
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/counterflow.ts",
+      "sha256": "c17648540b48a80d53bdb002ee46aeb468bb3bc498292d714422db64c77b4f97",
+      "size": 18065
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/driver.test.ts",
+      "sha256": "b0c5e127d215ab1ec674de33f918d9c8bf1b541d699a459913bdf0665fdab66d",
+      "size": 19909
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/driver.ts",
+      "sha256": "47cd9431caa79c9a4c17f9a771f32996fa9e9ffd179f9d56fbeee2f584d52301",
+      "size": 55312
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/experiment.test.ts",
+      "sha256": "ccaef3262ba6f4c5205cf16831e0693a2958148f880d86f675849fc59378274f",
+      "size": 10027
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/experiment.ts",
+      "sha256": "3c08c67fe4076e3fc317d6f1adc126aa95053afdf36daf243e7742ec0eeaa530",
+      "size": 19512
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/isolation.test.ts",
+      "sha256": "59dfb64a3e17108d65d5b64114b63bee8e8ea262833ea34a24ac56cea29d8abe",
+      "size": 24158
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/luck.test.ts",
+      "sha256": "230358d9f8ce418f17e368387faa12bf508947b990348d8ccc8d79151912a16b",
+      "size": 3230
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/luck.ts",
+      "sha256": "cad58de739921d7c09e9a7ecca48c56fd53e28c319737956059f62cff083ced1",
+      "size": 5261
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/packages.test.ts",
+      "sha256": "dc855509e2185ff10a1d08d5188f4a5f5b797acb392963b0656044dd7be20625",
+      "size": 17981
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/packages.ts",
+      "sha256": "dabd00dc7cfa87ffe99c0cb9a1aabc5c574d1720f350a08a006c423181e7650b",
+      "size": 39998
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/policies.ts",
+      "sha256": "56c9e358ea307309327c1abfdfc8fcbea76ec5b73b7dfeccd15577d44768ddbb",
+      "size": 45775
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/production-agreement.test.ts",
+      "sha256": "15983af90316fd0c387e7077b2f143104ac4f942f38771fdf2a1a3debc5400f0",
+      "size": 3302
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/productionIdentity.ts",
+      "sha256": "0e472c916ad5aac3a181d367b155fe599fa15511b99e3815007766246ac8a1d0",
+      "size": 1213
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/publicity.test.ts",
+      "sha256": "35cb17c4ff59e83854258b920a071399f40ae81ffb9deaa69b9463e36dc30483",
+      "size": 16860
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/publicity.ts",
+      "sha256": "77f7fd9481e94dca9e91c79d9ac5428a2f40afd3e61392cb4fbbe19f7e2ad5b2",
+      "size": 19349
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/run-d16-corpus.ts",
+      "sha256": "91130cba5f1d78e1c0520010196892ef03392b730cc91e02d803598d1b9d3a3a",
+      "size": 43622
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/run-d17b-continuation.ts",
+      "sha256": "8fabf8806167281db95a99b769094d98f45262e6f30cb0a53f8dadceff070c04",
+      "size": 21350
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/run-d17b-week86.ts",
+      "sha256": "b172a567a98a4d16ce8d5d0ba3d9bcfd3e806f04de4dcb55ea6bfc2cad503701",
+      "size": 12501
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/sourceProvenance.ts",
+      "sha256": "b071c131add5c96e351afacbdad6a27fd6e359ae1a4330c9e0c2dbb8b85bc8c8",
+      "size": 917
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/states.test.ts",
+      "sha256": "d867f547a3a698501688d66054d7157a238111e45fc65fa2950b28b052d8ed23",
+      "size": 11336
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/states.ts",
+      "sha256": "dd12173c5784d336b40b580d9ed87bd727bd895b1284de3bf70f775cba50ca23",
+      "size": 14544
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/stats.test.ts",
+      "sha256": "d3b09d7689fc7db92d955bc6aa9ba75934ecef63e05c5bd80a6338b1c3eab8b3",
+      "size": 4869
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/stats.ts",
+      "sha256": "2d779d930ba6661d9d05ba0a47fe1a46ef1e66482dbfc9f8bcded15bc44c1225",
+      "size": 7216
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/view.ts",
+      "sha256": "f32ea92a667d3dcc78d93fd12978f6a1c4112918de566ea8bf6b6b4c887a2bb2",
+      "size": 20846
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/d16/vitest.d16.config.ts",
+      "sha256": "c28600c717ab3a318a1b7b6879d099aead67dc946355c877a58d75ad398b4cb2",
+      "size": 883
+    },
+    {
+      "kind": "directory",
+      "mode": 365,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/facilities",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/facilities/index.ts",
+      "sha256": "2dacfaaaeef073c472b94180fede2f58b96e49393a8b1108e9a4988e22a89953",
+      "size": 105531
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/measure.ts",
+      "sha256": "ffd2acb87e1b1cc7104c9bbb77060339c333699d7be3342e1f5a35558b2b8185",
+      "size": 11014
+    },
+    {
+      "kind": "directory",
+      "mode": 365,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13a",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13a/fixtures.ts",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+      "size": 2130
+    },
+    {
+      "kind": "directory",
+      "mode": 365,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b/fixtures.ts",
+      "sha256": "6f2d51bb6cf6d77847c1e86340f6c3dba3f026c115c92773c534f3d8f3d31770",
+      "size": 9137
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b/legacy-v20-fixtures.ts",
+      "sha256": "f777d57ca4cc9b00667433ed8817095a7ad9c0ef3e6068df9132fb4564a96a02",
+      "size": 2668
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b/legacy-v21-fixtures.ts",
+      "sha256": "d1740e4a0f9983154cf5948548a9b1ad685ebdafa2681d5130b44e2438cd78f8",
+      "size": 3895
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b/legacy-v22-fixtures.ts",
+      "sha256": "0704482264a60848cd63915c93b941910650a048f5c7d1e34aa1282e1ad85e02",
+      "size": 2917
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b/legacy-v23-fixtures.ts",
+      "sha256": "9d27aa0e64c11fc752f3fa503565969e034dc89c934a898bb15a8331df192c6a",
+      "size": 4220
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b/legacy-v24-fixtures.ts",
+      "sha256": "9bcabdcf0e6e8560bfe79249d92f1232e06e9ad6f0e2123567270a518f8154ad",
+      "size": 4517
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b/legacy-v25-fixtures.ts",
+      "sha256": "bda365faa71820f8294e9e85114c21f112cdadb878f47a54fbd4a5e385494799",
+      "size": 4424
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b/legacy-v26-fixtures.ts",
+      "sha256": "9486527b6d6c324d90d0e62c8a47ce1172cdd3ea638c5212d5b7dcd286a1daed",
+      "size": 3844
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b/legacy-v27-fixtures.ts",
+      "sha256": "c834ebecacf04338897493b6eec7e9844e0e1024d084c359af919bb7e7fcb40f",
+      "size": 3589
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b/s3-fixtures.ts",
+      "sha256": "790d542939ec2ef08d7bc932fbb6335e73cdaf36faf7d8bc868b2bbd924cd0ca",
+      "size": 1692
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b/s4-fixtures.ts",
+      "sha256": "b9ff6f2c42c3c8ba54c2d3b28ba808e182a8f365059693e58dbf1ffcfa2fc2f7",
+      "size": 5270
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p13b/s6-fixtures.ts",
+      "sha256": "4ccc74fc7be78d954f5e44d746a5fbf55b7f5228c18ce3c17df24c3b90398169",
+      "size": 4854
+    },
+    {
+      "kind": "directory",
+      "mode": 365,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p14",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/p14/legacy-v28-fixtures.ts",
+      "sha256": "b4bfd704545be85ef81aa7cdb18f5390809983c5357a714182084a60aa5f38bc",
+      "size": 15128
+    },
+    {
+      "kind": "directory",
+      "mode": 365,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall/artifacts.ts",
+      "sha256": "a797f939d1ccefce7ea40b8535ad1af57191b0789401050d3b2abae97d101b11",
+      "size": 143102
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall/campaign.ts",
+      "sha256": "24ff204180c3e8adf21e978ea76669536259574eaa69d2d2b531e42065736b1e",
+      "size": 60099
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall/continuation.ts",
+      "sha256": "db487c2cdd70e412fbc819819e8b52df979817d84a246b08f4570d42f8530389",
+      "size": 62670
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall/corpus.ts",
+      "sha256": "80b4a344469540741fcc1281bfe24b02e40e90d1fef457fc2ee24c78d61f7fdf",
+      "size": 12059
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall/fixtures.ts",
+      "sha256": "2f25a9ae771a9052a20a15ee075062e47922a6eb8ecc220521011069ca6d2b7f",
+      "size": 36939
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall/historical-control.ts",
+      "sha256": "2b7b69a5fed68faa618735d1f0d26473d451bd7fbaecc2678fb1b7c002bd08c7",
+      "size": 12273
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall/player-policy.ts",
+      "sha256": "e20381593a39929ea7cbdcb106903cc69138b694dfad13835898f6c0df6445fd",
+      "size": 56513
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall/provenance.ts",
+      "sha256": "f4782ee266c3e933f61003b2a56e10aa03c66f324b5c85a875f8998a02b27b21",
+      "size": 11057
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall/records.ts",
+      "sha256": "0c14448a22a36553b82beb19f65790dfce13374003dc216a336c93ce529ba7a0",
+      "size": 1575
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall/renewal.ts",
+      "sha256": "f699af2b240476c470d7f4a167523f087702662f0a229235ca1fd0d1a7fce1c3",
+      "size": 18640
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall/schema.ts",
+      "sha256": "f7c5f93de1ebba0b8285c1f3c0905efbe1025fde6efb592dfe84dfeb5874e2aa",
+      "size": 18601
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/roster-wall/summary.ts",
+      "sha256": "df380b54886409874bb1301456ce3827777dfa557f412679d4eaab05192f6ec9",
+      "size": 92651
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-capital-risk-reward-audit.ts",
+      "sha256": "5cb07b311353b886612989c0c8869f082bad79c1b174cc14c016340bbc9c2105",
+      "size": 45553
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-corpus.ts",
+      "sha256": "0c334b66db9c340342e8b74195ea932cefe2838a6d0c6cb00a8069c396bce735",
+      "size": 10051
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-creator-baseline-study.ts",
+      "sha256": "c8abae6627f8f644fcaa3b03ec7f7539a134643e499c873d90f36fe4154ee3d4",
+      "size": 10355
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-creator-development-study.ts",
+      "sha256": "a75b122490ea161968babbcc0f268bfc5e5ef2ae6fefd471a68ef54786a5c70b",
+      "size": 5689
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-dev-study.ts",
+      "sha256": "7eb8da0d7b9125b19c92460544834d3e4993462c65cf93fc6664c0573b939a55",
+      "size": 18360
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-driver.ts",
+      "sha256": "55e2cf7a6bf3a0da57d2ceeb6718ffabd136dbff91b14adc79a784b0b453d85f",
+      "size": 19469
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-economy-balance-study.ts",
+      "sha256": "0c4344c4753bccab61ec92958900e122ad758b36568bb1d31c2caa4231ac25ec",
+      "size": 38781
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-facilities-observatory.ts",
+      "sha256": "ce6fd8ca62d8581ba06f8ad86cb943fa199cc8fcb8b82f263966446109a97efe",
+      "size": 19369
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-final-balance.ts",
+      "sha256": "0c6b7901cb177a73a15176d630c3f19b9cbf888c2164c1f6b72c1181dc78c767",
+      "size": 20323
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-integrated-balance.ts",
+      "sha256": "92c29027fcc8617219ef71ae62f1b1b3472b3cae4920d604256f26a33dd8526b",
+      "size": 14182
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-microbudget-dominance-audit.ts",
+      "sha256": "2d300f4e02d6be28dd0d8240b37d4fbde702d0499be729722cc3deb60cbdf67b",
+      "size": 48407
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-multihyphenate-stats.ts",
+      "sha256": "ec00a0722c2152555265dee1eb27d33da284f2ead4ce98eeb6f23fabc04abb2c",
+      "size": 8421
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-owner-calibration-study.ts",
+      "sha256": "95e2ba022fc77fbdfc069ed4d334a27bc25e586ca5a6224150a776ea2d14266f",
+      "size": 57748
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-roster-balance-study.ts",
+      "sha256": "789d25830d974e70a529f70ba6b5154394d752dc5ee9aacf2603ac7030758577",
+      "size": 14619
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-roster-wall-observatory.ts",
+      "sha256": "9f2c167c614bdd246aebec25f07024a63f2660b860ecdb60ceb70cfa3b06db11",
+      "size": 5261
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-selection-stats.ts",
+      "sha256": "5eecfa59c1624650c5665e80de8c7cbc01b7e94720b84acecd5248b0d8aee113",
+      "size": 5117
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-shape-sensitivity.ts",
+      "sha256": "09b289bfcde6f0d0fa6a05e2a33dedbff233e0638b0a9e4c5d9f8f206f9bfde5",
+      "size": 8924
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-star-power-calibration.ts",
+      "sha256": "ea04887ca850a6ad340b09dbc17ed25d37e71e89a3e67c04db2ec85635022ce7",
+      "size": 8829
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/src/harness/run-writer-bottleneck-study.ts",
+      "sha256": "2eb0d26a12d447e055060237811e7c7d179a8b1ec1e25030fcc37e3ab4cf5b7f",
+      "size": 17537
+    },
+    {
+      "kind": "directory",
+      "mode": 365,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/tests",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/tests/1368-ledger-attribution.test.ts",
+      "sha256": "76fb3eddf1b6bab3e8723908d9d2840ef4df491f4f41a23f864c6ea45ddff755",
+      "size": 53244
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/tests/1368-ledger-original.ts",
+      "sha256": "e76148d283054a864176dfaa247447169edba449f0bfdb5dbb92e8736733b618",
+      "size": 15098
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/tests/bridge-p14b5-relationships.test.ts",
+      "sha256": "7477288c2430681c2c5dd0ee959fd46d2d7d9cdb40e9bf1edf8249eac76da4b7",
+      "size": 49189
+    },
+    {
+      "kind": "directory",
+      "mode": 365,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/tests/contracts",
+      "size": 0
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/tests/contracts/_contractFixtures.ts",
+      "sha256": "7554a6b11f0756c7cd286a7732ab888757a129fe0d9f10657c93c4d214f10de2",
+      "size": 14997
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/tests/full-state-neutrality.test.ts",
+      "sha256": "2c82482c7c5ffda402d72913b65c147646303882c4979ca4fd95f477cd9a95dd",
+      "size": 6685
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/tsconfig.1368-ledger.json",
+      "sha256": "3e8a3b07416bb03e9c859c514308fc8fc0a1ab538fbc0600746a4ae957a5b1aa",
+      "size": 222
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/tsconfig.json",
+      "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f",
+      "size": 706
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/vitest.1368-ledger.config.ts",
+      "sha256": "a38a64e53b22daebb0953e1e7271c972fc54e4f6643a35f306bda6124bc6b7cf",
+      "size": 236
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/vitest.1368-ledger.workspace.ts",
+      "sha256": "27326ff66aced4a8f1de8c60336ed72d9524e0b01249da1bef7a91b6561391e3",
+      "size": 115
+    },
+    {
+      "kind": "file",
+      "mode": 292,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/runtime-tree/vitest.neutrality.config.ts",
+      "sha256": "45f691f113798ac50dc6648a327dded730628f86019e0c210cf0349aed454caa",
+      "size": 234
+    },
+    {
+      "kind": "file",
+      "mode": 420,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/summary.json",
+      "sha256": "26d88f84dc1c38cbc97e21ad86403500ae9ae91ec6c1eadc8270fff9ddd7acac",
+      "size": 876
+    },
+    {
+      "kind": "file",
+      "mode": 420,
+      "path": "ag-p13a-clean-r10-ag-p13a-20261007-222146/vitest.json",
+      "sha256": "fb15af7cb0560a83648a48322e08b323c8616665492205ca192fced27e4a1f29",
+      "size": 1011
+    }
+  ],
+  "schema": "1370-r10-ag-p13a-raw-archive-r1",
+  "source": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r10/ag-p13a-clean-r10-ag-p13a-20261007-222146"
+}

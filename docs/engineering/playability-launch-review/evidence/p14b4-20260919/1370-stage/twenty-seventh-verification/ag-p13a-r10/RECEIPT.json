@@ -1,0 +1,35 @@
+{
+  "archive": {
+    "bytes": 1516356,
+    "sha256": "dbf86c240a07b40be7d6c478dcf79d7f0fa58abb347bc8dae10a3ba47cc27bab",
+    "tarBytes": 973608960,
+    "tarSha256": "29dc90715b0691d6dd49fdaaad5b693c5ab3d21aa68d3fe5a2807c14e9b6d990"
+  },
+  "auditLogSha256": "a6652613951b146b38989c55905a80911c8229d84366c9597543a0abd32d0633",
+  "auditScriptSha256": "c4234674de8cede86b7641ddb43f733edf7b2efc3ab1be0ece3be3e9fb7b16c0",
+  "builderSha256": "ca4daffc68fbf943251cc84b15c9205dc1bc3772a6edd32877368b316d991dda",
+  "classification": "BYTE_PRESERVATION_ONLY",
+  "counts": {
+    "directory": 14,
+    "file": 209,
+    "symlink": 1
+  },
+  "decision": "ACCEPT_BYTE_PRESERVATION",
+  "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "laneMetadataSha256": "6eede23b059301688803542e5328f54d147160260be49147c903aee882ea8592",
+  "limits": [
+    "archive byte preservation only",
+    "unobserved source change and restore between scans outside proof",
+    "publication and raw removal separate"
+  ],
+  "manifestSha256": "d4d8a51d3d9bdfa552956cc4a4332f4cb88bb0b444a198985a81ebfe23815482",
+  "memberCount": 224,
+  "membersSha256": "3b43a7293f8608e88a100bd6c717f984a6d7d30041987fb87f99c47e3dae039f",
+  "rawLeafPreserved": true,
+  "rebuildByteIdentical": true,
+  "reviewSha256": "4a1d6fbaabca6e2fc5cd5eb0f160a518e495af52ac4a406c7e5fecdcef3d8ced",
+  "reviewedAtUtc": "2026-10-07T22:40:54.869026+00:00",
+  "schema": "1370-r10-ag-p13a-archive-review-r1",
+  "source": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r10/ag-p13a-clean-r10-ag-p13a-20261007-222146",
+  "sourceTreeSha": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

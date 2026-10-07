@@ -1,0 +1,14 @@
+{
+  "arm": "AG",
+  "decision": "ACCEPT_OBSERVED_CLEAN_ONLY",
+  "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "laneLogSha256": "483737891476fd747485b118ffdf9b5aed6184f7e324f9e50acbd58a317476e7",
+  "laneMetaSha256": "812f687764e73a908518eed5e2f5fa76da48a1b231986bb0bc7445db4d858a15",
+  "manifestSha256": "29495648e2bb4da45e90fd49c0e708d7c8338e22ff4ea2365a38c96e35ce2844",
+  "outerResultSha256": "8e44bc986a62c7a5adb56235d3c45d59b80bdfa9d872cd22fcc09e8f9f3d6899",
+  "reviewSha256": "49e28c0209ff9dcf481cf9e74c2798bae61d54e37a930c4353ffaab76e34fcff",
+  "runId": "r10-ag-p13a-20261007-222146",
+  "seed": "p13a-core-causal-01",
+  "staticReviewReceiptSha256": "77bb673a98e8ec61eabcea8de366052cc983b51a24748acb0ae5dcf427be89e1",
+  "targetResultSha256": "8c391a1394a75b4347fe5b6b2959a237c6044aee94563538eb57eccba5c22956"
+}

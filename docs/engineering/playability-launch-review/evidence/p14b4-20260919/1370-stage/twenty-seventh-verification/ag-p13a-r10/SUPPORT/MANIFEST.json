@@ -1,0 +1,69 @@
+{
+  "files": {
+    "LANE/lane.log": {
+      "bytes": 109,
+      "sha256": "483737891476fd747485b118ffdf9b5aed6184f7e324f9e50acbd58a317476e7"
+    },
+    "LANE/lane.log.meta": {
+      "bytes": 3290,
+      "sha256": "812f687764e73a908518eed5e2f5fa76da48a1b231986bb0bc7445db4d858a15"
+    },
+    "OBSERVED/RECEIPT.json": {
+      "bytes": 822,
+      "sha256": "206241b42791ee973b521fb02fa25caf39cbe9af3d0868d5aa29aae92aed5273"
+    },
+    "OBSERVED/REVIEW.md": {
+      "bytes": 3229,
+      "sha256": "49e28c0209ff9dcf481cf9e74c2798bae61d54e37a930c4353ffaab76e34fcff"
+    },
+    "OUTER/LAUNCH.json": {
+      "bytes": 124,
+      "sha256": "8602f8f36bcf68ca817f790b35bebea8186a26c3d3a4e30bfc783d748609d4c9"
+    },
+    "OUTER/RESULT.json": {
+      "bytes": 1627,
+      "sha256": "8e44bc986a62c7a5adb56235d3c45d59b80bdfa9d872cd22fcc09e8f9f3d6899"
+    },
+    "OUTER/RESULT.sha256.json": {
+      "bytes": 83,
+      "sha256": "5f155991145a514e0eb680ffc6a2933978e19c6e4aae0d6f241f28b321f92945"
+    },
+    "OUTER/WATCHDOG.json": {
+      "bytes": 199,
+      "sha256": "4a0194f9b85f56c4456910ca87de50843027c1eecc5b7232f5a5713ed3d33c26"
+    },
+    "OUTER/child.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "OUTER/child.stdout.log": {
+      "bytes": 109,
+      "sha256": "924bf01d0fac00177009d56d56a3a928942a12b6cd406548d380c012e6b1f6ac"
+    },
+    "PRIOR-FAILURE/r8-audit.md": {
+      "bytes": 3717,
+      "sha256": "f08c403710a7958f32bf217c678162273ca49aba246ef6ee4c5016ff87add653"
+    },
+    "PRIOR-FAILURE/r9-static-refine.md": {
+      "bytes": 5637,
+      "sha256": "b7f6f07557bdd7932c8c9015340d9bb6037a1ea1bafdc47c7766e5732f3feab6"
+    },
+    "STATIC/EXACT-LANE-COMMANDS.txt": {
+      "bytes": 14849,
+      "sha256": "17892764c89f1d9d4f64518a0c8856eb850d13f1b6a9bbf3eb1848e58261feb5"
+    },
+    "STATIC/MANIFEST.json": {
+      "bytes": 58720,
+      "sha256": "29495648e2bb4da45e90fd49c0e708d7c8338e22ff4ea2365a38c96e35ce2844"
+    },
+    "STATIC/RECEIPT.json": {
+      "bytes": 391,
+      "sha256": "77bb673a98e8ec61eabcea8de366052cc983b51a24748acb0ae5dcf427be89e1"
+    },
+    "STATIC/REVIEW.md": {
+      "bytes": 3980,
+      "sha256": "eb7c3db343aa5451414a2dc50d6f7bd5b309f6310e0c40c71d50d8d1c676b83e"
+    }
+  },
+  "schema": "1370-r10-ag-p13a-support-r1"
+}
