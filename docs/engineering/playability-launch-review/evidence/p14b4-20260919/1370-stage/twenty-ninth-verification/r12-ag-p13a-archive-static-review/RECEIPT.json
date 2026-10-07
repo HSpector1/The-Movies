@@ -1,0 +1,18 @@
+{
+  "archiveBytes": 112936960,
+  "archiveSha256": "87731d731d58d5d5b229fe170751744da62b1658765d59159cf6ed61355853fd",
+  "builderSha256": "195053aa0105c896a064f1895b3404ab618631580551e56c4bcd17d605581836",
+  "decision": "ACCEPT_STATIC_ARCHIVE_ONLY",
+  "frozenR2PathObservedRunRequired": true,
+  "manifestSha256": "1aacbd7cfec79556dd6a2a86f96fa324cd1375c14cfd8b9a332369612dc07132",
+  "memberCount": 219,
+  "r1ActualChildExit": 1,
+  "r2ExploratoryActualChildExit": 0,
+  "remoteRestorationRequiredBeforeRawDeletion": true,
+  "reportSha256": "eb2870481741c340af78bf3695f23c96f784d3f325a612dcb30114bb0a7e2292",
+  "scope": "FROZEN_R1_PACKAGE_AND_R2_VERIFIER_STATIC_NO_EXECUTION",
+  "sourceByteAuditPerformed": false,
+  "sourceMetadataMatch": true,
+  "verifierR1Sha256": "65ee6ec8aa973924909e0bee5de1800f5abaad54fa0d1d967dc5283ba166a4d3",
+  "verifierR2Sha256": "ab21059157a673eabe818cf307e3cfac79edf3c0bc52148d026ad75dd1615ef8"
+}

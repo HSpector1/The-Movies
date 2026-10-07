@@ -1,0 +1,20 @@
+{
+  "actualChildExit": 0,
+  "archiveBytes": 112936960,
+  "archiveSha256": "87731d731d58d5d5b229fe170751744da62b1658765d59159cf6ed61355853fd",
+  "decision": "ACCEPT_OBSERVED_LOCAL_ARCHIVE_ONLY",
+  "laneLogSha256": "c5fcf8a097623c81cd621fbef7579e44ba210f1a7ff61e726652ea2170eeb22c",
+  "laneMetaSha256": "9482710e08fc200fa212f0581d002593a7c63384748b962510689846b5ef33b2",
+  "manifestSha256": "1aacbd7cfec79556dd6a2a86f96fa324cd1375c14cfd8b9a332369612dc07132",
+  "members": 219,
+  "observedUtc": "2026-10-07T23:57:56Z",
+  "parts": 3,
+  "rawSourceByteEqualityVerified": false,
+  "remoteRetrievalVerified": false,
+  "reportSha256": "c83b01106cf939ceadf7420086a9b6b6a507385cd283701ff074e3fa197d6053",
+  "reportedStatus": "PASS",
+  "scope": "FROZEN_R3_LOCAL_ARCHIVE_VERIFIER_ONLY",
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "sourceLeafPresent": true,
+  "verifierSha256": "ab21059157a673eabe818cf307e3cfac79edf3c0bc52148d026ad75dd1615ef8"
+}

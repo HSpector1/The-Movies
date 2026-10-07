@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-r12-ag-p13a-clean-archive-r1/verify.py", line 69, in <module>
+    print(json.dumps(verify(root),sort_keys=True))
+                     ~~~~~~^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-r12-ag-p13a-clean-archive-r1/verify.py", line 55, in verify
+    while b:=f.read(1024*1024): h.update(b); n+=len(b)
+             ~~~~~~^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tarfile.py", line 716, in readinto
+    buf = self.read(len(b))
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tarfile.py", line 705, in read
+    b = self.fileobj.read(length)
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tarfile.py", line 536, in read
+    buf = self._read(size)
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tarfile.py", line 544, in _read
+    return self.__read(size)
+           ~~~~~~~~~~~^^^^^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tarfile.py", line 574, in __read
+    buf = self.fileobj.read(self.bufsize)
+  File "/Users/zacheryspector/studio-scratch/1370-r12-ag-p13a-clean-archive-r1/verify.py", line 35, in read
+    self.completed.append(name); self.f.close(); self.f=None; self.i+=1
+                          ^^^^
+UnboundLocalError: cannot access local variable 'name' where it is not associated with a value

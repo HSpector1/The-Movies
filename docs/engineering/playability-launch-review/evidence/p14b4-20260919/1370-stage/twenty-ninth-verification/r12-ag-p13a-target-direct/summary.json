@@ -1,0 +1,27 @@
+{
+  "schema": "1370-ag-e0g-full-state-leaf-r12-gzip-verified",
+  "role": "AG",
+  "seed": "p13a-core-causal-01",
+  "version": 45,
+  "ticks": 416,
+  "boundaries": 417,
+  "progressRows": 8,
+  "observerProbeWeeks": 8,
+  "observerProbePassed": true,
+  "boundaryBytes": 968056328,
+  "boundarySha256": "a1a7e36f4786c47083323a5701593c9d1ca10903708642783c5ad702d53f39b4",
+  "boundaryCompressedBytes": 107371606,
+  "boundaryCompressedSha256": "a1668b2f5b537b19972d72f280f9aaeba73faa218a99c0481b2fa93cd52eb52b",
+  "boundaryEncoding": "gzip-concatenated-members-one-per-boundary",
+  "terminal": {
+    "marketReceiptRows": 152,
+    "industryReceiptRows": 282,
+    "employmentRows": 44,
+    "firstTakeRows": 51,
+    "rng": "2598418427,508725886,1318803286,3129010527",
+    "settlement": "4d57514e9f9b2610d72016e9a2eed582ccd1aba45e1932be96024bf9660de148",
+    "receipts": "11899f02ff97c8b78977b0b11f319dee27b02d023ba41f1b8e5a1d990cea9ecf",
+    "employment": "161c8c9bc6b4629af981265c4f79e18a7834a797ba56d21cb6bb2c3f603e210f",
+    "takes": "d55f8f63bf0b772b2bc3496df1a23d435bfc6755a526a7aa0292f496f7c03d8f"
+  }
+}
