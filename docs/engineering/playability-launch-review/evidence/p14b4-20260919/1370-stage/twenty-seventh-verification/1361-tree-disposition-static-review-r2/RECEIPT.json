@@ -1,0 +1,14 @@
+{
+  "decision": "ACCEPT_STATIC_FOR_PROBE_AND_BOUNDED_DISPOSITION",
+  "manifest_sha256": "2ca6045473034b1c28218ed06de30dc26e47a2ff25ca12e564edeecedc9acf11",
+  "remote_head": "f90aed0908cf1963288936f444811ad698649fc3",
+  "remote_restoration_receipt_sha256": "b1377e297efcd979b5af8f412bba944e8e27950669ececa7c3f47e3ce12d7187",
+  "report_sha256": "59553e5d8174ddbcb601240cee1f002e5b9ac036752e42ab17d2bc0072507dc7",
+  "review_request_sha256": "1ae6e8d34f190bc56e66ee519b5ed0fdf5660d65b743c935ce1e0c1960e3f9ae",
+  "scope": "static only; no probe, deletion, or Git edit",
+  "script_sha256": "d6c65a479cc5238e7c040ce180bc108be33b345536e61c101d2a8b1c19e64288",
+  "source_state_match": [
+    "x2",
+    "x3"
+  ]
+}

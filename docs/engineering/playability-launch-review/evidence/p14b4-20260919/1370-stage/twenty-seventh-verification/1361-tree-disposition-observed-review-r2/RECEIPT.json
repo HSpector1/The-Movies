@@ -1,0 +1,20 @@
+{
+  "decision": "ACCEPT_EXACT_DISPOSITION_RESERVE_NOT_MET",
+  "execute_actual_child_exit": 0,
+  "execute_log_sha256": "cfb069d8932924f9123c3c5d5a266927989a8a9fe53fe6e139a6657b2329ecbc",
+  "execute_meta_sha256": "f470303b7e3d8b754f9d8357c9762ea8e11d259de121dd22949af4789411cc14",
+  "later_measured_free_kib": 4378932,
+  "probe_actual_child_exit": 0,
+  "probe_log_sha256": "c259f119de11f07468a1db3340b6ee4b733206067b263ec8aec5cdd53203aeda",
+  "probe_meta_sha256": "67f95f326f36a20a09c8901d33baa9ba40eca05cdb43a1ff35e1625ac891e3a0",
+  "recorded_final_free_kib": 4379164,
+  "remote_head": "f90aed0908cf1963288936f444811ad698649fc3",
+  "remote_restoration_receipt_sha256": "b1377e297efcd979b5af8f412bba944e8e27950669ececa7c3f47e3ce12d7187",
+  "removed_exact_trees": [
+    "x2/tree",
+    "x3/tree"
+  ],
+  "report_sha256": "8b1fed79d1084607167d96818bd29aff548589c7a097f993bc8371272a8612c2",
+  "required_free_kib": 4456448,
+  "sibling_records_preserved": true
+}

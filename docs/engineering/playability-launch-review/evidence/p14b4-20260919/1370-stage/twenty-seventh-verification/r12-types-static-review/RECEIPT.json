@@ -1,0 +1,23 @@
+{
+  "block": "DISK_PREFLIGHT_BELOW_4563402752_BYTES",
+  "commandsSha256": {
+    "ag-adoption.command": "a6baa863d4b0a1c22c9f7257a887454fa4d32bde692177631464aaac60f61101",
+    "ag-p13a.command": "13fcac9efa3c8bd0d5f49b06b5146ac1b35bfbb261c590809ab6a7b52b55476b",
+    "e0g-adoption.command": "4a0114fe340c1efb6d8c8e346d7f8052f76fbbbeafd75924260c5570f9e82c54",
+    "e0g-p13a.command": "518d8d6137f43a16ed48d09bed700bbcccce25a33a0faaa4bc3f490ffea12135"
+  },
+  "decision": "ACCEPT_STATIC_TYPES_LAUNCH_ONLY",
+  "executionAllowedNow": false,
+  "manifestSha256": "ed8826f5cdf563c4aceee2fc6a22dbe2263f6f705f43ec622cff281a52d9f703",
+  "observedFreeBytes": 4217872384,
+  "observedUtc": "2026-10-07T23:36:40Z",
+  "packageStaticReviewReceiptSha256": "a18026f9e5bff44945d956a548c5f80c19771f82bfab4d70b564eee77d9a9896",
+  "planSha256": "bd083f2cd07fc2be3fffbe1f75b8a31656917fa302d3cfcde704fd2d5b2c6b39",
+  "reportSha256": "942a0fc39c17121e3521e426dc5fa553731f7db1a0247a0e799612bf92588072",
+  "requiredFreeBytes": 4563402752,
+  "scope": "STATIC_PLAN_AND_COMMANDS_ONLY_NO_EXECUTION",
+  "shortfallBytes": 345530368,
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "templateSha256": "667f12dd71f791b6986707c3f83ad57fbe9c39dfc53c34e68bf55b30064cd442"
+}
