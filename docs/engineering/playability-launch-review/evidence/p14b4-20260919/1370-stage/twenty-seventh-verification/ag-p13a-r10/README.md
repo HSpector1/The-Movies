@@ -1,0 +1,9 @@
+# AG p13a r10 clean capture — bounded evidence
+
+This is one independently observed **CLEAN_ONLY** leaf from published source HEAD `b995a83e5363a3843f9b902e08c2df4dd95840cb`, run ID `r10-ag-p13a-20261007-222146`. The child and recorder exited 0 under the original 300/330-second limits. The run recorded 416 weeks, 417 complete boundaries, eight progress rows and one passing Vitest test. The source tree was `13880d9b0ba72aff5d4c5bcf5d12fe682c5de554`; AC, disk, package, mirror and process-cleanup guards passed. The independent observed receipt is in `SUPPORT/OBSERVED/`.
+
+`EVIDENCE.tar.xz` preserves the exact target leaf: 209 files, 14 directories and one symlink. Its SHA-256 is `dbf86c240a07b40be7d6c478dcf79d7f0fa58abb347bc8dae10a3ba47cc27bab`; the decoded tar SHA-256 is `29dc90715b0691d6dd49fdaaad5b693c5ab3d21aa68d3fe5a2807c14e9b6d990`. `MEMBERS.json` records each original object's type, mode, size and digest or symlink target. The independent `REVIEW.md`/`RECEIPT.json` verify every decoded member and a byte-identical rebuild. `DIRECT/` and `SUPPORT/` keep small receipts, guards, commands and earlier failure attribution directly readable; `SUPPORT/MANIFEST.json` pins their bytes.
+
+The earlier r8 attempt with an invalid run ID stopped before a leaf, and its corrected run failed at Vitest's temporary config write before game simulation. R9 was not launched after static review found mirror-guard defects. R10 fixed those runner issues in a separately reviewed package. These failures retain their original status.
+
+This evidence admits **one AG p13a clean capture only**. It does not establish AG→E0G neutrality, the adoption-seed comparison, observed acceptance, 1363 closure, a `main` merge, or P16 implementation. The evidence branch preserves this large capture without moving the source-bound work branch during the remaining clean leaves.
