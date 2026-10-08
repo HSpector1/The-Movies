@@ -1,0 +1,39 @@
+{
+  "captureEvidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "captureProductionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "classification": "FROZEN_UNRUN_STATIC_REVIEW_PENDING",
+  "currentEvidenceTip": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e",
+  "currentProductionHead": "afea5fb6abba09bec6cada7e4c5a1ccfaf05caff",
+  "files": [
+    {
+      "bytes": 49853,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r10/runner.py",
+      "sha256": "cc9a5c5e4bec73ebc13abb62efd75c457dd66a22b7d63063d1e63877fa7ff01e"
+    },
+    {
+      "bytes": 5996,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r10/BINDING-SOURCE.json",
+      "sha256": "1ab26bd78417d4b397cd25f4c1da63d873f7d0320233e99552ae41acc43f4d99"
+    },
+    {
+      "bytes": 4396,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r10/selfcheck.py",
+      "sha256": "919344c8b08ae0faae1521bbcad2a5d18de1c48795ad2937e7b7b9104b4e8a1f"
+    },
+    {
+      "bytes": 2714,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r10/PLAN.md",
+      "sha256": "b22dd464c0e150205604d35208769c1a897aede308e8e36abe7e26db535bf4b1"
+    },
+    {
+      "bytes": 914,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r10/REVIEW-REQUEST.md",
+      "sha256": "0bae9cdb57dd4619dccfada8d4f9745af6140f3c3f2a9a044a8426fc90108375"
+    }
+  ],
+  "postR9BaselineObservedReceiptSha256": "b0b58d06f21e81bfb6357e2295708e5fc11b5a2248f1c1cd5babf331689e8de3",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r9ObservedStopReceiptSha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4",
+  "runId": "20261008-h-types-r8",
+  "schema": "1370-c0-h-typecheck-collection-runner-proposal-r10"
+}

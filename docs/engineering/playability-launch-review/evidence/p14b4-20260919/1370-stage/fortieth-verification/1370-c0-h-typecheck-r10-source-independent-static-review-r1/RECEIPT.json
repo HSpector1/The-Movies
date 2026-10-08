@@ -1,0 +1,33 @@
+{
+  "closedFromPrior": [
+    "CAPTURE/CURRENT refs separated",
+    "post-r9 observed baseline bound",
+    "current root tuple used for preflight",
+    "R9 STOP and UNATTRIBUTED_R9 preserved"
+  ],
+  "decision": "REFINE_STATIC_SOURCE_UNRUN",
+  "priorDraftRefineReceiptSha256": "f614e215c3b20e663151bde8896fd46e114b2a20b30d3fc36816dfb352aa2b51",
+  "reportSha256": "71cc5151051cd81f6f10b0ab317fc904a496309ac65d42a8785074d78e1decc1",
+  "requiredCorrections": [
+    "bounded tracked guard/Git process-group cleanup and output cap",
+    "stdout/stderr-only cap rather than child-wide RLIMIT_FSIZE",
+    "retain before-child checkpoint in classified after-checkpoint failure"
+  ],
+  "runtimeClaim": "NONE_UNRUN",
+  "schema": "1370-c0-h-typecheck-r10-source-independent-static-review-r1",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r10",
+  "sourcePins": {
+    "BINDING-SOURCE.json": "1ab26bd78417d4b397cd25f4c1da63d873f7d0320233e99552ae41acc43f4d99",
+    "MANIFEST.json": "b48d27968bd6e65c70cd9447f3296528c715defe16699d524d6f5e5144d799c0",
+    "PLAN.md": "b22dd464c0e150205604d35208769c1a897aede308e8e36abe7e26db535bf4b1",
+    "REVIEW-REQUEST.md": "0bae9cdb57dd4619dccfada8d4f9745af6140f3c3f2a9a044a8426fc90108375",
+    "runner.py": "cc9a5c5e4bec73ebc13abb62efd75c457dd66a22b7d63063d1e63877fa7ff01e",
+    "selfcheck.py": "919344c8b08ae0faae1521bbcad2a5d18de1c48795ad2937e7b7b9104b4e8a1f"
+  },
+  "syntheticSelfcheck": {
+    "command": "python3 -B selfcheck.py",
+    "exit": 0,
+    "historicalMirrorOpened": false,
+    "status": "PASS_R10_DRAFT_SYNTHETIC_ENV_AND_TRANSIENT_ROOT_REDS"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "decision": "REFINE_STATIC_RECORDER_UNRUN",
+  "firstSynthetic": {
+    "command": "python3 -B selfcheck.py",
+    "exit": 1,
+    "failure": "PermissionError(1) at supervise.py:92 unconditional os.killpg(SIGKILL) during noisy guard cleanup",
+    "testDescendantVisibleImmediatelyAfter": false
+  },
+  "hR11SourceStaticReceiptSha256": "5893c1dea2d14162cc6d666de0258ee8ebea7328f516aedc4cbcccc987acb5c1",
+  "reportSha256": "66c591eb568a99fdc4b88df8f3de6763c035d1aeaa3b562fd74928ea6990761b",
+  "runtimeClaim": "NONE_UNRUN",
+  "schema": "1370-c0-h-typecheck-recorder-r2-independent-static-review-r1",
+  "secondSynthetic": {
+    "command": "python3 -B selfcheck.py",
+    "exit": 0,
+    "logSha256": "47fca9c76d775120896b7008680841c795b2a47488b904b5b6e686c9f73a3f7b",
+    "status": "PASS_SYNTHETIC_RECORDER_ONLY"
+  },
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r2",
+  "sourcePins": {
+    "BOOTSTRAP.py": "2533104797bca7feac9a0d4215c9144f57d14f53488bdb7364e55e8cdcdca4a4",
+    "MANIFEST.json": "c10316720957987442e9e67bb49a8967b5bd15534f45cb83dc2bfd0d492e3736",
+    "PLAN.md": "b532204eb93b9c883ee289f910bf7758ee50ced2bd8b0eb11717db36296d423b",
+    "REVIEW-REQUEST.md": "1b60aec893cefc9b64da54c7869e4bc958e0152698f7fa244b1fc932d46841ad",
+    "selfcheck.py": "827eb722029ee180ef97d133e97c67ac77df795cf998c7348203d7ffcea90987",
+    "supervise.py": "6736362a5c545699b42a141763d0f7a3244ce99ac8b1fb3245c21edcbcfca13c"
+  }
+}

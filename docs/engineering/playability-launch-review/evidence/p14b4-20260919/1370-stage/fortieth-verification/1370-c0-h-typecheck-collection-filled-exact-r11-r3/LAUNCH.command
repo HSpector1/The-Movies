@@ -1,0 +1,59 @@
+/bin/bash /Users/zacheryspector/studio-scratch/heavy-queue/lane-run.sh 0 /Users/zacheryspector/studio-scratch/c0-h-types-20261008-h-types-r9.lane.log /usr/local/bin/python3 -I -B -c 'import hashlib,json,math,os,pathlib,signal,stat,time
+LAUNCH_START=time.monotonic()
+def early_alarm(*_):raise TimeoutError('"'"'330-second H type recorder whole deadline before supervisor load'"'"')
+signal.signal(signal.SIGALRM,early_alarm)
+elapsed=time.monotonic()-LAUNCH_START
+assert math.isfinite(elapsed) and 0<=elapsed<330
+signal.setitimer(signal.ITIMER_REAL,330-elapsed)
+S=pathlib.Path('"'"'/Users/zacheryspector/studio-scratch'"'"')
+source=S/'"'"'1370-c0-h-typecheck-collection-recorder-proposal-r3/supervise.py'"'"'
+review=S/'"'"'1370-c0-h-typecheck-recorder-r3-independent-static-review-r1/RECEIPT.json'"'"'
+binding=S/'"'"'1370-c0-h-typecheck-collection-filled-exact-r11/BINDING.json'"'"'
+pins={source:'"'"'6a138a6fd3b85f63da7618a589fa2e9f46b0dcd45bb5ba84346af0ce402b68d5'"'"',
+      review:'"'"'14ac6279df85de332262d54e69726d185cdd4fe7806944d709350553998bbb6a'"'"',
+      binding:'"'"'1f93093fa31c502d3abf5724ffc4c27e93d4aa0100ba1944ff06db322b93cc27'"'"'}
+assert all(len(x)==64 and set(x)<=set('"'"'0123456789abcdef'"'"') for x in pins.values())
+def attrs(v):return v.st_dev,v.st_ino,v.st_mode,v.st_nlink,v.st_size,v.st_mtime_ns,v.st_ctime_ns
+def identity(v):return v.st_dev,v.st_ino,v.st_mode
+def read_pin(path,pin,cap):
+ assert path.is_absolute()
+ parent=os.open('"'"'/'"'"',os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW);held=[parent]
+ try:
+  for component in path.parts[1:-1]:
+   assert component not in ('"'"''"'"','"'"'.'"'"','"'"'..'"'"')
+   before=os.stat(component,dir_fd=parent,follow_symlinks=False)
+   child=os.open(component,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW,dir_fd=parent)
+   assert stat.S_ISDIR(before.st_mode) and identity(before)==identity(os.fstat(child))
+   held.append(child);parent=child
+  before=os.stat(path.name,dir_fd=parent,follow_symlinks=False)
+  assert stat.S_ISREG(before.st_mode) and before.st_nlink==1 and before.st_size<=cap
+  fd=os.open(path.name,os.O_RDONLY|os.O_NOFOLLOW,dir_fd=parent)
+  try:
+   assert attrs(before)==attrs(os.fstat(fd))
+   pieces=[];count=0
+   while piece:=os.read(fd,65536):
+    assert 0<=time.monotonic()-LAUNCH_START<330
+    count+=len(piece);assert count<=cap and count<=before.st_size
+    pieces.append(piece)
+   raw=b'"'"''"'"'.join(pieces)
+   assert count==before.st_size and attrs(before)==attrs(os.fstat(fd))==attrs(os.stat(path.name,dir_fd=parent,follow_symlinks=False))
+  finally:os.close(fd)
+  for i,component in enumerate(path.parts[1:-1]):
+   assert identity(os.fstat(held[i+1]))==identity(os.stat(component,dir_fd=held[i],follow_symlinks=False))
+  assert hashlib.sha256(raw).hexdigest()==pin
+  return raw
+ finally:
+  for item in reversed(held):os.close(item)
+raw={path:read_pin(path,pin,100000 if path!=source else 250000) for path,pin in pins.items()}
+accepted=json.loads(raw[review])
+assert accepted['"'"'decision'"'"']=='"'"'ACCEPT_STATIC_RECORDER_ONLY'"'"'
+assert accepted['"'"'sourcePins'"'"']['"'"'supervise.py'"'"']==pins[source]
+assert accepted['"'"'sourcePins'"'"']['"'"'BOOTSTRAP.py'"'"']=='"'"'2533104797bca7feac9a0d4215c9144f57d14f53488bdb7364e55e8cdcdca4a4'"'"'
+assert accepted['"'"'r2RefineReceiptSha256'"'"']=='"'"'2d20cf6989abe6ae4960ce0fdbb312d83ea26497aca5f24af569d8e380199b49'"'"'
+bound=json.loads(raw[binding])
+assert bound['"'"'runId'"'"']=='"'"'20261008-h-types-r9'"'"'
+assert bound['"'"'fullReadbackObservedReceiptSha256'"'"']=='"'"'35ca2012f0a6122cd88f509cc6f484c1ec489a08d8752d500877095293ca328a'"'"'
+assert bound['"'"'childWallSeconds'"'"']==300 and bound['"'"'recorderWallSeconds'"'"']==330
+exec(compile(raw[source],str(source),'"'"'exec'"'"'),{'"'"'__name__'"'"':'"'"'__main__'"'"','"'"'__file__'"'"':str(source),
+                                            '"'"'LAUNCH_START'"'"':LAUNCH_START,'"'"'BINDING_SHA'"'"':pins[binding]})
+'

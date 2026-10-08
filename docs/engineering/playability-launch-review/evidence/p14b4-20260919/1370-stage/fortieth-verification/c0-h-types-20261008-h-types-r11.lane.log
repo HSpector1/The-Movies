@@ -1,0 +1,3 @@
+{"status": "STOP_POSTFLIGHT_DRIFT", "receipt": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-results-r13/20261008-h-types-r11/RESULT.json", "sha256": "a5a07990da470bb67b1abb7e45ccabf2c39fa61117c4ed37edc78cdd203918eb"}
+STOP_TYPECHECK_COLLECTION RuntimeError('postflight or child failure')
+{"recorderStatus": "STOP_CHILD_NONZERO", "childExit": 1, "groupClear": true}

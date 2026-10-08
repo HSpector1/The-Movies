@@ -1,0 +1,3 @@
+# H r13/r4 exact launch draft — unfilled and unrun
+
+The embedded bootstrap source is prepared for `20261008-h-types-r11`, unique lane/result paths, H r13 runner, recorder r4 and byte-identical source binding. The independent recorder r4 static receipt SHA and accepted schema are not yet known; the bootstrap deliberately requires an impossible UNFILLED decision and all-zero SHA. No launch command is frozen. The recorded disk/ref values are only a draft snapshot. After static acceptance, version a filled exact command under the sole heavy lane, remeasure AC/space/refs/output absence and obtain independent exact review. Preserve r11 STOP and r12 REFINE.

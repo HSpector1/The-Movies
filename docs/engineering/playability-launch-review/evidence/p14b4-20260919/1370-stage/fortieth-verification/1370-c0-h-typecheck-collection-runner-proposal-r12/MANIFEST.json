@@ -1,0 +1,42 @@
+{
+  "captureEvidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "captureProductionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "classification": "FROZEN_UNRUN_STATIC_REVIEW_PENDING",
+  "currentEvidenceTip": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e",
+  "currentProductionHead": "afea5fb6abba09bec6cada7e4c5a1ccfaf05caff",
+  "files": [
+    {
+      "bytes": 58445,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r12/runner.py",
+      "sha256": "ec97699cd27de669b50a248f4aaca822045b98021d67f11a01e1851819d0e4d5"
+    },
+    {
+      "bytes": 6296,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r12/BINDING-SOURCE.json",
+      "sha256": "0e71560451f79623e7f9c572dd5ae06d71912f2cf4819a35b3beebaa7f9f691b"
+    },
+    {
+      "bytes": 8312,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r12/selfcheck.py",
+      "sha256": "dc5faeb47672bddbe8e4e7c56cf0c14bc93a1b52707ac7a2a02572e9855db3ce"
+    },
+    {
+      "bytes": 2479,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r12/PLAN.md",
+      "sha256": "5562e132934fbaf84a6d774337a7c69076f0ddce9ae83dc0268153262cfceaa7"
+    },
+    {
+      "bytes": 883,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r12/REVIEW-REQUEST.md",
+      "sha256": "9a6772b9f23f0d46f6bbcf05c130a89b86782c8e20300e5033f3b40ced58dcce"
+    }
+  ],
+  "postR9BaselineObservedReceiptSha256": "b0b58d06f21e81bfb6357e2295708e5fc11b5a2248f1c1cd5babf331689e8de3",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r10StaticRefineReceiptSha256": "dcd6d7bc1315e5a3322b65b3b3de425b1ea8c92755adc452c74e69cd4aac0350",
+  "r11ObservedStopReceiptSha256": "9b8e6587d415db0d0bbd12ecdff3d67eeb87b39928d70b84baed8ad61600cbb0",
+  "r11SourceResultSha256": "e701188970a432296f850369b5cc72dfd4ce1745692fc3154f7ed7c3d9a5e45c",
+  "r9ObservedStopReceiptSha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4",
+  "runId": "20261008-h-types-r10",
+  "schema": "1370-c0-h-typecheck-collection-runner-proposal-r12"
+}

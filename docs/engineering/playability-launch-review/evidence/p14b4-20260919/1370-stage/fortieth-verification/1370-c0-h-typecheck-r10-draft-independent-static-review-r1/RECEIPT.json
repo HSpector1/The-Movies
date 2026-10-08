@@ -1,0 +1,41 @@
+{
+  "captureEvidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "captureProductionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "checks": [
+    "Python AST parse",
+    "current local Git HEAD/source/evidence refs",
+    "accepted observed baseline/raw bytes and selected fields",
+    "static process/path/deadline analysis"
+  ],
+  "currentEvidenceTip": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e",
+  "currentProductionHead": "afea5fb6abba09bec6cada7e4c5a1ccfaf05caff",
+  "currentSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "decision": "REFINE_STATIC_DRAFT_UNRUN",
+  "inputs": {
+    "draftBinding": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-draft-r10/BINDING-DRAFT.json",
+      "sha256": "590ff638222a62d5904d8be8e360da0c6e81dd4e22eebfd7f9bcc5c1bc531904"
+    },
+    "draftPlan": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-draft-r10/PLAN.md",
+      "sha256": "705ea169c92cdf2168a2eef716b9c07611212bf7daea296a55cfd95921fe7995"
+    },
+    "retryPlan": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-r10-retry-plan-r2/PLAN.md",
+      "sha256": "0b925974b4e8831d4223daf07750e3ecbed49d64d61ffc39211b99d2ce1ef62a"
+    },
+    "runner": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-draft-r10/runner.py",
+      "sha256": "8417e298afd623ae34b5c6b1b8fc59c2bb56d793eb26490f3e068f7e80e1369b"
+    },
+    "selfcheck": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-draft-r10/selfcheck.py",
+      "sha256": "02a8f96fd0d4af966de50a19a72ebce14339fe0b62e699c6a10884180bed093e"
+    }
+  },
+  "postR9BaselineObservedReceiptSha256": "b0b58d06f21e81bfb6357e2295708e5fc11b5a2248f1c1cd5babf331689e8de3",
+  "postR9BaselineRawSha256": "f132e25fabc3fa654e85c3dcbe3616d10337b66fd9307b2e34b131bf9615d605",
+  "reportSha256": "5661dc6699cb2b24fc7092e29ed39514a9808d8b0d422e12a30357016cd2cca3",
+  "schema": "1370-c0-h-typecheck-r10-draft-independent-static-review-r1",
+  "scope": "scratch-only static source/plan/binding review; no mirror/heavy/Git mutation"
+}

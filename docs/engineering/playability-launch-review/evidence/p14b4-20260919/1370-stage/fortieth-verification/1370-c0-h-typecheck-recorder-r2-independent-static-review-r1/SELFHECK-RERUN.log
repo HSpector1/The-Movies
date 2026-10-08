@@ -1,0 +1,2 @@
+{"recorderStatus": "STOP_RECORDER_TIMEOUT_OR_ERROR", "childExit": -15, "groupClear": true}
+{"decision": "PASS_SYNTHETIC_RECORDER_ONLY", "realTypesUnrun": true, "timeoutGroupClear": true}

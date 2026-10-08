@@ -1,0 +1,3 @@
+# Independent H r11 recorder r2 static review request
+
+Review `supervise.py`, `BOOTSTRAP.py`, `selfcheck.py`, `PLAN.md`, and `MANIFEST.json` as frozen unrun source only. Verify runner SHA83f4/source-static receipt5893, exact binding 1f93 copied from frozen source, current HEADafea/evidence651/src13880, 300/320/330 timers, sole-lane/AC/3.5-3 GiB guards, clean Git origin/remote checks, nofollow SHA bootstrap, process-group cleanup and 2 MiB guard pipe caps, child0/group-clear semantics, bounded one-shot recorder result. Run synthetic selfcheck only. Do not launch H types, read the H mirror, mutate Git, or enter the heavy lane. If accepted, issue static-recorder-only receipt and require separate exact launch review.

@@ -1,0 +1,20 @@
+{
+  "bindingSha256": "8d37d70e3aea0028eee6a5f9f47e67e713bf3722b4fea0c73f81a95f29fe9f5a",
+  "bootstrapSha256": "dc2ec7abe44d84e1bd15e1364472e6355da9c4e12792f95b26506b91dc882d62",
+  "childSeconds": 300,
+  "classification": "FROZEN_UNRUN",
+  "decision": "ACCEPT_EXACT_ONLY",
+  "freeBytesAtReview": 3819970560,
+  "launchSha256": "2190919490c238f7eb590ed6ccdda0bb4f01f92a11be1945d8eb92f163ab9f13",
+  "planSha256": "ae5c63be91f49edbb53b5e548710f0076420ddab28da89df3b3e2091561290ea",
+  "r11ObservedStopReceiptSha256": "9b8e6587d415db0d0bbd12ecdff3d67eeb87b39928d70b84baed8ad61600cbb0",
+  "r13SourceStaticReceiptSha256": "17514022b90852f03fa215d6748875d45eef0ae17270517cc2f55e1c8ba1cf08",
+  "r4ExactRefineReceiptSha256": "537721f958c38fd414bfe6b12f15b701546889b0110d6d4229f0e818e6250350",
+  "r5RecorderStaticReceiptSha256": "0ffd32cf951984bb61e3e002dcbbbe2b580a7a4295acdbc3fba25c537368be45",
+  "recorderActiveSeconds": 320,
+  "reviewSha256": "c937892dc0f515ef07d2425e11d00fee1efa76776c12d9459e98a4b2f954ccc0",
+  "runId": "20261008-h-types-r11",
+  "runtimeClaim": "NONE_UNRUN",
+  "schema": "1370-c0-h-typecheck-collection-filled-exact-independent-review-r13-r5",
+  "wholeSeconds": 330
+}

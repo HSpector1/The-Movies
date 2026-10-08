@@ -1,0 +1,38 @@
+{
+  "childSeconds": 300,
+  "classification": "FROZEN_UNRUN_STATIC_REVIEW_PENDING",
+  "exactBindingSha256": "1f93093fa31c502d3abf5724ffc4c27e93d4aa0100ba1944ff06db322b93cc27",
+  "files": [
+    {
+      "bytes": 3432,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r2/BOOTSTRAP.py",
+      "sha256": "2533104797bca7feac9a0d4215c9144f57d14f53488bdb7364e55e8cdcdca4a4"
+    },
+    {
+      "bytes": 13551,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r2/supervise.py",
+      "sha256": "6736362a5c545699b42a141763d0f7a3244ce99ac8b1fb3245c21edcbcfca13c"
+    },
+    {
+      "bytes": 4196,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r2/selfcheck.py",
+      "sha256": "827eb722029ee180ef97d133e97c67ac77df795cf998c7348203d7ffcea90987"
+    },
+    {
+      "bytes": 2154,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r2/PLAN.md",
+      "sha256": "b532204eb93b9c883ee289f910bf7758ee50ced2bd8b0eb11717db36296d423b"
+    },
+    {
+      "bytes": 723,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r2/REVIEW-REQUEST.md",
+      "sha256": "1b60aec893cefc9b64da54c7869e4bc958e0152698f7fa244b1fc932d46841ad"
+    }
+  ],
+  "recorderActiveSeconds": 320,
+  "recorderWholeSeconds": 330,
+  "runId": "20261008-h-types-r9",
+  "schema": "1370-c0-h-typecheck-collection-recorder-proposal-r2",
+  "sourceRunnerSha256": "83f4b7b07f68f8424824a6369a5e9425d423c0a6d10ef3581931a689c2c727e3",
+  "sourceStaticReceiptSha256": "5893c1dea2d14162cc6d666de0258ee8ebea7328f516aedc4cbcccc987acb5c1"
+}

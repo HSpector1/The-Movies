@@ -1,0 +1,40 @@
+{
+  "captureEvidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "captureProductionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "classification": "FROZEN_UNRUN_STATIC_REVIEW_PENDING",
+  "currentEvidenceTip": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e",
+  "currentProductionHead": "afea5fb6abba09bec6cada7e4c5a1ccfaf05caff",
+  "files": [
+    {
+      "bytes": 52833,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r11/runner.py",
+      "sha256": "83f4b7b07f68f8424824a6369a5e9425d423c0a6d10ef3581931a689c2c727e3"
+    },
+    {
+      "bytes": 6098,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r11/BINDING-SOURCE.json",
+      "sha256": "1f93093fa31c502d3abf5724ffc4c27e93d4aa0100ba1944ff06db322b93cc27"
+    },
+    {
+      "bytes": 5696,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r11/selfcheck.py",
+      "sha256": "f7e57f1a2eaf16779dc47e08085e57a8d7b840e06a12d04747d4e72c9cf3e2a3"
+    },
+    {
+      "bytes": 3170,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r11/PLAN.md",
+      "sha256": "1971b92ec78c9bb43d25b43b855f343feb166e7048384b2086e86fef7fba181c"
+    },
+    {
+      "bytes": 834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r11/REVIEW-REQUEST.md",
+      "sha256": "29c20c4015b6820e6934ab39da8c55d1b2f81cdcf9067048e9f69c2e9e127a4a"
+    }
+  ],
+  "postR9BaselineObservedReceiptSha256": "b0b58d06f21e81bfb6357e2295708e5fc11b5a2248f1c1cd5babf331689e8de3",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r10StaticRefineReceiptSha256": "dcd6d7bc1315e5a3322b65b3b3de425b1ea8c92755adc452c74e69cd4aac0350",
+  "r9ObservedStopReceiptSha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4",
+  "runId": "20261008-h-types-r9",
+  "schema": "1370-c0-h-typecheck-collection-runner-proposal-r11"
+}

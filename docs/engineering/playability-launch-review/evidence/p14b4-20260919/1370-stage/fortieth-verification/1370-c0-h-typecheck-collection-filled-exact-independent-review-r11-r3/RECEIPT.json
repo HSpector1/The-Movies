@@ -1,0 +1,20 @@
+{
+  "bindingSha256": "bb1d15a9f366a5e059851ffc56f9254ac7c582258a2f0aafdaee8db597860c7d",
+  "bootstrapSha256": "d988e9bf95812fdb39984b305b7d16acc66c581ea0d367bb077190b349e1075d",
+  "childSeconds": 300,
+  "classification": "FROZEN_UNRUN",
+  "decision": "ACCEPT_EXACT_ONLY",
+  "evidenceTip": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e",
+  "freeBytesAtReview": 3776569344,
+  "launchSha256": "97d944fdf4ef2328f42887d58098ddbbe4e165c08ca3a95992f17155d83d2294",
+  "planSha256": "715104954ae98a19d35c30f6db4cfbed39f67c23cd5680377f680590f963d944",
+  "productionHead": "afea5fb6abba09bec6cada7e4c5a1ccfaf05caff",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "recorderActiveSeconds": 320,
+  "recorderStaticReceiptSha256": "14ac6279df85de332262d54e69726d185cdd4fe7806944d709350553998bbb6a",
+  "reviewScope": "exact launch only; no H typecheck, mirror or dependency scan, or game route run",
+  "reviewSha256": "9f91511a26ffde1493a29325117e7b9fdea2f503ea926a757ddacfd17a22351f",
+  "runId": "20261008-h-types-r9",
+  "runnerSourceStaticReceiptSha256": "5893c1dea2d14162cc6d666de0258ee8ebea7328f516aedc4cbcccc987acb5c1",
+  "wholeSeconds": 330
+}

@@ -1,0 +1,21 @@
+{
+  "bootstrapSha256": "7a63a2d8028ae5c2abb5b2b1b5bdf79a83887b8c809de7d7866f2a9a7dd5f223",
+  "classification": "UNFILLED_UNRUN",
+  "evidenceTip": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e",
+  "exactBootstrapDraftSha256": "093aeb86124c353ee198dbedba5c4f6e7b6a7f51382566c0ba8223a41060504b",
+  "freeBytesAtDraft": 3825569792,
+  "laneLog": "/Users/zacheryspector/studio-scratch/c0-h-types-20261008-h-types-r11.lane.log",
+  "note": "Not an exact launch or disk/AC pass; fill only after independent r4 recorder static acceptance.",
+  "outputsAbsentAtDraft": true,
+  "productionHead": "afea5fb6abba09bec6cada7e4c5a1ccfaf05caff",
+  "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-results-r4/20261008-h-types-r11.RECORDER-RESULT.json",
+  "recorderStaticReceiptSha256": null,
+  "remoteEvidence": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e\trefs/heads/evidence/1370-r10-clean-captures",
+  "remoteProduction": "afea5fb6abba09bec6cada7e4c5a1ccfaf05caff\trefs/heads/wip/headless-program-20260916-ts",
+  "runId": "20261008-h-types-r11",
+  "schema": "1370-c0-h-typecheck-collection-filled-exact-r13-r4-DRAFT",
+  "sourceBindingSha256": "d9bb8b6fd4227e43b191003e3a98182404024f269933cc8de277473b0fb61cf9",
+  "sourceOutput": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-results-r13/20261008-h-types-r11",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "supervisorSha256": "cb7044bfc5ead3c1c80ebf96256e9bc3d873ca963a9e480082088411b00d61f2"
+}

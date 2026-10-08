@@ -1,0 +1,13 @@
+{
+  "classification": "DESIGN_ONLY_UNRUN",
+  "currentEvidenceTip": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e",
+  "currentProductionHead": "afea5fb6abba09bec6cada7e4c5a1ccfaf05caff",
+  "diagnosticWrapperSha256": null,
+  "freshBaselineObservedReceiptSha256": null,
+  "freshBaselineResultSha256": null,
+  "monitorReviewSha256": null,
+  "r13ObservedStopReceiptSha256": "15e901e356b72d80fdebef469bf9e20b171c13a32f34e94bf26858bf2d883ad1",
+  "r13RecorderSha256": "39375b5c05a6839d2600c3685882e58eb3d9546cd345433a035ca6c7413d34ec",
+  "r13ResultSha256": "a5a07990da470bb67b1abb7e45ccabf2c39fa61117c4ed37edc78cdd203918eb",
+  "schema": "1370-c0-h-r13-root-drift-attribution-route-binding-r1"
+}

@@ -1,0 +1,48 @@
+{
+  "decision": "ACCEPT_STATIC_H_TYPECHECK_COLLECTION_SOURCE_ONLY",
+  "r10RefineReceiptSha256": "dcd6d7bc1315e5a3322b65b3b3de425b1ea8c92755adc452c74e69cd4aac0350",
+  "remainingGates": [
+    "independent recorder/static review",
+    "filled exact launch review",
+    "fresh AC/ref/disk preflight",
+    "recorded type/collection run",
+    "independent observed readback"
+  ],
+  "reportSha256": "553ea29a7c17db050fbdd6b1533d012f4bab03cfb8be078f9cee21037994d63e",
+  "runtimeClaim": "NONE_UNRUN",
+  "schema": "1370-c0-h-typecheck-r11-source-independent-static-review-r1",
+  "scope": "frozen scratch source/binding only; no runtime or Git mutation",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r11",
+  "sourcePins": {
+    "BINDING-SOURCE.json": {
+      "bytes": 6098,
+      "sha256": "1f93093fa31c502d3abf5724ffc4c27e93d4aa0100ba1944ff06db322b93cc27"
+    },
+    "MANIFEST.json": {
+      "bytes": 2014,
+      "sha256": "b4500aef98f0a8c1a67850223c6bcd87b42ff50d7b22b2c424639585e1923b09"
+    },
+    "PLAN.md": {
+      "bytes": 3170,
+      "sha256": "1971b92ec78c9bb43d25b43b855f343feb166e7048384b2086e86fef7fba181c"
+    },
+    "REVIEW-REQUEST.md": {
+      "bytes": 834,
+      "sha256": "29c20c4015b6820e6934ab39da8c55d1b2f81cdcf9067048e9f69c2e9e127a4a"
+    },
+    "runner.py": {
+      "bytes": 52833,
+      "sha256": "83f4b7b07f68f8424824a6369a5e9425d423c0a6d10ef3581931a689c2c727e3"
+    },
+    "selfcheck.py": {
+      "bytes": 5696,
+      "sha256": "f7e57f1a2eaf16779dc47e08085e57a8d7b840e06a12d04747d4e72c9cf3e2a3"
+    }
+  },
+  "syntheticSelfcheck": {
+    "command": "python3 -B selfcheck.py",
+    "exit": 0,
+    "historicalMirrorOpened": false,
+    "status": "PASS_R11_SYNTHETIC_GUARDS_LOG_CAP_AND_ROOT_REDS"
+  }
+}

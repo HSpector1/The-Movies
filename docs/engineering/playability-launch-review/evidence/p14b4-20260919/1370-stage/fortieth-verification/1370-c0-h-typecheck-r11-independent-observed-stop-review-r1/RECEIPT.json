@@ -1,0 +1,112 @@
+{
+  "childrenCompleted": [
+    {
+      "exit": 0,
+      "name": "dependency-versions"
+    }
+  ],
+  "decision": "ACCEPT_OBSERVED_STOP_H_TYPECHECK_COLLECTION_R11",
+  "dependencyBeforeAfterEqual": true,
+  "dependencyProofSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+  "exactFailureLineProven": false,
+  "failedInterval": "root-tsc",
+  "fileProofDigestSha256": "1534ca888a99c1f41e3eb2a7201d6d6d56f1343bab3f4040518348cc34d276b4",
+  "laneExit": 1,
+  "mirrorRootIdentity": [
+    16777220,
+    166418911,
+    16832,
+    13,
+    416,
+    1791456989842583410,
+    1791456989842583410
+  ],
+  "recorderChildExit": 1,
+  "recorderGroupClear": true,
+  "recorderStatus": "STOP_CHILD_NONZERO",
+  "regularBytes": 99516095,
+  "regularFiles": 1402,
+  "reportSha256": "13821788579f31f56bcc85877b87b1f8f819d6621ead8e168f74e1cb5523e38c",
+  "reviewedPins": {
+    "exactReview": {
+      "bytes": 1154,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-independent-review-r11-r3/RECEIPT.json",
+      "sha256": "c170c300898ad0b852ec1cb09837931749387b989a20ca5c87b4d5758001dd50"
+    },
+    "laneLog": {
+      "bytes": 391,
+      "path": "/Users/zacheryspector/studio-scratch/c0-h-types-20261008-h-types-r9.lane.log",
+      "sha256": "79f9eaaab17d28bcf1833aa72a93f8febf3f09e21e54116fd0c028faa705e8a7"
+    },
+    "laneMeta": {
+      "bytes": 3611,
+      "path": "/Users/zacheryspector/studio-scratch/c0-h-types-20261008-h-types-r9.lane.log.meta",
+      "sha256": "42fcf04c191d69d0c7d7dc430ed88876ce56dec4f9c1050c10b6cec75a5d5815"
+    },
+    "launch": {
+      "bytes": 3925,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-r11-r3/LAUNCH.command",
+      "sha256": "97d944fdf4ef2328f42887d58098ddbbe4e165c08ca3a95992f17155d83d2294"
+    },
+    "r10Refine": {
+      "bytes": 1642,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-r10-source-independent-static-review-r1/RECEIPT.json",
+      "sha256": "dcd6d7bc1315e5a3322b65b3b3de425b1ea8c92755adc452c74e69cd4aac0350"
+    },
+    "r2RecorderRefine": {
+      "bytes": 1476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-recorder-r2-independent-static-review-r1/RECEIPT.json",
+      "sha256": "2d20cf6989abe6ae4960ce0fdbb312d83ea26497aca5f24af569d8e380199b49"
+    },
+    "r9Stop": {
+      "bytes": 3647,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-independent-observed-stop-review-r9/RECEIPT.json",
+      "sha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4"
+    },
+    "recorderResult": {
+      "bytes": 835,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-results-r3/20261008-h-types-r9.RECORDER-RESULT.json",
+      "sha256": "4677c6716660a584bc4e0cbe205a52b3398c6a4b6cec788a36322108da048290"
+    },
+    "recorderStaticReview": {
+      "bytes": 1348,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-recorder-r3-independent-static-review-r1/RECEIPT.json",
+      "sha256": "14ac6279df85de332262d54e69726d185cdd4fe7806944d709350553998bbb6a"
+    },
+    "rootTscStderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-results-r11/20261008-h-types-r9/root-tsc.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "rootTscStdout": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-results-r11/20261008-h-types-r9/root-tsc.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runnerStaticReview": {
+      "bytes": 1771,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-r11-source-independent-static-review-r1/RECEIPT.json",
+      "sha256": "5893c1dea2d14162cc6d666de0258ee8ebea7328f516aedc4cbcccc987acb5c1"
+    },
+    "sourceResult": {
+      "bytes": 14552,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-results-r11/20261008-h-types-r9/RESULT.json",
+      "sha256": "e701188970a432296f850369b5cc72dfd4ce1745692fc3154f7ed7c3d9a5e45c"
+    }
+  },
+  "rootChildBoundaries": [
+    [
+      "dependency-versions",
+      true
+    ],
+    [
+      "root-tsc",
+      true
+    ]
+  ],
+  "runtimeClaim": "STOP_ONLY_NO_TYPE_PASS",
+  "schema": "1370-c0-h-typecheck-r11-independent-observed-stop-review-r1",
+  "sourceBeforeAfterEqual": true,
+  "sourceError": "PermissionError(1, 'Operation not permitted')",
+  "sourceStatus": "STOP_TYPECHECK_COLLECTION"
+}

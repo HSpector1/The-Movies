@@ -1,0 +1,18 @@
+{
+  "classification": "UNFILLED_UNRUN",
+  "evidenceTip": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e",
+  "exactBootstrapDraftSha256": "38a41f35a81465e65f87decf8a78ea1a75ecc5d27b22ba570648b5eae0b6e7d0",
+  "freeBytesAtDraft": 3821498368,
+  "laneLog": "/Users/zacheryspector/studio-scratch/c0-h-types-20261008-h-types-r11.lane.log",
+  "outputsAbsentAtDraft": true,
+  "productionHead": "afea5fb6abba09bec6cada7e4c5a1ccfaf05caff",
+  "r4ExactRefineReceiptSha256": "537721f958c38fd414bfe6b12f15b701546889b0110d6d4229f0e818e6250350",
+  "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-results-r5/20261008-h-types-r11.RECORDER-RESULT.json",
+  "recorderStaticReceiptSha256": null,
+  "runId": "20261008-h-types-r11",
+  "schema": "1370-c0-h-typecheck-collection-filled-exact-r13-r5-DRAFT",
+  "sourceBindingSha256": "d9bb8b6fd4227e43b191003e3a98182404024f269933cc8de277473b0fb61cf9",
+  "sourceOutput": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-results-r13/20261008-h-types-r11",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "supervisorSha256": "3145a6b806e9071fb69aa7eb610025c2930515c210c74cf6f3349a7faebdbc50"
+}

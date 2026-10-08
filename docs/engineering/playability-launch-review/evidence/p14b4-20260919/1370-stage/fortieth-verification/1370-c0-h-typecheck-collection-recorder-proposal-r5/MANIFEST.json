@@ -1,0 +1,41 @@
+{
+  "childSeconds": 300,
+  "classification": "FROZEN_UNRUN_STATIC_REVIEW_PENDING",
+  "exactBindingSha256": "d9bb8b6fd4227e43b191003e3a98182404024f269933cc8de277473b0fb61cf9",
+  "files": [
+    {
+      "bytes": 3433,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r5/BOOTSTRAP.py",
+      "sha256": "7a63a2d8028ae5c2abb5b2b1b5bdf79a83887b8c809de7d7866f2a9a7dd5f223"
+    },
+    {
+      "bytes": 15261,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r5/supervise.py",
+      "sha256": "3145a6b806e9071fb69aa7eb610025c2930515c210c74cf6f3349a7faebdbc50"
+    },
+    {
+      "bytes": 6355,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r5/selfcheck.py",
+      "sha256": "18389c79ac9a14a15f424c9b954b8ecccb90e91f6023cd74735955e1525bd0dd"
+    },
+    {
+      "bytes": 2505,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r5/PLAN.md",
+      "sha256": "762350f360db678f1eb740f2d44f1b64596c17b499b65c5862a88e3ee065c3bb"
+    },
+    {
+      "bytes": 999,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r5/REVIEW-REQUEST.md",
+      "sha256": "4ca483ee98318b216d9fc14886f040d47bf47186084feb511d32bfac7895f19f"
+    }
+  ],
+  "priorRecorderStaticReceiptSha256": "14ac6279df85de332262d54e69726d185cdd4fe7806944d709350553998bbb6a",
+  "r11ObservedStopReceiptSha256": "9b8e6587d415db0d0bbd12ecdff3d67eeb87b39928d70b84baed8ad61600cbb0",
+  "r4ExactRefineReceiptSha256": "537721f958c38fd414bfe6b12f15b701546889b0110d6d4229f0e818e6250350",
+  "recorderActiveSeconds": 320,
+  "recorderWholeSeconds": 330,
+  "runId": "20261008-h-types-r11",
+  "schema": "1370-c0-h-typecheck-collection-recorder-proposal-r5",
+  "sourceRunnerSha256": "946b3c88208db5128e30e668d0e322f11224235a71ff6994362acb124e0831b7",
+  "sourceStaticReceiptSha256": "17514022b90852f03fa215d6748875d45eef0ae17270517cc2f55e1c8ba1cf08"
+}

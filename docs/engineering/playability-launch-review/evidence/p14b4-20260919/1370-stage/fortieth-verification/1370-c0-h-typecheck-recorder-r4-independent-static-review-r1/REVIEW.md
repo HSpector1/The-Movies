@@ -1,0 +1,9 @@
+# Independent H r13 recorder r4 static review
+
+**ACCEPT_STATIC_RECORDER_ONLY.** Frozen r4 bytes match its manifest. The source is a bounded rebind of independently accepted r3 recorder cleanup: new H r13 runner `946b3c88...`, static source receipt `17514022...`, exact binding SHA `d9bb8b6f...`, and preserved r3 recorder ACCEPT `14ac6279...` plus r11 observed STOP `9b8e6587...`. The unique source run ID is `20261008-h-types-r11`; source output root is results-r13, recorder root is results-r4, and lane log is `c0-h-types-20261008-h-types-r11.lane.log`. No prior result is reused or relabeled.
+
+The child bootstrap arms the 300-second timer before nofollow stable SHA reads of runner, binding and source static receipt, then executes the pinned runner in memory. Recorder active/whole limits remain 320/330 seconds. Clean Git environment, current HEAD `afea5fb6...`, evidence `6516532a...`, source tree `13880d9b...`, origin, AC, sole lane and 3.5/3 GiB disk bounds remain guarded. Guard output is capped through simultaneous pipes; process groups are probed and conditionally terminated, with denied/uncertain clearance failing closed. Child0 requires group clear. One-shot bounded result stays outside the H mirror.
+
+Independent `python3 -B selfcheck.py` exited 0 with `PASS_SYNTHETIC_RECORDER_ONLY`, timeout child exit -15 and `groupClear:true`; no real H type route, heavy lane or Git mutation was used. The test exercises invalid starts, source pins, symlink/collision refusals, noisy guard grandchildren and recorder timeout cleanup. R11 STOP and r12 REFINE remain evidence, and this package is unrun.
+
+Acceptance is static recorder source only. A filled exact launch and fresh AC/ref/disk/one-lane preflight need separate independent review; actual source child, recorder exit, full source/dependency readback, no survivors and observed audit remain required. No types, neutrality, 416-tick, C0, 1363, main or native acceptance follows.

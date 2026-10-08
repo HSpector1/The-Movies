@@ -1,0 +1,25 @@
+{
+  "checklistSha256": "06609aa0bebe91055fbdeec4ebc56fcf3c2fc8717015514b8ef6ce4787d20447",
+  "classification": "UNPUBLISHED_UNRUN",
+  "decision": "ACCEPT_SOURCE_MAP_ONLY",
+  "evidenceTip": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e",
+  "inheritedR1MapSha256": "381740740afac69b5d47d1772294ed2ac9d1ec7ff310cd644db1a13f0f0140f5",
+  "inheritedRowsExact": 60,
+  "mapSha256": "5dd24a9d2599bc8fa3e250809f890532b484725f7130c0605217a7e166d51ec4",
+  "newBytes": 330531,
+  "newRows": 70,
+  "productionHead": "afea5fb6abba09bec6cada7e4c5a1ccfaf05caff",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r13ObservedStopReceiptSha256": "15e901e356b72d80fdebef469bf9e20b171c13a32f34e94bf26858bf2d883ad1",
+  "remaining": [
+    "independent publisher and exact launch review",
+    "controlled publication",
+    "fresh HTTPS remote byte audit"
+  ],
+  "reviewSha256": "9898b167a3b127e6a17ec61f4aa8396582ad6d85f46b95358eacfbd5e256189d",
+  "schema": "1370-c0-stage40-source-candidate-map-independent-review-r2",
+  "sourceBytes": 663707,
+  "sourceCount": 130,
+  "uniqueTargets": 130,
+  "zeroByteRows": 10
+}

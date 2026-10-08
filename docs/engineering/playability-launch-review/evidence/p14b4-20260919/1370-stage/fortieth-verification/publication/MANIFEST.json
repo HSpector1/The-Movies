@@ -1,0 +1,45 @@
+{
+  "baseEvidenceCommit": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e",
+  "classification": "DRAFT_UNREVIEWED_UNRUN",
+  "exactLaunchReviewReceiptSha256": null,
+  "expectedDeltaCount": 138,
+  "files": [
+    {
+      "bytes": 28216,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage40-publisher-proposal-r1/publish_stage40.py",
+      "sha256": "89854530b32ae401fc38d8819530e0bfbcd920d48cde9cfdc74b705247743b5b"
+    },
+    {
+      "bytes": 4210,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage40-publisher-proposal-r1/test_static.py",
+      "sha256": "9437f7bd32aeed998500626b1b70d774a2cae77f908365d37a14cd7dd18f735f"
+    },
+    {
+      "bytes": 50287,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage40-publisher-proposal-r1/SOURCE-ROSTER.tsv",
+      "sha256": "647a871f828b595147fd7ae1a9713f6e8d231c7044d94be9d41f95bbdb5e8f5c"
+    },
+    {
+      "bytes": 73385,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage40-source-candidate-map-r2/SOURCE-CANDIDATE-MAP.json",
+      "sha256": "5dd24a9d2599bc8fa3e250809f890532b484725f7130c0605217a7e166d51ec4"
+    },
+    {
+      "bytes": 4004,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage40-source-candidate-map-r2/CHECKLIST.md",
+      "sha256": "06609aa0bebe91055fbdeec4ebc56fcf3c2fc8717015514b8ef6ce4787d20447"
+    }
+  ],
+  "mapReviewReceiptSha256": "f2c8c1ee1d2fe55513265d0b371f998439494bc4ef84616b9d73d20051a0c734",
+  "mapSha256": "5dd24a9d2599bc8fa3e250809f890532b484725f7130c0605217a7e166d51ec4",
+  "mappedSourceBytes": 663707,
+  "mappedSourceCount": 130,
+  "productionHead": "afea5fb6abba09bec6cada7e4c5a1ccfaf05caff",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "publicationControlCount": 8,
+  "publicationState": "NOT_RUN",
+  "publisherReviewReceiptSha256": null,
+  "r11ObservedStopReceiptSha256": "9b8e6587d415db0d0bbd12ecdff3d67eeb87b39928d70b84baed8ad61600cbb0",
+  "r13ObservedStopReceiptSha256": "15e901e356b72d80fdebef469bf9e20b171c13a32f34e94bf26858bf2d883ad1",
+  "schema": "1370-c0-stage40-publisher-proposal-r1"
+}

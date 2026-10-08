@@ -1,0 +1,9 @@
+# Independent H r13 recorder r5 static review
+
+**ACCEPT_STATIC_RECORDER_ONLY.** Frozen r5 bytes match their manifest. R4 exact-launch REFINE receipt `537721f9...` is pinned and its two findings are corrected: `signal_group()` now STOPs on any denied TERM/KILL even if a later probe says the group vanished, and `stop_group()` refuses an absent group whose direct child is not reaped. The previous r3 recorder acceptance `14ac6279...` and r11 observed STOP `9b8e6587...` remain runtime-authenticated. No prior result is promoted.
+
+I independently ran `python3 -B selfcheck.py`; it exited 0 with `PASS_SYNTHETIC_RECORDER_ONLY`. Its explicit denied-signal and unreaped-child REDs now require STOP. The same run exercised five noisy guard/grandchild cleanups with process-table checks, wrong SHA/symlink/collision refusals, and active timeout with group clear. No H mirror, real typecheck, Git mutation or heavy lane was used.
+
+The unchanged bootstrap arms a 300-second whole-child timer before nofollow SHA reads of the r13 runner `946b3c88...`, exact binding `d9bb8b6f...` and static source receipt `17514022...`. Recorder active/whole bounds are 320/330 seconds. The unique source run ID is `20261008-h-types-r11`, with results-r13, recorder-results-r5 and lane-r11 paths. Current HEAD `afea5fb6...`, evidence `6516532a...`, source tree `13880d9b...`, origin, AC, 3.5/3 GiB disk and sole-lane guards remain. Guard pipes are capped and group cleanup is fail-closed; the bounded one-shot receipt stays outside the mirror.
+
+Static source acceptance does not authorize an unreviewed launch. A fresh exact command/loader and preflight require separate independent review; then actual child/recorder exits, group clearance, full source/dependency proofs and observed audit are required. R11 is still STOP and no H type, C0, 1363, main or native acceptance is claimed.

@@ -1,0 +1,28 @@
+{
+  "decision": "ACCEPT_STATIC_RECORDER_ONLY",
+  "hR11SourceStaticReceiptSha256": "5893c1dea2d14162cc6d666de0258ee8ebea7328f516aedc4cbcccc987acb5c1",
+  "r2RefineReceiptSha256": "2d20cf6989abe6ae4960ce0fdbb312d83ea26497aca5f24af569d8e380199b49",
+  "reportSha256": "7eef3b401bc038cf649675220d21fe9fc14e21485f274d94119b50e2e20413ae",
+  "runtimeClaim": "NONE_UNRUN",
+  "schema": "1370-c0-h-typecheck-recorder-r3-independent-static-review-r1",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r3",
+  "sourcePins": {
+    "BOOTSTRAP.py": "2533104797bca7feac9a0d4215c9144f57d14f53488bdb7364e55e8cdcdca4a4",
+    "MANIFEST.json": "8935e9585ca859cf4fad25f4b5be93fd9d0e899039f28106fdd74543829befa1",
+    "PLAN.md": "09cf4296ea278ede5e0615af6555c8252f48232380547d3c577d5442a46f0997",
+    "REVIEW-REQUEST.md": "e25248c5c1d10d9ccf1e70eea840fcba67eadec9b29509cbb42035a9ad2adb7d",
+    "selfcheck.py": "dffac9219bf5ffdfa3094379b1c97326fc22a756e3bd111daf71ebef7168d625",
+    "supervise.py": "6a138a6fd3b85f63da7618a589fa2e9f46b0dcd45bb5ba84346af0ce402b68d5"
+  },
+  "synthetic": {
+    "command": "python3 -B selfcheck.py",
+    "decision": "PASS_SYNTHETIC_RECORDER_ONLY",
+    "exits": [
+      0,
+      0
+    ],
+    "independentRuns": 2,
+    "noisyGuardGrandchildrenPerRun": 5,
+    "realTypesUnrun": true
+  }
+}

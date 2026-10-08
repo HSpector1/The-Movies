@@ -1,0 +1,119 @@
+{
+  "children": [
+    {
+      "exit": 0,
+      "name": "dependency-versions",
+      "seconds": 2.25
+    },
+    {
+      "exit": 0,
+      "name": "root-tsc",
+      "seconds": 31.117
+    },
+    {
+      "exit": 0,
+      "name": "ui-tsc",
+      "seconds": 42.236
+    },
+    {
+      "exit": 0,
+      "name": "diagnostic-collection",
+      "seconds": 7.247
+    }
+  ],
+  "decision": "ACCEPT_OBSERVED_STOP_H_TYPECHECK_COLLECTION_R13",
+  "dependencyLinkUnchanged": true,
+  "diagnosticRootAfter": [
+    16777220,
+    166418911,
+    16832,
+    13,
+    416,
+    1791462534662274730,
+    1791462534662274730
+  ],
+  "diagnosticRootBefore": [
+    16777220,
+    166418911,
+    16832,
+    13,
+    416,
+    1791456989842583410,
+    1791456989842583410
+  ],
+  "exactActorProven": false,
+  "fileProofDigestSha256": "1534ca888a99c1f41e3eb2a7201d6d6d56f1343bab3f4040518348cc34d276b4",
+  "fileProofUnchanged": true,
+  "laneExit": 1,
+  "nodeModulesProofUnchanged": true,
+  "preimageOutputScratchEmpty": true,
+  "recorderChildExit": 1,
+  "recorderGroupClear": true,
+  "recorderStatus": "STOP_CHILD_NONZERO",
+  "regularBytes": 99516095,
+  "regularFiles": 1402,
+  "reportSha256": "155c3fb0686d9fdc7d440fa7baec7f6fd592cb1a2cb176effa5e44b63af9504d",
+  "reviewedPins": {
+    "collection": {
+      "bytes": 230,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-results-r13/20261008-h-types-r11/collection.json",
+      "sha256": "0f0953bac43bad5cbafb9987e187bc4aa471b974607d8d8e22a06141115106c1"
+    },
+    "exactReview": {
+      "bytes": 1178,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-independent-review-r13-r5/RECEIPT.json",
+      "sha256": "c21107fadcdac99a632c20f9a3e5953a137f5091ff2d5e89c0c9d7187ebb5009"
+    },
+    "laneLog": {
+      "bytes": 388,
+      "path": "/Users/zacheryspector/studio-scratch/c0-h-types-20261008-h-types-r11.lane.log",
+      "sha256": "b2020c6421db4e8000cb9aa5eba7c935563d5fe944bc576f6239ae4a23be77c5"
+    },
+    "laneMeta": {
+      "bytes": 3733,
+      "path": "/Users/zacheryspector/studio-scratch/c0-h-types-20261008-h-types-r11.lane.log.meta",
+      "sha256": "cc1a95bf6d0a90bcf7bfb25e467f6a8eef141424a678af9225fb6fa8c4ae94ba"
+    },
+    "launch": {
+      "bytes": 4064,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-r13-r5/LAUNCH.command",
+      "sha256": "2190919490c238f7eb590ed6ccdda0bb4f01f92a11be1945d8eb92f163ab9f13"
+    },
+    "priorR11Stop": {
+      "bytes": 4618,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-r11-independent-observed-stop-review-r1/RECEIPT.json",
+      "sha256": "9b8e6587d415db0d0bbd12ecdff3d67eeb87b39928d70b84baed8ad61600cbb0"
+    },
+    "r4ExactRefine": {
+      "bytes": 1058,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-independent-review-r13-r4/RECEIPT.json",
+      "sha256": "537721f958c38fd414bfe6b12f15b701546889b0110d6d4229f0e818e6250350"
+    },
+    "recorderResult": {
+      "bytes": 836,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-results-r5/20261008-h-types-r11.RECORDER-RESULT.json",
+      "sha256": "39375b5c05a6839d2600c3685882e58eb3d9546cd345433a035ca6c7413d34ec"
+    },
+    "recorderStaticReview": {
+      "bytes": 1339,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-recorder-r5-independent-static-review-r1/RECEIPT.json",
+      "sha256": "0ffd32cf951984bb61e3e002dcbbbe2b580a7a4295acdbc3fba25c537368be45"
+    },
+    "sourceResult": {
+      "bytes": 27230,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-results-r13/20261008-h-types-r11/RESULT.json",
+      "sha256": "a5a07990da470bb67b1abb7e45ccabf2c39fa61117c4ed37edc78cdd203918eb"
+    },
+    "sourceStaticReview": {
+      "bytes": 1852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-r13-source-independent-static-review-r1/RECEIPT.json",
+      "sha256": "17514022b90852f03fa215d6748875d45eef0ae17270517cc2f55e1c8ba1cf08"
+    }
+  },
+  "rootRosterSha256": "aa190d895fd23ad0a4088ef326cf3e27408f25b918c54038875472362457a7d4",
+  "rootRosterUnchanged": true,
+  "runtimeClaim": "STOP_ONLY_NO_TYPE_GATE",
+  "schema": "1370-c0-h-typecheck-r13-independent-observed-stop-review-r1",
+  "sourceError": "RuntimeError('diagnostic-collection mirror root entry/metadata drift')",
+  "sourceStatus": "STOP_POSTFLIGHT_DRIFT"
+}

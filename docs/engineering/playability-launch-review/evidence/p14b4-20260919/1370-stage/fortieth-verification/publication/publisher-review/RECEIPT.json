@@ -1,0 +1,23 @@
+{
+  "baseEvidenceCommit": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e",
+  "decision": "ACCEPT_STATIC_STAGE40_PUBLISHER_R1",
+  "expectedDeltaCount": 138,
+  "manifestSha256": "20e5a6dc3deee127e8bddcd2330ea848cf1631d0f288dd1ee61876a87e99ceed",
+  "mapReviewReceiptSha256": "f2c8c1ee1d2fe55513265d0b371f998439494bc4ef84616b9d73d20051a0c734",
+  "mapSha256": "5dd24a9d2599bc8fa3e250809f890532b484725f7130c0605217a7e166d51ec4",
+  "planSha256": "06609aa0bebe91055fbdeec4ebc56fcf3c2fc8717015514b8ef6ce4787d20447",
+  "r11ObservedStopReceiptSha256": "9b8e6587d415db0d0bbd12ecdff3d67eeb87b39928d70b84baed8ad61600cbb0",
+  "r13ObservedStopReceiptSha256": "15e901e356b72d80fdebef469bf9e20b171c13a32f34e94bf26858bf2d883ad1",
+  "reviewSha256": "7199973431381c633a22a418901f2d4cee16fb58e2f8338ea120daf5c132a8f5",
+  "rosterSha256": "647a871f828b595147fd7ae1a9713f6e8d231c7044d94be9d41f95bbdb5e8f5c",
+  "runtimeClaim": "NONE_UNRUN",
+  "schema": "1370-c0-stage40-publisher-independent-static-review-r1",
+  "scriptSha256": "89854530b32ae401fc38d8819530e0bfbcd920d48cde9cfdc74b705247743b5b",
+  "sourceBytes": 663707,
+  "sourceCount": 130,
+  "syntheticTests": {
+    "command": "python3 -B test_static.py",
+    "passed": 8
+  },
+  "testStaticSha256": "9437f7bd32aeed998500626b1b70d774a2cae77f908365d37a14cd7dd18f735f"
+}

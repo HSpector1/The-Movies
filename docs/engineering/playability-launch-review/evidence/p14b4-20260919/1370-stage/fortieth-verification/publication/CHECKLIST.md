@@ -1,0 +1,20 @@
+# Stage40 source candidate r2 — scratch draft, unreviewed and unpublished
+
+R2 extends frozen r1 map SHA-256 `381740740afac69b5d47d1772294ed2ac9d1ec7ff310cd644db1a13f0f0140f5` without changing any of its 60 rows. It adds 70 exact regular-file rows / 330,531 bytes for 130 total rows / 663,707 bytes. Each row has current SHA-256, Git blob OID, size and a distinct proposed `fortieth-verification/` target. Stage39's `thirty-ninth-verification/` targets are separate; verify against the actual evidence tree again at admission. Stage39 evidence tip `6516532a...`, production docs HEAD `afea5fb6...` and source tree `13880d9b...` are captured authority, not permission to publish against stale refs.
+
+## New classifications and limits
+
+- R12 proposal and static-review plan/receipt `271f7af9e0da7dcd57b5b77c43bc303600c302264f6960fbb0c7de67812b7eb0` remain **REFINE**, unrun. R13 source and static receipt `17514022b90852f03fa215d6748875d45eef0ae17270517cc2f55e1c8ba1cf08` are accepted source only. Preserve older r9/r11 STOP and r10 REFINE rows from r1/Stage39.
+- Recorder r4 and r5 source/static receipts `1e994441aa3b9ae409f1242a9fe46e4beec219b111a9d0d5171325904b9f9390` and `0ffd32cf951984bb61e3e002dcbbbe2b580a7a4295acdbc3fba25c537368be45` are static only. R13/r4 exact receipt `537721f958c38fd414bfe6b12f15b701546889b0110d6d4229f0e818e6250350` is **REFINE_EXACT_UNRUN**. R13/r5 exact receipt `c21107fadcdac99a632c20f9a3e5953a137f5091ff2d5e89c0c9d7187ebb5009` is **ACCEPT_EXACT_ONLY**, frozen/unrun at that gate. Draft bindings/packages are historical unrun inputs.
+- R13/r5 actual route includes source RESULT SHA-256 `a5a07990da470bb67b1abb7e45ccabf2c39fa61117c4ed37edc78cdd203918eb`, all eight child stdout/stderr files, `collection.json`, recorder result, lane log/meta, and independent observed STOP receipt `15e901e356b72d80fdebef469bf9e20b171c13a32f34e94bf26858bf2d883ad1`. All four subprocesses exit 0, but the route is **STOP_POSTFLIGHT_DRIFT**: mirror root mtime/ctime changed during diagnostic collection despite unchanged final root roster and file digest. This is no accepted H type/collection gate. The exact root entry and writer are unobserved.
+- The separate static cause audit and unrun trace design are included as analysis/planning only. Their Vite temporary-config fallback is a hypothesis, not attribution or acceptance. No r14 result, M0 run, 416-tick game result, 1363 closure or P16 claim is mapped.
+
+## Deliberate exclusions
+
+- Exclude seven transient compiled-cache rows listed in the map, live mirror and `node_modules` link/content, private indexes and lock files. Include the empty child stdout/stderr files because the observed results pin them. Do not add a trace result before one exists and is independently reviewed.
+
+## Review before any GitHub backup
+
+1. Re-read every source and recompute all 130 SHA-256 values, blob OIDs, byte counts, regular-file modes and target uniqueness. Compare the 60 inherited r1 rows byte-for-byte with r1. Validate decision literals and receipt cross-links through r12 REFINE, r13 source static, recorder r4/r5 static, r4 exact REFINE, r5 exact accept, and observed STOP. Verify zero-byte files explicitly and the raw/recorder/lane child exits and group cleanup; never infer acceptance from four exit-zero subprocesses.
+2. Check current production/evidence local and remote refs, clean production worktree, `HEAD:src`, Stage39 ancestry and actual target absence/collision. Captured baseline refs remain distinct from current docs refs. If current refs or files change, version the map again; do not edit this frozen candidate in place.
+3. Independently review a Stage40 publisher and exact roster, use one production writer and one recorded heavy lane, and confirm actual child exit, cleanup, exact commit delta/tree and direct evidence ancestry. Avoid the Stage39 r2 private-index 2 MiB file-size cap failure. A push is still local evidence until fresh HTTPS remote byte verification covers every mapped row and publication control.

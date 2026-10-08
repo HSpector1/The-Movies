@@ -1,0 +1,40 @@
+{
+  "childSeconds": 300,
+  "classification": "FROZEN_UNRUN_STATIC_REVIEW_PENDING",
+  "exactBindingSha256": "d9bb8b6fd4227e43b191003e3a98182404024f269933cc8de277473b0fb61cf9",
+  "files": [
+    {
+      "bytes": 3433,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r4/BOOTSTRAP.py",
+      "sha256": "7a63a2d8028ae5c2abb5b2b1b5bdf79a83887b8c809de7d7866f2a9a7dd5f223"
+    },
+    {
+      "bytes": 14511,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r4/supervise.py",
+      "sha256": "cb7044bfc5ead3c1c80ebf96256e9bc3d873ca963a9e480082088411b00d61f2"
+    },
+    {
+      "bytes": 5247,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r4/selfcheck.py",
+      "sha256": "7d5fe556b6e1ddf58812c5f2566e7bd2ab88e45408d132506f166dbce4d928b1"
+    },
+    {
+      "bytes": 2112,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r4/PLAN.md",
+      "sha256": "04849ed609c1d8d3bc32cf0df01309a6837cd8cc2bb1a45511409762cc4b2457"
+    },
+    {
+      "bytes": 820,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r4/REVIEW-REQUEST.md",
+      "sha256": "b51b283c53b579c3aafc5c8938c4e9e5a2e3b15699da014a21c8823b730d60c4"
+    }
+  ],
+  "priorRecorderStaticReceiptSha256": "14ac6279df85de332262d54e69726d185cdd4fe7806944d709350553998bbb6a",
+  "r11ObservedStopReceiptSha256": "9b8e6587d415db0d0bbd12ecdff3d67eeb87b39928d70b84baed8ad61600cbb0",
+  "recorderActiveSeconds": 320,
+  "recorderWholeSeconds": 330,
+  "runId": "20261008-h-types-r11",
+  "schema": "1370-c0-h-typecheck-collection-recorder-proposal-r4",
+  "sourceRunnerSha256": "946b3c88208db5128e30e668d0e322f11224235a71ff6994362acb124e0831b7",
+  "sourceStaticReceiptSha256": "17514022b90852f03fa215d6748875d45eef0ae17270517cc2f55e1c8ba1cf08"
+}

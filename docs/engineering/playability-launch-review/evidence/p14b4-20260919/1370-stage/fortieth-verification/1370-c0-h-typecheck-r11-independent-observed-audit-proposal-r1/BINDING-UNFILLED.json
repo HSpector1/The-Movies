@@ -1,0 +1,14 @@
+{
+  "schema": "1370-c0-h-typecheck-r11-observed-audit-binding-r1",
+  "status": "UNFILLED_UNRUN",
+  "runId": "20261008-h-types-r9",
+  "exactReviewReceiptSha256": null,
+  "laneLogSha256": null,
+  "laneMetaSha256": null,
+  "recorderResultSha256": null,
+  "runnerResultSha256": null,
+  "sidecarSha256": null,
+  "collectionSha256": null,
+  "recorderResultPath": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-results-r3/20261008-h-types-r9.RECORDER-RESULT.json",
+  "runnerResultPath": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-results-r11/20261008-h-types-r9/RESULT.json"
+}

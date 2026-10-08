@@ -1,0 +1,15 @@
+{
+  "bindingSourceSha256": "0e71560451f79623e7f9c572dd5ae06d71912f2cf4819a35b3beebaa7f9f691b",
+  "classification": "STATIC_ONLY_UNRUN",
+  "decision": "REFINE",
+  "findings": [
+    "DENIED_GROUP_SIGNAL_SWALLOWED_AFTER_CLEAR_PROBE",
+    "UNREAPED_DIRECT_CHILD_WAIT_TIMEOUT_SWALLOWED"
+  ],
+  "manifestSha256": "ef38540eefe8cd2378e65ba4718f0748b39c6e1e1c39fd51ef117498458d7acf",
+  "planSha256": "5562e132934fbaf84a6d774337a7c69076f0ddce9ae83dc0268153262cfceaa7",
+  "r11ObservedStopReceiptSha256": "9b8e6587d415db0d0bbd12ecdff3d67eeb87b39928d70b84baed8ad61600cbb0",
+  "reviewSha256": "a12d4a0e0ab09c3ec045c4618c0020c318421f63f4158dbde2126dc6be7d8f90",
+  "runnerSha256": "ec97699cd27de669b50a248f4aaca822045b98021d67f11a01e1851819d0e4d5",
+  "selfcheckSha256": "dc5faeb47672bddbe8e4e7c56cf0c14bc93a1b52707ac7a2a02572e9855db3ce"
+}
