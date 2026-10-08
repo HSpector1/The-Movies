@@ -1,0 +1,16 @@
+{
+  "auditSha256": "6b9afbb5078544638eb3eba30e3fca8fbb54ce0672703af218a13ef3ee51a323",
+  "candidateRootCount": 12,
+  "decision": "ACCEPT_1370_25_REMOTE_DISPOSITION_R1",
+  "disposeScriptSha256": "bf47f846f3a87a6d86cd343a7ea6a4e9743944af785af93ccd692ad930edc393",
+  "excludedCacheEntryCount": 0,
+  "laneLogSha256": "9c98861d017268299aecbce707f4fefbb5dc3266f1ace9b8f451812c5c0a26b4",
+  "laneMetaSha256": "2c95b1054d0ceb1d12c630b3b51b0c907f54598491487ebc6a264c7595e31072",
+  "memberCount": 1441,
+  "protectedMemberCount": 3,
+  "reportSha256": "51ac854f0aa1bd4aba75b6d5c819a7d529f9edd460489415e134558f17086726",
+  "reviewSha256": "676139f85269a41103fc7d250ebb0680e15a4537eaa824b6377b27215f7434d6",
+  "schema": "1370-twenty-fifth-remote-observed-review-r1",
+  "scope": "exact 12 historical roots only; protected r12 reference retained; no deletion performed",
+  "verifyScriptSha256": "dc468ae38dffbdb2cc3e4f79c1b709dbbe963194886f07fdf8541972dbfb27cc"
+}

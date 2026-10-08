@@ -1,0 +1,32 @@
+# Twenty-fifth historical scratch disposition, proposal r1
+
+Status: **FROZEN FOR INDEPENDENT STATIC REVIEW; NO FETCH, HEAVY SOURCE READ, OR DELETE EXECUTED.** This proposal concerns 12 exact historical F0/EBG scratch directory roots, nominally 71,476 KiB by prior `du -sk`. A thirteenth archived root, `/Users/zacheryspector/studio-scratch/1369-ebg-r8-observed-green-independent-review-r1` (12 KiB), is a current r12 reference and is **protected from deletion**. Its archived bytes are still audited as one of all published members. No production source, Owner saves, current captures, HANDOFF, or GitHub evidence are deletion targets. APFS recovery must be measured by `df -Pk`, not nominal `du`.
+
+## Published identity and source protection
+
+The exact HTTPS remote is `https://github.com/HSpector1/The-Movies.git`; evidence ref `refs/heads/evidence/1370-r10-clean-captures` is pinned at `4566887f3795b07326259b7ab6f0adb19536a12c`. Historical archive commit is `d1c6bd948ae56b81c9f50361bce20bef805b416f`, under `docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-fifth-verification`. Primary `EVIDENCE.tar.gz` SHA-256 is `4026eca5b58355ac2832bdf82c766a5754f6e2ad72ddeac5424fdf69a753456c` (28,142,680 bytes); raw tar SHA-256 is `a9cb87a253d483d609cb810a7ca5a1525c0fd438acaf5d383b73e6b9c95448f0`. Published `SCOPE.json` SHA-256 `d1e3a946b746b6f5d3471724ac9338ec2b0837208690d325305145fe5056d674` has 13 roots. `MEMBERS.json` SHA-256 `b4f3fbfb603b94e3dcf69cf3dd6dc5beb93fbdff5c21c1073f6d01655ce5ce84` has 1,441 unique paths/sources: 1,308 files, 128 directories, five symlinks. `MANIFEST.json` SHA-256 `f3d39a10ef729b41fb5144bd496bb823f57e3a952f86a9e9d30b8f8ccf0cc4a2`. `RECEIPT.json` SHA-256 `15da1de08443ffd2a867bd022ee582c332595479e69d1198551953a02c296af4` decides `ACCEPT_ARCHIVE_PRESERVATION_ONLY`; it is historical publication evidence, not current-source restoration proof. The scripts also pin `REPORT.md` and `REVIEW.md` remote hashes.
+
+The candidate source is only `/Users/zacheryspector/studio-scratch/1370-post-adoption-reserve-assessment-r1/CANDIDATES.json` SHA-256 `b939aee0df883af2e23191751cab6bae40125af9a1d77d338ea5a70d7ff0105c`. The exact 12 deletion roots are those marked `twenty-fifth` and `excludedCurrentR12Reference=false`; the sole marked-true root must equal the protected path above. They are disjoint from earlier disposition roots. The verifier requires the remote scope to equal all 13 assessment roots and checks every one of the 1,441 current source entries, including the protected review root. Production HEAD is pinned at `b995a83e5363a3843f9b902e08c2df4dd95840cb`, `src` tree at `13880d9b0ba72aff5d4c5bcf5d12fe682c5de554`, and the worktree must be clean. Any moved pin is STOP.
+
+## Sequential gates
+
+`verify.py` requires a new recorded heavy lane, exact log `/Users/zacheryspector/studio-scratch/heavy-queue/1370-twenty-fifth-remote-audit-r1.lane.log`, and exact absent report `/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-audit-r1/REPORT.json`. Before clone it requires 3.75 GiB free; throughout retrieval, tar and source reads, and report write it requires 3 GiB free. It builds a fresh bare HTTPS remote configured as a `blob:none` promisor, fetches only the exact historical commit at depth one, checks exact `FETCH_HEAD`, promisor pack and no alternates, then lazily loads and hashes seven published artifacts. It verifies the compressed and raw tar hashes, every 1,441 tar member in order (file bytes, mode, symlink target), all 1,441 current sources through no-follow ancestor/file descriptors, and no extra or changed object inside any of the 12 candidate roots. It leaves the protected root untouched and lists it in the report. It records `df -Pk`. A timeout, filter rejection, missing artifact, byte drift, or floor breach is STOP; do not reclassify a partial run as success.
+
+After an independent static review **and** an observed audit review, an independent reviewer must create exact `/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-independent-review-r1/REVIEW.json` with decision `ACCEPT_1370_25_REMOTE_DISPOSITION_R1`, the audit report SHA-256, and both script SHA-256 values. `dispose.py` requires that review, a fresh exact remote/worktree check, a fresh 1,441-entry current-source snapshot, no extra member in the 12 candidate roots, a recorded heavy lane, `lsof +D` with no open files at preflight and before each root, and a 3 GiB disk floor. It writes durable `STOP.json` before unlink. It removes only the exact 12 roots using no-follow directory descriptors, per-object identity and byte rechecks; output receipts remain outside scope. It writes durable `PROGRESS.json`, `FAILURE.json` on partial STOP, and `RESULT.json` on complete pass. Any partial failure requires reassessment, not a blind retry. The protected root is never passed to the deletion loop.
+
+This proposal adapts the independently static- and observed-reviewed twenty-fourth pattern but is **not** covered by that review. Its larger 28 MiB compressed archive and 72 MiB raw tar make the 3.75 GiB preflight/3 GiB running floor material. Test the exact remote fetch behavior under the recorded lane before considering disposition. No execution is authorized by this draft itself.
+
+Proposed commands, **not executed**:
+
+```sh
+mkdir /Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-audit-r1
+bash /Users/zacheryspector/studio-scratch/heavy-queue/lane-run.sh 0 /Users/zacheryspector/studio-scratch/heavy-queue/1370-twenty-fifth-remote-audit-r1.lane.log \
+  python3 -I -B /Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-proposal-r1/verify.py \
+  --output /Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-audit-r1/REPORT.json
+# Independent observed review and exact pinned REVIEW.json are required here.
+bash /Users/zacheryspector/studio-scratch/heavy-queue/lane-run.sh 0 /Users/zacheryspector/studio-scratch/heavy-queue/1370-twenty-fifth-disposition-r1.lane.log \
+  python3 -I -B /Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-proposal-r1/dispose.py \
+  --audit /Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-audit-r1/REPORT.json \
+  --review /Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-independent-review-r1/REVIEW.json \
+  --output-dir /Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-result-r1
+```

@@ -1,0 +1,17 @@
+{
+  "archiveMemberCount": 560,
+  "auditSha256": "3ceea892fb08fb6567f7cee0a33c3f6eb429fd4dd023137163d3a2971183b88a",
+  "candidateRootCount": 13,
+  "decision": "ACCEPT_1370_23_DISJOINT_REMOTE_DISPOSITION_R2",
+  "disposeScriptSha256": "39d656f3f1d81800a1504ad13a6b0d42fbe7c15f09085ceb4899b6f0b1b3c1b8",
+  "laneLogSha256": "0d1f9c90921a7eda1bf3b0004628b9308b90d2864085308544eeb841dc06db3f",
+  "laneMetaSha256": "be40c789e32902db90d39a10c2944c2d76d788a40f5bbdf041e0efbc471d5f03",
+  "presentSourceCount": 138,
+  "priorRemovedRootCount": 2,
+  "priorRemovedSourceCount": 422,
+  "reportSha256": "2de7cf9049ccbceb405e525098d7b217be3a403e48b666dd6e7fc54f79749af8",
+  "reviewSha256": "e1edfcacf7ff4327d15c97f98d5f5d90ebabb05bec060bfc250b339d4ee1b53f",
+  "schema": "1370-twenty-third-disjoint-observed-review-r2",
+  "scope": "exact 13 remaining roots only; no deletion performed",
+  "verifyScriptSha256": "b373e4d9ddaa8b02f4318072780d8a59fdff4ab01590a407e6ba28f1b19c9c5b"
+}

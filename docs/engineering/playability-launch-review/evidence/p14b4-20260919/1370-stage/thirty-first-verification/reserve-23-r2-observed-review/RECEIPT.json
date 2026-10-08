@@ -1,0 +1,11 @@
+{
+  "auditSha256": "3ceea892fb08fb6567f7cee0a33c3f6eb429fd4dd023137163d3a2971183b88a",
+  "decision": "ACCEPT_EXACT_13_ROOTS_REMOVED",
+  "freeKiBAfter": 4368680,
+  "independentReviewSha256": "e1edfcacf7ff4327d15c97f98d5f5d90ebabb05bec060bfc250b339d4ee1b53f",
+  "limitation": "Historical scratch disposition only; below 4,456,448 KiB adoption preflight.",
+  "removedRoots": 13,
+  "resultSha256": "9cbc7476d951133934632d0dd25bea5be98a534f977d0777ceeb0a612d00cd92",
+  "schema": "1370-23-disjoint-disposition-observed-r2",
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb"
+}

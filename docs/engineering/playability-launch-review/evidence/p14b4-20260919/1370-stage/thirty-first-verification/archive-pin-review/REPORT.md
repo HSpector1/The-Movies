@@ -1,0 +1,3 @@
+# Independent E0G p13a archive pin review
+
+**ACCEPT_PIN_AND_COMMANDS_ONLY.** The 22-field pin binds the source HEAD and src tree, exact E0G p13a role/run/classification, accepted observed clean receipt, target/outer RESULTs, boundary capture, and lane bytes. The exclusive-lane inventory has 232 sorted entries: 218 files, 13 directories, one symlink, and 112,819,901 regular bytes. Its listed five anchors match the pin; the observed receipt, source tree, and immutable archive code hashes match independently. The proposed build and verify commands use the one heavy lane and frozen r3 code; archive output parent is absent. This review authorizes only a sequential build and verification, not publication, raw deletion, ledger admission or 1363 closure.

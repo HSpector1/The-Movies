@@ -1,0 +1,11 @@
+{
+  "decision": "ACCEPT_STATIC_MAP_ONLY",
+  "limits": "Static map only; per-file source/staged hash receipt and separate remote publication audit required",
+  "mapSha256": "1ae2b1445c3a47de83877e34e5afd3ad048f845423e1d2ac572261702da12b8c",
+  "mappedBytes": 114202207,
+  "mappedFileCount": 94,
+  "r1RefineReceiptSha256": "ff373e58cc4e1ac72303a027ea3756ced34fb8411fe8edf8a0314ea50bd3051a",
+  "readmeSha256": "13edd18964c313753fad19d6d9253f55416c87e0d37ae8a10b72764071501888",
+  "reportSha256": "5d1cca976b2a4061eb6a94c2ae24da653f10cb7f2396e74d89454410a0e3c8ff",
+  "schema": "1370-r12-e0g-p13a-publication-map-static-review-r2"
+}

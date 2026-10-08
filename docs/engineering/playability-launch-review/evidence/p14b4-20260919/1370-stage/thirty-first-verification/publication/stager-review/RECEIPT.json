@@ -1,0 +1,9 @@
+{
+  "decision": "ACCEPT_STATIC_STAGING_CODE_ONLY",
+  "limits": "Static code only; lane run and staged-tree identity audit required",
+  "mapSha256": "1ae2b1445c3a47de83877e34e5afd3ad048f845423e1d2ac572261702da12b8c",
+  "r2RefineReceiptSha256": "1d076377baf4651f6a44fc79106560986590ecd7179351ca872ee5a64f7c612a",
+  "reportSha256": "cdd3bd5854cd361039506ff5b630c6e609bb63b9976601d443b5bbf7f15b265e",
+  "schema": "1370-r12-e0g-p13a-stage-blobs-static-review-r3",
+  "scriptSha256": "16c906bcccec130c837d1defd9979174b8912bdb4293ce02e03b9147cd41f0ca"
+}

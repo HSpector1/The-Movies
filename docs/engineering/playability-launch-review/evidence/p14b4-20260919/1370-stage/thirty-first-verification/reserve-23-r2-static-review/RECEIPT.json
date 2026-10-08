@@ -1,0 +1,13 @@
+{
+  "decision": "ACCEPT_STATIC_ONLY",
+  "limits": "Static-only. Exact observed remote/current-source audit and separate disposal review required.",
+  "proposalHashes": {
+    "PINS.json": "08e4c83529ade02bb25b0ea1444a635ca94e5c7898e2a242239b58e74f76820d",
+    "PLAN.md": "1a7b093c9036be18946c2427b75450ffd7867ed59215ec14879a169f46957326",
+    "dispose.py": "39d656f3f1d81800a1504ad13a6b0d42fbe7c15f09085ceb4899b6f0b1b3c1b8",
+    "verify.py": "b373e4d9ddaa8b02f4318072780d8a59fdff4ab01590a407e6ba28f1b19c9c5b"
+  },
+  "r1RefineReceiptSha256": "3cf2245ab1e6a139dd2d3b14dae6f51e8e1c469aab59f07f9da300cc1b9a3ad1",
+  "reportSha256": "99b94b8dbf3e5c23a68af5d1731b0ef7b4d30355d661c31d3ea6de386678e96c",
+  "schema": "1370-twenty-third-disjoint-static-review-r2"
+}

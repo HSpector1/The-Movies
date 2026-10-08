@@ -1,0 +1,12 @@
+{
+  "archiveCommit": "d1c6bd948ae56b81c9f50361bce20bef805b416f",
+  "auditSha256": "6b9afbb5078544638eb3eba30e3fca8fbb54ce0672703af218a13ef3ee51a323",
+  "candidateRootCount": 12,
+  "decision": "ACCEPT_1370_25_REMOTE_DISPOSITION_R1",
+  "disposeScriptSha256": "bf47f846f3a87a6d86cd343a7ea6a4e9743944af785af93ccd692ad930edc393",
+  "limits": "Observed remote/current-byte audit accepted. Disposer must independently recheck live snapshot, lane, open files, source and remote pins, and 3 GiB floor.",
+  "protectedCurrentR12Root": "/Users/zacheryspector/studio-scratch/1369-ebg-r8-observed-green-independent-review-r1",
+  "remoteRef": "4566887f3795b07326259b7ab6f0adb19536a12c",
+  "schema": "1370-twenty-fifth-remote-disposition-independent-review-r1",
+  "verifyScriptSha256": "dc468ae38dffbdb2cc3e4f79c1b709dbbe963194886f07fdf8541972dbfb27cc"
+}

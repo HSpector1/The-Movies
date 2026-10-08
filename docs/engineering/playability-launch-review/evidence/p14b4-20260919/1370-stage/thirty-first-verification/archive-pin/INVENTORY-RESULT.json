@@ -1,0 +1,9 @@
+{
+  "freeBytesAfter": 4551606272,
+  "freeBytesBefore": 4551651328,
+  "members": 232,
+  "observedReceiptSha256": "27be46a6d79cd232dd810d9afefd497fa2aa802bc432d9bf823d5e42f8423e59",
+  "regularBytes": 112819901,
+  "schema": "1370-r12-e0g-p13a-inventory-r1",
+  "sourceInventorySha256": "756c70fd1cf3d4764ff30b4738b548c5c6a01b1c4c2ee88e8cd6517edf2fdf3f"
+}

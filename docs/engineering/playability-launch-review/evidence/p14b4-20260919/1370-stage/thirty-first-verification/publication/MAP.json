@@ -1,0 +1,477 @@
+{
+  "baseEvidenceCommit": "4566887f3795b07326259b7ab6f0adb19536a12c",
+  "files": [
+    {
+      "bytes": 1987,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/README.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-publication-plan-r2/README.md"
+    },
+    {
+      "bytes": 1102,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-code-r3-review/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-clean-archive-independent-review-r3/RECEIPT.json"
+    },
+    {
+      "bytes": 2792,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-code-r3-review/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-clean-archive-independent-review-r3/REPORT.md"
+    },
+    {
+      "bytes": 1373,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-code-r3/PIN-TEMPLATE.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-clean-archive-proposal-r3/PIN-TEMPLATE.json"
+    },
+    {
+      "bytes": 1342,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-code-r3/PROPOSAL-MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-clean-archive-proposal-r3/PROPOSAL-MANIFEST.json"
+    },
+    {
+      "bytes": 2572,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-code-r3/REVIEW-REQUEST.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-clean-archive-proposal-r3/REVIEW-REQUEST.md"
+    },
+    {
+      "bytes": 828,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-code-r3/STATIC-SELFTEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-clean-archive-proposal-r3/STATIC-SELFTEST.json"
+    },
+    {
+      "bytes": 21003,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-code-r3/package.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-clean-archive-proposal-r3/package.py"
+    },
+    {
+      "bytes": 1969,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-code-r3/static_selftest.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-clean-archive-proposal-r3/static_selftest.py"
+    },
+    {
+      "bytes": 16768,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-code-r3/verify.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-clean-archive-proposal-r3/verify.py"
+    },
+    {
+      "bytes": 550,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-observed-review/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-archive-observed-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 744,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-observed-review/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-archive-observed-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 3815,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-pin-plan/PLAN.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-archive-pin-plan-r1/PLAN.md"
+    },
+    {
+      "bytes": 8221,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-pin-plan/inventory.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-archive-pin-plan-r1/inventory.py"
+    },
+    {
+      "bytes": 860,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-pin-review/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-archive-pin-independent-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 757,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-pin-review/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-archive-pin-independent-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 351,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-pin/INVENTORY-RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-archive-pin-r1/INVENTORY-RESULT.json"
+    },
+    {
+      "bytes": 1179,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-pin/PIN.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-archive-pin-r1/PIN.json"
+    },
+    {
+      "bytes": 3570,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-pin/REVIEW-REQUEST.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-archive-pin-r1/REVIEW-REQUEST.md"
+    },
+    {
+      "bytes": 39061,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-pin/SOURCE-INVENTORY.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-archive-pin-r1/SOURCE-INVENTORY.json"
+    },
+    {
+      "bytes": 354,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-pin/build.command",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-archive-pin-r1/build.command"
+    },
+    {
+      "bytes": 354,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive-pin/verify.command",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-e0g-p13a-archive-pin-r1/verify.command"
+    },
+    {
+      "bytes": 792,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive/build-r3.lane.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-e0g-p13a-archive-r2/build-r3.lane.log"
+    },
+    {
+      "bytes": 309,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive/build-r3.lane.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-e0g-p13a-archive-r2/build-r3.lane.log.meta"
+    },
+    {
+      "bytes": 5122,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive/independent_audit.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-e0g-p13a-archive-r2/independent_audit.py"
+    },
+    {
+      "bytes": 53516,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive/package/MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-e0g-p13a-archive-r2/package/MANIFEST.json"
+    },
+    {
+      "bytes": 50331648,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive/package/capture.tar.part-001",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-e0g-p13a-archive-r2/package/capture.tar.part-001"
+    },
+    {
+      "bytes": 50331648,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive/package/capture.tar.part-002",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-e0g-p13a-archive-r2/package/capture.tar.part-002"
+    },
+    {
+      "bytes": 12335104,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive/package/capture.tar.part-003",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-e0g-p13a-archive-r2/package/capture.tar.part-003"
+    },
+    {
+      "bytes": 400,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive/verify-r3.lane.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-e0g-p13a-archive-r2/verify-r3.lane.log"
+    },
+    {
+      "bytes": 308,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/archive/verify-r3.lane.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1370-r12-followon-e0g-p13a-archive-r2/verify-r3.lane.log.meta"
+    },
+    {
+      "bytes": 109,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/clean-lane/1370-ag-e0g-full-state-r12-e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850.lane.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-r12-e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850.lane.log"
+    },
+    {
+      "bytes": 3324,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/clean-lane/1370-ag-e0g-full-state-r12-e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850.lane.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-r12-e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850.lane.log.meta"
+    },
+    {
+      "bytes": 335,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/inventory-lane/1370-r12-e0g-p13a-inventory-r1.lane.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-r12-e0g-p13a-inventory-r1.lane.log"
+    },
+    {
+      "bytes": 220,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/inventory-lane/1370-r12-e0g-p13a-inventory-r1.lane.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-r12-e0g-p13a-inventory-r1.lane.log.meta"
+    },
+    {
+      "bytes": 2671,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/observed-audit-r1-stop/PLAN.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-p13a-clean-observed-review-r12/PLAN.md"
+    },
+    {
+      "bytes": 524,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/observed-audit-r1-stop/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-p13a-clean-observed-review-r12/RECEIPT.json"
+    },
+    {
+      "bytes": 325,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/observed-audit-r1-stop/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-p13a-clean-observed-review-r12/REPORT.md"
+    },
+    {
+      "bytes": 13096,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/observed-audit-r1-stop/audit.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-p13a-clean-observed-review-r12/audit.py"
+    },
+    {
+      "bytes": 764,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/observed-audit-r2/PLAN.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-p13a-clean-observed-review-r12-r2/PLAN.md"
+    },
+    {
+      "bytes": 1457,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/observed-audit-r2/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-p13a-clean-observed-review-r12-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 1214,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/observed-audit-r2/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-p13a-clean-observed-review-r12-r2/REPORT.md"
+    },
+    {
+      "bytes": 13099,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/observed-audit-r2/audit.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-p13a-clean-observed-review-r12-r2/audit.py"
+    },
+    {
+      "bytes": 948,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/observed-r2-independent-review/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-p13a-clean-observed-r2-independent-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 2378,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/observed-r2-independent-review/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-p13a-clean-observed-r2-independent-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 124,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/outer-direct/LAUNCH.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-outer-recorded-r12/e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850/LAUNCH.json"
+    },
+    {
+      "bytes": 1640,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/outer-direct/RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-outer-recorded-r12/e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850/RESULT.json"
+    },
+    {
+      "bytes": 83,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/outer-direct/RESULT.sha256.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-outer-recorded-r12/e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850/RESULT.sha256.json"
+    },
+    {
+      "bytes": 1672,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-lane/1370-twenty-third-disjoint-disposition-r2.lane.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-twenty-third-disjoint-disposition-r2.lane.log"
+    },
+    {
+      "bytes": 582,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-lane/1370-twenty-third-disjoint-disposition-r2.lane.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-twenty-third-disjoint-disposition-r2.lane.log.meta"
+    },
+    {
+      "bytes": 328,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-lane/1370-twenty-third-disjoint-remote-audit-r2.lane.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-twenty-third-disjoint-remote-audit-r2.lane.log"
+    },
+    {
+      "bytes": 350,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-lane/1370-twenty-third-disjoint-remote-audit-r2.lane.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-twenty-third-disjoint-remote-audit-r2.lane.log.meta"
+    },
+    {
+      "bytes": 599,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r1-proposal/PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-proposal-r1/PINS.json"
+    },
+    {
+      "bytes": 4917,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r1-proposal/PLAN.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-proposal-r1/PLAN.md"
+    },
+    {
+      "bytes": 9174,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r1-proposal/dispose.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-proposal-r1/dispose.py"
+    },
+    {
+      "bytes": 16759,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r1-proposal/verify.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-proposal-r1/verify.py"
+    },
+    {
+      "bytes": 728,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r1-static-review/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-static-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 2897,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r1-static-review/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-static-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 76291,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-audit/REPORT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-audit-r2/REPORT.json"
+    },
+    {
+      "bytes": 961,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-independent-review/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-independent-review-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 3400,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-independent-review/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-independent-review-r2/REPORT.md"
+    },
+    {
+      "bytes": 786,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-independent-review/REVIEW.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-independent-review-r2/REVIEW.json"
+    },
+    {
+      "bytes": 579,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-observed-review/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-disposition-observed-review-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 476,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-observed-review/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-disposition-observed-review-r2/REPORT.md"
+    },
+    {
+      "bytes": 600,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-proposal/PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-proposal-r2/PINS.json"
+    },
+    {
+      "bytes": 5220,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-proposal/PLAN.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-proposal-r2/PLAN.md"
+    },
+    {
+      "bytes": 9174,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-proposal/dispose.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-proposal-r2/dispose.py"
+    },
+    {
+      "bytes": 16760,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-proposal/verify.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-proposal-r2/verify.py"
+    },
+    {
+      "bytes": 1363,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-result/PROGRESS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-result-r2/PROGRESS.json"
+    },
+    {
+      "bytes": 1758,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-result/RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-result-r2/RESULT.json"
+    },
+    {
+      "bytes": 1948,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-result/STOP.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-result-r2/STOP.json"
+    },
+    {
+      "bytes": 754,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-static-review/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-static-review-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 3414,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-23-r2-static-review/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-third-disjoint-remote-disposition-static-review-r2/REPORT.md"
+    },
+    {
+      "bytes": 771978,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-audit/REPORT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-audit-r1/REPORT.json"
+    },
+    {
+      "bytes": 947,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-independent-review/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-independent-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 3279,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-independent-review/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-independent-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 839,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-independent-review/REVIEW.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-independent-review-r1/REVIEW.json"
+    },
+    {
+      "bytes": 1411,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-lane/1370-twenty-fifth-disposition-r1.lane.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-twenty-fifth-disposition-r1.lane.log"
+    },
+    {
+      "bytes": 546,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-lane/1370-twenty-fifth-disposition-r1.lane.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-twenty-fifth-disposition-r1.lane.log.meta"
+    },
+    {
+      "bytes": 469,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-lane/1370-twenty-fifth-remote-audit-r1.lane.log",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-twenty-fifth-remote-audit-r1.lane.log"
+    },
+    {
+      "bytes": 332,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-lane/1370-twenty-fifth-remote-audit-r1.lane.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-twenty-fifth-remote-audit-r1.lane.log.meta"
+    },
+    {
+      "bytes": 608,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-observed-review/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-disposition-observed-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 533,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-observed-review/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-disposition-observed-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 6494,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-proposal/PLAN.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-proposal-r1/PLAN.md"
+    },
+    {
+      "bytes": 10495,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-proposal/dispose.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-proposal-r1/dispose.py"
+    },
+    {
+      "bytes": 17540,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-proposal/verify.py",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-proposal-r1/verify.py"
+    },
+    {
+      "bytes": 1287,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-result/PROGRESS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-result-r1/PROGRESS.json"
+    },
+    {
+      "bytes": 1479,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-result/RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-result-r1/RESULT.json"
+    },
+    {
+      "bytes": 1806,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-result/STOP.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-result-r1/STOP.json"
+    },
+    {
+      "bytes": 765,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-static-review/RECEIPT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-static-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 3410,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/reserve-25-static-review/REPORT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-twenty-fifth-remote-disposition-static-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 639,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/target-direct/LAUNCH.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r12/e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850/LAUNCH.json"
+    },
+    {
+      "bytes": 3067,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/target-direct/RESULT.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r12/e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850/RESULT.json"
+    },
+    {
+      "bytes": 83,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-first-verification/target-direct/RESULT.sha256.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r12/e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850/RESULT.sha256.json"
+    }
+  ],
+  "schema": "1370-r12-e0g-p13a-publication-map-r2",
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb"
+}

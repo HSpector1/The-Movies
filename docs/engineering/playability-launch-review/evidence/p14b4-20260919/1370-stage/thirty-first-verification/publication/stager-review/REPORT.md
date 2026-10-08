@@ -1,0 +1,9 @@
+# E0G p13a stage_blobs_r3.py — independent static review
+
+**Decision: ACCEPT_STATIC_STAGING_CODE_ONLY.** The r3 diff from the preserved r2 REFINE is narrow: it replaces the map's hash-then-`Path.read_text()` reopen with `read_control(MAP)`, which opens each ancestor through `O_DIRECTORY|O_NOFOLLOW`, opens the map file through its parent FD with `O_NOFOLLOW`, checks FD/name dev/ino/mode/size/mtime/ctime before and after, and returns the same bytes for SHA-256 and JSON parsing. The pinned map hash is `1ae2b1445c3a47de83877e34e5afd3ad048f845423e1d2ac572261702da12b8c`. This closes the remaining r2 blocker without changing the 94-file staging logic.
+
+Per-file staging remains fd-anchored and no-follow. Each source is read once, feeding the same chunks to SHA-256 and `git hash-object -w --stdin`; identity and metadata are rechecked through both FD and name, and the Git blob size is checked. The script pins source HEAD/tree and evidence branch base, requires clean worktree and a 3 GiB floor after every mapped file, uses shell-free subprocess calls, and writes `BLOBS.json` only through an anchored parent FD with `O_CREAT|O_EXCL|O_NOFOLLOW` plus file/parent fsync. `git hash-object -w` writes loose objects but does not stage the index, update refs, create commits, or push. The script parses in memory. R1 and r2 were not executed and remain preserved.
+
+This is a static code verdict. Run r3 once under the recorded heavy lane, verify actual child exit and the exact output file/hash, then independently compare the 94 source SHA-256/Git blob rows to the staged Git tree before publication. The script alone does not publish or prove remote restoration.
+
+Frozen r3 script SHA-256 `16c906bcccec130c837d1defd9979174b8912bdb4293ce02e03b9147cd41f0ca`; r2 REFINE receipt SHA-256 `1d076377baf4651f6a44fc79106560986590ecd7179351ca872ee5a64f7c612a`.

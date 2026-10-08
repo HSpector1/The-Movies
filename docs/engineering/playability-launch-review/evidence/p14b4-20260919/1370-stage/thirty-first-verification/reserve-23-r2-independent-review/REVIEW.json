@@ -1,0 +1,12 @@
+{
+  "archiveCommit": "d1c6bd948ae56b81c9f50361bce20bef805b416f",
+  "auditSha256": "3ceea892fb08fb6567f7cee0a33c3f6eb429fd4dd023137163d3a2971183b88a",
+  "candidateRootCount": 13,
+  "decision": "ACCEPT_1370_23_DISJOINT_REMOTE_DISPOSITION_R2",
+  "disposeScriptSha256": "39d656f3f1d81800a1504ad13a6b0d42fbe7c15f09085ceb4899b6f0b1b3c1b8",
+  "limits": "Observed remote/current-byte audit accepted for exact disjoint scope. Disposer must freshly recheck source snapshot, remote/worktree pins, lane/open files and 3 GiB floor.",
+  "priorRemovedRootCount": 2,
+  "remoteRef": "4566887f3795b07326259b7ab6f0adb19536a12c",
+  "schema": "1370-twenty-third-disjoint-remote-disposition-independent-review-r2",
+  "verifyScriptSha256": "b373e4d9ddaa8b02f4318072780d8a59fdff4ab01590a407e6ba28f1b19c9c5b"
+}

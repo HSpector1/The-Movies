@@ -1,0 +1,27 @@
+{
+  "archiveExecuted": false,
+  "classification": "STATIC_PROPOSAL_ONLY",
+  "files": {
+    "PIN-TEMPLATE.json": "28411845623ca77f8895226465e594c1830a4a5bff8d8f2bc3fc18d979702ddb",
+    "REVIEW-REQUEST.md": "78dce0457da490c21007dead85b4beaca352f8a6d0e6a25ece627d7ae8eb9910",
+    "STATIC-SELFTEST.json": "d5a0497e0cb08aefb5cfafb63619d64b6951efd5f6cf7fd97f2fbebf9afa0902",
+    "package.py": "7368b59185d9818c7fb286dbb39a91cbc98582752f75a560393a34d05a3efc46",
+    "static_selftest.py": "1d33c21e8dca2473c6f9ba27338914e22d6b34bce433a9be674c21ba167e6d0e",
+    "verify.py": "75b13e206a46d223b2230ea7fde510b0acf36517ae3d944661f3346f5845c4b9"
+  },
+  "independentStaticReviewRequired": true,
+  "observedLeafPinRequiredBeforeBuild": true,
+  "r2CorrectionReceiptSha256": "2ac5c722faced853cbbe78be5997ed2bfea445ca7ab784270646504f4169ad21",
+  "r2CorrectionReportSha256": "dd2b0ff509d492dcd5040fb0ebca6ec6dd0b0d031a2cd96a6e53cc209ffc44a7",
+  "r2ManifestSha256": "b4da69f27e7ae847b41c6e2153da121976570ef16953f81df5558f841d8ed2d6",
+  "r2WireSchemaAndOutputNamesRetained": true,
+  "roles": [
+    "ag-adoption",
+    "e0g-p13a",
+    "e0g-adoption"
+  ],
+  "schema": "1370-r12-followon-clean-archive-proposal-r3",
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "sourceLeafChanged": false,
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

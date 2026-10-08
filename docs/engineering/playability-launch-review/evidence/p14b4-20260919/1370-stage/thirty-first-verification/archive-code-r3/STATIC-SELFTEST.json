@@ -1,0 +1,22 @@
+{
+  "decision": "PASS_STATIC_ONLY",
+  "exampleLeaves": {
+    "ag-adoption": "ag-adoption-clean-r12-ag-adoption-clean-20261007-1850",
+    "e0g-adoption": "e0g-adoption-clean-r12-e0g-adoption-clean-20261007-1850",
+    "e0g-p13a": "e0g-p13a-clean-r12-e0g-p13a-clean-20261007-1850"
+  },
+  "files": {
+    "package.py": {
+      "astParsed": true,
+      "newSha256": "7368b59185d9818c7fb286dbb39a91cbc98582752f75a560393a34d05a3efc46",
+      "oldSha256": "243bfe9a72b2d5fd965c43513bddd621a221fe0d831487cff2445606112ec806",
+      "onlyIntendedLineChanged": true
+    },
+    "verify.py": {
+      "astParsed": true,
+      "newSha256": "75b13e206a46d223b2230ea7fde510b0acf36517ae3d944661f3346f5845c4b9",
+      "oldSha256": "59c02008ef79cb25e84c8c795639f2efbc3b0abf66302ef8dc1b28eff1e97a0d",
+      "onlyIntendedLineChanged": true
+    }
+  }
+}

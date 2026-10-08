@@ -1,0 +1,18 @@
+{
+  "agAdoptionLeafExists": true,
+  "agAdoptionPinCompatible": true,
+  "decision": "ACCEPT_STATIC_ARCHIVE_CODE_ONLY",
+  "executed": false,
+  "onlyOneLeafLineChangedPerProgram": true,
+  "packagePySha256": "7368b59185d9818c7fb286dbb39a91cbc98582752f75a560393a34d05a3efc46",
+  "perLeafPinReviewRequired": true,
+  "pinTemplateSha256": "28411845623ca77f8895226465e594c1830a4a5bff8d8f2bc3fc18d979702ddb",
+  "proposalManifestSha256": "2d9e9aead9399213abdd2d302ac8d6092c508d19ef58310940dde38bbceb3d3b",
+  "r2CorrectionReportSha256": "dd2b0ff509d492dcd5040fb0ebca6ec6dd0b0d031a2cd96a6e53cc209ffc44a7",
+  "reportSha256": "8286698c60f04e936e99342d3289946a6592e099f1bc1a128ca41f22b3e8d352",
+  "reviewRequestSha256": "78dce0457da490c21007dead85b4beaca352f8a6d0e6a25ece627d7ae8eb9910",
+  "scope": "R3_PATH_CORRECTION_STATIC_NO_EXECUTION",
+  "selftestResultSha256": "d5a0497e0cb08aefb5cfafb63619d64b6951efd5f6cf7fd97f2fbebf9afa0902",
+  "selftestSourceSha256": "1d33c21e8dca2473c6f9ba27338914e22d6b34bce433a9be674c21ba167e6d0e",
+  "verifyPySha256": "75b13e206a46d223b2230ea7fde510b0acf36517ae3d944661f3346f5845c4b9"
+}

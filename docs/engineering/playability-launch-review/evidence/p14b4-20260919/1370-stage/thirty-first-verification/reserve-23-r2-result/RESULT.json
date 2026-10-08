@@ -1,0 +1,27 @@
+{
+  "auditSha256": "3ceea892fb08fb6567f7cee0a33c3f6eb429fd4dd023137163d3a2971183b88a",
+  "dfPkAfter": "Filesystem   1024-blocks     Used Available Capacity  Mounted on\n/dev/disk1s1   118284248 91583712   4368680    96%    /System/Volumes/Data\n",
+  "freeKiBAfter": 4368680,
+  "freeKiBBefore": 4328584,
+  "priorRemovedRoots": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-external-observer-proposal-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-independent-review-r3"
+  ],
+  "removedRoots": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-independent-review-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-independent-review-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-proposal-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-proposal-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-comparison-independent-audit-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-comparison-r2-output.json",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-recorded-runs-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-independent-review-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-independent-review-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-proposal-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-proposal-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launches-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-result-independent-review-r1"
+  ],
+  "schema": "1370-23-disjoint-disposition-r2",
+  "status": "PASS_EXACT_ROOTS_REMOVED"
+}

@@ -1,0 +1,12 @@
+{
+  "auditSha256": "6b9afbb5078544638eb3eba30e3fca8fbb54ce0672703af218a13ef3ee51a323",
+  "decision": "ACCEPT_EXACT_12_ROOTS_REMOVED",
+  "freeKiBAfter": 4445080,
+  "limitations": "Exact historical scratch preservation/disposition only; no 1363 ledger admission.",
+  "protectedRootPresent": true,
+  "removedRootCount": 12,
+  "resultSha256": "832086ea62bf6e8be0ef4c6755c5ea2ad805e6a09ab610279eb28fe481190897",
+  "reviewSha256": "676139f85269a41103fc7d250ebb0680e15a4537eaa824b6377b27215f7434d6",
+  "schema": "1370-25-disposition-observed-review-r1",
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb"
+}

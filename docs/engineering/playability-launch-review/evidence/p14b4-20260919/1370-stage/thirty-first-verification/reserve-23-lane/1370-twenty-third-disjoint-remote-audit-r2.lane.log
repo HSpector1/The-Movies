@@ -1,0 +1,1 @@
+{"dfPkAfterReport": "Filesystem   1024-blocks     Used Available Capacity  Mounted on\n/dev/disk1s1   118284248 91627652   4324740    96%    /System/Volumes/Data\n", "members": 560, "presentSources": 138, "reportSha256": "3ceea892fb08fb6567f7cee0a33c3f6eb429fd4dd023137163d3a2971183b88a", "roots": 13, "status": "DRY_RUN_ONLY"}

@@ -1,0 +1,13 @@
+{
+  "archiveCodeReviewSha256": "7b80b1aaaf380d933eafbdc3f3b939eb95c6aad2d330667a8601b41c38a297e9",
+  "buildCommandSha256": "ec8814d64797a86f19be8aa42313ee42e473257699c882d65b7c98b1c223275d",
+  "decision": "ACCEPT_PIN_AND_COMMANDS_ONLY",
+  "inventoryResultSha256": "983da4cc6e85329f16d993b6f09dac4acbfa9bce4f2c7c7d664e3a03b59f8fb1",
+  "inventorySha256": "756c70fd1cf3d4764ff30b4738b548c5c6a01b1c4c2ee88e8cd6517edf2fdf3f",
+  "observedReceiptSha256": "27be46a6d79cd232dd810d9afefd497fa2aa802bc432d9bf823d5e42f8423e59",
+  "pinSha256": "ad6e3d19cc64136aecb42d754a1b01dd5d7dd9576f3fdfbdf9bc2e4e1123f372",
+  "schema": "1370-r12-e0g-p13a-pin-review-r1",
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "verifyCommandSha256": "d8e87aed0b27039b4c554d8922ec800ad1c8832a01be3bb6501877a7ea3cff82"
+}

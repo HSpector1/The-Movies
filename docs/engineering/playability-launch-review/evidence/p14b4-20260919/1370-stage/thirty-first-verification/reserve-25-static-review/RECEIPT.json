@@ -1,0 +1,16 @@
+{
+  "archiveMembers": 1441,
+  "candidateDeletionRoots": 12,
+  "decision": "ACCEPT_STATIC_ONLY",
+  "historicalCommit": "d1c6bd948ae56b81c9f50361bce20bef805b416f",
+  "limits": "static review; no fetch, heavy run, deletion, or Git mutation",
+  "proposalHashes": {
+    "PLAN.md": "fe62f7c065249c8c19ed75afa0940b42c52be38f41994dee6b80db178f0a544b",
+    "dispose.py": "bf47f846f3a87a6d86cd343a7ea6a4e9743944af785af93ccd692ad930edc393",
+    "verify.py": "dc468ae38dffbdb2cc3e4f79c1b709dbbe963194886f07fdf8541972dbfb27cc"
+  },
+  "protectedCurrentR12Roots": 1,
+  "remoteRefExpected": "4566887f3795b07326259b7ab6f0adb19536a12c",
+  "reportSha256": "6d7de229a1ed3438c4071822074873455e3ef591a90d2a185cb0aa439eb03275",
+  "schema": "1370-25-remote-disposition-static-review-r1"
+}

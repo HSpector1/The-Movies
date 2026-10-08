@@ -1,0 +1,18 @@
+{
+  "dfPkAfterRoot": "Filesystem   1024-blocks     Used Available Capacity  Mounted on\n/dev/disk1s1   118284248 91507312   4445080    96%    /System/Volumes/Data\n",
+  "freeKiB": 4445208,
+  "removedRoots": [
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-outer-recorded-r7",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-outer-recorded-r8",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-proposal-r7",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-proposal-r8",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r7",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r8",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r8-v27-whole-file-overlay-proposal-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-hold-observer-proposal-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-two-stage-route-independent-review-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-two-stage-route-proposal-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-two-stage-route-recorded-runs-r3"
+  ]
+}

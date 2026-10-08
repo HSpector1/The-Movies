@@ -1,0 +1,13 @@
+{
+  "blocker": "malformed 63-character archive digest; actual remote/manifest/receipt digest has 64 characters",
+  "decision": "REFINE",
+  "limits": "No heavy read/fetch/deletion/Git mutation; r2 re-review required",
+  "proposalHashes": {
+    "PINS.json": "86fc4746f1ba1bfdd1274070bb587db3d5d2c058568e7fa6c17fe2f9d6bbe5f6",
+    "PLAN.md": "905f2e360a88b10997b64c0eaa4242a5fd7412dcd2dcc12a6fbe93085196830f",
+    "dispose.py": "d9c5305ef205d664df7a1307556dfa59fde4c0fa018d3ccf02b767810dc68cf2",
+    "verify.py": "ddf372b6481c549f80759dc643f72022d43ca22c0d3b768c8eec3e94d40851eb"
+  },
+  "reportSha256": "cc59d9c58f3d50a877c67bb7875b90a8ee797cdeabeeaccf3ddf93e35592634d",
+  "schema": "1370-twenty-third-disjoint-static-review-r1"
+}

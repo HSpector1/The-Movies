@@ -1,0 +1,19 @@
+{
+  "dfPkAfterRoot": "Filesystem   1024-blocks     Used Available Capacity  Mounted on\n/dev/disk1s1   118284248 91583712   4368680    96%    /System/Volumes/Data\n",
+  "freeKiB": 4368680,
+  "removedRoots": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-independent-review-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-independent-review-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-proposal-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-proposal-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-comparison-independent-audit-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-comparison-r2-output.json",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-recorded-runs-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-independent-review-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-independent-review-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-proposal-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-proposal-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launches-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-result-independent-review-r1"
+  ]
+}

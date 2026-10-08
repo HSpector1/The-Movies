@@ -1,0 +1,10 @@
+{
+  "blobsSha256": "5d39fffd2c638c76fbbe57df031426a28768c25de294dce78168d58796d4fe03",
+  "decision": "ACCEPT_STATIC_PUBLICATION_CODE_ONLY",
+  "limits": "Static code only; remote commit and all 106 published blobs require independent observed audit",
+  "mapSha256": "1ae2b1445c3a47de83877e34e5afd3ad048f845423e1d2ac572261702da12b8c",
+  "r3RefineReceiptSha256": "107fad546f501ac738acc341bdaec4afeefb177821fb999bf6f675a4379297a8",
+  "reportSha256": "cd871496b77a70a34642201057b1c39b5500a3538af493615c1e1c0ed141b938",
+  "schema": "1370-r12-e0g-p13a-publish-code-static-review-r4",
+  "scriptSha256": "30fbb33692a9556959b6cf21f6f4ab0ed0204503ab018abe1299b45fcc4a3d80"
+}

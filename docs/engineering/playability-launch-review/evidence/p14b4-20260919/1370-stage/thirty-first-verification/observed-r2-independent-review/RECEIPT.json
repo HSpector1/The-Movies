@@ -1,0 +1,13 @@
+{
+  "auditLaneLogSha256": "9bc63654b62378b4805d1b95247db8835d3524148146813df240d2aa59f3a227",
+  "auditLaneMetaSha256": "a5f8e1b957dce6e3e013f11ab2b062ca39ca7484d3456af02d789866c01353c4",
+  "auditPlanSha256": "30557759b2f1ec5f936a61eab1e0275a82e461be0eef0129f403264033d3ca76",
+  "auditReceiptSha256": "27be46a6d79cd232dd810d9afefd497fa2aa802bc432d9bf823d5e42f8423e59",
+  "auditReportSha256": "baa9a0d3d8d3cfcf675628403ba0ca527d8392d4be8d5f93d051b5743213c486",
+  "auditScriptSha256": "74f16896d54a4b2b0082e42ac85e82f1a652aaef6842a6970315a96aedd86e5a",
+  "decision": "ACCEPT_OBSERVED_R12_E0G_P13A_CLEAN_ONLY",
+  "r1StopReceiptSha256": "edad8f316401009e85d42b5a733f67dcab8bed08fece553c25f97a3127c775cf",
+  "r1StopReportSha256": "abc4f1b617dfcd0f6a388309ef685c5ce01f189d4e06d823387f74ddd6d55d52",
+  "reportSha256": "1a6a5b2dfe061e38be558f5a923e65c9ac1b21e58eb98361d0ea416140f07f55",
+  "schema": "1370-e0g-p13a-clean-observed-r2-independent-review-r1"
+}

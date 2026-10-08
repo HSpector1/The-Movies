@@ -1,0 +1,25 @@
+{
+  "archiveCommit": "d1c6bd948ae56b81c9f50361bce20bef805b416f",
+  "archiveSha256": "4026eca5b58355ac2832bdf82c766a5754f6e2ad72ddeac5424fdf69a753456c",
+  "auditSha256": "6b9afbb5078544638eb3eba30e3fca8fbb54ce0672703af218a13ef3ee51a323",
+  "dfPkBefore": "Filesystem   1024-blocks     Used Available Capacity  Mounted on\n/dev/disk1s1   118284248 91579156   4373236    96%    /System/Volumes/Data\n",
+  "freeKiBBefore": 4373236,
+  "protectedCurrentR12Root": "/Users/zacheryspector/studio-scratch/1369-ebg-r8-observed-green-independent-review-r1",
+  "reviewSha256": "676139f85269a41103fc7d250ebb0680e15a4537eaa824b6377b27215f7434d6",
+  "roots": [
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-outer-recorded-r7",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-outer-recorded-r8",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-proposal-r7",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-proposal-r8",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r7",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r8",
+    "/Users/zacheryspector/studio-scratch/1369-ebg-r8-v27-whole-file-overlay-proposal-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-hold-observer-proposal-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-two-stage-route-independent-review-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-two-stage-route-proposal-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-f0-two-stage-route-recorded-runs-r3"
+  ],
+  "schema": "1370-25-disposition-stop-marker-r1",
+  "status": "STOP_BEFORE_DELETE"
+}

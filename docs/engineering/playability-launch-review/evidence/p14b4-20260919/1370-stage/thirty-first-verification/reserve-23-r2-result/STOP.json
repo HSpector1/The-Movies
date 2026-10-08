@@ -1,0 +1,29 @@
+{
+  "archiveCommit": "d1c6bd948ae56b81c9f50361bce20bef805b416f",
+  "archiveSha256": "00f6888a1ea3c7a8209d3194010ec0d0dcaad77dd0664da234df6dae45712a19",
+  "auditSha256": "3ceea892fb08fb6567f7cee0a33c3f6eb429fd4dd023137163d3a2971183b88a",
+  "dfPkBefore": "Filesystem   1024-blocks     Used Available Capacity  Mounted on\n/dev/disk1s1   118284248 91623808   4328584    96%    /System/Volumes/Data\n",
+  "freeKiBBefore": 4328584,
+  "priorRemovedRoots": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-external-observer-proposal-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-independent-review-r3"
+  ],
+  "reviewSha256": "e1edfcacf7ff4327d15c97f98d5f5d90ebabb05bec060bfc250b339d4ee1b53f",
+  "roots": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-independent-review-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-independent-review-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-proposal-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-proposal-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-comparison-independent-audit-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-comparison-r2-output.json",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-recorded-runs-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-independent-review-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-independent-review-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-proposal-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-proposal-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launches-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-result-independent-review-r1"
+  ],
+  "schema": "1370-23-disjoint-stop-r2",
+  "status": "STOP_BEFORE_DELETE"
+}
