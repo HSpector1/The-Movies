@@ -1,0 +1,11 @@
+{
+  "classification": "DESIGN_ONLY_NO_ARCHIVE_COMMIT_PUSH",
+  "files": {
+    "PLAN.md": "88a354eeb74028bb80287fe05f21c341700277066ad6d393cee231c18ceb91c0",
+    "REVIEW-REQUEST.md": "7794914d5b538ce0b9973287cac1f6937e6cbd85f63ce4e1f2872a2b579bb643",
+    "SOURCE-ROSTER.json": "2f56f7d11d9ec70b1904ba7ab098a90655573c781a466d3de050469e60a02d77"
+  },
+  "productionHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "schema": "1370-ebg-p13a-adoption-github-backup-design-r1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

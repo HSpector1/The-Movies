@@ -1,0 +1,36 @@
+{
+  "decision": "ACCEPT_LOCAL_ARCHIVE_BYTES_ONLY",
+  "limits": [
+    "R1 audit harness failed on its lane-lock assertion before reading archive bytes and remains preserved.",
+    "No independent remote byte retrieval, Git publication, or restoration has happened.",
+    "This accepts local evidence archive bytes only, not 1363 or gameplay."
+  ],
+  "memberCount": 30,
+  "partBytes": [
+    67108864,
+    40032256
+  ],
+  "runId": "20261008-ebg-p13a-archive-r1",
+  "schema": "1370-ebg-p13a-archive-independent-local-byte-review-r2",
+  "sha256": {
+    "auditLaneLogR2": "b455bc025faa88a586a8599e34863ea2ea60189ee90cbcf08722c59e7215cd33",
+    "auditLaneMetaR2": "38a1ca111e2718247cb61c1d40546c49169c9e0388b757d4d3463fb91e47cd5f",
+    "auditResultR2": "35b958ddb77798b367c0842c72b784dfc1c5ca4085b8840659ae09a5235c1a62",
+    "auditScriptR1": "40212692d4b15e09ad234a96ed253b7762ddf0dc5848d676e18f67ad9b3ead98",
+    "auditScriptR2": "eb9a6658113261a65ee630d3b982ccd5d9868815f8fa50b248582c6827efc515",
+    "buildLaneMeta": "3e47c18bd4d5fdb09e9ecf7451ba6f9c45a0fb86e27cc3afbf4fe048ad2ff83b",
+    "buildResult": "80acb78e5b35b5166ac122adf7be147637fa0b8d17c765d9085920fa997a48ab",
+    "builderManifest": "53aa0804ae6e68e110ddd0a692e70cbfce185c857dc2860b35afb345c1075ac5",
+    "builderStaticReview": "9a91e6c7f8b9b1e01a96c6cdd0d89c5e322b2ca26f03c6cb40797ccd69e6f985",
+    "designManifest": "d42eb87895cef235de35a2a235bb21473f631e59ffd8a9a87600435488205f30",
+    "designReview": "d0f76acb7f7b8c22e2dc9b2df28f39c37fdfc9b4a6aeac988a7eed7e7198ad11",
+    "failedLaneMetaR1": "166e7dfd94454ce271fc97c03b5a70a8da39b2c025748dfcf99afc926b1d6800",
+    "part001": "c01cc34b45ec21ab82075ce19f5ebdfecbdd8084fc96e71f07d6815347f78b83",
+    "part002": "260f28bfc80eaa1ec19524f3e8fb47d84cc2108d0cf567b697442dbad02e0360",
+    "sourceRoster": "2f56f7d11d9ec70b1904ba7ab098a90655573c781a466d3de050469e60a02d77"
+  },
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "tarBytes": 107141120,
+  "tarSha256": "4583f9631a005328912d49347d061fbfdd8ccaef428ad9075cac46ce2af0e67b"
+}

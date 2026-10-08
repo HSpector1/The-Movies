@@ -1,0 +1,42 @@
+{
+  "classification": "PROPOSAL_ONLY_UNRUN_NO_GIT_MUTATION",
+  "files": [
+    {
+      "bytes": 19324,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-stage34-publisher-proposal-r2/publish_stage34.py",
+      "sha256": "e1852d26dddfb140684d46e0d697494cebe412e8b0e73bd071e9b85a729d89eb"
+    },
+    {
+      "bytes": 10551,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-stage34-publication-plan-r1/MAP.json",
+      "sha256": "186c20a9d56214e1b925324a7d27305669b2d37ec29bbff5a68d232946525681"
+    },
+    {
+      "bytes": 3499,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-stage34-publication-plan-r1/PLAN.md",
+      "sha256": "b04da26fa82df495b2d93c654459194a9454b2327118dea41398fe94e2a1e7f9"
+    },
+    {
+      "bytes": 1047,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-stage34-publication-independent-review-r1/RECEIPT.json",
+      "sha256": "7f0e59f172fe26141a1e43b311cff6fa68f043183d7c83ff0f99414d1b50e720"
+    },
+    {
+      "bytes": 1966,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-stage34-publication-independent-review-r1/REPORT.md",
+      "sha256": "e16bd1db054ff7efcc4f465d326ed9005415c628a6e01625c504f9480c7ff5f5"
+    }
+  ],
+  "launch": [
+    "/Users/zacheryspector/studio-scratch/heavy-queue/lane-run.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-stage34-publisher-proposal-r2/stage34-publish-20261008-r2.lane.log",
+    "python3",
+    "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-stage34-publisher-proposal-r2/publish_stage34.py"
+  ],
+  "postrun": "Inspect lane .meta end, exit 0 plus PUBLISH-RESULT.json; then independently audit fresh HTTPS remote bytes. Wrapper exit 0 alone is insufficient.",
+  "requiredReviewDecision": "ACCEPT_STATIC_STAGE34_PUBLISHER_R2",
+  "schema": "1370-ebg-p13a-stage34-publisher-proposal-r2",
+  "syntheticTests": "12 passed; map refusals plus AC, battery, unavailable and nonzero pmset refusals; no Git mutation",
+  "testStaticSha256": "3ba36b54d045ebbbbe240d8f7c0cc50317c987718ef0bb453e51ac6747ef8f19"
+}

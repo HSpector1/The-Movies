@@ -1,0 +1,284 @@
+{
+  "adoption": {
+    "caps": {
+      "childSeconds": 720,
+      "recorderSeconds": 750
+    },
+    "expectedOuterRoot": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1",
+    "expectedTargetRoot": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1",
+    "files": [],
+    "filledLaunchBindingSha256": "c01956a2fa8faf27de1c83b3d4dcd62f26a99fb59b8b96710f624537b8e50f7f",
+    "runId": "20261008-ebg-adoption-clean-r1",
+    "seed": "p13-public-commercial-adoption",
+    "status": "PENDING_CLEAN_AND_INDEPENDENT_OBSERVED_RECEIPT"
+  },
+  "archiveFormat": {
+    "compression": "none",
+    "gid": 0,
+    "memberOrder": "lexicographic",
+    "mode": "0644",
+    "mtime": 0,
+    "partBytes": 67108864,
+    "partNaming": "capture.tar.part-001..N",
+    "sha256": "each source, whole tar, each ordered part",
+    "tar": "USTAR",
+    "uid": 0
+  },
+  "classification": "DESIGN_ONLY_NO_ARCHIVE_OR_REMOTE_PUBLISH",
+  "p13a": {
+    "boundaryCompressedBytes": 107055550,
+    "boundaryCount": 417,
+    "boundaryRawBytes": 962948050,
+    "boundarySha256": "50947d8de349ff891a9b44fd3eda72801b912b5b6e6e6bc6c4b7c25739b697b1",
+    "files": [
+      {
+        "bytes": 109,
+        "member": "p13a/lane/CLEAN.lane.log",
+        "pinMethod": "design-readback-small-file",
+        "role": "lane-authority",
+        "sha256": "ced7f7885ecd8b6ca1850c5792a8bec1db73102abdcb9594d8720fdba5064507",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-20261008-ebg-p13a-clean-r1.lane.log"
+      },
+      {
+        "bytes": 3225,
+        "member": "p13a/lane/CLEAN.lane.log.meta",
+        "pinMethod": "design-readback-small-file",
+        "role": "lane-authority",
+        "sha256": "00fec1da466743459ee7c70dc1a6304cd30bf744b3a81c7aaae9f5f622073fa4",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-20261008-ebg-p13a-clean-r1.lane.log.meta"
+      },
+      {
+        "bytes": 2255,
+        "member": "p13a/launch/BINDING.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "launch-authority",
+        "sha256": "44ccfaa5d917250874619d4725f5108814cfcf66c60b04b7854733e4552d3610",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-filled-launch-20261008-r1/BINDING.json"
+      },
+      {
+        "bytes": 1350,
+        "member": "p13a/launch/EXACT-REVIEW-RECEIPT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "launch-authority",
+        "sha256": "52cb782e16e86e553ed3b7b77d99e4a6f9e9870737dc6db4ffa7751c96331e77",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-exact-command-independent-review-20261008-r1/RECEIPT.json"
+      },
+      {
+        "bytes": 3752,
+        "member": "p13a/launch/LAUNCH.command",
+        "pinMethod": "design-readback-small-file",
+        "role": "launch-authority",
+        "sha256": "aab8142932948a2763c46f10e6b52fecc2d365739d3aea6d0a38d3cdcc05b47a",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-filled-launch-20261008-r1/LAUNCH.command"
+      },
+      {
+        "bytes": 680,
+        "member": "p13a/launch/MANIFEST.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "launch-authority",
+        "sha256": "5f6ced6afa9a7604809e33f89ef3de3c9c2a7c106f950eac891b24acfae98557",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-filled-launch-20261008-r1/MANIFEST.json"
+      },
+      {
+        "bytes": 1205,
+        "member": "p13a/observed/AUDIT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "independent-observed",
+        "sha256": "ad486b2a395dd233caab1cf0d0bf9114d9562feb78685b21790c26e75769bb45",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-independent-observed-audit-r1/AUDIT.json"
+      },
+      {
+        "bytes": 1090,
+        "member": "p13a/observed/RECEIPT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "independent-observed",
+        "sha256": "34070dfba64e7f5e4c937d4a62e32a215a2f67076dc2fb8a7e1889b07d187908",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-independent-observed-audit-r1/RECEIPT.json"
+      },
+      {
+        "bytes": 4852,
+        "member": "p13a/observed/REPORT.md",
+        "pinMethod": "design-readback-small-file",
+        "role": "independent-observed",
+        "sha256": "39a78c6df9b5e09a76b58a2a5cde91951860a3d69191bf93a7424764c435e85d",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-independent-observed-audit-r1/REPORT.md"
+      },
+      {
+        "bytes": 155,
+        "member": "p13a/observed/audit.lane.log",
+        "pinMethod": "design-readback-small-file",
+        "role": "independent-observed",
+        "sha256": "423bdda94931918b9c48ddf9c0ca65b4d91a80259b1128e1ffba5bdd222794c7",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-independent-observed-audit-r1/audit.lane.log"
+      },
+      {
+        "bytes": 231,
+        "member": "p13a/observed/audit.lane.log.meta",
+        "pinMethod": "design-readback-small-file",
+        "role": "independent-observed",
+        "sha256": "c941e3b716067585ec9c1e74f4e50d0f47258eea8d86f28c3a382a2a9e4b3fd0",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-independent-observed-audit-r1/audit.lane.log.meta"
+      },
+      {
+        "bytes": 124,
+        "member": "p13a/outer/LAUNCH.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "outer-recorder",
+        "sha256": "59b0b8569f16d0bbd4674e4f2c595578a0262d3797988145d18836fcacab2251",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-outer-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/LAUNCH.json"
+      },
+      {
+        "bytes": 1613,
+        "member": "p13a/outer/RESULT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "outer-recorder",
+        "sha256": "9a00ccb0fce005e27b5dd4597d1f47ebf614e1191ec3616f6edbf4893804c62d",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-outer-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/RESULT.json"
+      },
+      {
+        "bytes": 83,
+        "member": "p13a/outer/RESULT.sha256.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "outer-recorder",
+        "sha256": "f56d768ac99995ece50271e9b35d4084ced3cf5c248c8a6d7488bf55e08e5b85",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-outer-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/RESULT.sha256.json"
+      },
+      {
+        "bytes": 199,
+        "member": "p13a/outer/WATCHDOG.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "outer-recorder",
+        "sha256": "a89d0098045f6dd0a1759ff1aa3f00a2f14d4e8f4cf3e282b380900998187c3a",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-outer-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/WATCHDOG.json"
+      },
+      {
+        "bytes": 0,
+        "member": "p13a/outer/child.stderr.log",
+        "pinMethod": "design-readback-small-file",
+        "role": "outer-recorder",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-outer-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/child.stderr.log"
+      },
+      {
+        "bytes": 109,
+        "member": "p13a/outer/child.stdout.log",
+        "pinMethod": "design-readback-small-file",
+        "role": "outer-recorder",
+        "sha256": "d565f074943bdd35bfd72f427606a4a0c36dd72a8f6a2e66d563fd8827dcba85",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-outer-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/child.stdout.log"
+      },
+      {
+        "bytes": 26530,
+        "member": "p13a/route/MANIFEST.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "route-authority",
+        "sha256": "1b875ba4a98208cc0d36091ccd7076fd9666c56c69004cf6421fe3e5187ad83f",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-route-proposal-r4/MANIFEST.json"
+      },
+      {
+        "bytes": 400,
+        "member": "p13a/route/STATIC-REVIEW-RECEIPT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "route-authority",
+        "sha256": "003891b8bfb2e347dbfc244005ac1cdf76b4f16ecc05ac9822f108e09e80cf77",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-route-independent-review-r4/RECEIPT.json"
+      },
+      {
+        "bytes": 607,
+        "member": "p13a/target/LAUNCH.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "acb8c3346d23f03518501d4a8ae3469488a79f791250483ae7807daffbee07e9",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/LAUNCH.json"
+      },
+      {
+        "bytes": 3049,
+        "member": "p13a/target/RESULT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "7361b1bcde0d4b0c531db73816a8337eb3a56041d1ec9f53137dc747d32b6eb1",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/RESULT.json"
+      },
+      {
+        "bytes": 83,
+        "member": "p13a/target/RESULT.sha256.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "d3a62809d467ae985d5d24a5e322ac01d0e62bc4162e8538f5cf19ad1bffb474",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/RESULT.sha256.json"
+      },
+      {
+        "bytes": 107055550,
+        "member": "p13a/target/boundaries.ndjson.gz",
+        "pinMethod": "accepted-observed-readback-pin",
+        "role": "raw-target",
+        "sha256": "50947d8de349ff891a9b44fd3eda72801b912b5b6e6e6bc6c4b7c25739b697b1",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/boundaries.ndjson.gz"
+      },
+      {
+        "bytes": 0,
+        "member": "p13a/target/child.stderr.log",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/child.stderr.log"
+      },
+      {
+        "bytes": 146,
+        "member": "p13a/target/child.stdout.log",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "9d6f57c6ff367f63f67d52d18b145501bc782ff40104399b83a8bcb4256c4c60",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/child.stdout.log"
+      },
+      {
+        "bytes": 345,
+        "member": "p13a/target/progress.ndjson",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "1498a0edcbc4ba6ca615b63c54dd7c7f6b8c222c88ad76f219c81604ec442cad",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/progress.ndjson"
+      },
+      {
+        "bytes": 299,
+        "member": "p13a/target/readback-audit.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "b4effe687ea67127eda435d31f407be33a452d65d233d8f6126b90e85bcdcaed",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/readback-audit.json"
+      },
+      {
+        "bytes": 1109,
+        "member": "p13a/target/summary.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "950d7bab82c9614c2950dc87b4e47ea152285cceda36b0142491a19d4ba3d620",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/summary.json"
+      },
+      {
+        "bytes": 1173,
+        "member": "p13a/target/vitest.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "85300497ae4930ab09c18633e20d0247fdd501dc4cd1443faa8230dc42b96e24",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/vitest.json"
+      },
+      {
+        "bytes": 454,
+        "member": "p13a/types/OBSERVED-RECEIPT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "types-admission",
+        "sha256": "226864f70c9472dc5438f5cd0f6204f49a2afc2799c22eec2645077b8a5a5a38",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-types-observed-review-r4/RECEIPT.json"
+      }
+    ],
+    "naturalTicks": 416,
+    "observedDecision": "ACCEPT_OBSERVED_EBG_P13A_CLEAN_ORIGINAL_CAP_DIAGNOSTIC_ONLY",
+    "observedReceiptSha256": "34070dfba64e7f5e4c937d4a62e32a215a2f67076dc2fb8a7e1889b07d187908",
+    "runId": "20261008-ebg-p13a-clean-r1",
+    "seed": "p13a-core-causal-01"
+  },
+  "productionHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "schema": "1370-ebg-clean-github-backup-source-roster-r1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

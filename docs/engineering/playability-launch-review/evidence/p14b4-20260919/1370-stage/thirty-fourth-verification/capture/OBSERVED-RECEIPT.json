@@ -1,0 +1,15 @@
+{
+  "classification": "ORIGINAL_CAP_DIAGNOSTIC_ONLY_NO_1363_ADMISSION",
+  "decision": "ACCEPT_OBSERVED_EBG_P13A_CLEAN_ORIGINAL_CAP_DIAGNOSTIC_ONLY",
+  "filledLaunchSha256": "aab8142932948a2763c46f10e6b52fecc2d365739d3aea6d0a38d3cdcc05b47a",
+  "manifestSha256": "1b875ba4a98208cc0d36091ccd7076fd9666c56c69004cf6421fe3e5187ad83f",
+  "outerResultSha256": "9a00ccb0fce005e27b5dd4597d1f47ebf614e1191ec3616f6edbf4893804c62d",
+  "readbackAuditSha256": "ad486b2a395dd233caab1cf0d0bf9114d9562feb78685b21790c26e75769bb45",
+  "readbackLaneMetaSha256": "c941e3b716067585ec9c1e74f4e50d0f47258eea8d86f28c3a382a2a9e4b3fd0",
+  "reportSha256": "39a78c6df9b5e09a76b58a2a5cde91951860a3d69191bf93a7424764c435e85d",
+  "runId": "20261008-ebg-p13a-clean-r1",
+  "schema": "1370-ebg-p13a-r4-clean-independent-observed-review-r1",
+  "staticReviewSha256": "003891b8bfb2e347dbfc244005ac1cdf76b4f16ecc05ac9822f108e09e80cf77",
+  "targetResultSha256": "7361b1bcde0d4b0c531db73816a8337eb3a56041d1ec9f53137dc747d32b6eb1",
+  "typesObservedReceiptSha256": "226864f70c9472dc5438f5cd0f6204f49a2afc2799c22eec2645077b8a5a5a38"
+}

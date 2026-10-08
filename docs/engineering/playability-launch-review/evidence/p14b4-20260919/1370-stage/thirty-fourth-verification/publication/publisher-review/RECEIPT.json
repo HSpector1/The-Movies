@@ -1,0 +1,16 @@
+{
+  "baseEvidenceCommit": "3504c5ef5e8abbe471c8d4fae8db82c04dd57ec7",
+  "decision": "ACCEPT_STATIC_STAGE34_PUBLISHER_R2",
+  "manifestSha256": "562a3ddb90916d44b770058d18d6a84dbb346bb84270a5ee1576e2040e305461",
+  "mapReviewReceiptSha256": "7f0e59f172fe26141a1e43b311cff6fa68f043183d7c83ff0f99414d1b50e720",
+  "mapSha256": "186c20a9d56214e1b925324a7d27305669b2d37ec29bbff5a68d232946525681",
+  "planSha256": "b04da26fa82df495b2d93c654459194a9454b2327118dea41398fe94e2a1e7f9",
+  "productionHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "reportSha256": "1bcb60f16b34642ea42ba29ff5b94a62abf31f52ed59de624ed0ecd0e12b9842",
+  "reviewedAtUtc": "2026-10-08T06:27:29.787812+00:00",
+  "schema": "1370-ebg-p13a-stage34-publisher-static-review-r2",
+  "scope": "STATIC_EXACT_LAUNCH_ONLY_REMOTE_BYTES_PENDING",
+  "scriptSha256": "e1852d26dddfb140684d46e0d697494cebe412e8b0e73bd071e9b85a729d89eb",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "testStaticSha256": "3ba36b54d045ebbbbe240d8f7c0cc50317c987718ef0bb453e51ac6747ef8f19"
+}

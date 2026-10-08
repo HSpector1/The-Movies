@@ -1,0 +1,19 @@
+{
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "fileCount": 21,
+  "gitMutated": false,
+  "largestBlobBytes": 67108864,
+  "localArchiveReceiptSha256": "6ae691549553c444688930164be534a757351558f292508b38890542d3791ff1",
+  "mapSha256": "186c20a9d56214e1b925324a7d27305669b2d37ec29bbff5a68d232946525681",
+  "mappedBytes": 107197604,
+  "planSha256": "b04da26fa82df495b2d93c654459194a9454b2327118dea41398fe94e2a1e7f9",
+  "readmeSha256": "69f449c009ba521547ebd2eecbed59f21ad461c75696eafc283d23a0ff573281",
+  "rehashChildExit": 0,
+  "rehashLaneLogSha256": "7d2e69cd9a093a65cc4881ebd24a026e14cbd8ac57368ea241abbb4f34f710e7",
+  "rehashLaneMetaSha256": "abd58cb2e1cebc0e9197b769265d94753b270108ac410297ad8f5c454022d70e",
+  "rehashScriptSha256": "16ca9d7133c5dad1e34e9ca294832ee469e22b7b08b15850be97c8ad36734faf",
+  "remoteBytesRetrieved": false,
+  "reportSha256": "e16bd1db054ff7efcc4f465d326ed9005415c628a6e01625c504f9480c7ff5f5",
+  "reviewedAtUtc": "2026-10-08T06:24:37.363236+00:00",
+  "scope": "STAGE34_PUBLICATION_DESIGN_AND_LOCAL_MAP_BYTES_NO_GIT_MUTATION"
+}

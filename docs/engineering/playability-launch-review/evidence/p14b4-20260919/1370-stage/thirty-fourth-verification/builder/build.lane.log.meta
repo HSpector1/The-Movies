@@ -1,0 +1,19 @@
+waiting for pid 0; then: python3 -I -B -c import hashlib,signal,stat,sys,time
+from pathlib import Path
+start=time.monotonic()
+signal.signal(signal.SIGALRM,lambda *_: (_ for _ in ()).throw(TimeoutError("archive bootstrap deadline")))
+signal.setitimer(signal.ITIMER_REAL,300)
+root=Path("/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-builder-proposal-r1")
+mp=root/"MANIFEST.json";sp=root/"builder.py"
+assert sys.flags.isolated and sys.dont_write_bytecode and not root.is_symlink()
+for p in (mp,sp):
+ s=p.lstat();assert stat.S_ISREG(s.st_mode) and s.st_nlink==1
+mb=mp.read_bytes();source=sp.read_bytes()
+assert hashlib.sha256(mb).hexdigest()=="53aa0804ae6e68e110ddd0a692e70cbfce185c857dc2860b35afb345c1075ac5"
+assert hashlib.sha256(source).hexdigest()=="de9c3307fc1282e6053988a95e719c1c725bfae62c8ac4d40e0aff319922cab0"
+sys.argv=[str(sp),"--run-id",sys.argv[1],"--review-sha",sys.argv[2]]
+exec(compile(source,str(sp),"exec"),{"__name__":"__main__","__file__":str(sp),
+ "_BOOTSTRAP_START":start,"_AUTHENTICATED_SOURCE_BYTES":source,"_AUTHENTICATED_MANIFEST_BYTES":mb})
+ 20261008-ebg-p13a-archive-r1 9a91e6c7f8b9b1e01a96c6cdd0d89c5e322b2ca26f03c6cb40797ccd69e6f985; 2026-10-08 01:17:31 CDT
+start; 2026-10-08 01:17:31 CDT
+end, exit 0; 2026-10-08 01:17:35 CDT

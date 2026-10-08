@@ -1,0 +1,6 @@
+{
+  "builderSha256": "de9c3307fc1282e6053988a95e719c1c725bfae62c8ac4d40e0aff319922cab0",
+  "decision": "ACCEPT_STATIC_BUILDER_ONLY",
+  "manifestSha256": "53aa0804ae6e68e110ddd0a692e70cbfce185c857dc2860b35afb345c1075ac5",
+  "rosterSha256": "2f56f7d11d9ec70b1904ba7ab098a90655573c781a466d3de050469e60a02d77"
+}

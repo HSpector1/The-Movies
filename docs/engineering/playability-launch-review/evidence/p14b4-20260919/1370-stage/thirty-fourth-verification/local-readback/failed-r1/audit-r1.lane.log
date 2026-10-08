@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-local-readback-r1-audit.py", line 88, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-local-readback-r1-audit.py", line 51, in main
+    lock=S/'HEAVY-LANE-LOCK';assert lock.is_file() and '1370-ebg-p13a-archive-local-readback-r1/audit.lane.log' in lock.read_text()
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

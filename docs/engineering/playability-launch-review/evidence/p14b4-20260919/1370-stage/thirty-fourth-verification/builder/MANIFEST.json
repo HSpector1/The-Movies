@@ -1,0 +1,19 @@
+{
+  "classification": "STATIC_PROPOSAL_NO_REAL_ARCHIVE_OR_PUBLICATION",
+  "designManifestSha256": "d42eb87895cef235de35a2a235bb21473f631e59ffd8a9a87600435488205f30",
+  "designReviewSha256": "d0f76acb7f7b8c22e2dc9b2df28f39c37fdfc9b4a6aeac988a7eed7e7198ad11",
+  "expectedTarBytes": 107141120,
+  "files": {
+    "PLAN.md": "df514e54bb6e907e002b6023d8fb9cbed0d8cd7bf987087149cc7bac06309511",
+    "REVIEW-REQUEST.md": "3490bb0fd03ca7b1dd6fd3158baccbca9aa62126cd8c8f893193673dd47d5f52",
+    "builder.py": "de9c3307fc1282e6053988a95e719c1c725bfae62c8ac4d40e0aff319922cab0",
+    "selfcheck.py": "10c7a8ce2468cc200aa0491c73ff3bf7dea9d814b980d42d9e22a0ca292fbe5a"
+  },
+  "head": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "maxTarBytes": 134217728,
+  "partBytes": 67108864,
+  "rosterSha256": "2f56f7d11d9ec70b1904ba7ab098a90655573c781a466d3de050469e60a02d77",
+  "schema": "1370-ebg-p13a-archive-builder-proposal-r1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "wallSeconds": 300
+}

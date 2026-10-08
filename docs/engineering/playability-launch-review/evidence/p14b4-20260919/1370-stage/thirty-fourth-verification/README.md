@@ -1,0 +1,5 @@
+# 1370 stage34: EBG p13a CLEAN local evidence archive
+
+This evidence-branch stage preserves the 300/330-second original-cap EBG p13a CLEAN diagnostic and its independently verified two-part local archive. The archive contains the exact 30 pinned sources, including all 417 compressed boundaries, target and outer results, and observed review. The archive builder's recorded status was local-only; the independent local readback verified both parts, normalized USTAR headers, all 30 member bytes against source, hashes, and padding.
+
+The p13a run and archive remain **diagnostic evidence only**. This stage does not admit 1363, resolve the four C0 protected digests, merge to `main`, or provide native acceptance. EBG adoption CLEAN has its own observed exploratory receipt but is not in this stage; preserve it for a separately reviewed stage35. The evidence branch must retain its existing history, and local sources and parts remain until a fresh independent HTTPS remote-byte audit accepts exact stage34 files and archive contents.

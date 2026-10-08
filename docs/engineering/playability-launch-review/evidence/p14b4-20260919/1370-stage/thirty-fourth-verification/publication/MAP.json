@@ -1,0 +1,166 @@
+{
+  "archiveTarBytes": 107141120,
+  "archiveTarSha256": "4583f9631a005328912d49347d061fbfdd8ccaef428ad9075cac46ce2af0e67b",
+  "baseEvidenceCommit": "3504c5ef5e8abbe471c8d4fae8db82c04dd57ec7",
+  "baseEvidenceRef": "refs/heads/evidence/1370-r10-clean-captures",
+  "capturePredecessor": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "classification": "PROPOSAL_ONLY_NO_GIT_MUTATION",
+  "files": [
+    {
+      "bytes": 1035,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/README.md",
+      "gitBlob": "3d9c93b10485e0193778eb1f2d418b905a691b40",
+      "sha256": "69f449c009ba521547ebd2eecbed59f21ad461c75696eafc283d23a0ff573281",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-stage34-publication-plan-r1/STAGE34-README.md"
+    },
+    {
+      "bytes": 6009,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/archive/BUILD-RESULT.json",
+      "gitBlob": "596f06763f11cff8704640828728927315f8686d",
+      "sha256": "80acb78e5b35b5166ac122adf7be147637fa0b8d17c765d9085920fa997a48ab",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-builder-recorded-r1/20261008-ebg-p13a-archive-r1/BUILD-RESULT.json"
+    },
+    {
+      "bytes": 67108864,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/archive/capture.tar.part-001",
+      "gitBlob": "30fc80fcb6caac7debb9653fdd634f872ac98be3",
+      "sha256": "c01cc34b45ec21ab82075ce19f5ebdfecbdd8084fc96e71f07d6815347f78b83",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-builder-recorded-r1/20261008-ebg-p13a-archive-r1/capture.tar.part-001"
+    },
+    {
+      "bytes": 40032256,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/archive/capture.tar.part-002",
+      "gitBlob": "16afd72432c6fada5ddbfb92536a2e55098c527c",
+      "sha256": "260f28bfc80eaa1ec19524f3e8fb47d84cc2108d0cf567b697442dbad02e0360",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-builder-recorded-r1/20261008-ebg-p13a-archive-r1/capture.tar.part-002"
+    },
+    {
+      "bytes": 991,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/builder/MANIFEST.json",
+      "gitBlob": "89a157de7f58d9cf40334876d8bd22480b2f11c0",
+      "sha256": "53aa0804ae6e68e110ddd0a692e70cbfce185c857dc2860b35afb345c1075ac5",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-builder-proposal-r1/MANIFEST.json"
+    },
+    {
+      "bytes": 308,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/builder/STATIC-REVIEW-RECEIPT.json",
+      "gitBlob": "a915fb7c222f5227372c2fb2b8fbfda8717bb62d",
+      "sha256": "9a91e6c7f8b9b1e01a96c6cdd0d89c5e322b2ca26f03c6cb40797ccd69e6f985",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-builder-independent-static-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 1265,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/builder/build.lane.log.meta",
+      "gitBlob": "6a0a2e82b5b0a9b2e5c216cc6040fe43d007388c",
+      "sha256": "3e47c18bd4d5fdb09e9ecf7451ba6f9c45a0fb86e27cc3afbf4fe048ad2ff83b",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-builder-20261008-ebg-p13a-archive-r1.lane.log.meta"
+    },
+    {
+      "bytes": 11579,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/builder/builder.py",
+      "gitBlob": "a46f65a5420a1fb067cc87dece11676f8b7716b9",
+      "sha256": "de9c3307fc1282e6053988a95e719c1c725bfae62c8ac4d40e0aff319922cab0",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-builder-proposal-r1/builder.py"
+    },
+    {
+      "bytes": 1090,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/capture/OBSERVED-RECEIPT.json",
+      "gitBlob": "d41f0c50866652b1cc1d43c487af6165403cda0a",
+      "sha256": "34070dfba64e7f5e4c937d4a62e32a215a2f67076dc2fb8a7e1889b07d187908",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-independent-observed-audit-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 534,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/design/MANIFEST.json",
+      "gitBlob": "6209e3b4b2639d2a43562f32f2d0b84e0e70db79",
+      "sha256": "d42eb87895cef235de35a2a235bb21473f631e59ffd8a9a87600435488205f30",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-adoption-github-backup-design-r1/MANIFEST.json"
+    },
+    {
+      "bytes": 1536,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/design/REVIEW-RECEIPT.json",
+      "gitBlob": "ccc8685b8fc60c333428f103f2ad714ddd9345db",
+      "sha256": "d0f76acb7f7b8c22e2dc9b2df28f39c37fdfc9b4a6aeac988a7eed7e7198ad11",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-adoption-github-backup-independent-design-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 13735,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/design/SOURCE-ROSTER.json",
+      "gitBlob": "ae50287c678cfcad6e5b08616ea2f5d2bf237a1b",
+      "sha256": "2f56f7d11d9ec70b1904ba7ab098a90655573c781a466d3de050469e60a02d77",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-adoption-github-backup-design-r1/SOURCE-ROSTER.json"
+    },
+    {
+      "bytes": 1342,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/AUDIT.json",
+      "gitBlob": "1039204819e3d38304c45d4b93e7965215ba9680",
+      "sha256": "35b958ddb77798b367c0842c72b784dfc1c5ca4085b8840659ae09a5235c1a62",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-local-readback-r2/AUDIT.json"
+    },
+    {
+      "bytes": 2111,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/RECEIPT.json",
+      "gitBlob": "bb8202f262656821daa066a153d0d5b26b51b6c2",
+      "sha256": "6ae691549553ebc7245e9d895e2d97acbfc63b1b28fbbf899f4d643ae5a1f047",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-local-readback-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 1875,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/REPORT.md",
+      "gitBlob": "7f999f5a3ceec5c1782b6e07192f9fc431f7106a",
+      "sha256": "94cf64c68ff44acb3749a5cfcf4a06cc5e2fe63e1fdaa64309498b727ba8f50b",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-local-readback-r2/REPORT.md"
+    },
+    {
+      "bytes": 214,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/audit-r2.lane.log",
+      "gitBlob": "490bb9e6a403b4dacd74ea35f669d96d897a14c1",
+      "sha256": "b455bc025faa88a586a8599e34863ea2ea60189ee90cbcf08722c59e7215cd33",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-local-readback-r2/audit.lane.log"
+    },
+    {
+      "bytes": 218,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/audit-r2.lane.log.meta",
+      "gitBlob": "1e9ebaf3d6781f8ff0087caa85311671c6aabde3",
+      "sha256": "38a1ca111e2718247cb61c1d40546c49169c9e0388b757d4d3463fb91e47cd5f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-local-readback-r2/audit.lane.log.meta"
+    },
+    {
+      "bytes": 5885,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/audit-r2.py",
+      "gitBlob": "680beaa57c2280a32c34135d30024e0c69c8aed0",
+      "sha256": "eb9a6658113261a65ee630d3b982ccd5d9868815f8fa50b248582c6827efc515",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-local-readback-r2-audit.py"
+    },
+    {
+      "bytes": 614,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/failed-r1/audit-r1.lane.log",
+      "gitBlob": "97464a8eaff86196f47202f66e40573b0ad17f16",
+      "sha256": "3ca5708087055c908186cad92f44b3729fe5bd0d0eff9345a8bc411c90b1edb5",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-local-readback-r1/audit.lane.log"
+    },
+    {
+      "bytes": 218,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/failed-r1/audit-r1.lane.log.meta",
+      "gitBlob": "b471188a7897abe71fda0768fb18dcd9cefc2cb6",
+      "sha256": "166e7dfd94454ce271fc97c03b5a70a8da39b2c025748dfcf99afc926b1d6800",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-local-readback-r1/audit.lane.log.meta"
+    },
+    {
+      "bytes": 5925,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/failed-r1/audit-r1.py",
+      "gitBlob": "0fd675d46d878fc576e25c4f11c4a6c9ce9876ea",
+      "sha256": "40212692d4b15e09ad234a96ed253b7762ddf0dc5848d676e18f67ad9b3ead98",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-archive-local-readback-r1-audit.py"
+    }
+  ],
+  "githubMaxBlobBytesExclusive": 100000000,
+  "productionHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "productionRef": "refs/heads/wip/headless-program-20260916-ts",
+  "publicationExtras": "pending independent map/publisher review; no self-referential map entry",
+  "schema": "1370-ebg-p13a-stage34-publication-source-map-r1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "stageFileCount": 21,
+  "stagePrefix": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/",
+  "stageSourceBytes": 107197604
+}

@@ -1,0 +1,30 @@
+{
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "design_sha256": {
+    "MANIFEST.json": "d42eb87895cef235de35a2a235bb21473f631e59ffd8a9a87600435488205f30",
+    "PLAN.md": "88a354eeb74028bb80287fe05f21c341700277066ad6d393cee231c18ceb91c0",
+    "REVIEW-REQUEST.md": "7794914d5b538ce0b9973287cac1f6937e6cbd85f63ce4e1f2872a2b579bb643",
+    "SOURCE-ROSTER.json": "2f56f7d11d9ec70b1904ba7ab098a90655573c781a466d3de050469e60a02d77"
+  },
+  "limits": [
+    "No archive builder, archive parts, local readback, Git commit/push, or HTTPS remote-byte retrieval were run or approved by this design review.",
+    "The builder and filled launch require separate independent static review and observed verification.",
+    "Adoption CLEAN roster must be frozen from completed run and separately accepted observed receipt; a timeout cannot be relabeled."
+  ],
+  "schema": "1370-ebg-p13a-adoption-github-backup-independent-design-review-r1",
+  "verified": {
+    "adoption_roster_pending_unpinned": true,
+    "p13a_every_source_sha256_size_mode_stream_verified": true,
+    "p13a_exact_source_count": 30,
+    "p13a_member_unique_lexicographic_regular_only": true,
+    "p13a_observed_decision": "ACCEPT_OBSERVED_EBG_P13A_CLEAN_ORIGINAL_CAP_DIAGNOSTIC_ONLY",
+    "p13a_predicted_part_bytes": [
+      67108864,
+      40032256
+    ],
+    "p13a_predicted_ustar_bytes": 107141120,
+    "p13a_source_bytes": 107110777,
+    "published_production_head": "b97129610a07d3529fc482daeddc0cd9bf798713",
+    "published_source_tree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "buildResultSha256": "80acb78e5b35b5166ac122adf7be147637fa0b8d17c765d9085920fa997a48ab",
+  "checks": [
+    "exact normalized USTAR headers",
+    "all 30 regular source bytes equal archive member bytes",
+    "all 30 SHA256 and sizes",
+    "lexicographic unique member names",
+    "zero padding and terminator",
+    "whole tar and ordered part hashes",
+    "source HEAD/tree and explicit remote ref",
+    "AC and one recorded heavy lane"
+  ],
+  "decision": "LOCAL_ARCHIVE_BYTES_ACCEPTED_ONLY",
+  "freeBytesAtReadback": 4328939520,
+  "memberCount": 30,
+  "parts": [
+    {
+      "bytes": 67108864,
+      "name": "capture.tar.part-001",
+      "sha256": "c01cc34b45ec21ab82075ce19f5ebdfecbdd8084fc96e71f07d6815347f78b83"
+    },
+    {
+      "bytes": 40032256,
+      "name": "capture.tar.part-002",
+      "sha256": "260f28bfc80eaa1ec19524f3e8fb47d84cc2108d0cf567b697442dbad02e0360"
+    }
+  ],
+  "rosterSha256": "2f56f7d11d9ec70b1904ba7ab098a90655573c781a466d3de050469e60a02d77",
+  "runId": "20261008-ebg-p13a-archive-r1",
+  "schema": "1370-ebg-p13a-archive-independent-local-readback-r1",
+  "sourceBytes": 107110777,
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "tarBytes": 107141120,
+  "tarSha256": "4583f9631a005328912d49347d061fbfdd8ccaef428ad9075cac46ce2af0e67b"
+}
