@@ -1,0 +1,13 @@
+{
+  "schema": "1370-r12-e0g-adoption-stage-blobs-static-review-r2",
+  "decision": "ACCEPT_STATIC_STAGE32_STAGER_R2",
+  "scriptSha256": "16ebae3dd874774696194699c23205dde16490cc4388eb27edd23c265284adc4",
+  "mapSha256": "98f9a5d3442d4f0fa185c7cf813624312bc853e3be4845ca6fec5703f82db6ff",
+  "captureHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "checkpointHead": "87e2d7c76212fa8485aa99f5997fb9bc70fd1772",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "evidenceBase": "343644e8615b730c11a4683f95ea06e3e15fde7e",
+  "mappedFiles": 48,
+  "mappedBytes": 146984645,
+  "scope": "STATIC_ONLY_NO_EXECUTION"
+}

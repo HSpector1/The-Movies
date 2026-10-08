@@ -1,0 +1,62 @@
+{
+  "arm": "E0G",
+  "child": {
+    "elapsedCapSeconds": 720,
+    "exit": 0,
+    "timedOut": false
+  },
+  "childStderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "childStdoutSha256": "618b680272172f679af7219fcc861c5e1b1b9731bd198b4b48dc62b03a63ec2b",
+  "classification": "EXPLORATORY_720_750",
+  "cleanArtifacts": {
+    "boundariesSha256": "809e5b12b23f4a898ef39a2a64879ddeec93ed8a22de769d5f6b3fbcd8db4f06",
+    "boundaryCompressedBytes": 141216253,
+    "boundaryCount": 417,
+    "boundaryUncompressedBytes": 1314244321,
+    "progressSha256": "ea2124aed44e0d7b9992b37d0e2823e88d03d8ae2b1059b0795a13bc2adf7c89",
+    "readbackAuditSha256": "aeeee7ab8b60e1a771e20c95bd7b4d9c9e99cb0c92f91b3ff87cf2626d98ebed",
+    "summarySha256": "2c3c3936ef6086f813a3931044ed8e77268571fd146955bda8f87ed59958c597",
+    "terminal": {
+      "employment": "0a579ed087768da5b0da01e37e133cce1b8f5ba00e82ce23e19033c66640d1a1",
+      "employmentRows": 64,
+      "firstTakeRows": 121,
+      "industryReceiptRows": 516,
+      "marketReceiptRows": 247,
+      "receipts": "a252a6fd0d3c3132ac8c7f2673bdbcdb5b8d848166fc8868474fa28ae99ba915",
+      "rng": "3069080245,1730081600,660681499,2741201056",
+      "settlement": "62c9fd5d2d7887b1b6263a38f9545f2ad77cd3db13a6b4bee03b6782f7c350c5",
+      "takes": "aff8e53eea618e5689f1b2b8a176d4a6e1c8fb312f342cb8eb638cc379d85208"
+    },
+    "vitestSha256": "b96db66a8280b518c57fdbe8f76c4e0936bb1e661d08ea981e5c3757e6e2a02e"
+  },
+  "finishedUtc": "2026-10-08T01:55:10Z",
+  "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "manifestSha256": "ed8826f5cdf563c4aceee2fc6a22dbe2263f6f705f43ec622cff281a52d9f703",
+  "mirrorPostflightSha256": "b02deb1de37e7db14ce59070234b023bcdbb5299a1b0fbc15dd3b980577e5f48",
+  "mirrorPreflightSha256": "b02deb1de37e7db14ce59070234b023bcdbb5299a1b0fbc15dd3b980577e5f48",
+  "postflight": {
+    "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+    "inventorySha256": "a1e74c1e98e5f8c5ffe56f33a0c248a97062518a2a6fa5ebf574944cc2a9aabe",
+    "power": "AC Power",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "preflight": {
+    "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+    "inventorySha256": "a1e74c1e98e5f8c5ffe56f33a0c248a97062518a2a6fa5ebf574944cc2a9aabe",
+    "power": "AC Power",
+    "runtimeDigest": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "schema": "1370-ag-e0g-full-state-clean-leaf-route-r12",
+  "seed": "p13-public-commercial-adoption",
+  "stage": "clean",
+  "stagePassed": true,
+  "status": "STAGE_PASS",
+  "typesAdmission": {
+    "observedAuditReceiptSha256": "2c0b373753393dae964cb21aa30b02929e53749f40ab38751e530a8e1b3f328b",
+    "outerResultSha256": "3d0da7c5993f22a33b47bac7d3ad30dd64d6b7f4394de37a8e38736559cfd874",
+    "targetResultSha256": "fa903e755d4bb1d9e1a90e3a3b26c25ceef3e6d80d1f831b6dbe131e18248d80",
+    "typesRunId": "r12-e0g-adoption-types-20261007-1830"
+  }
+}

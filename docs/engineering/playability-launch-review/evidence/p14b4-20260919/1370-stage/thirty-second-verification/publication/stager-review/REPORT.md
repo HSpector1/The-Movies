@@ -1,0 +1,11 @@
+# Stage32 E0G adoption blob stager r2 — independent static review
+
+Decision: **ACCEPT_STATIC_STAGE32_STAGER_R2**. This accepts the frozen stager code for the exclusive recorded lane only. It is not an observed blob-stage, publication, remote-byte, or cleanup result. No heavy command, source write, Git object/index/ref mutation, or remote operation was run for this review.
+
+Exact script SHA-256 `16ebae3dd874774696194699c23205dde16490cc4388eb27edd23c265284adc4`; exact MAP SHA-256 `98f9a5d3442d4f0fa185c7cf813624312bc853e3be4845ca6fec5703f82db6ff`. I checked Python syntax and the r1→r2 diff. R2 changes only the review identity and the defective `free()` call into an asserted 3 GiB check for every 1 MiB source chunk. The r1 REFINE decision remains preserved under its own path.
+
+The map has 48 unique sorted stage32 destinations and exactly 146,984,645 bytes; each source is an existing regular file beneath scratch with no symlink path component. The stager authenticates MAP bytes before use, keeps capture source HEAD `b995a83e5363a3843f9b902e08c2df4dd95840cb` distinct from docs checkpoint HEAD `87e2d7c76212fa8485aa99f5997fb9bc70fd1772`, and pins `HEAD:src=13880d9b0ba72aff5d4c5bcf5d12fe682c5de554`, clean production worktree, exact HTTPS origin, and local/remote evidence base `343644e8615b730c11a4683f95ea06e3e15fde7e` before staging.
+
+For each mapped file it opens every path component without following symlinks, verifies named and opened identity, hashes the same source stream sent to `git hash-object -w --stdin`, checks byte count and unchanged fd/name metadata, and records the resulting Git blob ID and SHA-256. The 3 GiB floor is asserted initially, per chunk, and after every file. It creates and fsyncs `BLOBS.json` once with O_EXCL through an anchored directory FD. It does not change the index, branch ref, production source or evidence ref. Any failed assertion stops before the final receipt; already written unreachable Git blobs are an intentional bounded side effect of staging.
+
+Execution remains subject to the one-writer/one-lane rule. The actual child exit, all 48 BLOBS rows and the retained source identities require independent observed review before publisher binding. The publisher draft has unresolved BLOBS SHA and is outside this decision.

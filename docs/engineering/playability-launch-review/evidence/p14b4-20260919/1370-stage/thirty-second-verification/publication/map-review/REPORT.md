@@ -1,0 +1,3 @@
+# Stage32 source map builder static review
+
+Decision: **ACCEPT_STATIC_STAGE32_SOURCE_MAP_ONLY**. Frozen SOURCES.json has 48 unique stage32 destinations, 146,984,645 source bytes, exact evidence parent 343644e8, all regular present scratch sources, and the complete actual three-part adoption archive package. README and build_map.py hashes match the frozen request. The builder AST parses, pins source HEAD/src tree and local/remote evidence parent, rejects dirty production, uses no-follow descriptor reads, requires exact source-spec SHA/count/byte total, rejects duplicate/unsafe destinations, and creates MAP.json exclusively. This review does not cover stager, publisher, remote publication, or raw cleanup.

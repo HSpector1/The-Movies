@@ -1,0 +1,19 @@
+{
+  "blobsSha256": "69c2635e2d94561dfaf40a3be8ce4e41201c466748f66e787842eca440002684",
+  "bytes": 146984645,
+  "checkpointHead": "87e2d7c76212fa8485aa99f5997fb9bc70fd1772",
+  "decision": "ACCEPT_OBSERVED_BLOBS_ONLY",
+  "evidenceBase": "343644e8615b730c11a4683f95ea06e3e15fde7e",
+  "files": 48,
+  "freeBytesAfter": 5215027200,
+  "mapSha256": "98f9a5d3442d4f0fa185c7cf813624312bc853e3be4845ca6fec5703f82db6ff",
+  "reportSha256": "56d47031edd83b35f1945f6c14a75ae677e65fc935855b8965edda7a8ceb2b4b",
+  "schema": "1370-r12-e0g-adoption-blobs-observed-review-r1",
+  "scope": "LOCAL_BLOBS_ONLY",
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "stagerLaneLogSha256": "654d40e99a35fbf740eb32c267d2b61b4cab4d348d2de42bf7ac91aee85fba70",
+  "stagerLaneMetaSha256": "d7b113e0d80986ffa234209b59ffedbc80787ccfcacd888e2c6f59985858b4dd",
+  "stagerScriptSha256": "16ebae3dd874774696194699c23205dde16490cc4388eb27edd23c265284adc4",
+  "stagerStaticReviewSha256": "f59361bca8fabb07063bf344ae6027f0e765da4acc75f3cdf51eb2b6ab89db48"
+}

@@ -1,0 +1,50 @@
+{
+  "arm": "E0G",
+  "childExit": 0,
+  "childStderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "childStdoutSha256": "b87d48fdeb548da2b0a8b8a294440b42123337d5f5bb53a236d15c8637b5f30f",
+  "cleanup": {
+    "84376": true,
+    "85770": true
+  },
+  "deadlineSeconds": 750,
+  "elapsedSeconds": 358.379419964971,
+  "environmentDuringLast": {
+    "freeBytes": 4422688768,
+    "minimumBytes": 3221225472,
+    "phase": "running",
+    "power": "AC Power"
+  },
+  "environmentPostflight": {
+    "freeBytes": 4422676480,
+    "minimumBytes": 3221225472,
+    "phase": "post",
+    "power": "AC Power"
+  },
+  "environmentPreflight": {
+    "freeBytes": 4590387200,
+    "minimumBytes": 4563402752,
+    "phase": "pre",
+    "power": "AC Power"
+  },
+  "finishedUtc": "2026-10-08T01:55:10Z",
+  "head": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "knownGroups": [
+    84376,
+    85770
+  ],
+  "manifestSha256": "ed8826f5cdf563c4aceee2fc6a22dbe2263f6f705f43ec622cff281a52d9f703",
+  "ownershipErrors": [],
+  "reviewSha256": "a18026f9e5bff44945d956a548c5f80c19771f82bfab4d70b564eee77d9a9896",
+  "runId": "r12-e0g-adoption-clean-20261007-1850",
+  "schema": "1370-ag-e0g-full-state-clean-outer-result-r12",
+  "seed": "p13-public-commercial-adoption",
+  "stage": "clean",
+  "stagePassed": true,
+  "startedMonotonic": 867126.199581294,
+  "status": "STAGE_PASS",
+  "survivedBeforeCleanup": [],
+  "survivors": [],
+  "targetPath": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r12/e0g-adoption-clean-r12-e0g-adoption-clean-20261007-1850",
+  "targetResultSha256": "e1c4bb4096cdee11ecba100e55df6cab9efb2b91ac8a10227fe173dccb214162"
+}

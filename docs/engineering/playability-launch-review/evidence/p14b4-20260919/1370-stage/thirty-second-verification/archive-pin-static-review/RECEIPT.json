@@ -1,0 +1,10 @@
+{
+  "decision": "ACCEPT_STATIC_E0G_ADOPTION_PIN_R2",
+  "independentObservedReceiptSha256": "0a672b38e5d9c810cb82aa24fa26c47b2e5b1071b02a8daa3e9157bd0cc9196d",
+  "observedReceiptSha256": "3f833354bf9eeff08a8c4e82cd235b85a0875c323b7e30f68e8eafd9b489f8c7",
+  "planSha256": "e11b375466656ed1f0c3394c66f01b93dd8651163c8e65feff6723099fc99a47",
+  "reportSha256": "83e0a8b0c29d72b0f8f418af58167ed96c7a9d641d2782880493444372e0e5b0",
+  "schema": "1370-r12-e0g-adoption-archive-pin-static-review-r2",
+  "scope": "static inventory and candidate PIN only",
+  "scriptSha256": "4802f4b114ff962ea9fa37374dddbb7e3b134e8ddb7f3f96b074565f773db99b"
+}

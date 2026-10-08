@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "vitest.neutrality.config.ts",
+    "--reporter=json",
+    "--outputFile",
+    "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r12/e0g-adoption-clean-r12-e0g-adoption-clean-20261007-1850/vitest.json"
+  ],
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-recorded-r12/e0g-adoption-clean-r12-e0g-adoption-clean-20261007-1850/runtime-tree",
+  "pgid": 85770,
+  "pid": 85770,
+  "startNewSession": true
+}

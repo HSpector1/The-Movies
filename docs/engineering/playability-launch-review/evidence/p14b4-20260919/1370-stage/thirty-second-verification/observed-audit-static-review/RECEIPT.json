@@ -1,0 +1,9 @@
+{
+  "commandSha256": "487fec7750236b67968f1ce6faeeff5bcd3249b821186f3eaa6a3702059b7b85",
+  "decision": "ACCEPT_STATIC_AUDIT_ONLY",
+  "planSha256": "c16dbe264facf3b2daa46ec044ab38384367f0ce62378449bc91807c806eb2f2",
+  "predecessorAuditScriptSha256": "74f16896d54a4b2b0082e42ac85e82f1a652aaef6842a6970315a96aedd86e5a",
+  "schema": "1370-e0g-adoption-audit-static-review-r12-r1",
+  "scriptSha256": "e0408c489629f4b3639add3e0893d7252d5b040edb6e4139d1bd1db7267d63b6",
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb"
+}

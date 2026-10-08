@@ -1,0 +1,13 @@
+{
+  "schema": "1370-r12-e0g-adoption-publish-static-review-r2",
+  "decision": "ACCEPT_STATIC_STAGE32_PUBLISHER_R2",
+  "scriptSha256": "27a8266577608b908ec3ea506bd19de18520b085c921d948d808ad9175936f92",
+  "mapSha256": "98f9a5d3442d4f0fa185c7cf813624312bc853e3be4845ca6fec5703f82db6ff",
+  "blobsSha256": "69c2635e2d94561dfaf40a3be8ce4e41201c466748f66e787842eca440002684",
+  "baseEvidenceCommit": "343644e8615b730c11a4683f95ea06e3e15fde7e",
+  "stagerObservedReceiptSha256": "d84e3c9251d2cac23c07090871e44327e36aa8a53bde3acbed65914485264e5c",
+  "mappedFiles": 48,
+  "extraFiles": 14,
+  "totalStage32Files": 62,
+  "scope": "STATIC_ONLY_NO_EXECUTION"
+}
