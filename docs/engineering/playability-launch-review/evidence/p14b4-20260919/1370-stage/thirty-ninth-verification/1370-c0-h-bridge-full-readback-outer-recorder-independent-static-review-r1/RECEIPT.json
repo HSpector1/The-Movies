@@ -1,0 +1,28 @@
+{
+  "claimLimit": "Frozen unrun outer recorder source/template only; no exact launch or 1,402-file mirror proof",
+  "decision": "ACCEPT_STATIC_READBACK_RECORDER_ONLY",
+  "designReviewSha256": "5a3871771cd1feeeaea6075c1a3906a740aea14cc834be6d694608047d93055b",
+  "inventorySha256": "399ec5de27b7220a35dfbbc484210d0278680969953164b6f61fe5730d0edbfe",
+  "launchTemplateSha256": "1a58872f8d8be372c70755e332a2092544ef606e988ebe610057df7b1369b112",
+  "observedLimit": "Missing/partial result or any nonzero lane child exit is STOP; success-looking result alone cannot admit readback.",
+  "planSha256": "0f4a3a60cfaa092f0d8740c0e9a7860c53c24c52fbd6730ad92fa01a299118be",
+  "readbackBootstrapSha256": "a1e8d320f961df4235dfe4cc1bd3573d5ac39f43cc44e955413b28d277505b0a",
+  "readbackSourceStaticReviewSha256": "c87eafc1af74e35a14ab1a45d4f8b0f6bcc85b1f59d129bbcbf8ba7551e6caa3",
+  "selfcheckSha256": "30a4999d9c359c7154e0adbf7def61f36a350a2ccdfdd0c5bef49c2a213d48c1",
+  "selfcheckStatus": "PASS_SYNTHETIC_RECORDER_ONLY",
+  "supervisorSha256": "631104e7a52b32bebbe3f0ac7005624a0de27da667ed1e6eaef1c7cd883e0759",
+  "timers": {
+    "recorderActiveSeconds": 620,
+    "recorderWholeSeconds": 630,
+    "sourceChildSeconds": 600
+  },
+  "verified": [
+    "Template starts finite LAUNCH_START and arms positive 630-elapsed alarm before pinned reads",
+    "Supervisor requires finite exact numeric elapsed [0,620), retains hard 630 alarm through process-group cleanup and durable receipt",
+    "Child starts new session and runs exact authenticated in-memory r4 bootstrap; child bootstrap has separate 600-elapsed timer before pin reads",
+    "Timeout/SIGTERM/SIGINT/nonzero child exit leads group TERM/KILL, actual childExit/groupClear and STOP; hard alarm emits STOP and kills group",
+    "Result uses nofollow stable parent FDs, bounded .partial, O_EXCL link, fsync and final SHA/path/root readback",
+    "Preflight binds one recorded lane, AC, >=3.5GiB preflight/3GiB floor, clean HEAD965/src13880, exact origin, production/evidence local+remote refs",
+    "Synthetic missing/future/NaN/inf/bool start, wrong SHA, symlink parent, output collision and 2s timeout cleanup pass"
+  ]
+}

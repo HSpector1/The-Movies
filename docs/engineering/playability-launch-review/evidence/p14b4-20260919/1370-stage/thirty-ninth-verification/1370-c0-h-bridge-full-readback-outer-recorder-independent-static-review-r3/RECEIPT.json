@@ -1,0 +1,22 @@
+{
+  "claimLimit": "Frozen unrun r3 outer recorder and template only; r6 filled exact launch and observed mirror readback pending",
+  "decision": "ACCEPT_STATIC_READBACK_RECORDER_R3_ONLY",
+  "inventorySha256": "c2c6ed4e12f018281cc2ce207c6908fd652a92c07e02753cd8d0074c21d670b0",
+  "launchTemplateSha256": "388da724f06edffee8554fc345d644a35bb4e6fa036a7002024128ab7e5f5636",
+  "planSha256": "4b0d3848379f0e6bfa984a2c10be9247a044e4dee9fb1f7e229b9128751dca21",
+  "r4ObservedStopSha256": "8d7c904eefdaacc5e8905c2a3166d80907768cb7c97c75d46be1c26de98beec6",
+  "r5ObservedStopSha256": "ded3a4f895ca393dedb3099712a7d01f1ee6f2c22cc780d215f51de397d37fd9",
+  "r6BootstrapSha256": "b88fb1b9677cc3e821063ca5695c67cc5d9dd28efd405372cafcd32a353de99d",
+  "r6ReadbackStaticReviewSha256": "63767792d0a2e43a052141c13f3e1e15c2d4c3dbc450f4a73a3210d5daa564e1",
+  "readbackR6SourceSha256": "6d2c51bc6a802e7e19e41849d27569e35bcfcee31dfc12480c0f6a22998314d1",
+  "schema": "1370-c0-h-bridge-full-readback-outer-recorder-independent-static-review-r3",
+  "selfcheck": "PASS_SYNTHETIC_RECORDER_ONLY",
+  "selfcheckSha256": "74493a7c7085c2178397816da9ba2f0e5658c42e9ccb0caf4f713c3a8e927046",
+  "supervisorSha256": "afe0936bca4b1d833ae5e5397e10970fb92fa61bcd48dac17cd0210adf2fd863",
+  "templateBashSyntax": "PASS",
+  "timersSeconds": {
+    "recorderActive": 620,
+    "recorderWhole": 630,
+    "source": 600
+  }
+}

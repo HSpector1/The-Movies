@@ -1,0 +1,25 @@
+{
+  "claimLimit": "Unrun r4 outer recorder source only; exact loader and launch review, real child/lane result and full H mirror readback remain",
+  "decision": "ACCEPT_STATIC_RECORDER_ONLY",
+  "exactLoaderRequirements": [
+    "Set LAUNCH_START=time.monotonic() and arm 210-second hard timer before reading/authenticating recorder source",
+    "Nofollow stable-FD SHA authenticate r4 supervisor and review receipt; execute bytes in memory",
+    "One recorded lane, AC/free and source/ref/one-shot preflight; preserve actual lane child exit",
+    "Observed admission requires child0, recorder status CHILD_EXIT_ZERO_PENDING_OBSERVED_REVIEW, source result pending full readback, and no survivors"
+  ],
+  "hardAlarmEvidenceLimit": "A hard alarm during receipt write may leave partial/missing recorder result; lane log/meta and mirror state classify STOP. A complete success-looking result with lane child nonzero is also STOP.",
+  "inventorySha256": "655ad7c1deaf3e1c2a24a58a3af964f681bb2c9cd4180443ca60c11ec45ee7f4",
+  "planSha256": "f084d90e090d6668dc76c0a1c19094fbe84691ad1916009926e23e0b258700f7",
+  "predecessorRefineSha256": "38495ef7c523ad6cb4bdb8cc673a369ce57785220ab8abec9595269197dc2401",
+  "selfcheckSha256": "bb5feba9ffc6365a4236bc54ff78be4828b6ec6f4f3713d5b2037fbbbc68dc1f",
+  "selfcheckStatus": "PASS_SYNTHETIC_TIMEOUT_GROUP_CLEANUP_ONLY",
+  "supervisorSha256": "3ce344244945298a11668abc04fc8a244f7a3884666d2f461797ede35aa11d44",
+  "verifiedInheritedGuards": [
+    "Embedded bootstrap exact r3 source/static/HEAD pins retained",
+    "200-second active deadline and 210-second hard whole envelope retained through group cleanup and result write",
+    "Hard alarm KILLs child group and emits STOP; missing/partial/child-nonzero receipt cannot be accepted",
+    "Result uses nofollow dirfds, bounded .partial, O_EXCL link, fsync, final SHA/path/root readback",
+    "Synthetic long-child timeout produced STOP, child exit -15, groupClear true within 5-second whole bound"
+  ],
+  "verifiedR3Correction": "LAUNCH_START is required and validated as exact int/float, finite, with elapsed >=0 and <200 at import and before active/whole timer calculations; missing/future/NaN/inf/bool REDs pass"
+}

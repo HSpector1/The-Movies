@@ -1,0 +1,5 @@
+# Exact H bridge addendum launch r1 — FILLED, UNRUN
+
+This command binds the independent r3 static source ACCEPT receipt SHA `2d68b3686fea754398a76265b632a1c37bf58444169b9201f56982cfdc187eb6`, source SHA `72a9bf9f6567afac320373532486c6bfd40663cf019eadb93d32db73a651678d`, inventory SHA `2cd8b613ebc4315f16e1383159cc89bbf19fb23de13042de933c3dc84296d83d`, and published production HEAD `9651546af98c44f04e8b6b2714d10d67dadb8f9c`/source tree `13880d9b0ba72aff5d4c5bcf5d12fe682c5de554`.
+
+The nofollow stable-FD SHA bootstrap runs the reviewed Python source from in-memory bytes through one recorded lane. The source enforces exact origin/ref, clean Git, AC, disk floor, original 1,344-file mirror and failed typecheck link continuity, absent bridge/result, 180 seconds, and source-only result classification. The command has not been run. A separate independent exact-launch review must verify these bytes, live guards and no prior log/meta/result before launch. After any source-only success, separately inspect child/log/result and perform full 1,402-file observed readback before proposing versioned H typechecks. Do not relabel the original typecheck STOP.

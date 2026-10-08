@@ -1,0 +1,37 @@
+{
+  "addendumSourceSha256": "72a9bf9f6567afac320373532486c6bfd40663cf019eadb93d32db73a651678d",
+  "addendumStaticReviewSha256": "2d68b3686fea754398a76265b632a1c37bf58444169b9201f56982cfdc187eb6",
+  "bindingSha256": "177f5e6624b566ae1b699cc1f771cec89cc3ca3b4b2737ef382028cf2c7404c9",
+  "claimLimit": "Frozen unrun H bridge source addendum recorder launch only; recorded child/source result and full 1,402-file mirror readback remain",
+  "decision": "ACCEPT_EXACT_H_BRIDGE_RECORDER_ONLY",
+  "freshPreflight": {
+    "ac": true,
+    "bashSyntaxPass": true,
+    "continuousFloorBytes": 3221225472,
+    "freeBytes": 3796738048,
+    "laneLockAbsent": true,
+    "laneLogMetaAbsent": true,
+    "mirrorBridgeAbsent": true,
+    "preflightFloorBytes": 3758096384,
+    "priorDependencyLinkExact": true,
+    "productionClean": true,
+    "productionLocalAndRemoteRefMatch": true,
+    "recorderResultAbsent": true,
+    "sourceResultAbsent": true
+  },
+  "inventorySha256": "d689351975834ed129ef3b8f7980d924d37c00fe130dac1b0a3b3447c16fb46e",
+  "launchSha256": "535c097767877be87597e087a800496d90f34c77bf5ff8a6ab829e92dee6685a",
+  "limits": {
+    "recorderActiveSeconds": 200,
+    "recorderWholeSeconds": 210,
+    "sourceSeconds": 180
+  },
+  "observedRequirement": "Actual lane meta child0; recorder child0/groupClear and status CHILD_EXIT_ZERO_PENDING_OBSERVED_REVIEW; source result BRIDGE_ADDED_SOURCE_ONLY_PENDING_INDEPENDENT_FULL_READBACK; no survivors; independent 1,402-file/99,516,095-byte H mirror readback before fresh types",
+  "origin": "https://github.com/HSpector1/The-Movies.git",
+  "predecessorExactRefineSha256": "f6172a8b413396ac851714a489f0904aa667df90d9dd006c0df3e772f161958e",
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "supervisorSha256": "3ce344244945298a11668abc04fc8a244f7a3884666d2f461797ede35aa11d44",
+  "supervisorStaticReviewSha256": "903429313815be42c2d9fd2e37af69b0c4ebea57f842cdc85a99f3aa3386e34e",
+  "timerCorrection": "Loader takes LAUNCH_START, validates elapsed in [0,210), arms exact 210-elapsed remainder before any pinned file reads, then passes that start to authenticated in-memory r4 supervisor"
+}

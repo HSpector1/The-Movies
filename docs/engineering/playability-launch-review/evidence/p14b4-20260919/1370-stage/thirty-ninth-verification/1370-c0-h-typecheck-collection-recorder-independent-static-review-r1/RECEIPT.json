@@ -1,0 +1,21 @@
+{
+  "bootstrapSha256": "b2c440c1ab34d1c9defc51276eeb2e791d9920142b8d76e62588ac68134f6d2d",
+  "claimLimit": "Frozen unrun bootstrap, recorder and template only; filled exact launch, actual H types and diagnostic collection pending",
+  "decision": "ACCEPT_STATIC_H_TYPECHECK_RECORDER_R1_ONLY",
+  "inventorySha256": "9263faab5858a938eb7841e1c2f4d20e46a4082d51c23ee9e7746cc9a0727022",
+  "launchTemplateSha256": "3fdecc338d21f17d4644cc3d92926ab8ec325a9090a6c3cea8e79e38535bbe69",
+  "limitsSeconds": {
+    "child": 300,
+    "recorderActive": 320,
+    "recorderWhole": 330
+  },
+  "planSha256": "b0428d4ebecd17ef8117c5ff0655616af7b4c26f8ede1dbc66e2149c07e0cb97",
+  "r6ObservedMirrorSha256": "35ca2012f0a6122cd88f509cc6f484c1ec489a08d8752d500877095293ca328a",
+  "r8RefineSha256": "ec8ca236351799b4d337b37a33fa8e8d97bd2dc46e4dfa3ce3180f5d9fbf15b9",
+  "r9SourceStaticReviewSha256": "71bf546b2196f96a8defd93880e1a3330bca0940542aa8b76cb2a1aa437abaec",
+  "schema": "1370-c0-h-typecheck-collection-recorder-independent-static-review-r1",
+  "selfcheckSha256": "b0c680fd30fded29b61021e7fe5ac89781a386c1da922a86c7104dd7cded83af",
+  "supervisorSha256": "397f5389e33d8564653aaac9b8e619db030dc4c612139817ec4940a862d3c59a",
+  "syntheticSelfcheck": "PASS",
+  "templateBashSyntax": "PASS"
+}

@@ -1,0 +1,7 @@
+# H typecheck observed STOP
+
+The recorded lane ended with child exit 1, despite wrapper exit 0. The runner result is `STOP_TYPECHECK_COLLECTION` and the recorder is `STOP_RECORDER_CHILD_OR_RESULT`. Dependency version verification and root `tsc --noEmit` exited 0. UI `tsc` exited 2 with TS2307 at `ui/src/screens/p07a-result-projection.test.tsx:12`, importing `../../../bridge/schema/runtime.ts`. The H mirror lacks that file, while historical H commit `8708d6a98e6eb4ad53e3a54e431c4b40b974f79d` contains it as blob `e517d491a3fdc251aac2ac695a820d3629e9800e`. Diagnostic collection was not reached.
+
+The runner recorded unchanged full mirror proof digest `55fd1afb4437386867cdb23c5daf137e9613d41e51f31dafc619bedf37bc59a4` for 1,344 files and 98,158,847 bytes before/after. Dependency content/metadata proof is unchanged for 12,484 entries and 348,223,802 bytes. The expected root `node_modules` link was created, no scoped child survived, lane lock is absent, and the production working tree is clean at `f8c0628739227accfa446276b0613f47bc805a78`. This establishes a mirror-input omission, not a claim about underlying historical source type correctness.
+
+Preserve the failed run. Version the source manifest and mirror route to include the exact historical bridge tree, get independent static/exact review, rematerialize a fresh H mirror, and rerun the bounded typecheck. Do not patch the existing mirror or repin this result.

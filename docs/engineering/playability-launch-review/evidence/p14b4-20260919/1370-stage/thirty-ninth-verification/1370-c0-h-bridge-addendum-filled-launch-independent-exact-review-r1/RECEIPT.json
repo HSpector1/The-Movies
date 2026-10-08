@@ -1,0 +1,30 @@
+{
+  "bindingSha256": "c094d228e2b9ae88394cdaa632aeaa526045e57ff5e35f22ac150e1fadf14102",
+  "claimLimit": "Exact unrun H historical bridge addendum command only; no source mutation, readback, types, 416-tick or acceptance result yet",
+  "decision": "ACCEPT_EXACT_H_BRIDGE_ADDENDUM_SOURCE_ONLY",
+  "exactBootstrap": "Nofollow stable-FD SHA authenticates r3 script/inventory/static receipt; Python -I -B in-memory execution; args bind review SHA and production HEAD",
+  "freshPreflight": {
+    "ac": true,
+    "bashSyntaxPass": true,
+    "continuousFloorBytes": 3221225472,
+    "freeBytes": 3795075072,
+    "laneLockAbsent": true,
+    "laneLogMetaAbsent": true,
+    "mirrorBridgeAbsent": true,
+    "preflightFloorBytes": 3758096384,
+    "productionClean": true,
+    "productionLocalAndRemoteRefMatch": true,
+    "resultAbsent": true
+  },
+  "inventorySha256": "e3a93bf4c86d043efa79f8db4bee3c5be9aab0654e64ed9302a9c8fd5ebbd08b",
+  "launchSha256": "d610e378c68f908026e85ca2e8ca95617e95e5e3880e595bdf8fdeb5fdcc676f",
+  "nextGate": "Recorded child/result audit plus independent full 1,402-file / 99,516,095-byte H mirror readback before versioned r6 types",
+  "origin": "https://github.com/HSpector1/The-Movies.git",
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionRemoteRef": "refs/heads/wip/headless-program-20260916-ts",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "sourceResultLabel": "BRIDGE_ADDED_SOURCE_ONLY_PENDING_INDEPENDENT_FULL_READBACK",
+  "sourceSha256": "72a9bf9f6567afac320373532486c6bfd40663cf019eadb93d32db73a651678d",
+  "staticReviewSha256": "2d68b3686fea754398a76265b632a1c37bf58444169b9201f56982cfdc187eb6",
+  "wallDeadlineSeconds": 180
+}

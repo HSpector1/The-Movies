@@ -1,0 +1,3 @@
+# Independent static review request — H typecheck/collection r9
+
+Review frozen scratch-only, unrun r9 against r8 REFINE receipt SHA `ec8ca236351799b4d337b37a33fa8e8d97bd2dc46e4dfa3ce3180f5d9fbf15b9`. Check 8 MiB child log limit at OS and polling layers, process-group cleanup and bounded stable no-follow log/collection/result reads; clean `GIT_*` environment for every Git subprocess; exact origin and local/remote evidence ref in repeated source guards; retained r6 accepted raw/recorder/observed cross-links and original STOPs. Run `python3 -B selfcheck.py` only; its disposable noisy child is not a compiler or H mirror read. Return `ACCEPT_STATIC_H_TYPES_R9_SOURCE_ONLY` or REFINE. No recorder/exact launch or H typecheck is authorized by source review alone.

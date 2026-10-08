@@ -1,0 +1,3 @@
+# Stage38 remote audit exact launch review
+
+ACCEPT_EXACT_ONLY after H types lane ended. The original filled binding recorded a busy lane; fresh preflight now finds lock/log/meta/output absent, AC power, 3,799,126,016 free bytes (>3 GiB), clean production HEAD f8c062... and source tree 13880d..., production remote ref f8c062..., evidence ref fe9e8a.... Bash syntax and six bootstrap hashes match the frozen source/static/publication controls. The script has a 900-second timer and aborts on source/ref drift or incomplete clone cleanup. This authorizes only the exact unrun diagnostic command; fresh remote-byte proof remains pending.

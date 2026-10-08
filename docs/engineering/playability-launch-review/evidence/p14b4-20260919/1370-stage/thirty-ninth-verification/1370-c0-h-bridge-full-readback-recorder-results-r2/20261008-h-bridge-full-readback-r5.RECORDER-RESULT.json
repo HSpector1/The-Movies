@@ -1,0 +1,18 @@
+{
+  "bindingSha256": "dcc0bb0b43e999920de454641edd51817a8ee0419271ab82f4605fc3aae8e424",
+  "bootstrapSha256": "91bbefbc5a7820dfba13905f19b1702dc481879126414a333622d2a7a26d1d48",
+  "childExit": 1,
+  "childPid": 85858,
+  "elapsedSeconds": 3.405,
+  "evidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "groupClear": true,
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "recorderActiveSeconds": 620,
+  "recorderWholeSeconds": 630,
+  "schema": "1370-c0-h-bridge-full-readback-recorder-result-r2",
+  "sourceDeadlineSeconds": 600,
+  "sourceSha256": "fd241c6d3de7ae9779c9f8f9b0d5efc41c8dfd1ae85c0066b91e270198ece40a",
+  "staticReviewSha256": "c540f11967aac7d0fc30f4452a24ad47441ea45ff3377cb10e8bec94988196f0",
+  "status": "STOP_CHILD_NONZERO"
+}

@@ -1,0 +1,42 @@
+{
+  "bounds": {
+    "continuousFreeBytes": 3221225472,
+    "preflightFreeBytes": 3758096384,
+    "seconds": 180
+  },
+  "claimLimit": "Unrun source addendum implementation only; exact launch, recorded execution, full 1,402-file observed readback and versioned H types remain required",
+  "decision": "ACCEPT_STATIC_H_BRIDGE_ADDENDUM_ONLY",
+  "exactLaunchMustPinProductionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "inputsSha256": "2598b0c372eed48d9be04192eb7e33aa52e398a9323d4e2155c176e4cce5efaa",
+  "inventorySha256": "2cd8b613ebc4315f16e1383159cc89bbf19fb23de13042de933c3dc84296d83d",
+  "planSha256": "d0dd65042160d08750bc6ca13cd1562ee4933a3afba961e5f02d4ade22f1167d",
+  "postflight": "Independent full 1,402-regular-file / 99,516,095-byte H mirror readback, exact single node_modules symlink, new proof digest and receipt before versioned r6 types",
+  "predecessorRefineSha256": "77179362eef9a0473b44e63dcc97daf0c9140b983a5ff90a0699896cbf8b2942",
+  "scriptSha256": "72a9bf9f6567afac320373532486c6bfd40663cf019eadb93d32db73a651678d",
+  "selfcheckSha256": "c72df4edda4c34941453376d0706a897410c60d2efe40b749bc70209ecb80090",
+  "selfcheckStatus": "PASS_STATIC_FIXTURE_ONLY",
+  "sourceRoster": {
+    "H": {
+      "bridgeTree": "a697b042eccb85adacd40ef1303869be6d26239a",
+      "bytes": 1357248,
+      "files": 58
+    },
+    "M0Comparator": {
+      "bridgeTree": "faa227af051c5ec529644b5f84151314ea63cc30",
+      "bytes": 1517743,
+      "files": 63
+    }
+  },
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "verifiedR1Corrections": [
+    "pinned read parent chain nofollow and stable",
+    "ambient GIT_* scrub and exact origin URL/source/remote refs",
+    "prior failed type RESULT exact dependency-link tuple",
+    "stable nofollow result dirfd O_EXCL and receipt readback"
+  ],
+  "verifiedR2Corrections": [
+    "read_pin enforces cumulative cap and original preimage length per chunk before buffering",
+    "attach_mirror uses nofollow stable parent/root dirfd; guard revalidates path and fd throughout destructive archive extraction and final receipt",
+    "synthetic growth and mirror-parent symlink replacement REDs pass"
+  ]
+}

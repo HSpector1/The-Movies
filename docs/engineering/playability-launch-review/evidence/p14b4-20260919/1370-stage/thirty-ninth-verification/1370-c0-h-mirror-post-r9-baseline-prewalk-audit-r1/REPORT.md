@@ -1,0 +1,3 @@
+# Post-r9 H current-baseline actual-binding pre-walk audit
+
+PASS_ACTUAL_BASELINE_BINDING_PRE_WALK. The frozen baseline `main()` was parsed into an in-memory AST and executed only until `build_expected(spec)`, using the exact filled binding SHA e6251ff4... . Only the outer AC/lock/disk `guard()` was stubbed; actual source Git/ref and all addendum, original mirror/type, r4/r5 STOP and r9 observed/raw STOP control checks passed. No mirror file was opened, no output written, and no Git mutation occurred. The full scan and current root tuple still require the recorded lane and independent observed review.

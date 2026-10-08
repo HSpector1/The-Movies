@@ -1,0 +1,16 @@
+{
+  "schema": "1370-c0-h-bridge-addendum-recorder-launch-template-r2",
+  "status": "UNFILLED_UNRUN",
+  "sourceSha256": "90b980bd331978da9c2da02e04739b76857eaa1daa4880ecaac2f89f0e185b1e",
+  "inventorySha256": "79bd10eae10d6d3555b5cf4a5af8a097ab14ea5101e8cb65416dd3b69de6c494",
+  "staticReviewReceiptPath": "__FILL_STATIC_REVIEW_DIR__/RECEIPT.json",
+  "staticReviewReceiptSha256": "__FILL_STATIC_REVIEW_SHA256__",
+  "staticReviewDecision": "__FILL_ACCEPT_DECISION__",
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "sourceDeadlineSeconds": 180,
+  "recorderActiveSeconds": 200,
+  "recorderWholeSeconds": 210,
+  "result": "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-addendum-recorder-results-r3/20261008-h-bridge-addendum-r3.RECORDER-RESULT.json",
+  "laneLog": "/Users/zacheryspector/studio-scratch/c0-h-bridge-addendum-20261008-r3.lane.log"
+}

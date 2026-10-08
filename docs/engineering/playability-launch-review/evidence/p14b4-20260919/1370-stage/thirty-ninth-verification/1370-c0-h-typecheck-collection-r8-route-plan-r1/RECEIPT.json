@@ -1,0 +1,14 @@
+{
+  "exactReviewRequired": true,
+  "observedR6ReceiptSha256": null,
+  "oldTypeStopSha256": "6c8e310bca8d581a479ffda929b3edad83670c5bdb52c2ef45b419e4953f0f4d",
+  "planSha256": "820da3b8ec79bad581e58717d23e534d5b06d30ca2cc4344b710a4ece34c1324",
+  "r4StopSha256": "8d7c904eefdaacc5e8905c2a3166d80907768cb7c97c75d46be1c26de98beec6",
+  "r5StopSha256": "ded3a4f895ca393dedb3099712a7d01f1ee6f2c22cc780d215f51de397d37fd9",
+  "r6RawReadbackSha256": "3da9e86417520a6e75591e107e85f4bacf3ba8b7e9fef4b33bca30f854723724",
+  "r6RecorderSha256": "3341a65bae54cae0ca481c652a36621556da8ed885436947078f3fc48bd9f88a",
+  "recorderReviewRequired": true,
+  "schema": "1370-c0-h-typecheck-collection-r8-route-plan-r1",
+  "sourceReviewRequired": true,
+  "status": "DRAFT_UNRUN_OBSERVED_R6_RECEIPT_PENDING"
+}

@@ -1,0 +1,23 @@
+{
+  "AC": true,
+  "authorityPinsMapped": true,
+  "baseEvidenceCommit": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "claimLimit": "Static source-map review only; no publication, remote byte proof, H type/collection, neutrality, C0 or 1363 acceptance.",
+  "decision": "ACCEPT_STATIC_MAP_ONLY",
+  "freeBytesAtReview": 3770712064,
+  "mapPath": "/Users/zacheryspector/studio-scratch/1370-c0-stage39-source-map-draft-r4/SOURCE-MAP-DRAFT.json",
+  "mapSha256": "e0fa0cbda5a351a4e7065639d10c70f8bd633f049dc61691f0f836bd25e9c894",
+  "mappedSourceShaSizeBlobOidMatch": true,
+  "planSha256": "2102abf5a21b7ab55cdb38ef3f03165f99a86dd1236ef54624aa99df444fd487",
+  "predecessorR1R2R3ExactSubset": true,
+  "prefixAbsentAtBase": true,
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r9StopAndCurrentBaselineIncluded": true,
+  "reviewSha256": "fc35445e042641ef955891b90003e4b121ae73b24aa8bb02916960bc189c0c15",
+  "rootDriftCause": "UNATTRIBUTED_R9",
+  "schema": "1370-c0-stage39-source-map-independent-review-r4",
+  "sourceBytes": 1070532,
+  "sourceCount": 318,
+  "targetsUniqueSortedSafe": true
+}

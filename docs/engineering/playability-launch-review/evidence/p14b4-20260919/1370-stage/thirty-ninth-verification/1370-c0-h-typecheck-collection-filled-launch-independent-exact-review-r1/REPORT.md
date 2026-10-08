@@ -1,0 +1,7 @@
+# H typecheck/collection filled exact launch independent review r1
+
+**REFINE; unrun.** The exact bootstrap pins the r4 recorder, inherited r3 runner, static review, observed H mirror receipt, materializer result and binding with nofollow/stable-descriptor SHA checks. Its selfcheck passes; 300/330-second bounds, AC, 3.5 GiB preflight, clean source/ref and one-shot output checks are explicit.
+
+The full 1,344-file H mirror was independently read back earlier, but the typecheck runner's `source_check()` validates only four overlay files and a small selected set of fixture/tick/package/config files before and after compiler execution. It does not authenticate the other historical source and test files against the observed mirror receipt or Git tree at launch. A changed unselected file can produce a passing full-era type/collection result for a different source tree. A preparatory typecheck on the pinned historical candidate must prove exact full mirror identity pre/post. The independent readback took about six seconds for 98 MiB, so a bounded full Git-OID/mode/path inventory is feasible within the 300/330 route, or use an equivalent reviewed whole-tree content digest.
+
+Preserve this filled r1 command and binding unrun. Version the runner/recorder/static package, fill a new binding and exact command, review both, and only then launch. The 3.5 GiB preflight had just 47.5 MiB headroom at freeze; recheck space at the later launch. No types or game result is claimed.

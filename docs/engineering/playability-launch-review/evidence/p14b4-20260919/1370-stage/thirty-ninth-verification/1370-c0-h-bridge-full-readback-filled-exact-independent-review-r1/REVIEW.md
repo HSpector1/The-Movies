@@ -1,0 +1,7 @@
+# H bridge full readback filled launch r4 — exact command review
+
+Decision: **ACCEPT_EXACT_H_BRIDGE_FULL_READBACK_LAUNCH_ONLY**. The frozen LAUNCH.command, BINDING.json, PLAN and INVENTORY match their published hashes. `bash -n` and JSON parsing pass. The command uses the sole recorded lane and starts a finite 630-second deadline before nofollow SHA reads; its accepted supervisor enforces 620 active/630 whole and the r4 child enforces 600 source seconds. The loader executes the SHA-pinned supervisor in memory. The supervisor pins the r4 child bootstrap/static review/binding and records actual child exit, process-group cleanup and one-shot result.
+
+Immediate read-only preflight: production HEAD `9651546af98c44f04e8b6b2714d10d67dadb8f9c`, source tree `13880d9b0ba72aff5d4c5bcf5d12fe682c5de554`, clean worktree, exact origin, matching local/remote production and evidence refs at `fe9e8a7d84da164e9a413dc2c3efe49f529c2a78`; AC power; 3,781,652,480 free bytes (above 3.5 GiB). Lane lock/log/meta, readback output, recorder output and both partial outputs were absent. The recorder itself rechecks those guards on launch.
+
+This review authorizes only the frozen one-shot diagnostic launch. It does not prove the 1,402-file/99,516,095-byte mirror or repair the preserved historical UI TypeScript STOP. A timeout, nonzero actual child, missing/partial result, or survivor remains STOP; observed readback must be independently audited.

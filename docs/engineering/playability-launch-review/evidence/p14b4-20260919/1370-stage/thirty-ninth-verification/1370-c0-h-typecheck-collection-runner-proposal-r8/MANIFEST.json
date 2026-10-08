@@ -1,0 +1,36 @@
+{
+  "claimLimit": "Source proposal only; no H typecheck run, 416-tick route, C0/1363 closure or gameplay acceptance",
+  "files": [
+    {
+      "bytes": 34653,
+      "path": "runner.py",
+      "sha256": "4d88d9f7e90f488278523830fcfb188e7931724b6a39318d86b3b73583783c80"
+    },
+    {
+      "bytes": 4253,
+      "path": "BINDING-SOURCE.json",
+      "sha256": "0f9273cf8be4f5523a3a19d6a4952881f48560fa059be261269f418815f59a79"
+    },
+    {
+      "bytes": 5632,
+      "path": "selfcheck.py",
+      "sha256": "dc7c16648f08b6b0635e774696afb17f5da03c34bbba5366c2cdcacf4d550a91"
+    },
+    {
+      "bytes": 3820,
+      "path": "PLAN.md",
+      "sha256": "cba38eec5bec2645d5be816f3b7cf4d34707e9c2a69a1f6c29810bc85bed0261"
+    },
+    {
+      "bytes": 671,
+      "path": "REVIEW-REQUEST.md",
+      "sha256": "c0c8bd8f78ac95edb58db4b837595998d2497be89711b5057285a677ce38ded2"
+    }
+  ],
+  "historicalTypeStopReceiptSha256": "6c8e310bca8d581a479ffda929b3edad83670c5bdb52c2ef45b419e4953f0f4d",
+  "r4ReadbackObservedStopSha256": "8d7c904eefdaacc5e8905c2a3166d80907768cb7c97c75d46be1c26de98beec6",
+  "r5ReadbackObservedStopSha256": "ded3a4f895ca393dedb3099712a7d01f1ee6f2c22cc780d215f51de397d37fd9",
+  "r6ReadbackObservedSourceOnlySha256": "35ca2012f0a6122cd88f509cc6f484c1ec489a08d8752d500877095293ca328a",
+  "schema": "1370-c0-h-typecheck-collection-runner-proposal-manifest-r8",
+  "status": "FROZEN_UNRUN_STATIC_REVIEW_REQUESTED"
+}

@@ -1,0 +1,19 @@
+waiting for pid 0; then: /usr/local/bin/python3 -I -B -c import hashlib,os,stat,sys
+from pathlib import Path
+p=Path(sys.argv[1]);pin="0fe66879521909362fa746044485b58b8a61b411038d40343465042aa183b50b"
+for parent in p.parents: assert stat.S_ISDIR(parent.lstat().st_mode)
+before=p.lstat();assert stat.S_ISREG(before.st_mode) and before.st_nlink==1 and before.st_size<1048576
+fd=os.open(p,os.O_RDONLY|os.O_NOFOLLOW)
+try:
+ chunks=[]
+ while part:=os.read(fd,65536): chunks.append(part)
+ raw=b"".join(chunks);during=os.fstat(fd);after=p.lstat()
+ fields=lambda v:(v.st_dev,v.st_ino,v.st_mode,v.st_nlink,v.st_size,v.st_mtime_ns,v.st_ctime_ns)
+ assert fields(before)==fields(during)==fields(after) and len(raw)==before.st_size
+finally:os.close(fd)
+assert hashlib.sha256(raw).hexdigest()==pin
+sys.argv=sys.argv[1:]
+exec(compile(raw,str(p),"exec"),{"__name__":"__main__","__file__":str(p)})
+ /Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r5/runner.py --binding /Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-launch-20261008-r2/BINDING.json --binding-sha b7cc5620534abd4d7fb12abf9fe111d747334623aa3f114b572583b0f543d662; 2026-10-08 04:37:11 CDT
+start; 2026-10-08 04:37:11 CDT
+end, exit 1; 2026-10-08 04:39:20 CDT

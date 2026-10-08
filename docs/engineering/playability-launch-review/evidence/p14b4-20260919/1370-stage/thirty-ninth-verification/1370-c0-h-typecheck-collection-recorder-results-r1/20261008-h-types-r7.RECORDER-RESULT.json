@@ -1,0 +1,18 @@
+{
+  "bindingSha256": "57055e368a0f6eeb2f7664c3209d12476ed709fbd05a17a26a918dc6237a1472",
+  "bootstrapSha256": "b2c440c1ab34d1c9defc51276eeb2e791d9920142b8d76e62588ac68134f6d2d",
+  "childExit": 1,
+  "childPid": 48549,
+  "elapsedSeconds": 153.378,
+  "evidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "groupClear": true,
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "recorderActiveSeconds": 320,
+  "recorderWholeSeconds": 330,
+  "schema": "1370-c0-h-typecheck-collection-recorder-result-r1",
+  "sourceDeadlineSeconds": 300,
+  "sourceSha256": "8f5c21590d29a02d2cc1aed87ebea94538d4078e6ecf65e379e2dd3ad6bc7968",
+  "staticReviewSha256": "71bf546b2196f96a8defd93880e1a3330bca0940542aa8b76cb2a1aa437abaec",
+  "status": "STOP_CHILD_NONZERO"
+}

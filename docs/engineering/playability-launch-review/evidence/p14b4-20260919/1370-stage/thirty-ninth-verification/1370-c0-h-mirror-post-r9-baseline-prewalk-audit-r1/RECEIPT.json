@@ -1,0 +1,8 @@
+{
+  "bindingSha256": "e6251ff4e7fb93e8b01b3a3d73baafcdae605c3564d51f6410da7839b66c4500",
+  "decision": "PASS_ACTUAL_BASELINE_BINDING_PRE_WALK_ONLY",
+  "mirrorOpened": false,
+  "reportSha256": "6ed4fe9e9a13bffee1475d0474c3fe55c200b9aae1428eebdab9b8861c668a10",
+  "schema": "1370-c0-h-mirror-post-r9-baseline-prewalk-audit-r1",
+  "sourceSha256": "7c65072c7a7f6b88eb668cc70efed3a7b7b1d28e6f60806d63b8e0543f0f8d36"
+}

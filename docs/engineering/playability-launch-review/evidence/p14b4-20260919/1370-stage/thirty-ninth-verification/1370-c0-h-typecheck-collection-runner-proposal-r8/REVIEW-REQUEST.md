@@ -1,0 +1,3 @@
+# Independent static review request — H typecheck/collection r8
+
+Review this frozen scratch-only, unrun source proposal against the original H type STOP, r4/r5 readback STOPs, and independent r6 source-only acceptance. Verify exact receipt/result/recorder/lane/static/exact cross-links, global sorted proof, no-follow 1,402-file mirror and dependency/control walkers, entry/byte/deadline/AC/disk bounds, refusal tests, fresh output and absence of mirror/Git writes. Run `python3 -B selfcheck.py` only. The runnable binding, 300/330 recorder and exact launch do not exist yet. Return `ACCEPT_STATIC_H_TYPES_R8_SOURCE_ONLY` or REFINE; do not infer type or C0 acceptance.

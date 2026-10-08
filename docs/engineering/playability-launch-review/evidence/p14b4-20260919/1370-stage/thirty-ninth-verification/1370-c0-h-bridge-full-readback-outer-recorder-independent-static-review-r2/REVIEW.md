@@ -1,0 +1,5 @@
+# H full-readback retry outer recorder r2 — static review
+
+Decision: **ACCEPT_STATIC_READBACK_RECORDER_R2_ONLY**. The inventory and every frozen member SHA/size match. The source differs from accepted recorder r1 only in one-shot retry paths, r5 child bootstrap/static/spec/source pins, and result schema. It retains the finite loader start, 620-second active/630-second whole clocks, 600-second child clock, real child exit and process-group cleanup, nofollow SHA reads, AC/disk/sole-lane and clean local/remote ref guards, and bounded one-shot result. The launch template arms 630 minus elapsed before authenticated reads and still contains explicit review/binding placeholders. `bash -n` passes. Synthetic start/SHA/symlink/collision/timeout group cleanup passes.
+
+The failed r4 lane and independent STOP receipt remain untouched; the retry uses new r5 lane/readback and r2 recorder paths. This is static source acceptance only. Fill and independently exact-review the command, then audit actual lane/meta/child/output.

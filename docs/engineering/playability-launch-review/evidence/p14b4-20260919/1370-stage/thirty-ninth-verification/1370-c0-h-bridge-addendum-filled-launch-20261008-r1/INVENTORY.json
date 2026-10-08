@@ -1,0 +1,22 @@
+{
+  "files": [
+    {
+      "bytes": 915,
+      "path": "BINDING.json",
+      "sha256": "c094d228e2b9ae88394cdaa632aeaa526045e57ff5e35f22ac150e1fadf14102"
+    },
+    {
+      "bytes": 3382,
+      "path": "LAUNCH.command",
+      "sha256": "d610e378c68f908026e85ca2e8ca95617e95e5e3880e595bdf8fdeb5fdcc676f"
+    },
+    {
+      "bytes": 1158,
+      "path": "PLAN.md",
+      "sha256": "25892005aa3b02a632a6193fccf56ecb7864004cd21cfece4971dce3f2103ce9"
+    }
+  ],
+  "schema": "1370-c0-h-bridge-addendum-filled-launch-inventory-r1",
+  "staticReviewReceiptSha256": "2d68b3686fea754398a76265b632a1c37bf58444169b9201f56982cfdc187eb6",
+  "status": "FILLED_UNRUN"
+}

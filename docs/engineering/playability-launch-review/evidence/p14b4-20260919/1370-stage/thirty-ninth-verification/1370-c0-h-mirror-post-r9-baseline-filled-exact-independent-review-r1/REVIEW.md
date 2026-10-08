@@ -1,0 +1,3 @@
+# H post-r9 baseline filled exact r1 — REFINE, unrun
+
+The frozen launch/binding/inventory hashes and live AC/source/remote/free-space preflight match, but the command's authenticated loader has a deterministic decision-literal mismatch. It asserts `ACCEPT_STATIC_H_BASELINE_RECORDER_R1_ONLY`; the pinned independent recorder receipt actually says `ACCEPT_STATIC_H_POST_R9_BASELINE_RECORDER_ONLY`. The loader would reject before supervisor execution. Preserve r1 unrun. Version the filled command and binding/inventory as needed to assert the actual independent decision, then independently exact-review the new bytes. Do not alter the static receipt or relabel r9 STOP.

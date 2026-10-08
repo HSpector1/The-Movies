@@ -1,0 +1,12 @@
+AssertionError: PREIMAGE_OUTPUT must be absolute
+
+simple
+
+ ❯ tests/diagnostic.test.ts:17:8
+     15| const endWeek = 416
+     16| const output = process.env.PREIMAGE_OUTPUT
+     17| assert.ok(output && resolve(output) === output, 'PREIMAGE_OUTPUT must …
+       |        ^
+     18| mkdirSync(output, { recursive: true })
+     19| const sha = (bytes: string) => createHash('sha256').update(bytes).dige…
+

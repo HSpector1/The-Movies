@@ -1,0 +1,7 @@
+# Stage39 evidence source map r4 draft — unreviewed, unpublished
+
+Versioned from exact r3 map SHA `33c15e5b6f0f7af36af7582fd8d52a33f3e1775e329d610a50ce38ec1f224e12`. The scratch-only map has 318 exact regular-file rows / 1,070,532 bytes, adding 82 rows. Every row, including the preserved r3 rows, was re-read and checked by SHA-256, Git blob OID and size. Target paths are unique beneath the absent thirty-ninth-verification prefix. Evidence parent `fe9e8a7d84da164e9a413dc2c3efe49f529c2a78` and production HEAD/src `9651546af98c44f04e8b6b2714d10d67dadb8f9c` / `13880d9b0ba72aff5d4c5bcf5d12fe682c5de554` require fresh ref checks before any publication.
+
+R4 adds the r9 typecheck route's source/static/exact/child outputs and independent observed STOP, plus the post-r9 current mirror baseline source/recorder, r1 exact REFINE, r2 recorded launch, raw/recorder/lane, separate full-byte audit and independent observed source-only receipt. The r10 retry plans are included as plan-only historical inputs; r10 source remains in progress and is excluded. Live mirror, node_modules link and transient node compile cache are excluded.
+
+The r9 route remains STOP despite dependency/root/UI tsc subprocess exits 0. The current baseline verifies 1,402 files/99,516,095 bytes and pins the changed root tuple, with cause **UNATTRIBUTED_R9**. This does not establish accepted H type/diagnostic collection or gameplay. The map is not a publisher input until independently reviewed, followed by controlled publication and fresh HTTPS remote-byte audit.

@@ -1,0 +1,5 @@
+# Exact H bridge addendum recorder launch template r2 — UNFILLED, UNRUN
+
+The command cannot pass its non-hex static-review placeholders. It must not be executed. After independent r3 recorder static ACCEPT, make a new versioned filled copy replacing the receipt directory/SHA/decision only, then independently review the exact bytes and fresh one-shot preflight (AC, clean production 9651546a/src13880 and matching remote/origin, disk above 3.5 GiB, idle lane, absent log/meta/source result/recorder result). If HEAD changes, version and re-review the source route.
+
+The Python loader records `LAUNCH_START` and arms the 210-second hard alarm before reading source, inventory or review bytes. It authenticates all three with stable nofollow directory FD/path/SHA checks and executes the supervisor from memory. The supervisor gives the bootstrap/child a 200-second active window within the 210-second whole recorder window; the addendum source retains 180 seconds. Independent observed review must inspect true child exit, groupClear, log/meta, both results, and fresh full H mirror readback. A wrapper exit alone carries no acceptance.

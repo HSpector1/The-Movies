@@ -1,0 +1,21 @@
+{
+  "files": [
+    {
+      "bytes": 852,
+      "path": "BINDING.template.json",
+      "sha256": "7fe2c0eb3761484091b4ff7401c4faec4e2fb1ec307be4cf7659e813f4306e7f"
+    },
+    {
+      "bytes": 3314,
+      "path": "LAUNCH.template.command",
+      "sha256": "3c80a61efc4d38423506800989e807b0c3aeffdfef6d2ae31c2d1c59c0d06aa4"
+    },
+    {
+      "bytes": 1366,
+      "path": "PLAN.md",
+      "sha256": "8069579ca925d1ffc8e845df54190f75c5392ba8ee039170794952f1dc866321"
+    }
+  ],
+  "schema": "1370-c0-h-bridge-addendum-launch-template-inventory-r1",
+  "status": "UNFILLED_UNRUN"
+}

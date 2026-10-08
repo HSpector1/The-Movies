@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/heavy-queue/lane-run.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/c0-h-types-20261008-h-types-r3.lane.log",
+    "/usr/local/bin/python3",
+    "-I",
+    "-B",
+    "-c",
+    "import hashlib,os,stat,sys\nfrom pathlib import Path\np=Path(sys.argv[1]);pin=\"0fe66879521909362fa746044485b58b8a61b411038d40343465042aa183b50b\"\nfor parent in p.parents: assert stat.S_ISDIR(parent.lstat().st_mode)\nbefore=p.lstat();assert stat.S_ISREG(before.st_mode) and before.st_nlink==1 and before.st_size<1048576\nfd=os.open(p,os.O_RDONLY|os.O_NOFOLLOW)\ntry:\n chunks=[]\n while part:=os.read(fd,65536): chunks.append(part)\n raw=b\"\".join(chunks);during=os.fstat(fd);after=p.lstat()\n fields=lambda v:(v.st_dev,v.st_ino,v.st_mode,v.st_nlink,v.st_size,v.st_mtime_ns,v.st_ctime_ns)\n assert fields(before)==fields(during)==fields(after) and len(raw)==before.st_size\nfinally:os.close(fd)\nassert hashlib.sha256(raw).hexdigest()==pin\nsys.argv=sys.argv[1:]\nexec(compile(raw,str(p),\"exec\"),{\"__name__\":\"__main__\",\"__file__\":str(p)})\n",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r5/runner.py",
+    "--binding",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-launch-20261008-r2/BINDING.json",
+    "--binding-sha",
+    "b7cc5620534abd4d7fb12abf9fe111d747334623aa3f114b572583b0f543d662"
+  ],
+  "childResultPath": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-results-r5/20261008-h-types-r3/RESULT.json",
+  "elapsedSeconds": 129.628,
+  "laneMetaPath": "/Users/zacheryspector/studio-scratch/c0-h-types-20261008-h-types-r3.lane.log.meta",
+  "logSha256": "a428ba08e2250cb8ffb6f07687b788bf2299b19d1aee822e15aff986a0ed0071",
+  "metaSha256": "c8579301f62f424b7f08edf1c9ef9e73fddea4c7ba0d609efa93f4cb5fbc4593",
+  "runId": "20261008-h-types-r3",
+  "schema": "1370-c0-h-typecheck-recorder-r5",
+  "status": "STOP_RECORDER_CHILD_OR_RESULT",
+  "wrapperExit": 0
+}

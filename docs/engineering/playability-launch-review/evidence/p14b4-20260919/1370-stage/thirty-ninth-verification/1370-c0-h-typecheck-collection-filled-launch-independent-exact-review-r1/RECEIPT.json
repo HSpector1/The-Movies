@@ -1,0 +1,13 @@
+{
+  "bindingSha256": "f0c2aeae1d0c9ae0aa2b23ad38c452414eabed0f9a1bf9ff2cb18cec2c7e4546",
+  "claimLimit": "Unrun; no full-era types/collection/game acceptance",
+  "commandSha256": "0979e1b59b40937cccb1fc5d176282fa8de4f533a0adf7a492d833b078293a68",
+  "decision": "REFINE",
+  "hMirrorObservedReceiptSha256": "bb61794d874cdc80f1283459d9eca49c5174de441cde9dcbe971d36e2b9f226e",
+  "inventorySha256": "1c414ba92ff578a3517a4e9c2c250308bf2eaaccfcf1681801fa3d6d43c02a22",
+  "reason": "Runner lacks pre/post full 1344-file mirror source identity; selected-file checks cannot bind full-era types to observed source tree",
+  "recorderSha256": "2411ed35bd744041d7a4a23f0069c4e26fc65ab6330b6cb7cfb20a157d08d254",
+  "reportSha256": "27cb476f56d55a9683cad5567865fa38faa3bc239048e01172151ad7c80a19f1",
+  "runnerSha256": "d185c14018dd5ef7b3b56c1a80d237a086e8999bc0a11a945f973b7d63255697",
+  "selfcheckPass": true
+}

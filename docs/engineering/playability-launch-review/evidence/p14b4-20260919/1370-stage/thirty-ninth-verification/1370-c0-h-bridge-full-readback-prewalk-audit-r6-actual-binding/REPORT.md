@@ -1,0 +1,3 @@
+# R6 actual filled binding pre-walk audit
+
+PASS_ACTUAL_R6_BINDING_PRE_WALK. The frozen r6 source was parsed into an in-memory AST and `main()` was executed only through the statement immediately before `build_expected(spec)` / `walk_mirror`. The actual filled r6 BINDING.json was used without source-text substitution. Only the outer AC/lock/disk `guard()` was stubbed because this was not a recorded lane. Actual `source_guard(spec)` ran, including local/remote refs and H root/src/bridge tree roles. All addendum receipts and r4/r5 STOP pins, original materializer/readback/type proof, H source manifest and review passed. No mirror read or output write occurred. The final exact command remains subject to independent review.

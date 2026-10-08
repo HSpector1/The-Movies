@@ -1,0 +1,12 @@
+{
+  "claimLimit": "Static runner only; H materialization, exact type launch, types and collection pending",
+  "decision": "ACCEPT_STATIC_ONLY",
+  "inventorySha256": "9b66038bc00b66cf96ca0a4e2246787456559fdeee224856fc4d8528b961fa01",
+  "planSha256": "467e27f7a90a2b5817a901b5b80ab7f50a17f4a3523901fe69c1d7281eafb111",
+  "r2RefineReceiptSha256": "54e41f92dee174cf8c875936196971d33589dff8eedd11eba6cd2d8c2770737c",
+  "recorderSha256": "557b2ccf311252ffffbd77064f9a470afa45702f004c4dd8044f7a4e9e5ce1a1",
+  "reportSha256": "c94a9af76439e0ba4ef8782f7cf881221051f58a05de0d92b99fb7d546fa4b62",
+  "runnerSha256": "d185c14018dd5ef7b3b56c1a80d237a086e8999bc0a11a945f973b7d63255697",
+  "syntheticRedPass": true,
+  "syntheticSha256": "c06c3f1cfdb73e51692e2c91c0447a9cdaf98a8f25ca6eed6f4b691af55b8645"
+}

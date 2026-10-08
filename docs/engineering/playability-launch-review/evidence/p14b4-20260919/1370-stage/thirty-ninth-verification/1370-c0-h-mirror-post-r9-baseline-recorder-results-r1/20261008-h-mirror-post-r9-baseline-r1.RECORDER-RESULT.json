@@ -1,0 +1,18 @@
+{
+  "bindingSha256": "e6251ff4e7fb93e8b01b3a3d73baafcdae605c3564d51f6410da7839b66c4500",
+  "bootstrapSha256": "7e5403d0f489eb15b5e128e8745e85c04405cf57c497e2ceae393d60d2e425ef",
+  "childExit": 0,
+  "childPid": 84244,
+  "elapsedSeconds": 8.095,
+  "evidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "groupClear": true,
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "recorderActiveSeconds": 620,
+  "recorderWholeSeconds": 630,
+  "schema": "1370-c0-h-mirror-post-r9-baseline-recorder-result-r1",
+  "sourceDeadlineSeconds": 600,
+  "sourceSha256": "7c65072c7a7f6b88eb668cc70efed3a7b7b1d28e6f60806d63b8e0543f0f8d36",
+  "staticReviewSha256": "7aae4ad9836dd1f98017a21eb9a3249ba16b71dbb043c0343255912a56002799",
+  "status": "CHILD_EXIT_ZERO_PENDING_OBSERVED_REVIEW"
+}

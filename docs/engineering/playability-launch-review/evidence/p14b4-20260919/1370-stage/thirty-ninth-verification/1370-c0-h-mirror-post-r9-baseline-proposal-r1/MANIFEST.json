@@ -1,0 +1,37 @@
+{
+  "claimLimit": "Current H mirror source-byte baseline proposal only; r9 root drift remains unattributed; no accepted H type/collection or C0 route.",
+  "evidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "files": [
+    {
+      "bytes": 34253,
+      "path": "baseline.py",
+      "sha256": "7c65072c7a7f6b88eb668cc70efed3a7b7b1d28e6f60806d63b8e0543f0f8d36"
+    },
+    {
+      "bytes": 18828,
+      "path": "SPEC.json",
+      "sha256": "5ddc71dcb0dadeba2cc2658f2b1f505df03d7bf305df3ddb3430953392ce88bf"
+    },
+    {
+      "bytes": 531,
+      "path": "BINDING-UNFILLED.json",
+      "sha256": "ba75c2c93af483556501ce53228fe13c5d92aa28e928c82c7ddb53da3be0082e"
+    },
+    {
+      "bytes": 3050,
+      "path": "selfcheck.py",
+      "sha256": "1e8b347abae8dc3f2a638ced87eb138b24acf97f34b8643ecd89fc2c012ec9b8"
+    },
+    {
+      "bytes": 1295,
+      "path": "PLAN.md",
+      "sha256": "2b18cda05c4432cbee3fd6c33068593a0ab9344c1da49e4ec2a95a3d46ba9bb0"
+    }
+  ],
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r9ObservedStopSha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4",
+  "r9RawStopSha256": "02cabccb0dcf7c3dea903690f7311eb23dda80790a9ab2b363eda1ab76075b90",
+  "schema": "1370-c0-h-mirror-post-r9-baseline-source-manifest-r1",
+  "status": "FROZEN_UNRUN_STATIC_REVIEW_REQUESTED"
+}

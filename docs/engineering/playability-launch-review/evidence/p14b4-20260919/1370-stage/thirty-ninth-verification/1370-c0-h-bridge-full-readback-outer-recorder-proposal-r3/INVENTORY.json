@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "bytes": 12004,
+      "name": "supervise.py",
+      "sha256": "afe0936bca4b1d833ae5e5397e10970fb92fa61bcd48dac17cd0210adf2fd863"
+    },
+    {
+      "bytes": 3684,
+      "name": "selfcheck.py",
+      "sha256": "74493a7c7085c2178397816da9ba2f0e5658c42e9ccb0caf4f713c3a8e927046"
+    },
+    {
+      "bytes": 3237,
+      "name": "LAUNCH.template.command",
+      "sha256": "388da724f06edffee8554fc345d644a35bb4e6fa036a7002024128ab7e5f5636"
+    },
+    {
+      "bytes": 462,
+      "name": "PLAN.md",
+      "sha256": "4b0d3848379f0e6bfa984a2c10be9247a044e4dee9fb1f7e229b9128751dca21"
+    }
+  ],
+  "r5ObservedStopSha256": "ded3a4f895ca393dedb3099712a7d01f1ee6f2c22cc780d215f51de397d37fd9",
+  "r6SourceStaticReviewSha256": "63767792d0a2e43a052141c13f3e1e15c2d4c3dbc450f4a73a3210d5daa564e1",
+  "schema": "1370-c0-h-bridge-full-readback-outer-recorder-proposal-r3",
+  "status": "FROZEN_UNRUN_STATIC_REVIEW_REQUESTED"
+}

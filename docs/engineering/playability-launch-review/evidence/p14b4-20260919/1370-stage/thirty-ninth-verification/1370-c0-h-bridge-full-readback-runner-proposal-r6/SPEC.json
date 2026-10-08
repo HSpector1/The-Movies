@@ -1,0 +1,538 @@
+{
+  "acceptedAddendum": {
+    "exactLaunchReviewSha256": "4fb1bc329324b19d2287130aa9cad161b48198924c9516915ccd1e3bbd293980",
+    "laneLogSha256": "3735d54b367d04814826e3b96a64ddf4973ea6878cf9e6c4eff47932d9ac40f2",
+    "laneMetaSha256": "93b0fb2ac81aeae4952c44afd53e1f4730b8b5f217bb99abe84c272ac6e7f65f",
+    "observedSourceReviewSha256": "f2baf6d6f44b3582f3a70384c1c3acae2a328de254101dad076d428c9ea57a9d",
+    "recorderR4ResultSha256": "613b0487f37cfe9b2e0267ec8e0c5943ace463a531705567e96e4e41de656b10",
+    "recorderR4StaticReviewSha256": "903429313815be42c2d9fd2e37af69b0c4ebea57f842cdc85a99f3aa3386e34e",
+    "sourceResultSha256": "659b5a436fd874df8485cba90e3e1b5d5847e02f21f3b2dcc27c21e555a5785f"
+  },
+  "acceptedPrior": {
+    "originalFileProofDigestSha256": "55fd1afb4437386867cdb23c5daf137e9613d41e51f31dafc619bedf37bc59a4",
+    "originalMirrorResultSha256": "b8c70f731fc730cea3ba7238674fb964fb973e6ffcf58fcb03e0dbbd139196b6",
+    "originalReadbackReceiptSha256": "3f6d44077337a176a1a5d713285f26453c95559f555f69fd3a45336988bf9932",
+    "sourceManifestReviewSha256": "5e6f23884af9527f991665020414404455f182cc3a62abe5a5602bb019804dbf",
+    "sourceManifestSha256": "e2f92aa60063b754f110ec31f08080bfd461f6a150f74394464739c2d4cab7ff",
+    "typeStopObservedReceiptSha256": "6c8e310bca8d581a479ffda929b3edad83670c5bdb52c2ef45b419e4953f0f4d"
+  },
+  "baseRoster": {
+    "bridge": {
+      "bytes": 1357248,
+      "files": 58,
+      "modes": [
+        "100644"
+      ],
+      "rows": [
+        {
+          "bytes": 401,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "d9a77659bae3cf7ea11f974a3755777e013f2a25",
+          "path": "bridge/campaign-origin.ts"
+        },
+        {
+          "bytes": 5481,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "9f458ba758d6419e44cfc20fbb6328c412791c08",
+          "path": "bridge/cancellation.ts"
+        },
+        {
+          "bytes": 31596,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "9bbc1b519925ca09a7a522feffd271385d489aa9",
+          "path": "bridge/casting.ts"
+        },
+        {
+          "bytes": 27704,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "9c4c68b01509475600e9016f2bff383c6725f145",
+          "path": "bridge/contract.ts"
+        },
+        {
+          "bytes": 24535,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "ee68cb76f0b05622ac0fa3f418a4722e58509b0c",
+          "path": "bridge/development.ts"
+        },
+        {
+          "bytes": 2077,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "2d083d5c27b7c2ef7152658034e0d8a7c5578885",
+          "path": "bridge/finance-consequence.ts"
+        },
+        {
+          "bytes": 7133,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "357ee46491a996bd39e11e6c405bb83cb76abc9d",
+          "path": "bridge/finance-portfolio.ts"
+        },
+        {
+          "bytes": 264,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "2df5e806b04543207ff0b3b2c5e2bbf32ea123d3",
+          "path": "bridge/finance-route.ts"
+        },
+        {
+          "bytes": 5430,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "a941114fc18c8521032e4b820d79911b77bfdbbe",
+          "path": "bridge/finance-upcoming.ts"
+        },
+        {
+          "bytes": 9068,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "5cc134c80e7810f13f898a42712a28518f1d1621",
+          "path": "bridge/finance.ts"
+        },
+        {
+          "bytes": 20685,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "c89e45962c59ab0d850967bfa2bd24340ed1f430",
+          "path": "bridge/history.ts"
+        },
+        {
+          "bytes": 35345,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "9239790b36eb809dbf0fcd2cf8776eb7b1a6ee71",
+          "path": "bridge/industry.ts"
+        },
+        {
+          "bytes": 48934,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "7304eb2fadc56ddcbc41c1ba26d935f18029e235",
+          "path": "bridge/laboratory.ts"
+        },
+        {
+          "bytes": 15677,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "905c943717f02831f55b96f8c8067f53ce9b8fad",
+          "path": "bridge/market.ts"
+        },
+        {
+          "bytes": 20671,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "08539860394be1e9b1eefd44aa034817681739f8",
+          "path": "bridge/office.ts"
+        },
+        {
+          "bytes": 21144,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "5ddcd91c98311866816d511f32148b1fedb0b325",
+          "path": "bridge/operations-events.ts"
+        },
+        {
+          "bytes": 41815,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "dea44c7220bbb29e1b2dd796bf09b12249f08cb1",
+          "path": "bridge/people.ts"
+        },
+        {
+          "bytes": 9464,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "e06fb6b68f1b49fd5368c12adbc5ab3439ea285b",
+          "path": "bridge/placement.ts"
+        },
+        {
+          "bytes": 13348,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "a93af778d1f8b0faab85f34d33f2aabaa9d4f5bf",
+          "path": "bridge/plans.ts"
+        },
+        {
+          "bytes": 9758,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "263a9ec146f44398b14b06cfaab9b77e54fcb590",
+          "path": "bridge/productionSetup.ts"
+        },
+        {
+          "bytes": 6708,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "3fffbc9cb59452861c3907b1d854f42b90b033da",
+          "path": "bridge/promises.ts"
+        },
+        {
+          "bytes": 10294,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "ed85cebe4c98665899ca5baa354145b2ae9fcc52",
+          "path": "bridge/proof.ts"
+        },
+        {
+          "bytes": 5409,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "d8e01e315b7ff800aa42b9e7cc206e8f03c4c8f2",
+          "path": "bridge/protocol.ts"
+        },
+        {
+          "bytes": 4006,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "bcfb5bad29dc1cab394c49e88ca4bdd70463fc6f",
+          "path": "bridge/release.ts"
+        },
+        {
+          "bytes": 60562,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "1387bc149385b333bf1baa19329d8e35f7f0186a",
+          "path": "bridge/runtime-checkpoint.ts"
+        },
+        {
+          "bytes": 22083,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "34fc4e7db6af10ca7f08af762059d3bdba183f8d",
+          "path": "bridge/runtime/campaign-library.ts"
+        },
+        {
+          "bytes": 4888,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "eb2fc01e959137e5bbf89bac4ff6870008dc6904",
+          "path": "bridge/runtime/campaign-storage-codec.ts"
+        },
+        {
+          "bytes": 22572,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "f52682a3c928584e1518b988651236d791b714bf",
+          "path": "bridge/runtime/checkpoint-store.ts"
+        },
+        {
+          "bytes": 3203,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "2dc9c05f6532657c08a27be07bd3186dfb3ed305",
+          "path": "bridge/runtime/process-incarnation.ts"
+        },
+        {
+          "bytes": 13365,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "1a8c94fb686a1f605b13bb61a787e7564214deba",
+          "path": "bridge/runtime/runtime-coordinator.ts"
+        },
+        {
+          "bytes": 13804,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "8acc58a54f463fc8f3aa195882163c01f130554f",
+          "path": "bridge/runtime/worker-adapter.ts"
+        },
+        {
+          "bytes": 7382,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "70956ddbeef29bdc4096d411715c4ddb5b87e8fd",
+          "path": "bridge/runtime/worker-client.ts"
+        },
+        {
+          "bytes": 1443,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "c315a85011dade10a0c3b75ea249e4f2dcf1bb79",
+          "path": "bridge/runtime/worker-contract.ts"
+        },
+        {
+          "bytes": 2707,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "3bfa2a1cdc4878f3ecf75e4f494749da5fdeca75",
+          "path": "bridge/runtime/worker-entry-path.ts"
+        },
+        {
+          "bytes": 4083,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "5dcb1ea81e29a22858af57fd86d40e27473b345c",
+          "path": "bridge/runtime/worker-entry.ts"
+        },
+        {
+          "bytes": 1569,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "c1dcd493d50e52944b99a8ed5abbe58f8e98deea",
+          "path": "bridge/schema/README.md"
+        },
+        {
+          "bytes": 167449,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "8233873af7a0d6301f806e2150ab45c6f3d23389",
+          "path": "bridge/schema/bridge-schema.ts"
+        },
+        {
+          "bytes": 870,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "73ff6fd7b838d7611cba15368522a65a56e884ae",
+          "path": "bridge/schema/canonical.ts"
+        },
+        {
+          "bytes": 3946,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "1b23c89229acd065f0929915bd2a1820bd4789df",
+          "path": "bridge/schema/dsl.ts"
+        },
+        {
+          "bytes": 24225,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "f9c1888c2d102f977a7c6f3edf894a5f9dba7a61",
+          "path": "bridge/schema/industry-schema.ts"
+        },
+        {
+          "bytes": 3260,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "a40320fa2fa860cf8f92b7b1858a795ad748403c",
+          "path": "bridge/schema/intent-schema.ts"
+        },
+        {
+          "bytes": 365601,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "ded6f74a8782be43907198465c32bdd095cc6730",
+          "path": "bridge/schema/project-studio-bridge.schema.json"
+        },
+        {
+          "bytes": 9369,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "e517d491a3fdc251aac2ac695a820d3629e9800e",
+          "path": "bridge/schema/runtime.ts"
+        },
+        {
+          "bytes": 11542,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "aec7a13b16856957919183b0d6286a6e112bdada",
+          "path": "bridge/server.ts"
+        },
+        {
+          "bytes": 92600,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "fe2d492750866fa30e523294be629395baab2434",
+          "path": "bridge/session.ts"
+        },
+        {
+          "bytes": 5052,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "c0dcb70eaace6ac9063a5ba6462f2a77daecfae8",
+          "path": "bridge/setCommission.ts"
+        },
+        {
+          "bytes": 6308,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "df4283f59e56f172695c016318f64dd6ae350743",
+          "path": "bridge/snapshot-build-context.ts"
+        },
+        {
+          "bytes": 4442,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "256f5a402339be901877dc75e1b928fb18f2dc12",
+          "path": "bridge/supervisor/bounded-log.ts"
+        },
+        {
+          "bytes": 2674,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "dc766539814b432b004db2015f9cda38f130828f",
+          "path": "bridge/supervisor/cli-main.ts"
+        },
+        {
+          "bytes": 340,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "3b503dfa1c0e044d4690eb880a6f419516aa08fb",
+          "path": "bridge/supervisor/cli-packaged.ts"
+        },
+        {
+          "bytes": 148,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "fa3bfd712adbaba944cea2ac211d6ab5d6780467",
+          "path": "bridge/supervisor/cli.ts"
+        },
+        {
+          "bytes": 14463,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "432e3fce2cefe45c77ba13827272221630bf429c",
+          "path": "bridge/supervisor/config.ts"
+        },
+        {
+          "bytes": 35728,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "214e5bd2042c5ff3f9484305e52748b2df22dddc",
+          "path": "bridge/supervisor/lease.ts"
+        },
+        {
+          "bytes": 32800,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "faaf74afb38c8da7fc70f4ab80f55c38b2838e4e",
+          "path": "bridge/supervisor/supervisor.ts"
+        },
+        {
+          "bytes": 27810,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "07d731779d9c2e4a6ed48cd9976f040e90052391",
+          "path": "bridge/testing/in-flight-evidence-verifier.ts"
+        },
+        {
+          "bytes": 6424,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "f0070e62b7c5cad479f9320014e57e0a60cbd783",
+          "path": "bridge/testing/post-commit-response-gate.ts"
+        },
+        {
+          "bytes": 3275,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "071c07443b898d2602aaa4e6fe0733b9a344c8a2",
+          "path": "bridge/trust.ts"
+        },
+        {
+          "bytes": 4314,
+          "kind": "blob",
+          "mode": "100644",
+          "oid": "15ac888b8be9f5a8f97935862ed5edb81e580d00",
+          "path": "bridge/world.ts"
+        }
+      ]
+    },
+    "combined": {
+      "bytes": 99472197,
+      "files": 1400
+    },
+    "rootSrcTestsUi": {
+      "bytes": 98114949,
+      "files": 1342
+    }
+  },
+  "bindingRequiredBeforeRun": {
+    "acceptedBridgeProposalVersion": null,
+    "bridgeAddendumLaneLogSha256": null,
+    "bridgeAddendumLaneMetaSha256": null,
+    "bridgeAddendumResultPath": null,
+    "bridgeAddendumResultSha256": null,
+    "bridgeInputsSha256": null,
+    "independentBridgeExactLaunchReviewSha256": null,
+    "independentBridgeStaticReviewSha256": null
+  },
+  "claimLimit": "H bridge-inclusive mirror source bytes only; r4/r5 STOP preserved; no typecheck, diagnostic collection, 416-tick neutrality, C0 closure, 1363 or gameplay acceptance",
+  "evidenceRef": "refs/heads/evidence/1370-r10-clean-captures",
+  "evidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "expected": {
+    "fileProofDigestSha256": null,
+    "maxTraversedEntries": 1500,
+    "overlayNetBytes": 43898,
+    "regularBytes": 99516095,
+    "regularFiles": 1402,
+    "scanGuardEveryEntries": 16,
+    "symlinkPath": "node_modules",
+    "symlinkText": "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+    "symlinks": 1
+  },
+  "historicalBridgeTree": "a697b042eccb85adacd40ef1303869be6d26239a",
+  "historicalHCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "historicalHRootTree": "e3fdd8c2103fa9cae45cda585b742162e0b76276",
+  "historicalHTree": "0ee21d8179977aaa0726ffb5d1b2bb2568c9df97",
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+  "output": {
+    "oneShot": true,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-full-readback-recorded-r6/READBACK.json",
+    "statusOnSuccess": "SOURCE_BYTES_CHECKED_OBSERVED_REVIEW_PENDING"
+  },
+  "overlays": [
+    {
+      "baseline": {
+        "bytes": 74153,
+        "gitBlob": "1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e",
+        "gitMode": "100644",
+        "sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03",
+        "status": "PRESENT"
+      },
+      "bytes": 98582,
+      "destination": "src/core/talentMarket.ts",
+      "sha256": "4f35113066c6424229d32ec9aa0b43a33f9b65a6a91734e6f27cb26b878ce1a9"
+    },
+    {
+      "baseline": {
+        "bytes": 61031,
+        "gitBlob": "0c76fb53c0399b6cbe9a27edac9ff977c897d55d",
+        "gitMode": "100644",
+        "sha256": "6c6f01309df85d4e8deaa8658f361f50f2c2c9ae11cbec2433970416ebcca318",
+        "status": "PRESENT"
+      },
+      "bytes": 63061,
+      "destination": "src/core/promises.ts",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    {
+      "baseline": {
+        "bytes": null,
+        "gitBlob": null,
+        "gitMode": null,
+        "sha256": null,
+        "status": "ABSENT_AT_SOURCE_COMMIT"
+      },
+      "bytes": 4729,
+      "destination": "src/core/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "baseline": {
+        "bytes": null,
+        "gitBlob": null,
+        "gitMode": null,
+        "sha256": null,
+        "status": "ABSENT_AT_SOURCE_COMMIT"
+      },
+      "bytes": 12710,
+      "destination": "tests/diagnostic.test.ts",
+      "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7"
+    }
+  ],
+  "predecessorR4ObservedStopSha256": "8d7c904eefdaacc5e8905c2a3166d80907768cb7c97c75d46be1c26de98beec6",
+  "predecessorR4ReadbackStopSha256": "349ef1efedf574a9fc104222f774acaef4b2e9ceead55cdabf67a8644c7380d1",
+  "predecessorR5ExactReviewSha256": "415af263d4ccd1cb5acbe807a3ac3333e1f5b5fa6216b22f07b246870b16f9d7",
+  "predecessorR5ObservedStopSha256": "ded3a4f895ca393dedb3099712a7d01f1ee6f2c22cc780d215f51de397d37fd9",
+  "predecessorR5ReadbackStopSha256": "4b8af5b513c17c76c9256107c1d94db9232e086b26dc74c44f5ad4bacf6e4ab5",
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionRef": "refs/heads/wip/headless-program-20260916-ts",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "1370-c0-h-bridge-full-source-readback-proposal-r6",
+  "status": "FROZEN_SOURCE_UNRUN_STATIC_REVIEW_PENDING"
+}

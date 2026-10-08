@@ -1,0 +1,3 @@
+# Independent static review request — H bridge full readback r6
+
+Review this frozen, unrun correction after the independently observed r5 H-tree STOP. Check the exact three Git tree roles and pinned r5 raw/observed STOP, r6 output/lock/binding/BOOTSTRAP pins, no mirror/Git mutation, and retained r5 nofollow/timer/bounded-scan/reviewer gates. The read-only `python3 -B selfcheck.py` passed against the actual r5 binding and current Git refs/1,402-row roster. It never reads the H mirror. Source bytes and SHA inventory are in `MANIFEST.json`. Return `ACCEPT_STATIC_H_BRIDGE_FULL_READBACK_R6_ONLY` or REFINE; an exact recorder/launch review and observed full readback are separate.

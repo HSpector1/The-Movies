@@ -1,0 +1,9 @@
+{
+  "filesSha256": {
+    "BINDING.json": "dcc0bb0b43e999920de454641edd51817a8ee0419271ab82f4605fc3aae8e424",
+    "LAUNCH.command": "b1fd9b23c29740095ffe3254476033c0d984bbc6d9afcb8c2033ad33961e5b10",
+    "PLAN.md": "4d05dac7e142e28a20cfd28b208b67bf4e87e706fe27002caa6ce5b780fc037c"
+  },
+  "schema": "1370-c0-h-bridge-full-readback-filled-exact-r5",
+  "status": "FROZEN_UNRUN_EXACT_REVIEW_REQUESTED"
+}

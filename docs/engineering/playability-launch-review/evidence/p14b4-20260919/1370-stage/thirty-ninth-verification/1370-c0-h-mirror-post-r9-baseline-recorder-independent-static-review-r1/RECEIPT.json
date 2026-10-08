@@ -1,0 +1,21 @@
+{
+  "baselineSourceSha256": "7c65072c7a7f6b88eb668cc70efed3a7b7b1d28e6f60806d63b8e0543f0f8d36",
+  "baselineSourceStaticReviewSha256": "7aae4ad9836dd1f98017a21eb9a3249ba16b71dbb043c0343255912a56002799",
+  "bootstrapSha256": "7e5403d0f489eb15b5e128e8745e85c04405cf57c497e2ceae393d60d2e425ef",
+  "claimLimit": "Frozen unrun recorder/bootstrap/template only; post-r9 mirror full-byte baseline and observed review pending; r9 STOP remains unattributed",
+  "decision": "ACCEPT_STATIC_H_POST_R9_BASELINE_RECORDER_ONLY",
+  "inventorySha256": "8b498b517d3cd950613dde232f7b4291c4a9037346b8d126951754e5422939a4",
+  "launchTemplateSha256": "0ea9144083962830f9d6ece0d95e30e7ca873213bbf6d4afa46ffac2a431ceca",
+  "limitsSeconds": {
+    "child": 600,
+    "recorderActive": 620,
+    "recorderWhole": 630
+  },
+  "planSha256": "e006efcb6d74c66944dc214c7d94dfd1f16b2d3ee3cf2c34fd00528914f62d0e",
+  "r9ObservedStopSha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4",
+  "schema": "1370-c0-h-mirror-post-r9-baseline-recorder-independent-static-review-r1",
+  "selfcheckSha256": "6584e38c41e4e7170cdd951adfdd4f8fecce609a371487e2703387477aa7ee84",
+  "supervisorSha256": "d4730ffc9955a57e1799503c543a9c650295bba5b66f2f73b941c1e4040fa801",
+  "syntheticSelfcheck": "PASS",
+  "templateBashSyntax": "PASS"
+}

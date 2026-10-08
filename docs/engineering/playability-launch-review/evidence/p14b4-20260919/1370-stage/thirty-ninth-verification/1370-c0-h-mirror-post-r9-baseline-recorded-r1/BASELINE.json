@@ -1,0 +1,57 @@
+{
+  "addendumResultSha256": "659b5a436fd874df8485cba90e3e1b5d5847e02f21f3b2dcc27c21e555a5785f",
+  "bridgeTree": "a697b042eccb85adacd40ef1303869be6d26239a",
+  "claimLimit": "Current H mirror source baseline only after r9 STOP; prior root drift is preserved and un-attributed. No type/collection/neutrality/C0/1363 acceptance.",
+  "decision": "H_MIRROR_CURRENT_BASELINE_BYTES_CHECKED_OBSERVED_REVIEW_PENDING",
+  "elapsedSeconds": 6.211,
+  "evidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "fileProofDigestSha256": "1534ca888a99c1f41e3eb2a7201d6d6d56f1343bab3f4040518348cc34d276b4",
+  "mirrorRootIdentity": [
+    16777220,
+    166418911,
+    16832,
+    13,
+    416,
+    1791456989842583410,
+    1791456989842583410
+  ],
+  "nodeModulesLinkIdentity": [
+    16777220,
+    166421468,
+    41453,
+    1,
+    62,
+    1791452251986317412,
+    1791452251986317412
+  ],
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r9ObservedStopSha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4",
+  "r9RawStopSha256": "02cabccb0dcf7c3dea903690f7311eb23dda80790a9ab2b363eda1ab76075b90",
+  "r9RootIdentityAfter": [
+    16777220,
+    166418911,
+    16832,
+    13,
+    416,
+    1791456989842583410,
+    1791456989842583410
+  ],
+  "r9RootIdentityBefore": [
+    16777220,
+    166418911,
+    16832,
+    13,
+    416,
+    1791454172175072909,
+    1791454172175072909
+  ],
+  "recorderResultSha256": "613b0487f37cfe9b2e0267ec8e0c5943ace463a531705567e96e4e41de656b10",
+  "regularBytes": 99516095,
+  "regularFiles": 1402,
+  "rootDriftCause": "UNATTRIBUTED_R9",
+  "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "sourceManifestSha256": "e2f92aa60063b754f110ec31f08080bfd461f6a150f74394464739c2d4cab7ff",
+  "sourceTree": "0ee21d8179977aaa0726ffb5d1b2bb2568c9df97",
+  "symlinks": 1
+}

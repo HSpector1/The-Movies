@@ -1,0 +1,14 @@
+{
+  "baselineObservedSha256": null,
+  "baselineRawSha256": "f132e25fabc3fa654e85c3dcbe3616d10337b66fd9307b2e34b131bf9615d605",
+  "bounds": [
+    300,
+    320,
+    330
+  ],
+  "planSha256": "0b925974b4e8831d4223daf07750e3ecbed49d64d61ffc39211b99d2ce1ef62a",
+  "r9ObservedStopSha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4",
+  "rootDriftCause": "UNATTRIBUTED_R9",
+  "schema": "1370-c0-h-typecheck-r10-retry-plan-r2",
+  "status": "PLAN_ONLY_UNRUN_BASELINE_OBSERVED_PENDING"
+}

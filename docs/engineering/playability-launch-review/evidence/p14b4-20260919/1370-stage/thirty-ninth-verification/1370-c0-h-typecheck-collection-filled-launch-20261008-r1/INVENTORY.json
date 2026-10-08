@@ -1,0 +1,24 @@
+{
+  "files": {
+    "BINDING.json": {
+      "bytes": 2854,
+      "sha256": "f0c2aeae1d0c9ae0aa2b23ad38c452414eabed0f9a1bf9ff2cb18cec2c7e4546"
+    },
+    "LAUNCH.command": {
+      "bytes": 3844,
+      "sha256": "0979e1b59b40937cccb1fc5d176282fa8de4f533a0adf7a492d833b078293a68"
+    },
+    "PLAN.md": {
+      "bytes": 2686,
+      "sha256": "fabf3af60d21b95f72b2520966ce0665c48d13a1f552c38e151b2bea1e993e1c"
+    },
+    "selfcheck.py": {
+      "bytes": 2205,
+      "sha256": "682aadaba980ddb878f26f91be20a47761c2193c387a580336fa61777c4b1bdc"
+    }
+  },
+  "hMaterializerResultSha256": "b8c70f731fc730cea3ba7238674fb964fb973e6ffcf58fcb03e0dbbd139196b6",
+  "hObservedMirrorReceiptSha256": "bb61794d874cdc80f1283459d9eca49c5174de441cde9dcbe971d36e2b9f226e",
+  "r4StaticReceiptSha256": "49695bd0834b12188d4d82c6a3c2db8ae9de44666e0db5fff3f2a22450ccee95",
+  "status": "UNREVIEWED_EXACT_H_TYPECHECK_LAUNCH_UNRUN"
+}

@@ -1,0 +1,3 @@
+# H readback outer recorder r3 — static review
+
+Decision: **ACCEPT_STATIC_READBACK_RECORDER_R3_ONLY**. All inventory SHA/size pins match. The independently accepted r2 supervisor changes only fresh r6 one-shot paths, corrected r6 bootstrap/source/static/spec pins, and recorder result schema. It retains 600 child, 620 active and 630 whole limits; a loader start and 630−elapsed alarm precede pinned reads in the template. AC/disk/sole-lane and clean local/remote ref checks, nofollow reads, actual child exit, process-group cleanup and one-shot STOP semantics carry forward. `bash -n` and synthetic invalid-start/SHA/symlink/collision/timeout cleanup pass. Both prior STOPs are preserved. Filled launch and mirror readback remain unrun.

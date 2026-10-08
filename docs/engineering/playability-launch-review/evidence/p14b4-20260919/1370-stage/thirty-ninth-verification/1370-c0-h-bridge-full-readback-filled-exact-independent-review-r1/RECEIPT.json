@@ -1,0 +1,27 @@
+{
+  "bindingSha256": "45ae9e3e10658ab23179d08cb841923dc46c3b76c2991b1a0da16a1e29d4b4f0",
+  "bootstrapSha256": "a1e8d320f961df4235dfe4cc1bd3573d5ac39f43cc44e955413b28d277505b0a",
+  "claimLimit": "Frozen command, binding and immediate read-only preflight only; unrun 1,402-file H mirror readback and observed audit remain pending",
+  "decision": "ACCEPT_EXACT_H_BRIDGE_FULL_READBACK_LAUNCH_ONLY",
+  "evidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "inventorySha256": "09efe98563fe5222915ce292b391ae908b8a35612803a1b7941d9510dc1aa359",
+  "launchSha256": "c2c3746b3d10961f370aca35b73be291b7d96ae000f0a690892a2d2fee16401c",
+  "outerRecorderStaticReviewSha256": "142a757b2ec6ee2942dba71d04a5f01fb6401910bcfc323b23b0811511873350",
+  "planSha256": "b09aeaba8c5ba20e3d0749b91db8ed6c46e48f5d5bcaaa836cfe871d44c79606",
+  "preflightAC": true,
+  "preflightCleanProduction": true,
+  "preflightFreeBytes": 3781652480,
+  "preflightLaneAndOneShotOutputsAbsent": true,
+  "preflightLocalAndRemoteRefsMatch": true,
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "readbackSha256": "c66b395388c5d49527d719d454bf870291d908c582e02609dd4ec0306548ad94",
+  "readbackSourceStaticReviewSha256": "c87eafc1af74e35a14ab1a45d4f8b0f6bcc85b1f59d129bbcbf8ba7551e6caa3",
+  "schema": "1370-c0-h-bridge-full-readback-filled-exact-independent-review-r1",
+  "supervisorSha256": "631104e7a52b32bebbe3f0ac7005624a0de27da667ed1e6eaef1c7cd883e0759",
+  "timersSeconds": {
+    "recorderActive": 620,
+    "recorderWhole": 630,
+    "source": 600
+  }
+}

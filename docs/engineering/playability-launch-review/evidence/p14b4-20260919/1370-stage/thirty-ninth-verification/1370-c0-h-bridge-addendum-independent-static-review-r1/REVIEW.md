@@ -1,0 +1,5 @@
+# H bridge addendum r1 static review — REFINE
+
+The frozen inputs and tiny static selfcheck agree with H Git: 58 regular bridge files, 1,357,248 bytes, tree a697b042..., and with M0 comparator: 63 files, 1,517,743 bytes. The proposed amendment preserves the old 1,344-file mirror proof and failed typecheck, and its success label correctly waits for independent full 1,402-file readback.
+
+R1 is not safe to launch. `read_pin()` at lines 25–36 uses `O_NOFOLLOW` only on the final file and does not authenticate parent directories or path identity. All Git subprocesses inherit ambient `GIT_*` variables; `source_guard()` at lines 47–51 checks `origin` ref but not the origin URL. The old proof at lines 52–62 checks the dependency link target through r5 but does not bind the exact link tuple recorded in the immutable failed typecheck result. The receipt parent is reopened by path after lstat; use a stable nofollow dirfd. Version these corrections and rerun static/RED tests. Preserve r1 bytes and do not mutate the mirror.

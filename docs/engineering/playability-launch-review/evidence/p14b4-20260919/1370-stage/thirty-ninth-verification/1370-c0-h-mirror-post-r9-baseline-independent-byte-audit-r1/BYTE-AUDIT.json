@@ -1,0 +1,30 @@
+{
+  "claimLimit": "Independent current source bytes only; r9 root drift UNATTRIBUTED, no typecheck/game acceptance",
+  "decision": "PASS_INDEPENDENT_H_CURRENT_MIRROR_BYTES_ONLY",
+  "directories": 76,
+  "elapsedSeconds": 1.302,
+  "entries": 1479,
+  "linkIdentity": [
+    16777220,
+    166421468,
+    41453,
+    1,
+    62,
+    1791452251986317412,
+    1791452251986317412
+  ],
+  "proofDigestSha256": "1534ca888a99c1f41e3eb2a7201d6d6d56f1343bab3f4040518348cc34d276b4",
+  "readbackSha256": "f132e25fabc3fa654e85c3dcbe3616d10337b66fd9307b2e34b131bf9615d605",
+  "regularBytes": 99516095,
+  "regularFiles": 1402,
+  "rootIdentity": [
+    16777220,
+    166418911,
+    16832,
+    13,
+    416,
+    1791456989842583410,
+    1791456989842583410
+  ],
+  "symlinks": 1
+}

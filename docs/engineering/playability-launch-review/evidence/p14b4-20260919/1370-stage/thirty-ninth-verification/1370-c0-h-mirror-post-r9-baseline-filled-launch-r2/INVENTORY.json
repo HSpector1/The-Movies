@@ -1,0 +1,11 @@
+{
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-h-mirror-post-r9-baseline-filled-exact-r1/BINDING.json",
+  "bindingSha256": "e6251ff4e7fb93e8b01b3a3d73baafcdae605c3564d51f6410da7839b66c4500",
+  "filesSha256": {
+    "LAUNCH.command": "e7933107dad41c7250fcb26b83d4e4ae8d7800b711ddfd47590bfc8a8e0774b8",
+    "PLAN.md": "a2b663b6298d90fe03a0cd1f4900541daae9fddda10075c22109efdfea2fdea2"
+  },
+  "predecessorR1LaunchSha256": "59d308668664236ab39c14289dbb35773f4931199836d34c51a987650b5f3fac",
+  "schema": "1370-c0-h-mirror-post-r9-baseline-filled-launch-r2",
+  "status": "FROZEN_UNRUN_EXACT_REVIEW_REQUESTED"
+}

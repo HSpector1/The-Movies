@@ -1,0 +1,39 @@
+{
+  "bindingSha256": "b7cc5620534abd4d7fb12abf9fe111d747334623aa3f114b572583b0f543d662",
+  "claimLimit": "Observed H mirror typecheck failed; no full-era types, diagnostic collection, 416-tick route, neutrality, C0 closure, or acceptance claim",
+  "completedChildren": [
+    {
+      "exit": 0,
+      "name": "dependency-versions"
+    },
+    {
+      "exit": 0,
+      "name": "root-tsc"
+    }
+  ],
+  "decision": "STOP_OBSERVED_H_TYPES_MIRROR_INCOMPLETE",
+  "dependencyProofBeforeAfter": "5d200867ed2fc5d61dc4af82e606aecd6e40c2ea11f200820ed2cc53ee6f7f93",
+  "elapsedSeconds": 129.628,
+  "exactLaunchReceiptSha256": "497d650e393188b8c010435210410c5e190d0d042b77291d299f6e324b1e3956",
+  "failedChild": {
+    "exit": 2,
+    "name": "ui-tsc",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdoutSha256": "aeb7ce8a18e85e2c97b2eb4d02cdeb7cd5e19c70d1f3f11ecc2fd63001e90700"
+  },
+  "filledLaunchSha256": "2e33e3b99eb9bb85347b7cf888920bf4d54496f0c19e158a20f6c3849e0543bc",
+  "followup": "Version a bridge-inclusive H source mirror manifest and materialization route; preserve this failed run and independently review new source bytes before rerunning types. Do not patch/repin current mirror.",
+  "historicalBridgeRuntimeBlob": "e517d491a3fdc251aac2ac695a820d3629e9800e",
+  "laneChildExit": 1,
+  "laneLogSha256": "a428ba08e2250cb8ffb6f07687b788bf2299b19d1aee822e15aff986a0ed0071",
+  "laneMetaSha256": "c8579301f62f424b7f08edf1c9ef9e73fddea4c7ba0d609efa93f4cb5fbc4593",
+  "productionHead": "f8c0628739227accfa446276b0613f47bc805a78",
+  "productionRef": "refs/heads/wip/headless-program-20260916-ts",
+  "recorderSha256": "e543f91190ca8384a1a5a9ce118200536ab43bd3e85468f8db01d900d768758b",
+  "recorderStatus": "STOP_RECORDER_CHILD_OR_RESULT",
+  "runId": "20261008-h-types-r3",
+  "runnerResultSha256": "3eb6294278eda61893738cdc1ee5b6a80c44ced5a3cd9fd7197511bbb6198216",
+  "runnerStatus": "STOP_TYPECHECK_COLLECTION",
+  "sourceProofBeforeAfter": "55fd1afb4437386867cdb23c5daf137e9613d41e51f31dafc619bedf37bc59a4",
+  "wrapperExit": 0
+}

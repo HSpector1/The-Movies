@@ -1,0 +1,10 @@
+{
+  "bindingSourceSha256": "0f9273cf8be4f5523a3a19d6a4952881f48560fa059be261269f418815f59a79",
+  "decision": "REFINE_STATIC_UNRUN",
+  "heavyRouteRun": false,
+  "manifestSha256": "3a6b79de847a661120a35392cbb150f2712d1d2655eaf4fb1a7bffd44ce3756a",
+  "reviewSha256": "e9a9860a3107bf2be498b5adea78e837644418810b032965167e06187a8357ac",
+  "runnerSha256": "4d88d9f7e90f488278523830fcfb188e7931724b6a39318d86b3b73583783c80",
+  "schema": "1370-c0-h-typecheck-collection-runner-independent-static-review-r8",
+  "selfcheck": "PASS"
+}

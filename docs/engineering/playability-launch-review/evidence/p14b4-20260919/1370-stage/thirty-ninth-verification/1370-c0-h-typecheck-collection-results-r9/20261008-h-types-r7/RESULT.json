@@ -1,0 +1,144 @@
+{
+  "arm": "H",
+  "bridgeSourceResultSha256": "659b5a436fd874df8485cba90e3e1b5d5847e02f21f3b2dcc27c21e555a5785f",
+  "children": [
+    {
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-typecheck-collection-route-template-r1/check-deps.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+      ],
+      "exit": 0,
+      "name": "dependency-versions",
+      "seconds": 2.979,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 1038,
+      "stdoutSha256": "57ffd6f3cf26f598b7740e928201b00602b1f0fa44f458fb9957fa82aa715071"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "--noEmit"
+      ],
+      "exit": 0,
+      "name": "root-tsc",
+      "seconds": 35.51,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "exit": 0,
+      "name": "ui-tsc",
+      "seconds": 46.46,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/vitest",
+        "list",
+        "tests/diagnostic.test.ts",
+        "--project",
+        "core",
+        "--json",
+        "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-results-r9/20261008-h-types-r7/collection.json",
+        "--no-cache"
+      ],
+      "exit": 1,
+      "name": "diagnostic-collection",
+      "seconds": 5.669,
+      "stderrBytes": 407,
+      "stderrSha256": "926b37d1ed5a1eb948598267f5a52f069234a13352a714dc7af17b4a918ee870",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "elapsedSeconds": 151.506,
+  "error": "RuntimeError('diagnostic-collection child exit 1')",
+  "fullReadbackDigestSha256": "1534ca888a99c1f41e3eb2a7201d6d6d56f1343bab3f4040518348cc34d276b4",
+  "fullReadbackResultSha256": "3da9e86417520a6e75591e107e85f4bacf3ba8b7e9fef4b33bca30f854723724",
+  "materializerResultSha256": "b8c70f731fc730cea3ba7238674fb964fb973e6ffcf58fcb03e0dbbd139196b6",
+  "mirrorRunId": "20261008-h-types-r1",
+  "nodeModulesAfter": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootInode": 158487026
+  },
+  "nodeModulesBefore": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootInode": 158487026
+  },
+  "runId": "20261008-h-types-r7",
+  "schema": "1370-c0-h-typecheck-collection-result-r9",
+  "sourceAfter": {
+    "dependencyLink": [
+      16777220,
+      166421468,
+      41453,
+      1,
+      62,
+      1791452251986317412,
+      1791452251986317412,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "1534ca888a99c1f41e3eb2a7201d6d6d56f1343bab3f4040518348cc34d276b4",
+    "mirrorBytes": 99516095,
+    "mirrorFiles": 1402,
+    "mirrorRootIdentity": [
+      16777220,
+      166418911,
+      16832,
+      13,
+      416,
+      1791456989842583410,
+      1791456989842583410
+    ],
+    "traversedEntries": 1479
+  },
+  "sourceBefore": {
+    "dependencyLink": [
+      16777220,
+      166421468,
+      41453,
+      1,
+      62,
+      1791452251986317412,
+      1791452251986317412,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "1534ca888a99c1f41e3eb2a7201d6d6d56f1343bab3f4040518348cc34d276b4",
+    "mirrorBytes": 99516095,
+    "mirrorFiles": 1402,
+    "mirrorRootIdentity": [
+      16777220,
+      166418911,
+      16832,
+      13,
+      416,
+      1791454172175072909,
+      1791454172175072909
+    ],
+    "traversedEntries": 1479
+  },
+  "sourceManifestSha256": "e2f92aa60063b754f110ec31f08080bfd461f6a150f74394464739c2d4cab7ff",
+  "sourceReviewSha256": "5e6f23884af9527f991665020414404455f182cc3a62abe5a5602bb019804dbf",
+  "status": "STOP_POSTFLIGHT_DRIFT"
+}

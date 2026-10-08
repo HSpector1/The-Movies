@@ -1,0 +1,8 @@
+{
+  "bindingSha256": "09120c19b820efcdf4d534b07b818a4b08129a10857bdcc5b370e5a7b8ef74a4",
+  "decision": "PASS_ACTUAL_R6_BINDING_PRE_WALK_ONLY",
+  "mirrorWalkExecuted": false,
+  "reportSha256": "fdc34ed9b221d5a3c00468d48b4eedf408c0bfe5234a537235b38446080be053",
+  "schema": "1370-c0-h-bridge-full-readback-prewalk-audit-r6-actual-binding",
+  "sourceSha256": "6d2c51bc6a802e7e19e41849d27569e35bcfcee31dfc12480c0f6a22998314d1"
+}

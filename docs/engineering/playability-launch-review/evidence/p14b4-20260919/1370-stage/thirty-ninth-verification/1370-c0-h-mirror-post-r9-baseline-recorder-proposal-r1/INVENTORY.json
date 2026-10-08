@@ -1,0 +1,32 @@
+{
+  "baselineSourceReviewSha256": "7aae4ad9836dd1f98017a21eb9a3249ba16b71dbb043c0343255912a56002799",
+  "files": [
+    {
+      "bytes": 3707,
+      "name": "BOOTSTRAP.py",
+      "sha256": "7e5403d0f489eb15b5e128e8745e85c04405cf57c497e2ceae393d60d2e425ef"
+    },
+    {
+      "bytes": 11999,
+      "name": "supervise.py",
+      "sha256": "d4730ffc9955a57e1799503c543a9c650295bba5b66f2f73b941c1e4040fa801"
+    },
+    {
+      "bytes": 3662,
+      "name": "selfcheck.py",
+      "sha256": "6584e38c41e4e7170cdd951adfdd4f8fecce609a371487e2703387477aa7ee84"
+    },
+    {
+      "bytes": 3231,
+      "name": "LAUNCH.template.command",
+      "sha256": "0ea9144083962830f9d6ece0d95e30e7ca873213bbf6d4afa46ffac2a431ceca"
+    },
+    {
+      "bytes": 584,
+      "name": "PLAN.md",
+      "sha256": "e006efcb6d74c66944dc214c7d94dfd1f16b2d3ee3cf2c34fd00528914f62d0e"
+    }
+  ],
+  "schema": "1370-c0-h-mirror-post-r9-baseline-recorder-proposal-r1",
+  "status": "FROZEN_UNRUN_STATIC_REVIEW_REQUESTED"
+}

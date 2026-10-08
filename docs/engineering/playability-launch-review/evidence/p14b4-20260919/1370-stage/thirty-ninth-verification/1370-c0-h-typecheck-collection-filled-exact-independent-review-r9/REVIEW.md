@@ -1,0 +1,5 @@
+# H typecheck collection r9 — filled exact review
+
+Decision: **ACCEPT_EXACT_H_TYPECHECK_COLLECTION_R9_ONLY**. Frozen launch/binding/inventory SHA values match and `bash -n` passes. The loader arms a finite 330−elapsed deadline before nofollow authenticated reads, then executes accepted recorder r1 in memory. Recorder spawns SHA-pinned child bootstrap in a new process group; child arms 300 seconds before reading r9 runner, filled binding and independent static review, while recorder retains 320 active/330 whole including cleanup/receipt. Actual child exit and groupClear are recorded.
+
+Binding pins the independently observed r6 full source mirror proof, actual prewalk PASS, historical H UI type STOP, r4/r5 readback STOPs, r8 REFINE, exact source and dependency IDs, and fresh r7 one-shot result/lane paths. Read-only preflight found clean HEAD965/src13880, matching local/remote production and evidence refs, AC, 3,772,514,304 free bytes above 3.5 GiB, absent lane lock/log/meta/result/recorder partials. This approves only the command; types and diagnostic collection require actual observed audit.

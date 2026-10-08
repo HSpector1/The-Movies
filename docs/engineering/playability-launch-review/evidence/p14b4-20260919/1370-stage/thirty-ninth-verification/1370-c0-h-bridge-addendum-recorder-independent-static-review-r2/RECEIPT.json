@@ -1,0 +1,32 @@
+{
+  "claimLimit": "Outer recorder r2 is unrun and does not authorize an exact launch or H mirror mutation",
+  "decision": "REFINE_STATIC_UNRUN",
+  "findings": [
+    {
+      "issue": "Recorder disarms SIGALRM before process-group TERM/KILL waits (up to 3+3+1 seconds) and receipt write. Thus 210 seconds does not bound bootstrap+child+cleanup+receipt as claimed; synthetic RED accepts elapsed under 10 seconds for a 2-second limit. Version an explicit whole-recorder deadline or separately labeled finite cleanup grace with reviewed outer cap and refusal.",
+      "line": "supervise.py:90-99",
+      "severity": "material"
+    },
+    {
+      "issue": "LAUNCH_START silently defaults to module import time if the loader fails to supply it. Static contract must require an authenticated launch start before loader file reads, validate monotonic elapsed in [0,210), and refuse missing/duplicate start; otherwise exact command can inadvertently omit bootstrap time.",
+      "line": "supervise.py:7,65-70",
+      "severity": "material"
+    },
+    {
+      "issue": "safe_result writes through a stable dirfd but never rechecks the parent pathname or reads back the O_EXCL receipt after fsync. A parent replacement can make the apparent success/STOP result unreachable; add path identity and hash/readback guard.",
+      "line": "supervise.py:48-63",
+      "severity": "material"
+    }
+  ],
+  "inventorySha256": "0ee4425c4ba540e948023292ffcc67b063cdc60ad6e5cf453c4989b85a28495d",
+  "planSha256": "a80bd1744844bac02d77037bd23329ed30b26e80197e2fc34304b55d150b3ee6",
+  "positiveFindings": [
+    "Embedded bootstrap exact source/static/HEAD pins match r1 authenticated bytes.",
+    "Child runs in a new process group; timeout and nonzero exits become STOP statuses with group termination and actual childExit in recorder result.",
+    "2-second synthetic timeout RED passed without running real bootstrap or mutating mirror."
+  ],
+  "predecessorExactRefineSha256": "dbf7f90134b68d8b4a3e28555da5ba2c2c03318502c62d4461875e06e085ec2c",
+  "selfcheckSha256": "4e955bff237456e53ca27da42a6a3632b8860daad00999f5e2e540651796e061",
+  "selfcheckStatus": "PASS_SYNTHETIC_TIMEOUT_GROUP_CLEANUP_ONLY",
+  "supervisorSha256": "49b20484d474188dd17827a6259c7475160761a77b42de8b3c97cfa27818fd51"
+}

@@ -1,0 +1,1 @@
+ui/src/screens/p07a-result-projection.test.tsx(12,34): error TS2307: Cannot find module '../../../bridge/schema/runtime.ts' or its corresponding type declarations.

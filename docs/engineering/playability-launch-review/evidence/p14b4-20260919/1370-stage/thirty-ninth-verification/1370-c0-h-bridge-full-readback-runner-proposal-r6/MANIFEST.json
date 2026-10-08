@@ -1,0 +1,50 @@
+{
+  "claimLimit": "Versioned source correction only; no full readback acceptance",
+  "files": [
+    {
+      "bytes": 32277,
+      "name": "readback.py",
+      "sha256": "6d2c51bc6a802e7e19e41849d27569e35bcfcee31dfc12480c0f6a22998314d1"
+    },
+    {
+      "bytes": 17740,
+      "name": "SPEC.json",
+      "sha256": "24952774515fd0e36eb2d2895e3e1d6996371c93617995612e3db5c75ac3a5d5"
+    },
+    {
+      "bytes": 3626,
+      "name": "BOOTSTRAP.py",
+      "sha256": "b88fb1b9677cc3e821063ca5695c67cc5d9dd28efd405372cafcd32a353de99d"
+    },
+    {
+      "bytes": 2947,
+      "name": "BINDING-SOURCE.json",
+      "sha256": "572c179b2d24081ed33022e142195037eca1588faff6fd3a2a3d7da5afb236ed"
+    },
+    {
+      "bytes": 11909,
+      "name": "selfcheck.py",
+      "sha256": "b948d3f66d73fdf322331e6f6c4025ae86a37bdfdde549e95cabd5ea47516e98"
+    },
+    {
+      "bytes": 392,
+      "name": "EXACT-LAUNCH-TEMPLATE.command",
+      "sha256": "dcb827f5b88d6aa96a6781c952674a0c82199f52d553683cdf4901f5c06e704c"
+    },
+    {
+      "bytes": 2686,
+      "name": "PLAN.md",
+      "sha256": "c948731068db3b73122fe0a32db87b07c0dce58721949bafbe6cafe5f6217515"
+    },
+    {
+      "bytes": 684,
+      "name": "REVIEW-REQUEST.md",
+      "sha256": "1568c82492c6ce12483d6b7afb60f7592bf2b4fd612a95ebbbbcf70676623bf1"
+    }
+  ],
+  "predecessorR5ObservedStopSha256": "ded3a4f895ca393dedb3099712a7d01f1ee6f2c22cc780d215f51de397d37fd9",
+  "predecessorR5ReadbackStopSha256": "4b8af5b513c17c76c9256107c1d94db9232e086b26dc74c44f5ad4bacf6e4ab5",
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "schema": "1370-c0-h-bridge-full-readback-runner-manifest-r6",
+  "status": "FROZEN_UNRUN_STATIC_REVIEW_REQUESTED"
+}

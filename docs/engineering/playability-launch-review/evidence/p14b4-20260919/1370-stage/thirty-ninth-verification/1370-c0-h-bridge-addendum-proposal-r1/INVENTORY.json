@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "bytes": 26930,
+      "path": "BRIDGE-INPUTS.json",
+      "sha256": "2598b0c372eed48d9be04192eb7e33aa52e398a9323d4e2155c176e4cce5efaa"
+    },
+    {
+      "bytes": 5550,
+      "path": "PLAN.md",
+      "sha256": "28f9acde8e6fcdb92de73a9b6c5ab161dfc116361e0fa20a5759f462be6a3796"
+    },
+    {
+      "bytes": 10531,
+      "path": "add_bridge.py",
+      "sha256": "15b0dbacff4c77212ca545e89144300fff2564d3d5608eed5de3b1848f9862a6"
+    },
+    {
+      "bytes": 2232,
+      "path": "selfcheck.py",
+      "sha256": "98232262a836a7b2c03a38beeaf54bfc438faa74b282bf797b5174c9c9807617"
+    }
+  ],
+  "independentReview": "PENDING",
+  "productionHead": "FILL_AFTER_HANDOFF_CHECKPOINT",
+  "schema": "1370-c0-h-bridge-addendum-proposal-inventory-r1",
+  "status": "STATIC_PROPOSAL_UNRUN"
+}

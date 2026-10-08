@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "<string>", line 62, in <module>
+    exec(compile(raw[runner],str(runner),'exec'),{'__name__':'__main__','__file__':str(runner),'_BOOTSTRAP_START':start,'_BINDING_PATH':str(binding)})
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-full-readback-runner-proposal-r5/readback.py", line 530, in <module>
+    main()
+    ~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-full-readback-runner-proposal-r5/readback.py", line 474, in main
+    source_guard(spec)
+    ~~~~~~~~~~~~^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-full-readback-runner-proposal-r5/readback.py", line 157, in source_guard
+    need(command('git', 'rev-parse', spec['historicalHCommit']+'^{tree}').strip().decode() == spec['historicalHTree'], 'H tree')
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-full-readback-runner-proposal-r5/readback.py", line 37, in need
+    raise RuntimeError(reason)
+RuntimeError: H tree
+{"recorderStatus": "STOP_CHILD_NONZERO", "childExit": 1, "groupClear": true}

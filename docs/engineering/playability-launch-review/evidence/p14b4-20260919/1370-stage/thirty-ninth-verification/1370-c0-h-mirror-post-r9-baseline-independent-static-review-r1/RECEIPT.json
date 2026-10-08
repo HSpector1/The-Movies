@@ -1,0 +1,11 @@
+{
+  "decision": "ACCEPT_STATIC_CURRENT_H_MIRROR_BASELINE_SOURCE_ONLY",
+  "manifestSha256": "950a8642374867c39fbf876125d211009910a3414676153ec0e915c423459229",
+  "mirrorScanRun": false,
+  "r9ObservedStopSha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4",
+  "reviewSha256": "2c1b0581e19e3039a81aeb8cee917dbe2e8eb8c88e98a8a7cd1b816247e2c9a9",
+  "schema": "1370-c0-h-mirror-post-r9-baseline-independent-static-review-r1",
+  "selfcheck": "PASS_SYNTHETIC_BASELINE_ONLY",
+  "sourceSha256": "7c65072c7a7f6b88eb668cc70efed3a7b7b1d28e6f60806d63b8e0543f0f8d36",
+  "specSha256": "5ddc71dcb0dadeba2cc2658f2b1f505df03d7bf305df3ddb3430953392ce88bf"
+}

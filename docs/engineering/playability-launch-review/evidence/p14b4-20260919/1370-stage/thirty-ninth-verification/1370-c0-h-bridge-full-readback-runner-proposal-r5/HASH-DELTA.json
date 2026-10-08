@@ -1,0 +1,70 @@
+{
+  "claimLimit": "Versioned unrun correction only",
+  "r4ObservedStopSha256": "8d7c904eefdaacc5e8905c2a3166d80907768cb7c97c75d46be1c26de98beec6",
+  "rows": [
+    {
+      "name": "readback.py",
+      "r4Bytes": 29025,
+      "r4Sha256": "c66b395388c5d49527d719d454bf870291d908c582e02609dd4ec0306548ad94",
+      "r5Bytes": 30316,
+      "r5Sha256": "fd241c6d3de7ae9779c9f8f9b0d5efc41c8dfd1ae85c0066b91e270198ece40a"
+    },
+    {
+      "name": "BOOTSTRAP.py",
+      "r4Bytes": 3626,
+      "r4Sha256": "a1e8d320f961df4235dfe4cc1bd3573d5ac39f43cc44e955413b28d277505b0a",
+      "r5Bytes": 3626,
+      "r5Sha256": "91bbefbc5a7820dfba13905f19b1702dc481879126414a333622d2a7a26d1d48"
+    },
+    {
+      "name": "SPEC.json",
+      "r4Bytes": 17125,
+      "r4Sha256": "ce31357835802a711b346e72b2293ee6ded86d09ed3ffa4b9a046d838d50a2c0",
+      "r5Bytes": 17335,
+      "r5Sha256": "61377447a4ae70f49b090102ce85267a9487025f807c195252ef99f82ad64e07"
+    },
+    {
+      "name": "BINDING-SOURCE.json",
+      "r4Bytes": 2534,
+      "r4Sha256": "701e377b42fcc06dd341fc03c93b3e96e92ed9b8d6730e1c945d225caa162c6a",
+      "r5Bytes": 2633,
+      "r5Sha256": "18873c96b70febbc26df377d96560359b620b450a3f7a4bc477a6d5bfe4c6151"
+    },
+    {
+      "name": "EXACT-LAUNCH-TEMPLATE.command",
+      "r4Bytes": 392,
+      "r4Sha256": "b51dd445f5e60e188cec455820d16a35ec4c4433418e9202639e50be08d4b3fb",
+      "r5Bytes": 392,
+      "r5Sha256": "5c91a0a33825811618324dbf9daeb08fa024a9540f8e4f2b0e65818ba35fef4b"
+    },
+    {
+      "name": "selfcheck.py",
+      "r4Bytes": 7744,
+      "r4Sha256": "315b6ebc3b001895d53b5a1d9bc3ad4517df8a81b58adab5beb03891d73e2204",
+      "r5Bytes": 8762,
+      "r5Sha256": "8f36b450b0ff2de6803b109a300575fd66d6206444ba85de2cfe3622e3230287"
+    },
+    {
+      "name": "PLAN.md",
+      "r4Bytes": 3915,
+      "r4Sha256": "33a8ea7679147f1ef5a4785e33223d012c8bd5821f50720be9dc824f59ad4edb",
+      "r5Bytes": 4835,
+      "r5Sha256": "e4f679c0d9575404f2467924d1ed1862ea214ce448ea1105726875bcf3d3ee2f"
+    },
+    {
+      "name": "RECORDER-DESIGN.md",
+      "r4Bytes": 1403,
+      "r4Sha256": "29de707807f19328382653ae4e1c94eef38a22bb9a9e355b97d58c14c572441e",
+      "r5Bytes": 1492,
+      "r5Sha256": "7f707b2dbfca04c32cd986120dbc2cabcac163d2728196ee7d41981a9f1a1152"
+    },
+    {
+      "name": "REVIEW-REQUEST.md",
+      "r4Bytes": 1076,
+      "r4Sha256": "eddd8c111c808dd2f82df7fb0dbb874823aea80bb1e24244249c0a5ebe722809",
+      "r5Bytes": 1064,
+      "r5Sha256": "ffc756dfd65970ef0678869a350e251551d03e68697db8a15ee16349080dda03"
+    }
+  ],
+  "schema": "1370-c0-h-bridge-full-readback-r4-to-r5-hash-delta"
+}

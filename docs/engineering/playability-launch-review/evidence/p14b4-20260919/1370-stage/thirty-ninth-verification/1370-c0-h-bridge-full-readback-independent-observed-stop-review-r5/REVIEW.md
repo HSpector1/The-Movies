@@ -1,0 +1,5 @@
+# Observed H bridge full-readback r5 STOP
+
+Recorded lane ended actual exit 1 after about three seconds. Recorder r2 reports `STOP_CHILD_NONZERO`, child exit 1 and `groupClear: true`; child one-shot result says `STOP_H_BRIDGE_FULL_READBACK`, `RuntimeError('H tree')`. Partials and lane lock are absent. Production HEAD/source and remote refs remain pinned. This run did not reach the 1,402-file mirror scan.
+
+Frozen r5 `readback.py` line 157 compares `git rev-parse H^{tree}` to `SPEC.historicalHTree`. The actual H commit root tree is `e3fdd8c2103fa9cae45cda585b742162e0b76276`; the pinned `historicalHTree` is the `H:src` subtree `0ee21d8179977aaa0726ffb5d1b2bb2568c9df97`. This is a tree-role mismatch, not drift. The neighboring production `HEAD:src` and H `:bridge` comparisons use the intended roles; the `ls-tree` roster uses root paths, and output `sourceTree` names the pinned src tree. A versioned fix should compare H `:src` to the pinned field, or add a separately pinned root-tree field/guard. Add a synthetic RED with distinct root and src OIDs; preserve r5 and r4 STOP bytes and new one-shot paths for retry.

@@ -1,0 +1,29 @@
+{
+  "actualAuthorizedLaunchPath": "/Users/zacheryspector/studio-scratch/1370-c0-h-mirror-post-r9-baseline-filled-launch-r2/LAUNCH.command",
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-h-mirror-post-r9-baseline-filled-exact-r1/BINDING.json",
+  "bindingSha256": "e6251ff4e7fb93e8b01b3a3d73baafcdae605c3564d51f6410da7839b66c4500",
+  "claimLimit": "Only versioned r2 launch with frozen r1 binding is approved. Binding outerRecorder.filledExactLaunchPath is stale r1 metadata and not runtime authority; r1 exact REFINE remains unrun. Full baseline observed audit pending.",
+  "decision": "ACCEPT_EXACT_H_POST_R9_BASELINE_LAUNCH_R2_ONLY",
+  "evidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "inventorySha256": "41a20d6d74d08a507f5f5077e2a20a334cf384181850fce20fccab1aa8f520b8",
+  "launchSha256": "e7933107dad41c7250fcb26b83d4e4ae8d7800b711ddfd47590bfc8a8e0774b8",
+  "limitsSeconds": {
+    "child": 600,
+    "recorderActive": 620,
+    "recorderWhole": 630
+  },
+  "planSha256": "a2b663b6298d90fe03a0cd1f4900541daae9fddda10075c22109efdfea2fdea2",
+  "preflightAC": true,
+  "preflightCleanRefs": true,
+  "preflightFreeBytes": 3776286720,
+  "preflightLaneAndOneShotOutputsAbsent": true,
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r1ExactRefineReceiptSha256": "9a0d471049a62bca4b89e39e8fdd52d09f77e474abbb8c4c54762a6a7742fa96",
+  "r9ObservedStopSha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4",
+  "recorderStaticReviewSha256": "4001e03fbdd218878ef71014551ca49f6dc0bf397a91bd3f486ed7154ccb2746",
+  "schema": "1370-c0-h-mirror-post-r9-baseline-filled-launch-independent-exact-review-r2",
+  "sourceStaticReviewSha256": "7aae4ad9836dd1f98017a21eb9a3249ba16b71dbb043c0343255912a56002799",
+  "staleBindingLaunchField": "/Users/zacheryspector/studio-scratch/1370-c0-h-mirror-post-r9-baseline-filled-exact-r1/LAUNCH.command",
+  "staleBindingLaunchFieldRuntimeUsed": false
+}

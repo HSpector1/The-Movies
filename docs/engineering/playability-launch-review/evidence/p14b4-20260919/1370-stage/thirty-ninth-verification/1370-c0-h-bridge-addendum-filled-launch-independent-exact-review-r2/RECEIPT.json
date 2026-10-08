@@ -1,0 +1,19 @@
+{
+  "bindingSha256": "c094d228e2b9ae88394cdaa632aeaa526045e57ff5e35f22ac150e1fadf14102",
+  "claimLimit": "This supersedes r1 exact ACCEPT; the filled command must not run until whole invocation/recorder deadline is versioned and independently reviewed",
+  "decision": "REFINE_EXACT_UNRUN",
+  "finding": {
+    "issue": "The 180-second timer starts only when authenticated add_bridge.py reaches main. Bootstrap nofollow reads and compilation happen before it; lane-run.sh invokes child without any whole-process timeout, and wrapper normally exits 0 even for child failure. The frozen command therefore does not enforce a 180-second command bound or a separately declared recorder bound.",
+    "location": "LAUNCH.command outer lane-run.sh 0 + in-memory Python bootstrap; add_bridge.py signal starts in main",
+    "requiredCorrection": "Version a bounded outer recorder covering bootstrap, child execution and cleanup, preserving actual lane child exit in a one-shot recorder/result, with explicit child/recorder limits and process-group termination. Independently static- and exact-review the new command; do not relabel r1 exact ACCEPT.",
+    "severity": "material"
+  },
+  "launchSha256": "d610e378c68f908026e85ca2e8ca95617e95e5e3880e595bdf8fdeb5fdcc676f",
+  "sourceSha256": "72a9bf9f6567afac320373532486c6bfd40663cf019eadb93d32db73a651678d",
+  "staticReviewSha256": "2d68b3686fea754398a76265b632a1c37bf58444169b9201f56982cfdc187eb6",
+  "supersededExactAcceptSha256": "0d58042200f25b88ccdaa0a28355076ef16ce902b0ab26e1c8238a3142e2631b",
+  "unchangedPositiveFindings": [
+    "Bash syntax, SHA pins, in-memory authenticated source, source/remote/AC/free/one-shot preflight were valid when checked",
+    "H addendum r3 static source acceptance remains narrow and unaffected"
+  ]
+}

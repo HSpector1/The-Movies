@@ -1,0 +1,5 @@
+# H bridge addendum filled exact launch r3 — UNRUN
+
+The prior filled r2 launch remains unrun and independently REFINE: it recorded `LAUNCH_START`, then armed a literal 210-second timer slightly later. This r3 changes only the loader timer to `210 - (time.monotonic() - LAUNCH_START)` after validating elapsed in `[0,210)`, so the hard deadline is exactly the recorded start plus 210 seconds, before any pinned file read. The independently accepted r4 supervisor and r3 addendum source bytes, receipts, 200-second active/180-second source limits, production HEAD `9651546af98c44f04e8b6b2714d10d67dadb8f9c`, and one-shot lane/result paths are unchanged.
+
+This command has not run. Independent exact review must verify the timer correction, source/SHA binding, AC, disk, clean local/remote/source, idle lane, and absent log/meta/source result/recorder final/partial. Any timeout, child nonzero, missing/partial result, surviving process, or old typecheck failure remains STOP. A successful source-only addendum still requires full independent 1,402-file mirror readback before versioned H typechecks.

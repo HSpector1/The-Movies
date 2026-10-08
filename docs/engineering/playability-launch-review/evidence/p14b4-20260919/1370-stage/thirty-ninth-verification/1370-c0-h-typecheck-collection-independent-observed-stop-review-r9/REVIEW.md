@@ -1,0 +1,7 @@
+# H typecheck/diagnostic collection r9 — independent observed STOP
+
+The recorded lane ended actual exit 1. Recorder reports child exit 1 and `groupClear: true`; the one-shot RESULT is `STOP_POSTFLIGHT_DRIFT`, SHA `02cabccb0dcf7c3dea903690f7311eb23dda80790a9ab2b363eda1ab76075b90`. Dependency check, root `tsc --noEmit`, and UI `tsc -p ui/tsconfig.json --noEmit` each exited 0 with authenticated output sidecars. These are observed subprocess facts, not route acceptance.
+
+Diagnostic collection exited 1. Its stderr says `AssertionError: PREIMAGE_OUTPUT must be absolute` in `tests/diagnostic.test.ts:17`; `collection.json` was not produced. The source file proof remained `1534ca888a99c1f41e3eb2a7201d6d6d56f1343bab3f4040518348cc34d276b4` across pre/post, and the dependency link and node_modules content+metadata proof remained equal. The mirror root inode/device/mode/size/link count stayed equal but its mtime/ctime changed, so the runner correctly marked postflight drift. The precise operation causing the transient root metadata change was not attributed in this review.
+
+Production HEAD/src and remote refs remain pinned, worktree clean, AC present, no lane lock, partials or surviving child. Preserve this STOP. A versioned correction must supply a valid absolute PREIMAGE_OUTPUT in a bounded disposable output path and attribute/prevent the mirror-root metadata change; do not repin or waive source purity. Re-run independent static/exact review before a fresh one-shot route.

@@ -1,0 +1,19 @@
+{
+  "absentOneShotPaths": true,
+  "acPower": true,
+  "bindingSha256": "b7cc5620534abd4d7fb12abf9fe111d747334623aa3f114b572583b0f543d662",
+  "claimLimit": "Unrun exact H types/collection only; no game/neutrality acceptance",
+  "commandSha256": "2e33e3b99eb9bb85347b7cf888920bf4d54496f0c19e158a20f6c3849e0543bc",
+  "decision": "ACCEPT_EXACT_ONLY",
+  "freeBytesAtReview": 3804524544,
+  "fullMirrorProofDigestSha256": "55fd1afb4437386867cdb23c5daf137e9613d41e51f31dafc619bedf37bc59a4",
+  "hMirrorObservedReceiptSha256": "bb61794d874cdc80f1283459d9eca49c5174de441cde9dcbe971d36e2b9f226e",
+  "inventorySha256": "48c102c19235498892972760d8b34b36a8f75851b14a1d261e915459fc23ae41",
+  "materializerResultSha256": "b8c70f731fc730cea3ba7238674fb964fb973e6ffcf58fcb03e0dbbd139196b6",
+  "r1FilledRefineReceiptSha256": "7bdb89146d5869dffd4121470f61f32bae9020674c743dd491475753333dc7a4",
+  "reportSha256": "00d212981cb26ba0c7f1490d6a5b73fe560b56c985ae4a6fe0d1ad395e3fe34a",
+  "runId": "20261008-h-types-r3",
+  "runnerStaticReviewSha256": "97eabe8071c4e74fa170fe82ed86811142f36739341b6f9fde3a5c0ec23f41f8",
+  "selfcheckPass": true,
+  "sourceAndRemoteMatched": true
+}

@@ -1,0 +1,5 @@
+# H bridge addendum outer recorder r2 static review — REFINE
+
+The embedded bootstrap carries the accepted r3 source, static-review receipt and production HEAD pins. A two-second synthetic long-child test returned STOP with group cleanup and nonzero child exit. The real addendum remains unrun.
+
+The recorder does not yet enforce its claimed whole 210-second bound. It cancels the alarm before process-group cleanup and receipt write; the synthetic test accepts a result several seconds beyond its two-second limit. `LAUNCH_START` also silently falls back to supervisor import time if the future loader omits it, which would exclude loader/bootstrap time. Require an explicit authenticated launch start and either a strict whole bound or a separately labeled bounded cleanup grace with a reviewed outer limit. Finally, recheck the result-parent pathname and read back/hash the durable receipt after fsync, so STOP or success cannot be recorded in a detached directory. Version r3; preserve r2 and the retracted exact launch.

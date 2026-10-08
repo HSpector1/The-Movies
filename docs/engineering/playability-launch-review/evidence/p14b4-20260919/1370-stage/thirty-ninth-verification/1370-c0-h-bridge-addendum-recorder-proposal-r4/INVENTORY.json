@@ -1,0 +1,23 @@
+{
+  "files": [
+    {
+      "bytes": 2841,
+      "path": "PLAN.md",
+      "sha256": "f084d90e090d6668dc76c0a1c19094fbe84691ad1916009926e23e0b258700f7"
+    },
+    {
+      "bytes": 2519,
+      "path": "selfcheck.py",
+      "sha256": "bb5feba9ffc6365a4236bc54ff78be4828b6ec6f4f3713d5b2037fbbbc68dc1f"
+    },
+    {
+      "bytes": 10368,
+      "path": "supervise.py",
+      "sha256": "3ce344244945298a11668abc04fc8a244f7a3884666d2f461797ede35aa11d44"
+    }
+  ],
+  "independentReview": "PENDING",
+  "predecessorRecorderRefineReceiptSha256": "38495ef7c523ad6cb4bdb8cc673a369ce57785220ab8abec9595269197dc2401",
+  "schema": "1370-c0-h-bridge-addendum-recorder-proposal-inventory-r4",
+  "status": "STATIC_PROPOSAL_UNRUN"
+}

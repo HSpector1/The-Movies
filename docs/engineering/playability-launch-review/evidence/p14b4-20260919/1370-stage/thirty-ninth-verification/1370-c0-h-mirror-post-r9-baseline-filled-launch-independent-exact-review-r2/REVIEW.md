@@ -1,0 +1,5 @@
+# H post-r9 current baseline launch r2 — exact review
+
+Decision: **ACCEPT_EXACT_H_POST_R9_BASELINE_LAUNCH_R2_ONLY**. Frozen r2 launch differs from refused, unrun r1 only by the accepted independent static decision literal. It authenticates the same exact r1 binding SHA, recorder/source/static receipts and r9 STOP. The loader arms 630−elapsed before nofollow reads; supervisor and child retain 620/630 and 600-second limits, AC/disk/sole-lane/ref checks, actual child exit and group cleanup. `bash -n` passes. Fresh preflight found clean HEAD965/src13880, matching local/remote refs, AC, 3,776,286,720 free bytes above 3.5 GiB, and no baseline lane/results/partials.
+
+The frozen binding field `outerRecorder.filledExactLaunchPath` still names the superseded r1 command. The runtime source does not consume that field; this exact review pins and authorizes only the r2 LAUNCH.command SHA above. Preserve the r1 REFINE and r9 observed STOP. The changed mirror-root tuple remains UNATTRIBUTED_R9, and full baseline observed admission is pending.

@@ -1,0 +1,1 @@
+Exact post-r9 current H mirror baseline, unrun. Source/static and recorder/static pins accepted, r9 observed STOP retained as UNATTRIBUTED_R9, fresh one-shot lane/result. 600 child/620 active/630 whole. Actual-binding prewalk and independent exact review required before parent launch. No timestamp reset or H type/collection acceptance.

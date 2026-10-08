@@ -1,0 +1,9 @@
+{
+  "filesSha256": {
+    "BINDING.json": "e6251ff4e7fb93e8b01b3a3d73baafcdae605c3564d51f6410da7839b66c4500",
+    "LAUNCH.command": "59d308668664236ab39c14289dbb35773f4931199836d34c51a987650b5f3fac",
+    "PLAN.md": "cf3654995460fd80464a60ec17a5f0a6e03b8c8ddfcab3f8c932fd6d6dcb0485"
+  },
+  "schema": "1370-c0-h-mirror-post-r9-baseline-filled-exact-r1",
+  "status": "FROZEN_UNRUN_EXACT_REVIEW_REQUESTED"
+}

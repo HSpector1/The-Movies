@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "<string>", line 62, in <module>
+    exec(compile(raw[runner],str(runner),'exec'),{'__name__':'__main__','__file__':str(runner),'_BOOTSTRAP_START':start,'_BINDING_PATH':str(binding)})
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-full-readback-runner-proposal-r4/readback.py", line 512, in <module>
+    main()
+    ~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-full-readback-runner-proposal-r4/readback.py", line 421, in main
+    need(review_path.is_absolute() and review_path.is_relative_to(S) and
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         'recorder' in str(review_path) and '-r4' in str(review_path), 'recorder review route')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-full-readback-runner-proposal-r4/readback.py", line 37, in need
+    raise RuntimeError(reason)
+RuntimeError: recorder review route
+{"recorderStatus": "STOP_CHILD_NONZERO", "childExit": 1, "groupClear": true}

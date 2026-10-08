@@ -1,0 +1,20 @@
+{
+  "bindingSha256": "bea2eec30e763c47265c5171ee165506a9f4f08c841532584d029b8dc128b038",
+  "claimLimit": "Frozen r2 filled command is unrun and must not execute; r4 supervisor static acceptance remains",
+  "decision": "REFINE_EXACT_UNRUN",
+  "finding": {
+    "issue": "The loader takes LAUNCH_START=time.monotonic(), then arms ITIMER_REAL for literal 210 seconds after intervening instructions. That alarm can fire after LAUNCH_START+210 while the r4 supervisor labels and computes the whole envelope from LAUNCH_START. There is no reviewed tolerance.",
+    "location": "LAUNCH.command Python bootstrap lines LAUNCH_START and signal.setitimer",
+    "requiredCorrection": "Version the command. Immediately before all pinned reads, compute remaining=210-(time.monotonic()-LAUNCH_START), require 0<remaining<=210, and arm ITIMER_REAL for that exact remainder; preserve r4 source/review/HEAD pins and independent exact review.",
+    "severity": "material"
+  },
+  "inventorySha256": "d713060241012b4b0388ae97991ce50115adefbc8b3d7ef89b6619a6dc63741a",
+  "launchSha256": "de12bdafa24f1b35ec4c219f2f79041f292671ae036eb0cb1709daf728ce571e",
+  "positiveFindings": [
+    "Bash syntax and all frozen file SHA pins match",
+    "LAUNCH_START is set and a hard timer is armed before pinned file reads",
+    "Nofollow stable-FD source/inventory/review bootstrap, Python -I -B in-memory supervisor, and r4 static decision pins are structurally correct"
+  ],
+  "staticReviewReceiptSha256": "903429313815be42c2d9fd2e37af69b0c4ebea57f842cdc85a99f3aa3386e34e",
+  "supervisorSha256": "3ce344244945298a11668abc04fc8a244f7a3884666d2f461797ede35aa11d44"
+}

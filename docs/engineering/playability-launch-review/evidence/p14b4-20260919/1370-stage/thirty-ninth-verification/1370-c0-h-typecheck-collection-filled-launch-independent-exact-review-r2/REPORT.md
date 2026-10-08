@@ -1,0 +1,5 @@
+# H typecheck/collection filled exact launch independent review r2
+
+**ACCEPT_EXACT_ONLY; unrun.** The corrected one-shot command pins and nofollow-authenticates the r5 full-mirror runner/recorder, independent static receipt, observed H mirror receipt, materializer result and filled binding. The bootstrap cross-checks H run ID `20261008-h-types-r3`, source proof digest `55fd1afb...`, 1,344 mirror files/98,158,847 bytes and exact source roles before executing verified recorder bytes in memory; the recorder similarly authenticates runner bytes. The r1 selected-file command remains REFINE/unrun.
+
+At review, selfcheck and inventory passed; lane lock/log/meta/output/recorder result were absent; production HEAD/src/remote ref matched clean f8/13880; AC and 3.5 GiB preflight held with 3,805,270,016 free bytes. The runner owns 300 seconds and the recorder 330 seconds. A compiler failure, timeout, dependency/source drift or missing diagnostic collection is STOP. This exact acceptance permits one recorded H type/collection run only; observed child/result/postflight review remains required before any type claim.

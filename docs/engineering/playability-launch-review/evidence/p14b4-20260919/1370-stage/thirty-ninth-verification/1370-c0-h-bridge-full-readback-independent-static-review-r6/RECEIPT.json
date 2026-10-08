@@ -1,0 +1,12 @@
+{
+  "bootstrapSha256": "b88fb1b9677cc3e821063ca5695c67cc5d9dd28efd405372cafcd32a353de99d",
+  "decision": "ACCEPT_STATIC_H_BRIDGE_FULL_READBACK_ONLY",
+  "manifestSha256": "e70a1382c47019e70acac5739fbc33ca0da7c0961f70dda13cca9ba8ac31a11e",
+  "mirrorRun": false,
+  "predecessorR5ObservedStopSha256": "ded3a4f895ca393dedb3099712a7d01f1ee6f2c22cc780d215f51de397d37fd9",
+  "reviewSha256": "1414ef7d34661ad608cf92053886b4a3489123ec6838384ae3fe7b2045969ef5",
+  "schema": "1370-c0-h-bridge-full-readback-independent-static-review-r6",
+  "scriptSha256": "6d2c51bc6a802e7e19e41849d27569e35bcfcee31dfc12480c0f6a22998314d1",
+  "selfcheck": "PASS",
+  "specSha256": "24952774515fd0e36eb2d2895e3e1d6996371c93617995612e3db5c75ac3a5d5"
+}

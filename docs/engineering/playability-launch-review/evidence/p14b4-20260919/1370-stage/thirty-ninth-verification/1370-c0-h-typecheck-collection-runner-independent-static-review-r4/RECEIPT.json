@@ -1,0 +1,13 @@
+{
+  "claimLimit": "Static recorder and runner only; filled exact launch/types/collection pending",
+  "decision": "ACCEPT_STATIC_ONLY",
+  "exactTemplateSha256": "1ca42e80706feadf5e055cb085a2aa00ac4665b5f08daa0b30b5c53673c90635",
+  "hMirrorObservedReceiptSha256": "bb61794d874cdc80f1283459d9eca49c5174de441cde9dcbe971d36e2b9f226e",
+  "inventorySha256": "80f2871353e0caf0392d204a094d3847c6f9bea423e6a25b3ec19a02a922655f",
+  "r3StaticReceiptSha256": "eed0e300b0efd210bd9f8d48ad934d7f468edbb90b6b698862aa5ec69d4351c8",
+  "recorderSha256": "2411ed35bd744041d7a4a23f0069c4e26fc65ab6330b6cb7cfb20a157d08d254",
+  "reportSha256": "0a35e086c97f5544bbe6c997a3d7472fbfc190fa33c7f0b8ff5b0c6f7f3b5536",
+  "runnerSha256": "d185c14018dd5ef7b3b56c1a80d237a086e8999bc0a11a945f973b7d63255697",
+  "selfcheckAndMutationRedPass": true,
+  "selfcheckSha256": "d720c163376156522849c1414296344aa0b913d5e654f2590c733147473a3541"
+}

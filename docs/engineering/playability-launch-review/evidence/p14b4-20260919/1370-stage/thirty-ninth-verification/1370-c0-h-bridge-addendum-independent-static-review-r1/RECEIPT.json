@@ -1,0 +1,49 @@
+{
+  "claimLimit": "Frozen r1 is unrun and does not authorize mirror mutation or H type admission",
+  "decision": "REFINE",
+  "findings": [
+    {
+      "issue": "read_pin authenticates final file with O_NOFOLLOW but never lstat-checks parent directories or binds their identity before/after. This allows a symlink-parent/path swap for static review, inputs, old runner/manifest and STOP/result controls. Version r2 with nofollow parent traversal or stable dirfd chain.",
+      "line": "add_bridge.py:25-36",
+      "severity": "material"
+    },
+    {
+      "issue": "Git commands inherit ambient GIT_* environment and source_guard does not pin origin URL. A redirected Git environment or origin can satisfy some local/ref checks without proving intended repository/remote authority. Scrub GIT_* for all subprocesses and check exact origin URL pre/post.",
+      "line": "add_bridge.py:44-51,85,142-147",
+      "severity": "material"
+    },
+    {
+      "issue": "old proof validates node_modules target and non-null link but does not pin prior failed typecheck RESULT SHA or compare its recorded sourceAfter dependencyLink identity tuple. Bind the immutable result and exact prior link metadata, or explicitly justify target-only continuity.",
+      "line": "add_bridge.py:52-62,136-139",
+      "severity": "material"
+    },
+    {
+      "issue": "Result parent is checked by lstat then reopened by path for exclusive receipt. Use a stable nofollow parent dirfd for receipt open/fsync and verify path identity to close post-check replacement.",
+      "line": "add_bridge.py:149-169",
+      "severity": "minor"
+    }
+  ],
+  "inputsSha256": "2598b0c372eed48d9be04192eb7e33aa52e398a9323d4e2155c176e4cce5efaa",
+  "inventorySha256": "71271fef35ff966271c9b0907688c0ff44bf11b9b31cebb7cbc70d257f6b2cc6",
+  "planSha256": "28f9acde8e6fcdb92de73a9b6c5ab161dfc116361e0fa20a5759f462be6a3796",
+  "positiveFindings": [
+    "Pinned H Git bridge roster/tree/58 files/1,357,248 bytes matched static selfcheck; M0 comparator roster 63/1,517,743 matched.",
+    "The addendum leaves the old 1,344-file proof and failed typecheck preserved, adds only absent bridge entries through dirfd/O_EXCL, records partial failures, and labels success pending an independent 1,402-file readback.",
+    "Tar header modes matched the current H Git archive in static selfcheck; the 180-second, AC/3GiB floor, one-lane and source cap are expressed, with production HEAD deferred to exact binding."
+  ],
+  "scriptSha256": "15b0dbacff4c77212ca545e89144300fff2564d3d5608eed5de3b1848f9862a6",
+  "selfcheckSha256": "98232262a836a7b2c03a38beeaf54bfc438faa74b282bf797b5174c9c9807617",
+  "selfcheckStatus": "PASS_STATIC_FIXTURE_ONLY",
+  "verifiedInputs": {
+    "H": {
+      "bytes": 1357248,
+      "files": 58,
+      "tree": "a697b042eccb85adacd40ef1303869be6d26239a"
+    },
+    "M0": {
+      "bytes": 1517743,
+      "files": 63,
+      "tree": "faa227af051c5ec529644b5f84151314ea63cc30"
+    }
+  }
+}

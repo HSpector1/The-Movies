@@ -1,0 +1,10 @@
+{
+  "futureExactReviewSha256": null,
+  "futureRecorderSha256": null,
+  "futureStaticReceiptSha256": null,
+  "r9ObservedStopSha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4",
+  "r9RawStopSha256": "02cabccb0dcf7c3dea903690f7311eb23dda80790a9ab2b363eda1ab76075b90",
+  "schema": "1370-c0-h-mirror-post-r9-baseline-binding-unfilled-r1",
+  "sourceBindingPrecedent": "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-full-readback-filled-exact-r6/BINDING.json",
+  "status": "UNRUN_REQUIRES_REVIEWED_FILL"
+}

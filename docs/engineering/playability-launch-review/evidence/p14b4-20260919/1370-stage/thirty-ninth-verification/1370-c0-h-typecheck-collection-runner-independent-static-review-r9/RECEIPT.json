@@ -1,0 +1,11 @@
+{
+  "bindingSourceSha256": "36652250db0dcc80985888ff4861c685c73f0752984a49e1b9b84019a3525738",
+  "decision": "ACCEPT_STATIC_H_TYPECHECK_COLLECTION_SOURCE_ONLY",
+  "manifestSha256": "68b91d697be71c893fdb8106fd7e3037907674ee2963fc3acae876f765f90874",
+  "r8RefineReceiptSha256": "ec8ca236351799b4d337b37a33fa8e8d97bd2dc46e4dfa3ce3180f5d9fbf15b9",
+  "reviewSha256": "b9b2d59c8451f10d67bf1a73ca3c4502b3dd0425b4753bd44e2207e2a889d68a",
+  "runnerSha256": "8f5c21590d29a02d2cc1aed87ebea94538d4078e6ecf65e379e2dd3ad6bc7968",
+  "schema": "1370-c0-h-typecheck-collection-runner-independent-static-review-r9",
+  "selfcheck": "PASS_15_SYNTHETIC_REFUSALS",
+  "typeRouteRun": false
+}

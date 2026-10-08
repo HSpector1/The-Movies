@@ -1,0 +1,32 @@
+{
+  "files": [
+    {
+      "bytes": 3416,
+      "name": "BOOTSTRAP.py",
+      "sha256": "b2c440c1ab34d1c9defc51276eeb2e791d9920142b8d76e62588ac68134f6d2d"
+    },
+    {
+      "bytes": 12002,
+      "name": "supervise.py",
+      "sha256": "397f5389e33d8564653aaac9b8e619db030dc4c612139817ec4940a862d3c59a"
+    },
+    {
+      "bytes": 3647,
+      "name": "selfcheck.py",
+      "sha256": "b0c680fd30fded29b61021e7fe5ac89781a386c1da922a86c7104dd7cded83af"
+    },
+    {
+      "bytes": 3235,
+      "name": "LAUNCH.template.command",
+      "sha256": "3fdecc338d21f17d4644cc3d92926ab8ec325a9090a6c3cea8e79e38535bbe69"
+    },
+    {
+      "bytes": 705,
+      "name": "PLAN.md",
+      "sha256": "b0428d4ebecd17ef8117c5ff0655616af7b4c26f8ede1dbc66e2149c07e0cb97"
+    }
+  ],
+  "r9SourceReviewSha256": "71bf546b2196f96a8defd93880e1a3330bca0940542aa8b76cb2a1aa437abaec",
+  "schema": "1370-c0-h-typecheck-collection-recorder-proposal-r1",
+  "status": "FROZEN_UNRUN_STATIC_REVIEW_REQUESTED"
+}

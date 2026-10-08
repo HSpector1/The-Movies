@@ -1,0 +1,37 @@
+{
+  "files": {
+    "BINDING-UNFILLED.json": {
+      "bytes": 1372,
+      "sha256": "9fbacc2693daa30de652afdbee07788b47ac6ea42b68f96c655e44e18b2b22ad"
+    },
+    "EXACT-LAUNCH-TEMPLATE.txt": {
+      "bytes": 1497,
+      "sha256": "7bc45850e53405615862e352dbdd2a4de683d0322048005d9f18f99ca0eda444"
+    },
+    "PLAN.md": {
+      "bytes": 2423,
+      "sha256": "c71faa51816d86d0bab7000e5d51070348501cdb2d0f2d687819b54e94c9288b"
+    },
+    "r3-synthetic-red.py": {
+      "bytes": 1958,
+      "sha256": "c06c3f1cfdb73e51692e2c91c0447a9cdaf98a8f25ca6eed6f4b691af55b8645"
+    },
+    "recorder.py": {
+      "bytes": 4009,
+      "sha256": "f6bd69624720e32dfc3d512f02914fc12adaa38147ee5764bb872a18652390fa"
+    },
+    "runner.py": {
+      "bytes": 16347,
+      "sha256": "0fe66879521909362fa746044485b58b8a61b411038d40343465042aa183b50b"
+    },
+    "static-selfcheck.py": {
+      "bytes": 2220,
+      "sha256": "50dd35cddabb690f0d03231795c5aaa6b3c732c46e23204ff9fe7391433d9ca3"
+    }
+  },
+  "filledR1ExactRefineReceiptSha256": "7bdb89146d5869dffd4121470f61f32bae9020674c743dd491475753333dc7a4",
+  "hFileProofDigestSha256": "55fd1afb4437386867cdb23c5daf137e9613d41e51f31dafc619bedf37bc59a4",
+  "hObservedMirrorReceiptSha256": "bb61794d874cdc80f1283459d9eca49c5174de441cde9dcbe971d36e2b9f226e",
+  "predecessorR4InventorySha256": "80f2871353e0caf0392d204a094d3847c6f9bea423e6a25b3ec19a02a922655f",
+  "status": "UNREVIEWED_UNRUN_FULL_H_MIRROR_SOURCE_GUARD"
+}

@@ -1,0 +1,34 @@
+{
+  "claimLimit": "Frozen r2 is unrun; no bridge mirror mutation or type admission",
+  "decision": "REFINE",
+  "findings": [
+    {
+      "issue": "read_pin accumulates every chunk then joins without enforcing cumulative bytes <= cap during the read. If a pinned control grows concurrently, it may exhaust memory before the later drift check; add an incremental byte cap and synthetic growing-file RED.",
+      "line": "add_bridge.py:50-62",
+      "severity": "material"
+    },
+    {
+      "issue": "The destructive MIRROR path is checked only at its final component. old_mirror_proof uses os.walk(MIRROR), and open_dir opens MIRROR with O_NOFOLLOW but does not authenticate its parent chain. A symlink/replaced parent could redirect readback and mutation. Bind the mirror parent via nofollow dirfd chain and revalidate identity immediately before/after add_bridge; use stable fd for root creation.",
+      "line": "add_bridge.py:84-95,97-115,173-180",
+      "severity": "material"
+    }
+  ],
+  "inputsSha256": "2598b0c372eed48d9be04192eb7e33aa52e398a9323d4e2155c176e4cce5efaa",
+  "inventorySha256": "2a6150bc4fd5f0c96a40538296f6833d68a5638b01ec8f5843d0cf644147928e",
+  "planSha256": "4dd275e33b6dbe68cad5a38bf8ba574b50ad95ac9e3836a9e58ef4bcea2153c2",
+  "positiveFindings": [
+    "H 58/1,357,248 and M0 63/1,517,743 exact Git rosters and H tar headers pass static selfcheck.",
+    "180-second timer, AC, 3.5GiB preflight, 3GiB floor, one recorded lane, origin and source guards remain.",
+    "R2 labels success source-only pending independent 1,402-file readback and leaves failures one-shot."
+  ],
+  "predecessorRefineSha256": "420b188c90882fb45fa1b725163c12c9bf708d0c5baafacb7b81f4a2ed03875f",
+  "r1CorrectionsVerified": [
+    "read_pin uses nofollow stable parent dirfd chain and validates file/path identity",
+    "main scrubs ambient GIT_* and subprocesses use clean_env; source_guard pins configured origin URL",
+    "old_mirror_proof compares exact pinned failed RESULT sourceAfter dependencyLink tuple",
+    "result uses stable nofollow dirfd O_EXCL, fsync and path identity"
+  ],
+  "scriptSha256": "f3cca2245ecdf73141292fa837158767edab9f2053f4c004f36d8b4962e56d8a",
+  "selfcheckSha256": "4b621d805255d4543420c1cb800ffc153168fd271910c2692a892ff42cc3a951",
+  "selfcheckStatus": "PASS_STATIC_FIXTURE_ONLY"
+}

@@ -1,0 +1,29 @@
+{
+  "bridgeBytes": 1357248,
+  "bridgeFiles": 58,
+  "bridgeInputsSha256": "2598b0c372eed48d9be04192eb7e33aa52e398a9323d4e2155c176e4cce5efaa",
+  "bridgeTree": "a697b042eccb85adacd40ef1303869be6d26239a",
+  "elapsedSeconds": 9.371,
+  "observedTypeStopReceiptSha256": "6c8e310bca8d581a479ffda929b3edad83670c5bdb52c2ef45b419e4953f0f4d",
+  "oldMirrorProof": {
+    "dependencyLink": [
+      16777220,
+      166421468,
+      41453,
+      1,
+      62,
+      1791452251986317412,
+      1791452251986317412,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "55fd1afb4437386867cdb23c5daf137e9613d41e51f31dafc619bedf37bc59a4",
+    "mirrorBytes": 98158847,
+    "mirrorFiles": 1344
+  },
+  "originalMaterializerResultSha256": "b8c70f731fc730cea3ba7238674fb964fb973e6ffcf58fcb03e0dbbd139196b6",
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "schema": "1370-c0-h-bridge-addendum-result-r3",
+  "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "staticReviewSha256": "2d68b3686fea754398a76265b632a1c37bf58444169b9201f56982cfdc187eb6",
+  "status": "BRIDGE_ADDED_SOURCE_ONLY_PENDING_INDEPENDENT_FULL_READBACK"
+}

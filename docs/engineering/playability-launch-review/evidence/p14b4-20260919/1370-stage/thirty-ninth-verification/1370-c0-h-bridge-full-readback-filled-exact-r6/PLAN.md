@@ -1,0 +1,1 @@
+Exact r6 H bridge full-readback retry, unrun. Bound to corrected r6 H root/src/bridge source and independent source/recorder static receipts, observed r4/r5 STOPs, and read-only prewalk probe. Fresh one-shot r6 binding/readback/recorder/lane paths. 600 child, 620 active, 630 whole. Independent exact review required before launch; no full readback acceptance claim.

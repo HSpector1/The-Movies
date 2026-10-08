@@ -1,0 +1,9 @@
+{
+  "filesSha256": {
+    "BINDING.json": "57055e368a0f6eeb2f7664c3209d12476ed709fbd05a17a26a918dc6237a1472",
+    "LAUNCH.command": "929db8bdd89716be96fa0f3e66409eae1e171167fe8b7dbf0bd8d82d8fcb6612",
+    "PLAN.md": "8f336f16d3930392ca97b0ef0e95381a90ec78b11c76053029c0bd8bd2e09ae2"
+  },
+  "schema": "1370-c0-h-typecheck-collection-filled-exact-r9",
+  "status": "FROZEN_UNRUN_EXACT_REVIEW_REQUESTED"
+}

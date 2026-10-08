@@ -1,0 +1,20 @@
+{
+  "actualStaticReceiptDecision": "ACCEPT_STATIC_H_POST_R9_BASELINE_RECORDER_ONLY",
+  "bindingSha256": "e6251ff4e7fb93e8b01b3a3d73baafcdae605c3564d51f6410da7839b66c4500",
+  "claimLimit": "Filled r1 launch deterministically rejects the pinned independent static receipt before supervisor execution; unrun and not authorized",
+  "decision": "REFINE_EXACT_UNRUN",
+  "evidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "expectedByLaunchDecision": "ACCEPT_STATIC_H_BASELINE_RECORDER_R1_ONLY",
+  "inventorySha256": "742af34c24b835280e52f40d6d446bd678dfaf7a5eef16c7b1309109342652db",
+  "launchSha256": "59d308668664236ab39c14289dbb35773f4931199836d34c51a987650b5f3fac",
+  "preflightAC": true,
+  "preflightCleanRefs": true,
+  "preflightFreeBytes": 3776749568,
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r9ObservedStopSha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4",
+  "run": false,
+  "schema": "1370-c0-h-mirror-post-r9-baseline-filled-exact-independent-review-r1",
+  "sourceStaticReviewSha256": "7aae4ad9836dd1f98017a21eb9a3249ba16b71dbb043c0343255912a56002799",
+  "staticRecorderReceiptSha256": "4001e03fbdd218878ef71014551ca49f6dc0bf397a91bd3f486ed7154ccb2746"
+}

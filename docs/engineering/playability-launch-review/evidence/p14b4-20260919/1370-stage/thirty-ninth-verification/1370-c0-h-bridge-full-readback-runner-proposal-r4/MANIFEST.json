@@ -1,0 +1,57 @@
+{
+  "addendumObservedReviewSha256": "f2baf6d6f44b3582f3a70384c1c3acae2a328de254101dad076d428c9ea57a9d",
+  "claimLimit": "Unrun source package; no 1402-file observed proof, H types, C0 or game acceptance",
+  "files": [
+    {
+      "bytes": 29025,
+      "name": "readback.py",
+      "sha256": "c66b395388c5d49527d719d454bf870291d908c582e02609dd4ec0306548ad94"
+    },
+    {
+      "bytes": 3626,
+      "name": "BOOTSTRAP.py",
+      "sha256": "a1e8d320f961df4235dfe4cc1bd3573d5ac39f43cc44e955413b28d277505b0a"
+    },
+    {
+      "bytes": 17125,
+      "name": "SPEC.json",
+      "sha256": "ce31357835802a711b346e72b2293ee6ded86d09ed3ffa4b9a046d838d50a2c0"
+    },
+    {
+      "bytes": 2534,
+      "name": "BINDING-SOURCE.json",
+      "sha256": "701e377b42fcc06dd341fc03c93b3e96e92ed9b8d6730e1c945d225caa162c6a"
+    },
+    {
+      "bytes": 392,
+      "name": "EXACT-LAUNCH-TEMPLATE.command",
+      "sha256": "b51dd445f5e60e188cec455820d16a35ec4c4433418e9202639e50be08d4b3fb"
+    },
+    {
+      "bytes": 7744,
+      "name": "selfcheck.py",
+      "sha256": "315b6ebc3b001895d53b5a1d9bc3ad4517df8a81b58adab5beb03891d73e2204"
+    },
+    {
+      "bytes": 3915,
+      "name": "PLAN.md",
+      "sha256": "33a8ea7679147f1ef5a4785e33223d012c8bd5821f50720be9dc824f59ad4edb"
+    },
+    {
+      "bytes": 1403,
+      "name": "RECORDER-DESIGN.md",
+      "sha256": "29de707807f19328382653ae4e1c94eef38a22bb9a9e355b97d58c14c572441e"
+    },
+    {
+      "bytes": 1076,
+      "name": "REVIEW-REQUEST.md",
+      "sha256": "eddd8c111c808dd2f82df7fb0dbb874823aea80bb1e24244249c0a5ebe722809"
+    }
+  ],
+  "fullReadbackExecuted": false,
+  "predecessorR3RefineSha256": "970990fbab0b595e9ffca9c6b6e79f540d27bfd1ead777aa43e6374e49725140",
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "1370-c0-h-bridge-full-readback-runner-manifest-r4",
+  "status": "FROZEN_UNRUN_STATIC_REVIEW_REQUESTED"
+}

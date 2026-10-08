@@ -1,0 +1,15 @@
+{
+  "claimLimit": "Static runner only; exact launch/types/collection/game pending",
+  "decision": "ACCEPT_STATIC_ONLY",
+  "expectedMirrorBytes": 98158847,
+  "expectedMirrorFiles": 1344,
+  "inventorySha256": "3524b4b8c0da011d3e6a907decf91f972ccbf61f499d25972d7fc428d10182e4",
+  "observedMirrorDigest": "55fd1afb4437386867cdb23c5daf137e9613d41e51f31dafc619bedf37bc59a4",
+  "planSha256": "c71faa51816d86d0bab7000e5d51070348501cdb2d0f2d687819b54e94c9288b",
+  "r4FilledRefineReceiptSha256": "7bdb89146d5869dffd4121470f61f32bae9020674c743dd491475753333dc7a4",
+  "recorderSha256": "f6bd69624720e32dfc3d512f02914fc12adaa38147ee5764bb872a18652390fa",
+  "reportSha256": "7b989f5d39071cb63f2a5d83fcf9f825f6e8656d0b5ac0f9df55c5c007e522a5",
+  "runnerSha256": "0fe66879521909362fa746044485b58b8a61b411038d40343465042aa183b50b",
+  "selfcheckPass": true,
+  "selfcheckSha256": "50dd35cddabb690f0d03231795c5aaa6b3c732c46e23204ff9fe7391433d9ca3"
+}

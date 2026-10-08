@@ -1,0 +1,16 @@
+{
+  "inventorySha256": "655ad7c1deaf3e1c2a24a58a3af964f681bb2c9cd4180443ca60c11ec45ee7f4",
+  "laneLog": "/Users/zacheryspector/studio-scratch/c0-h-bridge-addendum-20261008-r3.lane.log",
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "recorderActiveSeconds": 200,
+  "recorderWholeSeconds": 210,
+  "result": "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-addendum-recorder-results-r4/20261008-h-bridge-addendum-r3.RECORDER-RESULT.json",
+  "schema": "1370-c0-h-bridge-addendum-filled-launch-r3",
+  "sourceDeadlineSeconds": 180,
+  "sourceSha256": "3ce344244945298a11668abc04fc8a244f7a3884666d2f461797ede35aa11d44",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "staticReviewDecision": "ACCEPT_STATIC_RECORDER_ONLY",
+  "staticReviewReceiptPath": "1370-c0-h-bridge-addendum-recorder-independent-static-review-r4/RECEIPT.json",
+  "staticReviewReceiptSha256": "903429313815be42c2d9fd2e37af69b0c4ebea57f842cdc85a99f3aa3386e34e",
+  "status": "FILLED_UNRUN_REQUIRES_INDEPENDENT_EXACT_REVIEW"
+}

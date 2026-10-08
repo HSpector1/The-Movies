@@ -1,0 +1,18 @@
+{
+  "arm": "H",
+  "childDeadlineSeconds": 180,
+  "floorFreeBytes": 3221225472,
+  "inventorySha256": "2cd8b613ebc4315f16e1383159cc89bbf19fb23de13042de933c3dc84296d83d",
+  "lanes": 1,
+  "mirrorMutation": "NONE_UNTIL_INDEPENDENT_EXACT_REVIEW",
+  "originUrl": "https://github.com/HSpector1/The-Movies.git",
+  "preflightFreeBytes": 3758096384,
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "runId": "20261008-h-bridge-addendum-r3",
+  "schema": "1370-c0-h-bridge-addendum-unfilled-launch-r1",
+  "sourceSha256": "72a9bf9f6567afac320373532486c6bfd40663cf019eadb93d32db73a651678d",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "staticReviewReceiptPath": "1370-c0-h-bridge-addendum-independent-static-review-r3/RECEIPT.json",
+  "staticReviewReceiptSha256": "2d68b3686fea754398a76265b632a1c37bf58444169b9201f56982cfdc187eb6",
+  "status": "FILLED_UNRUN_REQUIRES_INDEPENDENT_EXACT_REVIEW"
+}

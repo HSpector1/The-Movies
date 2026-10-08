@@ -1,0 +1,5 @@
+# Independent static review request — H bridge full readback r4
+
+Frozen scratch-only source package; unrun. R3 STATIC REFINE receipt SHA `970990fbab0b595e9ffca9c6b6e79f540d27bfd1ead777aa43e6374e49725140` identified unbounded `os.scandir` name materialization. Confirm r4 bounds each directory and the whole mirror to <=1,500 entries, streams names with a guard every 16 entries, checks guard at start/end, sorts only after the cap, and rejects an over-cap synthetic iterator after periodic guard calls. Preserve r3's finite/nonfuture bootstrap START and exact original node_modules link tuple fixes. Verify source, SPEC, accepted addendum observed receipt, 58 bridge Git rows, 1,402/99,516,095 final proof, nofollow file/parent controls, STOP/output labels and source guard. Run `python3 -B selfcheck.py` only. No H mirror read or launch. `BOOTSTRAP.py` is standalone source for a future separately reviewed 630-second outer recorder; EXACT-LAUNCH-TEMPLATE.command is not a recorded launch.
+
+Return ACCEPT_STATIC_H_BRIDGE_FULL_READBACK_ONLY or REFINE with precise findings.

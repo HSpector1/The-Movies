@@ -1,0 +1,5 @@
+{
+  "claimLimit": "No H bridge source acceptance from this failed readback",
+  "decision": "STOP_H_BRIDGE_FULL_READBACK",
+  "error": "RuntimeError('H tree')"
+}

@@ -1,0 +1,1 @@
+Exact r5 H bridge full-readback retry, unrun. Bound to accepted r5 source and r2 recorder static receipts and preserved r4 observed STOP. Fresh one-shot r5 binding/readback/recorder/lane paths. 600 child, 620 active, 630 whole. Independent exact review required before launch; no full readback or acceptance claim.

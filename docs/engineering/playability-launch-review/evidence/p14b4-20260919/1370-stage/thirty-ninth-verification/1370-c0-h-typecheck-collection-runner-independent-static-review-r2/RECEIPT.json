@@ -1,0 +1,10 @@
+{
+  "claimLimit": "Unrun; no mirror, typecheck, collection or game result",
+  "decision": "REFINE",
+  "inventorySha256": "873117df49ab630e7430440dc520327bf74361d46960d0855b7de28c1faf9d5d",
+  "planSha256": "4e4dfaf6c211f6fdb218a8e211eb2e4162cc19094a3640f2ed592de66773eac8",
+  "reason": "Outer timeout can orphan separate-session compiler; dependency read lacks post-read pathname lstat identity",
+  "recorderSha256": "f9356f5cf96a94daf4506f2ff4b01c14be6df8afa778224f5c4dba4cb47cb6bc",
+  "reportSha256": "efbf255f982791d71cb071a99bd112ae8d5f2b27fc7c92f827dd02135a2e06c6",
+  "runnerSha256": "26e8bddc9fc568013011bdb606a87ad670e752cb893304001f041e07d1a5a90d"
+}

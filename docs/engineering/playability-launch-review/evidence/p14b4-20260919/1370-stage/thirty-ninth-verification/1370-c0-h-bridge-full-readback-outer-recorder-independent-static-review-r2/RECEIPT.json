@@ -1,0 +1,21 @@
+{
+  "claimLimit": "Frozen unrun outer recorder/template only; filled exact launch and observed 1,402-file readback pending",
+  "decision": "ACCEPT_STATIC_READBACK_RECORDER_R2_ONLY",
+  "inventorySha256": "d04782402acce1e40ee75971826d42683e209d362eb7e98fd5ae9d0f6c247b6f",
+  "launchTemplateSha256": "77ecb9b018ea307dcec090c8b1afb291d5442ee2527d31646fef30b1e0bddf56",
+  "planSha256": "549ddda104f31847463176165ce798f0211cc804f89936fd99c5589c57b4b472",
+  "r4ObservedStopSha256": "8d7c904eefdaacc5e8905c2a3166d80907768cb7c97c75d46be1c26de98beec6",
+  "readbackR5BootstrapSha256": "91bbefbc5a7820dfba13905f19b1702dc481879126414a333622d2a7a26d1d48",
+  "readbackR5SourceSha256": "fd241c6d3de7ae9779c9f8f9b0d5efc41c8dfd1ae85c0066b91e270198ece40a",
+  "readbackR5StaticReviewSha256": "c540f11967aac7d0fc30f4452a24ad47441ea45ff3377cb10e8bec94988196f0",
+  "schema": "1370-c0-h-bridge-full-readback-outer-recorder-independent-static-review-r2",
+  "selfcheck": "PASS_SYNTHETIC_RECORDER_ONLY",
+  "selfcheckSha256": "0d4c5c9de97e4596f04d027f6b61442ef8d3996cb010b1cf492c201cc6e117cd",
+  "supervisorSha256": "8a4171a3cf9749850538a59cc947a31dfd234890879b87a821832ad675a76913",
+  "templateBashSyntax": "PASS",
+  "timersSeconds": {
+    "recorderActive": 620,
+    "recorderWhole": 630,
+    "source": 600
+  }
+}

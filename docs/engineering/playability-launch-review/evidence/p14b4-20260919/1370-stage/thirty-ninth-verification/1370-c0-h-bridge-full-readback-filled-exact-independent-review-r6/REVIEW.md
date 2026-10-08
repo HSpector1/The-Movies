@@ -1,0 +1,5 @@
+# H bridge full-readback r6 retry — exact review
+
+Decision: **ACCEPT_EXACT_H_BRIDGE_FULL_READBACK_RETRY_R6_ONLY**. Frozen launch/binding/inventory SHA values match. `bash -n` passes. Loader arms a 630−elapsed alarm before nofollow SHA reads and executes accepted r3 supervisor in memory. That supervisor pins corrected r6 child/static/spec and keeps 600/620/630-second source/active/whole limits, actual child exit, process-group cleanup and one-shot result. The r6 source separately guards H root, H:src and H:bridge; accepted static and actual-binding prewalk receipts are pinned. Both r4 and r5 STOP receipts are retained.
+
+Fresh read-only preflight: clean HEAD965/src13880, exact origin and local/remote production/evidence refs, AC, 3,783,897,088 free bytes above 3.5 GiB. New r6 lane lock/log/meta/readback/recorder/partials are absent. This approves only the one-shot diagnostic command. Timeout, child nonzero, missing/partial output or survivor is STOP; independent full-mirror observed audit remains required.

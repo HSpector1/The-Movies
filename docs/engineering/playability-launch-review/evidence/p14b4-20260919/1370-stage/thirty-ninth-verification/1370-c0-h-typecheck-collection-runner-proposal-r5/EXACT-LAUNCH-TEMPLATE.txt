@@ -1,0 +1,25 @@
+# UNRUN TEMPLATE. Fill observed H mirror review SHA, filled binding path/SHA after independent observed review; review resulting exact command.
+/usr/local/bin/python3 -I -B -c 'import hashlib,os,stat,sys,json
+from pathlib import Path
+s=Path("/Users/zacheryspector/studio-scratch")
+p=s/"1370-c0-h-typecheck-collection-runner-proposal-r5/recorder.py"
+review=s/"<OBSERVED_H_MIRROR_REVIEW_PATH>"
+pins={p:"f6bd69624720e32dfc3d512f02914fc12adaa38147ee5764bb872a18652390fa",review:"<OBSERVED_H_MIRROR_REVIEW_SHA256>"}
+def read(file,pin):
+ for parent in file.parents: assert stat.S_ISDIR(parent.lstat().st_mode)
+ before=file.lstat();assert stat.S_ISREG(before.st_mode) and before.st_nlink==1 and before.st_size<1048576
+ fd=os.open(file,os.O_RDONLY|os.O_NOFOLLOW)
+ try:
+  chunks=[]
+  while part:=os.read(fd,65536): chunks.append(part)
+  raw=b"".join(chunks);during=os.fstat(fd);after=file.lstat()
+  fields=lambda v:(v.st_dev,v.st_ino,v.st_mode,v.st_nlink,v.st_size,v.st_mtime_ns,v.st_ctime_ns)
+  assert fields(before)==fields(during)==fields(after) and len(raw)==before.st_size
+ finally:os.close(fd)
+ assert hashlib.sha256(raw).hexdigest()==pin
+ return raw
+data={file:read(file,pin) for file,pin in pins.items()}
+assert json.loads(data[review])["decision"]=="<ACCEPT_OBSERVED_H_MIRROR_DECISION>"
+sys.argv=[str(p),"--run-id","20261008-h-types-r2","--binding","<FILLED_BINDING_PATH>","--binding-sha","<FILLED_BINDING_SHA256>"]
+exec(compile(data[p],str(p),"exec"),{"__name__":"__main__","__file__":str(p)})
+'

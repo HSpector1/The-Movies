@@ -1,0 +1,3 @@
+# Independent static review request — H post-r9 mirror baseline r1
+
+Decision requested: ACCEPT_STATIC_SOURCE_ONLY or REFINE. This source is unrun. Review r6 reader inheritance, exact r9 observed STOP/raw binding, strict old/new root tuple and full 1,402-file/99,516,095-byte Git/overlay proof, original link identity, nofollow/caps/AC/ref guards, 600-second deadline and one-shot STOP. Verify `rootDriftCause=UNATTRIBUTED_R9` is retained and no type acceptance is inferred. Synthetic selfcheck must not open or mutate the H mirror. A separate reviewed 620/630 recorder, filled exact binding/launch and observed byte review are mandatory before r10 H type retry.

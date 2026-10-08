@@ -1,0 +1,14 @@
+{
+  "bindingSourceSha256": "18873c96b70febbc26df377d96560359b620b450a3f7a4bc477a6d5bfe4c6151",
+  "bootstrapSha256": "91bbefbc5a7820dfba13905f19b1702dc481879126414a333622d2a7a26d1d48",
+  "decision": "ACCEPT_STATIC_H_BRIDGE_FULL_READBACK_ONLY",
+  "fullReadbackExecuted": false,
+  "manifestSha256": "8846d8720f6b2e32574b2d9ced084c44b5455567db354650a1a147f7009ddd63",
+  "predecessorObservedStopSha256": "8d7c904eefdaacc5e8905c2a3166d80907768cb7c97c75d46be1c26de98beec6",
+  "reviewSha256": "838886d6c8de26cb964f053895ca9b62599afdbec5d8b1e9de7697435166a53d",
+  "schema": "1370-c0-h-bridge-full-readback-independent-static-review-r5",
+  "scriptSha256": "fd241c6d3de7ae9779c9f8f9b0d5efc41c8dfd1ae85c0066b91e270198ece40a",
+  "selfcheck": "PASS",
+  "sourceDir": "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-full-readback-runner-proposal-r5",
+  "specSha256": "61377447a4ae70f49b090102ce85267a9487025f807c195252ef99f82ad64e07"
+}

@@ -1,0 +1,28 @@
+{
+  "bindingSha256": "dcc0bb0b43e999920de454641edd51817a8ee0419271ab82f4605fc3aae8e424",
+  "claimLimit": "Frozen unrun retry command/binding and read-only preflight only; full mirror readback and observed admission pending",
+  "decision": "ACCEPT_EXACT_H_BRIDGE_FULL_READBACK_RETRY_R5_ONLY",
+  "evidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "inventorySha256": "2b13490ee94cd152d5137efbbc39e74ad2008c8ee64aa5fb049215d2369f3342",
+  "launchSha256": "b1fd9b23c29740095ffe3254476033c0d984bbc6d9afcb8c2033ad33961e5b10",
+  "origin": "https://github.com/HSpector1/The-Movies.git",
+  "outerR2StaticReviewSha256": "206d25c3f5b4c1930d3f4b79de31e7386e677e72d01c7ac4d90dbd55688c1fcc",
+  "planSha256": "4d05dac7e142e28a20cfd28b208b67bf4e87e706fe27002caa6ce5b780fc037c",
+  "preflightAC": true,
+  "preflightCleanProduction": true,
+  "preflightFreeBytes": 3790774272,
+  "preflightLaneAndR5OneShotOutputsAbsent": true,
+  "preflightLocalRemoteRefsMatch": true,
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r4ObservedStopSha256": "8d7c904eefdaacc5e8905c2a3166d80907768cb7c97c75d46be1c26de98beec6",
+  "readbackR5StaticReviewSha256": "c540f11967aac7d0fc30f4452a24ad47441ea45ff3377cb10e8bec94988196f0",
+  "readbackSourceSha256": "fd241c6d3de7ae9779c9f8f9b0d5efc41c8dfd1ae85c0066b91e270198ece40a",
+  "schema": "1370-c0-h-bridge-full-readback-filled-exact-independent-review-r5",
+  "supervisorSha256": "8a4171a3cf9749850538a59cc947a31dfd234890879b87a821832ad675a76913",
+  "timersSeconds": {
+    "recorderActive": 620,
+    "recorderWhole": 630,
+    "source": 600
+  }
+}

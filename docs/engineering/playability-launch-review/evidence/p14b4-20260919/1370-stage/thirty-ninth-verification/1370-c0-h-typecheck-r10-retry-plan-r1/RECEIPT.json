@@ -1,0 +1,11 @@
+{
+  "exactReviewRequired": true,
+  "planSha256": "a272427e86832c955d07b142af11311907d802f742df3715f3e82fb767dc1faa",
+  "r9ObservedStopSha256": "4cffcd747b9b538631314997134561de143f4a7f0d45aaf0c577a893b4558db4",
+  "r9RawStopSha256": "02cabccb0dcf7c3dea903690f7311eb23dda80790a9ab2b363eda1ab76075b90",
+  "recorderReviewRequired": true,
+  "rootDriftAttribution": "UNPROVEN",
+  "schema": "1370-c0-h-typecheck-r10-retry-plan-r1",
+  "sourceReviewRequired": true,
+  "status": "PLAN_ONLY_UNRUN"
+}

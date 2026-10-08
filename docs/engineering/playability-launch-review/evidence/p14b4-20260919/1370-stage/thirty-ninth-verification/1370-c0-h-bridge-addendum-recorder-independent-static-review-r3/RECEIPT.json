@@ -1,0 +1,23 @@
+{
+  "claimLimit": "Recorder r3 remains unrun and cannot authorize exact launch/mirror mutation",
+  "decision": "REFINE_STATIC_UNRUN",
+  "embeddedBootstrapPins": "Exact r1 bootstrap source/static/HEAD pins retained; real bootstrap unrun",
+  "finding": {
+    "issue": "START is required but not validated as a finite monotonic timestamp no later than now. A future LAUNCH_START extends the nominal 200/210-second budgets. Synthetic import with now+60 produced ~260s active and ~270s whole. Add type/finite/0<=elapsed<ACTIVE validation at entry before timers and a future-start RED.",
+    "line": "supervise.py:8,13-16,96-101",
+    "severity": "material"
+  },
+  "hardDeadlineClaimLimit": "At a hard 210s alarm during safe_result, an absent or partial recorder result is STOP and must be interpreted with lane meta/log; no success claim from wrapper exit",
+  "inventorySha256": "79bd10eae10d6d3555b5cf4a5af8a097ab14ea5101e8cb65416dd3b69de6c494",
+  "planSha256": "6892930f4dcb47de80c79abb4524e9e42fee53f5de7b77fee404d0cfae73d2d7",
+  "predecessorRefineSha256": "957351cb947e66b19b248405ec046406ce116c4f8877e856dc05033e1b84cfa4",
+  "r2CorrectionsVerified": [
+    "No missing-start fallback; missing loader start raises KeyError",
+    "200s active and 210s hard timer remain armed through process-group cleanup and result write",
+    "Hard alarm kills group and logs explicit STOP; a missing/partial result is classified STOP in PLAN",
+    "Stable nofollow result dirfd writes .partial, fsyncs, links O_EXCL final, reads back hash/path and root identity"
+  ],
+  "selfcheckSha256": "0d620c5d162576b7d13030cdc5ae701eea7a723be1436a69b5db955eb6004fa0",
+  "selfcheckStatus": "PASS_SYNTHETIC_TIMEOUT_GROUP_CLEANUP_ONLY",
+  "supervisorSha256": "90b980bd331978da9c2da02e04739b76857eaa1daa4880ecaac2f89f0e185b1e"
+}

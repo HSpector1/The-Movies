@@ -1,0 +1,28 @@
+{
+  "acceptedDesignReceiptSha256": "5a3871771cd1feeeaea6075c1a3906a740aea14cc834be6d694608047d93055b",
+  "files": [
+    {
+      "bytes": 3237,
+      "path": "LAUNCH.template.command",
+      "sha256": "1a58872f8d8be372c70755e332a2092544ef606e988ebe610057df7b1369b112"
+    },
+    {
+      "bytes": 2221,
+      "path": "PLAN.md",
+      "sha256": "0f4a3a60cfaa092f0d8740c0e9a7860c53c24c52fbd6730ad92fa01a299118be"
+    },
+    {
+      "bytes": 3684,
+      "path": "selfcheck.py",
+      "sha256": "30a4999d9c359c7154e0adbf7def61f36a350a2ccdfdd0c5bef49c2a213d48c1"
+    },
+    {
+      "bytes": 12004,
+      "path": "supervise.py",
+      "sha256": "631104e7a52b32bebbe3f0ac7005624a0de27da667ed1e6eaef1c7cd883e0759"
+    }
+  ],
+  "readbackSourceReviewSha256": "c87eafc1af74e35a14ab1a45d4f8b0f6bcc85b1f59d129bbcbf8ba7551e6caa3",
+  "schema": "1370-c0-h-bridge-full-readback-outer-recorder-proposal-inventory-r1",
+  "status": "STATIC_PROPOSAL_UNRUN"
+}

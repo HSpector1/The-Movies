@@ -1,0 +1,26 @@
+{
+  "files": {
+    "BINDING.json": {
+      "bytes": 3169,
+      "sha256": "b7cc5620534abd4d7fb12abf9fe111d747334623aa3f114b572583b0f543d662"
+    },
+    "LAUNCH.command": {
+      "bytes": 4084,
+      "sha256": "2e33e3b99eb9bb85347b7cf888920bf4d54496f0c19e158a20f6c3849e0543bc"
+    },
+    "PLAN.md": {
+      "bytes": 2529,
+      "sha256": "97d8ceaec8dd6941be398dd02fd06d12a8c795dfb87f34883045dba473c8916e"
+    },
+    "selfcheck.py": {
+      "bytes": 2421,
+      "sha256": "cafb5ba9432900813d9bb8b4b9c3deffeaf8b5a6167684b828c73e9f698d89e5"
+    }
+  },
+  "fullMirrorDigestSha256": "55fd1afb4437386867cdb23c5daf137e9613d41e51f31dafc619bedf37bc59a4",
+  "hMaterializerResultSha256": "b8c70f731fc730cea3ba7238674fb964fb973e6ffcf58fcb03e0dbbd139196b6",
+  "hObservedMirrorReceiptSha256": "bb61794d874cdc80f1283459d9eca49c5174de441cde9dcbe971d36e2b9f226e",
+  "predecessorFilledR1RefineReceiptSha256": "7bdb89146d5869dffd4121470f61f32bae9020674c743dd491475753333dc7a4",
+  "r5StaticReceiptSha256": "97eabe8071c4e74fa170fe82ed86811142f36739341b6f9fde3a5c0ec23f41f8",
+  "status": "UNREVIEWED_EXACT_H_TYPECHECK_LAUNCH_UNRUN_STAGE38_LANE_BUSY_AT_STATIC_CHECK"
+}

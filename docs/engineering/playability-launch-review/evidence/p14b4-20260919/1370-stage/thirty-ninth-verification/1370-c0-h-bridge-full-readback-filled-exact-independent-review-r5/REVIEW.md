@@ -1,0 +1,5 @@
+# H bridge full-readback r5 retry — exact review
+
+Decision: **ACCEPT_EXACT_H_BRIDGE_FULL_READBACK_RETRY_R5_ONLY**. Frozen launch/binding/inventory hashes match; `bash -n` passes. The loader starts LAUNCH_START and arms positive 630−elapsed before nofollow authenticated reads, then runs accepted r2 supervisor in memory. The supervisor pins r5 child/static/spec and uses 600/620/630-second source/active/whole limits, real child exit, process-group cleanup and one-shot result. R5 child uses exact pinned path/SHA/decision for the prior addendum recorder reviews; actual filled values match, and preserved r4 STOP is bound.
+
+Fresh read-only preflight: clean HEAD965/src13880, exact origin and local/remote production/evidence refs, AC, 3,790,774,272 free bytes above 3.5 GiB. R5 lane lock/log/meta/readback/recorder/partials were absent. R4 failed run files remain separate. This is launch-only acceptance; a child nonzero, timeout, missing result or survivor remains STOP, and 1,402-file full readback requires independent observed audit.

@@ -1,0 +1,9 @@
+{
+  "bindingSha256": "57055e368a0f6eeb2f7664c3209d12476ed709fbd05a17a26a918dc6237a1472",
+  "decision": "PASS_ACTUAL_R9_BINDING_PRE_WALK_ONLY",
+  "mirrorOrDepsScanned": false,
+  "reportSha256": "cdaecc874c22c6e0190c3124a07cc6dd00b9f0dd26a23602c228a1de347cb471",
+  "schema": "1370-c0-h-typecheck-collection-prewalk-audit-r9",
+  "sourceSha256": "8f5c21590d29a02d2cc1aed87ebea94538d4078e6ecf65e379e2dd3ad6bc7968",
+  "typesRun": false
+}

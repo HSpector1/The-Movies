@@ -1,0 +1,24 @@
+{
+  "bindingProposalSha256": "b8a45fde3e777eb219347de2e407c9562c5a85da7ae50b7f41080d2534395158",
+  "files": [
+    {
+      "bytes": 5071,
+      "path": "BINDING.json",
+      "sha256": "45ae9e3e10658ab23179d08cb841923dc46c3b76c2991b1a0da16a1e29d4b4f0"
+    },
+    {
+      "bytes": 3337,
+      "path": "LAUNCH.command",
+      "sha256": "c2c3746b3d10961f370aca35b73be291b7d96ae000f0a690892a2d2fee16401c"
+    },
+    {
+      "bytes": 1618,
+      "path": "PLAN.md",
+      "sha256": "b09aeaba8c5ba20e3d0749b91db8ed6c46e48f5d5bcaaa836cfe871d44c79606"
+    }
+  ],
+  "outerStaticReceiptSha256": "142a757b2ec6ee2942dba71d04a5f01fb6401910bcfc323b23b0811511873350",
+  "readbackStaticReceiptSha256": "c87eafc1af74e35a14ab1a45d4f8b0f6bcc85b1f59d129bbcbf8ba7551e6caa3",
+  "schema": "1370-c0-h-bridge-full-readback-filled-exact-inventory-r4",
+  "status": "FILLED_UNRUN"
+}

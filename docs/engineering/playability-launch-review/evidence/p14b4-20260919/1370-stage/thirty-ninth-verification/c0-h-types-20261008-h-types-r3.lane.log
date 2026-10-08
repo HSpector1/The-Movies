@@ -1,0 +1,2 @@
+{"status": "STOP_TYPECHECK_COLLECTION", "receipt": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-results-r5/20261008-h-types-r3/RESULT.json", "sha256": "3eb6294278eda61893738cdc1ee5b6a80c44ced5a3cd9fd7197511bbb6198216"}
+STOP_TYPECHECK_COLLECTION RuntimeError('postflight or child failure')

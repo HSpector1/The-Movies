@@ -1,0 +1,30 @@
+{
+  "bindingSha256": "09120c19b820efcdf4d534b07b818a4b08129a10857bdcc5b370e5a7b8ef74a4",
+  "claimLimit": "Frozen unrun r6 command/binding and read-only preflight only; full 1,402-file mirror readback and independent observed admission pending",
+  "decision": "ACCEPT_EXACT_H_BRIDGE_FULL_READBACK_RETRY_R6_ONLY",
+  "evidenceTip": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "inventorySha256": "df1ef7534a2e650bbc2b003724fb6084e631f652d4a8645dd7720a4d411acfc8",
+  "launchSha256": "6a1ad4e3acac52ff21bfb7bb7a3d1dd28d1e50292b9e355db8ba9c5e34321a2f",
+  "outerR3StaticReviewSha256": "4c3ce68ac6e0f21699be9b172ec4ea42b0dc4cf077b500b41c02d2f4912a67d9",
+  "planSha256": "7b2d02221d8ea6b808985bbd512cde64bc99adfd76ddb9cc3ce0aebd72d39ef6",
+  "preflightAC": true,
+  "preflightCleanProduction": true,
+  "preflightFreeBytes": 3783897088,
+  "preflightLaneAndR6OneShotOutputsAbsent": true,
+  "preflightLocalRemoteRefsMatch": true,
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r4ObservedStopSha256": "8d7c904eefdaacc5e8905c2a3166d80907768cb7c97c75d46be1c26de98beec6",
+  "r5ObservedStopSha256": "ded3a4f895ca393dedb3099712a7d01f1ee6f2c22cc780d215f51de397d37fd9",
+  "r6ActualBindingPrewalkProbeSha256": "6b4d17eab5dd90c32aa284bd2ecc426f03a4eb2637a9a2dc5c5174bf8cf3e594",
+  "r6PrewalkStaticProbeSha256": "783de8ea235f6434d5a519ce9b12eedb7662557d87d961f9638258dcd8e1881c",
+  "readbackR6StaticReviewSha256": "63767792d0a2e43a052141c13f3e1e15c2d4c3dbc450f4a73a3210d5daa564e1",
+  "readbackSourceSha256": "6d2c51bc6a802e7e19e41849d27569e35bcfcee31dfc12480c0f6a22998314d1",
+  "schema": "1370-c0-h-bridge-full-readback-filled-exact-independent-review-r6",
+  "supervisorSha256": "afe0936bca4b1d833ae5e5397e10970fb92fa61bcd48dac17cd0210adf2fd863",
+  "timersSeconds": {
+    "recorderActive": 620,
+    "recorderWhole": 630,
+    "source": 600
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "baseEvidenceCommit": "fe9e8a7d84da164e9a413dc2c3efe49f529c2a78",
+  "claimLimit": "Frozen source only; exact launch, publication, and fresh HTTPS byte audit pending",
+  "decision": "ACCEPT_STATIC_STAGE39_PUBLISHER_R3",
+  "expectedDeltaCount": 326,
+  "manifestSha256": "5022990b2aa531fdf19f11e9f1e1e79cfa09d338d6e8af02c4cb7f32804fc85a",
+  "mapReviewReceiptSha256": "a16d9fc075f13ed192da9f4714afce381aa0f73810e0d42cee9062e0adfc0be2",
+  "mapSha256": "e0fa0cbda5a351a4e7065639d10c70f8bd633f049dc61691f0f836bd25e9c894",
+  "mappedSourceCount": 318,
+  "planSha256": "2102abf5a21b7ab55cdb38ef3f03165f99a86dd1236ef54624aa99df444fd487",
+  "productionHead": "9651546af98c44f04e8b6b2714d10d67dadb8f9c",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "publicationControlCount": 8,
+  "r2ObservedStopReceiptSha256": "acd7fe3d74923802e6d156c31063a1d7bf5d05b2eea4d63ec76c5e2646402300",
+  "reportSha256": "2d639cf5c083e82b9117850c10780801bb922f4517c0943e8f5f4559e86edd1b",
+  "rosterSha256": "358b36c4230b8d8a8bf8daab4f5af7e1aaeb2558eaf55224f838d3e65fd5acca",
+  "schema": "1370-c0-stage39-publisher-independent-static-review-r3",
+  "scriptSha256": "036cce1c25ca320f38afafbf029c8699e4e12fbc786f192aa58ffa007f9934a6",
+  "syntheticTestsPassed": 25
+}
