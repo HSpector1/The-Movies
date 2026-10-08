@@ -1,0 +1,19 @@
+{
+  "schema": "1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r3",
+  "decision": "REFINE_UNRUN_OBSERVED_AUDIT_SOURCE",
+  "classification": "NO_AUDIT_LAUNCH_NO_DIAGNOSTIC_ADMISSION",
+  "auditSha256": "1141bd62d254d52cf3661b7d29e21d5dddd5e1a8a6c66b32ada39ee7c0d38cb0",
+  "selfcheckSha256": "e51594e5537b02b1a8fb2ee7296eed827a2f85b09ce284711ea84f175abc5c78",
+  "manifestSha256": "3d8d846d583a8ca18742b854009cef20027afc6be496ac1bc47a3b0abcb88ac7",
+  "priorR2RefineReceiptSha256": "29d666f5053a9a8c1f91f271a7408a58eb78dd039bad8e6cabfba2a8b9bef56d",
+  "comparatorResultSha256Unadmitted": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa",
+  "reason": "The audit's strict_equal() checks object key order when comparing raw source-derived objects to comparator RESULT objects. Comparator RESULT is serialized with sort_keys=True, so preimages constructed in settlement/receipts/employment/takes order become alphabetical in RESULT; strict_equal() is deterministically false. The same mismatch affects result.firstObserved and stored terminal row objects. Preserve strict order for comparing the two raw source rows, but use a separate type- and signed-zero-aware dict-content comparison for values that passed through sorted RESULT serialization. Add a synthetic canonicalized-result positive check and pin the observed RESULT digest before execution.",
+  "verifiedFixesFromR2": [
+    "Correct p13a STOP path and preserved receipt SHA",
+    "Exclusive output-parent creation in both STOP and success branches",
+    "Positive-zero refund and strict raw Save46 checks",
+    "Parsed recorded lane start/end and child exit",
+    "O_NOFOLLOW descriptor identity with recurring AC/3 GiB checks during large reads"
+  ],
+  "claimLimit": "R3 source remains frozen and unrun. Version a corrected audit and independently static/exact review it before a heavy readback. Comparator output remains diagnostic-unreviewed."
+}

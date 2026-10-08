@@ -1,0 +1,20 @@
+{
+  "schema": "1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r6",
+  "decision": "ACCEPT_STATIC_ONLY",
+  "classification": "UNRUN_AUDIT_SOURCE_ONLY",
+  "auditSha256": "35e0aab6407c8b5d9228de2ce2c3e7300f7bd37fcd748b9c87a0114426aea43c",
+  "selfcheckSha256": "4d5e55b719f8fe10b0fece57bd90e69a5e87b34d8f8f00234fa5edefd318d281",
+  "manifestSha256": "c24e542e93f8fe9428beb6b4b35927329b5fcac2715e81c76cdfdf17209378e9",
+  "priorR5RefineReceiptSha256": "9d0a2bb56bc39aca13bebe3177270ec2a8edbd42b3460f63865e9ddf63336b5d",
+  "comparatorResultSha256Unadmitted": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "evidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "checks": [
+    "R6 requires a finite monotonic bootstrap start inside the 600-second child window and retains the authenticated bootstrap SIGALRM/ITIMER_REAL without resetting or extending it.",
+    "Synthetic tests reject missing, future and expired starts, prove sub-millisecond positive remainder, and recheck strict raw versus materialized RESULT equality, signed zero, lane chronology and output collision.",
+    "No other audit behavior drifted from static-accepted r4 except versioned output identity; frozen manifest, AST and selfcheck pass.",
+    "The original comparator RESULT SHA, child lane exit, E0G stage32/EBG adoption sources, 417 ordered rows, terminal preimages, production/source/remote pins, AC/3 GiB guards, nofollow reads and exclusive output remain required."
+  ],
+  "claimLimit": "Static source accepted only. An independently reviewed exact bootstrap and one recorded heavy audit child, followed by an observed review, are required. No 1363 admission."
+}

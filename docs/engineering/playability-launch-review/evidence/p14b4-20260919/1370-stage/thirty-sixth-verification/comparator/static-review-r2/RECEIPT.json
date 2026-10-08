@@ -1,0 +1,6 @@
+{
+  "compareSha256": "892f9ba0918675f847852c433c0dc9b73adbb31c5ec915940354fe492bbad266",
+  "decision": "ACCEPT_STATIC_ONLY",
+  "manifestSha256": "95930155db3882eba46a77d44ad8514af57f45be9b2f2e0b01ffa2d1dc8e2be7",
+  "selfcheckSha256": "449164cf4f716d995824ec8cdae145d3f779c0df7863de3a3050a7c427591867"
+}

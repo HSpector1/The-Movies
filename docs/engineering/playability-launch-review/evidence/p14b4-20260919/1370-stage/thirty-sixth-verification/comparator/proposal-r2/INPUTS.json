@@ -1,0 +1,105 @@
+{
+  "adoptionRoster": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-github-backup-design-r1/SOURCE-ROSTER.json",
+    "sha256": "f957f2244bd1bebfa405bd2fcb4cf284c670dfc2ba6bc6a896b2c8d482a630d0"
+  },
+  "baselineEvidenceTip": "3504c5ef5e8abbe471c8d4fae8db82c04dd57ec7",
+  "boundaries": 417,
+  "capturePredecessor": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "claimLimit": "Exploratory B-bundle diagnostic only; stage32 and EBG clean are 720/750 exploratory captures; no 1363 acceptance.",
+  "classification": "PINNED_DIAGNOSTIC_INPUTS_NO_COMPARISON",
+  "currentEvidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "designInputs": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-residual-design-r1/INPUTS.json",
+    "sha256": "bc29a5e796656fbc8fa5640ebadb1995b1c3a9fcd7ed8f01af98d9bca8264f90"
+  },
+  "designReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-residual-design-independent-review-r1/RECEIPT.json",
+    "sha256": "4244d3eefc004307a1e8f0552deda79b40acf0dfad70725fc0d5b9d4c51d2ecb"
+  },
+  "e0gArchiveSha256": "aadf488705d932179b2298dddd754d17a6bfa8640752f7e868401a340ab835fa",
+  "e0gProofKeys": [
+    "businesses",
+    "cuttingNull",
+    "periods",
+    "positiveZeroRefund"
+  ],
+  "e0gStage": 32,
+  "ebg": {
+    "boundaries": {
+      "bytes": 141237093,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/boundaries.ndjson.gz",
+      "sha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e"
+    },
+    "observedReceipt": {
+      "bytes": 1179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    "outerResult": {
+      "bytes": 1693,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "9489d8959d558b08b02b4df6324ff75f78fa6ba1c45be9afcef3fa6c0467fdb7"
+    },
+    "outerSidecar": {
+      "bytes": 83,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.sha256.json",
+      "sha256": "cfb682be6f1427a6c5d3b295a18d17554c4a572e555e84a92c074d1c5b6440db"
+    },
+    "progress": {
+      "bytes": 345,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/progress.ndjson",
+      "sha256": "4f40700dbb179699368baf817f1345a4e4594e32001a633f59b88743cfa82d4e"
+    },
+    "readback": {
+      "bytes": 311,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/readback-audit.json",
+      "sha256": "396b38701f3ee168635abddc2208049b896d16330447a9e2764a453146fa253c"
+    },
+    "routeManifest": {
+      "bytes": 26472,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/MANIFEST.json",
+      "sha256": "b8a115a2cec4c8dfb91742767362e493768c7ec992908c1aa4c3c05a92618374"
+    },
+    "summary": {
+      "bytes": 1123,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/summary.json",
+      "sha256": "04ce6caf2bde6cf5e1f78ce7de9c7ccb617712b11572928ef3fcb1b0398b68a0"
+    },
+    "targetResult": {
+      "bytes": 3074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    },
+    "targetSidecar": {
+      "bytes": 83,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.sha256.json",
+      "sha256": "52298c9f507f2c71e4f06adaaf6e914b4481597b8b8ba6527d077a3742ebc861"
+    },
+    "vitest": {
+      "bytes": 1180,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/vitest.json",
+      "sha256": "6d88da21b3869a413d40b384fcd02239eeb81f1160f7a59595a60f5a38a6ebf2"
+    }
+  },
+  "ebgProofKeys": [
+    "businesses",
+    "cuttingActive",
+    "cuttingNull",
+    "periods",
+    "positiveZeroRefund"
+  ],
+  "horizonTicks": 416,
+  "schema": "1370-e0g-ebg-b-only-adoption-inputs-r2",
+  "seed": "p13-public-commercial-adoption",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "stage35RemoteObserved": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-stage35-remote-audit-independent-observed-review-r2/RECEIPT.json",
+    "sha256": "31463c3927519129ba0aa85f422e02e1def4250cc0885c66e6279f8729c0e6de"
+  },
+  "stage35RemoteRaw": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-stage35-remote-audit-recorded-r2/20261008-stage35-remote-audit-r1/RECEIPT.json",
+    "sha256": "5b8c7a4fc3ccf3f2c95a115344c1f2ff7bf323e6127a95512211f92fb5b19381"
+  }
+}

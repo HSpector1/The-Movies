@@ -1,0 +1,17 @@
+{
+  "classification": "UNRUN_STATIC_AND_EXACT_REVIEW_PENDING",
+  "comparatorExactReviewSha256": "8b87236ce2d6b58e8d25a560bdb41ebb37c7dc28df97c92e7b9e86c28530cdf3",
+  "comparatorStaticReviewSha256": "ca19118cd97eb60640be419f9173a0aec867d456728ccc5bbbbe2286b34d89ec",
+  "evidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "files": {
+    "PLAN.md": "5daec4ef542059684306fe0d0763d37bc5543d1f83ce915244158ef28e1c3b5d",
+    "audit.py": "35e0aab6407c8b5d9228de2ce2c3e7300f7bd37fcd748b9c87a0114426aea43c",
+    "selfcheck.py": "4d5e55b719f8fe10b0fece57bd90e69a5e87b34d8f8f00234fa5edefd318d281"
+  },
+  "observedComparatorResultSha256Unadmitted": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa",
+  "r5RefineReviewSha256": "9d0a2bb56bc39aca13bebe3177270ec2a8edbd42b3460f63865e9ddf63336b5d",
+  "schema": "1370-e0g-ebg-b-only-adoption-r2-observed-audit-proposal-r6",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "supersedesManifestSha256": "1808a781aacb5b9bbf8c20aebe864c1c3bdf964dec152ad985b560e6a3db0535"
+}

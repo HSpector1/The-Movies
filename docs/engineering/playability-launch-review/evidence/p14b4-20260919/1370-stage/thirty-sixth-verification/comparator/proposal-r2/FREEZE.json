@@ -1,0 +1,47 @@
+{
+  "baselineEvidenceTip": "3504c5ef5e8abbe471c8d4fae8db82c04dd57ec7",
+  "classification": "UNRUN_AWAITING_INDEPENDENT_STATIC_REVIEW",
+  "currentEvidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "files": {
+    "EXACT-LANE-COMMAND-TEMPLATE.txt": {
+      "bytes": 1169,
+      "sha256": "302315a16618da92df80463e368867df5b93044fd395148f31d057f28671ce9a"
+    },
+    "INPUTS.json": {
+      "bytes": 5278,
+      "sha256": "f767f13f3212776f0b857b2ad146ca571b6a5c4813a8bcb2585f4536df01a93c"
+    },
+    "MANIFEST.json": {
+      "bytes": 2111,
+      "sha256": "95930155db3882eba46a77d44ad8514af57f45be9b2f2e0b01ffa2d1dc8e2be7"
+    },
+    "PLAN.md": {
+      "bytes": 2976,
+      "sha256": "f7eb2e61b8a942a743494a2233d52e037e1049073846f42ccd4c3c8217111140"
+    },
+    "REVIEW-REQUEST.md": {
+      "bytes": 821,
+      "sha256": "fec3eb88c38dc78919660d725197381e0ea72d98be8a2c34cbee6e90498100e0"
+    },
+    "compare.py": {
+      "bytes": 34200,
+      "sha256": "892f9ba0918675f847852c433c0dc9b73adbb31c5ec915940354fe492bbad266"
+    },
+    "launch.py": {
+      "bytes": 2153,
+      "sha256": "9ca23322796938bceaaf4d70530337d75149a854bcf7598c5043d5dfc69a9d57"
+    },
+    "selfcheck.py": {
+      "bytes": 9104,
+      "sha256": "449164cf4f716d995824ec8cdae145d3f779c0df7863de3a3050a7c427591867"
+    }
+  },
+  "lightAuth": "PASS_STAGE32_EBG_SOURCE_MAP_REMOTE_AUTHORITY_NO_ARCHIVE_READ",
+  "priorR1FreezeSha256": "9c1fdde551bbd94cb09bbaa63e308f07830fe0c1f85b95885f385d050dade0e3",
+  "priorR1Status": "REFINE_UNRUN_STALE_TEMPLATE_LAUNCH_PATH",
+  "schema": "1370-e0g-ebg-b-only-adoption-comparator-freeze-r2",
+  "selfcheck": "PASS_SYNTHETIC_AND_SMALL_PINNED_EBG_CONTROLS_ONLY",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "stage35RemoteObservedSha256": "31463c3927519129ba0aa85f422e02e1def4250cc0885c66e6279f8729c0e6de"
+}

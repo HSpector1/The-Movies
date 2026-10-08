@@ -1,0 +1,18 @@
+{
+  "classification": "EXACT_COMMAND_UNRUN_AWAITING_INDEPENDENT_REVIEW",
+  "commandSha256": "e665e0a9827be910c9006922bf93761f492184c0410eb32cf15acbc00bdb283e",
+  "evidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "freeBytesAtFill": 3996323840,
+  "laneLogAbsent": true,
+  "launchSha256": "9ca23322796938bceaaf4d70530337d75149a854bcf7598c5043d5dfc69a9d57",
+  "outputLeafAbsent": true,
+  "proposalFreezeSha256": "63950d6a07faf9a491441692d1e25ab7df8defed3cf7a2683d9501d7282d793b",
+  "proposalManifestSha256": "95930155db3882eba46a77d44ad8514af57f45be9b2f2e0b01ffa2d1dc8e2be7",
+  "requiredFreeBytes": 3758096384,
+  "runId": "20261008-bonly-adoption-r1",
+  "schema": "1370-e0g-ebg-b-only-adoption-comparator-r2-filled-exact-r1",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "staticReceiptSha256": "ca19118cd97eb60640be419f9173a0aec867d456728ccc5bbbbe2286b34d89ec",
+  "templateSha256": "302315a16618da92df80463e368867df5b93044fd395148f31d057f28671ce9a"
+}

@@ -1,0 +1,16 @@
+bash /Users/zacheryspector/studio-scratch/heavy-queue/lane-run.sh 0 '/Users/zacheryspector/studio-scratch/heavy-queue/1370-e0g-ebg-b-only-adoption-<FRESH_RUN_ID>.lane.log' python3 -I -B -c 'import hashlib,os,signal,stat,sys,time
+from pathlib import Path
+start=time.monotonic()
+signal.signal(signal.SIGALRM,lambda *_: (_ for _ in ()).throw(TimeoutError("900-second comparator bootstrap deadline")))
+signal.setitimer(signal.ITIMER_REAL,900)
+p=Path("/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-proposal-r2/launch.py")
+s=p.lstat();assert stat.S_ISREG(s.st_mode) and s.st_nlink==1 and s.st_size<100000
+fd=os.open(p,os.O_RDONLY|os.O_NOFOLLOW)
+try:
+ raw=os.read(fd,100001);after=os.fstat(fd)
+ assert (s.st_dev,s.st_ino,s.st_size,s.st_mtime_ns)==(after.st_dev,after.st_ino,after.st_size,after.st_mtime_ns)
+finally:os.close(fd)
+assert len(raw)==s.st_size and hashlib.sha256(raw).hexdigest()=="9ca23322796938bceaaf4d70530337d75149a854bcf7598c5043d5dfc69a9d57"
+sys.argv=[str(p),sys.argv[1],sys.argv[2]]
+exec(compile(raw,str(p),"exec"),{"__name__":"__main__","__file__":str(p),"_BOOTSTRAP_START":start})
+' '<FRESH_RUN_ID>' '<STATIC_REVIEW_SHA256>'

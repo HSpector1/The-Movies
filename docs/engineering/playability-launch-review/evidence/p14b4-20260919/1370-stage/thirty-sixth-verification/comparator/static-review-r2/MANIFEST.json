@@ -1,0 +1,8 @@
+{
+  "files": {
+    "RECEIPT.json": "ca19118cd97eb60640be419f9173a0aec867d456728ccc5bbbbe2286b34d89ec",
+    "REVIEW.md": "e9ac7606038eee8b3f4ed7fe761482c7e439058060f6fd83aceee7b9d0040900"
+  },
+  "proposalFreezeSha256": "63950d6a07faf9a491441692d1e25ab7df8defed3cf7a2683d9501d7282d793b",
+  "schema": "1370-e0g-ebg-b-only-adoption-comparator-independent-static-review-manifest-r2"
+}

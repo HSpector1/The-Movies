@@ -1,0 +1,16 @@
+{
+  "baseEvidenceCommit": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "claimLimit": "Exact source map approved only; no publication or 1363 admission.",
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "fileCount": 68,
+  "freeBytesAtReview": 3980578816,
+  "largestSourceBytes": 4274864,
+  "mapSha256": "8b82dc3a892ad3a012721b419b6219f222d5800e302c746825154f6b03fbab10",
+  "planSha256": "ee8278af34df7cdb8e375fdcadf76f63846afcddecc9c9b1a6d5ed42f0385539",
+  "productionHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "reportSha256": "c97df22a476499f2bee25ae5a7795b9e554c00027b96163146d20e52ce55182a",
+  "rosterSha256": "20bb8a667b114285bc9e35489d18b0fcfa8712529eaa963fef784bf9d9216ced",
+  "schema": "1370-e0g-ebg-b-only-adoption-stage36-independent-map-review-r1",
+  "sourceBytes": 4449678,
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

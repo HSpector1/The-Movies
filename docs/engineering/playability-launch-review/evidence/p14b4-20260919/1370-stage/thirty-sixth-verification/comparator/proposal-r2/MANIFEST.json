@@ -1,0 +1,47 @@
+{
+  "armLimits": "EXPLORATORY_720_TEST_750_RECORDER_BOTH_ARMS",
+  "boundaries": 417,
+  "classification": "UNRUN_STATIC_REVIEW_REQUIRED",
+  "compressedCapBytesPerArm": 167772160,
+  "currentEvidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "designBaselineTip": "3504c5ef5e8abbe471c8d4fae8db82c04dd57ec7",
+  "ebgBoundariesSha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e",
+  "ebgObservedReceiptSha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15",
+  "files": {
+    "INPUTS.json": {
+      "bytes": 5278,
+      "sha256": "f767f13f3212776f0b857b2ad146ca571b6a5c4813a8bcb2585f4536df01a93c"
+    },
+    "PLAN.md": {
+      "bytes": 2976,
+      "sha256": "f7eb2e61b8a942a743494a2233d52e037e1049073846f42ccd4c3c8217111140"
+    },
+    "REVIEW-REQUEST.md": {
+      "bytes": 821,
+      "sha256": "fec3eb88c38dc78919660d725197381e0ea72d98be8a2c34cbee6e90498100e0"
+    },
+    "compare.py": {
+      "bytes": 34200,
+      "sha256": "892f9ba0918675f847852c433c0dc9b73adbb31c5ec915940354fe492bbad266"
+    },
+    "selfcheck.py": {
+      "bytes": 9104,
+      "sha256": "449164cf4f716d995824ec8cdae145d3f779c0df7863de3a3050a7c427591867"
+    }
+  },
+  "horizon": 416,
+  "logicalCapBytesPerArm": 1610612736,
+  "p13aR3StopReceiptSha256": "03ba66a7e680b217bf3f900dd4234a9832f0657fbc3970bce4d01067be97902d",
+  "p13aR4ObservedDiagnosticReceiptSha256": "3b35042d40b14a6da67589667ff57df75f5af3b953cb496e4331de703ee41ec5",
+  "priorR1FreezeSha256": "9c1fdde551bbd94cb09bbaa63e308f07830fe0c1f85b95885f385d050dade0e3",
+  "priorR1Status": "REFINE_UNRUN_STALE_TEMPLATE_LAUNCH_PATH",
+  "resultCapBytes": 268435456,
+  "rowCapBytes": 16777216,
+  "schema": "1370-e0g-ebg-b-only-adoption-comparator-proposal-r2",
+  "seed": "p13-public-commercial-adoption",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "stage32ArchiveSha256": "aadf488705d932179b2298dddd754d17a6bfa8640752f7e868401a340ab835fa",
+  "stage35RemoteObservedSha256": "31463c3927519129ba0aa85f422e02e1def4250cc0885c66e6279f8729c0e6de",
+  "wholeSeconds": 900
+}

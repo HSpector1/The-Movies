@@ -1,0 +1,23 @@
+bash /Users/zacheryspector/studio-scratch/heavy-queue/lane-run.sh 0 '/Users/zacheryspector/studio-scratch/heavy-queue/audit.lane.log' python3 -I -B -c 'import hashlib,json,os,signal,stat,time
+from pathlib import Path
+start=time.monotonic()
+signal.signal(signal.SIGALRM,lambda *_: (_ for _ in ()).throw(TimeoutError("600-second audit bootstrap deadline")))
+signal.setitimer(signal.ITIMER_REAL,600)
+def read(p,cap):
+ for parent in p.parents: assert stat.S_ISDIR(parent.lstat().st_mode)
+ s=p.lstat();assert stat.S_ISREG(s.st_mode) and s.st_nlink==1 and s.st_size<=cap
+ fd=os.open(p,os.O_RDONLY|os.O_NOFOLLOW)
+ try:
+  raw=os.read(fd,cap+1);t=os.fstat(fd)
+  assert (s.st_dev,s.st_ino,s.st_size,s.st_mtime_ns,s.st_ctime_ns)==(t.st_dev,t.st_ino,t.st_size,t.st_mtime_ns,t.st_ctime_ns)
+  assert len(raw)==s.st_size
+ finally: os.close(fd)
+ return raw
+p=Path("/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-proposal-r6/audit.py")
+r=Path("/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r6/RECEIPT.json")
+raw=read(p,100000);rraw=read(r,100000)
+assert hashlib.sha256(raw).hexdigest()=="35e0aab6407c8b5d9228de2ce2c3e7300f7bd37fcd748b9c87a0114426aea43c"
+assert hashlib.sha256(rraw).hexdigest()=="16ee0fa94315cfc371db3d2499a6ba9e74621b8efe3526b61a2ac5e7431f4155"
+assert json.loads(rraw)["decision"]=="ACCEPT_STATIC_ONLY" and json.loads(rraw)["auditSha256"]==hashlib.sha256(raw).hexdigest()
+exec(compile(raw,str(p),"exec"),{"__name__":"__main__","__file__":str(p),"_BOOTSTRAP_START":start})
+'

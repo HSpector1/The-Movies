@@ -1,0 +1,17 @@
+{
+  "classification": "UNRUN_AUDIT_COMMAND_AWAITING_INDEPENDENT_EXACT_REVIEW",
+  "commandSha256": "d3a546fb08ed09be401b6937ea2354b11159ea5965659df66eb49ffa455a00ce",
+  "comparatorResultSha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa",
+  "evidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "freeBytesAtFill": 3984830464,
+  "laneLogAbsent": true,
+  "outputDirAbsent": true,
+  "priorR1ExactRefineSha256": "f7f14b72e0506f87dfb797080dbf1252557756ce45cd78a7177078d72647f808",
+  "proposalManifestSha256": "c24e542e93f8fe9428beb6b4b35927329b5fcac2715e81c76cdfdf17209378e9",
+  "requiredFreeBytes": 3221225472,
+  "schema": "1370-e0g-ebg-b-only-adoption-r2-audit-filled-exact-r2",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceSha256": "35e0aab6407c8b5d9228de2ce2c3e7300f7bd37fcd748b9c87a0114426aea43c",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "staticReviewSha256": "16ee0fa94315cfc371db3d2499a6ba9e74621b8efe3526b61a2ac5e7431f4155"
+}

@@ -1,0 +1,10 @@
+{
+  "checkSha256": "f198e17395f72755e6436c8b3dfb5f33535458b97b52c91f88c5c0e826e9dc7f",
+  "claimLimit": "Static source only; separate exact launch and observed check required; no 1363 or native acceptance.",
+  "classification": "UNRUN_POSTREADBACK_SOURCE_ONLY",
+  "decision": "ACCEPT_STATIC_ONLY",
+  "manifestSha256": "671dea6331df6e563297fedddf7a6e2d70f117bf35b35ce69ad4624cbb5e1e02",
+  "priorR2RefineReceiptSha256": "c47f3b0a8f6f88da53de9bdc16c54e652d2ea25cd6a224b7724f363e769cc333",
+  "reportSha256": "389c8fe342c7f9bfd46e51c92812663f52c85a7aaca73932a50cb5f2b571694f",
+  "selfcheckSha256": "bfdd897ddcd3662a58d7fef628e8a8925a134acb101b271166d95c6c1592e331"
+}

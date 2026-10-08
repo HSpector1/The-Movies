@@ -1,0 +1,490 @@
+{
+  "baseEvidenceCommit": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "baseEvidenceRef": "refs/heads/evidence/1370-r10-clean-captures",
+  "claimLimit": "Exploratory Save46 B-bundle diagnostic only; no 1363 admission, B-only causal proof, or native acceptance.",
+  "classification": "PROPOSAL_ONLY_NO_GIT_MUTATION",
+  "fileCount": 68,
+  "files": [
+    {
+      "bytes": 1201,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/README.md",
+      "gitBlob": "f8d543c023314167d7ce1f2d00ee3b3a0056c309",
+      "sha256": "6676fe20724397193fd98ec8259434c403fb4d4e4f13077e5777a6adedc4fd24",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-stage36-publication-plan-r1/STAGE36-README.md"
+    },
+    {
+      "bytes": 1169,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/proposal-r2/EXACT-LANE-COMMAND-TEMPLATE.txt",
+      "gitBlob": "47cb0364f3dac9dba9627dbfcfbfbc73011fbc06",
+      "sha256": "302315a16618da92df80463e368867df5b93044fd395148f31d057f28671ce9a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-proposal-r2/EXACT-LANE-COMMAND-TEMPLATE.txt"
+    },
+    {
+      "bytes": 1887,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/proposal-r2/FREEZE.json",
+      "gitBlob": "98aa85d533970a41d6105a339d9018666589d987",
+      "sha256": "63950d6a07faf9a491441692d1e25ab7df8defed3cf7a2683d9501d7282d793b",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-proposal-r2/FREEZE.json"
+    },
+    {
+      "bytes": 5278,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/proposal-r2/INPUTS.json",
+      "gitBlob": "db8bdc5ff02406d6ca9fd9e4ac8e88e0605386a6",
+      "sha256": "f767f13f3212776f0b857b2ad146ca571b6a5c4813a8bcb2585f4536df01a93c",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-proposal-r2/INPUTS.json"
+    },
+    {
+      "bytes": 2111,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/proposal-r2/MANIFEST.json",
+      "gitBlob": "b515dbc88cf5c2ddde91ec85fb2edb45a7ada36e",
+      "sha256": "95930155db3882eba46a77d44ad8514af57f45be9b2f2e0b01ffa2d1dc8e2be7",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-proposal-r2/MANIFEST.json"
+    },
+    {
+      "bytes": 2976,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/proposal-r2/PLAN.md",
+      "gitBlob": "65390408d16e79902ecff472343ddd1a36b0f165",
+      "sha256": "f7eb2e61b8a942a743494a2233d52e037e1049073846f42ccd4c3c8217111140",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-proposal-r2/PLAN.md"
+    },
+    {
+      "bytes": 821,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/proposal-r2/REVIEW-REQUEST.md",
+      "gitBlob": "0c31b3341fb9d66e0cec490c25eeff8779e4e3d8",
+      "sha256": "fec3eb88c38dc78919660d725197381e0ea72d98be8a2c34cbee6e90498100e0",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-proposal-r2/REVIEW-REQUEST.md"
+    },
+    {
+      "bytes": 34200,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/proposal-r2/compare.py",
+      "gitBlob": "f9f70f90dcf941f265e35178050893a4ea153a39",
+      "sha256": "892f9ba0918675f847852c433c0dc9b73adbb31c5ec915940354fe492bbad266",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-proposal-r2/compare.py"
+    },
+    {
+      "bytes": 2153,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/proposal-r2/launch.py",
+      "gitBlob": "437fa54df8ed0a5e49d624b2feb48c452deb607d",
+      "sha256": "9ca23322796938bceaaf4d70530337d75149a854bcf7598c5043d5dfc69a9d57",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-proposal-r2/launch.py"
+    },
+    {
+      "bytes": 9104,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/proposal-r2/selfcheck.py",
+      "gitBlob": "6f04e8c5ffbea48c68f5379ff73f4d697d973117",
+      "sha256": "449164cf4f716d995824ec8cdae145d3f779c0df7863de3a3050a7c427591867",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-proposal-r2/selfcheck.py"
+    },
+    {
+      "bytes": 380,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/static-review-r2/MANIFEST.json",
+      "gitBlob": "fdbeae083232222db47e05b3598cec92e1ac9277",
+      "sha256": "31fd30f926d55fc1b3311766aa575d77973fd0650cff8de7465078b3915663e2",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-independent-static-review-r2/MANIFEST.json"
+    },
+    {
+      "bytes": 303,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/static-review-r2/RECEIPT.json",
+      "gitBlob": "a07603438a0018046efb87649340747ff9bd9e09",
+      "sha256": "ca19118cd97eb60640be419f9173a0aec867d456728ccc5bbbbe2286b34d89ec",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-independent-static-review-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 1835,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/static-review-r2/REVIEW.md",
+      "gitBlob": "c3e0c578f1fb510c03a34b433b3d398b56f97ba2",
+      "sha256": "e9ac7606038eee8b3f4ed7fe761482c7e439058060f6fd83aceee7b9d0040900",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-independent-static-review-r2/REVIEW.md"
+    },
+    {
+      "bytes": 1035,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/exact-r1/BINDING.json",
+      "gitBlob": "1f7765342cc008932a1ca2a4d5d3e868142930d7",
+      "sha256": "520919e21b58a3e5e660c8e77f30816ee6f7207be801b7db91df2cca2bf5ce6c",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-r2-filled-exact-r1/BINDING.json"
+    },
+    {
+      "bytes": 1235,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/exact-r1/LAUNCH.command",
+      "gitBlob": "3e602603507bdca18455cc21eb714162a8c692bc",
+      "sha256": "e665e0a9827be910c9006922bf93761f492184c0410eb32cf15acbc00bdb283e",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-r2-filled-exact-r1/LAUNCH.command"
+    },
+    {
+      "bytes": 1924,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/exact-review-r1/RECEIPT.json",
+      "gitBlob": "596f067a72f1b56851ecb615ed2de17b8fa261ee",
+      "sha256": "8b87236ce2d6b58e8d25a560bdb41ebb37c7dc28df97c92e7b9e86c28530cdf3",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-r2-filled-exact-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 706,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/exact-review-r1/REPORT.md",
+      "gitBlob": "467d21ed3774163057b32587fc7e7fca63f87214",
+      "sha256": "c6d2c9ab4a9d8b82bdb079d1f5df1373b918ab989d72dab2f7355d7afdc35f53",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-r2-filled-exact-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 199,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/recorded/RECEIPT.json",
+      "gitBlob": "b08a80f3e1c25ba28580129eba6e2a9d00464508",
+      "sha256": "26fbdc5a91f1d454f0ea838ee143ebde76020471b96504874765eddfed42eb14",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-runs-r2/20261008-bonly-adoption-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 4274864,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/recorded/RESULT.json",
+      "gitBlob": "b028b2ad812608663b4085be2d8acc5919357674",
+      "sha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-runs-r2/20261008-bonly-adoption-r1/RESULT.json"
+    },
+    {
+      "bytes": 0,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/recorded/1370-e0g-ebg-b-only-adoption-20261008-bonly-adoption-r1.lane.log",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-e0g-ebg-b-only-adoption-20261008-bonly-adoption-r1.lane.log"
+    },
+    {
+      "bytes": 1163,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/comparator/recorded/1370-e0g-ebg-b-only-adoption-20261008-bonly-adoption-r1.lane.log.meta",
+      "gitBlob": "5f247dc3d9c466be691bf2cf14ed22985a72ab78",
+      "sha256": "5df871cc5303476c7e28252c28c6752d6ff02e285cea04852bb4af7324354407",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-e0g-ebg-b-only-adoption-20261008-bonly-adoption-r1.lane.log.meta"
+    },
+    {
+      "bytes": 1100,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/proposal-r6/MANIFEST.json",
+      "gitBlob": "06f442cf2d200eec2e66828c46d6a5c55b747bd0",
+      "sha256": "c24e542e93f8fe9428beb6b4b35927329b5fcac2715e81c76cdfdf17209378e9",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-proposal-r6/MANIFEST.json"
+    },
+    {
+      "bytes": 2547,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/proposal-r6/PLAN.md",
+      "gitBlob": "35c909ed42a5fbac5e08fb56568c37e4571499da",
+      "sha256": "5daec4ef542059684306fe0d0763d37bc5543d1f83ce915244158ef28e1c3b5d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-proposal-r6/PLAN.md"
+    },
+    {
+      "bytes": 19545,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/proposal-r6/audit.py",
+      "gitBlob": "dd5c9336a497b88633314070909cb004c3db4b7b",
+      "sha256": "35e0aab6407c8b5d9228de2ce2c3e7300f7bd37fcd748b9c87a0114426aea43c",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-proposal-r6/audit.py"
+    },
+    {
+      "bytes": 3096,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/proposal-r6/selfcheck.py",
+      "gitBlob": "6adaf44c33bf7b3eaa217b4b49753595f7e239ad",
+      "sha256": "4d5e55b719f8fe10b0fece57bd90e69a5e87b34d8f8f00234fa5edefd318d281",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-proposal-r6/selfcheck.py"
+    },
+    {
+      "bytes": 1809,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/static-review-r6/RECEIPT.json",
+      "gitBlob": "6be10632f35e584c23ffb02283c0ca86c193289a",
+      "sha256": "16ee0fa94315cfc371db3d2499a6ba9e74621b8efe3526b61a2ac5e7431f4155",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r6/RECEIPT.json"
+    },
+    {
+      "bytes": 1121,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/static-review-r6/REPORT.md",
+      "gitBlob": "4d868bc2240de4ca66c9bb0d17fc21bc34e48a4a",
+      "sha256": "b5ccb26d734050ea34743cb448268eebb0cbdd1bce73e518b4d4dff538ac34de",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r6/REPORT.md"
+    },
+    {
+      "bytes": 1005,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/exact-r2/BINDING.json",
+      "gitBlob": "24f0f9f0a524276b65f16b50b92a8b3da4b70f9d",
+      "sha256": "f538c30d36e8c9e9f56603d7e6b5b2a20929311008f662c2f6d5d7fd16e2c9e0",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-audit-filled-exact-r2/BINDING.json"
+    },
+    {
+      "bytes": 1575,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/exact-r2/LAUNCH.command",
+      "gitBlob": "ae7e2ae68639b65bcff51abfd14209882179db94",
+      "sha256": "d3a546fb08ed09be401b6937ea2354b11159ea5965659df66eb49ffa455a00ce",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-audit-filled-exact-r2/LAUNCH.command"
+    },
+    {
+      "bytes": 1106,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/exact-review-r2/RECEIPT.json",
+      "gitBlob": "ba7f39113514c9ae84ef0baa66d8545d65a91e54",
+      "sha256": "3ea311259c74eedf1d38ce6db0ec81c5bb713ab598877828801a01d1d3e54d23",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-audit-filled-exact-review-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 2253,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/exact-review-r2/REPORT.md",
+      "gitBlob": "af6626d08da02e1a2cedf045e7f3fc88252ff04d",
+      "sha256": "313fb9c37db9bfdec2cd66c303ad7215bed4cbce40d34307a200a35295f2b7d5",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-audit-filled-exact-review-r2/REPORT.md"
+    },
+    {
+      "bytes": 1516,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/recorded/AUDIT.json",
+      "gitBlob": "9f0d33a9e61cf7c52d352de9ca4c208cfe7da238",
+      "sha256": "3598f789f8d928b0dc26a7582fa5578196ac86e07e3a55fa0bb0142765c64654",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-independent-observed-audit-r6/AUDIT.json"
+    },
+    {
+      "bytes": 0,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/recorded/audit.lane.log",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/audit.lane.log"
+    },
+    {
+      "bytes": 1557,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/audit/recorded/audit.lane.log.meta",
+      "gitBlob": "9aa0ecfa1a96e630b643699b946a27b62c92e53e",
+      "sha256": "02e3aceecfcf8d6f6df11a08e26e24c768311870870e87971d3c600244c4a2be",
+      "source": "/Users/zacheryspector/studio-scratch/heavy-queue/audit.lane.log.meta"
+    },
+    {
+      "bytes": 1093,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/proposal-r3/MANIFEST.json",
+      "gitBlob": "def6b026d64c4ead3d4cb9d28a50d9642f74859f",
+      "sha256": "671dea6331df6e563297fedddf7a6e2d70f117bf35b35ce69ad4624cbb5e1e02",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-observed-proposal-r3/MANIFEST.json"
+    },
+    {
+      "bytes": 1656,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/proposal-r3/PLAN.md",
+      "gitBlob": "4d6a3fc3619627d71018f9f45e7582cb5035760a",
+      "sha256": "832f729f703b96ae321b9367f918617ad201e879020af228cf0c0e87aae30809",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-observed-proposal-r3/PLAN.md"
+    },
+    {
+      "bytes": 8270,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/proposal-r3/check.py",
+      "gitBlob": "7b76b9f7316ca25774a6bbe851209da98dcb1fe1",
+      "sha256": "f198e17395f72755e6436c8b3dfb5f33535458b97b52c91f88c5c0e826e9dc7f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-observed-proposal-r3/check.py"
+    },
+    {
+      "bytes": 1922,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/proposal-r3/selfcheck.py",
+      "gitBlob": "1b2ab718bc1c8c5bec650a202ab32bf256f95913",
+      "sha256": "bfdd897ddcd3662a58d7fef628e8a8925a134acb101b271166d95c6c1592e331",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-observed-proposal-r3/selfcheck.py"
+    },
+    {
+      "bytes": 661,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/static-review-r3/RECEIPT.json",
+      "gitBlob": "71affe1529f21da9795badc7805b52cb4194d711",
+      "sha256": "335f47ad6dcd95ecf00254acbf88db17ca446fcd9acc8a065d40ed1e214c8d5f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-observed-independent-static-review-r3/RECEIPT.json"
+    },
+    {
+      "bytes": 2155,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/static-review-r3/REPORT.md",
+      "gitBlob": "46d18008f1758ca08c7baf91e78bf55c8d21eec8",
+      "sha256": "389c8fe342c7f9bfd46e51c92812663f52c85a7aaca73932a50cb5f2b571694f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-observed-independent-static-review-r3/REPORT.md"
+    },
+    {
+      "bytes": 785,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/exact-r1/BINDING.json",
+      "gitBlob": "4e572c3b7c30c1daea3041b0a9788a9d813b09fe",
+      "sha256": "e473b20916a908da09f297c69106fc0fbe26002e2f5e5bcd360874b3279ee70d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-filled-exact-r1/BINDING.json"
+    },
+    {
+      "bytes": 1323,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/exact-r1/LAUNCH.command",
+      "gitBlob": "1cbb0dae2d22bd891de9004c83eee020da69bc87",
+      "sha256": "04c367dbeb7f138603937bac456b75bd00ba358198461f6d0beaa4c2109c48d9",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-filled-exact-r1/LAUNCH.command"
+    },
+    {
+      "bytes": 1436,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/exact-review-r1/RECEIPT.json",
+      "gitBlob": "8b7a984376b495b5493b3ff50c2688e1cc4a5d7f",
+      "sha256": "afc9cfa6b9593d8bdb24060f3a847f562294b13ea3eea372217b1e5814b6a0f7",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-filled-exact-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 1678,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/exact-review-r1/REPORT.md",
+      "gitBlob": "716bc82b86b8f4b3d9ee3ac4282cc36784aa1deb",
+      "sha256": "9f990efcd762b680c9490ff753b3921036cc6438b1d793efd281d47011c05153",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-filled-exact-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 1080,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/recorded/CHECK.json",
+      "gitBlob": "86c192e79cd3c1f0fd9f57bee32f23f4dd02fcfa",
+      "sha256": "f869fdcace204026f50139447db463239395e7cb0142332d20005ecb74e3dc4e",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-observed-recorded-r3/CHECK.json"
+    },
+    {
+      "bytes": 1406,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/observed-review-r1/RECEIPT.json",
+      "gitBlob": "ea7e08cd825df1909899e83f69d26517a211f558",
+      "sha256": "3a57d7b0cafcfb9f694de5866ef3cda0bdb0ee9f9f5166d844f9b88dfbfe544a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-independent-observed-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 2626,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/postreadback/observed-review-r1/REPORT.md",
+      "gitBlob": "bfa8d25a98d64c9941ed923b1fb776e22d1700e0",
+      "sha256": "2b0da840e53afeb444ba04802ec5e80c3347590b187c546886beaebd58218e77",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-independent-observed-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 286,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/comparator-r1/MANIFEST.json",
+      "gitBlob": "67e530105ab28084fb01bd79ba1d723abd6a6a8c",
+      "sha256": "0e0e70f463d990e8094f792d2c7d80eb058d9ec45c658aa335c17a25890f3b98",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-independent-static-review-r1/MANIFEST.json"
+    },
+    {
+      "bytes": 678,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/comparator-r1/RECEIPT.json",
+      "gitBlob": "45960778b4d051233966632477b8fe754e4ec694",
+      "sha256": "498db94a2c62c9120e5fdbee04173eff2eb37657fb5e28b793d7f84b1c4bf297",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-independent-static-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 2543,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/comparator-r1/REVIEW.md",
+      "gitBlob": "70f73bc4f6858ea21ac6b599d03a2e8f9eb3b719",
+      "sha256": "dec542a7706365cf0746dec635d55aeb1a8a4c9fdbc5fb998acd3893fd21bb69",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-independent-static-review-r1/REVIEW.md"
+    },
+    {
+      "bytes": 1890,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/audit-static-r1/RECEIPT.json",
+      "gitBlob": "2bb600ab573855e7d69d894470982a0f71452e08",
+      "sha256": "29d666f5053a9a8c1f91f271a7408a58eb78dd039bad8e6cabfba2a8b9bef56d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 1660,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/audit-static-r1/REPORT.md",
+      "gitBlob": "72e73913ef4cd3e09414986f05194994716a5611",
+      "sha256": "68236bed718d38008d1b37cb26d2baa22076c80736392d5e6383de7c58e88f3a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 1945,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/audit-static-r3/RECEIPT.json",
+      "gitBlob": "a07936db93e8b85ceace73404f94f3b0380db226",
+      "sha256": "b0f461b887042bc33955d41a26618ed7bc39907e5058bbdab8b10751eb321108",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r3/RECEIPT.json"
+    },
+    {
+      "bytes": 1674,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/audit-static-r3/REPORT.md",
+      "gitBlob": "8418704913c4f55c8271cf88436295a07b61c65c",
+      "sha256": "b537df4f0d30b90d7e3264576f4762b333bada64aaa5c58b472fe23615cbb6f0",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r3/REPORT.md"
+    },
+    {
+      "bytes": 734,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/audit-exact-r1/RECEIPT.json",
+      "gitBlob": "945f2a62c4b078974c2edf27caee7df9286cc864",
+      "sha256": "f7f14b72e0506f87dfb797080dbf1252557756ce45cd78a7177078d72647f808",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-audit-filled-exact-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 1625,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/audit-exact-r1/REPORT.md",
+      "gitBlob": "8e5c53953b83695e924a7674afb209d7c5b9a98e",
+      "sha256": "4737c7dacb009acc74411d98921f3ed3d3ca28be4d1761e25ed9be3c39221497",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-audit-filled-exact-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 1531,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/audit-static-r5/RECEIPT.json",
+      "gitBlob": "c326583543919e9d5276f8ddb34f96605d004c67",
+      "sha256": "9d0a2bb56bc39aca13bebe3177270ec2a8edbd42b3460f63865e9ddf63336b5d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r5/RECEIPT.json"
+    },
+    {
+      "bytes": 914,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/audit-static-r5/REPORT.md",
+      "gitBlob": "f79ea2068dd2828c79356ebdeffce5d95efc1a02",
+      "sha256": "21ced136172dced9e761d912808a8dfa1b44961bf4fe71d7878430e26a9edd96",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r5/REPORT.md"
+    },
+    {
+      "bytes": 875,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/postreadback-static-r1/RECEIPT.json",
+      "gitBlob": "28dec920ede0188dba3cfae917496910b2acaa70",
+      "sha256": "7b3bb8fa1a5c599f504ca29bed7ba5da339cc13062275f5c274c083dc13147d4",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-observed-independent-static-review-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 2529,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/postreadback-static-r1/REPORT.md",
+      "gitBlob": "6c15980fa75ff2bcd9028b52eab434333c11cf38",
+      "sha256": "52cc8877f1ca6cd8855b654fd250cd31915639175a65e4056055b8c485cf1d29",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-observed-independent-static-review-r1/REPORT.md"
+    },
+    {
+      "bytes": 731,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/postreadback-static-r2/RECEIPT.json",
+      "gitBlob": "e17f14932495c4e9a1d58a393ddbe75d8e74fd2b",
+      "sha256": "c47f3b0a8f6f88da53de9bdc16c54e652d2ea25cd6a224b7724f363e769cc333",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-observed-independent-static-review-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 2108,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-refine/postreadback-static-r2/REPORT.md",
+      "gitBlob": "e71a582ef3f3df02ddecbac10235110af9826367",
+      "sha256": "64df14a5fa1761e768875156c85d419b666fb9db3c4ffd8e490125be18a69d27",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-observed-independent-static-review-r2/REPORT.md"
+    },
+    {
+      "bytes": 133,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-stop/p13a-r3/RECEIPT.json",
+      "gitBlob": "b112299986418eb24bc1cf8a9f4fc2093b24c165",
+      "sha256": "03ba66a7e680b217bf3f900dd4234a9832f0657fbc3970bce4d01067be97902d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-p13a-comparator-runs-r3/20261008-bonly-p13a-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 1231,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/prior-diagnostic/p13a-r4/RECEIPT.json",
+      "gitBlob": "3850dcf9e4bc26cdc72719a8e0ee2f4fa2edbf5a",
+      "sha256": "3b35042d40b14a6da67589667ff57df75f5af3b953cb496e4331de703ee41ec5",
+      "source": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-p13a-r4-independent-observed-audit-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 12313,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/c0-design/r2/DESIGN.md",
+      "gitBlob": "274cc4a7b884985b25fa5e9c83aae7487ab27054",
+      "sha256": "b2abf83b741c8dd256a214ae19075d082854ae54131db15c37090e3001391273",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-design-r2/DESIGN.md"
+    },
+    {
+      "bytes": 2438,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/c0-design/r2/SOURCE-MAP.json",
+      "gitBlob": "1b945cdad89b236bcf7cadf390c722c464a1b0b8",
+      "sha256": "8f4e2067cb9b3ce34411c4fa75111813792e101a023ba1a1180e904104ab35ef",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-design-r2/SOURCE-MAP.json"
+    },
+    {
+      "bytes": 542,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/c0-design/independent-review-r2/RECEIPT.json",
+      "gitBlob": "206900b4a0d352339a764ce83b2a705d26436894",
+      "sha256": "27bb1cdf112bef30e6056c62e6595fd5480f64cf46f9764ffd557e6ebca7a08f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-independent-design-review-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 2433,
+      "destination": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/c0-design/independent-review-r2/REVIEW.md",
+      "gitBlob": "26dc72c96e823399f092c1d6ac230ed9068be930",
+      "sha256": "4d03c847d4d91aa57830537803a6a64cace60ad00359eb56cc30a5b41f42c181",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-independent-design-review-r2/REVIEW.md"
+    }
+  ],
+  "prefix": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-sixth-verification/",
+  "productionHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "1370-e0g-ebg-b-only-adoption-stage36-source-map-r1",
+  "totalBytes": 4449678
+}

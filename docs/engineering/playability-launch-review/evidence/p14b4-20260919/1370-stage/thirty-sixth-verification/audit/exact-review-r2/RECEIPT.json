@@ -1,0 +1,16 @@
+{
+  "auditSourceSha256": "35e0aab6407c8b5d9228de2ce2c3e7300f7bd37fcd748b9c87a0114426aea43c",
+  "bindingSha256": "f538c30d36e8c9e9f56603d7e6b5b2a20929311008f662c2f6d5d7fd16e2c9e0",
+  "claimLimit": "Exact launch accepted only; no audit execution or comparator result admission.",
+  "classification": "UNRUN_DIAGNOSTIC_AUDIT_COMMAND",
+  "commandSha256": "d3a546fb08ed09be401b6937ea2354b11159ea5965659df66eb49ffa455a00ce",
+  "comparatorResultSha256Unadmitted": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa",
+  "decision": "ACCEPT_EXACT_ONLY",
+  "evidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "priorExactRefineSha256": "f7f14b72e0506f87dfb797080dbf1252557756ce45cd78a7177078d72647f808",
+  "r6ManifestSha256": "c24e542e93f8fe9428beb6b4b35927329b5fcac2715e81c76cdfdf17209378e9",
+  "reportSha256": "313fb9c37db9bfdec2cd66c303ad7215bed4cbce40d34307a200a35295f2b7d5",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "staticReviewSha256": "16ee0fa94315cfc371db3d2499a6ba9e74621b8efe3526b61a2ac5e7431f4155"
+}

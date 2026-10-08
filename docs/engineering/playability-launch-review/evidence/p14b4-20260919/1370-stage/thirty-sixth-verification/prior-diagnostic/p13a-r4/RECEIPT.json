@@ -1,0 +1,22 @@
+{
+  "auditLaneMetaSha256": "5fb62bbe16af9b0aa109443485f27fc9c6747c97016acc37480fcc4f880a787c",
+  "auditScriptSha256": "7b162d9b95ec71c74ee424cb4146b6eb040d2838ed83879cde403040d4c22233",
+  "auditSha256": "0953725af70951435bc03704c3e589fb96da1dd43be0686f1e82ffdb0d3357e7",
+  "boundaries": 417,
+  "claimLimit": "Matched p13a eight-file B bundle diagnostic only; internal predicate and adoption unresolved; no 1363 admission.",
+  "classification": "DIAGNOSTIC_ONLY_NOT_1363_ACCEPTANCE",
+  "comparatorResultBytes": 20634133,
+  "comparatorResultSha256": "c8ddc0c3f6d814d67a7e643dadba9d993ba99807ad22249a81dfaea20bc4a61c",
+  "decision": "ACCEPT_OBSERVED_DIAGNOSTIC_ONLY",
+  "ebgActiveEpisodes": 817,
+  "equalPayloadBoundaries": 92,
+  "firstBWeek": 92,
+  "firstCashEmploymentIndustryWeek": 93,
+  "firstMarketWeek": 196,
+  "priorR3FailureReceiptSha256": "03ba66a7e680b217bf3f900dd4234a9832f0657fbc3970bce4d01067be97902d",
+  "reportSha256": "80f9435840471e80d4e40654ba81de22786a8e63c8dda9ff7e1715d188cd6714",
+  "runId": "20261008-bonly-p13a-r2",
+  "schema": "1370-e0g-ebg-b-only-p13a-r4-independent-observed-review-r1",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

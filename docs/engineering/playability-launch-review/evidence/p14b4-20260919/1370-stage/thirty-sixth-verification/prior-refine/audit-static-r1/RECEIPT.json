@@ -1,0 +1,20 @@
+{
+  "schema": "1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r1",
+  "decision": "REFINE_UNRUN_OBSERVED_AUDIT_SOURCE",
+  "classification": "NO_AUDIT_LAUNCH_NO_DIAGNOSTIC_ADMISSION",
+  "auditSha256": "273e4e53f144d4051f81a55ad93f4ba513f0feefe5d5b866e9c4a2a4ca32eea3",
+  "planSha256": "c3a59977e3f7116d6678fd7fcf1fa1337bbb32cbfe02fde576632c4ce3459f29",
+  "manifestSha256": "f6ac0562bcf59f0151675200a3ed90a3c642a25e2a1b850b3bce93ba88573f31",
+  "comparatorExactReviewSha256": "8b87236ce2d6b58e8d25a560bdb41ebb37c7dc28df97c92e7b9e86c28530cdf3",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "evidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "reasons": [
+    "P13A_STOP points to an absent receipt path; the pinned r3 STOP SHA belongs to the r3 comparator run leaf, so both success and STOP audit branches fail before result review.",
+    "The declared audit output parent does not exist and the script never creates it; an exact launcher would need to create and authenticate that unique directory before either branch writes.",
+    "The independent B refund check accepts -0.0, and Python equality for Save46 state and terminal rows does not preserve signed zero or object key order. Recheck against exact comparison semantics.",
+    "The comparator lane exit check searches the full .meta text for substrings; parse the final terminal event line and distinguish recorded child 0 from a failed child.",
+    "pinned() follows the pathname after lstat without O_NOFOLLOW and descriptor/pathname identity checks; large reads have no recurring AC, disk-floor or deadline check."
+  ],
+  "claimLimit": "Static source review only. R2 remains frozen and unrun; preserve the comparator child and original p13a STOP. A versioned corrected audit needs independent static and exact review."
+}

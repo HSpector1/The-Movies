@@ -1,0 +1,20 @@
+{
+  "schema": "1370-e0g-ebg-b-only-adoption-comparator-r2-independent-exact-review-r1",
+  "decision": "ACCEPT_EXACT_ONLY",
+  "classification": "UNRUN_DIAGNOSTIC_ONLY",
+  "claimLimit": "The one-shot adoption B-bundle comparator command is accepted for execution only. No comparison result, causality or 1363 acceptance is established by this review.",
+  "bindingSha256": "520919e21b58a3e5e660c8e77f30816ee6f7207be801b7db91df2cca2bf5ce6c",
+  "commandSha256": "e665e0a9827be910c9006922bf93761f492184c0410eb32cf15acbc00bdb283e",
+  "templateSha256": "302315a16618da92df80463e368867df5b93044fd395148f31d057f28671ce9a",
+  "launcherSha256": "9ca23322796938bceaaf4d70530337d75149a854bcf7598c5043d5dfc69a9d57",
+  "manifestSha256": "95930155db3882eba46a77d44ad8514af57f45be9b2f2e0b01ffa2d1dc8e2be7",
+  "proposalFreezeSha256": "63950d6a07faf9a491441692d1e25ab7df8defed3cf7a2683d9501d7282d793b",
+  "staticReceiptSha256": "ca19118cd97eb60640be419f9173a0aec867d456728ccc5bbbbe2286b34d89ec",
+  "runId": "20261008-bonly-adoption-r1",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "evidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "freeBytesObserved": 3996008448,
+  "requiredFreeBytes": 3758096384,
+  "review": "Exact command equals the frozen template after substituting only the unique run ID and accepted static-receipt SHA. The command reads the r2 launcher from its real path with its exact SHA; that launcher authenticates the frozen r2 manifest, compare source and static receipt. Bash syntax passed. AC, clean pinned production HEAD/source tree, matching remote production/evidence refs, sufficient free space, absent output leaf/lane log/lock, and a named single heavy lane were checked. Source includes no production Git write; only one-shot scratch diagnostic output and failure receipt are possible. No command was launched by this review."
+}

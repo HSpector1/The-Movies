@@ -1,0 +1,5 @@
+# Adoption comparator observed-audit r6 static review
+
+Decision: **ACCEPT_STATIC_ONLY**. The r6 source, plan and selfcheck match manifest SHA `c24e542e93f8fe9428beb6b4b35927329b5fcac2715e81c76cdfdf17209378e9`; AST and synthetic checks pass. R6 validates the authenticated bootstrap's finite monotonic start and leaves its already armed signal/timer untouched. The prior r5 1 ms extension is gone, and the selfcheck tests a positive remainder below 1 ms plus missing, future and expired starts.
+
+The rest of the readback is unchanged from the static-accepted r4: pinned child/result and authority bytes, parsed lane child exit, 417 original rows and gzip offsets, strict raw Save46 order and signed zero, materialized RESULT comparison, exact B proof keys, full terminal source-order family rows and Node digests, nofollow bounded reads with AC/3 GiB guards, and one-shot output. The comparator RESULT remains unreviewed until this r6 source runs under a separately reviewed exact bootstrap and a later independent observer accepts its child and audit bytes. No Git mutation or heavy audit occurred in this static review.

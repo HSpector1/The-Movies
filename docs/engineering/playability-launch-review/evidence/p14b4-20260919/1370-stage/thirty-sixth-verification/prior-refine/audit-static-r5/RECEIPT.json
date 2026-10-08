@@ -1,0 +1,12 @@
+{
+  "schema": "1370-e0g-ebg-b-only-adoption-r2-observed-audit-independent-static-review-r5",
+  "decision": "REFINE_UNRUN_EXACT_WHOLE_CHILD_DEADLINE",
+  "classification": "NO_AUDIT_LAUNCH_NO_DIAGNOSTIC_ADMISSION",
+  "auditSha256": "abf13009303fd4b56abbfb3ab0cbb3b99b220d98c3e36865088a5135424e7daa",
+  "selfcheckSha256": "4958e19a4306e9f41a20f0013f69790caabc1381b53cd6743413e10dcf5bd50e",
+  "manifestSha256": "1808a781aacb5b9bbf8c20aebe864c1c3bdf964dec152ad985b560e6a3db0535",
+  "priorR4ExactRefineReceiptSha256": "f7f14b72e0506f87dfb797080dbf1252557756ce45cd78a7177078d72647f808",
+  "reason": "remaining_budget() uses max(0.001,600-elapsed). If bootstrap elapsed is 599.9999 seconds, the replacement timer grants 0.001 seconds although only 0.0001 seconds remain, extending the stated 600-second whole-child bound. The synthetic selfcheck explicitly expects that floor. Keep the bootstrap alarm armed after validating its start, or arm only the exact positive remaining duration without a minimum extension. Version a corrected source and selfcheck before exact launch.",
+  "verified": "R5 otherwise retains r4 source/remote/RESULT pins, strict raw versus materialized RESULT equality, exclusive output, parsed child exit, nofollow bounded reads and recurring AC/3 GiB guards. Frozen manifest/AST and synthetic selfcheck pass; no heavy audit was launched.",
+  "claimLimit": "R5 remains static REFINE and unrun. Comparator RESULT SHA 2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa remains diagnostic-unreviewed."
+}

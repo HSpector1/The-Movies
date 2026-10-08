@@ -1,0 +1,10 @@
+{
+  "auditSourceSha256": "f449ede4b22a5ce738dca8d120b6a2d46a84f5afff98ac2e4424b34697a2bf00",
+  "bindingSha256": "24e71fc66b34aaebe0a340ea3fbb2fe75b6835e60186b288a6227727ab0fc46f",
+  "claimLimit": "Exact command rejected before execution; no observed comparator admission.",
+  "commandSha256": "8e55ad6d2bf35810d81f69138c7345c5111b94c7a6cc12be46ce542f2da2a1fe",
+  "decision": "REFINE_EXACT_ONLY",
+  "reason": "r4 audit source resets ITIMER_REAL to 600 after authenticated bootstrap and ignores _BOOTSTRAP_START, breaking the claimed whole child deadline",
+  "reportSha256": "4737c7dacb009acc74411d98921f3ed3d3ca28be4d1761e25ed9be3c39221497",
+  "staticReviewSha256": "498a0e632e872f81309f26ca5bdf53e6ca526e453d0af941237f14548f21c0b6"
+}

@@ -1,0 +1,10 @@
+# Independent static review: adoption post-readback checker r2
+
+**REFINE_STATIC_ONLY; checker unrun.** `check.py` SHA `c721ba61f4569ddc6406e0bb7cff9489dff7d93b28a614e1d335e32df8396e65`, `selfcheck.py` SHA `0db3a23e6bee1354675ce625d4e99e8068132a8198b035a92e2f2504a828f143`, PLAN.md SHA `0e1294e0aab089977fc6a643be077cdd011ea0c6c04e4093d5729f975e4b3857`, and manifest SHA `ed3ba92c157d6e0fc8c2cb49e7fcb7265a9d0d8db3d805330574f409c021ee3a` all match. R2 fixes r1's principal byte-provenance defect: the observed AUDIT, both lane metadata, both empty logs, original comparator RESULT/receipt and static/exact launch authorities are literal SHA pins. It removes the arbitrary audit-SHA argument, parses exact terminal exits, and keeps the diagnostic claim narrow.
+
+Two defects remain before a static ACCEPT:
+
+1. `check.py` calls the final environment/source/remote/lock `guard()` at line 99, **before** the second pass over all pinned bytes at lines 100–101. This pass includes a 4.27 MiB RESULT read and multiple network-independent files. The script then writes ACCEPT at lines 104–106 without a final environment/source/remote/lock check. PLAN.md says it rechecks those guards immediately before the write; the code does not. Move the final guard after the second readback and before exclusive output creation. Preserve the pinned-byte second pass.
+2. The survivor filter at line 96 excludes the r1 checker path (`postreadback-observed-proposal-r1/check.py`) while the frozen source is r2. It can fail to exclude its own process under a bootstrap command line that includes the task run ID. Bind self-exclusion to this r2 source path or the exact current process identity, and test both a current checker process and a true comparator/audit survivor. The r2 selfcheck only verifies the presence/order of `guard()` text; it does not catch either defect.
+
+A versioned r3 should fix both without changing the known evidence pins or rewriting r2. No checker execution, Git change, archive read, or heavy run was performed for this review. It does not alter the r6 audit output or imply 1363/native acceptance.

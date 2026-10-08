@@ -1,0 +1,13 @@
+{
+  "checkSha256": "c721ba61f4569ddc6406e0bb7cff9489dff7d93b28a614e1d335e32df8396e65",
+  "classification": "POSTREADBACK_CHECK_R2_UNRUN",
+  "decision": "REFINE_STATIC_ONLY",
+  "manifestSha256": "ed3ba92c157d6e0fc8c2cb49e7fcb7265a9d0d8db3d805330574f409c021ee3a",
+  "priorR1RefineReceiptSha256": "7b3bb8fa1a5c599f504ca29bed7ba5da339cc13062275f5c274c083dc13147d4",
+  "reasons": [
+    "final source/remote/AC/lock guard precedes, rather than follows, second pinned-byte pass",
+    "process self-exclusion references r1 checker path instead of r2 source"
+  ],
+  "reportSha256": "64df14a5fa1761e768875156c85d419b666fb9db3c4ffd8e490125be18a69d27",
+  "selfcheckSha256": "0db3a23e6bee1354675ce625d4e99e8068132a8198b035a92e2f2504a828f143"
+}

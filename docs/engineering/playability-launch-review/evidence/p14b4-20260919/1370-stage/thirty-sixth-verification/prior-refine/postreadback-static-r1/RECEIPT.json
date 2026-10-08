@@ -1,0 +1,15 @@
+{
+  "actualAuditLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "actualAuditMetaSha256": "02e3aceecfcf8d6f6df11a08e26e24c768311870870e87971d3c600244c4a2be",
+  "actualAuditSha256Unadmitted": "3598f789f8d928b0dc26a7582fa5578196ac86e07e3a55fa0bb0142765c64654",
+  "checkSha256": "4e0269afb414e542b6598bf633c863bb0c500b86defaacba4f964201911b2ce1",
+  "classification": "POSTREADBACK_CHECK_UNRUN",
+  "decision": "REFINE_STATIC_ONLY",
+  "planSha256": "1051a8a70849febb12a49a7a6ac4d70aea03fac741b66c8adc44fdcaada41ccf",
+  "reasons": [
+    "mutable audit SHA argument permits changed AUDIT bytes in ACCEPT",
+    "audit/comparator lane and log bytes are not pinned despite observed hashes",
+    "no final source/remote/AC/free/lock guard before ACCEPT output"
+  ],
+  "reportSha256": "52cc8877f1ca6cd8855b654fd250cd31915639175a65e4056055b8c485cf1d29"
+}

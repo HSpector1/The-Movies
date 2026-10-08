@@ -1,0 +1,17 @@
+{
+  "auditLaneLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "auditLaneMetaSha256": "02e3aceecfcf8d6f6df11a08e26e24c768311870870e87971d3c600244c4a2be",
+  "auditSha256": "3598f789f8d928b0dc26a7582fa5578196ac86e07e3a55fa0bb0142765c64654",
+  "boundaryRows": 417,
+  "claimLimit": "Original full Save46 adoption B-bundle diagnostic only; no 1363 admission or native acceptance.",
+  "comparatorLaneLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "comparatorLaneMetaSha256": "5df871cc5303476c7e28252c28c6752d6ff02e285cea04852bb4af7324354407",
+  "comparatorResultSha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa",
+  "decision": "ACCEPT_POSTREADBACK_DIAGNOSTIC_BYTES_ONLY",
+  "equalPayloadBoundaries": 280,
+  "evidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "rightActiveEpisodes": 247,
+  "schema": "1370-e0g-ebg-b-only-adoption-postreadback-observed-check-r3",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

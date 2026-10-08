@@ -1,0 +1,10 @@
+{
+  "blocker": "Template points to nonexistent proposal-r4/launch.py while frozen package and reviewed launcher are proposal-r1.",
+  "compareSha256": "7a1c1e72e5060123658acad0d89b470fe8953fda0065cc7b8733d2bbc74903f2",
+  "decision": "REFINE",
+  "manifestSha256": "f15d60801324b0d4afc0f2661d0592e4b4ad23130da08c28516b221a20ac7fe9",
+  "reviewSha256": "dec542a7706365cf0746dec635d55aeb1a8a4c9fdbc5fb998acd3893fd21bb69",
+  "schema": "1370-e0g-ebg-b-only-adoption-comparator-independent-static-review-r1",
+  "selfcheckSha256": "449164cf4f716d995824ec8cdae145d3f779c0df7863de3a3050a7c427591867",
+  "templateSha256": "093e02acddf63267e3e38ff52c6df8dd56cba54e6e3be36424f5114d5b49bc21"
+}

@@ -1,0 +1,18 @@
+waiting for pid 0; then: python3 -I -B -c import hashlib,os,signal,stat,sys,time
+from pathlib import Path
+start=time.monotonic()
+signal.signal(signal.SIGALRM,lambda *_: (_ for _ in ()).throw(TimeoutError("900-second comparator bootstrap deadline")))
+signal.setitimer(signal.ITIMER_REAL,900)
+p=Path("/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-proposal-r2/launch.py")
+s=p.lstat();assert stat.S_ISREG(s.st_mode) and s.st_nlink==1 and s.st_size<100000
+fd=os.open(p,os.O_RDONLY|os.O_NOFOLLOW)
+try:
+ raw=os.read(fd,100001);after=os.fstat(fd)
+ assert (s.st_dev,s.st_ino,s.st_size,s.st_mtime_ns)==(after.st_dev,after.st_ino,after.st_size,after.st_mtime_ns)
+finally:os.close(fd)
+assert len(raw)==s.st_size and hashlib.sha256(raw).hexdigest()=="9ca23322796938bceaaf4d70530337d75149a854bcf7598c5043d5dfc69a9d57"
+sys.argv=[str(p),sys.argv[1],sys.argv[2]]
+exec(compile(raw,str(p),"exec"),{"__name__":"__main__","__file__":str(p),"_BOOTSTRAP_START":start})
+ 20261008-bonly-adoption-r1 ca19118cd97eb60640be419f9173a0aec867d456728ccc5bbbbe2286b34d89ec; 2026-10-08 02:35:26 CDT
+start; 2026-10-08 02:35:26 CDT
+end, exit 0; 2026-10-08 02:40:11 CDT

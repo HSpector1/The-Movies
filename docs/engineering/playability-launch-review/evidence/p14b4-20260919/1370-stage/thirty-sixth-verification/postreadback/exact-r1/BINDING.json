@@ -1,0 +1,14 @@
+{
+  "auditSha256": "3598f789f8d928b0dc26a7582fa5578196ac86e07e3a55fa0bb0142765c64654",
+  "checkSourceSha256": "f198e17395f72755e6436c8b3dfb5f33535458b97b52c91f88c5c0e826e9dc7f",
+  "classification": "UNRUN_POSTREADBACK_COMMAND_AWAITING_INDEPENDENT_EXACT_REVIEW",
+  "commandSha256": "04c367dbeb7f138603937bac456b75bd00ba358198461f6d0beaa4c2109c48d9",
+  "evidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "freeBytesAtFill": 3987001344,
+  "laneLockAbsent": true,
+  "outputDirAbsent": true,
+  "schema": "1370-e0g-ebg-b-only-adoption-r2-postreadback-filled-exact-r1",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "staticReviewSha256": "335f47ad6dcd95ecf00254acbf88db17ca446fcd9acc8a065d40ed1e214c8d5f"
+}

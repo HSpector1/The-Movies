@@ -1,0 +1,3 @@
+# Adoption comparator r2 exact command review
+
+Decision: `ACCEPT_EXACT_ONLY`; the comparator remains unrun. The filled command is byte-for-byte the reviewed template with `20261008-bonly-adoption-r1` and the accepted static review SHA substituted. It points to the existing r2 launcher and authenticates its SHA, manifest, compare source and static receipt before starting the 900-second bounded lane. Current AC power, 3.5 GiB comparator preflight headroom, pinned production/evidence refs and clean production source passed. The unique output and lane log are absent. A recorded child exit and independent full-result audit are required before any diagnostic conclusion; this review does not admit 1363.

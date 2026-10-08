@@ -1,0 +1,45 @@
+{
+  "boundaryRows": 417,
+  "claimLimit": "Adoption B-bundle diagnostic only; internal predicates and 1363 acceptance remain unresolved.",
+  "decision": "ACCEPT_OBSERVED_DIAGNOSTIC_ONLY",
+  "equalPayloadBoundaries": 280,
+  "evidenceTip": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "firstObserved": {
+    "B": {
+      "path": "$.originalState.hollywood.businesses[2].costCutting.since",
+      "week": 280
+    },
+    "cash": {
+      "path": "$.originalState.hollywood.businesses[3].account.cash",
+      "week": 308
+    },
+    "employment": {
+      "path": "$.originalState.hollywood.employment[42].endedWeek",
+      "week": 308
+    },
+    "industry": {
+      "path": "$.originalState.hollywood.receipts.<length>",
+      "week": 308
+    },
+    "market": {
+      "path": "$.originalState.talentMarket.receipts.<length>",
+      "week": 404
+    },
+    "rng": "NO_OBSERVED_DIFFERENCE",
+    "state": {
+      "path": "$.originalState.hollywood.businesses[2].costCutting.since",
+      "week": 280
+    },
+    "takes": "NO_OBSERVED_DIFFERENCE"
+  },
+  "leftActiveEpisodes": 0,
+  "leftLogicalBytes": 1314244321,
+  "resultBytes": 4274864,
+  "resultSha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa",
+  "rightActiveEpisodes": 247,
+  "rightLogicalBytes": 1314382896,
+  "runId": "20261008-bonly-adoption-r1",
+  "schema": "1370-e0g-ebg-b-only-adoption-r2-independent-observed-audit-r6",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

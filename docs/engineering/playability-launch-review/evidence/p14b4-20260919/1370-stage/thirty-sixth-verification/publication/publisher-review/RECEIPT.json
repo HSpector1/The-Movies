@@ -1,0 +1,19 @@
+{
+  "baseEvidenceCommit": "d8cb45ee094bd8647e19ebed7b63ce2d773dacd4",
+  "claimLimit": "Static publisher source only; exact launch, actual publication and fresh HTTPS remote byte proof pending; no 1363/native acceptance.",
+  "classification": "UNRUN_PUBLISHER_SOURCE_ONLY",
+  "decision": "ACCEPT_STATIC_STAGE36_PUBLISHER_R1",
+  "fileCount": 68,
+  "manifestSha256": "35881fef2e44328251b72431532cc29a7ae67bbe85c71fad7482209f411947fd",
+  "mapReviewReceiptSha256": "3265927a73f9575b95572fe7699e3831fddd57f17fdc3414310690fed7f9a34d",
+  "mapSha256": "8b82dc3a892ad3a012721b419b6219f222d5800e302c746825154f6b03fbab10",
+  "planSha256": "ee8278af34df7cdb8e375fdcadf76f63846afcddecc9c9b1a6d5ed42f0385539",
+  "productionHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "publicationControlCount": 7,
+  "reportSha256": "1d94a090171a6d37de3c50d9457de9be6fc8e040b1247eb813fbfe5d3a91b286",
+  "rosterSha256": "20bb8a667b114285bc9e35489d18b0fcfa8712529eaa963fef784bf9d9216ced",
+  "schema": "1370-e0g-ebg-b-only-adoption-stage36-publisher-static-review-r1",
+  "scriptSha256": "2284979609b005a25777ae9b967150612166894b127cb5e6a3b5a5fcb832f7f5",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "syntheticTests": "16 PASS"
+}
