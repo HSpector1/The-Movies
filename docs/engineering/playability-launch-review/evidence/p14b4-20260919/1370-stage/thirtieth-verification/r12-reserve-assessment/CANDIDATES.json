@@ -1,0 +1,1107 @@
+{
+  "evidenceBranch": "evidence/1370-r10-clean-captures",
+  "excludingCurrentR12ReferenceAllocatedKiB": 369052,
+  "groups": {
+    "twentieth": {
+      "allocatedKiBWithOverlap": 114160,
+      "paths": 33
+    },
+    "twenty-fifth": {
+      "allocatedKiBWithOverlap": 71488,
+      "paths": 13
+    },
+    "twenty-fourth": {
+      "allocatedKiBWithOverlap": 63800,
+      "paths": 11
+    },
+    "twenty-second": {
+      "allocatedKiBWithOverlap": 79608,
+      "paths": 49
+    },
+    "twenty-third": {
+      "allocatedKiBWithOverlap": 50828,
+      "paths": 15
+    }
+  },
+  "measuredUtc": "2026-10-08T00:27:46.206992+00:00",
+  "method": "du -sk per exact present path; individual allocated blocks, not guaranteed APFS free-space gain",
+  "paths": [
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-cap-amendment-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-cap-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-proposal-independent-review-r2"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-proposal-independent-review-r3"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-proposal-independent-review-r4"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-proposal-independent-review-r5"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-proposal-independent-review-r6"
+    },
+    {
+      "allocatedKiB": 36,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r6"
+    },
+    {
+      "allocatedKiB": 10856,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r6"
+    },
+    {
+      "allocatedKiB": 24,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-abg-clean-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-adoption-exploratory-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 23648,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-adoption-exploratory-proposal-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-adoption-four-arm-comparator-final-input-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 28,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-adoption-four-arm-comparator-final-input-proposal-r1"
+    },
+    {
+      "allocatedKiB": 4,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-adoption-four-arm-comparator-final-pins-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-adoption-four-arm-comparator-output-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 24,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-ag-clean-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-c0g-clean-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-f6g-clean-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-abg-r3-types-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-c0g-r3-types-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-f6g-ag-r3-types-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-four-arm-comparator-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-four-arm-comparator-independent-review-r2"
+    },
+    {
+      "allocatedKiB": 36,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-four-arm-comparator-proposal-r1"
+    },
+    {
+      "allocatedKiB": 52,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-four-arm-comparator-proposal-r2"
+    },
+    {
+      "allocatedKiB": 23640,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-original-proposal-r2"
+    },
+    {
+      "allocatedKiB": 23648,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-original-proposal-r3"
+    },
+    {
+      "allocatedKiB": 28,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-original-recorded-runs-r2"
+    },
+    {
+      "allocatedKiB": 31892,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-original-recorded-runs-r3"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-package-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 16,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-package-independent-review-r2"
+    },
+    {
+      "allocatedKiB": 16,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-package-independent-review-r3"
+    },
+    {
+      "allocatedKiB": 20,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-outer-recorded-r7"
+    },
+    {
+      "allocatedKiB": 20,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-outer-recorded-r8"
+    },
+    {
+      "allocatedKiB": 11948,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-proposal-r7"
+    },
+    {
+      "allocatedKiB": 11956,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-proposal-r8"
+    },
+    {
+      "allocatedKiB": 10672,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r7"
+    },
+    {
+      "allocatedKiB": 10668,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-ebg-r3-green-direct-focused-recorded-r8"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": true,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-ebg-r8-observed-green-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 32,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-ebg-r8-v27-whole-file-overlay-proposal-r1"
+    },
+    {
+      "allocatedKiB": 4,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-b-only-projection-design-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-b-only-projection-design-independent-review-r2"
+    },
+    {
+      "allocatedKiB": 16,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-b-only-projection-design-r1"
+    },
+    {
+      "allocatedKiB": 48,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-b-only-projection-design-r2"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-b-only-red-kit-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 52,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-b-only-red-kit-proposal-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-r4-failed-types-independent-audit-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-exclusive-launcher-build-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-external-launcher-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-external-launcher-independent-review-r4"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-external-launcher-independent-review-r5"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-external-launcher-independent-review-r6"
+    },
+    {
+      "allocatedKiB": 24,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-external-launcher-proposal-r1"
+    },
+    {
+      "allocatedKiB": 36,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-external-launcher-proposal-r4"
+    },
+    {
+      "allocatedKiB": 36,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-external-launcher-proposal-r5"
+    },
+    {
+      "allocatedKiB": 36,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-external-launcher-proposal-r6"
+    },
+    {
+      "allocatedKiB": 6968,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-external-launcher-recorded-r4"
+    },
+    {
+      "allocatedKiB": 7012,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-external-launcher-recorded-r5"
+    },
+    {
+      "allocatedKiB": 7012,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-external-launcher-recorded-r6"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-independent-review-r2"
+    },
+    {
+      "allocatedKiB": 36,
+      "archiveGroups": [
+        "twentieth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-probe-r2"
+    },
+    {
+      "allocatedKiB": 1292,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-probe-r5"
+    },
+    {
+      "allocatedKiB": 1312,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-probe-r6"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-r6-build-record-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-r6-exclusive-result-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-r6-repair-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-r6-repair-proposal-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-r6-result-independent-review-addendum-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-empty-typed-r6-result-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-neutrality-control-design-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-neutrality-control-design-r1"
+    },
+    {
+      "allocatedKiB": 10800,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-external-observer-proposal-r1"
+    },
+    {
+      "allocatedKiB": 10808,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-external-observer-proposal-r2"
+    },
+    {
+      "allocatedKiB": 10808,
+      "archiveGroups": [
+        "twenty-second",
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-external-observer-proposal-r3"
+    },
+    {
+      "allocatedKiB": 5808,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-hold-observer-proposal-r3"
+    },
+    {
+      "allocatedKiB": 20256,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r3"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f0-two-stage-route-independent-review-r3"
+    },
+    {
+      "allocatedKiB": 40,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f0-two-stage-route-proposal-r3"
+    },
+    {
+      "allocatedKiB": 48,
+      "archiveGroups": [
+        "twenty-fifth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f0-two-stage-route-recorded-runs-r3"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observational-trace-kit-design-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observational-trace-kit-design-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-independent-review-r2"
+    },
+    {
+      "allocatedKiB": 20,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-proposal-r1"
+    },
+    {
+      "allocatedKiB": 28,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-compare-proposal-r2"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-comparison-independent-audit-r1"
+    },
+    {
+      "allocatedKiB": 24,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "file",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-comparison-r2-output.json"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-independent-review-r2"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-second",
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-independent-review-r3"
+    },
+    {
+      "allocatedKiB": 39804,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-recorded-runs-r3"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-independent-review-r2"
+    },
+    {
+      "allocatedKiB": 28,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-proposal-r1"
+    },
+    {
+      "allocatedKiB": 28,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launcher-proposal-r2"
+    },
+    {
+      "allocatedKiB": 24,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-launches-r2"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-third"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-observer-route-result-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-preimage-source-cause-map-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-preimage-source-cause-map-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-fourth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-observed-result-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-fourth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-fourth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-independent-review-r2"
+    },
+    {
+      "allocatedKiB": 24,
+      "archiveGroups": [
+        "twenty-fourth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-proposal-r1"
+    },
+    {
+      "allocatedKiB": 36,
+      "archiveGroups": [
+        "twenty-fourth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-proposal-r2"
+    },
+    {
+      "allocatedKiB": 68,
+      "archiveGroups": [
+        "twenty-fourth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-s1-four-stage-route-recorded-runs-r2"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-fourth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-fourth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-independent-review-r2"
+    },
+    {
+      "allocatedKiB": 11548,
+      "archiveGroups": [
+        "twenty-fourth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-proposal-r1"
+    },
+    {
+      "allocatedKiB": 11552,
+      "archiveGroups": [
+        "twenty-fourth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-proposal-r2"
+    },
+    {
+      "allocatedKiB": 40528,
+      "archiveGroups": [
+        "twenty-fourth"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-s1-salary-control-recorded-runs-r2"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-p13a-a-week50-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-p13a-a-week50-readonly-r1"
+    },
+    {
+      "allocatedKiB": 12,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-p13a-week50-two-arm-independent-review-r1"
+    },
+    {
+      "allocatedKiB": 8,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-p13a-week50-two-arm-independent-review-r2"
+    },
+    {
+      "allocatedKiB": 11528,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-p13a-week50-two-arm-proposal-r1"
+    },
+    {
+      "allocatedKiB": 11532,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-p13a-week50-two-arm-proposal-r2"
+    },
+    {
+      "allocatedKiB": 4,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-p13a-week50-two-arm-static-report-r1"
+    },
+    {
+      "allocatedKiB": 4,
+      "archiveGroups": [
+        "twenty-second"
+      ],
+      "excludedCurrentR12Reference": false,
+      "kind": "directory",
+      "path": "/Users/zacheryspector/studio-scratch/1370-p13a-week50-two-arm-static-report-r2"
+    }
+  ],
+  "remoteHead": "d1c6bd948ae56b81c9f50361bce20bef805b416f",
+  "schema": "1370-post-adoption-reserve-assessment-r1",
+  "uniqueAllocatedKiB": 369064,
+  "uniquePaths": 119
+}

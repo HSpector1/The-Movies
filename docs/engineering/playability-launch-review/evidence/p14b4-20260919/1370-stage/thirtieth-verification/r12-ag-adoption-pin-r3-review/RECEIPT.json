@@ -1,0 +1,18 @@
+{
+  "actualLeafExists": true,
+  "buildCommandSha256": "fb0a07ac4f8a3acdb18783ede2279088620c574458ac190e7399a2bfbbaa576a",
+  "builderSha256": "7368b59185d9818c7fb286dbb39a91cbc98582752f75a560393a34d05a3efc46",
+  "decision": "ACCEPT_STATIC_LEAF_PIN_ONLY",
+  "executed": false,
+  "observedReceiptSha256": "92fb67ca3e8d954af25d840e48b7ed70aa8a3625950ebee501922f49c04fd50d",
+  "outputParentAbsentAtReview": true,
+  "pinSha256": "ff63ce64d711bd814982300cefa582d8b786303d7eebc2042f8b76e1243a1533",
+  "r3CodeReviewReceiptSha256": "7b80b1aaaf380d933eafbdc3f3b939eb95c6aad2d330667a8601b41c38a297e9",
+  "r3ProposalManifestSha256": "2d9e9aead9399213abdd2d302ac8d6092c508d19ef58310940dde38bbceb3d3b",
+  "reportSha256": "4c203ff5309e08cd2f3591369f47dfd96f4085adc731eada6fb3a52021907226",
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "sourceInventoryMembers": 232,
+  "sourceInventorySha256": "cd9d63d2be330d386bc1e29ff5101671aa9f4ce68431fd2d4f827c54e50efd88",
+  "verifierSha256": "75b13e206a46d223b2230ea7fde510b0acf36517ae3d944661f3346f5845c4b9",
+  "verifyCommandSha256": "98c30c38e01a63ab6d247518932addeb2bfb5a57ba4cb55425f57b435d988366"
+}

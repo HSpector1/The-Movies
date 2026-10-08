@@ -1,0 +1,1 @@
+bash /Users/zacheryspector/studio-scratch/heavy-queue/lane-run.sh 0 '/Users/zacheryspector/studio-scratch/1370-r12-followon-ag-adoption-archive-r2/verify-r3.lane.log' python3 -I -B /Users/zacheryspector/studio-scratch/1370-r12-followon-clean-archive-proposal-r3/verify.py --pin /Users/zacheryspector/studio-scratch/1370-r12-ag-adoption-archive-pin-r1/PIN.json

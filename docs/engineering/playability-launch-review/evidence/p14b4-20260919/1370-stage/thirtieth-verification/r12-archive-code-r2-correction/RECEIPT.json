@@ -1,0 +1,10 @@
+{
+  "decision": "REFINE",
+  "defect": "DOUBLE_R12_PREFIX_IN_TARGET_OUTER_LEAF",
+  "executableR2ArchiveAuthorized": false,
+  "r2ManifestSha256": "b4da69f27e7ae847b41c6e2153da121976570ef16953f81df5558f841d8ed2d6",
+  "reportSha256": "dd2b0ff509d492dcd5040fb0ebca6ec6dd0b0d031a2cd96a6e53cc209ffc44a7",
+  "supersededReceiptSha256": "5aaca087ef9bbd07d773fd8905228612bcdc42e67a2f34993ae7406a2ee00288",
+  "supersededReportSha256": "c47a7d18ef6ba3f90b69fb56d59abeb3068667351c7fb822f7f65a78d4e8ec79",
+  "supersedesDecision": "ACCEPT_STATIC_ARCHIVE_CODE_ONLY"
+}

@@ -1,0 +1,9 @@
+# Independent observed AG adoption archive verifier audit
+
+Decision: **ACCEPT_OBSERVED_LOCAL_BYTE_PRESERVATION_ONLY**. The frozen r3 verifier ran as actual heavy-lane child 0, exited 0, and emitted `PASS_LOCAL_BYTE_PRESERVATION_ONLY`. This is local archive/source equality, not remote preservation and not deletion authorization.
+
+- Verifier log SHA-256 `bc663b39809cd48c168ed428f964968b6d47a23cc8240ae9f4edaef7ae68eb5b`; lane metadata SHA-256 `607445108cf22f84d01578a9ecd408dae5bb222ffde6fe0730b802251f76398b`. Metadata records the exact frozen command and `end, exit 0`; the log is a single JSON result.
+- Output binds pin `ff63ce64d711bd814982300cefa582d8b786303d7eebc2042f8b76e1243a1533`, manifest `e07a92c662fa9ca19c5ec92baac85164bda4a2358cda27ab0e8ce56dc0253f35`, tar `64e4591e80aa57a80c7ec5e219672a10b2be54580734b8da489ad7b208f4e099`, 146,718,720 tar bytes, 232 members and 3 parts. These match the independently audited build package and retained 232-member source.
+- Current production branch remains clean at HEAD `b995a83e5363a3843f9b902e08c2df4dd95840cb`; remote evidence branch was observed at `d1c6bd948ae56b81c9f50361bce20bef805b416f` before a new publication.
+
+Publication scope decision: publish the immutable `package/MANIFEST.json` and its **three exact part files** together with frozen pin, r3 package/verifier code and proposal manifest, this independent report/receipt, and the observed verifier lane log/meta on the evidence branch as an explicitly labeled `BYTE_PRESERVATION_ONLY` checkpoint. Each part is at most 48 MiB. Preserve raw source paths locally. After push, fresh clone/fetch the exact remote commit and rehash each published file, independently reconstruct/read the tar, then compare to the same source inventory before considering any disposition. Do not treat publication alone as 1363 acceptance or remote byte-restore proof. Production source and HANDOFF do not need edits for this narrow evidence publication.

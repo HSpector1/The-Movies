@@ -1,0 +1,12 @@
+{
+  "block": "R2_DOUBLE_R12_PREFIX_NONEXISTENT_SOURCE_LEAF",
+  "decision": "REFINE",
+  "observedReceiptSha256": "92fb67ca3e8d954af25d840e48b7ed70aa8a3625950ebee501922f49c04fd50d",
+  "pinSha256": "ff63ce64d711bd814982300cefa582d8b786303d7eebc2042f8b76e1243a1533",
+  "r2BuilderCommandAuthorized": false,
+  "reportSha256": "38c2a0b9f0b737a3749f8fc9566008b401d84711052ce426be24b41edcf536bb",
+  "scope": "AG_ADOPTION_PIN_CONTENT_STATIC_EXECUTION_BINDING_BLOCKED",
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "sourceInventoryMembers": 232,
+  "sourceInventorySha256": "cd9d63d2be330d386bc1e29ff5101671aa9f4ce68431fd2d4f827c54e50efd88"
+}
