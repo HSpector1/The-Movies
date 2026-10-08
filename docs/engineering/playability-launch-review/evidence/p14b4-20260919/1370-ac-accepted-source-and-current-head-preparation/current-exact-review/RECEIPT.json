@@ -1,0 +1,21 @@
+{
+  "auditCodeSha256": "c47e727ba8b51992a05975afe2109976e0d937385bd0aea17c5b4a07ae33c0bc",
+  "auditPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-independent-review-r2/AUDIT.json",
+  "auditSha256": "4b190c7f1cef27d3d52de242bc6fa9f41edcfb849d8d59a7bfcceb3145ee4052",
+  "bindingSemanticSha256": "1d6906cc48ff0005b777a1f8d3af27d33dee5f6b07834704363c47ccb0f7f46c",
+  "candidatePinsSha256": "98e025d2f6863bb60f7665bc808e92ef9bf3fdf71d5c10bd4a41ee6f8123fd63",
+  "decision": "ACCEPT_DRAFT_ONLY",
+  "deficitBytesAtReview": 465752064,
+  "executionAuthorization": false,
+  "freeBytesAtReview": 3292344320,
+  "launch": "LAUNCH_STOP_LOW_SPACE",
+  "materializationRun": false,
+  "next": "Separate ACCEPT_EXACT_FILLED_UNRUN receipt, future verified archive/in-place five-field adoption and adopted preflight; low-space and UEs process STOP remain.",
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-independent-review-r2/REPORT.md",
+  "reportSha256": "56ba7cdd2bdb7e51f955db755190cd427b0401ed91019ccedf0353d14cf44e35",
+  "requiredFreeBytes": 3758096384,
+  "schema": "1370-c0-aging-era-sparse-materializer-r4-independent-exact-draft-review-r2",
+  "sourcePinsSha256": "f5e985ffe629d87a3292506c7506bbdc153d923e2fa5cafd1db445d3c5e11105",
+  "statusReviewed": "DRAFT_UNREVIEWED_UNRUN",
+  "witnessRun": false
+}

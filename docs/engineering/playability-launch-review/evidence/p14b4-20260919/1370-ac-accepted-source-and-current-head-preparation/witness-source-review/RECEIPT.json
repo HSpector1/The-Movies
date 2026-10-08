@@ -1,0 +1,45 @@
+{
+  "schema": "1370-c0-aging-era-employment-witness-independent-static-review-r7",
+  "status": "FROZEN_SOURCE_ONLY_UNRUN",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r7",
+  "sourcePinsSha256": "69ca5043bb533908f722126fbc93fd59ce84f0d7388180f3b60c5074076aebc2",
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "decision": {
+    "witnessSource": "ACCEPT_SOURCE_ONLY_UNRUN",
+    "boundsRole": "ACCEPT_EXACT_FROZEN_CROSS_VERSION_ROLE_SOURCE_ONLY",
+    "launch": "STOP_UNFILLED_UNRUN"
+  },
+  "frozenHashes": {
+    "witness-core.mjs": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d",
+    "worktree-guard.mjs": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4",
+    "bounds-guard.mjs": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f",
+    "witness.mts": "afce97a16063085964c4a92d49c0495312452b7eec8d6b9b6bcc9edbc01cc736",
+    "supervise.py": "b9c85abe795502852f4fe4350121f3e6b639884b97ebc419da46b95d7ce2276f",
+    "outer-recorder.py": "78d8a62f172c42bb135e2fe2981e096fdf03648a1e7bf7103457ff727af77f76",
+    "POLICY.sb": "733ad40abe14eb619230091b43e00e9a27c72b1367c304ee5f7b16cc9eebf833",
+    "test-synthetic.mjs": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60",
+    "test-supervisor.py": "03b5abb1e890fed063ad81d88310cf2d94635b6abfe6f6fff5a91710515850b4",
+    "test-outer.py": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab",
+    "BINDING-UNFILLED.json": "adee3d1fb706125535ecadd03e8ec84ddecfb563c19da03b64bedfbb1419f89a",
+    "PLAN.md": "e6b6b582f0720f6f996b537fefbff7d4c94638423a40ba74379a801e8544b351"
+  },
+  "crossVersionPins": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r6/AMENDMENT-BOUNDS-PROPOSED.md": "3e705b81cd4991b628eff0a084e8088f53005be49098ee449b025c1d8606f0d4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-independent-design-review-r1/RECEIPT.json": "8dc9c50b2ba7edf3702b42fd3dbeefb2e26e4089891af32127fa816c1704df3d",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-parent-adoption-r1/ADOPTION.json": "6b4b83cd3470a9a882d8045ae6300bca0a39635c793c4a3b312c8d0fed94dc46",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r6/RECEIPT.json": "02b6052169f67c29464f1b8b6c08b1fc7921a7a13f0e3b0328537b8e8e7ba8f0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r6-exact-fill-plan-r1/PLAN.md": "f73263070f182c07e8c6260dc5a0e30b55355798f7f6b5af0ce1fb0309638c11"
+  },
+  "verification": [
+    "All 12 r7 source files matched frozen SOURCE-PINS.json SHA-256 and byte counts; source manifest SHA-256 69ca5043bb533908f722126fbc93fd59ce84f0d7388180f3b60c5074076aebc2.",
+    "The frozen r6 amendment, external independent bounds receipt, parent adoption, accepted r6 source review and r6 STOP_AMENDMENT_PATH diagnostic matched the five exact SHA-256 pins above.",
+    "Safe synthetic tests: Node 6/6 including negative path substitution, supervisor Python 4/4 including positive exact roles and negative path substitution, inherited outer watchdog 7/7. Python syntax passed. No real checkout/game/H/dependency/native or sandbox lane ran."
+  ],
+  "findings": [
+    "R7 fixes the r6 exact-fill STOP_AMENDMENT_PATH. Both supervise.py before sandbox child Popen and bounds-guard.mjs in every child source flight require the exact r6 amendment path/SHA, external review path/SHA, and parent adoption path/SHA. They verify the independent review is design-only ACCEPT with no execution authorization and that the parent adoption is operational bounds only with no execution authorization, exact seed, 416 weeks, 720 inner, 742 active stop, 750 whole, and preserved earlier labels. A substituted path, changed byte, changed decision or changed claim limit is STOP. The r7 source package does not copy or widen access to the frozen r6 amendment.",
+    "The full r6 recorder source is byte-identical in r7: its 750-second clock starts before preflight, uses a shared owned process group, bounds streams and final forwarding, sends TERM/KILL, reaps the direct supervisor, requires group clearance and rejects survivors. The no-detach assumption remains for an exact launch review; the wrapper does not claim to reap adopted grandchildren.",
+    "The historical observer remains at seed p13a-core-causal-01 and exactly 416 ordinary ticks with the existing week-0 quote, 44-row JSON.stringify 4cff employment preimage and settlement/receipts/takes/RNG controls. Eight actual checkout files are directly checked by nofollow reads, before/after identity, raw Git blob equality and separately filled SHA-256 at three flights. Seven observer files, five runtime files, Node identity, full frame guards, source-review receipt self-gate, fixed global deny file-write* sandbox and pipe-only output remain required.",
+    "This approval is source-only. BINDING-UNFILLED.json refuses, historical checkout and dependencies are not materialized, and the exact filled launch plus output archive require separate independent review and observation. The bounds review and parent adoption do not themselves authorize a real witness, modern C0 reconciliation or game acceptance."
+  ],
+  "claimLimit": "Independent source/static/safe synthetic approval only; no real game/type/H/dependency/native/heavy lane, no observed 4cff preimage, no protected digest repin, no C0 attribution or 1363 acceptance."
+}

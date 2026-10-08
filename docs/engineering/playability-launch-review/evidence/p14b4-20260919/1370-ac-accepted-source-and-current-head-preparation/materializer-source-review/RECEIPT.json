@@ -1,0 +1,20 @@
+{
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN",
+  "designReceiptSha256": "27a5f1501ac3ee92d5b5f2e6ceb59dcd389d74c9fa62714c361feeddd2951b55",
+  "executionAuthorization": false,
+  "qualifiedSourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "r3RefineReceiptSha256": "a206e34f4b8c625bf12a20e3f13707d4f105cf108b39b5831237751f0490ec5c",
+  "realCheckoutOrCopyRun": false,
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-r4/REPORT.md",
+  "reportSha256": "39bbe672045c68783547261a831ae07e0f003d0bce48955b4775eaf749615f2b",
+  "requiredNext": [
+    "independent exact filled-binding review",
+    "one guarded recorded historical materialization",
+    "independent observed bytes/allocation/process/FD review",
+    "separate r7 witness exact binding review"
+  ],
+  "reviewedSourcePinsPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r4/SOURCE-PINS.json",
+  "reviewedSourcePinsSha256": "f5e985ffe629d87a3292506c7506bbdc153d923e2fa5cafd1db445d3c5e11105",
+  "schema": "1370-c0-aging-era-sparse-materializer-independent-source-review-r4",
+  "tinySyntheticTests": "PASS"
+}

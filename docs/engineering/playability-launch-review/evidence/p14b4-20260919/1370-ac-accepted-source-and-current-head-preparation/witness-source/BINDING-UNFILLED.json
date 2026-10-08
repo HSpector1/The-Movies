@@ -1,0 +1,14 @@
+{
+  "status": "UNFILLED_UNRUN",
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "repoRoot": null,
+  "observerSha256": null,
+  "runtimeSha256": null,
+  "worktreeSha256": null,
+  "nodeVersion": null,
+  "nodeExecPath": null,
+  "boundsAmendment": null,
+  "parentBoundsAdoption": null,
+  "independentSourceReviewReceipt": null,
+  "outputProtocol": "single-bounded-stdout-frame-no-files"
+}

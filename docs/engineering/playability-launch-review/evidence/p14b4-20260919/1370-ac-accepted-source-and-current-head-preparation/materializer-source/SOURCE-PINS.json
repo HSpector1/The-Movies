@@ -1,0 +1,17 @@
+{
+  "designReceiptSha256": "27a5f1501ac3ee92d5b5f2e6ceb59dcd389d74c9fa62714c361feeddd2951b55",
+  "executionAuthorization": false,
+  "files": {
+    "BINDING-UNFILLED.json": "04e06b3e91db4ab8f8065d588bf2c3953d8c5b5e3fcc5f54e0bb6a95f8c10693",
+    "PLAN.md": "fbb2cc00e5fc688eca3937cb0b5a80e1c00b4d0a8191ceaef903c97842d1ce2f",
+    "materialize.py": "cd7d6141b17a784375bfa7b4c68a9bd6e5363544991ce5ff20b6a0539e664330",
+    "record.py": "0313af5827859ea7fad9132b0f3f6de81867b4155bcf5c7c8531220b7d2d5802",
+    "supervise.py": "789619893b7a531a240f2422845e7909babf73fd7eacb364ca91fcb2d2f72202",
+    "test_synthetic.py": "932f42c79f34f1761aada6f9d855db3ba697f549a3c66113bdfaed4fd04302bb"
+  },
+  "r1RefineReceiptSha256": "b60b5bb0857d5794e1859c1b22e4cbbde66411c8e3afad1fdc8ad107067c5c88",
+  "r2RefineReceiptSha256": "011e7d739daa06044b5dad157b5c0af54ef0f4d8b5593a0b0afadf2e390c3a69",
+  "r3RefineReceiptSha256": "a206e34f4b8c625bf12a20e3f13707d4f105cf108b39b5831237751f0490ec5c",
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "status": "SOURCE_ONLY_UNRUN"
+}

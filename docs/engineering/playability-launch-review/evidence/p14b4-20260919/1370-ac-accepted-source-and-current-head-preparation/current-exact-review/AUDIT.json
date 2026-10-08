@@ -1,0 +1,40 @@
+{
+  "errors": [],
+  "facts": {
+    "bindingSemanticSha256": "1d6906cc48ff0005b777a1f8d3af27d33dee5f6b07834704363c47ccb0f7f46c",
+    "candidatePinsSha256": "98e025d2f6863bb60f7665bc808e92ef9bf3fdf71d5c10bd4a41ee6f8123fd63",
+    "deficitBytesNow": 465752064,
+    "dependencyShape": {
+      "directories": 1401,
+      "regular": 11060,
+      "symlinks": 24
+    },
+    "freeBytesNow": 3292344320,
+    "historicalBlobs": 176,
+    "historicalLogicalBytes": 4803106,
+    "r1ToR2BindingChanges": {
+      "outputRoot": {
+        "r1": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r4-20261008-r1",
+        "r2": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r4-20261008-r2"
+      },
+      "productionHead": {
+        "r1": "ca29a7d045e9af09e3d78197d8f7b9c2f1daaf0f",
+        "r2": "2bc459375006cdf97fb073f1ceace5462e4503d3"
+      },
+      "recorderLockPath": {
+        "r1": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-20261008-r1.lock",
+        "r2": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-20261008-r2.lock"
+      },
+      "scratchRoot": {
+        "r1": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r4-20261008-r1",
+        "r2": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r4-20261008-r2"
+      }
+    },
+    "remoteRefs": {
+      "refs/heads/evidence/1370-r10-clean-captures": "edcdf4c641952f2d20263766993901c59158f5c2",
+      "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+      "refs/heads/wip/headless-program-20260916-ts": "2bc459375006cdf97fb073f1ceace5462e4503d3"
+    },
+    "requiredFreeBytes": 3758096384
+  }
+}

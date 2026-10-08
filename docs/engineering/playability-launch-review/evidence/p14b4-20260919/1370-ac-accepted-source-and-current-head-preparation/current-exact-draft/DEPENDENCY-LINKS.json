@@ -1,0 +1,105 @@
+{
+  "dependencyRoot": "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+  "directoryCount": 1401,
+  "links": [
+    {
+      "path": ".bin/baseline-browser-mapping",
+      "target": "../baseline-browser-mapping/dist/cli.cjs"
+    },
+    {
+      "path": ".bin/browserslist",
+      "target": "../browserslist/cli.js"
+    },
+    {
+      "path": ".bin/esbuild",
+      "target": "../esbuild/bin/esbuild"
+    },
+    {
+      "path": ".bin/jsesc",
+      "target": "../jsesc/bin/jsesc"
+    },
+    {
+      "path": ".bin/json5",
+      "target": "../json5/lib/cli.js"
+    },
+    {
+      "path": ".bin/lz-string",
+      "target": "../lz-string/bin/bin.js"
+    },
+    {
+      "path": ".bin/nanoid",
+      "target": "../nanoid/bin/nanoid.cjs"
+    },
+    {
+      "path": ".bin/parser",
+      "target": "../@babel/parser/bin/babel-parser.js"
+    },
+    {
+      "path": ".bin/playwright",
+      "target": "../@playwright/test/cli.js"
+    },
+    {
+      "path": ".bin/playwright-core",
+      "target": "../playwright-core/cli.js"
+    },
+    {
+      "path": ".bin/rollup",
+      "target": "../rollup/dist/bin/rollup"
+    },
+    {
+      "path": ".bin/semver",
+      "target": "../semver/bin/semver.js"
+    },
+    {
+      "path": ".bin/tldts",
+      "target": "../tldts/bin/cli.js"
+    },
+    {
+      "path": ".bin/tsc",
+      "target": "../typescript/bin/tsc"
+    },
+    {
+      "path": ".bin/tsserver",
+      "target": "../typescript/bin/tsserver"
+    },
+    {
+      "path": ".bin/update-browserslist-db",
+      "target": "../update-browserslist-db/cli.js"
+    },
+    {
+      "path": ".bin/vite",
+      "target": "../vite/bin/vite.js"
+    },
+    {
+      "path": ".bin/vite-node",
+      "target": "../vite-node/vite-node.mjs"
+    },
+    {
+      "path": ".bin/vitest",
+      "target": "../vitest/vitest.mjs"
+    },
+    {
+      "path": ".bin/why-is-node-running",
+      "target": "../why-is-node-running/cli.js"
+    },
+    {
+      "path": "vite-node/node_modules/.bin/esbuild",
+      "target": "../esbuild/bin/esbuild"
+    },
+    {
+      "path": "vite-node/node_modules/.bin/vite",
+      "target": "../vite/bin/vite.js"
+    },
+    {
+      "path": "vitest/node_modules/.bin/esbuild",
+      "target": "../esbuild/bin/esbuild"
+    },
+    {
+      "path": "vitest/node_modules/.bin/vite",
+      "target": "../vite/bin/vite.js"
+    }
+  ],
+  "regularCount": 11060,
+  "schema": "1370-c0-aging-era-dependency-link-manifest-r4",
+  "symlinkCount": 24
+}
