@@ -1,0 +1,59 @@
+{
+  "accepted_design_r2_receipt_sha256": "27bb1cdf112bef30e6056c62e6595fd5480f64cf46f9764ffd557e6ebca7a08f",
+  "accepted_hook_overlay_r2_static_receipt_sha256": "7a01afcb591d8dcd28a96c90c2d161070c0af2e4d7f81c82fa9bb47a69b53f9b",
+  "files": {
+    "historical-promises.ts": {
+      "bytes": 62983,
+      "predecessor_path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r2/historical-promises.ts",
+      "predecessor_sha256": "bbfa979e5c75cbfece3313924e05945afbc3fd800ff0d57c91be5d6dc77f05ea",
+      "sha256": "bbfa979e5c75cbfece3313924e05945afbc3fd800ff0d57c91be5d6dc77f05ea"
+    },
+    "historical-talentMarket.ts": {
+      "bytes": 87435,
+      "predecessor_path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-market-decision-source-overlay-r4-step12-draft/historical-talentMarket.ts",
+      "predecessor_sha256": "a50f45b16e15711dbb2b95b7bd5fcefe5cca14ff02097ca78dc7730ca93c157d",
+      "sha256": "de991bf596e9525081ac542159f2192df4506380054437f851ca062e88439102"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "predecessor_path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r2/m0FeasibilityWitness.ts",
+      "predecessor_sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "market-static-synthetic-check.mjs": {
+      "bytes": 5651,
+      "sha256": "a2bc729a5044a25aa35570479edeffc26f3096d6322969a511eeb5a39aa18ede"
+    },
+    "modern-opportunityPromises.ts": {
+      "bytes": 24797,
+      "predecessor_path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r2/modern-opportunityPromises.ts",
+      "predecessor_sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    "modern-promises.ts": {
+      "bytes": 112969,
+      "predecessor_path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r2/modern-promises.ts",
+      "predecessor_sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    "modern-talentMarket.ts": {
+      "bytes": 106620,
+      "predecessor_path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-market-decision-source-overlay-r4-step12-draft/modern-talentMarket.ts",
+      "predecessor_sha256": "dfc6b789eff547d0a5523804048b3af175f227f3526457dbfd58ba31e0580297",
+      "sha256": "8a1710af824bd86d69eaa9fb3ebedb98b4126ee59683c414c6c197a7bcb34178"
+    },
+    "static-synthetic-check.mjs": {
+      "bytes": 14579,
+      "predecessor_path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r2/static-synthetic-check.mjs",
+      "predecessor_sha256": "40022d758c1d848475f756056ff2cc5c388610e18d4f91e447332f3b4902f51f",
+      "sha256": "ad81bb39164844b6592491432eb478fe7c24a37e9605fc5f51cbe74d75bd4b89"
+    }
+  },
+  "historical_source_commit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "historical_source_tree": "0ee21d8179977aaa0726ffb5d1b2bb2568c9df97",
+  "historical_talentMarket_baseline_sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03",
+  "modern_source_commit": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "modern_source_tree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "modern_talentMarket_baseline_sha256": "010ed07634a5991674dc867f61b3b78ab022c91699366d29fea26a4d5585c087",
+  "status": "STATIC_SYNTHETIC_ONLY_NO_GAME_OR_NEUTRALITY"
+}

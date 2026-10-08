@@ -1,0 +1,7 @@
+# Independent static review — C0 feasibility overlay r6 partial
+
+**Decision: ACCEPT_STATIC_PARTIAL.** The two r5 REFINE defects are corrected in both H and M0 source overlays. The week-208 `freezeStart` identity is now read only under `m0Case !== undefined`; dropped and survivor rows retain original `submittedOrdinal`, and survivor rows also retain `survivorOrdinal`. This is scratch static suitability, not a runnable route or neutrality result.
+
+All eleven files match frozen INVENTORY sizes and SHA-256s, the r5 predecessor inventory pin and independent r5 REFINE receipt pin match, and H/M0 original source roles remain explicit. I inspected both era diffs. R6 observes already-computed trigger branch values and proposal price outputs, records preferred opportunity only at the existing public call, and marks author-time preference `NOT_EVALUATED_AT_AUTHOR`. It leaves original feasibility/trigger/chooser/RNG call counts unchanged by static call-site inspection. The four synthetic/static suites and standalone strict sink TypeScript check pass.
+
+Remaining: exact tier-index and reserve/affordability refusal internals, canonical reached freeze predicate locals and H absent status repair, chooser priority/dominance/pairwise/tie values, row-cap proof for expanded rows and high-frequency public preference events, complete era mirrors/fixtures/imports/test guards and REDs, full-era typechecks, then 416/417/40/43 observed routes and original protected digest/terminal RNG neutrality. Do not repin historical evidence.

@@ -1,0 +1,30 @@
+{
+  "files": {
+    "H-SOURCE-MANIFEST.json": {
+      "bytes": 6827,
+      "sha256": "e2f92aa60063b754f110ec31f08080bfd461f6a150f74394464739c2d4cab7ff"
+    },
+    "M0-SOURCE-MANIFEST.json": {
+      "bytes": 7400,
+      "sha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba"
+    },
+    "PLAN.md": {
+      "bytes": 1773,
+      "sha256": "694892f357a921fad653b657b3bbd09c43b480dbe4ea4237f2a5ebb084cf3e20"
+    },
+    "parse-overlays.mjs": {
+      "bytes": 871,
+      "sha256": "45b8c8eeabc5214869041d412659c66a9d4d5b99271e7276c3f52449cb90c5f0"
+    },
+    "selfcheck.py": {
+      "bytes": 6102,
+      "sha256": "dd236b35d687b331c4de621661078a85a3d1838ef1385e0a2617addc85362122"
+    }
+  },
+  "independent_r10_static_schema_only_sha256": "44d0463452737d4ba3fd38e7d415cd234065ca2bd53241e2c40c3902e1958bd7",
+  "independent_r8_route_stop_sha256": "e4896f6ec384e7a59e6f7b7dee68d68a1e5d3c03c1f8b8acc7f63ec83a7d8359",
+  "independent_r9_static_propagation_only_sha256": "df51f0780f9f39e833f8fe6a09684b21cc508f63ebea0ca297fa9f3520bcc6d8",
+  "predecessor_r1_package_inventory_sha256": "527be8001fa21e8231083cbc903adedafd6a70163b6a55905dbb6a290313c6f5",
+  "r1_manifest_status": "HELD_SUPERSEDED_BY_R2_PROPOSAL",
+  "status": "UNREVIEWED_SOURCE_MANIFEST_PROPOSAL_ONLY_NO_MIRROR_TYPES_ROUTE_OR_NEUTRALITY"
+}

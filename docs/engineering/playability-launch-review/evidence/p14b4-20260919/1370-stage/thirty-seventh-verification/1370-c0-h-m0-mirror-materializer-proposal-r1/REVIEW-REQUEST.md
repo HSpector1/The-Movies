@@ -1,0 +1,5 @@
+# Independent static review requested — unrun materializer
+
+Frozen source SHA-256 `d9c628b5d00890cb4488233251c37ad191c4d500c8c8a919ff760797962a04c2`; synthetic test SHA-256 `5abe9ec9b079ebe8959f2112aa9cb0ee0417c8c2e122bba004b8c9a03ab5bf78`; PLAN SHA-256 `f6872ad203ed8ccc7e9561e126379c201a39f5722ea8bb5399916889d2b2ce66`; null binding template SHA-256 `f51cef6698461a2e22cec56c71abcec299a45e40c86f43233ed27c9161a95f3e`; MANIFEST SHA-256 `e2a049b37602e579d68fd2f1c680c93fb302fc3d4bbf7d7fb2402e5e5ae8644d`.
+
+Review exact H/M0 source/tree and root/test/UI/fixture/tick pins against accepted route design r2; production f8/src13880 guard; future corrected source manifest and independent review requirement; 160 MiB serial mirror cap; AC/3.5 GiB preflight/3 GiB continuous floor; one-shot lane and output; nofollow/archive traversal/duplicate/member size and Git OID checks; atomic reviewed overlay/test replacement; STOP partial-leaf semantics; and absence of dependency installation or production Git/worktree mutation. Run `selfcheck.py` only. No real mirror, typecheck, game, or archive capture read is authorized by this static proposal.

@@ -1,0 +1,13 @@
+{
+  "claimLimit": "Propagation static only; no full-source admission, mirror, runtime neutrality or C0 attribution.",
+  "decision": "ACCEPT_STATIC_PROPAGATION_ONLY",
+  "historicalMarketSha256": "4f35113066c6424229d32ec9aa0b43a33f9b65a6a91734e6f27cb26b878ce1a9",
+  "modernMarketSha256": "71c775336c581fb5c5ad8923d4648bc8bf492ee38f235214f861fd1d0e7ac804",
+  "overlayInventorySha256": "94b2d6920565cf5208b9e63d01624fe2dd5f35ca51d8a48ec8dcec7c8f90ea45",
+  "r8RouteStopReceiptSha256": "e4896f6ec384e7a59e6f7b7dee68d68a1e5d3c03c1f8b8acc7f63ec83a7d8359",
+  "readmeSha256": "2e29c6401816fe9c90a3aa938636c5560d315f584e522d4e29be1cdae6c2e0e7",
+  "redSha256": "2586ce3c34fe62d3d9e44f98436383ed229992bd68664a04c0332784b724d8e3",
+  "reportSha256": "4382010c9c043e47ae9ae07d35f44c37b733b0e6402b806d966aa9d15218bb2b",
+  "routeStatus": "HELD_FOR_VERSIONED_H_M0_MANIFESTS_AND_DIAGNOSTIC_SCHEMA_CORRECTION",
+  "tests": "R8 expected RED/R9 propagation and ordinary refusal PASS; six inherited suites and standalone sink tsc PASS."
+}

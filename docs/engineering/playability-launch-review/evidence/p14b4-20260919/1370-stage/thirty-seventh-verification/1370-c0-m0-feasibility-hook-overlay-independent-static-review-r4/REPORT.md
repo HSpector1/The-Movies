@@ -1,0 +1,7 @@
+# Independent static review — C0 market feasibility overlay r4
+
+**Decision: ACCEPT_STATIC_PARTIAL.** R4 completes static wiring of H author and freeze captures, alongside the r3 M0 author/freeze and H/M0 chooser captures. It is not a runnable or neutral C0 diagnostic yet.
+
+All eight file bytes and sizes match INVENTORY, whose r3 predecessor hash is correct. The H diff adds a pre-loop source-order case identity, passes it into the existing author call, enumerates candidate order, captures only reached existing feasibility evaluations, marks skipped suffix `NOT_EVALUATED`, and records directing/opportunity as `NOT_PRESENT_IN_ERA`. H freeze passes submitted ordinals into existing `attachedFeasibility`. Its promises hook records a bounded `opportunityAssessment: NOT_PRESENT_IN_ERA`. The guarded call-site tests show no added feasibility, authoring, chooser or RNG decision calls. Case/proposal collision/reorder, null/missing/attached paths, early refusal and sink phase/cap/reentry tests pass. Standalone sink strict TypeScript check passes.
+
+Remaining are the actual preferred-opportunity and trigger/tier/pricing input witness, week-208 pre-freeze predicate locals and submitted/dropped/surviving source order, H absent-predicate status vocabulary, flattened seven-band ranking order, observer-created RNG removal from copied diagnostic test, exact route pins, full-era typechecks/REDs, and observed protected-digest/terminal-RNG neutrality. R4 itself made no production/Git change or C0 causal conclusion.

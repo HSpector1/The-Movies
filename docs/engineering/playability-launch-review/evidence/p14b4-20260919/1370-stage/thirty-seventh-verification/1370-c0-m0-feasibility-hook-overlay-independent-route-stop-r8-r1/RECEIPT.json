@@ -1,0 +1,12 @@
+{
+  "blockingDefect": "Observer draftPrice cap/serialization failure inside submitProposal is caught by rival proposal catch and converted to SUBMISSION_REFUSED instead of stopping diagnostic.",
+  "claimLimit": "R8 prior static partial preserved; H/M0 full-source admission and mirrors held.",
+  "decision": "REFINE_ROUTE_STOP",
+  "hSourceManifestSha256": "56f8e559490cb3f6e4c44896325200c6b32144fa8abf5d6731ba1cca8a71daad",
+  "historicalMarketSha256": "63f3252b0ec0bdca83dfa18a7a8431caff5e72065cbc101d6754f951c0fb8a25",
+  "m0SourceManifestSha256": "03a152c970e04a1a6255092ad78d31ca81a6a81ff20a4e3e46ed017d47e44159",
+  "modernMarketSha256": "dd9906370023bb57298c47cb0831de326a91c1c928dbf6e6e1c9ceef76f9f497",
+  "r8InventorySha256": "2e2914354c4a6a3d5b72fc6e71d95cf04dd93750bf640dcaa8a7748deb15cc30",
+  "r8PartialStaticReceiptSha256": "3394545d6e80af1aa8f7eef2de9a26c02958478f9f5016340c678c82a11bb6ef",
+  "reportSha256": "6b82adb223f31761466528fb31a6238bd3f4869cb99f8248b92a86de16a64593"
+}

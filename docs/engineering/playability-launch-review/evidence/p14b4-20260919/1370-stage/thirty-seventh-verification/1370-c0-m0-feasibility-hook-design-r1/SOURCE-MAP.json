@@ -1,0 +1,33 @@
+{
+  "sources": {
+    "historical_promises": {
+      "sha256": "6c6f01309df85d4e8deaa8658f361f50f2c2c9ae11cbec2433970416ebcca318",
+      "source": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/promises.ts"
+    },
+    "historical_talentMarket_baseline": {
+      "sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03",
+      "source": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/talentMarket.ts"
+    },
+    "historical_talentMarket_step12": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-market-decision-source-overlay-r4-step12-draft/historical-talentMarket.ts",
+      "sha256": "a50f45b16e15711dbb2b95b7bd5fcefe5cca14ff02097ca78dc7730ca93c157d"
+    },
+    "modern_opportunityPromises": {
+      "sha256": "a4acd02eb0151af8c873f939a546bdc26265ca0c680c3c004def056e124a4461",
+      "source": "292d6fd3b5293fe2a520b681ae4c1dde997dc113:src/core/opportunityPromises.ts"
+    },
+    "modern_promises": {
+      "sha256": "580ddb7d1e8c5a198f18beb5843d1cecf77680b8b735e1f2603e2c86099e950d",
+      "source": "292d6fd3b5293fe2a520b681ae4c1dde997dc113:src/core/promises.ts"
+    },
+    "modern_talentMarket_baseline": {
+      "sha256": "010ed07634a5991674dc867f61b3b78ab022c91699366d29fea26a4d5585c087",
+      "source": "292d6fd3b5293fe2a520b681ae4c1dde997dc113:src/core/talentMarket.ts"
+    },
+    "modern_talentMarket_step12": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-market-decision-source-overlay-r4-step12-draft/modern-talentMarket.ts",
+      "sha256": "dfc6b789eff547d0a5523804048b3af175f227f3526457dbfd58ba31e0580297"
+    }
+  },
+  "status": "DESIGN_ONLY"
+}

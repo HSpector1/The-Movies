@@ -1,0 +1,30 @@
+{
+  "classification": "FROZEN_UNRUN_STATIC_REVIEW_PENDING",
+  "files": [
+    {
+      "bytes": 13385,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-mirror-materializer-proposal-r1/materialize.py",
+      "sha256": "d9c628b5d00890cb4488233251c37ad191c4d500c8c8a919ff760797962a04c2"
+    },
+    {
+      "bytes": 2300,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-mirror-materializer-proposal-r1/selfcheck.py",
+      "sha256": "5abe9ec9b079ebe8959f2112aa9cb0ee0417c8c2e122bba004b8c9a03ab5bf78"
+    },
+    {
+      "bytes": 3125,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-mirror-materializer-proposal-r1/PLAN.md",
+      "sha256": "f6872ad203ed8ccc7e9561e126379c201a39f5722ea8bb5399916889d2b2ce66"
+    },
+    {
+      "bytes": 512,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-mirror-materializer-proposal-r1/BINDING-TEMPLATE.json",
+      "sha256": "f51cef6698461a2e22cec56c71abcec299a45e40c86f43233ed27c9161a95f3e"
+    }
+  ],
+  "routeIndependentDesignReceiptSha256": "d7ec88eeae8c97ed4d7a1eb42d9dfbd3e77ff14f1b2247c1ba5501636cf713f2",
+  "routeInputsSha256": "84d89b19ffc40f02c9a908bf8ae3cdbf34e4ff65ce2c1cf63687c140746e1154",
+  "schema": "1370-c0-h-m0-mirror-materializer-proposal-r1",
+  "sourceOverlayPins": "NULL_AWAITING_INDEPENDENT_CORRECTED_R6_OR_R7_ACCEPTANCE",
+  "syntheticTests": "PASS; no mirror creation"
+}

@@ -1,0 +1,163 @@
+{
+  "acceptedR10OverlayInventorySha256": "fba00be264d11d5683150e965f918dcbf1e4608ce9c208153e36d419953b53b9",
+  "acceptedR10SchemaOnlyReviewSha256": "44d0463452737d4ba3fd38e7d415cd234065ca2bd53241e2c40c3902e1958bd7",
+  "acceptedR8OverlayInventorySha256": "2e2914354c4a6a3d5b72fc6e71d95cf04dd93750bf640dcaa8a7748deb15cc30",
+  "acceptedR8PartialStaticReviewSha256": "3394545d6e80af1aa8f7eef2de9a26c02958478f9f5016340c678c82a11bb6ef",
+  "acceptedR9PropagationOnlyReviewSha256": "df51f0780f9f39e833f8fe6a09684b21cc508f63ebea0ca297fa9f3520bcc6d8",
+  "acceptedRouteInputsSha256": "84d89b19ffc40f02c9a908bf8ae3cdbf34e4ff65ce2c1cf63687c140746e1154",
+  "arm": "H",
+  "claimLimit": "SOURCE_MANIFEST_R2_PROPOSAL_ONLY_NO_MIRROR_TYPES_ROUTE_NEUTRALITY_OR_CAUSATION",
+  "classification": "INDEPENDENT_SOURCE_REVIEW_REQUIRED",
+  "contextContract": {
+    "archivedCleanResultSha256": "5235b18b83c8e70dd12b36a7bda932e78cb5b55ef344419a92e4e370f540c5cc",
+    "archivedObservedReceiptSha256": "b5d06db3828c4f481375802a53384cc3b0bb9a937c4783fe960cc4b5dd88c2f9",
+    "caseKeyFields": [
+      "talentId",
+      "subjectStudioId",
+      "contractId",
+      "openedWeek"
+    ],
+    "externalRows": 43,
+    "externalTraceSchema": "c0-external-observer/v1",
+    "marketRowSchema": "c0-m0-market-decision/v2-step12",
+    "naturalTicks": 416,
+    "nonReached": "NOT_EVALUATED for skipped branch, NOT_REACHED after failed freeze or skipped tie stage, NOT_PRESENT_IN_ERA for H-only absent families/predicates",
+    "observerCaps": {
+      "marketRowBytes": 16384,
+      "marketRows": 512,
+      "marketTotalBytes": 2097152
+    },
+    "occurrence": "number of preceding equal semantic keys in actual source array",
+    "proposalKeyFields": [
+      "talentId",
+      "issuerStudioId",
+      "digest",
+      "submittedWeek"
+    ],
+    "protectedBaselineTargets": {
+      "employment.json": {
+        "bytes": 13113,
+        "sha256": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750"
+      },
+      "receipts.json": {
+        "bytes": 34865,
+        "sha256": "af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766"
+      },
+      "settlement.json": {
+        "bytes": 10135,
+        "sha256": "706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77"
+      },
+      "takes.json": {
+        "bytes": 15159,
+        "sha256": "8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694"
+      }
+    },
+    "seed": "p13a-core-causal-01",
+    "targetIssuers": [
+      "studio-aca408ec-r01",
+      "studio-aca408ec-r02",
+      "studio-aca408ec-r03"
+    ],
+    "targetSubject": "person-studio-aca408ec-r01-0",
+    "terminalContexts": 40,
+    "week196": "issuer attempts and author candidates in existing business/case/candidate iteration order",
+    "week208": "case source index, submitted ordinal, proposal source index and equal-key occurrence; freeze then chooser as actually reached",
+    "weeklyBoundaries": 417
+  },
+  "entrypoint": {
+    "path": "tests/diagnostic.test.ts",
+    "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7"
+  },
+  "entrypointBaseline": {
+    "bytes": null,
+    "gitBlob": null,
+    "gitMode": null,
+    "sha256": null,
+    "status": "ABSENT_AT_SOURCE_COMMIT"
+  },
+  "files": [
+    {
+      "baseline": {
+        "bytes": 74153,
+        "gitBlob": "1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e",
+        "gitMode": "100644",
+        "sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03",
+        "status": "PRESENT"
+      },
+      "bytes": 98582,
+      "destination": "src/core/talentMarket.ts",
+      "sha256": "4f35113066c6424229d32ec9aa0b43a33f9b65a6a91734e6f27cb26b878ce1a9",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/historical-talentMarket.ts"
+    },
+    {
+      "baseline": {
+        "bytes": 61031,
+        "gitBlob": "0c76fb53c0399b6cbe9a27edac9ff977c897d55d",
+        "gitMode": "100644",
+        "sha256": "6c6f01309df85d4e8deaa8658f361f50f2c2c9ae11cbec2433970416ebcca318",
+        "status": "PRESENT"
+      },
+      "bytes": 63061,
+      "destination": "src/core/promises.ts",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/historical-promises.ts"
+    },
+    {
+      "baseline": {
+        "bytes": null,
+        "gitBlob": null,
+        "gitMode": null,
+        "sha256": null,
+        "status": "ABSENT_AT_SOURCE_COMMIT"
+      },
+      "bytes": 4729,
+      "destination": "src/core/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/m0FeasibilityWitness.ts"
+    },
+    {
+      "baseline": {
+        "bytes": null,
+        "gitBlob": null,
+        "gitMode": null,
+        "sha256": null,
+        "status": "ABSENT_AT_SOURCE_COMMIT"
+      },
+      "bytes": 12710,
+      "destination": "tests/diagnostic.test.ts",
+      "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/diagnostic.test.ts"
+    }
+  ],
+  "fixture": {
+    "bytes": 2130,
+    "destination": "src/harness/p13a/fixtures.ts",
+    "gitBlob": "9ab3eee75b0b2b2733f350bbc3964aa5ba176de8",
+    "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+  },
+  "fixtureSha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+  "predecessorR1ManifestSha256": "56f8e559490cb3f6e4c44896325200c6b32144fa8abf5d6731ba1cca8a71daad",
+  "productionHeadGuard": "f8c0628739227accfa446276b0613f47bc805a78",
+  "productionSourceTreeGuard": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r1SourceManifestStatus": "HELD_SUPERSEDED_BY_R2_PROPOSAL",
+  "r8RouteStopReceiptSha256": "e4896f6ec384e7a59e6f7b7dee68d68a1e5d3c03c1f8b8acc7f63ec83a7d8359",
+  "revision": "r2-r10-source-bindings",
+  "schema": "1370-c0-h-m0-corrected-overlay-source-manifest-r1",
+  "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "sourceTree": "0ee21d8179977aaa0726ffb5d1b2bb2568c9df97",
+  "testsTree": "babe4c909767126521e419ac2472321d7e238f8c",
+  "tick": {
+    "bytes": 58458,
+    "destination": "src/core/tick.ts",
+    "gitBlob": "943661035cb3627b306c6630e6156f027c2c06bb",
+    "sha256": "ad0faa9216093f657cf16ecebe66a6cc65aee4bcc407b7d79d6e48a847465deb"
+  },
+  "uiTree": "28dc030c28d8a30f0a8a05a55c698a299ae11012",
+  "unproven": [
+    "full-era TypeScript/import compatibility",
+    "observer row/byte cap under full route",
+    "full 416/417/40/43 route",
+    "four protected digest and terminal RNG neutrality",
+    "causal attribution"
+  ]
+}

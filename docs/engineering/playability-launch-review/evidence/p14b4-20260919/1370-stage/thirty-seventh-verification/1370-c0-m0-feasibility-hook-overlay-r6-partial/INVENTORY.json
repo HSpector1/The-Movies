@@ -1,0 +1,76 @@
+{
+  "explicitly_unimplemented": [
+    "full tier-index/reserve-refusal internals",
+    "canonical freeze predicate locals and H absent markers",
+    "chooser intermediate priority/tie locals",
+    "full era types, caps, route and neutrality"
+  ],
+  "files": {
+    "diagnostic.test.ts": {
+      "bytes": 11914,
+      "predecessor_sha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543",
+      "sha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543"
+    },
+    "historical-promises.ts": {
+      "bytes": 63061,
+      "predecessor_sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    "historical-talentMarket.ts": {
+      "bytes": 92171,
+      "predecessor_sha256": "649d96355ef6243753982faed8151bba772dbd43b5a069518a0a1be5a2d44a90",
+      "sha256": "e12810c66cc93358a182bd527adfdeda05d3525352087f8a94835e75708231a5"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "predecessor_sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "market-static-synthetic-check.mjs": {
+      "bytes": 5628,
+      "predecessor_sha256": "4b6a5291babb41866fb35633fc90d02190d09373129bad1d17d17eba771e681d",
+      "sha256": "ad7b8e59a1e2c13afe2ae94bea9e44d9cd8779d305702260e808bad6cfab51fc"
+    },
+    "modern-opportunityPromises.ts": {
+      "bytes": 24797,
+      "predecessor_sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    "modern-promises.ts": {
+      "bytes": 112969,
+      "predecessor_sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    "modern-talentMarket.ts": {
+      "bytes": 110243,
+      "predecessor_sha256": "a544c19705ebbfbd703c7cfa26c987e3a3a948bc0ea981f9f836f24eebe5cea8",
+      "sha256": "53e7e270e372e31ca3975b650619950cfaad7db52422c0099f6c6474c3f91b77"
+    },
+    "r5-static-check.mjs": {
+      "bytes": 2633,
+      "predecessor_sha256": "7bfafdd72f5e86fdf8a48fef4b6b93504dd1c6bb415470082144a99a16e2979b",
+      "sha256": "b0eb34a43c423f10d4ee3ceef7ff55116b7e3baf9aaef63997240aa630f7f18e"
+    },
+    "r6-observer-static-synthetic-check.mjs": {
+      "bytes": 3480,
+      "predecessor_sha256": null,
+      "sha256": "8ef94e78469a32ce85488b06c5de62b4874f45ca927eb5a30c80416d1f4f05a2"
+    },
+    "static-synthetic-check.mjs": {
+      "bytes": 14673,
+      "predecessor_sha256": "13c268b98170d70429ee0bfdebbdfbf47d2eaa19ce932860c235bfdb19593f88",
+      "sha256": "9448feb87d153b30a54228d98750207857548767886dec1ff12166affe74811e"
+    }
+  },
+  "independent_r5_refine_receipt_sha256": "dab2798049768187917bd00fd0ec2e27848266e50a4370e73d2a682bbe2ce82d",
+  "predecessor_r5_inventory_sha256": "b29b4302570cec1703d9532da8adff84b5902670ce87e10ff482aa08a14f1a20",
+  "r5_refine_corrections": [
+    "freezeStart identity guarded by m0Case !== undefined",
+    "dropped/survivor retain original submittedOrdinal"
+  ],
+  "source_historical_commit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "source_historical_tree": "0ee21d8179977aaa0726ffb5d1b2bb2568c9df97",
+  "source_modern_commit": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "source_modern_tree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "UNREVIEWED_STATIC_SYNTHETIC_PARTIAL_NO_GAME_OR_NEUTRALITY"
+}

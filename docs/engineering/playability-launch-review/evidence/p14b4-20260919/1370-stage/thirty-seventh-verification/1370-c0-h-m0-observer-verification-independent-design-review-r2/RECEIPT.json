@@ -1,0 +1,15 @@
+{
+  "claimLimit": "Design only; corrected route inputs null/unrun; no neutrality or 1363 acceptance.",
+  "continuousFloorBytes": 3221225472,
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "docsHeadAtDesign": "f8c0628739227accfa446276b0613f47bc805a78",
+  "historicalCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "inputsSha256": "84d89b19ffc40f02c9a908bf8ae3cdbf34e4ff65ce2c1cf63687c140746e1154",
+  "mirrorMaxBytes": 167772160,
+  "modernCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "planSha256": "416e3d827934c6e0748532b37eaffb1f7447d914788112713eec0b9ed7c74eb7",
+  "preflightFreeBytes": 3758096384,
+  "r1RefineReceiptSha256": "2b354ffa348535409a98cf7c1a751c91ec808602a4ab5a7721559ca4864c6486",
+  "reportSha256": "9808c6b32e806cc16e97e82dd993b94f9b1b0eb995d3d25d3d3f784e4fada900",
+  "totalNewScratchMaxBytes": 469762048
+}

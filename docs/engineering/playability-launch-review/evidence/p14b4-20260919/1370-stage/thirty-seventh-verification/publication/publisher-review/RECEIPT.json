@@ -1,0 +1,16 @@
+{
+  "baseEvidenceCommit": "2a4ca902ca4390017238e9a6cc398697e25feaa8",
+  "claimLimit": "Static publisher only; exact launch and fresh remote byte audit pending",
+  "decision": "ACCEPT_STATIC_STAGE37_PUBLISHER_R1",
+  "expectedDeltaCount": 191,
+  "manifestSha256": "ee77282f077ca2e22a2554c2f91efc8dcb49c10808ffb6ba069397f77c78d032",
+  "mapReviewReceiptSha256": "9838aa2db117013c99d207eff3e3196ab9e79b54477b651c51fde6696c01c5a9",
+  "mapSha256": "37e2421cf3de26224aa838fc21eb3c8a21c5ad646e2bfe96df4f5c0ebd62c203",
+  "mappedSourceCount": 183,
+  "planSha256": "b21053e1be6f0b3d26d8684fe958d7f94802ee5d143eb9a0584dbf47686f5440",
+  "reportSha256": "d862512dba612e848878749f794e9d91edfa7a1dcc118b525ec67b52f0ef616b",
+  "rosterSha256": "9124bd736847d1c58cd0db91a313d0c8b746a3ed1e6af046802c2572090bde55",
+  "scriptSha256": "1a1b313eb12e3b9faed4e4c13745bfdb2a67e152baf096507db6c3ddf764c988",
+  "syntheticTestSha256": "89a86886bc68a074938bbc744ded648b670106ece5038e5b316cbfc4a6c1f740",
+  "syntheticTestsPassed": 15
+}

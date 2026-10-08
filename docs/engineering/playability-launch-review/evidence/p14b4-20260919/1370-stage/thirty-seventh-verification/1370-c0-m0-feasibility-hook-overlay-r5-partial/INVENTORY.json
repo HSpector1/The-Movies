@@ -1,0 +1,67 @@
+{
+  "explicitly_unimplemented": [
+    "preferred opportunity and trigger/tier/price/author input locals",
+    "canonical reached freeze predicate locals and H absent-predicate status repair",
+    "chooser intermediate priority/tie locals",
+    "full era types, row-cap proof, route and neutrality"
+  ],
+  "files": {
+    "diagnostic.test.ts": {
+      "bytes": 11914,
+      "predecessor_sha256": "c53900854d32f4bbf3b8491bf65868d5eec728cdafcc627fddb96a8f24372832",
+      "sha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543"
+    },
+    "historical-promises.ts": {
+      "bytes": 63061,
+      "predecessor_sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    "historical-talentMarket.ts": {
+      "bytes": 89674,
+      "predecessor_sha256": "fb9f431e076d9c206f32a218ffecaa84e64f5c183b15c8ef92241f0b665df0b7",
+      "sha256": "649d96355ef6243753982faed8151bba772dbd43b5a069518a0a1be5a2d44a90"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "predecessor_sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "market-static-synthetic-check.mjs": {
+      "bytes": 5628,
+      "predecessor_sha256": "837e8a14ca4477eb3f5da90abcbafa01cdca4933b9900f93217af64ffb78c445",
+      "sha256": "4b6a5291babb41866fb35633fc90d02190d09373129bad1d17d17eba771e681d"
+    },
+    "modern-opportunityPromises.ts": {
+      "bytes": 24797,
+      "predecessor_sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    "modern-promises.ts": {
+      "bytes": 112969,
+      "predecessor_sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    "modern-talentMarket.ts": {
+      "bytes": 107427,
+      "predecessor_sha256": "8a1710af824bd86d69eaa9fb3ebedb98b4126ee59683c414c6c197a7bcb34178",
+      "sha256": "a544c19705ebbfbd703c7cfa26c987e3a3a948bc0ea981f9f836f24eebe5cea8"
+    },
+    "r5-static-check.mjs": {
+      "bytes": 2489,
+      "predecessor_sha256": null,
+      "sha256": "7bfafdd72f5e86fdf8a48fef4b6b93504dd1c6bb415470082144a99a16e2979b"
+    },
+    "static-synthetic-check.mjs": {
+      "bytes": 14673,
+      "predecessor_sha256": "8eaf8145cce3ee4ec76d412e177e9108a56d109ac07409456d0d04dd29eebf00",
+      "sha256": "13c268b98170d70429ee0bfdebbdfbf47d2eaa19ce932860c235bfdb19593f88"
+    }
+  },
+  "predecessor_r4_inventory_sha256": "16f0293cae6e1bf525e563ac4b3c6f82cd8dc2066e8954962398e062f7a042dd",
+  "r3_independent_static_partial_receipt_sha256": "0974064f5124054cbe114c6cdf06eeefa7096e7e63da85d5ed76bdb323665fe2",
+  "source_historical_commit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "source_historical_tree": "0ee21d8179977aaa0726ffb5d1b2bb2568c9df97",
+  "source_modern_commit": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "source_modern_tree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "UNREVIEWED_STATIC_SYNTHETIC_PARTIAL_NO_GAME_OR_NEUTRALITY"
+}

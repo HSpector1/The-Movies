@@ -1,0 +1,7 @@
+# Independent static review requested — unrun materializer r2
+
+R1 was independently REFINE/unrun (receipt SHA-256 `e87e9da6a9bc9c9fdc67a50b68d9f8073ca470a44b45b0ad43abbf4153829a12`). R2 fixes exact Git output mode despite restrictive umask and stores a one-shot receipt as a sibling outside the disposable mirror leaf.
+
+Frozen source SHA-256 `28e546e77e6dfd414427b5d645a65a3c549c1f1011be812d07ee13da9a5e26ed`; synthetic test SHA-256 `066ee3c2e33963634c97dee1d1093ee5a1b079a405a773bcc35a770b91ff0d47`; PLAN SHA-256 `dc0be2df67c32dd4525f44ef740b47759b8fd4c253cebbc94216fbad1135120e`; null binding template SHA-256 `443aec70623c836bce3cec8893d4be5b22f60ce5a6d8862a5418eed1427fe523`; MANIFEST SHA-256 `e447bf830553ab991d80ea490befac8a137cb22db6c3e047a391d6bc212a5686`.
+
+Review exact H/M0 source/tree and root/test/UI/fixture/tick pins against accepted route design r2; production f8/src13880 guard; future corrected source manifest and independent review requirement; 160 MiB serial mirror cap; AC/3.5 GiB preflight/3 GiB continuous floor; one-shot lane and output; nofollow/archive traversal/duplicate/member size and Git OID checks; exact 0644/0755 mode after fchmod/fstat; durable sibling success/STOP receipt; atomic reviewed overlay/test replacement; and absence of dependency installation or production Git/worktree mutation. Run `selfcheck.py` only. No real mirror, typecheck, game, or archive capture read is authorized by this static proposal.

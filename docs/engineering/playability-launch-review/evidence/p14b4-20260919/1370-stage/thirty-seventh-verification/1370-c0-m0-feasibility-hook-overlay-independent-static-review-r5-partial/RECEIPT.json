@@ -1,0 +1,17 @@
+{
+  "claimLimit": "R5 unrun REFINE; no C0 causal or neutrality acceptance.",
+  "decision": "REFINE",
+  "defects": [
+    "Both era freezeStart rows dereference m0Case when subject settles outside week 208",
+    "Dropped/survivor partition rows omit original submitted ordinal, ambiguous for repeated digests"
+  ],
+  "diagnosticTestSha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543",
+  "historicalMarketSha256": "649d96355ef6243753982faed8151bba772dbd43b5a069518a0a1be5a2d44a90",
+  "modernMarketSha256": "a544c19705ebbfbd703c7cfa26c987e3a3a948bc0ea981f9f836f24eebe5cea8",
+  "overlayInventorySha256": "b29b4302570cec1703d9532da8adff84b5902670ce87e10ff482aa08a14f1a20",
+  "r4PartialReceiptSha256": "b65d9724664cb8f05770923018b3465f6fd6a0fb44f955cb1e723653e3131f40",
+  "r5StaticCheckSha256": "7bfafdd72f5e86fdf8a48fef4b6b93504dd1c6bb415470082144a99a16e2979b",
+  "readmeSha256": "3ed3880aa112524a6fef6b0bd2923cbc9315d5b2cb98b21398372ae5b3d5b88e",
+  "reportSha256": "4c271fb639a59af3770317abda7d36bb08c7cf278c88135d36f7ae56970c5aab",
+  "tests": "All three synthetic checks and standalone sink strict tsc pass; no full-era game route."
+}

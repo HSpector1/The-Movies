@@ -1,0 +1,61 @@
+{
+  "accepted_cross_module_overlay_r2_static_receipt_sha256": "7a01afcb591d8dcd28a96c90c2d161070c0af2e4d7f81c82fa9bb47a69b53f9b",
+  "accepted_design_r2_receipt_sha256": "27bb1cdf112bef30e6056c62e6595fd5480f64cf46f9764ffd557e6ebca7a08f",
+  "accepted_market_overlay_r3_partial_static_receipt_sha256": "0974064f5124054cbe114c6cdf06eeefa7096e7e63da85d5ed76bdb323665fe2",
+  "files": {
+    "historical-promises.ts": {
+      "bytes": 63061,
+      "r3_sha256": "bbfa979e5c75cbfece3313924e05945afbc3fd800ff0d57c91be5d6dc77f05ea",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    "historical-talentMarket.ts": {
+      "bytes": 88878,
+      "r3_sha256": "de991bf596e9525081ac542159f2192df4506380054437f851ca062e88439102",
+      "sha256": "fb9f431e076d9c206f32a218ffecaa84e64f5c183b15c8ef92241f0b665df0b7"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "r3_sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "market-static-synthetic-check.mjs": {
+      "bytes": 5620,
+      "r3_sha256": "a2bc729a5044a25aa35570479edeffc26f3096d6322969a511eeb5a39aa18ede",
+      "sha256": "837e8a14ca4477eb3f5da90abcbafa01cdca4933b9900f93217af64ffb78c445"
+    },
+    "modern-opportunityPromises.ts": {
+      "bytes": 24797,
+      "r3_sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    "modern-promises.ts": {
+      "bytes": 112969,
+      "r3_sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    "modern-talentMarket.ts": {
+      "bytes": 106620,
+      "r3_sha256": "8a1710af824bd86d69eaa9fb3ebedb98b4126ee59683c414c6c197a7bcb34178",
+      "sha256": "8a1710af824bd86d69eaa9fb3ebedb98b4126ee59683c414c6c197a7bcb34178"
+    },
+    "static-synthetic-check.mjs": {
+      "bytes": 14665,
+      "r3_sha256": "ad81bb39164844b6592491432eb478fe7c24a37e9605fc5f51cbe74d75bd4b89",
+      "sha256": "8eaf8145cce3ee4ec76d412e177e9108a56d109ac07409456d0d04dd29eebf00"
+    }
+  },
+  "predecessor_r3_inventory_sha256": "b9d3576fd2e634310847d028d090d7aec1a76eadef003cb522e9b478262c0c28",
+  "source_historical_commit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "source_historical_tree": "0ee21d8179977aaa0726ffb5d1b2bb2568c9df97",
+  "source_modern_commit": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "source_modern_tree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "STATIC_SYNTHETIC_ONLY_UNREVIEWED_R4_NO_GAME_OR_NEUTRALITY",
+  "blocking_route_gaps": [
+    "public preferred opportunity and actual trigger/tier/pricing/authoring input witness",
+    "week208 source-order case index, pre-freeze input digest, reached predicate locals and submitted/dropped/surviving order",
+    "historical absent-predicate duplicate NOT_REACHED and status vocabulary",
+    "flat seven-band H/M0 chooser descriptors plus ranking order",
+    "observer-created hiring RNG in copied diagnostic.test.ts:55 must be removed before any game route",
+    "full source/fixture/entrypoint/test/observer pins, era typechecks, focused REDs and protected digest/RNG neutrality"
+  ]
+}

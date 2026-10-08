@@ -1,0 +1,76 @@
+{
+  "deferred": [
+    "actual rival reserve amount inside affordabilityRefusal",
+    "chooser priority/dominance/pairwise/tie locals",
+    "full-era types, row caps, route and neutrality"
+  ],
+  "files": {
+    "diagnostic.test.ts": {
+      "bytes": 11914,
+      "predecessor_sha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543",
+      "sha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543"
+    },
+    "historical-promises.ts": {
+      "bytes": 63061,
+      "predecessor_sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    "historical-talentMarket.ts": {
+      "bytes": 94470,
+      "predecessor_sha256": "e12810c66cc93358a182bd527adfdeda05d3525352087f8a94835e75708231a5",
+      "sha256": "49de89198ab91850e93f3224c1952680726f0bfd3461609ce0ba042d576effa9"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "predecessor_sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "market-static-synthetic-check.mjs": {
+      "bytes": 5628,
+      "predecessor_sha256": "ad7b8e59a1e2c13afe2ae94bea9e44d9cd8779d305702260e808bad6cfab51fc",
+      "sha256": "6ce413fd28ea65fcf2ffc5484022fba6017e576d7b684986e8f6d0fc60143aaa"
+    },
+    "modern-opportunityPromises.ts": {
+      "bytes": 24797,
+      "predecessor_sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    "modern-promises.ts": {
+      "bytes": 112969,
+      "predecessor_sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    "modern-talentMarket.ts": {
+      "bytes": 112618,
+      "predecessor_sha256": "53e7e270e372e31ca3975b650619950cfaad7db52422c0099f6c6474c3f91b77",
+      "sha256": "5413a6f9bf714dd54a233f9a8f230beb628ce5011fa4de2df8dae3e7654aed4b"
+    },
+    "r5-static-check.mjs": {
+      "bytes": 2633,
+      "predecessor_sha256": "b0eb34a43c423f10d4ee3ceef7ff55116b7e3baf9aaef63997240aa630f7f18e",
+      "sha256": "9dbbcf1ed5306d4be0496aa718c4f49add57edd2519bbcb76a0deeabe0f5012b"
+    },
+    "r6-observer-static-synthetic-check.mjs": {
+      "bytes": 3416,
+      "predecessor_sha256": "8ef94e78469a32ce85488b06c5de62b4874f45ca927eb5a30c80416d1f4f05a2",
+      "sha256": "d6a174a497f8b606cd31a3786023b9946fc350c837c45ea462129c2828817a02"
+    },
+    "r7-freeze-static-synthetic-check.mjs": {
+      "bytes": 4196,
+      "predecessor_sha256": null,
+      "sha256": "8999a2cc2b394047b410a9412bbe192e6c8812309839a93e6f2087635c815c4f"
+    },
+    "static-synthetic-check.mjs": {
+      "bytes": 14673,
+      "predecessor_sha256": "9448feb87d153b30a54228d98750207857548767886dec1ff12166affe74811e",
+      "sha256": "26fad9b81c5247f379843420a857912a943a3d9f1c2c17f18c2c7a0d9fb90c5d"
+    }
+  },
+  "independent_r6_accept_static_partial_receipt_sha256": "6cd4792da4e1b6d399042446ea48d65933534105b1b5ca9a4282e131f76e32e5",
+  "predecessor_r6_inventory_sha256": "3a92ac6d99482eaa539524e8fd069e7f0924bdc4affed1fa968ca19d78acd018",
+  "source_historical_commit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "source_historical_tree": "0ee21d8179977aaa0726ffb5d1b2bb2568c9df97",
+  "source_modern_commit": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "source_modern_tree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "UNREVIEWED_STATIC_SYNTHETIC_PARTIAL_NO_GAME_OR_NEUTRALITY"
+}

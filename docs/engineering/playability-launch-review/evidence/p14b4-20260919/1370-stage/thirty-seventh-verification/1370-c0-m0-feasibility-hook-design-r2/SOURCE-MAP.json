@@ -1,0 +1,47 @@
+{
+  "reviewed_predecessor": {
+    "design_sha256": "ff1f3d5777838a699d5ae19322c31041251f3f13180978ed0dcd9af40d4696c2",
+    "independent_refine_receipt_sha256": "a91fcdf31be1654e046e3075b62d56c1ebf207cc2150f949d2ee277a22350d25",
+    "independent_refine_review_sha256": "dca690085b3a07a6513bd2eafc463bac857ea4798dc9f8cc6a578cbf078ed637",
+    "source_map_sha256": "73544212659239f7e1a75974795efa2d29dabb97cadfa26ca589540502faf69c"
+  },
+  "sources": {
+    "historical_promises": {
+      "sha256": "6c6f01309df85d4e8deaa8658f361f50f2c2c9ae11cbec2433970416ebcca318",
+      "source": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/promises.ts"
+    },
+    "historical_talentMarket_baseline": {
+      "sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03",
+      "source": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/talentMarket.ts"
+    },
+    "historical_talentMarket_step12": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-market-decision-source-overlay-r4-step12-draft/historical-talentMarket.ts",
+      "sha256": "a50f45b16e15711dbb2b95b7bd5fcefe5cca14ff02097ca78dc7730ca93c157d"
+    },
+    "historical_types": {
+      "sha256": "3c1cab4739f4cce16584550f3da296132da451b7f67c8ba0b5b89d45c395735d",
+      "source": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/types.ts"
+    },
+    "modern_opportunityPromises": {
+      "sha256": "a4acd02eb0151af8c873f939a546bdc26265ca0c680c3c004def056e124a4461",
+      "source": "292d6fd3b5293fe2a520b681ae4c1dde997dc113:src/core/opportunityPromises.ts"
+    },
+    "modern_promises": {
+      "sha256": "580ddb7d1e8c5a198f18beb5843d1cecf77680b8b735e1f2603e2c86099e950d",
+      "source": "292d6fd3b5293fe2a520b681ae4c1dde997dc113:src/core/promises.ts"
+    },
+    "modern_talentMarket_baseline": {
+      "sha256": "010ed07634a5991674dc867f61b3b78ab022c91699366d29fea26a4d5585c087",
+      "source": "292d6fd3b5293fe2a520b681ae4c1dde997dc113:src/core/talentMarket.ts"
+    },
+    "modern_talentMarket_step12": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-market-decision-source-overlay-r4-step12-draft/modern-talentMarket.ts",
+      "sha256": "dfc6b789eff547d0a5523804048b3af175f227f3526457dbfd58ba31e0580297"
+    },
+    "modern_types": {
+      "sha256": "d0d5c51ea08c8bec71d78f32b653f835d1d32c73c3f7d0d46aa3f9c541fa0dc2",
+      "source": "292d6fd3b5293fe2a520b681ae4c1dde997dc113:src/core/types.ts"
+    }
+  },
+  "status": "DESIGN_ONLY"
+}

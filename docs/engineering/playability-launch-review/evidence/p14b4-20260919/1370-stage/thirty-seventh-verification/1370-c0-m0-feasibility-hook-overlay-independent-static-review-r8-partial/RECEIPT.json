@@ -1,0 +1,12 @@
+{
+  "claimLimit": "Scratch static partial only; no full-era route, protected neutrality, C0 attribution or 1363.",
+  "decision": "ACCEPT_STATIC_PARTIAL",
+  "historicalMarketSha256": "63f3252b0ec0bdca83dfa18a7a8431caff5e72065cbc101d6754f951c0fb8a25",
+  "modernMarketSha256": "dd9906370023bb57298c47cb0831de326a91c1c928dbf6e6e1c9ceef76f9f497",
+  "overlayInventorySha256": "2e2914354c4a6a3d5b72fc6e71d95cf04dd93750bf640dcaa8a7748deb15cc30",
+  "r7PartialReceiptSha256": "96ce40844d18683e95f872882bd0f2bb7589fa8df87a7c2555fbb544518c6baa",
+  "r8SelfcheckSha256": "708fac0d69f6e92183b5e94e29ade4f9920fc9c3687e92ab396a7dc34442e297",
+  "readmeSha256": "27c36b32dd207a94da126c553e6398ca85a46d1edcc202742719215bfe4a709e",
+  "reportSha256": "404bf480f4ab5add909c4d67613a5b5e2ac55dad1d284df9bd581bb29d09d452",
+  "tests": "Six static/synthetic suites PASS; standalone sink strict tsc PASS."
+}

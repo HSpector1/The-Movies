@@ -1,0 +1,17 @@
+{
+  "arm": "M0",
+  "claimLimit": "Exact full-era observer source identity only; no mirror/types/game/caps/neutrality/C0 cause.",
+  "decision": "ACCEPT_STATIC_FULL_ERA_OBSERVER_ONLY",
+  "materializerStaticReceiptSha256": "2e3f28a983d80cd1e7e626fad921773bc17e11331c338b4d4ce63be9c25efddf",
+  "overlayDestinationCount": 5,
+  "packageInventorySha256": "df481b80e68d2a284aca865c321de49854ef07f46364933b358df0cb39390aa3",
+  "r10SchemaReviewSha256": "44d0463452737d4ba3fd38e7d415cd234065ca2bd53241e2c40c3902e1958bd7",
+  "r8RouteStopReceiptSha256": "e4896f6ec384e7a59e6f7b7dee68d68a1e5d3c03c1f8b8acc7f63ec83a7d8359",
+  "r9PropagationReviewSha256": "df51f0780f9f39e833f8fe6a09684b21cc508f63ebea0ca297fa9f3520bcc6d8",
+  "reportSha256": "646d7d4b372f4e40d5605fc618ae9f4f7527adaa3c2b3a2de7455a980a7736e5",
+  "sourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "sourceManifestPlanSha256": "694892f357a921fad653b657b3bbd09c43b480dbe4ea4237f2a5ebb084cf3e20",
+  "sourceManifestSha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "tests": "positive + six mutation REDs per arm PASS; seven TS sources parse; no mirror."
+}

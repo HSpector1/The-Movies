@@ -1,0 +1,82 @@
+{
+  "files": {
+    "diagnostic.test.ts": {
+      "bytes": 11914,
+      "predecessor_sha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543",
+      "sha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543"
+    },
+    "historical-promises.ts": {
+      "bytes": 63061,
+      "predecessor_sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    "historical-talentMarket.ts": {
+      "bytes": 97996,
+      "predecessor_sha256": "49de89198ab91850e93f3224c1952680726f0bfd3461609ce0ba042d576effa9",
+      "sha256": "63f3252b0ec0bdca83dfa18a7a8431caff5e72065cbc101d6754f951c0fb8a25"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "predecessor_sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "market-static-synthetic-check.mjs": {
+      "bytes": 5628,
+      "predecessor_sha256": "6ce413fd28ea65fcf2ffc5484022fba6017e576d7b684986e8f6d0fc60143aaa",
+      "sha256": "9efa410d637abed7f389b425d5aa4c650e9a4ecab3b6886bddbf8eb5b6ba2f9b"
+    },
+    "modern-opportunityPromises.ts": {
+      "bytes": 24797,
+      "predecessor_sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    "modern-promises.ts": {
+      "bytes": 112969,
+      "predecessor_sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    "modern-talentMarket.ts": {
+      "bytes": 116396,
+      "predecessor_sha256": "5413a6f9bf714dd54a233f9a8f230beb628ce5011fa4de2df8dae3e7654aed4b",
+      "sha256": "dd9906370023bb57298c47cb0831de326a91c1c928dbf6e6e1c9ceef76f9f497"
+    },
+    "r5-static-check.mjs": {
+      "bytes": 2633,
+      "predecessor_sha256": "9dbbcf1ed5306d4be0496aa718c4f49add57edd2519bbcb76a0deeabe0f5012b",
+      "sha256": "c5bd2cd16386a9eac479ed8ecc70f94875232034d3060f0506b1d96f35fa5c71"
+    },
+    "r6-observer-static-synthetic-check.mjs": {
+      "bytes": 3416,
+      "predecessor_sha256": "d6a174a497f8b606cd31a3786023b9946fc350c837c45ea462129c2828817a02",
+      "sha256": "0d65f1f3cbeabc8f866469b696dc1fc5e314cf52ef93782360227560da148fbd"
+    },
+    "r7-freeze-static-synthetic-check.mjs": {
+      "bytes": 4196,
+      "predecessor_sha256": "8999a2cc2b394047b410a9412bbe192e6c8812309839a93e6f2087635c815c4f",
+      "sha256": "3aa8e79255e6e3e20578963a50b4ac3ce56e6da512b3aa017235bc326d20d19b"
+    },
+    "r8-chooser-static-synthetic-check.mjs": {
+      "bytes": 5253,
+      "predecessor_sha256": null,
+      "sha256": "708fac0d69f6e92183b5e94e29ade4f9920fc9c3687e92ab396a7dc34442e297"
+    },
+    "static-synthetic-check.mjs": {
+      "bytes": 14673,
+      "predecessor_sha256": "26fad9b81c5247f379843420a857912a943a3d9f1c2c17f18c2c7a0d9fb90c5d",
+      "sha256": "8536ba6c9418b3400f7da10dee4da783e895bf9ca388ce74624240281b98b38d"
+    }
+  },
+  "independent_r7_accept_static_partial_receipt_sha256": "96ce40844d18683e95f872882bd0f2bb7589fa8df87a7c2555fbb544518c6baa",
+  "not_proven": [
+    "full H/M0 mirror types",
+    "row and byte caps",
+    "full observed route",
+    "four protected digests and terminal RNG neutrality"
+  ],
+  "predecessor_r7_inventory_sha256": "01f68e5a01bdda399b9b470f55910f772b1b8324686f673aac12a65a1a4c98aa",
+  "source_historical_commit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "source_historical_tree": "0ee21d8179977aaa0726ffb5d1b2bb2568c9df97",
+  "source_modern_commit": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "source_modern_tree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "UNREVIEWED_STATIC_SYNTHETIC_PARTIAL_NO_GAME_OR_NEUTRALITY"
+}

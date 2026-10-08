@@ -1,0 +1,7 @@
+# Independent static review — C0 r10 market-schema consumer correction
+
+**Decision: ACCEPT_STATIC_SCHEMA_ONLY.** The frozen r10 package corrects the copied diagnostic's new-route `final.m0.schema` from `v1` to the H/M0 producers' `c0-m0-market-decision/v2-step12` row schema. Both H/M0 market producers and all other engine source files byte-inherit r9; the historical v1 traces are untouched. This is not full-source or route acceptance.
+
+All sixteen package file sizes and SHA-256s match INVENTORY and its r9 predecessor. The diagnostic now validates nonempty market rows before output, requiring object rows with the expected schema, source sequence, safe integer week in 0..416 and string phase. It still hashes the exact NDJSON bytes and records row count; the external trace retains its separate `c0-external-observer/v1` label. The focused consumer RED confirms the r9 metadata mismatch, r10 H/M0 producer/consumer agreement and refusal of wrong schema, sequence, empty/null rows and week 417. Seven inherited static suites also pass. No full-era TypeScript/import check or actual target row readback has occurred.
+
+Version both H/M0 source manifests to pin r10 diagnostic bytes and r9 market bytes, with a separate independent source-only review. Only then may a separately exact-reviewed materializer build one mirror for types/REDs. Full 416/417/40/43 runtime and original protected four-digest/terminal-RNG neutrality remain pending.

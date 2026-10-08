@@ -1,0 +1,10 @@
+{
+  "decision": "REFINE_DESIGN_ONLY",
+  "designSha256": "ff1f3d5777838a699d5ae19322c31041251f3f13180978ed0dcd9af40d4696c2",
+  "reasons": [
+    "caseId absent from both era case types; stable derived identity undefined",
+    "historical chooser attachedFeasibility at line 805 omitted from hook-site table"
+  ],
+  "reportSha256": "dca690085b3a07a6513bd2eafc463bac857ea4798dc9f8cc6a578cbf078ed637",
+  "sourceMapSha256": "73544212659239f7e1a75974795efa2d29dabb97cadfa26ca589540502faf69c"
+}

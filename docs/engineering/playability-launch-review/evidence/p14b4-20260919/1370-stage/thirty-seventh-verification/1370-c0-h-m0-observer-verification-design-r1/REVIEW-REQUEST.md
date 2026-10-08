@@ -1,0 +1,3 @@
+# Independent design review requested — no route execution
+
+Review `PLAN.md` SHA-256 `3356851725d69091fbf1ea022c417ab62eef62adc8a42f437e3cbbd28d70f6be` and `MIRROR-INPUTS.json` SHA-256 `198dba3a6cf39336c16e68f218de6f872b5908a22ef52c4f0831db17a0d6e0f0` against accepted feasibility design r2/review and R5 REFINE. Confirm H/M0 Git source trees, exact root/test/UI/fixture/entrypoint inputs, null corrected r6/r7 pins, full-era types and REDs, protected four-array/RNG neutrality, original-cap labels, 416/417 readback scope, and 3.5 GiB preflight/3 GiB floor. This is a design-only request. Do not copy sources, build mirrors, run tests/games, read archives, or edit Git.

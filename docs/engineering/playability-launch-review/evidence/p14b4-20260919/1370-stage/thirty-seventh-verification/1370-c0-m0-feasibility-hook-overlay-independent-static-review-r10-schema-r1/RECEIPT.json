@@ -1,0 +1,13 @@
+{
+  "claimLimit": "Static schema correction only; full-source manifests and runtime neutrality pending.",
+  "decision": "ACCEPT_STATIC_SCHEMA_ONLY",
+  "diagnosticTestSha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7",
+  "focusedRedSha256": "5bf78419c305ed0922b7ed0fa55fc930a9e9a6b7ca5afa47b3550482b59bbc96",
+  "historicalMarketSha256": "4f35113066c6424229d32ec9aa0b43a33f9b65a6a91734e6f27cb26b878ce1a9",
+  "modernMarketSha256": "71c775336c581fb5c5ad8923d4648bc8bf492ee38f235214f861fd1d0e7ac804",
+  "overlayInventorySha256": "fba00be264d11d5683150e965f918dcbf1e4608ce9c208153e36d419953b53b9",
+  "r9PropagationReceiptSha256": "df51f0780f9f39e833f8fe6a09684b21cc508f63ebea0ca297fa9f3520bcc6d8",
+  "readmeSha256": "60060d92608cd53329fa60fee2d5243f2e4690ae5d1abc4927c34a1c6422c1dd",
+  "reportSha256": "a86581ca8c95f45b74ebbf160f725a6ca712f57bcd5facf7dbf954adced7f7ca",
+  "tests": "Focused H/M0 consumer RED and seven inherited static suites PASS; no full-era TypeScript or game."
+}

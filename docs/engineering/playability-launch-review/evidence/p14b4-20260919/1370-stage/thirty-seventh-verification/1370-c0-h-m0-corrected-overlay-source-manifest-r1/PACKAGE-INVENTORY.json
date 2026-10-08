@@ -1,0 +1,37 @@
+{
+  "armCounts": {
+    "H": 4,
+    "M0": 5
+  },
+  "claimLimit": "No mirror/types/game/caps/neutrality/causation from this package",
+  "classification": "FROZEN_STATIC_SOURCE_PROPOSAL_ONLY",
+  "files": [
+    {
+      "bytes": 6042,
+      "name": "H-SOURCE-MANIFEST.json",
+      "sha256": "56f8e559490cb3f6e4c44896325200c6b32144fa8abf5d6731ba1cca8a71daad"
+    },
+    {
+      "bytes": 6604,
+      "name": "M0-SOURCE-MANIFEST.json",
+      "sha256": "03a152c970e04a1a6255092ad78d31ca81a6a81ff20a4e3e46ed017d47e44159"
+    },
+    {
+      "bytes": 4884,
+      "name": "selfcheck.py",
+      "sha256": "d848d3a7a86df08850c76c9452ec6f9e1f2707f62bedd728d44731732f5c9301"
+    },
+    {
+      "bytes": 871,
+      "name": "parse-overlays.mjs",
+      "sha256": "1ecb221c904db9f8e847075c2712da98703cef3cd03306ab8ca4b8c8606e22c2"
+    },
+    {
+      "bytes": 2996,
+      "name": "PLAN.md",
+      "sha256": "26312f9b2a43ad33a07b17ca44a72986eaa0495063c55d73bb56f5beb710dda2"
+    }
+  ],
+  "materializerSchema": "1370-c0-h-m0-corrected-overlay-source-manifest-r1",
+  "schema": "1370-c0-h-m0-corrected-overlay-source-package-inventory-r1"
+}

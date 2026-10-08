@@ -1,0 +1,17 @@
+{
+  "acceptedRouteDesignReviewSha256": "d7ec88eeae8c97ed4d7a1eb42d9dfbd3e77ff14f1b2247c1ba5501636cf713f2",
+  "acceptedRouteInputsSha256": "84d89b19ffc40f02c9a908bf8ae3cdbf34e4ff65ce2c1cf63687c140746e1154",
+  "bindingTemplateSha256": "f51cef6698461a2e22cec56c71abcec299a45e40c86f43233ed27c9161a95f3e",
+  "blockingDefects": [
+    "Materialized file mode is not fchmod-set or verified; inherited umask can strip tracked 100755/100644 mode bits while result reports exact Git source.",
+    "MATERIALIZE-RESULT.json is inside the disposable one-mirror leaf, so required cleanup before the next arm destroys the authenticated result unless a separately reviewed extraction is added."
+  ],
+  "claimLimit": "Static REFINE, unrun; no source mirror or route acceptance.",
+  "decision": "REFINE",
+  "manifestSha256": "e2a049b37602e579d68fd2f1c680c93fb302fc3d4bbf7d7fb2402e5e5ae8644d",
+  "planSha256": "f6872ad203ed8ccc7e9561e126379c201a39f5722ea8bb5399916889d2b2ce66",
+  "reportSha256": "1e3824c25cece8b85134ea8199f63e587f9ac80558984a404e3aafec06cf8e5d",
+  "scriptSha256": "d9c628b5d00890cb4488233251c37ad191c4d500c8c8a919ff760797962a04c2",
+  "selfcheckSha256": "5abe9ec9b079ebe8959f2112aa9cb0ee0417c8c2e122bba004b8c9a03ab5bf78",
+  "tests": "Python compile and tiny synthetic refusals passed; no real mirror built."
+}

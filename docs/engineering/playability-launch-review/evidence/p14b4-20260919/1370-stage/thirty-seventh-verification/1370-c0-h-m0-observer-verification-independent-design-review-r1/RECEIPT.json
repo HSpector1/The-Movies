@@ -1,0 +1,10 @@
+{
+  "blockingDefect": "M0 pinned src/tests/ui input bytes 117,674,127 exceed 96 MiB per-mirror cap before configs/overlay/test.",
+  "claimLimit": "Design only, unrun; no mirror or C0 neutrality acceptance.",
+  "decision": "REFINE",
+  "inputsSha256": "198dba3a6cf39336c16e68f218de6f872b5908a22ef52c4f0831db17a0d6e0f0",
+  "planSha256": "3356851725d69091fbf1ea022c417ab62eef62adc8a42f437e3cbbd28d70f6be",
+  "productionHead": "f8c0628739227accfa446276b0613f47bc805a78",
+  "reportSha256": "904279c1b0a0612a905b67ed41c22db9c443882a628691c657a1835773864913",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

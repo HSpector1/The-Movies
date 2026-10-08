@@ -1,0 +1,31 @@
+{
+  "classification": "FROZEN_UNRUN_STATIC_REVIEW_PENDING",
+  "files": [
+    {
+      "bytes": 13950,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-mirror-materializer-proposal-r2/materialize.py",
+      "sha256": "28e546e77e6dfd414427b5d645a65a3c549c1f1011be812d07ee13da9a5e26ed"
+    },
+    {
+      "bytes": 2983,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-mirror-materializer-proposal-r2/selfcheck.py",
+      "sha256": "066ee3c2e33963634c97dee1d1093ee5a1b079a405a773bcc35a770b91ff0d47"
+    },
+    {
+      "bytes": 3538,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-mirror-materializer-proposal-r2/PLAN.md",
+      "sha256": "dc0be2df67c32dd4525f44ef740b47759b8fd4c253cebbc94216fbad1135120e"
+    },
+    {
+      "bytes": 512,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-mirror-materializer-proposal-r2/BINDING-TEMPLATE.json",
+      "sha256": "443aec70623c836bce3cec8893d4be5b22f60ce5a6d8862a5418eed1427fe523"
+    }
+  ],
+  "priorR1RefineReceiptSha256": "e87e9da6a9bc9c9fdc67a50b68d9f8073ca470a44b45b0ad43abbf4153829a12",
+  "routeIndependentDesignReceiptSha256": "d7ec88eeae8c97ed4d7a1eb42d9dfbd3e77ff14f1b2247c1ba5501636cf713f2",
+  "routeInputsSha256": "84d89b19ffc40f02c9a908bf8ae3cdbf34e4ff65ce2c1cf63687c140746e1154",
+  "schema": "1370-c0-h-m0-mirror-materializer-proposal-r2",
+  "sourceOverlayPins": "NULL_AWAITING_INDEPENDENT_CORRECTED_R6_OR_R7_ACCEPTANCE",
+  "syntheticTests": "PASS; exact 0644/0755 under umask 0777; sibling retained receipt; no mirror creation"
+}

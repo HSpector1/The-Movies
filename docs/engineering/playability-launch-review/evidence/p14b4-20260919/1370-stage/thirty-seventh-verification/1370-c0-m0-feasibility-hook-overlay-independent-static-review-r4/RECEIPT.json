@@ -1,0 +1,13 @@
+{
+  "claimLimit": "Scratch static partial only; full-era route and neutrality pending.",
+  "crossModuleSelfcheckSha256": "8eaf8145cce3ee4ec76d412e177e9108a56d109ac07409456d0d04dd29eebf00",
+  "decision": "ACCEPT_STATIC_PARTIAL",
+  "historicalMarketSha256": "fb9f431e076d9c206f32a218ffecaa84e64f5c183b15c8ef92241f0b665df0b7",
+  "historicalPromisesSha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20",
+  "marketSelfcheckSha256": "837e8a14ca4477eb3f5da90abcbafa01cdca4933b9900f93217af64ffb78c445",
+  "overlayInventorySha256": "16f0293cae6e1bf525e563ac4b3c6f82cd8dc2066e8954962398e062f7a042dd",
+  "r3PartialReceiptSha256": "0974064f5124054cbe114c6cdf06eeefa7096e7e63da85d5ed76bdb323665fe2",
+  "readmeSha256": "471ded46d2203a43affa724300f1e86896b3740ee053f959a608b0fd3a620aa9",
+  "reportSha256": "b43de0a456c81ce1d52e838a8753f731a767032644457bfb67eb732a72c2a7b2",
+  "tests": "market and cross-module synthetic PASS; standalone sink strict tsc PASS"
+}

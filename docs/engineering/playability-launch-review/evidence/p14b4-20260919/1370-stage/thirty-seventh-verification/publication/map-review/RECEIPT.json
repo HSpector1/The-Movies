@@ -1,0 +1,27 @@
+{
+  "acPower": true,
+  "baseEvidenceCommit": "2a4ca902ca4390017238e9a6cc398697e25feaa8",
+  "claimLimit": "Map only; no publication or runtime admission",
+  "classificationCounts": {
+    "ACCEPTED_FULL_ERA_MANIFEST_OR_REVIEW": 9,
+    "HELD_UNACCEPTED": 6,
+    "NARROW_STATIC_ACCEPTANCE_ONLY": 37,
+    "PRESERVE_EXACT_CLASSIFICATION": 98,
+    "REFINE_OR_STOP": 33
+  },
+  "decision": "ACCEPT_STATIC_MAP_ONLY",
+  "freeBytes": 3941490688,
+  "freshRemoteRefsMatched": true,
+  "hReviewReceiptSha256": "5e6f23884af9527f991665020414404455f182cc3a62abe5a5602bb019804dbf",
+  "m0ReviewReceiptSha256": "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8",
+  "mapSha256": "37e2421cf3de26224aa838fc21eb3c8a21c5ad646e2bfe96df4f5c0ebd62c203",
+  "planSha256": "b21053e1be6f0b3d26d8684fe958d7f94802ee5d143eb9a0584dbf47686f5440",
+  "productionClean": true,
+  "productionHead": "f8c0628739227accfa446276b0613f47bc805a78",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "reportSha256": "81aff0673e5156d6ab71fc9eca23e0cdba43b6fada637462f8c9c2c237fb7344",
+  "sourceBytes": 4090782,
+  "sourceCount": 183,
+  "targetPrefix": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification",
+  "targetPrefixAbsent": true
+}

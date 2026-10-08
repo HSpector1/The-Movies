@@ -1,0 +1,8 @@
+{
+  "claimLimit": "Design accepted only; no overlay implementation, neutrality route, C0 causality, 1363 admission, or native acceptance.",
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "designSha256": "b2abf83b741c8dd256a214ae19075d082854ae54131db15c37090e3001391273",
+  "predecessorRefineReceiptSha256": "a91fcdf31be1654e046e3075b62d56c1ebf207cc2150f949d2ee277a22350d25",
+  "reportSha256": "4d03c847d4d91aa57830537803a6a64cace60ad00359eb56cc30a5b41f42c181",
+  "sourceMapSha256": "8f4e2067cb9b3ce34411c4fa75111813792e101a023ba1a1180e904104ab35ef"
+}

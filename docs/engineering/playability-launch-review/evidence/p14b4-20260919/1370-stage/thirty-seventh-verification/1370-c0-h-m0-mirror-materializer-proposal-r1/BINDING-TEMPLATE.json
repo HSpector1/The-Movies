@@ -1,0 +1,12 @@
+{
+  "schema": "1370-c0-h-m0-mirror-materializer-future-binding-template-r1",
+  "classification": "UNFILLED_NOT_EXECUTABLE",
+  "arm": null,
+  "runId": null,
+  "correctedSourceManifestPath": null,
+  "correctedSourceManifestSha256": null,
+  "independentCorrectedSourceReviewPath": null,
+  "independentCorrectedSourceReviewSha256": null,
+  "exactLaunchSha256": null,
+  "claimLimit": "Never fill or run until corrected r6/r7 overlay, fixture/test/entrypoint and full-era source have independent static acceptance."
+}

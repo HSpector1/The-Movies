@@ -1,0 +1,13 @@
+{
+  "acceptedDesignReceiptSha256": "27bb1cdf112bef30e6056c62e6595fd5480f64cf46f9764ffd557e6ebca7a08f",
+  "acceptedHookR2StaticReceiptSha256": "7a01afcb591d8dcd28a96c90c2d161070c0af2e4d7f81c82fa9bb47a69b53f9b",
+  "claimLimit": "Partial static market wiring only; H author/freeze and full era typecheck/neutrality/routes remain; no C0 causality, 1363 or native acceptance.",
+  "classification": "MARKET_CALLER_PARTIAL_H_AUTHOR_FREEZE_UNWIRED",
+  "decision": "ACCEPT_STATIC_PARTIAL",
+  "hookSyntheticCheck": "PASS",
+  "inventorySha256": "b9d3576fd2e634310847d028d090d7aec1a76eadef003cb522e9b478262c0c28",
+  "marketSyntheticCheck": "PASS",
+  "readmeSha256": "aa9a88844ea64d47048e1a9eb71816504184b71f65ec4589a198c",
+  "reportSha256": "14b5b3717d1ae8b4556a82b8b458a6aadb93a24c9800d3b910c1ffb48d610f5e",
+  "standaloneSinkTsc": "PASS"
+}

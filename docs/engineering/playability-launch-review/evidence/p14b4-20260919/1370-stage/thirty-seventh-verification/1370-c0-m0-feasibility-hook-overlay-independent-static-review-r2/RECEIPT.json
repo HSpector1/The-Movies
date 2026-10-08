@@ -1,0 +1,12 @@
+{
+  "acceptedDesignReceiptSha256": "27bb1cdf112bef30e6056c62e6595fd5480f64cf46f9764ffd557e6ebca7a08f",
+  "claimLimit": "Static partial overlay only; market caller unwired; no full era typecheck, neutrality route, historical attribution, 1363 or native acceptance.",
+  "classification": "SCRATCH_PARTIAL_OVERLAY_MARKET_UNWIRED",
+  "decision": "ACCEPT_STATIC_ONLY",
+  "inventorySha256": "5f4091646eb8d13c60b57489b76ff411134e07a138e7310d1d07b06bfc74325f",
+  "priorR1RefineReceiptSha256": "a2d1f65a7828bbec4ca6b653eaec93fab4075f2e8342ca3e56ccda03bbfaacc5",
+  "readmeSha256": "86983b580f9d85374e46af26341aadd0bfaa488c1e693252c0761072f70513d0",
+  "reportSha256": "dc6d224650ce6a19844d0bd520201d71ea3c2997c4926e77cafa441b4324eabc",
+  "standaloneSinkTsc": "PASS",
+  "syntheticCheck": "PASS"
+}

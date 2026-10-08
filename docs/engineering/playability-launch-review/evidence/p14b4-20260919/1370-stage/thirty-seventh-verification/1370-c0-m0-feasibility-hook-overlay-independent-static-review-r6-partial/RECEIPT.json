@@ -1,0 +1,16 @@
+{
+  "claimLimit": "Scratch static partial only; full-era route and neutrality pending.",
+  "decision": "ACCEPT_STATIC_PARTIAL",
+  "historicalMarketSha256": "e12810c66cc93358a182bd527adfdeda05d3525352087f8a94835e75708231a5",
+  "modernMarketSha256": "53e7e270e372e31ca3975b650619950cfaad7db52422c0099f6c6474c3f91b77",
+  "overlayInventorySha256": "3a92ac6d99482eaa539524e8fd069e7f0924bdc4affed1fa968ca19d78acd018",
+  "r5CorrectionsVerified": [
+    "week208 m0Case guard in both eras",
+    "original submittedOrdinal in both dropped and survivor rows"
+  ],
+  "r5RefineReceiptSha256": "dab2798049768187917bd00fd0ec2e27848266e50a4370e73d2a682bbe2ce82d",
+  "r6SelfcheckSha256": "8ef94e78469a32ce85488b06c5de62b4874f45ca927eb5a30c80416d1f4f05a2",
+  "readmeSha256": "a8508aec4e45c7db24ebe70c5a01cb9a29610de5903922d11b55ec6ae092fe99",
+  "reportSha256": "f82e49463063c76a7f8b2e65a125d48ecdf7a7910f1824cc60bba215f92e6cfd",
+  "tests": "Four static/synthetic suites PASS; standalone sink strict tsc PASS."
+}
