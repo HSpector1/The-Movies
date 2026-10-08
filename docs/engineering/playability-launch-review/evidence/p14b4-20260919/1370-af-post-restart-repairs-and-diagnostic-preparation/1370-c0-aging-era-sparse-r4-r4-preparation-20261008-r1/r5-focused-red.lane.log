@@ -1,0 +1,38 @@
+{
+  "claimLimit": "Tiny owned scratch/CLI source controls; no historical materialization, game/native fixture or dependency execution.",
+  "passed": 0,
+  "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r4",
+  "tests": [
+    {
+      "exception": "AttributeError",
+      "message": "module 'os' has no attribute 'listxattr'",
+      "name": "actual_darwin_binary_empty_attrs_link_nofollow",
+      "status": "FAIL"
+    },
+    {
+      "exception": "AttributeError",
+      "message": "module 'materialize' has no attribute 'xattr_snapshot'",
+      "name": "xattr_parser_exact_bytes_and_nofollow_argv",
+      "status": "FAIL"
+    },
+    {
+      "exception": "AttributeError",
+      "message": "module 'materialize' has no attribute 'xattr_snapshot'",
+      "name": "xattr_malformed_and_command_failures_stop",
+      "status": "FAIL"
+    },
+    {
+      "exception": "AssertionError",
+      "message": "expected STOP",
+      "name": "lsof_explicit_access_without_fd_suffix",
+      "status": "FAIL"
+    },
+    {
+      "exception": "AssertionError",
+      "message": "expected STOP",
+      "name": "real_owned_scratch_writable_fd",
+      "status": "FAIL"
+    }
+  ],
+  "total": 5
+}

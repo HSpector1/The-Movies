@@ -1,0 +1,40 @@
+{
+  "claimLimit": "Tiny owned source-control files only, no historical checkout/dependency copy, game, witness/native fixture or production/Git mutation.",
+  "passed": 8,
+  "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6",
+  "tests": [
+    {
+      "name": "mask_077_mode_644",
+      "status": "PASS"
+    },
+    {
+      "name": "mask_077_mode_600",
+      "status": "PASS"
+    },
+    {
+      "name": "mask_022_mode_644",
+      "status": "PASS"
+    },
+    {
+      "name": "mask_022_mode_600",
+      "status": "PASS"
+    },
+    {
+      "name": "actual_helper077_tiny_source_manifest",
+      "status": "PASS"
+    },
+    {
+      "name": "exclusive_existing_file_preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "fchmod_failure_closes_and_removes_only_owned_file",
+      "status": "PASS"
+    },
+    {
+      "name": "bounded_metadata_only_physical_diff",
+      "status": "PASS"
+    }
+  ],
+  "total": 8
+}

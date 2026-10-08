@@ -1,0 +1,28 @@
+{
+  "claimLimit": "Tiny owned scratch/CLI source controls; no historical materialization, game/native fixture or dependency execution.",
+  "passed": 5,
+  "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5",
+  "tests": [
+    {
+      "name": "actual_darwin_binary_empty_attrs_link_nofollow",
+      "status": "PASS"
+    },
+    {
+      "name": "xattr_parser_exact_bytes_and_nofollow_argv",
+      "status": "PASS"
+    },
+    {
+      "name": "xattr_malformed_and_command_failures_stop",
+      "status": "PASS"
+    },
+    {
+      "name": "lsof_explicit_access_without_fd_suffix",
+      "status": "PASS"
+    },
+    {
+      "name": "real_owned_scratch_writable_fd",
+      "status": "PASS"
+    }
+  ],
+  "total": 5
+}

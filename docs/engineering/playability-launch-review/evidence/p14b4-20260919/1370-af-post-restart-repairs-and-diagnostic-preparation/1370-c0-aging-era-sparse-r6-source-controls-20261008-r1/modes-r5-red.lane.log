@@ -1,0 +1,48 @@
+{
+  "claimLimit": "Tiny owned source-control files only, no historical checkout/dependency copy, game, witness/native fixture or production/Git mutation.",
+  "passed": 4,
+  "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5",
+  "tests": [
+    {
+      "exception": "AssertionError",
+      "message": "('0o77', '0o600', '0o644')",
+      "name": "mask_077_mode_644",
+      "status": "FAIL"
+    },
+    {
+      "name": "mask_077_mode_600",
+      "status": "PASS"
+    },
+    {
+      "name": "mask_022_mode_644",
+      "status": "PASS"
+    },
+    {
+      "name": "mask_022_mode_600",
+      "status": "PASS"
+    },
+    {
+      "exception": "AssertionError",
+      "message": "({'package.json': {'type': 'regular', 'mode': 384, 'bytes': 3, 'links': 1, 'sha256': 'ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356'}, 'tests/tiny.fixture': {'type': 'regular', 'mode': 384, 'bytes': 3, 'links': 1, 'sha256': '712450d3c4a79eea9509e75dc1dacdeff58034df538536cfae2da882bd8a0c50'}, 'src/core/example.ts': {'type': 'regular', 'mode': 384, 'bytes': 21, 'links': 1, 'sha256': '0683eb7823cf015cb183d2300fc54aa6d95b6d22fa41e81ee4de29a99617f262'}}, {'package.json': {'type': 'regular', 'mode': 420, 'bytes': 3, 'links': 1, 'sha256': 'ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356'}, 'src/core/example.ts': {'type': 'regular', 'mode': 420, 'bytes': 21, 'links': 1, 'sha256': '0683eb7823cf015cb183d2300fc54aa6d95b6d22fa41e81ee4de29a99617f262'}, 'tests/tiny.fixture': {'type': 'regular', 'mode': 420, 'bytes': 3, 'links': 1, 'sha256': '712450d3c4a79eea9509e75dc1dacdeff58034df538536cfae2da882bd8a0c50'}})",
+      "name": "actual_helper077_tiny_source_manifest",
+      "status": "FAIL"
+    },
+    {
+      "name": "exclusive_existing_file_preserved",
+      "status": "PASS"
+    },
+    {
+      "exception": "AssertionError",
+      "message": "fchmod failure ignored",
+      "name": "fchmod_failure_closes_and_removes_only_owned_file",
+      "status": "FAIL"
+    },
+    {
+      "exception": "AttributeError",
+      "message": "module 'materialize' has no attribute 'assert_physical_checkout'",
+      "name": "bounded_metadata_only_physical_diff",
+      "status": "FAIL"
+    }
+  ],
+  "total": 8
+}
