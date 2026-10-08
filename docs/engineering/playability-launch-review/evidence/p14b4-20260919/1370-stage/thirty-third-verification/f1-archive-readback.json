@@ -1,0 +1,26 @@
+{
+  "archiveBytes": 1050870,
+  "archiveSha256": "196ee273dfb29b5f0d16aafa01608b68d1f47711257b63ae387c70b360707549",
+  "memberCount": 17,
+  "members": [
+    "audit/observed-RECEIPT.json",
+    "audit/observed-lane.log",
+    "audit/observed-lane.log.meta",
+    "preimages/employment.json",
+    "preimages/film-hold-witness.ndjson",
+    "preimages/final.json",
+    "preimages/receipts.json",
+    "preimages/settlement.json",
+    "preimages/takes.json",
+    "preimages/terminal-context.ndjson",
+    "preimages/trace-schema.json",
+    "preimages/trace.ndjson",
+    "preimages/weekly.ndjson",
+    "results/clean-RESULT.json",
+    "results/types-RESULT.json",
+    "route/BINDING.json",
+    "route/RESULT.json"
+  ],
+  "rosterSha256": "a5c22b2b53999910756b4dc89394cb822e804ad19b8f9e88979032362ff0b984",
+  "status": "BYTE_EXACT"
+}

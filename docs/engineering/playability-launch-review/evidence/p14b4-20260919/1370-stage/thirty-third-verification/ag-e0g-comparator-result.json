@@ -1,0 +1,43 @@
+{
+  "classification": "DIAGNOSTIC_NOT_ACCEPTANCE",
+  "currentHead": "283a55e69cb658e1dab2b5d4f2018343468e2437",
+  "elapsedSeconds": 664.8621876339894,
+  "evidenceTip": "3504c5ef5e8abbe471c8d4fae8db82c04dd57ec7",
+  "finalInputReviewSha256": "7e4f1e4d1907f95dcba9bde9eaa3d72d22963e882ca1f6120fbf8cc7b898669a",
+  "finalInputSha256": "1d03e798e7e5bbd5707290089387d6502f32bb784ce488e1943c0f0eca20c256",
+  "freeBytesAfter": 4275896320,
+  "neutral": true,
+  "schema": "1370-ag-e0g-four-input-full-state-comparison-r1",
+  "seeds": [
+    {
+      "agArchiveSha256": "87731d731d58d5d5b229fe170751744da62b1658765d59159cf6ed61355853fd",
+      "boundariesCompared": 417,
+      "differingFieldFamilies": {},
+      "e0gArchiveSha256": "bb1c5113a64f53b03c98ba47db94c69054ef1afb4cd2d9588db289462a4d6bfe",
+      "firstCashDifference": null,
+      "firstChangedReceipt": null,
+      "firstDecisionDifference": null,
+      "firstDifference": null,
+      "matchedBoundaries": 417,
+      "neutral": true,
+      "projectedSaveStreamSha256": "013693346616064473720be608420cbc59c5e88ef3e1ea7ab85f5f6e48ab32ba",
+      "seed": "p13a-core-causal-01"
+    },
+    {
+      "agArchiveSha256": "64e4591e80aa57a80c7ec5e219672a10b2be54580734b8da489ad7b208f4e099",
+      "boundariesCompared": 417,
+      "differingFieldFamilies": {},
+      "e0gArchiveSha256": "aadf488705d932179b2298dddd754d17a6bfa8640752f7e868401a340ab835fa",
+      "firstCashDifference": null,
+      "firstChangedReceipt": null,
+      "firstDecisionDifference": null,
+      "firstDifference": null,
+      "matchedBoundaries": 417,
+      "neutral": true,
+      "projectedSaveStreamSha256": "255f9c8c2c839c4961112dffe7936db336a9e99fb449f0856aaf7f1839ba93a1",
+      "seed": "p13-public-commercial-adoption"
+    }
+  ],
+  "sourceHead": "b995a83e5363a3843f9b902e08c2df4dd95840cb",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

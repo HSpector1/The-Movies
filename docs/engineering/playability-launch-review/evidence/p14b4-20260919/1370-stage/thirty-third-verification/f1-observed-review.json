@@ -1,0 +1,14 @@
+{
+  "auditActualChildExit": 0,
+  "auditCodeStaticReceiptSha256": "92d9c49aefb4466dd6f09952e0039e0eb3058a5a8c7d65223cd8b7d6dbc7e29b",
+  "auditLaneLogSha256": "7345ce8967afc4f4e51ab8e8b9962844ea213066f3a2ab9ae536051b8875e658",
+  "auditLaneMetaSha256": "3f360cd91871dc977daaea46b13378c256feec131435502383153f3d03d1db7a",
+  "auditLaunchReviewReceiptSha256": "dfe074e601387ab04a4fd0e11597fbb190526a2e1d1c98d8ade65727461f4e84",
+  "decision": "ACCEPT_OBSERVED_EXPLORATORY_F1_ONLY",
+  "historicalDigestMatches": 0,
+  "observerRows": 43,
+  "reportSha256": "7b095ac54298fe5bc15ae9940033b93ca1dbf57c645f977f7735fe05137ab4ee",
+  "runId": "f1-original-cap-20261008-r1",
+  "terminalContexts": 40,
+  "weeklyRows": 417
+}

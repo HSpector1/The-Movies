@@ -1,0 +1,16 @@
+{
+  "ancestryCheckSha256": "083514423f7b233bbb6c0dfd88ac7e41197278793cbb1afe7d6f6c619f559404",
+  "archiveBytes": 1050870,
+  "archiveSha256": "196ee273dfb29b5f0d16aafa01608b68d1f47711257b63ae387c70b360707549",
+  "decision": "ACCEPT_LOCAL_ARCHIVE_ONLY",
+  "independentReadbackSha256": "913ad045a966b52b742288b671f4018ca06a343223e4f097b3f1396a4760b246",
+  "logicalBytes": 21914853,
+  "manifestSha256": "a26063e5ec31630048a69ddf6b3be88d4c00649f9cec0ca7467dd92c787b9180",
+  "memberCount": 17,
+  "observedF1ReceiptSha256": "b496f7f176d80a651d8170ed7fefc9828fb43ee64709026ce3f8d39256d8855a",
+  "readbackActualChildExit": 0,
+  "readbackLaneLogSha256": "7522f57579b5215f3ee565f9102da317d31330427e5750957d9c12ec7b2fa531",
+  "readbackLaneMetaSha256": "b0911a03b68f1c00590a3ff9b4df9430454d88a6bb420fc1770ca0a7d0dd4af4",
+  "reportSha256": "64acbee5302f0e08f7cefe2cc10a6eafcf490699a0f46be1b03960265b88c6ad",
+  "rosterSha256": "a5c22b2b53999910756b4dc89394cb822e804ad19b8f9e88979032362ff0b984"
+}

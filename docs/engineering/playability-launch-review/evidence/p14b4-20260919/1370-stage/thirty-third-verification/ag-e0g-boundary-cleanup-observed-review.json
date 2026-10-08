@@ -1,0 +1,13 @@
+{
+  "actualChildExit": 0,
+  "commandSha256": "0a3466471e5d450b669405eae63af67a02cc2ed9562b793f2f7a8d4f140fda3e",
+  "decision": "ACCEPT_OBSERVED_EXACT_CLEANUP_ONLY",
+  "journalSha256": "c8f00dbd4f6c8ff9ee0d6d9c1853f960b26c299d2519aab346136e9ca1bc34ac",
+  "laneLogSha256": "a769dcb314d080edf59e605a80b38f01a605edb19f0c4e66f5fb51b23cb5efa6",
+  "laneMetaSha256": "55b4253a33f71de54b1d289c047ecd170555f9653c3ceed629cb4960495f9cc4",
+  "manifestSha256": "90f3c89a8f66ed9ac27df3a51bd2b5cce0b4bec6b0eced6a89bb52c3cf4e84c6",
+  "removedCount": 4,
+  "reportSha256": "d9f2535a25071814094d6068c3840c815e244e4fc297823309c756bf304f33a6",
+  "retainedResultSha256": "1ae6d21d5d444a068267931b66e1f22e23e18f2ea8d24624b628bc36a78da3eb",
+  "staticReviewReceiptSha256": "2a31093c64959727c9cdecb5f8cbe7babf5663183e61550c6e8b7b658d9350e8"
+}

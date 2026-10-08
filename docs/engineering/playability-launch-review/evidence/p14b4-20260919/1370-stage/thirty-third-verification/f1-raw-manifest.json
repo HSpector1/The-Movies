@@ -1,0 +1,117 @@
+{
+  "archive": "f1-original-cap-20261008-r1-raw-evidence.tar.gz",
+  "archiveBytes": 1050870,
+  "archiveSha256": "196ee273dfb29b5f0d16aafa01608b68d1f47711257b63ae387c70b360707549",
+  "builderSha256": "58c68ea718c6a98b002fed76440fdaa6267bf47714090312e4a3698302704628",
+  "classification": "RAW_EVIDENCE_BACKUP_NO_NEW_GAME_RESULT",
+  "memberCount": 17,
+  "members": [
+    {
+      "bytes": 12944,
+      "member": "preimages/employment.json",
+      "sha256": "3cc75a1d7e27bafcc8b009c6a30cadc3bc7b447a7e7a0f6d9a6bc9e1a23742c3",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/employment.json"
+    },
+    {
+      "bytes": 20930,
+      "member": "preimages/film-hold-witness.ndjson",
+      "sha256": "b39832424a61af6e11f27830e04f32cfa381732f84807abd51e0c064b6780e7e",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/film-hold-witness.ndjson"
+    },
+    {
+      "bytes": 1097,
+      "member": "preimages/final.json",
+      "sha256": "3888e2acb45acb17096260a73fc1a66867c5bbe1ca6d012a53cd115aeef08c2b",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/final.json"
+    },
+    {
+      "bytes": 35024,
+      "member": "preimages/receipts.json",
+      "sha256": "5b19bdd2431d11379edf6599a69e1a9777c2a7e686af1152fb0d48f1e7a026f5",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/receipts.json"
+    },
+    {
+      "bytes": 12817,
+      "member": "preimages/settlement.json",
+      "sha256": "9e439dd711be5dcac26dc02ccdeb09c6dc0d8597499a71a2d1aa28a0667dd118",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/settlement.json"
+    },
+    {
+      "bytes": 16116,
+      "member": "preimages/takes.json",
+      "sha256": "a93efc1332a804b2d40cd65279c06f9baa8d259fd6275188e1bd8daa0e8d76b2",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/takes.json"
+    },
+    {
+      "bytes": 3426122,
+      "member": "preimages/terminal-context.ndjson",
+      "sha256": "ffc5a7347500924edf03e89fcf71a8481f8b61e7e3f494f351f4a54009703480",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/terminal-context.ndjson"
+    },
+    {
+      "bytes": 829,
+      "member": "preimages/trace-schema.json",
+      "sha256": "84f1c95937cc4a8b3f93a7b90fdaeb643dc7b7b2cae36bd5bb618e11010fb7e1",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/trace-schema.json"
+    },
+    {
+      "bytes": 94021,
+      "member": "preimages/trace.ndjson",
+      "sha256": "889d23bfc8f79378311b7642b823fafedeb37c4e17126ca4d2ffa4fa4ea31994",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/trace.ndjson"
+    },
+    {
+      "bytes": 18176996,
+      "member": "preimages/weekly.ndjson",
+      "sha256": "1d4a2db481803c5a395a3619245be17f24b231533d5cae0bd8cebb5b8c126639",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/weekly.ndjson"
+    },
+    {
+      "bytes": 12000,
+      "member": "results/clean-RESULT.json",
+      "sha256": "4c7392c6b0bbca57c0d87cc54230fed21eea0ea4dadf52a398ede306b2c35a71",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/RESULT.json"
+    },
+    {
+      "bytes": 7210,
+      "member": "results/types-RESULT.json",
+      "sha256": "5408cff14aeeec78953457ce3206355b7dcdc32ed70905bd6f21532284865c48",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-types-f1-original-cap-20261008-r1-f1-types/RESULT.json"
+    },
+    {
+      "bytes": 1745,
+      "member": "route/RESULT.json",
+      "sha256": "2e5b6812946ec246b261f7d4f52758acfbd15da8c318b498fe1394587995dc6c",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-original-cap-two-stage-route-recorded-runs-r4/f1-original-cap-20261008-r1/RESULT.json"
+    },
+    {
+      "bytes": 1528,
+      "member": "route/BINDING.json",
+      "sha256": "518c06780d3eb3fcf3f7652b784badb907c06309dd6ed7f789b7b3e802a6d21c",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-original-cap-two-stage-route-recorded-runs-r4/f1-original-cap-20261008-r1/BINDING.json"
+    },
+    {
+      "bytes": 705,
+      "member": "audit/observed-RECEIPT.json",
+      "sha256": "b496f7f176d80a651d8170ed7fefc9828fb43ee64709026ce3f8d39256d8855a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-observed-audit-result-independent-review-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 94254,
+      "member": "audit/observed-lane.log",
+      "sha256": "7345ce8967afc4f4e51ab8e8b9962844ea213066f3a2ab9ae536051b8875e658",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-observed-audit-f1-original-cap-20261008-r1.lane.log"
+    },
+    {
+      "bytes": 515,
+      "member": "audit/observed-lane.log.meta",
+      "sha256": "3f360cd91871dc977daaea46b13378c256feec131435502383153f3d03d1db7a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-observed-audit-f1-original-cap-20261008-r1.lane.log.meta"
+    }
+  ],
+  "readbackSha256": "5d871061bc0c6807cd5e326ead6d18f46a7506e9df50ffb39689f96ff63e028c",
+  "rosterSha256": "a5c22b2b53999910756b4dc89394cb822e804ad19b8f9e88979032362ff0b984",
+  "runId": "f1-original-cap-20261008-r1",
+  "status": "BUILT_AWAITING_INDEPENDENT_REVIEW",
+  "totalLogicalBytes": 21914853
+}
