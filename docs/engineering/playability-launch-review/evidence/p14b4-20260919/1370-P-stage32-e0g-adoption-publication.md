@@ -1,0 +1,17 @@
+# 1370-P — E0G adoption capture publication and remote readback
+
+The r12 E0G adoption clean capture remains an **exploratory 720/750-second** result. It ran all 416 weeks and retained 417 full-state Save46 boundaries. This record concerns byte preservation only; it does not admit the 1363 ledger, establish AG→E0G neutrality, or turn that exploratory run into prospective acceptance.
+
+The capture source was `b995a83e5363a3843f9b902e08c2df4dd95840cb` (`src` tree `13880d9b0ba72aff5d4c5bcf5d12fe682c5de554`). The later production `HANDOFF.md` checkpoint `87e2d7c76212fa8485aa99f5997fb9bc70fd1772` changed documentation only. The exact 48-file publication map SHA-256 was `98f9a5d3442d4f0fa185c7cf813624312bc853e3be4845ca6fec5703f82db6ff`; its staged BLOBS receipt SHA-256 was `69c2635e2d94561dfaf40a3be8ce4e41201c466748f66e787842eca440002684`. Independent local readback rehashed all 48 sources and Git blobs (146,984,645 bytes), with observed receipt `d84e3c9251d2cac23c07090871e44327e36aa8a53bde3acbed65914485264e5c`.
+
+The history-preserving evidence publication advanced `evidence/1370-r10-clean-captures` from `343644e8615b730c11a4683f95ea06e3e15fde7e` to `3504c5ef5e8abbe471c8d4fae8db82c04dd57ec7` (tree `eede5d2bb01670db2ce1927084d9db36a5136c8d`). Its stage32 directory contains 62 files: 48 mapped source/evidence files and 14 publication controls/reviews. The publisher's local result SHA-256 is `8f788e033feff114e8267eee20323277d916fb1169fb40f6866da6599867aa58`.
+
+The independently reviewed fresh HTTPS audit r3 cloned the remote evidence branch without checkout or local alternates, rehashed all 62 published blobs, reconstructed the three-part archive, and verified all 232 source members. Its recorded lane child exited 0. The audit report SHA-256 is `8add8d9953fb4fe1bc11c26c810d1dbbed9fa9f60f82aa25168c2c684890577c`; the separate observed-review receipt is `4f7787eecc9835f530b6f8ac837635ebee183d94e881fbca22065aa4aef3cc6f`. The archive manifest SHA-256 remains `9e81b3c46d94e962f658ca4203865a866e311dcb661a8623f073e0ad13b91e54`, and the reconstructed tar SHA-256 remains `aadf488705d932179b2298dddd754d17a6bfa8640752f7e868401a340ab835fa`.
+
+Preserved failures and lessons:
+
+- The first stager static review returned REFINE because a per-chunk disk check discarded its result. The corrected r2 checked the 3 GiB floor within each streamed chunk before staging.
+- Remote audit r1 exited 1 before retrieval because its preflight applied a 64-character SHA-256 length check to 40-character Git IDs. Remote audit r2 exited 1 before retrieval because its reviewed output-directory creation command was omitted at launch. Neither produced a report; both logs and metadata remain in scratch under their original failure labels. R3 used a single reviewed launcher that creates the output directory and starts the lane together.
+- A wrapper exit of 0 does not establish a passing audit. The r3 child exit in its `.lane.log.meta`, report bytes, and independent observed review provide the result. Keep file-hash pins and Git-OID pins separate, and execute the entire reviewed launch command.
+
+The raw E0G adoption capture and local archive package were still retained at this checkpoint. A separate exact-root disposition review is required before deleting either. The local package is useful for the pending AG→E0G four-input comparison, so keep it available until that route has an independently reviewed input authority.
