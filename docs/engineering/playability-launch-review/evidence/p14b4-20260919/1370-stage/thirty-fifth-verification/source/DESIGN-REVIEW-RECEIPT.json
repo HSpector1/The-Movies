@@ -1,0 +1,18 @@
+{
+  "boundarySha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e",
+  "classification": "NO_ARCHIVE_NO_REMOTE_PROOF_NO_1363_ACCEPTANCE",
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "designManifestSha256": "c7c4bc43958101840c6193d792c610e2f1c793e38e1e90d959cc01b79f47eae9",
+  "expectedParts": [
+    67108864,
+    67108864,
+    7104512
+  ],
+  "expectedTarBytes": 141322240,
+  "observedReceiptSha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15",
+  "planSha256": "43973e786f1723eb3cc94671f874f6be3e3ddd6ed8844679e9c3a3bea5d30b51",
+  "schema": "1370-ebg-adoption-github-backup-independent-design-review-r1",
+  "sourceBytes": 141289801,
+  "sourceFiles": 30,
+  "sourceRosterSha256": "f957f2244bd1bebfa405bd2fcb4cf284c670dfc2ba6bc6a896b2c8d482a630d0"
+}

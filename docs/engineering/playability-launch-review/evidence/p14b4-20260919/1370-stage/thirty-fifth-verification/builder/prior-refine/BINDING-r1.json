@@ -1,0 +1,21 @@
+{
+  "builderSha256": "7593d3becb3958b64bb3aba5708c0d3b22702fa7b7a7aa498d8390428e8494a8",
+  "classification": "UNRUN_AWAITING_INDEPENDENT_EXACT_REVIEW",
+  "commandSha256": "014cec00180787b790d50c26c469b6de7d94597121f3fbba64b61208509a0a90",
+  "expectedParts": [
+    67108864,
+    67108864,
+    7104512
+  ],
+  "expectedTarBytes": 141322240,
+  "laneLog": "/Users/zacheryspector/studio-scratch/heavy-queue/1370-ebg-adoption-archive-builder-20261008-ebg-adoption-archive-r1.lane.log",
+  "manifestSha256": "693ef4a1616997a0a1f553d4470fa061569ce002d55dbe46cb831752c9e3213c",
+  "observedReceiptSha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15",
+  "outputLeaf": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-archive-builder-recorded-r1/20261008-ebg-adoption-archive-r1",
+  "productionHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "runId": "20261008-ebg-adoption-archive-r1",
+  "schema": "1370-ebg-adoption-archive-builder-filled-launch-r1",
+  "scope": "EXPLORATORY_CAPTURE_BACKUP_ONLY",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "staticReviewSha256": "ce901c33ffa0033c354a1006dcb8c14dd0b4b63115369fb6d3163a24e889b36b"
+}

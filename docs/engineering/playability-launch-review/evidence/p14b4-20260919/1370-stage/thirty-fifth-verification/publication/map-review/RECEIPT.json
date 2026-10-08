@@ -1,0 +1,24 @@
+{
+  "auditLaneLogSha256": "e64ce9b1873ebc80fc8ced9e162a2a7730fdb6426d80dfa7e2fb7489e8179a22",
+  "auditLaneMetaSha256": "35bdbf6d69952a9e78c54ccf91b8fe617eb4ba551b50a7c68adabc6ecaf35c90",
+  "auditScriptSha256": "8a8267afaf80aabf5bf5a11919c4ef4e92e17a24ab8d7b3ba05fab74889a3700",
+  "auditSha256": "bf49a2da3b02e7fab54fd176b7005bd40b62f032a28e82893ecffe342b615c2e",
+  "baseEvidenceCommit": "15bda3eefedb2d00f74b65b143199f5f8be77d15",
+  "checks": [
+    "Recorded independent child exit 0 verified every source SHA-256, size and Git blob OID from 35 single-link regular files",
+    "Unique sorted stage35 destinations and exact 141417075-byte sum; three parts total 141322240 bytes below GitHub blob limit",
+    "Corrected builder r2 and prior r1 REFINE authority included, plus local readback and observed capture receipts",
+    "AC and >=3 GiB floor, production/source and remote evidence base verified; no Git mutation"
+  ],
+  "claimLimit": "Frozen stage35 35-file source map and publication design only; no Git mutation, remote bytes or 1363 admission.",
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "fileCount": 35,
+  "largestBlobBytes": 67108864,
+  "mapSha256": "ccc002e5c9f3f3bca85fae4a3031495d3d5fe9c86d73fdddcd52696bea581ed2",
+  "planSha256": "eb19a684825bd8f83da78ae301fc1cec895d5ebaaefc7e1e8ff72800c2354eb0",
+  "productionHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "readmeSha256": "efd94fc5aeecc6bbe2e6387507638a77bd79b6a0be0a048b799f152fd59f41ae",
+  "schema": "1370-ebg-adoption-stage35-independent-map-review-r1",
+  "sourceBytes": 141417075,
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

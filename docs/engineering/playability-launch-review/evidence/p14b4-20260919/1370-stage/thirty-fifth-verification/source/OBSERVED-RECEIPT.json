@@ -1,0 +1,16 @@
+{
+  "classification": "EXPLORATORY_NOT_ACCEPTANCE_NO_1363_ADMISSION",
+  "decision": "ACCEPT_OBSERVED_EBG_ADOPTION_CLEAN_EXPLORATORY_ONLY",
+  "exactReviewSha256": "c5aa657768af7d89d367676709b3079bc5186049a51deb43d3117a52c3fac6e9",
+  "filledLaunchSha256": "17c3b647e4c3747dd7242de9bf9caa5f3d59e10d45e19d5cb3f4e48a24ae5cc4",
+  "manifestSha256": "b8a115a2cec4c8dfb91742767362e493768c7ec992908c1aa4c3c05a92618374",
+  "outerResultSha256": "9489d8959d558b08b02b4df6324ff75f78fa6ba1c45be9afcef3fa6c0467fdb7",
+  "readbackAuditSha256": "195f826cd67ad002ec6cb01124e66715b3f03366c37629da7825b64ad1823d2b",
+  "readbackLaneMetaSha256": "888d5d0d2bb7af7afc6bdae4486a8120540c66d1fdc817beb3e6c651d532ad31",
+  "reportSha256": "b3f7848d23cf675647abf7e3a3e276b0c2d8b63c5d52c094a64b0404ae79cc54",
+  "runId": "20261008-ebg-adoption-clean-r1",
+  "schema": "1370-ebg-adoption-r3-clean-independent-observed-review-r1",
+  "staticReviewSha256": "3f3bb2b8279b9d8931eff58156a5c36b320a0f394b744f9dd826272357c04cdc",
+  "targetResultSha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88",
+  "typesObservedReceiptSha256": "35931dde51b84dcb666cf307f8cbe26e633492e51361cf62b5ddf2a916eb48c9"
+}

@@ -1,0 +1,5 @@
+# EBG adoption archive independent local readback r2
+
+**ACCEPT_LOCAL_ARCHIVE_BYTES_ONLY.** The 300-second recorded lane ended with child exit 0. The frozen r2 audit read the three ordered archive parts as one 141,322,240-byte USTAR and verified the whole SHA, each part SHA/size, all 30 exact normalized headers, unique lexicographic regular member names, every member byte against its pinned local source, each member SHA/size, zero padding and terminator, and stable source/part metadata. The accepted exploratory adoption observed receipt is among those 30 verified members. Production HEAD/source and explicit remote branch, AC power and the 3 GiB running floor were checked.
+
+Archive SHA `8070202a82fd9cb23474eee632ab44798dbe4bcbb636d58f0e97d59a0e24b3f5`; local audit SHA `9bf612f033fbf60011a4c567ffa367afffa0ff3d4fc55d09cb92bda7e3e7fa41`. This is a local byte claim only. It does not prove GitHub publication, fresh remote byte retrieval, adoption causality, or 1363 acceptance. The r1 readback proposal remains REFINE/unrun.

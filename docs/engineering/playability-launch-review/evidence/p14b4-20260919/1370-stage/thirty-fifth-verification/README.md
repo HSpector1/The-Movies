@@ -1,0 +1,7 @@
+# Stage35: EBG adoption CLEAN exploratory capture
+
+This stage preserves the observed EBG adoption CLEAN diagnostic at production HEAD `b97129610a07d3529fc482daeddc0cd9bf798713` and source tree `13880d9b0ba72aff5d4c5bcf5d12fe682c5de554`. It is the `p13-public-commercial-adoption` seed for 416 natural ticks and 417 boundaries under the separately labeled exploratory 720-second child / 750-second recorder limits. The observed receipt SHA is `c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15`.
+
+The deterministic uncompressed USTAR is 141,322,240 bytes, SHA-256 `8070202a82fd9cb23474eee632ab44798dbe4bcbb636d58f0e97d59a0e24b3f5`, in three ordered parts of 67,108,864, 67,108,864 and 7,104,512 bytes. The local independent readback accepted all 30 source members byte-for-byte; its receipt SHA is `f84e80a90dec889f8d9d317dd57a57b5b29cc5e8ded318871a699ea8bad5664c`. The builder's original r1 binding error and correction records remain in this stage under `builder/prior-refine/`; the corrected r2 binding and exact receipt are the operative route.
+
+The stage35 source map pins the exact local bytes and Git blob OIDs. GitHub preservation remains pending until an independently reviewed publication runs and a separate auditor retrieves the resulting remote bytes from fresh HTTPS and reconstructs all 30 members. This stage does not admit 1363, prove B-only causality, or claim native gameplay acceptance.

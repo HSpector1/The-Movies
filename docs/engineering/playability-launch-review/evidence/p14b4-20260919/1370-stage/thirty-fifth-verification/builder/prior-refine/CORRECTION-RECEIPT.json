@@ -1,0 +1,8 @@
+{
+  "bindingSha256": "0bdbc5c6fab3bd9e692610c0942ba5c68a3526f2a07c93109617487f7aee2f8f",
+  "commandSha256": "014cec00180787b790d50c26c469b6de7d94597121f3fbba64b61208509a0a90",
+  "decision": "REFINE_BINDING_ONLY",
+  "reportSha256": "5fa6b2716f29e8ffd24ca46ce43443b368d077e6aef5bab3b1125e3375710b9c",
+  "reviewedAtUtc": "2026-10-08T06:51:54.478505+00:00",
+  "schema": "1370-ebg-adoption-archive-builder-filled-launch-r1-correction-review"
+}

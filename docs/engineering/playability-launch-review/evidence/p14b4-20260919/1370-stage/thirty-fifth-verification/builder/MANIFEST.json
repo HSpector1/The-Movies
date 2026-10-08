@@ -1,0 +1,29 @@
+{
+  "classification": "STATIC_PROPOSAL_NO_REAL_ARCHIVE_OR_PUBLICATION",
+  "designManifestSha256": "c7c4bc43958101840c6193d792c610e2f1c793e38e1e90d959cc01b79f47eae9",
+  "designReviewSha256": "efb2fef13a8485ee6d1ffab6643bc5e64bbd5e21cc7e0cbbf7ef3d314ccdf46f",
+  "expectedPartBytes": [
+    67108864,
+    67108864,
+    7104512
+  ],
+  "expectedTarBytes": 141322240,
+  "files": {
+    "PLAN.md": "043a34129543978a797097463232e7f14950643214b5a9bfea5eb6776b423a13",
+    "REVIEW-REQUEST.md": "ad2e0ed1ab5146cd8d9f3eff859d30a4857e1497fe45fa8a2ed19c4ddee695c3",
+    "builder.py": "7593d3becb3958b64bb3aba5708c0d3b22702fa7b7a7aa498d8390428e8494a8",
+    "selfcheck.py": "adb884b384a5828a88a141ff6fa6baf1e42e5da667e1afa2d4e7613a2eb4445c"
+  },
+  "head": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "maxTarBytes": 167772160,
+  "minFreeBytes": 3899418624,
+  "observedReceiptSha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15",
+  "partBytes": 67108864,
+  "rosterSha256": "f957f2244bd1bebfa405bd2fcb4cf284c670dfc2ba6bc6a896b2c8d482a630d0",
+  "runningFloorBytes": 3221225472,
+  "schema": "1370-ebg-adoption-archive-builder-proposal-r1",
+  "sourceFiles": 30,
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "syntheticRedRefusals": 11,
+  "wallSeconds": 300
+}

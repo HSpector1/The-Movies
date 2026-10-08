@@ -1,0 +1,23 @@
+{
+  "baseEvidenceCommit": "15bda3eefedb2d00f74b65b143199f5f8be77d15",
+  "checks": [
+    "15 synthetic tests passed independently and Python syntax passed",
+    "35 exact reviewed source rows, 141417075 bytes, 41 expected stage35 blobs after six control files",
+    "No-follow single-link input descriptors and source/Git OID checks before and during blob writing",
+    "Private Git index, exact subtree, one-parent commit-tree, local compare-and-swap and non-force push",
+    "900-second alarm/subprocess deadline, AC and 3.75 GiB preflight/3 GiB running floor",
+    "Clean production HEAD/source/worktree and exact remote evidence base; one-shot result/index paths"
+  ],
+  "claimLimit": "Static publisher source only; exact launch, Git mutation, push and remote byte proof unrun. No 1363 admission.",
+  "decision": "ACCEPT_STATIC_STAGE35_PUBLISHER_R1",
+  "manifestSha256": "2b627adb01f92f1a5a3a66603f7a824bcb7a4385f5ed935d704a99b333205a13",
+  "mapReviewReceiptSha256": "112e799a482a73877c9a5a27bf3328120059a48a169ae4d49f3c47851ee71aef",
+  "mapSha256": "ccc002e5c9f3f3bca85fae4a3031495d3d5fe9c86d73fdddcd52696bea581ed2",
+  "planSha256": "eb19a684825bd8f83da78ae301fc1cec895d5ebaaefc7e1e8ff72800c2354eb0",
+  "reviewRequestSha256": "f591a916f6546a7ceae692aa74f36f64bb15906aedc660d9db670e9994097a4c",
+  "schema": "1370-ebg-adoption-stage35-publisher-independent-static-review-r1",
+  "scriptSha256": "50ba36e3bb540dae7e3ac90153f006822cd0dd4a4aa7768903620dfe349d868e",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "testStaticSha256": "96853a9fa2ff3ebffa421f56493185483244ad2cc1a281c01183348c9fcf2d4e"
+}

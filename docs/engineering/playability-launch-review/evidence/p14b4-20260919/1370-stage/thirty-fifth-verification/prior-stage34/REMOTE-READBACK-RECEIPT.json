@@ -1,0 +1,344 @@
+{
+  "archiveBytes": 107141120,
+  "archiveMemberCount": 30,
+  "archiveMembers": [
+    {
+      "bytes": 109,
+      "member": "p13a/lane/CLEAN.lane.log",
+      "sha256": "ced7f7885ecd8b6ca1850c5792a8bec1db73102abdcb9594d8720fdba5064507"
+    },
+    {
+      "bytes": 3225,
+      "member": "p13a/lane/CLEAN.lane.log.meta",
+      "sha256": "00fec1da466743459ee7c70dc1a6304cd30bf744b3a81c7aaae9f5f622073fa4"
+    },
+    {
+      "bytes": 2255,
+      "member": "p13a/launch/BINDING.json",
+      "sha256": "44ccfaa5d917250874619d4725f5108814cfcf66c60b04b7854733e4552d3610"
+    },
+    {
+      "bytes": 1350,
+      "member": "p13a/launch/EXACT-REVIEW-RECEIPT.json",
+      "sha256": "52cb782e16e86e553ed3b7b77d99e4a6f9e9870737dc6db4ffa7751c96331e77"
+    },
+    {
+      "bytes": 3752,
+      "member": "p13a/launch/LAUNCH.command",
+      "sha256": "aab8142932948a2763c46f10e6b52fecc2d365739d3aea6d0a38d3cdcc05b47a"
+    },
+    {
+      "bytes": 680,
+      "member": "p13a/launch/MANIFEST.json",
+      "sha256": "5f6ced6afa9a7604809e33f89ef3de3c9c2a7c106f950eac891b24acfae98557"
+    },
+    {
+      "bytes": 1205,
+      "member": "p13a/observed/AUDIT.json",
+      "sha256": "ad486b2a395dd233caab1cf0d0bf9114d9562feb78685b21790c26e75769bb45"
+    },
+    {
+      "bytes": 1090,
+      "member": "p13a/observed/RECEIPT.json",
+      "sha256": "34070dfba64e7f5e4c937d4a62e32a215a2f67076dc2fb8a7e1889b07d187908"
+    },
+    {
+      "bytes": 4852,
+      "member": "p13a/observed/REPORT.md",
+      "sha256": "39a78c6df9b5e09a76b58a2a5cde91951860a3d69191bf93a7424764c435e85d"
+    },
+    {
+      "bytes": 155,
+      "member": "p13a/observed/audit.lane.log",
+      "sha256": "423bdda94931918b9c48ddf9c0ca65b4d91a80259b1128e1ffba5bdd222794c7"
+    },
+    {
+      "bytes": 231,
+      "member": "p13a/observed/audit.lane.log.meta",
+      "sha256": "c941e3b716067585ec9c1e74f4e50d0f47258eea8d86f28c3a382a2a9e4b3fd0"
+    },
+    {
+      "bytes": 124,
+      "member": "p13a/outer/LAUNCH.json",
+      "sha256": "59b0b8569f16d0bbd4674e4f2c595578a0262d3797988145d18836fcacab2251"
+    },
+    {
+      "bytes": 1613,
+      "member": "p13a/outer/RESULT.json",
+      "sha256": "9a00ccb0fce005e27b5dd4597d1f47ebf614e1191ec3616f6edbf4893804c62d"
+    },
+    {
+      "bytes": 83,
+      "member": "p13a/outer/RESULT.sha256.json",
+      "sha256": "f56d768ac99995ece50271e9b35d4084ced3cf5c248c8a6d7488bf55e08e5b85"
+    },
+    {
+      "bytes": 199,
+      "member": "p13a/outer/WATCHDOG.json",
+      "sha256": "a89d0098045f6dd0a1759ff1aa3f00a2f14d4e8f4cf3e282b380900998187c3a"
+    },
+    {
+      "bytes": 0,
+      "member": "p13a/outer/child.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 109,
+      "member": "p13a/outer/child.stdout.log",
+      "sha256": "d565f074943bdd35bfd72f427606a4a0c36dd72a8f6a2e66d563fd8827dcba85"
+    },
+    {
+      "bytes": 26530,
+      "member": "p13a/route/MANIFEST.json",
+      "sha256": "1b875ba4a98208cc0d36091ccd7076fd9666c56c69004cf6421fe3e5187ad83f"
+    },
+    {
+      "bytes": 400,
+      "member": "p13a/route/STATIC-REVIEW-RECEIPT.json",
+      "sha256": "003891b8bfb2e347dbfc244005ac1cdf76b4f16ecc05ac9822f108e09e80cf77"
+    },
+    {
+      "bytes": 607,
+      "member": "p13a/target/LAUNCH.json",
+      "sha256": "acb8c3346d23f03518501d4a8ae3469488a79f791250483ae7807daffbee07e9"
+    },
+    {
+      "bytes": 3049,
+      "member": "p13a/target/RESULT.json",
+      "sha256": "7361b1bcde0d4b0c531db73816a8337eb3a56041d1ec9f53137dc747d32b6eb1"
+    },
+    {
+      "bytes": 83,
+      "member": "p13a/target/RESULT.sha256.json",
+      "sha256": "d3a62809d467ae985d5d24a5e322ac01d0e62bc4162e8538f5cf19ad1bffb474"
+    },
+    {
+      "bytes": 107055550,
+      "member": "p13a/target/boundaries.ndjson.gz",
+      "sha256": "50947d8de349ff891a9b44fd3eda72801b912b5b6e6e6bc6c4b7c25739b697b1"
+    },
+    {
+      "bytes": 0,
+      "member": "p13a/target/child.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 146,
+      "member": "p13a/target/child.stdout.log",
+      "sha256": "9d6f57c6ff367f63f67d52d18b145501bc782ff40104399b83a8bcb4256c4c60"
+    },
+    {
+      "bytes": 345,
+      "member": "p13a/target/progress.ndjson",
+      "sha256": "1498a0edcbc4ba6ca615b63c54dd7c7f6b8c222c88ad76f219c81604ec442cad"
+    },
+    {
+      "bytes": 299,
+      "member": "p13a/target/readback-audit.json",
+      "sha256": "b4effe687ea67127eda435d31f407be33a452d65d233d8f6126b90e85bcdcaed"
+    },
+    {
+      "bytes": 1109,
+      "member": "p13a/target/summary.json",
+      "sha256": "950d7bab82c9614c2950dc87b4e47ea152285cceda36b0142491a19d4ba3d620"
+    },
+    {
+      "bytes": 1173,
+      "member": "p13a/target/vitest.json",
+      "sha256": "85300497ae4930ab09c18633e20d0247fdd501dc4cd1443faa8230dc42b96e24"
+    },
+    {
+      "bytes": 454,
+      "member": "p13a/types/OBSERVED-RECEIPT.json",
+      "sha256": "226864f70c9472dc5438f5cd0f6204f49a2afc2799c22eec2645077b8a5a5a38"
+    }
+  ],
+  "archiveSha256": "4583f9631a005328912d49347d061fbfdd8ccaef428ad9075cac46ce2af0e67b",
+  "directParent": "3504c5ef5e8abbe471c8d4fae8db82c04dd57ec7",
+  "expectedCommit": "15bda3eefedb2d00f74b65b143199f5f8be77d15",
+  "expectedParent": "3504c5ef5e8abbe471c8d4fae8db82c04dd57ec7",
+  "fileCount": 29,
+  "files": [
+    {
+      "bytes": 1035,
+      "gitBlob": "3d9c93b10485e0193778eb1f2d418b905a691b40",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/README.md",
+      "sha256": "69f449c009ba521547ebd2eecbed59f21ad461c75696eafc283d23a0ff573281"
+    },
+    {
+      "bytes": 6009,
+      "gitBlob": "596f06763f11cff8704640828728927315f8686d",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/archive/BUILD-RESULT.json",
+      "sha256": "80acb78e5b35b5166ac122adf7be147637fa0b8d17c765d9085920fa997a48ab"
+    },
+    {
+      "bytes": 67108864,
+      "gitBlob": "30fc80fcb6caac7debb9653fdd634f872ac98be3",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/archive/capture.tar.part-001",
+      "sha256": "c01cc34b45ec21ab82075ce19f5ebdfecbdd8084fc96e71f07d6815347f78b83"
+    },
+    {
+      "bytes": 40032256,
+      "gitBlob": "16afd72432c6fada5ddbfb92536a2e55098c527c",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/archive/capture.tar.part-002",
+      "sha256": "260f28bfc80eaa1ec19524f3e8fb47d84cc2108d0cf567b697442dbad02e0360"
+    },
+    {
+      "bytes": 991,
+      "gitBlob": "89a157de7f58d9cf40334876d8bd22480b2f11c0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/builder/MANIFEST.json",
+      "sha256": "53aa0804ae6e68e110ddd0a692e70cbfce185c857dc2860b35afb345c1075ac5"
+    },
+    {
+      "bytes": 308,
+      "gitBlob": "a915fb7c222f5227372c2fb2b8fbfda8717bb62d",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/builder/STATIC-REVIEW-RECEIPT.json",
+      "sha256": "9a91e6c7f8b9b1e01a96c6cdd0d89c5e322b2ca26f03c6cb40797ccd69e6f985"
+    },
+    {
+      "bytes": 1265,
+      "gitBlob": "6a0a2e82b5b0a9b2e5c216cc6040fe43d007388c",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/builder/build.lane.log.meta",
+      "sha256": "3e47c18bd4d5fdb09e9ecf7451ba6f9c45a0fb86e27cc3afbf4fe048ad2ff83b"
+    },
+    {
+      "bytes": 11579,
+      "gitBlob": "a46f65a5420a1fb067cc87dece11676f8b7716b9",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/builder/builder.py",
+      "sha256": "de9c3307fc1282e6053988a95e719c1c725bfae62c8ac4d40e0aff319922cab0"
+    },
+    {
+      "bytes": 1090,
+      "gitBlob": "d41f0c50866652b1cc1d43c487af6165403cda0a",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/capture/OBSERVED-RECEIPT.json",
+      "sha256": "34070dfba64e7f5e4c937d4a62e32a215a2f67076dc2fb8a7e1889b07d187908"
+    },
+    {
+      "bytes": 534,
+      "gitBlob": "6209e3b4b2639d2a43562f32f2d0b84e0e70db79",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/design/MANIFEST.json",
+      "sha256": "d42eb87895cef235de35a2a235bb21473f631e59ffd8a9a87600435488205f30"
+    },
+    {
+      "bytes": 1536,
+      "gitBlob": "ccc8685b8fc60c333428f103f2ad714ddd9345db",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/design/REVIEW-RECEIPT.json",
+      "sha256": "d0f76acb7f7b8c22e2dc9b2df28f39c37fdfc9b4a6aeac988a7eed7e7198ad11"
+    },
+    {
+      "bytes": 13735,
+      "gitBlob": "ae50287c678cfcad6e5b08616ea2f5d2bf237a1b",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/design/SOURCE-ROSTER.json",
+      "sha256": "2f56f7d11d9ec70b1904ba7ab098a90655573c781a466d3de050469e60a02d77"
+    },
+    {
+      "bytes": 1342,
+      "gitBlob": "1039204819e3d38304c45d4b93e7965215ba9680",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/AUDIT.json",
+      "sha256": "35b958ddb77798b367c0842c72b784dfc1c5ca4085b8840659ae09a5235c1a62"
+    },
+    {
+      "bytes": 2111,
+      "gitBlob": "bb8202f262656821daa066a153d0d5b26b51b6c2",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/RECEIPT.json",
+      "sha256": "6ae691549553ebc7245e9d895e2d97acbfc63b1b28fbbf899f4d643ae5a1f047"
+    },
+    {
+      "bytes": 1875,
+      "gitBlob": "7f999f5a3ceec5c1782b6e07192f9fc431f7106a",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/REPORT.md",
+      "sha256": "94cf64c68ff44acb3749a5cfcf4a06cc5e2fe63e1fdaa64309498b727ba8f50b"
+    },
+    {
+      "bytes": 214,
+      "gitBlob": "490bb9e6a403b4dacd74ea35f669d96d897a14c1",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/audit-r2.lane.log",
+      "sha256": "b455bc025faa88a586a8599e34863ea2ea60189ee90cbcf08722c59e7215cd33"
+    },
+    {
+      "bytes": 218,
+      "gitBlob": "1e9ebaf3d6781f8ff0087caa85311671c6aabde3",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/audit-r2.lane.log.meta",
+      "sha256": "38a1ca111e2718247cb61c1d40546c49169c9e0388b757d4d3463fb91e47cd5f"
+    },
+    {
+      "bytes": 5885,
+      "gitBlob": "680beaa57c2280a32c34135d30024e0c69c8aed0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/audit-r2.py",
+      "sha256": "eb9a6658113261a65ee630d3b982ccd5d9868815f8fa50b248582c6827efc515"
+    },
+    {
+      "bytes": 614,
+      "gitBlob": "97464a8eaff86196f47202f66e40573b0ad17f16",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/failed-r1/audit-r1.lane.log",
+      "sha256": "3ca5708087055c908186cad92f44b3729fe5bd0d0eff9345a8bc411c90b1edb5"
+    },
+    {
+      "bytes": 218,
+      "gitBlob": "b471188a7897abe71fda0768fb18dcd9cefc2cb6",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/failed-r1/audit-r1.lane.log.meta",
+      "sha256": "166e7dfd94454ce271fc97c03b5a70a8da39b2c025748dfcf99afc926b1d6800"
+    },
+    {
+      "bytes": 5925,
+      "gitBlob": "0fd675d46d878fc576e25c4f11c4a6c9ce9876ea",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/local-readback/failed-r1/audit-r1.py",
+      "sha256": "40212692d4b15e09ad234a96ed253b7762ddf0dc5848d676e18f67ad9b3ead98"
+    },
+    {
+      "bytes": 2075,
+      "gitBlob": "9cffaa616e12b3f65ac726750d66d996b1a3d5b0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/publication/MANIFEST.json",
+      "sha256": "562a3ddb90916d44b770058d18d6a84dbb346bb84270a5ee1576e2040e305461"
+    },
+    {
+      "bytes": 10551,
+      "gitBlob": "e35223986fa47e7913dc3905a21bd5588743223f",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/publication/MAP.json",
+      "sha256": "186c20a9d56214e1b925324a7d27305669b2d37ec29bbff5a68d232946525681"
+    },
+    {
+      "bytes": 3499,
+      "gitBlob": "218812cad72c2d1cf22daedd9c74628edc36afab",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/publication/PLAN.md",
+      "sha256": "b04da26fa82df495b2d93c654459194a9454b2327118dea41398fe94e2a1e7f9"
+    },
+    {
+      "bytes": 1047,
+      "gitBlob": "4264cb134d860393beba17f6ed01715311fd67f6",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/publication/map-review/RECEIPT.json",
+      "sha256": "7f0e59f172fe26141a1e43b311cff6fa68f043183d7c83ff0f99414d1b50e720"
+    },
+    {
+      "bytes": 1966,
+      "gitBlob": "d0a9e4454c9986354e1aa37a41605d55702e19c1",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/publication/map-review/REPORT.md",
+      "sha256": "e16bd1db054ff7efcc4f465d326ed9005415c628a6e01625c504f9480c7ff5f5"
+    },
+    {
+      "bytes": 19324,
+      "gitBlob": "830ae25000c6d71dabc44d13ca3db16b6a31d8e8",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/publication/publish_stage34.py",
+      "sha256": "e1852d26dddfb140684d46e0d697494cebe412e8b0e73bd071e9b85a729d89eb"
+    },
+    {
+      "bytes": 1039,
+      "gitBlob": "8ea513a76adc3711bc80cf3ed10b13fb25811957",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/publication/publisher-review/RECEIPT.json",
+      "sha256": "a96d3d36028d155135c3c91b53f155b116d8aab98bd38188fbf0a333e5c3dfb2"
+    },
+    {
+      "bytes": 1295,
+      "gitBlob": "5bf3ea6d7bf620542da1bfd27762d82933a9badf",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-fourth-verification/publication/publisher-review/REPORT.md",
+      "sha256": "1bcb60f16b34642ea42ba29ff5b94a62abf31f52ed59de624ed0ecd0e12b9842"
+    }
+  ],
+  "minimumFreeBytes": 3221225472,
+  "noAlternates": true,
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "remoteCommit": "15bda3eefedb2d00f74b65b143199f5f8be77d15",
+  "schema": "1370-ebg-p13a-stage34-fresh-https-remote-readback-r2",
+  "status": "ACCEPT_REMOTE_STAGE34_EVIDENCE_BYTES_ONLY",
+  "wholeRunSeconds": 32.056
+}

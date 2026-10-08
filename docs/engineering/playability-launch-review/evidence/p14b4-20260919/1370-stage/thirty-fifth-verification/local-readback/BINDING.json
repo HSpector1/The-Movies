@@ -1,0 +1,28 @@
+{
+  "buildLaneLogSha256": "0324d56ed2fc2bc9d3b96254073b3d65d8cd5c149f642fd447993af2fa8d36b2",
+  "buildLaneMetaSha256": "69b2f79489d7ff625dfcd798dae8c3399388ee4a6c85ac77b9ae3aa8fd33cd5d",
+  "buildResultSha256": "8c1be02542d790cdc2788a08b34c8e6b2b76f8185a34f54334cc177ec0d459c8",
+  "parts": [
+    {
+      "bytes": 67108864,
+      "name": "capture.tar.part-001",
+      "sha256": "26117a964c0f9219250c359c75fd6b5d103a0b21b66be5548621ac777e5658ce"
+    },
+    {
+      "bytes": 67108864,
+      "name": "capture.tar.part-002",
+      "sha256": "9917d5417e8009d1d6ee84c59107b3ed7a44d484e957fedddf5d5373c102f1d0"
+    },
+    {
+      "bytes": 7104512,
+      "name": "capture.tar.part-003",
+      "sha256": "df5df567b5554745fd29b403cc9ebbc94535aa771847fc90b68d3f4f3617abbe"
+    }
+  ],
+  "runId": "20261008-ebg-adoption-archive-r1",
+  "schema": "1370-ebg-adoption-archive-local-readback-binding-r2",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "tarBytes": 141322240,
+  "tarSha256": "8070202a82fd9cb23474eee632ab44798dbe4bcbb636d58f0e97d59a0e24b3f5"
+}

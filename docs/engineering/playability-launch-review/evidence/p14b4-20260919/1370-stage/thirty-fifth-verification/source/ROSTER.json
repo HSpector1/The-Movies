@@ -1,0 +1,275 @@
+{
+  "adoption": {
+    "boundaryCompressedBytes": 141237093,
+    "boundaryCount": 417,
+    "boundaryRawBytes": 1314382896,
+    "boundarySha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e",
+    "childSeconds": 720,
+    "classification": "EXPLORATORY_NOT_ACCEPTANCE_NO_1363_ADMISSION",
+    "files": [
+      {
+        "bytes": 109,
+        "member": "adoption/lane/CLEAN.lane.log",
+        "pinMethod": "design-readback-small-file",
+        "role": "lane-authority",
+        "sha256": "1c4e02c72d10a3064c864b662443e6d5fb8bedb4f3b29989a91bb554cfdf0ce8",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-20261008-ebg-adoption-clean-r1.lane.log"
+      },
+      {
+        "bytes": 3298,
+        "member": "adoption/lane/CLEAN.lane.log.meta",
+        "pinMethod": "design-readback-small-file",
+        "role": "lane-authority",
+        "sha256": "53d5a4f2277a9abb33f3ca30813172e7da379dbbe838196f38d03cabb12b02a2",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-20261008-ebg-adoption-clean-r1.lane.log.meta"
+      },
+      {
+        "bytes": 2342,
+        "member": "adoption/launch/BINDING.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "launch-authority",
+        "sha256": "c01956a2fa8faf27de1c83b3d4dcd62f26a99fb59b8b96710f624537b8e50f7f",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-filled-launch-20261008-r1/BINDING.json"
+      },
+      {
+        "bytes": 1112,
+        "member": "adoption/launch/EXACT-REVIEW-RECEIPT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "launch-authority",
+        "sha256": "c5aa657768af7d89d367676709b3079bc5186049a51deb43d3117a52c3fac6e9",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-exact-command-independent-review-20261008-r1/RECEIPT.json"
+      },
+      {
+        "bytes": 3841,
+        "member": "adoption/launch/LAUNCH.command",
+        "pinMethod": "design-readback-small-file",
+        "role": "launch-authority",
+        "sha256": "17c3b647e4c3747dd7242de9bf9caa5f3d59e10d45e19d5cb3f4e48a24ae5cc4",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-filled-launch-20261008-r1/LAUNCH.command"
+      },
+      {
+        "bytes": 684,
+        "member": "adoption/launch/MANIFEST.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "launch-authority",
+        "sha256": "59db070ba7acc73e5572b87a8527d08663b4c52c5dc06120fb02678151b1f309",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-filled-launch-20261008-r1/MANIFEST.json"
+      },
+      {
+        "bytes": 1203,
+        "member": "adoption/observed/AUDIT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "independent-observed",
+        "sha256": "195f826cd67ad002ec6cb01124e66715b3f03366c37629da7825b64ad1823d2b",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/AUDIT.json"
+      },
+      {
+        "bytes": 1179,
+        "member": "adoption/observed/RECEIPT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "independent-observed",
+        "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json"
+      },
+      {
+        "bytes": 2112,
+        "member": "adoption/observed/REPORT.md",
+        "pinMethod": "design-readback-small-file",
+        "role": "independent-observed",
+        "sha256": "b3f7848d23cf675647abf7e3a3e276b0c2d8b63c5d52c094a64b0404ae79cc54",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/REPORT.md"
+      },
+      {
+        "bytes": 143,
+        "member": "adoption/observed/audit.lane.log",
+        "pinMethod": "design-readback-small-file",
+        "role": "independent-observed",
+        "sha256": "b7b7c1aadb2d25a432baea7b2ac87daf9347ee3057f568cf151198739aef9239",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/audit.lane.log"
+      },
+      {
+        "bytes": 235,
+        "member": "adoption/observed/audit.lane.log.meta",
+        "pinMethod": "design-readback-small-file",
+        "role": "independent-observed",
+        "sha256": "888d5d0d2bb7af7afc6bdae4486a8120540c66d1fdc817beb3e6c651d532ad31",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/audit.lane.log.meta"
+      },
+      {
+        "bytes": 124,
+        "member": "adoption/outer/LAUNCH.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "outer-recorder",
+        "sha256": "29a56f8d158b16fa59dedd9907050613e09ca9d81a00479e8d8677c3dbd618ac",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/LAUNCH.json"
+      },
+      {
+        "bytes": 1693,
+        "member": "adoption/outer/RESULT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "outer-recorder",
+        "sha256": "9489d8959d558b08b02b4df6324ff75f78fa6ba1c45be9afcef3fa6c0467fdb7",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json"
+      },
+      {
+        "bytes": 83,
+        "member": "adoption/outer/RESULT.sha256.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "outer-recorder",
+        "sha256": "cfb682be6f1427a6c5d3b295a18d17554c4a572e555e84a92c074d1c5b6440db",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.sha256.json"
+      },
+      {
+        "bytes": 198,
+        "member": "adoption/outer/WATCHDOG.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "outer-recorder",
+        "sha256": "d6b3d55f1dc3c4ec2cb9b0c9d37031ba3e9ebfe1e38f899529a03d942a5e9f93",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/WATCHDOG.json"
+      },
+      {
+        "bytes": 0,
+        "member": "adoption/outer/child.stderr.log",
+        "pinMethod": "design-readback-small-file",
+        "role": "outer-recorder",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/child.stderr.log"
+      },
+      {
+        "bytes": 109,
+        "member": "adoption/outer/child.stdout.log",
+        "pinMethod": "design-readback-small-file",
+        "role": "outer-recorder",
+        "sha256": "7dbd24e8123eaccd4b6657fbe9bcc377a4aac3f2fb4a743f3b69a09f0137194f",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/child.stdout.log"
+      },
+      {
+        "bytes": 26472,
+        "member": "adoption/route/MANIFEST.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "route-authority",
+        "sha256": "b8a115a2cec4c8dfb91742767362e493768c7ec992908c1aa4c3c05a92618374",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/MANIFEST.json"
+      },
+      {
+        "bytes": 404,
+        "member": "adoption/route/STATIC-REVIEW-RECEIPT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "route-authority",
+        "sha256": "3f3bb2b8279b9d8931eff58156a5c36b320a0f394b744f9dd826272357c04cdc",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-independent-review-r3/RECEIPT.json"
+      },
+      {
+        "bytes": 631,
+        "member": "adoption/target/LAUNCH.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "f36998cb6af47f7ed8421dc5b2af3845bf9dc8bcb8e4f85363057ee164a683a6",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/LAUNCH.json"
+      },
+      {
+        "bytes": 3074,
+        "member": "adoption/target/RESULT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json"
+      },
+      {
+        "bytes": 83,
+        "member": "adoption/target/RESULT.sha256.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "52298c9f507f2c71e4f06adaaf6e914b4481597b8b8ba6527d077a3742ebc861",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.sha256.json"
+      },
+      {
+        "bytes": 141237093,
+        "member": "adoption/target/boundaries.ndjson.gz",
+        "pinMethod": "accepted-observed-readback-pin",
+        "role": "raw-target",
+        "sha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/boundaries.ndjson.gz"
+      },
+      {
+        "bytes": 0,
+        "member": "adoption/target/child.stderr.log",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/child.stderr.log"
+      },
+      {
+        "bytes": 158,
+        "member": "adoption/target/child.stdout.log",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "9c17a846a005f289f384f171d2ab96836e6eb961feb8e5fd41a666fc28724911",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/child.stdout.log"
+      },
+      {
+        "bytes": 345,
+        "member": "adoption/target/progress.ndjson",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "4f40700dbb179699368baf817f1345a4e4594e32001a633f59b88743cfa82d4e",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/progress.ndjson"
+      },
+      {
+        "bytes": 311,
+        "member": "adoption/target/readback-audit.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "396b38701f3ee168635abddc2208049b896d16330447a9e2764a453146fa253c",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/readback-audit.json"
+      },
+      {
+        "bytes": 1123,
+        "member": "adoption/target/summary.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "04ce6caf2bde6cf5e1f78ce7de9c7ccb617712b11572928ef3fcb1b0398b68a0",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/summary.json"
+      },
+      {
+        "bytes": 1180,
+        "member": "adoption/target/vitest.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "raw-target",
+        "sha256": "6d88da21b3869a413d40b384fcd02239eeb81f1160f7a59595a60f5a38a6ebf2",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/vitest.json"
+      },
+      {
+        "bytes": 462,
+        "member": "adoption/types/OBSERVED-RECEIPT.json",
+        "pinMethod": "design-readback-small-file",
+        "role": "types-admission",
+        "sha256": "35931dde51b84dcb666cf307f8cbe26e633492e51361cf62b5ddf2a916eb48c9",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-types-observed-review-r3/RECEIPT.json"
+      }
+    ],
+    "naturalTicks": 416,
+    "observedDecision": "ACCEPT_OBSERVED_EBG_ADOPTION_CLEAN_EXPLORATORY_ONLY",
+    "observedReceiptSha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15",
+    "recorderSeconds": 750,
+    "runId": "20261008-ebg-adoption-clean-r1",
+    "seed": "p13-public-commercial-adoption"
+  },
+  "archiveFormat": {
+    "compression": "none",
+    "gid": 0,
+    "memberOrder": "lexicographic",
+    "mode": "0644",
+    "mtime": 0,
+    "partBytes": 67108864,
+    "partNaming": "capture.tar.part-001..N",
+    "sha256": "each source, whole tar, each ordered part",
+    "tar": "USTAR",
+    "uid": 0
+  },
+  "classification": "DESIGN_ONLY_NO_ARCHIVE_OR_REMOTE_PUBLISH",
+  "priorP13aDesignReviewSha256": "d0f76acb7f7b8c22e2dc9b2df28f39c37fdfc9b4a6aeac988a7eed7e7198ad11",
+  "productionHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "schema": "1370-ebg-adoption-github-backup-source-roster-r1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

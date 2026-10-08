@@ -1,0 +1,21 @@
+{
+  "auditSha256": "60921b229ca196d977bc352f12cf9013e9285ff3c69d4c1c239f66c65da469f0",
+  "bindingTemplateSha256": "1455c2bfb971c16eebef3c0a8c87b2ca1370cb13a7f027a0e4030520627d197e",
+  "builderExactReceiptSha256": "68e0ec64f2159bbdd4789c3b65257b0c7708cd4f8fbe5e3bcf45b3fa52600c73",
+  "claimLimit": "Unrun static proposal only. Filled hashes/exact launch and observed bytes require separate review.",
+  "decision": "ACCEPT_STATIC_ONLY",
+  "planSha256": "8eec064d7b9883cc0f0a7aec67cca8f1362de0f3e6836298ced45168c508d397",
+  "proposalPath": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-archive-local-readback-proposal-r2",
+  "reviewRequestSha256": "3be116b0b86832e2158fb1bca6bbdbc5dc0d753de0104c78b511bad534938562",
+  "reviewed": [
+    "Corrected builder r2 exact receipt and SHA pins match local bytes",
+    "Strict 30-member normalized USTAR header and byte readback against pinned source roster",
+    "Three expected ordered part sizes, whole tar SHA, member SHA and source stability",
+    "Builder child exit 0, exploratory 720/750 labels, 416 ticks/417 boundaries, no 1363 admission",
+    "300-second alarm; AC and >=3 GiB checks at entry, across large reads, members and postflight",
+    "Recorded lane lock and Git HEAD/tree/remote guards; exclusive output"
+  ],
+  "schema": "1370-ebg-adoption-archive-local-readback-independent-static-review-r2",
+  "sourceHead": "b97129610a07d3529fc482daeddc0cd9bf798713",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

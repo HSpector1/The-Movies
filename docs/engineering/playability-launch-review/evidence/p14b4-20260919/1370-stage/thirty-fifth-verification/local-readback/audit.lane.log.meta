@@ -1,0 +1,16 @@
+waiting for pid 0; then: python3 -I -B -c import hashlib,json,os,stat,sys
+from pathlib import Path
+s=Path("/Users/zacheryspector/studio-scratch")
+p=s/"1370-ebg-adoption-archive-local-readback-proposal-r2/audit.py"
+review=s/"1370-ebg-adoption-archive-local-readback-independent-static-review-r2/RECEIPT.json"
+for x in (p,review):
+ st=x.lstat();assert stat.S_ISREG(st.st_mode) and st.st_nlink==1 and not x.is_symlink()
+source=p.read_bytes();receipt=review.read_bytes()
+assert hashlib.sha256(source).hexdigest()=="60921b229ca196d977bc352f12cf9013e9285ff3c69d4c1c239f66c65da469f0"
+assert hashlib.sha256(receipt).hexdigest()=="80e3a335d4d9785ca2eebb78a6e92e9270371083cb1338495954fb9b6fb3b0eb"
+assert json.loads(receipt)["decision"]=="ACCEPT_STATIC_ONLY"
+sys.argv=[str(p),"--binding",str(s/"1370-ebg-adoption-archive-local-readback-filled-r2/BINDING.json"),"--binding-sha","2b684482f2acaa19a1ec38afd2963318f69c187546524a6597b1fba8f8253c01","--out",str(s/"1370-ebg-adoption-archive-local-readback-recorded-r2/AUDIT.json")]
+exec(compile(source,str(p),"exec"),{"__name__":"__main__","__file__":str(p)})
+; 2026-10-08 01:58:55 CDT
+start; 2026-10-08 01:58:55 CDT
+end, exit 0; 2026-10-08 01:59:00 CDT
