@@ -1,0 +1,26 @@
+{
+  "status": "LAUNCHED_OUTCOME_PENDING",
+  "utc": "2026-10-08T21:43:10.803472+00:00",
+  "adoptedLaunchSpecSha256": "a1cf749c0facd1efc52b2c3e7cea2e2233de4b4cc6343add1ba48ee0e40c7228",
+  "adoptedBindingSha256": "4e07a2132a6fce6138bf3b7eef0d1c549df727421a42cdc9c679c0084036b4ef",
+  "adoptedPreflightReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-adopted-preflight-independent-review-20261008-r1/RECEIPT.json",
+  "adoptedPreflightReceiptSha256": "e0c9f5e67218d26429fa2b55aed0d3b843466d2ba68e81e4c4ac972cb5e64966",
+  "requiredEnvironment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "GIT_OPTIONAL_LOCKS": "0"
+  },
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-20261008-r1-lane/materialize-r5-r1.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-DRAFT.json"
+  ],
+  "toolSessionId": 24705,
+  "laneMetaStartedAt": "2026-10-08 16:41:49 CDT",
+  "unexpectedHelperWaitObserved": false,
+  "claimLimit": "Outcome pending; no game/witness executed."
+}

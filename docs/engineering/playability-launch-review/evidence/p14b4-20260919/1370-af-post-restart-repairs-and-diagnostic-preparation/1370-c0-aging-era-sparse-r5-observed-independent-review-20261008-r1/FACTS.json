@@ -1,0 +1,123 @@
+{
+  "schema": "1370-c0-sparse-r5-observed-independent-facts-r1",
+  "bindingSha256": "4e07a2132a6fce6138bf3b7eef0d1c549df727421a42cdc9c679c0084036b4ef",
+  "artifacts": {
+    "RESULT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/RESULT.json",
+      "sha256": "78031f57f49258746d6c00bfa14ad0dcdf46a07951a6cd1252d08ca836f8fb15",
+      "bytes": 725
+    },
+    "SUPERVISOR.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/SUPERVISOR.json",
+      "sha256": "5b81219b2bd4f119f08ec20ca63b15964d812bcd6b157ae7ad214c9ee18688d1",
+      "bytes": 505
+    },
+    "child.stdout": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/child.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "child.stderr": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/child.stderr",
+      "sha256": "e2d89aac91a4f55fd5fb370eec9a37857a95a2838a2a3547cb085d72ebcb878b",
+      "bytes": 43
+    },
+    "lane.meta": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-20261008-r1-lane/materialize-r5-r1.lane.log.meta",
+      "sha256": "833021cc1dfde82da556153d1d7d01f6825fd4487fc2d094f3e66e82140b2bc2",
+      "bytes": 436,
+      "text": "waiting for pid 0; then: /usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -B /Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/supervise.py /Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-DRAFT.json; 2026-10-08 16:41:49 CDT\nstart; 2026-10-08 16:41:49 CDT\nend, exit 2; 2026-10-08 16:46:05 CDT\n"
+    },
+    "lane": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-20261008-r1-lane/materialize-r5-r1.lane.log",
+      "sha256": "51953e3d8f46bce69d25d254644d14a69bd93102e6b5ec4e9b01fcd0eb0a1dc3",
+      "bytes": 166,
+      "text": "{\"result\": \"/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/RESULT.json\", \"status\": \"STOP\"}\n{\"status\": \"STOP\", \"timedOut\": false}\n"
+    }
+  },
+  "observedRecorder": {
+    "childExit": 2,
+    "childPid": 67856,
+    "endMonotonic": 2110.518012973,
+    "freeMinimum": 9811189760,
+    "groupClear": true,
+    "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1",
+    "schema": "1370-c0-sparse-materialization-observed-r2",
+    "scratchClear": true,
+    "scratchRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r5-20261008-r1",
+    "specSha256": "4e07a2132a6fce6138bf3b7eef0d1c549df727421a42cdc9c679c0084036b4ef",
+    "startMonotonic": 1855.131560096,
+    "status": "STOP",
+    "stderrSha256": "e2d89aac91a4f55fd5fb370eec9a37857a95a2838a2a3547cb085d72ebcb878b",
+    "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stopReason": "Stop:materializer child exited 2"
+  },
+  "observedSupervisor": {
+    "childGroup": 67856,
+    "childGroupClear": true,
+    "endMonotonic": 2110.549058721,
+    "failure": "Stop:worker/materialization result not accepted",
+    "freeMinimum": 9811189760,
+    "recorderSha256": "78031f57f49258746d6c00bfa14ad0dcdf46a07951a6cd1252d08ca836f8fb15",
+    "schema": "1370-c0-sparse-supervisor-r4",
+    "scratchClear": true,
+    "specSha256": "4e07a2132a6fce6138bf3b7eef0d1c549df727421a42cdc9c679c0084036b4ef",
+    "startMonotonic": 1855.017995104,
+    "status": "STOP",
+    "timedOut": false,
+    "workerExit": 2,
+    "workerGroupClear": true,
+    "workerPid": 67855
+  },
+  "supervisorElapsedSeconds": 255.5310636170002,
+  "recorderElapsedSeconds": 255.38645287700024,
+  "freshAbsence": {
+    "scratchRoot": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r5-20261008-r1",
+      "absent": true
+    },
+    "recorderLock": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-20261008-r1.lock",
+      "absent": true
+    },
+    "globalHeavyLock": {
+      "path": "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK",
+      "absent": true
+    },
+    "override": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/SUPERVISOR-OVERRIDE-STOP.json",
+      "absent": true
+    },
+    "preparedSuccess": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/SUPERVISOR-PREPARED.json",
+      "absent": true
+    }
+  },
+  "pidGroupChecks": {
+    "67854": {
+      "pidAbsent": true,
+      "groupAbsent": true
+    },
+    "67855": {
+      "pidAbsent": true,
+      "groupAbsent": true
+    },
+    "67856": {
+      "pidAbsent": true,
+      "groupAbsent": true
+    }
+  },
+  "freshProtectedWritableFdGuard": "PASS_R5_EXPLICIT_ACCESS",
+  "freshProduction": {
+    "head": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+    "srcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "statusEmpty": true,
+    "refs": "39cdef7b14044b11d7f0561b01c27638712e18da refs/heads/docs/p03a3-ux-north-star\neb58bc0042ebf0c02a16d0bdaa1f5734e1f5f9eb refs/heads/evidence/1370-r10-clean-captures\nc56e885aa3409f2b4f306238257b038a0f3a0b54 refs/heads/wip/headless-program-20260916-ts\nb18a8f7100dfc00b2e97b61c1d7086f192238c12 refs/heads/wip/p04a2-final-convergence-ts-secondary-20260828\n"
+  },
+  "freshFreeBytes": 9656328192,
+  "parentActualHelperExit": 2,
+  "parentActualHelperExitAttribution": "Parent actual tool session24705; independently matches one final meta end, recorder/supervisor exits.",
+  "tinyModeProbeSha256": "9675d1f14f6ff401d933f274e223a5b95236409c39455494d68d0c4346667c07",
+  "claimLimit": "STOP accepted as failed observation only. No successful physical source/dependency clone/allocation/protected end snapshots produced; no copy, witness, digest or adoption acceptance. Fresh clean/ref/FD checks do not recover unavailable before-and-after snapshot equality.",
+  "refComparison": "Production HEAD/src remain pinned and clean. Fresh common/local evidence ref eb58bc0042ebf0c02a16d0bdaa1f5734e1f5f9eb differs from preflight FACTS edcdf4c641952f2d20263766993901c59158f5c2; local main absent. No unchanged-ref claim; parent attribution requested. This discrepancy cannot turn the definite materializer STOP into acceptance."
+}

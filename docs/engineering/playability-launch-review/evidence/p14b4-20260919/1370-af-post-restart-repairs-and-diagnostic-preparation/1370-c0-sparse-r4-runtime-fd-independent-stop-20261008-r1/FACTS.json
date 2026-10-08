@@ -1,0 +1,70 @@
+{
+  "decision": "STOP_EXACT_REVIEW_NAMED_RUNTIME_AND_FD_DEFECTS",
+  "sourcePinsSha256": "f5e985ffe629d87a3292506c7506bbdc153d923e2fa5cafd1db445d3c5e11105",
+  "runtime": "/usr/local/opt/python@3.14/bin/python3.14",
+  "python": "3.14.4 (main, May  2 2026, 23:00:00) [Clang 14.0.0 (clang-1400.0.29.202)]",
+  "osListxattrAvailable": false,
+  "osGetxattrAvailable": false,
+  "readonlyLsofComparisons": {
+    "-F0pfn": {
+      "exit": 0,
+      "sha256": "a3aff33d975ceba3a7cc31042f7d5d24aa241768ea0b70bcf3c50e990736d664",
+      "bytes": 416024,
+      "numericFDExamples": [
+        {
+          "f": "0",
+          "n": "/dev/null"
+        },
+        {
+          "f": "1",
+          "n": "/dev/null"
+        },
+        {
+          "f": "2",
+          "n": "/dev/null"
+        },
+        {
+          "f": "3",
+          "n": "/private/etc/security/audit_user"
+        }
+      ],
+      "suffixAccessRecords": 0,
+      "accessFieldWritableRecords": 0
+    },
+    "-F0pftan": {
+      "exit": 0,
+      "sha256": "8b2eb7909a0c4c21070ece9c2f34aac46457f645db439aa49d8b639220dd770e",
+      "bytes": 464116,
+      "numericFDExamples": [
+        {
+          "f": "0",
+          "a": "r",
+          "t": "CHR",
+          "n": "/dev/null"
+        },
+        {
+          "f": "1",
+          "a": "u",
+          "t": "CHR",
+          "n": "/dev/null"
+        },
+        {
+          "f": "2",
+          "a": "u",
+          "t": "CHR",
+          "n": "/dev/null"
+        },
+        {
+          "f": "3",
+          "a": "r",
+          "t": "REG",
+          "n": "/private/etc/security/audit_user"
+        }
+      ],
+      "suffixAccessRecords": 0,
+      "accessFieldWritableRecords": 1823
+    }
+  },
+  "syntheticWritableProtectedFdRejectedByR4Parser": false,
+  "gameOrMaterializerRan": false
+}

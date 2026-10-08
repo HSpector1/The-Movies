@@ -1,0 +1,27 @@
+{
+  "status": "PROPOSED_UNREVIEWED_UNFILLED_UNRUN",
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "files": {
+    "BINDING-TEMPLATE-UNFILLED.json": {
+      "sha256": "80f2c9df23ae50e1794e00b6b64fa3b6d40d7d7b32af3548588b2eabc350fdb2",
+      "bytes": 1894
+    },
+    "MEMO.md": {
+      "sha256": "34b61fd4815dfac158d559185eb39090702ecbf9414e6491c3fba773a0352c0b",
+      "bytes": 9087
+    },
+    "bounded-sink.py": {
+      "sha256": "6a7a91d482ddaf80c8ecb6fd0d1912da7add50917102178845a6fa37db675b9e",
+      "bytes": 3658
+    },
+    "launch-pipeline.sh": {
+      "sha256": "38f8bddc4aef317b4e83fe6e19e547b338bd3cd4fe0d86856f6a11e2b03fda50",
+      "bytes": 1190
+    },
+    "test-sink-red.py": {
+      "sha256": "0e858163ac376195a941ed1f9c0571f55c0ca60075c9e5da69f0c935bb2c2ed1",
+      "bytes": 1970
+    }
+  }
+}

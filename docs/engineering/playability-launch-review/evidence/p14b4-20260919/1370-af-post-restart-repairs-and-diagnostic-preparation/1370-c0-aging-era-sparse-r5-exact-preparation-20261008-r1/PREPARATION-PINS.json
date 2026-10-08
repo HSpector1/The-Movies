@@ -1,0 +1,23 @@
+{
+  "bindingSemanticSha256": "a8eaa62a6a65fb0c25d89de507ce7a7b1313d5d4e5bb1b795bebb847e4e8d006",
+  "candidatePinsSha256": "61e1f4da792e4f0a4209a5b0b04835c810c61f30b7a583aa8c2026987e50cb8a",
+  "draftBindingSha256": "a93c2c1fee0b73e031f6251f0e25ae8209d2bdf933c4eb62c43e14777ff581c5",
+  "draftPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1",
+  "executionAuthorization": false,
+  "files": {
+    "BUILDER-TIMING-IN-PROGRESS.json": "94290dde427cfe21904764a7596cdea2b2e7f4a400896ac94770e02cf3872f23",
+    "DEPENDENCY-INVENTORY.json": "b80a018c3f2b3dbca31a71a6b3866b447c194dd5e46a164586c96086d89f3a17",
+    "DRAFT-IDENTITY.json": "8da6c411ff53e547a63c9fe200ced4da5a605138d01d86eaf75263f5b686b2d1",
+    "INVENTORY-TIMING.json": "c0130191eb8d7ccfc9ada127659aa30bc50a5aea906d4ebbcec65faae6e6e649",
+    "LAUNCH-SPEC.json": "d7f3335c49ed54209a743e8016a54bc760deae2b9d35e5c1e381c0e4a01a216a",
+    "LSOF.bin": "b508f0bffac47984e2ac5b1d8cc81790d98d6a636605c844699bdbe7abf6b8f9",
+    "LSOF.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "OBSERVATIONS.json": "e2bb9522e2c335835b5a300a02df40cfcb9dbb368f4a737d11b9017d1b0a7501",
+    "PLAN.md": "4f03338296b9a6e1eb0385b207a46691fc52ad9a16609ab2e5293f6f5e5de95b",
+    "PS.txt": "c252f39a1e6475dac9870ebfe5133a95a286a0c59127e9c9b1f21f8ff923ac51",
+    "adopt_reviewed_binding.py": "a616174f5716036d7d833b11ba7b9fb8b578776c7452f60106f311c0cb257f70",
+    "build_draft.py": "c28032337e85339d8b924ddb49a0d5e789ae404241eb05ef249507da83cad814"
+  },
+  "schema": "1370-r5-exact-preparation-pins-r1",
+  "status": "PROPOSAL_UNREVIEWED_UNRUN"
+}

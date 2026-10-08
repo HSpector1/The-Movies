@@ -1,0 +1,39 @@
+{
+  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1",
+  "bindingSemanticSha256": "a8eaa62a6a65fb0c25d89de507ce7a7b1313d5d4e5bb1b795bebb847e4e8d006",
+  "candidatePinsSha256": "61e1f4da792e4f0a4209a5b0b04835c810c61f30b7a583aa8c2026987e50cb8a",
+  "count": 7,
+  "draftBindingSha256": "a93c2c1fee0b73e031f6251f0e25ae8209d2bdf933c4eb62c43e14777ff581c5",
+  "draftPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1",
+  "files": {
+    "ADOPTION-PLAN.md": {
+      "bytes": 3790,
+      "sha256": "cb363ccdb88ebe3254cc766ef4e19f094c03f16344b72d499068b635ad6112e1"
+    },
+    "BINDING-DRAFT.json": {
+      "bytes": 4087,
+      "sha256": "a93c2c1fee0b73e031f6251f0e25ae8209d2bdf933c4eb62c43e14777ff581c5"
+    },
+    "BINDING-SEMANTIC.json": {
+      "bytes": 3906,
+      "sha256": "90e3dbfcb856519885e6a16bdfa796d729f925e7b0d0d6c6ca47ee0f5d900a69"
+    },
+    "CANDIDATE-PINS.json": {
+      "bytes": 2129,
+      "sha256": "61e1f4da792e4f0a4209a5b0b04835c810c61f30b7a583aa8c2026987e50cb8a"
+    },
+    "DEPENDENCY-LINKS.json": {
+      "bytes": 2432,
+      "sha256": "a6413a03b7a8216122639a8792159876c6b00560d57e620350a15d341ae3489f"
+    },
+    "DRAFT-REPORT.json": {
+      "bytes": 6451,
+      "sha256": "78833fc0c9fdf97f21625862a61eed5f40be589bbff9457b8994697fc160483b"
+    },
+    "SOURCE-MANIFEST.json": {
+      "bytes": 40943,
+      "sha256": "df8abd56d6b9de84aa3552275a7e564e66d53b2718ff33f9c2e3080a449a0c1d"
+    }
+  },
+  "schema": "1370-r5-r1-pre-adoption-archive-r1"
+}

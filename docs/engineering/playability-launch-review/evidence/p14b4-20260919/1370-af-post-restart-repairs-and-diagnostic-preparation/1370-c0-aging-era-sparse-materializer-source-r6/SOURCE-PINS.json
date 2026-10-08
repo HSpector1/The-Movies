@@ -1,0 +1,28 @@
+{
+  "designReceiptSha256": "27a5f1501ac3ee92d5b5f2e6ceb59dcd389d74c9fa62714c361feeddd2951b55",
+  "executionAuthorization": false,
+  "files": {
+    "BINDING-UNFILLED.json": "1e78ac65e4ac8e4814f948b76300c8e6bd3ab4823fd965c434c2874c799d159e",
+    "PLAN.md": "3cbfd95424ffffb3fc603afb1eca8a7717823bac7b22ff75d396e99814d4334d",
+    "materialize.py": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896",
+    "record.py": "0313af5827859ea7fad9132b0f3f6de81867b4155bcf5c7c8531220b7d2d5802",
+    "supervise.py": "789619893b7a531a240f2422845e7909babf73fd7eacb364ca91fcb2d2f72202",
+    "test_synthetic.py": "292543fd1d0d2f8bb5be3ef184272bf997e0e8bca155bfc52c1e70b2e3b63e6b",
+    "test_write_modes.py": "ad8f368a4ed3318f67606508517770a5be8aeba2e7eabe18e025e66d144ef02a",
+    "test_xattr_fd.py": "917aa7cfbd3d6ceb7db7e7d0dd142809647b832b0223c7d6288b93fe07f23ddf"
+  },
+  "r1RefineReceiptSha256": "b60b5bb0857d5794e1859c1b22e4cbbde66411c8e3afad1fdc8ad107067c5c88",
+  "r2RefineReceiptSha256": "011e7d739daa06044b5dad157b5c0af54ef0f4d8b5593a0b0afadf2e390c3a69",
+  "r3RefineReceiptSha256": "a206e34f4b8c625bf12a20e3f13707d4f105cf108b39b5831237751f0490ec5c",
+  "r4RuntimeStopReceiptSha256": "49a0e454fdddb448e2b93aae04e246032e625ab607faac8e13676f57b56fdba2",
+  "r4SourcePinsSha256": "f5e985ffe629d87a3292506c7506bbdc153d923e2fa5cafd1db445d3c5e11105",
+  "r4SourceReviewSha256": "398698481cda21d48a4b6cd6f069368d5dd97eb106fbd117546612056a4126e1",
+  "r5ObservedStopResultPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/RESULT.json",
+  "r5ObservedStopResultSha256": "78031f57f49258746d6c00bfa14ad0dcdf46a07951a6cd1252d08ca836f8fb15",
+  "r5SourcePinsSha256": "8f5e02563e18fd65fe938390dde2c02e53bfacfd9ccbe668318ea6a0a9d50116",
+  "r5SourceReviewSha256": "2dd8d3f42bd8e7c0dc07f742cc66e5ab901f3840d274ce7786f7026df33b9527",
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "status": "SOURCE_ONLY_UNRUN",
+  "xattrToolPath": "/usr/bin/xattr",
+  "xattrToolSha256": "95f0f1b985717026d8032d42f75aea3fed3e0283a4629537aa32ae4b5b6bbbb5"
+}

@@ -1,0 +1,202 @@
+{
+  "capture": {
+    "bytes": 141237093,
+    "matches": true,
+    "sha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e"
+  },
+  "exactTwoLineReleaseOnlyPatch": true,
+  "externalPins": {
+    "assembler": {
+      "bytes": 27004,
+      "matches": true,
+      "sha256": "6f7b72d0abbfb9cd381dbd59ad6a6568ec2b0394354ee799c93a6f936663d631"
+    },
+    "comparatorResult": {
+      "bytes": 4274864,
+      "matches": true,
+      "sha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa"
+    },
+    "observedEbg": {
+      "bytes": 1179,
+      "matches": true,
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    "outerResult": {
+      "bytes": 1693,
+      "matches": true,
+      "sha256": "9489d8959d558b08b02b4df6324ff75f78fa6ba1c45be9afcef3fa6c0467fdb7"
+    },
+    "recipeManifest": {
+      "bytes": 813,
+      "matches": true,
+      "sha256": "2376eb41b65c7d486a278d12574961cb085db91a1c12a212b973511898bb5c0c"
+    },
+    "routeManifest": {
+      "bytes": 26472,
+      "matches": true,
+      "sha256": "b8a115a2cec4c8dfb91742767362e493768c7ec992908c1aa4c3c05a92618374"
+    },
+    "runtimeGuard": {
+      "bytes": 2817,
+      "matches": true,
+      "sha256": "a147d694a0d810a5baa227e6da011031252fd58e67f2b2fc6990881c0bcc7bd7"
+    },
+    "sourceReview": {
+      "bytes": 404,
+      "matches": true,
+      "sha256": "3f3bb2b8279b9d8931eff58156a5c36b320a0f394b744f9dd826272357c04cdc"
+    },
+    "targetResult": {
+      "bytes": 3074,
+      "matches": true,
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    }
+  },
+  "files": {
+    "DEPENDENCIES.json": {
+      "bytes": 1277501,
+      "matches": true,
+      "sha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37"
+    },
+    "PLAN.md": {
+      "bytes": 5658,
+      "matches": true,
+      "sha256": "e6a3cb87dc322faf568a7e7a93a0697395735447d69c928d1a43516b72ddb370"
+    },
+    "hollywoodTick.r04-release-off.ts": {
+      "bytes": 40732,
+      "matches": true,
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73"
+    },
+    "one-tick.test.ts": {
+      "bytes": 10259,
+      "matches": true,
+      "sha256": "33218b2a4c0bd17901f527fea5bccca0a25226853e8aedb523f121fee7970ecd"
+    },
+    "run.py": {
+      "bytes": 17563,
+      "matches": true,
+      "sha256": "87283c1aa6ab601ca5e961824268fde553586fd31341502c17a5ae89554afc99"
+    },
+    "vitest.one-tick.config.ts": {
+      "bytes": 278,
+      "matches": true,
+      "sha256": "a65a80ba5899b533ebd62a30c0665105d21f1fc7b44e4af34cdf0c32126b4640"
+    }
+  },
+  "manifestSha256": "21717ee440ec0556221aea8adb89552a4302b8d2d551cf924cdc9a9fc900c556",
+  "members": {
+    "307": {
+      "boundary": 307,
+      "bytes": 4221574,
+      "completeSingleMember": true,
+      "matches": true,
+      "r04SelectedRows": [
+        {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-0:208",
+          "endWeekExclusive": 416,
+          "endedWeek": null,
+          "ordinal": 42,
+          "studioId": "studio-5a47d054-r04"
+        },
+        {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-1:208",
+          "endWeekExclusive": 416,
+          "endedWeek": null,
+          "ordinal": 43,
+          "studioId": "studio-5a47d054-r04"
+        },
+        {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-2:208",
+          "endWeekExclusive": 416,
+          "endedWeek": null,
+          "ordinal": 44,
+          "studioId": "studio-5a47d054-r04"
+        },
+        {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-3:208",
+          "endWeekExclusive": 416,
+          "endedWeek": null,
+          "ordinal": 45,
+          "studioId": "studio-5a47d054-r04"
+        },
+        {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-4:208",
+          "endWeekExclusive": 416,
+          "endedWeek": null,
+          "ordinal": 46,
+          "studioId": "studio-5a47d054-r04"
+        },
+        {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-5:208",
+          "endWeekExclusive": 416,
+          "endedWeek": null,
+          "ordinal": 47,
+          "studioId": "studio-5a47d054-r04"
+        }
+      ],
+      "role": "EBG",
+      "saveStateSemanticEquality": true,
+      "saveVersion": 46,
+      "seed": "p13-public-commercial-adoption",
+      "sha256": "ade139db3bffd24918a12fbc24c7df31f4a0fc74e9c689ed0403101f2f455c6e",
+      "week": 307
+    },
+    "308": {
+      "boundary": 308,
+      "bytes": 4228063,
+      "completeSingleMember": true,
+      "matches": true,
+      "r04SelectedRows": [
+        {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-0:208",
+          "endWeekExclusive": 416,
+          "endedWeek": 307,
+          "ordinal": 42,
+          "studioId": "studio-5a47d054-r04"
+        },
+        {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-1:208",
+          "endWeekExclusive": 416,
+          "endedWeek": 307,
+          "ordinal": 43,
+          "studioId": "studio-5a47d054-r04"
+        },
+        {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-2:208",
+          "endWeekExclusive": 416,
+          "endedWeek": 307,
+          "ordinal": 44,
+          "studioId": "studio-5a47d054-r04"
+        },
+        {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-3:208",
+          "endWeekExclusive": 416,
+          "endedWeek": 307,
+          "ordinal": 45,
+          "studioId": "studio-5a47d054-r04"
+        },
+        {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-4:208",
+          "endWeekExclusive": 416,
+          "endedWeek": 307,
+          "ordinal": 46,
+          "studioId": "studio-5a47d054-r04"
+        },
+        {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-5:208",
+          "endWeekExclusive": 416,
+          "endedWeek": 307,
+          "ordinal": 47,
+          "studioId": "studio-5a47d054-r04"
+        }
+      ],
+      "role": "EBG",
+      "saveStateSemanticEquality": true,
+      "saveVersion": 46,
+      "seed": "p13-public-commercial-adoption",
+      "sha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a",
+      "week": 308
+    }
+  }
+}

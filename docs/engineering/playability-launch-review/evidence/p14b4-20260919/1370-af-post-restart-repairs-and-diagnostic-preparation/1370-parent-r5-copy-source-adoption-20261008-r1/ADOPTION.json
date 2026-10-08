@@ -1,0 +1,17 @@
+{
+  "decision": "PARENT_ADOPT_R5_COPY_SOURCE_ONLY",
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "reviewedSourcePinsSha256": "8f5e02563e18fd65fe938390dde2c02e53bfacfd9ccbe668318ea6a0a9d50116",
+  "independentSourceReviewSha256": "2dd8d3f42bd8e7c0dc07f742cc66e5ab901f3840d274ce7786f7026df33b9527",
+  "predecessorSourcePinsSha256": "f5e985ffe629d87a3292506c7506bbdc153d923e2fa5cafd1db445d3c5e11105",
+  "restartClearanceSha256": "ae3757ca42e740d4d04dbeb113297ad22ea54535acbde1b0af34dc8c22fb8258",
+  "scope": "Adopt independently reviewed r5 as replacement source for the existing copy-only materialization. macOS xattr CLI and explicit lsof access-field repairs retain exact bytes/modes/ACL/xattrs/symlink/inode/allocation, guarded roots/source/runtime/ref/FD/space,930s supervisor,owned cleanup and observed-review obligations. r4 known runtime/FD defects preserved. No game or witness launch, digest admission, production source change or wider phase gate is authorized by this record.",
+  "executionAuthorization": false,
+  "requiredNext": [
+    "fresh exact binding and launch/adoption procedure review",
+    "archive and five-field parent adoption",
+    "independent adopted preflight",
+    "single recorded copy-only run",
+    "independent observed result review"
+  ]
+}

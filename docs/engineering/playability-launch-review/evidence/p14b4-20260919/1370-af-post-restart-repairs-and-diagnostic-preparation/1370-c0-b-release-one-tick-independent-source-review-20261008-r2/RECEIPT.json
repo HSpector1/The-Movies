@@ -1,0 +1,17 @@
+{
+  "schema": "1370-c0-b-release-one-tick-source-review-r2",
+  "decision": "REFINE_SOURCE_ONLY_UNRUN",
+  "manifestPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/MANIFEST.json",
+  "manifestSha256": "65f6d1967a782b863c6325b53cfad56c936b5975735d45b9fc8cf5d7b977cd48",
+  "reportSha256": "460540b9b688e75e754b4f8d8b19472495f1da1f557f1a9fe0da06ec2e4a241c",
+  "priorFourFindings": "REPAIRED_IN_SOURCE_UNRUN",
+  "remainingFinding": "singleJsonBytes cap is not enforced on child Vitest JSON reporter outputs before parsing/admission",
+  "testsRun": false,
+  "gameRun": false,
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "captureAuthenticated": true,
+  "soleTwoLineReleasePatchAuthenticated": true,
+  "productionWrites": false,
+  "reviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r2"
+}

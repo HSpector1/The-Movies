@@ -1,0 +1,4 @@
+39cdef7b14044b11d7f0561b01c27638712e18da refs/heads/docs/p03a3-ux-north-star
+eb58bc0042ebf0c02a16d0bdaa1f5734e1f5f9eb refs/heads/evidence/1370-r10-clean-captures
+c56e885aa3409f2b4f306238257b038a0f3a0b54 refs/heads/wip/headless-program-20260916-ts
+b18a8f7100dfc00b2e97b61c1d7086f192238c12 refs/heads/wip/p04a2-final-convergence-ts-secondary-20260828

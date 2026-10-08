@@ -1,0 +1,43 @@
+{
+  "absentRunPaths": "PASS",
+  "adoptedLaunchSpecSha256": "a1cf749c0facd1efc52b2c3e7cea2e2233de4b4cc6343add1ba48ee0e40c7228",
+  "archiveFilesVerified": 7,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-20261008-r1-lane/materialize-r5-r1.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-DRAFT.json"
+  ],
+  "claimLimit": "No launch by reviewer; copy only, parent sole lane; no-external-same-UID-renamer scope and immediate launch freshness remain mandatory.",
+  "decision": "PASS_ADOPTED_PREFLIGHT_READONLY",
+  "exactChangedFields": [
+    "exactBindingReviewDecision",
+    "exactBindingReviewPath",
+    "exactBindingReviewSha256",
+    "executionAuthorization",
+    "status"
+  ],
+  "fixturesHeavyNodesAbsent": true,
+  "freeBytes": 9813409792,
+  "newBindingSha256": "4e07a2132a6fce6138bf3b7eef0d1c549df727421a42cdc9c679c0084036b4ef",
+  "oldPidsAbsent": true,
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "protectedWritableFdGuard": "PASS_R5_EXPLICIT_ACCESS",
+  "refs": {
+    "refs/heads/evidence/1370-r10-clean-captures": "edcdf4c641952f2d20263766993901c59158f5c2",
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "c56e885aa3409f2b4f306238257b038a0f3a0b54"
+  },
+  "requiredFreeBytes": 3758096384,
+  "requiredLaunchEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "rootsRolesRuntime": "PASS",
+  "semanticSha256": "a8eaa62a6a65fb0c25d89de507ce7a7b1313d5d4e5bb1b795bebb847e4e8d006",
+  "sourceAndDependencyFreshAuditReuse": "All source bytes/runtime repinned; alldependencycurrent identities,size,mode/inodes/links rechecked. Prior exact all-byte/26pathmetadata audit reused; actual materializer must fullsource/clone/source re-inventory."
+}

@@ -1,0 +1,29 @@
+{
+  "status": "OBSERVED_POST_RESTART_CLEARANCE",
+  "utc": "2026-10-08T21:18:32.252420+00:00",
+  "boot": {
+    "argv": [
+      "/usr/sbin/sysctl",
+      "kern.boottime"
+    ],
+    "exit": 0,
+    "stdout": "kern.boottime: { sec = 1791493855, usec = 906261 } Thu Oct  8 16:10:55 2026\n",
+    "stderr": ""
+  },
+  "oldPids": {
+    "argv": [
+      "/bin/ps",
+      "-p",
+      "25951,29271",
+      "-o",
+      "pid,ppid,lstart,state,command"
+    ],
+    "exit": 1,
+    "stdout": "  PID  PPID STARTED                      STAT COMMAND\n",
+    "stderr": ""
+  },
+  "matchingWorkers": [],
+  "freeBytes": 8251691008,
+  "globalLockExists": false,
+  "claimLimit": "Old fixture workers cleared; no witness/copy/acceptance launch approval inferred."
+}

@@ -1,0 +1,11 @@
+--- a/src/core/hollywoodTick.ts
++++ b/src/core/hollywoodTick.ts
+@@ -195,6 +195,8 @@
+   const surplus=h.activeEmploymentOrdinals.filter(i=>{const e=h.employment[i]!
+     return e.studioId===b.studioId&&!filled.has(e.terms.talentId)&&(cutting||next.find(t=>t.id===e.terms.talentId)?.role!=='scientist')})
+   for(const ordinal of surplus.sort((x,y)=>x-y)) {
++    // Diagnostic arm: isolate this episode's release path, retaining all other B rules.
++    if(cutting&&b.studioId==='studio-5a47d054-r04')continue
+     const e=h.employment[ordinal]!,id=e.terms.talentId
+     if(seated.has(id)||e.terms.endWeekExclusive-week<=TUNING.HIRING_TERMINATION_CAP_WEEKS)continue
+     if(state.promises.some(p=>p.issuerStudioId===b.studioId&&p.beneficiaryPersonId===id&&p.outcome===null))continue

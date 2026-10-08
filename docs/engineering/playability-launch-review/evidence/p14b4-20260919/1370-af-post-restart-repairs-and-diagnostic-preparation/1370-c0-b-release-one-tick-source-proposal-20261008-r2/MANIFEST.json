@@ -1,0 +1,130 @@
+{
+  "schema": "1370-c0-b-release-one-tick-source-proposal-r2",
+  "status": "SOURCE_PROPOSAL_ONLY_UNREVIEWED_UNRUN",
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "caps": {
+    "combinedTestSeconds": 60,
+    "activeSeconds": 75,
+    "wholeRecorderSeconds": 90,
+    "totalOutputBytes": 67108864,
+    "singleJsonBytes": 16777216,
+    "childLogBytes": 1048576
+  },
+  "candidateWholeFileSha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73",
+  "gameSourceChange": [
+    "src/core/hollywoodTick.ts:r04 cutting release loop only"
+  ],
+  "capture": {
+    "bytes": 141237093,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/boundaries.ndjson.gz",
+    "sha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e"
+  },
+  "members": {
+    "307": {
+      "bytes": 4221574,
+      "gzipOffsetEnd": 90017218,
+      "gzipOffsetStart": 89573772,
+      "member": 307,
+      "sha256": "ade139db3bffd24918a12fbc24c7df31f4a0fc74e9c689ed0403101f2f455c6e"
+    },
+    "308": {
+      "bytes": 4228063,
+      "gzipOffsetEnd": 90461161,
+      "gzipOffsetStart": 90017218,
+      "member": 308,
+      "sha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a"
+    }
+  },
+  "externalPins": {
+    "routeManifest": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/MANIFEST.json",
+      "sha256": "b8a115a2cec4c8dfb91742767362e493768c7ec992908c1aa4c3c05a92618374"
+    },
+    "assembler": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/runner.py",
+      "sha256": "6f7b72d0abbfb9cd381dbd59ad6a6568ec2b0394354ee799c93a6f936663d631"
+    },
+    "runtimeGuard": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/runtime_guard.py",
+      "sha256": "a147d694a0d810a5baa227e6da011031252fd58e67f2b2fc6990881c0bcc7bd7"
+    },
+    "sourceReview": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-independent-review-r3/RECEIPT.json",
+      "sha256": "3f3bb2b8279b9d8931eff58156a5c36b320a0f394b744f9dd826272357c04cdc"
+    },
+    "observedEbg": {
+      "bytes": 1179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    "targetResult": {
+      "bytes": 3074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    },
+    "outerResult": {
+      "bytes": 1693,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "9489d8959d558b08b02b4df6324ff75f78fa6ba1c45be9afcef3fa6c0467fdb7"
+    },
+    "comparatorResult": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-runs-r2/20261008-bonly-adoption-r1/RESULT.json",
+      "sha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa"
+    },
+    "recipeManifest": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/MANIFEST.json",
+      "sha256": "2376eb41b65c7d486a278d12574961cb085db91a1c12a212b973511898bb5c0c"
+    }
+  },
+  "files": {
+    "AMENDMENT.md": {
+      "sha256": "c160452067b456fa5656f02061ffb7337ba57749181d12a2859cd1507fb1bc75",
+      "bytes": 2915
+    },
+    "DEPENDENCIES.json": {
+      "sha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37",
+      "bytes": 1277501
+    },
+    "PLAN.md": {
+      "sha256": "5d91e1997fbc7d86c98742758367595201997245cc7a5e90b03f0b099784c111",
+      "bytes": 8579
+    },
+    "hollywoodTick.r04-release-off.ts": {
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73",
+      "bytes": 40732
+    },
+    "one-tick.test.ts": {
+      "sha256": "58f584748ac9bd843be5450f5edf15862839d7858d1d11db837a36045c24f97f",
+      "bytes": 10370
+    },
+    "retention.d.mts": {
+      "sha256": "8433e8d649c54a4918bbdd4cf630e2ed73155555052af67dbd147cb18191cc99",
+      "bytes": 215
+    },
+    "retention.mjs": {
+      "sha256": "b4eca17f4dfd93dd5c22c3ec94751d0cdf2838b946b08cf819390d1b28b0e593",
+      "bytes": 584
+    },
+    "run.py": {
+      "sha256": "3cadf55a8eaf8437b151318f8ee2f4d345c10e129542eb35b77518c05f13e07d",
+      "bytes": 24483
+    },
+    "test-recorder-red.py": {
+      "sha256": "bd1fd7e8c76177e5ddb06f0adf25dc8a336dd519d84bff8428ad10615e15b25d",
+      "bytes": 9308
+    },
+    "test-retention-red.mjs": {
+      "sha256": "e60457c2c427fb58ac7a4f305e743deb1b19285d16991a82480689cee8ff507b",
+      "bytes": 899
+    },
+    "vitest.one-tick.config.ts": {
+      "sha256": "a65a80ba5899b533ebd62a30c0665105d21f1fc7b44e4af34cdf0c32126b4640",
+      "bytes": 278
+    }
+  },
+  "sourceRefineReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r1/RECEIPT.json",
+    "sha256": "0d3d1a533ba35a1c44a1b43ff2f2a11387295555107c162e5e585de52442f30a"
+  }
+}

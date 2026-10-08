@@ -1,0 +1,15 @@
+{
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN",
+  "reviewer": "parent-independent-of-author",
+  "helperActualExit": 0,
+  "testsPassed": 15,
+  "gameExecuted": false,
+  "roles": {
+    "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/REVIEW.md": "31f56d2f92d7fd5ca557a1ee5ce38e42701ae2aec0b9850309869e83d9f62870",
+    "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/lane.log": "2c7f8f7eac6167183a7c54cbb5b5f5c8e9ab359a9982b48131e7131bf973b645",
+    "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/lane.log.meta": "233811116ba8c13ef09ca5d007ecc3332f18bf8cd2033320b08de92d3bfc9e75",
+    "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/TEST-PINS.json": "04dae9cb6e101d7cc883e19d22e0c0f3359ca88ce7c2fb23f1751c5960e8f6e2",
+    "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/run.py": "e2eeb5b5b16e9667a8ae881921017ede2181cc192f83621b569b59feed40c5ac"
+  },
+  "claimLimit": "Fresh exact binding/launch and observed historical acceptance still required."
+}

@@ -1,0 +1,13 @@
+{
+  "claimLimit": "Read-only inventory failure, no actual materialization, fixture/test/adoption launch; later builder was interrupted before adapter inventory started. Empty reserved draft/lane roots preserved. The proposed adoption script remains unreviewed and has unresolved identity placeholder.",
+  "exception": "AttributeError: module os has no attribute listxattr",
+  "failingSource": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r4/materialize.py:237",
+  "osGetxattrPresent": false,
+  "osListxattrPresent": false,
+  "platform": "darwin",
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "python": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "schema": "1370-r4-darwin-xattr-runtime-stop-r1",
+  "sourcePinsSha256": "f5e985ffe629d87a3292506c7506bbdc153d923e2fa5cafd1db445d3c5e11105",
+  "status": "STOP_ACCEPTED_R4_RUNTIME_INCOMPATIBLE"
+}

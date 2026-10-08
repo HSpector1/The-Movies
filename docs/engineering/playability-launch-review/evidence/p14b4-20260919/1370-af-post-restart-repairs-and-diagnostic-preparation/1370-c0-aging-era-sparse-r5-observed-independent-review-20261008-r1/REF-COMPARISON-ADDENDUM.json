@@ -1,0 +1,25 @@
+{
+  "schema": "1370-r5-observed-ref-namespace-correction-r1",
+  "correctsReceiptSha256": "1d54b1c495e897582ca628e4b97aaa226ffd30b89e554e3799972cb64318e32d",
+  "decisionUnchanged": "STOP_OBSERVED_CLEANED",
+  "correction": "Withdraw unresolved local-ref drift comparison. Prior preflight FACTS.refs is the remote heads namespace map matching authenticated OBSERVATIONS.remoteRefs; comparing it to post-run local show-ref --heads was invalid. No archived pre-run local show-ref stdout establishes local evidence edcdf. Local main absence does not establish drift in this partial-fetch repo.",
+  "preflightFactsPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-adopted-preflight-independent-review-20261008-r1/FACTS.json",
+  "preflightFactsSha256": "0c62d1ef0aaca1097c810fe1d8c856523ca0f3e07af73ca1a582c27e56193265",
+  "authenticatedObservationPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/OBSERVATIONS.json",
+  "observationSha256": "e2bb9522e2c335835b5a300a02df40cfcb9dbb368f4a737d11b9017d1b0a7501",
+  "remoteRefs": {
+    "refs/heads/evidence/1370-r10-clean-captures": "edcdf4c641952f2d20263766993901c59158f5c2",
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "c56e885aa3409f2b4f306238257b038a0f3a0b54"
+  },
+  "sourceCommandPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/build_draft.py",
+  "sourceCommandLines": "35-36",
+  "sourceCommand": "git('ls-remote','origin','refs/heads/wip/headless-program-20260916-ts','refs/heads/main','refs/heads/evidence/1370-r10-clean-captures'); refs={line.split('\\t')[1]:line.split('\\t')[0] for line in remote.splitlines()}",
+  "sourceCommandSha256": "c28032337e85339d8b924ddb49a0d5e789ae404241eb05ef249507da83cad814",
+  "rawPreflightAuditCommandAvailable": false,
+  "freshRemoteRaw": "edcdf4c641952f2d20263766993901c59158f5c2\trefs/heads/evidence/1370-r10-clean-captures\nc902a704eb948cc576083d0973c8c23e59937dc1\trefs/heads/main\nc56e885aa3409f2b4f306238257b038a0f3a0b54\trefs/heads/wip/headless-program-20260916-ts\n",
+  "freshLocalRaw": "39cdef7b14044b11d7f0561b01c27638712e18da refs/heads/docs/p03a3-ux-north-star\neb58bc0042ebf0c02a16d0bdaa1f5734e1f5f9eb refs/heads/evidence/1370-r10-clean-captures\nc56e885aa3409f2b4f306238257b038a0f3a0b54 refs/heads/wip/headless-program-20260916-ts\nb18a8f7100dfc00b2e97b61c1d7086f192238c12 refs/heads/wip/p04a2-final-convergence-ts-secondary-20260828\n",
+  "freshEvidenceReflogRaw": "eb58bc0042ebf0c02a16d0bdaa1f5734e1f5f9eb refs/heads/evidence/1370-r10-clean-captures@{2026-10-08T07:43:42-05:00} \n",
+  "attribution": "Fresh local evidence ref eb58bc... reflog latest update 2026-10-08T07:43:42-05:00 predates copy start16:41:49; remote evidence edcdf... matches preflight remote map. Parent reports no evidence commit/ref update around copy; reviewer now has no evidence of ref mutation during lane.",
+  "claimLimit": "Original STOP receipt and facts preserved byte-for-byte; source copy failure, cleanup and mode repro unchanged. This corrects reviewer namespace interpretation only."
+}

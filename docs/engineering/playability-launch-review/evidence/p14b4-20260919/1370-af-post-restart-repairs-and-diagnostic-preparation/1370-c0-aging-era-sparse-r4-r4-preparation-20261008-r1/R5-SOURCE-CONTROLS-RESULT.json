@@ -1,0 +1,122 @@
+{
+  "allCommandsBytecodeDisabled": true,
+  "claimLimit": "Source-only controls through accepted r8 helper; no historical materialization, witness/game/native fixture or production/Git change. Independent source review still required.",
+  "globalLockAbsent": true,
+  "green": {
+    "focusedPassed": 5,
+    "focusedTotal": 5,
+    "inheritedMessage": "PASS tiny COW, guards, watchdog, free STOP, late finalization, binding drift STOP",
+    "inheritedPassed": 11
+  },
+  "lanes": {
+    "focused-green": {
+      "actualHelperExit": 0,
+      "endCount": 1,
+      "expectedFinalMetaExit": 0,
+      "focusedResults": {
+        "claimLimit": "Tiny owned scratch/CLI source controls; no historical materialization, game/native fixture or dependency execution.",
+        "passed": 5,
+        "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5",
+        "tests": [
+          {
+            "name": "actual_darwin_binary_empty_attrs_link_nofollow",
+            "status": "PASS"
+          },
+          {
+            "name": "xattr_parser_exact_bytes_and_nofollow_argv",
+            "status": "PASS"
+          },
+          {
+            "name": "xattr_malformed_and_command_failures_stop",
+            "status": "PASS"
+          },
+          {
+            "name": "lsof_explicit_access_without_fd_suffix",
+            "status": "PASS"
+          },
+          {
+            "name": "real_owned_scratch_writable_fd",
+            "status": "PASS"
+          }
+        ],
+        "total": 5
+      },
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-focused-green.lane.log",
+      "logSha256": "01f243fb922aa3eabb597e92ea2b3b4d9242c4a7099dd4b8da916d969966aab3",
+      "metaPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-focused-green.lane.log.meta",
+      "metaSha256": "20ad8a97ef9bde8d22ff48bec28a1fc345ac4df63e2959c5541cfc45f5c60472",
+      "startCount": 1
+    },
+    "focused-red": {
+      "actualHelperExit": 1,
+      "endCount": 1,
+      "expectedFinalMetaExit": 1,
+      "focusedResults": {
+        "claimLimit": "Tiny owned scratch/CLI source controls; no historical materialization, game/native fixture or dependency execution.",
+        "passed": 0,
+        "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r4",
+        "tests": [
+          {
+            "exception": "AttributeError",
+            "message": "module 'os' has no attribute 'listxattr'",
+            "name": "actual_darwin_binary_empty_attrs_link_nofollow",
+            "status": "FAIL"
+          },
+          {
+            "exception": "AttributeError",
+            "message": "module 'materialize' has no attribute 'xattr_snapshot'",
+            "name": "xattr_parser_exact_bytes_and_nofollow_argv",
+            "status": "FAIL"
+          },
+          {
+            "exception": "AttributeError",
+            "message": "module 'materialize' has no attribute 'xattr_snapshot'",
+            "name": "xattr_malformed_and_command_failures_stop",
+            "status": "FAIL"
+          },
+          {
+            "exception": "AssertionError",
+            "message": "expected STOP",
+            "name": "lsof_explicit_access_without_fd_suffix",
+            "status": "FAIL"
+          },
+          {
+            "exception": "AssertionError",
+            "message": "expected STOP",
+            "name": "real_owned_scratch_writable_fd",
+            "status": "FAIL"
+          }
+        ],
+        "total": 5
+      },
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-focused-red.lane.log",
+      "logSha256": "6dd8e7d85695f9bcdceb51bb01c75b3ac54446a399650dbca61005bb35bf64e5",
+      "metaPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-focused-red.lane.log.meta",
+      "metaSha256": "0f12692d02d99c1969997d53bddf5c4d5cc821243f3f662f4cc3fc79ab539c15",
+      "startCount": 1
+    },
+    "inherited-green": {
+      "actualHelperExit": 0,
+      "endCount": 1,
+      "expectedFinalMetaExit": 0,
+      "focusedResults": null,
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-inherited-green.lane.log",
+      "logSha256": "ea1391c03354de06ff26c3f1a10650efd9aaff9ea2a9e48804abdc6bfe4a4700",
+      "metaPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-inherited-green.lane.log.meta",
+      "metaSha256": "dde5dd346d4e722ac81859f17d191a324e4c3d2a7ac19e0341b9c25ff36053a6",
+      "startCount": 1
+    }
+  },
+  "lsofExit": 0,
+  "lsofSamplePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/R5-LSOF-ACCESS-SAMPLE.bin",
+  "lsofSampleSha256": "4ffe679c0423717c01da4f3622492c6b40156fd5fa7e61ce7de806afc41f7e36",
+  "red": {
+    "focusedPassed": 0,
+    "total": 5
+  },
+  "schema": "1370-materializer-r5-source-controls-r1",
+  "sourceFilesVerified": true,
+  "sourcePinsSha256": "8f5e02563e18fd65fe938390dde2c02e53bfacfd9ccbe668318ea6a0a9d50116",
+  "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5",
+  "status": "PASS_REPAIR_SOURCE_CONTROLS_UNRUN_MATERIALIZATION"
+}

@@ -1,0 +1,23 @@
+{
+  "schema": "1370-r5-owned-write-mode-independent-probe-r1",
+  "sourceSha256": "b558ca849ff4494f4fdad0b08510cd95eed17f6fc2aa99238b735784c332690a",
+  "rows": [
+    {
+      "umask": "0o22",
+      "requestedMode": "0644",
+      "actualMode": "0644",
+      "bytes": 23,
+      "links": 1,
+      "sha256": "e5bc777352a7fd43c712c5282f3841bb1f86064776f47fd7cfebc4adba9c01f3"
+    },
+    {
+      "umask": "0o77",
+      "requestedMode": "0644",
+      "actualMode": "0600",
+      "bytes": 23,
+      "links": 1,
+      "sha256": "e5bc777352a7fd43c712c5282f3841bb1f86064776f47fd7cfebc4adba9c01f3"
+    }
+  ],
+  "claimLimit": "Tiny owned scratch writes only; proves helper umask compatibility defect, does not reconstruct deleted run checkout."
+}

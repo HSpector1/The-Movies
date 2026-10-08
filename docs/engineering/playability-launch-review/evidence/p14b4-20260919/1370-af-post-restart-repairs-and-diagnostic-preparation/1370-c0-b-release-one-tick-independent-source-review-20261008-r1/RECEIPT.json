@@ -1,0 +1,23 @@
+{
+  "claimsLimit": "Independent static/source review plus authenticated read-only pins/member checks; no execution/adoption/cap/finalization/causal outcome measured.",
+  "concreteRefinements": [
+    "post-observed-exit shared60/active75 deadline and log-cap checks",
+    "owned PID/PGID readiness before interruptible child startup",
+    "exact mirror exclusions and failclosed output type/final-byte budget accounting",
+    "genuine selected contract identity retention assertions"
+  ],
+  "decision": "REFINE_SOURCE_ONLY_UNRUN",
+  "executionAuthorization": false,
+  "gameOrFixtureExecution": false,
+  "gitCommands": false,
+  "readOnlyPinChecksPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r1/READONLY-PIN-CHECKS.json",
+  "readOnlyPinChecksSha256": "dc849190e71e58090dcfe453083c40575d4ded6beaf3acc62f13196607f94811",
+  "recipePath": "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/RECIPE.md",
+  "recipeSha256": "abc05a8e75da2ef0668a5bf1886901c9d7eb5bad95b6be6201453eed11dc0606",
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r1/REPORT.md",
+  "reportSha256": "82c2cb735b3feb88b811f0915edb7229bca757aec78457b0d4e63d34e3d7f33f",
+  "reviewedManifestPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r1/MANIFEST.json",
+  "reviewedManifestSha256": "21717ee440ec0556221aea8adb89552a4302b8d2d551cf924cdc9a9fc900c556",
+  "schema": "1370-c0-b-release-one-tick-independent-source-review-r1",
+  "testsRun": false
+}

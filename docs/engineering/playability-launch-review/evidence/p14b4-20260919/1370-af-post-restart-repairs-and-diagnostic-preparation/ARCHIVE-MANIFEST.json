@@ -1,0 +1,1008 @@
+{
+  "archived": [
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-post-restart-clearance-20261008-r1/RESULT.json",
+      "bytes": 736,
+      "sha256": "ae3757ca42e740d4d04dbeb113297ad22ea54535acbde1b0af34dc8c22fb8258",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-post-restart-clearance-20261008-r1/RESULT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/R4-RUNTIME-STOP.json",
+      "bytes": 956,
+      "sha256": "49a0e454fdddb448e2b93aae04e246032e625ab607faac8e13676f57b56fdba2",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/R4-RUNTIME-STOP.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/R5-FOCUSED-RED.json",
+      "bytes": 1219,
+      "sha256": "6dd8e7d85695f9bcdceb51bb01c75b3ac54446a399650dbca61005bb35bf64e5",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/R5-FOCUSED-RED.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/R5-SOURCE-CONTROLS-RESULT.json",
+      "bytes": 5347,
+      "sha256": "3070647c0584b3fa0b08541a8b26f5574e9d03dc4f57d5fc8eca275bdf45ddd8",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/R5-SOURCE-CONTROLS-RESULT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/adopt_reviewed_binding.py",
+      "bytes": 10356,
+      "sha256": "57dbc64f915bd8ba2a952a464ea3b46870dcebd0f2aaf8b061008a1a0ca5c459",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/adopt_reviewed_binding.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/build_draft.py",
+      "bytes": 18570,
+      "sha256": "bc3897c151eececf59cbd33475cbf8ab90c8536e25941833b8d7954d716228a4",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/build_draft.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-focused-green.lane.log",
+      "bytes": 755,
+      "sha256": "01f243fb922aa3eabb597e92ea2b3b4d9242c4a7099dd4b8da916d969966aab3",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-focused-green.lane.log"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-focused-green.lane.log.meta",
+      "bytes": 404,
+      "sha256": "20ad8a97ef9bde8d22ff48bec28a1fc345ac4df63e2959c5541cfc45f5c60472",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-focused-green.lane.log.meta"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-focused-red.lane.log",
+      "bytes": 1219,
+      "sha256": "6dd8e7d85695f9bcdceb51bb01c75b3ac54446a399650dbca61005bb35bf64e5",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-focused-red.lane.log"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-focused-red.lane.log.meta",
+      "bytes": 404,
+      "sha256": "0f12692d02d99c1969997d53bddf5c4d5cc821243f3f662f4cc3fc79ab539c15",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-focused-red.lane.log.meta"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-inherited-green.lane.log",
+      "bytes": 82,
+      "sha256": "ea1391c03354de06ff26c3f1a10650efd9aaff9ea2a9e48804abdc6bfe4a4700",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-inherited-green.lane.log"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-inherited-green.lane.log.meta",
+      "bytes": 320,
+      "sha256": "dde5dd346d4e722ac81859f17d191a324e4c3d2a7ac19e0341b9c25ff36053a6",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/r5-inherited-green.lane.log.meta"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/test_r5_repairs.py",
+      "bytes": 4504,
+      "sha256": "917aa7cfbd3d6ceb7db7e7d0dd142809647b832b0223c7d6288b93fe07f23ddf",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/test_r5_repairs.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-sparse-r4-runtime-fd-independent-stop-20261008-r1/FACTS.json",
+      "bytes": 1768,
+      "sha256": "415608e2ded1d9f0deec7ebe09db9a5672d27fdfc897873efafd1ba22f54bc05",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-sparse-r4-runtime-fd-independent-stop-20261008-r1/FACTS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-sparse-r4-runtime-fd-independent-stop-20261008-r1/REPORT.md",
+      "bytes": 1460,
+      "sha256": "104e025d98fac0dfb2f7012fd1917a50c3c33cef51b0dd41bed303cdabd3f8f5",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-sparse-r4-runtime-fd-independent-stop-20261008-r1/REPORT.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/BINDING-UNFILLED.json",
+      "bytes": 1917,
+      "sha256": "a7fb6f9480735151c03d6aec58afbaf5df8da3e95bcd3312c25446d6ef60df3b",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r5/BINDING-UNFILLED.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/PLAN.md",
+      "bytes": 2374,
+      "sha256": "9fe40765cad31019ae0474c1836d421655b2b4bd126a5dde981de8e9f9af9136",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r5/PLAN.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/SOURCE-PINS.json",
+      "bytes": 1565,
+      "sha256": "8f5e02563e18fd65fe938390dde2c02e53bfacfd9ccbe668318ea6a0a9d50116",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r5/SOURCE-PINS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/materialize.py",
+      "bytes": 29583,
+      "sha256": "b558ca849ff4494f4fdad0b08510cd95eed17f6fc2aa99238b735784c332690a",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r5/materialize.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/record.py",
+      "bytes": 11113,
+      "sha256": "0313af5827859ea7fad9132b0f3f6de81867b4155bcf5c7c8531220b7d2d5802",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r5/record.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/supervise.py",
+      "bytes": 14317,
+      "sha256": "789619893b7a531a240f2422845e7909babf73fd7eacb364ca91fcb2d2f72202",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r5/supervise.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/test_synthetic.py",
+      "bytes": 10726,
+      "sha256": "292543fd1d0d2f8bb5be3ef184272bf997e0e8bca155bfc52c1e70b2e3b63e6b",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r5/test_synthetic.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/test_xattr_fd.py",
+      "bytes": 4504,
+      "sha256": "917aa7cfbd3d6ceb7db7e7d0dd142809647b832b0223c7d6288b93fe07f23ddf",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r5/test_xattr_fd.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r5/RECEIPT.json",
+      "bytes": 1835,
+      "sha256": "2dd8d3f42bd8e7c0dc07f742cc66e5ab901f3840d274ce7786f7026df33b9527",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-review-20261008-r5/RECEIPT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r5/REPORT.md",
+      "bytes": 3586,
+      "sha256": "7135cf4bb086636ab5d5820c077eea9d5f4488122d28ef9ec1815e26298db427",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-review-20261008-r5/REPORT.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-parent-r5-copy-source-adoption-20261008-r1/ADOPTION.json",
+      "bytes": 1293,
+      "sha256": "e15d8b29af5dcb2ad4f6a3fedc039bfda8efdd9824509c2ba2a17924295b55d3",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-parent-r5-copy-source-adoption-20261008-r1/ADOPTION.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/ADOPTION-PLAN.md",
+      "bytes": 3790,
+      "sha256": "cb363ccdb88ebe3254cc766ef4e19f094c03f16344b72d499068b635ad6112e1",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/ADOPTION-PLAN.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-DRAFT.json",
+      "bytes": 4295,
+      "sha256": "4e07a2132a6fce6138bf3b7eef0d1c549df727421a42cdc9c679c0084036b4ef",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-DRAFT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-SEMANTIC.json",
+      "bytes": 3906,
+      "sha256": "90e3dbfcb856519885e6a16bdfa796d729f925e7b0d0d6c6ca47ee0f5d900a69",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-SEMANTIC.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/CANDIDATE-PINS.json",
+      "bytes": 2129,
+      "sha256": "61e1f4da792e4f0a4209a5b0b04835c810c61f30b7a583aa8c2026987e50cb8a",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/CANDIDATE-PINS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/DEPENDENCY-LINKS.json",
+      "bytes": 2432,
+      "sha256": "a6413a03b7a8216122639a8792159876c6b00560d57e620350a15d341ae3489f",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/DEPENDENCY-LINKS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/DRAFT-REPORT.json",
+      "bytes": 6451,
+      "sha256": "78833fc0c9fdf97f21625862a61eed5f40be589bbff9457b8994697fc160483b",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/DRAFT-REPORT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/SOURCE-MANIFEST.json",
+      "bytes": 40943,
+      "sha256": "df8abd56d6b9de84aa3552275a7e564e66d53b2718ff33f9c2e3080a449a0c1d",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/SOURCE-MANIFEST.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/ADOPTED-LAUNCH-SPEC.json",
+      "bytes": 9925,
+      "sha256": "a1cf749c0facd1efc52b2c3e7cea2e2233de4b4cc6343add1ba48ee0e40c7228",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/ADOPTED-LAUNCH-SPEC.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/ADOPTION-RESULT.json",
+      "bytes": 2205,
+      "sha256": "6408da4e4734b61e17135d5762fd4d8cb6b20ff275e7507e235e518dc3a77d03",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/ADOPTION-RESULT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/BUILDER-TIMING-IN-PROGRESS.json",
+      "bytes": 451,
+      "sha256": "94290dde427cfe21904764a7596cdea2b2e7f4a400896ac94770e02cf3872f23",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/BUILDER-TIMING-IN-PROGRESS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/DEPENDENCY-INVENTORY.json",
+      "bytes": 3193307,
+      "sha256": "b80a018c3f2b3dbca31a71a6b3866b447c194dd5e46a164586c96086d89f3a17",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/DEPENDENCY-INVENTORY.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/DRAFT-IDENTITY.json",
+      "bytes": 1539,
+      "sha256": "8da6c411ff53e547a63c9fe200ced4da5a605138d01d86eaf75263f5b686b2d1",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/DRAFT-IDENTITY.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/INVENTORY-TIMING.json",
+      "bytes": 895,
+      "sha256": "c0130191eb8d7ccfc9ada127659aa30bc50a5aea906d4ebbcec65faae6e6e649",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/INVENTORY-TIMING.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/LAUNCH-SPEC.json",
+      "bytes": 9731,
+      "sha256": "d7f3335c49ed54209a743e8016a54bc760deae2b9d35e5c1e381c0e4a01a216a",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/LAUNCH-SPEC.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/OBSERVATIONS.json",
+      "bytes": 18108,
+      "sha256": "e2bb9522e2c335835b5a300a02df40cfcb9dbb368f4a737d11b9017d1b0a7501",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/OBSERVATIONS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/PARENT-LAUNCH-RECORD.json",
+      "bytes": 1433,
+      "sha256": "e4383088341aa7addb44d0af987cf2052c42ae64314c3ddf898e286089f3e77a",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/PARENT-LAUNCH-RECORD.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/PLAN.md",
+      "bytes": 2257,
+      "sha256": "4f03338296b9a6e1eb0385b207a46691fc52ad9a16609ab2e5293f6f5e5de95b",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/PLAN.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/PRE-ADOPTION-ARCHIVE-MANIFEST.json",
+      "bytes": 1585,
+      "sha256": "45fba5dccb1a38c0dfa6bd589eb7a9c9226705892f32b143932de97e5a468ba5",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/PRE-ADOPTION-ARCHIVE-MANIFEST.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/PREPARATION-PINS.json",
+      "bytes": 1657,
+      "sha256": "68d85b256ac97a19da20d620e958690bebd4070f136f793e8a5e47a93c10f296",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/PREPARATION-PINS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/PS.txt",
+      "bytes": 72488,
+      "sha256": "c252f39a1e6475dac9870ebfe5133a95a286a0c59127e9c9b1f21f8ff923ac51",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/PS.txt"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/adopt_reviewed_binding.py",
+      "bytes": 11576,
+      "sha256": "a616174f5716036d7d833b11ba7b9fb8b578776c7452f60106f311c0cb257f70",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/adopt_reviewed_binding.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/build_draft.py",
+      "bytes": 18733,
+      "sha256": "c28032337e85339d8b924ddb49a0d5e789ae404241eb05ef249507da83cad814",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/build_draft.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-20261008-r1/FACTS.json",
+      "bytes": 2969,
+      "sha256": "787560ca339b0e52441d13b16f5bb9e396e310d65e25ee305949fb910980ee71",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-20261008-r1/FACTS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-20261008-r1/PS.txt",
+      "bytes": 57736,
+      "sha256": "0002f32bca9f3d5654feb3f9bc50a1d4222b35c67a4b2261744865aec1fd0af8",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-20261008-r1/PS.txt"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-20261008-r1/RECEIPT.json",
+      "bytes": 2942,
+      "sha256": "098119dba381fa307f63ff1cdd7d5bb2b456efc4effb049662238b9087551dd2",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-20261008-r1/RECEIPT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-20261008-r1/REPORT.md",
+      "bytes": 5472,
+      "sha256": "b516b76ebdd6cee50e1a6299d1c7942cab94c3907a041e1a787117410a98c27e",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-20261008-r1/REPORT.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-adopted-preflight-independent-review-20261008-r1/FACTS.json",
+      "bytes": 2229,
+      "sha256": "0c62d1ef0aaca1097c810fe1d8c856523ca0f3e07af73ca1a582c27e56193265",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-adopted-preflight-independent-review-20261008-r1/FACTS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-adopted-preflight-independent-review-20261008-r1/RECEIPT.json",
+      "bytes": 2740,
+      "sha256": "e0c9f5e67218d26429fa2b55aed0d3b843466d2ba68e81e4c4ac972cb5e64966",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-adopted-preflight-independent-review-20261008-r1/RECEIPT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-adopted-preflight-independent-review-20261008-r1/REPORT.md",
+      "bytes": 2478,
+      "sha256": "c12dd2382a3ba42172ad89a6ced62893fe31f2014dbfd1fc883c6fbf6f3ddacc",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-adopted-preflight-independent-review-20261008-r1/REPORT.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/RESULT.json",
+      "bytes": 725,
+      "sha256": "78031f57f49258746d6c00bfa14ad0dcdf46a07951a6cd1252d08ca836f8fb15",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-output-r5-20261008-r1/RESULT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/SUPERVISOR.json",
+      "bytes": 505,
+      "sha256": "5b81219b2bd4f119f08ec20ca63b15964d812bcd6b157ae7ad214c9ee18688d1",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-output-r5-20261008-r1/SUPERVISOR.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/child.stderr",
+      "bytes": 43,
+      "sha256": "e2d89aac91a4f55fd5fb370eec9a37857a95a2838a2a3547cb085d72ebcb878b",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-output-r5-20261008-r1/child.stderr"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/child.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-output-r5-20261008-r1/child.stdout"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-20261008-r1-lane/materialize-r5-r1.lane.log",
+      "bytes": 166,
+      "sha256": "51953e3d8f46bce69d25d254644d14a69bd93102e6b5ec4e9b01fcd0eb0a1dc3",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-20261008-r1-lane/materialize-r5-r1.lane.log"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-20261008-r1-lane/materialize-r5-r1.lane.log.meta",
+      "bytes": 436,
+      "sha256": "833021cc1dfde82da556153d1d7d01f6825fd4487fc2d094f3e66e82140b2bc2",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-20261008-r1-lane/materialize-r5-r1.lane.log.meta"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/FACTS.json",
+      "bytes": 6490,
+      "sha256": "7feb9ee5e7208cb34316b98eb8f36d3bbde4f3a98a42934279f8362dd37bae9a",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/FACTS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/RECEIPT.json",
+      "bytes": 1775,
+      "sha256": "1d54b1c495e897582ca628e4b97aaa226ffd30b89e554e3799972cb64318e32d",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/RECEIPT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/REF-COMPARISON-ADDENDUM.json",
+      "bytes": 3172,
+      "sha256": "9af45294f0f779e66bb2f3d1edc24e49281bc78cad09e02e041edd46a0115557",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/REF-COMPARISON-ADDENDUM.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/REF-CORRECTION-LOCAL.txt",
+      "bytes": 349,
+      "sha256": "fbd87478f445f4227b232e700359405b53721964a427eabc3262505a4c0862b7",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/REF-CORRECTION-LOCAL.txt"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/REF-CORRECTION-REFLOG.txt",
+      "bytes": 114,
+      "sha256": "b7e0bd09db8c08b572bcd8e95eeac0a50fd486115f1d58688e0a125efdd4c35e",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/REF-CORRECTION-REFLOG.txt"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/REF-CORRECTION-REMOTE.txt",
+      "bytes": 227,
+      "sha256": "cbad8aea72e8794f4cd902fedaa850e0aee45a9705116e3dd3c84ddbbe560929",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/REF-CORRECTION-REMOTE.txt"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/REPORT.md",
+      "bytes": 2334,
+      "sha256": "78d95813733d4ae3fb175165febc852ed39a480aeb134eb3d600e40da53c68d3",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/REPORT.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/TINY-MODE-PROBE.json",
+      "bytes": 732,
+      "sha256": "9675d1f14f6ff401d933f274e223a5b95236409c39455494d68d0c4346667c07",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/TINY-MODE-PROBE.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/tiny-mode-probe/mask-0o22",
+      "bytes": 23,
+      "sha256": "e5bc777352a7fd43c712c5282f3841bb1f86064776f47fd7cfebc4adba9c01f3",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/tiny-mode-probe/mask-0o22"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/tiny-mode-probe/mask-0o77",
+      "bytes": 23,
+      "sha256": "e5bc777352a7fd43c712c5282f3841bb1f86064776f47fd7cfebc4adba9c01f3",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-observed-independent-review-20261008-r1/tiny-mode-probe/mask-0o77"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/BINDING-UNFILLED.json",
+      "bytes": 1917,
+      "sha256": "1e78ac65e4ac8e4814f948b76300c8e6bd3ab4823fd965c434c2874c799d159e",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r6/BINDING-UNFILLED.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/PLAN.md",
+      "bytes": 2743,
+      "sha256": "3cbfd95424ffffb3fc603afb1eca8a7717823bac7b22ff75d396e99814d4334d",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r6/PLAN.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/SOURCE-PINS.json",
+      "bytes": 2075,
+      "sha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r6/SOURCE-PINS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/materialize.py",
+      "bytes": 30502,
+      "sha256": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r6/materialize.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/record.py",
+      "bytes": 11113,
+      "sha256": "0313af5827859ea7fad9132b0f3f6de81867b4155bcf5c7c8531220b7d2d5802",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r6/record.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/supervise.py",
+      "bytes": 14317,
+      "sha256": "789619893b7a531a240f2422845e7909babf73fd7eacb364ca91fcb2d2f72202",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r6/supervise.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/test_synthetic.py",
+      "bytes": 10726,
+      "sha256": "292543fd1d0d2f8bb5be3ef184272bf997e0e8bca155bfc52c1e70b2e3b63e6b",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r6/test_synthetic.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/test_write_modes.py",
+      "bytes": 4584,
+      "sha256": "ad8f368a4ed3318f67606508517770a5be8aeba2e7eabe18e025e66d144ef02a",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r6/test_write_modes.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/test_xattr_fd.py",
+      "bytes": 4504,
+      "sha256": "917aa7cfbd3d6ceb7db7e7d0dd142809647b832b0223c7d6288b93fe07f23ddf",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-r6/test_xattr_fd.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/PRETEST-PINS.json",
+      "bytes": 537,
+      "sha256": "6299ec86ff8e5c13308432a63c08d7316f62328767d050cdfba08c5187a5e47c",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/PRETEST-PINS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/RESULT.json",
+      "bytes": 8157,
+      "sha256": "c0489472a93f790f5680b1cf9f155fb6deef6e0afa962ce6d781c31ea9e5c5c1",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/RESULT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/inherited-r6-green.lane.log",
+      "bytes": 82,
+      "sha256": "ea1391c03354de06ff26c3f1a10650efd9aaff9ea2a9e48804abdc6bfe4a4700",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/inherited-r6-green.lane.log"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/inherited-r6-green.lane.log.meta",
+      "bytes": 320,
+      "sha256": "5b0f56c9a03724ed32c83d57824f52da63210268dc2b4d6f235c78f123496dfb",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/inherited-r6-green.lane.log.meta"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/modes-r5-red.lane.log",
+      "bytes": 2249,
+      "sha256": "fa9d5dc420637473ba110daf9eaaf6074008eeea50f5d3893c587276f46ec1bd",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/modes-r5-red.lane.log"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/modes-r5-red.lane.log.meta",
+      "bytes": 415,
+      "sha256": "3e577004a322d98d5424a9366ef43bc5ca9f75fd056014618c3951dd2ceb761f",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/modes-r5-red.lane.log.meta"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/modes-r6-green.lane.log",
+      "bytes": 961,
+      "sha256": "efaca062130c8d4ae9c7735bda62549592d94ddd7315057b5434494669d4b1d6",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/modes-r6-green.lane.log"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/modes-r6-green.lane.log.meta",
+      "bytes": 407,
+      "sha256": "69617077def2a0fe536004524e40ec7d03b16f14c471854dba5b898eac91f971",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/modes-r6-green.lane.log.meta"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/test_write_modes.py",
+      "bytes": 4584,
+      "sha256": "ad8f368a4ed3318f67606508517770a5be8aeba2e7eabe18e025e66d144ef02a",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/test_write_modes.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/xattr-fd-r6-green.lane.log",
+      "bytes": 755,
+      "sha256": "18a541ab44cf686a550b66ecbd9b5f2537ccc74b9ab830a879da236196688ec5",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/xattr-fd-r6-green.lane.log"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/xattr-fd-r6-green.lane.log.meta",
+      "bytes": 404,
+      "sha256": "0ceb6438e7e2c19074f241eb7f79ea62ee288cdb5b57a365631691cc028c78fa",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/xattr-fd-r6-green.lane.log.meta"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r6/RECEIPT.json",
+      "bytes": 2012,
+      "sha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-review-20261008-r6/RECEIPT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r6/REPORT.md",
+      "bytes": 3322,
+      "sha256": "fa0550fd21ff95147a11b86f5d6151d86f8b8cb8aabd024108a98e0d68543b0a",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-materializer-source-review-20261008-r6/REPORT.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/BINDING-TEMPLATE-UNFILLED.json",
+      "bytes": 1894,
+      "sha256": "80f2c9df23ae50e1794e00b6b64fa3b6d40d7d7b32af3548588b2eabc350fdb2",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-witness-r7-readiness-20261008-r1/BINDING-TEMPLATE-UNFILLED.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/MEMO.md",
+      "bytes": 9087,
+      "sha256": "34b61fd4815dfac158d559185eb39090702ecbf9414e6491c3fba773a0352c0b",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-witness-r7-readiness-20261008-r1/MEMO.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/PREPARATION-PINS.json",
+      "bytes": 885,
+      "sha256": "f16dabe238bdeeaae4abb45233d31e7b77efbb12f694ec9f89b748edf81fd6eb",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-witness-r7-readiness-20261008-r1/PREPARATION-PINS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/bounded-sink.py",
+      "bytes": 3658,
+      "sha256": "6a7a91d482ddaf80c8ecb6fd0d1912da7add50917102178845a6fa37db675b9e",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-witness-r7-readiness-20261008-r1/bounded-sink.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/launch-pipeline.sh",
+      "bytes": 1190,
+      "sha256": "38f8bddc4aef317b4e83fe6e19e547b338bd3cd4fe0d86856f6a11e2b03fda50",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-witness-r7-readiness-20261008-r1/launch-pipeline.sh"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/test-sink-red.py",
+      "bytes": 1970,
+      "sha256": "0e858163ac376195a941ed1f9c0571f55c0ca60075c9e5da69f0c935bb2c2ed1",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-witness-r7-readiness-20261008-r1/test-sink-red.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r2/MEMO.md",
+      "bytes": 3642,
+      "sha256": "6c1033076b0c6d4f65e4d84138659877635c20451ea96bbd737ad39a352abe6b",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-witness-r7-readiness-20261008-r2/MEMO.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r2/PREPARATION-PINS.json",
+      "bytes": 1621,
+      "sha256": "8c148fa5ab7fce2b0ba00c594e1edca1df02c5eadb1c4351e2438f378fd4e3b1",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-witness-r7-readiness-20261008-r2/PREPARATION-PINS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r2/test-launch-refusals.py",
+      "bytes": 7764,
+      "sha256": "dfaa526904b197b20efdae1c7c80efbceff93027efba0350fd4748f2c5e8ff24",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-witness-r7-readiness-20261008-r2/test-launch-refusals.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/RECEIPT.json",
+      "bytes": 1136,
+      "sha256": "0a3a1a8318a7eaf215ce73f45fec5c6a9c0c6cbd53f034047cb50057592c40c3",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-witness-r7-adapter-source-tests-20261008-r1/RECEIPT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/REVIEW.md",
+      "bytes": 1339,
+      "sha256": "31f56d2f92d7fd5ca557a1ee5ce38e42701ae2aec0b9850309869e83d9f62870",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-witness-r7-adapter-source-tests-20261008-r1/REVIEW.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/TEST-PINS.json",
+      "bytes": 430,
+      "sha256": "04dae9cb6e101d7cc883e19d22e0c0f3359ca88ce7c2fb23f1751c5960e8f6e2",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-witness-r7-adapter-source-tests-20261008-r1/TEST-PINS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/lane.log",
+      "bytes": 254,
+      "sha256": "2c7f8f7eac6167183a7c54cbb5b5f5c8e9ab359a9982b48131e7131bf973b645",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-witness-r7-adapter-source-tests-20261008-r1/lane.log"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/lane.log.meta",
+      "bytes": 310,
+      "sha256": "233811116ba8c13ef09ca5d007ecc3332f18bf8cd2033320b08de92d3bfc9e75",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-witness-r7-adapter-source-tests-20261008-r1/lane.log.meta"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/run.py",
+      "bytes": 480,
+      "sha256": "e2eeb5b5b16e9667a8ae881921017ede2181cc192f83621b569b59feed40c5ac",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-witness-r7-adapter-source-tests-20261008-r1/run.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/MANIFEST.json",
+      "bytes": 813,
+      "sha256": "2376eb41b65c7d486a278d12574961cb085db91a1c12a212b973511898bb5c0c",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-next-b-release-control-design-20261008-r1/MANIFEST.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/RECIPE.md",
+      "bytes": 5954,
+      "sha256": "abc05a8e75da2ef0668a5bf1886901c9d7eb5bad95b6be6201453eed11dc0606",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-next-b-release-control-design-20261008-r1/RECIPE.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/r04-b-release-off.patch",
+      "bytes": 779,
+      "sha256": "39a70b3607c563f29699b9f1f1d31126826f1f39478e7a05d735a7d13e9f4abc",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-next-b-release-control-design-20261008-r1/r04-b-release-off.patch"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r1/BINDING-UNFILLED.json",
+      "bytes": 524,
+      "sha256": "c3303cd70dc2d5cceb786adf57eaa4f841507ce1ae2a1478467b77ccd832e831",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r1/BINDING-UNFILLED.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r1/DEPENDENCIES.json",
+      "bytes": 1277501,
+      "sha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r1/DEPENDENCIES.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r1/MANIFEST.json",
+      "bytes": 4465,
+      "sha256": "21717ee440ec0556221aea8adb89552a4302b8d2d551cf924cdc9a9fc900c556",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r1/MANIFEST.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r1/PLAN.md",
+      "bytes": 5658,
+      "sha256": "e6a3cb87dc322faf568a7e7a93a0697395735447d69c928d1a43516b72ddb370",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r1/PLAN.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r1/hollywoodTick.r04-release-off.ts",
+      "bytes": 40732,
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r1/hollywoodTick.r04-release-off.ts"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r1/one-tick.test.ts",
+      "bytes": 10259,
+      "sha256": "33218b2a4c0bd17901f527fea5bccca0a25226853e8aedb523f121fee7970ecd",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r1/one-tick.test.ts"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r1/run.py",
+      "bytes": 17563,
+      "sha256": "87283c1aa6ab601ca5e961824268fde553586fd31341502c17a5ae89554afc99",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r1/run.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r1/vitest.one-tick.config.ts",
+      "bytes": 278,
+      "sha256": "a65a80ba5899b533ebd62a30c0665105d21f1fc7b44e4af34cdf0c32126b4640",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r1/vitest.one-tick.config.ts"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/AMENDMENT.md",
+      "bytes": 2915,
+      "sha256": "c160452067b456fa5656f02061ffb7337ba57749181d12a2859cd1507fb1bc75",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/AMENDMENT.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/BINDING-UNFILLED.json",
+      "bytes": 524,
+      "sha256": "3601584b319c532511a9cf0db641141c7c282c53272032168b228cbdf63d6511",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/BINDING-UNFILLED.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/DEPENDENCIES.json",
+      "bytes": 1277501,
+      "sha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/DEPENDENCIES.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/MANIFEST.json",
+      "bytes": 5392,
+      "sha256": "65f6d1967a782b863c6325b53cfad56c936b5975735d45b9fc8cf5d7b977cd48",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/MANIFEST.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/PLAN.md",
+      "bytes": 8579,
+      "sha256": "5d91e1997fbc7d86c98742758367595201997245cc7a5e90b03f0b099784c111",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/PLAN.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/hollywoodTick.r04-release-off.ts",
+      "bytes": 40732,
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/hollywoodTick.r04-release-off.ts"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/one-tick.test.ts",
+      "bytes": 10370,
+      "sha256": "58f584748ac9bd843be5450f5edf15862839d7858d1d11db837a36045c24f97f",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/one-tick.test.ts"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/retention.d.mts",
+      "bytes": 215,
+      "sha256": "8433e8d649c54a4918bbdd4cf630e2ed73155555052af67dbd147cb18191cc99",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/retention.d.mts"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/retention.mjs",
+      "bytes": 584,
+      "sha256": "b4eca17f4dfd93dd5c22c3ec94751d0cdf2838b946b08cf819390d1b28b0e593",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/retention.mjs"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/run.py",
+      "bytes": 24483,
+      "sha256": "3cadf55a8eaf8437b151318f8ee2f4d345c10e129542eb35b77518c05f13e07d",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/run.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/test-recorder-red.py",
+      "bytes": 9308,
+      "sha256": "bd1fd7e8c76177e5ddb06f0adf25dc8a336dd519d84bff8428ad10615e15b25d",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/test-recorder-red.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/test-retention-red.mjs",
+      "bytes": 899,
+      "sha256": "e60457c2c427fb58ac7a4f305e743deb1b19285d16991a82480689cee8ff507b",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/test-retention-red.mjs"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r2/vitest.one-tick.config.ts",
+      "bytes": 278,
+      "sha256": "a65a80ba5899b533ebd62a30c0665105d21f1fc7b44e4af34cdf0c32126b4640",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r2/vitest.one-tick.config.ts"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/AMENDMENT-R3.md",
+      "bytes": 2548,
+      "sha256": "19cf4a9ddf69c1bcada9cb1db746919595eb102ce3efeba740dbdeb6ca22be19",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/AMENDMENT-R3.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/AMENDMENT.md",
+      "bytes": 2915,
+      "sha256": "c160452067b456fa5656f02061ffb7337ba57749181d12a2859cd1507fb1bc75",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/AMENDMENT.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/BINDING-UNFILLED.json",
+      "bytes": 524,
+      "sha256": "6b21ecc55f9a64f14bfa01180a0b23c758ddb1066b63917b9a90c03f20b1adc9",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/BINDING-UNFILLED.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/DEPENDENCIES.json",
+      "bytes": 1277501,
+      "sha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/DEPENDENCIES.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/MANIFEST.json",
+      "bytes": 5828,
+      "sha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/MANIFEST.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/PLAN.md",
+      "bytes": 11133,
+      "sha256": "e3622bbe372c3c0d7a0ebff65195901bd41a86869c39bab1e0dc3f06ea87d2fa",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/PLAN.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/hollywoodTick.r04-release-off.ts",
+      "bytes": 40732,
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/hollywoodTick.r04-release-off.ts"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/one-tick.test.ts",
+      "bytes": 10370,
+      "sha256": "58f584748ac9bd843be5450f5edf15862839d7858d1d11db837a36045c24f97f",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/one-tick.test.ts"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/retention.d.mts",
+      "bytes": 215,
+      "sha256": "8433e8d649c54a4918bbdd4cf630e2ed73155555052af67dbd147cb18191cc99",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/retention.d.mts"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/retention.mjs",
+      "bytes": 584,
+      "sha256": "b4eca17f4dfd93dd5c22c3ec94751d0cdf2838b946b08cf819390d1b28b0e593",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/retention.mjs"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/run.py",
+      "bytes": 26594,
+      "sha256": "9dd6b54c75b6bc7401f9f56ca89a882846185450cf5a8a51744d98da013544e0",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/run.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/test-json-cap-red.py",
+      "bytes": 2512,
+      "sha256": "1ff37a7c2bcf8a9c93fa14ffa52eb894512785e8abb2a800fc6478bd77ed15db",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/test-json-cap-red.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/test-recorder-red.py",
+      "bytes": 9308,
+      "sha256": "13ce28593be4352c98cded739b4ae42edd99f35f587eb6e249b2c9920aaccf51",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/test-recorder-red.py"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/test-retention-red.mjs",
+      "bytes": 899,
+      "sha256": "e60457c2c427fb58ac7a4f305e743deb1b19285d16991a82480689cee8ff507b",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/test-retention-red.mjs"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/vitest.one-tick.config.ts",
+      "bytes": 278,
+      "sha256": "a65a80ba5899b533ebd62a30c0665105d21f1fc7b44e4af34cdf0c32126b4640",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-source-proposal-20261008-r3/vitest.one-tick.config.ts"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r1/READONLY-PIN-CHECKS.json",
+      "bytes": 6424,
+      "sha256": "dc849190e71e58090dcfe453083c40575d4ded6beaf3acc62f13196607f94811",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-independent-source-review-20261008-r1/READONLY-PIN-CHECKS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r1/RECEIPT.json",
+      "bytes": 1621,
+      "sha256": "0d3d1a533ba35a1c44a1b43ff2f2a11387295555107c162e5e585de52442f30a",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-independent-source-review-20261008-r1/RECEIPT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r1/REPORT.md",
+      "bytes": 6560,
+      "sha256": "82c2cb735b3feb88b811f0915edb7229bca757aec78457b0d4e63d34e3d7f33f",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-independent-source-review-20261008-r1/REPORT.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r2/RECEIPT.json",
+      "bytes": 985,
+      "sha256": "675e26569189f2dd463ff8f57cea89403c2840b5bcc05e6a17de6cdaf5162354",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-independent-source-review-20261008-r2/RECEIPT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r2/REPORT.md",
+      "bytes": 5922,
+      "sha256": "460540b9b688e75e754b4f8d8b19472495f1da1f557f1a9fe0da06ec2e4a241c",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-independent-source-review-20261008-r2/REPORT.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/ADOPTION-PLAN.md",
+      "bytes": 3790,
+      "sha256": "cb363ccdb88ebe3254cc766ef4e19f094c03f16344b72d499068b635ad6112e1",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/ADOPTION-PLAN.md"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/BINDING-DRAFT.json",
+      "bytes": 4087,
+      "sha256": "a93c2c1fee0b73e031f6251f0e25ae8209d2bdf933c4eb62c43e14777ff581c5",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/BINDING-DRAFT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/BINDING-SEMANTIC.json",
+      "bytes": 3906,
+      "sha256": "90e3dbfcb856519885e6a16bdfa796d729f925e7b0d0d6c6ca47ee0f5d900a69",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/BINDING-SEMANTIC.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/CANDIDATE-PINS.json",
+      "bytes": 2129,
+      "sha256": "61e1f4da792e4f0a4209a5b0b04835c810c61f30b7a583aa8c2026987e50cb8a",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/CANDIDATE-PINS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/DEPENDENCY-LINKS.json",
+      "bytes": 2432,
+      "sha256": "a6413a03b7a8216122639a8792159876c6b00560d57e620350a15d341ae3489f",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/DEPENDENCY-LINKS.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/DRAFT-REPORT.json",
+      "bytes": 6451,
+      "sha256": "78833fc0c9fdf97f21625862a61eed5f40be589bbff9457b8994697fc160483b",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/DRAFT-REPORT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/SOURCE-MANIFEST.json",
+      "bytes": 40943,
+      "sha256": "df8abd56d6b9de84aa3552275a7e564e66d53b2718ff33f9c2e3080a449a0c1d",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1/SOURCE-MANIFEST.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r3/RECEIPT.json",
+      "bytes": 1036,
+      "sha256": "42210aa6552b585bbdd37270999eaac4bebeb9ae7441f537ce8d29e0c921c308",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-independent-source-review-20261008-r3/RECEIPT.json"
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r3/REPORT.md",
+      "bytes": 3840,
+      "sha256": "997d15240c9354cc39a287f3a0f0d5de8a7c1a35b85c80f7f7eca0c8030a6d5f",
+      "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/1370-c0-b-release-one-tick-independent-source-review-20261008-r3/REPORT.md"
+    }
+  ],
+  "localOnly": [
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/R5-LSOF-ACCESS-SAMPLE.bin",
+      "bytes": 458661,
+      "sha256": "4ffe679c0423717c01da4f3622492c6b40156fd5fa7e61ce7de806afc41f7e36",
+      "retainedLocally": "Raw machine-wide FD enumeration; exact hash retained, unrelated app paths omitted from project backup."
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-sparse-r4-runtime-fd-independent-stop-20261008-r1/F0pfn.bin",
+      "bytes": 416024,
+      "sha256": "a3aff33d975ceba3a7cc31042f7d5d24aa241768ea0b70bcf3c50e990736d664",
+      "retainedLocally": "Raw machine-wide FD enumeration; exact hash retained, unrelated app paths omitted from project backup."
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-sparse-r4-runtime-fd-independent-stop-20261008-r1/F0pftan.bin",
+      "bytes": 464116,
+      "sha256": "8b2eb7909a0c4c21070ece9c2f34aac46457f645db439aa49d8b639220dd770e",
+      "retainedLocally": "Raw machine-wide FD enumeration; exact hash retained, unrelated app paths omitted from project backup."
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/LSOF.bin",
+      "bytes": 470983,
+      "sha256": "b508f0bffac47984e2ac5b1d8cc81790d98d6a636605c844699bdbe7abf6b8f9",
+      "retainedLocally": "Raw machine-wide FD enumeration; exact hash retained, unrelated app paths omitted from project backup."
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/LSOF.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retainedLocally": "Raw machine-wide FD enumeration; exact hash retained, unrelated app paths omitted from project backup."
+    },
+    {
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-20261008-r1/LSOF.bin",
+      "bytes": 462513,
+      "sha256": "da4dd906317e6747f03ca58f39fd16dab64f4d9dd04670a55bfc2da44e69f3e7",
+      "retainedLocally": "Raw machine-wide FD enumeration; exact hash retained, unrelated app paths omitted from project backup."
+    }
+  ]
+}

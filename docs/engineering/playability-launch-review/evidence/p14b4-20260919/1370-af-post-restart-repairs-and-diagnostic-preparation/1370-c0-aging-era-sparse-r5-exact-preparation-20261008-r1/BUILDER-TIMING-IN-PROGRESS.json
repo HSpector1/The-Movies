@@ -1,0 +1,6 @@
+{
+  "builderLines": [
+    "33071 02:40 Thu Oct  8 16:29:47 2026     /usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python -B /Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/build_draft.py"
+  ],
+  "claimLimit": "Whole builder elapsed is a conservative upper bound for inventory so far; includes source/role checks before inventory."
+}

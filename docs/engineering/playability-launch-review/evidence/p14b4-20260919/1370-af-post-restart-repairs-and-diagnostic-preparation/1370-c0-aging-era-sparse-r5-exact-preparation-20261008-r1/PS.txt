@@ -1,0 +1,428 @@
+  PID  PPID  PGID STARTED                      STAT COMM             ARGS
+    1     0     1 Thu Oct  8 16:10:56 2026     Ss   /sbin/launchd    /sbin/launchd
+   87     1    87 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/log /usr/libexec/logd
+   88     1    88 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/Use /usr/libexec/UserEventAgent (System)
+   92     1    92 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/Uninstall.framework/Resources/uninstalld
+   93     1    93 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/FSEvents.framework/Versions/A/Support/fseventsd
+   94     1    94 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoted
+   97     1    97 Thu Oct  8 16:11:05 2026     Us   /usr/sbin/system /usr/sbin/systemstats --daemon
+   99     1    99 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/con /usr/libexec/configd
+  100     1   100 Thu Oct  8 16:11:05 2026     Ss   endpointsecurity endpointsecurityd
+  101     1   101 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/CoreServices/powerd.bundle/powerd
+  105     1   105 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/rem /usr/libexec/remoted
+  107     1   107 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/key /usr/libexec/keybagd -t 15
+  108     1   108 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/MobileSoftwareUpdate.framework/Support/softwareupdated
+  110     1   110 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/wat /usr/libexec/watchdogd
+  114     1   114 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Support/mds
+  115     1   115 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/CoreServices/iconservicesd
+  116     1   116 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/ker /usr/libexec/kernelmanagerd
+  117     1   117 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/dis /usr/libexec/diskarbitrationd
+  120     1   120 Thu Oct  8 16:11:05 2026     Us   /usr/libexec/cor /usr/libexec/coreduetd
+  121     1   121 Thu Oct  8 16:11:05 2026     Ss   /usr/sbin/syslog /usr/sbin/syslogd
+  124     1   124 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/the /usr/libexec/thermalmonitord
+  125     1   125 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/ope /usr/libexec/opendirectoryd
+  126     1   126 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/ApplePushService.framework/apsd
+  127     1   127 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/CoreServices/launchservicesd
+  128     1   128 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/tim /usr/libexec/timed
+  130     1   130 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/MobileDevice.framework/Versions/A/Resources/usbmuxd -launchd
+  131     1   131 Thu Oct  8 16:11:05 2026     Ss   /usr/sbin/securi /usr/sbin/securityd -i
+  136     1   136 Thu Oct  8 16:11:05 2026     Ss   autofsd          autofsd
+  137     1   137 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/dis /usr/libexec/displaypolicyd -k 1
+  139     1   139 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/das /usr/libexec/dasd
+  141     1   141 Thu Oct  8 16:11:05 2026     Ss   /usr/sbin/distno /usr/sbin/distnoted daemon
+  142     1   142 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/AppleCredentialManager.framework/AppleCredentialManagerDaemon
+  143     1   143 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/Per /usr/libexec/PerfPowerServices
+  145     1   145 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/CoreServices/logind
+  146     1   146 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/GenerationalStorage.framework/Versions/A/Support/revisiond
+  147     1   147 Thu Oct  8 16:11:05 2026     Ss   /usr/sbin/Kernel /usr/sbin/KernelEventAgent
+  149     1   149 Thu Oct  8 16:11:05 2026     Ss   /usr/sbin/blueto /usr/sbin/bluetoothd
+  150     1   150 Thu Oct  8 16:11:05 2026     Ss   /usr/sbin/notify /usr/sbin/notifyd
+  151     1   151 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/san /usr/libexec/sandboxd
+  152     1   152 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/cor /usr/libexec/corebrightnessd --launchd
+  153     1   153 Thu Oct  8 16:11:05 2026     Ss   /usr/libexec/Air /usr/libexec/AirPlayXPCHelper
+  154     1   154 Thu Oct  8 16:11:05 2026     Ss   /System/Library/ /System/Library/Frameworks/CoreMediaIO.framework/Versions/A/Resources/com.apple.cmio.registerassistantservice
+  155     1   155 Thu Oct  8 16:11:06 2026     Ss   /usr/sbin/cfpref /usr/sbin/cfprefsd daemon
+  156     1   156 Thu Oct  8 16:11:06 2026     Ss   /usr/libexec/sys /usr/libexec/syspolicyd
+  157     1   157 Thu Oct  8 16:11:06 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer -daemon
+  158     1   158 Thu Oct  8 16:11:06 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/TCC.framework/Support/tccd system
+  159     1   159 Thu Oct  8 16:11:06 2026     Ss   aslmanager       aslmanager
+  160     1   160 Thu Oct  8 16:11:06 2026     Ss   /usr/libexec/tru /usr/libexec/trustd
+  161     1   161 Thu Oct  8 16:11:06 2026     Ss   /System/Library/ /System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow console
+  162     1   162 Thu Oct  8 16:11:06 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/CoreDuetContext.framework/Resources/contextstored
+  163     1   163 Thu Oct  8 16:11:06 2026     Ss   /System/Library/ /System/Library/CoreServices/backupd.bundle/Contents/Resources/backupd-helper -launchd
+  164     1   164 Thu Oct  8 16:11:06 2026     Ss   /usr/libexec/Pow /usr/libexec/PowerUIAgent
+  168     1   168 Thu Oct  8 16:11:07 2026     Ss   /System/Library/ /System/Library/Frameworks/Security.framework/Versions/A/XPCServices/authd.xpc/Contents/MacOS/authd
+  169     1   169 Thu Oct  8 16:11:07 2026     Ss   /System/Library/ /System/Library/CoreServices/coreservicesd
+  171     1   171 Thu Oct  8 16:11:07 2026     Ss   /usr/libexec/run /usr/libexec/runningboardd
+  172     1   172 Thu Oct  8 16:11:07 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+  184     1   184 Thu Oct  8 16:11:07 2026     Ss   /usr/libexec/air /usr/libexec/airportd
+  185     1   185 Thu Oct  8 16:11:07 2026     Ss   /usr/sbin/coreau /usr/sbin/coreaudiod
+  186     1   186 Thu Oct  8 16:11:08 2026     Ss   /System/Library/ /System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService
+  187     1   187 Thu Oct  8 16:11:08 2026     Ss   /usr/libexec/con /usr/libexec/containermanagerd --runmode=agent --bundle-container-mode=global --bundle-container-owner=_appinstalld --system-container-mode=none
+  188     1   188 Thu Oct  8 16:11:08 2026     Ss   /System/Library/ /System/Library/CryptoTokenKit/com.apple.ifdreader.slotd/Contents/MacOS/com.apple.ifdreader
+  189     1   189 Thu Oct  8 16:11:08 2026     Ss   /usr/libexec/neh /usr/libexec/nehelper
+  190     1   190 Thu Oct  8 16:11:08 2026     Ss   /usr/libexec/nsu /usr/libexec/nsurlsessiond --privileged
+  191     1   191 Thu Oct  8 16:11:08 2026     Ss   /usr/libexec/apf /usr/libexec/apfsd
+  192     1   192 Thu Oct  8 16:11:08 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/CoreAnalytics.framework/Support/analyticsd
+  193     1   193 Thu Oct  8 16:11:08 2026     Ss   /usr/libexec/usb /usr/libexec/usbd
+  216     1   216 Thu Oct  8 16:11:08 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/WirelessDiagnostics.framework/Support/awdd
+  237     1   237 Thu Oct  8 16:11:10 2026     Ss   /usr/libexec/lsd /usr/libexec/lsd runAsRoot
+  239     1   239 Thu Oct  8 16:11:10 2026     Ss   /usr/libexec/mob /usr/libexec/mobileassetd
+  240     1   240 Thu Oct  8 16:11:10 2026     Ss   /usr/libexec/tzd /usr/libexec/tzd
+  242     1   242 Thu Oct  8 16:11:12 2026     S    /System/Library/ /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/XPCServices/csnameddatad.xpc/Contents/MacOS/csnameddatad
+  243     1   243 Thu Oct  8 16:11:12 2026     Ss   /usr/libexec/sym /usr/libexec/symptomsd
+  256     1   256 Thu Oct  8 16:11:17 2026     Ss   /System/Library/ /System/Library/Frameworks/SystemExtensions.framework/Versions/A/Helpers/sysextd
+  257     1   257 Thu Oct  8 16:11:17 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+  258     1   258 Thu Oct  8 16:11:17 2026     Ss   /Library/Apple/S /Library/Apple/System/Library/CoreServices/XProtect.app/Contents/XPCServices/XProtectPluginService.xpc/Contents/MacOS/XProtectPluginService
+  262     1   262 Thu Oct  8 16:11:17 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+  265     1   265 Thu Oct  8 16:11:17 2026     Ss   /System/Library/ /System/Library/Frameworks/Security.framework/Versions/A/XPCServices/com.apple.CodeSigningHelper.xpc/Contents/MacOS/com.apple.CodeSigningHelper
+  266     1   266 Thu Oct  8 16:11:17 2026     Ss   /usr/libexec/dis /usr/libexec/diskmanagementd
+  267     1   267 Thu Oct  8 16:11:17 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+  268     1   268 Thu Oct  8 16:11:17 2026     S    /System/Library/ /System/Library/PrivateFrameworks/GeoServices.framework/Versions/A/XPCServices/com.apple.geod.xpc/Contents/MacOS/com.apple.geod
+  270     1   270 Thu Oct  8 16:11:18 2026     S    /usr/libexec/sec /usr/libexec/secinitd
+  271     1   271 Thu Oct  8 16:11:18 2026     S    /usr/sbin/cfpref /usr/sbin/cfprefsd agent
+  273     1   273 Thu Oct  8 16:11:18 2026     S    /usr/libexec/tru /usr/libexec/trustd --agent
+  274     1   274 Thu Oct  8 16:11:18 2026     Ss   Core Audio Drive Core Audio Driver (MSTeamsAudioDevice.driver)
+  275     1   275 Thu Oct  8 16:11:18 2026     Ss   /usr/libexec/amf /usr/libexec/amfid
+  292     1   292 Thu Oct  8 16:11:18 2026     Ss   /System/Library/ /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+  294     1   294 Thu Oct  8 16:11:18 2026     Ss   /usr/libexec/log /usr/libexec/logd_helper
+  296     1   296 Thu Oct  8 16:11:19 2026     Ss   /usr/sbin/mDNSRe /usr/sbin/mDNSResponder
+  297     1   297 Thu Oct  8 16:11:19 2026     S    /usr/libexec/con /usr/libexec/containermanagerd --runmode=agent --bundle-container-mode=global --bundle-container-owner=_appinstalld --system-container-mode=none
+  298     1   298 Thu Oct  8 16:11:20 2026     Ss   /System/Library/ /System/Library/CoreServices/ReportCrash daemon
+  303     1   303 Thu Oct  8 16:11:21 2026     Ss   /System/Library/ /System/Library/Frameworks/AudioToolbox.framework/AudioComponentRegistrar -daemon
+  305     1   305 Thu Oct  8 16:11:21 2026     Ss   /usr/libexec/sea /usr/libexec/searchpartyd
+  307     1   307 Thu Oct  8 16:11:21 2026     Ss   /System/Library/ /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper
+  308     1   308 Thu Oct  8 16:11:21 2026     Ss   /System/Library/ /System/Library/Frameworks/CoreAudio.framework/Versions/A/XPCServices/com.apple.audio.DriverHelper.xpc/Contents/MacOS/com.apple.audio.DriverHelper
+  319     1   319 Thu Oct  8 16:11:23 2026     Ss   /System/Library/ /System/Library/CoreServices/Software Update.app/Contents/Resources/softwareupdated
+  321     1   321 Thu Oct  8 16:11:23 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+  322     1   322 Thu Oct  8 16:11:23 2026     Ss   /System/Library/ /System/Library/CoreServices/Software Update.app/Contents/Resources/suhelperd
+  323     1   323 Thu Oct  8 16:11:23 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+  347     1   347 Thu Oct  8 16:11:26 2026     Ss   /System/Library/ /System/Library/CoreServices/backupd.bundle/Contents/Resources/backupd
+  356     1   356 Thu Oct  8 16:11:27 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/MobileSoftwareUpdate.framework/Versions/A/XPCServices/com.apple.MobileSoftwareUpdate.CleanupPreparePathService.xpc/Contents/MacOS/com.apple.MobileSoftwareUpdate.CleanupPreparePathService
+  359     1   359 Thu Oct  8 16:11:40 2026     Ss   /System/Library/ /System/Library/Frameworks/CoreMediaIO.framework/Versions/A/Resources/UVCAssistant.systemextension/Contents/MacOS/UVCAssistant
+  360     1   360 Thu Oct  8 16:11:41 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/SystemStatusServer.framework/Support/systemstatusd
+  362     1   362 Thu Oct  8 16:11:49 2026     Ss   /usr/sbin/mDNSRe /usr/sbin/mDNSResponderHelper
+  363     1   363 Thu Oct  8 16:11:49 2026     Ss   /usr/libexec/fin /usr/libexec/findmydeviced
+  364     1   364 Thu Oct  8 16:11:50 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/FindMyMac.framework/Resources/FindMyMacd
+  365     1   365 Thu Oct  8 16:11:51 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+  366     1   366 Thu Oct  8 16:11:51 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/SiriInference.framework/Support/siriinferenced
+  374     1   374 Thu Oct  8 16:11:51 2026     Ss   /Applications/Av /Applications/AvastSecureLine.app/Contents/Backend/services/com.avast.osx.secureline.ext
+  386     1   386 Thu Oct  8 16:11:52 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/Backend/services/com.avast.leap
+  402     1   402 Thu Oct  8 16:11:54 2026     Ss   /usr/libexec/rtc /usr/libexec/rtcreportingd
+  439     1   439 Thu Oct  8 16:11:54 2026     Ss   /Applications/Av /Applications/AvastSecureLine.app/Contents/Backend/services/com.avast.osx.secureline.filter -q
+  454     1   454 Thu Oct  8 16:11:55 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/Backend/services/com.avast.activity -d -q
+  469     1   469 Thu Oct  8 16:11:55 2026     Ss   /Applications/Av /Applications/AvastSecureLine.app/Contents/Backend/services/com.avast.osx.secureline.hns -q
+  483     1   483 Thu Oct  8 16:11:56 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/Backend/services/com.avast.ext
+  506     1   506 Thu Oct  8 16:11:57 2026     Ss   /Applications/Av /Applications/AvastSecureLine.app/Contents/Backend/services/com.avast.osx.secureline.service -q
+  511     1   511 Thu Oct  8 16:11:57 2026     Ss   /usr/libexec/the /usr/libexec/thermald
+  522     1   522 Thu Oct  8 16:11:57 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/Backend/services/com.avast.daemon -q
+  540     1   540 Thu Oct  8 16:11:57 2026     Ss   /Applications/Av /Applications/AvastSecureLine.app/Contents/XPCServices/AvastSecureLineVPN.app/Contents/MacOS/AvastSecureLineVPN server
+  655     1   655 Thu Oct  8 16:12:01 2026     Ss   /usr/libexec/nfc /usr/libexec/nfcd
+  666     1   666 Thu Oct  8 16:12:02 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+  701     1   701 Thu Oct  8 16:12:06 2026     Ss   /usr/libexec/loc /usr/libexec/locationd
+  714     1   714 Thu Oct  8 16:12:07 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/WiFiPolicy.framework/XPCServices/WiFiCloudAssetsXPCService.xpc/Contents/MacOS/WiFiCloudAssetsXPCService
+  715     1   715 Thu Oct  8 16:12:07 2026     Ss   /usr/libexec/hid /usr/libexec/hidd
+  716     1   716 Thu Oct  8 16:12:07 2026     Ss   /usr/sbin/BlueTo /usr/sbin/BlueTool -R
+  717     1   717 Thu Oct  8 16:12:07 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+  721     1   721 Thu Oct  8 16:12:07 2026     Ss   /usr/libexec/sec /usr/libexec/secinitd
+  726     1   726 Thu Oct  8 16:12:08 2026     Ss   /usr/libexec/wif /usr/libexec/wifianalyticsd
+  727     1   727 Thu Oct  8 16:12:08 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/AuthKit.framework/Versions/A/Support/akd
+  733     1   733 Thu Oct  8 16:12:08 2026     Ss   /usr/libexec/col /usr/libexec/colorsync.displayservices
+  734     1   734 Thu Oct  8 16:12:08 2026     Ss   /usr/libexec/col /usr/libexec/colorsyncd
+  736     1   736 Thu Oct  8 16:12:08 2026     Ss   /System/Library/ /System/Library/CoreServices/appleeventsd --server
+  743     1   743 Thu Oct  8 16:12:09 2026     S    /System/Library/ /System/Library/PrivateFrameworks/ViewBridge.framework/Versions/A/XPCServices/ViewBridgeAuxiliary.xpc/Contents/MacOS/ViewBridgeAuxiliary
+  744     1   744 Thu Oct  8 16:12:09 2026     Ss   /usr/libexec/boo /usr/libexec/bootinstalld
+  751     1   751 Thu Oct  8 16:12:09 2026     Ss   /usr/libexec/sym /usr/libexec/symptomsd-diag
+  763     1   763 Thu Oct  8 16:12:11 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+  769     1   769 Thu Oct  8 16:12:11 2026     Ss   /usr/libexec/cap /usr/libexec/captiveagent
+  770     1   770 Thu Oct  8 16:12:12 2026     Ss   /System/Library/ /System/Library/CoreServices/iconservicesagent runAsRoot
+  771     1   771 Thu Oct  8 16:12:12 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/AccountPolicy.framework/XPCServices/com.apple.AccountPolicyHelper.xpc/Contents/MacOS/com.apple.AccountPolicyHelper
+  772     1   772 Thu Oct  8 16:12:12 2026     Ss   /System/Library/ /System/Library/Frameworks/LocalAuthentication.framework/Support/coreauthd
+  773     1   773 Thu Oct  8 16:12:12 2026     Ss   /System/Library/ /System/Library/Frameworks/CryptoTokenKit.framework/ctkahp.bundle/Contents/MacOS/ctkahp -d
+  782     1   782 Thu Oct  8 16:12:12 2026     Ss   /usr/sbin/system /usr/sbin/systemsoundserverd
+  784     1   784 Thu Oct  8 16:12:12 2026     Ss   /System/Library/ /System/Library/Frameworks/CryptoTokenKit.framework/ctkd -s
+  785     1   785 Thu Oct  8 16:12:12 2026     SNs  /usr/sbin/netbio /usr/sbin/netbiosd
+  811     1   811 Thu Oct  8 16:12:15 2026     Ss   /System/Library/ /System/Library/Frameworks/CoreMediaIO.framework/Versions/A/Resources/AppleCamera.plugin/Contents/Resources/AppleCameraAssistant
+  822     1   822 Thu Oct  8 16:12:17 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/AmbientDisplay.framework/Versions/A/XPCServices/com.apple.AmbientDisplayAgent.xpc/Contents/MacOS/com.apple.AmbientDisplayAgent
+  827     1   827 Thu Oct  8 16:12:17 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/CoreADI.framework/adid
+  829     1   829 Thu Oct  8 16:12:18 2026     Ss   /System/Library/ /System/Library/DriverExtensions/IOUserBluetoothSerialDriver.dext/IOUserBluetoothSerialDriver com.apple.IOUserBluetoothSerialDriver 0x100000581 com.apple.IOUserBluetoothSerialDriver
+  830     1   830 Thu Oct  8 16:12:18 2026     Ss   /System/Library/ /System/Library/DriverExtensions/IOUserBluetoothSerialDriver.dext/IOUserBluetoothSerialDriver com.apple.IOUserBluetoothSerialDriver 0x100000582 com.apple.IOUserBluetoothSerialDriver
+  836     1   836 Thu Oct  8 16:12:18 2026     Ss   /usr/libexec/sys /usr/libexec/sysmond
+  837    97    97 Thu Oct  8 16:12:18 2026     S    /usr/sbin/system /usr/sbin/systemstats --logger-helper /private/var/db/systemstats
+  959     1   959 Thu Oct  8 16:12:29 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/Backend/utils/com.avast.Antivirus.EndpointSecurity.app/Contents/MacOS/com.avast.Antivirus.EndpointSecurity
+  974     1   974 Thu Oct  8 16:12:30 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/Backend/services/com.avast.fileshield
+ 1014     1  1014 Thu Oct  8 16:12:31 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/Backend/services/com.avast.proxy
+ 1033     1  1033 Thu Oct  8 16:12:31 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/Backend/services/com.avast.securedns
+ 1068     1  1068 Thu Oct  8 16:12:32 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/Backend/services/com.avast.filter -q
+ 1084     1  1084 Thu Oct  8 16:12:33 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/Backend/services/com.avast.hns -q
+ 1120     1  1120 Thu Oct  8 16:12:34 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/Backend/services/com.avast.behaviourshield -q
+ 1139     1  1139 Thu Oct  8 16:12:34 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/Backend/services/com.avast.service -q
+ 1145     1  1145 Thu Oct  8 16:12:35 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/CoreSymbolication.framework/coresymbolicationd
+ 1259     1  1259 Thu Oct  8 16:12:47 2026     Ss   /System/Library/ /System/Library/Frameworks/GSS.framework/Helpers/GSSCred
+ 1263     1  1263 Thu Oct  8 16:12:53 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+ 1264     1  1264 Thu Oct  8 16:12:53 2026     Ss   /usr/libexec/sec /usr/libexec/securityd_service
+ 1265     1  1265 Thu Oct  8 16:12:53 2026     S    /usr/sbin/cfpref /usr/sbin/cfprefsd agent
+ 1266     1  1266 Thu Oct  8 16:12:53 2026     S    /usr/libexec/Use /usr/libexec/UserEventAgent (Aqua)
+ 1267     1  1267 Thu Oct  8 16:12:53 2026     Ss   /usr/libexec/gam /usr/libexec/gamecontrollerd
+ 1269     1  1269 Thu Oct  8 16:12:53 2026     S    /usr/sbin/univer /usr/sbin/universalaccessd launchd -s
+ 1270     1  1270 Thu Oct  8 16:12:53 2026     S    /usr/libexec/lsd /usr/libexec/lsd
+ 1271     1  1271 Thu Oct  8 16:12:53 2026     S    /usr/libexec/kno /usr/libexec/knowledge-agent
+ 1272     1  1272 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/PrivateFrameworks/TCC.framework/Support/tccd
+ 1273     1  1273 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CloudServices.framework/Helpers/com.apple.sbd
+ 1274     1  1274 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/PrivateFrameworks/iTunesCloud.framework/Support/itunescloudd
+ 1275     1  1275 Thu Oct  8 16:12:54 2026     S    /usr/libexec/tru /usr/libexec/trustd --agent
+ 1276     1  1276 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/XPCServices/csnameddatad.xpc/Contents/MacOS/csnameddatad
+ 1278     1  1278 Thu Oct  8 16:12:54 2026     S    /usr/libexec/sec /usr/libexec/secd
+ 1279     1  1279 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/Frameworks/Accounts.framework/Versions/A/Support/accountsd
+ 1280     1  1280 Thu Oct  8 16:12:54 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/MacOS/Code
+ 1281     1  1281 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/CoreServices/backgroundtaskmanagementagent
+ 1282     1  1282 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/CoreServices/sharedfilelistd
+ 1283     1  1283 Thu Oct  8 16:12:54 2026     T    /Applications/Wi /Applications/Windows App.app/Contents/MacOS/Windows App
+ 1284     1  1284 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/Frameworks/Security.framework/Versions/A/XPCServices/TrustedPeersHelper.xpc/Contents/MacOS/TrustedPeersHelper
+ 1285     1  1285 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AuthKit.framework/Versions/A/Support/akd
+ 1286     1  1286 Thu Oct  8 16:12:54 2026     T    /Applications/Ad /Applications/Adobe Acrobat DC/Adobe Acrobat.app/Contents/MacOS/AdobeAcrobat
+ 1287     1  1287 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AppSSO.framework/Support/AppSSOAgent.app/Contents/MacOS/AppSSOAgent
+ 1288     1  1288 Thu Oct  8 16:12:54 2026     S    /Library/Applica /Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app/Contents/MacOS/Microsoft AutoUpdate
+ 1289     1  1289 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/CoreServices/talagent
+ 1290     1  1290 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock
+ 1291     1  1291 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter
+ 1292     1  1292 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/CoreServices/SystemUIServer.app/Contents/MacOS/SystemUIServer
+ 1293     1  1293 Thu Oct  8 16:12:54 2026     S    /usr/libexec/pkd /usr/libexec/pkd
+ 1294     1  1294 Thu Oct  8 16:12:54 2026     S    /System/Library/ /System/Library/CoreServices/Finder.app/Contents/MacOS/Finder
+ 1297     1  1297 Thu Oct  8 16:12:55 2026     S    /usr/libexec/con /usr/libexec/containermanagerd --runmode=agent --bundle-container-mode=global --bundle-container-owner=_appinstalld --system-container-mode=none
+ 1298     1  1298 Thu Oct  8 16:12:55 2026     S    /usr/libexec/pbo /usr/libexec/pboard
+ 1299     1  1299 Thu Oct  8 16:12:55 2026     S    /usr/libexec/rap /usr/libexec/rapportd
+ 1301     1  1301 Thu Oct  8 16:12:55 2026     S    /usr/libexec/sec /usr/libexec/secinitd
+ 1302     1  1302 Thu Oct  8 16:12:55 2026     S    /System/Library/ /System/Library/PrivateFrameworks/ViewBridge.framework/Versions/A/XPCServices/ViewBridgeAuxiliary.xpc/Contents/MacOS/ViewBridgeAuxiliary
+ 1303     1  1303 Thu Oct  8 16:12:56 2026     S    /usr/sbin/userno /usr/sbin/usernoted
+ 1304     1  1304 Thu Oct  8 16:12:56 2026     Ss   /System/Library/ /System/Library/Frameworks/QuickLookUI.framework/Versions/A/XPCServices/QuickLookUIService.xpc/Contents/MacOS/QuickLookUIService
+ 1305     1  1305 Thu Oct  8 16:12:56 2026     S    /System/Library/ /System/Library/CoreServices/iconservicesagent
+ 1306     1  1306 Thu Oct  8 16:12:56 2026     S    /System/Library/ /System/Library/PrivateFrameworks/IDS.framework/identityservicesd.app/Contents/MacOS/identityservicesd
+ 1307     1  1307 Thu Oct  8 16:12:56 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+ 1308     1  1308 Thu Oct  8 16:12:56 2026     S    /System/Library/ /System/Library/PrivateFrameworks/UserActivity.framework/Agents/useractivityd
+ 1309     1  1309 Thu Oct  8 16:12:56 2026     S    /System/Library/ /System/Library/CoreServices/Spotlight.app/Contents/MacOS/Spotlight
+ 1310     1  1310 Thu Oct  8 16:12:56 2026     Ss   /System/Library/ /System/Library/CoreServices/Dock.app/Contents/XPCServices/com.apple.dock.extra.xpc/Contents/MacOS/com.apple.dock.extra
+ 1311     1  1311 Thu Oct  8 16:12:56 2026     S    /System/Library/ /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/XPCServices/com.apple.hiservices-xpcservice.xpc/Contents/MacOS/com.apple.hiservices-xpcservice
+ 1312     1  1312 Thu Oct  8 16:12:56 2026     Ss   /usr/sbin/fileco /usr/sbin/filecoordinationd
+ 1313     1  1313 Thu Oct  8 16:12:56 2026     S    /System/Library/ /System/Library/PrivateFrameworks/VoiceShortcuts.framework/Versions/A/Support/siriactionsd
+ 1314     1  1314 Thu Oct  8 16:12:56 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CalendarAgent.framework/Executables/CalendarAgent
+ 1315     1  1315 Thu Oct  8 16:12:57 2026     S    /System/Library/ /System/Library/Frameworks/ApplicationServices.framework/Frameworks/ATS.framework/Support/fontd
+ 1316     1  1316 Thu Oct  8 16:12:57 2026     S    /System/Library/ /System/Library/Frameworks/Contacts.framework/Support/contactsd
+ 1317     1  1317 Thu Oct  8 16:12:57 2026     S    /System/Library/ /System/Library/PrivateFrameworks/DoNotDisturbServer.framework/Support/donotdisturbd
+ 1318     1  1318 Thu Oct  8 16:12:57 2026     Ss   automountd       automountd
+ 1319     1  1319 Thu Oct  8 16:12:57 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AMPDevices.framework/Versions/A/Support/AMPDeviceDiscoveryAgent --launchd
+ 1321     1  1321 Thu Oct  8 16:12:57 2026     S    /System/Library/ /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/Support/fontworker
+ 1323     1  1323 Thu Oct  8 16:12:57 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CloudDocsDaemon.framework/Versions/A/Support/bird
+ 1324     1  1324 Thu Oct  8 16:12:57 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CoreParsec.framework/parsecd
+ 1326     1  1326 Thu Oct  8 16:12:58 2026     S    /System/Library/ /System/Library/CoreServices/NotificationCenter.app/Contents/MacOS/NotificationCenter
+ 1329     1  1329 Thu Oct  8 16:12:58 2026     S    /usr/libexec/sha /usr/libexec/sharingd
+ 1330     1  1330 Thu Oct  8 16:12:58 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/CalendarNotification.framework/Versions/A/XPCServices/CalNCService.xpc/Contents/MacOS/CalNCService
+ 1331     1  1331 Thu Oct  8 16:12:59 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CallHistory.framework/Support/CallHistoryPluginHelper
+ 1332     1  1332 Thu Oct  8 16:12:59 2026     S    /System/Library/ /System/Library/PrivateFrameworks/ContextKit.framework/Versions/A/XPCServices/ContextService.xpc/Contents/MacOS/ContextService
+ 1333     1  1333 Thu Oct  8 16:12:59 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CloudKitDaemon.framework/Support/cloudd
+ 1334     1  1334 Thu Oct  8 16:12:59 2026     S    /System/Library/ /System/Library/PrivateFrameworks/BiomeStreams.framework/Support/BiomeAgent
+ 1335     1  1335 Thu Oct  8 16:12:59 2026     S    /System/Library/ /System/Library/PrivateFrameworks/GeoServices.framework/Versions/A/XPCServices/com.apple.geod.xpc/Contents/MacOS/com.apple.geod
+ 1336     1  1336 Thu Oct  8 16:12:59 2026     S    /usr/libexec/tri /usr/libexec/triald
+ 1337     1  1337 Thu Oct  8 16:12:59 2026     S    /System/Library/ /System/Library/PrivateFrameworks/TelephonyUtilities.framework/callservicesd
+ 1338     1  1338 Thu Oct  8 16:12:59 2026     S    /usr/libexec/avc /usr/libexec/avconferenced
+ 1341     1  1341 Thu Oct  8 16:13:00 2026     S    /System/Library/ /System/Library/PrivateFrameworks/FileProvider.framework/Support/fileproviderd
+ 1342     1  1342 Thu Oct  8 16:13:00 2026     S    /System/Library/ /System/Library/Frameworks/CryptoTokenKit.framework/ctkd -tw
+ 1344     1  1344 Thu Oct  8 16:13:00 2026     S    /System/Library/ /System/Library/Frameworks/AudioToolbox.framework/AudioComponentRegistrar
+ 1345     1  1345 Thu Oct  8 16:13:00 2026     S    /System/Library/ /System/Library/Frameworks/QuickLookThumbnailing.framework/Support/com.apple.quicklook.ThumbnailsAgent
+ 1346     1  1346 Thu Oct  8 16:13:01 2026     S    /System/Library/ /System/Library/CoreServices/pbs
+ 1347     1  1347 Thu Oct  8 16:13:01 2026     S    /System/Library/ /System/Library/Frameworks/LocalAuthentication.framework/Support/coreauthd
+ 1348     1  1348 Thu Oct  8 16:13:01 2026     Ss   /System/Library/ /System/Library/Frameworks/AudioToolbox.framework/XPCServices/CarbonComponentScannerXPC.xpc/Contents/MacOS/CarbonComponentScannerXPC
+ 1349     1  1349 Thu Oct  8 16:13:01 2026     S    /System/Library/ /System/Library/CoreServices/CoreServicesUIAgent.app/Contents/MacOS/CoreServicesUIAgent
+ 1350     1  1350 Thu Oct  8 16:13:01 2026     S    /System/Library/ /System/Library/CoreServices/WiFiAgent.app/Contents/MacOS/WiFiAgent
+ 1351     1  1351 Thu Oct  8 16:13:01 2026     S    /Library/Applica /Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app/Contents/MacOS/Microsoft Update Assistant.app/Contents/MacOS/Microsoft Update Assistant --launchByAgent
+ 1352     1  1352 Thu Oct  8 16:13:02 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent
+ 1354     1  1354 Thu Oct  8 16:13:02 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CoreDuetContext.framework/Resources/ContextStoreAgent
+ 1355     1  1353 Thu Oct  8 16:13:02 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Electron Framework.framework/Helpers/chrome_crashpad_handler --no-rate-limit --monitor-self-annotation=ptype=crashpad-handler --database=/Users/zacheryspector/Library/Application Support/Code/Crashpad --url=appcenter://code?aid=860d6632-f65b-490b-85a8-3e72944f7774&uid=44bb0146-7b25-491b-9f5b-5f2aea54e30f&iid=44bb0146-7b25-491b-9f5b-5f2aea54e30f&sid=44bb0146-7b25-491b-9f5b-5f2aea54e30f --annotation=_companyName=Microsoft --annotation=_productName=VSCode --annotation=_version=1.138.0 --annotation=plat=OS X --annotation=prod=Electron --annotation=ver=42.10.0 --handshake-fd=19
+ 1356     1  1356 Thu Oct  8 16:13:02 2026     Ss   /Applications/Mi /Applications/Microsoft Outlook.app/Contents/PlugIns/CalendarWidgetExtension.appex/Contents/MacOS/CalendarWidgetExtension -AppleLanguages ("en-US")
+ 1357     1  1357 Thu Oct  8 16:13:02 2026     S    /System/Library/ /System/Library/CoreServices/CoreLocationAgent.app/Contents/MacOS/CoreLocationAgent
+ 1358     1  1358 Thu Oct  8 16:13:03 2026     Ss   /System/Library/ /System/Library/Frameworks/QuickLook.framework/Versions/A/XPCServices/QuickLookSatellite.xpc/Contents/MacOS/QuickLookSatellite
+ 1359     1  1359 Thu Oct  8 16:13:03 2026     S    /usr/libexec/WiF /usr/libexec/WiFiVelocityAgent
+ 1360  1280  1280 Thu Oct  8 16:13:03 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper --type=gpu-process --user-data-dir=/Users/zacheryspector/Library/Application Support/Code --gpu-preferences=SAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAAAQAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=1718379636,r,17231072079315461701,12301084134338008013,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,EarlyEstablishGpuChannel,EstablishGpuChannelAsync,PdfUseShowSaveFilePicker --disable-features=CalculateNativeWinOcclusion,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1935764596,r,7201006488820559301,16853449882728232620,4 --trace-process-track-uuid=3190708988185955192 --seatbelt-client=31
+ 1361  1280  1280 Thu Oct  8 16:13:03 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=network --user-data-dir=/Users/zacheryspector/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --cors-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --fetch-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --shared-files --field-trial-handle=1718379636,r,17231072079315461701,12301084134338008013,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,EarlyEstablishGpuChannel,EstablishGpuChannelAsync,PdfUseShowSaveFilePicker --disable-features=CalculateNativeWinOcclusion,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1935764596,r,7201006488820559301,16853449882728232620,4 --trace-process-track-uuid=3190708989122997041 --seatbelt-client=31
+ 1362     1  1362 Thu Oct  8 16:13:03 2026     S    /System/Library/ /System/Library/PrivateFrameworks/FamilyCircle.framework/Versions/A/Resources/familycircled
+ 1363     1  1363 Thu Oct  8 16:13:04 2026     S    /System/Library/ /System/Library/PrivateFrameworks/HomeKitDaemon.framework/Support/homed
+ 1364     1  1364 Thu Oct  8 16:13:04 2026     S    /System/Library/ /System/Library/PrivateFrameworks/IMCore.framework/imagent.app/Contents/MacOS/imagent
+ 1365     1  1365 Thu Oct  8 16:13:04 2026     S    /System/Library/ /System/Library/PrivateFrameworks/ScreenTimeCore.framework/Versions/A/ScreenTimeAgent
+ 1366     1  1366 Thu Oct  8 16:13:04 2026     S    /System/Library/ /System/Library/Frameworks/CoreTelephony.framework/Support/CommCenter -L
+ 1367     1  1367 Thu Oct  8 16:13:04 2026     Ss   /usr/libexec/wif /usr/libexec/wifivelocityd
+ 1368     1  1368 Thu Oct  8 16:13:04 2026     S    /System/Library/ /System/Library/PrivateFrameworks/StatusKit.framework/StatusKitAgent
+ 1370     1  1370 Thu Oct  8 16:13:04 2026     S    /System/Library/ /System/Library/Frameworks/InputMethodKit.framework/Resources/imklaunchagent
+ 1371     1  1371 Thu Oct  8 16:13:04 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/TelephonyUtilities.framework/XPCServices/com.apple.FaceTime.FTConversationService.xpc/Contents/MacOS/com.apple.FaceTime.FTConversationService
+ 1372     1  1372 Thu Oct  8 16:13:05 2026     Ss   /System/Library/ /System/Library/Input Methods/PressAndHold.app/Contents/PlugIns/PAH_Extension.appex/Contents/MacOS/PAH_Extension -AppleLanguages ("en-US")
+ 1373     1  1373 Thu Oct  8 16:13:05 2026     Ss   /usr/sbin/spindu /usr/sbin/spindump
+ 1374     1  1374 Thu Oct  8 16:13:05 2026     S    /usr/libexec/dmd /usr/libexec/dmd
+ 1375     1  1375 Thu Oct  8 16:13:05 2026     S    /usr/libexec/spi /usr/libexec/spindump_agent
+ 1376     1  1376 Thu Oct  8 16:13:06 2026     S    /System/Library/ /System/Library/PrivateFrameworks/IMDPersistence.framework/XPCServices/IMDPersistenceAgent.xpc/Contents/MacOS/IMDPersistenceAgent
+ 1377     1  1377 Thu Oct  8 16:13:06 2026     Ss   /System/Library/ /System/Library/Frameworks/Intents.framework/XPCServices/intents_helper.xpc/Contents/MacOS/intents_helper
+ 1378     1  1378 Thu Oct  8 16:13:06 2026     S    /usr/libexec/fmf /usr/libexec/fmfd
+ 1379     1  1379 Thu Oct  8 16:13:06 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/InstallCoordination.framework/Support/installcoordinationd
+ 1380     1  1380 Thu Oct  8 16:13:06 2026     S    /usr/libexec/nsu /usr/libexec/nsurlsessiond
+ 1381     1  1381 Thu Oct  8 16:13:06 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CoreCDP.framework/Versions/A/Resources/cdpd
+ 1382     1  1382 Thu Oct  8 16:13:06 2026     S    /System/Library/ /System/Library/PrivateFrameworks/ProtectedCloudStorage.framework/Helpers/ProtectedCloudKeySyncing
+ 1383     1  1383 Thu Oct  8 16:13:07 2026     S    /System/Library/ /System/Library/CoreServices/Keychain Circle Notification.app/Contents/MacOS/Keychain Circle Notification
+ 1385     1  1385 Thu Oct  8 16:13:07 2026     S    /System/Library/ /System/Library/Frameworks/Security.framework/Versions/A/Resources/CloudKeychainProxy.bundle/Contents/MacOS/CloudKeychainProxy
+ 1386     1  1386 Thu Oct  8 16:13:07 2026     S    /System/Library/ /System/Library/PrivateFrameworks/SyncedDefaults.framework/Support/syncdefaultsd
+ 1387     1  1387 Thu Oct  8 16:13:07 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/AppStoreDaemon.framework/Versions/A/XPCServices/com.apple.AppStoreDaemon.StorePrivilegedODRService.xpc/Contents/MacOS/com.apple.AppStoreDaemon.StorePrivilegedODRService
+ 1388     1  1388 Thu Oct  8 16:13:07 2026     Ss   /System/Library/ /System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService
+ 1389     1  1389 Thu Oct  8 16:13:07 2026     Ss   /usr/sbin/Wirele /usr/sbin/WirelessRadioManagerd
+ 1390     1  1390 Thu Oct  8 16:13:08 2026     S    /usr/libexec/nea /usr/libexec/neagent
+ 1391     1  1391 Thu Oct  8 16:13:08 2026     S    /System/Library/ /System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoteagent
+ 1392     1  1392 Thu Oct  8 16:13:08 2026     S    /usr/libexec/net /usr/libexec/networkserviceproxy
+ 1393     1  1393 Thu Oct  8 16:13:08 2026     S    /System/Library/ /System/Library/CoreServices/UniversalControl.app/Contents/MacOS/UniversalControl
+ 1394     1  1394 Thu Oct  8 16:13:08 2026     S    /usr/libexec/bio /usr/libexec/biomesyncd
+ 1395     1  1395 Thu Oct  8 16:13:08 2026     SN   /System/Library/ /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdbulkimport -s mdworker-bundle -c MDSImporterBundleFinder -m com.apple.metadata.mdbulkimport
+ 1396     1  1396 Thu Oct  8 16:13:08 2026     Ss   /System/Library/ /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/CVMServer
+ 1398     1  1398 Thu Oct  8 16:13:09 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CommunicationsFilter.framework/CMFSyncAgent
+ 1399     1  1399 Thu Oct  8 16:13:09 2026     Ss   /System/Library/ /System/Library/CoreServices/SubmitDiagInfo server-init
+ 1400     1  1400 Thu Oct  8 16:13:10 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AssistantServices.framework/Versions/A/Support/assistantd
+ 1401     1  1401 Thu Oct  8 16:13:10 2026     S    /System/Library/ /System/Library/CoreServices/APFSUserAgent
+ 1402     1  1402 Thu Oct  8 16:13:10 2026     S    /System/Library/ /System/Library/PrivateFrameworks/iCloudNotification.framework/iCloudNotificationAgent
+ 1404     1  1404 Thu Oct  8 16:13:11 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/CoreEmbeddedSpeechRecognition.framework/Versions/A/XPCServices/com.apple.siri.embeddedspeech.xpc/Contents/MacOS/com.apple.siri.embeddedspeech
+ 1405     1  1405 Thu Oct  8 16:13:11 2026     S    /usr/libexec/sir /usr/libexec/siriknowledged
+ 1406     1  1406 Thu Oct  8 16:13:12 2026     S    /usr/libexec/dia /usr/libexec/diagnosticextensionsd
+ 1407     1  1407 Thu Oct  8 16:13:12 2026     S    /System/Library/ /System/Library/PrivateFrameworks/UsageTracking.framework/Versions/A/UsageTrackingAgent
+ 1408     1  1408 Thu Oct  8 16:13:12 2026     S    /System/Library/ /System/Library/PrivateFrameworks/NewDeviceOutreach.framework/ndoagent
+ 1413     1  1413 Thu Oct  8 16:13:15 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CoreSpeech.framework/corespeechd
+ 1418     1  1418 Thu Oct  8 16:13:15 2026     S    /System/Library/ /System/Library/CoreServices/Siri.app/Contents/MacOS/Siri launchd
+ 1419     1  1419 Thu Oct  8 16:13:15 2026     S    /System/Library/ /System/Library/Image Capture/Support/icdd
+ 1422     1  1422 Thu Oct  8 16:13:15 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AskPermission.framework/Versions/A/Resources/askpermissiond
+ 1424     1  1424 Thu Oct  8 16:13:15 2026     S    /System/Library/ /System/Library/CoreServices/AirPlayUIAgent.app/Contents/MacOS/AirPlayUIAgent --launchd
+ 1425     1  1425 Thu Oct  8 16:13:15 2026     S    /System/Library/ /System/Library/CoreServices/cloudpaird
+ 1427     1  1427 Thu Oct  8 16:13:15 2026     S    /System/Library/ /System/Library/CoreServices/diagnostics_agent
+ 1428     1  1428 Thu Oct  8 16:13:15 2026     S    /System/Library/ /System/Library/CoreServices/TextInputMenuAgent.app/Contents/MacOS/TextInputMenuAgent
+ 1429     1  1429 Thu Oct  8 16:13:15 2026     S    /usr/libexec/rem /usr/libexec/remindd
+ 1430     1  1430 Thu Oct  8 16:13:15 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AppleMediaServices.framework/Resources/amsaccountsd
+ 1432     1  1432 Thu Oct  8 16:13:15 2026     S    /System/Library/ /System/Library/Frameworks/CryptoTokenKit.framework/ctkahp.bundle/Contents/MacOS/ctkahp
+ 1433     1  1433 Thu Oct  8 16:13:15 2026     S    /System/Library/ /System/Library/CoreServices/TextInputSwitcher.app/Contents/MacOS/TextInputSwitcher
+ 1434     1  1434 Thu Oct  8 16:13:16 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AppleMediaServicesUI.framework/amsengagementd
+ 1435     1  1435 Thu Oct  8 16:13:16 2026     S    /usr/libexec/pro /usr/libexec/promotedcontentd
+ 1437  1280  1280 Thu Oct  8 16:13:17 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer) --type=renderer --user-data-dir=/Users/zacheryspector/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --cors-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --fetch-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --app-path=/Applications/Visual Studio Code.app/Contents/Resources/app --enable-sandbox --enable-blink-features=HighlightAPI --max-active-webgl-contexts=32 --disable-blink-features=FontMatchingCTMigration,StandardizedBrowserZoom, --lang=en-US --num-raster-threads=2 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1791493854849716 --launch-time-ticks=142503799 --shared-files --field-trial-handle=1718379636,r,17231072079315461701,12301084134338008013,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,EarlyEstablishGpuChannel,EstablishGpuChannelAsync,PdfUseShowSaveFilePicker --disable-features=CalculateNativeWinOcclusion,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1935764596,r,7201006488820559301,16853449882728232620,4 --trace-process-track-uuid=3190708990060038890 --vscode-window-config=vscode:33790cd0-e205-4e39-b88e-b32ffa6e6ec6 --seatbelt-client=65
+ 1578     1  1578 Thu Oct  8 16:13:18 2026     S    /usr/libexec/Sid /usr/libexec/SidecarRelay
+ 1620     1  1620 Thu Oct  8 16:13:18 2026     S    SafeEjectGPUAgen SafeEjectGPUAgent
+ 1630     1  1630 Thu Oct  8 16:13:18 2026     S    /System/Library/ /System/Library/CoreServices/Menu Extras/SafeEjectGPUExtra.menu/Contents/XPCServices/SafeEjectGPUService.xpc/Contents/MacOS/SafeEjectGPUService
+ 1677     1  1677 Thu Oct  8 16:13:18 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/CloudDocsDaemon.framework/XPCServices/ContainerMetadataExtractor.xpc/Contents/MacOS/ContainerMetadataExtractor
+ 1678     1  1678 Thu Oct  8 16:13:18 2026     S    /System/Library/ /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/corespotlightd
+ 1689     1  1689 Thu Oct  8 16:13:19 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CoreSuggestions.framework/Versions/A/Support/suggestd
+ 1690     1  1690 Thu Oct  8 16:13:19 2026     S    /usr/libexec/fin /usr/libexec/findmydevice-user-agent
+ 1691     1  1691 Thu Oct  8 16:13:19 2026     U    /System/Library/ /System/Library/PrivateFrameworks/PhotoLibraryServices.framework/Versions/A/Support/photolibraryd
+ 1692     1  1692 Thu Oct  8 16:13:20 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/CoreFP.framework/Versions/A/fairplayd
+ 1693  1280  1280 Thu Oct  8 16:13:21 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --user-data-dir=/Users/zacheryspector/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --cors-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --fetch-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --shared-files --field-trial-handle=1718379636,r,17231072079315461701,12301084134338008013,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,EarlyEstablishGpuChannel,EstablishGpuChannelAsync,PdfUseShowSaveFilePicker --disable-features=CalculateNativeWinOcclusion,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1935764596,r,7201006488820559301,16853449882728232620,4 --trace-process-track-uuid=3190708990997080739
+ 1694     1  1694 Thu Oct  8 16:13:21 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CoreFollowUp.framework/Versions/A/Support/followupd
+ 1702  1280  1280 Thu Oct  8 16:13:22 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --user-data-dir=/Users/zacheryspector/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --cors-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --fetch-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --shared-files --field-trial-handle=1718379636,r,17231072079315461701,12301084134338008013,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,EarlyEstablishGpuChannel,EstablishGpuChannelAsync,PdfUseShowSaveFilePicker --disable-features=CalculateNativeWinOcclusion,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1935764596,r,7201006488820559301,16853449882728232620,4 --trace-process-track-uuid=3190708991934122588
+ 1703  1280  1280 Thu Oct  8 16:13:22 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --user-data-dir=/Users/zacheryspector/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --cors-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --fetch-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --shared-files --field-trial-handle=1718379636,r,17231072079315461701,12301084134338008013,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,EarlyEstablishGpuChannel,EstablishGpuChannelAsync,PdfUseShowSaveFilePicker --disable-features=CalculateNativeWinOcclusion,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1935764596,r,7201006488820559301,16853449882728232620,4 --trace-process-track-uuid=3190708992871164437
+ 1704  1280  1280 Thu Oct  8 16:13:22 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --dns-result-order=ipv4first --experimental-network-inspection --inspect-port=0 --user-data-dir=/Users/zacheryspector/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --cors-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --fetch-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --shared-files --field-trial-handle=1718379636,r,17231072079315461701,12301084134338008013,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,EarlyEstablishGpuChannel,EstablishGpuChannelAsync,PdfUseShowSaveFilePicker --disable-features=CalculateNativeWinOcclusion,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1935764596,r,7201006488820559301,16853449882728232620,4 --trace-process-track-uuid=3190708993808206286
+ 1705     1  1705 Thu Oct  8 16:13:23 2026     S    /System/Library/ /System/Library/Frameworks/ClassKit.framework/Versions/A/progressd
+ 1814     1  1814 Thu Oct  8 16:13:25 2026     S    /System/Library/ /System/Library/PrivateFrameworks/SoftwareUpdate.framework/Resources/SoftwareUpdateNotificationManager.app/Contents/MacOS/SoftwareUpdateNotificationManager
+ 1953  1693  1280 Thu Oct  8 16:13:30 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper /Applications/Visual Studio Code.app/Contents/Resources/app/node_modules.asar.unpacked/@github/copilot-darwin-x64/index.js --headless --no-auto-update --log-level info --stdio --no-auto-login
+ 1955     1  1955 Thu Oct  8 16:13:31 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/IDSBlastDoorSupport.framework/Versions/A/XPCServices/IDSBlastDoorService.xpc/Contents/MacOS/IDSBlastDoorService
+ 1959     1  1959 Thu Oct  8 16:13:32 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/commerce
+ 1997     1  1997 Thu Oct  8 16:13:41 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AssetCacheServices.framework/Versions/A/XPCServices/AssetCacheLocatorService.xpc/Contents/MacOS/AssetCacheLocatorService -a
+ 1999     1  1999 Thu Oct  8 16:13:42 2026     Ss   /usr/libexec/Ass /usr/libexec/AssetCache/AssetCache
+ 2006     1  2006 Thu Oct  8 16:13:43 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/AssetCacheServicesExtensions.framework/XPCServices/AssetCacheTetheratorService.xpc/Contents/MacOS/AssetCacheTetheratorService
+ 2019     1  2019 Thu Oct  8 16:13:43 2026     S    /Applications/Av /Applications/AvastSecureLine.app/Contents/XPCServices/AvastSecureLineVPN.app/Contents/MacOS/AvastSecureLineVPN server
+ 2022  1704  1280 Thu Oct  8 16:13:44 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) /Users/zacheryspector/.vscode/extensions/ms-vscode.vscode-chat-customizations-evaluations-1.0.9/out/server.js --node-ipc --clientProcessId=1704
+ 2023  1704  1280 Thu Oct  8 16:13:44 2026     S    /Users/zacherysp /Users/zacheryspector/.vscode/extensions/openai.chatgpt-26.1002.51308-darwin-x64/bin/macos-x86_64/codex -c features.code_mode_host=true app-server --analytics-default-enabled
+ 2029  1704  1280 Thu Oct  8 16:13:50 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) /Applications/Visual Studio Code.app/Contents/Resources/app/extensions/json-language-features/server/dist/node/jsonServerMain --node-ipc --clientProcessId=1704
+ 2030  1280  1280 Thu Oct  8 16:13:50 2026     S    /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer) --type=renderer --user-data-dir=/Users/zacheryspector/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --cors-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --fetch-schemes=vscode-webview,vscode-file,vscode-remote-resource,vscode-managed-remote-resource --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --app-path=/Applications/Visual Studio Code.app/Contents/Resources/app --enable-sandbox --enable-blink-features=HighlightAPI --max-active-webgl-contexts=32 --disable-blink-features=FontMatchingCTMigration,StandardizedBrowserZoom, --lang=en-US --num-raster-threads=2 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=9 --time-ticks-at-unix-epoch=-1791493854849716 --launch-time-ticks=176062293 --shared-files --field-trial-handle=1718379636,r,17231072079315461701,12301084134338008013,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,EarlyEstablishGpuChannel,EstablishGpuChannelAsync,PdfUseShowSaveFilePicker --disable-features=CalculateNativeWinOcclusion,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1935764596,r,7201006488820559301,16853449882728232620,4 --trace-process-track-uuid=3190708994745248135 --vscode-window-config=vscode:33790cd0-e205-4e39-b88e-b32ffa6e6ec6 --seatbelt-client=103
+ 2035     1  2035 Thu Oct  8 16:14:09 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+ 2039     1  2039 Thu Oct  8 16:14:15 2026     Ss   /System/Library/ /System/Library/CoreServices/Siri.app/Contents/XPCServices/SiriNCService.xpc/Contents/MacOS/SiriNCService
+ 2040     1  2040 Thu Oct  8 16:14:15 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AMPLibrary.framework/Versions/A/Support/AMPLibraryAgent --launchd
+ 2063     1  2063 Thu Oct  8 16:14:27 2026     Ss   /usr/libexec/tas /usr/libexec/taskgated
+ 2066     1  2066 Thu Oct  8 16:14:30 2026     S    /Library/Apple/S /Library/Apple/System/Library/CoreServices/XProtect.app/Contents/XPCServices/XProtectPluginService.xpc/Contents/MacOS/XProtectPluginService
+ 2107     1  2107 Thu Oct  8 16:14:52 2026     S    /System/Library/ /System/Library/CoreServices/ReportCrash agent
+ 2109     1  2109 Thu Oct  8 16:14:53 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+ 2112     1  2112 Thu Oct  8 16:14:54 2026     S    /Applications/Av /Applications/Avast.app/Contents/MacOS/Avast -standaloneInstanceAllowed YES
+ 2117     1  2117 Thu Oct  8 16:14:54 2026     S    /Applications/Av /Applications/AvastSecureLine.app/Contents/MacOS/AvastSecureLine -standaloneInstanceAllowed YES
+ 2122     1  2122 Thu Oct  8 16:14:56 2026     S    /Library/Applica /Library/Application Support/AvastHUB/com.avast.hub.app/Contents/MacOS/com.avast.hub
+ 2124     1  2124 Thu Oct  8 16:14:56 2026     Ss   /Applications/Av /Applications/Avast.app/Contents/XPCServices/com.avast.av.api.xpc
+ 2125     1  2125 Thu Oct  8 16:14:56 2026     Ss   /Applications/Av /Applications/AvastSecureLine.app/Contents/XPCServices/com.avast.osx.secureline.api.xpc
+ 2126  2122  2126 Thu Oct  8 16:15:01 2026     S    /Library/Applica /Library/Application Support/AvastHUB/com.avast.hub.app/Contents/Helpers/com.avast.hub.worker /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/AvastHUB501/898145F3-2AEF-4762-A022-73FDB661E340
+ 2131     1  2131 Thu Oct  8 16:15:12 2026     S    /Applications/On /Applications/OneDrive.app/Contents/Microsoft SharePoint.app/Contents/MacOS/Microsoft SharePoint /silentConfig
+ 2132     1  2132 Thu Oct  8 16:15:13 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AOSKit.framework/Versions/A/XPCServices/com.apple.iCloudHelper.xpc/Contents/MacOS/com.apple.iCloudHelper
+ 2135     1  2135 Thu Oct  8 16:15:17 2026     Ss   /Applications/On /Applications/OneDrive.app/Contents/StandaloneUpdaterDaemon.xpc/Contents/MacOS/StandaloneUpdaterDaemon
+ 2136     1  2136 Thu Oct  8 16:15:18 2026     S    /System/Library/ /System/Library/PrivateFrameworks/DistributedEvaluation.framework/Versions/A/XPCServices/com.apple.siri-distributed-evaluation.xpc/Contents/MacOS/com.apple.siri-distributed-evaluation
+ 2137     1  2137 Thu Oct  8 16:15:18 2026     S    /System/Library/ /System/Library/Services/AppleSpell.service/Contents/MacOS/AppleSpell
+ 2138     1  2138 Thu Oct  8 16:15:19 2026     S    /usr/libexec/key /usr/libexec/keyboardservicesd
+ 2152     1  2152 Thu Oct  8 16:15:50 2026     Ss   /Library/Applica /Library/Application Support/AvastHUB/com.avast.hub.app/Contents/Helpers/com.avast.hub.xpc
+ 2159     1  2159 Thu Oct  8 16:15:56 2026     S<   /Applications/Vi /Applications/Visual Studio Code.app/Contents/Frameworks/Squirrel.framework/Resources/ShipIt com.microsoft.VSCode.ShipIt /Users/zacheryspector/Library/Caches/com.microsoft.VSCode.ShipIt/ShipItState.plist
+ 2160  2152  2160 Thu Oct  8 16:15:57 2026     S    /Library/Applica /Library/Application Support/AvastHUB/com.avast.hub.app/Contents/Helpers/com.avast.hub.xpc.worker /Library/Application Support/AvastHUB/run/5C391CB4-1937-46A1-86C1-7D18579EF8F1
+ 2161  2023  2161 Thu Oct  8 16:15:59 2026     S    /Users/zacherysp /Users/zacheryspector/.vscode/extensions/openai.chatgpt-26.1002.51308-darwin-x64/bin/macos-x86_64/codex-code-mode-host
+ 3158     1  3158 Thu Oct  8 16:16:04 2026     S    /System/Library/ /System/Library/Frameworks/MediaAccessibility.framework/Versions/A/XPCServices/com.apple.accessibility.mediaaccessibilityd.xpc/Contents/MacOS/com.apple.accessibility.mediaaccessibilityd
+ 3160     1  3160 Thu Oct  8 16:16:04 2026     Ss   /System/Library/ /System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking
+ 3162     1  3162 Thu Oct  8 16:16:05 2026     S    /System/Library/ /System/Library/PrivateFrameworks/SafariSafeBrowsing.framework/com.apple.Safari.SafeBrowsing.Service
+ 3166     1  3166 Thu Oct  8 16:16:06 2026     S    /usr/libexec/mlr /usr/libexec/mlruntimed
+ 4137     1  4137 Thu Oct  8 16:16:13 2026     S    /usr/libexec/swc /usr/libexec/swcd
+ 5109     1  5109 Thu Oct  8 16:16:27 2026     Ss   /System/Library/ /System/Library/CoreServices/CrashReporterSupportHelper server-init
+ 6421     1  6421 Thu Oct  8 16:16:44 2026     Ss   /System/Library/ /System/Library/CoreServices/osanalyticshelper server-init
+ 6570     1  6570 Thu Oct  8 16:16:48 2026     S    /System/Library/ /System/Library/PrivateFrameworks/DeviceCheckInternal.framework/devicecheckd
+ 6818     1  6818 Thu Oct  8 16:17:14 2026     S    /usr/libexec/adp /usr/libexec/adprivacyd
+ 6819     1  6819 Thu Oct  8 16:17:15 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AssistantServices.framework/Versions/A/Support/assistant_service
+ 6843     1  6843 Thu Oct  8 16:17:20 2026     Ss   /usr/libexec/onl /usr/libexec/online-authd
+ 7088     1  7088 Thu Oct  8 16:17:27 2026     S    /usr/libexec/sea /usr/libexec/searchpartyuseragent
+ 8082     1  8082 Thu Oct  8 16:17:38 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeaccountd
+ 8585     1  8585 Thu Oct  8 16:17:47 2026     Ss   /System/Library/ /System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking
+ 8879     1  8879 Thu Oct  8 16:17:57 2026     S    /System/Library/ /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker -s mdworker-sizing -c MDSSizingWorker -m com.apple.mdworker.sizing
+12092     1 12092 Thu Oct  8 16:18:17 2026     S    /System/Library/ /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker -s mdworker-sizing -c MDSSizingWorker -m com.apple.mdworker.sizing
+12103     1 12103 Thu Oct  8 16:18:21 2026     S    /Library/Apple/S /Library/Apple/System/Library/CoreServices/SafariSupport.bundle/Contents/MacOS/PasswordBreachAgent
+12371     1 12371 Thu Oct  8 16:18:28 2026     S    /Library/Apple/S /Library/Apple/System/Library/CoreServices/SafariSupport.bundle/Contents/MacOS/SafariBookmarksSyncAgent
+15573     1 15573 Thu Oct  8 16:19:01 2026     Ss   /usr/libexec/ASP /usr/libexec/ASPCarryLog
+18539     1 18539 Thu Oct  8 16:19:27 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CacheDelete.framework/deleted
+18543     1 18543 Thu Oct  8 16:19:29 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/CacheDelete.framework/deleted_helper
+18544     1 18544 Thu Oct  8 16:19:33 2026     S    /usr/libexec/rep /usr/libexec/replayd
+18546     1 18546 Thu Oct  8 16:19:34 2026     S    /System/Library/ /System/Library/CoreServices/EscrowSecurityAlert.app/Contents/MacOS/EscrowSecurityAlert
+18547     1 18547 Thu Oct  8 16:19:34 2026     S    /System/Library/ /System/Library/PrivateFrameworks/GeoServices.framework/geodMachServiceBridge
+18548     1 18548 Thu Oct  8 16:19:34 2026     Ss   /usr/libexec/ane /usr/libexec/aned
+18549     1 18549 Thu Oct  8 16:19:34 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/PackageKit.framework/Resources/installd
+18550     1 18550 Thu Oct  8 16:19:35 2026     S    /System/Library/ /System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storedownloadd
+18551     1 18551 Thu Oct  8 16:19:35 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/PackageKit.framework/Resources/system_installd
+19042     1 19042 Thu Oct  8 16:19:40 2026     Ss   /System/Applicat /System/Applications/Music.app/Contents/PlugIns/MusicCacheExtension.appex/Contents/MacOS/MusicCacheExtension -AppleLanguages ("en-US")
+19052     1 19052 Thu Oct  8 16:19:48 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/CloudKitDaemon.framework/Support/cloudd --system
+19054     1 19054 Thu Oct  8 16:19:50 2026     Ss   /System/Applicat /System/Applications/TV.app/Contents/PlugIns/TVCacheExtension.appex/Contents/MacOS/TVCacheExtension -AppleLanguages ("en-US")
+19055     1 19055 Thu Oct  8 16:19:50 2026     Ss   /Applications/Sa /Applications/Safari.app/Contents/PlugIns/CacheDeleteExtension.appex/Contents/MacOS/CacheDeleteExtension -AppleLanguages ("en-US")
+19063     1 19063 Thu Oct  8 16:19:51 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/CloudDocsDaemon.framework/XPCServices/TelemetryDiskChecker.xpc/Contents/MacOS/TelemetryDiskChecker
+19293     1 19293 Thu Oct  8 16:20:08 2026     S    /System/Library/ /System/Library/PrivateFrameworks/AMPLibrary.framework/Versions/A/Support/AMPArtworkAgent --launchd
+19570     1 19570 Thu Oct  8 16:20:46 2026     S    /usr/libexec/met /usr/libexec/metrickitd
+19572     1 19572 Thu Oct  8 16:20:50 2026     S    /System/Library/ /System/Library/PrivateFrameworks/NewsDaemon.framework/newsd
+19573     1 19573 Thu Oct  8 16:20:51 2026     S    /usr/libexec/tip /usr/libexec/tipsd
+19574     1 19574 Thu Oct  8 16:20:51 2026     S    /System/Library/ /System/Library/PrivateFrameworks/PhotoAnalysis.framework/Versions/A/Support/photoanalysisd
+19852     1 19852 Thu Oct  8 16:21:03 2026     S    /System/Library/ /System/Library/CoreServices/ScopedBookmarkAgent
+20509     1 20509 Thu Oct  8 16:21:08 2026     S    /System/Library/ /System/Library/PrivateFrameworks/Noticeboard.framework/Versions/A/Resources/nbagent.app/Contents/MacOS/nbagent
+21991     1 21991 Thu Oct  8 16:21:29 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/Noticeboard.framework/Versions/A/Resources/nbstated
+21992     1 21992 Thu Oct  8 16:21:29 2026     S    /System/Library/ /System/Library/PrivateFrameworks/SocialLayer.framework/sociallayerd.app/Contents/MacOS/sociallayerd
+22237     1 22237 Thu Oct  8 16:21:32 2026     S    cloudphotod      cloudphotod
+22480     1 22480 Thu Oct  8 16:21:36 2026     S    /System/Library/ /System/Library/PrivateFrameworks/IMDPersistence.framework/IMAutomaticHistoryDeletionAgent.app/Contents/MacOS/IMAutomaticHistoryDeletionAgent
+22481     1 22481 Thu Oct  8 16:21:36 2026     S    /System/Library/ /System/Library/CoreServices/mapspushd
+22482     1 22482 Thu Oct  8 16:21:36 2026     S    /System/Library/ /System/Library/PrivateFrameworks/IntlPreferences.framework/Support/localizationswitcherd
+22483     1 22483 Thu Oct  8 16:21:37 2026     S    /usr/libexec/pro /usr/libexec/proactiveeventtrackerd
+22485     1 22485 Thu Oct  8 16:21:40 2026     Ss   /usr/libexec/dpr /usr/libexec/dprivacyd
+22487     1 22487 Thu Oct  8 16:21:45 2026     S    /Library/Apple/S /Library/Apple/System/Library/CoreServices/SafariSupport.bundle/Contents/MacOS/SafariLaunchAgent
+22489     1 22489 Thu Oct  8 16:21:49 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/MediaConversionService.framework/Versions/A/XPCServices/com.apple.photos.ImageConversionService.xpc/Contents/MacOS/com.apple.photos.ImageConversionService
+22492     1 22492 Thu Oct  8 16:21:54 2026     Ss   /System/Library/ /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService
+22494     1 22494 Thu Oct  8 16:21:59 2026     U    /System/Library/ /System/Library/PrivateFrameworks/MediaAnalysis.framework/Versions/A/mediaanalysisd
+22749     1 22749 Thu Oct  8 16:22:21 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/CoreLSKD.framework/Versions/A/lskdd
+22750     1 22750 Thu Oct  8 16:22:21 2026     S    /usr/libexec/sil /usr/libexec/silhouette
+22754     1 22754 Thu Oct  8 16:22:21 2026     Ss   /usr/bin/sysdiag /usr/bin/sysdiagnose
+22756     1 22756 Thu Oct  8 16:22:21 2026     Ss   /System/Applicat /System/Applications/Mail.app/Contents/PlugIns/MailCacheDelete.appex/Contents/MacOS/MailCacheDelete -AppleLanguages ("en-US")
+23250     1 23250 Thu Oct  8 16:22:36 2026     S    /usr/libexec/pro /usr/libexec/proactived
+23251     1 23251 Thu Oct  8 16:22:36 2026     S    /usr/libexec/tra /usr/libexec/transparencyd
+23519     1 23519 Thu Oct  8 16:23:08 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/AssistantServices.framework/Versions/A/XPCServices/media-indexer.xpc/Contents/MacOS/media-indexer
+23520     1 23520 Thu Oct  8 16:23:10 2026     S    /System/Library/ /System/Library/PrivateFrameworks/PodcastServices.framework/XPCServices/PodcastContentService.xpc/Contents/MacOS/PodcastContentService
+23521     1 23521 Thu Oct  8 16:23:10 2026     S    /System/Library/ /System/Library/PrivateFrameworks/BookKit.framework/Versions/A/XPCServices/com.apple.BKAgentService.xpc/Contents/MacOS/com.apple.BKAgentService
+24541     1 24541 Thu Oct  8 16:23:42 2026     S    /System/Library/ /System/Library/CoreServices/Setup Assistant.app/Contents/Resources/mbuseragent
+24794     1 24794 Thu Oct  8 16:23:43 2026     Ss   /System/Library/ /System/Library/PrivateFrameworks/StorageKit.framework/Resources/storagekitd
+24796     1 24796 Thu Oct  8 16:23:57 2026     Ss   /usr/libexec/Dat /usr/libexec/DataDetectorsSourceAccess
+24797     1 24797 Thu Oct  8 16:23:58 2026     S    /usr/libexec/app /usr/libexec/appleaccountd
+26039     1 26039 Thu Oct  8 16:25:24 2026     S    /usr/sbin/distno /usr/sbin/distnoted agent
+30383     1 30383 Thu Oct  8 16:28:58 2026     Ss   /System/Library/ /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper
+30384     1 30384 Thu Oct  8 16:29:01 2026     Ss   /System/Library/ /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService
+30387     1 30387 Thu Oct  8 16:29:04 2026     Ss   /usr/libexec/app /usr/libexec/applessdstatistics
+31120     1 31120 Thu Oct  8 16:29:21 2026     S    /System/Library/ /System/Library/PrivateFrameworks/ContactsDonation.framework/Versions/A/Support/contactsdonationagent
+33071  2023 33071 Thu Oct  8 16:29:47 2026     Ss   /usr/local/Cella /usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python -B /Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/build_draft.py
+52318     1 52318 Thu Oct  8 16:31:41 2026     Ss   /usr/libexec/Rep /usr/libexec/ReportMemoryException
+54661     1 54661 Thu Oct  8 16:31:54 2026     S    /System/Library/ /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared -s mdworker -c MDSImporterWorker -m com.apple.mdworker.shared
+62644 33071 33071 Thu Oct  8 16:32:44 2026     R    /bin/ps          /bin/ps -axo pid,ppid,pgid,lstart,state,comm,args

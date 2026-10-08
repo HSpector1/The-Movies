@@ -1,0 +1,20 @@
+{
+  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-r1-pre-adoption-archive-20261008-r1",
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "a8eaa62a6a65fb0c25d89de507ce7a7b1313d5d4e5bb1b795bebb847e4e8d006",
+  "candidatePinsSha256": "61e1f4da792e4f0a4209a5b0b04835c810c61f30b7a583aa8c2026987e50cb8a",
+  "draftBindingSha256": "a93c2c1fee0b73e031f6251f0e25ae8209d2bdf933c4eb62c43e14777ff581c5",
+  "draftPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1",
+  "launchAuthorized": false,
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "sevenDraftFiles": {
+    "ADOPTION-PLAN.md": "cb363ccdb88ebe3254cc766ef4e19f094c03f16344b72d499068b635ad6112e1",
+    "BINDING-DRAFT.json": "a93c2c1fee0b73e031f6251f0e25ae8209d2bdf933c4eb62c43e14777ff581c5",
+    "BINDING-SEMANTIC.json": "90e3dbfcb856519885e6a16bdfa796d729f925e7b0d0d6c6ca47ee0f5d900a69",
+    "CANDIDATE-PINS.json": "61e1f4da792e4f0a4209a5b0b04835c810c61f30b7a583aa8c2026987e50cb8a",
+    "DEPENDENCY-LINKS.json": "a6413a03b7a8216122639a8792159876c6b00560d57e620350a15d341ae3489f",
+    "DRAFT-REPORT.json": "78833fc0c9fdf97f21625862a61eed5f40be589bbff9457b8994697fc160483b",
+    "SOURCE-MANIFEST.json": "df8abd56d6b9de84aa3552275a7e564e66d53b2718ff33f9c2e3080a449a0c1d"
+  },
+  "sourcePinsSha256": "8f5e02563e18fd65fe938390dde2c02e53bfacfd9ccbe668318ea6a0a9d50116"
+}

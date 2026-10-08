@@ -1,0 +1,14 @@
+{
+  "basis": "Existing whole-builder wall-clock sample only; inventory completed before OBSERVATIONS timestamp. Upper bound includes earlier tool/receipt/blob checks and subsequent process/FD/root checks. No extra benchmark. Actual route includes protected byte snapshots, copy, allocation/cleanup/finalization; projection is neither guarantee nor clock amendment.",
+  "builderPid": 33071,
+  "builderStartedAtUtcSeconds": "2026-10-08T21:29:47+00:00",
+  "inventoryCountInActualRoute": 3,
+  "observationsTimestampUtc": "2026-10-08T21:32:44.643212+00:00",
+  "projectionExceedsSupervisorBound": false,
+  "remainderAfterInventoryProjectionSeconds": 393,
+  "schema": "1370-r5-first-full-inventory-timing-r1",
+  "singleInventoryElapsedUpperBoundSeconds": 179,
+  "threeInventoryUpperBoundProjectionSeconds": 537,
+  "unchangedSupervisorWholeSeconds": 930,
+  "wholeBuilderElapsedUpperBoundSeconds": 179
+}

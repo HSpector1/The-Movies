@@ -1,0 +1,23 @@
+{
+  "designReceiptSha256": "27a5f1501ac3ee92d5b5f2e6ceb59dcd389d74c9fa62714c361feeddd2951b55",
+  "executionAuthorization": false,
+  "files": {
+    "BINDING-UNFILLED.json": "a7fb6f9480735151c03d6aec58afbaf5df8da3e95bcd3312c25446d6ef60df3b",
+    "PLAN.md": "9fe40765cad31019ae0474c1836d421655b2b4bd126a5dde981de8e9f9af9136",
+    "materialize.py": "b558ca849ff4494f4fdad0b08510cd95eed17f6fc2aa99238b735784c332690a",
+    "record.py": "0313af5827859ea7fad9132b0f3f6de81867b4155bcf5c7c8531220b7d2d5802",
+    "supervise.py": "789619893b7a531a240f2422845e7909babf73fd7eacb364ca91fcb2d2f72202",
+    "test_synthetic.py": "292543fd1d0d2f8bb5be3ef184272bf997e0e8bca155bfc52c1e70b2e3b63e6b",
+    "test_xattr_fd.py": "917aa7cfbd3d6ceb7db7e7d0dd142809647b832b0223c7d6288b93fe07f23ddf"
+  },
+  "r1RefineReceiptSha256": "b60b5bb0857d5794e1859c1b22e4cbbde66411c8e3afad1fdc8ad107067c5c88",
+  "r2RefineReceiptSha256": "011e7d739daa06044b5dad157b5c0af54ef0f4d8b5593a0b0afadf2e390c3a69",
+  "r3RefineReceiptSha256": "a206e34f4b8c625bf12a20e3f13707d4f105cf108b39b5831237751f0490ec5c",
+  "r4RuntimeStopReceiptSha256": "49a0e454fdddb448e2b93aae04e246032e625ab607faac8e13676f57b56fdba2",
+  "r4SourcePinsSha256": "f5e985ffe629d87a3292506c7506bbdc153d923e2fa5cafd1db445d3c5e11105",
+  "r4SourceReviewSha256": "398698481cda21d48a4b6cd6f069368d5dd97eb106fbd117546612056a4126e1",
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "status": "SOURCE_ONLY_UNRUN",
+  "xattrToolPath": "/usr/bin/xattr",
+  "xattrToolSha256": "95f0f1b985717026d8032d42f75aea3fed3e0283a4629537aa32ae4b5b6bbbb5"
+}

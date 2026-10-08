@@ -1,0 +1,10 @@
+{
+  "status": "UNFILLED_UNRUN",
+  "executionAuthorization": false,
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "manifestSha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5",
+  "outputRoot": null,
+  "exactReview": null,
+  "assumption": "No external same-UID renamer/replacer during one recorded lane; accepted Vitest/Node child chain does not detach; parent fresh protected FD/process/lane guards required."
+}

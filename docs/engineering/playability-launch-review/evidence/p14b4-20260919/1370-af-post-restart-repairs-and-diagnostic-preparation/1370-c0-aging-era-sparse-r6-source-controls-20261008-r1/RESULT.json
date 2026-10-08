@@ -1,0 +1,182 @@
+{
+  "bytecodeDisabled": true,
+  "claimLimit": "Tiny owned source-control files and inherited short source tests only, no historical materialization rerun, witness/game/native fixture or production/Git change. r5 STOP and source preserved.",
+  "globalLockAbsent": true,
+  "greenInherited": {
+    "passed": 11
+  },
+  "greenModes": {
+    "passed": 8,
+    "total": 8
+  },
+  "greenXattrFd": {
+    "passed": 5,
+    "total": 5
+  },
+  "lanes": {
+    "inherited-r6-green": {
+      "actualHelperExit": 0,
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/inherited-r6-green.lane.log",
+      "logSha256": "ea1391c03354de06ff26c3f1a10650efd9aaff9ea2a9e48804abdc6bfe4a4700",
+      "metaPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/inherited-r6-green.lane.log.meta",
+      "metaSha256": "5b0f56c9a03724ed32c83d57824f52da63210268dc2b4d6f235c78f123496dfb",
+      "oneActualStartEnd": true,
+      "results": {
+        "message": "PASS tiny COW, guards, watchdog, free STOP, late finalization, binding drift STOP",
+        "passed": 11
+      }
+    },
+    "modes-r5-red": {
+      "actualHelperExit": 1,
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/modes-r5-red.lane.log",
+      "logSha256": "fa9d5dc420637473ba110daf9eaaf6074008eeea50f5d3893c587276f46ec1bd",
+      "metaPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/modes-r5-red.lane.log.meta",
+      "metaSha256": "3e577004a322d98d5424a9366ef43bc5ca9f75fd056014618c3951dd2ceb761f",
+      "oneActualStartEnd": true,
+      "results": {
+        "claimLimit": "Tiny owned source-control files only, no historical checkout/dependency copy, game, witness/native fixture or production/Git mutation.",
+        "passed": 4,
+        "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5",
+        "tests": [
+          {
+            "exception": "AssertionError",
+            "message": "('0o77', '0o600', '0o644')",
+            "name": "mask_077_mode_644",
+            "status": "FAIL"
+          },
+          {
+            "name": "mask_077_mode_600",
+            "status": "PASS"
+          },
+          {
+            "name": "mask_022_mode_644",
+            "status": "PASS"
+          },
+          {
+            "name": "mask_022_mode_600",
+            "status": "PASS"
+          },
+          {
+            "exception": "AssertionError",
+            "message": "({'package.json': {'type': 'regular', 'mode': 384, 'bytes': 3, 'links': 1, 'sha256': 'ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356'}, 'tests/tiny.fixture': {'type': 'regular', 'mode': 384, 'bytes': 3, 'links': 1, 'sha256': '712450d3c4a79eea9509e75dc1dacdeff58034df538536cfae2da882bd8a0c50'}, 'src/core/example.ts': {'type': 'regular', 'mode': 384, 'bytes': 21, 'links': 1, 'sha256': '0683eb7823cf015cb183d2300fc54aa6d95b6d22fa41e81ee4de29a99617f262'}}, {'package.json': {'type': 'regular', 'mode': 420, 'bytes': 3, 'links': 1, 'sha256': 'ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356'}, 'src/core/example.ts': {'type': 'regular', 'mode': 420, 'bytes': 21, 'links': 1, 'sha256': '0683eb7823cf015cb183d2300fc54aa6d95b6d22fa41e81ee4de29a99617f262'}, 'tests/tiny.fixture': {'type': 'regular', 'mode': 420, 'bytes': 3, 'links': 1, 'sha256': '712450d3c4a79eea9509e75dc1dacdeff58034df538536cfae2da882bd8a0c50'}})",
+            "name": "actual_helper077_tiny_source_manifest",
+            "status": "FAIL"
+          },
+          {
+            "name": "exclusive_existing_file_preserved",
+            "status": "PASS"
+          },
+          {
+            "exception": "AssertionError",
+            "message": "fchmod failure ignored",
+            "name": "fchmod_failure_closes_and_removes_only_owned_file",
+            "status": "FAIL"
+          },
+          {
+            "exception": "AttributeError",
+            "message": "module 'materialize' has no attribute 'assert_physical_checkout'",
+            "name": "bounded_metadata_only_physical_diff",
+            "status": "FAIL"
+          }
+        ],
+        "total": 8
+      }
+    },
+    "modes-r6-green": {
+      "actualHelperExit": 0,
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/modes-r6-green.lane.log",
+      "logSha256": "efaca062130c8d4ae9c7735bda62549592d94ddd7315057b5434494669d4b1d6",
+      "metaPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/modes-r6-green.lane.log.meta",
+      "metaSha256": "69617077def2a0fe536004524e40ec7d03b16f14c471854dba5b898eac91f971",
+      "oneActualStartEnd": true,
+      "results": {
+        "claimLimit": "Tiny owned source-control files only, no historical checkout/dependency copy, game, witness/native fixture or production/Git mutation.",
+        "passed": 8,
+        "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6",
+        "tests": [
+          {
+            "name": "mask_077_mode_644",
+            "status": "PASS"
+          },
+          {
+            "name": "mask_077_mode_600",
+            "status": "PASS"
+          },
+          {
+            "name": "mask_022_mode_644",
+            "status": "PASS"
+          },
+          {
+            "name": "mask_022_mode_600",
+            "status": "PASS"
+          },
+          {
+            "name": "actual_helper077_tiny_source_manifest",
+            "status": "PASS"
+          },
+          {
+            "name": "exclusive_existing_file_preserved",
+            "status": "PASS"
+          },
+          {
+            "name": "fchmod_failure_closes_and_removes_only_owned_file",
+            "status": "PASS"
+          },
+          {
+            "name": "bounded_metadata_only_physical_diff",
+            "status": "PASS"
+          }
+        ],
+        "total": 8
+      }
+    },
+    "xattr-fd-r6-green": {
+      "actualHelperExit": 0,
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/xattr-fd-r6-green.lane.log",
+      "logSha256": "18a541ab44cf686a550b66ecbd9b5f2537ccc74b9ab830a879da236196688ec5",
+      "metaPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/xattr-fd-r6-green.lane.log.meta",
+      "metaSha256": "0ceb6438e7e2c19074f241eb7f79ea62ee288cdb5b57a365631691cc028c78fa",
+      "oneActualStartEnd": true,
+      "results": {
+        "claimLimit": "Tiny owned scratch/CLI source controls; no historical materialization, game/native fixture or dependency execution.",
+        "passed": 5,
+        "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6",
+        "tests": [
+          {
+            "name": "actual_darwin_binary_empty_attrs_link_nofollow",
+            "status": "PASS"
+          },
+          {
+            "name": "xattr_parser_exact_bytes_and_nofollow_argv",
+            "status": "PASS"
+          },
+          {
+            "name": "xattr_malformed_and_command_failures_stop",
+            "status": "PASS"
+          },
+          {
+            "name": "lsof_explicit_access_without_fd_suffix",
+            "status": "PASS"
+          },
+          {
+            "name": "real_owned_scratch_writable_fd",
+            "status": "PASS"
+          }
+        ],
+        "total": 5
+      }
+    }
+  },
+  "r5ActualCopyStopResultPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r5-20261008-r1/RESULT.json",
+  "r5ActualCopyStopResultSha256": "78031f57f49258746d6c00bfa14ad0dcdf46a07951a6cd1252d08ca836f8fb15",
+  "redModes": {
+    "actualHelperExit": 1,
+    "passed": 4,
+    "total": 8
+  },
+  "schema": "1370-c0-sparse-materializer-r6-source-controls-r1",
+  "sourceFilesVerified": true,
+  "sourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+  "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6",
+  "status": "PASS_SOURCE_CONTROLS_MATERIALIZATION_UNRUN"
+}

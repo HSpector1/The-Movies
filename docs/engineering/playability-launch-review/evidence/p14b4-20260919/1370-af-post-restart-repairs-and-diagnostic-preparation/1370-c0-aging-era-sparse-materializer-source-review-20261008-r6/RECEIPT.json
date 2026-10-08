@@ -1,0 +1,30 @@
+{
+  "schema": "1370-c0-aging-era-sparse-materializer-independent-source-review-r6",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN",
+  "executionAuthorization": false,
+  "qualifiedSourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "designReceiptSha256": "27a5f1501ac3ee92d5b5f2e6ceb59dcd389d74c9fa62714c361feeddd2951b55",
+  "reviewedSourcePinsPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/SOURCE-PINS.json",
+  "reviewedSourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+  "r5SourcePinsSha256": "8f5e02563e18fd65fe938390dde2c02e53bfacfd9ccbe668318ea6a0a9d50116",
+  "r5SourceReviewSha256": "2dd8d3f42bd8e7c0dc07f742cc66e5ab901f3840d274ce7786f7026df33b9527",
+  "r5ObservedStopResultSha256": "78031f57f49258746d6c00bfa14ad0dcdf46a07951a6cd1252d08ca836f8fb15",
+  "sourceControlsReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-source-controls-20261008-r1/RESULT.json",
+  "sourceControlsReceiptSha256": "c0489472a93f790f5680b1cf9f155fb6deef6e0afa962ce6d781c31ea9e5c5c1",
+  "recordedSourceControls": "ACTUAL_HELPER_R5_RED4_OF8_EXIT1_R6_MODE_GREEN8_OF8_INHERITED11_XATTR_FD5_EXIT0",
+  "reviewerTestsRerun": false,
+  "physicalAdmissionEquivalent": true,
+  "ownedExclusiveFdModeRepairAccepted": true,
+  "realCheckoutOrCopyRunByReviewer": false,
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r6/REPORT.md",
+  "reportSha256": "fa0550fd21ff95147a11b86f5d6151d86f8b8cb8aabd024108a98e0d68543b0a",
+  "requiredNext": [
+    "parent replacement-source scope adoption",
+    "fresh independent exact filled binding/current guards/adoption procedure/launch review",
+    "archive original draft and adopt only five excluded fields",
+    "fresh independent adopted preflight",
+    "parent-owned recorded copy-only materialization",
+    "independent observed bytes/allocation/process/FD/override STOP review",
+    "separate witness binding review"
+  ]
+}

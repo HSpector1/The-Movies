@@ -1,0 +1,218 @@
+{
+  "adoptedBindingSha256": "4e07a2132a6fce6138bf3b7eef0d1c549df727421a42cdc9c679c0084036b4ef",
+  "adoptedPreflightReviewPath": null,
+  "adoptedPreflightReviewSha256": null,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-20261008-r1-lane/materialize-r5-r1.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-DRAFT.json"
+  ],
+  "bindingDraftStatusAtProposal": "DRAFT_UNREVIEWED_UNRUN",
+  "bindingExecutionAuthorizationAtProposal": false,
+  "bindingSemanticSha256": "a8eaa62a6a65fb0c25d89de507ce7a7b1313d5d4e5bb1b795bebb847e4e8d006",
+  "candidatePinsSha256": "61e1f4da792e4f0a4209a5b0b04835c810c61f30b7a583aa8c2026987e50cb8a",
+  "claimLimit": "Adopted checksum and exact argv proposal only; independent adopted preflight/launch review required. Helper prechild waits remain outside930 and unexpected waits STOP.",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "draftBindingSha256": "a93c2c1fee0b73e031f6251f0e25ae8209d2bdf933c4eb62c43e14777ff581c5",
+  "exactBindingReviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-20261008-r1/RECEIPT.json",
+  "exactBindingReviewSha256": "098119dba381fa307f63ff1cdd7d5bb2b456efc4effb049662238b9087551dd2",
+  "lane": {
+    "globalLock": "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK",
+    "globalLockAbsentAtProposal": true,
+    "helperInvokedByBash": true,
+    "helperPreChildLockAndHeavyWaitOutsideSupervisorClock": true,
+    "helperSourceMode": "0644",
+    "helperWaitPid": "0",
+    "log": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-20261008-r1-lane/materialize-r5-r1.lane.log",
+    "logAndMetaAbsentAtProposal": true,
+    "meta": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-20261008-r1-lane/materialize-r5-r1.lane.log.meta",
+    "parent": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-20261008-r1-lane",
+    "parentMode": "0700",
+    "supervisorWholeSeconds": 930
+  },
+  "launchAuthorized": false,
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "requiredEnvironment": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "requiredObservation": [
+    "STOP parent if helper unexpectedly waits on lock/heavy activity, is interrupted, or lacks unambiguous start/end meta",
+    "require one final meta end, exit N matching actual helper return and independently observed child exit",
+    "read r4 supervisor result and authoritative SUPERVISOR-OVERRIDE-STOP.json; any override or mismatch is STOP",
+    "verify worker/child groups clear, helper global lock removed, recorder lock cleanup, physical bytes/allocation, protected roots and FD checks"
+  ],
+  "requiredPreflight": [
+    "Require PYTHONDONTWRITEBYTECODE=1 for supervisor/recorder/materializer inheritance and Python -B on supervisor",
+    "Independently accepted r5 source/runtime compatibility and FD repairs; fresh exact review still required",
+    "independent exact filled r5 approval and in-place adoption with archived original and adopted preflight",
+    "fresh local/remote HEAD, clean repo, all role hashes/modes, source/dependency/protected paths, process and FD checks",
+    "global HEAVY-LANE-LOCK absent and heavy Vitest/tsc processes idle immediately before launch",
+    "unique lane log and meta absent; no competing old/new lane writer; old exact workers remain absent and protected writable FD scope unchanged",
+    "fresh free-space threshold and no-external-same-UID-renamer scope"
+  ],
+  "roles": {
+    "acceptedR8Helper": {
+      "device": 16777220,
+      "inode": 166476929,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "regular": true,
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+      "symlink": false
+    },
+    "bash": {
+      "device": 16777220,
+      "inode": 1152921500312781165,
+      "links": 1,
+      "mode": "0555",
+      "path": "/bin/bash",
+      "regular": true,
+      "sha256": "89ae3c42471a171967cc239564e95870f6da9e0952e74e27ccd28283b0ad0cfa",
+      "symlink": false
+    },
+    "helperIndependentSourceReview": {
+      "device": 16777220,
+      "inode": 166477041,
+      "links": 1,
+      "mode": "0444",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-r8-lane-source-independent-review-r1-rwa7o4oe/RECEIPT.json",
+      "regular": true,
+      "sha256": "e03a740c5d9fcc704a105adb977759e6393d279c929c166fd35812946c3c7475",
+      "symlink": false
+    },
+    "helperSourcePins": {
+      "device": 16777220,
+      "inode": 166476982,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/SOURCE-PINS.json",
+      "regular": true,
+      "sha256": "9e11563756fb516cfa92591492a1de6fe8d0d0ccfdb93c34bc9b9feffbb94003",
+      "symlink": false
+    },
+    "independentCopyScopeReview": {
+      "device": 16777220,
+      "inode": 166534980,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-materialization-survivor-scope-review-20261008-r2/RECEIPT.json",
+      "regular": true,
+      "sha256": "6804fd7e2b7fd53d6023bf089fe22cec9c399dbaf2ea7ba03c5c91981719d6cc",
+      "symlink": false
+    },
+    "parentAdoptedAmendment": {
+      "device": 16777220,
+      "inode": 166535212,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AD-copy-only-operational-amendment-and-p16a-preparation.md",
+      "regular": true,
+      "sha256": "337c9ec87a9e3b3eebd55c647c7219b6afee8043505ad2aa6a01c1b329c47032",
+      "symlink": false
+    },
+    "postRestartClearance": {
+      "device": 16777220,
+      "inode": 166544128,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-post-restart-clearance-20261008-r1/RESULT.json",
+      "regular": true,
+      "sha256": "ae3757ca42e740d4d04dbeb113297ad22ea54535acbde1b0af34dc8c22fb8258",
+      "symlink": false
+    },
+    "pythonResolved": {
+      "device": 16777220,
+      "inode": 72062271,
+      "links": 1,
+      "mode": "0755",
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "regular": true,
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+      "symlink": false
+    },
+    "r5BindingAdopted": {
+      "device": 16777220,
+      "inode": 166549295,
+      "links": 1,
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-DRAFT.json",
+      "regular": true,
+      "sha256": "4e07a2132a6fce6138bf3b7eef0d1c549df727421a42cdc9c679c0084036b4ef",
+      "symlink": false
+    },
+    "r5BindingSemanticFile": {
+      "device": 16777220,
+      "inode": 166548896,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-SEMANTIC.json",
+      "regular": true,
+      "sha256": "90e3dbfcb856519885e6a16bdfa796d729f925e7b0d0d6c6ca47ee0f5d900a69",
+      "symlink": false
+    },
+    "r5CandidatePins": {
+      "device": 16777220,
+      "inode": 166548899,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/CANDIDATE-PINS.json",
+      "regular": true,
+      "sha256": "61e1f4da792e4f0a4209a5b0b04835c810c61f30b7a583aa8c2026987e50cb8a",
+      "symlink": false
+    },
+    "sourcePins": {
+      "device": 16777220,
+      "inode": 166547758,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/SOURCE-PINS.json",
+      "regular": true,
+      "sha256": "8f5e02563e18fd65fe938390dde2c02e53bfacfd9ccbe668318ea6a0a9d50116",
+      "symlink": false
+    },
+    "sourceReview": {
+      "device": 16777220,
+      "inode": 166548700,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r5/RECEIPT.json",
+      "regular": true,
+      "sha256": "2dd8d3f42bd8e7c0dc07f742cc66e5ab901f3840d274ce7786f7026df33b9527",
+      "symlink": false
+    },
+    "supervisor": {
+      "device": 16777220,
+      "inode": 166547753,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/supervise.py",
+      "regular": true,
+      "sha256": "789619893b7a531a240f2422845e7909babf73fd7eacb364ca91fcb2d2f72202",
+      "symlink": false
+    },
+    "xattr": {
+      "device": 16777220,
+      "inode": 1152921500312782999,
+      "links": 1,
+      "mode": "0755",
+      "path": "/usr/bin/xattr",
+      "regular": true,
+      "sha256": "95f0f1b985717026d8032d42f75aea3fed3e0283a4629537aa32ae4b5b6bbbb5",
+      "symlink": false
+    }
+  },
+  "runtimeCompatibility": {
+    "claimLimit": "Fresh exact/launch/adopted/observed reviews still required; no materialization.",
+    "platform": "darwin",
+    "status": "R5_SOURCE_REPAIRS_REVIEWED_SOURCE_ONLY"
+  },
+  "schema": "1370-c0-aging-era-sparse-r5-r1-launch-command-proposal-r1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "ADOPTED_UNRUN_PREFLIGHT_REQUIRED"
+}

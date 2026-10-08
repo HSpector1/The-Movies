@@ -1,0 +1,26 @@
+{
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN",
+  "designReceiptSha256": "27a5f1501ac3ee92d5b5f2e6ceb59dcd389d74c9fa62714c361feeddd2951b55",
+  "executionAuthorization": false,
+  "qualifiedSourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "r4RuntimeStopReceiptSha256": "49a0e454fdddb448e2b93aae04e246032e625ab607faac8e13676f57b56fdba2",
+  "r4SourcePinsSha256": "f5e985ffe629d87a3292506c7506bbdc153d923e2fa5cafd1db445d3c5e11105",
+  "r4SourceReviewSha256": "398698481cda21d48a4b6cd6f069368d5dd97eb106fbd117546612056a4126e1",
+  "realCheckoutOrCopyRun": false,
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r5/REPORT.md",
+  "reportSha256": "7135cf4bb086636ab5d5820c077eea9d5f4488122d28ef9ec1815e26298db427",
+  "requiredNext": [
+    "fresh independent exact filled-binding/current guards/adoption procedure/launch review",
+    "archive original draft and adopt only five excluded fields",
+    "fresh independent adopted preflight",
+    "parent-owned recorded copy-only materialization",
+    "independent observed bytes/allocation/process/FD/override STOP review",
+    "separate r7 witness binding review"
+  ],
+  "reviewedSourcePinsPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r5/SOURCE-PINS.json",
+  "reviewedSourcePinsSha256": "8f5e02563e18fd65fe938390dde2c02e53bfacfd9ccbe668318ea6a0a9d50116",
+  "schema": "1370-c0-aging-era-sparse-materializer-independent-source-review-r5",
+  "sourceControlsReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r4-preparation-20261008-r1/R5-SOURCE-CONTROLS-RESULT.json",
+  "sourceControlsReceiptSha256": "3070647c0584b3fa0b08541a8b26f5574e9d03dc4f57d5fc8eca275bdf45ddd8",
+  "tinySyntheticTests": "RECORDED_FOCUSED_RED_0_OF_5_GREEN_5_OF_5_INHERITED_11_PASS"
+}

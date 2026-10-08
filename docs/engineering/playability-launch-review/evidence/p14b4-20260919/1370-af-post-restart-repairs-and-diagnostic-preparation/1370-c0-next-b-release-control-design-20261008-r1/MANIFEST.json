@@ -1,0 +1,18 @@
+{
+  "classification": "SOURCE_PROPOSAL_ONLY_UNREVIEWED_UNRUN",
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "predecessorPath": "/Users/zacheryspector/studio-scratch/1369-save46-b-only-green-source-proposal-r3/tree/src/core/hollywoodTick.ts",
+  "predecessorSha256": "68b326c9422300b4321c62ed1171d7dc6dbca4b9e8c4ef1ac25a16798bd9f81c",
+  "candidateWholeFileSha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73",
+  "files": {
+    "RECIPE.md": {
+      "bytes": 5954,
+      "sha256": "abc05a8e75da2ef0668a5bf1886901c9d7eb5bad95b6be6201453eed11dc0606"
+    },
+    "r04-b-release-off.patch": {
+      "bytes": 779,
+      "sha256": "39a70b3607c563f29699b9f1f1d31126826f1f39478e7a05d735a7d13e9f4abc"
+    }
+  }
+}

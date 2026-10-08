@@ -1,0 +1,17 @@
+{
+  "schema": "1370-c0-b-release-one-tick-source-review-r3",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN",
+  "manifestPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/MANIFEST.json",
+  "manifestSha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5",
+  "runnerSha256": "9dd6b54c75b6bc7401f9f56ca89a882846185450cf5a8a51744d98da013544e0",
+  "reportSha256": "997d15240c9354cc39a287f3a0f0d5de8a7c1a35b85c80f7f7eca0c8030a6d5f",
+  "r2Finding": "single JSON cap repair structurally closed",
+  "headRole": "preparation provenance; fresh independently semantically reviewed binding plus live local/remote/clean guards binds actual checkpoint HEAD",
+  "fixedProductionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "expectedFocusedChecks": 23,
+  "focusedChecksRun": false,
+  "acceptanceContingency": "observed bounded no-game focused checks and fresh exact binding/adoption/preflight review",
+  "gameRun": false,
+  "gitCommands": false,
+  "productionWrites": false
+}

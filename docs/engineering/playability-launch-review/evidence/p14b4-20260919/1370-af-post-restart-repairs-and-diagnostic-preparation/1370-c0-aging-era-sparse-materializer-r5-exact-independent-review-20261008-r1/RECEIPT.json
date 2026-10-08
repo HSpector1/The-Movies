@@ -1,0 +1,39 @@
+{
+  "adoptionProcedureDecision": "ACCEPT_EXACT_PROCEDURE_UNRUN",
+  "adoptionProcedurePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/adopt_reviewed_binding.py",
+  "adoptionProcedureSha256": "a616174f5716036d7d833b11ba7b9fb8b578776c7452f60106f311c0cb257f70",
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "a8eaa62a6a65fb0c25d89de507ce7a7b1313d5d4e5bb1b795bebb847e4e8d006",
+  "candidatePinsSha256": "61e1f4da792e4f0a4209a5b0b04835c810c61f30b7a583aa8c2026987e50cb8a",
+  "decision": "ACCEPT_EXACT_FILLED_UNRUN",
+  "draftDecision": "ACCEPT_DRAFT_ONLY",
+  "executionAuthorization": false,
+  "factsPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-20261008-r1/FACTS.json",
+  "factsSha256": "787560ca339b0e52441d13b16f5bb9e396e310d65e25ee305949fb910980ee71",
+  "launchProposalDecision": "ACCEPT_EXACT_ARGV_UNRUN_AFTER_ADOPTION_PREFLIGHT",
+  "launchSpecPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r5-exact-preparation-20261008-r1/LAUNCH-SPEC.json",
+  "launchSpecSha256": "d7f3335c49ed54209a743e8016a54bc760deae2b9d35e5c1e381c0e4a01a216a",
+  "materializationRun": false,
+  "parentR5SourceAdoptionPath": "/Users/zacheryspector/studio-scratch/1370-parent-r5-copy-source-adoption-20261008-r1/ADOPTION.json",
+  "parentR5SourceAdoptionSha256": "e15d8b29af5dcb2ad4f6a3fedc039bfda8efdd9824509c2ba2a17924295b55d3",
+  "preparationPinsSha256": "68d85b256ac97a19da20d620e958690bebd4070f136f793e8a5e47a93c10f296",
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-20261008-r1/REPORT.md",
+  "reportSha256": "b516b76ebdd6cee50e1a6299d1c7942cab94c3907a041e1a787117410a98c27e",
+  "requiredLaunchEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "requiredNext": [
+    "parent archive/original-path five-field adoption using reviewed procedure",
+    "independent adopted raw checksum and fresh preflight/argv review",
+    "one parent-owned guarded recorded copy-only lane",
+    "independent observed physical/allocation/protected/process/FD/override-STOP review"
+  ],
+  "reviewedDraftBindingSha256": "a93c2c1fee0b73e031f6251f0e25ae8209d2bdf933c4eb62c43e14777ff581c5",
+  "reviewedDraftPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1",
+  "schema": "1370-c0-aging-era-sparse-materializer-r5-exact-independent-review-r1",
+  "sourcePinsSha256": "8f5e02563e18fd65fe938390dde2c02e53bfacfd9ccbe668318ea6a0a9d50116",
+  "sourceReviewSha256": "2dd8d3f42bd8e7c0dc07f742cc66e5ab901f3840d274ce7786f7026df33b9527"
+}

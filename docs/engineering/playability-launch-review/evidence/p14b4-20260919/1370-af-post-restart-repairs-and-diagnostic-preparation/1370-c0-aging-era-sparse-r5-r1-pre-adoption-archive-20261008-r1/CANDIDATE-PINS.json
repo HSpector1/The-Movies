@@ -1,0 +1,29 @@
+{
+  "bindingSemanticSha256": "a8eaa62a6a65fb0c25d89de507ce7a7b1313d5d4e5bb1b795bebb847e4e8d006",
+  "dependencyFullInventorySha256": "b80a018c3f2b3dbca31a71a6b3866b447c194dd5e46a164586c96086d89f3a17",
+  "dependencyLinksSha256": "a6413a03b7a8216122639a8792159876c6b00560d57e620350a15d341ae3489f",
+  "executionAuthorization": false,
+  "files": {
+    "ADOPTION-PLAN.md": "cb363ccdb88ebe3254cc766ef4e19f094c03f16344b72d499068b635ad6112e1",
+    "BINDING-DRAFT.json": "a93c2c1fee0b73e031f6251f0e25ae8209d2bdf933c4eb62c43e14777ff581c5",
+    "BINDING-SEMANTIC.json": "90e3dbfcb856519885e6a16bdfa796d729f925e7b0d0d6c6ca47ee0f5d900a69",
+    "DEPENDENCY-LINKS.json": "a6413a03b7a8216122639a8792159876c6b00560d57e620350a15d341ae3489f",
+    "DRAFT-REPORT.json": "78833fc0c9fdf97f21625862a61eed5f40be589bbff9457b8994697fc160483b",
+    "SOURCE-MANIFEST.json": "df8abd56d6b9de84aa3552275a7e564e66d53b2718ff33f9c2e3080a449a0c1d"
+  },
+  "freeBytesAtDraft": 9822949376,
+  "freshObservationsSha256": "e2bb9522e2c335835b5a300a02df40cfcb9dbb368f4a737d11b9017d1b0a7501",
+  "inventoryTimingSha256": "c0130191eb8d7ccfc9ada127659aa30bc50a5aea906d4ebbcec65faae6e6e649",
+  "laneHelperReviewSha256": "e03a740c5d9fcc704a105adb977759e6393d279c929c166fd35812946c3c7475",
+  "laneHelperSha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+  "laneHelperSourcePinsSha256": "9e11563756fb516cfa92591492a1de6fe8d0d0ccfdb93c34bc9b9feffbb94003",
+  "launch": "LAUNCH_STOP_UNREVIEWED_UNADOPTED",
+  "operationalAmendmentDocumentSha256": "337c9ec87a9e3b3eebd55c647c7219b6afee8043505ad2aa6a01c1b329c47032",
+  "operationalScopeReviewSha256": "6804fd7e2b7fd53d6023bf089fe22cec9c399dbaf2ea7ba03c5c91981719d6cc",
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "schema": "1370-c0-aging-era-sparse-exact-candidate-pins-r5",
+  "sourceManifestSha256": "df8abd56d6b9de84aa3552275a7e564e66d53b2718ff33f9c2e3080a449a0c1d",
+  "sourcePinsSha256": "8f5e02563e18fd65fe938390dde2c02e53bfacfd9ccbe668318ea6a0a9d50116",
+  "sourceReviewSha256": "2dd8d3f42bd8e7c0dc07f742cc66e5ab901f3840d274ce7786f7026df33b9527",
+  "status": "DRAFT_UNREVIEWED_UNRUN"
+}

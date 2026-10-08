@@ -1,0 +1,33 @@
+{
+  "status": "PROPOSED_UNREVIEWED_UNRUN_FOCUSED_TESTS_ONLY",
+  "files": {
+    "MEMO.md": {
+      "sha256": "6c1033076b0c6d4f65e4d84138659877635c20451ea96bbd737ad39a352abe6b",
+      "bytes": 3642
+    },
+    "test-launch-refusals.py": {
+      "sha256": "dfaa526904b197b20efdae1c7c80efbceff93027efba0350fd4748f2c5e8ff24",
+      "bytes": 7764
+    }
+  },
+  "preservedOriginalPaths": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/launch-pipeline.sh": {
+      "sha256": "38f8bddc4aef317b4e83fe6e19e547b338bd3cd4fe0d86856f6a11e2b03fda50"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/bounded-sink.py": {
+      "sha256": "6a7a91d482ddaf80c8ecb6fd0d1912da7add50917102178845a6fa37db675b9e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/BINDING-TEMPLATE-UNFILLED.json": {
+      "sha256": "80f2c9df23ae50e1794e00b6b64fa3b6d40d7d7b32af3548588b2eabc350fdb2"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/test-sink-red.py": {
+      "sha256": "0e858163ac376195a941ed1f9c0571f55c0ca60075c9e5da69f0c935bb2c2ed1"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/MEMO.md": {
+      "sha256": "34b61fd4815dfac158d559185eb39090702ecbf9414e6491c3fba773a0352c0b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/PREPARATION-PINS.json": {
+      "sha256": "f16dabe238bdeeaae4abb45233d31e7b77efbb12f694ec9f89b748edf81fd6eb"
+    }
+  }
+}

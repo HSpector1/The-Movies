@@ -1,0 +1,11 @@
+# Independent observed r5 STOP review
+
+Decision: STOP_OBSERVED_CLEANED. This run produced no acceptable materialized copy.
+
+The one-shot helper meta records one start at 16:41:49 CDT and one end, exit 2, at 16:46:05 CDT. Parent actual tool session 24705 returned 2. The recorder child and supervisor worker also exited 2. RESULT and SUPERVISOR authenticate adopted binding SHA 4e07a2132a6fce6138bf3b7eef0d1c549df727421a42cdc9c679c0084036b4ef; recorder/child stdout/stderr hashes match. Supervisor elapsed 255.531063617 seconds is below 930 and timedOut is false. Both outputs are STOP. No authoritative override or prepared success exists.
+
+Child stderr is exactly `STOP:Stop:physical sparse checkout differs`. The accepted source reaches this guard after writing the 176 historical source files and before the dependency clone command. Empty child stdout contains no successful physical source, clone allocation, dependency comparison or protected end-snapshot result; those cannot be accepted or reconstructed from this run.
+
+Fresh independent checks confirm scratch root, recorder lock, global heavy lock, supervisor/worker/child PIDs and their process groups absent. The r5 explicit lsof access guard passes. Production is clean at c56e885aa3409f2b4f306238257b038a0f3a0b54 with src tree 13880d9b0ba72aff5d4c5bcf5d12fe682c5de554. Observed minimum free space was 9,811,189,760 bytes; current free space was 9,656,328,192 bytes. Fresh refs are preserved in FACTS, with the preflight evidence-ref discrepancy explicitly attributed as unresolved rather than claiming equality. Fresh checks do not establish unavailable before-and-after protected snapshot equality.
+
+A tiny owned scratch probe imports the exact r5 materializer without bytecode and calls its write_exclusive with requested mode 0644. Umask 022 produces 0644; umask 077 produces 0600, with identical bytes and one link. Accepted helper line 9 sets umask 077, inherited by its child; r5 does not fchmod the opened file, and its physical guard expects 0644. This establishes the concrete runtime compatibility defect and supports the proposed owned-FD fchmod repair. The deleted run checkout prevents direct observation of its historical file modes. No repair, helper replay, copy retry, game, witness, digest admission, adoption or launch was performed by this reviewer.
