@@ -1,0 +1,5 @@
+# Stage37 remote byte-audit implementation independent static review r1
+
+**REFINE; unrun.** Frozen script/SPEC/manifest bytes and the 11 synthetic tests match their pins. The filled SPEC preserves all 191 exact design rows, 4,298,338 bytes, tip 6f837b, parent 2a4, publisher result SHA and observed tip-only receipt SHA. The script checks local production HEAD/source tree/status and the remote evidence ref before and after the fresh clone.
+
+The accepted design requires rechecking source **and remote refs**, but `source_guard()` never checks the remote production ref `refs/heads/wip/headless-program-20260916-ts`; the script contains no such `ls-remote` check anywhere. Thus a production branch advance during the audit could still yield `ACCEPT_REMOTE_STAGE37_C0_EVIDENCE_BYTES_ONLY`. Version r2 must pin the production ref to f8 at both preflight and postflight (and ideally check origin URL), with synthetic refusal for drift. Also use `os.path.lexists` for the clone alternates path so a broken symlink is not counted as no alternates. Preserve r1 bytes and unrun label; independently review r2 before exact launch.

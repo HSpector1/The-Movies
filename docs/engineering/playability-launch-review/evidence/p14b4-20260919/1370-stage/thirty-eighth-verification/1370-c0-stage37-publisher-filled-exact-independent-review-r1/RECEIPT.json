@@ -1,0 +1,18 @@
+{
+  "absentOneShotPaths": true,
+  "acPower": true,
+  "baseEvidenceCommit": "2a4ca902ca4390017238e9a6cc398697e25feaa8",
+  "bashSyntaxPass": true,
+  "bindingSha256": "0dff1795cca71ae4a3b682e36a28ca4b359784145756ff7a32b0be2fc2cf4e38",
+  "claimLimit": "Exact command only; unrun, publication and remote bytes pending",
+  "commandSha256": "7c80dc36ec5fadb5ae0577c426dbde47ade3c80fa45aabdba9d9cd4fe98af2f9",
+  "decision": "ACCEPT_EXACT_ONLY",
+  "freeBytesAtReview": 3926212608,
+  "freshRemoteRefsMatched": true,
+  "laneLog": "/Users/zacheryspector/studio-scratch/1370-c0-stage37-publish-20261008-r1.lane.log",
+  "mapReviewReceiptSha256": "9838aa2db117013c99d207eff3e3196ab9e79b54477b651c51fde6696c01c5a9",
+  "productionHead": "f8c0628739227accfa446276b0613f47bc805a78",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "publisherStaticReceiptSha256": "0d586719822786dcd02542b722cd74c588c6e46d5eac39db9f9ee2380660b4ad",
+  "reportSha256": "2070d6200d9879813373dfcbe6a22b726799778e029906010a3af367fcdada28"
+}

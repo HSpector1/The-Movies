@@ -1,0 +1,12 @@
+{
+  "auditSha256": "f16b36a99aa17fcd64d599f146ba379470b7e01fb4522961fe9c16cacd9c46ff",
+  "bindingSha256": "abbe411cfbd3003d531b4337595454858cc7c3dc04269536cb61586cf04bd831",
+  "claimLimit": "Unrun; no fresh remote byte proof",
+  "decision": "REFINE",
+  "manifestSha256": "77b62383885f6b89ece1270cb6c4960a40b7ddaf0e1ef338cdce9b33fa31e8fb",
+  "reason": "Missing remote production-ref pre/post guard; alternates broken-symlink check follows path",
+  "reportSha256": "95a09787b1bae322c32e91ba84ba8d3aaea95a7e2d6f7f70833a3b2198ad1abf",
+  "specSha256": "d7c3e69f85c775954d3874779e7497a7b60e853ec826a5b5864f4be73838febe",
+  "syntheticTestsPassed": 11,
+  "testSha256": "373ce858c99e37517b371c679ddcf14b753f7fcb5c590fe1fa2f198693968070"
+}

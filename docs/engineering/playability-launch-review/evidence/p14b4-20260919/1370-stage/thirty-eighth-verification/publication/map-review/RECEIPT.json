@@ -1,0 +1,27 @@
+{
+  "baseEvidenceCommit": "6f837b1648803d0a8fe77c72dc6b1609f0a319a6",
+  "claimLimit": "Unpublished static map only; H types/capture/M0 future excluded",
+  "classificationCounts": {
+    "H_SOURCE_MIRROR_ONLY": 7,
+    "PRESERVE_SOURCE_CLASSIFICATION": 18,
+    "REFINE_UNRUN": 4,
+    "STAGE37_REMOTE_BYTES_ONLY": 22,
+    "SUPERSEDED_UNRUN": 10
+  },
+  "decision": "ACCEPT_STATIC_MAP_ONLY",
+  "freeBytesAtReview": 3812741120,
+  "hMaterializerResultSha256": "b8c70f731fc730cea3ba7238674fb964fb973e6ffcf58fcb03e0dbbd139196b6",
+  "hMirrorObservedReceiptSha256": "bb61794d874cdc80f1283459d9eca49c5174de441cde9dcbe971d36e2b9f226e",
+  "mapSha256": "452f9618aff087cae2dd51ac2ee5b061dafa8eac68735a389241033b7399392a",
+  "planSha256": "ff578872291a50fd22436b4957952425dcdcc5407dd080e477956daefc62ea19",
+  "prefixAbsent": true,
+  "productionClean": true,
+  "productionHead": "f8c0628739227accfa446276b0613f47bc805a78",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "remoteRefsMatched": true,
+  "reportSha256": "67263cfc231821a36b9619062acb5ff6d2828f6f15a83e0d3b7d3bfbdc97c9ad",
+  "sourceBytes": 388120,
+  "sourceCount": 61,
+  "stage37RemoteObservedReceiptSha256": "d47a7cefe094e383893887618a4a5d6ab980956b6e78e97763dc0a1090976e8c",
+  "targetPrefix": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-eighth-verification"
+}

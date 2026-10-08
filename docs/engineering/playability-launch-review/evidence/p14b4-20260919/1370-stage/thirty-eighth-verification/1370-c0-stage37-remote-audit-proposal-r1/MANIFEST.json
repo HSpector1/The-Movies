@@ -1,0 +1,33 @@
+{
+  "classification": "FROZEN_UNRUN_STATIC_REVIEW_PENDING",
+  "designReviewReceiptSha256": "f7131784a1b80a17060a2395a79f4835d8aa9c0fe7d318b8bd310c98440d4a26",
+  "expectedBytes": 4298338,
+  "expectedFiles": 191,
+  "files": [
+    {
+      "bytes": 10258,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage37-remote-audit-proposal-r1/audit.py",
+      "sha256": "f16b36a99aa17fcd64d599f146ba379470b7e01fb4522961fe9c16cacd9c46ff"
+    },
+    {
+      "bytes": 1970,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage37-remote-audit-proposal-r1/test_static.py",
+      "sha256": "373ce858c99e37517b371c679ddcf14b753f7fcb5c590fe1fa2f198693968070"
+    },
+    {
+      "bytes": 72094,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage37-remote-audit-proposal-r1/SPEC.json",
+      "sha256": "d7c3e69f85c775954d3874779e7497a7b60e853ec826a5b5864f4be73838febe"
+    },
+    {
+      "bytes": 2040,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage37-remote-audit-proposal-r1/PLAN.md",
+      "sha256": "f756b8dbe26cbd11d4b21d23c813a452e8706180534ee7926843819f72dfaac8"
+    }
+  ],
+  "parent": "2a4ca902ca4390017238e9a6cc398697e25feaa8",
+  "publisherObservedReceiptSha256": "65417cf29d7aa870c57a14f1987c62d715153b698c518274e2ab9d6f43699f41",
+  "publisherResultSha256": "bfa75b2339c81c605c450ca17ba6d04237559dc8197954fc4884f6f0e18fa407",
+  "schema": "1370-c0-stage37-remote-audit-implementation-proposal-r1",
+  "tip": "6f837b1648803d0a8fe77c72dc6b1609f0a319a6"
+}

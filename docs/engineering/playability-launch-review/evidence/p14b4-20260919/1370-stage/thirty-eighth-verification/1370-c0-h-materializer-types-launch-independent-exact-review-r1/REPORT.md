@@ -1,0 +1,5 @@
+# H materializer exact launch independent review r1
+
+**REFINE; unrun.** The binding and command hash match, and the H manifest and independent source-only receipt are the expected accepted inputs. The command invokes `/usr/local/bin/python3` directly on a mutable path. The accepted materializer authenticates its input manifests and reviews, but does not authenticate its own source bytes after Python opens the script. Rehashing at review or in a separate preflight leaves an unbound interval before execution.
+
+Create a versioned filled command that nofollow-reads `materialize.py` through a stable file descriptor, checks exact SHA-256 and fstat/lstat identity, then executes the verified bytes in memory with `python3 -I -B`. Keep the r1 command and its unrun label. The corrected exact command should also pin the H manifest/review source bytes and run ID, preserve 900 seconds/3.5 GiB preflight/3 GiB floor, and be reviewed again. Stage37 fresh remote byte backup remains pending before this dependent mirror launch.

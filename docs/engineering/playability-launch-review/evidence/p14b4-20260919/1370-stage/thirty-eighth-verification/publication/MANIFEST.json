@@ -1,0 +1,39 @@
+{
+  "baseEvidenceCommit": "6f837b1648803d0a8fe77c72dc6b1609f0a319a6",
+  "classification": "FROZEN_UNRUN_STATIC_REVIEW_PENDING",
+  "expectedDeltaCount": 69,
+  "files": [
+    {
+      "bytes": 22291,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage38-publisher-proposal-r1/publish_stage38.py",
+      "sha256": "e76ca19989daf74781e2e241d7b164515e89989961ec9ba176259b1e3c90caca"
+    },
+    {
+      "bytes": 2689,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage38-publisher-proposal-r1/test_static.py",
+      "sha256": "f4a5b9a94947d21ed1957f00aaee7976fb9911feb2ca0b73f8746bc55cad1169"
+    },
+    {
+      "bytes": 22903,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage38-publisher-proposal-r1/SOURCE-ROSTER.tsv",
+      "sha256": "942eca6340564334d9f1d33ca08964352ffac3b442963571b0c4a56ef98d4541"
+    },
+    {
+      "bytes": 34071,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage38-source-map-proposal-r1/SOURCE-MAP.json",
+      "sha256": "452f9618aff087cae2dd51ac2ee5b061dafa8eac68735a389241033b7399392a"
+    },
+    {
+      "bytes": 1786,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage38-source-map-proposal-r1/PLAN.md",
+      "sha256": "ff578872291a50fd22436b4957952425dcdcc5407dd080e477956daefc62ea19"
+    }
+  ],
+  "mapReviewReceiptSha256": "97c518b8777cd70bc8b37b8e261f44d59e5b61ebed3840f7bb064e47370c465b",
+  "mappedSourceCount": 61,
+  "productionHead": "f8c0628739227accfa446276b0613f47bc805a78",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "publicationControlCount": 8,
+  "publicationState": "NOT_RUN",
+  "schema": "1370-c0-stage38-publisher-proposal-r1"
+}

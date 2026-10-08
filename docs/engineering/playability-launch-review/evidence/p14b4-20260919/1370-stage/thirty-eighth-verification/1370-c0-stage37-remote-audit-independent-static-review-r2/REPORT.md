@@ -1,0 +1,5 @@
+# Stage37 fresh HTTPS remote byte-audit implementation independent static review r2
+
+**ACCEPT_STATIC_ONLY; unrun.** R2 preserves r1 REFINE/unrun and fixes both material defects: `source_guard()` checks local origin and exact remote production ref at preflight and postflight; `no_alternates()` uses `os.path.lexists`, including dangling symlinks. Thirteen synthetic tests pass, including explicit remote-ref drift and dangling-alternates refusals.
+
+The frozen SPEC matches all 191 rows of the independently reviewed design byte-for-byte, totaling 4,298,338 bytes, and binds stage37 tip 6f837b, direct parent 2a4, publisher result and observed publication receipt. The script authenticates those controls, requires the recorded lane, AC and 3 GiB floor under a 900-second whole-run alarm, clones fresh HTTPS, compares direct parent and exact path delta/subtree, streams every Git blob to size/SHA-256/OID, rechecks refs/source, and removes the clone before writing success. Failure writes STOP; no remote byte acceptance is claimed here. An exact filled launch and independent observed readback remain required.

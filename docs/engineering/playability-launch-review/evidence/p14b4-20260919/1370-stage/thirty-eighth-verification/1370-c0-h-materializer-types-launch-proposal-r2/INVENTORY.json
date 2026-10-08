@@ -1,0 +1,22 @@
+{
+  "files": {
+    "BINDING.json": {
+      "bytes": 1517,
+      "sha256": "d7c6ac2610808779c625dfdae5eaa8a11d5d5fc2b8d2cd386940d372918be316"
+    },
+    "LAUNCH.command": {
+      "bytes": 2349,
+      "sha256": "6bd56dc746ec646cdc099168b99122938ac56623c61e0d372b952f5f4afc73fc"
+    },
+    "PLAN.md": {
+      "bytes": 2176,
+      "sha256": "4bc50f6184373404d76e7e91a9acdd03fd53459e92ccf362a828e8adb481a85d"
+    },
+    "selfcheck.py": {
+      "bytes": 2146,
+      "sha256": "87027dd7a018ee463139407daedab8a98c113212e29cb53eb913f2105339e22c"
+    }
+  },
+  "predecessorR1RefineReceiptSha256": "860c2a6a0988ffff1476b5de5decc306b195765364eb0f200a46d9bf90d2b397",
+  "status": "UNREVIEWED_EXACT_LAUNCH_UNRUN"
+}

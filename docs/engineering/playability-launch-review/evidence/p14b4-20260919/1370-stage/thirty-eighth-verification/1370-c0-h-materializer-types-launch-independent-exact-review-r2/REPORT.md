@@ -1,0 +1,5 @@
+# H materializer exact launch independent review r2
+
+**ACCEPT_EXACT_ONLY; unrun.** The versioned command fixes r1's executable-source TOCTOU: a `python3 -I -B` bootstrap nofollow-reads and pins the materializer's reviewed bytes and accepted H manifest/source/static-review receipts, checks stable lstat/fstat identity, and executes the authenticated source in memory. Its CLI binds arm H, run ID `20261008-h-types-r1`, and exact H manifest/review SHAs. Bash syntax, package inventory, source hashes and synthetic bootstrap selfcheck pass. R1 REFINE stays unrun.
+
+The stage37 191-file fresh remote-byte backup has independently passed. At this exact review, H lane log/meta/lock and mirror/result were absent, production f8/src13880 was clean, fresh remote production ref was f8, AC held, and scratch free space exceeded the 3.5 GiB preflight. The accepted materializer owns its 900-second alarm, 3 GiB running floor, source/mirror guards and one-shot result. This approval is for H source materialization only; observed child/result/inventory review is required before full-era types.

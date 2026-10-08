@@ -1,0 +1,19 @@
+{
+  "auditPath": "/Users/zacheryspector/studio-scratch/1370-c0-stage37-remote-audit-proposal-r2/audit.py",
+  "auditSha256": "de04d71b03cbb7969eed9a8314dcd7c64d7cd2f59be2237d631a097d5227a991",
+  "claimLimit": "No remote-byte claim until independent static/exact/observed audit review",
+  "classification": "UNRUN_STATIC_REVIEW_PENDING",
+  "exactLaunchSha256": null,
+  "laneLog": "/Users/zacheryspector/studio-scratch/1370-c0-stage37-remote-audit-20261008-r2.lane.log",
+  "manifestSha256": "e56b245fcd518593385712a5b0207b25a61d0882bc0d36de51ecf1fcc9504527",
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-stage37-remote-audit-recorded-r2",
+  "parent": "2a4ca902ca4390017238e9a6cc398697e25feaa8",
+  "publisherObservedReceiptSha256": "65417cf29d7aa870c57a14f1987c62d715153b698c518274e2ab9d6f43699f41",
+  "publisherResultPath": "/Users/zacheryspector/studio-scratch/1370-c0-stage37-publisher-proposal-r1/PUBLISH-RESULT.json",
+  "publisherResultSha256": "bfa75b2339c81c605c450ca17ba6d04237559dc8197954fc4884f6f0e18fa407",
+  "schema": "1370-c0-stage37-remote-audit-binding-proposal-r2",
+  "specPath": "/Users/zacheryspector/studio-scratch/1370-c0-stage37-remote-audit-proposal-r2/SPEC.json",
+  "specSha256": "7c2899ce0779ab21e172c0592aaa905d59fb753d1728909f7b16ac41f7633620",
+  "staticReviewReceiptSha256": null,
+  "tip": "6f837b1648803d0a8fe77c72dc6b1609f0a319a6"
+}

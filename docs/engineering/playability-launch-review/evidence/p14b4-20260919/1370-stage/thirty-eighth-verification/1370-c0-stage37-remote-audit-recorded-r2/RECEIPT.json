@@ -1,0 +1,1163 @@
+{
+  "cloneCleanup": "COMPLETE",
+  "directParent": "2a4ca902ca4390017238e9a6cc398697e25feaa8",
+  "elapsedSeconds": 114.656,
+  "expectedCommit": "6f837b1648803d0a8fe77c72dc6b1609f0a319a6",
+  "expectedParent": "2a4ca902ca4390017238e9a6cc398697e25feaa8",
+  "fileCount": 191,
+  "files": [
+    {
+      "bytes": 1200,
+      "gitBlob": "726ead427b1dbbf00e2185f0bcb2c9844842cda8",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-independent-review-r2/H-RECEIPT.json",
+      "sha256": "5e6f23884af9527f991665020414404455f182cc3a62abe5a5602bb019804dbf"
+    },
+    {
+      "bytes": 1201,
+      "gitBlob": "5888e0237ab6519ff2b65809ced9b1250f8e2314",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-independent-review-r2/M0-RECEIPT.json",
+      "sha256": "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8"
+    },
+    {
+      "bytes": 1878,
+      "gitBlob": "dbec471aaad36cdb3c0de2778baec9fd40458f6a",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-independent-review-r2/REPORT.md",
+      "sha256": "646d7d4b372f4e40d5605fc618ae9f4f7527adaa3c2b3a2de7455a980a7736e5"
+    },
+    {
+      "bytes": 6042,
+      "gitBlob": "94ae6821c1497abff725b04147eb4b4bce2ecf93",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-r1/H-SOURCE-MANIFEST.json",
+      "sha256": "56f8e559490cb3f6e4c44896325200c6b32144fa8abf5d6731ba1cca8a71daad"
+    },
+    {
+      "bytes": 6604,
+      "gitBlob": "2fb072a27bb8a128319b0f02e471c293e3672140",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-r1/M0-SOURCE-MANIFEST.json",
+      "sha256": "03a152c970e04a1a6255092ad78d31ca81a6a81ff20a4e3e46ed017d47e44159"
+    },
+    {
+      "bytes": 1115,
+      "gitBlob": "2b227f0f07ff39ac618cc810d650f551e4478e8e",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-r1/PACKAGE-INVENTORY.json",
+      "sha256": "527be8001fa21e8231083cbc903adedafd6a70163b6a55905dbb6a290313c6f5"
+    },
+    {
+      "bytes": 2996,
+      "gitBlob": "b6658299b7d18cd0de2e1529f81d42c895a264f1",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-r1/PLAN.md",
+      "sha256": "26312f9b2a43ad33a07b17ca44a72986eaa0495063c55d73bb56f5beb710dda2"
+    },
+    {
+      "bytes": 871,
+      "gitBlob": "4738a327478b91ddd120d9d381055c40304fabd7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-r1/parse-overlays.mjs",
+      "sha256": "1ecb221c904db9f8e847075c2712da98703cef3cd03306ab8ca4b8c8606e22c2"
+    },
+    {
+      "bytes": 4884,
+      "gitBlob": "abfd0b7595535e73ab417acde2f1cbc43c7f9e82",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-r1/selfcheck.py",
+      "sha256": "d848d3a7a86df08850c76c9452ec6f9e1f2707f62bedd728d44731732f5c9301"
+    },
+    {
+      "bytes": 6827,
+      "gitBlob": "f57c79e253f7d0edd81a339119fa6d1e1e3a667a",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-r2/H-SOURCE-MANIFEST.json",
+      "sha256": "e2f92aa60063b754f110ec31f08080bfd461f6a150f74394464739c2d4cab7ff"
+    },
+    {
+      "bytes": 7400,
+      "gitBlob": "325002c8a90d3d1bf4427db8d4f80230cd202879",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-r2/M0-SOURCE-MANIFEST.json",
+      "sha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba"
+    },
+    {
+      "bytes": 1309,
+      "gitBlob": "d3b7b904553ee4942ea46413edb68f7c9154c668",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-r2/PACKAGE-INVENTORY.json",
+      "sha256": "df481b80e68d2a284aca865c321de49854ef07f46364933b358df0cb39390aa3"
+    },
+    {
+      "bytes": 1773,
+      "gitBlob": "12b29d85bc1ba34a963322b105317c6b3884912f",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-r2/PLAN.md",
+      "sha256": "694892f357a921fad653b657b3bbd09c43b480dbe4ea4237f2a5ebb084cf3e20"
+    },
+    {
+      "bytes": 871,
+      "gitBlob": "ecec25bee0725cdfc70511e17687913d0104a23f",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-r2/parse-overlays.mjs",
+      "sha256": "45b8c8eeabc5214869041d412659c66a9d4d5b99271e7276c3f52449cb90c5f0"
+    },
+    {
+      "bytes": 6102,
+      "gitBlob": "f60adddda8c60f183fc0a548b3424aac44872c6e",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-corrected-overlay-source-manifest-r2/selfcheck.py",
+      "sha256": "dd236b35d687b331c4de621661078a85a3d1838ef1385e0a2617addc85362122"
+    },
+    {
+      "bytes": 1307,
+      "gitBlob": "91fec1bbcf1c483e66c983539b96c1d884b016b3",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-independent-static-review-r1/RECEIPT.json",
+      "sha256": "e87e9da6a9bc9c9fdc67a50b68d9f8073ca470a44b45b0ad43abbf4153829a12"
+    },
+    {
+      "bytes": 2103,
+      "gitBlob": "db081ce9b7096cb4c2d355c53eac2f04c64ed14e",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-independent-static-review-r1/REPORT.md",
+      "sha256": "1e3824c25cece8b85134ea8199f63e587f9ac80558984a404e3aafec06cf8e5d"
+    },
+    {
+      "bytes": 1199,
+      "gitBlob": "cf59a8efa8998fedc5839bf089002e9f5115a9ef",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-independent-static-review-r2/RECEIPT.json",
+      "sha256": "2e3f28a983d80cd1e7e626fad921773bc17e11331c338b4d4ce63be9c25efddf"
+    },
+    {
+      "bytes": 1677,
+      "gitBlob": "e3a9f2c41de1ec7b1bd61af13b06b17a53eabd61",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-independent-static-review-r2/REPORT.md",
+      "sha256": "701c3339ae3c9242fffa9fb02534cd586bf5354aa945a8773c333d6af8db21c7"
+    },
+    {
+      "bytes": 512,
+      "gitBlob": "02bad5af73eb76dad46200f08f76a809391159c4",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-proposal-r1/BINDING-TEMPLATE.json",
+      "sha256": "f51cef6698461a2e22cec56c71abcec299a45e40c86f43233ed27c9161a95f3e"
+    },
+    {
+      "bytes": 1390,
+      "gitBlob": "a75d45db045d806ee412b87590022afdd3c2a5b0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-proposal-r1/MANIFEST.json",
+      "sha256": "e2a049b37602e579d68fd2f1c680c93fb302fc3d4bbf7d7fb2402e5e5ae8644d"
+    },
+    {
+      "bytes": 3125,
+      "gitBlob": "aea635ee7f98adc475f370a77f3885be3e9209e3",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-proposal-r1/PLAN.md",
+      "sha256": "f6872ad203ed8ccc7e9561e126379c201a39f5722ea8bb5399916889d2b2ce66"
+    },
+    {
+      "bytes": 1141,
+      "gitBlob": "2d8c76b6f57544f58960ff76a3a254eb4089e532",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-proposal-r1/REVIEW-REQUEST.md",
+      "sha256": "3f89eeff84576784794703498bf5f8460a09be71af8f30a1cc854f3a36a251fb"
+    },
+    {
+      "bytes": 13385,
+      "gitBlob": "8da77a26427c88be2b8844f9528adf705b793809",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-proposal-r1/materialize.py",
+      "sha256": "d9c628b5d00890cb4488233251c37ad191c4d500c8c8a919ff760797962a04c2"
+    },
+    {
+      "bytes": 2300,
+      "gitBlob": "210f5b211d430c23cdac9b32f78adacaf5906d0b",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-proposal-r1/selfcheck.py",
+      "sha256": "5abe9ec9b079ebe8959f2112aa9cb0ee0417c8c2e122bba004b8c9a03ab5bf78"
+    },
+    {
+      "bytes": 512,
+      "gitBlob": "bff4ccaf8ea522c9c4bfbd439898e8ef0ce7fff7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-proposal-r2/BINDING-TEMPLATE.json",
+      "sha256": "443aec70623c836bce3cec8893d4be5b22f60ce5a6d8862a5418eed1427fe523"
+    },
+    {
+      "bytes": 1550,
+      "gitBlob": "4dc75436812195f6c53f0bd781bbd43a8be2d373",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-proposal-r2/MANIFEST.json",
+      "sha256": "e447bf830553ab991d80ea490befac8a137cb22db6c3e047a391d6bc212a5686"
+    },
+    {
+      "bytes": 3538,
+      "gitBlob": "f829192c1d7bc26c1252576a9fa071a29d2461d2",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-proposal-r2/PLAN.md",
+      "sha256": "dc0be2df67c32dd4525f44ef740b47759b8fd4c253cebbc94216fbad1135120e"
+    },
+    {
+      "bytes": 1451,
+      "gitBlob": "4c18374fdc30b479238841dd03d2aef23e0be754",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-proposal-r2/REVIEW-REQUEST.md",
+      "sha256": "f9cc493a6f3e3c239d8be3cf9f8273e0a5d2cecc3bd2bf01cdf2ffeab842f4c1"
+    },
+    {
+      "bytes": 13950,
+      "gitBlob": "f20c2193fd2d5d30ec49cccbe240e76e0fa395c2",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-proposal-r2/materialize.py",
+      "sha256": "28e546e77e6dfd414427b5d645a65a3c549c1f1011be812d07ee13da9a5e26ed"
+    },
+    {
+      "bytes": 2983,
+      "gitBlob": "9b5bc4c7cfa4271b7d9791e8e864dca27d5389f9",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-mirror-materializer-proposal-r2/selfcheck.py",
+      "sha256": "066ee3c2e33963634c97dee1d1093ee5a1b079a405a773bcc35a770b91ff0d47"
+    },
+    {
+      "bytes": 11951,
+      "gitBlob": "6505009cc72f2d37819a0fb3916fcfed98893562",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-observer-verification-design-r1/MIRROR-INPUTS.json",
+      "sha256": "198dba3a6cf39336c16e68f218de6f872b5908a22ef52c4f0831db17a0d6e0f0"
+    },
+    {
+      "bytes": 8821,
+      "gitBlob": "cd4c18338be82636a3ae60b0f6aa4b17fa30c4ce",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-observer-verification-design-r1/PLAN.md",
+      "sha256": "3356851725d69091fbf1ea022c417ab62eef62adc8a42f437e3cbbd28d70f6be"
+    },
+    {
+      "bytes": 673,
+      "gitBlob": "1c8a5f10d2951388ffcdf97d118ef491cf8d3825",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-observer-verification-design-r1/REVIEW-REQUEST.md",
+      "sha256": "e95d4bff02816842dbe0a921333c16c9a2950fbb5397fa4678b6ebe36247ae0e"
+    },
+    {
+      "bytes": 12385,
+      "gitBlob": "bf455982e8ddeedcfd0ade88383e96804afa546b",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-observer-verification-design-r2/MIRROR-INPUTS.json",
+      "sha256": "84d89b19ffc40f02c9a908bf8ae3cdbf34e4ff65ce2c1cf63687c140746e1154"
+    },
+    {
+      "bytes": 9567,
+      "gitBlob": "7988362f989297690b7b11afd13d8af4caa9415b",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-observer-verification-design-r2/PLAN.md",
+      "sha256": "416e3d827934c6e0748532b37eaffb1f7447d914788112713eec0b9ed7c74eb7"
+    },
+    {
+      "bytes": 857,
+      "gitBlob": "6cdb9679e22733eb5d9507c9f1141ec30cd2a976",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-observer-verification-design-r2/REVIEW-REQUEST.md",
+      "sha256": "191bd374bf1807ae995e71a93467e033109ba23b636b4b0c82e58348b6388798"
+    },
+    {
+      "bytes": 613,
+      "gitBlob": "e400fe9db6dc0335cab6d595974a6300fc2f2819",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-observer-verification-independent-design-review-r1/RECEIPT.json",
+      "sha256": "2b354ffa348535409a98cf7c1a751c91ec808602a4ab5a7721559ca4864c6486"
+    },
+    {
+      "bytes": 1218,
+      "gitBlob": "f0fc5b410cf610af171890f92797a6cf81352c56",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-observer-verification-independent-design-review-r1/REPORT.md",
+      "sha256": "904279c1b0a0612a905b67ed41c22db9c443882a628691c657a1835773864913"
+    },
+    {
+      "bytes": 830,
+      "gitBlob": "625736d62fe97b4c8ba8d18cd69014368ee02ef1",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-observer-verification-independent-design-review-r2/RECEIPT.json",
+      "sha256": "d7ec88eeae8c97ed4d7a1eb42d9dfbd3e77ff14f1b2247c1ba5501636cf713f2"
+    },
+    {
+      "bytes": 1703,
+      "gitBlob": "4fe0d033fdf44f32f1b052a2d8058efcb8837e4e",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-h-m0-observer-verification-independent-design-review-r2/REPORT.md",
+      "sha256": "9808c6b32e806cc16e97e82dd993b94f9b1b0eb995d3d25d3d3f784e4fada900"
+    },
+    {
+      "bytes": 8966,
+      "gitBlob": "508372c09222efbd208ae19f7352a5c0ed9acbc6",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-design-r1/DESIGN.md",
+      "sha256": "ff1f3d5777838a699d5ae19322c31041251f3f13180978ed0dcd9af40d4696c2"
+    },
+    {
+      "bytes": 1623,
+      "gitBlob": "43a928d8b2cd4f77e7e5459fe57b248597b3efce",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-design-r1/SOURCE-MAP.json",
+      "sha256": "73544212659239f7e1a75974795efa2d29dabb97cadfa26ca589540502faf69c"
+    },
+    {
+      "bytes": 12313,
+      "gitBlob": "274cc4a7b884985b25fa5e9c83aae7487ab27054",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-design-r2/DESIGN.md",
+      "sha256": "b2abf83b741c8dd256a214ae19075d082854ae54131db15c37090e3001391273"
+    },
+    {
+      "bytes": 2438,
+      "gitBlob": "1b945cdad89b236bcf7cadf390c722c464a1b0b8",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-design-r2/SOURCE-MAP.json",
+      "sha256": "8f4e2067cb9b3ce34411c4fa75111813792e101a023ba1a1180e904104ab35ef"
+    },
+    {
+      "bytes": 487,
+      "gitBlob": "2420fe07c2776637f1868331e303a509b703eb02",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-independent-design-review-r1/RECEIPT.json",
+      "sha256": "a91fcdf31be1654e046e3075b62d56c1ebf207cc2150f949d2ee277a22350d25"
+    },
+    {
+      "bytes": 2941,
+      "gitBlob": "d343abbca57f63d73574797814614c33e1489958",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-independent-design-review-r1/REVIEW.md",
+      "sha256": "dca690085b3a07a6513bd2eafc463bac857ea4798dc9f8cc6a578cbf078ed637"
+    },
+    {
+      "bytes": 542,
+      "gitBlob": "206900b4a0d352339a764ce83b2a705d26436894",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-independent-design-review-r2/RECEIPT.json",
+      "sha256": "27bb1cdf112bef30e6056c62e6595fd5480f64cf46f9764ffd557e6ebca7a08f"
+    },
+    {
+      "bytes": 2433,
+      "gitBlob": "26dc72c96e823399f092c1d6ac230ed9068be930",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-independent-design-review-r2/REVIEW.md",
+      "sha256": "4d03c847d4d91aa57830537803a6a64cace60ad00359eb56cc30a5b41f42c181"
+    },
+    {
+      "bytes": 988,
+      "gitBlob": "ba76cb6c62bee5683ec91c11d8974c9806160201",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-route-stop-r8-r1/RECEIPT.json",
+      "sha256": "e4896f6ec384e7a59e6f7b7dee68d68a1e5d3c03c1f8b8acc7f63ec83a7d8359"
+    },
+    {
+      "bytes": 1769,
+      "gitBlob": "e873d100801b5e84734bf1838955543862f54c8e",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-route-stop-r8-r1/REPORT.md",
+      "sha256": "6b82adb223f31761466528fb31a6238bd3f4869cb99f8248b92a86de16a64593"
+    },
+    {
+      "bytes": 1002,
+      "gitBlob": "27ed58376c30a3d27fc9950ea9c9142002867500",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r10-schema-r1/RECEIPT.json",
+      "sha256": "44d0463452737d4ba3fd38e7d415cd234065ca2bd53241e2c40c3902e1958bd7"
+    },
+    {
+      "bytes": 1447,
+      "gitBlob": "b02e0ca0a6b34c475cfd107120ad391de474c7ad",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r10-schema-r1/REPORT.md",
+      "sha256": "a86581ca8c95f45b74ebbf160f725a6ca712f57bcd5facf7dbf954adced7f7ca"
+    },
+    {
+      "bytes": 785,
+      "gitBlob": "c3a82489e1e0699293df5776897df910c0e416a4",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r2/RECEIPT.json",
+      "sha256": "7a01afcb591d8dcd28a96c90c2d161070c0af2e4d7f81c82fa9bb47a69b53f9b"
+    },
+    {
+      "bytes": 2524,
+      "gitBlob": "13e016e6c38d69496102b2596cc4b199e949cd13",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r2/REPORT.md",
+      "sha256": "dc6d224650ce6a19844d0bd520201d71ea3c2997c4926e77cafa441b4324eabc"
+    },
+    {
+      "bytes": 829,
+      "gitBlob": "83540b8ee3d78b5147e6346240868a01d2e3a22c",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r3/RECEIPT.json",
+      "sha256": "0974064f5124054cbe114c6cdf06eeefa7096e7e63da85d5ed76bdb323665fe2"
+    },
+    {
+      "bytes": 3421,
+      "gitBlob": "91187f9c7a7eede5082d2df39b4b0e49c262d463",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r3/REPORT.md",
+      "sha256": "14b5b3717d1ae8b4556a82b8b458a6aadb93a24c9800d3b910c1ffb48d610f5e"
+    },
+    {
+      "bytes": 968,
+      "gitBlob": "2f6ba45d60effd0f889a8240f7817abfa8ed6899",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r4/RECEIPT.json",
+      "sha256": "b65d9724664cb8f05770923018b3465f6fd6a0fb44f955cb1e723653e3131f40"
+    },
+    {
+      "bytes": 1519,
+      "gitBlob": "9081ff0c7ed45e7179ace44c50160b0da862de48",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r4/REPORT.md",
+      "sha256": "b43de0a456c81ce1d52e838a8753f731a767032644457bfb67eb732a72c2a7b2"
+    },
+    {
+      "bytes": 1155,
+      "gitBlob": "2cfe41db9fb24b902284de586eadbddba4d984b4",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r5-partial/RECEIPT.json",
+      "sha256": "dab2798049768187917bd00fd0ec2e27848266e50a4370e73d2a682bbe2ce82d"
+    },
+    {
+      "bytes": 2245,
+      "gitBlob": "57b82162a0140ad3645dac0ea7b46b852e4085e4",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r5-partial/REPORT.md",
+      "sha256": "4c271fb639a59af3770317abda7d36bb08c7cf278c88135d36f7ae56970c5aab"
+    },
+    {
+      "bytes": 994,
+      "gitBlob": "33ca17dd0e5609cae6a8272f590bddd1792985e9",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r6-partial/RECEIPT.json",
+      "sha256": "6cd4792da4e1b6d399042446ea48d65933534105b1b5ca9a4282e131f76e32e5"
+    },
+    {
+      "bytes": 1531,
+      "gitBlob": "3bd2bba09b8b799cd595ca558c0cb3d1da443a35",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r6-partial/REPORT.md",
+      "sha256": "f82e49463063c76a7f8b2e65a125d48ecdf7a7910f1824cc60bba215f92e6cfd"
+    },
+    {
+      "bytes": 889,
+      "gitBlob": "3d9ebcf828ff1a2a12c1db90f65998a856d240d4",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r7-partial/RECEIPT.json",
+      "sha256": "96ce40844d18683e95f872882bd0f2bb7589fa8df87a7c2555fbb544518c6baa"
+    },
+    {
+      "bytes": 1863,
+      "gitBlob": "bac25de77684a54ba88b6e647a142a5253d8a92b",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r7-partial/REPORT.md",
+      "sha256": "3c546a6870f5e9dd8c2c87718dfdccf0901c3313a05554617acd5c359115bc33"
+    },
+    {
+      "bytes": 879,
+      "gitBlob": "f3ddb9ad422255207729741946beb89a139c4d0a",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r8-partial/RECEIPT.json",
+      "sha256": "3394545d6e80af1aa8f7eef2de9a26c02958478f9f5016340c678c82a11bb6ef"
+    },
+    {
+      "bytes": 1633,
+      "gitBlob": "4187e4ebd5b9be7e63318b9bc4a59525fd21a4ce",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r8-partial/REPORT.md",
+      "sha256": "404bf480f4ab5add909c4d67613a5b5e2ac55dad1d284df9bd581bb29d09d452"
+    },
+    {
+      "bytes": 1014,
+      "gitBlob": "3afeb7f0d13cb3e41b2a84cc62a2aa41f481677e",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r9-propagation-r1/RECEIPT.json",
+      "sha256": "df51f0780f9f39e833f8fe6a09684b21cc508f63ebea0ca297fa9f3520bcc6d8"
+    },
+    {
+      "bytes": 1726,
+      "gitBlob": "910dc66d180ee00ad0f0eb38d962afe87f0faf2c",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-independent-static-review-r9-propagation-r1/REPORT.md",
+      "sha256": "4382010c9c043e47ae9ae07d35f44c37b733b0e6402b806d966aa9d15218bb2b"
+    },
+    {
+      "bytes": 4267,
+      "gitBlob": "7eb4f5bb0876afd97c304a293905da4f771bd394",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/INVENTORY.json",
+      "sha256": "fba00be264d11d5683150e965f918dcbf1e4608ce9c208153e36d419953b53b9"
+    },
+    {
+      "bytes": 2330,
+      "gitBlob": "1cd5857085f53f83a922484538219d77f6307720",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/README.md",
+      "sha256": "60060d92608cd53329fa60fee2d5243f2e4690ae5d1abc4927c34a1c6422c1dd"
+    },
+    {
+      "bytes": 12710,
+      "gitBlob": "e716f608cfeb6c6c64db1e8a63fd29ba75226d11",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/diagnostic.test.ts",
+      "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7"
+    },
+    {
+      "bytes": 63061,
+      "gitBlob": "03076adf17aed408c9a575663a04fe9abf5ee5de",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/historical-promises.ts",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    {
+      "bytes": 98582,
+      "gitBlob": "c0830a9167e3b0c5c2290aa93499940f6b88c2f6",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/historical-talentMarket.ts",
+      "sha256": "4f35113066c6424229d32ec9aa0b43a33f9b65a6a91734e6f27cb26b878ce1a9"
+    },
+    {
+      "bytes": 4729,
+      "gitBlob": "ffc4cb4a68fd5ae58f10a0f01dfe9c0ba33d78e7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 5643,
+      "gitBlob": "54cd687aaddd86e196b1210c6d5274d6e919ecaf",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/market-static-synthetic-check.mjs",
+      "sha256": "9906f18319a88ef3deeab56ca23e4a4c88950aec31ff7ee13adfcc8e1f110828"
+    },
+    {
+      "bytes": 24797,
+      "gitBlob": "659002399050551533cc58d97e95737c7db3bdd0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/modern-opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    {
+      "bytes": 112969,
+      "gitBlob": "6046d8b68911ca7b466cf5e7b35c3291f20a9df7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/modern-promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    {
+      "bytes": 116906,
+      "gitBlob": "dd5e20779f22b3ece82ed6b846a3a270d9085997",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/modern-talentMarket.ts",
+      "sha256": "71c775336c581fb5c5ad8923d4648bc8bf492ee38f235214f861fd1d0e7ac804"
+    },
+    {
+      "bytes": 3907,
+      "gitBlob": "0f4b4394b6091d682ae7ee99893173f9a8e4b2b3",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/r10-schema-consumer-red.mjs",
+      "sha256": "5bf78419c305ed0922b7ed0fa55fc930a9e9a6b7ca5afa47b3550482b59bbc96"
+    },
+    {
+      "bytes": 2648,
+      "gitBlob": "6f4d49dd5d8953fbfbfbaa1eee05c68a9e8e9d40",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/r5-static-check.mjs",
+      "sha256": "d9eb981a33af0981d65523cac63ec067a2bb31f63322c893e79455ba3821b2c8"
+    },
+    {
+      "bytes": 3431,
+      "gitBlob": "0afbac8981b65565e9fa9aef20d43d77f0cae086",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/r6-observer-static-synthetic-check.mjs",
+      "sha256": "07ef90bfa53e2d16ec524b972703998ab82190c10db7066d6c048f25da53a028"
+    },
+    {
+      "bytes": 4211,
+      "gitBlob": "63a7f958aa94274c590a6d0a64e17b75480f0ad3",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/r7-freeze-static-synthetic-check.mjs",
+      "sha256": "946a517ff82150b84ad91ca423afb7a54f3974346c71f99f302ba80c0b2a668b"
+    },
+    {
+      "bytes": 5268,
+      "gitBlob": "f2c7e6f6b0bca4ce383200d618cc50f0429c020d",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/r8-chooser-static-synthetic-check.mjs",
+      "sha256": "fd734acaa0be65d4aa6a0b4ab454cf97c5e1f05378d949091da5d2c0da5e3890"
+    },
+    {
+      "bytes": 4567,
+      "gitBlob": "3504eccb3db78b68b5e977ab05762c687ea0e781",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/r9-catch-propagation-red.mjs",
+      "sha256": "2586ce3c34fe62d3d9e44f98436383ed229992bd68664a04c0332784b724d8e3"
+    },
+    {
+      "bytes": 14688,
+      "gitBlob": "0b4a3de8adb859325c07716c15f8a5cc5db350b6",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/static-synthetic-check.mjs",
+      "sha256": "4c91628b0e5935a203550e10d393f7f5bc98c69b653f35a3888035b3669b9006"
+    },
+    {
+      "bytes": 1628,
+      "gitBlob": "0e9eb075409553bda4b91a2cd98a4127752090f4",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r2/INVENTORY.json",
+      "sha256": "5f4091646eb8d13c60b57489b76ff411134e07a138e7310d1d07b06bfc74325f"
+    },
+    {
+      "bytes": 2517,
+      "gitBlob": "f562f4acfa75f177aa6a053c54ea8e3e0cb5f1d7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r2/README.md",
+      "sha256": "86983b580f9d85374e46af26341aadd0bfaa488c1e693252c0761072f70513d0"
+    },
+    {
+      "bytes": 62983,
+      "gitBlob": "720307e43f01cb886743b52736f31bb4443430c7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r2/historical-promises.ts",
+      "sha256": "bbfa979e5c75cbfece3313924e05945afbc3fd800ff0d57c91be5d6dc77f05ea"
+    },
+    {
+      "bytes": 4729,
+      "gitBlob": "ffc4cb4a68fd5ae58f10a0f01dfe9c0ba33d78e7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r2/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 24797,
+      "gitBlob": "659002399050551533cc58d97e95737c7db3bdd0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r2/modern-opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    {
+      "bytes": 112969,
+      "gitBlob": "6046d8b68911ca7b466cf5e7b35c3291f20a9df7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r2/modern-promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    {
+      "bytes": 14579,
+      "gitBlob": "d55c5f40681534ba6d7e5953cd350f05ad90a733",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r2/static-synthetic-check.mjs",
+      "sha256": "40022d758c1d848475f756056ff2cc5c388610e18d4f91e447332f3b4902f51f"
+    },
+    {
+      "bytes": 3605,
+      "gitBlob": "1a000a6e3a3e3a0c052c35b18d9b8095ee08d63e",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r3/INVENTORY.json",
+      "sha256": "b9d3576fd2e634310847d028d090d7aec1a76eadef003cb522e9b478262c0c28"
+    },
+    {
+      "bytes": 3450,
+      "gitBlob": "dc4d566b86c8ee8c19637301748e84b37b89e7cc",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r3/README.md",
+      "sha256": "aa9a88844ea64d47048e1a9eb71816504184b71f65c074e851e65ec4589a198c"
+    },
+    {
+      "bytes": 62983,
+      "gitBlob": "720307e43f01cb886743b52736f31bb4443430c7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r3/historical-promises.ts",
+      "sha256": "bbfa979e5c75cbfece3313924e05945afbc3fd800ff0d57c91be5d6dc77f05ea"
+    },
+    {
+      "bytes": 87435,
+      "gitBlob": "3f6c3da9bcda9f4c0707edf66a6353237675dace",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r3/historical-talentMarket.ts",
+      "sha256": "de991bf596e9525081ac542159f2192df4506380054437f851ca062e88439102"
+    },
+    {
+      "bytes": 4729,
+      "gitBlob": "ffc4cb4a68fd5ae58f10a0f01dfe9c0ba33d78e7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r3/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 5651,
+      "gitBlob": "1ac6dd2330d4ff1a9f8c8593c2624f1e5cfc9d71",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r3/market-static-synthetic-check.mjs",
+      "sha256": "a2bc729a5044a25aa35570479edeffc26f3096d6322969a511eeb5a39aa18ede"
+    },
+    {
+      "bytes": 24797,
+      "gitBlob": "659002399050551533cc58d97e95737c7db3bdd0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r3/modern-opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    {
+      "bytes": 112969,
+      "gitBlob": "6046d8b68911ca7b466cf5e7b35c3291f20a9df7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r3/modern-promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    {
+      "bytes": 106620,
+      "gitBlob": "91d0ee3752b95aa4698fa499ad5d81dbea26389d",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r3/modern-talentMarket.ts",
+      "sha256": "8a1710af824bd86d69eaa9fb3ebedb98b4126ee59683c414c6c197a7bcb34178"
+    },
+    {
+      "bytes": 14579,
+      "gitBlob": "85c3054a1240dc0a97a871a3971eca18f9ba1595",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r3/static-synthetic-check.mjs",
+      "sha256": "ad81bb39164844b6592491432eb478fe7c24a37e9605fc5f51cbe74d75bd4b89"
+    },
+    {
+      "bytes": 3343,
+      "gitBlob": "440403159f020f70bbd0696177c5283221e305b9",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r4/INVENTORY.json",
+      "sha256": "16f0293cae6e1bf525e563ac4b3c6f82cd8dc2066e8954962398e062f7a042dd"
+    },
+    {
+      "bytes": 4218,
+      "gitBlob": "ae4972235025d9ecd01abd0b600b8412307e41be",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r4/README.md",
+      "sha256": "471ded46d2203a43affa724300f1e86896b3740ee053f959a608b0fd3a620aa9"
+    },
+    {
+      "bytes": 63061,
+      "gitBlob": "03076adf17aed408c9a575663a04fe9abf5ee5de",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r4/historical-promises.ts",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    {
+      "bytes": 88878,
+      "gitBlob": "403650d76679203975b5dadb2ba3cdb678237e8d",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r4/historical-talentMarket.ts",
+      "sha256": "fb9f431e076d9c206f32a218ffecaa84e64f5c183b15c8ef92241f0b665df0b7"
+    },
+    {
+      "bytes": 4729,
+      "gitBlob": "ffc4cb4a68fd5ae58f10a0f01dfe9c0ba33d78e7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r4/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 5620,
+      "gitBlob": "8032407301b4d5ce7b2d5ebdcb3df3de8846f1ff",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r4/market-static-synthetic-check.mjs",
+      "sha256": "837e8a14ca4477eb3f5da90abcbafa01cdca4933b9900f93217af64ffb78c445"
+    },
+    {
+      "bytes": 24797,
+      "gitBlob": "659002399050551533cc58d97e95737c7db3bdd0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r4/modern-opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    {
+      "bytes": 112969,
+      "gitBlob": "6046d8b68911ca7b466cf5e7b35c3291f20a9df7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r4/modern-promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    {
+      "bytes": 106620,
+      "gitBlob": "91d0ee3752b95aa4698fa499ad5d81dbea26389d",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r4/modern-talentMarket.ts",
+      "sha256": "8a1710af824bd86d69eaa9fb3ebedb98b4126ee59683c414c6c197a7bcb34178"
+    },
+    {
+      "bytes": 14665,
+      "gitBlob": "b079f60e9c98724e25b59d57766b98a76901abdc",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r4/static-synthetic-check.mjs",
+      "sha256": "8eaf8145cce3ee4ec76d412e177e9108a56d109ac07409456d0d04dd29eebf00"
+    },
+    {
+      "bytes": 3254,
+      "gitBlob": "9059fd7fabe39c0b602edb04a056b0e32370d996",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r5-partial/INVENTORY.json",
+      "sha256": "b29b4302570cec1703d9532da8adff84b5902670ce87e10ff482aa08a14f1a20"
+    },
+    {
+      "bytes": 2951,
+      "gitBlob": "69eab582780fc040bd7919a910f5f8fb16bb9bb0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r5-partial/README.md",
+      "sha256": "3ed3880aa112524a6fef6b0bd2923cbc9315d5b2cb98b21398372ae5b3d5b88e"
+    },
+    {
+      "bytes": 11914,
+      "gitBlob": "fa7adebafd087bd7cbaf033d6eb2db2ade3782ad",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r5-partial/diagnostic.test.ts",
+      "sha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543"
+    },
+    {
+      "bytes": 63061,
+      "gitBlob": "03076adf17aed408c9a575663a04fe9abf5ee5de",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r5-partial/historical-promises.ts",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    {
+      "bytes": 89674,
+      "gitBlob": "6757742407ffd0aa963abc32ef1b8cdab4055b95",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r5-partial/historical-talentMarket.ts",
+      "sha256": "649d96355ef6243753982faed8151bba772dbd43b5a069518a0a1be5a2d44a90"
+    },
+    {
+      "bytes": 4729,
+      "gitBlob": "ffc4cb4a68fd5ae58f10a0f01dfe9c0ba33d78e7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r5-partial/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 5628,
+      "gitBlob": "306a0936d14108106b72660188ee9a7f9504c647",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r5-partial/market-static-synthetic-check.mjs",
+      "sha256": "4b6a5291babb41866fb35633fc90d02190d09373129bad1d17d17eba771e681d"
+    },
+    {
+      "bytes": 24797,
+      "gitBlob": "659002399050551533cc58d97e95737c7db3bdd0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r5-partial/modern-opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    {
+      "bytes": 112969,
+      "gitBlob": "6046d8b68911ca7b466cf5e7b35c3291f20a9df7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r5-partial/modern-promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    {
+      "bytes": 107427,
+      "gitBlob": "89352823dcb948adebeffca554e3b35b57cf63e9",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r5-partial/modern-talentMarket.ts",
+      "sha256": "a544c19705ebbfbd703c7cfa26c987e3a3a948bc0ea981f9f836f24eebe5cea8"
+    },
+    {
+      "bytes": 2489,
+      "gitBlob": "f61314d843357c40d836ab004d84ec8b81060887",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r5-partial/r5-static-check.mjs",
+      "sha256": "7bfafdd72f5e86fdf8a48fef4b6b93504dd1c6bb415470082144a99a16e2979b"
+    },
+    {
+      "bytes": 14673,
+      "gitBlob": "cb645bf73ba8a7feb4b12ce8653e0e810cf70891",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r5-partial/static-synthetic-check.mjs",
+      "sha256": "13c268b98170d70429ee0bfdebbdfbf47d2eaa19ce932860c235bfdb19593f88"
+    },
+    {
+      "bytes": 3595,
+      "gitBlob": "8442cfdf799a196d4d79b5bbb681f007963c7f57",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/INVENTORY.json",
+      "sha256": "3a92ac6d99482eaa539524e8fd069e7f0924bdc4affed1fa968ca19d78acd018"
+    },
+    {
+      "bytes": 3073,
+      "gitBlob": "5cb671823de723086b0d75a0bf549790cd8d9e33",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/README.md",
+      "sha256": "a8508aec4e45c7db24ebe70c5a01cb9a29610de5903922d11b55ec6ae092fe99"
+    },
+    {
+      "bytes": 11914,
+      "gitBlob": "fa7adebafd087bd7cbaf033d6eb2db2ade3782ad",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/diagnostic.test.ts",
+      "sha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543"
+    },
+    {
+      "bytes": 63061,
+      "gitBlob": "03076adf17aed408c9a575663a04fe9abf5ee5de",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/historical-promises.ts",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    {
+      "bytes": 92171,
+      "gitBlob": "65dfb10d93869a659f23a0e8f9b30e9882f7b591",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/historical-talentMarket.ts",
+      "sha256": "e12810c66cc93358a182bd527adfdeda05d3525352087f8a94835e75708231a5"
+    },
+    {
+      "bytes": 4729,
+      "gitBlob": "ffc4cb4a68fd5ae58f10a0f01dfe9c0ba33d78e7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 5628,
+      "gitBlob": "5afdaeb4bc9f75443beab96faac239ed1a47da88",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/market-static-synthetic-check.mjs",
+      "sha256": "ad7b8e59a1e2c13afe2ae94bea9e44d9cd8779d305702260e808bad6cfab51fc"
+    },
+    {
+      "bytes": 24797,
+      "gitBlob": "659002399050551533cc58d97e95737c7db3bdd0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/modern-opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    {
+      "bytes": 112969,
+      "gitBlob": "6046d8b68911ca7b466cf5e7b35c3291f20a9df7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/modern-promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    {
+      "bytes": 110243,
+      "gitBlob": "75c8c9f439c4f2453377436d97aff927d78d1770",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/modern-talentMarket.ts",
+      "sha256": "53e7e270e372e31ca3975b650619950cfaad7db52422c0099f6c6474c3f91b77"
+    },
+    {
+      "bytes": 2633,
+      "gitBlob": "cab41c475743d32c29b28dc0483e1d6ddface0e0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/r5-static-check.mjs",
+      "sha256": "b0eb34a43c423f10d4ee3ceef7ff55116b7e3baf9aaef63997240aa630f7f18e"
+    },
+    {
+      "bytes": 3480,
+      "gitBlob": "47d4c22547c3cb8a56bd2acaeae12d4e9d67fc38",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/r6-observer-static-synthetic-check.mjs",
+      "sha256": "8ef94e78469a32ce85488b06c5de62b4874f45ca927eb5a30c80416d1f4f05a2"
+    },
+    {
+      "bytes": 14673,
+      "gitBlob": "89640b51823fdea1f0193bf6fc3babe290b9fbc5",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r6-partial/static-synthetic-check.mjs",
+      "sha256": "9448feb87d153b30a54228d98750207857548767886dec1ff12166affe74811e"
+    },
+    {
+      "bytes": 3659,
+      "gitBlob": "ada8752f406ab9422697e8939d080f6c94d94cb2",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/INVENTORY.json",
+      "sha256": "01f68e5a01bdda399b9b470f55910f772b1b8324686f673aac12a65a1a4c98aa"
+    },
+    {
+      "bytes": 3279,
+      "gitBlob": "b2ee18650ff9af07a08c20dfdb0eb58c02f20db2",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/README.md",
+      "sha256": "788c2d44dd49f240792b68246972a6a54a28321044b987fcd34a424b76cbd5e7"
+    },
+    {
+      "bytes": 11914,
+      "gitBlob": "fa7adebafd087bd7cbaf033d6eb2db2ade3782ad",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/diagnostic.test.ts",
+      "sha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543"
+    },
+    {
+      "bytes": 63061,
+      "gitBlob": "03076adf17aed408c9a575663a04fe9abf5ee5de",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/historical-promises.ts",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    {
+      "bytes": 94470,
+      "gitBlob": "9a2f49e6711a64527572afd313d899e773a08f4c",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/historical-talentMarket.ts",
+      "sha256": "49de89198ab91850e93f3224c1952680726f0bfd3461609ce0ba042d576effa9"
+    },
+    {
+      "bytes": 4729,
+      "gitBlob": "ffc4cb4a68fd5ae58f10a0f01dfe9c0ba33d78e7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 5628,
+      "gitBlob": "24476b6d71a6af3793cfa07fc825b6d6afb98ad6",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/market-static-synthetic-check.mjs",
+      "sha256": "6ce413fd28ea65fcf2ffc5484022fba6017e576d7b684986e8f6d0fc60143aaa"
+    },
+    {
+      "bytes": 24797,
+      "gitBlob": "659002399050551533cc58d97e95737c7db3bdd0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/modern-opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    {
+      "bytes": 112969,
+      "gitBlob": "6046d8b68911ca7b466cf5e7b35c3291f20a9df7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/modern-promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    {
+      "bytes": 112618,
+      "gitBlob": "423598556cee736dab723c161802d73b0ff28437",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/modern-talentMarket.ts",
+      "sha256": "5413a6f9bf714dd54a233f9a8f230beb628ce5011fa4de2df8dae3e7654aed4b"
+    },
+    {
+      "bytes": 2633,
+      "gitBlob": "00ccc1a393daa211790ff68bf753795cb84328fc",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/r5-static-check.mjs",
+      "sha256": "9dbbcf1ed5306d4be0496aa718c4f49add57edd2519bbcb76a0deeabe0f5012b"
+    },
+    {
+      "bytes": 3416,
+      "gitBlob": "bc6bfd93048212bba3a706f7676df115a4396620",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/r6-observer-static-synthetic-check.mjs",
+      "sha256": "d6a174a497f8b606cd31a3786023b9946fc350c837c45ea462129c2828817a02"
+    },
+    {
+      "bytes": 4196,
+      "gitBlob": "9862d1bad68bd99b7def2292ea7dfe11e68c69c4",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/r7-freeze-static-synthetic-check.mjs",
+      "sha256": "8999a2cc2b394047b410a9412bbe192e6c8812309839a93e6f2087635c815c4f"
+    },
+    {
+      "bytes": 14673,
+      "gitBlob": "0a438f71ba1a6639f8632fdc3f86cfa239f0e960",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r7-partial/static-synthetic-check.mjs",
+      "sha256": "26fad9b81c5247f379843420a857912a943a3d9f1c2c17f18c2c7a0d9fb90c5d"
+    },
+    {
+      "bytes": 3884,
+      "gitBlob": "9682d2e7cf5d67bce96229ae8a3874e188acb580",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/INVENTORY.json",
+      "sha256": "2e2914354c4a6a3d5b72fc6e71d95cf04dd93750bf640dcaa8a7748deb15cc30"
+    },
+    {
+      "bytes": 2966,
+      "gitBlob": "84237f2473f1cf70b765e42db711c8619eb092e0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/README.md",
+      "sha256": "27c36b32dd207a94da126c553e6398ca85a46d1edcc202742719215bfe4a709e"
+    },
+    {
+      "bytes": 11914,
+      "gitBlob": "fa7adebafd087bd7cbaf033d6eb2db2ade3782ad",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/diagnostic.test.ts",
+      "sha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543"
+    },
+    {
+      "bytes": 63061,
+      "gitBlob": "03076adf17aed408c9a575663a04fe9abf5ee5de",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/historical-promises.ts",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    {
+      "bytes": 97996,
+      "gitBlob": "884150083006dfeae1ddcc6a1f222699dbe39fed",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/historical-talentMarket.ts",
+      "sha256": "63f3252b0ec0bdca83dfa18a7a8431caff5e72065cbc101d6754f951c0fb8a25"
+    },
+    {
+      "bytes": 4729,
+      "gitBlob": "ffc4cb4a68fd5ae58f10a0f01dfe9c0ba33d78e7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 5628,
+      "gitBlob": "d3280bbf9c5aeb74b9c15f8c2be1cdfcf894fe35",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/market-static-synthetic-check.mjs",
+      "sha256": "9efa410d637abed7f389b425d5aa4c650e9a4ecab3b6886bddbf8eb5b6ba2f9b"
+    },
+    {
+      "bytes": 24797,
+      "gitBlob": "659002399050551533cc58d97e95737c7db3bdd0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/modern-opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    {
+      "bytes": 112969,
+      "gitBlob": "6046d8b68911ca7b466cf5e7b35c3291f20a9df7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/modern-promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    {
+      "bytes": 116396,
+      "gitBlob": "51867cbd218e3006440669cb10a243a7012ca566",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/modern-talentMarket.ts",
+      "sha256": "dd9906370023bb57298c47cb0831de326a91c1c928dbf6e6e1c9ceef76f9f497"
+    },
+    {
+      "bytes": 2633,
+      "gitBlob": "13c37ebcab13ba0e7c801e0b76290d5a29cae0de",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/r5-static-check.mjs",
+      "sha256": "c5bd2cd16386a9eac479ed8ecc70f94875232034d3060f0506b1d96f35fa5c71"
+    },
+    {
+      "bytes": 3416,
+      "gitBlob": "8067376f15116824f51f31c5479b4371832c2167",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/r6-observer-static-synthetic-check.mjs",
+      "sha256": "0d65f1f3cbeabc8f866469b696dc1fc5e314cf52ef93782360227560da148fbd"
+    },
+    {
+      "bytes": 4196,
+      "gitBlob": "6ab1c7e08420992521a0b1e8e7245615eac2a06c",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/r7-freeze-static-synthetic-check.mjs",
+      "sha256": "3aa8e79255e6e3e20578963a50b4ac3ce56e6da512b3aa017235bc326d20d19b"
+    },
+    {
+      "bytes": 5253,
+      "gitBlob": "29746bad5d2b69688e10d6ed9f5b644ebda0d552",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/r8-chooser-static-synthetic-check.mjs",
+      "sha256": "708fac0d69f6e92183b5e94e29ade4f9920fc9c3687e92ab396a7dc34442e297"
+    },
+    {
+      "bytes": 14673,
+      "gitBlob": "09dfeb30d655c569dec88d487c6272a83f6c8ef1",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r8-partial/static-synthetic-check.mjs",
+      "sha256": "8536ba6c9418b3400f7da10dee4da783e895bf9ca388ce74624240281b98b38d"
+    },
+    {
+      "bytes": 4329,
+      "gitBlob": "abb6dbe977b0de3079ce7381ce247b1c46231f75",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/INVENTORY.json",
+      "sha256": "94b2d6920565cf5208b9e63d01624fe2dd5f35ca51d8a48ec8dcec7c8f90ea45"
+    },
+    {
+      "bytes": 2582,
+      "gitBlob": "92364f4e879885668918c5ae0e621397f091907d",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/README.md",
+      "sha256": "2e29c6401816fe9c90a3aa938636c5560d315f584e522d4e29be1cdae6c2e0e7"
+    },
+    {
+      "bytes": 11914,
+      "gitBlob": "fa7adebafd087bd7cbaf033d6eb2db2ade3782ad",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/diagnostic.test.ts",
+      "sha256": "8a1dd51d6325212b8e2c03989d50d21f9955a11bd2fb8eb3ff2121134dd40543"
+    },
+    {
+      "bytes": 63061,
+      "gitBlob": "03076adf17aed408c9a575663a04fe9abf5ee5de",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/historical-promises.ts",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    {
+      "bytes": 98582,
+      "gitBlob": "c0830a9167e3b0c5c2290aa93499940f6b88c2f6",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/historical-talentMarket.ts",
+      "sha256": "4f35113066c6424229d32ec9aa0b43a33f9b65a6a91734e6f27cb26b878ce1a9"
+    },
+    {
+      "bytes": 4729,
+      "gitBlob": "ffc4cb4a68fd5ae58f10a0f01dfe9c0ba33d78e7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 5643,
+      "gitBlob": "54cd687aaddd86e196b1210c6d5274d6e919ecaf",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/market-static-synthetic-check.mjs",
+      "sha256": "9906f18319a88ef3deeab56ca23e4a4c88950aec31ff7ee13adfcc8e1f110828"
+    },
+    {
+      "bytes": 24797,
+      "gitBlob": "659002399050551533cc58d97e95737c7db3bdd0",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/modern-opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    {
+      "bytes": 112969,
+      "gitBlob": "6046d8b68911ca7b466cf5e7b35c3291f20a9df7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/modern-promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    {
+      "bytes": 116906,
+      "gitBlob": "dd5e20779f22b3ece82ed6b846a3a270d9085997",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/modern-talentMarket.ts",
+      "sha256": "71c775336c581fb5c5ad8923d4648bc8bf492ee38f235214f861fd1d0e7ac804"
+    },
+    {
+      "bytes": 2648,
+      "gitBlob": "6f4d49dd5d8953fbfbfbaa1eee05c68a9e8e9d40",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/r5-static-check.mjs",
+      "sha256": "d9eb981a33af0981d65523cac63ec067a2bb31f63322c893e79455ba3821b2c8"
+    },
+    {
+      "bytes": 3431,
+      "gitBlob": "0afbac8981b65565e9fa9aef20d43d77f0cae086",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/r6-observer-static-synthetic-check.mjs",
+      "sha256": "07ef90bfa53e2d16ec524b972703998ab82190c10db7066d6c048f25da53a028"
+    },
+    {
+      "bytes": 4211,
+      "gitBlob": "63a7f958aa94274c590a6d0a64e17b75480f0ad3",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/r7-freeze-static-synthetic-check.mjs",
+      "sha256": "946a517ff82150b84ad91ca423afb7a54f3974346c71f99f302ba80c0b2a668b"
+    },
+    {
+      "bytes": 5268,
+      "gitBlob": "f2c7e6f6b0bca4ce383200d618cc50f0429c020d",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/r8-chooser-static-synthetic-check.mjs",
+      "sha256": "fd734acaa0be65d4aa6a0b4ab454cf97c5e1f05378d949091da5d2c0da5e3890"
+    },
+    {
+      "bytes": 4567,
+      "gitBlob": "3504eccb3db78b68b5e977ab05762c687ea0e781",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/r9-catch-propagation-red.mjs",
+      "sha256": "2586ce3c34fe62d3d9e44f98436383ed229992bd68664a04c0332784b724d8e3"
+    },
+    {
+      "bytes": 14688,
+      "gitBlob": "0b4a3de8adb859325c07716c15f8a5cc5db350b6",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/1370-c0-m0-feasibility-hook-overlay-r9-propagation-correction/static-synthetic-check.mjs",
+      "sha256": "4c91628b0e5935a203550e10d393f7f5bc98c69b653f35a3888035b3669b9006"
+    },
+    {
+      "bytes": 1687,
+      "gitBlob": "a2cef9eb074950cf4ed6cad53e0ccb2fd0141693",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/publication/MANIFEST.json",
+      "sha256": "ee77282f077ca2e22a2554c2f91efc8dcb49c10808ffb6ba069397f77c78d032"
+    },
+    {
+      "bytes": 2270,
+      "gitBlob": "624c52e56b5dd6d564dfad3912b87f46b2e61892",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/publication/PLAN.md",
+      "sha256": "b21053e1be6f0b3d26d8684fe958d7f94802ee5d143eb9a0584dbf47686f5440"
+    },
+    {
+      "bytes": 103660,
+      "gitBlob": "277c2a4ffaecd385eba710dd60fcac4c0769f696",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/publication/SOURCE-MAP.json",
+      "sha256": "37e2421cf3de26224aa838fc21eb3c8a21c5ad646e2bfe96df4f5c0ebd62c203"
+    },
+    {
+      "bytes": 73019,
+      "gitBlob": "a85f5c1df24c0ec41db44a6c5ad46c5302fef247",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/publication/SOURCE-ROSTER.tsv",
+      "sha256": "9124bd736847d1c58cd0db91a313d0c8b746a3ed1e6af046802c2572090bde55"
+    },
+    {
+      "bytes": 1274,
+      "gitBlob": "19e62be9f4d2e4b2e0389c35bdd109f0ae73ce82",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/publication/map-review/RECEIPT.json",
+      "sha256": "9838aa2db117013c99d207eff3e3196ab9e79b54477b651c51fde6696c01c5a9"
+    },
+    {
+      "bytes": 21987,
+      "gitBlob": "0d6ead7fcd9f66aee3e787e5b9a55a74cd1dc97f",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/publication/publish_stage37.py",
+      "sha256": "1a1b313eb12e3b9faed4e4c13745bfdb2a67e152baf096507db6c3ddf764c988"
+    },
+    {
+      "bytes": 1003,
+      "gitBlob": "211439358a995eea5cff4ecf4f98445b65d1c5e7",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/publication/publisher-review/RECEIPT.json",
+      "sha256": "0d586719822786dcd02542b722cd74c588c6e46d5eac39db9f9ee2380660b4ad"
+    },
+    {
+      "bytes": 2656,
+      "gitBlob": "cbea21b62448f7a126a9f14ebbccdc3877aa2817",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-seventh-verification/publication/test_static.py",
+      "sha256": "89a86886bc68a074938bbc744ded648b670106ece5038e5b316cbfc4a6c1f740"
+    }
+  ],
+  "noAlternates": true,
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "remoteCommit": "6f837b1648803d0a8fe77c72dc6b1609f0a319a6",
+  "schema": "1370-c0-stage37-fresh-https-remote-audit-result-r2",
+  "specSha256": "7c2899ce0779ab21e172c0592aaa905d59fb753d1728909f7b16ac41f7633620",
+  "status": "ACCEPT_REMOTE_STAGE37_C0_EVIDENCE_BYTES_ONLY",
+  "totalBytes": 4298338
+}

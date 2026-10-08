@@ -1,0 +1,5 @@
+# Stage37 publisher exact launch independent review r1
+
+**ACCEPT_EXACT_ONLY; unrun.** The frozen Bash command passes syntax check and pins the publisher script, manifest, independent publisher static receipt and independently accepted map receipt with nofollow, fstat/lstat identity checks before in-memory execution. It passes exact review SHA arguments and invokes the recorded sole heavy lane at the unique absent log path. Publisher owns the 900-second whole-run alarm, AC and 3 GiB floor, private-index and result one-shot guards.
+
+At review, the lane log/meta/lock, private index and result were absent; production HEAD/source tree and clean worktree matched f8/13880; local and fresh remote evidence ref matched 2a4 and remote production matched f8; origin matched; AC and >3 GiB free held. These volatile conditions must still be checked by the publisher at execution. The lane wrapper's own process status is not sufficient: observed review must read `.meta` child exit and result, then conduct fresh HTTPS remote-byte audit.

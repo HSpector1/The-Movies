@@ -1,0 +1,11 @@
+{
+  "arm": "H",
+  "bindingSha256": "6d610b0dd7a68dbfc1a5c8f123a52c0863baf3724842e16af6e5ff90fe99346d",
+  "claimLimit": "Unrun; no mirror or types admission",
+  "commandSha256": "9dfd7b2e5d7c14c806ba9d7e097e9c100d021f1287e2446c706d8db852032e0d",
+  "decision": "REFINE",
+  "materializerSha256": "28e546e77e6dfd414427b5d645a65a3c549c1f1011be812d07ee13da9a5e26ed",
+  "reason": "Executable materializer source is not authenticated at execution; direct interpreter path is TOCTOU relative to reviewed SHA",
+  "reportSha256": "f5e7a510bdf5d3929291e5f018783b0de13743527494b20bebbf75b68689b803",
+  "runId": "20261008-h-types-r1"
+}

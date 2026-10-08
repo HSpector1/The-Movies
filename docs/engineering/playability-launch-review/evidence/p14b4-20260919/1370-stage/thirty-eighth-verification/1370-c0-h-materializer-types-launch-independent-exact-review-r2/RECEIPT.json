@@ -1,0 +1,20 @@
+{
+  "absentOneShotPaths": true,
+  "acPower": true,
+  "arm": "H",
+  "bashSyntaxAndSelfcheckPass": true,
+  "bindingSha256": "d7c6ac2610808779c625dfdae5eaa8a11d5d5fc2b8d2cd386940d372918be316",
+  "claimLimit": "Unrun source mirror only; types/game/neutrality pending",
+  "commandSha256": "6bd56dc746ec646cdc099168b99122938ac56623c61e0d372b952f5f4afc73fc",
+  "decision": "ACCEPT_EXACT_ONLY",
+  "freeBytesAtReview": 3914031104,
+  "materializerSha256": "28e546e77e6dfd414427b5d645a65a3c549c1f1011be812d07ee13da9a5e26ed",
+  "materializerStaticReviewSha256": "2e3f28a983d80cd1e7e626fad921773bc17e11331c338b4d4ce63be9c25efddf",
+  "productionAndRemoteMatched": true,
+  "r1RefineReceiptSha256": "860c2a6a0988ffff1476b5de5decc306b195765364eb0f200a46d9bf90d2b397",
+  "reportSha256": "65285e19c0739911d729ad65458bcdf4b017cbaea73abe815d3e91eaa27b9b44",
+  "runId": "20261008-h-types-r1",
+  "sourceManifestSha256": "e2f92aa60063b754f110ec31f08080bfd461f6a150f74394464739c2d4cab7ff",
+  "sourceReviewSha256": "5e6f23884af9527f991665020414404455f182cc3a62abe5a5602bb019804dbf",
+  "stage37RemoteObservedReceiptSha256": "d47a7cefe094e383893887618a4a5d6ab980956b6e78e97763dc0a1090976e8c"
+}

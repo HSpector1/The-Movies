@@ -1,0 +1,36 @@
+{
+  "arm": "H",
+  "elapsedSeconds": 66.746,
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+  "overlayFiles": [
+    {
+      "bytes": 98582,
+      "destination": "src/core/talentMarket.ts",
+      "sha256": "4f35113066c6424229d32ec9aa0b43a33f9b65a6a91734e6f27cb26b878ce1a9"
+    },
+    {
+      "bytes": 63061,
+      "destination": "src/core/promises.ts",
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    {
+      "bytes": 4729,
+      "destination": "src/core/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 12710,
+      "destination": "tests/diagnostic.test.ts",
+      "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7"
+    }
+  ],
+  "runId": "20261008-h-types-r1",
+  "schema": "1370-c0-h-m0-mirror-materializer-result-r2",
+  "sourceBytes": 98114949,
+  "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "sourceFileCount": 1342,
+  "sourceManifestSha256": "e2f92aa60063b754f110ec31f08080bfd461f6a150f74394464739c2d4cab7ff",
+  "sourceReviewSha256": "5e6f23884af9527f991665020414404455f182cc3a62abe5a5602bb019804dbf",
+  "sourceTree": "0ee21d8179977aaa0726ffb5d1b2bb2568c9df97",
+  "status": "MIRROR_MATERIALIZED_SOURCE_ONLY"
+}

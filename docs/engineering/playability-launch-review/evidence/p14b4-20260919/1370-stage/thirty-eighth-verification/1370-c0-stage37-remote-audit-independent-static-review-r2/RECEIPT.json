@@ -1,0 +1,15 @@
+{
+  "auditSha256": "de04d71b03cbb7969eed9a8314dcd7c64d7cd2f59be2237d631a097d5227a991",
+  "bindingSha256": "c4790b9f6cc512e00abed6ef9155a979ac82155b4f2442792c25972bf291647f",
+  "claimLimit": "Static only; exact launch and fresh HTTPS remote bytes pending",
+  "decision": "ACCEPT_STATIC_ONLY",
+  "fileCount": 191,
+  "manifestSha256": "e56b245fcd518593385712a5b0207b25a61d0882bc0d36de51ecf1fcc9504527",
+  "r1RefineReceiptSha256": "6452f061ec7459c5ff766fc185109646607072b0d0d6ae8f1dd213295e7444e6",
+  "reportSha256": "06c4338e2b480b23bcc3e746bb481c94234a77abb04c352004bc0af108451c9c",
+  "specSha256": "7c2899ce0779ab21e172c0592aaa905d59fb753d1728909f7b16ac41f7633620",
+  "syntheticTestsPassed": 13,
+  "testSha256": "39fcb2d7bf4e6cd8fdf3d4243d1ff936be3e6da94af4cb5bf9d5e385c81a4d97",
+  "tip": "6f837b1648803d0a8fe77c72dc6b1609f0a319a6",
+  "totalBytes": 4298338
+}

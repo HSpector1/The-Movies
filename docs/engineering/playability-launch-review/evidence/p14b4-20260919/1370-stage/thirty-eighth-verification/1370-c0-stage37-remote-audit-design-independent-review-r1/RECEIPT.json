@@ -1,0 +1,14 @@
+{
+  "claimLimit": "Design only; no remote audit run or byte proof",
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "fileCount": 191,
+  "mappedSourceCount": 183,
+  "parent": "2a4ca902ca4390017238e9a6cc398697e25feaa8",
+  "planSha256": "a58437aa4aa536fee4eb0a3fe4c61ac83f8a3a9479ad9836389aa42ca15b4ef7",
+  "publicationControlCount": 8,
+  "publisherResultSha256": null,
+  "reportSha256": "bc7b092fda3aeb1e3bfe92b2cc1dc964e920a86bb71b611da685e8e4ec203890",
+  "specTemplateSha256": "f89a6e53a870978defa4352edf3dceaf539290c8688237b194b0eb6e4415f0a8",
+  "tip": null,
+  "totalBytes": 4298338
+}

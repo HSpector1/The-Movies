@@ -1,0 +1,7 @@
+# Independent static stage37 remote-audit review requested — unrun
+
+The filled SPEC pins tip `6f837b1648803d0a8fe77c72dc6b1609f0a319a6`, direct parent `2a4ca902ca4390017238e9a6cc398697e25feaa8`, publisher result SHA-256 `bfa75b2339c81c605c450ca17ba6d04237559dc8197954fc4884f6f0e18fa407`, observed tip-only receipt SHA-256 `65417cf29d7aa870c57a14f1987c62d715153b698c518274e2ab9d6f43699f41`, and exact 191 paths/4,298,338 bytes from accepted design receipt `f7131784a1b80a17060a2395a79f4835d8aa9c0fe7d318b8bd310c98440d4a26`. Static review does not launch a clone or admit remote bytes.
+
+Audit code SHA-256 `f16b36a99aa17fcd64d599f146ba379470b7e01fb4522961fe9c16cacd9c46ff`; synthetic test SHA-256 `373ce858c99e37517b371c679ddcf14b753f7fcb5c590fe1fa2f198693968070` (11 pass); SPEC SHA-256 `d7c3e69f85c775954d3874779e7497a7b60e853ec826a5b5864f4be73838febe`; PLAN SHA-256 `f756b8dbe26cbd11d4b21d23c813a452e8706180534ee7926843819f72dfaac8`; MANIFEST SHA-256 `77b62383885f6b89ece1270cb6c4960a40b7ddaf0e1ef338cdce9b33fa31e8fb`; BINDING SHA-256 `abbe411cfbd3003d531b4337595454858cc7c3dc04269536cb61586cf04bd831`. The static receipt and exact launch pins are null in the binding until review.
+
+Review exact source/publisher/design controls, fresh HTTPS clone/no alternates, 191 exact sorted paths and byte/OID stream, direct parent, AC/3 GiB/900 seconds, sole recorded lane, one-shot output, clone cleanup before success, STOP on any mismatch, no production Git mutation, and claim limit. Run synthetic tests only. A filled launch requires a separate exact review.

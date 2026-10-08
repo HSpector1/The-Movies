@@ -1,0 +1,19 @@
+{
+  "absentOneShotPaths": true,
+  "acPower": true,
+  "bashSyntaxPass": true,
+  "bindingSha256": "4e852730512f2d038a01e15cb14c06ba26b5cf90c926c64706038f399a4ed9e7",
+  "claimLimit": "Unrun exact command; fresh remote bytes pending",
+  "commandSha256": "4542f5f21bdd7024fc527f9c0cc5b0cd09288e32a93f427f01b5fb8999d0b9e1",
+  "decision": "ACCEPT_EXACT_ONLY",
+  "freeBytesAtReview": 3915661312,
+  "freshRemoteRefsMatched": true,
+  "laneLog": "/Users/zacheryspector/studio-scratch/1370-c0-stage37-remote-audit-20261008-r2.lane.log",
+  "productionUnchanged": true,
+  "publisherObservedReceiptSha256": "65417cf29d7aa870c57a14f1987c62d715153b698c518274e2ab9d6f43699f41",
+  "publisherResultSha256": "bfa75b2339c81c605c450ca17ba6d04237559dc8197954fc4884f6f0e18fa407",
+  "reportSha256": "d80a502acac734597935c8c9d8aba2db7b83170896f2f839b4927ea342185b95",
+  "specSha256": "7c2899ce0779ab21e172c0592aaa905d59fb753d1728909f7b16ac41f7633620",
+  "staticReviewReceiptSha256": "11f42be0a0cbd4f77eb1948998d263a156112960e5a39e0a0b240813511ad881",
+  "tip": "6f837b1648803d0a8fe77c72dc6b1609f0a319a6"
+}

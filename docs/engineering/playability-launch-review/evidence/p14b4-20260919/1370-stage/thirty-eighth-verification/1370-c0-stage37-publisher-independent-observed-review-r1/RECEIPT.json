@@ -1,0 +1,17 @@
+{
+  "childExit": 0,
+  "claimLimit": "Published tip only; fresh HTTPS remote bytes pending",
+  "decision": "ACCEPT_OBSERVED_PUBLICATION_TIP_ONLY",
+  "exactDeltaAndLocalBlobOidsMatched": true,
+  "exactReviewReceiptSha256": "c7531e62abd3227fc1bfbac06b23a92e605b44150f87f821c3514b509ac98bad",
+  "fileCount": 191,
+  "freshRemoteTipMatched": true,
+  "laneLogSha256": "2327bc6361011fc2f9e299022dda84d84752aafddb75ba32a1b37814f28d4b1a",
+  "laneMetaSha256": "6ce7dc6659e1c615d2a2080e8f313bf25ebe66f7a2aece83116b586557340f52",
+  "parent": "2a4ca902ca4390017238e9a6cc398697e25feaa8",
+  "productionUnchanged": true,
+  "reportSha256": "3a8558abfd59babba1290498d8db58538ec81e41a7a42b98c125ac30966bbade",
+  "resultSha256": "bfa75b2339c81c605c450ca17ba6d04237559dc8197954fc4884f6f0e18fa407",
+  "tip": "6f837b1648803d0a8fe77c72dc6b1609f0a319a6",
+  "tree": "0b23cbea2176d23075198f59aa57249b803205de"
+}

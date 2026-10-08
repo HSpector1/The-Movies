@@ -1,0 +1,30 @@
+bash /Users/zacheryspector/studio-scratch/heavy-queue/lane-run.sh 0 /Users/zacheryspector/studio-scratch/1370-c0-stage37-remote-audit-20261008-r2.lane.log python3 -I -B -c 'import hashlib,json,os,stat,sys
+from pathlib import Path
+s=Path("/Users/zacheryspector/studio-scratch")
+p=s/"1370-c0-stage37-remote-audit-proposal-r2/audit.py"
+spec=s/"1370-c0-stage37-remote-audit-proposal-r2/SPEC.json"
+review=s/"1370-c0-stage37-remote-audit-independent-static-review-r2/RECEIPT.json"
+publication=s/"1370-c0-stage37-publisher-proposal-r1/PUBLISH-RESULT.json"
+observed=s/"1370-c0-stage37-publisher-independent-observed-review-r1/RECEIPT.json"
+manifest=s/"1370-c0-stage37-remote-audit-proposal-r2/MANIFEST.json"
+pins={p:"de04d71b03cbb7969eed9a8314dcd7c64d7cd2f59be2237d631a097d5227a991",spec:"7c2899ce0779ab21e172c0592aaa905d59fb753d1728909f7b16ac41f7633620",review:"11f42be0a0cbd4f77eb1948998d263a156112960e5a39e0a0b240813511ad881",publication:"bfa75b2339c81c605c450ca17ba6d04237559dc8197954fc4884f6f0e18fa407",observed:"65417cf29d7aa870c57a14f1987c62d715153b698c518274e2ab9d6f43699f41",manifest:"e56b245fcd518593385712a5b0207b25a61d0882bc0d36de51ecf1fcc9504527"}
+def read(file,pin):
+ for parent in file.parents: assert stat.S_ISDIR(parent.lstat().st_mode)
+ before=file.lstat();assert stat.S_ISREG(before.st_mode) and before.st_nlink==1 and before.st_size<1048576
+ fd=os.open(file,os.O_RDONLY|os.O_NOFOLLOW)
+ try:
+  chunks=[]
+  while part:=os.read(fd,65536): chunks.append(part)
+  raw=b"".join(chunks);during=os.fstat(fd);after=file.lstat()
+  fields=lambda v:(v.st_dev,v.st_ino,v.st_mode,v.st_nlink,v.st_size,v.st_mtime_ns,v.st_ctime_ns)
+  assert fields(before)==fields(during)==fields(after) and len(raw)==before.st_size
+ finally: os.close(fd)
+ assert hashlib.sha256(raw).hexdigest()==pin
+ return raw
+data={file:read(file,pin) for file,pin in pins.items()}
+assert json.loads(data[review])["decision"]=="ACCEPT_STATIC_ONLY"
+assert json.loads(data[publication])["status"]=="PUBLISHED_REMOTE_TIP_VERIFIED_REMOTE_BYTES_PENDING"
+assert json.loads(data[observed])["decision"]=="ACCEPT_OBSERVED_PUBLICATION_TIP_ONLY"
+sys.argv=[str(p),"--tip","6f837b1648803d0a8fe77c72dc6b1609f0a319a6","--spec-sha",pins[spec],"--publisher-result-sha",pins[publication]]
+exec(compile(data[p],str(p),"exec"),{"__name__":"__main__","__file__":str(p)})
+'

@@ -1,0 +1,19 @@
+{
+  "allRowsExactToFrozenSpec": true,
+  "childExit": 0,
+  "claimLimit": "Static C0 evidence remote-byte backup only; no runtime or 1363 acceptance",
+  "cloneCleanup": "COMPLETE",
+  "decision": "ACCEPT_REMOTE_STAGE37_C0_EVIDENCE_BYTES_ONLY",
+  "exactReviewReceiptSha256": "8aef873eab77956f65b51065ffabc985f20636123caf0d98389fd45016d2184f",
+  "fileCount": 191,
+  "laneLogSha256": "987c3b66068bbb6198134308197ce41c196b15198210d2ff54238cb30bc6f8a3",
+  "laneMetaSha256": "1d2f327a1947883ec6239a016999a2c6a3c4d60ee51d447526705b4934d93a18",
+  "noAlternates": true,
+  "parent": "2a4ca902ca4390017238e9a6cc398697e25feaa8",
+  "productionUnchanged": true,
+  "rawReceiptSha256": "e71da7a07e28f3cd7f82f659701feeeba4d2e37ef1769c5e49fa1f404282062e",
+  "remoteRefsMatched": true,
+  "reportSha256": "111121e1903d8b593d8a46cdcb4b2a205b5c7847a8a36bed1dd126dce2eb72ef",
+  "tip": "6f837b1648803d0a8fe77c72dc6b1609f0a319a6",
+  "totalBytes": 4298338
+}
