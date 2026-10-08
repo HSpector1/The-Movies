@@ -1,0 +1,16 @@
+{
+  "facts": {
+    "bindingSemanticSha256": "b77091ee7c40c7b44d91afd946e5a27184fbed385e25cbcb826c79f2a5ab2a86",
+    "deficitBytesNow": 460783616,
+    "dependencyShape": {
+      "directories": 1401,
+      "links": 24,
+      "regular": 11060
+    },
+    "freeBytesNow": 3297312768,
+    "requiredFreeBytes": 3758096384,
+    "sourceCount": 176,
+    "sourceLogicalBytes": 4803106
+  },
+  "issues": []
+}

@@ -1,0 +1,20 @@
+{
+  "bindingSemanticSha256": "b77091ee7c40c7b44d91afd946e5a27184fbed385e25cbcb826c79f2a5ab2a86",
+  "dependencyLinksSha256": "a6413a03b7a8216122639a8792159876c6b00560d57e620350a15d341ae3489f",
+  "executionAuthorization": false,
+  "files": {
+    "ADOPTION-PLAN.md": "7c367fa58bb0b1675fd037cd6bd6f12de0ec3c835f9ecf748c95f5f58c331ae6",
+    "BINDING-DRAFT.json": "8c07ec16136ca35393c3822ea8253037cc4b9ce3ecf7c95b8336302a8d4d4d6f",
+    "BINDING-SEMANTIC.json": "60728a41502e15960849de2d4c39e66a1fd5f9b9ff21008cb4774d65dcd2f8cf",
+    "DEPENDENCY-LINKS.json": "a6413a03b7a8216122639a8792159876c6b00560d57e620350a15d341ae3489f",
+    "DRAFT-REPORT.json": "f4378532cf75d454d8ea6a51460e810ad0bcd634a3715ffe29eb35d500a3dc97",
+    "SOURCE-MANIFEST.json": "df8abd56d6b9de84aa3552275a7e564e66d53b2718ff33f9c2e3080a449a0c1d"
+  },
+  "freeBytesAtDraft": 3308548096,
+  "launch": "LAUNCH_STOP_LOW_SPACE",
+  "schema": "1370-c0-aging-era-sparse-exact-candidate-pins-r1",
+  "sourceManifestSha256": "df8abd56d6b9de84aa3552275a7e564e66d53b2718ff33f9c2e3080a449a0c1d",
+  "sourcePinsSha256": "f5e985ffe629d87a3292506c7506bbdc153d923e2fa5cafd1db445d3c5e11105",
+  "sourceReviewSha256": "398698481cda21d48a4b6cd6f069368d5dd97eb106fbd117546612056a4126e1",
+  "status": "DRAFT_UNREVIEWED_UNRUN"
+}

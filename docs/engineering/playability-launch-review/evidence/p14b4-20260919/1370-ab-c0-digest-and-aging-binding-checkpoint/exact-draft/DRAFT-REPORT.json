@@ -1,0 +1,41 @@
+{
+  "assumption": "No external same-UID process renames or replaces the bound output, scratch, lock, production, common Git, or dependency roots during the one recorded lane. Recheck immediately before launch.",
+  "commonGitRoot": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+  "deficitBytes": 449548288,
+  "dependencyDirectoryCount": 1401,
+  "dependencyRegularCount": 11060,
+  "dependencySymlinkCount": 24,
+  "freeBytesAtDraft": 3308548096,
+  "launch": "LAUNCH_STOP_LOW_SPACE",
+  "productionHead": "ca29a7d045e9af09e3d78197d8f7b9c2f1daaf0f",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "protectedRoots": [
+    "/Users/zacheryspector/The-Movies-headless-program",
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git"
+  ],
+  "remoteRefsAtDraft": {
+    "refs/heads/evidence/1370-r10-clean-captures": "edcdf4c641952f2d20263766993901c59158f5c2",
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "ca29a7d045e9af09e3d78197d8f7b9c2f1daaf0f"
+  },
+  "requiredFreeBytes": 3758096384,
+  "reservedChildren": {
+    "outputRoot": {
+      "absentAtDraft": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r4-20261008-r1"
+    },
+    "recorderLockPath": {
+      "absentAtDraft": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-20261008-r1.lock"
+    },
+    "scratchRoot": {
+      "absentAtDraft": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r4-20261008-r1"
+    }
+  },
+  "schema": "1370-c0-aging-era-sparse-materializer-exact-draft-report-r1",
+  "sourceCount": 176,
+  "sourceLogicalBytes": 4803106,
+  "status": "DRAFT_UNREVIEWED_UNRUN",
+  "worktreeGitRoot": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/worktrees/The-Movies-headless-program"
+}

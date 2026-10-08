@@ -1,0 +1,21 @@
+{
+  "auditCodeSha256": "53d1cf64bb3f2709e4263454dc009e0098c7a06ae4ff744c6c531483e4687e92",
+  "auditPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-independent-review-r1/AUDIT.json",
+  "auditSha256": "74f368b648606bed6102da23380eea8dead3cc91db91d0f66221491e7e8e541e",
+  "bindingSemanticSha256": "b77091ee7c40c7b44d91afd946e5a27184fbed385e25cbcb826c79f2a5ab2a86",
+  "candidatePinsSha256": "f9e17aa441af0efa22077d5943172d380f7baaf00a44f562e4f7e656a55c60d7",
+  "decision": "ACCEPT_DRAFT_ONLY",
+  "deficitBytesAtReview": 460783616,
+  "executionAuthorization": false,
+  "freeBytesAtReview": 3297312768,
+  "launch": "LAUNCH_STOP_LOW_SPACE",
+  "materializationRun": false,
+  "next": "Distinct ACCEPT_EXACT_FILLED_UNRUN receipt and adopted-binding preflight after fresh disk/identity checks; then one guarded materialization only when authorized.",
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-independent-review-r1/REPORT.md",
+  "reportSha256": "f8e6e991560adda5b9e5a7fb4ec61b8b30cebd797a10332e232c047ff50b714a",
+  "requiredFreeBytes": 3758096384,
+  "schema": "1370-c0-aging-era-sparse-materializer-r4-independent-exact-draft-review-r1",
+  "sourcePinsSha256": "f5e985ffe629d87a3292506c7506bbdc153d923e2fa5cafd1db445d3c5e11105",
+  "statusReviewed": "DRAFT_UNREVIEWED_UNRUN",
+  "witnessRun": false
+}

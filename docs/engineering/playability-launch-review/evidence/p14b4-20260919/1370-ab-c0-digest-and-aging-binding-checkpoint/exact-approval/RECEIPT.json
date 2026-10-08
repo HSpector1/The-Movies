@@ -1,0 +1,22 @@
+{
+  "adoptionPerformed": false,
+  "bindingSemanticSha256": "b77091ee7c40c7b44d91afd946e5a27184fbed385e25cbcb826c79f2a5ab2a86",
+  "candidatePinsSha256": "f9e17aa441af0efa22077d5943172d380f7baaf00a44f562e4f7e656a55c60d7",
+  "decision": "ACCEPT_EXACT_FILLED_UNRUN",
+  "deficitBytesAtApproval": 461758464,
+  "executionAuthorizationAtApproval": false,
+  "freeBytesAtApproval": 3296337920,
+  "launch": "LAUNCH_STOP_LOW_SPACE",
+  "materializationRun": false,
+  "originalBindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "originalBindingSha256": "8c07ec16136ca35393c3822ea8253037cc4b9ce3ecf7c95b8336302a8d4d4d6f",
+  "priorDraftReviewSha256": "e267ac8cb7d1d5cf3773d32dbf1263e2e987d6cc339a30e8b8de359bbea0ae10",
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-filled-approval-r1/REPORT.md",
+  "reportSha256": "45409a6a1fc83a63dced230749732fd127335415d0a97fed5a058922ecbf10d7",
+  "requiredFreeBytes": 3758096384,
+  "schema": "1370-c0-aging-era-sparse-materializer-r4-independent-exact-filled-approval-r1",
+  "scope": "Exact semantic fields and original path only; future in-place five-field adoption requires archive, verification, and separate adopted-binding preflight.",
+  "sourcePinsSha256": "f5e985ffe629d87a3292506c7506bbdc153d923e2fa5cafd1db445d3c5e11105",
+  "statusAtApproval": "DRAFT_UNREVIEWED_UNRUN",
+  "witnessRun": false
+}
