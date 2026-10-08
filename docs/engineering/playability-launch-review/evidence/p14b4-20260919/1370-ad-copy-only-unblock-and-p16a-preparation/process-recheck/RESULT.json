@@ -1,0 +1,41 @@
+{
+  "status": "SURVIVORS_REMAIN_AFTER_RECHECK",
+  "observedUtc": "2026-10-08T20:49:32.036430+00:00",
+  "productionHead": "a39150b8827178b3797aa76f416df4a6416502a9",
+  "signals": {
+    "CONT": {
+      "pids": [
+        25951,
+        29271
+      ],
+      "commandExit": 0
+    },
+    "KILL": {
+      "pids": [
+        25951,
+        29271
+      ],
+      "commandExit": 0
+    }
+  },
+  "artifacts": {
+    "post-signal-ps": {
+      "exitCode": 0,
+      "sha256": "852df773ffaf5761a18f8f023c08c79d7d139988790421881bb6390a3eda77b6"
+    },
+    "post-signal-lsof": {
+      "exitCode": 0,
+      "sha256": "5cd46e5280ee3974202ed824a49e3c2494e7b6898f0a477868900cac25066e38"
+    },
+    "sample-25951": {
+      "sha256": "3204e5e51a4a380d7c929cd5af52b91c18475ffdbcfdebf8ee362b78a8ad1b54",
+      "stack": "ctypes module execution -> libffi closure allocation -> abort -> pthread_kill -> __pthread_kill"
+    },
+    "sample-29271": {
+      "sha256": "6e3b57c6404ad84f352843f6f29bc36cdbcdbf93e1f16cbf035cc010528fa023",
+      "stack": "ctypes module execution -> libffi closure allocation -> abort -> pthread_kill -> __pthread_kill"
+    }
+  },
+  "freeBytes": 4799774720,
+  "limits": "System stack samples and process checks only; signal success does not prove exit; no historical/native fixture was launched."
+}

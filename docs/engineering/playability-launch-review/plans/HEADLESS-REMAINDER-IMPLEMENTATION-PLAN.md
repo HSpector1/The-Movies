@@ -1,6 +1,6 @@
 # Authorized headless remainder implementation plan
 
-Approved by the Owner in the 2026-10-04 Codex conversation; execution authorized repeatedly, most recently “OKay go implement the plan”. This records the approved dependency order, not a new approval gate. Existing contracts, exact evidence gates and qualified Owner rulings govern each slice. The 2026-10-06 Owner direction adds a conditional, history-preserving `main` merge after genuine 1363 closure and sets the current execution boundary at verified P16. The previously authorized P17 and bounded P18 work remains in the program but follows this boundary. P19, optional expanded P17 shapes/crossovers and complete Unity integration remain outside this endpoint.
+Approved by the Owner in the 2026-10-04 Codex conversation; execution authorized repeatedly, most recently on 2026-10-08 to finish P16 and advance into P17. This records the approved dependency order, not a new approval gate. Existing contracts, exact evidence gates and qualified Owner rulings govern each slice. The 2026-10-06 Owner direction adds a conditional, history-preserving `main` merge after genuine 1363 closure. The 2026-10-08 direction extends the former verified-P16 execution boundary into canonical bounded P17. Previously authorized bounded P18 remains later in the program. P19, optional expanded P17 shapes/crossovers and complete Unity integration remain outside this endpoint.
 
 ## Current execution plan from published checkpoint 5bfae40e, advancing to 1370-M (2026-10-06)
 

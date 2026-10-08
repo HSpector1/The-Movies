@@ -1,0 +1,12 @@
+{
+  "decision": "REFINE",
+  "scope": "P16A r2 design only",
+  "candidate": "/Users/zacheryspector/studio-scratch/p16a-prep-r2-a39150b8-20261008/P16A-CONTRACT-AND-RED.md",
+  "candidateSha256": "74831cb81adfbd36604448ef6f8bf3ef9bfd48c27da197405ab11946e7f87a7d",
+  "review": "/Users/zacheryspector/studio-scratch/p16a-independent-review-r2-a39150b8-20261008/REVIEW.md",
+  "reviewSha256": "63bd01e51d6786938e27e3ae69f1491f5c6753018cb95f6d945ab144cab453ac",
+  "productionHead": "a39150b8827178b3797aa76f416df4a6416502a9",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "productionMutation": false,
+  "testsRun": false
+}

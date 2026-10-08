@@ -1,0 +1,501 @@
+{
+  "start_utc": "2026-10-08T20:46:30.193979+00:00",
+  "before_free_bytes": 3303759872,
+  "initial_chrome_pids": [],
+  "roots": {
+    "google_app_cache": "/Users/zacheryspector/Library/Caches/Google",
+    "vscode_cached_vsix": "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs",
+    "chrome_cache_storage": "/Users/zacheryspector/Library/Application Support/Google/Chrome/Default/Service Worker/CacheStorage",
+    "npm_download_cache": "/Users/zacheryspector/.npm/_cacache",
+    "vscode_inactive_logs": "/Users/zacheryspector/Library/Application Support/Code/logs"
+  },
+  "safety": {
+    "google_app_cache": {
+      "ancestors": [
+        {
+          "path": "/Users",
+          "device": 16777220,
+          "inode": 643588,
+          "uid": 0,
+          "mode": "0o755"
+        },
+        {
+          "path": "/Users/zacheryspector",
+          "device": 16777220,
+          "inode": 685348,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library",
+          "device": 16777220,
+          "inode": 685349,
+          "uid": 501,
+          "mode": "0o755"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Caches",
+          "device": 16777220,
+          "inode": 685360,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Caches/Google",
+          "device": 16777220,
+          "inode": 166469963,
+          "uid": 501,
+          "mode": "0o700"
+        }
+      ]
+    },
+    "vscode_cached_vsix": {
+      "ancestors": [
+        {
+          "path": "/Users",
+          "device": 16777220,
+          "inode": 643588,
+          "uid": 0,
+          "mode": "0o755"
+        },
+        {
+          "path": "/Users/zacheryspector",
+          "device": 16777220,
+          "inode": 685348,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library",
+          "device": 16777220,
+          "inode": 685349,
+          "uid": 501,
+          "mode": "0o755"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Application Support",
+          "device": 16777220,
+          "inode": 685376,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Application Support/Code",
+          "device": 16777220,
+          "inode": 71485958,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs",
+          "device": 16777220,
+          "inode": 71490062,
+          "uid": 501,
+          "mode": "0o755"
+        }
+      ]
+    },
+    "chrome_cache_storage": {
+      "ancestors": [
+        {
+          "path": "/Users",
+          "device": 16777220,
+          "inode": 643588,
+          "uid": 0,
+          "mode": "0o755"
+        },
+        {
+          "path": "/Users/zacheryspector",
+          "device": 16777220,
+          "inode": 685348,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library",
+          "device": 16777220,
+          "inode": 685349,
+          "uid": 501,
+          "mode": "0o755"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Application Support",
+          "device": 16777220,
+          "inode": 685376,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Application Support/Google",
+          "device": 16777220,
+          "inode": 728893,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Application Support/Google/Chrome",
+          "device": 16777220,
+          "inode": 728894,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Application Support/Google/Chrome/Default",
+          "device": 16777220,
+          "inode": 728927,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Application Support/Google/Chrome/Default/Service Worker",
+          "device": 16777220,
+          "inode": 731288,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Application Support/Google/Chrome/Default/Service Worker/CacheStorage",
+          "device": 16777220,
+          "inode": 731305,
+          "uid": 501,
+          "mode": "0o700"
+        }
+      ]
+    },
+    "npm_download_cache": {
+      "ancestors": [
+        {
+          "path": "/Users",
+          "device": 16777220,
+          "inode": 643588,
+          "uid": 0,
+          "mode": "0o755"
+        },
+        {
+          "path": "/Users/zacheryspector",
+          "device": 16777220,
+          "inode": 685348,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/.npm",
+          "device": 16777220,
+          "inode": 85852163,
+          "uid": 501,
+          "mode": "0o755"
+        },
+        {
+          "path": "/Users/zacheryspector/.npm/_cacache",
+          "device": 16777220,
+          "inode": 85855029,
+          "uid": 501,
+          "mode": "0o755"
+        }
+      ]
+    },
+    "vscode_inactive_logs": {
+      "ancestors": [
+        {
+          "path": "/Users",
+          "device": 16777220,
+          "inode": 643588,
+          "uid": 0,
+          "mode": "0o755"
+        },
+        {
+          "path": "/Users/zacheryspector",
+          "device": 16777220,
+          "inode": 685348,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library",
+          "device": 16777220,
+          "inode": 685349,
+          "uid": 501,
+          "mode": "0o755"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Application Support",
+          "device": 16777220,
+          "inode": 685376,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Application Support/Code",
+          "device": 16777220,
+          "inode": 71485958,
+          "uid": 501,
+          "mode": "0o700"
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Application Support/Code/logs",
+          "device": 16777220,
+          "inode": 71485995,
+          "uid": 501,
+          "mode": "0o755"
+        }
+      ]
+    },
+    "open_fd_counts": {
+      "google_app_cache": 0,
+      "vscode_cached_vsix": 0,
+      "chrome_cache_storage": 0,
+      "npm_download_cache": 0,
+      "vscode_inactive_logs": 38
+    },
+    "active_log_dirs": [
+      "20260925T171054"
+    ]
+  },
+  "candidate_count": 11446,
+  "removed_count": 11446,
+  "removed_logical_bytes": 1473088506,
+  "removed_allocated_bytes": 1499508736,
+  "removed_by_root": {
+    "google_app_cache": {
+      "count": 6038,
+      "logical_bytes": 425288443,
+      "allocated_bytes": 440377344
+    },
+    "vscode_cached_vsix": {
+      "count": 2,
+      "logical_bytes": 122463823,
+      "allocated_bytes": 122466304
+    },
+    "chrome_cache_storage": {
+      "count": 5274,
+      "logical_bytes": 759013802,
+      "allocated_bytes": 770117632
+    },
+    "npm_download_cache": {
+      "count": 6,
+      "logical_bytes": 163028636,
+      "allocated_bytes": 163045376
+    },
+    "vscode_inactive_logs": {
+      "count": 126,
+      "logical_bytes": 3293802,
+      "allocated_bytes": 3502080
+    }
+  },
+  "skipped": [
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs/.trash/anthropic.claude-code-2.1.294-darwin-x64.sigzip",
+      "reason": "installer signature trash excluded"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs/.trash/vscjava.vscode-maven-0.46.0.sigzip",
+      "reason": "installer signature trash excluded"
+    },
+    {
+      "path": "/Users/zacheryspector/.npm/_cacache/content-v2/sha512/dd",
+      "reason": "unsafe directory"
+    },
+    {
+      "path": "/Users/zacheryspector/.npm/_cacache/content-v2/sha512/78",
+      "reason": "unsafe directory"
+    },
+    {
+      "path": "/Users/zacheryspector/.npm/_cacache/index-v5/e5",
+      "reason": "unsafe directory"
+    },
+    {
+      "path": "/Users/zacheryspector/.npm/_cacache/index-v5/2d",
+      "reason": "unsafe directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/network-shared.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/editSessions.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/userDataSync.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/mcpGateway.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/sharedprocess.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/ptyhost.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/terminal.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/agentHostTelemetry.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/remoteTunnelService.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/telemetry.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/agenthost.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/main.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/network.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/views.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/mcpServer.mcp.config.usrlocal.unityMCP.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/mcpServer.ms-python.vscode-pylancepylance mcp server.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/notebook.rendering.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/fileWatcher.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/renderer.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/textModelChanges.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/output_20261008T141044/agentSessionsOutput.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/output_20261008T141044/tasks.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/output_20260925T171106/agentSessionsOutput.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/output_20260925T171106/tasks.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/output_20261005T220628/agentSessionsOutput.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/output_20261005T220628/tasks.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/extHostTelemetry.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/exthost.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/vscode.github-authentication/GitHub Authentication.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/ms-vscode.vscode-chat-customizations-evaluations/Chat Customizations Evaluations.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/vscode.github/GitHub.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/output_logging_20261008T141043/1-GitHub Copilot Log (Code References).log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/Anthropic.claude-code/Claude VSCode.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/output_logging_20261005T220627/1-GitHub Copilot Log (Code References).log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/openai.chatgpt/Codex.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/openai.chatgpt/Codex.3.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/openai.chatgpt/Codex.2.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/openai.chatgpt/Codex.1.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/openai.chatgpt/Codex.5.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/openai.chatgpt/Codex.4.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/openai.chatgpt/Codex.6.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/vscode.json-language-features/JSON Language Server.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/GitHub.copilot-chat/GitHub Copilot Chat.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/output_logging_20260925T171104/1-GitHub Copilot Log (Code References).log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/vscode.git/Git.log",
+      "reason": "active log directory"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/logs/20260925T171054/window1/exthost/vscode.microsoft-authentication/Microsoft Authentication.log",
+      "reason": "active log directory"
+    }
+  ],
+  "errors": [],
+  "quit_attempted": false,
+  "chrome_reopened": false,
+  "after_free_bytes": 4809109504,
+  "free_delta_bytes": 1505349632,
+  "end_utc": "2026-10-08T20:46:55.771753+00:00"
+}

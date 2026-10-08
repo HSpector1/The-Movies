@@ -1,0 +1,122 @@
+{
+  "authority-audit": {
+    "MEMO.md": {
+      "bytes": 5636,
+      "sha256": "4dc1d50d68686b6a373cdec3bd0101d73d2fe91f802e16e6df106147212fd861",
+      "source": "/Users/zacheryspector/studio-scratch/p16-p17-authority-audit-20261008/MEMO.md"
+    }
+  },
+  "cleanup": {
+    "REPORT.md": {
+      "bytes": 2272,
+      "sha256": "dafb4d97e26f723e3cccfe08f7f9d8e2ce45e2b1584ea271d196e147e8e556eb",
+      "source": "/Users/zacheryspector/studio-scratch/approved-cache-reclaim-20261008-r1/REPORT.md"
+    },
+    "result.json": {
+      "bytes": 17204,
+      "sha256": "88bde314538dcfaadc75d147b667c9a387092e1b4cf83b1685c598b4946c7ebf",
+      "source": "/Users/zacheryspector/studio-scratch/approved-cache-reclaim-20261008-r1/result.json"
+    }
+  },
+  "copy-scope-review": {
+    "RECEIPT.json": {
+      "bytes": 1137,
+      "sha256": "6804fd7e2b7fd53d6023bf089fe22cec9c399dbaf2ea7ba03c5c91981719d6cc",
+      "source": "/Users/zacheryspector/studio-scratch/1370-materialization-survivor-scope-review-20261008-r2/RECEIPT.json"
+    },
+    "REPORT.md": {
+      "bytes": 6427,
+      "sha256": "d4aec0da9205d3e644c47265b82f5bfd6be293e821509b0067d174bfe57b81e7",
+      "source": "/Users/zacheryspector/studio-scratch/1370-materialization-survivor-scope-review-20261008-r2/REPORT.md"
+    }
+  },
+  "local-only-cleanup-manifest": {
+    "reason": "Exact deletion list retained locally; summary/result backed up here.",
+    "sha256": "4510287150a934fecb369d3ea2a76417b02b20a459e30836c2e27a9bc7e90d00",
+    "source": "/Users/zacheryspector/studio-scratch/approved-cache-reclaim-20261008-r1/candidate-manifest.json"
+  },
+  "p16a-r1": {
+    "P16A-CONTRACT-AND-RED.md": {
+      "bytes": 11642,
+      "sha256": "4fc6aa8a16fe75f0c7fccbb3deea862d99314db49b66bebe9747e7546ad3dd4e",
+      "source": "/Users/zacheryspector/studio-scratch/p16a-prep-a39150b8-20261008/P16A-CONTRACT-AND-RED.md"
+    }
+  },
+  "p16a-r1-review": {
+    "RECEIPT.json": {
+      "bytes": 662,
+      "sha256": "91415a909d2e9cc8aedc7c0999776d99a1e62455de0145ef73a88b0810cdfae3",
+      "source": "/Users/zacheryspector/studio-scratch/p16a-independent-review-a39150b8-20261008/RECEIPT.json"
+    },
+    "REVIEW.md": {
+      "bytes": 6968,
+      "sha256": "318b2a1e90ce2e91e1c835386f909068fe03a0e4d193d96aa944239d47cef6e2",
+      "source": "/Users/zacheryspector/studio-scratch/p16a-independent-review-a39150b8-20261008/REVIEW.md"
+    }
+  },
+  "p16a-r2": {
+    "P16A-CONTRACT-AND-RED.md": {
+      "bytes": 12559,
+      "sha256": "74831cb81adfbd36604448ef6f8bf3ef9bfd48c27da197405ab11946e7f87a7d",
+      "source": "/Users/zacheryspector/studio-scratch/p16a-prep-r2-a39150b8-20261008/P16A-CONTRACT-AND-RED.md"
+    }
+  },
+  "p16a-r2-review": {
+    "RECEIPT.json": {
+      "bytes": 637,
+      "sha256": "00abd02d7e8163ffe8eae66248da3f6d82ff74cfde4e694e40cd7509b658330a",
+      "source": "/Users/zacheryspector/studio-scratch/p16a-independent-review-r2-a39150b8-20261008/RECEIPT.json"
+    },
+    "REVIEW.md": {
+      "bytes": 3508,
+      "sha256": "63bd01e51d6786938e27e3ae69f1491f5c6753018cb95f6d945ab144cab453ac",
+      "source": "/Users/zacheryspector/studio-scratch/p16a-independent-review-r2-a39150b8-20261008/REVIEW.md"
+    }
+  },
+  "p16a-r3": {
+    "P16A-CONTRACT-AND-RED.md": {
+      "bytes": 13811,
+      "sha256": "d06553ba5f2048ca8dda87cf864b14df550922173c4b92d193b7d9b5e7700451",
+      "source": "/Users/zacheryspector/studio-scratch/p16a-prep-r3-a39150b8-20261008/P16A-CONTRACT-AND-RED.md"
+    }
+  },
+  "p16a-r3-review": {
+    "RECEIPT.json": {
+      "bytes": 709,
+      "sha256": "3d418474eb98db0ed73bf3d9cc3d7bdcf3b88c89e37ccb54a44983768841980a",
+      "source": "/Users/zacheryspector/studio-scratch/p16a-independent-review-r3-a39150b8-20261008/RECEIPT.json"
+    },
+    "REVIEW.md": {
+      "bytes": 2916,
+      "sha256": "6ff2b2ebe70e365f4d75ba41da43e2dadce298b3c7a08641f29f7aa57b58d507",
+      "source": "/Users/zacheryspector/studio-scratch/p16a-independent-review-r3-a39150b8-20261008/REVIEW.md"
+    }
+  },
+  "process-recheck": {
+    "RESULT.json": {
+      "bytes": 1293,
+      "sha256": "b219ee0107885578666e6577bd95b0cee192a962a5d55a0d6f9bbbacc6f8191a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-process-recheck-20261008-r1/RESULT.json"
+    },
+    "post-signal-lsof.txt": {
+      "bytes": 6328,
+      "sha256": "5cd46e5280ee3974202ed824a49e3c2494e7b6898f0a477868900cac25066e38",
+      "source": "/Users/zacheryspector/studio-scratch/1370-process-recheck-20261008-r1/post-signal-lsof.txt"
+    },
+    "post-signal-ps.txt": {
+      "bytes": 881,
+      "sha256": "852df773ffaf5761a18f8f023c08c79d7d139988790421881bb6390a3eda77b6",
+      "source": "/Users/zacheryspector/studio-scratch/1370-process-recheck-20261008-r1/post-signal-ps.txt"
+    },
+    "sample-25951.txt": {
+      "bytes": 17714,
+      "sha256": "3204e5e51a4a380d7c929cd5af52b91c18475ffdbcfdebf8ee362b78a8ad1b54",
+      "source": "/Users/zacheryspector/studio-scratch/1370-process-recheck-20261008-r1/sample-25951.txt"
+    },
+    "sample-29271.txt": {
+      "bytes": 17714,
+      "sha256": "6e3b57c6404ad84f352843f6f29bc36cdbcdbf93e1f16cbf035cc010528fa023",
+      "source": "/Users/zacheryspector/studio-scratch/1370-process-recheck-20261008-r1/sample-29271.txt"
+    }
+  }
+}

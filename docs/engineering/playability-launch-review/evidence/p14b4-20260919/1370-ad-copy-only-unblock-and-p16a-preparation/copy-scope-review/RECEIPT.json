@@ -1,0 +1,12 @@
+{
+  "schema": "1370-materialization-survivor-operational-scope-independent-review-r2",
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "reportSha256": "d4aec0da9205d3e644c47265b82f5bfd6be293e821509b0067d174bfe57b81e7",
+  "supersedes": "r1 wording only; r1 artifacts preserved",
+  "productionHead": "a39150b8827178b3797aa76f416df4a6416502a9",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "survivorRecheckSha256": "b219ee0107885578666e6577bd95b0cee192a962a5d55a0d6f9bbbacc6f8191a",
+  "reviewedRefinement": "Survivor anomaly means relevant bound PID/FD/protected-root identity or lane-owned group anomaly. Prohibition applies to sandboxed ctypes, new H/native controls and game/witness fixtures; unchanged r4 Python standard-library imports and pinned reviewed tool/runtime commands remain allowed for copy-only materialization.",
+  "launchAuthorized": false,
+  "claimLimit": "Independent copy-only operational clarification design. Current 1370-AB/AC/HANDOFF process STOP remains until express parent adoption; r4 exact binding is stale/unadopted and r7/H/native STOPs remain. No lane or Git/source mutation performed."
+}

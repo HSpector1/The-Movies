@@ -1,0 +1,12 @@
+{
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "scope": "Parent adoption of provisional P16A charter and RED plan; no runtime acceptance",
+  "candidate": "/Users/zacheryspector/studio-scratch/p16a-prep-r3-a39150b8-20261008/P16A-CONTRACT-AND-RED.md",
+  "candidateSha256": "d06553ba5f2048ca8dda87cf864b14df550922173c4b92d193b7d9b5e7700451",
+  "review": "/Users/zacheryspector/studio-scratch/p16a-independent-review-r3-a39150b8-20261008/REVIEW.md",
+  "reviewSha256": "6ff2b2ebe70e365f4d75ba41da43e2dadce298b3c7a08641f29f7aa57b58d507",
+  "productionHead": "a39150b8827178b3797aa76f416df4a6416502a9",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "productionMutation": false,
+  "testsRun": false
+}
