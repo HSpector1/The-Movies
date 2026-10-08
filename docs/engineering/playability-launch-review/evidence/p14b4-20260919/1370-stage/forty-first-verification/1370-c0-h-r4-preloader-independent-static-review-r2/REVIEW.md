@@ -1,0 +1,9 @@
+# H r4 preloader r2 independent static review
+
+Decision: **ACCEPT_STATIC_SOURCE_ONLY**, unrun on H. This closes r1's demonstrated log-parent symlink failure for the tested and statically reviewed paths; it does not establish a complete causal trace.
+
+The native `secureOpen` walks all four protected roots and every log-parent component using held directory FDs and `openat(O_DIRECTORY|O_NOFOLLOW)`. It compares the log-parent inode ancestry with protected-root inodes, opens a unique regular log with `O_CREAT|O_EXCL|O_NOFOLLOW|O_APPEND`, then re-walks parent/root identities. The JS preloader also checks source-root dev/inode/mode/link/mtime/ctime around log creation. Four independent disposable REDs redirected the log parent through a symlink into source, isolated dependencies, protected H, and production; all four failed before startup with no log at the target and unchanged source-root mtime/ctime.
+
+The exact declared clang command rebuilt `secure_log.node` with SHA-256 `8781e556...`, matching the frozen binary. Node header SHA `cf2446da...`, Apple clang 14, Node v22.23.2/x86_64 and Mach-O bundle were inspected. `node --check` and the tiny synthetic suite passed: parent/worker/child startup attestations, 24 balanced operations, callback error parity, selected sync/callback/promise/FileHandle/stream/fd and root metadata hooks, plus a bounded per-process cap marker. No H/Vitest or Git work ran.
+
+Limits retained for exact review: the recorder must pin this binary and preloader at launch, use a canonical one-shot external log parent, bound aggregate logs/process count, prove all expected process/worker attestations and log completeness, and preserve `UNATTRIBUTED_STOP` for native/shell bypass, symlinked operation paths, overlapping events or dropped/capped logs. Path re-walks detect observed replacement but cannot make future renames impossible. No exclusive historical actor or H type acceptance follows from this review.

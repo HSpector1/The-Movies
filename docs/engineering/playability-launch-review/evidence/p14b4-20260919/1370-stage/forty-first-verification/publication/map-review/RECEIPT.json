@@ -1,0 +1,15 @@
+{
+  "claimLimit": "Source map only; publication and remote-byte audit pending",
+  "decision": "ACCEPT_SOURCE_MAP_ONLY_UNPUBLISHED",
+  "localEvidenceTip": "eb58bc0042ebf0c02a16d0bdaa1f5734e1f5f9eb",
+  "maxSourceBytes": 50655,
+  "planSha256": "650831b0631dd4bcc35074d6d4df0dd78b5f103363d0cc24a3d153f1c948fae9",
+  "remoteEvidenceTip": "eb58bc0042ebf0c02a16d0bdaa1f5734e1f5f9eb",
+  "reviewSha256": "59d57f39b0a5e4908d375a538f5331d3a797c1bc72f784c216197a3217be8e32",
+  "reviewer": "Codex /root independent of source-map author",
+  "schema": "1370-c0-stage41-source-map-independent-review-r1",
+  "sourceBytes": 377751,
+  "sourceCount": 75,
+  "sourceMapSha256": "16087fcaa2836456044ba911ae5e7033fa70fda6e882a06033f94de0b509703c",
+  "targetsAbsent": true
+}

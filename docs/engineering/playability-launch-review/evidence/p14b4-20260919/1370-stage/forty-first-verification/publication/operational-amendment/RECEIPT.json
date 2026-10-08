@@ -1,0 +1,15 @@
+{
+  "schema": "1370-c0-stage41-publisher-concurrent-rename-amendment-independent-review-r1",
+  "decision": "ACCEPT_DESIGN_ONLY_UNRUN",
+  "reviewer": "Codex /root independent of amendment author",
+  "planSha256": "230e05e3280115ab9891ae50af5003852f8ac843da79dfde873e388b7b282289",
+  "scope": "One coordinated recorded Stage41 evidence publication only. No concurrent external same-user process may rename the unique staging or output parent while the publisher holds an FD there. This is an operational assumption, not a security claim against malicious or uncooperative same-user processes.",
+  "basis": "The r2 after-open output-parent RED and r3 after-open staging-parent RED prove the sandbox alone cannot prevent bytes through a preexisting FD after a concurrent rename. The proposed correction uses a fully closed staged file and atomic no-replace output install, which the r3 moved-output test denied before protected bytes. A single writer and one heavy lane can exclude authorized competing jobs, but cannot prove the absence of every same-UID adversary.",
+  "requirementsBeforeLaunch": [
+    "Version publisher source to the current production docs HEAD and include this plan and review as exact pins and publication controls.",
+    "Independently review the corrected publisher source and exact filled binding, including unique empty staging/output parents, ownership, process/path audit, watchers or equivalent drift telemetry, sandbox policy bytes, actual Git common object store, source/ref/AC/disk guards and group cleanup.",
+    "Record cooperating agents/jobs and require no authorized cleanup or rename of the bound scratch parents during the lane. Any observed rename, watcher ambiguity, unexpected parent identity or child failure is STOP.",
+    "Publish by nonforce compare-and-swap only; independently audit fresh HTTPS remote file bytes after any advertised tip change."
+  ],
+  "claimLimit": "Design review only; r3 source has stale production HEAD and residual staging race, so no live binding, Git push, Stage41 remote-byte backup or H/C0 acceptance follows."
+}

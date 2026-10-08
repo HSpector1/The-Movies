@@ -1,0 +1,6 @@
+{
+  "status": "RED_SWAPPED_PARENT_PROTECTED_WRITE",
+  "postflightException": "FileNotFoundError",
+  "manifestInsideProtected": true,
+  "protectedRootTimestampChanged": true
+}

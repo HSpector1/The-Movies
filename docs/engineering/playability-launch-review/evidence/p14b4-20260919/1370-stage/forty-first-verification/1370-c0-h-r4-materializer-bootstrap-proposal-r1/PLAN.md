@@ -1,0 +1,16 @@
+# H r4 dependency manifest/materializer bootstrap r1 — source proposal, unrun
+
+This responds to materializer r4 independent `REFINE_STATIC_UNRUN` receipt SHA-256 `4ee99b07b7521b8724ff43ace68531a0b5442ab6210bbc7c3dde9b6e302def4e` and the independently accepted inline-bootstrap design receipt SHA-256 `1b3057c3a7227c97d516e32b66daba4b692e8f1571a520d5628821ae1f581783`. The r4 source and review stay frozen. This new package is not a real H launch authorization.
+
+`bootstrap.py` is a read-only outer supervisor until it starts a worker. It requires an exact filled, independently reviewed binding; the fixed production, protected H, production-dependency and evidence-checkout paths; a baseline immutable-receipt set with matching bytes; exact frozen r4 worker source, bootstrap source, Python and `sandbox-exec` hashes; and a matching operation binding. Canonical nofollow directory chains are checked for protected roots, receipt parents and output parents. It builds a bounded inline `sandbox-exec -p` policy with default write deny, explicit protected-root denies, and only these output allows:
+
+* dependency manifest: the one absent manifest filename as a `literal` write allow;
+* materializer: the one absent experiment-directory literal plus its subtree, and the one absent result filename literal.
+
+The worker launched under that policy calls r4 `dependency_manifest.build` or r4 `run.main`. Thus the manifest's held-FD `openat` and the materializer's `/bin/cp -cRpP` descendants inherit the kernel boundary. No unsandboxed fallback, byte-copy fallback, or hardlink fallback exists. The outer supervisor uses no inherited writable output FD, 8 KiB per-pipe streaming caps, a 630-second outer bound around r4's unchanged 600-second materializer limit, and TERM/KILL/direct-reap/group-clear STOP cleanup. Real manifest's two existing 300-second inventory deadlines remain unchanged. A timeout or ambiguous group is STOP.
+
+## Disposable evidence and next gates
+
+`selfcheck.py` uses the same policy builder and `sandbox-exec -p` process shape against tiny scratch fixtures. Ordinary held-FD manifest write, ordinary `/bin/cp -cRpP` descendant write, and creation of a previously absent one-shot directory all succeeded. A parent move after manifest FD capture denied that write with `EPERM`. A `/bin/cp` destination symlink swapped to the relocated protected stand-in returned nonzero; no protected file appeared. Noisy-grandchild, nonzero and timeout supervisor REDs reached STOP with direct child reaped and group clear. `TEST-RESULT.json` contains the exact synthetic output.
+
+Independent review must inspect the policy syntax/ordering, exact real receipt and evidence checkout bindings, binding self-attestation, source and executable hashes, source/ref guards inside r4, and whether the real `/bin/cp -cRpP` metadata operations need any write allow outside the exact experiment subtree. The tiny `cp` file fixture does **not** establish that ACL/xattr metadata from real H/dependencies will clone correctly or meet the 3 GiB floor. If real clone/helper behavior is denied, STOP and separately version/review a correction; do not broaden the allow list during a live arm. Build and independently freeze the real dependency row manifest before materialization. The historical r13 root-drift STOP remains unchanged.

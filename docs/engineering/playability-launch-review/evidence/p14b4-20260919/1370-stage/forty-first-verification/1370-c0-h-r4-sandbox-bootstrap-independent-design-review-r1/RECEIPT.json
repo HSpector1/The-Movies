@@ -1,0 +1,12 @@
+{
+  "claimLimit": "Design and synthetic evidence only; implementation/static/exact launch and H attribution pending",
+  "decision": "ACCEPT_DESIGN_ONLY_UNRUN",
+  "reviewSha256": "b3773b3b6ed1c663b291d43b5311de0860227455a526c744328b74d083d76b90",
+  "reviewer": "Codex /root independent of design author",
+  "schema": "1370-c0-h-r4-sandbox-bootstrap-independent-design-review-r1",
+  "sourceSha256": {
+    "EVIDENCE.json": "e211feb2b3d91a7b87447f71b861af01b4f2b81744296020ade77379b6fed1fd",
+    "PLAN.md": "beb84d8d4d4a4eb6a1cc85a2294b0daffab2cae7530b0e6cf9ab91c2ae790909",
+    "bootstrap_move_fixture.py": "67c24b3ac7436da5a36b2051b1a069d8158ea1a3ccbac582b2a43e0af8ee4a30"
+  }
+}

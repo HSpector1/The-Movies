@@ -1,0 +1,31 @@
+{
+  "schema": "1370-c0-h-r4-materializer-bootstrap-binding-unfilled-r1",
+  "status": "UNFILLED_UNRUN",
+  "operation": null,
+  "operationBinding": null,
+  "operationBindingSha256": null,
+  "codeDir": "/Users/zacheryspector/studio-scratch/1370-c0-h-r4-materializer-proposal-r4",
+  "sourceSha256": {
+    "materialize.py": null,
+    "dependency_manifest.py": null,
+    "safe_output.py": null,
+    "native_metadata.py": null,
+    "run.py": null
+  },
+  "bootstrapSha256": null,
+  "workerSha256": null,
+  "pythonExecutable": null,
+  "pythonExecutableSha256": null,
+  "sandboxExecutableSha256": null,
+  "bootstrapPolicySha256": null,
+  "productionRepo": "/Users/zacheryspector/The-Movies-headless-program",
+  "protectedH": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+  "productionDependencies": "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+  "evidenceCheckout": null,
+  "immutableReceiptSha256": null,
+  "manifestSource": null,
+  "manifestOutput": null,
+  "oneShotParent": null,
+  "resultPath": null,
+  "claimLimit": "Bootstrap source proposal only; no real H or dependencies scanned/copied"
+}

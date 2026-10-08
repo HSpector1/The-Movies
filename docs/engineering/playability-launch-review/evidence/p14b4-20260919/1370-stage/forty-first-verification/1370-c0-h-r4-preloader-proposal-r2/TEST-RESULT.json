@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "log_files": 3,
+  "attestations": 3,
+  "operations_started": 24,
+  "operations_ended": 24,
+  "cap_bytes": 3734,
+  "cap_marker": true,
+  "symlink_parent_red_refusals": [
+    "source",
+    "deps",
+    "protected-h",
+    "production"
+  ],
+  "distinct_ops": [
+    "FileHandle.chmod",
+    "FileHandle.utimes",
+    "FileHandle.writeFile",
+    "fs.chmod",
+    "fs.chmodSync",
+    "fs.createWriteStream",
+    "fs.fchmodSync",
+    "fs.futimesSync",
+    "fs.open",
+    "fs.openSync",
+    "fs.promises.open",
+    "fs.promises.utimes",
+    "fs.promises.writeFile",
+    "fs.renameSync",
+    "fs.unlink",
+    "fs.utimesSync",
+    "fs.write",
+    "fs.writeFile",
+    "fs.writeFileSync",
+    "fs.writeSync"
+  ]
+}

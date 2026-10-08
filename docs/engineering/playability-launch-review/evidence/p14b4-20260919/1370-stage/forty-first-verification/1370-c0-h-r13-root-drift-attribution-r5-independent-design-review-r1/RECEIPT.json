@@ -1,0 +1,13 @@
+{
+  "schema": "1370-c0-h-r13-root-drift-attribution-r5-independent-design-review-r1",
+  "status": "ACCEPT_DESIGN_ONLY",
+  "r5PlanSha256": "07bb080a579501bc4921591a5ff7137ae11220e9c2de6731e1986b9ef7490403",
+  "r5ProposalReceiptSha256": "5c07618187858bee0b1627b844adb9ef7076c1063a6a64f65ef59e2da8a0bd2d",
+  "r4PlanSha256": "b1f42ea4c301e04903e8bf2b4b7c8560724ab1c9407300481dda4d4730bc506a",
+  "syntheticProbeResultSha256": "9dd803306d7afc6e4e2027616821705ecfa89a3aff7cb01927f4c747c50c0a03",
+  "exactFlagsProbeResultSha256": "db6776d916e928a2e88bf7ee8a742b817fb7e47c7132a27fe2b6931acba3b635",
+  "realHMaterialized": false,
+  "heavyLaneRun": false,
+  "gitMutated": false,
+  "historicalAttribution": "NONE"
+}

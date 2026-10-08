@@ -1,0 +1,13 @@
+{
+  "basePlanSha256": "b1f42ea4c301e04903e8bf2b4b7c8560724ab1c9407300481dda4d4730bc506a",
+  "baseReviewReceiptSha256": "f7ccb46627aad487f56a6f413e7f2d862d382c8412aeed7e9cc4944e2327ca6f",
+  "exactFlagsProbeResultSha256": "db6776d916e928a2e88bf7ee8a742b817fb7e47c7132a27fe2b6931acba3b635",
+  "gitMutated": false,
+  "heavyLaneRun": false,
+  "observedAttribution": "NONE",
+  "planSha256": "07bb080a579501bc4921591a5ff7137ae11220e9c2de6731e1986b9ef7490403",
+  "realHMaterialized": false,
+  "schema": "1370-c0-h-r13-root-drift-attribution-route-design-r5",
+  "status": "PROPOSED_UNRUN_REQUIRES_INDEPENDENT_REVIEW",
+  "syntheticProbeResultSha256": "9dd803306d7afc6e4e2027616821705ecfa89a3aff7cb01927f4c747c50c0a03"
+}

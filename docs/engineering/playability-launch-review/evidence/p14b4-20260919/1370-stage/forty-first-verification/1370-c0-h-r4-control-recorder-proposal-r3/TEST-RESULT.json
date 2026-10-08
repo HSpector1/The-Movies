@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "snapshotEqualAfterTransient": true,
+  "rootTimestampTransition": true,
+  "watcherReadyAndEvent": true,
+  "xattrMutationRedDetected": true,
+  "rootXattrMutationRedDetected": true,
+  "heldReceiptWrite": true,
+  "symlinkOutputParentRedRefused": true,
+  "ancestorOutputParentRedRefused": true,
+  "aclMutationRedDetected": true,
+  "deniedGroupSignalReturnsStopEvidence": true,
+  "watcherGroupClear": true,
+  "childGroupClear": true,
+  "pipeCapStop": true,
+  "diskMeasurementBytes": 3756032000,
+  "stdoutCapBytes": 8388608,
+  "watchCapBytes": 4194304
+}

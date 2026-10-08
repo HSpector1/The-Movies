@@ -1,0 +1,36 @@
+{
+  "schema": "1370-c0-h-r4-materializer-bootstrap-independent-static-review-r1",
+  "decision": "REFINE_STATIC_UNRUN",
+  "reviewedProposal": "/Users/zacheryspector/studio-scratch/1370-c0-h-r4-materializer-bootstrap-proposal-r1",
+  "sourcePinsSha256": {
+    "bootstrap.py": "9ad797e962939aa297d2aed28ececb7f2b2d15f6f35ac5e736912e58aef30469",
+    "worker.py": "ff6186151b910715bc05dc1bc612eabad75ba50b4e0540169a331169e10ef4",
+    "fixture_worker.py": "e21448a27fc1379cb1c474afd2c11ec6281ec53787fa418ae2fb50202d77ff48",
+    "selfcheck.py": "27c8d182b8fd9f44f9a5c94b50560597cfc458570380cc6a0dc4d8591eed495b",
+    "PLAN.md": "95bb3e359daa0c20668de5dda3a759f00e8f1c2062b1a3bff80a73368b12115c",
+    "REPORT.md": "02e5c16a5ca0f74fe6808cf9a6d6ec8cdf9ca56211c8894ccbbde9d89b63c4ae",
+    "BINDING-UNFILLED.json": "6b502d2973f01dba13af9cbc1c3e0c6ab2c44de198c3bcc323d43b9918425624",
+    "TEST-RESULT.json": "a4f443975bb2d5a426a848d322e835eefad648106e06636200cc403856801a1c"
+  },
+  "independentScratchTest": {
+    "command": "python3 -B selfcheck.py",
+    "exitCode": 0,
+    "observed": "ordinary manifest and cp outputs allowed; held-FD manifest moved-parent and cp destination swap denied with no protected file; absent subtree creation allowed; bounded timeout/nonzero/noisy-grandchild STOP and group-clear tests passed",
+    "scope": "disposable scratch fixtures only; no H/dependency scan/copy or heavy lane"
+  },
+  "acceptedObservations": [
+    "Inline sandbox-exec -p profile is constructed in memory with default write deny and exact manifest literal or one-shot materializer subtree allowance.",
+    "The real-binding path requires production, H, production dependencies, an evidence checkout, receipt parents and proposal source in its protected deny set; it requires source/executable/receipt SHA pins before launch.",
+    "Synthetic moved-parent tests exercise actual sandbox-exec and cp descendant inheritance; they do not establish real-bound protection."
+  ],
+  "requiredCorrections": [
+    "For the manifest operation, bootstrap.launch() currently sets the whole child timeout to 630 seconds. The independently drafted manifest route requires a 300-second whole-child wall limit and a 330-second outer recorder limit. Two inventory() 300-second internal deadlines cannot substitute for the whole-child bound. Version the source and test the correct operation-specific limit.",
+    "bounded() holds raw child stdout/stderr only in memory; the CLI prints lengths and SHA values, then discards the bytes. The draft requires exact, one-shot, bounded raw stdout/stderr evidence plus an outer recorder result. Add protected-output-safe retention and review its placement and postflight proof; a child-zero SHA-only summary is insufficient.",
+    "Do not treat this helper's child-zero result as the route recorder. The exact launch still needs independently reviewed 330-second outer bound, disk monitor, Git/ref/source/protected pre/post guards, held nofollow one-shot result/log placement, and complete failure receipts. Keep the binding unfilled until those are reviewed."
+  ],
+  "limitations": [
+    "No real binding, policy bytes, evidence checkout, output paths, or actual H launch were reviewed.",
+    "No Git edit, protected write, dependency inventory/copy, or heavy-lane invocation was performed.",
+    "Historical r13 STOP remains unchanged."
+  ]
+}

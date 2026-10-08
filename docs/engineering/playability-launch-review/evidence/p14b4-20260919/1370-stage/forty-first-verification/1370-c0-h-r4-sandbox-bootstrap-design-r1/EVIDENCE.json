@@ -1,0 +1,23 @@
+{
+  "schema": "1370-c0-h-r4-sandbox-bootstrap-design-evidence-r1",
+  "scope": "disposable synthetic paths only",
+  "sandboxExecutable": "/usr/bin/sandbox-exec",
+  "interfaceObserved": "-p profile-string is listed by local sandbox-exec usage",
+  "profileTransport": "inline -p; no bootstrap profile file",
+  "ordinary": {
+    "write": "ALLOWED",
+    "exit": 0,
+    "originalFileExists": true,
+    "protectedFileExists": false
+  },
+  "swappedParent": {
+    "write": "DENIED",
+    "errno": 1,
+    "exit": 0,
+    "originalFileExists": false,
+    "protectedFileExists": false
+  },
+  "realHRun": false,
+  "heavyLaneRun": false,
+  "gitMutated": false
+}

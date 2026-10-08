@@ -1,0 +1,23 @@
+{
+  "attestations": 3,
+  "balancedOperations": 24,
+  "binaryRebuildExact": true,
+  "classification": "UNRUN_NO_H_ATTRIBUTION_CLAIM",
+  "decision": "ACCEPT_STATIC_SOURCE_ONLY",
+  "nativeBinarySha256": "8781e556faa9088d90d5e35f5782614d09b0a28d0b61bd5e737ca125304158b8",
+  "nativeSourceSha256": "8283545578d669f3acc50183f17c021275a2ee301f82e0b6650f5339f3ed6131",
+  "nodeHeaderSha256": "cf2446da4783a707dc9399321cff3ea28dce86fafdf38746fc47f1b293f5a040",
+  "preloaderSha256": "aa6a4393f93977287ee868012f610e6b039f67fdbd1000326c9e4db8cccb1c65",
+  "proposalReportSha256": "cbd20e43329c7d9ed5733a0f19465bbb110ea294f534f65aba94607cec20277c",
+  "r1RefineReceiptSha256": "b1642f5a0c17ae80ae4f709dcc2c4a96f01b4a9de884d27acc10d21d51e89f19",
+  "reportSha256": "60a3350d4c09960eefcd6f98252cee82993c8de797a992715ca76e3216389e00",
+  "schema": "1370-c0-h-r4-preloader-independent-static-review-r2",
+  "symlinkParentRedRefusals": [
+    "source",
+    "deps",
+    "protected-h",
+    "production"
+  ],
+  "syntheticDriverSha256": "e3e32c28eb3e75d3145229ab77154bce2c537be4ae17f3e8e5ed97f052f178a7",
+  "testResultSha256": "6ec8bbea2975d87396f471c38350cfc98a9ab6f516c1be43218a1b5898699891"
+}

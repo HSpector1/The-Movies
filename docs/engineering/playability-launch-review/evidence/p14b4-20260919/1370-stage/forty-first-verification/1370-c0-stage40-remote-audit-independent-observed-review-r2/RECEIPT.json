@@ -1,0 +1,20 @@
+{
+  "actualChildExit": 0,
+  "auditSourceSha256": "ffeb0a8bcbec18b4496975e3a4def359973a604ffa04968faef13d3eaff24a5b",
+  "classification": "REMOTE_EVIDENCE_BYTES_ONLY",
+  "cloneAndQuarantineAbsent": true,
+  "commit": "eb58bc0042ebf0c02a16d0bdaa1f5734e1f5f9eb",
+  "decision": "ACCEPT_OBSERVED_REMOTE_STAGE40_C0_H_SOURCE_BYTES_ONLY",
+  "fileCount": 138,
+  "laneLogSha256": "3d735c55ca3c85f46ff4a4620dfa50f9918b3d42807bcbce1584b79da2d7bb85",
+  "laneMetaSha256": "ba78809062e33fde87ba3808d4aef357ae76d3cc0e93c6421d4a1ac69b258523",
+  "parent": "6516532ac67ffcafc66fd424abb89bc1bc0acc2e",
+  "productionHead": "afea5fb6abba09bec6cada7e4c5a1ccfaf05caff",
+  "productionSrcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "rawReceiptSha256": "1f715cb8ca5be8b2919b5503a8ee589d21c07b732260bd174a7e90848b518d6c",
+  "reportSha256": "5ae776ec4b6488f149e3dff8548d8c8562495947bff85e57c09d23f82164cf4b",
+  "schema": "1370-c0-stage40-remote-audit-independent-observed-review-r2",
+  "specFilledSha256": "aefad163510fdc70293669d82054f163216402f66ece6de4b994652518859a6b",
+  "totalBytes": 828287,
+  "tree": "d7d2f707b7b1e377ce337519a33f91e894dac04a"
+}

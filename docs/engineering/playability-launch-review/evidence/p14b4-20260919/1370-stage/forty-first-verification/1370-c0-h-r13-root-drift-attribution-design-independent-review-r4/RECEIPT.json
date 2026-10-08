@@ -1,0 +1,18 @@
+{
+  "bindingSha256": "e5a55434dff70f0e21ad99a7ff43ac0e718f8d7d068f5ef276eb01d122e1591b",
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "planSha256": "b1f42ea4c301e04903e8bf2b4b7c8560724ab1c9407300481dda4d4730bc506a",
+  "r13ObservedStopReceiptSha256": "15e901e356b72d80fdebef469bf9e20b171c13a32f34e94bf26858bf2d883ad1",
+  "r3RefineReceiptSha256": "7115948faa308a8e8dd2a6f2985b2be1b75d7bb394c1711ba6642d1433173160",
+  "remainingGates": [
+    "Stage40 independent remote-byte proof and current ref binding",
+    "isolated dependency/source materializer and readback review",
+    "actual bound sandbox profile and per-arm canary/descendant probe review",
+    "preloader metadata coverage and synthetic RED/static review",
+    "control exact lane and observed comparison",
+    "instrumented exact lane and observed attribution review"
+  ],
+  "reportSha256": "c714ca04fbf4ff47320a8a5cb0634dd671e0dfb7cb172463d897dd732c5bda40",
+  "runtimeClaim": "NONE_UNRUN",
+  "schema": "1370-c0-h-r13-root-drift-attribution-design-independent-review-r4"
+}

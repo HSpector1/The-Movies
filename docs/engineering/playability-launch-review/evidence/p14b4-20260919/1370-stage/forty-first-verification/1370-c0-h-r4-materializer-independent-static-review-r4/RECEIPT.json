@@ -1,0 +1,23 @@
+{
+  "schema": "1370-c0-h-r4-materializer-independent-static-review-r4",
+  "decision": "REFINE_STATIC_UNRUN",
+  "materializeSha256": "b0dfae70f81b98182f0e54ea267d555827b1780464c873744e859041175117fc",
+  "runSha256": "15cb068f892edf58941d0cfc029d3bccffc78994077dfc48d810320939d437cf",
+  "dependencyManifestSha256": "237297eaa4145ead916c1dcae9913923bdc68348d429039ebd6cf004d4431cb1",
+  "safeOutputSha256": "e71cbeeca93a630c61f64e3e9dc032a62a45a8c03c8c9f069b01c38f7ebf2bc3",
+  "nativeMetadataSha256": "8860457b2b2157e10dc0ea0e52b25d1205e024ebc25cd62d514a1468b31de70d",
+  "selfcheckSha256": "9b9c7eebb5f5eaa136f79d381c828e93f983eab7cb0a4fbf449a770c321b933e",
+  "deniedSignalRedSha256": "5379dd11cb70dab37b99109545aeeb84190ec9f912bec9550de8607543af2b1d",
+  "bindingUnfilledSha256": "6a68a9bb95031bb73cb816541dc4867ec98244241433ba1b787e7016295e44cf",
+  "planSha256": "b1750f160b9bd83961e12a7c5286350f45b9ce49e3bd9270f6fc9eb5ef27cb53",
+  "r3RefineReceiptSha256": "0cf511defa69facdd8692dbe952c7c8de8824787d691f475e41f736af46ae9ad",
+  "scratchSelfcheck": "PASS_CLONE_READBACK_PROTECTED_OUTPUT_LOG_CAP_DISK_ACL_REFUSAL",
+  "scratchDeniedSignalRed": "PASS_DIRECT_REAP_EPERM_GROUP_PROBE_STOP",
+  "swappedParentRed": "PROTECTED_MANIFEST_WRITE_BEFORE_POSTFLIGHT_STOP",
+  "swappedParentRedSourceSha256": "29573d05bd29835f99295eb0d39d7e44bb4fd1c2a715f78ab8c478f87e2e5b34",
+  "swappedParentRedResultSha256": "675f0b40a32a8b9f4a98154c0e80f3f3e377c2ff433415581848ab8c8a5054d4",
+  "reviewSha256": "09032fc11ab254dea718340ef51d78d20454f87ba849893a2e4013a6bf2b35d8",
+  "realHOrDependenciesScanned": false,
+  "heavyLaneRun": false,
+  "gitMutated": false
+}

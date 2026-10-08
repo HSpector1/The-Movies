@@ -1,0 +1,34 @@
+{
+  "claimLimit": "Static/scratch only; exact binding, real profile, per-arm canary and H route pending",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN",
+  "r3RefineReceiptSha256": "66b6d7999737a38da2125637fccc875d8946d4373555172bb67949cb67d3f6f3",
+  "reviewSha256": "ec5a3a2227aa7110bba3735af7b280ff774bbd0a5465304b9b3387ef277c9536",
+  "reviewer": "Codex /root independent of r4 author",
+  "schema": "1370-c0-h-r4-sandbox-independent-static-review-r4",
+  "sourceSha256": {
+    "BINDING-UNFILLED.json": "74e1caf755c70e994eb89a8ec9f74c5c8f8b51218e4fccb21cad2f70b03fddc6",
+    "PLAN.md": "806d57c90997206de422d8d6b7037d47ba868796e3774481f70f1d152ebc5621",
+    "PROFILE-TEMPLATE.sb.in": "9a2df2ea9bc59f5eba2b2a5e54e2c29374c3da4f3e68218c21ae3ea7ab18530d",
+    "REPORT.md": "d89a1ee1ca3b4484c70fea251578f490f1414f44b5fa021d9afbb574bf65e5fe",
+    "bootstrap.py": "34c1579d302eff7925a7e65ea7bed82c74f00a7162a60c3cc4d63e2628313cd8",
+    "bootstrap_selfcheck.py": "79fa6691023b91da21374d4745d1cc183554e7657afc850068d04e090bd76fbe",
+    "canary.py": "759c8689b46ea983d0c39d9dce9bc63e7488afe7bd5e8c886b46a85c23f94727",
+    "generate_profile.py": "02bbadd5d7f4845a28ac54b2f9f06d6a9752e1191e9652b7357fd275b3255f88",
+    "noisy_red.py": "afcfb46acdc9603166fe0df84f563ddc5a9249cc9b0df88e49ff9028c5b29874",
+    "profile.py": "fa2b3fb4808ccf5fedf028f1a545cd8c9dae3a3ad9b5c1921d221f8e185c2b3d",
+    "protected_red.py": "a33e5135c5828e4d51c18981bf7f39e7538c8f5bfb65268a74d49bba6e6cb7ec",
+    "selfcheck.py": "f68f7941e1817cb19688ba95bfb71a2852c9844491bcf3deb40fb27c3472a4cf"
+  },
+  "testCommands": [
+    "PYTHONDONTWRITEBYTECODE=1 python3 -B bootstrap_selfcheck.py",
+    "PYTHONDONTWRITEBYTECODE=1 python3 -B selfcheck.py",
+    "PYTHONDONTWRITEBYTECODE=1 python3 -B protected_red.py",
+    "PYTHONDONTWRITEBYTECODE=1 python3 -B noisy_red.py"
+  ],
+  "testExitCodes": [
+    0,
+    0,
+    0,
+    0
+  ]
+}

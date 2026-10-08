@@ -1,0 +1,24 @@
+{
+  "claimLimit": "Independent scratch/static addendum; no exact launch or H control authority",
+  "decision": "REFINE_STATIC_UNRUN",
+  "gitMutated": false,
+  "heavyLaneRun": false,
+  "priorSourceOnlyReceiptSha256": "32dc1e7ca07be2615950076fabcf72d55bb2ecf057b9cdf5d8fee370b9f7dd94",
+  "realHOrDependencyActivity": false,
+  "redSha256": "0c23d16a06e49946ca4e61043f88c693eb1ffc4b1f932b638f23c2bd0d8a39fc",
+  "reviewSha256": "9587a876eef07eefc88384255a7869390b263901da62c3e255016e25eda85fb4",
+  "schema": "1370-c0-h-r4-control-recorder-independent-adversarial-addendum-r1",
+  "scratchR3Selftest": "PASS",
+  "scratchSwappedParentRed": "PROTECTED_WRITE_REPRODUCED",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-h-r4-control-recorder-proposal-r3",
+  "sourceSha256": {
+    "REPORT.md": "8eab313c352c1669f341f2071f81b0b09013cfe378cd0ac9dfeb1d5f4f411b03",
+    "TEST-RESULT.json": "a127942cce836600097256ac04127ef22d7a2025e14a6e9996530f523e4da570",
+    "mac_xattr.py": "ea28ddf959c530ae54dbbcc93b35197c4d6874534a72ade47235df4b4262d207",
+    "native_metadata.py": "8860457b2b2157e10dc0ea0e52b25d1205e024ebc25cd62d514a1468b31de70d",
+    "recorder.py": "d833fedf85d0fded19f660d465f66b804c262166e1115a489836a990e37b14b7",
+    "safe_output.py": "acb21fd5e05eeffd7f57bad045c14df7a8a6cbfa29f817d084c1fc3005d96512",
+    "selftest.py": "5c1370f2443e47b8353ddc4d6c5465cbc85f8fba037446541baf44dbad3df6f0",
+    "watcher.cjs": "00fac820ec87344e82fbc3c4d4df04c7d83f6ead5b667fcbd9236d515a1a6a62"
+  }
+}

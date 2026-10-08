@@ -1,0 +1,56 @@
+{
+  "boundedSupervisorRed": true,
+  "cpCreate": {
+    "mode": "cp-create",
+    "observed": {
+      "write": "ALLOWED"
+    },
+    "ordinaryFileExists": true,
+    "protectedFileExists": false,
+    "supervisorStop": null,
+    "swap": false
+  },
+  "cpMoved": {
+    "mode": "cp",
+    "observed": {
+      "error": "CalledProcessError(1, ['/bin/cp', '-cRpP', '/Users/zacheryspector/studio-scratch/1370-c0-h-r4-materializer-bootstrap-proposal-r1/materializer-bootstrap-selfcheck-wgf_5yyu/cp-moved/source.txt', '/Users/zacheryspector/studio-scratch/1370-c0-h-r4-materializer-bootstrap-proposal-r1/materializer-bootstrap-selfcheck-wgf_5yyu/cp-moved/output/copied.txt'])",
+      "write": "DENIED"
+    },
+    "ordinaryFileExists": false,
+    "protectedFileExists": false,
+    "supervisorStop": null,
+    "swap": true
+  },
+  "cpOrdinary": {
+    "mode": "cp",
+    "observed": {
+      "write": "ALLOWED"
+    },
+    "ordinaryFileExists": true,
+    "protectedFileExists": false,
+    "supervisorStop": null,
+    "swap": false
+  },
+  "manifestMoved": {
+    "mode": "manifest",
+    "observed": {
+      "error": "PermissionError(1, 'Operation not permitted')",
+      "write": "DENIED"
+    },
+    "ordinaryFileExists": false,
+    "protectedFileExists": false,
+    "supervisorStop": null,
+    "swap": true
+  },
+  "manifestOrdinary": {
+    "mode": "manifest",
+    "observed": {
+      "write": "ALLOWED"
+    },
+    "ordinaryFileExists": true,
+    "protectedFileExists": false,
+    "supervisorStop": null,
+    "swap": false
+  },
+  "status": "PASS_SCRATCH_BOOTSTRAP_MANIFEST_AND_CP"
+}

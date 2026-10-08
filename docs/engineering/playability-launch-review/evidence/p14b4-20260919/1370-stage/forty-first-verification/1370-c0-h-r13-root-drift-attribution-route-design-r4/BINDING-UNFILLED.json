@@ -1,0 +1,22 @@
+{
+  "controlCanaryProbeReceiptSha256": null,
+  "controlLaunchSha256": null,
+  "currentEvidenceTip": null,
+  "currentProductionHead": null,
+  "currentProductionSourceTree": null,
+  "historicalHBridgeTree": "a697b042eccb85adacd40ef1303869be6d26239a",
+  "historicalHSourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "instrumentedCanaryProbeReceiptSha256": null,
+  "instrumentedLaunchSha256": null,
+  "isolatedDependencyViewManifestSha256": null,
+  "preloaderSha256": null,
+  "r13ObservedStopReceiptSha256": "15e901e356b72d80fdebef469bf9e20b171c13a32f34e94bf26858bf2d883ad1",
+  "r2IndependentRefineReceiptSha256": "930d3645c29f545f8e047207e7a58de8b6097b2ad6004e799a75e2104396d0f2",
+  "r3IndependentRefineReceiptSha256": "7115948faa308a8e8dd2a6f2985b2be1b75d7bb394c1711ba6642d1433173160",
+  "runtimeClaim": "NONE",
+  "sandboxBoundArgvTemplateSha256": null,
+  "sandboxProfileSha256": null,
+  "schema": "1370-c0-h-r13-root-drift-attribution-route-design-r4-unfilled",
+  "stage40RemoteBytesReceiptSha256": null,
+  "status": "DESIGN_ONLY_UNRUN"
+}
