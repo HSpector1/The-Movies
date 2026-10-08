@@ -1,0 +1,18 @@
+# Independent P17 continuation charter / RED design review — r2
+
+Date: 2026-10-08. Verdict: **ACCEPT_DESIGN_ONLY** for parent consideration of this exact draft. This is a static contract review, not production admission, RED/GREEN execution, runtime/economy validation, P16 title implementation or P17 completion. No Git command, production write, test or game/native import was performed. Live HEAD `5020e56e018c3acdeff6c93980ce05d31ac78847` and `HEAD:src` `13880d9b0ba72aff5d4c5bcf5d12fe682c5de554` are supplied bindings, not independently reverified here while the protected copy lane is active.
+
+Reviewed exact r2 `/Users/zacheryspector/studio-scratch/p17-continuation-prep-r2-5020e56e-20261008/P17-CONTINUATION-CONSUMER-CHARTER-AND-RED.md`, SHA-256 `d67628169c9d54a48bc2c52f4d22dc1f693fd3ab38612a5b49697306c991999e`. R1 and its REFINE receipt remain preserved at their original paths and SHA-256 `3d1f6bf3ab4b2f339f87dee00ea6e6d7575a9ae03dfc8c8e6bac4fa5e81c7875` and `f6e5fc85931a40ad8ba8159240d6b0c0b0ecedb773406c43d47cc36455831800`.
+
+## R1 findings resolved
+
+1. Prequel is now an authored, frozen designation inside the same-branch sequel family, tied to an exact locked/released film. DirectSequel and Prequel share lawful R3 use and 0.90 similarity; missing/stale/cross-branch references refuse atomically. RED requires equal numeric behavior for otherwise identical facts. This follows canonical revision02 §5.2's distinction without inventing story chronology or a sixth type.
+2. Promotion now has an exact P17 eligibility/payload handoff to P16, which alone mints the new StoryProperty/title with parent provenance and live grants preserved. The persistent SubProperty ID remains a historical handle; accrued R/M/F and unique installments become the new property's starting state. R2 forbids reseeding, meter resets, replay/double release credit and P17 title minting; refusal is byte-pure. Its RED checks before/after title and audience facts, save/replay and a subsequent release. This closes canonical §9's state-carry requirement while deferring concrete layout until the real P16 producer exists.
+
+## Remaining boundary checks
+
+R2 otherwise keeps the settled Owner reboot/floor/dormant DirectSequel choices, rev02 property Recognition/Fatigue and branch Momentum, first-property-film Fatigue exemption, remake/reboot comparison, single optional forecast/reception read at two boundaries, P16 live R3 rights and parent-bound branches, and the reviewed Shape A cameo contract. It identifies provisional constants as such and does not turn paper calculator output into measured engine balance. It preserves genuine predecessor migration, empty historical P17 authority, generated consumers, atomic refusal and player/rival symmetry in a nonvacuous RED plan.
+
+Before code, parent must bind the charter to the actual accepted P16A/B/C, P15 closure and P13/P14 predecessor, select the next governed save/projection versions, independently approve focused REDs with exact canonical numerical fixtures and P16 grant expiry/scope cases, then run the recorded runtime/replay/economy gates. The proposed code seams and live HEAD will be stale by then. No new Owner decision is implied by this receipt.
+
+Authority compared: immutable canonical revision02 `f2eff6356fca3e6d5287e690bf2404867d638906:docs/research/p17-independent-verification-01/P17-INDEPENDENT-VERIFICATION-REPORT.md` §§5.2–5.3, 5.7, 9–11, 15, 17, 19 (https://github.com/HSpector1/The-Movies/blob/f2eff6356fca3e6d5287e690bf2404867d638906/docs/research/p17-independent-verification-01/P17-INDEPENDENT-VERIFICATION-REPORT.md); `P17-RECOVERED-SPECIFICATION-STATE.md`; adopted `1370-AD` P16A r3; `1367-O`; reviewed `1367-stage/p17-prep/P17-CAMEO-CONTRACT.md` and its independent receipt.

@@ -1,0 +1,23 @@
+{
+  "bindingSemanticSha256": "f044d047fa62866ac7b8d8b0b6029b5653a4ebf08adbb9ad341a4eca08123fa4",
+  "candidatePinsSha256": "9889cdb261dc526abc8fb79826867dc1f54f0b97b6f7fe80bfe9d3f76b74953b",
+  "decision": "ACCEPT_EXACT_FILLED_UNRUN",
+  "draftDecision": "ACCEPT_DRAFT_ONLY",
+  "executionAuthorization": false,
+  "materializationRun": false,
+  "productionHead": "5020e56e018c3acdeff6c93980ce05d31ac78847",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-independent-review-20261008-r3/REPORT.md",
+  "reportSha256": "ceac46b1435f2b806b0bf2a0b7834f81a5ca8c6dc504da1a7768e98078e52f92",
+  "requiredNext": [
+    "archive original draft directory before adoption",
+    "adopt only five excluded fields in original binding",
+    "independent adopted preflight",
+    "one guarded recorded copy-only lane",
+    "independent observed postflight and override STOP review"
+  ],
+  "reviewedDraftBindingSha256": "81204ed08795e3541633109db8a1009b362aaaaaf5efb43da1585b41b3f2abc0",
+  "reviewedDraftPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3",
+  "schema": "1370-c0-aging-era-sparse-materializer-r4-exact-independent-review-r3",
+  "sourcePinsSha256": "f5e985ffe629d87a3292506c7506bbdc153d923e2fa5cafd1db445d3c5e11105"
+}

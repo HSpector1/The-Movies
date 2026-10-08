@@ -1,0 +1,19 @@
+{
+  "adoptedBindingSha256": null,
+  "bindingSemanticSha256": "f044d047fa62866ac7b8d8b0b6029b5653a4ebf08adbb9ad341a4eca08123fa4",
+  "decision": "ACCEPT_DESIGN_ONLY",
+  "draftBindingSha256": "81204ed08795e3541633109db8a1009b362aaaaaf5efb43da1585b41b3f2abc0",
+  "executionAuthorization": false,
+  "launchRun": false,
+  "planSha256": "f1e608c0c6c317d0f8941fd5133ec4c831cf7dee928c10cd0eb01353b24f10e6",
+  "proposalPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-launch-spec-proposal-20261008-r1/LAUNCH-SPEC.json",
+  "proposalSha256": "85b13895ab8ae42517fb1a3e489bc7953035272b3b0c17de31c773236ed65ecc",
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-launch-design-independent-review-20261008-r1/REPORT.md",
+  "reportSha256": "b362a4a778194921b18402dd6b7800514dc55e072028bff8f1bedb69c18dd3e7",
+  "requiredNext": [
+    "independent adopted binding byte checksum and five-field diff review",
+    "fresh exact preflight and heavy-lane idle/lock checks",
+    "one observed copy-only lane with actual helper/meta/child and override STOP review"
+  ],
+  "schema": "1370-c0-aging-era-sparse-r4-r3-launch-design-independent-review-r1"
+}

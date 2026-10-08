@@ -1,0 +1,170 @@
+[
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/ADOPTION-PLAN.md",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/ADOPTION-PLAN.md",
+    "bytes": 3691,
+    "sha256": "b13abeea456d9b665874180224b970b5a288407f17b5153e1c984111adc02702"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/BINDING-DRAFT.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/BINDING-DRAFT.json",
+    "bytes": 3960,
+    "sha256": "81204ed08795e3541633109db8a1009b362aaaaaf5efb43da1585b41b3f2abc0"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/BINDING-SEMANTIC.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/BINDING-SEMANTIC.json",
+    "bytes": 3779,
+    "sha256": "17af6cf92b7894ce4dc3840d65eeb46fa21a12409f22110a823e609cb54a6de8"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/CANDIDATE-PINS.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/CANDIDATE-PINS.json",
+    "bytes": 1770,
+    "sha256": "9889cdb261dc526abc8fb79826867dc1f54f0b97b6f7fe80bfe9d3f76b74953b"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/DEPENDENCY-LINKS.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/DEPENDENCY-LINKS.json",
+    "bytes": 2432,
+    "sha256": "a6413a03b7a8216122639a8792159876c6b00560d57e620350a15d341ae3489f"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/DRAFT-REPORT.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/DRAFT-REPORT.json",
+    "bytes": 4778,
+    "sha256": "d6677f58ab9c45e0b1b5b9acd49659c9e39f03bce107c3324478f18b8334f882"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/SOURCE-MANIFEST.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3/SOURCE-MANIFEST.json",
+    "bytes": 40943,
+    "sha256": "df8abd56d6b9de84aa3552275a7e564e66d53b2718ff33f9c2e3080a449a0c1d"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-independent-review-20261008-r3/RECEIPT.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-materializer-r4-exact-independent-review-20261008-r3/RECEIPT.json",
+    "bytes": 1389,
+    "sha256": "96c77826d7e8504c42ec1385bc408567c7b273df8e633fe9376eb6b599f71b10"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-independent-review-20261008-r3/REPORT.md",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-materializer-r4-exact-independent-review-20261008-r3/REPORT.md",
+    "bytes": 3407,
+    "sha256": "ceac46b1435f2b806b0bf2a0b7834f81a5ca8c6dc504da1a7768e98078e52f92"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-launch-spec-proposal-20261008-r1/LAUNCH-SPEC.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-launch-spec-proposal-20261008-r1/LAUNCH-SPEC.json",
+    "bytes": 7267,
+    "sha256": "85b13895ab8ae42517fb1a3e489bc7953035272b3b0c17de31c773236ed65ecc"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-launch-spec-proposal-20261008-r1/PLAN.md",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-launch-spec-proposal-20261008-r1/PLAN.md",
+    "bytes": 1797,
+    "sha256": "f1e608c0c6c317d0f8941fd5133ec4c831cf7dee928c10cd0eb01353b24f10e6"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-launch-design-independent-review-20261008-r1/RECEIPT.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-launch-design-independent-review-20261008-r1/RECEIPT.json",
+    "bytes": 1187,
+    "sha256": "4d9909202b5dc8972776d77c28008ce7e5dbf0644fd1a133451fafe04aa95fa2"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-launch-design-independent-review-20261008-r1/REPORT.md",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-launch-design-independent-review-20261008-r1/REPORT.md",
+    "bytes": 2806,
+    "sha256": "b362a4a778194921b18402dd6b7800514dc55e072028bff8f1bedb69c18dd3e7"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/ADOPTION-PLAN.md",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/ADOPTION-PLAN.md",
+    "bytes": 3691,
+    "sha256": "b13abeea456d9b665874180224b970b5a288407f17b5153e1c984111adc02702"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/BINDING-DRAFT.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/BINDING-DRAFT.json",
+    "bytes": 3960,
+    "sha256": "81204ed08795e3541633109db8a1009b362aaaaaf5efb43da1585b41b3f2abc0"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/BINDING-SEMANTIC.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/BINDING-SEMANTIC.json",
+    "bytes": 3779,
+    "sha256": "17af6cf92b7894ce4dc3840d65eeb46fa21a12409f22110a823e609cb54a6de8"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/CANDIDATE-PINS.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/CANDIDATE-PINS.json",
+    "bytes": 1770,
+    "sha256": "9889cdb261dc526abc8fb79826867dc1f54f0b97b6f7fe80bfe9d3f76b74953b"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/DEPENDENCY-LINKS.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/DEPENDENCY-LINKS.json",
+    "bytes": 2432,
+    "sha256": "a6413a03b7a8216122639a8792159876c6b00560d57e620350a15d341ae3489f"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/DRAFT-REPORT.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/DRAFT-REPORT.json",
+    "bytes": 4778,
+    "sha256": "d6677f58ab9c45e0b1b5b9acd49659c9e39f03bce107c3324478f18b8334f882"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/SOURCE-MANIFEST.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1/SOURCE-MANIFEST.json",
+    "bytes": 40943,
+    "sha256": "df8abd56d6b9de84aa3552275a7e564e66d53b2718ff33f9c2e3080a449a0c1d"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-adoption-procedure-20261008-r1/ADOPTED-LAUNCH-SPEC-DESIGN.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-adoption-procedure-20261008-r1/ADOPTED-LAUNCH-SPEC-DESIGN.json",
+    "bytes": 2228,
+    "sha256": "93ee6f216ae3bf3ad2180c49f39876496acd1718d5b7a0ed3e2007fb622aad87"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-adoption-procedure-20261008-r1/ARCHIVE-MANIFEST.json",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-adoption-procedure-20261008-r1/ARCHIVE-MANIFEST.json",
+    "bytes": 2090,
+    "sha256": "0b19361c2ed3438b54c2dbd8638c8de8f980690c526887e00c0b9af21fe343d7"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-adoption-procedure-20261008-r1/PLAN.md",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-adoption-procedure-20261008-r1/PLAN.md",
+    "bytes": 2429,
+    "sha256": "31fbdd16c376652c0cc61330d1b100decf84266f706203bd83c5e59b9a85f282"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-adoption-procedure-20261008-r1/adopt_reviewed_binding.py",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/1370-c0-aging-era-sparse-r4-r3-adoption-procedure-20261008-r1/adopt_reviewed_binding.py",
+    "bytes": 9033,
+    "sha256": "1e66dc1807e30e61e2a123d104b685b1bf6bb4b9bb679e48c1881f7ae97b5b4c"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/p17-continuation-prep-5020e56e-20261008/P17-CONTINUATION-CONSUMER-CHARTER-AND-RED.md",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/p17-continuation-prep-5020e56e-20261008/P17-CONTINUATION-CONSUMER-CHARTER-AND-RED.md",
+    "bytes": 12022,
+    "sha256": "3d1f6bf3ab4b2f339f87dee00ea6e6d7575a9ae03dfc8c8e6bac4fa5e81c7875"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/p17-continuation-prep-5020e56e-20261008/P17-CONTINUATION-INDEPENDENT-DESIGN-REVIEW.md",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/p17-continuation-prep-5020e56e-20261008/P17-CONTINUATION-INDEPENDENT-DESIGN-REVIEW.md",
+    "bytes": 5407,
+    "sha256": "f6e5fc85931a40ad8ba8159240d6b0c0b0ecedb773406c43d47cc36455831800"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/p17-continuation-prep-r2-5020e56e-20261008/P17-CONTINUATION-CONSUMER-CHARTER-AND-RED.md",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/p17-continuation-prep-r2-5020e56e-20261008/P17-CONTINUATION-CONSUMER-CHARTER-AND-RED.md",
+    "bytes": 13988,
+    "sha256": "d67628169c9d54a48bc2c52f4d22dc1f693fd3ab38612a5b49697306c991999e"
+  },
+  {
+    "source": "/Users/zacheryspector/studio-scratch/p17-continuation-prep-r2-5020e56e-20261008/P17-CONTINUATION-INDEPENDENT-DESIGN-REVIEW.md",
+    "archive": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ae-restart-checkpoint/p17-continuation-prep-r2-5020e56e-20261008/P17-CONTINUATION-INDEPENDENT-DESIGN-REVIEW.md",
+    "bytes": 3764,
+    "sha256": "3ae41cdd0e330e23ebe16e24889f6a59f7efc43d0c8236c210434105eb76d17f"
+  }
+]

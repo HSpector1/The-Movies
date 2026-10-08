@@ -1,0 +1,55 @@
+{
+  "archiveDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-20261008-r1",
+  "bindingSemanticSha256": "f044d047fa62866ac7b8d8b0b6029b5653a4ebf08adbb9ad341a4eca08123fa4",
+  "candidatePinsSha256": "9889cdb261dc526abc8fb79826867dc1f54f0b97b6f7fe80bfe9d3f76b74953b",
+  "count": 7,
+  "directoryMode": "0700",
+  "draftBindingSha256": "81204ed08795e3541633109db8a1009b362aaaaaf5efb43da1585b41b3f2abc0",
+  "files": {
+    "ADOPTION-PLAN.md": {
+      "bytes": 3691,
+      "sha256": "b13abeea456d9b665874180224b970b5a288407f17b5153e1c984111adc02702",
+      "sourceDev": 16777220,
+      "sourceIno": 166535501
+    },
+    "BINDING-DRAFT.json": {
+      "bytes": 3960,
+      "sha256": "81204ed08795e3541633109db8a1009b362aaaaaf5efb43da1585b41b3f2abc0",
+      "sourceDev": 16777220,
+      "sourceIno": 166535498
+    },
+    "BINDING-SEMANTIC.json": {
+      "bytes": 3779,
+      "sha256": "17af6cf92b7894ce4dc3840d65eeb46fa21a12409f22110a823e609cb54a6de8",
+      "sourceDev": 16777220,
+      "sourceIno": 166535499
+    },
+    "CANDIDATE-PINS.json": {
+      "bytes": 1770,
+      "sha256": "9889cdb261dc526abc8fb79826867dc1f54f0b97b6f7fe80bfe9d3f76b74953b",
+      "sourceDev": 16777220,
+      "sourceIno": 166535502
+    },
+    "DEPENDENCY-LINKS.json": {
+      "bytes": 2432,
+      "sha256": "a6413a03b7a8216122639a8792159876c6b00560d57e620350a15d341ae3489f",
+      "sourceDev": 16777220,
+      "sourceIno": 166535486
+    },
+    "DRAFT-REPORT.json": {
+      "bytes": 4778,
+      "sha256": "d6677f58ab9c45e0b1b5b9acd49659c9e39f03bce107c3324478f18b8334f882",
+      "sourceDev": 16777220,
+      "sourceIno": 166535500
+    },
+    "SOURCE-MANIFEST.json": {
+      "bytes": 40943,
+      "sha256": "df8abd56d6b9de84aa3552275a7e564e66d53b2718ff33f9c2e3080a449a0c1d",
+      "sourceDev": 16777220,
+      "sourceIno": 166535485
+    }
+  },
+  "schema": "1370-c0-aging-era-sparse-r4-r3-pre-adoption-archive-r1",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r4-exact-draft-20261008-r3",
+  "status": "ARCHIVED_UNADOPTED"
+}
