@@ -1,0 +1,7 @@
+{
+  "actualToolChunk": "db4003",
+  "actualExit": 1,
+  "cause": "Root used rev-parse :src for an index directory; Git index records files rather than directory entries. It is a read-only verification-command error, not missing source.",
+  "correction": "Verify HEAD:src and require git diff --cached --quiet HEAD -- src; authenticate every staged file separately.",
+  "archiveOrIndexModifiedByFailedCheck": false
+}

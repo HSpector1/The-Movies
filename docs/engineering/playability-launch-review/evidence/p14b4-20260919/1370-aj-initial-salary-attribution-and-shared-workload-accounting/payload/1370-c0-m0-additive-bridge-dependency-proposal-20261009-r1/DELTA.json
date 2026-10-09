@@ -1,0 +1,21 @@
+{
+  "actualMirrorReadOrWrite": false,
+  "canonicalBridgeBytes": 1517743,
+  "canonicalBridgeFiles": 63,
+  "dependencyLinkCount": 1,
+  "expandedRegularBytes": 119393120,
+  "expandedRegularFiles": 1740,
+  "installedVersionRoles": 21,
+  "launchComplete": false,
+  "missingRoles": [
+    "fresh282fproduction/commonqualifiedguard",
+    "exactauthenticatedouterlaunch/tool/PATH",
+    "boundedfailureRESULTretentionandindependentexpandedreadback"
+  ],
+  "originalCopyProofPreserved": true,
+  "predecessorPatternSha256": "72a9bf9f6567afac320373532486c6bfd40663cf019eadb93d32db73a651678d",
+  "sourceOnlyUnrun": true,
+  "typeReady": false,
+  "unchangedBytes": 117875377,
+  "unchangedFiles": 1677
+}

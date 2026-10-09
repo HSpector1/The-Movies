@@ -1,0 +1,439 @@
+{
+  "actualHelperExit": 0,
+  "actualNodeExit": 0,
+  "actualRecorderExit": 0,
+  "actualToolExit": 0,
+  "actualToolSession": 21987,
+  "controlsReview": {
+    "bytes": 2950,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "abc274938a91d76bf717d94f295d88bc164bc954ef70887a7943a9ca58736646"
+  },
+  "elapsedSeconds": 1.3407283459964674,
+  "exactInputOrderIdentityAndOccurrence": true,
+  "groupsFreshlyAbsent": [
+    17859,
+    18122
+  ],
+  "lockAbsent": true,
+  "nodeRngOrSalaryExecutionByReview": false,
+  "numericOnly": true,
+  "orderedRows": [
+    {
+      "firstDraw": 0.34857689985074103,
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+        0
+      ],
+      "jitter": 0.9757723039761186,
+      "key": "offer-person-studio-aca408ec-r01-0",
+      "ordinal": 0,
+      "purpose": "hiring",
+      "role": "known-row0-transported-F1-control",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-0",
+      "talentId": "person-studio-aca408ec-r01-0"
+    },
+    {
+      "firstDraw": 0.8556038967799395,
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+        0
+      ],
+      "jitter": 1.0568966234847903,
+      "key": "offer-person-studio-aca408ec-r01-1",
+      "ordinal": 1,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-1",
+      "talentId": "person-studio-aca408ec-r01-1"
+    },
+    {
+      "firstDraw": 0.14396123448386788,
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+        0
+      ],
+      "jitter": 0.9430337975174189,
+      "key": "offer-person-studio-aca408ec-r01-2",
+      "ordinal": 2,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-2",
+      "talentId": "person-studio-aca408ec-r01-2"
+    },
+    {
+      "firstDraw": 0.2815200590994209,
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+        0
+      ],
+      "jitter": 0.9650432094559074,
+      "key": "offer-person-studio-aca408ec-r01-3",
+      "ordinal": 3,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-3",
+      "talentId": "person-studio-aca408ec-r01-3"
+    },
+    {
+      "firstDraw": 0.13948272936977446,
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+        0
+      ],
+      "jitter": 0.9423172366991639,
+      "key": "offer-person-studio-aca408ec-r01-4",
+      "ordinal": 4,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-4",
+      "talentId": "person-studio-aca408ec-r01-4"
+    },
+    {
+      "firstDraw": 0.051142517710104585,
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+        0
+      ],
+      "jitter": 0.9281828028336168,
+      "key": "offer-person-studio-aca408ec-r01-5",
+      "ordinal": 5,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-5",
+      "talentId": "person-studio-aca408ec-r01-5"
+    },
+    {
+      "firstDraw": 0.4843733462039381,
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+        0
+      ],
+      "jitter": 0.9974997353926301,
+      "key": "offer-person-studio-aca408ec-r02-0",
+      "ordinal": 6,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-0",
+      "talentId": "person-studio-aca408ec-r02-0"
+    },
+    {
+      "firstDraw": 0.6565972110256553,
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+        0
+      ],
+      "jitter": 1.0250555537641048,
+      "key": "offer-person-studio-aca408ec-r02-1",
+      "ordinal": 7,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-1",
+      "talentId": "person-studio-aca408ec-r02-1"
+    },
+    {
+      "firstDraw": 0.7270294514019042,
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+        0
+      ],
+      "jitter": 1.0363247122243047,
+      "key": "offer-person-studio-aca408ec-r02-2",
+      "ordinal": 8,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-2",
+      "talentId": "person-studio-aca408ec-r02-2"
+    },
+    {
+      "firstDraw": 0.4642153570894152,
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+        0
+      ],
+      "jitter": 0.9942744571343064,
+      "key": "offer-person-studio-aca408ec-r02-3",
+      "ordinal": 9,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-3",
+      "talentId": "person-studio-aca408ec-r02-3"
+    },
+    {
+      "firstDraw": 0.11387934512458742,
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+        0
+      ],
+      "jitter": 0.938220695219934,
+      "key": "offer-person-studio-aca408ec-r02-4",
+      "ordinal": 10,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-4",
+      "talentId": "person-studio-aca408ec-r02-4"
+    },
+    {
+      "firstDraw": 0.7007206561975181,
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+        0
+      ],
+      "jitter": 1.032115304991603,
+      "key": "offer-person-studio-aca408ec-r02-5",
+      "ordinal": 11,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-5",
+      "talentId": "person-studio-aca408ec-r02-5"
+    },
+    {
+      "firstDraw": 0.7172063635662198,
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+        0
+      ],
+      "jitter": 1.034753018170595,
+      "key": "offer-person-studio-aca408ec-r03-0",
+      "ordinal": 12,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-0",
+      "talentId": "person-studio-aca408ec-r03-0"
+    },
+    {
+      "firstDraw": 0.29803259251639247,
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+        0
+      ],
+      "jitter": 0.9676852148026228,
+      "key": "offer-person-studio-aca408ec-r03-1",
+      "ordinal": 13,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-1",
+      "talentId": "person-studio-aca408ec-r03-1"
+    },
+    {
+      "firstDraw": 0.6224897031206638,
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+        0
+      ],
+      "jitter": 1.0195983524993062,
+      "key": "offer-person-studio-aca408ec-r03-3",
+      "ordinal": 15,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-3",
+      "talentId": "person-studio-aca408ec-r03-3"
+    },
+    {
+      "firstDraw": 0.919033964863047,
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-4:0",
+        0
+      ],
+      "jitter": 1.0670454343780875,
+      "key": "offer-person-studio-aca408ec-r03-4",
+      "ordinal": 16,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-4",
+      "talentId": "person-studio-aca408ec-r03-4"
+    },
+    {
+      "firstDraw": 0.327753763878718,
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-5:0",
+        0
+      ],
+      "jitter": 0.9724406022205949,
+      "key": "offer-person-studio-aca408ec-r03-5",
+      "ordinal": 17,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-5",
+      "talentId": "person-studio-aca408ec-r03-5"
+    },
+    {
+      "firstDraw": 0.9801424799952656,
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-0:0",
+        0
+      ],
+      "jitter": 1.0768227967992425,
+      "key": "offer-person-studio-aca408ec-r04-0",
+      "ordinal": 18,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-0",
+      "talentId": "person-studio-aca408ec-r04-0"
+    },
+    {
+      "firstDraw": 0.2923846524208784,
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-1:0",
+        0
+      ],
+      "jitter": 0.9667815443873405,
+      "key": "offer-person-studio-aca408ec-r04-1",
+      "ordinal": 19,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-1",
+      "talentId": "person-studio-aca408ec-r04-1"
+    },
+    {
+      "firstDraw": 0.041054677683860064,
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-2:0",
+        0
+      ],
+      "jitter": 0.9265687484294176,
+      "key": "offer-person-studio-aca408ec-r04-2",
+      "ordinal": 20,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-2",
+      "talentId": "person-studio-aca408ec-r04-2"
+    },
+    {
+      "firstDraw": 0.3558599890675396,
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-3:0",
+        0
+      ],
+      "jitter": 0.9769375982508063,
+      "key": "offer-person-studio-aca408ec-r04-3",
+      "ordinal": 21,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-3",
+      "talentId": "person-studio-aca408ec-r04-3"
+    },
+    {
+      "firstDraw": 0.8578171785920858,
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-4:0",
+        0
+      ],
+      "jitter": 1.0572507485747338,
+      "key": "offer-person-studio-aca408ec-r04-4",
+      "ordinal": 22,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-4",
+      "talentId": "person-studio-aca408ec-r04-4"
+    },
+    {
+      "firstDraw": 0.21032854891382158,
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-5:0",
+        0
+      ],
+      "jitter": 0.9536525678262114,
+      "key": "offer-person-studio-aca408ec-r04-5",
+      "ordinal": 23,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-5",
+      "talentId": "person-studio-aca408ec-r04-5"
+    }
+  ],
+  "overrideAbsent": true,
+  "result": {
+    "bytes": 920,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/RESULT.json",
+    "sha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d"
+  },
+  "retainedRoles": [
+    {
+      "bytes": 2275,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/WITNESS-TOOL-OUTCOME.json",
+      "sha256": "4bb2b098a83c0392363be78a8fc60cead0ac33db6161159ac74f13f1f7dd8ab1"
+    },
+    {
+      "bytes": 10867,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/WITNESS-GRANT.json",
+      "sha256": "26474ca649c246844740b26e494d34f46151c2460ab4be97cef34ae6b440837d"
+    },
+    {
+      "bytes": 580,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/WITNESS-ACTUAL-TOOL.json",
+      "sha256": "5de15c01c6950cba4e88c089ccbc9473948c19075ad4c16434cb0ddc3dc3161f"
+    },
+    {
+      "bytes": 920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/RESULT.json",
+      "sha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d"
+    },
+    {
+      "bytes": 9419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stdout.bin",
+      "sha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 383,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-lane-20261009-r1/first-draw-witness.lane.log",
+      "sha256": "b459aa41d0a5ba31e3ed6caefff14ce2695fe2f65f93eb58d6db967aa83c6c18"
+    },
+    {
+      "bytes": 343,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-lane-20261009-r1/first-draw-witness.lane.log.meta",
+      "sha256": "2736cd268fa11f6638392f3186f6d9f8ca382e9717395858fa6adaad57446b50"
+    }
+  ],
+  "row0ControlAccepted": true,
+  "rows": 23,
+  "sourcePins": {
+    "bytes": 8515,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
+  },
+  "sourceReview": {
+    "bytes": 2886,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "c441b19fc17d20eaf7b13a0477807e711f58a3a92f3717e7c645aa3d1974e66f"
+  },
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 9419,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stdout.bin",
+    "sha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
+  },
+  "unknownInitialDrawsNowMeasured": 22
+}

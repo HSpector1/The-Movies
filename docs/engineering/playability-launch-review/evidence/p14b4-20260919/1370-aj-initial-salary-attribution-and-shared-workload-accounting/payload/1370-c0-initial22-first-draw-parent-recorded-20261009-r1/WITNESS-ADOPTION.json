@@ -1,0 +1,28 @@
+{
+  "actualToolSessionId": 21987,
+  "decision": "ADOPT_OBSERVED_NUMERIC_FIRST_DRAWS_ONLY",
+  "historicalOfferLocalCapture": false,
+  "independentReview": {
+    "bytes": 4219,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
+  },
+  "knownControlRows": 1,
+  "newInitialDraws": 22,
+  "nextAuthorized": "Prepare preserved fresh filled pricing verifier source with authentic witnessed roles, then independent source review before separate execution grant.",
+  "renewalAttribution": false,
+  "result": {
+    "bytes": 920,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/RESULT.json",
+    "sha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d"
+  },
+  "rows": 23,
+  "salaryAttribution": false,
+  "schema": "initial23-first-draw-parent-adoption/v1",
+  "stdout": {
+    "bytes": 9419,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stdout.bin",
+    "sha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
+  },
+  "utc": "2026-10-09T18:31:51.027884+00:00"
+}

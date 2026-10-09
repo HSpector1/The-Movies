@@ -1,0 +1,47 @@
+{
+  "decision": "ACCEPT_SOURCE_DESIGN_HELD",
+  "baselineSha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b",
+  "scope": "Read-only candidate/reference and28 authored controls inspection. No implementation, imports, tests, benchmarks, game, full109 retry or cap/horizon change.",
+  "design": [
+    "Fresh local Map per boundedJson invocation; only primitive string keys and immutable token/raw-byte metadata. Independent512-entry and65536 aggregate raw+escaped UTF8-byte caps. Entry/map overhead bounded separately by entry count; byte budget is payload accounting, not exact heap-memory measurement.",
+    "At original stringToken point, hit evaluates cached rawBytes<=limit exactly once, with original STOP_STRING_CAP path; never pre-coerce limit or reuse previous predicate outcome. Miss preserves original raw-byte check then native JSON.stringify/escaped-byte count. Store only after successful token creation, with independent numeric cache-budget checks; full/oversized cache admission skips insertion silently, no eviction/new refusal.",
+    "Keep key() logic exactly: existing key hit adds token without new raw precheck; key miss still invokes stringToken then add then keyBytes<=limit then key insertion. Shared primitive memo in stringToken may let value-first/key-later and key-first/value-later reuse token safely only with that raw-check chronology. Do not merge keys cache into primitive memo or skip keyBytes check.",
+    "No caching objects, property reads, Object.keys, toJSON/cycle decisions, array lengths, add/caps, source getter results or complete output. Standard unmodified native builtins assumption is necessary: instrumenting/mutating JSON.stringify or Buffer.byteLength call counts is outside equivalence contract."
+  ],
+  "smallestAdditionalControlGroups": [
+    {
+      "family": "Repeated strings and exact escaped bytes",
+      "cases": "Repeated empty/ASCII/quotes/backslashes/control newline/non-ASCII/astral/lone high and low surrogate strings in arrays/nested objects; exact output and exact-fit/one-below total cap; repeat across4096-token/64KiB chunk seams."
+    },
+    {
+      "family": "Hit-path refusal and coercion chronology",
+      "cases": "Fresh stateful valueOf limit for each encoder; repeated same string warms cache then raw-cap refusal specifically at later hit; separate later aggregate-cap refusal; log getter/proxy and every limit coercion; throwing/NaN/Symbol returns at hit preserve exact exception/check order."
+    },
+    {
+      "family": "Key/value interaction",
+      "cases": "Identical escaped/surrogate string appears first as key then value and first as value then key, across repeated keys; exact byte/refusal/coercion traces against accepted chunk reference, especially existing key hits skipping raw predicate."
+    },
+    {
+      "family": "Budget saturation with fallback",
+      "cases": "512 distinct short strings then513th and repeats of early/late entries; below/exact/above65536 token+raw budget, and single oversized entry followed by repeats; output/refusals identical; independent source-budget assertions or separate reviewed transparent fixture observe entry/payload bounds without production API or new refusal."
+    },
+    {
+      "family": "Per-call freshness and object-read preservation",
+      "cases": "Success then smaller-limit call on same strings; failed call then fresh success; source object/getter mutation returning repeated then changed strings; assert original reads, omission/two-read order, cycles/toJSON refusals retained. No builtin call-count equality requirement."
+    }
+  ],
+  "controlsPolicy": "Preserve all accepted28 groups/321 pairs and compare added groups to accepted chunk baseline. Cache invariants require source review or transparent separate control instrumentation because output equality alone cannot distinguish never-caching/unbounded caching. No actual controls observed.",
+  "performanceAssessment": "Worth a separately granted benchmark after candidate source review and controls acceptance: repeated values can avoid stringify/UTF8 recounting, but Map lookups/allocation and strings outside caps can erase gains. No measured speedup or runtime feasibility claim.",
+  "workloadAccounting": {
+    "early212secondsRole": "ONE-ARM constant early308 encoder-only illustration",
+    "bothArmsStateEncodes": 3526,
+    "bothArmsWholeRowEncodes": 1984,
+    "sharedBoundsUnchanged": [
+      300,
+      375,
+      390
+    ]
+  },
+  "executionAuthorized": false,
+  "runtimeObserved": false
+}

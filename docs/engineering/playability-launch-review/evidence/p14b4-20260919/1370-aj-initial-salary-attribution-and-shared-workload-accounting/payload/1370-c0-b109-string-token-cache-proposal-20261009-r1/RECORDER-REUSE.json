@@ -1,0 +1,31 @@
+{
+  "base": {
+    "bytes": 14258,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/record-pure-node.py",
+    "sha256": "d0b8380d0ef982f8675ef8affdafd60bac200717132875fe50f220c648586cc2"
+  },
+  "changes": [
+    {
+      "after": "448e0796f69c0442bb8f610cbc9e9224055782f3ac9a8f3637720728eaebce4e",
+      "before": "59d94b70eb2e4c3093fde24529326769d8ab74ac51e73c954f8832a180061527",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-c0-b109-string-token-cache-",
+      "before": "1370-c0-b109-bounded-token-chunk-",
+      "occurrences": 1
+    },
+    {
+      "after": "last.get('groups')==33",
+      "before": "last.get('groups')==28",
+      "occurrences": 1
+    },
+    {
+      "after": "PURE_INDEXED308_CHUNK_STRING_CACHE_ENCODER_BENCHMARK_COMPLETE",
+      "before": "PURE_INDEXED308_FASTPASS_CHUNK_ENCODER_BENCHMARK_COMPLETE",
+      "occurrences": 1
+    }
+  ],
+  "executionAuthorization": false,
+  "mechanisms": "Clock60/75/90 ownership startup cleanup failure-retention unchanged; exact finite substitutions only."
+}

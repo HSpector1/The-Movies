@@ -1,0 +1,56 @@
+{
+  "executionAuthorization": false,
+  "pendingAdditions": [
+    {
+      "note": "Root finalization drafts/claims/verify_staged.py and upcoming claims-review intentionally excluded; root adds finite finalized originals.",
+      "role": "Closed root AJ final claim/LESSONS/finalizer-source or archive-policy authority and independent final claim-review inputs",
+      "status": "ROOT_WILL_ADD_AFTER_REVIEW"
+    },
+    {
+      "note": "Root appends finite final inputs and marks complete; never recursively includes final archive/finalizer outputs.",
+      "role": "Fresh r3 inventory/selector/verification/pins and final root report/HANDOFF pointers",
+      "status": "ROOT_FINAL_APPEND_AND_COMPLETE_MARKER_PENDING"
+    }
+  ],
+  "repoMutation": false,
+  "roles": {
+    "inventory": {
+      "bytes": 209297,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r3/INVENTORY-DRAFT.json",
+      "sha256": "7f85050efb7c595d50c6ec4a8af766a4172c42fe849a4e7ffd6c17689172887a"
+    },
+    "selectors": {
+      "bytes": 14149,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r3/SELECTORS.json",
+      "sha256": "f8a45e6797823b2ed2b5e7125d61b7ed07bcd0dcb4959157de3d28c065887af8"
+    },
+    "verification": {
+      "bytes": 11588,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r3/INVENTORY-VERIFICATION.json",
+      "sha256": "ae1ebb2e4c3b10bee25c8df627da194b76c7d492953608ff8f8631550ff3c2d3"
+    }
+  },
+  "schema": "1370-aj-inventory-preparation-pins-r3",
+  "status": "SOURCE_ONLY_CLOSED_WORK_ROOT_FINAL_INPUTS_PENDING",
+  "summary": {
+    "alreadyListedM0ParentAdoptionSkipped": true,
+    "closedWorkArtifactCoverageComplete": true,
+    "completeInventory": false,
+    "localHashSizeOnlyBytes": 0,
+    "localHashSizeOnlyFiles": 0,
+    "payloadBytes": 3806639,
+    "payloadFiles": 281,
+    "pendingWorkRunsOrExperimentalReviews": 0,
+    "priorAIRawHashOnlyPolicyPointerRoles": 14,
+    "priorAITransportOnlyRoles": 720,
+    "priorGitCoverage": "Not queried. Accepted finalizer separately authenticates actual HEAD blobs and preserves prior archive pointer.",
+    "r1RolesPreservedExactly": 247,
+    "r2ActualControlOutputBytes": 2978,
+    "r2ActualControlOutputFiles": 9,
+    "r2NewClosedRoles": 22,
+    "r2RolesPreservedExactly": 269,
+    "r3NewClosedRoles": 12,
+    "regularFiniteFiles": 281,
+    "selectedFiniteDirectories": 58
+  }
+}

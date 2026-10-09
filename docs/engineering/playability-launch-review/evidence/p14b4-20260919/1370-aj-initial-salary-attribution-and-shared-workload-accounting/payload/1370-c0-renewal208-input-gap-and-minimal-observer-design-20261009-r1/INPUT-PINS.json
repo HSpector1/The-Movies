@@ -1,0 +1,197 @@
+{
+  "AEmployment": {
+    "bytes": 13113,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/post-aging-employment.json",
+    "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+  },
+  "AFrame": {
+    "bytes": 29410,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/accepted-witness-frame.ndjson",
+    "sha256": "8b0b70f110c37199dc320045b2fec0ac384c323fddfba88bbae620bf34766c50"
+  },
+  "AFrameObservedReview": {
+    "bytes": 3032,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-observed-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "d681f73e3613248c7ccd0be7736e46bd1fe424dd62ea099a60e031e774238f64"
+  },
+  "A_aging.ts": {
+    "bytes": 13741,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/aging.ts",
+    "sha256": "38fd1e6704213a5b6cca8af7ffe9fcd6562fc9c242792eb1410209a27fa6baec"
+  },
+  "A_copy_acceptance": {
+    "bytes": 3717,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+  },
+  "A_copy_payload": {
+    "bytes": 2925892,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r6-20261008-r1/child.stdout",
+    "sha256": "fc494f5ed09ec9df02380490f1bc2dcac3f4cf293fb8734e0329a4a8d43e4c18"
+  },
+  "A_employment.ts": {
+    "bytes": 26075,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+    "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+  },
+  "A_hollywood.ts": {
+    "bytes": 16824,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts",
+    "sha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea"
+  },
+  "A_src/core/hollywoodStartingData.ts": {
+    "bytes": 4152,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodStartingData.ts",
+    "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+  },
+  "A_src/core/hollywoodTick.ts": {
+    "bytes": 28890,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodTick.ts",
+    "sha256": "0ca2aa00684465a313cb6321cd458b69be14c695a67ca2baec833244b9cd8d4f"
+  },
+  "A_src/core/rng.ts": {
+    "bytes": 8555,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/rng.ts",
+    "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+  },
+  "A_src/core/talentSummary.ts": {
+    "bytes": 25220,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts",
+    "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+  },
+  "A_src/core/tuning.ts": {
+    "bytes": 134171,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+    "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+  },
+  "A_src/core/worldgen.ts": {
+    "bytes": 34912,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/worldgen.ts",
+    "sha256": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7"
+  },
+  "A_talentMarket.ts": {
+    "bytes": 76993,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+    "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+  },
+  "A_tick.ts": {
+    "bytes": 60753,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tick.ts",
+    "sha256": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15"
+  },
+  "B109ManifestDifferentSeed": {
+    "bytes": 37717,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/MANIFEST.json",
+    "sha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578"
+  },
+  "HEmployment": {
+    "bytes": 13113,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/H-original-employment.json",
+    "sha256": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750"
+  },
+  "H_context": {
+    "bytes": 2822809,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/preimages/terminal-context.ndjson",
+    "sha256": "8e9e1f68bcfee6a3d6f235b433e1f2e2d455dcc8a005c4011b78c25023bde268"
+  },
+  "H_diagnostic": {
+    "bytes": 4560,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/diagnostic.test.ts",
+    "sha256": "960bbc14eb6597ace936f1ccc116f5538a869a428f6d3fe2b3c3cdb11b9349a3"
+  },
+  "H_employment.ts": {
+    "bytes": 26075,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+    "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+  },
+  "H_hollywoodStartingData.ts": {
+    "bytes": 4152,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodStartingData.ts",
+    "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+  },
+  "H_hollywoodTick.ts": {
+    "bytes": 27601,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodTick.ts",
+    "sha256": "f6c37fc29d5cf7f858e2a52e0bc6603a56e4dfcfaf8caa590806d559019b3422"
+  },
+  "H_manifest": {
+    "bytes": 116991,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/MANIFEST.json",
+    "sha256": "9fc209f9fbf0e0240c404383f4b08338c9a16902d1cacc89600ff80a538038ae"
+  },
+  "H_result": {
+    "bytes": 9842,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/RESULT.json",
+    "sha256": "5235b18b83c8e70dd12b36a7bda932e78cb5b55ef344419a92e4e370f540c5cc"
+  },
+  "H_rng.ts": {
+    "bytes": 8555,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/rng.ts",
+    "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+  },
+  "H_talentMarket.ts": {
+    "bytes": 74153,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentMarket.ts",
+    "sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03"
+  },
+  "H_talentSummary.ts": {
+    "bytes": 25220,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentSummary.ts",
+    "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+  },
+  "H_tick.ts": {
+    "bytes": 58458,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tick.ts",
+    "sha256": "ad0faa9216093f657cf16ecebe66a6cc65aee4bcc407b7d79d6e48a847465deb"
+  },
+  "H_tuning.ts": {
+    "bytes": 134171,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+    "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+  },
+  "H_worldgen.ts": {
+    "bytes": 33437,
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/worldgen.ts",
+    "sha256": "7ca9cb4e73ee9b8ebae4fdc449c4e12229f9b0078bb4d20e22a98baa60b81b42"
+  },
+  "numericObservedReview": {
+    "bytes": 4219,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
+  },
+  "numericStdout": {
+    "bytes": 9419,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stdout.bin",
+    "sha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
+  },
+  "phaseInputPins": {
+    "bytes": 10568,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/INPUT-PINS.json",
+    "sha256": "317bb5012ce56498c31801637fc2f098c640c034effa4885da55190d2081246a"
+  },
+  "phaseProof": {
+    "bytes": 136304,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/PROOF.json",
+    "sha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2"
+  },
+  "phaseReview": {
+    "bytes": 1962,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "a71cc521f8c8ade5879191ac5e275034ca246bf58c6713534bf048ce703227a8"
+  },
+  "phaseRootAdoption": {
+    "bytes": 1313,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-parent-adoption-20261009-r1/ADOPTION.json",
+    "sha256": "6caa7949f60f672144555791727974de94d0a722d602bdeee7a092c8506977ae"
+  },
+  "pricingObservedReview": {
+    "bytes": 4857,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-independent-observed-review-20261009-r2/RECEIPT.json",
+    "sha256": "e27c8d8e230a453eee078a5e21abd5716b9192404bb172a1de0ff46d4571fce2"
+  },
+  "pricingRootAdoption": {
+    "bytes": 1899,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-parent-recorded-20261009-r1/ADOPTION.json",
+    "sha256": "395e3341c6ed34281df795868d03026c8b87159e12dc3effe2a3b5e760c3dc03"
+  }
+}

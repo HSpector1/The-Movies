@@ -1,0 +1,23 @@
+{
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_ADDITIVE_RECORDED_ROUTE",
+  "sourcePinsSha256": "aa2f171d6da60e39ffa28eb3f16cab09c50b526fa05fd0ff1e299d21945bc0ff",
+  "sourceSha256": "f2a4b81d0f5572ce5baeba771774126094df3500b5eff01cbbce32e08c0e9917",
+  "recorderSha256": "0a26d8928d9853fd44a0960f852ce56d2cbce018fb7c8887fddbf1aa17e18e9e",
+  "supervisorSha256": "e2258264783de69fa4d2a10c9c71ede7d4cabc0f80f87c17ba23935e32c9039d",
+  "scope": "Independent finite read-only exactsource/diff/pins review; no imports/tests/launches/Node/mirror/fullscan/Git actions.",
+  "verified": [
+    "All15 route pins and9 controls pins match size/SHA; three record/supervisor/runner exact recorded diffs verified; body byte-identical r1.",
+    "F1 record86-96/142-150 repaired: exclusive WNOHANG polls, sleeps min.05/remaining under minoriginal180/original210/local5; expired returnsfalse; failed PID persisted before kill/reap. Unresolved false produces stickySTOP retainedfailureCleanup/groupClearfalse; no second reapwait.",
+    "F2 supervisor243-250/updatedalarm repaired: exact reported child and assignedworker IDs receive both PGID and directPID SIGKILL attempts; pre-setsid group absence cannot skip direct knownPID attempt; hard124 retains STOP/no receipt/no clearance claim.",
+    "Inherited child180 beforefork/import forceddeadline and supervisorboot210 no reset preserved; durableownership before childsetsid/exec outside masked IO; firstwrite phase/root transition/original1677 metadata/bytes and caps unchanged.",
+    "Current bindingfalse/null/fresh282f fullguard/exactauthority roles remain unfilled; historical28679/e243 cannot admit current source."
+  ],
+  "findings": [],
+  "limitations": [
+    "Source acceptance only; no actual elapsedclock/hardtermination/clearance or body execution observed.",
+    "Fresh exact fill/launch/source/tool authority, current qualifiedguards/preflight/fivefieldadoption/rootgrant and independently observed expandedreadback/fullpostflight still required.",
+    "No types/runtime/game/full109 acceptance."
+  ],
+  "executionAuthorized": false,
+  "runtimeObserved": false
+}

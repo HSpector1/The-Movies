@@ -1,0 +1,17 @@
+{
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_ADDITIVE_CONTROLS_PENDING_ROUTE_REFINEMENT",
+  "sourcePinsSha256": "da4e46db4d1adf0e0cebfe79742f6132decddee576ecabb565c3fa17ba523d00",
+  "scope": "Explicit finite read-only pinned source/diffs; no imports/execution/Node/tests/fullscan/mirror/Git actions.",
+  "verified": [
+    "Exact qualified bounded-parent adaptation preserves255suite/285whole alarms and stickySTOP, ownership registration before waits, unmasked durable writes, WNOHANG tracked wait loops, cleanup/history/stream/cap/finalization.",
+    "Five methods/four tiny ownedPythonchildren source-reviewed: PRE, pipeexact/excess/truncated/stderr, fixture-only link, mockdeadline, roottransition predicates. Actual mirror/add/main not called.",
+    "Mocked2s remaining/fake-clock predicates explicitly not elapsedtimeout proof; no outcome observed.",
+    "Source/route receipt authentication before imports; held configfalse/null pointers require fresh separately reviewed exact config and sourcepins hashes."
+  ],
+  "limitations": [
+    "Current route source decision is REFINE, so prepare cannot yet pass its required ACCEPT_SOURCE_ONLY_UNRUN_ADDITIVE_RECORDED_ROUTE receipt. Fresh refined route and exact rolefill/source review/rootgrant are required before controls runtime.",
+    "No current operational sourceguards, M0physicalmetadata, types or expandedcopy acceptance."
+  ],
+  "executionAuthorized": false,
+  "testsObserved": false
+}

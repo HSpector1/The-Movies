@@ -1,0 +1,72 @@
+{
+  "acceptance": "Pending independent observed review; paired benchmark succeeded but weighted illustrative cost worsened. No integration or repeat authorized.",
+  "actualHelperExit": 0,
+  "actualNodeExit": 0,
+  "actualRecorderExit": 0,
+  "actualToolExit": 0,
+  "actualToolSessionId": 71451,
+  "coarseOneArmIllustrationSeconds": {
+    "baseline": 260.51003011000086,
+    "candidate": 288.2357695799994
+  },
+  "coarseWeightedCostIncreasePercent": 10.642868321918852,
+  "elapsedRecorderSeconds": 7.002249760000268,
+  "exactBothArmIllustrationSeconds": {
+    "baseline": 521.9860874360016,
+    "candidate": 577.5258950579988
+  },
+  "freshSelectedGroupsAbsent": [
+    38049,
+    38312
+  ],
+  "grant": {
+    "bytes": 10323,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/BENCHMARK-GRANT.json",
+    "sha256": "839a05a283612f528e3c19e2398f0661bd6ab90a8875199d62247abe654a782c"
+  },
+  "laneAndOverrideAbsent": true,
+  "mediansMs": {
+    "state": {
+      "baseline": 77.88470600000028,
+      "candidate": 99.20976300000007
+    },
+    "wholeRow": {
+      "baseline": 124.67974500000037,
+      "candidate": 114.77432999999928
+    }
+  },
+  "rawTool": {
+    "bytes": 585,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/BENCHMARK-ACTUAL-TOOL.json",
+    "sha256": "41844b1328ab45aedf5eb2064fc8d47a597377db05fc29e1d419f2bb032e9ba6"
+  },
+  "retained": [
+    {
+      "bytes": 921,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-output-20261009-r1/RESULT.json",
+      "sha256": "af31550a44b958cf248b1c59587318bb0937a01e8a0cda6408b733cf04828eab"
+    },
+    {
+      "bytes": 4216,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-output-20261009-r1/stdout.bin",
+      "sha256": "e2acf3ea979d4f2bdd7272832445ba56e6684e56e0638481db725e0b9f581078"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 383,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-lane-20261009-r1/benchmark.lane.log",
+      "sha256": "2fd9bc8107eac39eb5508eeaafb8e86c7ea2e84631f49773457ab8c7ffdc64d7"
+    },
+    {
+      "bytes": 337,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-lane-20261009-r1/benchmark.lane.log.meta",
+      "sha256": "10225880b3df0272595fc7e3f2fd9a65721b1f26e88ae98883771650a1493a68"
+    }
+  ],
+  "schema": "string-token-cache-benchmark-actual-tool-outcome/v1",
+  "utc": "2026-10-09T18:45:13.621303+00:00"
+}

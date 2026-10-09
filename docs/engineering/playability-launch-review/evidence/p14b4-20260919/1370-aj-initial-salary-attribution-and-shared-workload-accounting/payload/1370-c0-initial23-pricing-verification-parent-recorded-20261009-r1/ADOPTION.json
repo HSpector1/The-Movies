@@ -1,0 +1,35 @@
+{
+  "actualToolSessionId": 55173,
+  "attributionCause": "H fractional initial age versus A committed initial age floor, holding authenticated generation scalar/keyed jitter/term/week/source operation order equal",
+  "attributionRole": "Exact paired-preimage pay reproduction through independently accepted source/input phase transports; no historical offer-local measurement",
+  "decision": "ADOPT_22_REMAINING_INITIAL_AGE_FLOOR_PAY_ATTRIBUTIONS_VIA_ACCEPTED_SOURCE_TRANSPORT",
+  "engineLedgerAdmission": false,
+  "full109RetryAuthorized": false,
+  "fullExposedImmutablePairsAgree": 44,
+  "historicalOfferLocalCapture": false,
+  "independentReview": {
+    "bytes": 4857,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-independent-observed-review-20261009-r2/RECEIPT.json",
+    "sha256": "e27c8d8e230a453eee078a5e21abd5716b9192404bb172a1de0ff46d4571fce2"
+  },
+  "mismatches": 0,
+  "newInitialAttributionsAdopted": 22,
+  "nextWork": "Preserve this actual checkpoint; design smallest genuine missing208renewal input capture, keep unmatched/M0/protected-digest/H scientific gates separate.",
+  "previousRow0AttributionRetained": 1,
+  "productionSourceMutationAuthorized": false,
+  "remainingChangedRenewalsUnresolved": 16,
+  "renewalAttribution": false,
+  "result": {
+    "bytes": 939,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/RESULT.json",
+    "sha256": "5a545869b5617f6fd6b6a2198b30cf80696c1d527818c7686e1114d5249edc81"
+  },
+  "schema": "initial23-pricing-parent-adoption/v1",
+  "selectedInitialPairsAgree": 23,
+  "stdout": {
+    "bytes": 25308,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/stdout.bin",
+    "sha256": "af74dcee0373ce495962a745a3d9ac5b5654c87e48124a797185691ef7ecfb21"
+  },
+  "utc": "2026-10-09T18:40:41.378217+00:00"
+}

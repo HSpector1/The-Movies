@@ -1,0 +1,25 @@
+{
+  "checks": {
+    "allCountedTypeErasuresReproduceExactRngModule": true,
+    "authoredControlDeclarations8": true,
+    "candidateSourceNoSalaryAnnualBonusFormula": true,
+    "recorderExactlyBasePlusListedOperationalSubstitutions": true,
+    "recorderPythonSyntaxParseOnlyNotImported": true,
+    "request23OriginalOrdinalsExcludeOnly14": true
+  },
+  "execution": false,
+  "notRun": [
+    "Node parser",
+    "TypeScript compiler",
+    "control suite",
+    "witness",
+    "RNG draw",
+    "source imports",
+    "fixture",
+    "game",
+    "capture decode",
+    "protected scan",
+    "Git"
+  ],
+  "schema": "1370-initial23-static-author-controls-r1"
+}

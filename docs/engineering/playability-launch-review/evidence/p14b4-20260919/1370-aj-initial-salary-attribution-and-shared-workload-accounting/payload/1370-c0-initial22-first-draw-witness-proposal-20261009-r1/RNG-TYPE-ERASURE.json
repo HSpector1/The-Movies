@@ -1,0 +1,119 @@
+{
+  "erasedSha256": "6534a0670862dc7a6778373d0375628d59761e1af27b84d5a79fc76c2c80fedc",
+  "imports": 0,
+  "method": "Sequential exact counted literal type-only erasures; all other bytes preserved. No transpiler/Node execution. st retains a JS class field; selected fromSeed/next path immediately assigns its sole state in constructor and never reflects fields. No runtime operation or RNG draw changes. Unused original methods retained.",
+  "originalSha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+  "schema": "1370-initial23-rng-type-erasure-r1",
+  "selectedPath": [
+    "stream",
+    "RngStream.fromSeed",
+    "seedToState",
+    "hashStringToSeed",
+    "splitmix32",
+    "RngStream.constructor",
+    "RngStream.next",
+    "sfc32Next"
+  ],
+  "steps": [
+    {
+      "after": "",
+      "before": "export type RngPurpose =\n  | 'candidates'\n  | 'agent'\n  | 'forecast'\n  | 'worldgen'\n  | 'migrate'\n  | 'develop'\n  | 'hiring'\n  // D-13 conditional discoverability: an ISOLATED, engaged-only, versioned derived stream keyed by\n  // productionId. Like 'develop'/'forecast' it never advances state.rngState, so \u00a715.7 deterministic\n  // replay + M0A byte-identity hold. Versioned ('-v1') so a future recalibration can re-key cleanly.\n  | 'discovery-v1'\n  // Casting Sessions V1: isolated camera-test evidence, keyed by\n  // sessionId:talentId:slot. Derived-only, so completion never advances rngState.\n  | 'casting-v1'\n  // Presence Projection V1: the COSMETIC per-person departure stagger inside a\n  // week, keyed talentId:week. Derived-only and read by a projection that writes\n  // nothing, so presentation consumes zero simulation RNG and replay stays exact.\n  | 'presence-v1'\n  // Renewable Screenplay Generation V1 (C2a-M3, charter \u00a73.5 / guardrail\n  // `00C`.10.G): the latents and the working title of a MINTED original\n  // screenplay, keyed `<conceptId>:<field>` \u2014 one dedicated substream per field,\n  // exactly as worldgen's own concept generation does, so adding or removing a\n  // field never shifts another field's draws.\n  //\n  // KEYED ON THE MINT ORDINAL, NEVER ON A WEEK OR A YEAR. That is what makes a\n  // screenplay era-clean (G15): the engine has no calendar, and a generator that\n  // invented one would be exactly the blocking architecture the 1920\u21922040+\n  // timeline law forbids.\n  //\n  // DERIVED-ONLY, so minting never advances `state.rngState` and the M0A\n  // acceptance corpus stays byte-identical across this milestone.\n  | 'screenplay-v1'\n  | 'hollywood-v1'\n\n",
+      "occurrences": 1
+    },
+    {
+      "after": "function splitmix32(seed)",
+      "before": "function splitmix32(seed: number): { value: number; next: number }",
+      "occurrences": 1
+    },
+    {
+      "after": "function hashStringToSeed(s)",
+      "before": "function hashStringToSeed(s: string): number",
+      "occurrences": 1
+    },
+    {
+      "after": "function seedToState(seed)",
+      "before": "function seedToState(seed: string): [number, number, number, number]",
+      "occurrences": 1
+    },
+    {
+      "after": "const words = []",
+      "before": "const words: number[] = []",
+      "occurrences": 1
+    },
+    {
+      "after": "function sfc32Next(st)",
+      "before": "function sfc32Next(st: [number, number, number, number]): number",
+      "occurrences": 1
+    },
+    {
+      "after": "  st",
+      "before": "  private st: [number, number, number, number]",
+      "occurrences": 1
+    },
+    {
+      "after": "constructor(state)",
+      "before": "private constructor(state: [number, number, number, number])",
+      "occurrences": 1
+    },
+    {
+      "after": "static fromSeed(seed)",
+      "before": "static fromSeed(seed: string): RngStream",
+      "occurrences": 1
+    },
+    {
+      "after": "static deserialize(s)",
+      "before": "static deserialize(s: string): RngStream",
+      "occurrences": 1
+    },
+    {
+      "after": "serialize()",
+      "before": "serialize(): string",
+      "occurrences": 1
+    },
+    {
+      "after": "next()",
+      "before": "next(): number",
+      "occurrences": 1
+    },
+    {
+      "after": "uniform(lo, hi)",
+      "before": "uniform(lo: number, hi: number): number",
+      "occurrences": 1
+    },
+    {
+      "after": "gaussian(mean, sigma)",
+      "before": "gaussian(mean: number, sigma: number): number",
+      "occurrences": 1
+    },
+    {
+      "after": "truncatedNormal(mean, sd, lo, hi)",
+      "before": "truncatedNormal(mean: number, sd: number, lo: number, hi: number): number",
+      "occurrences": 1
+    },
+    {
+      "after": "export function stream(seed, purpose, key)",
+      "before": "export function stream(seed: string, purpose: RngPurpose, key: string | number): RngStream",
+      "occurrences": 1
+    },
+    {
+      "after": "words[0]",
+      "before": "words[0]!",
+      "occurrences": 2
+    },
+    {
+      "after": "words[1]",
+      "before": "words[1]!",
+      "occurrences": 2
+    },
+    {
+      "after": "words[2]",
+      "before": "words[2]!",
+      "occurrences": 2
+    },
+    {
+      "after": "words[3]",
+      "before": "words[3]!",
+      "occurrences": 2
+    }
+  ]
+}

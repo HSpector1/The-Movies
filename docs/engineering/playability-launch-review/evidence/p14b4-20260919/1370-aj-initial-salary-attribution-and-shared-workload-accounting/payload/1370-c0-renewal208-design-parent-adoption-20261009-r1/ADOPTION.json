@@ -1,0 +1,39 @@
+{
+  "authorReceipt": {
+    "bytes": 2837,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/RECEIPT.json",
+    "sha256": "46d78843ee8e2cf61c501a6ca2aebe6a16b66aa9745751c2d60c7ca7bdcf9479"
+  },
+  "decision": "ADOPT_REVIEWED_FINITE_RENEWAL_INPUT_DESIGN_FOR_SOURCE_PREPARATION_ONLY",
+  "executionAuthorized": false,
+  "existingInitialClosure": {
+    "bytes": 1899,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-parent-recorded-20261009-r1/ADOPTION.json",
+    "sha256": "395e3341c6ed34281df795868d03026c8b87159e12dc3effe2a3b5e760c3dc03"
+  },
+  "independentReview": {
+    "bytes": 3022,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-independent-design-review-20261009-r1/RECEIPT.json",
+    "sha256": "12145d203cd76fd36e94b4b8a862505d9e4e150c0af8058fcc47cba881d8292e"
+  },
+  "missingMeasuredRoles": [
+    "16 actual A208 evolved person pricing vectors",
+    "one r03-2 fresh keyed first draw"
+  ],
+  "newHReplayAuthorized": false,
+  "openSourceObligations": [
+    "premium policy/caller/case/winner preservation closure",
+    "null release-floor precommit proof from actual prior intervals",
+    "exact after-natural-tick208 observer phase and value preservation",
+    "A416 final44 employment/digest/RNG equivalence and observer nonmutation"
+  ],
+  "renewalsAttributed": 0,
+  "reusableRoles": [
+    "16 authenticated H208 person vectors",
+    "15 accepted keyed jitters"
+  ],
+  "schema": "renewal208-design-parent-adoption/v1",
+  "sourcePreparationAuthorized": true,
+  "utc": "2026-10-09T18:56:40.212334+00:00",
+  "wrongSeedOrEBGSubstitutionAuthorized": false
+}

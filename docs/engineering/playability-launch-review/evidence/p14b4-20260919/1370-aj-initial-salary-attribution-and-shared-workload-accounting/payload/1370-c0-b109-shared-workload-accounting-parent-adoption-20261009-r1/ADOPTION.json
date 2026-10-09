@@ -1,0 +1,75 @@
+{
+  "activeSeconds": 375,
+  "bothArms": {
+    "state": 3526,
+    "wholeRow": 1984
+  },
+  "boundsChanged": false,
+  "decision": "ADOPT_REVIEWED_SOURCE_ACCOUNTING_CORRECTION",
+  "integrationOrFull109RetryAuthorized": false,
+  "lesson": "Count both arms and all admission/readback callers before comparing a microbenchmark proxy with a shared route clock. Keep measured costs distinct from constant-fixture arithmetic.",
+  "newRuntimeExecuted": false,
+  "originalAcceptedTestsAndMeasurementsPreserved": true,
+  "originalProxyInterpretation": "212.33977248s is the coarse ONE-ARM early308 encoder-only illustration; it is not shared-route runtime or headroom.",
+  "perArm": {
+    "state": 1763,
+    "wholeRow": 992
+  },
+  "productionHead": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "roles": [
+    {
+      "bytes": 3135,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-shared-workload-accounting-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "bad58469013de6f0d4884c0fd72496efca242cd4175d49af5dcb8c3bd79bf06b"
+    },
+    {
+      "bytes": 3777,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-shared-workload-accounting-independent-review-20261009-r1/FACTS.json",
+      "sha256": "542eb46a7b7feb2c8c274989f465ec361459e8651974988380defc0ed77c8ec6"
+    },
+    {
+      "bytes": 3068,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-shared-workload-accounting-independent-review-20261009-r1/REPORT.md",
+      "sha256": "4fbd78ed76f2aaafe3097d40d3a259d23267279d93f0f892e6115c4986790854"
+    },
+    {
+      "bytes": 37717,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/MANIFEST.json",
+      "sha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578"
+    },
+    {
+      "bytes": 14654,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/continuation.test.ts",
+      "sha256": "56623bb24ddbd8b923187854c3518c312d6c09f7fba427162679361d58995d33"
+    },
+    {
+      "bytes": 28763,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/run.py",
+      "sha256": "bbffa0b6e17fbefce41e66c8ca13d4e034909f2d37e8bc2f84926846be3e2c13"
+    },
+    {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    {
+      "bytes": 247,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-two-arm-workload-accounting-proposal-20261009-r1/PINS.json",
+      "sha256": "45e9a38a70229bfb7af9af4f54169c38bc726d5ffb5e560e0c990dc19ea08339"
+    },
+    {
+      "bytes": 3232,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-two-arm-workload-accounting-proposal-20261009-r1/COUNTS.json",
+      "sha256": "4d24885437baad00cf087b44704de5cb18ac51613504abc941bccbe08a3f8ca1"
+    },
+    {
+      "bytes": 1322,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-two-arm-workload-accounting-proposal-20261009-r1/NOTE.md",
+      "sha256": "feb5693bbfa858407fca2b7f1cefb6e3667ce228c53b99473630abdd76e1fc61"
+    }
+  ],
+  "schema": "b109-shared-workload-parent-adoption/v1",
+  "sharedElapsedNodeSeconds": 300,
+  "utc": "2026-10-09T18:17:47.674414+00:00",
+  "wholeSeconds": 390
+}

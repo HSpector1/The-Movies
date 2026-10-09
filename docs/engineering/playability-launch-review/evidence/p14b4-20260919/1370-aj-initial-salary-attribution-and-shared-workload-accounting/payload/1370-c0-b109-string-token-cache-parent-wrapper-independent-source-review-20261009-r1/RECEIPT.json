@@ -1,0 +1,38 @@
+{
+  "benchmarkRequiredControlDecision": "ACCEPT_OBSERVED_STRING_TOKEN_CACHE_CONTROLS",
+  "configSha256": "448e0796f69c0442bb8f610cbc9e9224055782f3ac9a8f3637720728eaebce4e",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_PARENT_WRAPPER",
+  "executionAuthorization": false,
+  "expectedAuthoredControls": {
+    "groups": 33,
+    "pairs": 353
+  },
+  "findings": [],
+  "productionHeadRequired": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "productionSourceTreeRequired": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "recipeSha256": "ad1b77469f36043b40016d3701513bdeb7dd3426647cc5ad16e044a33db75b6f",
+  "roles": {
+    "baseWrapper": {
+      "bytes": 4695,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-parent-recorded-20261009-r1/grant_and_launch.py",
+      "sha256": "3e28c437f6be470968d410971c8344d428223088d57ba2de44759ab3ef12b8a1"
+    },
+    "diff": {
+      "bytes": 5813,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-wrapper-independent-source-review-20261009-r1/WRAPPER.diff",
+      "sha256": "0cd08be5300a6b3c77614d2869ed7ec30649dca29b74892e8960719ba42dc983"
+    },
+    "report": {
+      "bytes": 1775,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-wrapper-independent-source-review-20261009-r1/REPORT.md",
+      "sha256": "a70c985c69336d6af87717cc6f4b95e7b815baf3601d40f7c2ccec3cde60a15a"
+    }
+  },
+  "runtimeCurrentFactsObserved": false,
+  "runtimeExecuted": false,
+  "schema": "1370-string-cache-parent-wrapper-independent-source-review/v1",
+  "sourcePinsSha256": "78912de56d420109c9934d44f748321c098f4712587c03133530383a155251f9",
+  "sourceReviewSha256": "6b9939b91ccbe85d3bbbf7611dfd421d351b66a56652e9a64d4a6b52f318edfa",
+  "wrapperPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/grant_and_launch.py",
+  "wrapperSha256": "aae358c6c62a12bd569411b8099ed944b67d998d29c0289f664db3247c5a8c6d"
+}

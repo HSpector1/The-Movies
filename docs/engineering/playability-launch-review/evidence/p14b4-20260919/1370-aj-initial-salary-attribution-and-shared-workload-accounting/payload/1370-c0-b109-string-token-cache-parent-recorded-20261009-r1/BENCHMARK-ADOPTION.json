@@ -1,0 +1,40 @@
+{
+  "actualTool": {
+    "bytes": 2808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/BENCHMARK-TOOL-OUTCOME.json",
+    "sha256": "81d4ebb46b366982ada4f4641cd940d9bf8c310a349180311b54ef232b63b560"
+  },
+  "automaticRepeatAuthorized": false,
+  "benchmarkPassed": true,
+  "cacheCorrectnessControlsRemainAccepted": true,
+  "coarseOneArmIllustrationSeconds": {
+    "baseline": 260.51003011000086,
+    "candidate": 288.2357695799994
+  },
+  "coarseWeightedCostIncreasePercent": 10.642868321918852,
+  "decision": "ADOPT_OBSERVED_NARROW_TIMING_AND_DECLINE_STRING_CACHE_PROMOTION",
+  "exactBothArmIllustrationSeconds": {
+    "baseline": 521.9860874360016,
+    "candidate": 577.5258950579988
+  },
+  "full109RetryOrIntegrationAuthorized": false,
+  "lesson": "A bounded primitive cache can preserve every tested byte and refusal yet worsen the weighted same-run fixture cost. Preserve negative optimization evidence, keep earlier accepted implementation, and do not compare independent sessions as controlled timing or retry merely to seek a favorable result.",
+  "mediansMs": {
+    "state": {
+      "baseline": 77.88470600000028,
+      "candidate": 99.20976300000007
+    },
+    "wholeRow": {
+      "baseline": 124.67974500000037,
+      "candidate": 114.77432999999928
+    }
+  },
+  "review": {
+    "bytes": 5221,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "fe9889d0f063e383803523c24e327ff1f404eba3951fa4a0a52e6a9127dfb69c"
+  },
+  "schema": "string-token-cache-benchmark-parent-adoption/v1",
+  "selectedEncoderRemains": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b",
+  "utc": "2026-10-09T18:49:38.928649+00:00"
+}

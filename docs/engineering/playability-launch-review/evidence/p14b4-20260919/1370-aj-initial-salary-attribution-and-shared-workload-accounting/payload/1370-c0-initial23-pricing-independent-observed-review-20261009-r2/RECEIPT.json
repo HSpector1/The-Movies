@@ -1,0 +1,103 @@
+{
+  "actualHelperExit": 0,
+  "actualNodeExit": 0,
+  "actualRecorderExit": 0,
+  "actualToolExit": 0,
+  "actualToolSessionId": 55173,
+  "attributionCause": "H fractional initial age versus A committed initial age floor, holding authenticated generation scalar/keyed jitter/term/week/source operation order equal",
+  "attributionRole": "Exact paired-preimage pay reproduction through independently accepted source/input phase transports; no historical offer-local measurement",
+  "auditActualExit": 0,
+  "boundsSeconds": {
+    "active": 75,
+    "node": 60,
+    "whole": 90
+  },
+  "configSha256": "53e53854cf619416fc111dcdd4ffdf60b58af2111c9658cdbf3aa599d3eb3105",
+  "decision": "ACCEPT_OBSERVED_INITIAL23_PRICING_PAIRS_AND_22_INITIAL_AGE_FLOOR_ATTRIBUTIONS_VIA_SOURCE_TRANSPORT",
+  "elapsedRecorderSeconds": 1.4416395970038138,
+  "engineLedgerAdmission": false,
+  "executionAuthorization": false,
+  "findings": [],
+  "freshOwnedGroupsAbsent": [
+    28579,
+    28843
+  ],
+  "fullExposedImmutablePairsAgree": 44,
+  "fullRowIdentityOccurrenceAndSourceOrderVerified": true,
+  "grantSha256": "3356c8cfc1964c3ea784bfbea5d41efb8c202c15141df84fdbff5e875986b01c",
+  "historicalOfferLocalCapture": false,
+  "knownRow0PreviouslyAdmitted": 1,
+  "laneLockAbsent": true,
+  "ledgerBytesCap": 65536,
+  "mismatches": 0,
+  "newInitialAttributionsAdmitted": 22,
+  "nodeFileRehashedByReview": false,
+  "overrideAbsent": true,
+  "parentAdoptionStillSeparate": true,
+  "parentOutcomeSha256": "ab2167dfd48a0bc496728338194ef0efc31b994dd6076af1a590784e4e2f2f42",
+  "remainingChangedRenewalsUnresolved": 16,
+  "renewalAttribution": false,
+  "resultSha256": "5a545869b5617f6fd6b6a2198b30cf80696c1d527818c7686e1114d5249edc81",
+  "reviewNodeRngNumericSalaryTestOrGitExecution": false,
+  "roles": {
+    "auditSource": {
+      "bytes": 8232,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-independent-observed-review-20261009-r2/audit.py",
+      "sha256": "53a8a1a4b0365edc0870b464b2a195b8099b1a71efe5326e92da28708fe8999d"
+    },
+    "facts": {
+      "bytes": 36989,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-independent-observed-review-20261009-r2/FACTS.json",
+      "sha256": "3f9a61ac87ea8ed7455643808084bc7afdd61558bb1165b8d85c402e7a3ea0f9"
+    },
+    "report": {
+      "bytes": 3558,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-independent-observed-review-20261009-r2/REPORT.md",
+      "sha256": "531781028fda9b0fac6abe78cafdfe22500d94ed0f8b10510cc0fa2b1d1407f1"
+    },
+    "result": {
+      "bytes": 939,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/RESULT.json",
+      "sha256": "5a545869b5617f6fd6b6a2198b30cf80696c1d527818c7686e1114d5249edc81"
+    },
+    "sourcePins": {
+      "bytes": 11647,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "335dc84cb31e2b084f95f441737eec0529ea995925f10289615169618fe74924"
+    },
+    "sourceReview": {
+      "bytes": 2669,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-filled-pricing-independent-source-review-20261009-r2/RECEIPT.json",
+      "sha256": "18179789fab0beaca6d58ddcdddfebc06501b1f9d57a0f1352a1c5bec8a6dda2"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 25308,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/stdout.bin",
+      "sha256": "af74dcee0373ce495962a745a3d9ac5b5654c87e48124a797185691ef7ecfb21"
+    },
+    "witnessReview": {
+      "bytes": 4219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
+    }
+  },
+  "schema": "1370-initial23-pricing-independent-observed-review/v1",
+  "selectedInitialPairsAgree": 23,
+  "smallGrantRolesFreshlyAuthenticated": 41,
+  "sourcePinsSha256": "335dc84cb31e2b084f95f441737eec0529ea995925f10289615169618fe74924",
+  "sourceReviewSha256": "18179789fab0beaca6d58ddcdddfebc06501b1f9d57a0f1352a1c5bec8a6dda2",
+  "stderrBytes": 0,
+  "stdoutBytes": 25308,
+  "stdoutSha256": "af74dcee0373ce495962a745a3d9ac5b5654c87e48124a797185691ef7ecfb21",
+  "streamBytesCap": 1048576,
+  "unchangedOtherPayPairs": 5,
+  "unexpectedHelperWait": false,
+  "wholeStateNeutrality": false,
+  "witnessInputsAndHumanLedgerVerified": true,
+  "witnessReceiptSha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
+}

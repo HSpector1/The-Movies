@@ -1,0 +1,48 @@
+--- accepted-chunk/test-encoder.mjs
++++ string-cache/test-encoder.mjs
+@@ -136,4 +136,45 @@
+   assert.deepEqual(late[1],late[0]);chunkRefusal(()=>[0],/STOP_JSON_CAP/,NaN);chunkRefusal(()=>[0],TypeError,Symbol('limit'))
+ })
+ 
++
++// Five primitive-string-cache groups; all original28 groups above remain byte-exact.
++const cacheEncoders=[referenceEncoder.boundedJson,candidate.boundedJson]
++function cacheTrace(make,makeLimit,pattern){
++  const logs=[],outputs=[]
++  for(const encoder of cacheEncoders){const log=[];logs.push(log);const value=make(log),limit=makeLimit(log);if(pattern)assert.throws(()=>encoder(value,limit),pattern);else outputs.push(encoder(value,limit))}
++  assert.deepEqual(logs[1],logs[0]);if(!pattern)assert.deepEqual(outputs[1],outputs[0])
++}
++test('primitive cache repeated strings escaping surrogates and chunk seams',()=>{
++  for(const s of ['', 'ascii', 'quote"slash\\', '\n\r\t\b\f', 'é', '😀', '\ud800', '\udfff']){
++    const value=[s,s,{first:s,second:[s,s]}],raw=chunkEqual(value);chunkEqual(value,raw.length);chunkRefusal(()=>value,/STOP_(JSON|STRING)_CAP/,raw.length-1)
++  }
++  for(const s of ['same','é😀\n','\ud800'])chunkEqual(Array(4200).fill(s))
++})
++test('primitive cache hit raw and aggregate caps preserve coercion and source traces',()=>{
++  const make=log=>new Proxy(['same','same'],{get(t,k,r){log.push('get:'+String(k));return Reflect.get(t,k,r)}})
++  // [ add, first raw, first token add, comma add, second raw, second token add, ] add.
++  cacheTrace(make,log=>{let n=0;return {valueOf(){log.push('limit:'+ ++n);return n===5?3:100}}},/STOP_STRING_CAP/)
++  cacheTrace(make,log=>{let n=0;return {valueOf(){log.push('limit:'+ ++n);return n===6?10:100}}},/STOP_JSON_CAP/)
++  for(const fail of [()=>NaN,()=>Symbol('limit'),()=>{throw Error('LIMIT_HIT_THROW')}])cacheTrace(make,log=>{let n=0;return {valueOf(){log.push('limit:'+ ++n);return n===5?fail():100}}},/STOP_STRING_CAP|TypeError|LIMIT_HIT_THROW/)
++  cacheTrace(make,log=>({valueOf(){log.push('limit');return 100}}))
++})
++test('primitive cache key value interactions retain existing key-cache chronology',()=>{
++  for(const s of ['é😀\n','\ud800']){
++    const valueFirst=[s,{[s]:s},{[s]:s}],keyFirst=[{[s]:s},s,{[s]:s}]
++    for(const value of [valueFirst,keyFirst]){chunkEqual(value);cacheTrace(()=>value,log=>({valueOf(){log.push('limit');return 1000}}))}
++  }
++})
++test('primitive cache entry and payload saturation fallback exact output',()=>{
++  // Empty-string payload2 + ASCII n contributes2*n+2. These hit65534/65536/65538.
++  for(const n of [32765,32766,32767])chunkEqual(['','x'.repeat(n),'x'.repeat(n),''])
++  const names=Array.from({length:513},(_,i)=>'v'+i);chunkEqual([...names,names[0],names[511],names[512]])
++  chunkEqual(['x'.repeat(65537),'x'.repeat(65537),'small','small'])
++  const value=[...names,names[0],names[512]],raw=chunkEqual(value);chunkEqual(value,raw.length);chunkRefusal(()=>value,/STOP_(JSON|STRING)_CAP/,raw.length-1)
++})
++test('primitive cache per-call freshness and getter results remain uncached',()=>{
++  const value=['same','same'];chunkEqual(value);chunkRefusal(()=>value,/STOP_(JSON|STRING)_CAP/,5);chunkEqual(value)
++  cacheTrace(log=>{let n=0;const v={};Object.defineProperty(v,'x',{enumerable:true,get(){log.push('getter:'+ ++n);return n<3?'same':'changed'}});return [v,v]},()=>1000)
++  chunkRefusal(()=>['same','same',{toJSON:undefined}],/STOP_CUSTOM_JSON/)
++  chunkRefusal(()=>{const v=['same','same'];v.push(v);return v},/STOP_CYCLE/)
++})
+ process.stdout.write(JSON.stringify({status:'ENCODER_EQUIVALENCE_AND_REFUSALS_PASSED',groups,pairs,game:false,saveImports:false,captureDecode:false})+'\n')

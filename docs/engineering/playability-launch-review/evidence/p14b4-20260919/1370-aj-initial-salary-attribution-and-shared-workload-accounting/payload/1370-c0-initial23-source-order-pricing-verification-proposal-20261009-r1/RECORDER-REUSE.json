@@ -1,0 +1,56 @@
+{
+  "base": {
+    "bytes": 14248,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/record-pure-node.py",
+    "sha256": "89abbb1db46f0bba3d1c177fa274b00dcd556975340d6f960c38972afe0c7be5"
+  },
+  "changes": [
+    {
+      "after": "CONFIG_SHA='0e78eda5ad73702635054003d49560f77545c16e2fe5abef297ad456a5498168'",
+      "before": "CONFIG_SHA='3fd3b21c188b7a8b6991dcb2e10c894f7674a5e3c2bd12a6bafe322a283e941e'",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-c0-initial23-pricing-",
+      "before": "1370-c0-b109-token-assertion-fastpass-",
+      "occurrences": 1
+    },
+    {
+      "after": "('verification',)",
+      "before": "('controls','benchmark')",
+      "occurrences": 1
+    },
+    {
+      "after": "script=config['roles']['verification']['path']",
+      "before": "script=config['roles']['controls' if mode=='controls' else 'benchmark']['path']",
+      "occurrences": 1
+    },
+    {
+      "after": "last=json.loads(bytes(buffers['stdout']).splitlines()[-1]);expected='PURE_INITIAL23_PRICING_PAIRS_AGREE'",
+      "before": "last=json.loads(bytes(buffers['stdout']).splitlines()[-1]);expected='ENCODER_EQUIVALENCE_AND_REFUSALS_PASSED' if mode=='controls' else 'PURE_INDEXED308_ENCODER_BENCHMARK_COMPLETE'",
+      "occurrences": 1
+    },
+    {
+      "after": "(last.get('selectedRows')==23 and last.get('immutablePairs')==44 and last.get('mismatches')==0 and last.get('originalOfferLocalCapture') is False and last.get('renewalAttribution') is False)",
+      "before": "(mode!='controls' or last.get('groups')==22)",
+      "occurrences": 1
+    },
+    {
+      "after": "'PURE_INITIAL23_PRICING_'+",
+      "before": "'PURE_ENCODER_'+",
+      "occurrences": 1
+    },
+    {
+      "after": "config=json.loads(configraw);require(isinstance(config.get('futureWitness'),dict),'WITNESS_UNFILLED')",
+      "before": "config=json.loads(configraw)",
+      "occurrences": 1
+    }
+  ],
+  "mechanisms": "Owned fork/READYGO, clocks60/75/90, caps1MiB, cleanup precedence, catch fallbacks, raw and numeric-PID RESULT retention unchanged. New explicit unfilled gate stops before output creation or child.",
+  "noNewRuntimeControlsClaimed": true,
+  "qualifiedMechanismReceipt": {
+    "bytes": 3829,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+    "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+  }
+}

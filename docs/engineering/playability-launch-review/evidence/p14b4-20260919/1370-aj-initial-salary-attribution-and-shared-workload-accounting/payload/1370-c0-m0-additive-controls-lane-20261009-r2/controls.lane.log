@@ -1,0 +1,13 @@
+test_01_preflight_exact_and_one_below (exact_m0_controls.Controls.test_01_preflight_exact_and_one_below) ... ok
+test_02_actual_owned_bounded_pipes (exact_m0_controls.Controls.test_02_actual_owned_bounded_pipes) ... ok
+test_03_exact_fixture_link (exact_m0_controls.Controls.test_03_exact_fixture_link) ... ok
+test_04_mocked_deadline_predicate_not_elapsed (exact_m0_controls.Controls.test_04_mocked_deadline_predicate_not_elapsed) ... ok
+test_05_root_transition_predicate (exact_m0_controls.Controls.test_05_root_transition_predicate) ... ok
+test_06_extracted_failure_reap_fake_clock (exact_m0_controls.Controls.test_06_extracted_failure_reap_fake_clock) ... ok
+test_07_extracted_pre_setsid_exact_pid_fallback (exact_m0_controls.Controls.test_07_extracted_pre_setsid_exact_pid_fallback) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.499s
+
+OK
+{"result": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-output-20261009-r2/RESULT.json", "status": "CONTROLS_PASS"}

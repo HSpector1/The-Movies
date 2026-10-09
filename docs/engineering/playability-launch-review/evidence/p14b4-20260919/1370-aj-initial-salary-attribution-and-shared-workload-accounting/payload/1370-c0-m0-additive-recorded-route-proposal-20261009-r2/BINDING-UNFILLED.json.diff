@@ -1,0 +1,72 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/BINDING-UNFILLED.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/BINDING-UNFILLED.json
+@@ -13,7 +13,7 @@
+       "productionRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2"
+     }
+   ],
+-  "additiveReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r1/ADDITIVE-RESULT.json",
++  "additiveReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/ADDITIVE-RESULT.json",
+   "ancestryIdentity": {},
+   "bootSessionUuid": null,
+   "bounds": {
+@@ -63,7 +63,7 @@
+     }
+   ],
+   "gitPath": "/usr/bin/git",
+-  "helperLogName": "m0-additive-input-20261009-r1.lane.log",
++  "helperLogName": "m0-additive-input-20261009-r2.lane.log",
+   "launchCwd": "/Users/zacheryspector/The-Movies-headless-program",
+   "launchEnvironment": {
+     "GIT_OPTIONAL_LOCKS": "0",
+@@ -77,12 +77,12 @@
+     "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+     "-I",
+     "-B",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/add_inputs.py",
++    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/add_inputs.py",
+     "<EXACT_ADOPTED_BINDING_PATH>"
+   ],
+-  "materializerArgvRolePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/ARGV-ROLE.json",
+-  "materializerArgvRoleSha256": "767b6720fe69034284cd01661896ec43450d747bd401207227a79f8450d75946",
+-  "materializerPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/add_inputs.py",
++  "materializerArgvRolePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/ARGV-ROLE.json",
++  "materializerArgvRoleSha256": "066475e5e4804f6396cc76cc7e8603fc10be2f8427f166078d8c82b90edbc99a",
++  "materializerPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/add_inputs.py",
+   "materializerSha256": "f2a4b81d0f5572ce5baeba771774126094df3500b5eff01cbbce32e08c0e9917",
+   "materializerSourceReviewPath": null,
+   "materializerSourceReviewSha256": null,
+@@ -99,19 +99,19 @@
+     1791567307020759106
+   ],
+   "outputParent": "/Users/zacheryspector/studio-scratch",
+-  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r1",
++  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2",
+   "parentScopeAdoptionPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+   "parentScopeAdoptionSha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017",
+-  "phaseReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r1/FIRST-WRITE-PHASE.json",
++  "phaseReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/FIRST-WRITE-PHASE.json",
+   "preflightReviewPath": null,
+   "preflightReviewSha256": null,
+   "productionHead": "282f8477e61a33bd5ec4a571b934829490adef73",
+   "productionRoot": "/Users/zacheryspector/The-Movies-headless-program",
+   "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+   "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+-  "recorderLockPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-20261009-r1.lock",
+-  "recorderPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/record.py",
+-  "recorderSha256": "987acff7a12ea8761d724537eaef0182c65859d3fe0c869259f0b0a0f718e751",
++  "recorderLockPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-20261009-r2.lock",
++  "recorderPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/record.py",
++  "recorderSha256": "0a26d8928d9853fd44a0960f852ce56d2cbce018fb7c8887fddbf1aa17e18e9e",
+   "retainedHLeafPath": null,
+   "routeSourceReviewDecision": null,
+   "routeSourceReviewPath": null,
+@@ -123,7 +123,7 @@
+   "sourceSha": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+   "status": "DRAFT_EXACT_REVIEW_PENDING_UNRUN",
+   "strictRootMetadata": {},
+-  "supervisorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/supervise.py",
+-  "supervisorSha256": "19248b1755ad8370b712f4a7a97a5298e6631a8424e309e9937bfa04aa1a02be",
++  "supervisorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/supervise.py",
++  "supervisorSha256": "e2258264783de69fa4d2a10c9c71ede7d4cabc0f80f87c17ba23935e32c9039d",
+   "toolRoles": {}
+ }

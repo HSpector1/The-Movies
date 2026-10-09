@@ -1,0 +1,31 @@
+{
+  "acceptedSourceOnlyM0CopyPreserved": true,
+  "controlsStatus": "Source-reviewed, unrun; constant mocked deadline does not measure actual two-second expiry",
+  "decision": "ADOPT_REVIEWED_ADDITIVE_BODY_SOURCE_ONLY_HELD",
+  "executionAuthorization": false,
+  "gameplaySourceChanged": false,
+  "independentReview": {
+    "bytes": 2348,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "b7ae07bd1ac063b2301dc4046c341d4fd04332cdb0983fcedb7df6c127a4e269"
+  },
+  "missingBeforeActualAdditive": [
+    "fresh current production/common and protected source/dependency guards",
+    "reviewed exact outer launch/tools/PATH and failure retention",
+    "observed focused controls acceptance",
+    "root exact grant and independent expanded readback/root-transition adoption"
+  ],
+  "predecessorR1Preserved": true,
+  "proposalPins": {
+    "bytes": 1779,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/SOURCE-PINS.json",
+    "sha256": "e1ba6062943bae800af7e1152f6e367a52189a18b04fda764c121fe34da1bf4b"
+  },
+  "repairedFindings": [
+    "3.5GiB preflight at entry and immediately before first write",
+    "Bridge blob stdout bounded during reading;stderr cap and owned bounded cleanup",
+    "Expanded roster requires exact node_modules symlink"
+  ],
+  "schema": "m0-additive-source-parent-adoption/v1",
+  "utc": "2026-10-09T18:20:04.057298+00:00"
+}

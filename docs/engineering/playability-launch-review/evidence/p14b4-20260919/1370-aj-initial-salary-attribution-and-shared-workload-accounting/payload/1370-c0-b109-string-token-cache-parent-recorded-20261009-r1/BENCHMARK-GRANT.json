@@ -1,0 +1,226 @@
+{
+  "acPower": true,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-lane-20261009-r1/benchmark.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/record-pure-node.py",
+    "benchmark"
+  ],
+  "bounds": {
+    "activeSeconds": 75,
+    "nodeSeconds": 60,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576,
+    "wholeSeconds": 90
+  },
+  "controlsObservedReview": {
+    "bytes": 4110,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "fb9e8714fc18b4e31103a4e5d68a839cf7e9ec9e795bb461284001464bd653fe"
+  },
+  "currentCaptureMetadata": {
+    "ctimeNs": "1791439909827355864",
+    "dev": "16777220",
+    "ino": "166406220",
+    "mode": "33188",
+    "mtimeNs": "1791439909827355864",
+    "nlink": "1",
+    "size": "141237093"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "expectedControls": {
+    "groups": 33,
+    "pairs": 353
+  },
+  "freeBytes": 5606305792,
+  "gameFull109IntegrationAuthorized": false,
+  "mode": "benchmark",
+  "readerSha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57",
+  "roles": [
+    {
+      "bytes": 2646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "6b9939b91ccbe85d3bbbf7611dfd421d351b66a56652e9a64d4a6b52f318edfa"
+    },
+    {
+      "bytes": 5047,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "78912de56d420109c9934d44f748321c098f4712587c03133530383a155251f9"
+    },
+    {
+      "bytes": 4712,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/grant_and_launch.py",
+      "sha256": "aae358c6c62a12bd569411b8099ed944b67d998d29c0289f664db3247c5a8c6d"
+    },
+    {
+      "bytes": 794,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/CACHE-INVARIANT-SOURCE-PROOF.json",
+      "sha256": "cb1d86a3eda7ad62ef5c764d988d272401faafff8a5715530d32f5836a475bdc"
+    },
+    {
+      "bytes": 4577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/CONFIG.json",
+      "sha256": "448e0796f69c0442bb8f610cbc9e9224055782f3ac9a8f3637720728eaebce4e"
+    },
+    {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/CONFIG.json.diff",
+      "sha256": "7ea62618fc28a19e2a78cc346481d851bb68096c880b2b6a4e93518144dc1d13"
+    },
+    {
+      "bytes": 3618,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/CONTROL-RECIPE.json",
+      "sha256": "ad1b77469f36043b40016d3701513bdeb7dd3426647cc5ad16e044a33db75b6f"
+    },
+    {
+      "bytes": 1077,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/RECORDER-REUSE.json",
+      "sha256": "6bf4af1613be5fd6622ddeaca837d64874b2b546eedda92ed33eab9ba3016232"
+    },
+    {
+      "bytes": 1405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/REPORT.md",
+      "sha256": "941ebf21df56bcc95b254d57861e510b2a29521ef62ce01716d3c4021adb98a5"
+    },
+    {
+      "bytes": 6082,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/benchmark-308.mjs",
+      "sha256": "ed14937094a5a9caa12230477e9a814e519776a524aa54d070c6e8f0ca4b8040"
+    },
+    {
+      "bytes": 3702,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/benchmark-308.mjs.diff",
+      "sha256": "7756f44d6b8d51e31485c4c5cd271a70af392c3b846b34afb25c8897f26587df"
+    },
+    {
+      "bytes": 3317,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "25492575847a15a1d7b79daf84e722b6e32f2362ea2a2ad94f29228a09bfe067"
+    },
+    {
+      "bytes": 1883,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/bounded-json-candidate.mjs.diff",
+      "sha256": "efe306faab34c38a5ae5642b849d20adc96c03b78a62427d65f2539a1dc25ab8"
+    },
+    {
+      "bytes": 14261,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/record-pure-node.py",
+      "sha256": "9c4446eaaadd48465eaee214833fb3fa7857b620529bc5ef4443d2fe6b8cebee"
+    },
+    {
+      "bytes": 3003,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/record-pure-node.py.diff",
+      "sha256": "2e1e419aa0acbb0e72617a3af8030b914abdf2705d6c1f1f7aad82b59c538d4c"
+    },
+    {
+      "bytes": 19067,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "26d7637d7aacf9f6213cdc9f8f780b5345d6571f98c8a5d6712e3fef35e6b018"
+    },
+    {
+      "bytes": 3650,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/test-encoder.mjs.diff",
+      "sha256": "ee40a36543624e811407029e8c775a07d19c0e4e0a4c11dd715dec74fc2001f4"
+    },
+    {
+      "bytes": 2880,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+    },
+    {
+      "bytes": 4606,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-design-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "4c59e3a9acd974a629528d9865a964179bd581e9c49f1e38b4ee98191b784c8b"
+    },
+    {
+      "bytes": 15839,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "015326a19a12225b5fb736bbf85d637f8e925cf4c0f5bd00240061cf9cd880b4"
+    },
+    {
+      "bytes": 3829,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+      "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+    },
+    {
+      "bytes": 1179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    {
+      "bytes": 6082,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/benchmark-308.mjs",
+      "sha256": "ed14937094a5a9caa12230477e9a814e519776a524aa54d070c6e8f0ca4b8040"
+    },
+    {
+      "bytes": 3317,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "25492575847a15a1d7b79daf84e722b6e32f2362ea2a2ad94f29228a09bfe067"
+    },
+    {
+      "bytes": 19067,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "26d7637d7aacf9f6213cdc9f8f780b5345d6571f98c8a5d6712e3fef35e6b018"
+    },
+    {
+      "bytes": 24196,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+    },
+    {
+      "bytes": 12543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    },
+    {
+      "bytes": 2880,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+    },
+    {
+      "bytes": 3074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    },
+    {
+      "bytes": 92324688,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+      "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+    },
+    {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    {
+      "bytes": 4110,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "fb9e8714fc18b4e31103a4e5d68a839cf7e9ec9e795bb461284001464bd653fe"
+    }
+  ],
+  "rootPidBecomesHelperPid": 38049,
+  "schema": "string-token-cache-parent-grant/v1",
+  "status": "GRANT_EXACT_PURE_BENCHMARK_ONLY",
+  "timedReferenceSha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b",
+  "unexpectedHelperWaitIsStop": true,
+  "utc": "2026-10-09T18:44:04.134728+00:00",
+  "wholeCaptureHashPriorProvenanceOnly": true
+}

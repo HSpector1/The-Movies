@@ -1,0 +1,20 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r1/run_controls.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/run_controls.py
+@@ -124,7 +124,7 @@
+   test.ARGS=SimpleNamespace(**C['controlArgs']); test.SOURCE,test.ROOT,test.REVIEW=test.prepare(test.ARGS)
+   install_registration(test)
+   outcome=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(test.Controls))
+-  need(outcome.testsRun==5,'expected exact five tiny groups')
++  need(outcome.testsRun==7,'expected exact seven tiny groups')
+  except BaseException as exc: reason=type(exc).__name__+':'+str(exc)
+  finally:
+   PHASE='cleanup'
+@@ -142,7 +142,7 @@
+   os.fsync(REGFD); os.close(REGFD); PHASE='finalize'
+   try: cap_check()
+   except BaseException as exc: reason=reason or type(exc).__name__+':'+str(exc)
+-  ok=outcome is not None and outcome.wasSuccessful() and outcome.testsRun==5 and not reason and not STOP and not cleanup and not OWNED and len(HISTORY)==4 and time.monotonic()-START<ACTIVE
++  ok=outcome is not None and outcome.wasSuccessful() and outcome.testsRun==7 and not reason and not STOP and not cleanup and not OWNED and len(HISTORY)==4 and time.monotonic()-START<ACTIVE
+   result={'status':'CONTROLS_PASS' if ok else 'CONTROLS_STOP','testsRun':None if outcome is None else outcome.testsRun,'failures':None if outcome is None else len(outcome.failures),'errors':None if outcome is None else len(outcome.errors),'reason':reason,'stickyStop':STOP,'cleanupErrors':cleanup,'ownedGroups':HISTORY,'unresolvedOwned':OWNED,'elapsedSeconds':time.monotonic()-START,'wholeLimitSeconds':WHOLE,'sourcePinsSha256':sys.argv[1],'routeSourcePinsSha256':C['controlArgs']['source_pins_sha'],'routeReviewSha256':C['controlArgs']['route_review_sha'],'controlsSourcePinsSha256':C['roles']['controlsPins']['sha256'],'suiteLimitSeconds':ACTIVE,'gameOrMaterialization':False}
+   fd=os.open(root/'RESULT.json',os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
+   with os.fdopen(fd,'wb') as stream: stream.write(json.dumps(result,sort_keys=True).encode()+b'\n'); stream.flush(); os.fsync(stream.fileno())

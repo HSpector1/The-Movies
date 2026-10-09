@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-lane-20261009-r1/pricing.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/record-pure-node.py",
+    "verification"
+  ],
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "observedAcceptance": "Actual helper/tool/recorder/Node0, no override, stderr0,64KiB ledger, all23 complete paypairs agree, all44 immutablepairs exact, clock/caps, actual numericgroup freshly absent. Preserve any discrepancy as unresolved; never select draw, invert salary, edit input, or auto-retry.",
+  "status": "SOURCE_ONLY_UNFILLED_UNRUN",
+  "tools": {
+    "helperSha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+    "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+    "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "unlaunchableUntil": "CONFIGfutureWitness is null; parent must create a new independently reviewed filled candidate, validate actual tools/groups/lock/absent lane/output/current operational checkpoint and separately grant execution. No current grant exists."
+}

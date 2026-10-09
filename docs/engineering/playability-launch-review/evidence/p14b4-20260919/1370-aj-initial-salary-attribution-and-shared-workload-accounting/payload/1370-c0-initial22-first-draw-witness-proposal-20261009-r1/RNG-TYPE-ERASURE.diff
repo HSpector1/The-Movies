@@ -1,0 +1,158 @@
+--- authenticated/rng.ts
++++ rng.type-erased.mjs
+@@ -31,43 +31,8 @@
+ //   'hiring' — the founding applicant draft, deterministic contract offers, and the
+ //              freelancer/hiring market rotation (D-11.2/.6/.14). Stateless, so it
+ //              never advances state.rngState → replay stays exact.
+-export type RngPurpose =
+-  | 'candidates'
+-  | 'agent'
+-  | 'forecast'
+-  | 'worldgen'
+-  | 'migrate'
+-  | 'develop'
+-  | 'hiring'
+-  // D-13 conditional discoverability: an ISOLATED, engaged-only, versioned derived stream keyed by
+-  // productionId. Like 'develop'/'forecast' it never advances state.rngState, so §15.7 deterministic
+-  // replay + M0A byte-identity hold. Versioned ('-v1') so a future recalibration can re-key cleanly.
+-  | 'discovery-v1'
+-  // Casting Sessions V1: isolated camera-test evidence, keyed by
+-  // sessionId:talentId:slot. Derived-only, so completion never advances rngState.
+-  | 'casting-v1'
+-  // Presence Projection V1: the COSMETIC per-person departure stagger inside a
+-  // week, keyed talentId:week. Derived-only and read by a projection that writes
+-  // nothing, so presentation consumes zero simulation RNG and replay stays exact.
+-  | 'presence-v1'
+-  // Renewable Screenplay Generation V1 (C2a-M3, charter §3.5 / guardrail
+-  // `00C`.10.G): the latents and the working title of a MINTED original
+-  // screenplay, keyed `<conceptId>:<field>` — one dedicated substream per field,
+-  // exactly as worldgen's own concept generation does, so adding or removing a
+-  // field never shifts another field's draws.
+-  //
+-  // KEYED ON THE MINT ORDINAL, NEVER ON A WEEK OR A YEAR. That is what makes a
+-  // screenplay era-clean (G15): the engine has no calendar, and a generator that
+-  // invented one would be exactly the blocking architecture the 1920→2040+
+-  // timeline law forbids.
+-  //
+-  // DERIVED-ONLY, so minting never advances `state.rngState` and the M0A
+-  // acceptance corpus stays byte-identical across this milestone.
+-  | 'screenplay-v1'
+-  | 'hollywood-v1'
+-
+ // A 32-bit hash accumulator step (splitmix32 finalizer). Deterministic, avalanche-y.
+-function splitmix32(seed: number): { value: number; next: number } {
++function splitmix32(seed) {
+   let z = (seed + 0x9e3779b9) | 0
+   const next = z
+   z = Math.imul(z ^ (z >>> 16), 0x21f0aaad)
+@@ -77,7 +42,7 @@
+ }
+ 
+ // Hash a string to a 32-bit accumulator (deterministic FNV-1a-style fold).
+-function hashStringToSeed(s: string): number {
++function hashStringToSeed(s) {
+   let h = 0x811c9dc5 | 0
+   for (let i = 0; i < s.length; i++) {
+     h ^= s.charCodeAt(i)
+@@ -87,19 +52,19 @@
+ }
+ 
+ // Fill sfc32's four 32-bit state words from a string seed via splitmix32 walking.
+-function seedToState(seed: string): [number, number, number, number] {
++function seedToState(seed) {
+   let acc = hashStringToSeed(seed)
+-  const words: number[] = []
++  const words = []
+   for (let i = 0; i < 4; i++) {
+     const { value, next } = splitmix32(acc)
+     words.push(value)
+     acc = next
+   }
+-  return [words[0]!, words[1]!, words[2]!, words[3]!]
++  return [words[0], words[1], words[2], words[3]]
+ }
+ 
+ // sfc32 core step. Mutates the four-word state array in place and returns [0,1).
+-function sfc32Next(st: [number, number, number, number]): number {
++function sfc32Next(st) {
+   let [a, b, c, d] = st
+   a >>>= 0
+   b >>>= 0
+@@ -120,7 +85,7 @@
+ }
+ 
+ export class RngStream {
+-  private st: [number, number, number, number]
++  st
+   // Box–Muller caches a second normal deviate. NOTE on draw counts: Box–Muller
+   // consumes exactly TWO uniforms per PAIR of gaussians. To keep the draw count
+   // per gaussian deterministic and independent of ordering, this implementation
+@@ -130,15 +95,15 @@
+   // spare would make the Nth gaussian depend on whether an odd earlier call left
+   // one buffered.
+ 
+-  private constructor(state: [number, number, number, number]) {
++  constructor(state) {
+     this.st = state
+   }
+ 
+-  static fromSeed(seed: string): RngStream {
++  static fromSeed(seed) {
+     return new RngStream(seedToState(seed))
+   }
+ 
+-  static deserialize(s: string): RngStream {
++  static deserialize(s) {
+     const parts = s.split(',')
+     if (parts.length !== 4) {
+       throw new Error(`RngStream.deserialize: expected 4 state words, got ${parts.length}`)
+@@ -150,27 +115,27 @@
+       }
+       return n >>> 0
+     })
+-    return new RngStream([words[0]!, words[1]!, words[2]!, words[3]!])
++    return new RngStream([words[0], words[1], words[2], words[3]])
+   }
+ 
+   // Serialize state to a string suitable for GameState.rngState. Round-trips
+   // exactly through deserialize().
+-  serialize(): string {
++  serialize() {
+     return `${this.st[0]},${this.st[1]},${this.st[2]},${this.st[3]}`
+   }
+ 
+   // Uniform [0,1).
+-  next(): number {
++  next() {
+     return sfc32Next(this.st)
+   }
+ 
+   // Uniform [lo, hi).
+-  uniform(lo: number, hi: number): number {
++  uniform(lo, hi) {
+     return lo + (hi - lo) * this.next()
+   }
+ 
+   // Gaussian via Box–Muller (see the class note on draw counts).
+-  gaussian(mean: number, sigma: number): number {
++  gaussian(mean, sigma) {
+     let u1 = this.next()
+     // guard the log against u1 === 0 (next() can return exactly 0)
+     if (u1 < Number.MIN_VALUE) u1 = Number.MIN_VALUE
+@@ -184,7 +149,7 @@
+   // rev. 4 explicitly rules out clamping (the contract's own clamp idiom on the
+   // adjacent worldgen line is the contrast). A guard bounds the loop against a
+   // pathological (lo, hi) that the sampler can never hit.
+-  truncatedNormal(mean: number, sd: number, lo: number, hi: number): number {
++  truncatedNormal(mean, sd, lo, hi) {
+     if (lo > hi) {
+       throw new Error(`truncatedNormal: empty interval [${lo}, ${hi}]`)
+     }
+@@ -201,6 +166,6 @@
+ 
+ // Derived stateless stream. purpose and key are mixed into the hash so each
+ // (seed, purpose, key) yields an independent, reproducible stream.
+-export function stream(seed: string, purpose: RngPurpose, key: string | number): RngStream {
++export function stream(seed, purpose, key) {
+   return RngStream.fromSeed(`${seed}::${purpose}::${key}`)
+ }

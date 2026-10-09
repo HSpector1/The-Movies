@@ -1,0 +1,37 @@
+{
+  "CONTROL-PLAN.json": {
+    "bytes": 502,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/CONTROL-PLAN.json",
+    "sha256": "9acac8de942400adec5d683eeca0ba0a5cfce3a18ba04ef9f907b1a45ca0cd70"
+  },
+  "INPUTS.json": {
+    "bytes": 27220,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/INPUTS.json",
+    "sha256": "d72e3292aff7d640c544e752e7bd54f6b66aebebf8a82cadda110d74f8111520"
+  },
+  "REPORT.md": {
+    "bytes": 2560,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/REPORT.md",
+    "sha256": "6f252ba6f2b885ef8e991585204a851948e698add9cf56960e488f6639db7c5c"
+  },
+  "add_inputs.py": {
+    "bytes": 14304,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/add_inputs.py",
+    "sha256": "b753512236d5a599062dfe0309acb61668bcca6a8743e1b69d5ab67f016e2891"
+  },
+  "add_inputs.py.diff": {
+    "bytes": 5714,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/add_inputs.py.diff",
+    "sha256": "59b7515f0ea538d41fdc8dfabaf01430238868dc119ed1afc6b326f9a24003e6"
+  },
+  "check-deps.mjs": {
+    "bytes": 1918,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/check-deps.mjs",
+    "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+  },
+  "test_invariants.py": {
+    "bytes": 2934,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/test_invariants.py",
+    "sha256": "6d623338d8065f9c5b4234a385c6a7abfeadc53a039491c3298af2ccc7f5dd78"
+  }
+}

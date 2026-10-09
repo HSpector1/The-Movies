@@ -1,0 +1,25 @@
+{
+  "status": "ACCEPT_SOURCE_ONLY_HELD",
+  "proposalPinsSha256": "e1ba6062943bae800af7e1152f6e367a52189a18b04fda764c121fe34da1bf4b",
+  "sourceSha256": "b753512236d5a599062dfe0309acb61668bcca6a8743e1b69d5ab67f016e2891",
+  "controlsSha256": "6d623338d8065f9c5b4234a385c6a7abfeadc53a039491c3298af2ccc7f5dd78",
+  "scope": "Read-only source/diff and pinned evidence review. No source import/execution, tests, mirror access, fullscan, Node, Git mutation or fetch.",
+  "verified": [
+    "All seven package pins and all inherited/new evidence roles match SHA/size; exact recorded diff matches r1/r2 source.",
+    "Bridge rows/version input roles unchanged from independently verified r1; INPUTS changes only schema and predecessor review evidence role.",
+    "F1 repaired at95-96,189,217: PRE enforced entry/pre-first-write; FLOOR retained91.",
+    "F2 repaired98-124,211: nonblocking selector reads expected-size stdout and4096B stderr, overflow rejected before extension, empty stderr/exact length/exit0 required; shared remaining deadline checked per selector iteration and wait, failure direct child kill/reap wait1s and pipe close. No newly unbounded failure wait.",
+    "F3 repaired165,176-178: exact special path set requires node_modules for expanded roster and none for original.",
+    "Prospective controls12-38 cover PRE threshold, tiny real-pipe exact/excess/truncation/stderr cap plus child termination/pipe-close assertions, missing/present/forbidden-link roster cases. Source-only review, no observed result.",
+    "Unconditional held main251-253 retained; executionAuthorization false and freshguard/exactlaunch null."
+  ],
+  "limitations": [
+    "Control remaining() is mocked to constant2s; whole20s alarm limits suite, but these controls do not independently prove elapsed2s pipe timeout enforcement. Existing production body uses real shared180s deadline.",
+    "This source acceptance does not supply fresh282f production/common guards, exact authenticated outer launch/source/tool/PATH authority, bounded failureRESULT/partial-state preservation or current dependency/full expanded independent readback/root-transition adoption.",
+    "1740 files119393120B remains future expectation; no types/game/runtime admission."
+  ],
+  "launchAuthorized": false,
+  "runtimeObserved": false,
+  "controlsObserved": false,
+  "typesReady": false
+}

@@ -1,0 +1,57 @@
+{
+  "auditActualExit": 0,
+  "auditKind": "stdlib bounded source/hash/literal/projection audit; no JS/Node/RNG/compiler/test/engine execution",
+  "authoredControlGroups": 8,
+  "configSha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e",
+  "controlsObserved": false,
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_PURE_INITIAL23_FIRST_DRAWS",
+  "executionAuthorization": false,
+  "findings": [],
+  "futureObservedRequirements": [
+    "Separate root grant for controls and witness",
+    "Actual eight controls independently accepted before witness",
+    "Tool/helper/recorder/Node exit0 and no override/unexpected wait",
+    "Durable retained result/stdout/stderr/source/config hash roles",
+    "Fresh exact numeric owned group absence",
+    "Witness23 rows and exact known row0 control match"
+  ],
+  "inputReviewSha256": "6c3b9aed9733374669723a0053e93badd8e1253c81b52bfc6ff693d519231192",
+  "inputRows": 23,
+  "knownControlRows": 1,
+  "liveGuardsClaimed": false,
+  "numericOnlyFutureScope": true,
+  "productionOrGitWrites": false,
+  "recorderSha256": "68c3b15c65fc57075a7dec54a1ba15c26e1a537a314ef0916023775de89d7e8b",
+  "renewalAttribution": false,
+  "rngErasedSha256": "6534a0670862dc7a6778373d0375628d59761e1af27b84d5a79fc76c2c80fedc",
+  "rngOriginalSha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+  "roles": {
+    "auditSource": {
+      "bytes": 3873,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-independent-source-review-20261009-r1/audit.py",
+      "sha256": "acbf36f20501f22702b456fb801f4c5a57e650c14ac6231d9fada3c97f5a8280"
+    },
+    "facts": {
+      "bytes": 8567,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-independent-source-review-20261009-r1/FACTS.json",
+      "sha256": "b12ec520b71c57f466cc8383df615cadef53f8c45c149150fd22383a830d1ea5"
+    },
+    "report": {
+      "bytes": 3094,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-independent-source-review-20261009-r1/REPORT.md",
+      "sha256": "3ea2bffb0fc73847938de1691f8876551bcd81643e2bc3e187039f459576c2f0"
+    }
+  },
+  "salaryAttribution": false,
+  "schema": "1370-initial23-first-draw-independent-source-review/v1",
+  "sourceOnly": true,
+  "sourcePinsSha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60",
+  "unknownInitialRows": 22,
+  "witnessObserved": false,
+  "wrapperQualification": "Concrete root-controlled invocation with exact this review and matching independently accepted actual8controls receipt for witness; prefix checks are not generic review-source linkage validation.",
+  "wrapperRole": {
+    "bytes": 4405,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/grant_and_launch.py",
+    "sha256": "faf8c8f68d1a8eadfefc10826ed5a88da18e00fbca0a3f9d4488ce0a90eecde0"
+  }
+}

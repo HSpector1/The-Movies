@@ -1,0 +1,935 @@
+{
+  "drawRequest": {
+    "rngSourceSha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+    "rows": [
+      {
+        "identity": [
+          "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r01-0",
+        "ordinal": 0,
+        "purpose": "hiring",
+        "role": "known-row0-transported-F1-control",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-0",
+        "talentId": "person-studio-aca408ec-r01-0"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r01-1",
+        "ordinal": 1,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-1",
+        "talentId": "person-studio-aca408ec-r01-1"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r01-2",
+        "ordinal": 2,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-2",
+        "talentId": "person-studio-aca408ec-r01-2"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r01-3",
+        "ordinal": 3,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-3",
+        "talentId": "person-studio-aca408ec-r01-3"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r01-4",
+        "ordinal": 4,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-4",
+        "talentId": "person-studio-aca408ec-r01-4"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r01-5",
+        "ordinal": 5,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-5",
+        "talentId": "person-studio-aca408ec-r01-5"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r02-0",
+        "ordinal": 6,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-0",
+        "talentId": "person-studio-aca408ec-r02-0"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r02-1",
+        "ordinal": 7,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-1",
+        "talentId": "person-studio-aca408ec-r02-1"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r02-2",
+        "ordinal": 8,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-2",
+        "talentId": "person-studio-aca408ec-r02-2"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r02-3",
+        "ordinal": 9,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-3",
+        "talentId": "person-studio-aca408ec-r02-3"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r02-4",
+        "ordinal": 10,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-4",
+        "talentId": "person-studio-aca408ec-r02-4"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r02-5",
+        "ordinal": 11,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-5",
+        "talentId": "person-studio-aca408ec-r02-5"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r03-0",
+        "ordinal": 12,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-0",
+        "talentId": "person-studio-aca408ec-r03-0"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r03-1",
+        "ordinal": 13,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-1",
+        "talentId": "person-studio-aca408ec-r03-1"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r03-3",
+        "ordinal": 15,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-3",
+        "talentId": "person-studio-aca408ec-r03-3"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-4:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r03-4",
+        "ordinal": 16,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-4",
+        "talentId": "person-studio-aca408ec-r03-4"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-5:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r03-5",
+        "ordinal": 17,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-5",
+        "talentId": "person-studio-aca408ec-r03-5"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-0:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r04-0",
+        "ordinal": 18,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-0",
+        "talentId": "person-studio-aca408ec-r04-0"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-1:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r04-1",
+        "ordinal": 19,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-1",
+        "talentId": "person-studio-aca408ec-r04-1"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-2:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r04-2",
+        "ordinal": 20,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-2",
+        "talentId": "person-studio-aca408ec-r04-2"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-3:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r04-3",
+        "ordinal": 21,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-3",
+        "talentId": "person-studio-aca408ec-r04-3"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-4:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r04-4",
+        "ordinal": 22,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-4",
+        "talentId": "person-studio-aca408ec-r04-4"
+      },
+      {
+        "identity": [
+          "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-5:0",
+          0
+        ],
+        "key": "offer-person-studio-aca408ec-r04-5",
+        "ordinal": 23,
+        "purpose": "hiring",
+        "role": "remaining-initial-first-draw",
+        "seed": "p13a-core-causal-01",
+        "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-5",
+        "talentId": "person-studio-aca408ec-r04-5"
+      }
+    ],
+    "schema": "1370-initial23-first-draw-inputs-r1",
+    "sourceInputRolesSha256": "0e7c3ebf9c6e15d1db717ba12b942776ff01d3a2a5970d46436f216e472d322e"
+  },
+  "originalOfferLocalCapture": false,
+  "renewalsExcluded": 16,
+  "rows": [
+    {
+      "ADerivedInitialAge": {
+        "origin": "accepted source bridge age floor",
+        "phase": "initial A floor",
+        "value": 44
+      },
+      "ASourceOrder": 0,
+      "HAuthoredInitialAge": {
+        "origin": "accepted source bridge and F1 helper transport",
+        "phase": "initial authored H fractional age",
+        "value": 44.36540781416331
+      },
+      "HSourceOrder": 0,
+      "creativeRole": "writer",
+      "generationSalaryCurve": {
+        "origin": "accepted row0 F1 observer recomputation transported by full source bridge",
+        "phase": "generation/pre-initial-offer scalar; not historical offer-local capture",
+        "value": 154938.60069756274
+      },
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r01-0",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 48
+      },
+      "ASourceOrder": 1,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 48.70801517856732
+      },
+      "HSourceOrder": 1,
+      "creativeRole": "director",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 52634.56989789868
+      },
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r01-1",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 30
+      },
+      "ASourceOrder": 2,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 30.706232958391467
+      },
+      "HSourceOrder": 2,
+      "creativeRole": "actor",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 87173.18066075392
+      },
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r01-2",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 40
+      },
+      "ASourceOrder": 3,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 40.04834772311771
+      },
+      "HSourceOrder": 3,
+      "creativeRole": "actor",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 289501.5043446407
+      },
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r01-3",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 34
+      },
+      "ASourceOrder": 4,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 34.8353363537762
+      },
+      "HSourceOrder": 4,
+      "creativeRole": "actor",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 360046.52868806233
+      },
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r01-4",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 29
+      },
+      "ASourceOrder": 5,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 29.927234713302248
+      },
+      "HSourceOrder": 5,
+      "creativeRole": "craft",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 76896.30773879046
+      },
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r01-5",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 53
+      },
+      "ASourceOrder": 6,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 53.09611512878311
+      },
+      "HSourceOrder": 6,
+      "creativeRole": "writer",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 94481.14475959158
+      },
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r02-0",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 40
+      },
+      "ASourceOrder": 7,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 40.255207774620324
+      },
+      "HSourceOrder": 7,
+      "creativeRole": "director",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 114398.28126530939
+      },
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r02-1",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 40
+      },
+      "ASourceOrder": 8,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 40.093064922683496
+      },
+      "HSourceOrder": 8,
+      "creativeRole": "actor",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 41638.76015922036
+      },
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r02-2",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 54
+      },
+      "ASourceOrder": 9,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 54.082681874932234
+      },
+      "HSourceOrder": 9,
+      "creativeRole": "actor",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 325554.3594725216
+      },
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r02-3",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 43
+      },
+      "ASourceOrder": 10,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 43.19009438114523
+      },
+      "HSourceOrder": 10,
+      "creativeRole": "actor",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 191754.5004688392
+      },
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r02-4",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 49
+      },
+      "ASourceOrder": 11,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 49.92240797196069
+      },
+      "HSourceOrder": 11,
+      "creativeRole": "craft",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 96667.69164427022
+      },
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r02-5",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 51
+      },
+      "ASourceOrder": 12,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 51.182996256107096
+      },
+      "HSourceOrder": 12,
+      "creativeRole": "writer",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 101334.70443558876
+      },
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r03-0",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 46
+      },
+      "ASourceOrder": 13,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 46.581942481860075
+      },
+      "HSourceOrder": 13,
+      "creativeRole": "director",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 72831.92713181998
+      },
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r03-1",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 31
+      },
+      "ASourceOrder": 15,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 31.872599486928138
+      },
+      "HSourceOrder": 15,
+      "creativeRole": "actor",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 302845.7600088954
+      },
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r03-3",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 28
+      },
+      "ASourceOrder": 16,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 28.588303918345026
+      },
+      "HSourceOrder": 16,
+      "creativeRole": "actor",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 90501.12976259706
+      },
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-4:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r03-4",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 49
+      },
+      "ASourceOrder": 17,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 49.652968596419115
+      },
+      "HSourceOrder": 17,
+      "creativeRole": "craft",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 281243.63725026173
+      },
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-5:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r03-5",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 36
+      },
+      "ASourceOrder": 18,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 36.85040859598189
+      },
+      "HSourceOrder": 18,
+      "creativeRole": "writer",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 252787.49260303596
+      },
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-0:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r04-0",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 33
+      },
+      "ASourceOrder": 19,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 33.361823482084816
+      },
+      "HSourceOrder": 19,
+      "creativeRole": "director",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 302791.0982953983
+      },
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-1:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r04-1",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 34
+      },
+      "ASourceOrder": 20,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 34.80258332496116
+      },
+      "HSourceOrder": 20,
+      "creativeRole": "actor",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 151498.611327841
+      },
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-2:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r04-2",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 42
+      },
+      "ASourceOrder": 21,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 42.82028348171056
+      },
+      "HSourceOrder": 21,
+      "creativeRole": "actor",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 346358.41215763247
+      },
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-3:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r04-3",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 35
+      },
+      "ASourceOrder": 22,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 35.08365010216108
+      },
+      "HSourceOrder": 22,
+      "creativeRole": "actor",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 138495.40113608318
+      },
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-4:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r04-4",
+      "termWeeks": 208,
+      "week": 0
+    },
+    {
+      "ADerivedInitialAge": {
+        "origin": "same generated person + A committed age floor",
+        "phase": "week0 source-derived, not new capture",
+        "value": 48
+      },
+      "ASourceOrder": 23,
+      "HAuthoredInitialAge": {
+        "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+        "phase": "authored entry/week0; source transport",
+        "value": 48.21165402732983
+      },
+      "HSourceOrder": 23,
+      "creativeRole": "craft",
+      "generationSalaryCurve": {
+        "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+        "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve",
+        "value": 303282.85805532604
+      },
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-5:0",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r04-5",
+      "termWeeks": 208,
+      "week": 0
+    }
+  ],
+  "schema": "1370-initial23-transported-pricing-inputs-r1",
+  "sourceInputsSha256": "0e7c3ebf9c6e15d1db717ba12b942776ff01d3a2a5970d46436f216e472d322e"
+}

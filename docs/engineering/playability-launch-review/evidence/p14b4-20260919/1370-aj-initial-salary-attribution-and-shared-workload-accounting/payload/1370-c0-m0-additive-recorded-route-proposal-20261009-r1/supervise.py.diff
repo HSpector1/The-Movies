@@ -1,0 +1,149 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/supervise.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/supervise.py
+@@ -1,9 +1,14 @@
+ #!/usr/bin/env python3
+ """Independent whole-clock supervisor for one reviewed sparse materialization.
+ 
+-M0 role adaptation of accepted r6 owned930 wrapper. Source-only proposal; unfilled binding cannot launch.
++M0 role adaptation of accepted r6 owned wrapper tightened to210. Source-only proposal; unfilled binding cannot launch.
+ """
+ 
++import os,signal,time
++BOOT_START=time.monotonic()
++if __name__=="__main__":
++ signal.signal(signal.SIGALRM,lambda *_: os._exit(124))
++ signal.setitimer(signal.ITIMER_REAL,210) # Before source/helper imports; no child exists yet.
+ import json
+ import hashlib
+ import os
+@@ -24,7 +29,7 @@
+ _g=importlib.util.module_from_spec(_module_spec);_module_spec.loader.exec_module(_g)
+ Stop,canonical_json,file_sha,require=_g.Stop,_g.canonical_json,_g.file_sha,_g.require
+ 
+-WHOLE_SECONDS = 930
++WHOLE_SECONDS = 210
+ POLL_SECONDS = 0.05
+ PARENT = Path("/Users/zacheryspector/studio-scratch")
+ 
+@@ -103,6 +108,7 @@
+ def read_roles(spec_path):
+     require(spec_path.is_absolute() and spec_path.is_file() and
+             not spec_path.is_symlink(), "exact binding path absent")
++    require(spec_path.stat().st_size<=128*1024,"binding cap")
+     raw = spec_path.read_bytes()
+     data = json.loads(raw.decode("utf-8"))
+     require(isinstance(data, dict), "invalid binding object")
+@@ -123,7 +129,7 @@
+             PARENT.resolve() == PARENT and data.get("noExternalSameUidRenamer") is True,
+             "scratch parent/no-renamer scope wrong")
+     require(not output.exists() and not output.is_symlink() and
+-            not scratch.exists() and not scratch.is_symlink() and
++            scratch.is_dir() and not scratch.is_symlink() and
+             not lock.exists() and not lock.is_symlink(),
+             "exclusive output, scratch or lock already exists")
+     require(Path(data["supervisorPath"]) == Path(__file__) and
+@@ -172,7 +178,7 @@
+         if failure:
+             raise Stop(failure)
+         require(not observed["timedOut"] and observed["workerExit"] == 0 and
+-                child_result.get("status") == "MATERIALIZED_UNREVIEWED_UNRUN" and
++                child_result.get("status") == "ADDITIVE_UNREVIEWED_UNRUN" and
+                 child_result.get("groupClear") is True and
+                 child_result.get("scratchRoot") == str(scratch) and
+                 scratch.is_dir() and not scratch.is_symlink() and
+@@ -184,14 +190,14 @@
+         require(not lock.exists() and not lock.is_symlink(), "owned lock not cleared")
+         check_deadline(start, limit, clock)
+         # All expensive postflight I/O precedes the final success commit.
+-        prepared = {"schema": "1370-c0-m0-materialization-supervisor-r1",
++        prepared = {"schema": "1370-c0-m0-additive-supervisor-r1",
+                     "status": "PREPARED_UNREVIEWED", "specSha256": starting_sha,
+                     "workerPid": worker_pid, "childGroup": child_group,
+                     "workerExit": observed["workerExit"],
+                     "recorderSha256": recorder_sha, "startMonotonic": start}
+         writer(output / "SUPERVISOR-PREPARED.json", canonical_json(prepared) + b"\n")
+         check_deadline(start, limit, clock)
+-        final = {**prepared, "status": "MATERIALIZED_UNREVIEWED_UNRUN",
++        final = {**prepared, "status": "ADDITIVE_UNREVIEWED_UNRUN",
+                  "endMonotonic": clock(), "timedOut": False,
+                  "workerGroupClear": True, "childGroupClear": True,
+                  "freeMinimum": child_result.get("freeMinimum")}
+@@ -215,7 +221,7 @@
+                 lock.unlink()
+         except OSError:
+             pass
+-        final = {"schema": "1370-c0-m0-materialization-supervisor-r1", "status": "STOP",
++        final = {"schema": "1370-c0-m0-additive-supervisor-r1", "status": "STOP",
+                  "specSha256": starting_sha, "workerPid": worker_pid,
+                  "childGroup": child_group, "workerExit": observed["workerExit"],
+                  "timedOut": isinstance(exc, DeadlineExpired) or
+@@ -236,7 +242,7 @@
+ 
+ def supervise(spec_path, limit=WHOLE_SECONDS):
+     # The OS timer starts before any role read, lock, worker fork, or materializer.
+-    start = time.monotonic()
++    start = BOOT_START if __name__=="__main__" else time.monotonic()
+     worker_pid = None
+     report_read = report_write = None
+     bound = None
+@@ -244,17 +250,34 @@
+     observed = None
+     previous = signal.getsignal(signal.SIGALRM)
+     def alarm(_signum, _frame):
+-        raise DeadlineExpired("OS whole-clock alarm")
++        # Hard210 never resets for cleanup/finalization. Durable files/streams stay;
++        # missing supervisor receipt and actual124 are authoritative STOP, no zero/clear claim.
++        child=watched.get("childGroup")
++        if child is None and report_read is not None:
++            try:
++                os.set_blocking(report_read,False);raw=os.read(report_read,256)
++                if raw.strip().isdigit():child=int(raw.strip())
++            except OSError:pass
++        for group in (child,worker_pid):
++            if group is not None:
++                try:os.killpg(group,signal.SIGKILL)
++                except (ProcessLookupError,PermissionError):pass
++        os._exit(124)
+     signal.signal(signal.SIGALRM, alarm)
+-    signal.setitimer(signal.ITIMER_REAL, limit)
++    signal.setitimer(signal.ITIMER_REAL, max(.000001,limit-(time.monotonic()-start)))
+     try:
+         bound = read_roles(spec_path)
+         check_deadline(start, limit)
+         report_read, report_write = os.pipe()
+-        worker_pid = os.fork()
++        old_mask=signal.pthread_sigmask(signal.SIG_BLOCK,{signal.SIGALRM})
++        try:worker_pid = os.fork()
++        except BaseException:
++            signal.pthread_sigmask(signal.SIG_SETMASK,old_mask)
++            raise
+         if worker_pid == 0:
+             try:
+                 signal.setitimer(signal.ITIMER_REAL, 0)
++                signal.pthread_sigmask(signal.SIG_SETMASK,old_mask)
+                 os.close(report_read)
+                 os.setsid()
+                 os.set_inheritable(report_write, True)
+@@ -264,6 +287,7 @@
+                            "-I", "-B", str(Path(__file__).parent / "record.py"), str(spec_path)], env)
+             except BaseException:
+                 os._exit(126)
++        signal.pthread_sigmask(signal.SIG_SETMASK,old_mask)
+         os.close(report_write)
+         report_write = None
+         observed = watch(worker_pid, report_read, start, limit, state=watched)
+@@ -287,7 +311,7 @@
+         signal.setitimer(signal.ITIMER_REAL, 0)
+         return result
+     except BaseException as exc:
+-        signal.setitimer(signal.ITIMER_REAL, 0)
++        # Alarm remains armed through STOP cleanup/finalization.
+         if worker_pid is not None and (observed is None or
+                                        observed.get("workerExit") is None or
+                                        alive_group(worker_pid) or
+@@ -331,4 +355,4 @@
+     result = supervise(Path(sys.argv[1]))
+     print(json.dumps({"status": result["status"], "timedOut": result["timedOut"]},
+                      sort_keys=True))
+-    raise SystemExit(0 if result["status"] == "MATERIALIZED_UNREVIEWED_UNRUN" else 2)
++    raise SystemExit(0 if result["status"] == "ADDITIVE_UNREVIEWED_UNRUN" else 2)

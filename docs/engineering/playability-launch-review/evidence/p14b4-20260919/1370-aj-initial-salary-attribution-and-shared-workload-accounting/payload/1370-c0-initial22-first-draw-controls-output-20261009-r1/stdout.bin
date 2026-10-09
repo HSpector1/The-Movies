@@ -1,0 +1,9 @@
+PASS exact23-admission-and-known-row0
+PASS wrong-authenticated-source-refused
+PASS wrong-key-refused
+PASS wrong-seed-refused
+PASS duplicate-row-refused
+PASS missing-row-refused
+PASS nonfinite-draw-or-jitter-refused
+PASS report-cap-refused-before-admission
+{"status":"PURE_INITIAL23_INPUT_AND_REFUSAL_CONTROLS_PASSED","groups":8,"unknownDrawsMeasured":0,"knownControlDraws":1,"game":false}

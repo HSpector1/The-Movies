@@ -1,0 +1,267 @@
+--- r1/CONFIG.json
++++ r2/CONFIG.json
+@@ -9,7 +9,12 @@
+   },
+   "executionAuthorization": false,
+   "fullImmutablePairs": 44,
+-  "futureWitness": null,
++  "futureWitness": {
++    "configSha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e",
++    "resultSha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d",
++    "sourcePinsSha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60",
++    "stdoutSha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
++  },
+   "nodeBytes": 92324688,
+   "nodePath": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+   "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+@@ -52,6 +57,11 @@
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-observed-independent-review-20261009-r1/RECEIPT.json",
+       "sha256": "faf6df1cb38011ff74b7fbbca9c712da242d13cc6b15f8581dc1f1019202cb3d"
+     },
++    "acceptedHeldPricingSourceReview": {
++      "bytes": 2336,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-independent-source-review-20261009-r1/RECEIPT.json",
++      "sha256": "53943dc9865e9f82cec6757aa24af3d1300d6eb2f7b37c9a5be59b8cfe9cb77c"
++    },
+     "acceptedInitial22InputReview": {
+       "bytes": 3279,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-input-independent-review-20261009-r1/RECEIPT.json",
+@@ -77,19 +87,44 @@
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-independent-source-review-20261009-r1/RECEIPT.json",
+       "sha256": "a71cc521f8c8ade5879191ac5e275034ca246bf58c6713534bf048ce703227a8"
+     },
++    "actualWitnessConfig": {
++      "bytes": 6333,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/CONFIG.json",
++      "sha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e"
++    },
++    "actualWitnessIndependentReceipt": {
++      "bytes": 4219,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
++      "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
++    },
++    "actualWitnessResult": {
++      "bytes": 920,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/RESULT.json",
++      "sha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d"
++    },
++    "actualWitnessSourcePins": {
++      "bytes": 8515,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
++      "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
++    },
++    "actualWitnessStdout": {
++      "bytes": 9419,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stdout.bin",
++      "sha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
++    },
+     "authenticate": {
+       "bytes": 2337,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/authenticate-inputs.mjs",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/authenticate-inputs.mjs",
+       "sha256": "24edb17dae8f9207dc98d621f07ea553f44aa332cb0a31c7a6856249f7cf1ffe"
+     },
+     "core": {
+       "bytes": 8093,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/verify-pricing-core.mjs",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/verify-pricing-core.mjs",
+       "sha256": "209e7af90501e93742137cff9c80627c89f72988c631590416cd06e42ed7e4c5"
+     },
+     "pricingInputs": {
+       "bytes": 36398,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/PRICING-INPUTS.json",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/PRICING-INPUTS.json",
+       "sha256": "b7d41f142ddf570258ad8ce8bff8800dd40c11e64c321c6f3c1065e31099a24d"
+     },
+     "proposedPure23SourcePins": {
+@@ -104,16 +139,16 @@
+     },
+     "sourceOperationProof": {
+       "bytes": 3931,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/SOURCE-OPERATION-PROOF.json",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/SOURCE-OPERATION-PROOF.json",
+       "sha256": "512dd208ea8e3ea05b69dd04c75b879d4b8abd8b9057e54637165f6ff2088d9b"
+     },
+     "verification": {
+       "bytes": 2498,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/verify-initial-pricing.mjs",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/verify-initial-pricing.mjs",
+       "sha256": "67f8d5edf01a6d6727d694531c3d359404b7c4fcc6a8f6a949530937f0654751"
+     }
+   },
+   "schema": "1370-initial23-source-order-pricing-config-r1",
+   "selectedRows": 23,
+-  "status": "SOURCE_ONLY_UNFILLED_UNRUN"
++  "status": "SOURCE_ONLY_FILLED_UNRUN"
+ }
+--- r1/FILL-REQUIREMENTS.json
++++ r2/FILL-REQUIREMENTS.json
+@@ -1,14 +1,46 @@
+ {
+   "absenceClaim": "reserved name only; parent preflight must freshly verify absent before grant",
+-  "futureWitness": null,
++  "actual5Roles": {
++    "actualWitnessConfig": {
++      "bytes": 6333,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/CONFIG.json",
++      "sha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e"
++    },
++    "actualWitnessIndependentReceipt": {
++      "bytes": 4219,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
++      "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
++    },
++    "actualWitnessResult": {
++      "bytes": 920,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/RESULT.json",
++      "sha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d"
++    },
++    "actualWitnessSourcePins": {
++      "bytes": 8515,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
++      "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
++    },
++    "actualWitnessStdout": {
++      "bytes": 9419,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stdout.bin",
++      "sha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
++    }
++  },
++  "futureWitness": {
++    "configSha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e",
++    "resultSha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d",
++    "sourcePinsSha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60",
++    "stdoutSha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
++  },
+   "futureWitnessFields": [
+     "sourcePinsSha256",
+     "configSha256",
+     "resultSha256",
+     "stdoutSha256"
+   ],
+-  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-output-20261009-r1",
+-  "procedure": "After actual witness independent acceptance, parent authorizes a new finite filled candidate config with actual physical role paths/sizes/hashes and exact four futureWitness fields. Preserve this unfilled package. Update recorder CONFIG_SHA only, pin exact diff/full candidate/source input roles, independent source/filled command review, then separate parent single-lane actual verification grant. Do not fabricate expected witness values or adapt a receipt decision retrospectively; agree prospective receipt shape with reviewer, or version an exact source-role adapter for authentic observed receipt.",
++  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1",
++  "procedure": "Fresh r2 fills actual independently accepted witness54b305c8 using exact5 roles and4 digests only; r1 immutable. Concrete parent execution grant remains pending independent filled-source review and current exact argv/role/tool/group/lock/path preflight. CONFIG-UNFILLED.json is byte-exact r1 historical provenance, not active config.",
+   "requiredActualRoles": [
+     "actualWitnessSourcePins",
+     "actualWitnessConfig",
+@@ -29,5 +61,5 @@
+     "stdoutSha256": null
+   },
+   "runtimeOutput": "bounded human-readable23row ledger plus final JSON record on stdout; mismatch prints STOP ledger and Nodeexit2, recorder retains raw/result. No child output files.",
+-  "status": "UNFILLED_UNRUN_NO_WITNESS_VALUES"
++  "status": "SOURCE_ONLY_FILLED_UNRUN"
+ }
+--- r1/NOTE.md
++++ r2/NOTE.md
+@@ -1,11 +1,9 @@
+-# Source-only initial pricing follow-on (unfilled, unrun)
++# Filled initial23 pricing candidate r2 — source-only, unrun
+ 
+-Consumes the future independently accepted pure23 first-draw witness:22 missing initial rows plus known row0. No draw or pricing calculation ran during preparation. CONFIGfutureWitness=null deliberately refuses before output creation/fork. This is a proposed verifier/design, not an observed cause claim.
++Actual independently accepted pure23 witness receipt54b305c8 supplies the five exact source-pins/config/RESULT/stdout/review roles and four matching digests. Acceptance is numeric-only: isolated recomputed draw/jitter values transported through authenticated source/input proofs, not historical offer-local capture. All existing pricing input selections, arithmetic functions, full-pair/immutable-term admission, report semantics, and consumer checks are byte-identical r1. No pricing arithmetic, RNG, Node, verifier, tests, game, captures, full scans, Git, or protected mutations ran in this fill.
+ 
+-PRICING-INPUTS pins the accepted generation-time salaryCurve scalar and authored H fractional/A floored initial ages. The row0 scalars retain their accepted F1 recomputation/source-transport role. Other22 use accepted H preservation and complete generator/source equivalence. Terminal evolved F1 inputs are not substituted. SOURCE-OPERATION-PROOF authenticates the original primitive bodies, constants, and multiplication/rounding statements. Native JS clamps208, computes the jitter in original order, multiplies curve*3.0*0.9*ageFactor(age)*jitter left-to-right, applies Math.round to annual, then Math.round(annual*0.18). No decimal arithmetic, algebraic rearrangement, scientist branch, salary inversion, selected results, RNG calls, or engine imports.
++The held original source acceptance is pinned. R1 stays immutable. Changes are active config's own source paths and actual witness roles/future fields, recorder config SHA and unique output literal only, and held/fill/recipe documentation. CONFIG-UNFILLED is exact historical r1 bytes. r2 futureWitness is a concrete four-hash binding; no runtime numeric values were selected, inverted, modified, or inserted into pricing inputs.
+ 
+-All44 preimage rows are independently paired by contractId and source-order occurrence; original order is guarded separately. Every field other than annualSalary/signingBonus must agree across H/A. The verifier selects exactly23 input identities/ordinals, confirms exact witness role/order/draw/jitter and authentic contract timing/talent, then replaces predicted pay fields in each full actual row and compares all fields. Any missing/duplicate/mismatched identity, input, witness, finite value, or immutable term refuses. Numeric pay disagreement produces a retained23row discrepancy ledger with nonzero exit; it never emits a success.
++All44 H/A identities and source occurrences remain paired independently of positions, with original source order guarded separately. Every nonpay field must agree.23 selected initial rows must each reproduce both actual complete H/A rows using exact native JS operation order and authenticated transported curve/ages plus accepted draw. A mismatch yields the retained human23row discrepancy ledger and nonzero STOP; agreement is conditional on source/input transport and is not a new historical-local observation.16renewals and all other market/settlement/ledger causes remain outside scope.
+ 
+-The finite ledger reports actual/predicted H/A annual and bonus and per-row agreement/discrepancy. Complete agreement establishes exact pair reproduction through independently accepted source/input transport. It does not turn recomputed draws or scalars into historical offer-local measurements.16renewals, unmatched week208 placements, market/firsttakes/settlement, and ledger digest causation remain outside this scope. The unchanged r03-2 initial is intentionally excluded from the23 measurements.
+-
+-Reuse the qualified failure-preserving pure recorder, with the exact substitutions exposed in RECORDER-REUSE. No timers/ownership/cleanup/retention change; no new mechanism qualification is claimed. Follow FILL-REQUIREMENTS only after actual pure23 independent acceptance. Prospective receipt field names are explicit; if genuine accepted receipt has a different shape, version and independently review a bounded field adapter rather than inventing facts. Root owns exact fill/grant/actual run and observed review. No controls, verifier import, Node, draws, pricing arithmetic, game, full scans, Git, or protected-root mutations ran.
++A source-only fill does not authorize execution. Root must obtain independent filled-source/argv acceptance, check current exact roles/tools/environment/operational checkpoint, idle sole lane, absent lock/unique lane/output and actual numeric group clearance, then grant once. The reused recorder clocks60/75/90, ownership READY/GO, caps, cleanup precedence and failure-preserving raw/numeric-PID RESULT mechanisms are unchanged. No success or salary closure is claimed now.
+--- r1/RECIPE.json
++++ r2/RECIPE.json
+@@ -2,25 +2,36 @@
+   "argv": [
+     "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+     "0",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-lane-20261009-r1/pricing.lane.log",
++    "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-lane-20261009-r2/pricing.lane.log",
+     "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+     "-I",
+     "-B",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/record-pure-node.py",
++    "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/record-pure-node.py",
+     "verification"
+   ],
+-  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1",
++  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2",
+   "environment": {
+     "GIT_OPTIONAL_LOCKS": "0",
+     "PYTHONDONTWRITEBYTECODE": "1"
+   },
+   "executionAuthorization": false,
++  "heldPricingSourceReview": {
++    "bytes": 2336,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-independent-source-review-20261009-r1/RECEIPT.json",
++    "sha256": "53943dc9865e9f82cec6757aa24af3d1300d6eb2f7b37c9a5be59b8cfe9cb77c"
++  },
+   "observedAcceptance": "Actual helper/tool/recorder/Node0, no override, stderr0,64KiB ledger, all23 complete paypairs agree, all44 immutablepairs exact, clock/caps, actual numericgroup freshly absent. Preserve any discrepancy as unresolved; never select draw, invert salary, edit input, or auto-retry.",
+-  "status": "SOURCE_ONLY_UNFILLED_UNRUN",
++  "observedWitnessReceipt": {
++    "bytes": 4219,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
++    "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
++  },
++  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1",
++  "status": "SOURCE_ONLY_FILLED_UNRUN_REQUIRES_INDEPENDENT_FILLED_REVIEW_AND_PARENT_GRANT",
+   "tools": {
+     "helperSha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+     "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+     "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+   },
+-  "unlaunchableUntil": "CONFIGfutureWitness is null; parent must create a new independently reviewed filled candidate, validate actual tools/groups/lock/absent lane/output/current operational checkpoint and separately grant execution. No current grant exists."
++  "unlaunchableUntil": "Actual5 witness roles and4 digests are filled from independently accepted54b305c8; source-only fill is not execution authority. Root requires independent filled-source/argv acceptance, exact source/tool/env/operational/checkpoint/noactiveheavy/noLOCK/absent unique lane+output preflight, then concrete sole-lane grant. Recorder logic and60/75/90 limits unchanged."
+ }
+--- r1/RECORDER-REUSE.diff
++++ r2/RECORDER-REUSE.diff
+@@ -1,13 +1,13 @@
+ --- qualified-fastpass-recorder
+-+++ pricing-recorder
+++++ pricing-recorder-r2
+ @@ -2,8 +2,8 @@
+  late exit/active checks and sanitized Node environment; no game or Save imports."""
+  import datetime,hashlib,json,os,pathlib,selectors,select,signal,stat,sys,time
+  HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ -CONFIG_SHA='3fd3b21c188b7a8b6991dcb2e10c894f7674a5e3c2bd12a6bafe322a283e941e';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
+ -OUTPUTS={mode:SCRATCH/('1370-c0-b109-token-assertion-fastpass-'+mode+'-output-20261009-r1') for mode in ('controls','benchmark')}
+-+CONFIG_SHA='0e78eda5ad73702635054003d49560f77545c16e2fe5abef297ad456a5498168';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
+-+OUTPUTS={mode:SCRATCH/('1370-c0-initial23-pricing-'+mode+'-output-20261009-r1') for mode in ('verification',)}
+++CONFIG_SHA='53e53854cf619416fc111dcdd4ffdf60b58af2111c9658cdbf3aa599d3eb3105';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
+++OUTPUTS={mode:SCRATCH/('1370-c0-initial23-pricing-r2-'+mode+'-output-20261009-r1') for mode in ('verification',)}
+  def require(v,m):
+   if not v:raise RuntimeError('STOP_'+m)
+  def sha(b):return hashlib.sha256(b).hexdigest()
+--- r1/RECORDER-REUSE.json
++++ r2/RECORDER-REUSE.json
+@@ -6,12 +6,12 @@
+   },
+   "changes": [
+     {
+-      "after": "CONFIG_SHA='0e78eda5ad73702635054003d49560f77545c16e2fe5abef297ad456a5498168'",
++      "after": "CONFIG_SHA='53e53854cf619416fc111dcdd4ffdf60b58af2111c9658cdbf3aa599d3eb3105'",
+       "before": "CONFIG_SHA='3fd3b21c188b7a8b6991dcb2e10c894f7674a5e3c2bd12a6bafe322a283e941e'",
+       "occurrences": 1
+     },
+     {
+-      "after": "1370-c0-initial23-pricing-",
++      "after": "1370-c0-initial23-pricing-r2-",
+       "before": "1370-c0-b109-token-assertion-fastpass-",
+       "occurrences": 1
+     },
+--- r1/record-pure-node.py
++++ r2/record-pure-node.py
+@@ -2,8 +2,8 @@
+ late exit/active checks and sanitized Node environment; no game or Save imports."""
+ import datetime,hashlib,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='0e78eda5ad73702635054003d49560f77545c16e2fe5abef297ad456a5498168';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
+-OUTPUTS={mode:SCRATCH/('1370-c0-initial23-pricing-'+mode+'-output-20261009-r1') for mode in ('verification',)}
++CONFIG_SHA='53e53854cf619416fc111dcdd4ffdf60b58af2111c9658cdbf3aa599d3eb3105';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
++OUTPUTS={mode:SCRATCH/('1370-c0-initial23-pricing-r2-'+mode+'-output-20261009-r1') for mode in ('verification',)}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()

@@ -1,0 +1,3 @@
+/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/record-pure-node.py:239: SyntaxWarning: 'return' in a 'finally' block
+  return code
+{"status": "PURE_INITIAL23_CONTROLS_COMPLETE_UNADOPTED", "output": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-output-20261009-r1", "actualChildExit": 0, "groupClear": true}

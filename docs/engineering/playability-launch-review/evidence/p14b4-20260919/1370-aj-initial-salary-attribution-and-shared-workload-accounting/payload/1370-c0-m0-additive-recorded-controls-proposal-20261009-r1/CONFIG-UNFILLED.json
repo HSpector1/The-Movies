@@ -1,0 +1,46 @@
+{
+  "schema": "m0-additive-tiny-controls-held-config-r1",
+  "executionAuthorization": false,
+  "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+  "helperLog": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-lane-20261009-r1/controls.lane.log",
+  "runnerOutput": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-output-20261009-r1",
+  "controlOutput": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r1",
+  "roles": {
+    "controls": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r1/test_controls.py",
+      "sha256": "d673ded6384d795ba3def2a51867a505eba3394beea6187d90b58851b51fcb99"
+    },
+    "controlsPins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": null
+    },
+    "routePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": null
+    },
+    "routeReview": {
+      "path": null,
+      "sha256": null
+    },
+    "helper": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    }
+  },
+  "controlArgs": {
+    "source_dir": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1",
+    "source_pins_sha": null,
+    "route_review": null,
+    "route_review_sha": null,
+    "output_root": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r1"
+  },
+  "bounds": {
+    "suiteActiveSeconds": 255,
+    "wholeRunnerSeconds": 285,
+    "ownedOutputBytes": 83886080,
+    "helperLogBytes": 1048576,
+    "expectedOwnedStubForks": 4
+  },
+  "claimLimit": "Source-only proposal; no execution grant, materialization or current guards."
+}

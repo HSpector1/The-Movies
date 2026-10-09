@@ -1,0 +1,1270 @@
+{
+  "actualHelperExit": 0,
+  "actualNodeExit": 0,
+  "actualRecorderExit": 0,
+  "actualToolExit": 0,
+  "actualToolSession": 55173,
+  "elapsedSeconds": 1.4416395970038138,
+  "fullImmutablePairsAgree": 44,
+  "groupsFreshlyAbsent": [
+    28579,
+    28843
+  ],
+  "lockAbsent": true,
+  "mismatches": 0,
+  "newInitialPairsAgree": 22,
+  "nodeFileRehashedByReview": false,
+  "nodeRoleAuthenticatedByActualPinnedLaunchAndChild": {
+    "bytes": 92324688,
+    "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+  },
+  "orderedLedger": [
+    {
+      "AActual": {
+        "annualSalary": 395548,
+        "endWeekExclusive": 208,
+        "signingBonus": 71199,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-0",
+        "termWeeks": 208
+      },
+      "AInitialAge": 44,
+      "APredicted": {
+        "annualSalary": 395548,
+        "endWeekExclusive": 208,
+        "signingBonus": 71199,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 394607,
+        "endWeekExclusive": 208,
+        "signingBonus": 71029,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-0",
+        "termWeeks": 208
+      },
+      "HInitialAge": 44.36540781416331,
+      "HPredicted": {
+        "annualSalary": 394607,
+        "endWeekExclusive": 208,
+        "signingBonus": 71029,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.34857689985074103,
+      "generationSalaryCurve": 154938.60069756274,
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+        0
+      ],
+      "jitter": 0.9757723039761186,
+      "role": "writer",
+      "sourceOrder": 0,
+      "talentId": "person-studio-aca408ec-r01-0"
+    },
+    {
+      "AActual": {
+        "annualSalary": 141075,
+        "endWeekExclusive": 208,
+        "signingBonus": 25394,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-1",
+        "termWeeks": 208
+      },
+      "AInitialAge": 48,
+      "APredicted": {
+        "annualSalary": 141075,
+        "endWeekExclusive": 208,
+        "signingBonus": 25394,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 140129,
+        "endWeekExclusive": 208,
+        "signingBonus": 25223,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-1",
+        "termWeeks": 208
+      },
+      "HInitialAge": 48.70801517856732,
+      "HPredicted": {
+        "annualSalary": 140129,
+        "endWeekExclusive": 208,
+        "signingBonus": 25223,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.8556038967799395,
+      "generationSalaryCurve": 52634.56989789868,
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+        0
+      ],
+      "jitter": 1.0568966234847903,
+      "role": "director",
+      "sourceOrder": 1,
+      "talentId": "person-studio-aca408ec-r01-1"
+    },
+    {
+      "AActual": {
+        "annualSalary": 220859,
+        "endWeekExclusive": 208,
+        "signingBonus": 39755,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-2",
+        "termWeeks": 208
+      },
+      "AInitialAge": 30,
+      "APredicted": {
+        "annualSalary": 220859,
+        "endWeekExclusive": 208,
+        "signingBonus": 39755,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 221213,
+        "endWeekExclusive": 208,
+        "signingBonus": 39818,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-2",
+        "termWeeks": 208
+      },
+      "HInitialAge": 30.706232958391467,
+      "HPredicted": {
+        "annualSalary": 221213,
+        "endWeekExclusive": 208,
+        "signingBonus": 39818,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.14396123448386788,
+      "generationSalaryCurve": 87173.18066075392,
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+        0
+      ],
+      "jitter": 0.9430337975174189,
+      "role": "actor",
+      "sourceOrder": 2,
+      "talentId": "person-studio-aca408ec-r01-2"
+    },
+    {
+      "AActual": {
+        "annualSalary": 745914,
+        "endWeekExclusive": 208,
+        "signingBonus": 134265,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-3",
+        "termWeeks": 208
+      },
+      "AInitialAge": 40,
+      "APredicted": {
+        "annualSalary": 745914,
+        "endWeekExclusive": 208,
+        "signingBonus": 134265,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 745778,
+        "endWeekExclusive": 208,
+        "signingBonus": 134240,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-3",
+        "termWeeks": 208
+      },
+      "HInitialAge": 40.04834772311771,
+      "HPredicted": {
+        "annualSalary": 745778,
+        "endWeekExclusive": 208,
+        "signingBonus": 134240,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.2815200590994209,
+      "generationSalaryCurve": 289501.5043446407,
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+        0
+      ],
+      "jitter": 0.9650432094559074,
+      "role": "actor",
+      "sourceOrder": 3,
+      "talentId": "person-studio-aca408ec-r01-3"
+    },
+    {
+      "AActual": {
+        "annualSalary": 916051,
+        "endWeekExclusive": 208,
+        "signingBonus": 164889,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-4",
+        "termWeeks": 208
+      },
+      "AInitialAge": 34,
+      "APredicted": {
+        "annualSalary": 916051,
+        "endWeekExclusive": 208,
+        "signingBonus": 164889,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 915853,
+        "endWeekExclusive": 208,
+        "signingBonus": 164854,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-4",
+        "termWeeks": 208
+      },
+      "HInitialAge": 34.8353363537762,
+      "HPredicted": {
+        "annualSalary": 915853,
+        "endWeekExclusive": 208,
+        "signingBonus": 164854,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.13948272936977446,
+      "generationSalaryCurve": 360046.52868806233,
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+        0
+      ],
+      "jitter": 0.9423172366991639,
+      "role": "actor",
+      "sourceOrder": 4,
+      "talentId": "person-studio-aca408ec-r01-4"
+    },
+    {
+      "AActual": {
+        "annualSalary": 191216,
+        "endWeekExclusive": 208,
+        "signingBonus": 34419,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-5",
+        "termWeeks": 208
+      },
+      "AInitialAge": 29,
+      "APredicted": {
+        "annualSalary": 191216,
+        "endWeekExclusive": 208,
+        "signingBonus": 34419,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 191719,
+        "endWeekExclusive": 208,
+        "signingBonus": 34509,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-5",
+        "termWeeks": 208
+      },
+      "HInitialAge": 29.927234713302248,
+      "HPredicted": {
+        "annualSalary": 191719,
+        "endWeekExclusive": 208,
+        "signingBonus": 34509,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.051142517710104585,
+      "generationSalaryCurve": 76896.30773879046,
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+        0
+      ],
+      "jitter": 0.9281828028336168,
+      "role": "craft",
+      "sourceOrder": 5,
+      "talentId": "person-studio-aca408ec-r01-5"
+    },
+    {
+      "AActual": {
+        "annualSalary": 225992,
+        "endWeekExclusive": 208,
+        "signingBonus": 40679,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-0",
+        "termWeeks": 208
+      },
+      "AInitialAge": 53,
+      "APredicted": {
+        "annualSalary": 225992,
+        "endWeekExclusive": 208,
+        "signingBonus": 40679,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 225703,
+        "endWeekExclusive": 208,
+        "signingBonus": 40627,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-0",
+        "termWeeks": 208
+      },
+      "HInitialAge": 53.09611512878311,
+      "HPredicted": {
+        "annualSalary": 225703,
+        "endWeekExclusive": 208,
+        "signingBonus": 40627,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.4843733462039381,
+      "generationSalaryCurve": 94481.14475959158,
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+        0
+      ],
+      "jitter": 0.9974997353926301,
+      "role": "writer",
+      "sourceOrder": 6,
+      "talentId": "person-studio-aca408ec-r02-0"
+    },
+    {
+      "AActual": {
+        "annualSalary": 313082,
+        "endWeekExclusive": 208,
+        "signingBonus": 56355,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-1",
+        "termWeeks": 208
+      },
+      "AInitialAge": 40,
+      "APredicted": {
+        "annualSalary": 313082,
+        "endWeekExclusive": 208,
+        "signingBonus": 56355,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 312775,
+        "endWeekExclusive": 208,
+        "signingBonus": 56300,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-1",
+        "termWeeks": 208
+      },
+      "HInitialAge": 40.255207774620324,
+      "HPredicted": {
+        "annualSalary": 312775,
+        "endWeekExclusive": 208,
+        "signingBonus": 56300,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.6565972110256553,
+      "generationSalaryCurve": 114398.28126530939,
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+        0
+      ],
+      "jitter": 1.0250555537641048,
+      "role": "director",
+      "sourceOrder": 7,
+      "talentId": "person-studio-aca408ec-r02-1"
+    },
+    {
+      "AActual": {
+        "annualSalary": 115209,
+        "endWeekExclusive": 208,
+        "signingBonus": 20738,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-2",
+        "termWeeks": 208
+      },
+      "AInitialAge": 40,
+      "APredicted": {
+        "annualSalary": 115209,
+        "endWeekExclusive": 208,
+        "signingBonus": 20738,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 115168,
+        "endWeekExclusive": 208,
+        "signingBonus": 20730,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-2",
+        "termWeeks": 208
+      },
+      "HInitialAge": 40.093064922683496,
+      "HPredicted": {
+        "annualSalary": 115168,
+        "endWeekExclusive": 208,
+        "signingBonus": 20730,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.7270294514019042,
+      "generationSalaryCurve": 41638.76015922036,
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+        0
+      ],
+      "jitter": 1.0363247122243047,
+      "role": "actor",
+      "sourceOrder": 8,
+      "talentId": "person-studio-aca408ec-r02-2"
+    },
+    {
+      "AActual": {
+        "annualSalary": 765621,
+        "endWeekExclusive": 208,
+        "signingBonus": 137812,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-3",
+        "termWeeks": 208
+      },
+      "AInitialAge": 54,
+      "APredicted": {
+        "annualSalary": 765621,
+        "endWeekExclusive": 208,
+        "signingBonus": 137812,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 764724,
+        "endWeekExclusive": 208,
+        "signingBonus": 137650,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-3",
+        "termWeeks": 208
+      },
+      "HInitialAge": 54.082681874932234,
+      "HPredicted": {
+        "annualSalary": 764724,
+        "endWeekExclusive": 208,
+        "signingBonus": 137650,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.4642153570894152,
+      "generationSalaryCurve": 325554.3594725216,
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+        0
+      ],
+      "jitter": 0.9942744571343064,
+      "role": "actor",
+      "sourceOrder": 9,
+      "talentId": "person-studio-aca408ec-r02-3"
+    },
+    {
+      "AActual": {
+        "annualSalary": 473558,
+        "endWeekExclusive": 208,
+        "signingBonus": 85240,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-4",
+        "termWeeks": 208
+      },
+      "AInitialAge": 43,
+      "APredicted": {
+        "annualSalary": 473558,
+        "endWeekExclusive": 208,
+        "signingBonus": 85240,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 473037,
+        "endWeekExclusive": 208,
+        "signingBonus": 85147,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-4",
+        "termWeeks": 208
+      },
+      "HInitialAge": 43.19009438114523,
+      "HPredicted": {
+        "annualSalary": 473037,
+        "endWeekExclusive": 208,
+        "signingBonus": 85147,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.11387934512458742,
+      "generationSalaryCurve": 191754.5004688392,
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+        0
+      ],
+      "jitter": 0.938220695219934,
+      "role": "actor",
+      "sourceOrder": 10,
+      "talentId": "person-studio-aca408ec-r02-4"
+    },
+    {
+      "AActual": {
+        "annualSalary": 250600,
+        "endWeekExclusive": 208,
+        "signingBonus": 45108,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-5",
+        "termWeeks": 208
+      },
+      "AInitialAge": 49,
+      "APredicted": {
+        "annualSalary": 250600,
+        "endWeekExclusive": 208,
+        "signingBonus": 45108,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 248219,
+        "endWeekExclusive": 208,
+        "signingBonus": 44679,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-5",
+        "termWeeks": 208
+      },
+      "HInitialAge": 49.92240797196069,
+      "HPredicted": {
+        "annualSalary": 248219,
+        "endWeekExclusive": 208,
+        "signingBonus": 44679,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.7007206561975181,
+      "generationSalaryCurve": 96667.69164427022,
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+        0
+      ],
+      "jitter": 1.032115304991603,
+      "role": "craft",
+      "sourceOrder": 11,
+      "talentId": "person-studio-aca408ec-r02-5"
+    },
+    {
+      "AActual": {
+        "annualSalary": 257755,
+        "endWeekExclusive": 208,
+        "signingBonus": 46396,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-0",
+        "termWeeks": 208
+      },
+      "AInitialAge": 51,
+      "APredicted": {
+        "annualSalary": 257755,
+        "endWeekExclusive": 208,
+        "signingBonus": 46396,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 257206,
+        "endWeekExclusive": 208,
+        "signingBonus": 46297,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-0",
+        "termWeeks": 208
+      },
+      "HInitialAge": 51.182996256107096,
+      "HPredicted": {
+        "annualSalary": 257206,
+        "endWeekExclusive": 208,
+        "signingBonus": 46297,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.7172063635662198,
+      "generationSalaryCurve": 101334.70443558876,
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+        0
+      ],
+      "jitter": 1.034753018170595,
+      "role": "writer",
+      "sourceOrder": 12,
+      "talentId": "person-studio-aca408ec-r03-0"
+    },
+    {
+      "AActual": {
+        "annualSalary": 181799,
+        "endWeekExclusive": 208,
+        "signingBonus": 32724,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-1",
+        "termWeeks": 208
+      },
+      "AInitialAge": 46,
+      "APredicted": {
+        "annualSalary": 181799,
+        "endWeekExclusive": 208,
+        "signingBonus": 32724,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 180956,
+        "endWeekExclusive": 208,
+        "signingBonus": 32572,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-1",
+        "termWeeks": 208
+      },
+      "HInitialAge": 46.581942481860075,
+      "HPredicted": {
+        "annualSalary": 180956,
+        "endWeekExclusive": 208,
+        "signingBonus": 32572,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.29803259251639247,
+      "generationSalaryCurve": 72831.92713181998,
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+        0
+      ],
+      "jitter": 0.9676852148026228,
+      "role": "director",
+      "sourceOrder": 13,
+      "talentId": "person-studio-aca408ec-r03-1"
+    },
+    {
+      "AActual": {
+        "annualSalary": 831383,
+        "endWeekExclusive": 208,
+        "signingBonus": 149649,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-3",
+        "termWeeks": 208
+      },
+      "AInitialAge": 31,
+      "APredicted": {
+        "annualSalary": 831383,
+        "endWeekExclusive": 208,
+        "signingBonus": 149649,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 832539,
+        "endWeekExclusive": 208,
+        "signingBonus": 149857,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-3",
+        "termWeeks": 208
+      },
+      "HInitialAge": 31.872599486928138,
+      "HPredicted": {
+        "annualSalary": 832539,
+        "endWeekExclusive": 208,
+        "signingBonus": 149857,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.6224897031206638,
+      "generationSalaryCurve": 302845.7600088954,
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+        0
+      ],
+      "jitter": 1.0195983524993062,
+      "role": "actor",
+      "sourceOrder": 15,
+      "talentId": "person-studio-aca408ec-r03-3"
+    },
+    {
+      "AActual": {
+        "annualSalary": 257827,
+        "endWeekExclusive": 208,
+        "signingBonus": 46409,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-4",
+        "termWeeks": 208
+      },
+      "AInitialAge": 28,
+      "APredicted": {
+        "annualSalary": 257827,
+        "endWeekExclusive": 208,
+        "signingBonus": 46409,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 258369,
+        "endWeekExclusive": 208,
+        "signingBonus": 46506,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-4",
+        "termWeeks": 208
+      },
+      "HInitialAge": 28.588303918345026,
+      "HPredicted": {
+        "annualSalary": 258369,
+        "endWeekExclusive": 208,
+        "signingBonus": 46506,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.919033964863047,
+      "generationSalaryCurve": 90501.12976259706,
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-4:0",
+        0
+      ],
+      "jitter": 1.0670454343780875,
+      "role": "actor",
+      "sourceOrder": 16,
+      "talentId": "person-studio-aca408ec-r03-4"
+    },
+    {
+      "AActual": {
+        "annualSalary": 686939,
+        "endWeekExclusive": 208,
+        "signingBonus": 123649,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-5",
+        "termWeeks": 208
+      },
+      "AInitialAge": 49,
+      "APredicted": {
+        "annualSalary": 686939,
+        "endWeekExclusive": 208,
+        "signingBonus": 123649,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 682358,
+        "endWeekExclusive": 208,
+        "signingBonus": 122824,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-5",
+        "termWeeks": 208
+      },
+      "HInitialAge": 49.652968596419115,
+      "HPredicted": {
+        "annualSalary": 682358,
+        "endWeekExclusive": 208,
+        "signingBonus": 122824,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.327753763878718,
+      "generationSalaryCurve": 281243.63725026173,
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-5:0",
+        0
+      ],
+      "jitter": 0.9724406022205949,
+      "role": "craft",
+      "sourceOrder": 17,
+      "talentId": "person-studio-aca408ec-r03-5"
+    },
+    {
+      "AActual": {
+        "annualSalary": 734049,
+        "endWeekExclusive": 208,
+        "signingBonus": 132129,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r04-0",
+        "termWeeks": 208
+      },
+      "AInitialAge": 36,
+      "APredicted": {
+        "annualSalary": 734049,
+        "endWeekExclusive": 208,
+        "signingBonus": 132129,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 733109,
+        "endWeekExclusive": 208,
+        "signingBonus": 131960,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r04-0",
+        "termWeeks": 208
+      },
+      "HInitialAge": 36.85040859598189,
+      "HPredicted": {
+        "annualSalary": 733109,
+        "endWeekExclusive": 208,
+        "signingBonus": 131960,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.9801424799952656,
+      "generationSalaryCurve": 252787.49260303596,
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-0:0",
+        0
+      ],
+      "jitter": 1.0768227967992425,
+      "role": "writer",
+      "sourceOrder": 18,
+      "talentId": "person-studio-aca408ec-r04-0"
+    },
+    {
+      "AActual": {
+        "annualSalary": 790134,
+        "endWeekExclusive": 208,
+        "signingBonus": 142224,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r04-1",
+        "termWeeks": 208
+      },
+      "AInitialAge": 33,
+      "APredicted": {
+        "annualSalary": 790134,
+        "endWeekExclusive": 208,
+        "signingBonus": 142224,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 790279,
+        "endWeekExclusive": 208,
+        "signingBonus": 142250,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r04-1",
+        "termWeeks": 208
+      },
+      "HInitialAge": 33.361823482084816,
+      "HPredicted": {
+        "annualSalary": 790279,
+        "endWeekExclusive": 208,
+        "signingBonus": 142250,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.2923846524208784,
+      "generationSalaryCurve": 302791.0982953983,
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-1:0",
+        0
+      ],
+      "jitter": 0.9667815443873405,
+      "role": "director",
+      "sourceOrder": 19,
+      "talentId": "person-studio-aca408ec-r04-1"
+    },
+    {
+      "AActual": {
+        "annualSalary": 379009,
+        "endWeekExclusive": 208,
+        "signingBonus": 68222,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r04-2",
+        "termWeeks": 208
+      },
+      "AInitialAge": 34,
+      "APredicted": {
+        "annualSalary": 379009,
+        "endWeekExclusive": 208,
+        "signingBonus": 68222,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 378934,
+        "endWeekExclusive": 208,
+        "signingBonus": 68208,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r04-2",
+        "termWeeks": 208
+      },
+      "HInitialAge": 34.80258332496116,
+      "HPredicted": {
+        "annualSalary": 378934,
+        "endWeekExclusive": 208,
+        "signingBonus": 68208,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.041054677683860064,
+      "generationSalaryCurve": 151498.611327841,
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-2:0",
+        0
+      ],
+      "jitter": 0.9265687484294176,
+      "role": "actor",
+      "sourceOrder": 20,
+      "talentId": "person-studio-aca408ec-r04-2"
+    },
+    {
+      "AActual": {
+        "annualSalary": 895479,
+        "endWeekExclusive": 208,
+        "signingBonus": 161186,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r04-3",
+        "termWeeks": 208
+      },
+      "AInitialAge": 42,
+      "APredicted": {
+        "annualSalary": 895479,
+        "endWeekExclusive": 208,
+        "signingBonus": 161186,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 891573,
+        "endWeekExclusive": 208,
+        "signingBonus": 160483,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r04-3",
+        "termWeeks": 208
+      },
+      "HInitialAge": 42.82028348171056,
+      "HPredicted": {
+        "annualSalary": 891573,
+        "endWeekExclusive": 208,
+        "signingBonus": 160483,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.3558599890675396,
+      "generationSalaryCurve": 346358.41215763247,
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-3:0",
+        0
+      ],
+      "jitter": 0.9769375982508063,
+      "role": "actor",
+      "sourceOrder": 21,
+      "talentId": "person-studio-aca408ec-r04-3"
+    },
+    {
+      "AActual": {
+        "annualSalary": 395223,
+        "endWeekExclusive": 208,
+        "signingBonus": 71140,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r04-4",
+        "termWeeks": 208
+      },
+      "AInitialAge": 35,
+      "APredicted": {
+        "annualSalary": 395223,
+        "endWeekExclusive": 208,
+        "signingBonus": 71140,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 395202,
+        "endWeekExclusive": 208,
+        "signingBonus": 71136,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r04-4",
+        "termWeeks": 208
+      },
+      "HInitialAge": 35.08365010216108,
+      "HPredicted": {
+        "annualSalary": 395202,
+        "endWeekExclusive": 208,
+        "signingBonus": 71136,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.8578171785920858,
+      "generationSalaryCurve": 138495.40113608318,
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-4:0",
+        0
+      ],
+      "jitter": 1.0572507485747338,
+      "role": "actor",
+      "sourceOrder": 22,
+      "talentId": "person-studio-aca408ec-r04-4"
+    },
+    {
+      "AActual": {
+        "annualSalary": 733476,
+        "endWeekExclusive": 208,
+        "signingBonus": 132026,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r04-5",
+        "termWeeks": 208
+      },
+      "AInitialAge": 48,
+      "APredicted": {
+        "annualSalary": 733476,
+        "endWeekExclusive": 208,
+        "signingBonus": 132026,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "HActual": {
+        "annualSalary": 732031,
+        "endWeekExclusive": 208,
+        "signingBonus": 131766,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r04-5",
+        "termWeeks": 208
+      },
+      "HInitialAge": 48.21165402732983,
+      "HPredicted": {
+        "annualSalary": 732031,
+        "endWeekExclusive": 208,
+        "signingBonus": 131766,
+        "startWeek": 0,
+        "termWeeks": 208
+      },
+      "completeA": true,
+      "completeH": true,
+      "conclusion": "PAIR_AGREES_VIA_ACCEPTED_SOURCE_TRANSPORT",
+      "differences": [],
+      "firstDraw": 0.21032854891382158,
+      "generationSalaryCurve": 303282.85805532604,
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-5:0",
+        0
+      ],
+      "jitter": 0.9536525678262114,
+      "role": "craft",
+      "sourceOrder": 23,
+      "talentId": "person-studio-aca408ec-r04-5"
+    }
+  ],
+  "overrideAbsent": true,
+  "remainingChangedRenewalIdentities": [
+    [
+      "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-1:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-2:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-3:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-4:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-5:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-1:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-4:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-5:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+      0
+    ],
+    [
+      "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:208",
+      0
+    ]
+  ],
+  "result": {
+    "bytes": 939,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/RESULT.json",
+    "sha256": "5a545869b5617f6fd6b6a2198b30cf80696c1d527818c7686e1114d5249edc81"
+  },
+  "retainedRoles": [
+    {
+      "bytes": 2372,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-parent-recorded-20261009-r1/TOOL-OUTCOME.json",
+      "sha256": "ab2167dfd48a0bc496728338194ef0efc31b994dd6076af1a590784e4e2f2f42"
+    },
+    {
+      "bytes": 12584,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-parent-recorded-20261009-r1/GRANT.json",
+      "sha256": "3356c8cfc1964c3ea784bfbea5d41efb8c202c15141df84fdbff5e875986b01c"
+    },
+    {
+      "bytes": 582,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+      "sha256": "91a3850efef471d2cf32f1d67757275a53829c4b4ed6a795dd019f368aa85de9"
+    },
+    {
+      "bytes": 939,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/RESULT.json",
+      "sha256": "5a545869b5617f6fd6b6a2198b30cf80696c1d527818c7686e1114d5249edc81"
+    },
+    {
+      "bytes": 25308,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/stdout.bin",
+      "sha256": "af74dcee0373ce495962a745a3d9ac5b5654c87e48124a797185691ef7ecfb21"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 416,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-lane-20261009-r2/pricing.lane.log",
+      "sha256": "cbac9cc09813f43b4d6951134af41a829f28ccce98828c129e1c5dd2530b8841"
+    },
+    {
+      "bytes": 363,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-lane-20261009-r2/pricing.lane.log.meta",
+      "sha256": "00f6e8ba83dd0f8f07f465eac37469b1099926d2e7a4c46606de08744765055e"
+    }
+  ],
+  "reviewNumericSalaryRngNodeTestOrGitExecution": false,
+  "selectedPairsAgree": 23,
+  "smallGrantRolesFreshlyAuthenticated": 41,
+  "sourcePins": {
+    "bytes": 11647,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/SOURCE-PINS.json",
+    "sha256": "335dc84cb31e2b084f95f441737eec0529ea995925f10289615169618fe74924"
+  },
+  "sourceReview": {
+    "bytes": 2669,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-filled-pricing-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "18179789fab0beaca6d58ddcdddfebc06501b1f9d57a0f1352a1c5bec8a6dda2"
+  },
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 25308,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/stdout.bin",
+    "sha256": "af74dcee0373ce495962a745a3d9ac5b5654c87e48124a797185691ef7ecfb21"
+  },
+  "witnessReview": {
+    "bytes": 4219,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
+  }
+}

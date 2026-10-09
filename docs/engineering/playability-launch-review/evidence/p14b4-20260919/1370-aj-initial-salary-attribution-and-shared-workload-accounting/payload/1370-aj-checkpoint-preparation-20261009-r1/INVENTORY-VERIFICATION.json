@@ -1,0 +1,196 @@
+{
+  "allRowsFinalizerCompatible": true,
+  "allSelectedRolesDoubleReadbackExact": true,
+  "duplicateSourcePaths": 0,
+  "explicitRequiredPreservedFailures": [
+    "/Users/zacheryspector/studio-scratch/1370-ai-checkpoint-root-finalization-20261009-r1/ARCHIVE-PREPARATION-STOP.json",
+    "/Users/zacheryspector/studio-scratch/1370-ai-checkpoint-root-finalization-20261009-r1/INVENTORY-FINAL-R2.json",
+    "/Users/zacheryspector/studio-scratch/1370-ai-checkpoint-root-finalization-20261009-r1/INVENTORY-FINAL-R3.json",
+    "/Users/zacheryspector/studio-scratch/1370-ai-checkpoint-root-finalization-20261009-r1/STAGED-PREPARATION-STOP.json",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r1/AUTHORING-PARSE-STOP.json",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/AUTHORING-PARSE-STOP.json"
+  ],
+  "freshUtc": "2026-10-09T18:52:45.897038+00:00",
+  "inventory": {
+    "bytes": 184203,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/INVENTORY-DRAFT.json",
+    "sha256": "145027905f2208e905b2a770416fd2127a13a5e03e8e4446238b52e8d0bd1e43"
+  },
+  "inventoryComplete": false,
+  "pendingAdditions": [
+    {
+      "note": "Existing BENCHMARK-ADOPTION.json is included exactly; do not remove it.",
+      "role": "Any subsequent final cache disposition/LESSONS/root adoption files not already present",
+      "status": "PENDING_ROOT_FINALIZATION"
+    },
+    {
+      "role": "b pending16-renewal input/capture-phase design and root adoption",
+      "status": "PENDING_FINITE_FINAL_READINESS"
+    },
+    {
+      "excludedCurrentPreparationDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2",
+      "role": "M0 additive exact-control fill/current actual run and independent observed review/root adoption",
+      "status": "PENDING_ACTUAL_CLOSED_CHAIN"
+    },
+    {
+      "note": "Do not recursively include final inventory/finalizer outputs.",
+      "role": "This AJ draft/selector/verification/pins and any final inventory/root report/HANDOFF/source policy roles",
+      "status": "PENDING_ROOT_FINAL_ADDITIONS_AND_COMPLETE_MARKER"
+    }
+  ],
+  "priorAIRawHashOnlyPolicyPointers": [
+    {
+      "bytes": 669673,
+      "mode": "0600",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "7527a03cd39cf53cae9302ed46a99a109f8af477b33d658716dc1ea5c104541a",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-adopted-preflight-current-local-only-20261009-r1/fd.raw"
+    },
+    {
+      "bytes": 104188,
+      "mode": "0600",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "ad4077fda76ce313eaccd06c873f61918e12999209de262d0b307e9ec23b6a96",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-adopted-preflight-current-local-only-20261009-r1/ps.raw"
+    },
+    {
+      "bytes": 33554433,
+      "mode": "0600",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "b367c8cf8c1abc4227ff699d4ea1a21bafe050050ca10846abb76987a4182eef",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-changed-route-controls-output-20261009-r2/27-cap/out/child.stdout"
+    },
+    {
+      "bytes": 33554433,
+      "mode": "0600",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "b367c8cf8c1abc4227ff699d4ea1a21bafe050050ca10846abb76987a4182eef",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-changed-route-controls-output-20261009-r2/28-cap/out/child.stdout"
+    },
+    {
+      "bytes": 650250,
+      "mode": "0644",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "089db700fdc58ebadb8e4968bb4f577c1adabd2b5527101fdc72978db9ae4d9c",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-guard-core-current-local-only-20261009-r1/CURRENT-LSOF.local"
+    },
+    {
+      "bytes": 87946,
+      "mode": "0644",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "2390ad2034b2e6714195604b42972cf50ef6b0c06f03322b376885f453b121a0",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-guard-core-current-local-only-20261009-r1/CURRENT-PS.local"
+    },
+    {
+      "bytes": 650058,
+      "mode": "0600",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "ad67b4770cced9bd0961cd7d27482be277f5caebbd03e80f8e537e104a771550",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/AFTER-LSOF.bin"
+    },
+    {
+      "bytes": 106746,
+      "mode": "0600",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "4a00b9e5f959879a9a8d70123e80bc0d41d5a3782b8c7d29886a705232288c1c",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/AFTER-PS.txt"
+    },
+    {
+      "bytes": 655280,
+      "mode": "0600",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "d54d67b59dd600ebc1e206ed5f4561ad8fd6f9681270e682bf117057794c2425",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/BEFORE-LSOF.bin"
+    },
+    {
+      "bytes": 108509,
+      "mode": "0600",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "072a33eb36c5fbdb38313ffb04da3d874abbbfb00626747c4c189880a843a769",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/BEFORE-PS.txt"
+    },
+    {
+      "bytes": 629504,
+      "mode": "0600",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "cbe7c85400be58c3e1b4388379ef80dcd8715a7af9c012d80f5fc6d7333e344c",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/AFTER-LSOF.bin"
+    },
+    {
+      "bytes": 89139,
+      "mode": "0600",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "dd8ea525b0c4514f4932a4082b79cd8351f06f973efbcf166152ac04c0a26108",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/AFTER-PS.txt"
+    },
+    {
+      "bytes": 669840,
+      "mode": "0600",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "e333298451a7968ba4758aeaaf155dafe08d1f2e0aa5d36d10af03fef9710117",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/BEFORE-LSOF.bin"
+    },
+    {
+      "bytes": 104488,
+      "mode": "0600",
+      "nlink": 1,
+      "notReReadOrCopiedInAJDraft": true,
+      "priorPreservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "98067b2790ebf899c3c548d2d8a30268509b79ee67c4c9bd60fd516d6cf10ff0",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/BEFORE-PS.txt"
+    }
+  ],
+  "priorArchiveTransportAuthenticatedMetadataOnly": {
+    "bytes": 2820614,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ai-recorded-m0-copy-and-encoder-qualification/ARCHIVE-MANIFEST.json",
+    "sha256": "0ab10ce492ff9ef0a22b341f510f1e64536940e91715231257a5c00c75e5e04b"
+  },
+  "rawMachinePolicyNewRoles": [],
+  "repoGitSourceExecutionOrStagingPerformed": false,
+  "schema": "1370-aj-inventory-source-only-verification-r1",
+  "selectedDirsUnchangedAcrossInventoryAndReadback": true,
+  "selector": {
+    "bytes": 10507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/SELECTORS.json",
+    "sha256": "8f95b9b27ba991fad89be85f3fe59c9e3c27906fc28e93482dbf1b00114686d4"
+  },
+  "summary": {
+    "completeInventory": false,
+    "localHashSizeOnlyBytes": 0,
+    "localHashSizeOnlyFiles": 0,
+    "payloadBytes": 3086432,
+    "payloadFiles": 247,
+    "priorAIRawHashOnlyPolicyPointerRoles": 14,
+    "priorAITransportOnlyRoles": 720,
+    "priorGitCoverage": "Not queried. Accepted finalizer separately authenticates actual HEAD blobs and preserves prior archive pointer.",
+    "regularFiniteFiles": 247,
+    "selectedFiniteDirectories": 47
+  },
+  "verifiedRoleCount": 247
+}

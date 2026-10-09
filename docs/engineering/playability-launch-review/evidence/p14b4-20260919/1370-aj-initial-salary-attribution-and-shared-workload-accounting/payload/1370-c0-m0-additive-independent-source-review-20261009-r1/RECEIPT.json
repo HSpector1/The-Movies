@@ -1,0 +1,47 @@
+{
+  "status": "REFINE_SOURCE_ONLY_HELD",
+  "proposalPinsSha256": "a0125e6be04bbce8d000a38ae36b4b8b47561a7415b3cd052e06e8372863045d",
+  "sourceSha256": "96b90a2fdbc9577f6db53406edebd45cb8770436c7aa760a8de65b3bd31c33b0",
+  "scope": "Read-only explicit pinned evidence, finite canonical Git tree/blob and21 package.json reads; no proposal execution/import, mirror read/write, full inventory, install, generator, Node, fetch or Git mutation.",
+  "verified": [
+    "All six SOURCE-PINS entries match size/SHA; eight INPUTS evidence roles match size/SHA.",
+    "Canonical bridge tree/full63 Git roster/modes/OIDs/bytes and SHA256 match;1517743 bytes.",
+    "Source lock728ee169 and package manifest have exactly21 declared direct package names matching installed version/SHA roles.",
+    "Accepted copy facts bind1677 original regular files117875377B; expanded1740/119393120 arithmetic is future only.",
+    "Body has nofollow dirfd reads, original metadata/byte checks, exclusive additions, no deletion; intentional root metadata transition recorded.",
+    "main lines217-219 refuses execution; authorization=false and freshguard/exactlaunch null."
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "lines": "add_inputs.py:18,84-91,156-168; REPORT.md paragraph2",
+      "issue": "Declared3.5GiB preflight is not enforced: PRE has no use; guard checks only3GiB FLOOR. Accepted H predecessor enforces PRE at line200.",
+      "required": "Add explicit pre-write/preflight free-space check against PRE in later reviewed body, or accurately revise declared contract; retain continuous FLOOR."
+    },
+    {
+      "id": "F2",
+      "lines": "add_inputs.py:92-94,177-179",
+      "issue": "cmd capture_output buffers stdout without byte cap. Blob length check occurs after buffering, so fixed total payload claim is post-hoc rather than a bounded reader.",
+      "required": "Read each blob with explicit expected-size/cap and deadline, rejecting excess while reading; preserve failure output ownership via separately reviewed outer mechanism."
+    },
+    {
+      "id": "F3",
+      "lines": "add_inputs.py:132-146,202-203",
+      "issue": "exact_roster(link=True) permits node_modules symlink if encountered but never requires that it was encountered. A missing link passes its expanded roster equality checks.",
+      "required": "Track exact special-path set and require exactly node_modules for expanded roster; preserve absence requirement for original roster."
+    }
+  ],
+  "claims": {
+    "launchAuthorized": false,
+    "runtimeObserved": false,
+    "typesReady": false,
+    "gameAccepted": false,
+    "expandedMirrorObserved": false
+  },
+  "requiredHeldRoles": [
+    "Fresh282f production/common qualified guards",
+    "Exact authenticated outer source/tool/PATH and launch authority",
+    "Bounded retained-stream/failureRESULT finalization and partial-state preservation",
+    "Current dependency physical guards and independent expanded readback/root-transition adoption"
+  ]
+}

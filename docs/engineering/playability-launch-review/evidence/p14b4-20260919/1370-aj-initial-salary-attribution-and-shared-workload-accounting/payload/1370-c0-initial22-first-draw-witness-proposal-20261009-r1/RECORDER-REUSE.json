@@ -1,0 +1,61 @@
+{
+  "changes": [
+    {
+      "after": "CONFIG_SHA='ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e'",
+      "before": "CONFIG_SHA='3fd3b21c188b7a8b6991dcb2e10c894f7674a5e3c2bd12a6bafe322a283e941e'",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-c0-initial22-first-draw-",
+      "before": "1370-c0-b109-token-assertion-fastpass-",
+      "occurrences": 1
+    },
+    {
+      "after": "('controls','witness')",
+      "before": "('controls','benchmark')",
+      "occurrences": 1
+    },
+    {
+      "after": "'controls' if mode=='controls' else 'witness'",
+      "before": "'controls' if mode=='controls' else 'benchmark'",
+      "occurrences": 1
+    },
+    {
+      "after": "'PURE_INITIAL23_INPUT_AND_REFUSAL_CONTROLS_PASSED' if mode=='controls' else 'PURE_INITIAL23_FIRST_DRAWS_COMPLETE'",
+      "before": "'ENCODER_EQUIVALENCE_AND_REFUSALS_PASSED' if mode=='controls' else 'PURE_INDEXED308_ENCODER_BENCHMARK_COMPLETE'",
+      "occurrences": 1
+    },
+    {
+      "after": "((mode=='controls' and last.get('groups')==8 and last.get('unknownDrawsMeasured')==0) or (mode=='witness' and isinstance(last.get('rows'),list) and len(last['rows'])==23 and last.get('salaryAttribution') is False and last.get('renewalAttribution') is False))",
+      "before": "(mode!='controls' or last.get('groups')==22)",
+      "occurrences": 1
+    },
+    {
+      "after": "'PURE_INITIAL23_'+",
+      "before": "'PURE_ENCODER_'+",
+      "occurrences": 1
+    }
+  ],
+  "honestLimit": "No durable pre-fork numeric registry. Owned PID is registered in memory before unmask and retained in durable RESULT on completed finalization. Hard whole STOP/incomplete artifact never establishes external cleanup or success. Parent independently freshly checks numeric group after each actual run.",
+  "mechanismsUnchanged": [
+    "hard90 timer auth through finalization",
+    "pre-fork60 and active75",
+    "owned fork in-memory PID registration with SIGALRM masked only around ownership",
+    "READY/GO exact PGID identity",
+    "cleanup deadline and failure precedence",
+    "main/final catch str(exc) or repr(exc)",
+    "bounded raw streams and durable fsynced numeric-PID RESULT",
+    "NODE_OPTIONS and NODE_PATH stripping"
+  ],
+  "original": {
+    "bytes": 14248,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/record-pure-node.py",
+    "sha256": "89abbb1db46f0bba3d1c177fa274b00dcd556975340d6f960c38972afe0c7be5"
+  },
+  "qualifiedMechanismReceipt": {
+    "bytes": 3829,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+    "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+  },
+  "schema": "1370-initial23-recorder-reuse-r1"
+}

@@ -1,0 +1,74 @@
+{
+  "archivePayloadOrBlobAdmission": false,
+  "auditSource": {
+    "bytes": 7676,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-claims-independent-review-20261009-r1/audit.py",
+    "sha256": "66f11d093651cf9c8ffae500b241b3784ea71d132d3dc2dc2241e778c24af5d0"
+  },
+  "autoBlockIdentical": true,
+  "autoBlockSha256": "39c20c726e9779c2f8ba73dd37ba55476302ac7b17040bf3d5e487f5c7268a4d",
+  "cachePromoted": false,
+  "cacheWeightedCostIncreasePercent": 10.642868321918852,
+  "decision": "ACCEPT_CHECKPOINT_AJ_SUBSTANTIVE_CLAIMS_WITH_TWO_HANDOFF_WORDING_CLARIFICATIONS",
+  "executionAuthorized": false,
+  "facts": {
+    "bytes": 7755,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-claims-independent-review-20261009-r1/FACTS.json",
+    "sha256": "203c62c25a2c0ae71b0a3a83b09c5feae978e2e760f78f3a60ed1d4f3c04325f"
+  },
+  "independentLiveGitChecks": false,
+  "initialAdditionalCausesAdmitted": 22,
+  "knownRow0Retained": true,
+  "limits": [
+    "Finite existing-artifact human-claim review only; no tests, imports, Node, draws, arithmetic pricing, game, guards, full inventories or Git commands.",
+    "No current HEAD/remote/clean assertion independently executed; production identities are parent-attributed checkpoint context.",
+    "AJ archive completion, exact payload/blob readback and publication are separate root-owned checks; pending archive is not a review defect."
+  ],
+  "m0ActualExtensionObserved": false,
+  "m0TinyControlMethods": 7,
+  "p17p18RuntimeAdmission": false,
+  "productionMutation": false,
+  "readOnlyArtifactAuditActualExit": 0,
+  "renewalCausesRemaining": 16,
+  "report": {
+    "bytes": 3302,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-claims-independent-review-20261009-r1/REPORT.md",
+    "sha256": "94af910a3154fc2bcf8efbea6b44f612444d8bd90e736df5581a69f3c2b31b87"
+  },
+  "requiredWordingClarifications": [
+    {
+      "file": "HANDOFF-DRAFT.md",
+      "new": "That source-phase proof alone closed no additional annual cause.",
+      "old": "No additional annual cause closes."
+    },
+    {
+      "change": "Relabel the six historical '- NEW ' AI bullets as '- Prior AI: '; retain all five '- AJ NEW ' bullets.",
+      "file": "HANDOFF-DRAFT.md"
+    }
+  ],
+  "reviewedDraftRoles": {
+    "handoffDraft": {
+      "bytes": 14483,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-root-finalization-20261009-r1/HANDOFF-DRAFT.md",
+      "sha256": "0e75b1ae8c1bf59c3c407630fde3f6359ded6704bfc2e56d1027c219436444fb"
+    },
+    "productionHandoff": {
+      "bytes": 12449,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+      "sha256": "ccc564a41584277da3a9f4eaac7e3dc0db80e91919b3f88683c760185ab2857b"
+    },
+    "reportDraft": {
+      "bytes": 7577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-root-finalization-20261009-r1/REPORT-DRAFT.md",
+      "sha256": "3126b5f6c0c2f5957f6194ff87b6e84d9ee1593bc01fd544bea50b83271446ff"
+    },
+    "rootFinalClaim": {
+      "bytes": 832,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-root-finalization-20261009-r1/ROOT-FINAL-CLAIM.txt",
+      "sha256": "a881ed19bb3715ee080a572723e32a7e0a5d3ee7fd2d390f5aa56431377e4b53"
+    }
+  },
+  "schema": "aj-checkpoint-human-claims-independent-review/v1",
+  "substantiveBlockers": [],
+  "typesOrGameAdmission": false
+}

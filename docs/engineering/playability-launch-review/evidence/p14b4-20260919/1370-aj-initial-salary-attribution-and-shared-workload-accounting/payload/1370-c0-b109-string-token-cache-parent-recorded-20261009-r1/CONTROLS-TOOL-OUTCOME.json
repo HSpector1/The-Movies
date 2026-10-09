@@ -1,0 +1,55 @@
+{
+  "acceptance": "Pending independent observed review; no timing/integration/game claim",
+  "actualHelperExit": 0,
+  "actualNodeExit": 0,
+  "actualRecorderExit": 0,
+  "actualToolExit": 0,
+  "actualToolSessionId": 41466,
+  "elapsedRecorderSeconds": 2.068757706991164,
+  "freshSelectedGroupsAbsent": [
+    34067,
+    34331
+  ],
+  "grant": {
+    "bytes": 9806,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/CONTROLS-GRANT.json",
+    "sha256": "4c140d3f8341ad6c924c1c5fa1b9d7e1ed4512262e5edb7ada69a8b7d2dfca15"
+  },
+  "groupsObserved": 33,
+  "laneAndOverrideAbsent": true,
+  "pairsObserved": 353,
+  "rawTool": {
+    "bytes": 583,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/CONTROLS-ACTUAL-TOOL.json",
+    "sha256": "b01cd2f8bdc77f5f63d650c919679fe353dd229b526033b1696bcffd3ed32f71"
+  },
+  "retained": [
+    {
+      "bytes": 919,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-controls-output-20261009-r1/RESULT.json",
+      "sha256": "ca30f01f2aa3f0f4cdb124201db12d3332a87da72bfdf7460c252197d6ea47e3"
+    },
+    {
+      "bytes": 2220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-controls-output-20261009-r1/stdout.bin",
+      "sha256": "aa11c4675d3ccf2e334273ed64ef5e278844db46fe370ed1069e3de21cbcb591"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-controls-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 381,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-controls-lane-20261009-r1/controls.lane.log",
+      "sha256": "b6923d0a08fc98b19bd8b1e7054a246fa12db0cf99389ca96cad6325cbc9cf8a"
+    },
+    {
+      "bytes": 336,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-controls-lane-20261009-r1/controls.lane.log.meta",
+      "sha256": "daeaaea9d327db9fe9825d5f0fc9fe50b866c2b5cd1c9d43490f367e584445a4"
+    }
+  ],
+  "schema": "string-token-cache-controls-actual-tool-outcome/v1",
+  "utc": "2026-10-09T18:41:41.676402+00:00"
+}

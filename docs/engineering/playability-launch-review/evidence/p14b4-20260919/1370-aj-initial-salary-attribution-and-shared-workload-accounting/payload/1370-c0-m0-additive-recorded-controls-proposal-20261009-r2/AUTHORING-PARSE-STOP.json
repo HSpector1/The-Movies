@@ -1,0 +1,4 @@
+{
+  "status": "SOURCE_AUTHORING_AST_PARSE_STOP_CORRECTED_BEFORE_READY",
+  "error": "Initial authored fixture symlink branch placed compound if after semicolon; source-only AST parse caught SyntaxError. Corrected newline; no source imported/executed or output launched."
+}

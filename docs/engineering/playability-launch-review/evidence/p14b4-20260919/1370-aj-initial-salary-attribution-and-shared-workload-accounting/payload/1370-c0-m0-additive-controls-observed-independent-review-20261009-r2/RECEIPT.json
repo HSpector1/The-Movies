@@ -1,0 +1,93 @@
+{
+  "decision": "ACCEPT_OBSERVED_SEVEN_ADDITIVE_TINY_CONTROLS_ONLY",
+  "grantSha256": "36b4215530bc1ab9fe7578af3b3d46b3187ced391b9d370310d71e1e5ac4f45d",
+  "toolOutcomeSha256": "76f144b1d7b70db50d3abd0fafa3d218b23c159e8a9452abd82b83857cf4f2b2",
+  "actualToolRawSha256": "fbf954bf7a46a5f60e8903251306ceda7154df7acd39bd4b156d404f29ea4368",
+  "configSha256": "3854a5e57881fe5374b65b36912c66a656e2768d0fcf78abf5aa27c224e507bf",
+  "launchSha256": "b5e2883b8c9864632c9d38491e210b06d5b4d8a82063251b27f14de432588ec6",
+  "routeSourcePinsSha256": "aa2f171d6da60e39ffa28eb3f16cab09c50b526fa05fd0ff1e299d21945bc0ff",
+  "controlsSourcePinsSha256": "73bbea8af39d83aad7d674a905f3879ba6144c40fc726687b1640f99b1c1f97e",
+  "actualToolSessionId": 75645,
+  "actualToolExit": 0,
+  "actualHelperExit": 0,
+  "actualRunnerExit": 0,
+  "methods": 7,
+  "failures": 0,
+  "errors": 0,
+  "runnerSeconds": 1.2359550229884917,
+  "unittestSeconds": 0.499,
+  "ownedTinyChildren": [
+    43835,
+    43836,
+    43837,
+    43838
+  ],
+  "ownershipRegistryExact": true,
+  "fourDurableChildOwnedReceiptsExact": true,
+  "childrenReapedAndGroupsClear": true,
+  "freshPidAndPgidAbsent": [
+    43572,
+    43835,
+    43836,
+    43837,
+    43838
+  ],
+  "heavyLaneLockAbsent": true,
+  "retainedFiles": 9,
+  "retainedBytes": 2978,
+  "retainedArtifactRoles": [
+    {
+      "bytes": 148,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-output-20261009-r2/OWNED-FORKS.ndjson",
+      "sha256": "0077539a9f11e86155e44b89500945913419547b873b23ed7f917dd80f689826"
+    },
+    {
+      "bytes": 924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-output-20261009-r2/RESULT.json",
+      "sha256": "979fdb73f8fdb2d7cd8329bc95b73132edf4e11d69cc3709b2d12e675c0818c9"
+    },
+    {
+      "bytes": 71,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/pipe-0/CHILD-OWNED.json",
+      "sha256": "c283efc64752aa60a21196e2d8b883c643f917392275dad41f9be58a485b423c"
+    },
+    {
+      "bytes": 72,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/pipe-1/CHILD-OWNED.json",
+      "sha256": "6f588cbfdcec5ea8dd843f3f577988bce4a4322c3424f2537cbc048161f2a6fe"
+    },
+    {
+      "bytes": 72,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/pipe-2/CHILD-OWNED.json",
+      "sha256": "88fab26048acec6354da1b533c7f50868f8138c04c14825ff90c8efc865797d2"
+    },
+    {
+      "bytes": 71,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/pipe-3/CHILD-OWNED.json",
+      "sha256": "18754e074f4e45861c44e905ae0729c69f29568b6df2703c81f60ed72dedd1f6"
+    },
+    {
+      "bytes": 17,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/unused-binding",
+      "sha256": "218589323cbe80b7ed077e3ee36f1663e7cb5f8f4e4ad02c938ad8a5c2c5a6b9"
+    },
+    {
+      "bytes": 1035,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-lane-20261009-r2/controls.lane.log",
+      "sha256": "f4878be21377fa0cbdcd1b22277311bafd6b73472b324bd99acbd4beccebf74c"
+    },
+    {
+      "bytes": 568,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-lane-20261009-r2/controls.lane.log.meta",
+      "sha256": "b71fc4aafd82635d8dbb7875c071315603cfd32e87685da709075dbfed1abce1"
+    }
+  ],
+  "verifiedChain": "acceptedroute/sourcecontrols\u2192exactconfig/launchreview\u2192exclusivegrant\u2192actualtool/helpermeta/sevenmethods/ownershiphistory\u2192freshcleanup",
+  "claimsLimits": [
+    "Cap-refusal fixtures may kill tinychildren; no allstubexit0 claim because history records readiness/reap/clearance only.",
+    "Mock clocks/extracted helper branch tests are intendedpredicate/call evidence, not elapsed2s/180/210/255/285deadline or actualhardkillguarantees.",
+    "No actual additivebody/mirror/fullguard/Node/game/types/readback acceptance; no automatic further launch."
+  ],
+  "actualMirrorOrGameExecuted": false,
+  "furtherExecutionAuthorized": false
+}

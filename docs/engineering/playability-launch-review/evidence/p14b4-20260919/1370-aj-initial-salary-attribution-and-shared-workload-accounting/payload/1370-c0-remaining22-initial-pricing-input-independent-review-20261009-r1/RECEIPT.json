@@ -1,0 +1,60 @@
+{
+  "ASourceCommittedFloorConsistency": true,
+  "actualAuditExecSession": 83274,
+  "actualAuditExit": 0,
+  "actualPairedInitialRowsAuthenticated": 22,
+  "adoptedPriorProofSha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2",
+  "auditSource": {
+    "bytes": 7027,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-input-independent-review-20261009-r1/audit.py",
+    "sha256": "a42297111c99c6754ff6c9bf3df76b7e8bf4920311a9894030cad440d32a0744"
+  },
+  "claimLimit": "Initial source/input sufficiency only under adopted prior finite source bridge/preservation. Pure23 result requires separate source/tool/recipe/grant and observed acceptance; all paired salary/bonus matches then required. No renewal/causal ledger/digest/neutrality closure.",
+  "currentProductionFreezeAsserted": false,
+  "decision": "ACCEPT_INITIAL_ONLY_INPUT_ROLES_PENDING_PURE23_WITNESS_AND_EXACT_QUOTE_MATCHES",
+  "engineFixtureNodeRngSourceImportOrGitExecuted": false,
+  "executionAuthorization": false,
+  "facts": {
+    "bytes": 23810,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-input-independent-review-20261009-r1/FACTS.json",
+    "sha256": "205e4d0082bdb9b802fb5af35945f11d3a57c663a2959047fe9162b334a32ae6"
+  },
+  "generationSalaryAndHEntryAgeTransportAcceptedByPriorProof": true,
+  "inputRoles": {
+    "bytes": 49025,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/INPUT-ROLES.json",
+    "sha256": "0e7c3ebf9c6e15d1db717ba12b942776ff01d3a2a5970d46436f216e472d322e"
+  },
+  "knownRow0Control": {
+    "firstDraw": 0.34857689985074103,
+    "jitter": 0.9757723039761186,
+    "measurement": "F1 observer transported by accepted source proof, not historical offer-local capture"
+  },
+  "missingFirstDraws": 22,
+  "newAnnualAttributions": 0,
+  "planNote": {
+    "bytes": 4756,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/NOTE.md",
+    "sha256": "681c8675d362471ba304f226b7378761735c9f70c644f190ed51600950c2d24f"
+  },
+  "planPins": {
+    "bytes": 514,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/PINS.json",
+    "sha256": "eb0d94a6386f93960b18ed8b978d3fa98af45b6787ef18152ad33fb16269c6f5"
+  },
+  "priorParentAdoptionSha256": "6caa7949f60f672144555791727974de94d0a722d602bdeee7a092c8506977ae",
+  "priorSourceReviewSha256": "a71cc521f8c8ade5879191ac5e275034ca246bf58c6713534bf048ce703227a8",
+  "prospectiveFreshStreamsIncludingKnownRow0Control": 23,
+  "renewalRowsExcluded": 16,
+  "report": {
+    "bytes": 3804,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-input-independent-review-20261009-r1/REPORT.md",
+    "sha256": "57a7c96edc9483cd9ee0af3b4cf5fdcb64ac037826fcfc0b50d2996753d06074"
+  },
+  "row0BridgeSha256": "9814ce7dcaf76b0fd141e28e0bf1de930c8575bc5c19bccd0fb1a313c38f7ceb",
+  "schema": "initial22-independent-source-input-review/v1",
+  "sharedExactRngSha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+  "sourceOrdinalsLocatorsOnly": true,
+  "stableIdentityOccurrenceJoin": true,
+  "utc": "2026-10-09T18:12:34.352683+00:00"
+}

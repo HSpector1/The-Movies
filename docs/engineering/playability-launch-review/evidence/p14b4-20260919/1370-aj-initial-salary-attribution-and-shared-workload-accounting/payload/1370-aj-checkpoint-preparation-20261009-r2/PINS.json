@@ -1,0 +1,61 @@
+{
+  "executionAuthorization": false,
+  "pendingAdditions": [
+    {
+      "note": "CacheBENCHMARK-ADOPTION702fee already included; renewal46d788 is source-design-only with adoption/review status unchanged.",
+      "role": "Subsequent final root cache/renewal/M0 disposition/adoption/LESSONS roles beyond included files",
+      "status": "PENDING_ROOT_FINALIZATION"
+    },
+    {
+      "note": "Closed sourcefill/wrapper/grant/rawtool/outcome and9 retained2978B artifacts included unadopted.",
+      "role": "M0 additive-control independent observed review and root adoption of actual7 tool75645 chain",
+      "status": "PENDING_REVIEW_AND_ADOPTION"
+    },
+    {
+      "note": "Own authoring parseSTOP preserved; no recursive inventory/finalizer outputs.",
+      "role": "AJr1/r2 source/selector/verification/pins and final root docs/HANDOFF/inventory source policy roles",
+      "status": "PENDING_ROOT_FINAL_ADDITIONS_COMPLETE_MARKER"
+    }
+  ],
+  "repoMutation": false,
+  "roles": {
+    "authoringStop": {
+      "bytes": 382,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/AUTHORING-PARSE-STOP.json",
+      "sha256": "b713b2873d2ab0184be06fb447aa879c1e3227c26746503625719547228b2b9c"
+    },
+    "inventory": {
+      "bytes": 200335,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/INVENTORY-DRAFT.json",
+      "sha256": "56a5d54ca08508528baf3ff154d20ec7a8e30f2ddca877147ddeceb13d1e29ee"
+    },
+    "selectors": {
+      "bytes": 11687,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/SELECTORS.json",
+      "sha256": "6959d5557f2a26d981f9dc84a9518d843315dae8429f7b8974b62cae728423aa"
+    },
+    "verification": {
+      "bytes": 10016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/INVENTORY-VERIFICATION.json",
+      "sha256": "efc301e7d5af022c792b235524610d8f6d65ad54b0cc1aa6fb227e25c3987954"
+    }
+  },
+  "schema": "1370-aj-inventory-preparation-pins-r2",
+  "status": "SOURCE_ONLY_PARTIAL_UNRUN_FINALIZER",
+  "summary": {
+    "completeInventory": false,
+    "localHashSizeOnlyBytes": 0,
+    "localHashSizeOnlyFiles": 0,
+    "payloadBytes": 3366270,
+    "payloadFiles": 269,
+    "priorAIRawHashOnlyPolicyPointerRoles": 14,
+    "priorAITransportOnlyRoles": 720,
+    "priorGitCoverage": "Not queried. Accepted finalizer separately authenticates actual HEAD blobs and preserves prior archive pointer.",
+    "r1RolesPreservedExactly": 247,
+    "r2ActualControlOutputBytes": 2978,
+    "r2ActualControlOutputFiles": 9,
+    "r2NewClosedRoles": 22,
+    "regularFiniteFiles": 269,
+    "selectedFiniteDirectories": 53
+  }
+}

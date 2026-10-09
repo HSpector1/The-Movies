@@ -1,0 +1,83 @@
+{
+  "actualHelperExit": 0,
+  "actualNodeExit": 0,
+  "actualOwnedPgid": 34331,
+  "actualRecorderExit": 0,
+  "actualToolExit": 0,
+  "actualToolSessionId": 41466,
+  "benchmarkOrIntegrationOrFull109Admission": false,
+  "configSha256": "448e0796f69c0442bb8f610cbc9e9224055782f3ac9a8f3637720728eaebce4e",
+  "decision": "ACCEPT_OBSERVED_STRING_TOKEN_CACHE_CONTROLS",
+  "elapsedRecorderSeconds": 2.068757706991164,
+  "executionAuthorization": false,
+  "findings": [],
+  "freshOwnedPidAndGroupsAbsent": [
+    34067,
+    34331
+  ],
+  "grantSha256": "4c140d3f8341ad6c924c1c5fa1b9d7e1ed4512262e5edb7ada69a8b7d2dfca15",
+  "groups": 33,
+  "laneLockAbsent": true,
+  "observedPerformance": null,
+  "overrideAbsent": true,
+  "pairs": 353,
+  "parentOutcomeSha256": "c57b332964c8ac4c7410cd938857ba8ecc3f57ae285fe3c25030b12b3a6dea91",
+  "resultSha256": "ca30f01f2aa3f0f4cdb124201db12d3332a87da72bfdf7460c252197d6ea47e3",
+  "reviewNodeTestImportGameScanGitExecution": false,
+  "roles": {
+    "facts": {
+      "bytes": 17320,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-controls-independent-observed-review-20261009-r1/FACTS.json",
+      "sha256": "99579dbdc840fc827c69d22ce3756d103e9724a7622b913ea404b3a736dfe11b"
+    },
+    "grant": {
+      "bytes": 9806,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/CONTROLS-GRANT.json",
+      "sha256": "4c140d3f8341ad6c924c1c5fa1b9d7e1ed4512262e5edb7ada69a8b7d2dfca15"
+    },
+    "parentOutcome": {
+      "bytes": 2267,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/CONTROLS-TOOL-OUTCOME.json",
+      "sha256": "c57b332964c8ac4c7410cd938857ba8ecc3f57ae285fe3c25030b12b3a6dea91"
+    },
+    "rawTool": {
+      "bytes": 583,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/CONTROLS-ACTUAL-TOOL.json",
+      "sha256": "b01cd2f8bdc77f5f63d650c919679fe353dd229b526033b1696bcffd3ed32f71"
+    },
+    "report": {
+      "bytes": 1435,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-controls-independent-observed-review-20261009-r1/REPORT.md",
+      "sha256": "905e110e8de676bd3e415a9339a2fbdbdeca4c6e774c501984d1d3ed03954c1f"
+    },
+    "result": {
+      "bytes": 919,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-controls-output-20261009-r1/RESULT.json",
+      "sha256": "ca30f01f2aa3f0f4cdb124201db12d3332a87da72bfdf7460c252197d6ea47e3"
+    },
+    "sourcePins": {
+      "bytes": 5047,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "78912de56d420109c9934d44f748321c098f4712587c03133530383a155251f9"
+    },
+    "sourceReview": {
+      "bytes": 2646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "6b9939b91ccbe85d3bbbf7611dfd421d351b66a56652e9a64d4a6b52f318edfa"
+    },
+    "wrapperReview": {
+      "bytes": 1980,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-wrapper-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "ac119bbd920adf0502109c8fefc35414549ef5bd2dc676f53f81cd3ad693de9c"
+    }
+  },
+  "schema": "1370-string-token-cache-controls-independent-observed-review/v1",
+  "scope": "Authored33 equivalence/refusal control groups and353 byte parity pairs only; independent cache bound remains source proof, not heap measurement.",
+  "sourcePinsSha256": "78912de56d420109c9934d44f748321c098f4712587c03133530383a155251f9",
+  "sourceReviewSha256": "6b9939b91ccbe85d3bbbf7611dfd421d351b66a56652e9a64d4a6b52f318edfa",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutBytes": 2220,
+  "stdoutSha256": "aa11c4675d3ccf2e334273ed64ef5e278844db46fe370ed1069e3de21cbcb591",
+  "wrapperReviewSha256": "ac119bbd920adf0502109c8fefc35414549ef5bd2dc676f53f81cd3ad693de9c"
+}

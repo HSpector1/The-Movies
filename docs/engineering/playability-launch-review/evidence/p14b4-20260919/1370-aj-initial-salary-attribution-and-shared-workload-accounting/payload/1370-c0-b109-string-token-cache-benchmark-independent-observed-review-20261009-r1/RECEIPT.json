@@ -1,0 +1,109 @@
+{
+  "actualHelperExit": 0,
+  "actualNodeExit": 0,
+  "actualOwnedPgid": 38312,
+  "actualRecorderExit": 0,
+  "actualToolExit": 0,
+  "actualToolSessionId": 71451,
+  "automaticRepeatAuthorized": false,
+  "benchmarkPassed": true,
+  "candidateWeightedPerformanceWinThisRun": false,
+  "claimLimit": "Same-run early308 paired encoder-only timing; all weighted values constant-fixture illustrations, not route measurements/lower bounds. Cache weighted result worsened despite valid passing benchmark.",
+  "coarseOneArmEarly308EncoderOnlyIllustrationSeconds": {
+    "baseline": 260.51003011000086,
+    "candidate": 288.2357695799994
+  },
+  "configSha256": "448e0796f69c0442bb8f610cbc9e9224055782f3ac9a8f3637720728eaebce4e",
+  "controlsObservedReviewSha256": "fb9e8714fc18b4e31103a4e5d68a839cf7e9ec9e795bb461284001464bd653fe",
+  "decision": "ACCEPT_OBSERVED_SAME_RUN_CHUNK_STRING_CACHE_TIMING_ONLY",
+  "elapsedRecorderSeconds": 7.002249760000268,
+  "exactBothArmsEarly308EncoderOnlyIllustrationSeconds": {
+    "baseline": 521.9860874360016,
+    "candidate": 577.5258950579988
+  },
+  "executionAuthorization": false,
+  "findings": [],
+  "freshOwnedPidAndGroupsAbsent": [
+    38049,
+    38312
+  ],
+  "grantSha256": "839a05a283612f528e3c19e2398f0661bd6ab90a8875199d62247abe654a782c",
+  "integrationOrGameOrFull109Admitted": false,
+  "laneLockAbsent": true,
+  "mediansMs": {
+    "state": {
+      "baseline": 77.88470600000028,
+      "candidate": 99.20976300000007
+    },
+    "wholeRow": {
+      "baseline": 124.67974500000037,
+      "candidate": 114.77432999999928
+    }
+  },
+  "overrideAbsent": true,
+  "parentOutcomeSha256": "81d4ebb46b366982ada4f4641cd940d9bf8c310a349180311b54ef232b63b560",
+  "promotionAccepted": false,
+  "resultSha256": "af31550a44b958cf248b1c59587318bb0937a01e8a0cda6408b733cf04828eab",
+  "reviewNodeBenchmarkImportDecodeGameScanGitExecution": false,
+  "roles": {
+    "controlsObservedReview": {
+      "bytes": 4110,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "fb9e8714fc18b4e31103a4e5d68a839cf7e9ec9e795bb461284001464bd653fe"
+    },
+    "facts": {
+      "bytes": 16423,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-independent-observed-review-20261009-r1/FACTS.json",
+      "sha256": "2db6ce7613af4bea0acd64dcf97250ad3ea8bebc426dc46279353d171d315556"
+    },
+    "grant": {
+      "bytes": 10323,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/BENCHMARK-GRANT.json",
+      "sha256": "839a05a283612f528e3c19e2398f0661bd6ab90a8875199d62247abe654a782c"
+    },
+    "parentOutcome": {
+      "bytes": 2808,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/BENCHMARK-TOOL-OUTCOME.json",
+      "sha256": "81d4ebb46b366982ada4f4641cd940d9bf8c310a349180311b54ef232b63b560"
+    },
+    "rawTool": {
+      "bytes": 585,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/BENCHMARK-ACTUAL-TOOL.json",
+      "sha256": "41844b1328ab45aedf5eb2064fc8d47a597377db05fc29e1d419f2bb032e9ba6"
+    },
+    "report": {
+      "bytes": 1845,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-independent-observed-review-20261009-r1/REPORT.md",
+      "sha256": "85c4860e25f3b5410d1f7ede7694a38ee31e7298660d6fcc4bc8bea4af409a88"
+    },
+    "result": {
+      "bytes": 921,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-output-20261009-r1/RESULT.json",
+      "sha256": "af31550a44b958cf248b1c59587318bb0937a01e8a0cda6408b733cf04828eab"
+    },
+    "sourcePins": {
+      "bytes": 5047,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "78912de56d420109c9934d44f748321c098f4712587c03133530383a155251f9"
+    },
+    "sourceReview": {
+      "bytes": 2646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "6b9939b91ccbe85d3bbbf7611dfd421d351b66a56652e9a64d4a6b52f318edfa"
+    },
+    "wrapperReview": {
+      "bytes": 1980,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-wrapper-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "ac119bbd920adf0502109c8fefc35414549ef5bd2dc676f53f81cd3ad693de9c"
+    }
+  },
+  "schema": "1370-string-token-cache-benchmark-independent-observed-review/v1",
+  "sourcePinsSha256": "78912de56d420109c9934d44f748321c098f4712587c03133530383a155251f9",
+  "sourceReviewSha256": "6b9939b91ccbe85d3bbbf7611dfd421d351b66a56652e9a64d4a6b52f318edfa",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutBytes": 4216,
+  "stdoutSha256": "e2acf3ea979d4f2bdd7272832445ba56e6684e56e0638481db725e0b9f581078",
+  "weightedIllustrationCostIncreasePercent": 10.642868321918852,
+  "wrapperReviewSha256": "ac119bbd920adf0502109c8fefc35414549ef5bd2dc676f53f81cd3ad693de9c"
+}

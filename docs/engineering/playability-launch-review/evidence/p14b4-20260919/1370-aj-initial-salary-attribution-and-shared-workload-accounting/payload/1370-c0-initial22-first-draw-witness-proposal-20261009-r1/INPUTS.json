@@ -1,0 +1,306 @@
+{
+  "rngSourceSha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+  "rows": [
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r01-0",
+      "ordinal": 0,
+      "purpose": "hiring",
+      "role": "known-row0-transported-F1-control",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-0",
+      "talentId": "person-studio-aca408ec-r01-0"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r01-1",
+      "ordinal": 1,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-1",
+      "talentId": "person-studio-aca408ec-r01-1"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r01-2",
+      "ordinal": 2,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-2",
+      "talentId": "person-studio-aca408ec-r01-2"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r01-3",
+      "ordinal": 3,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-3",
+      "talentId": "person-studio-aca408ec-r01-3"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r01-4",
+      "ordinal": 4,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-4",
+      "talentId": "person-studio-aca408ec-r01-4"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r01-5",
+      "ordinal": 5,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r01-5",
+      "talentId": "person-studio-aca408ec-r01-5"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r02-0",
+      "ordinal": 6,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-0",
+      "talentId": "person-studio-aca408ec-r02-0"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r02-1",
+      "ordinal": 7,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-1",
+      "talentId": "person-studio-aca408ec-r02-1"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r02-2",
+      "ordinal": 8,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-2",
+      "talentId": "person-studio-aca408ec-r02-2"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r02-3",
+      "ordinal": 9,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-3",
+      "talentId": "person-studio-aca408ec-r02-3"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r02-4",
+      "ordinal": 10,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-4",
+      "talentId": "person-studio-aca408ec-r02-4"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r02-5",
+      "ordinal": 11,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r02-5",
+      "talentId": "person-studio-aca408ec-r02-5"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r03-0",
+      "ordinal": 12,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-0",
+      "talentId": "person-studio-aca408ec-r03-0"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r03-1",
+      "ordinal": 13,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-1",
+      "talentId": "person-studio-aca408ec-r03-1"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r03-3",
+      "ordinal": 15,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-3",
+      "talentId": "person-studio-aca408ec-r03-3"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-4:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r03-4",
+      "ordinal": 16,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-4",
+      "talentId": "person-studio-aca408ec-r03-4"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-5:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r03-5",
+      "ordinal": 17,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-5",
+      "talentId": "person-studio-aca408ec-r03-5"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-0:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r04-0",
+      "ordinal": 18,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-0",
+      "talentId": "person-studio-aca408ec-r04-0"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-1:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r04-1",
+      "ordinal": 19,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-1",
+      "talentId": "person-studio-aca408ec-r04-1"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-2:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r04-2",
+      "ordinal": 20,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-2",
+      "talentId": "person-studio-aca408ec-r04-2"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-3:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r04-3",
+      "ordinal": 21,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-3",
+      "talentId": "person-studio-aca408ec-r04-3"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-4:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r04-4",
+      "ordinal": 22,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-4",
+      "talentId": "person-studio-aca408ec-r04-4"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-5:0",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r04-5",
+      "ordinal": 23,
+      "purpose": "hiring",
+      "role": "remaining-initial-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r04-5",
+      "talentId": "person-studio-aca408ec-r04-5"
+    }
+  ],
+  "schema": "1370-initial23-first-draw-inputs-r1",
+  "sourceInputRolesSha256": "0e7c3ebf9c6e15d1db717ba12b942776ff01d3a2a5970d46436f216e472d322e"
+}

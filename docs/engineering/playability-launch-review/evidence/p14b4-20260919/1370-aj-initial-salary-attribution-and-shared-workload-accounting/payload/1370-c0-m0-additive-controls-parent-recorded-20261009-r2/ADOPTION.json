@@ -1,0 +1,37 @@
+{
+  "actualAdditiveLaunchAuthorized": false,
+  "actualAdditiveOrGameExecuted": false,
+  "actualToolHelperRunnerExit": 0,
+  "actualToolSessionId": 75645,
+  "controlsSourcePinsSha256": "73bbea8af39d83aad7d674a905f3879ba6144c40fc726687b1640f99b1c1f97e",
+  "decision": "ADOPT_OBSERVED_SEVEN_ADDITIVE_TINY_CONTROLS_ONLY",
+  "fourOwnedTinyChildrenReapedAndClear": true,
+  "freshPidAndPgidAbsent": [
+    43572,
+    43835,
+    43836,
+    43837,
+    43838
+  ],
+  "independentObservedReview": {
+    "bytes": 4164,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-observed-independent-review-20261009-r2/RECEIPT.json",
+    "sha256": "9da1cfa0797a7bc85c1193e6481cf84ee690f04bb309edda6fd70eccec27b075"
+  },
+  "methods": 7,
+  "nextPrerequisites": [
+    "Commit and verify current backup checkpoint before binding fresh operational scope",
+    "Refresh/admit current production/common and explicit R9/H/dependency/M0 protection",
+    "Reviewed exact additive source/tool/argv fill and narrow root-transition authority",
+    "Independent exact/adopted preflight plus sole-lane root grant",
+    "Actual expanded readback/full protected postflight before narrow source-extension adoption"
+  ],
+  "routeSourcePinsSha256": "aa2f171d6da60e39ffa28eb3f16cab09c50b526fa05fd0ff1e299d21945bc0ff",
+  "schema": "additive-tiny-controls-parent-adoption/v1",
+  "syntheticClaimLimits": [
+    "Cap-refusal fixtures may kill tinychildren; no allstubexit0 claim because history records readiness/reap/clearance only.",
+    "Mock clocks/extracted helper branch tests are intendedpredicate/call evidence, not elapsed2s/180/210/255/285deadline or actualhardkillguarantees.",
+    "No actual additivebody/mirror/fullguard/Node/game/types/readback acceptance; no automatic further launch."
+  ],
+  "utc": "2026-10-09T18:54:52.336829+00:00"
+}

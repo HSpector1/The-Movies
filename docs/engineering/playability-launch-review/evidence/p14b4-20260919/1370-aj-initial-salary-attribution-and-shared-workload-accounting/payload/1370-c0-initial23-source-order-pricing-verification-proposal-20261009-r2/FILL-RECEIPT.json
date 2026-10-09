@@ -1,0 +1,97 @@
+{
+  "activeConfigOwnPathsOnlyRebound": true,
+  "actual5WitnessRoles": {
+    "actualWitnessConfig": {
+      "bytes": 6333,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/CONFIG.json",
+      "sha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e"
+    },
+    "actualWitnessIndependentReceipt": {
+      "bytes": 4219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
+    },
+    "actualWitnessResult": {
+      "bytes": 920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/RESULT.json",
+      "sha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d"
+    },
+    "actualWitnessSourcePins": {
+      "bytes": 8515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
+    },
+    "actualWitnessStdout": {
+      "bytes": 9419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stdout.bin",
+      "sha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
+    }
+  },
+  "actualObservedWitnessReview": {
+    "bytes": 4219,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
+  },
+  "arithmeticLogicConsumerAndAuthenticatorUnchanged": true,
+  "byteIdenticalFiles": {
+    "CONFIG-UNFILLED.json": {
+      "bytes": 6087,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/CONFIG-UNFILLED.json",
+      "sha256": "0e78eda5ad73702635054003d49560f77545c16e2fe5abef297ad456a5498168"
+    },
+    "PRICING-INPUTS.json": {
+      "bytes": 36398,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/PRICING-INPUTS.json",
+      "sha256": "b7d41f142ddf570258ad8ce8bff8800dd40c11e64c321c6f3c1065e31099a24d"
+    },
+    "SOURCE-OPERATION-PROOF.json": {
+      "bytes": 3931,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/SOURCE-OPERATION-PROOF.json",
+      "sha256": "512dd208ea8e3ea05b69dd04c75b879d4b8abd8b9057e54637165f6ff2088d9b"
+    },
+    "authenticate-inputs.mjs": {
+      "bytes": 2337,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/authenticate-inputs.mjs",
+      "sha256": "24edb17dae8f9207dc98d621f07ea553f44aa332cb0a31c7a6856249f7cf1ffe"
+    },
+    "verify-initial-pricing.mjs": {
+      "bytes": 2498,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/verify-initial-pricing.mjs",
+      "sha256": "67f8d5edf01a6d6727d694531c3d359404b7c4fcc6a8f6a949530937f0654751"
+    },
+    "verify-pricing-core.mjs": {
+      "bytes": 8093,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/verify-pricing-core.mjs",
+      "sha256": "209e7af90501e93742137cff9c80627c89f72988c631590416cd06e42ed7e4c5"
+    }
+  },
+  "drawExecution": false,
+  "existingInputSelectionUnchanged": true,
+  "future4DigestFields": {
+    "configSha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e",
+    "resultSha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d",
+    "sourcePinsSha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60",
+    "stdoutSha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
+  },
+  "heldSourceReview": {
+    "bytes": 2336,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "53943dc9865e9f82cec6757aa24af3d1300d6eb2f7b37c9a5be59b8cfe9cb77c"
+  },
+  "noStdoutDrawValueDecodeDuringFill": true,
+  "numericExecution": false,
+  "observedSalaryAgreement": null,
+  "parentNumericOnlyWitnessAdoption": {
+    "bytes": 1279,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/WITNESS-ADOPTION.json",
+    "sha256": "6166bbb1701671d0fa8b2c3723dbcff7592cbc2466bae5eb28f4120ef242ce65"
+  },
+  "r1Pins": {
+    "bytes": 8011,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "a37a9dad245572c578f2b7b8b57087b3537d3649d50ba6697e9fe1c13c8dcd17"
+  },
+  "recorderExactR1AfterTwoOperationalLiteralReversals": true,
+  "schema": "1370-initial23-pricing-r2-static-body-fill-proof",
+  "status": "SOURCE_ONLY_FILLED_UNRUN"
+}

@@ -1,0 +1,60 @@
+{
+  "activeSeconds": 375,
+  "benchmarkMedianRole": "Already accepted early308same-run values supplied by parent; this review independently checks source counts and arithmetic, not repeats or newly admits benchmark execution.",
+  "bothArmsExactBoundedJsonCalls": {
+    "state": 3526,
+    "wholeRow": 1984
+  },
+  "boundsAmendment": false,
+  "claimLimit": "Finite source-count accounting and arithmetic illustration only; not measured route time, a lower bound, a controlled cross-session comparison, or a feasibility verdict. Arms and later boundaries may differ/grow; costs omitted remain unmeasured. No integration/full109 retry or bounds change authorized.",
+  "decision": "ACCEPT_SOURCE_ACCOUNTING_CORRECTION_ONE_ARM_PROXY_NOT_SHARED_ROUTE",
+  "facts": {
+    "bytes": 3777,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-shared-workload-accounting-independent-review-20261009-r1/FACTS.json",
+    "sha256": "542eb46a7b7feb2c8c274989f465ec361459e8651974988380defc0ed77c8ec6"
+  },
+  "futureIntegrationOrFull109Authorization": false,
+  "illustrationsNotMeasurementsOrLowerBounds": true,
+  "original21233977248Interpretation": "One-arm coarse early-fixture encoder-only proxy; not both-arm route time or shared clock headroom.",
+  "originalPassesAndPayloadsPreserved": true,
+  "perArmExactBoundedJsonCalls": {
+    "state": 1763,
+    "wholeRow": 992
+  },
+  "productionOrOldArtifactMutation": false,
+  "report": {
+    "bytes": 3068,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-shared-workload-accounting-independent-review-20261009-r1/REPORT.md",
+    "sha256": "4fbd78ed76f2aaafe3097d40d3a259d23267279d93f0f892e6115c4986790854"
+  },
+  "runtimeExecution": false,
+  "schema": "b109-shared-workload-independent-source-review/v1",
+  "sharedElapsedChildClockSeconds": 300,
+  "sourceManifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+  "sourceRoles": {
+    "MANIFEST.json": {
+      "bytes": 37717,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/MANIFEST.json",
+      "sha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578"
+    },
+    "continuation.test.ts": {
+      "bytes": 14654,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/continuation.test.ts",
+      "sha256": "56623bb24ddbd8b923187854c3518c312d6c09f7fba427162679361d58995d33"
+    },
+    "run.py": {
+      "bytes": 28763,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/run.py",
+      "sha256": "bbffa0b6e17fbefce41e66c8ca13d4e034909f2d37e8bc2f84926846be3e2c13"
+    },
+    "streaming.mjs": {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    }
+  },
+  "twoLikeArmsCoarseIllustrationSeconds": 424.67954496,
+  "twoLikeArmsExactWeightsIllustrationSeconds": 425.467498548,
+  "utc": "2026-10-09T18:15:39.982278+00:00",
+  "wholeSeconds": 390
+}

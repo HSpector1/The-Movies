@@ -1,0 +1,31 @@
+{
+  "actualChildExit": 0,
+  "boundsSeconds": {
+    "active": 75,
+    "node": 60,
+    "whole": 90
+  },
+  "childPid": 38312,
+  "configSha256": "448e0796f69c0442bb8f610cbc9e9224055782f3ac9a8f3637720728eaebce4e",
+  "elapsedSeconds": 7.002249760000268,
+  "executionAuthorization": false,
+  "game": false,
+  "groupClear": true,
+  "mode": "benchmark",
+  "ownedPgid": 38312,
+  "pgidConfirmed": true,
+  "sanitizedEnvironment": [
+    "NODE_OPTIONS",
+    "NODE_PATH"
+  ],
+  "schema": "1370-b109-pure-encoder-recorder-r4",
+  "sourceOrGameplayAdoption": false,
+  "startupOwnedBeforeExec": true,
+  "status": "PURE_ENCODER_BENCHMARK_COMPLETE_UNADOPTED",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutBytes": 4216,
+  "stdoutSha256": "e2acf3ea979d4f2bdd7272832445ba56e6684e56e0638481db725e0b9f581078",
+  "timedOut": false,
+  "utc": "2026-10-09T18:44:11.378954+00:00"
+}

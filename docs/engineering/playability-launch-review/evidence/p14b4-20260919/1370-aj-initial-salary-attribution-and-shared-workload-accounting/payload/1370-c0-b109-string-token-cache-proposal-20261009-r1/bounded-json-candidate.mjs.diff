@@ -1,0 +1,29 @@
+--- accepted-chunk/bounded-json-candidate.mjs
++++ string-cache/bounded-json-candidate.mjs
+@@ -3,7 +3,7 @@
+ export const MAX = 16 * 1024**2
+ export function boundedJson(value, limit=MAX) {
+   // Standard native Array/String/Buffer builtins are assumed. Fresh owned chunks only.
+-  const chunks=[]; let pending=[], pendingBytes=0, bytes=0, keyBytes=0; const visiting=new Set(), keys=new Map()
++  const chunks=[]; let pending=[], pendingBytes=0, bytes=0, keyBytes=0; const visiting=new Set(), keys=new Map(), strings=new Map(); let stringBytes=0
+   const flush = () => { if(pending.length){chunks.push(Buffer.from(pending.join('')));pending=[];pendingBytes=0} }
+   const add = (text, size) => {
+     const next=bytes+size; const withinLimit=next<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_JSON_CAP'); bytes=next
+@@ -12,8 +12,15 @@
+     pending.push(text);pendingBytes+=size
+   }
+   const stringToken = value => {
+-    const withinLimit=Buffer.byteLength(value)<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_STRING_CAP')
+-    const text=JSON.stringify(value); return [text,Buffer.byteLength(text)]
++    const cached=strings.get(value)
++    const rawBytes=cached===undefined?Buffer.byteLength(value):cached[2]
++    const withinLimit=rawBytes<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_STRING_CAP')
++    if(cached!==undefined)return cached
++    const text=JSON.stringify(value),escapedBytes=Buffer.byteLength(text)
++    const token=[text,escapedBytes,rawBytes],next=stringBytes+rawBytes+escapedBytes
++    // Independent payload/entry budgets only; saturation silently skips insertion.
++    if(strings.size<512 && next<=65536){strings.set(value,token);stringBytes=next}
++    return token
+   }
+   const atom = value => {
+     const jsonAtom=typeof value!=='bigint' && typeof value!=='function' && typeof value!=='symbol';if(!jsonAtom)assert.ok(jsonAtom,'STOP_NON_JSON')

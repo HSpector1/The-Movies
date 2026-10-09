@@ -1,0 +1,3 @@
+waiting for pid 0; then: /usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/run_controls.py 73bbea8af39d83aad7d674a905f3879ba6144c40fc726687b1640f99b1c1f97e /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/CONFIG.json 3854a5e57881fe5374b65b36912c66a656e2768d0fcf78abf5aa27c224e507bf; 2026-10-09 13:51:29 CDT
+start; 2026-10-09 13:51:29 CDT
+end, exit 0; 2026-10-09 13:51:30 CDT

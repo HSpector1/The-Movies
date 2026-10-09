@@ -1,0 +1,40 @@
+{
+  "decision": "REFINE_SOURCE_ONLY_HELD_ADDITIVE_RECORDED_ROUTE",
+  "sourcePinsSha256": "38429cf3e601a3cc2fb2dd4efab8e9c8e71177c37fd8da3e0f8505538739ff7d",
+  "scope": "Explicit finite read-only pinned source/diffs; no imports/execution/Node/tests/fullscan/mirror/Git actions.",
+  "verified": [
+    "11 route pins,6 control pins match bytes/hash; four recorded source diffs exact.",
+    "Binding/control templates executionfalse, current operational guard/review roles remain held.",
+    "External original180 beforefork/bodyimports retained through env deadline; boot210 supervisor no reset; firstwrite marker prior additions, original1677 strict body checks/nonroot metadata and deliberate M0 root before/after transition retained.",
+    "New ownership report+durable CHILD-OWNED precedes child setsid/exec; blocking durable ownership writes outside signal mask.",
+    "Body/failure receipts bounded100000B and partial mirror preserved; hard124 no fake finalclearance claim."
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "file": "record.py",
+      "lines": [
+        126,
+        132,
+        134
+      ],
+      "issue": "fork_ready failure handler kills PID then os.waitpid(child_pid,0) without deadline. This is an unbounded failure wait; controls monkeypatch tracked_wait supplies bounded supervision but actual route does not.",
+      "required": "Use WNOHANG bounded reap under original external child/supervisor deadline; preserve sticky failure and unresolved ownership on failure, no blocking wait."
+    },
+    {
+      "id": "F2",
+      "file": "supervise.py",
+      "lines": [
+        261,
+        265,
+        273,
+        282,
+        290
+      ],
+      "issue": "Hard alarm kills only killpg(child/workerPid). Parent unmask290 can deliver pending hard alarm before child worker setsid282: workerPid PGID does not exist yet, killpg fails, then supervisor exits124 leaving known worker PID alive.",
+      "required": "Hard termination must attempt exact known direct worker/child PID kill as well as owned groups, covering pre-setsid windows; retain124/missingreceipt STOP and no clearance claim."
+    }
+  ],
+  "runtimeAuthorized": false,
+  "observed": false
+}

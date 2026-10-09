@@ -1,0 +1,19 @@
+{
+  "archiveBlobAndPublicationChecksPending": true,
+  "autoUnchanged": true,
+  "corrections": [
+    "Historical salary-phase proof alone closed no additional annual cause; subsequent AJ22 attribution remains current.",
+    "Relabel exactly six historical NEW bullets as Prior AI."
+  ],
+  "decision": "ADOPT_REVIEWED_AJ_CLAIMS_WITH_EXACT_TWO_WORDING_CORRECTIONS",
+  "finalHandoffSha256": "39a2bd16fce547a68723841ab7fd7759292697270f7f6e1f2bd1b815edbcbb79",
+  "noFactualClaimChanged": true,
+  "originalHandoffDraftSha256": "0e75b1ae8c1bf59c3c407630fde3f6359ded6704bfc2e56d1027c219436444fb",
+  "reportSha256": "3126b5f6c0c2f5957f6194ff87b6e84d9ee1593bc01fd544bea50b83271446ff",
+  "review": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-claims-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "65b3c811c1ebad185c3b9f34677344a834a042bc23d42f4a2988d13dd972b7da"
+  },
+  "rootClaimSha256": "a881ed19bb3715ee080a572723e32a7e0a5d3ee7fd2d390f5aa56431377e4b53",
+  "utc": "2026-10-09T19:09:44.978923+00:00"
+}

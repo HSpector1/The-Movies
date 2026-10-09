@@ -1,0 +1,50 @@
+{
+  "acceptedDesignAdoptionSha256": "4c59e3a9acd974a629528d9865a964179bd581e9c49f1e38b4ee98191b784c8b",
+  "authoredGroups": 33,
+  "authoredPairs": 353,
+  "benchmarkSha256": "ed14937094a5a9caa12230477e9a814e519776a524aa54d070c6e8f0ca4b8040",
+  "candidateSha256": "25492575847a15a1d7b79daf84e722b6e32f2362ea2a2ad94f29228a09bfe067",
+  "configSha256": "448e0796f69c0442bb8f610cbc9e9224055782f3ac9a8f3637720728eaebce4e",
+  "controlsSha256": "26d7637d7aacf9f6213cdc9f8f780b5345d6571f98c8a5d6712e3fef35e6b018",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN",
+  "executionAuthorization": false,
+  "findings": [],
+  "independentDesignReviewSha256": "445e32e397fca3b6deee7c285796255351225457b25aa0929e0aff9d7ed5c279",
+  "integrationOrFull109Authorization": false,
+  "limits": [
+    "Standard unmodified native builtins; native stringifier/byteLength call-count equality is outside semantic contract.",
+    "65536 bounds accounted UTF8 raw+escaped payload;512 bounds entries and per-entry metadata, not exact heap usage.",
+    "No actual controls, speedup, source integration, game, later boundary size, whole109 or cross-session timing accepted."
+  ],
+  "observedGroups": null,
+  "observedPairs": null,
+  "observedPerformance": null,
+  "recorderSha256": "9c4446eaaadd48465eaee214833fb3fa7857b620529bc5ef4443d2fe6b8cebee",
+  "requiredNext": [
+    "Root separate exact sole-lane controls grant",
+    "Actual33groups353pairs and independent observed controls acceptance",
+    "Separate benchmark grant then independent observed narrow same-run timing review"
+  ],
+  "roles": {
+    "facts": {
+      "bytes": 10516,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-independent-source-review-20261009-r1/FACTS.json",
+      "sha256": "d312082ca959792c5ff9160982f45ff4c4f11eef14a4f9d12c9c53e3f8e05652"
+    },
+    "report": {
+      "bytes": 3370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-independent-source-review-20261009-r1/REPORT.md",
+      "sha256": "e424253edd8dcad6331777d436d46c3aa173f2f6a89d522c6dd0ead043be8368"
+    }
+  },
+  "runtimeExecuted": false,
+  "schema": "1370-string-token-cache-independent-source-review/v1",
+  "sourcePinsSha256": "78912de56d420109c9934d44f748321c098f4712587c03133530383a155251f9",
+  "verifiedScopes": [
+    "exact finite byte/source/config/dependency/diff binding",
+    "primitive-only fresh bounded cache and coercion/refusal chronology",
+    "unchanged original28 and additional5 controls",
+    "same-run chunk2529 versus cache genuine308 benchmark with exact12c37 reader/purity",
+    "qualified recorder mechanism reuse four operational literals"
+  ]
+}

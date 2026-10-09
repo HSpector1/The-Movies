@@ -1,0 +1,16 @@
+{
+  "launch": {
+    "chunk_id": "60d628",
+    "wall_time_seconds": 1.002476425,
+    "session_id": 41466,
+    "original_token_count": 0,
+    "output": ""
+  },
+  "completion": {
+    "chunk_id": "6e10c0",
+    "wall_time_seconds": 0.000025978,
+    "exit_code": 0,
+    "original_token_count": 64,
+    "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/CONTROLS-GRANT.json\", \"bytes\": 9806, \"sha256\": \"4c140d3f8341ad6c924c1c5fa1b9d7e1ed4512262e5edb7ada69a8b7d2dfca15\"}, \"helperPid\": 34067}\n"
+  }
+}

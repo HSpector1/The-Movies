@@ -1,0 +1,14 @@
+{
+  "NodeGitActualMirrorDependencyWrites": false,
+  "authoringExecuted": false,
+  "caseFamilies": [
+    "PRE exactly3.5GiB and one byte below",
+    "real tiny Python pipe exact4B/excess5B/truncated3B/stderr4097B with cleanup",
+    "real temp-root original no-link/expanded missing-link/expanded present-link/original forbidden-link"
+  ],
+  "methods": 3,
+  "script": "test_invariants.py",
+  "status": "PROSPECTIVE_UNRUN_REQUIRES_SEPARATE_ROOT_GRANT",
+  "suiteWholeSeconds": 20,
+  "tinyPipeSeconds": 2
+}

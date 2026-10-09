@@ -1,0 +1,36 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-lane-20261009-r2/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/run_controls.py",
+    "73bbea8af39d83aad7d674a905f3879ba6144c40fc726687b1640f99b1c1f97e",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/CONFIG.json",
+    "3854a5e57881fe5374b65b36912c66a656e2768d0fcf78abf5aa27c224e507bf"
+  ],
+  "bounds": {
+    "expectedOwnedStubForks": 4,
+    "helperLogBytes": 1048576,
+    "ownedOutputBytes": 83886080,
+    "suiteActiveSeconds": 255,
+    "wholeRunnerSeconds": 285
+  },
+  "config": {
+    "bytes": 3107,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/CONFIG.json",
+    "sha256": "3854a5e57881fe5374b65b36912c66a656e2768d0fcf78abf5aa27c224e507bf"
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "fixtureOnly": true,
+  "schema": "additive-tiny-controls-exact-launch/v1",
+  "status": "UNRUN_AWAIT_INDEPENDENT_EXACT_REVIEW_AND_ROOT_GRANT"
+}

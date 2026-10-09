@@ -1,0 +1,220 @@
+{
+  "actualAdditiveOrGameAuthorized": false,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-lane-20261009-r2/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/run_controls.py",
+    "73bbea8af39d83aad7d674a905f3879ba6144c40fc726687b1640f99b1c1f97e",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/CONFIG.json",
+    "3854a5e57881fe5374b65b36912c66a656e2768d0fcf78abf5aa27c224e507bf"
+  ],
+  "bounds": {
+    "expectedOwnedStubForks": 4,
+    "helperLogBytes": 1048576,
+    "ownedOutputBytes": 83886080,
+    "suiteActiveSeconds": 255,
+    "wholeRunnerSeconds": 285
+  },
+  "currentHead": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2",
+  "decision": "GRANT_EXACT_SEVEN_TINY_CONTROLS_ONLY",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "freeBytes": 5407145984,
+  "observedClaim": false,
+  "roles": [
+    {
+      "bytes": 2104,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-exact-independent-review-20261009-r2/RECEIPT.json",
+      "sha256": "1908e1a366e7d2379af76e43b75cde98f11b8c1d1d48e1cb1fda5a6b67351d8c"
+    },
+    {
+      "bytes": 3107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/CONFIG.json",
+      "sha256": "3854a5e57881fe5374b65b36912c66a656e2768d0fcf78abf5aa27c224e507bf"
+    },
+    {
+      "bytes": 1554,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/LAUNCH.json",
+      "sha256": "b5e2883b8c9864632c9d38491e210b06d5b4d8a82063251b27f14de432588ec6"
+    },
+    {
+      "bytes": 4228,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/grant_and_launch.py",
+      "sha256": "f7c74b373b070ccea3e5964deb185e2d2e0be157fd6dbb4b15ac19b22e0e1cf1"
+    },
+    {
+      "bytes": 8277,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/test_controls.py",
+      "sha256": "bb4d65b110dde271da8940277dd244e8f0796fa34e8ad4395cb4ca4d1f8bcb9a"
+    },
+    {
+      "bytes": 2676,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "73bbea8af39d83aad7d674a905f3879ba6144c40fc726687b1640f99b1c1f97e"
+    },
+    {
+      "bytes": 1718,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-source-review-20261009-r2/CONTROLS-RECEIPT.json",
+      "sha256": "13a554591dcf8ce4e2646d24ad6732cf4c4997b14b128376ab46d2ef7da64ece"
+    },
+    {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    {
+      "bytes": 4207,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "aa2f171d6da60e39ffa28eb3f16cab09c50b526fa05fd0ff1e299d21945bc0ff"
+    },
+    {
+      "bytes": 2100,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-source-review-20261009-r2/ROUTE-RECEIPT.json",
+      "sha256": "81492801b0284d73c65b63e0082473e6b45767a673b2248898f40f8ae29870f9"
+    },
+    {
+      "bytes": 272,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/AUTHORING-PARSE-STOP.json",
+      "sha256": "2db29463f7b5acba4d2c180a3735085042dc3cdc149cb156ec468a3835620a74"
+    },
+    {
+      "bytes": 2172,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/CONFIG-UNFILLED.json",
+      "sha256": "687a8b36a139a16863a23deb7fab4b0cbfd383cae06719e72fd4974c31731d11"
+    },
+    {
+      "bytes": 4206,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/CONFIG-UNFILLED.json.diff",
+      "sha256": "ea727b3e193001905157ffd62d741aaa57bfe328a4e48af2174d6727174eaf2e"
+    },
+    {
+      "bytes": 1416,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/REPORT.md",
+      "sha256": "147d218fc8ab1606daef6a38dabe7f3f938e64bbeb97955ced7f5709b2a792d7"
+    },
+    {
+      "bytes": 3970,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/REPORT.md.diff",
+      "sha256": "7e141954cd0de3c77de87caf7d3637d7de71bf62098239fd89e6c56c294e9905"
+    },
+    {
+      "bytes": 8223,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/run_controls.py",
+      "sha256": "9d228d3d9260052cec17d0ae46962c5dd169d8089202b6912375f9e9a70719fc"
+    },
+    {
+      "bytes": 2200,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/run_controls.py.diff",
+      "sha256": "f3c81c700b41cee9077e55da0b12ee940b26d9e71d01d5e30e73df27bff0c6ba"
+    },
+    {
+      "bytes": 8277,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/test_controls.py",
+      "sha256": "bb4d65b110dde271da8940277dd244e8f0796fa34e8ad4395cb4ca4d1f8bcb9a"
+    },
+    {
+      "bytes": 3292,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/test_controls.py.diff",
+      "sha256": "a4674e826a2c07e9008fcf74758578c0a5fecc22ffed035857827645428989b5"
+    },
+    {
+      "bytes": 544,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/ARGV-ROLE.json",
+      "sha256": "066475e5e4804f6396cc76cc7e8603fc10be2f8427f166078d8c82b90edbc99a"
+    },
+    {
+      "bytes": 666,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/ARGV-ROLE.json.diff",
+      "sha256": "99ac1e45b3cf98c82c76fc46593731406463688a8cb3e379e7e0da7b67a5546a"
+    },
+    {
+      "bytes": 6245,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/BINDING-UNFILLED.json",
+      "sha256": "1a35fadd99fbd22edd8d8200c1b43bbf88dc0c6f718a40bc827566a78e20e337"
+    },
+    {
+      "bytes": 4961,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/BINDING-UNFILLED.json.diff",
+      "sha256": "975dbf404fb2a8c05892564873252d551b7db461a874bdda7e70b9008382aecb"
+    },
+    {
+      "bytes": 576,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/LAUNCH-UNFILLED.json",
+      "sha256": "9969be9a0b4afb3f5fad7975d674a49e730c160ec97dcc139405d363c2a5695e"
+    },
+    {
+      "bytes": 711,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/LAUNCH-UNFILLED.json.diff",
+      "sha256": "2671848673750e9ad8e8c743647d26fc9ade4f1c5dd1675f9d45665ef16e6afb"
+    },
+    {
+      "bytes": 1834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/PROVENANCE.json",
+      "sha256": "598282773eadfc82aabe16b4172ca87d3b0ebb00f3639606297e0c45a780902a"
+    },
+    {
+      "bytes": 1404,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/PROVENANCE.json.diff",
+      "sha256": "8adcfbe4525b0eebe053f583e5617f860ef600982edcc7e97d5ca18e5f465418"
+    },
+    {
+      "bytes": 2371,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/REPORT.md",
+      "sha256": "ca71f7a4734d0f27c9dd89c21ee807aea7165ff2a605afb41b699673a32e6661"
+    },
+    {
+      "bytes": 6621,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/REPORT.md.diff",
+      "sha256": "5b24e64880fd96aa8185e6982c17d483e0ffd4acc9df62b43cc155119f0aa0f0"
+    },
+    {
+      "bytes": 19461,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/add_inputs.py",
+      "sha256": "f2a4b81d0f5572ce5baeba771774126094df3500b5eff01cbbce32e08c0e9917"
+    },
+    {
+      "bytes": 25044,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/record.py",
+      "sha256": "0a26d8928d9853fd44a0960f852ce56d2cbce018fb7c8887fddbf1aa17e18e9e"
+    },
+    {
+      "bytes": 4337,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/record.py.diff",
+      "sha256": "a6caadfffee4c6adb1f7df0c5edd03ec2ce4cea30cd459fbea9264e69ad27839"
+    },
+    {
+      "bytes": 16934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/supervise.py",
+      "sha256": "e2258264783de69fa4d2a10c9c71ede7d4cabc0f80f87c17ba23935e32c9039d"
+    },
+    {
+      "bytes": 1467,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/supervise.py.diff",
+      "sha256": "7258c03bae733fc1a57e93d18e00a406639332d00e9777780510cfafd78866dd"
+    },
+    {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    }
+  ],
+  "rootPidBecomesHelperPid": 43572,
+  "schema": "additive-tiny-controls-parent-grant/v1",
+  "selectedPriorOwnedGroupsAbsent": [
+    14652,
+    18122,
+    28843,
+    34331,
+    38312
+  ],
+  "unexpectedHelperWaitIsStop": true,
+  "utc": "2026-10-09T18:51:29.409586+00:00"
+}

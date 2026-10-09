@@ -1,0 +1,33 @@
+{
+  "absenceClaim": "reserved name only; parent preflight must freshly verify absent before grant",
+  "futureWitness": null,
+  "futureWitnessFields": [
+    "sourcePinsSha256",
+    "configSha256",
+    "resultSha256",
+    "stdoutSha256"
+  ],
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-output-20261009-r1",
+  "procedure": "After actual witness independent acceptance, parent authorizes a new finite filled candidate config with actual physical role paths/sizes/hashes and exact four futureWitness fields. Preserve this unfilled package. Update recorder CONFIG_SHA only, pin exact diff/full candidate/source input roles, independent source/filled command review, then separate parent single-lane actual verification grant. Do not fabricate expected witness values or adapt a receipt decision retrospectively; agree prospective receipt shape with reviewer, or version an exact source-role adapter for authentic observed receipt.",
+  "requiredActualRoles": [
+    "actualWitnessSourcePins",
+    "actualWitnessConfig",
+    "actualWitnessResult",
+    "actualWitnessStdout",
+    "actualWitnessIndependentReceipt"
+  ],
+  "requiredObservedReceipt": {
+    "actualHelperExit": 0,
+    "actualToolExit": 0,
+    "configSha256": null,
+    "decision": "ACCEPT_OBSERVED_PURE_INITIAL23_FIRST_DRAWS",
+    "numericOnly": true,
+    "resultSha256": null,
+    "row0ControlAccepted": true,
+    "rows": 23,
+    "sourcePinsSha256": null,
+    "stdoutSha256": null
+  },
+  "runtimeOutput": "bounded human-readable23row ledger plus final JSON record on stdout; mismatch prints STOP ledger and Nodeexit2, recorder retains raw/result. No child output files.",
+  "status": "UNFILLED_UNRUN_NO_WITNESS_VALUES"
+}

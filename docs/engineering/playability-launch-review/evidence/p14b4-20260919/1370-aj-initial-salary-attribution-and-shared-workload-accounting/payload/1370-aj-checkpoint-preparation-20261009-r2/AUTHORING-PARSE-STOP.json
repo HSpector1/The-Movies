@@ -1,0 +1,7 @@
+{
+  "actualCandidateOrControlStatusUnaffected": true,
+  "error": "SyntaxError: ':' expected after dictionary key in a never-reached conditional dictionary expression for empty directory metadata",
+  "occurredBeforeAnyScriptStatementOrArtifactWrite": true,
+  "packageSourceImportedOrNodeRngPricingTestGitExecuted": false,
+  "status": "SOURCE_AUTHORING_PYTHON_PARSE_STOP_PRESERVED"
+}

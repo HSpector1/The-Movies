@@ -1,0 +1,52 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-runner-proposal-20261009-r3/run_controls.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r1/run_controls.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""UNRUN scratch-only runner for the unchanged 14 M0 route controls."""
++"""UNRUN scratch-only runner for the five tiny additive controls."""
+ import os,signal,time
+ START=time.monotonic()
+ if __name__=='__main__':
+@@ -26,7 +26,12 @@
+   if not root.exists(): continue
+   for parent,dirs,files in os.walk(root,followlinks=False):
+    for name in dirs+files:
+-    st=(Path(parent)/name).lstat(); need(not stat.S_ISLNK(st.st_mode),'owned output symlink')
++    st=(Path(parent)/name).lstat()
++    if stat.S_ISLNK(st.st_mode):
++     fixture=Path(C['controlOutput'])/'fixtures'
++     path=Path(parent)/name
++     need(path.is_relative_to(fixture) and name=='node_modules' and os.readlink(path)=='/Users/zacheryspector/The-Movies-headless-program/node_modules','unexpected owned output symlink')
++     continue
+     if stat.S_ISREG(st.st_mode): total+=st.st_size
+     else: need(stat.S_ISDIR(st.st_mode),'owned output special file')
+  need(total<=80*1024**2,'80 MiB owned output cap')
+@@ -105,7 +110,9 @@
+  here=Path(__file__).parent
+  pins=json.loads(authenticate(here/'SOURCE-PINS.json',sys.argv[1]))
+  for name,role in pins['files'].items(): authenticate(here/name,role['sha256'])
+- C=json.loads((here/'CONFIG.json').read_bytes())
++ need(len(sys.argv)==4,'sourcepins and exact config path/hash required')
++ C=json.loads(authenticate(Path(sys.argv[2]),sys.argv[3]))
++ need(C.get('executionAuthorization') is True,'held exact control config')
+  need(Path(sys.executable).resolve(strict=True)==Path(C['pythonPath']),'exact Python path')
+  authenticate(Path(C['pythonPath']),C['pythonSha256'])
+  for role in C['roles'].values(): authenticate(Path(role['path']),role['sha256'])
+@@ -117,7 +124,7 @@
+   test.ARGS=SimpleNamespace(**C['controlArgs']); test.SOURCE,test.ROOT,test.REVIEW=test.prepare(test.ARGS)
+   install_registration(test)
+   outcome=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(test.Controls))
+-  need(outcome.testsRun==14,'expected exact 14 groups')
++  need(outcome.testsRun==5,'expected exact five tiny groups')
+  except BaseException as exc: reason=type(exc).__name__+':'+str(exc)
+  finally:
+   PHASE='cleanup'
+@@ -135,7 +142,7 @@
+   os.fsync(REGFD); os.close(REGFD); PHASE='finalize'
+   try: cap_check()
+   except BaseException as exc: reason=reason or type(exc).__name__+':'+str(exc)
+-  ok=outcome is not None and outcome.wasSuccessful() and outcome.testsRun==14 and not reason and not STOP and not cleanup and not OWNED and len(HISTORY)==16 and time.monotonic()-START<ACTIVE
++  ok=outcome is not None and outcome.wasSuccessful() and outcome.testsRun==5 and not reason and not STOP and not cleanup and not OWNED and len(HISTORY)==4 and time.monotonic()-START<ACTIVE
+   result={'status':'CONTROLS_PASS' if ok else 'CONTROLS_STOP','testsRun':None if outcome is None else outcome.testsRun,'failures':None if outcome is None else len(outcome.failures),'errors':None if outcome is None else len(outcome.errors),'reason':reason,'stickyStop':STOP,'cleanupErrors':cleanup,'ownedGroups':HISTORY,'unresolvedOwned':OWNED,'elapsedSeconds':time.monotonic()-START,'wholeLimitSeconds':WHOLE,'sourcePinsSha256':sys.argv[1],'routeSourcePinsSha256':C['controlArgs']['source_pins_sha'],'routeReviewSha256':C['controlArgs']['route_review_sha'],'controlsSourcePinsSha256':C['roles']['controlsPins']['sha256'],'suiteLimitSeconds':ACTIVE,'gameOrMaterialization':False}
+   fd=os.open(root/'RESULT.json',os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
+   with os.fdopen(fd,'wb') as stream: stream.write(json.dumps(result,sort_keys=True).encode()+b'\n'); stream.flush(); os.fsync(stream.fileno())

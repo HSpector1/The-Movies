@@ -1,0 +1,107 @@
+--- r1/add_inputs.py
++++ r2/add_inputs.py
+@@ -1,18 +1,18 @@
+ #!/usr/bin/env python3
+ """UNRUN held M0 additive input draft; no execution authority."""
+-import argparse,hashlib,json,os,pathlib,shutil,signal,stat,subprocess,sys,tarfile,time
++import argparse,hashlib,json,os,pathlib,shutil,signal,stat,subprocess,sys,tarfile,time,selectors
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+ MIRROR=S/'1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2'
+-OUT=S/'1370-c0-m0-additive-input-output-20261009-r1/RESULT.json'
+-INPUTS=S/'1370-c0-m0-additive-bridge-dependency-proposal-20261009-r1/INPUTS.json'
+-INPUTS_SHA='cccd58d0d990767a197996f533237995b19548fdd080c24afb245c0bb0df490d'
++OUT=S/'1370-c0-m0-additive-input-output-20261009-r2/RESULT.json'
++INPUTS=S/'1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/INPUTS.json'
++INPUTS_SHA='d72e3292aff7d640c544e752e7bd54f6b66aebebf8a82cadda110d74f8111520'
+ SOURCE='292d6fd3b5293fe2a520b681ae4c1dde997dc113'
+ HEAD='282f8477e61a33bd5ec4a571b934829490adef73'
+ TREE='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+ REF='refs/heads/wip/headless-program-20260916-ts'
+ ORIGIN='https://github.com/HSpector1/The-Movies.git'
+-LANE_LOG='m0-additive-input-20261009-r1.lane.log'
++LANE_LOG='m0-additive-input-20261009-r2.lane.log'
+ WALL=180
+ START=time.monotonic()
+ PRE=3758096384
+@@ -92,6 +92,37 @@
+ def cmd(argv):
+  guard();p=subprocess.run(argv,cwd=REPO,env=clean_env(),capture_output=True,timeout=remaining())
+  need(p.returncode==0,'command failed '+repr(argv)+repr(p.stderr[-500:]));return p.stdout
++def preflight_space():
++ need(shutil.disk_usage(S).free>=PRE,'3.5 GiB preflight')
++
++def bounded_blob(oid,expected):
++ # All pipes bounded while reading, not after subprocess capture_output.
++ guard();need(0<=expected<=1517743,'blob expected size cap')
++ proc=subprocess.Popen(['git','cat-file','blob',oid],cwd=REPO,env=clean_env(),stdout=subprocess.PIPE,stderr=subprocess.PIPE)
++ selector=selectors.DefaultSelector();buffers={'stdout':bytearray(),'stderr':bytearray()}
++ try:
++  for name,pipe in [('stdout',proc.stdout),('stderr',proc.stderr)]:
++   os.set_blocking(pipe.fileno(),False);selector.register(pipe,selectors.EVENT_READ,name)
++  while selector.get_map():
++   wait=min(.1,remaining())
++   for key,_ in selector.select(wait):
++    name=key.data;cap=expected if name=='stdout' else 4096
++    # One extra byte detects overflow without accumulating it.
++    chunk=os.read(key.fileobj.fileno(),min(65536,cap-len(buffers[name])+1))
++    if not chunk:selector.unregister(key.fileobj);continue
++    need(len(buffers[name])+len(chunk)<=cap,'blob '+name+' cap')
++    buffers[name].extend(chunk)
++  need(proc.wait(timeout=remaining())==0,'blob child exit')
++  need(not buffers['stderr'],'blob stderr')
++  need(len(buffers['stdout'])==expected,'blob truncated')
++  return bytes(buffers['stdout'])
++ except BaseException:
++  if proc.poll() is None:proc.kill()
++  proc.wait(timeout=1)
++  raise
++ finally:
++  selector.close();proc.stdout.close();proc.stderr.close()
++
+ def source_guard():
+  need(cmd(['git','rev-parse','HEAD']).strip().decode()==HEAD,'production HEAD')
+  need(cmd(['git','rev-parse','HEAD:src']).strip().decode()==TREE,'production src')
+@@ -131,7 +162,7 @@
+ 
+ def exact_roster(expected_files,expected_dirs,link=False):
+  # Finite mirror-only enumeration; never follows dependency link.
+- found=set();dirs={'.'}
++ found=set();dirs={'.'};special=set()
+  def walk(fd,prefix):
+   for name in sorted(os.listdir(fd)):
+    guard();rel=prefix+'/'+name if prefix else name;st=os.stat(name,dir_fd=fd,follow_symlinks=False)
+@@ -142,8 +173,9 @@
+    elif stat.S_ISREG(st.st_mode):need(rel in expected_files,'extra file');found.add(rel)
+    else:
+     need(link and rel=='node_modules' and stat.S_ISLNK(st.st_mode),'extra special path')
+-    need(os.readlink(name,dir_fd=fd)==str(REPO/'node_modules'),'dependency target drift')
++    need(os.readlink(name,dir_fd=fd)==str(REPO/'node_modules'),'dependency target drift');special.add(rel)
+  walk(MIRROR_FD,'');need(found==set(expected_files) and dirs==set(expected_dirs),'incomplete roster')
++ need(special==({'node_modules'} if link else set()),'dependency link missing or unexpected')
+ 
+ def dependency_preflight(inputs):
+  # Version/lock input admission only. No Node launch, install, generator or whole dependency inventory.
+@@ -154,6 +186,7 @@
+  return attrs((REPO/'node_modules').lstat())
+ 
+ def add(inputs,facts):
++ preflight_space()
+  olddirs=facts['materializedDirectoryIdentities'];rootbefore=attrs(os.fstat(MIRROR_FD))
+  for name in olddirs:
+   fd=relative_fd(() if name=='.' else pathlib.PurePosixPath(name).parts)
+@@ -175,12 +208,13 @@
+  # Authenticate all63 blobs before the first write; bounded1,517,743 total.
+  blobs={}
+  for r in rows:
+-  need(r['mode']=='100644' and r['kind']=='blob','unsupported bridge mode');b=cmd(['git','cat-file','blob',r['oid']])
++  need(r['mode']=='100644' and r['kind']=='blob','unsupported bridge mode');b=bounded_blob(r['oid'],r['bytes'])
+   need(len(b)==r['bytes'] and sha(b)==r['sha256'] and hashlib.sha1(('blob '+str(len(b))+'\0').encode()+b).hexdigest()==r['oid'],'bridge blob drift');blobs[r['path']]=b
+  bridge_dirs={'bridge'}
+  for r in rows:
+   parts=pathlib.PurePosixPath(r['path']).parts;need(parts[0]=='bridge' and '..' not in parts,'bridge path')
+   for i in range(1,len(parts)):bridge_dirs.add('/'.join(parts[:i]))
++ preflight_space() # Recheck3.5GiB immediately before first exclusive write.
+  for name in sorted(bridge_dirs,key=lambda n:(n.count('/'),n)):
+   parts=pathlib.PurePosixPath(name).parts;fd=relative_fd(parts[:-1])
+   try:os.mkdir(parts[-1],0o700,dir_fd=fd);os.fsync(fd)

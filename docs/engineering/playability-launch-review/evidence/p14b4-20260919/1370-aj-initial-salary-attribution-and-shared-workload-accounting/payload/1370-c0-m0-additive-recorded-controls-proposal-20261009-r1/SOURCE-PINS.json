@@ -1,0 +1,38 @@
+{
+  "executionPerformed": false,
+  "files": {
+    "AUTHORING-PARSE-STOP.json": {
+      "bytes": 272,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r1/AUTHORING-PARSE-STOP.json",
+      "sha256": "2db29463f7b5acba4d2c180a3735085042dc3cdc149cb156ec468a3835620a74"
+    },
+    "CONFIG-UNFILLED.json": {
+      "bytes": 2148,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r1/CONFIG-UNFILLED.json",
+      "sha256": "fbc24d84d4550899062ce0033c6a0440a44ef7205f86d9142520724cf0d1d5c1"
+    },
+    "REPORT.md": {
+      "bytes": 2312,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r1/REPORT.md",
+      "sha256": "06e51f0c97f419d5b6422ffa7dc7111025b5f842c5efe51ba0e3870d47d13813"
+    },
+    "run_controls.py": {
+      "bytes": 8222,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r1/run_controls.py",
+      "sha256": "992080e056e172546f1052413e96bac7bc879e12aa02b85ad4631f0e6a487f88"
+    },
+    "run_controls.py.diff": {
+      "bytes": 3909,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r1/run_controls.py.diff",
+      "sha256": "568ebe58ec9e5b42f4e85c51c7fa0abdf02a754646e397321ad809c4a21f9a64"
+    },
+    "test_controls.py": {
+      "bytes": 5885,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r1/test_controls.py",
+      "sha256": "b0e2b416299f2844831b6a6b0d17164005422ed70868c78526bffbf874cdee75"
+    }
+  },
+  "productionHead": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "m0-additive-held-source-pins-r1"
+}

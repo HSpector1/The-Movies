@@ -1,0 +1,148 @@
+{
+  "executionAuthorization": false,
+  "externalRoles": {
+    "AEmploymentSource": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "APreimage": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/post-aging-employment.json",
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    "HEmploymentSource": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "HMathSource": {
+      "bytes": 3704,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/math.ts",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670"
+    },
+    "HPreimage": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/H-original-employment.json",
+      "sha256": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750"
+    },
+    "HTuningSource": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "acceptedComparison": {
+      "bytes": 2566,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-observed-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "faf6df1cb38011ff74b7fbbca9c712da242d13cc6b15f8581dc1f1019202cb3d"
+    },
+    "acceptedInitial22InputReview": {
+      "bytes": 3279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-input-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "6c3b9aed9733374669723a0053e93badd8e1253c81b52bfc6ff693d519231192"
+    },
+    "acceptedInitial22Roles": {
+      "bytes": 49025,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/INPUT-ROLES.json",
+      "sha256": "0e7c3ebf9c6e15d1db717ba12b942776ff01d3a2a5970d46436f216e472d322e"
+    },
+    "acceptedRow0Bridge": {
+      "bytes": 20367,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "9814ce7dcaf76b0fd141e28e0bf1de930c8575bc5c19bccd0fb1a313c38f7ceb"
+    },
+    "acceptedSalaryAgeProof": {
+      "bytes": 136304,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/PROOF.json",
+      "sha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2"
+    },
+    "acceptedSalaryAgeReview": {
+      "bytes": 1962,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "a71cc521f8c8ade5879191ac5e275034ca246bf58c6713534bf048ce703227a8"
+    },
+    "proposedPure23SourcePins": {
+      "bytes": 8515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
+    },
+    "row0TransportedArithmetic": {
+      "bytes": 6840,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/RECEIPT.json",
+      "sha256": "86e8bc464ad49ef7f10a860178efb84925a32e3d28650eb8159f84d73f401c4d"
+    }
+  },
+  "files": {
+    "CONFIG-UNFILLED.json": {
+      "bytes": 6087,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/CONFIG-UNFILLED.json",
+      "sha256": "0e78eda5ad73702635054003d49560f77545c16e2fe5abef297ad456a5498168"
+    },
+    "CONFIG.json": {
+      "bytes": 6087,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/CONFIG.json",
+      "sha256": "0e78eda5ad73702635054003d49560f77545c16e2fe5abef297ad456a5498168"
+    },
+    "FILL-REQUIREMENTS.json": {
+      "bytes": 1724,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/FILL-REQUIREMENTS.json",
+      "sha256": "040fd9670e57dd7b711b365ef57ee1afc78d71759178971f9679cdf627015cd0"
+    },
+    "NOTE.md": {
+      "bytes": 2898,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/NOTE.md",
+      "sha256": "360c597525caededd400830e893a1fb0409f6c3b8e8abb707baf35694918eceb"
+    },
+    "PRICING-INPUTS.json": {
+      "bytes": 36398,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/PRICING-INPUTS.json",
+      "sha256": "b7d41f142ddf570258ad8ce8bff8800dd40c11e64c321c6f3c1065e31099a24d"
+    },
+    "RECIPE.json": {
+      "bytes": 1667,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/RECIPE.json",
+      "sha256": "16c5886163f7ee5100650c709487c1b1a6bdd5ede1826b16f9d16ed1e11b641c"
+    },
+    "RECORDER-REUSE.diff": {
+      "bytes": 5792,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/RECORDER-REUSE.diff",
+      "sha256": "6f39abb2cc75b8a283b5af593cd09322d0b090fe96871aa21c029878815ccc3d"
+    },
+    "RECORDER-REUSE.json": {
+      "bytes": 2479,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/RECORDER-REUSE.json",
+      "sha256": "fab30eb1afff07ed2d3e3ee01702b8e7bee3034935ebd01bf7f4211d1253bfe9"
+    },
+    "SOURCE-OPERATION-PROOF.json": {
+      "bytes": 3931,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/SOURCE-OPERATION-PROOF.json",
+      "sha256": "512dd208ea8e3ea05b69dd04c75b879d4b8abd8b9057e54637165f6ff2088d9b"
+    },
+    "authenticate-inputs.mjs": {
+      "bytes": 2337,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/authenticate-inputs.mjs",
+      "sha256": "24edb17dae8f9207dc98d621f07ea553f44aa332cb0a31c7a6856249f7cf1ffe"
+    },
+    "record-pure-node.py": {
+      "bytes": 14350,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/record-pure-node.py",
+      "sha256": "a69a865a698fa21b66276e80d9d14f5cd709343e79ccc25a18bdf97e7e93348e"
+    },
+    "verify-initial-pricing.mjs": {
+      "bytes": 2498,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/verify-initial-pricing.mjs",
+      "sha256": "67f8d5edf01a6d6727d694531c3d359404b7c4fcc6a8f6a949530937f0654751"
+    },
+    "verify-pricing-core.mjs": {
+      "bytes": 8093,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/verify-pricing-core.mjs",
+      "sha256": "209e7af90501e93742137cff9c80627c89f72988c631590416cd06e42ed7e4c5"
+    }
+  },
+  "futureWitness": null,
+  "newNumericExecution": false,
+  "productionHeadAtPreparation": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "1370-initial23-pricing-verification-source-pins-r1",
+  "status": "SOURCE_ONLY_UNFILLED_UNRUN"
+}

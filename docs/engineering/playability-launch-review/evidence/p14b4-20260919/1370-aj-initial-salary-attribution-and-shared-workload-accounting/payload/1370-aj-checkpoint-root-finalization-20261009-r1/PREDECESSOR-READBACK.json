@@ -1,0 +1,16 @@
+{
+  "branch": "wip/headless-program-20260916-ts",
+  "finalizer": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ai-archive-finalization-source-20261009-r1/finalize_archive.py",
+    "sha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b"
+  },
+  "head": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "mainMergeAuthorizedAtThisCheckpoint": false,
+  "noHeavyJobActive": true,
+  "remoteMain": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "remoteWorkingRef": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "sourceMutationAuthorized": false,
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "CLEAN_PUBLISHED_PREDECESSOR_RECONCILED",
+  "utc": "2026-10-09T19:04:28.436684+00:00"
+}

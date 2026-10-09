@@ -1,0 +1,43 @@
+{
+  "initialScope": 22,
+  "inputArtifact": {
+    "bytes": 49025,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/INPUT-ROLES.json",
+    "sha256": "0e7c3ebf9c6e15d1db717ba12b942776ff01d3a2a5970d46436f216e472d322e"
+  },
+  "knownControlRole": {
+    "acceptedF1Draw": 0.34857689985074103,
+    "acceptedF1Jitter": 0.9757723039761186,
+    "key": "offer-person-studio-aca408ec-r01-0",
+    "role": "F1 observer recomputation transported via accepted source bridge, not historical offer-local capture",
+    "talentId": "person-studio-aca408ec-r01-0"
+  },
+  "noExecution": true,
+  "orderedSourceOrdinals": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "projection": "knownControl projected to ordinal0 identity by existing contract law/source-preimage review; remaining22 use exact identity, HSourceOrder==ASourceOrder, seed.value,hiringPurpose,hiringKey,streamSeed,talentId. Salary/age/terms scalars deliberately remain source-input provenance only, are never recomputed or emitted as measurements.",
+  "renewalsExcluded": 16
+}

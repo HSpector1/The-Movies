@@ -1,0 +1,199 @@
+{
+  "configRoles": 20,
+  "exactCoreExpectedEqualsInputs": true,
+  "externalRoles": 11,
+  "inputRows": 23,
+  "ordinals": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "packageFiles": 18,
+  "projectedUnknownRows": 22,
+  "recorderExactCountedSubstitutions": 7,
+  "rngExactCountedErasureSteps": 20,
+  "rngNodeCompilerGameOrTestExecution": false,
+  "roles": [
+    {
+      "bytes": 8515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
+    },
+    {
+      "bytes": 6333,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/CONFIG.json",
+      "sha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e"
+    },
+    {
+      "bytes": 4542,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/CONTROL-AND-WITNESS-RECIPE.json",
+      "sha256": "bb48b45355519dca1ca8d6e0c5aedae376f73c262ca9ccf581c9b2b2535dac0e"
+    },
+    {
+      "bytes": 1223,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/INPUT-PROJECTION.json",
+      "sha256": "2ecfd688bb54ba585b5297fdd50ede88d2e27cb90e90f643be90d23c57bce2d7"
+    },
+    {
+      "bytes": 10393,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/INPUTS.json",
+      "sha256": "df276fbbc3ec43b022348bad685fadb52fc33d3434e6fac2fb6f2fea1a895e92"
+    },
+    {
+      "bytes": 5294,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/RECORDER-REUSE.diff",
+      "sha256": "cf144df366ff0314e2629cda5d17851927c0d48a210188e053c9c4958f5f5f90"
+    },
+    {
+      "bytes": 2802,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/RECORDER-REUSE.json",
+      "sha256": "239fda8e6ad502aa8a53796bf5e963f6a984a4493f62f15d2c7534c384fd4aef"
+    },
+    {
+      "bytes": 2808,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/REPORT.md",
+      "sha256": "16890c725db595eda970b952f80cf7e857f6bfad904798e14c6735b180242584"
+    },
+    {
+      "bytes": 6106,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/RNG-TYPE-ERASURE.diff",
+      "sha256": "2a0e4fdc174272162ec7e39eeddf2ce539f4fb43afdecd8040d6c86bfb6d8b09"
+    },
+    {
+      "bytes": 5143,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/RNG-TYPE-ERASURE.json",
+      "sha256": "c8f6fc562e447c733e1f171e7fb0e184e2686da7b4459ec8dbf16dfa118b665e"
+    },
+    {
+      "bytes": 49025,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-INPUT-ROLES.json",
+      "sha256": "0e7c3ebf9c6e15d1db717ba12b942776ff01d3a2a5970d46436f216e472d322e"
+    },
+    {
+      "bytes": 648,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/STATIC-AUTHOR-CHECKS.json",
+      "sha256": "261e6415462267e3205562918db79968acb891453a015e4d3227a84a5232b995"
+    },
+    {
+      "bytes": 2179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/authenticate-inputs.mjs",
+      "sha256": "04cedc4037d2d27f2bae261e708cab40090e5f48c1c6abc74b9e1a8905cbdb48"
+    },
+    {
+      "bytes": 11922,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/first-draw-core.mjs",
+      "sha256": "c621a950dab3c7e42ea2d91306b573e74a81233e6578e244d59b3766df084b3d"
+    },
+    {
+      "bytes": 14453,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/record-pure-node.py",
+      "sha256": "68c3b15c65fc57075a7dec54a1ba15c26e1a537a314ef0916023775de89d7e8b"
+    },
+    {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/rng.original.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+    },
+    {
+      "bytes": 6427,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/rng.type-erased.mjs",
+      "sha256": "6534a0670862dc7a6778373d0375628d59761e1af27b84d5a79fc76c2c80fedc"
+    },
+    {
+      "bytes": 2280,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/test-first-draw.mjs",
+      "sha256": "8cc57143856531f437430b8f539573aabb31a6524e6a0483dc5f0585c4ad5f6a"
+    },
+    {
+      "bytes": 234,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/witness-first-draw.mjs",
+      "sha256": "c3a37aefd609623486da3f505fb9233ab2e166e422eac872fdc2409ae6c2fd2d"
+    },
+    {
+      "bytes": 49025,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/INPUT-ROLES.json",
+      "sha256": "0e7c3ebf9c6e15d1db717ba12b942776ff01d3a2a5970d46436f216e472d322e"
+    },
+    {
+      "bytes": 4756,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/NOTE.md",
+      "sha256": "681c8675d362471ba304f226b7378761735c9f70c644f190ed51600950c2d24f"
+    },
+    {
+      "bytes": 20367,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "9814ce7dcaf76b0fd141e28e0bf1de930c8575bc5c19bccd0fb1a313c38f7ceb"
+    },
+    {
+      "bytes": 1962,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "a71cc521f8c8ade5879191ac5e275034ca246bf58c6713534bf048ce703227a8"
+    },
+    {
+      "bytes": 136304,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/PROOF.json",
+      "sha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2"
+    },
+    {
+      "bytes": 3279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-input-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "6c3b9aed9733374669723a0053e93badd8e1253c81b52bfc6ff693d519231192"
+    },
+    {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+    },
+    {
+      "bytes": 1537,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ai-checkpoint-root-finalization-20261009-r1/NEXT-SLICE-ADOPTION.json",
+      "sha256": "5588db394c55d6a380451fe7742e0f67820993036183be2a95c46d7a1a7efec1"
+    },
+    {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    {
+      "bytes": 3829,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+      "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+    }
+  ],
+  "sourceOnlyAudit": true,
+  "sourcePinsRole": {
+    "bytes": 8515,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
+  },
+  "wrapper": {
+    "bytes": 4405,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/grant_and_launch.py",
+    "sha256": "faf8c8f68d1a8eadfefc10826ed5a88da18e00fbca0a3f9d4488ce0a90eecde0"
+  }
+}

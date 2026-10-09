@@ -1,0 +1,103 @@
+{
+  "bothArmsExactCalls": {
+    "state": 3526,
+    "wholeRow": 1984
+  },
+  "callScope": "Direct complete-state and ordinary complete boundary-row boundedJson invocations on successful current source path. Excludes variable comparisons/family serializers and smaller summaries, plus native serializers and other operations.",
+  "claimLimit": "Finite source-count accounting and arithmetic illustration only; not measured route time, a lower bound, a controlled cross-session comparison, or a feasibility verdict. Arms and later boundaries may differ/grow; costs omitted remain unmeasured. No integration/full109 retry or bounds change authorized.",
+  "coarse110BoundaryProxyPerArmCalls": {
+    "state": 1760,
+    "wholeRow": 990
+  },
+  "engineNodeRngTestsImportsCaptureDecodeOrFullScan": false,
+  "generationDerivation": "110*(capture5S2R +writer1R +externalparse1S +externaladmit2S2R) +109*tickpurity2S =1098S550R (continuation127-138)",
+  "illustrationsSeconds": {
+    "coarseOneArm": 212.33977248,
+    "coarseTwoLikeArms": 424.67954496,
+    "exactOneArmCallWeights": 212.733749274,
+    "exactTwoLikeArmsCallWeights": 425.467498548
+  },
+  "oldSourceArtifactsModified": false,
+  "parentProvidedAcceptedEarlyMediansMs": {
+    "state": 62.986398,
+    "wholeRow": 102.5088
+  },
+  "perArmExactCalls": {
+    "state": 1763,
+    "wholeRow": 992
+  },
+  "perArmPhases": {
+    "generation": {
+      "state": 1098,
+      "wholeRow": 550
+    },
+    "readback": {
+      "state": 660,
+      "wholeRow": 440
+    },
+    "startup": {
+      "state": 5,
+      "wholeRow": 2
+    }
+  },
+  "primitiveCosts": {
+    "admit": {
+      "sourceLines": "continuation.test.ts:49-63",
+      "state": 2,
+      "wholeRow": 2
+    },
+    "captureIncludingAdmit": {
+      "sourceLines": "continuation.test.ts:64-72",
+      "state": 5,
+      "wholeRow": 2
+    },
+    "ordinaryWriterAppend": {
+      "sourceLines": "streaming.mjs:35,100-107",
+      "state": 0,
+      "wholeRow": 1
+    },
+    "parseRow": {
+      "sourceLines": "streaming.mjs:83-88",
+      "state": 1,
+      "wholeRow": 0
+    },
+    "tickCallerPurity": {
+      "sourceLine": "continuation.test.ts:129",
+      "state": 2,
+      "wholeRow": 0
+    }
+  },
+  "priorCorrectnessAndBenchmarkPassesPreserved": true,
+  "readbackDerivation": "110*(actualparse/admit3S2R +externalparse/admit3S2R) =660S440R (continuation143-148)",
+  "roles": {
+    "MANIFEST.json": {
+      "bytes": 37717,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/MANIFEST.json",
+      "sha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578"
+    },
+    "continuation.test.ts": {
+      "bytes": 14654,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/continuation.test.ts",
+      "sha256": "56623bb24ddbd8b923187854c3518c312d6c09f7fba427162679361d58995d33"
+    },
+    "run.py": {
+      "bytes": 28763,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/run.py",
+      "sha256": "bbffa0b6e17fbefce41e66c8ca13d4e034909f2d37e8bc2f84926846be3e2c13"
+    },
+    "streaming.mjs": {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    }
+  },
+  "schema": "b109-frozen-source-workload-accounting/v1",
+  "sharedClock": {
+    "capSeconds": 300,
+    "includesInterArmElapsedWork": true,
+    "resetForSecondArm": false,
+    "sourceLines": "run.py:393-478 (particularly444-457)",
+    "startedOnceBeforeFirstOwnedLaunch": true
+  },
+  "startupDerivation": "parseRow1S +admit2S2R +clone1S +clonehash1S =5S2R (continuation119-122)"
+}

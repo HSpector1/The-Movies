@@ -1,0 +1,51 @@
+{
+  "authoredMethods": 7,
+  "bounds": {
+    "expectedOwnedStubForks": 4,
+    "helperLogBytes": 1048576,
+    "ownedOutputBytes": 83886080,
+    "suiteActiveSeconds": 255,
+    "wholeRunnerSeconds": 285
+  },
+  "claimLimit": "Concrete seven-method controls-only inputs; exact independent config/launch review and root grant still required. No additive mirror, fullguard, elapsed synthetic-bound, actual hardkill or game acceptance.",
+  "controlArgs": {
+    "output_root": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2",
+    "route_review": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-source-review-20261009-r2/ROUTE-RECEIPT.json",
+    "route_review_sha": "81492801b0284d73c65b63e0082473e6b45767a673b2248898f40f8ae29870f9",
+    "source_dir": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2",
+    "source_pins_sha": "aa2f171d6da60e39ffa28eb3f16cab09c50b526fa05fd0ff1e299d21945bc0ff"
+  },
+  "controlOutput": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2",
+  "executionAuthorization": true,
+  "helperLog": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-lane-20261009-r2/controls.lane.log",
+  "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+  "roles": {
+    "controls": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/test_controls.py",
+      "sha256": "bb4d65b110dde271da8940277dd244e8f0796fa34e8ad4395cb4ca4d1f8bcb9a"
+    },
+    "controlsPins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "73bbea8af39d83aad7d674a905f3879ba6144c40fc726687b1640f99b1c1f97e"
+    },
+    "controlsReview": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-source-review-20261009-r2/CONTROLS-RECEIPT.json",
+      "sha256": "13a554591dcf8ce4e2646d24ad6732cf4c4997b14b128376ab46d2ef7da64ece"
+    },
+    "helper": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "routePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "aa2f171d6da60e39ffa28eb3f16cab09c50b526fa05fd0ff1e299d21945bc0ff"
+    },
+    "routeReview": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-source-review-20261009-r2/ROUTE-RECEIPT.json",
+      "sha256": "81492801b0284d73c65b63e0082473e6b45767a673b2248898f40f8ae29870f9"
+    }
+  },
+  "runnerOutput": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-output-20261009-r2",
+  "schema": "m0-additive-tiny-controls-held-config-r1"
+}

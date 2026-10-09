@@ -1,0 +1,42 @@
+--- qualified-fastpass-recorder
++++ pricing-recorder
+@@ -2,8 +2,8 @@
+ late exit/active checks and sanitized Node environment; no game or Save imports."""
+ import datetime,hashlib,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='3fd3b21c188b7a8b6991dcb2e10c894f7674a5e3c2bd12a6bafe322a283e941e';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
+-OUTPUTS={mode:SCRATCH/('1370-c0-b109-token-assertion-fastpass-'+mode+'-output-20261009-r1') for mode in ('controls','benchmark')}
++CONFIG_SHA='0e78eda5ad73702635054003d49560f77545c16e2fe5abef297ad456a5498168';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
++OUTPUTS={mode:SCRATCH/('1370-c0-initial23-pricing-'+mode+'-output-20261009-r1') for mode in ('verification',)}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()
+@@ -176,11 +176,11 @@
+  owned={};pipes=[];sel=None;output=None;buffers={'stdout':bytearray(),'stderr':bytearray()};child=None;child_started=None;failure=None;mode=None;groupclear=True;timedout=False
+  try:
+   require(sys.dont_write_bytecode and not sys.flags.optimize,'PYTHON_B_REQUIRED');require(len(sys.argv)==2 and sys.argv[1] in OUTPUTS,'EXACT_MODE');mode=sys.argv[1]
+-  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw)
++  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(isinstance(config.get('futureWitness'),dict),'WITNESS_UNFILLED')
+   for role in config['roles'].values():authenticate(role['path'],role['sha256'],16*1024**2);whole_guard(end)
+   authenticate(config['nodePath'],config['nodeSha256']);require(os.access(config['nodePath'],os.X_OK),'NODE_EXECUTABLE');active_guard(started)
+   output=OUTPUTS[mode];require(output.parent==SCRATCH and SCRATCH.resolve(strict=True)==SCRATCH and not os.path.lexists(output),'ABSENT_OWNED_OUTPUT');output.mkdir(mode=0o700)
+-  script=config['roles']['controls' if mode=='controls' else 'benchmark']['path'];argv=[config['nodePath'],script,CONFIG_SHA]
++  script=config['roles']['verification']['path'];argv=[config['nodePath'],script,CONFIG_SHA]
+   out_read,out_write=os.pipe();pipes.extend([out_read,out_write]);err_read,err_write=os.pipe();pipes.extend([err_read,err_write])
+   child_started=time.monotonic() # 60 starts before fork or GO permits execution.
+   start_owned(argv,str(HERE),child_environment(),out_write,err_write,owned)
+@@ -224,11 +224,11 @@
+     try:
+      require(child is not None and child.poll()==0,'CHILD_EXIT_'+str(None if child is None else child.returncode))
+      observed_exit_guard(started,child_started,len(buffers['stdout']),len(buffers['stderr']))
+-     last=json.loads(bytes(buffers['stdout']).splitlines()[-1]);expected='ENCODER_EQUIVALENCE_AND_REFUSALS_PASSED' if mode=='controls' else 'PURE_INDEXED308_ENCODER_BENCHMARK_COMPLETE'
+-     require(last.get('status')==expected and not buffers['stderr'] and (mode!='controls' or last.get('groups')==22),'REPORT_ROLE');active_guard(started)
++     last=json.loads(bytes(buffers['stdout']).splitlines()[-1]);expected='PURE_INITIAL23_PRICING_PAIRS_AGREE'
++     require(last.get('status')==expected and not buffers['stderr'] and (last.get('selectedRows')==23 and last.get('immutablePairs')==44 and last.get('mismatches')==0 and last.get('originalOfferLocalCapture') is False and last.get('renewalAttribution') is False),'REPORT_ROLE');active_guard(started)
+     except BaseException as exc:
+      failure=str(exc) or repr(exc);timedout=isinstance(exc,TimeoutError) or 'DEADLINE' in failure or '_SECONDS' in failure
+-   result={'schema':'1370-b109-pure-encoder-recorder-r4','status':failure or 'PURE_ENCODER_'+str(mode).upper()+'_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'node':CHILD,'active':ACTIVE,'whole':WHOLE},'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
++   result={'schema':'1370-b109-pure-encoder-recorder-r4','status':failure or 'PURE_INITIAL23_PRICING_'+str(mode).upper()+'_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'node':CHILD,'active':ACTIVE,'whole':WHOLE},'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    if output is not None and time.monotonic()<end:
+     for name,raw in buffers.items():whole_guard(end);write(output/(name+'.bin'),bytes(raw));whole_guard(end)
+     if not failure:active_guard(started)

@@ -1,0 +1,16 @@
+{
+  "launch": {
+    "chunk_id": "91d714",
+    "wall_time_seconds": 1.002046006,
+    "session_id": 71451,
+    "original_token_count": 0,
+    "output": ""
+  },
+  "completion": {
+    "chunk_id": "12870d",
+    "wall_time_seconds": 3.830255258,
+    "exit_code": 0,
+    "original_token_count": 64,
+    "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/BENCHMARK-GRANT.json\", \"bytes\": 10323, \"sha256\": \"839a05a283612f528e3c19e2398f0661bd6ab90a8875199d62247abe654a782c\"}, \"helperPid\": 38049}\n"
+  }
+}

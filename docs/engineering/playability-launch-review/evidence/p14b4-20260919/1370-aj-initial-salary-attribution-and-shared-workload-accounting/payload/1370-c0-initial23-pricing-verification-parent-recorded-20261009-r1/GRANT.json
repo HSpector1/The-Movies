@@ -1,0 +1,267 @@
+{
+  "acPower": true,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-lane-20261009-r2/pricing.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/record-pure-node.py",
+    "verification"
+  ],
+  "bounds": {
+    "activeSeconds": 75,
+    "ledgerBytes": 65536,
+    "nodeSeconds": 60,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576,
+    "wholeSeconds": 90
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "expectedImmutablePairs": 44,
+  "expectedSelectedRows": 23,
+  "freeBytes": 5612908544,
+  "gameExecutionAuthorized": false,
+  "globalProcessAbsenceClaim": false,
+  "observedAgreementClaim": false,
+  "productionHead": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "renewalsExcluded": 16,
+  "rootPidBecomesHelperPid": 28579,
+  "schema": "initial23-pricing-parent-grant/v1",
+  "selectedPreviouslyOwnedGroupsAbsent": [
+    17678,
+    10372,
+    10639,
+    10655,
+    71794,
+    74268,
+    14652,
+    18122
+  ],
+  "sourceReview": {
+    "bytes": 2669,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-filled-pricing-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "18179789fab0beaca6d58ddcdddfebc06501b1f9d57a0f1352a1c5bec8a6dda2"
+  },
+  "sourceRoles": [
+    {
+      "bytes": 2669,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-filled-pricing-independent-source-review-20261009-r2/RECEIPT.json",
+      "sha256": "18179789fab0beaca6d58ddcdddfebc06501b1f9d57a0f1352a1c5bec8a6dda2"
+    },
+    {
+      "bytes": 11647,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "335dc84cb31e2b084f95f441737eec0529ea995925f10289615169618fe74924"
+    },
+    {
+      "bytes": 4277,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-parent-recorded-20261009-r1/grant_and_launch.py",
+      "sha256": "b1139d8505bb1cff3609aad89367b78ec5517f45bd878c5cba71206e10519ce4"
+    },
+    {
+      "bytes": 6087,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/CONFIG-UNFILLED.json",
+      "sha256": "0e78eda5ad73702635054003d49560f77545c16e2fe5abef297ad456a5498168"
+    },
+    {
+      "bytes": 8079,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/CONFIG.json",
+      "sha256": "53e53854cf619416fc111dcdd4ffdf60b58af2111c9658cdbf3aa599d3eb3105"
+    },
+    {
+      "bytes": 5101,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/FILL-RECEIPT.json",
+      "sha256": "fd2bbaaad22c69a5d0670883ec7a64371307f2375483716f48166f6bf5ca886b"
+    },
+    {
+      "bytes": 3184,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/FILL-REQUIREMENTS.json",
+      "sha256": "dabf2b0f2c96216c31919d5abd5e7ccf1c4a5b589b7f303042615f16d3fa4316"
+    },
+    {
+      "bytes": 2163,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/NOTE.md",
+      "sha256": "acb7b8316afe14dc87bc50eb4af72b69fff0bcebdddcc80f88e945134ca8f3f8"
+    },
+    {
+      "bytes": 36398,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/PRICING-INPUTS.json",
+      "sha256": "b7d41f142ddf570258ad8ce8bff8800dd40c11e64c321c6f3c1065e31099a24d"
+    },
+    {
+      "bytes": 20520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/R1-TO-R2.diff",
+      "sha256": "7e2bd100fbd11e3b6b3f4cbcae5b4dc6673ac2c6f6c1b8537d7930b1415b1929"
+    },
+    {
+      "bytes": 2504,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/RECIPE.json",
+      "sha256": "cfafceaa62859b306a734b19b4e2e0ca4fd98419e33492045a1aaf4e2dc2f1e1"
+    },
+    {
+      "bytes": 5798,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/RECORDER-REUSE.diff",
+      "sha256": "d51d2dbf2a39e3f103b8d4638640f62eb8fcedafafbbeebf7f143972bfbe3e39"
+    },
+    {
+      "bytes": 2482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/RECORDER-REUSE.json",
+      "sha256": "970a1b43e7c03b705178ccfe3a03dc4e24ac35bf7ca85a0879e63d21630dac2a"
+    },
+    {
+      "bytes": 3931,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/SOURCE-OPERATION-PROOF.json",
+      "sha256": "512dd208ea8e3ea05b69dd04c75b879d4b8abd8b9057e54637165f6ff2088d9b"
+    },
+    {
+      "bytes": 2337,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/authenticate-inputs.mjs",
+      "sha256": "24edb17dae8f9207dc98d621f07ea553f44aa332cb0a31c7a6856249f7cf1ffe"
+    },
+    {
+      "bytes": 14353,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/record-pure-node.py",
+      "sha256": "824c7172b5cb6b5b3337587490697fd2aa578b6682b6fcdc2aeaf5474016d699"
+    },
+    {
+      "bytes": 2498,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/verify-initial-pricing.mjs",
+      "sha256": "67f8d5edf01a6d6727d694531c3d359404b7c4fcc6a8f6a949530937f0654751"
+    },
+    {
+      "bytes": 8093,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2/verify-pricing-core.mjs",
+      "sha256": "209e7af90501e93742137cff9c80627c89f72988c631590416cd06e42ed7e4c5"
+    },
+    {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/post-aging-employment.json",
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    {
+      "bytes": 3704,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/math.ts",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670"
+    },
+    {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/H-original-employment.json",
+      "sha256": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750"
+    },
+    {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    {
+      "bytes": 2566,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-observed-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "faf6df1cb38011ff74b7fbbca9c712da242d13cc6b15f8581dc1f1019202cb3d"
+    },
+    {
+      "bytes": 2336,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "53943dc9865e9f82cec6757aa24af3d1300d6eb2f7b37c9a5be59b8cfe9cb77c"
+    },
+    {
+      "bytes": 3279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-input-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "6c3b9aed9733374669723a0053e93badd8e1253c81b52bfc6ff693d519231192"
+    },
+    {
+      "bytes": 49025,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/INPUT-ROLES.json",
+      "sha256": "0e7c3ebf9c6e15d1db717ba12b942776ff01d3a2a5970d46436f216e472d322e"
+    },
+    {
+      "bytes": 20367,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "9814ce7dcaf76b0fd141e28e0bf1de930c8575bc5c19bccd0fb1a313c38f7ceb"
+    },
+    {
+      "bytes": 136304,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/PROOF.json",
+      "sha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2"
+    },
+    {
+      "bytes": 1962,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "a71cc521f8c8ade5879191ac5e275034ca246bf58c6713534bf048ce703227a8"
+    },
+    {
+      "bytes": 6333,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/CONFIG.json",
+      "sha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e"
+    },
+    {
+      "bytes": 4219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
+    },
+    {
+      "bytes": 920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/RESULT.json",
+      "sha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d"
+    },
+    {
+      "bytes": 8515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
+    },
+    {
+      "bytes": 9419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stdout.bin",
+      "sha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
+    },
+    {
+      "bytes": 1279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/WITNESS-ADOPTION.json",
+      "sha256": "6166bbb1701671d0fa8b2c3723dbcff7592cbc2466bae5eb28f4120ef242ce65"
+    },
+    {
+      "bytes": 8515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
+    },
+    {
+      "bytes": 6840,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/RECEIPT.json",
+      "sha256": "86e8bc464ad49ef7f10a860178efb84925a32e3d28650eb8159f84d73f401c4d"
+    },
+    {
+      "bytes": 92324688,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+      "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+    },
+    {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    }
+  ],
+  "status": "GRANT_EXACT_PURE_INITIAL23_PRICING_VERIFICATION_ONLY",
+  "unexpectedHelperWaitIsStop": true,
+  "utc": "2026-10-09T18:36:01.300500+00:00"
+}

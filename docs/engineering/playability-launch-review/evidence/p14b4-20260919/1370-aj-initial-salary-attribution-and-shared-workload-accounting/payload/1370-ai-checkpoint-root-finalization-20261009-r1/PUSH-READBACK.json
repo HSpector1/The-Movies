@@ -1,0 +1,20 @@
+{
+  "actualGitBlobObjectsReadBack": 626,
+  "branch": "wip/headless-program-20260916-ts",
+  "checkpointPathsReadBack": 628,
+  "clean": true,
+  "head": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "localHashSizeOnlyRoles": 14,
+  "mainMerged": false,
+  "manifestSha256": "0ab10ce492ff9ef0a22b341f510f1e64536940e91715231257a5c00c75e5e04b",
+  "newPayloadBytes": 28745608,
+  "newPayloadFiles": 623,
+  "noHeavyJobActive": true,
+  "parent": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "priorGitBlobRoles": 83,
+  "remoteMain": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "remoteWorkingRef": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "PUSHED_REMOTE_REF_ANCESTRY_SOURCE_TREE_CLEAN_AND_EXACT_BLOB_READBACK_VERIFIED",
+  "utc": "2026-10-09T18:06:10.605367+00:00"
+}

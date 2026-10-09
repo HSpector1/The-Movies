@@ -1,0 +1,40 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r1/test_controls.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/test_controls.py
+@@ -1,5 +1,5 @@
+ """UNRUN owned tiny controls; qualified route/source roles required before import."""
+-import argparse,hashlib,importlib.util,json,os,signal,sys,tempfile,time,types,unittest
++import ast,argparse,hashlib,importlib.util,json,os,signal,sys,tempfile,time,types,unittest
+ from pathlib import Path
+ from unittest.mock import patch
+ S=Path('/Users/zacheryspector/studio-scratch')
+@@ -83,3 +83,30 @@
+    changed=list(after);changed[index]+=1
+    with self.assertRaises(Exception):self.rec.check_root_transition(before,changed,True,changed)
+   with self.assertRaises(Exception):self.rec.check_root_transition(before,after,True,before)
++ def test_06_extracted_failure_reap_fake_clock(self):
++  # Execute only the exact authenticated helper AST with fake clock/wait; no process.
++  tree=ast.parse((SOURCE/'record.py').read_text());node=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='reap_failed_child')
++  scope={'os':types.SimpleNamespace(WNOHANG=os.WNOHANG),'time':time}
++  exec(compile(ast.Module(body=[node],type_ignores=[]),'exact_reap_helper','exec'),scope);reap=scope['reap_failed_child']
++  elapsed=[0.];calls=[]
++  def clock():return elapsed[0]
++  def sleeper(n):elapsed[0]+=n
++  def stubborn(pid,flags):calls.append((pid,flags));return (0,0)
++  self.assertFalse(reap(77,.2,clock,sleeper,stubborn));self.assertEqual(elapsed[0],.2);self.assertTrue(calls);self.assertTrue(all(x==(77,os.WNOHANG) for x in calls))
++  self.assertFalse(reap(77,.2,lambda:.2,sleeper,lambda *a:self.fail('wait at expired deadline')))
++  self.assertTrue(reap(77,1,lambda:0,sleeper,lambda p,f:(77,0)))
++  def already_reaped(*args):raise ChildProcessError()
++  self.assertTrue(reap(77,1,lambda:0,sleeper,already_reaped))
++ def test_07_extracted_pre_setsid_exact_pid_fallback(self):
++  # Missing PGIDs simulate pre-setsid. No actual SIGKILL/worker/alarm is launched.
++  tree=ast.parse((SOURCE/'supervise.py').read_text());node=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='hard_terminate_known')
++  calls=[]
++  def missing_group(pid,sig):calls.append(('group',pid,sig));raise ProcessLookupError()
++  def direct(pid,sig):calls.append(('pid',pid,sig))
++  scope={'os':types.SimpleNamespace(killpg=missing_group,kill=direct),'signal':signal}
++  exec(compile(ast.Module(body=[node],type_ignores=[]),'exact_hard_fallback','exec'),scope);kill=scope['hard_terminate_known']
++  kill(71,73);self.assertEqual(calls,[('group',73,signal.SIGKILL),('pid',73,signal.SIGKILL),('group',71,signal.SIGKILL),('pid',71,signal.SIGKILL)])
++  calls.clear();kill(71,None);self.assertEqual(calls,[('group',71,signal.SIGKILL),('pid',71,signal.SIGKILL)])
++  # Assert the real nested alarm invokes helper before authoritative124 exit.
++  supervisor=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='supervise');alarm=next(n for n in supervisor.body if isinstance(n,ast.FunctionDef) and n.name=='alarm');text=ast.unparse(alarm)
++  self.assertLess(text.index('hard_terminate_known(worker_pid, child)'),text.index('os._exit(124)'))

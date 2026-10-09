@@ -1,0 +1,86 @@
+{
+  "actualHelperExit": 0,
+  "actualNodeExit": 0,
+  "actualRecorderExit": 0,
+  "actualToolExit": 0,
+  "actualToolSession": 32559,
+  "controls": {
+    "game": false,
+    "groups": 8,
+    "knownControlDraws": 1,
+    "status": "PURE_INITIAL23_INPUT_AND_REFUSAL_CONTROLS_PASSED",
+    "unknownDrawsMeasured": 0
+  },
+  "elapsedSeconds": 1.7120730989990989,
+  "groupsFreshlyAbsent": [
+    14146,
+    14652
+  ],
+  "laneLogContainsExistingSyntaxWarning": true,
+  "lockAbsent": true,
+  "nodeExecutionByReview": false,
+  "overrideAbsent": true,
+  "result": {
+    "bytes": 921,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-output-20261009-r1/RESULT.json",
+    "sha256": "4870a65fc03de6aa991155451f02af386669af3a60a40511030c4a2228c4d52d"
+  },
+  "retainedRoles": [
+    {
+      "bytes": 2266,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/CONTROLS-TOOL-OUTCOME.json",
+      "sha256": "a59cb767e89dabe8788158c0c5629d4dba677fbdedfd56118051292e3a4f8058"
+    },
+    {
+      "bytes": 10366,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/CONTROLS-GRANT.json",
+      "sha256": "eec97de212273ef7077418e44b8a7678076c26410f8b44127a57e2aa07cce3e0"
+    },
+    {
+      "bytes": 580,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/CONTROLS-ACTUAL-TOOL.json",
+      "sha256": "c7cb0c7fe66c60dd299ab6f5feacc1dc18fc3e1674ae28e4b5969a10d2de63cc"
+    },
+    {
+      "bytes": 921,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-output-20261009-r1/RESULT.json",
+      "sha256": "4870a65fc03de6aa991155451f02af386669af3a60a40511030c4a2228c4d52d"
+    },
+    {
+      "bytes": 389,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-output-20261009-r1/stdout.bin",
+      "sha256": "2add2708e21b46345d1ceb5d7cb36ec9a4f028d4c771c4aa08c9498001e06253"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 385,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-lane-20261009-r1/first-draw-controls.lane.log",
+      "sha256": "c062b142bddad8187ce5699900d4d06515c62c920e2e995a288cb89ddde1ed0a"
+    },
+    {
+      "bytes": 344,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-lane-20261009-r1/first-draw-controls.lane.log.meta",
+      "sha256": "bc427d714dd4e4188ffee562ccadf4e798f2861b4860137930ae7190b37d364c"
+    }
+  ],
+  "sourcePinsSha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60",
+  "sourceReview": {
+    "bytes": 2886,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "c441b19fc17d20eaf7b13a0477807e711f58a3a92f3717e7c645aa3d1974e66f"
+  },
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-output-20261009-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 389,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-output-20261009-r1/stdout.bin",
+    "sha256": "2add2708e21b46345d1ceb5d7cb36ec9a4f028d4c771c4aa08c9498001e06253"
+  }
+}

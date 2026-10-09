@@ -1,0 +1,56 @@
+{
+  "acceptance": "Pending independent observed review; no salary or renewal claim",
+  "actualHelperExit": 0,
+  "actualNodeExit": 0,
+  "actualRecorderExit": 0,
+  "actualToolExit": 0,
+  "actualToolSessionId": 21987,
+  "elapsedRecorderSeconds": 1.3407283459964674,
+  "freshSelectedGroupsAbsent": [
+    17859,
+    18122
+  ],
+  "grant": {
+    "bytes": 10867,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/WITNESS-GRANT.json",
+    "sha256": "26474ca649c246844740b26e494d34f46151c2460ab4be97cef34ae6b440837d"
+  },
+  "laneAndOverrideAbsent": true,
+  "numericOnly": true,
+  "rawTool": {
+    "bytes": 580,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/WITNESS-ACTUAL-TOOL.json",
+    "sha256": "5de15c01c6950cba4e88c089ccbc9473948c19075ad4c16434cb0ddc3dc3161f"
+  },
+  "retained": [
+    {
+      "bytes": 920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/RESULT.json",
+      "sha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d"
+    },
+    {
+      "bytes": 9419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stdout.bin",
+      "sha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 383,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-lane-20261009-r1/first-draw-witness.lane.log",
+      "sha256": "b459aa41d0a5ba31e3ed6caefff14ce2695fe2f65f93eb58d6db967aa83c6c18"
+    },
+    {
+      "bytes": 343,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-lane-20261009-r1/first-draw-witness.lane.log.meta",
+      "sha256": "2736cd268fa11f6638392f3186f6d9f8ca382e9717395858fa6adaad57446b50"
+    }
+  ],
+  "row0ExactKnownControl": true,
+  "rowsObserved": 23,
+  "schema": "initial23-witness-actual-tool-outcome/v1",
+  "utc": "2026-10-09T18:28:40.850589+00:00"
+}

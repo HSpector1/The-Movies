@@ -1,0 +1,223 @@
+{
+  "allRowsFreshPhysicalHashModeNlinkReadbackExact": true,
+  "alreadyListedM0ParentAdoptionSkipped": {
+    "bytes": 1830,
+    "mode": "0644",
+    "nlink": 1,
+    "package": "1370-c0-m0-additive-controls-parent-recorded-20261009-r2",
+    "preservationAction": "COPY_FINITE_PAYLOAD",
+    "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+    "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+    "relativePath": "ADOPTION.json",
+    "sha256": "924fe37d4b09f58a5d442aa5612800fea06868396ef3ee176936ae8a48b80c79",
+    "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/ADOPTION.json"
+  },
+  "earlierPreparationRefusal": "Two before-write attempts refused duplicate M0ADOPTION already in r2; all269 hash/size/mode/nlink rechecks exact. Final builder skips already-listed role as requested. No underlying source drift, candidate/run failure or output mutation.",
+  "inventory": {
+    "bytes": 209297,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r3/INVENTORY-DRAFT.json",
+    "sha256": "7f85050efb7c595d50c6ec4a8af766a4172c42fe849a4e7ffd6c17689172887a"
+  },
+  "newClosedRoles": [
+    {
+      "bytes": 4164,
+      "mode": "0644",
+      "nlink": 1,
+      "package": "1370-c0-m0-additive-controls-observed-independent-review-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+      "relativePath": "RECEIPT.json",
+      "sha256": "9da1cfa0797a7bc85c1193e6481cf84ee690f04bb309edda6fd70eccec27b075",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-observed-independent-review-20261009-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 3022,
+      "mode": "0644",
+      "nlink": 1,
+      "package": "1370-c0-renewal208-input-gap-independent-design-review-20261009-r1",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+      "relativePath": "RECEIPT.json",
+      "sha256": "12145d203cd76fd36e94b4b8a862505d9e4e150c0af8058fcc47cba881d8292e",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-independent-design-review-20261009-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 1702,
+      "mode": "0644",
+      "nlink": 1,
+      "package": "1370-c0-renewal208-design-parent-adoption-20261009-r1",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+      "relativePath": "ADOPTION.json",
+      "sha256": "8f29b3860b2992378fc3fe7408557cffbefe5b4da6685bc0c42951407d171268",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-design-parent-adoption-20261009-r1/ADOPTION.json"
+    },
+    {
+      "bytes": 184203,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-aj-checkpoint-preparation-20261009-r1",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+      "relativePath": "INVENTORY-DRAFT.json",
+      "sha256": "145027905f2208e905b2a770416fd2127a13a5e03e8e4446238b52e8d0bd1e43",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/INVENTORY-DRAFT.json"
+    },
+    {
+      "bytes": 9230,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-aj-checkpoint-preparation-20261009-r1",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+      "relativePath": "INVENTORY-VERIFICATION.json",
+      "sha256": "53a2d9054a01b56ea5691d9ac9dd694aa3261abf252790a7aea0007c35fadb11",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/INVENTORY-VERIFICATION.json"
+    },
+    {
+      "bytes": 2416,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-aj-checkpoint-preparation-20261009-r1",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+      "relativePath": "PINS.json",
+      "sha256": "f2a4f7618c97d392c16c8efd6b04978937a93cad0f3309468a934ce0d6ed5416",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/PINS.json"
+    },
+    {
+      "bytes": 10507,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-aj-checkpoint-preparation-20261009-r1",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+      "relativePath": "SELECTORS.json",
+      "sha256": "8f95b9b27ba991fad89be85f3fe59c9e3c27906fc28e93482dbf1b00114686d4",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/SELECTORS.json"
+    },
+    {
+      "bytes": 382,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-aj-checkpoint-preparation-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+      "relativePath": "AUTHORING-PARSE-STOP.json",
+      "sha256": "b713b2873d2ab0184be06fb447aa879c1e3227c26746503625719547228b2b9c",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/AUTHORING-PARSE-STOP.json"
+    },
+    {
+      "bytes": 200335,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-aj-checkpoint-preparation-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+      "relativePath": "INVENTORY-DRAFT.json",
+      "sha256": "56a5d54ca08508528baf3ff154d20ec7a8e30f2ddca877147ddeceb13d1e29ee",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/INVENTORY-DRAFT.json"
+    },
+    {
+      "bytes": 10016,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-aj-checkpoint-preparation-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+      "relativePath": "INVENTORY-VERIFICATION.json",
+      "sha256": "efc301e7d5af022c792b235524610d8f6d65ad54b0cc1aa6fb227e25c3987954",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/INVENTORY-VERIFICATION.json"
+    },
+    {
+      "bytes": 2705,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-aj-checkpoint-preparation-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+      "relativePath": "PINS.json",
+      "sha256": "2f8123f1fbb4621630a112bee494cb8b96a9d34b19870fcb3a2ea58720b9e954",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/PINS.json"
+    },
+    {
+      "bytes": 11687,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-aj-checkpoint-preparation-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+      "relativePath": "SELECTORS.json",
+      "sha256": "6959d5557f2a26d981f9dc84a9518d843315dae8429f7b8974b62cae728423aa",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/SELECTORS.json"
+    }
+  ],
+  "newRawMachineHashOnly": [],
+  "noGitRepoMutationOrSourceExecution": true,
+  "onlyRootFinalInputsPending": true,
+  "pendingAdditions": [
+    {
+      "note": "Root finalization drafts/claims/verify_staged.py and upcoming claims-review intentionally excluded; root adds finite finalized originals.",
+      "role": "Closed root AJ final claim/LESSONS/finalizer-source or archive-policy authority and independent final claim-review inputs",
+      "status": "ROOT_WILL_ADD_AFTER_REVIEW"
+    },
+    {
+      "note": "Root appends finite final inputs and marks complete; never recursively includes final archive/finalizer outputs.",
+      "role": "Fresh r3 inventory/selector/verification/pins and final root report/HANDOFF pointers",
+      "status": "ROOT_FINAL_APPEND_AND_COMPLETE_MARKER_PENDING"
+    }
+  ],
+  "previous269RowsPreservedExactly": true,
+  "previousHarmlessParseStopPreserved": {
+    "bytes": 382,
+    "mode": "0600",
+    "nlink": 1,
+    "package": "1370-aj-checkpoint-preparation-20261009-r2",
+    "preservationAction": "COPY_FINITE_PAYLOAD",
+    "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+    "reason": "Explicit completed finite review/adoption or prior inventory preparation; original bytes and harmless parseSTOP retained",
+    "relativePath": "AUTHORING-PARSE-STOP.json",
+    "sha256": "b713b2873d2ab0184be06fb447aa879c1e3227c26746503625719547228b2b9c",
+    "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/AUTHORING-PARSE-STOP.json"
+  },
+  "priorAIRawHashOnlyPointers": 14,
+  "schema": "1370-aj-source-only-inventory-verification-r3",
+  "selectors": {
+    "bytes": 14149,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r3/SELECTORS.json",
+    "sha256": "f8a45e6797823b2ed2b5e7125d61b7ed07bcd0dcb4959157de3d28c065887af8"
+  },
+  "summary": {
+    "alreadyListedM0ParentAdoptionSkipped": true,
+    "closedWorkArtifactCoverageComplete": true,
+    "completeInventory": false,
+    "localHashSizeOnlyBytes": 0,
+    "localHashSizeOnlyFiles": 0,
+    "payloadBytes": 3806639,
+    "payloadFiles": 281,
+    "pendingWorkRunsOrExperimentalReviews": 0,
+    "priorAIRawHashOnlyPolicyPointerRoles": 14,
+    "priorAITransportOnlyRoles": 720,
+    "priorGitCoverage": "Not queried. Accepted finalizer separately authenticates actual HEAD blobs and preserves prior archive pointer.",
+    "r1RolesPreservedExactly": 247,
+    "r2ActualControlOutputBytes": 2978,
+    "r2ActualControlOutputFiles": 9,
+    "r2NewClosedRoles": 22,
+    "r2RolesPreservedExactly": 269,
+    "r3NewClosedRoles": 12,
+    "regularFiniteFiles": 281,
+    "selectedFiniteDirectories": 58
+  }
+}

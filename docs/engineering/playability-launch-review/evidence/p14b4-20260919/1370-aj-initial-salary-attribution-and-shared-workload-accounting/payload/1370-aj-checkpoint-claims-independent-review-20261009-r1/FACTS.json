@@ -1,0 +1,142 @@
+{
+  "autoBlockIdentical": true,
+  "autoBlockSha256": "39c20c726e9779c2f8ba73dd37ba55476302ac7b17040bf3d5e487f5c7268a4d",
+  "corrections": [
+    {
+      "file": "HANDOFF-DRAFT.md",
+      "new": "That source-phase proof alone closed no additional annual cause.",
+      "old": "No additional annual cause closes."
+    },
+    {
+      "change": "Relabel the six historical '- NEW ' AI bullets as '- Prior AI: '; retain all five '- AJ NEW ' bullets.",
+      "file": "HANDOFF-DRAFT.md"
+    }
+  ],
+  "limits": [
+    "Finite existing-artifact human-claim review only; no tests, imports, Node, draws, arithmetic pricing, game, guards, full inventories or Git commands.",
+    "No current HEAD/remote/clean assertion independently executed; production identities are parent-attributed checkpoint context.",
+    "AJ archive completion, exact payload/blob readback and publication are separate root-owned checks; pending archive is not a review defect."
+  ],
+  "reviewedClaims": [
+    "22 initial causes admitted plus known row0; 16 renewals unresolved",
+    "23 numerical draws and 23 H/A pay pairs; 44 exposed immutable pairs, source transport rather than historical locals",
+    "1763 state/992 row calls per arm; 3526/1984 both arms under shared 300, active 375, whole 390",
+    "early-fixture projections are arithmetic illustrations, not runtime measurements or lower bounds",
+    "33/353 cache controls passed; valid benchmark has +10.642868% weighted cost and cache is not promoted",
+    "seven tiny M0 controls passed; actual extension, types and game unrun",
+    "P17/P18 runtime remains incomplete and no main merge claimed",
+    "historical AI archive retains 14 local hash/size-only raw-machine/padding roles"
+  ],
+  "roles": {
+    "cacheAdoption": {
+      "bytes": 1801,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/BENCHMARK-ADOPTION.json",
+      "sha256": "702fee19076ebfefd35c195a223d46f4f75599b819faede57e5c4e73281b15b5"
+    },
+    "cacheBenchmarkObserved": {
+      "bytes": 5221,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "fe9889d0f063e383803523c24e327ff1f404eba3951fa4a0a52e6a9127dfb69c"
+    },
+    "cacheControlsObserved": {
+      "bytes": 4110,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "fb9e8714fc18b4e31103a4e5d68a839cf7e9ec9e795bb461284001464bd653fe"
+    },
+    "handoffDraft": {
+      "bytes": 14483,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-root-finalization-20261009-r1/HANDOFF-DRAFT.md",
+      "sha256": "0e75b1ae8c1bf59c3c407630fde3f6359ded6704bfc2e56d1027c219436444fb"
+    },
+    "initialControlsObserved": {
+      "bytes": 2950,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "abc274938a91d76bf717d94f295d88bc164bc954ef70887a7943a9ca58736646"
+    },
+    "initialPricingAdoption": {
+      "bytes": 1899,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-parent-recorded-20261009-r1/ADOPTION.json",
+      "sha256": "395e3341c6ed34281df795868d03026c8b87159e12dc3effe2a3b5e760c3dc03"
+    },
+    "initialPricingObserved": {
+      "bytes": 4857,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-independent-observed-review-20261009-r2/RECEIPT.json",
+      "sha256": "e27c8d8e230a453eee078a5e21abd5716b9192404bb172a1de0ff46d4571fce2"
+    },
+    "m0AdditiveBodySource": {
+      "bytes": 2348,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-independent-source-review-20261009-r2/RECEIPT.json",
+      "sha256": "b7ae07bd1ac063b2301dc4046c341d4fd04332cdb0983fcedb7df6c127a4e269"
+    },
+    "m0AdditiveRouteSource": {
+      "bytes": 2100,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-source-review-20261009-r2/ROUTE-RECEIPT.json",
+      "sha256": "81492801b0284d73c65b63e0082473e6b45767a673b2248898f40f8ae29870f9"
+    },
+    "m0CopyObserved": {
+      "bytes": 9262,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "381ec5af685ce78f002ff260e166e9a13aa40ac1432e2a635900511a8a30d78d"
+    },
+    "m0TinyControlsAdoption": {
+      "bytes": 1830,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/ADOPTION.json",
+      "sha256": "924fe37d4b09f58a5d442aa5612800fea06868396ef3ee176936ae8a48b80c79"
+    },
+    "m0TinyControlsObserved": {
+      "bytes": 4164,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-observed-independent-review-20261009-r2/RECEIPT.json",
+      "sha256": "9da1cfa0797a7bc85c1193e6481cf84ee690f04bb309edda6fd70eccec27b075"
+    },
+    "numericWitnessObserved": {
+      "bytes": 4219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
+    },
+    "priorAiArchiveManifest": {
+      "bytes": 2820614,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ai-recorded-m0-copy-and-encoder-qualification/ARCHIVE-MANIFEST.json",
+      "sha256": "0ab10ce492ff9ef0a22b341f510f1e64536940e91715231257a5c00c75e5e04b"
+    },
+    "productionHandoff": {
+      "bytes": 12449,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+      "sha256": "ccc564a41584277da3a9f4eaac7e3dc0db80e91919b3f88683c760185ab2857b"
+    },
+    "renewalAdoption": {
+      "bytes": 1702,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-design-parent-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "8f29b3860b2992378fc3fe7408557cffbefe5b4da6685bc0c42951407d171268"
+    },
+    "renewalDesign": {
+      "bytes": 2837,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/RECEIPT.json",
+      "sha256": "46d78843ee8e2cf61c501a6ca2aebe6a16b66aa9745751c2d60c7ca7bdcf9479"
+    },
+    "renewalIndependentReview": {
+      "bytes": 3022,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-independent-design-review-20261009-r1/RECEIPT.json",
+      "sha256": "12145d203cd76fd36e94b4b8a862505d9e4e150c0af8058fcc47cba881d8292e"
+    },
+    "reportDraft": {
+      "bytes": 7577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-root-finalization-20261009-r1/REPORT-DRAFT.md",
+      "sha256": "3126b5f6c0c2f5957f6194ff87b6e84d9ee1593bc01fd544bea50b83271446ff"
+    },
+    "rootFinalClaim": {
+      "bytes": 832,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-root-finalization-20261009-r1/ROOT-FINAL-CLAIM.txt",
+      "sha256": "a881ed19bb3715ee080a572723e32a7e0a5d3ee7fd2d390f5aa56431377e4b53"
+    },
+    "workloadAdoption": {
+      "bytes": 3408,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-shared-workload-accounting-parent-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "1c7e4decb64396cc1b75a4fa7c58cab02ff1ac317ff268a64b369b3cc6c57b5b"
+    },
+    "workloadReview": {
+      "bytes": 3135,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-shared-workload-accounting-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "bad58469013de6f0d4884c0fd72496efca242cd4175d49af5dcb8c3bd79bf06b"
+    }
+  }
+}

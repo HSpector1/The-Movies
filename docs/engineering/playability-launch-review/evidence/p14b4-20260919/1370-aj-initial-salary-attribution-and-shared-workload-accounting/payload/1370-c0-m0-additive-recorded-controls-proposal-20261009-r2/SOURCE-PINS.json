@@ -1,0 +1,53 @@
+{
+  "executionPerformed": false,
+  "files": {
+    "AUTHORING-PARSE-STOP.json": {
+      "bytes": 272,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/AUTHORING-PARSE-STOP.json",
+      "sha256": "2db29463f7b5acba4d2c180a3735085042dc3cdc149cb156ec468a3835620a74"
+    },
+    "CONFIG-UNFILLED.json": {
+      "bytes": 2172,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/CONFIG-UNFILLED.json",
+      "sha256": "687a8b36a139a16863a23deb7fab4b0cbfd383cae06719e72fd4974c31731d11"
+    },
+    "CONFIG-UNFILLED.json.diff": {
+      "bytes": 4206,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/CONFIG-UNFILLED.json.diff",
+      "sha256": "ea727b3e193001905157ffd62d741aaa57bfe328a4e48af2174d6727174eaf2e"
+    },
+    "REPORT.md": {
+      "bytes": 1416,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/REPORT.md",
+      "sha256": "147d218fc8ab1606daef6a38dabe7f3f938e64bbeb97955ced7f5709b2a792d7"
+    },
+    "REPORT.md.diff": {
+      "bytes": 3970,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/REPORT.md.diff",
+      "sha256": "7e141954cd0de3c77de87caf7d3637d7de71bf62098239fd89e6c56c294e9905"
+    },
+    "run_controls.py": {
+      "bytes": 8223,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/run_controls.py",
+      "sha256": "9d228d3d9260052cec17d0ae46962c5dd169d8089202b6912375f9e9a70719fc"
+    },
+    "run_controls.py.diff": {
+      "bytes": 2200,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/run_controls.py.diff",
+      "sha256": "f3c81c700b41cee9077e55da0b12ee940b26d9e71d01d5e30e73df27bff0c6ba"
+    },
+    "test_controls.py": {
+      "bytes": 8277,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/test_controls.py",
+      "sha256": "bb4d65b110dde271da8940277dd244e8f0796fa34e8ad4395cb4ca4d1f8bcb9a"
+    },
+    "test_controls.py.diff": {
+      "bytes": 3292,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/test_controls.py.diff",
+      "sha256": "a4674e826a2c07e9008fcf74758578c0a5fecc22ffed035857827645428989b5"
+    }
+  },
+  "productionHead": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "m0-additive-held-source-pins-r2"
+}

@@ -1,0 +1,96 @@
+{
+  "actualHelperExit": 0,
+  "actualNodeExit": 0,
+  "actualOwnedPgid": 18122,
+  "actualRecorderExit": 0,
+  "actualToolExit": 0,
+  "actualToolSessionId": 21987,
+  "auditActualExit": 0,
+  "boundsSeconds": {
+    "active": 75,
+    "node": 60,
+    "whole": 90
+  },
+  "configSha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e",
+  "controlsObservedReviewSha256": "abc274938a91d76bf717d94f295d88bc164bc954ef70887a7943a9ca58736646",
+  "decision": "ACCEPT_OBSERVED_PURE_INITIAL23_FIRST_DRAWS",
+  "elapsedRecorderSeconds": 1.3407283459964674,
+  "exactInputOrderIdentityAndOccurrence": true,
+  "executionAuthorization": false,
+  "findings": [],
+  "freshOwnedGroupsAbsent": [
+    17859,
+    18122
+  ],
+  "grantSha256": "26474ca649c246844740b26e494d34f46151c2460ab4be97cef34ae6b440837d",
+  "historicalOfferLocalCapture": false,
+  "knownRow0Draw": 0.34857689985074103,
+  "knownRow0Jitter": 0.9757723039761186,
+  "laneLockAbsent": true,
+  "numericOnly": true,
+  "overrideAbsent": true,
+  "parentOutcomeSha256": "4bb2b098a83c0392363be78a8fc60cead0ac33db6161159ac74f13f1f7dd8ab1",
+  "productionAdoption": false,
+  "renewalAttribution": false,
+  "resultSha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d",
+  "reviewEngineNodeRngSalaryTestOrGitExecution": false,
+  "roles": {
+    "auditSource": {
+      "bytes": 5541,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/audit.py",
+      "sha256": "8dae1a9f75b6f8a262c75a8c4a07594d896f9a418352bca42fbab85abd890762"
+    },
+    "controlsReview": {
+      "bytes": 2950,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "abc274938a91d76bf717d94f295d88bc164bc954ef70887a7943a9ca58736646"
+    },
+    "facts": {
+      "bytes": 15851,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/FACTS.json",
+      "sha256": "301fd29cdf0090182a822ec6052057ada8a0a2de78c113141962cd727c39d56a"
+    },
+    "report": {
+      "bytes": 2047,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/REPORT.md",
+      "sha256": "722feeac14c5d4e6f4f905f1c98dd2393556b11c908c7ffc0841a2ceab648b81"
+    },
+    "result": {
+      "bytes": 920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/RESULT.json",
+      "sha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d"
+    },
+    "sourcePins": {
+      "bytes": 8515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
+    },
+    "sourceReview": {
+      "bytes": 2886,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "c441b19fc17d20eaf7b13a0477807e711f58a3a92f3717e7c645aa3d1974e66f"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 9419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stdout.bin",
+      "sha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
+    }
+  },
+  "row0ControlAccepted": true,
+  "rows": 23,
+  "salaryAttribution": false,
+  "schema": "1370-initial23-first-draw-witness-independent-observed-review/v1",
+  "sourcePinsSha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60",
+  "sourceReviewSha256": "c441b19fc17d20eaf7b13a0477807e711f58a3a92f3717e7c645aa3d1974e66f",
+  "stderrBytes": 0,
+  "stdoutBytes": 9419,
+  "stdoutSha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549",
+  "toolExit": 0,
+  "unexpectedHelperWait": false,
+  "unknownInitialDrawsMeasured": 22
+}

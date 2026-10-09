@@ -1,0 +1,31 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/supervise.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/supervise.py
+@@ -240,6 +240,16 @@
+         return final
+ 
+ 
++def hard_terminate_known(worker_pid,child_pid):
++    """Exact known PID fallback covers pre-setsid; no clearance claim."""
++    for pid in (child_pid,worker_pid):
++        if pid is None:continue
++        try:os.killpg(pid,signal.SIGKILL)
++        except (ProcessLookupError,PermissionError):pass
++        try:os.kill(pid,signal.SIGKILL)
++        except (ProcessLookupError,PermissionError):pass
++
++
+ def supervise(spec_path, limit=WHOLE_SECONDS):
+     # The OS timer starts before any role read, lock, worker fork, or materializer.
+     start = BOOT_START if __name__=="__main__" else time.monotonic()
+@@ -258,10 +268,7 @@
+                 os.set_blocking(report_read,False);raw=os.read(report_read,256)
+                 if raw.strip().isdigit():child=int(raw.strip())
+             except OSError:pass
+-        for group in (child,worker_pid):
+-            if group is not None:
+-                try:os.killpg(group,signal.SIGKILL)
+-                except (ProcessLookupError,PermissionError):pass
++        hard_terminate_known(worker_pid,child)
+         os._exit(124)
+     signal.signal(signal.SIGALRM, alarm)
+     signal.setitimer(signal.ITIMER_REAL, max(.000001,limit-(time.monotonic()-start)))

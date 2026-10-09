@@ -1,0 +1,22 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/PROVENANCE.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/PROVENANCE.json
+@@ -1,5 +1,9 @@
+ {
+   "authoring": "Source reads/edits and stdlib AST parse only; no proposal import/execution/tests/mirror reads/Node/fullscan/Git mutation.",
++  "controlsPredecessorAcceptance": {
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-source-review-20261009-r1/CONTROLS-RECEIPT.json",
++    "sha256": "42776e97b3d5ff340f4930c27c691c356ebd2e54c8d30f9bffbb840b097c004b"
++  },
+   "designAdoption": {
+     "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-route-design-parent-review-20261009-r1/ADOPTION.json",
+     "sha256": "19fb7aeb0da74d3a9c292374cb34aa840892bf6506ad3cdbdbf483d4ff0a7dc8"
+@@ -19,5 +23,9 @@
+   "qualifiedSupervisor": {
+     "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/supervise.py",
+     "sha256": "8eaf5fabdf298df579851b06f45d636b92393e235e8af6b5f2ec52fcfc0bd03f"
++  },
++  "routeRefineReceipt": {
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-source-review-20261009-r1/ROUTE-RECEIPT.json",
++    "sha256": "cd99e282764b4b54e1e5e2f7fba96c8f999c44ded77951dc1366abe81ec0622c"
+   }
+ }

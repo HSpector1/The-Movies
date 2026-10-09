@@ -1,0 +1,431 @@
+{
+  "all269OriginalRowsPreservedExactly": true,
+  "alreadyListedM0ParentAdoptionSkipped": {
+    "bytes": 1830,
+    "mode": "0644",
+    "nlink": 1,
+    "package": "1370-c0-m0-additive-controls-parent-recorded-20261009-r2",
+    "preservationAction": "COPY_FINITE_PAYLOAD",
+    "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+    "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+    "relativePath": "ADOPTION.json",
+    "sha256": "924fe37d4b09f58a5d442aa5612800fea06868396ef3ee176936ae8a48b80c79",
+    "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/ADOPTION.json"
+  },
+  "directories": {
+    "1370-ai-checkpoint-root-finalization-20261009-r1": [
+      "ARCHIVE-PREPARATION-STOP.json",
+      "ARCHIVE-WHITESPACE-CHECK.stderr",
+      "ARCHIVE-WHITESPACE-CHECK.stdout",
+      "ARCHIVE-WHITESPACE-DISPOSITION.json",
+      "CLAIM-REVIEW.json",
+      "INVENTORY-FINAL-R2.json",
+      "INVENTORY-FINAL-R3.json",
+      "INVENTORY-FINAL.json",
+      "LESSONS-DRAFT.md",
+      "MISSING-STAGED-FINITE-PATHS.json",
+      "NEXT-SLICE-ADOPTION.json",
+      "PLAN.json",
+      "PUSH-READBACK.json",
+      "ROOT-FINAL-CLAIM.txt",
+      "STAGED-PREPARATION-STOP.json",
+      "STAGED-VERIFICATION.json",
+      "verify_staged.py",
+      "verify_staged_r2.py"
+    ],
+    "1370-aj-checkpoint-preparation-20261009-r1": [
+      "INVENTORY-DRAFT.json",
+      "INVENTORY-VERIFICATION.json",
+      "PINS.json",
+      "SELECTORS.json"
+    ],
+    "1370-aj-checkpoint-preparation-20261009-r2": [
+      "AUTHORING-PARSE-STOP.json",
+      "INVENTORY-DRAFT.json",
+      "INVENTORY-VERIFICATION.json",
+      "PINS.json",
+      "SELECTORS.json"
+    ],
+    "1370-c0-b109-shared-workload-accounting-independent-review-20261009-r1": [
+      "FACTS.json",
+      "RECEIPT.json",
+      "REPORT.md"
+    ],
+    "1370-c0-b109-shared-workload-accounting-parent-adoption-20261009-r1": [
+      "ADOPTION.json"
+    ],
+    "1370-c0-b109-string-token-cache-benchmark-independent-observed-review-20261009-r1": [
+      "FACTS.json",
+      "RECEIPT.json",
+      "REPORT.md"
+    ],
+    "1370-c0-b109-string-token-cache-benchmark-lane-20261009-r1": [
+      "benchmark.lane.log",
+      "benchmark.lane.log.meta"
+    ],
+    "1370-c0-b109-string-token-cache-benchmark-output-20261009-r1": [
+      "RESULT.json",
+      "stderr.bin",
+      "stdout.bin"
+    ],
+    "1370-c0-b109-string-token-cache-controls-independent-observed-review-20261009-r1": [
+      "FACTS.json",
+      "RECEIPT.json",
+      "REPORT.md"
+    ],
+    "1370-c0-b109-string-token-cache-controls-lane-20261009-r1": [
+      "controls.lane.log",
+      "controls.lane.log.meta"
+    ],
+    "1370-c0-b109-string-token-cache-controls-output-20261009-r1": [
+      "RESULT.json",
+      "stderr.bin",
+      "stdout.bin"
+    ],
+    "1370-c0-b109-string-token-cache-independent-design-review-20261009-r1": [
+      "RECEIPT.json"
+    ],
+    "1370-c0-b109-string-token-cache-independent-source-review-20261009-r1": [
+      "FACTS.json",
+      "RECEIPT.json",
+      "REPORT.md"
+    ],
+    "1370-c0-b109-string-token-cache-parent-design-adoption-20261009-r1": [
+      "ADOPTION.json"
+    ],
+    "1370-c0-b109-string-token-cache-parent-recorded-20261009-r1": [
+      "BENCHMARK-ACTUAL-TOOL.json",
+      "BENCHMARK-ADOPTION.json",
+      "BENCHMARK-GRANT.json",
+      "BENCHMARK-TOOL-OUTCOME.json",
+      "CONTROLS-ACTUAL-TOOL.json",
+      "CONTROLS-GRANT.json",
+      "CONTROLS-TOOL-OUTCOME.json",
+      "grant_and_launch.py"
+    ],
+    "1370-c0-b109-string-token-cache-parent-wrapper-independent-source-review-20261009-r1": [
+      "RECEIPT.json",
+      "REPORT.md",
+      "WRAPPER.diff"
+    ],
+    "1370-c0-b109-string-token-cache-proposal-20261009-r1": [
+      "CACHE-INVARIANT-SOURCE-PROOF.json",
+      "CONFIG.json",
+      "CONFIG.json.diff",
+      "CONTROL-RECIPE.json",
+      "RECORDER-REUSE.json",
+      "REPORT.md",
+      "SOURCE-PINS.json",
+      "benchmark-308.mjs",
+      "benchmark-308.mjs.diff",
+      "bounded-json-candidate.mjs",
+      "bounded-json-candidate.mjs.diff",
+      "record-pure-node.py",
+      "record-pure-node.py.diff",
+      "test-encoder.mjs",
+      "test-encoder.mjs.diff"
+    ],
+    "1370-c0-b109-two-arm-workload-accounting-proposal-20261009-r1": [
+      "COUNTS.json",
+      "NOTE.md",
+      "PINS.json"
+    ],
+    "1370-c0-initial22-first-draw-controls-lane-20261009-r1": [
+      "first-draw-controls.lane.log",
+      "first-draw-controls.lane.log.meta"
+    ],
+    "1370-c0-initial22-first-draw-controls-output-20261009-r1": [
+      "RESULT.json",
+      "stderr.bin",
+      "stdout.bin"
+    ],
+    "1370-c0-initial22-first-draw-parent-recorded-20261009-r1": [
+      "CONTROLS-ACTUAL-TOOL.json",
+      "CONTROLS-GRANT.json",
+      "CONTROLS-TOOL-OUTCOME.json",
+      "WITNESS-ACTUAL-TOOL.json",
+      "WITNESS-ADOPTION.json",
+      "WITNESS-GRANT.json",
+      "WITNESS-TOOL-OUTCOME.json",
+      "grant_and_launch.py"
+    ],
+    "1370-c0-initial22-first-draw-witness-lane-20261009-r1": [
+      "first-draw-witness.lane.log",
+      "first-draw-witness.lane.log.meta"
+    ],
+    "1370-c0-initial22-first-draw-witness-output-20261009-r1": [
+      "RESULT.json",
+      "stderr.bin",
+      "stdout.bin"
+    ],
+    "1370-c0-initial22-first-draw-witness-proposal-20261009-r1": [
+      "CONFIG.json",
+      "CONTROL-AND-WITNESS-RECIPE.json",
+      "INPUT-PROJECTION.json",
+      "INPUTS.json",
+      "RECORDER-REUSE.diff",
+      "RECORDER-REUSE.json",
+      "REPORT.md",
+      "RNG-TYPE-ERASURE.diff",
+      "RNG-TYPE-ERASURE.json",
+      "SOURCE-INPUT-ROLES.json",
+      "SOURCE-PINS.json",
+      "STATIC-AUTHOR-CHECKS.json",
+      "authenticate-inputs.mjs",
+      "first-draw-core.mjs",
+      "record-pure-node.py",
+      "rng.original.ts",
+      "rng.type-erased.mjs",
+      "test-first-draw.mjs",
+      "witness-first-draw.mjs"
+    ],
+    "1370-c0-initial23-filled-pricing-independent-source-review-20261009-r2": [
+      "FACTS.json",
+      "RECEIPT.json",
+      "REPORT.md",
+      "audit.py"
+    ],
+    "1370-c0-initial23-first-draw-controls-independent-observed-review-20261009-r1": [
+      "FACTS.json",
+      "RECEIPT.json",
+      "audit.py"
+    ],
+    "1370-c0-initial23-first-draw-independent-source-review-20261009-r1": [
+      "FACTS.json",
+      "RECEIPT.json",
+      "REPORT.md",
+      "audit.py"
+    ],
+    "1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1": [
+      "FACTS.json",
+      "RECEIPT.json",
+      "REPORT.md",
+      "audit.py"
+    ],
+    "1370-c0-initial23-pricing-independent-observed-review-20261009-r2": [
+      "FACTS.json",
+      "RECEIPT.json",
+      "REPORT.md",
+      "audit.py"
+    ],
+    "1370-c0-initial23-pricing-independent-source-review-20261009-r1": [
+      "RECEIPT.json"
+    ],
+    "1370-c0-initial23-pricing-r2-verification-output-20261009-r1": [
+      "RESULT.json",
+      "stderr.bin",
+      "stdout.bin"
+    ],
+    "1370-c0-initial23-pricing-verification-lane-20261009-r2": [
+      "pricing.lane.log",
+      "pricing.lane.log.meta"
+    ],
+    "1370-c0-initial23-pricing-verification-parent-recorded-20261009-r1": [
+      "ACTUAL-TOOL.json",
+      "ADOPTION.json",
+      "GRANT.json",
+      "LESSONS.md",
+      "TOOL-OUTCOME.json",
+      "grant_and_launch.py"
+    ],
+    "1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1": [
+      "CONFIG-UNFILLED.json",
+      "CONFIG.json",
+      "FILL-REQUIREMENTS.json",
+      "NOTE.md",
+      "PRICING-INPUTS.json",
+      "RECIPE.json",
+      "RECORDER-REUSE.diff",
+      "RECORDER-REUSE.json",
+      "SOURCE-OPERATION-PROOF.json",
+      "SOURCE-PINS.json",
+      "authenticate-inputs.mjs",
+      "record-pure-node.py",
+      "verify-initial-pricing.mjs",
+      "verify-pricing-core.mjs"
+    ],
+    "1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r2": [
+      "CONFIG-UNFILLED.json",
+      "CONFIG.json",
+      "FILL-RECEIPT.json",
+      "FILL-REQUIREMENTS.json",
+      "NOTE.md",
+      "PRICING-INPUTS.json",
+      "R1-TO-R2.diff",
+      "RECIPE.json",
+      "RECORDER-REUSE.diff",
+      "RECORDER-REUSE.json",
+      "SOURCE-OPERATION-PROOF.json",
+      "SOURCE-PINS.json",
+      "authenticate-inputs.mjs",
+      "record-pure-node.py",
+      "verify-initial-pricing.mjs",
+      "verify-pricing-core.mjs"
+    ],
+    "1370-c0-m0-additive-bridge-dependency-proposal-20261009-r1": [
+      "DELTA.json",
+      "INPUTS.json",
+      "REPORT.md",
+      "SOURCE-PINS.json",
+      "add_inputs.py",
+      "add_inputs.py.diff",
+      "check-deps.mjs"
+    ],
+    "1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2": [
+      "CONTROL-PLAN.json",
+      "INPUTS.json",
+      "REPORT.md",
+      "SOURCE-PINS.json",
+      "add_inputs.py",
+      "add_inputs.py.diff",
+      "check-deps.mjs",
+      "test_invariants.py"
+    ],
+    "1370-c0-m0-additive-controls-exact-independent-review-20261009-r2": [
+      "RECEIPT.json"
+    ],
+    "1370-c0-m0-additive-controls-lane-20261009-r2": [
+      "controls.lane.log",
+      "controls.lane.log.meta"
+    ],
+    "1370-c0-m0-additive-controls-observed-independent-review-20261009-r2": [
+      "RECEIPT.json"
+    ],
+    "1370-c0-m0-additive-controls-parent-output-20261009-r2": [
+      "OWNED-FORKS.ndjson",
+      "RESULT.json"
+    ],
+    "1370-c0-m0-additive-controls-parent-recorded-20261009-r2": [
+      "ACTUAL-TOOL.json",
+      "ADOPTION.json",
+      "CONFIG.json",
+      "GRANT.json",
+      "LAUNCH.json",
+      "TOOL-OUTCOME.json",
+      "grant_and_launch.py"
+    ],
+    "1370-c0-m0-additive-independent-source-review-20261009-r1": [
+      "RECEIPT.json"
+    ],
+    "1370-c0-m0-additive-independent-source-review-20261009-r2": [
+      "RECEIPT.json"
+    ],
+    "1370-c0-m0-additive-recorded-controls-proposal-20261009-r1": [
+      "AUTHORING-PARSE-STOP.json",
+      "CONFIG-UNFILLED.json",
+      "REPORT.md",
+      "SOURCE-PINS.json",
+      "run_controls.py",
+      "run_controls.py.diff",
+      "test_controls.py"
+    ],
+    "1370-c0-m0-additive-recorded-controls-proposal-20261009-r2": [
+      "AUTHORING-PARSE-STOP.json",
+      "CONFIG-UNFILLED.json",
+      "CONFIG-UNFILLED.json.diff",
+      "REPORT.md",
+      "REPORT.md.diff",
+      "SOURCE-PINS.json",
+      "run_controls.py",
+      "run_controls.py.diff",
+      "test_controls.py",
+      "test_controls.py.diff"
+    ],
+    "1370-c0-m0-additive-recorded-independent-source-review-20261009-r1": [
+      "CONTROLS-RECEIPT.json",
+      "ROUTE-RECEIPT.json"
+    ],
+    "1370-c0-m0-additive-recorded-independent-source-review-20261009-r2": [
+      "CONTROLS-RECEIPT.json",
+      "ROUTE-RECEIPT.json"
+    ],
+    "1370-c0-m0-additive-recorded-route-design-20261009-r1": [
+      "DESIGN.json",
+      "PREDECESSOR-ROLES.json",
+      "REPORT.md",
+      "SOURCE-CHANGE-MAP.json",
+      "SOURCE-PINS.json"
+    ],
+    "1370-c0-m0-additive-recorded-route-proposal-20261009-r1": [
+      "ARGV-ROLE.json",
+      "BINDING-UNFILLED.json",
+      "LAUNCH-UNFILLED.json",
+      "PROVENANCE.json",
+      "REPORT.md",
+      "SOURCE-PINS.json",
+      "add_inputs.py",
+      "add_inputs.py.diff",
+      "record.py",
+      "record.py.diff",
+      "supervise.py",
+      "supervise.py.diff"
+    ],
+    "1370-c0-m0-additive-recorded-route-proposal-20261009-r2": [
+      "ARGV-ROLE.json",
+      "ARGV-ROLE.json.diff",
+      "BINDING-UNFILLED.json",
+      "BINDING-UNFILLED.json.diff",
+      "LAUNCH-UNFILLED.json",
+      "LAUNCH-UNFILLED.json.diff",
+      "PROVENANCE.json",
+      "PROVENANCE.json.diff",
+      "REPORT.md",
+      "REPORT.md.diff",
+      "SOURCE-PINS.json",
+      "add_inputs.py",
+      "record.py",
+      "record.py.diff",
+      "supervise.py",
+      "supervise.py.diff"
+    ],
+    "1370-c0-m0-additive-route-design-parent-review-20261009-r1": [
+      "ADOPTION.json"
+    ],
+    "1370-c0-m0-additive-source-parent-adoption-20261009-r2": [
+      "ADOPTION.json"
+    ],
+    "1370-c0-m0-additive-tiny-controls-output-20261009-r2": [
+      "pipe-0/CHILD-OWNED.json",
+      "pipe-1/CHILD-OWNED.json",
+      "pipe-2/CHILD-OWNED.json",
+      "pipe-3/CHILD-OWNED.json",
+      "unused-binding"
+    ],
+    "1370-c0-remaining22-initial-pricing-input-independent-review-20261009-r1": [
+      "FACTS.json",
+      "RECEIPT.json",
+      "REPORT.md",
+      "audit.py"
+    ],
+    "1370-c0-renewal208-design-parent-adoption-20261009-r1": [
+      "ADOPTION.json"
+    ],
+    "1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1": [
+      "FACTS.json",
+      "INPUT-PINS.json",
+      "RECEIPT.json",
+      "REPORT.md",
+      "audit.py"
+    ],
+    "1370-c0-renewal208-input-gap-independent-design-review-20261009-r1": [
+      "RECEIPT.json"
+    ]
+  },
+  "externalOrPrivateTreeReferencesNotFollowed": true,
+  "newSourcePaths": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-observed-independent-review-20261009-r2/RECEIPT.json",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-independent-design-review-20261009-r1/RECEIPT.json",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-design-parent-adoption-20261009-r1/ADOPTION.json",
+    "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/INVENTORY-DRAFT.json",
+    "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/INVENTORY-VERIFICATION.json",
+    "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/PINS.json",
+    "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/SELECTORS.json",
+    "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/AUTHORING-PARSE-STOP.json",
+    "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/INVENTORY-DRAFT.json",
+    "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/INVENTORY-VERIFICATION.json",
+    "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/PINS.json",
+    "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/SELECTORS.json"
+  ],
+  "rootFinalizationClaimsAndReviewInputsExcluded": true,
+  "schema": "1370-aj-explicit-finite-selectors-r3"
+}

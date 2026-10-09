@@ -1,0 +1,84 @@
+{
+  "acceptedMechanismReceipt": {
+    "bytes": 3829,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+    "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+  },
+  "commands": {
+    "controls": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/record-pure-node.py",
+      "controls"
+    ],
+    "witness": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/record-pure-node.py",
+      "witness"
+    ]
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactHelperArgv": "Literal recordedHelperArgv arrays below, under the pinned environment/cwd. Parent creates only the absent0700 lane directory immediately after concrete grant/preflight; helper exclusively creates its log/meta. Each mode requires its own separate grant. No recipe execution occurred.",
+  "executionAuthorization": false,
+  "helper": {
+    "bytes": 3361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "independentInputReview": {
+    "bytes": 3279,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-input-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "6c3b9aed9733374669723a0053e93badd8e1253c81b52bfc6ff693d519231192"
+  },
+  "lanePaths": {
+    "controls": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-lane-20261009-r1",
+    "witness": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-lane-20261009-r1"
+  },
+  "outputPaths": {
+    "controls": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-output-20261009-r1",
+    "witness": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1"
+  },
+  "python": {
+    "bytes": 50472,
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "recordedHelperArgv": {
+    "controls": [
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-lane-20261009-r1/first-draw-controls.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/record-pure-node.py",
+      "controls"
+    ],
+    "witness": [
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-lane-20261009-r1/first-draw-witness.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/record-pure-node.py",
+      "witness"
+    ]
+  },
+  "schema": "1370-initial23-controls-and-witness-recipe-r1",
+  "sequence": [
+    "Independent input/source review",
+    "Root exact pinned source/tools/env/absent lane/output/no other owned group+HEAVY-LANE-LOCK/current checkpoint preflight, controls-only grant",
+    "Actual helper-recorded controls then independent observed controls acceptance with all8 groups and row0only",
+    "Separate root witness grant after controls acceptance; actual once, independent observed raw23rows/source/tools/status/row0/finite/ordered identities and numericgroup cleanup",
+    "Later exact source-order salary/bonus reconstruction with paired authentic preimages; distinct16renewals excluded"
+  ],
+  "status": "UNRUN_REQUIRES_INDEPENDENT_SOURCE_REVIEW_THEN_SEPARATE_PARENT_GRANTS"
+}

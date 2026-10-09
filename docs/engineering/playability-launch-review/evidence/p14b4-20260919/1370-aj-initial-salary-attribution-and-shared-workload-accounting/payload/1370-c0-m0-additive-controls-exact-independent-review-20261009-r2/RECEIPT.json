@@ -1,0 +1,23 @@
+{
+  "decision": "ACCEPT_EXACT_ADDITIVE_CONTROLS_CONFIG_AND_LAUNCH",
+  "configSha256": "3854a5e57881fe5374b65b36912c66a656e2768d0fcf78abf5aa27c224e507bf",
+  "launchSha256": "b5e2883b8c9864632c9d38491e210b06d5b4d8a82063251b27f14de432588ec6",
+  "wrapperSha256": "f7c74b373b070ccea3e5964deb185e2d2e0be157fd6dbb4b15ac19b22e0e1cf1",
+  "controlsSourcePinsSha256": "73bbea8af39d83aad7d674a905f3879ba6144c40fc726687b1640f99b1c1f97e",
+  "routeSourcePinsSha256": "aa2f171d6da60e39ffa28eb3f16cab09c50b526fa05fd0ff1e299d21945bc0ff",
+  "scope": "Finite read-only source/config/launch and explicit evidence hashes review. No wrapper execution, preflight, live mirror/fullscan/Node/tests/Git actions or fresh tool observation.",
+  "verified": [
+    "Filledconfig source/hash/role/output pointers bind accepted7method/fourstub controls and acceptedroute; pins files name/path/bytes/sha schema matches wrapper and runner consumers.",
+    "Launch argv exact Bash qualifiedhelper0 + pinnedPython-I-B runner + controlspins/configpath/confighash; cwd and bounds align255/285/80MiB/1MiB/fourstub.",
+    "Wrapper gates independentdecision/config/launch hashes before authority; authenticates physical singlelink sourcefiles with stable metadata/nofollow and sizes, route/control sourcepins and acceptedsource reviews, Python hash before checks/grant.",
+    "Wrapper prospective clean282f/src/remote/AC/free/lock/selectedpriorgroups/outputabsence checks precede exclusive durableGRANT, newlane and exactexec; actualAdditiveOrGameAuthorizedfalse retained.",
+    "Seven controls remain only permitted runtime scope; actual operationalguard/mirror/fullguard/game route authority unfilled and separate."
+  ],
+  "limits": [
+    "This receipt permits root to separately grant/run exact tinycontrols only; no actual preflight/currentclean/tool/AC/free/absence observed here.",
+    "No elapsedmockdeadline/hardkill guarantee or actual additive/mirror/type/game acceptance.",
+    "Selected priorgroup checks are scoped absence only; no global absence claim."
+  ],
+  "runtimeObserved": false,
+  "executionAuthorizedByThisReceipt": false
+}

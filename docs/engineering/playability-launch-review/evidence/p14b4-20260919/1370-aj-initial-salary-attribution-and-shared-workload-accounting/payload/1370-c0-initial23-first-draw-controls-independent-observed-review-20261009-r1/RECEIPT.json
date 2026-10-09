@@ -1,0 +1,67 @@
+{
+  "actualHelperExit": 0,
+  "actualNodeExit": 0,
+  "actualRecorderExit": 0,
+  "actualToolExit": 0,
+  "actualToolSessionId": 32559,
+  "auditActualExit": 0,
+  "boundsSeconds": {
+    "active": 75,
+    "node": 60,
+    "whole": 90
+  },
+  "configSha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e",
+  "decision": "ACCEPT_OBSERVED_PURE_INITIAL23_INPUT_AND_REFUSAL_CONTROLS",
+  "elapsedRecorderSeconds": 1.7120730989990989,
+  "executionAuthorization": false,
+  "findings": [],
+  "freshOwnedGroupsAbsent": [
+    14146,
+    14652
+  ],
+  "groups": 8,
+  "knownControlDraws": 1,
+  "laneLockAbsent": true,
+  "overrideAbsent": true,
+  "qualification": "Source\u2192exact controls grant\u2192actual raw tool/helper metadata\u2192retained result/eight PASS groups independently matched. Existing Python SyntaxWarning is retained in helper log; Node stderr is empty. No controls repeated. Witness requires separate root grant and independent observed review.",
+  "renewalAttribution": false,
+  "resultSha256": "4870a65fc03de6aa991155451f02af386669af3a60a40511030c4a2228c4d52d",
+  "reviewEngineNodeDrawTestOrGitExecution": false,
+  "roles": {
+    "auditSource": {
+      "bytes": 4516,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-controls-independent-observed-review-20261009-r1/audit.py",
+      "sha256": "4ff0d2823f8ea11c26a165fb47cc8c8799443111139748990525c0d721662e10"
+    },
+    "facts": {
+      "bytes": 3603,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-controls-independent-observed-review-20261009-r1/FACTS.json",
+      "sha256": "74f84b49582e9b48cef246bf530bc1b9d813750586a8e4b8b6bfb24fc9d498b5"
+    },
+    "result": {
+      "bytes": 921,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-output-20261009-r1/RESULT.json",
+      "sha256": "4870a65fc03de6aa991155451f02af386669af3a60a40511030c4a2228c4d52d"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 389,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-controls-output-20261009-r1/stdout.bin",
+      "sha256": "2add2708e21b46345d1ceb5d7cb36ec9a4f028d4c771c4aa08c9498001e06253"
+    }
+  },
+  "salaryAttribution": false,
+  "schema": "1370-initial23-first-draw-controls-independent-observed-review/v1",
+  "sourcePinsSha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60",
+  "sourceReviewSha256": "c441b19fc17d20eaf7b13a0477807e711f58a3a92f3717e7c645aa3d1974e66f",
+  "stderrBytes": 0,
+  "stdoutBytes": 389,
+  "stdoutSha256": "2add2708e21b46345d1ceb5d7cb36ec9a4f028d4c771c4aa08c9498001e06253",
+  "unexpectedHelperWait": false,
+  "unknownDrawsMeasured": 0,
+  "witnessObserved": false
+}

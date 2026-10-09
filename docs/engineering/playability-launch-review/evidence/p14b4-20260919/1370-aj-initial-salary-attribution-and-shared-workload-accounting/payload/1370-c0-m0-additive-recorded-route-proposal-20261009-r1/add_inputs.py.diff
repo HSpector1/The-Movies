@@ -1,0 +1,101 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/add_inputs.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/add_inputs.py
+@@ -15,6 +15,8 @@
+ LANE_LOG='m0-additive-input-20261009-r2.lane.log'
+ WALL=180
+ START=time.monotonic()
++ORIGINAL_DEADLINE=float(os.environ.get("ADDITIVE_ORIGINAL_DEADLINE", START+180))
++PHASE_PATH=RESULT_PATH=None
+ PRE=3758096384
+ FLOOR=3221225472
+ MIRROR_FD=None
+@@ -24,7 +26,7 @@
+ def need(ok,msg):
+  if not ok:raise RuntimeError(msg)
+ def remaining():
+- n=WALL-(time.monotonic()-START);need(n>1,'180-second addendum deadline');return n
++ n=ORIGINAL_DEADLINE-time.monotonic();need(n>1,'180-second addendum deadline');return n
+ def sha(raw):return hashlib.sha256(raw).hexdigest()
+ def attrs(x):return (x.st_dev,x.st_ino,x.st_mode,x.st_nlink,x.st_size,x.st_mtime_ns,x.st_ctime_ns)
+ def dir_id(x):return (x.st_dev,x.st_ino,x.st_mode)
+@@ -215,6 +217,7 @@
+   parts=pathlib.PurePosixPath(r['path']).parts;need(parts[0]=='bridge' and '..' not in parts,'bridge path')
+   for i in range(1,len(parts)):bridge_dirs.add('/'.join(parts[:i]))
+  preflight_space() # Recheck3.5GiB immediately before first exclusive write.
++ publish_phase(rootbefore)
+  for name in sorted(bridge_dirs,key=lambda n:(n.count('/'),n)):
+   parts=pathlib.PurePosixPath(name).parts;fd=relative_fd(parts[:-1])
+   try:os.mkdir(parts[-1],0o700,dir_fd=fd);os.fsync(fd)
+@@ -245,10 +248,66 @@
+  source_guard();guard();need(dependency_preflight(inputs)==depsbefore,'dependency changed postflight')
+  return {'status':'ADDITIVE_SOURCE_INPUTS_PENDING_INDEPENDENT_EXPANDED_READBACK','regularFiles':1740,'regularBytes':119393120,'originalFilesUnchanged':1677,'bridgeFiles':63,'bridgeBytes':1517743,'rootBefore':rootbefore,'rootAfter':attrs(os.fstat(MIRROR_FD)),'intentionalRootTransition':['bridge directory','node_modules symlink'],'dependencyTargetIdentity':depsbefore,'typesReady':False,'gameAccepted':False}
+ 
++def durable(path,payload):
++ encoded=(json.dumps(payload,sort_keys=True)+"\n").encode();need(len(encoded)<=100000,'body result cap')
++ parent,chain=open_parent(path)
++ try:
++  fd=os.open(path.name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600,dir_fd=parent)
++  with os.fdopen(fd,'wb') as f:f.write(encoded);f.flush();os.fsync(f.fileno())
++  os.fsync(parent);same_parent(path,chain)
++ finally:os.close(parent)
++ return sha(encoded)
++
++def publish_phase(rootbefore):
++ need(PHASE_PATH is not None,'recorded first-write phase role required');mirror_guard()
++ durable(PHASE_PATH,{'status':'ORIGINAL_PREFLIGHT_COMPLETE_FIRST_WRITE_ALLOWED','rootBefore':rootbefore,'originalFiles':1677,'originalBytes':117875377,'copyFactsSha256':'e46dcc9cf81f7ce3462e1cdd34618f37f68ac75a90d5f95f112ee93966e96bfe','mirrorPath':str(MIRROR),'pid':os.getpid()})
++
++def body_authority(binding):
++ excluded={'status','executionAuthorization','exactBindingReviewPath','exactBindingReviewSha256','exactBindingReviewDecision'}
++ canonical=lambda value:json.dumps(value,sort_keys=True,separators=(',',':')).encode()
++ semantic=sha(canonical({k:v for k,v in binding.items() if k not in excluded}))
++ exact=json.loads(read_pin(pathlib.Path(binding['exactBindingReviewPath']),binding['exactBindingReviewSha256'],100000))
++ source=json.loads(read_pin(pathlib.Path(binding['materializerSourceReviewPath']),binding['materializerSourceReviewSha256'],100000))
++ preflight=json.loads(read_pin(pathlib.Path(binding['preflightReviewPath']),binding['preflightReviewSha256'],100000))
++ core=sha(canonical({k:v for k,v in binding.items() if k not in excluded|{'preflightReviewPath','preflightReviewSha256'}}))
++ need(exact.get('decision')=='ACCEPT_EXACT_FILLED_UNRUN' and exact.get('bindingSemanticSha256')==semantic,'body exact review semantic authority')
++ need(source.get('decision')=='ACCEPT_SOURCE_ONLY_UNRUN_ADDITIVE_RECORDED_ROUTE' and source.get('sourceSha256')==binding['materializerSha256'],'body source review authority')
++ need(preflight.get('decision')=='ACCEPT_M0_ADDITIVE_PREFLIGHT' and preflight.get('guardCoreSha256')==core and preflight.get('productionHead')==HEAD and preflight.get('freshProductionCommonFullProofAccepted') is True and preflight.get('r9PrivateRootReuseExplicitlyAccepted') is True,'body fresh operational guard authority')
++
+ def main():
+- # r1 is deliberately held. Fresh guards/exact authenticated outer launch are missing roles;
+- # changing these placeholders requires a versioned independently reviewed exact fill.
+- inputs=json.loads(read_pin(INPUTS,INPUTS_SHA,100000));need(inputs['executionAuthorization'] is True,'HELD_UNRUN_NO_EXECUTION_AUTHORITY')
+- need(inputs['freshQualifiedProductionCommonGuard'] is not None and inputs['independentExactLaunchReview'] is not None,'missing fresh operational guards/exact launch')
+- raise RuntimeError('HELD_R1_REQUIRES_REVIEWED_EXACT_LAUNCH_ADAPTATION')
+-if __name__=='__main__':main()
++ global PHASE_PATH,RESULT_PATH,LANE_LOG
++ need(len(sys.argv)==2 and os.environ.get('ADDITIVE_ORIGINAL_DEADLINE'),'external original180 deadline required')
++ need(ORIGINAL_DEADLINE<=START+180 and ORIGINAL_DEADLINE>START,'invalid or expired original child deadline')
++ signal.signal(signal.SIGALRM,lambda *_:(_ for _ in ()).throw(TimeoutError('original child180 deadline')))
++ signal.setitimer(signal.ITIMER_REAL,ORIGINAL_DEADLINE-time.monotonic()) # Never reset to180.
++ bindingpath=pathlib.Path(sys.argv[1]);binding=json.loads(read_pin(bindingpath,os.environ['ADDITIVE_BINDING_SHA'],128*1024))
++ need(binding.get('executionAuthorization') is True and binding.get('status')=='REVIEWED_FILLED_UNRUN','held body requires exact adopted binding')
++ body_authority(binding)
++ need(binding.get('mirrorPath')==str(MIRROR) and binding.get('materializerSha256')==sha(pathlib.Path(__file__).read_bytes()),'body exact source/mirror mismatch')
++ PHASE_PATH=pathlib.Path(binding['phaseReceiptPath']);RESULT_PATH=pathlib.Path(binding['additiveReceiptPath']);LANE_LOG=binding['helperLogName']
++ need(PHASE_PATH.parent==RESULT_PATH.parent==pathlib.Path(binding['outputRoot']),'bound external receipt parents')
++ inputs=json.loads(read_pin(INPUTS,INPUTS_SHA,100000));roles=inputs['roles']
++ for r in roles.values():read_pin(pathlib.Path(r['path']),r['sha256'],2000000)
++ copy=json.loads(read_pin(pathlib.Path(roles['copyReceipt']['path']),roles['copyReceipt']['sha256'],100000));parent=json.loads(read_pin(pathlib.Path(roles['copyParentAdoption']['path']),roles['copyParentAdoption']['sha256'],100000))
++ need(copy['decision']=='ACCEPT_OBSERVED_M0_SOURCE_ONLY_MATERIALIZATION_COPY' and parent['decision']=='ADOPT_OBSERVED_M0_SOURCE_ONLY_COPY_AND_FULL_POSTFLIGHT','original copy not admitted')
++ facts=json.loads(read_pin(pathlib.Path(roles['copyFacts']['path']),roles['copyFacts']['sha256'],2000000))
++ result={'status':'STOP_PARTIAL_ADDITIVE_INPUTS','mirrorPath':str(MIRROR),'sourceCommit':SOURCE,'sourceTree':TREE,'inputsSha256':INPUTS_SHA,'childPid':os.getpid(),'originalDeadline':ORIGINAL_DEADLINE}
++ failure=None
++ try:
++  guard();source_guard();attach_mirror();result.update(add(inputs,facts));remaining();mirror_guard()
++ except BaseException as exc:
++  failure=exc;result['failure']=str(exc) or repr(exc);result['status']='STOP_PARTIAL_ADDITIVE_INPUTS'
++ finally:
++  if MIRROR_FD is not None:
++   try:mirror_guard();result['rootFinal']=attrs(os.fstat(MIRROR_FD))
++   except BaseException as exc:failure=failure or exc;result['failure']=str(exc) or repr(exc);result['status']='STOP_PARTIAL_ADDITIVE_INPUTS'
++  if time.monotonic()>=ORIGINAL_DEADLINE:failure=failure or TimeoutError('late child finalization');result['status']='STOP_PARTIAL_ADDITIVE_INPUTS';result['failure']='original deadline through result'
++  result['elapsedSeconds']=time.monotonic()-START;result['partialMirrorPreserved']=True
++  digest=durable(RESULT_PATH,result)
++  if MIRROR_FD is not None:os.close(MIRROR_FD)
++ if failure:raise failure
++ remaining();print(json.dumps({'status':result['status'],'receiptSha256':digest,'mirrorPath':str(MIRROR)},sort_keys=True),flush=True);remaining()
++ signal.setitimer(signal.ITIMER_REAL,0)
++if __name__=='__main__':
++ try:main()
++ except BaseException as exc:print('STOP_ADDITIVE '+(str(exc) or repr(exc)),file=sys.stderr,flush=True);sys.exit(2)

@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/supervise.py",
+    "<EXACT_ADOPTED_BINDING_PATH>"
+  ],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "sourceAuthenticatedOuterBootstrapRequired": true
+}

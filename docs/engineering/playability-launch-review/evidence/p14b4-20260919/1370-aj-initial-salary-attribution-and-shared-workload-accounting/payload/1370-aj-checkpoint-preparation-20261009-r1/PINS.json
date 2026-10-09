@@ -1,0 +1,56 @@
+{
+  "executionAuthorization": false,
+  "pendingAdditions": [
+    {
+      "note": "Existing BENCHMARK-ADOPTION.json is included exactly; do not remove it.",
+      "role": "Any subsequent final cache disposition/LESSONS/root adoption files not already present",
+      "status": "PENDING_ROOT_FINALIZATION"
+    },
+    {
+      "role": "b pending16-renewal input/capture-phase design and root adoption",
+      "status": "PENDING_FINITE_FINAL_READINESS"
+    },
+    {
+      "excludedCurrentPreparationDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2",
+      "role": "M0 additive exact-control fill/current actual run and independent observed review/root adoption",
+      "status": "PENDING_ACTUAL_CLOSED_CHAIN"
+    },
+    {
+      "note": "Do not recursively include final inventory/finalizer outputs.",
+      "role": "This AJ draft/selector/verification/pins and any final inventory/root report/HANDOFF/source policy roles",
+      "status": "PENDING_ROOT_FINAL_ADDITIONS_AND_COMPLETE_MARKER"
+    }
+  ],
+  "repoMutation": false,
+  "roles": {
+    "inventory": {
+      "bytes": 184203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/INVENTORY-DRAFT.json",
+      "sha256": "145027905f2208e905b2a770416fd2127a13a5e03e8e4446238b52e8d0bd1e43"
+    },
+    "selectors": {
+      "bytes": 10507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/SELECTORS.json",
+      "sha256": "8f95b9b27ba991fad89be85f3fe59c9e3c27906fc28e93482dbf1b00114686d4"
+    },
+    "verification": {
+      "bytes": 9230,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r1/INVENTORY-VERIFICATION.json",
+      "sha256": "53a2d9054a01b56ea5691d9ac9dd694aa3261abf252790a7aea0007c35fadb11"
+    }
+  },
+  "schema": "1370-aj-inventory-preparation-pins-r1",
+  "status": "PARTIAL_SOURCE_ONLY_UNRUN_FINALIZER",
+  "summary": {
+    "completeInventory": false,
+    "localHashSizeOnlyBytes": 0,
+    "localHashSizeOnlyFiles": 0,
+    "payloadBytes": 3086432,
+    "payloadFiles": 247,
+    "priorAIRawHashOnlyPolicyPointerRoles": 14,
+    "priorAITransportOnlyRoles": 720,
+    "priorGitCoverage": "Not queried. Accepted finalizer separately authenticates actual HEAD blobs and preserves prior archive pointer.",
+    "regularFiniteFiles": 247,
+    "selectedFiniteDirectories": 47
+  }
+}

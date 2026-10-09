@@ -1,0 +1,16 @@
+{
+  "launch": {
+    "chunk_id": "8f7e23",
+    "wall_time_seconds": 1.001513327,
+    "session_id": 75645,
+    "original_token_count": 0,
+    "output": ""
+  },
+  "completion": {
+    "chunk_id": "886625",
+    "wall_time_seconds": 0.000020554,
+    "exit_code": 0,
+    "original_token_count": 61,
+    "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/GRANT.json\", \"bytes\": 10241, \"sha256\": \"36b4215530bc1ab9fe7578af3b3d46b3187ced391b9d370310d71e1e5ac4f45d\"}, \"helperPid\": 43572}\n"
+  }
+}

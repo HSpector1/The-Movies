@@ -1,0 +1,58 @@
+{
+  "acceptance": "Pending independent observed review;22remaininginitialcauses not parentadopted yet",
+  "actualHelperExit": 0,
+  "actualNodeExit": 0,
+  "actualRecorderExit": 0,
+  "actualToolExit": 0,
+  "actualToolSessionId": 55173,
+  "elapsedRecorderSeconds": 1.4416395970038138,
+  "freshSelectedGroupsAbsent": [
+    28579,
+    28843
+  ],
+  "fullImmutablePairsAgree": 44,
+  "grant": {
+    "bytes": 12584,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-parent-recorded-20261009-r1/GRANT.json",
+    "sha256": "3356c8cfc1964c3ea784bfbea5d41efb8c202c15141df84fdbff5e875986b01c"
+  },
+  "laneAndOverrideAbsent": true,
+  "mismatches": 0,
+  "rawTool": {
+    "bytes": 582,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "91a3850efef471d2cf32f1d67757275a53829c4b4ed6a795dd019f368aa85de9"
+  },
+  "renewalAttribution": false,
+  "retained": [
+    {
+      "bytes": 939,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/RESULT.json",
+      "sha256": "5a545869b5617f6fd6b6a2198b30cf80696c1d527818c7686e1114d5249edc81"
+    },
+    {
+      "bytes": 25308,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/stdout.bin",
+      "sha256": "af74dcee0373ce495962a745a3d9ac5b5654c87e48124a797185691ef7ecfb21"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 416,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-lane-20261009-r2/pricing.lane.log",
+      "sha256": "cbac9cc09813f43b4d6951134af41a829f28ccce98828c129e1c5dd2530b8841"
+    },
+    {
+      "bytes": 363,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-lane-20261009-r2/pricing.lane.log.meta",
+      "sha256": "00f6e8ba83dd0f8f07f465eac37469b1099926d2e7a4c46606de08744765055e"
+    }
+  ],
+  "schema": "initial23-pricing-actual-tool-outcome/v1",
+  "selectedInitialPairsAgree": 23,
+  "sourceTransportClaimOnly": true,
+  "utc": "2026-10-09T18:36:52.615083+00:00"
+}

@@ -1,0 +1,81 @@
+{
+  "acceptance": "Pending independent observed review",
+  "actualHelperExit": 0,
+  "actualMirrorOrGameExecuted": false,
+  "actualRunnerExit": 0,
+  "actualToolExit": 0,
+  "actualToolSessionId": 75645,
+  "elapsedRunnerSeconds": 1.2359550229884917,
+  "errors": 0,
+  "failures": 0,
+  "fourTinyChildrenReaped": true,
+  "freshRecordedPidsAndGroupsAbsent": [
+    43572,
+    43835,
+    43836,
+    43837,
+    43838
+  ],
+  "grant": {
+    "bytes": 10241,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/GRANT.json",
+    "sha256": "36b4215530bc1ab9fe7578af3b3d46b3187ced391b9d370310d71e1e5ac4f45d"
+  },
+  "laneAbsent": true,
+  "rawTool": {
+    "bytes": 572,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/ACTUAL-TOOL.json",
+    "sha256": "fbf954bf7a46a5f60e8903251306ceda7154df7acd39bd4b156d404f29ea4368"
+  },
+  "retained": [
+    {
+      "bytes": 148,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-output-20261009-r2/OWNED-FORKS.ndjson",
+      "sha256": "0077539a9f11e86155e44b89500945913419547b873b23ed7f917dd80f689826"
+    },
+    {
+      "bytes": 924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-output-20261009-r2/RESULT.json",
+      "sha256": "979fdb73f8fdb2d7cd8329bc95b73132edf4e11d69cc3709b2d12e675c0818c9"
+    },
+    {
+      "bytes": 71,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/pipe-0/CHILD-OWNED.json",
+      "sha256": "c283efc64752aa60a21196e2d8b883c643f917392275dad41f9be58a485b423c"
+    },
+    {
+      "bytes": 72,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/pipe-1/CHILD-OWNED.json",
+      "sha256": "6f588cbfdcec5ea8dd843f3f577988bce4a4322c3424f2537cbc048161f2a6fe"
+    },
+    {
+      "bytes": 72,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/pipe-2/CHILD-OWNED.json",
+      "sha256": "88fab26048acec6354da1b533c7f50868f8138c04c14825ff90c8efc865797d2"
+    },
+    {
+      "bytes": 71,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/pipe-3/CHILD-OWNED.json",
+      "sha256": "18754e074f4e45861c44e905ae0729c69f29568b6df2703c81f60ed72dedd1f6"
+    },
+    {
+      "bytes": 17,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/unused-binding",
+      "sha256": "218589323cbe80b7ed077e3ee36f1663e7cb5f8f4e4ad02c938ad8a5c2c5a6b9"
+    },
+    {
+      "bytes": 1035,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-lane-20261009-r2/controls.lane.log",
+      "sha256": "f4878be21377fa0cbdcd1b22277311bafd6b73472b324bd99acbd4beccebf74c"
+    },
+    {
+      "bytes": 568,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-lane-20261009-r2/controls.lane.log.meta",
+      "sha256": "b71fc4aafd82635d8dbb7875c071315603cfd32e87685da709075dbfed1abce1"
+    }
+  ],
+  "schema": "additive-tiny-controls-actual-tool-outcome/v1",
+  "syntheticDeadlineAndKillControlsClaim": "Source predicate and intended call evidence only; no actual elapsed deadline or hardkill guarantee",
+  "testsRun": 7,
+  "utc": "2026-10-09T18:52:26.356586+00:00"
+}

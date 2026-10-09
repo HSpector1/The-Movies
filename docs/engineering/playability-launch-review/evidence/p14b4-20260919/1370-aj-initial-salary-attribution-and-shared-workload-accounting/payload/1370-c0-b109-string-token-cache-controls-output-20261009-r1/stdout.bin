@@ -1,0 +1,34 @@
+PASS exact primitives and finite number rendering
+PASS captured key order, integer keys and escaping
+PASS undefined object omission and sparse-array null
+PASS shared references are allowed while cycles refuse
+PASS own toJSON refuses; inherited toJSON is ignored like baseline
+PASS unsupported atoms and nonfinite numbers refuse
+PASS exact-fit and cap refusal for every small budget
+PASS string raw precheck and escaped token budget
+PASS property-key cache is per call and cannot mask object mutation
+PASS getter visitation order remains identical
+PASS deterministic nested corpus
+PASS stateful first-check and second-value reads
+PASS dynamic array shrink and growth preserve emitted length
+PASS null prototypes prevent inherited hooks including array pollution
+PASS safe proto keys and integer ordering
+PASS token caps and refusals never serialize source containers
+PASS proxy reverse and mixed integer order exact bytes and caps
+PASS nested and shared proxy order is fresh on each occurrence
+PASS proxy omitted names preserve all original hook traces
+PASS proxy stateful values retain two reads and undefined refusal
+PASS null handler ignores inherited get and descriptor traps
+PASS token emission creates no clone Proxy wrapping
+PASS chunk whole-token count and UTF8 byte seams retain exact-fit caps
+PASS oversized whole tokens preserve Unicode escaping and cap refusals
+PASS late refusal after multiple chunks cannot return or retain partial output
+PASS source getters Proxy traces and dynamic length stay exact across seams
+PASS shared references repeated keys and mutation remain fresh across chunks and calls
+PASS chunk token architecture and unusual limit coercion preserve original checkpoints
+PASS primitive cache repeated strings escaping surrogates and chunk seams
+PASS primitive cache hit raw and aggregate caps preserve coercion and source traces
+PASS primitive cache key value interactions retain existing key-cache chronology
+PASS primitive cache entry and payload saturation fallback exact output
+PASS primitive cache per-call freshness and getter results remain uncached
+{"status":"ENCODER_EQUIVALENCE_AND_REFUSALS_PASSED","groups":33,"pairs":353,"game":false,"saveImports":false,"captureDecode":false}

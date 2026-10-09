@@ -1,0 +1,16 @@
+{
+  "launch": {
+    "chunk_id": "aeab53",
+    "wall_time_seconds": 1.002809045,
+    "session_id": 55173,
+    "original_token_count": 0,
+    "output": ""
+  },
+  "completion": {
+    "chunk_id": "2e280e",
+    "wall_time_seconds": 0.000017725,
+    "exit_code": 0,
+    "original_token_count": 63,
+    "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-parent-recorded-20261009-r1/GRANT.json\", \"bytes\": 12584, \"sha256\": \"3356c8cfc1964c3ea784bfbea5d41efb8c202c15141df84fdbff5e875986b01c\"}, \"helperPid\": 28579}\n"
+  }
+}

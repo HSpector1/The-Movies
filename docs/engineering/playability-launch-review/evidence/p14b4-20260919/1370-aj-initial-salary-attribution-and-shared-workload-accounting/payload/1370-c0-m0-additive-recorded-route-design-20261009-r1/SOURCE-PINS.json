@@ -1,0 +1,22 @@
+{
+  "DESIGN.json": {
+    "bytes": 7822,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-design-20261009-r1/DESIGN.json",
+    "sha256": "0208861b742f8ca9351535c6a7c5c3a03693189a17159e95a97b0a13eeb91e2c"
+  },
+  "PREDECESSOR-ROLES.json": {
+    "bytes": 4730,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-design-20261009-r1/PREDECESSOR-ROLES.json",
+    "sha256": "b5f71c1ce9fb20fd5ba97db681618f25c14763f70704794f77986725ca5f0e03"
+  },
+  "REPORT.md": {
+    "bytes": 6926,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-design-20261009-r1/REPORT.md",
+    "sha256": "5cd444263b2153f1b5e2fbb27073324832eaad6c08cae8aa9591b08dd23abeb0"
+  },
+  "SOURCE-CHANGE-MAP.json": {
+    "bytes": 1487,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-design-20261009-r1/SOURCE-CHANGE-MAP.json",
+    "sha256": "49eb59126dc1ff57ddf88f13ce13d5bb90f36cd911ef5ef4ff466fe4685fefd0"
+  }
+}

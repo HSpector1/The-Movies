@@ -1,0 +1,10 @@
+{
+  "allDiagnosticsUnderExactHistoricalPayloadArchive": true,
+  "decision": "Do not normalize archived original evidence. Exact source/index/Git blob bytes are controlling; whitespace check applies to newly authored human docs.",
+  "diagnosticHeaders": 6,
+  "newHandoffAndReportCheckExit": 0,
+  "status": "ARCHIVED_ORIGINAL_WHITESPACE_PRESERVED_NEW_DOCS_CHECK_PASS",
+  "stdoutBytes": 1390,
+  "stdoutSha256": "4e425022015b8d4a2125953ef9606f7add553c66899d302d2c2d74d4f966f265",
+  "wholeArchiveCheckExit": 2
+}

@@ -1,0 +1,7 @@
+Actual authored33 groups/353 parity pairs accepted, narrow controls scope only.
+
+Exact accepted source78912/review6b993 and wrapperaae358c6/reviewac119 bind the recorded grant4c140d3f. All33 grant roles and retained artifacts authenticate with physical identity/hash checks. Raw actual tool41466 completionexit0, helper one start/endexit0 without wait, recorder/Node0, report33/353 and all33 exact source group names pass. Retained2220B stdout and empty stderr match RESULT SHA/lengths; no timeout/override. Elapsed2.068757706991164s is inside unchanged60/75/90; streams/RESULT below1MiB.
+
+Owned numeric34331 and helper34067 PID and groups were independently freshly absent; HEAVY-LANE-LOCK absent. RESULT confirms owned-before-exec, READY group, reaping/groupClear; output has exactly RESULT/stdout/stderr. Lane contains the inherited Python SyntaxWarning for return in finally plus success summary, not Node stderr or a new STOP. Qualified mechanism/source remain exact.
+
+This qualifies authored equivalence/refusal/getter/coercion/saturation controls and source-proved512-entry/65536UTF8 payload budget. It is not observed exact heap usage, builtin-call-count parity, speedup, benchmark, integration, game, later-size feasibility or109 completion. Root needs a separate benchmark grant; no control replay occurred here. No Node, proposal import, test, capture decode, protected scan/write or Git action was performed in the review.

@@ -1,0 +1,136 @@
+{
+  "actualAdditiveExecutionAuthorized": false,
+  "controlsExecutionAuthorized": false,
+  "decision": "ADOPT_INDEPENDENTLY_REVIEWED_DESIGN_FOR_SOURCE_IMPLEMENTATION_ONLY",
+  "gameExecutionAuthorized": false,
+  "implementationConstraints": [
+    "External180 child clock must start before child imports or execution; any inner timer must preserve that original deadline",
+    "First-write exception must be phase-scoped, with beforeGO complete original metadata proof and exact expanded readback afterward",
+    "Sticky failure and bounded capture/finalization/clearance required; incomplete result or physical interruption remains STOP",
+    "Keep original held body and all failures byte-exact; no source execution or mirror mutation in this design adoption"
+  ],
+  "reviewed": [
+    "Existing accepted1677copy remains authoritative preextension; no recopy or install",
+    "PostGO intentional leaf root metadata transition is scoped to exact additive phase; original files/nonroot dirs and dev/inode/mode/parent strict",
+    "Fresh current production/common and explicit R9/H/dependency/M0 protections remain mandatory; continuity may only use an independently qualified explicit admission",
+    "180 child and210 whole operational caps tighten predecessor; they do not amend any game clock",
+    "Separate tiny controls own processes beforeGO; no elapsed expiry claims from fixed mock clocks",
+    "Exact held/auth-field/archive/review/adoption sequence remains; every new source/guard/runtime role needs later admission"
+  ],
+  "reviewer": "Root; design authored by serializer_failure_repair",
+  "roles": [
+    {
+      "bytes": 883,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-root-recorded-20261009-r3/ADOPTION.json",
+      "sha256": "6b9d0df891caeb96c95600f94bd57a83ecbd4bae9baa6203c69abe7f0ebb81fc"
+    },
+    {
+      "bytes": 2762,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-runner-proposal-20261009-r3/CONFIG.json",
+      "sha256": "cc3a613fef7e19161a917ddc126a5864ab3a19f37e052567169fc5b263f20043"
+    },
+    {
+      "bytes": 7811,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-runner-proposal-20261009-r3/run_controls.py",
+      "sha256": "0fa665c5608cfe8fc0e2964137fe8cfce993c45e20814c5bfa4e4c6e39a1eed5"
+    },
+    {
+      "bytes": 1809,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-runner-independent-source-review-20261009-r3/RECEIPT.json",
+      "sha256": "0f982890e34d88aaaae89ba7cfae2a388fc9539f0376575c942505e4d0a20647"
+    },
+    {
+      "bytes": 978422,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/COPY-READBACK-FACTS.json",
+      "sha256": "e46dcc9cf81f7ce3462e1cdd34618f37f68ac75a90d5f95f112ee93966e96bfe"
+    },
+    {
+      "bytes": 1860,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/OBSERVED-COPY-ADOPTION.json",
+      "sha256": "ec17dc69df4c1b8c3e5af8ef88d43fc4bceea82b2278325ec14cf2398651a8dd"
+    },
+    {
+      "bytes": 9262,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "381ec5af685ce78f002ff260e166e9a13aa40ac1432e2a635900511a8a30d78d"
+    },
+    {
+      "bytes": 6336,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/ADOPTION-PROCEDURE.md",
+      "sha256": "a4e2b37f469f642b97519514083325d824ec59623555a4a2cb2745be5d13f566"
+    },
+    {
+      "bytes": 5137,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/GUARD-TRANSITION.md",
+      "sha256": "5d8b603360e1bd4e74bc24dd6c3fdf783f9c6631ca6f7bf7c1edc400446a416a"
+    },
+    {
+      "bytes": 27220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/INPUTS.json",
+      "sha256": "d72e3292aff7d640c544e752e7bd54f6b66aebebf8a82cadda110d74f8111520"
+    },
+    {
+      "bytes": 1779,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "e1ba6062943bae800af7e1152f6e367a52189a18b04fda764c121fe34da1bf4b"
+    },
+    {
+      "bytes": 2348,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-independent-source-review-20261009-r2/RECEIPT.json",
+      "sha256": "b7ae07bd1ac063b2301dc4046c341d4fd04332cdb0983fcedb7df6c127a4e269"
+    },
+    {
+      "bytes": 14304,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/add_inputs.py",
+      "sha256": "b753512236d5a599062dfe0309acb61668bcca6a8743e1b69d5ab67f016e2891"
+    },
+    {
+      "bytes": 2934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/test_invariants.py",
+      "sha256": "6d623338d8065f9c5b4234a385c6a7abfeadc53a039491c3298af2ccc7f5dd78"
+    },
+    {
+      "bytes": 21430,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/record.py",
+      "sha256": "5752b2988c8bc5b649ed2f39153dad95f4cdc3b9793396865fa3989f8f75fb7a"
+    },
+    {
+      "bytes": 2335,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/SOURCE-PINS.json",
+      "sha256": "a37f4ffc9d315f0a621e9544776d7917d294f927adc1c1adfcf998700cc526c4"
+    },
+    {
+      "bytes": 1523,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-independent-source-review-20261009-r3/RECEIPT.json",
+      "sha256": "77889570601c9b25f182047de35fc7dc245f9b68b59ff039924323e4a92f82d6"
+    },
+    {
+      "bytes": 15375,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/supervise.py",
+      "sha256": "8eaf5fabdf298df579851b06f45d636b92393e235e8af6b5f2ec52fcfc0bd03f"
+    },
+    {
+      "bytes": 1011,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-design-20261009-r1/SOURCE-PINS.json",
+      "sha256": "fd1c599a241a35422e4fbff593a73745b229d528f1287090e320a7378f4f5fdf"
+    },
+    {
+      "bytes": 7822,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-design-20261009-r1/DESIGN.json",
+      "sha256": "0208861b742f8ca9351535c6a7c5c3a03693189a17159e95a97b0a13eeb91e2c"
+    },
+    {
+      "bytes": 6926,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-design-20261009-r1/REPORT.md",
+      "sha256": "5cd444263b2153f1b5e2fbb27073324832eaad6c08cae8aa9591b08dd23abeb0"
+    },
+    {
+      "bytes": 1487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-design-20261009-r1/SOURCE-CHANGE-MAP.json",
+      "sha256": "49eb59126dc1ff57ddf88f13ce13d5bb90f36cd911ef5ef4ff466fe4685fefd0"
+    }
+  ],
+  "schema": "m0-additive-route-design-parent-review/v1",
+  "sourceImplementationAuthorized": true,
+  "utc": "2026-10-09T18:23:10.190407+00:00"
+}

@@ -1,0 +1,65 @@
+{
+  "absenceClaim": "reserved name only; parent preflight must freshly verify absent before grant",
+  "actual5Roles": {
+    "actualWitnessConfig": {
+      "bytes": 6333,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/CONFIG.json",
+      "sha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e"
+    },
+    "actualWitnessIndependentReceipt": {
+      "bytes": 4219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
+    },
+    "actualWitnessResult": {
+      "bytes": 920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/RESULT.json",
+      "sha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d"
+    },
+    "actualWitnessSourcePins": {
+      "bytes": 8515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
+    },
+    "actualWitnessStdout": {
+      "bytes": 9419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stdout.bin",
+      "sha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
+    }
+  },
+  "futureWitness": {
+    "configSha256": "ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e",
+    "resultSha256": "98f815f8aab250f8171ec95e475c0d0465cc490d5b10d8d27f7e459413213f9d",
+    "sourcePinsSha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60",
+    "stdoutSha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
+  },
+  "futureWitnessFields": [
+    "sourcePinsSha256",
+    "configSha256",
+    "resultSha256",
+    "stdoutSha256"
+  ],
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-r2-verification-output-20261009-r1",
+  "procedure": "Fresh r2 fills actual independently accepted witness54b305c8 using exact5 roles and4 digests only; r1 immutable. Concrete parent execution grant remains pending independent filled-source review and current exact argv/role/tool/group/lock/path preflight. CONFIG-UNFILLED.json is byte-exact r1 historical provenance, not active config.",
+  "requiredActualRoles": [
+    "actualWitnessSourcePins",
+    "actualWitnessConfig",
+    "actualWitnessResult",
+    "actualWitnessStdout",
+    "actualWitnessIndependentReceipt"
+  ],
+  "requiredObservedReceipt": {
+    "actualHelperExit": 0,
+    "actualToolExit": 0,
+    "configSha256": null,
+    "decision": "ACCEPT_OBSERVED_PURE_INITIAL23_FIRST_DRAWS",
+    "numericOnly": true,
+    "resultSha256": null,
+    "row0ControlAccepted": true,
+    "rows": 23,
+    "sourcePinsSha256": null,
+    "stdoutSha256": null
+  },
+  "runtimeOutput": "bounded human-readable23row ledger plus final JSON record on stdout; mismatch prints STOP ledger and Nodeexit2, recorder retains raw/result. No child output files.",
+  "status": "SOURCE_ONLY_FILLED_UNRUN"
+}

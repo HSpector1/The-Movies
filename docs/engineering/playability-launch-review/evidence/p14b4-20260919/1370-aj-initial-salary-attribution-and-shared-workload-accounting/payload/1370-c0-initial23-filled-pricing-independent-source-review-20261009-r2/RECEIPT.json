@@ -1,0 +1,57 @@
+{
+  "actualFiveWitnessRolesVerified": true,
+  "auditActualExit": 0,
+  "boundsSeconds": {
+    "active": 75,
+    "node": 60,
+    "whole": 90
+  },
+  "childStreamBytesCap": 1048576,
+  "configSha256": "53e53854cf619416fc111dcdd4ffdf60b58af2111c9658cdbf3aa599d3eb3105",
+  "coreAuthenticatorConsumerInputsAndOperationsUnchanged": true,
+  "decision": "ACCEPT_SOURCE_ONLY_FILLED_INITIAL23_PRICING_VERIFICATION",
+  "executionAuthorization": false,
+  "expectedFullImmutablePairs": 44,
+  "expectedSelectedInitialRows": 23,
+  "findings": [],
+  "fourWitnessDigestsVerified": true,
+  "heldSourceReviewSha256": "53943dc9865e9f82cec6757aa24af3d1300d6eb2f7b37c9a5be59b8cfe9cb77c",
+  "historicalOfferLocalCapture": false,
+  "ledgerBytesCap": 65536,
+  "liveGuardsClaimed": false,
+  "numericArithmeticExecutedByReview": false,
+  "observedPricingAgreement": false,
+  "parentNumericAdoptionSha256": "6166bbb1701671d0fa8b2c3723dbcff7592cbc2466bae5eb28f4120ef242ce65",
+  "predecessorSourcePinsSha256": "a37a9dad245572c578f2b7b8b57087b3537d3649d50ba6697e9fe1c13c8dcd17",
+  "recorderExactAfterTwoOperationalLiteralReversals": true,
+  "recorderSha256": "824c7172b5cb6b5b3337587490697fd2aa578b6682b6fcdc2aeaf5474016d699",
+  "renewalAttribution": false,
+  "renewalsExcluded": 16,
+  "roles": {
+    "auditSource": {
+      "bytes": 5136,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-filled-pricing-independent-source-review-20261009-r2/audit.py",
+      "sha256": "7fd915ad8146e713331ba91d7b22efda6689ef0b6e51354996334ed78e645231"
+    },
+    "facts": {
+      "bytes": 15136,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-filled-pricing-independent-source-review-20261009-r2/FACTS.json",
+      "sha256": "39a1ec2aa19daa0113e392c9c60c26c843fc40a160ae13d1bbcb54fd57585198"
+    },
+    "report": {
+      "bytes": 2672,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-filled-pricing-independent-source-review-20261009-r2/REPORT.md",
+      "sha256": "600ff2d8516e311552607f70db60b09688460665c1746bf74c6df66f398cc215"
+    }
+  },
+  "schema": "1370-initial23-filled-pricing-independent-source-review/v1",
+  "sourceImportsNodeRngTestsGameOrGitExecution": false,
+  "sourcePinsSha256": "335dc84cb31e2b084f95f441737eec0529ea995925f10289615169618fe74924",
+  "witnessReceiptSha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7",
+  "wrapperRole": {
+    "bytes": 4277,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-pricing-verification-parent-recorded-20261009-r1/grant_and_launch.py",
+    "sha256": "b1139d8505bb1cff3609aad89367b78ec5517f45bd878c5cba71206e10519ce4"
+  },
+  "wrapperSourceAccepted": true
+}

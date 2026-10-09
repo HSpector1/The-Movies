@@ -1,0 +1,58 @@
+{
+  "execution": false,
+  "literalAgeFactor": "function ageFactor(age: number): number {\n  const d = (age - TUNING.CONTRACT_AGE_PRIME) / TUNING.CONTRACT_AGE_SPREAD\n  const bell = Math.max(0, 1 - d * d)\n  return TUNING.CONTRACT_AGE_FACTOR_MIN + (1 - TUNING.CONTRACT_AGE_FACTOR_MIN) * bell\n}",
+  "literalClamp": "export function clamp(v: number, lo: number, hi: number): number {\n  return v < lo ? lo : v > hi ? hi : v\n}",
+  "literalIrround": "const iround = (x: number): number => Math.round(x)",
+  "literalTuningLines": {
+    "CONTRACT_AGE_FACTOR_MIN": "CONTRACT_AGE_FACTOR_MIN: 0.85, // youngest/oldest ageFactor floor",
+    "CONTRACT_AGE_PRIME": "CONTRACT_AGE_PRIME: 34, // age of peak market demand (bell centered here)",
+    "CONTRACT_AGE_SPREAD": "CONTRACT_AGE_SPREAD: 22, // age half-spread for the ageFactor bell",
+    "CONTRACT_ANNUAL_MULT": "CONTRACT_ANNUAL_MULT: 3.0, // per-production salaryCurve \u2192 annual salary",
+    "CONTRACT_LENGTH_FACTOR": "CONTRACT_LENGTH_FACTOR: { 52: 1.08, 104: 1.0, 156: 0.95, 208: 0.9 } as Record<number, number>,",
+    "CONTRACT_MAX_WEEKS": "CONTRACT_MAX_WEEKS: 208, // 4 years",
+    "CONTRACT_MIN_WEEKS": "CONTRACT_MIN_WEEKS: 52, // 1 year",
+    "CONTRACT_SCARCITY_JITTER": "CONTRACT_SCARCITY_JITTER: 0.08, // \u00b1 deterministic jitter from the 'hiring' stream",
+    "CONTRACT_SIGNING_BONUS_FRACTION": "CONTRACT_SIGNING_BONUS_FRACTION: 0.18, // signingBonus = round(annualSalary \u00d7 this)"
+  },
+  "offerRange": "employment.ts263-293; iround33; math.ts10-12; tuning376-389",
+  "sourceRoles": {
+    "AEmploymentSource": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "HEmploymentSource": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "HMathSource": {
+      "bytes": 3704,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/math.ts",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670"
+    },
+    "HTuningSource": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "acceptedRow0Bridge": {
+      "bytes": 20367,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "9814ce7dcaf76b0fd141e28e0bf1de930c8575bc5c19bccd0fb1a313c38f7ceb"
+    },
+    "acceptedSalaryAgeProof": {
+      "bytes": 136304,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/PROOF.json",
+      "sha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2"
+    }
+  },
+  "substitutions": [
+    "Type annotations and export modifiers erased from iround,clamp,ageFactor only.",
+    "salaryCurve(talent) becomes the authenticated transported generationSalaryCurve scalar; no generator or evolved person recomputation.",
+    "talent.age becomes HAuthoredInitialAge or ADerivedInitialAge.",
+    "jitterS.next() becomes only the future independently accepted firstDraw; jitter formula exact native order.",
+    "Scientist branch excluded by admission of writer/director/actor/craft inputs only; no role substitution.",
+    "All arithmetic uses native JS Number and Math.round, left-associative multiply expression; no Python, decimal, rounding inversion, result selection, or algebraic rearrangement."
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "entryBound": "Only insertion guarded strings.size<512; no deletions or replacement insertion on hits",
+  "freshness": "strings Map and stringBytes local to boundedJson; only successful primitive stringToken inserts",
+  "hitChronology": "rawBytes<=limit exactly once before return; key() byte-identical; no add or keyBytes checkpoint skipped",
+  "noProductionAPI": "No counters exported or diagnostic builtin replacements; reviewer inspects exact sole strings.set and local accounting mutation.",
+  "payloadBound": "next=stringBytes+rawBytes+escapedBytes; only insertion guarded next<=65536 and sets stringBytes=next. All lengths finite nonnegative native byteLength. Stored raw+escaped payload bounds Map key/token strings; not exact heap bound.",
+  "status": "SOURCE_ONLY_NOT_EXECUTED"
+}

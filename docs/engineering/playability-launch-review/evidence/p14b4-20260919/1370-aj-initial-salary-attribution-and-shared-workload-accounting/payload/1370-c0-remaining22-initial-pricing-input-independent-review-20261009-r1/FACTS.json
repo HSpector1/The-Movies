@@ -1,0 +1,549 @@
+{
+  "claimLimit": "Accepted prior finite source transport plus exact input/paired-term authentication. No RNG or salary recomputation, no new causes; future exact draws, source-order quote reconstruction and all paired annual/bonus matches required.",
+  "gitOrFullScan": false,
+  "knownRow0Control": {
+    "firstDraw": 0.34857689985074103,
+    "jitter": 0.9757723039761186,
+    "measurement": "F1 observer transported by accepted source proof, not historical offer-local capture"
+  },
+  "newAnnualAttributions": 0,
+  "newDrawOrSalaryArithmeticExecuted": false,
+  "remainingInitialUnknownDraws": 22,
+  "renewalOnlyR03_2Excluded": true,
+  "renewalRowsExcluded": 16,
+  "roles": {
+    "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/RESULT.json": {
+      "bytes": 9842,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/RESULT.json",
+      "sha256": "5235b18b83c8e70dd12b36a7bda932e78cb5b55ef344419a92e4e370f540c5cc"
+    },
+    "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/preimages/terminal-context.ndjson": {
+      "bytes": 2822809,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/preimages/terminal-context.ndjson",
+      "sha256": "8e9e1f68bcfee6a3d6f235b433e1f2e2d455dcc8a005c4011b78c25023bde268"
+    },
+    "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywood.ts": {
+      "bytes": 15466,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywood.ts",
+      "sha256": "49854f77a0ab33558556e047eafc65f92e4a35ec95c93afb119c7df589748359"
+    },
+    "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodStartingData.ts": {
+      "bytes": 4152,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodStartingData.ts",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+    },
+    "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/rng.ts": {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+    },
+    "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentSummary.ts": {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/worldgen.ts": {
+      "bytes": 33437,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/worldgen.ts",
+      "sha256": "7ca9cb4e73ee9b8ebae4fdc449c4e12229f9b0078bb4d20e22a98baa60b81b42"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts": {
+      "bytes": 16824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts",
+      "sha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/rng.ts": {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/worldgen.ts": {
+      "bytes": 34912,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/worldgen.ts",
+      "sha256": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/employment.ts": {
+      "bytes": 28207,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/employment.ts",
+      "sha256": "6c3fec2129c0a461ec0de8e3e20f4bb47e4150bb9f0c39fd7201fae6a3951ce0"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/hollywood.ts": {
+      "bytes": 17327,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/hollywood.ts",
+      "sha256": "c9281b85fab7fe6ce72568f318a545fce01343da86c8fd9c7db8ee5e3bd17f1f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/rng.ts": {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/tuning.ts": {
+      "bytes": 143696,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/tuning.ts",
+      "sha256": "dbc81b7b2c1e3b160266a792c2485506db906858dcc6a34bcc7a62e9a2072125"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/worldgen.ts": {
+      "bytes": 36190,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/worldgen.ts",
+      "sha256": "7c38162376e5a5d69fd5f7ee56c4c76c2958dbde6a9940b097ccb257f5755f58"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/trace.ndjson": {
+      "bytes": 94021,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/trace.ndjson",
+      "sha256": "889d23bfc8f79378311b7642b823fafedeb37c4e17126ca4d2ffa4fa4ea31994"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 12412,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/SOURCE-PINS.json",
+      "sha256": "038888024a8190a1bd5f8c5df897bda779649e16a3864c993eeb78f5df4ff4a5"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/RECEIPT.json": {
+      "bytes": 20367,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "9814ce7dcaf76b0fd141e28e0bf1de930c8575bc5c19bccd0fb1a313c38f7ceb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/INPUT-PINS.json": {
+      "bytes": 4251,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/INPUT-PINS.json",
+      "sha256": "b23846669624467a16a2b111f7df806760e1f595338e7c6161a99d9c7a1c35a6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-independent-source-review-20261009-r1/RECEIPT.json": {
+      "bytes": 1962,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "a71cc521f8c8ade5879191ac5e275034ca246bf58c6713534bf048ce703227a8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-parent-adoption-20261009-r1/ADOPTION.json": {
+      "bytes": 1313,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-parent-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "6caa7949f60f672144555791727974de94d0a722d602bdeee7a092c8506977ae"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/INPUT-PINS.json": {
+      "bytes": 10568,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/INPUT-PINS.json",
+      "sha256": "317bb5012ce56498c31801637fc2f098c640c034effa4885da55190d2081246a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/PROOF.json": {
+      "bytes": 136304,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/PROOF.json",
+      "sha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/INPUT-ROLES.json": {
+      "bytes": 49025,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/INPUT-ROLES.json",
+      "sha256": "0e7c3ebf9c6e15d1db717ba12b942776ff01d3a2a5970d46436f216e472d322e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/NOTE.md": {
+      "bytes": 4756,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/NOTE.md",
+      "sha256": "681c8675d362471ba304f226b7378761735c9f70c644f190ed51600950c2d24f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/PINS.json": {
+      "bytes": 514,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining22-initial-pricing-pure-witness-plan-20261009-r1/PINS.json",
+      "sha256": "eb0d94a6386f93960b18ed8b978d3fa98af45b6787ef18152ad33fb16269c6f5"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/H-original-employment.json": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/H-original-employment.json",
+      "sha256": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/post-aging-employment.json": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/post-aging-employment.json",
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-observed-independent-review-20261009-r1/RECEIPT.json": {
+      "bytes": 2566,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-observed-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "faf6df1cb38011ff74b7fbbca9c712da242d13cc6b15f8581dc1f1019202cb3d"
+    }
+  },
+  "schema": "initial22-independent-input-role-audit/v1",
+  "sourceImported": false,
+  "sourceOrderOnlyLocator": true,
+  "sourceRangesReviewed": {
+    "employment.ts": [
+      [
+        263,
+        293
+      ]
+    ],
+    "hollywood.ts": [
+      [
+        214,
+        226
+      ]
+    ],
+    "rng.ts": [
+      [
+        69,
+        119
+      ],
+      [
+        133,
+        139
+      ],
+      [
+        163,
+        165
+      ],
+      [
+        204,
+        206
+      ]
+    ],
+    "tuning.ts": [
+      [
+        383,
+        389
+      ]
+    ],
+    "worldgen.ts": [
+      [
+        166,
+        172
+      ],
+      [
+        519,
+        542
+      ],
+      [
+        551,
+        555
+      ]
+    ]
+  },
+  "stableIdentityOccurrenceJoin": true,
+  "status": "ACCEPT_INITIAL_ONLY_INPUT_ROLES_PENDING_PURE23_DRAW_WITNESS",
+  "totalProspectiveFreshStreamsIncludingKnownControl": 23,
+  "verifiedInitialRows": [
+    {
+      "AInitialAge": 48,
+      "ASourceOrder": 1,
+      "HInitialAge": 48.70801517856732,
+      "HSourceOrder": 1,
+      "generationSalaryCurve": 52634.56989789868,
+      "hiringKey": "offer-person-studio-aca408ec-r01-1",
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 2,
+      "talentId": "person-studio-aca408ec-r01-1"
+    },
+    {
+      "AInitialAge": 30,
+      "ASourceOrder": 2,
+      "HInitialAge": 30.706232958391467,
+      "HSourceOrder": 2,
+      "generationSalaryCurve": 87173.18066075392,
+      "hiringKey": "offer-person-studio-aca408ec-r01-2",
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 3,
+      "talentId": "person-studio-aca408ec-r01-2"
+    },
+    {
+      "AInitialAge": 40,
+      "ASourceOrder": 3,
+      "HInitialAge": 40.04834772311771,
+      "HSourceOrder": 3,
+      "generationSalaryCurve": 289501.5043446407,
+      "hiringKey": "offer-person-studio-aca408ec-r01-3",
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 4,
+      "talentId": "person-studio-aca408ec-r01-3"
+    },
+    {
+      "AInitialAge": 34,
+      "ASourceOrder": 4,
+      "HInitialAge": 34.8353363537762,
+      "HSourceOrder": 4,
+      "generationSalaryCurve": 360046.52868806233,
+      "hiringKey": "offer-person-studio-aca408ec-r01-4",
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 5,
+      "talentId": "person-studio-aca408ec-r01-4"
+    },
+    {
+      "AInitialAge": 29,
+      "ASourceOrder": 5,
+      "HInitialAge": 29.927234713302248,
+      "HSourceOrder": 5,
+      "generationSalaryCurve": 76896.30773879046,
+      "hiringKey": "offer-person-studio-aca408ec-r01-5",
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 6,
+      "talentId": "person-studio-aca408ec-r01-5"
+    },
+    {
+      "AInitialAge": 53,
+      "ASourceOrder": 6,
+      "HInitialAge": 53.09611512878311,
+      "HSourceOrder": 6,
+      "generationSalaryCurve": 94481.14475959158,
+      "hiringKey": "offer-person-studio-aca408ec-r02-0",
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 7,
+      "talentId": "person-studio-aca408ec-r02-0"
+    },
+    {
+      "AInitialAge": 40,
+      "ASourceOrder": 7,
+      "HInitialAge": 40.255207774620324,
+      "HSourceOrder": 7,
+      "generationSalaryCurve": 114398.28126530939,
+      "hiringKey": "offer-person-studio-aca408ec-r02-1",
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 8,
+      "talentId": "person-studio-aca408ec-r02-1"
+    },
+    {
+      "AInitialAge": 40,
+      "ASourceOrder": 8,
+      "HInitialAge": 40.093064922683496,
+      "HSourceOrder": 8,
+      "generationSalaryCurve": 41638.76015922036,
+      "hiringKey": "offer-person-studio-aca408ec-r02-2",
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 9,
+      "talentId": "person-studio-aca408ec-r02-2"
+    },
+    {
+      "AInitialAge": 54,
+      "ASourceOrder": 9,
+      "HInitialAge": 54.082681874932234,
+      "HSourceOrder": 9,
+      "generationSalaryCurve": 325554.3594725216,
+      "hiringKey": "offer-person-studio-aca408ec-r02-3",
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 10,
+      "talentId": "person-studio-aca408ec-r02-3"
+    },
+    {
+      "AInitialAge": 43,
+      "ASourceOrder": 10,
+      "HInitialAge": 43.19009438114523,
+      "HSourceOrder": 10,
+      "generationSalaryCurve": 191754.5004688392,
+      "hiringKey": "offer-person-studio-aca408ec-r02-4",
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 11,
+      "talentId": "person-studio-aca408ec-r02-4"
+    },
+    {
+      "AInitialAge": 49,
+      "ASourceOrder": 11,
+      "HInitialAge": 49.92240797196069,
+      "HSourceOrder": 11,
+      "generationSalaryCurve": 96667.69164427022,
+      "hiringKey": "offer-person-studio-aca408ec-r02-5",
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 12,
+      "talentId": "person-studio-aca408ec-r02-5"
+    },
+    {
+      "AInitialAge": 51,
+      "ASourceOrder": 12,
+      "HInitialAge": 51.182996256107096,
+      "HSourceOrder": 12,
+      "generationSalaryCurve": 101334.70443558876,
+      "hiringKey": "offer-person-studio-aca408ec-r03-0",
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 13,
+      "talentId": "person-studio-aca408ec-r03-0"
+    },
+    {
+      "AInitialAge": 46,
+      "ASourceOrder": 13,
+      "HInitialAge": 46.581942481860075,
+      "HSourceOrder": 13,
+      "generationSalaryCurve": 72831.92713181998,
+      "hiringKey": "offer-person-studio-aca408ec-r03-1",
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 14,
+      "talentId": "person-studio-aca408ec-r03-1"
+    },
+    {
+      "AInitialAge": 31,
+      "ASourceOrder": 15,
+      "HInitialAge": 31.872599486928138,
+      "HSourceOrder": 15,
+      "generationSalaryCurve": 302845.7600088954,
+      "hiringKey": "offer-person-studio-aca408ec-r03-3",
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 16,
+      "talentId": "person-studio-aca408ec-r03-3"
+    },
+    {
+      "AInitialAge": 28,
+      "ASourceOrder": 16,
+      "HInitialAge": 28.588303918345026,
+      "HSourceOrder": 16,
+      "generationSalaryCurve": 90501.12976259706,
+      "hiringKey": "offer-person-studio-aca408ec-r03-4",
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-4:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 17,
+      "talentId": "person-studio-aca408ec-r03-4"
+    },
+    {
+      "AInitialAge": 49,
+      "ASourceOrder": 17,
+      "HInitialAge": 49.652968596419115,
+      "HSourceOrder": 17,
+      "generationSalaryCurve": 281243.63725026173,
+      "hiringKey": "offer-person-studio-aca408ec-r03-5",
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-5:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 18,
+      "talentId": "person-studio-aca408ec-r03-5"
+    },
+    {
+      "AInitialAge": 36,
+      "ASourceOrder": 18,
+      "HInitialAge": 36.85040859598189,
+      "HSourceOrder": 18,
+      "generationSalaryCurve": 252787.49260303596,
+      "hiringKey": "offer-person-studio-aca408ec-r04-0",
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-0:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 19,
+      "talentId": "person-studio-aca408ec-r04-0"
+    },
+    {
+      "AInitialAge": 33,
+      "ASourceOrder": 19,
+      "HInitialAge": 33.361823482084816,
+      "HSourceOrder": 19,
+      "generationSalaryCurve": 302791.0982953983,
+      "hiringKey": "offer-person-studio-aca408ec-r04-1",
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-1:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 20,
+      "talentId": "person-studio-aca408ec-r04-1"
+    },
+    {
+      "AInitialAge": 34,
+      "ASourceOrder": 20,
+      "HInitialAge": 34.80258332496116,
+      "HSourceOrder": 20,
+      "generationSalaryCurve": 151498.611327841,
+      "hiringKey": "offer-person-studio-aca408ec-r04-2",
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-2:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 21,
+      "talentId": "person-studio-aca408ec-r04-2"
+    },
+    {
+      "AInitialAge": 42,
+      "ASourceOrder": 21,
+      "HInitialAge": 42.82028348171056,
+      "HSourceOrder": 21,
+      "generationSalaryCurve": 346358.41215763247,
+      "hiringKey": "offer-person-studio-aca408ec-r04-3",
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-3:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 22,
+      "talentId": "person-studio-aca408ec-r04-3"
+    },
+    {
+      "AInitialAge": 35,
+      "ASourceOrder": 22,
+      "HInitialAge": 35.08365010216108,
+      "HSourceOrder": 22,
+      "generationSalaryCurve": 138495.40113608318,
+      "hiringKey": "offer-person-studio-aca408ec-r04-4",
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-4:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 23,
+      "talentId": "person-studio-aca408ec-r04-4"
+    },
+    {
+      "AInitialAge": 48,
+      "ASourceOrder": 23,
+      "HInitialAge": 48.21165402732983,
+      "HSourceOrder": 23,
+      "generationSalaryCurve": 303282.85805532604,
+      "hiringKey": "offer-person-studio-aca408ec-r04-5",
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-5:0",
+        0
+      ],
+      "sourceProofPersonContextLine": 24,
+      "talentId": "person-studio-aca408ec-r04-5"
+    }
+  ]
+}

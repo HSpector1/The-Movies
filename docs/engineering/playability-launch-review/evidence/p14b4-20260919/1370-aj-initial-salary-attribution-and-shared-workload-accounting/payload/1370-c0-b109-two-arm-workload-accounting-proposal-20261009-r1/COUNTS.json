@@ -1,0 +1,94 @@
+{
+  "atomicCallCounts": {
+    "CaptureWriterAppendFullStateRow": {
+      "state": 0,
+      "wholeRow": 1
+    },
+    "admit": {
+      "state": 2,
+      "wholeRow": 2
+    },
+    "captureIncludingAdmit": {
+      "state": 5,
+      "wholeRow": 2
+    },
+    "parseRow": {
+      "state": 1,
+      "wholeRow": 0
+    }
+  },
+  "bothArmsTotal": {
+    "state": 3526,
+    "wholeRow": 1984
+  },
+  "claimsLimit": "Static successful-path fullshape calls only; does not evaluate game, measure laterboundaries or intervention shape, prove lowerbound, predict runtime, or authorize integration/full109 retry. All observed earlybenchmark values andpasses remain unchanged.",
+  "illustrationsOnly": {
+    "exactCallCountAtConstantEarly308MedianSeconds": 425.46749854799924,
+    "simplifiedOneArmSeconds": 212.33977247999962,
+    "simplifiedTwoLikeArmsSeconds": 424.67954495999925
+  },
+  "measuredEarly308CandidateMediansMs": {
+    "state": 62.98639800000001,
+    "wholeRow": 102.50879999999961
+  },
+  "ordinarySuccessfulPathOnly": true,
+  "otherUncountedWork": [
+    "small-row/key/identity/comparison encodings",
+    "fullDifferences/family joins and diff encodings",
+    "makeSave/exportSave/importSave and deepEqual",
+    "tick execution",
+    "gzip/inflate/CRC/SHA and output writes/budgets",
+    "source/index/capture guards and process startup"
+  ],
+  "perArm": {
+    "boundaryCaptureAppendExternalAdmission": {
+      "occurrences": 110,
+      "statePerOccurrence": 8,
+      "wholeRowPerOccurrence": 5
+    },
+    "readbackActualAndExternalAdmission": {
+      "occurrences": 110,
+      "statePerOccurrence": 6,
+      "wholeRowPerOccurrence": 4
+    },
+    "startup": {
+      "state": 5,
+      "wholeRow": 2
+    },
+    "ticks": {
+      "occurrences": 109,
+      "statePerOccurrence": 2
+    },
+    "total": {
+      "state": 1763,
+      "wholeRow": 992
+    }
+  },
+  "previousSimplified110FormulaScope": "Approximately one arm:16state+9wholeRow per boundary, omitting startup/missing307tick correction. Not the combinedtwoarm workload.",
+  "sharedNodeLimitSeconds": 300,
+  "sourceManifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+  "sourceRoles": [
+    {
+      "bytes": 14654,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/continuation.test.ts",
+      "sha256": "56623bb24ddbd8b923187854c3518c312d6c09f7fba427162679361d58995d33"
+    },
+    {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    {
+      "bytes": 28763,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/run.py",
+      "sha256": "bbffa0b6e17fbefce41e66c8ca13d4e034909f2d37e8bc2f84926846be3e2c13"
+    },
+    {
+      "bytes": 8325,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/PLAN.md",
+      "sha256": "1a24205674792d286fd4b3a51b6ceb65e1067a51efe50cbb45e0d66fd7a01f36"
+    }
+  ],
+  "status": "SOURCE_COUNT_PROPOSAL_AWAIT_INDEPENDENT_REVIEW",
+  "utc": "2026-10-09T18:10:29.734926+00:00"
+}

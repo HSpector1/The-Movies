@@ -1,0 +1,22 @@
+{
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_ADDITIVE_CONTROLS",
+  "sourcePinsSha256": "73bbea8af39d83aad7d674a905f3879ba6144c40fc726687b1640f99b1c1f97e",
+  "runnerSha256": "9d228d3d9260052cec17d0ae46962c5dd169d8089202b6912375f9e9a70719fc",
+  "controlsSha256": "bb4d65b110dde271da8940277dd244e8f0796fa34e8ad4395cb4ca4d1f8bcb9a",
+  "routeSourcePinsSha256": "aa2f171d6da60e39ffa28eb3f16cab09c50b526fa05fd0ff1e299d21945bc0ff",
+  "scope": "Independent finite read-only exactsource/diff/pins review; no imports/tests/launches/Node/mirror/fullscan/Git actions.",
+  "verified": [
+    "Firstfive controlmethods retained behavior; seven authoredmethods/four prospective actual tinyownedPythonchildren; expectedhistory4 and sevenmethod checks agree.",
+    "New sixth helperAST executes only with fakeclock/wait and testsWNOHANG exhaustion/expirednoreap/observed/alreadyreaped branches; seventh exacthelperAST with fakegroup/PID operations tests missingPGID PIDfallback and actualalarmhelper-before124 ordering.",
+    "Qualified boundedparent255suite/285whole, registrationbeforewait, unmasked durableIO, stickySTOP/cleanup/history80MiB/1MiB caps unchanged except acceptedfinite role/methodcount adaptations.",
+    "Exact controlconfigfalse/null roles prevent currentlaunch; separate reviewed filledconfig and rootactualgrant required."
+  ],
+  "findings": [],
+  "limitations": [
+    "New helper controls are synthetic sourcebranch/call evidence only; no elapsedbound or actualkill guarantee. Earlier mocked2s remains predicateonly.",
+    "No tests executed, no actual processes/mirror/guards/metadata accepted."
+  ],
+  "controlsSourceRunnableAfterExactFillAndGrant": true,
+  "executionAuthorized": false,
+  "testsObserved": false
+}

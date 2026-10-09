@@ -1,0 +1,16 @@
+{
+  "launch": {
+    "chunk_id": "8640d1",
+    "wall_time_seconds": 1.001027906,
+    "session_id": 32559,
+    "original_token_count": 0,
+    "output": ""
+  },
+  "completion": {
+    "chunk_id": "afb3e3",
+    "wall_time_seconds": 0.00003526,
+    "exit_code": 0,
+    "original_token_count": 63,
+    "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/CONTROLS-GRANT.json\", \"bytes\": 10366, \"sha256\": \"eec97de212273ef7077418e44b8a7678076c26410f8b44127a57e2aa07cce3e0\"}, \"helperPid\": 14146}\n"
+  }
+}

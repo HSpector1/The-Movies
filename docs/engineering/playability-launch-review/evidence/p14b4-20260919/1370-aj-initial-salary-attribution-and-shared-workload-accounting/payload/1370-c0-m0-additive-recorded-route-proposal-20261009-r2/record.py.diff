@@ -1,0 +1,94 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/record.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/record.py
+@@ -27,6 +27,8 @@
+ POLL_SECONDS = 0.25
+ MAX_WHOLE_SECONDS = 210
+ CHILD_DEADLINE = None
++LANE_DEADLINE = None
++FAILED_CHILD = None
+ 
+ 
+ def update_free_minimum(status, free):
+@@ -81,8 +83,22 @@
+     require(not still_alive(group), "owned group survived KILL")
+ 
+ 
++def reap_failed_child(pid,deadline,clock=time.monotonic,sleeper=time.sleep,waiter=None):
++    """Bounded WNOHANG failure reap; False retains unresolved ownership."""
++    waiter=waiter or os.waitpid
++    while clock()<deadline:
++        try:got,_=waiter(pid,os.WNOHANG)
++        except ChildProcessError:return True
++        if got==pid:return True
++        left=deadline-clock()
++        if left<=0:break
++        sleeper(min(.05,left))
++    return False
++
++
+ def fork_ready(spec, spec_path, stdout_fd, stderr_fd):
+-    global CHILD_DEADLINE
++    global CHILD_DEADLINE,FAILED_CHILD
++    FAILED_CHILD=None
+     CHILD_DEADLINE = time.monotonic()+180  # External original clock BEFORE fork/imports/execution.
+     """Parent owns PID before child can exec; child waits for GO after setsid."""
+     ack_read, ack_write = os.pipe()
+@@ -124,14 +140,14 @@
+         os.write(go_write, b"G")
+         return child_pid
+     except BaseException:
++        FAILED_CHILD={'pid':child_pid,'reaped':False,'deadline':min(CHILD_DEADLINE,LANE_DEADLINE if LANE_DEADLINE is not None else CHILD_DEADLINE,time.monotonic()+5)}
+         try:
+             os.kill(child_pid, signal.SIGKILL)
+         except ProcessLookupError:
+             pass
+-        try:
+-            os.waitpid(child_pid, 0)
+-        except ChildProcessError:
+-            pass
++        FAILED_CHILD['reaped']=reap_failed_child(child_pid,FAILED_CHILD['deadline'])
++        if not FAILED_CHILD['reaped']:
++            raise Stop("fork readiness failure; owned PID "+str(child_pid)+" unresolved at original cleanup deadline")
+         raise
+     finally:
+         if owner_write is not None:os.close(owner_write)
+@@ -165,7 +181,7 @@
+                 "recorderSha256", "supervisorPath", "supervisorSha256", "sourceSha"):
+         require(isinstance(spec.get(key), str) and bool(spec[key]),
+                 "missing exact " + key)
+-    require(Path(spec["materializerPath"]) == Path("/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/add_inputs.py") and
++    require(Path(spec["materializerPath"]) == Path("/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/add_inputs.py") and
+             file_sha(Path(spec["materializerPath"])) == spec["materializerSha256"],
+             "materializer source drift")
+     require(Path(spec["recorderPath"]) == Path(__file__) and
+@@ -275,7 +291,10 @@
+ 
+ 
+ def lane(spec_path):
++    global LANE_DEADLINE,FAILED_CHILD
+     start = time.monotonic()
++    LANE_DEADLINE=start+MAX_WHOLE_SECONDS
++    FAILED_CHILD=None
+     require(os.environ.get("SPARSE_1370_SUPERVISOR_FD", "").isdigit(),
+             "independent outer supervisor required")
+     spec = validated_spec(spec_path)
+@@ -353,7 +372,9 @@
+         status["status"] = "ADDITIVE_UNREVIEWED_UNRUN"
+     except BaseException as exc:
+         status["stopReason"] = f"{type(exc).__name__}:{exc}"
+-        if group is not None:
++        if FAILED_CHILD is not None:
++            child_pid=FAILED_CHILD["pid"];group=child_pid;status["childPid"]=child_pid;status["failureCleanup"]=dict(FAILED_CHILD)
++        if group is not None and FAILED_CHILD is None:
+             try:
+                 terminate(group, child_pid)
+             except BaseException as cleanup_exc:
+@@ -362,7 +383,7 @@
+     finally:
+         status["endMonotonic"] = time.monotonic()
+         status["childExit"] = child_exit
+-        status["groupClear"] = group is None or not still_alive(group)
++        status["groupClear"] = (FAILED_CHILD is None or FAILED_CHILD["reaped"]) and (group is None or not still_alive(group))
+         status["scratchClear"] = not scratch.exists() if status["status"] == "STOP" else False
+         status["partialMirrorPreserved"] = status["status"] == "STOP" and scratch.exists()
+         for key, name in (("stdoutSha256", "child.stdout"),

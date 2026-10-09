@@ -1,0 +1,158 @@
+{
+  "authenticatedRoles": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json": {
+      "bytes": 24196,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs": {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs": {
+      "bytes": 2880,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/record-pure-node.py": {
+      "bytes": 14258,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/record-pure-node.py",
+      "sha256": "d0b8380d0ef982f8675ef8affdafd60bac200717132875fe50f220c648586cc2"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs": {
+      "bytes": 15839,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "015326a19a12225b5fb736bbf85d637f8e925cf4c0f5bd00240061cf9cd880b4"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-recorder-repair.py": {
+      "bytes": 12543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json": {
+      "bytes": 3829,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+      "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-independent-design-review-20261009-r1/RECEIPT.json": {
+      "bytes": 4528,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-independent-design-review-20261009-r1/RECEIPT.json",
+      "sha256": "445e32e397fca3b6deee7c285796255351225457b25aa0929e0aff9d7ed5c279"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-design-adoption-20261009-r1/ADOPTION.json": {
+      "bytes": 4606,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-design-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "4c59e3a9acd974a629528d9865a964179bd581e9c49f1e38b4ee98191b784c8b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/CACHE-INVARIANT-SOURCE-PROOF.json": {
+      "bytes": 794,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/CACHE-INVARIANT-SOURCE-PROOF.json",
+      "sha256": "cb1d86a3eda7ad62ef5c764d988d272401faafff8a5715530d32f5836a475bdc"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/CONFIG.json": {
+      "bytes": 4577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/CONFIG.json",
+      "sha256": "448e0796f69c0442bb8f610cbc9e9224055782f3ac9a8f3637720728eaebce4e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/CONFIG.json.diff": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/CONFIG.json.diff",
+      "sha256": "7ea62618fc28a19e2a78cc346481d851bb68096c880b2b6a4e93518144dc1d13"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/CONTROL-RECIPE.json": {
+      "bytes": 3618,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/CONTROL-RECIPE.json",
+      "sha256": "ad1b77469f36043b40016d3701513bdeb7dd3426647cc5ad16e044a33db75b6f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/RECORDER-REUSE.json": {
+      "bytes": 1077,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/RECORDER-REUSE.json",
+      "sha256": "6bf4af1613be5fd6622ddeaca837d64874b2b546eedda92ed33eab9ba3016232"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/REPORT.md": {
+      "bytes": 1405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/REPORT.md",
+      "sha256": "941ebf21df56bcc95b254d57861e510b2a29521ef62ce01716d3c4021adb98a5"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/benchmark-308.mjs": {
+      "bytes": 6082,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/benchmark-308.mjs",
+      "sha256": "ed14937094a5a9caa12230477e9a814e519776a524aa54d070c6e8f0ca4b8040"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/benchmark-308.mjs.diff": {
+      "bytes": 3702,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/benchmark-308.mjs.diff",
+      "sha256": "7756f44d6b8d51e31485c4c5cd271a70af392c3b846b34afb25c8897f26587df"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/bounded-json-candidate.mjs": {
+      "bytes": 3317,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "25492575847a15a1d7b79daf84e722b6e32f2362ea2a2ad94f29228a09bfe067"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/bounded-json-candidate.mjs.diff": {
+      "bytes": 1883,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/bounded-json-candidate.mjs.diff",
+      "sha256": "efe306faab34c38a5ae5642b849d20adc96c03b78a62427d65f2539a1dc25ab8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/record-pure-node.py": {
+      "bytes": 14261,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/record-pure-node.py",
+      "sha256": "9c4446eaaadd48465eaee214833fb3fa7857b620529bc5ef4443d2fe6b8cebee"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/record-pure-node.py.diff": {
+      "bytes": 3003,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/record-pure-node.py.diff",
+      "sha256": "2e1e419aa0acbb0e72617a3af8030b914abdf2705d6c1f1f7aad82b59c538d4c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/test-encoder.mjs": {
+      "bytes": 19067,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "26d7637d7aacf9f6213cdc9f8f780b5345d6571f98c8a5d6712e3fef35e6b018"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/test-encoder.mjs.diff": {
+      "bytes": 3650,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/test-encoder.mjs.diff",
+      "sha256": "ee40a36543624e811407029e8c775a07d19c0e4e0a4c11dd715dec74fc2001f4"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json": {
+      "bytes": 3074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json": {
+      "bytes": 1179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    }
+  },
+  "checks": {
+    "all5SourceAndConfigDiffsReproduceExactFiles": true,
+    "benchmarkReaderAuthenticationPurityAndTrialLoopPrefixByteExact": true,
+    "fiveGroupsOnlyAdded": true,
+    "keyEmitterTraversalCapAndChunkBodiesByteExact": true,
+    "newGroupsAuthored": 5,
+    "newPairsManualSourceCount": 32,
+    "original28ControlsPrefixAndFinalSummaryByteExact": true,
+    "originalGroupsAuthored": 28,
+    "originalPairsPriorAccepted": 321,
+    "recorderExactFourOperationalSubstitutions": true,
+    "recorderPythonSyntaxOnly": true,
+    "soleLocalCacheInsertionBound512And65536": true,
+    "totalGroupsAuthored": 33,
+    "totalPairsAuthored": 353
+  },
+  "configRoleCount": 9,
+  "externalRolesCount": 4,
+  "finiteUniqueAuthenticatedPaths": 26,
+  "nodeImportsOrTestsOrCaptureDecodeOrGameOrProtectedScanOrGit": false,
+  "packageFileCount": 14,
+  "runtimeExecuted": false,
+  "schema": "1370-string-cache-independent-static-facts-r1",
+  "sourcePinsSha256": "78912de56d420109c9934d44f748321c098f4712587c03133530383a155251f9"
+}

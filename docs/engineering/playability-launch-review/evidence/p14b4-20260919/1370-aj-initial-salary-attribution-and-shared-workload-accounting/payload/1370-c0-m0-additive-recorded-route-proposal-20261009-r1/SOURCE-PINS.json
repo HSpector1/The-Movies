@@ -1,0 +1,63 @@
+{
+  "executionPerformed": false,
+  "files": {
+    "ARGV-ROLE.json": {
+      "bytes": 544,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/ARGV-ROLE.json",
+      "sha256": "767b6720fe69034284cd01661896ec43450d747bd401207227a79f8450d75946"
+    },
+    "BINDING-UNFILLED.json": {
+      "bytes": 6245,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/BINDING-UNFILLED.json",
+      "sha256": "8d7f0179be24e769ee811a1a30fd9d93ca95fe74c7b9672d8b2ad1a7fb5b1237"
+    },
+    "LAUNCH-UNFILLED.json": {
+      "bytes": 576,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/LAUNCH-UNFILLED.json",
+      "sha256": "d2cabfea069d5e4daba47c9156beb726084ae768e77434604bddcdd7b528f845"
+    },
+    "PROVENANCE.json": {
+      "bytes": 1320,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/PROVENANCE.json",
+      "sha256": "80007a49a16d600f3e502f742e183c2a0291c1f51f98ab8f354ef896535a6ddc"
+    },
+    "REPORT.md": {
+      "bytes": 4007,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/REPORT.md",
+      "sha256": "2d4a77985bac46f84e05e1d8a1a0247f9b5207aa2ffedf1bb4e77ee5326c19bc"
+    },
+    "add_inputs.py": {
+      "bytes": 19461,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/add_inputs.py",
+      "sha256": "f2a4b81d0f5572ce5baeba771774126094df3500b5eff01cbbce32e08c0e9917"
+    },
+    "add_inputs.py.diff": {
+      "bytes": 8268,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/add_inputs.py.diff",
+      "sha256": "05c1e5226e0e3147dd26ee822e9d8d512b78d866bc1c98e7cc48f297cec7e287"
+    },
+    "record.py": {
+      "bytes": 23861,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/record.py",
+      "sha256": "987acff7a12ea8761d724537eaef0182c65859d3fe0c869259f0b0a0f718e751"
+    },
+    "record.py.diff": {
+      "bytes": 18605,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/record.py.diff",
+      "sha256": "77c5b69702b9997b51083d86e23698fb995e255863a2e51bfe69af7d65e1bc9f"
+    },
+    "supervise.py": {
+      "bytes": 16688,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/supervise.py",
+      "sha256": "19248b1755ad8370b712f4a7a97a5298e6631a8424e309e9937bfa04aa1a02be"
+    },
+    "supervise.py.diff": {
+      "bytes": 7506,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r1/supervise.py.diff",
+      "sha256": "5101f31aa866151bca7b00703c69e3a1e56949b79fd6e8d949d6ae905a949a02"
+    }
+  },
+  "productionHead": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "m0-additive-held-source-pins-r1"
+}

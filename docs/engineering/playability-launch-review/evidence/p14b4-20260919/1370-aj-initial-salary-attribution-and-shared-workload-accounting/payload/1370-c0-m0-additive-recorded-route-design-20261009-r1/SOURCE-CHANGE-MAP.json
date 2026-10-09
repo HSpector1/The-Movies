@@ -1,0 +1,50 @@
+{
+  "add_inputs.py": {
+    "change": [
+      "replace unconditionalhold only in newexactreviewedversion",
+      "authenticateexactfreshguard and authority",
+      "180timer beforeimports",
+      "bounded durable success/failure RESULT finalization"
+    ],
+    "retain": "accepted r2 additive proof/body"
+  },
+  "controlrunner": {
+    "change": [
+      "new accepted suite/pins/review/config/outputroles",
+      "explicitREADYGO tinychild fixtures",
+      "mockdeadline labels and roottransition gate controls"
+    ],
+    "retain": "qualified255/285 durable ownership/caps/finalization"
+  },
+  "currentProtectedProof": "new282fproduction/commonbaseline;explicitR9/H/dependency/M0scopes",
+  "record.py": {
+    "change": [
+      "source/argv/receipt/evidence/versionroles",
+      "existingmirrorpreflight instead of absence",
+      "M0rootphase-scopedtransition guards",
+      "body180/whole210",
+      "additive success predicate"
+    ],
+    "retain": [
+      "ownedforkREADYGO",
+      "boundedstreams",
+      "numericchildreport",
+      "cleanup/finalization/override"
+    ]
+  },
+  "status": "PROSPECTIVE_NOT_IMPLEMENTED",
+  "supervise.py": {
+    "change": [
+      "additive receipt/argv/source roles",
+      "210whole tightening",
+      "existingmirror partial ownership authority"
+    ],
+    "retain": [
+      "independentwholestartbeforevalidation",
+      "workerchildgroups",
+      "bindingimmutability",
+      "deadline-through-receipt",
+      "partialretentionoverride"
+    ]
+  }
+}

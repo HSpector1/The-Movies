@@ -1,0 +1,202 @@
+{
+  "actualM0ControlsUnadoptedOutcome": {
+    "bytes": 3383,
+    "mode": "0644",
+    "nlink": 1,
+    "package": "1370-c0-m0-additive-controls-parent-recorded-20261009-r2",
+    "preservationAction": "COPY_FINITE_PAYLOAD",
+    "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+    "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+    "relativePath": "TOOL-OUTCOME.json",
+    "sha256": "76f144b1d7b70db50d3abd0fafa3d218b23c159e8a9452abd82b83857cf4f2b2",
+    "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/TOOL-OUTCOME.json"
+  },
+  "actualOutputFiles": [
+    {
+      "bytes": 148,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-c0-m0-additive-controls-parent-output-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+      "relativePath": "OWNED-FORKS.ndjson",
+      "sha256": "0077539a9f11e86155e44b89500945913419547b873b23ed7f917dd80f689826",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-output-20261009-r2/OWNED-FORKS.ndjson"
+    },
+    {
+      "bytes": 924,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-c0-m0-additive-controls-parent-output-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+      "relativePath": "RESULT.json",
+      "sha256": "979fdb73f8fdb2d7cd8329bc95b73132edf4e11d69cc3709b2d12e675c0818c9",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-output-20261009-r2/RESULT.json"
+    },
+    {
+      "bytes": 17,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-c0-m0-additive-tiny-controls-output-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+      "relativePath": "unused-binding",
+      "sha256": "218589323cbe80b7ed077e3ee36f1663e7cb5f8f4e4ad02c938ad8a5c2c5a6b9",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/unused-binding"
+    },
+    {
+      "bytes": 71,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-c0-m0-additive-tiny-controls-output-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+      "relativePath": "pipe-0/CHILD-OWNED.json",
+      "sha256": "c283efc64752aa60a21196e2d8b883c643f917392275dad41f9be58a485b423c",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/pipe-0/CHILD-OWNED.json"
+    },
+    {
+      "bytes": 72,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-c0-m0-additive-tiny-controls-output-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+      "relativePath": "pipe-1/CHILD-OWNED.json",
+      "sha256": "6f588cbfdcec5ea8dd843f3f577988bce4a4322c3424f2537cbc048161f2a6fe",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/pipe-1/CHILD-OWNED.json"
+    },
+    {
+      "bytes": 72,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-c0-m0-additive-tiny-controls-output-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+      "relativePath": "pipe-2/CHILD-OWNED.json",
+      "sha256": "88fab26048acec6354da1b533c7f50868f8138c04c14825ff90c8efc865797d2",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/pipe-2/CHILD-OWNED.json"
+    },
+    {
+      "bytes": 71,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-c0-m0-additive-tiny-controls-output-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+      "relativePath": "pipe-3/CHILD-OWNED.json",
+      "sha256": "18754e074f4e45861c44e905ae0729c69f29568b6df2703c81f60ed72dedd1f6",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/pipe-3/CHILD-OWNED.json"
+    },
+    {
+      "bytes": 1035,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-c0-m0-additive-controls-lane-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+      "relativePath": "controls.lane.log",
+      "sha256": "f4878be21377fa0cbdcd1b22277311bafd6b73472b324bd99acbd4beccebf74c",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-lane-20261009-r2/controls.lane.log"
+    },
+    {
+      "bytes": 568,
+      "mode": "0600",
+      "nlink": 1,
+      "package": "1370-c0-m0-additive-controls-lane-20261009-r2",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+      "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+      "relativePath": "controls.lane.log.meta",
+      "sha256": "b71fc4aafd82635d8dbb7875c071315603cfd32e87685da709075dbfed1abce1",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-lane-20261009-r2/controls.lane.log.meta"
+    }
+  ],
+  "allRowsFreshReadbackExact": true,
+  "authoringStopPreserved": {
+    "bytes": 382,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/AUTHORING-PARSE-STOP.json",
+    "sha256": "b713b2873d2ab0184be06fb447aa879c1e3227c26746503625719547228b2b9c"
+  },
+  "emptyTinyFixtureDirectoryRoles": [
+    {
+      "actualEmpty": true,
+      "preservation": "metadata record only; no fixture/mirror payload",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-tiny-controls-output-20261009-r2/fixtures"
+    }
+  ],
+  "inventory": {
+    "bytes": 200335,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/INVENTORY-DRAFT.json",
+    "sha256": "56a5d54ca08508528baf3ff154d20ec7a8e30f2ddca877147ddeceb13d1e29ee"
+  },
+  "inventoryComplete": false,
+  "newActualOutputBytes": 2978,
+  "newActualOutputFilesCount": 9,
+  "newLocalRawHashOnly": 0,
+  "newRoles": 22,
+  "pendingAdditions": [
+    {
+      "note": "CacheBENCHMARK-ADOPTION702fee already included; renewal46d788 is source-design-only with adoption/review status unchanged.",
+      "role": "Subsequent final root cache/renewal/M0 disposition/adoption/LESSONS roles beyond included files",
+      "status": "PENDING_ROOT_FINALIZATION"
+    },
+    {
+      "note": "Closed sourcefill/wrapper/grant/rawtool/outcome and9 retained2978B artifacts included unadopted.",
+      "role": "M0 additive-control independent observed review and root adoption of actual7 tool75645 chain",
+      "status": "PENDING_REVIEW_AND_ADOPTION"
+    },
+    {
+      "note": "Own authoring parseSTOP preserved; no recursive inventory/finalizer outputs.",
+      "role": "AJr1/r2 source/selector/verification/pins and final root docs/HANDOFF/inventory source policy roles",
+      "status": "PENDING_ROOT_FINAL_ADDITIONS_COMPLETE_MARKER"
+    }
+  ],
+  "priorAIRawHashOnlyPointers": 14,
+  "r1RowsPreservedExactly": 247,
+  "renewalDesignReceipt": {
+    "bytes": 2837,
+    "mode": "0600",
+    "nlink": 1,
+    "package": "1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1",
+    "preservationAction": "COPY_FINITE_PAYLOAD",
+    "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+    "reason": "Explicit closed finite source/design or actual tiny-control artifact; no independent actual adoption inferred",
+    "relativePath": "RECEIPT.json",
+    "sha256": "46d78843ee8e2cf61c501a6ca2aebe6a16b66aa9745751c2d60c7ca7bdcf9479",
+    "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/RECEIPT.json"
+  },
+  "repoGitSourceExecutionStagingCleanup": false,
+  "schema": "1370-aj-source-only-inventory-verification-r2",
+  "selectors": {
+    "bytes": 11687,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-preparation-20261009-r2/SELECTORS.json",
+    "sha256": "6959d5557f2a26d981f9dc84a9518d843315dae8429f7b8974b62cae728423aa"
+  },
+  "sourceRowsVerified": 269,
+  "summary": {
+    "completeInventory": false,
+    "localHashSizeOnlyBytes": 0,
+    "localHashSizeOnlyFiles": 0,
+    "payloadBytes": 3366270,
+    "payloadFiles": 269,
+    "priorAIRawHashOnlyPolicyPointerRoles": 14,
+    "priorAITransportOnlyRoles": 720,
+    "priorGitCoverage": "Not queried. Accepted finalizer separately authenticates actual HEAD blobs and preserves prior archive pointer.",
+    "r1RolesPreservedExactly": 247,
+    "r2ActualControlOutputBytes": 2978,
+    "r2ActualControlOutputFiles": 9,
+    "r2NewClosedRoles": 22,
+    "regularFiniteFiles": 269,
+    "selectedFiniteDirectories": 53
+  }
+}

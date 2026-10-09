@@ -1,0 +1,52 @@
+{
+  "A208CaptureAvailableInAuthenticatedListedRoles": false,
+  "B109CaptureSeedAndArmIncomparable": true,
+  "F1EvolvedInputsTransported": false,
+  "H208TerminalProposalArraysActuallyEmpty": true,
+  "auditActualExit": 0,
+  "decision": "ACCEPT_BOUNDED_RENEWAL208_INPUT_MAP_AND_SOURCE_ONLY_NEXT_SLICE_DESIGN_NO_EXECUTION",
+  "drawPriceNodeEngineImportsTestsLargeGzipScanGitOrProtectedMutation": false,
+  "executionAuthorization": false,
+  "existingAcceptedJittersReusable": 15,
+  "existingH208PricingVectors": 16,
+  "existingHReplayNeeded": false,
+  "floorAndPremiumReuseRole": "finite expiry/policy/caller source closure before any future arithmetic; no inference from rounded pay",
+  "globalArtifactAbsenceClaim": false,
+  "initialAttributionClosureRetained": 22,
+  "initialRootAdoptionSha256": "395e3341c6ed34281df795868d03026c8b87159e12dc3effe2a3b5e760c3dc03",
+  "missingA208EvolvedPricingVectors": 16,
+  "newRenewalAttributions": 0,
+  "noSourceImplementationYet": true,
+  "oneMissingDrawRequiresEngine": false,
+  "phaseProofSha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2",
+  "phaseReviewSha256": "a71cc521f8c8ade5879191ac5e275034ca246bf58c6713534bf048ce703227a8",
+  "phaseRootAdoptionSha256": "6caa7949f60f672144555791727974de94d0a722d602bdeee7a092c8506977ae",
+  "proposedAObserver": "existing-data-only16person/case/winner/policy/terms record immediately after natural tick208; preserve accepted416final baseline checks unless an independently authenticated208boundary becomes available",
+  "remainingRenewals": 16,
+  "renewalCauseAssumedAgeOnly": false,
+  "roles": {
+    "auditSource": {
+      "bytes": 8568,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/audit.py",
+      "sha256": "8864747a8f0c013d2061f1f7ecc9dc1629255579b8bee762f078020a2e494bee"
+    },
+    "facts": {
+      "bytes": 220989,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/FACTS.json",
+      "sha256": "d928be4e8022203f4c0c86fe1c8196397c41f04e89fc984b1133693812988044"
+    },
+    "inputPins": {
+      "bytes": 10141,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/INPUT-PINS.json",
+      "sha256": "2b735e42554c2e27cb048c377cc8359f329410990333afc69087e45d882c6738"
+    },
+    "report": {
+      "bytes": 7306,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/REPORT.md",
+      "sha256": "3c8122ffc69a0aaae699d6145ca0eb639dd49b5a9a8e5c8f6c121d9fd735c1dd"
+    }
+  },
+  "schema": "renewal208-input-gap-and-minimal-observer-design/v1",
+  "singleMissingKeyedDrawTalentId": "person-studio-aca408ec-r03-2",
+  "unmatchedAtoM0PlacementClosed": false
+}

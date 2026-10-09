@@ -1,0 +1,83 @@
+{
+  "executionPerformed": false,
+  "files": {
+    "ARGV-ROLE.json": {
+      "bytes": 544,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/ARGV-ROLE.json",
+      "sha256": "066475e5e4804f6396cc76cc7e8603fc10be2f8427f166078d8c82b90edbc99a"
+    },
+    "ARGV-ROLE.json.diff": {
+      "bytes": 666,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/ARGV-ROLE.json.diff",
+      "sha256": "99ac1e45b3cf98c82c76fc46593731406463688a8cb3e379e7e0da7b67a5546a"
+    },
+    "BINDING-UNFILLED.json": {
+      "bytes": 6245,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/BINDING-UNFILLED.json",
+      "sha256": "1a35fadd99fbd22edd8d8200c1b43bbf88dc0c6f718a40bc827566a78e20e337"
+    },
+    "BINDING-UNFILLED.json.diff": {
+      "bytes": 4961,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/BINDING-UNFILLED.json.diff",
+      "sha256": "975dbf404fb2a8c05892564873252d551b7db461a874bdda7e70b9008382aecb"
+    },
+    "LAUNCH-UNFILLED.json": {
+      "bytes": 576,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/LAUNCH-UNFILLED.json",
+      "sha256": "9969be9a0b4afb3f5fad7975d674a49e730c160ec97dcc139405d363c2a5695e"
+    },
+    "LAUNCH-UNFILLED.json.diff": {
+      "bytes": 711,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/LAUNCH-UNFILLED.json.diff",
+      "sha256": "2671848673750e9ad8e8c743647d26fc9ade4f1c5dd1675f9d45665ef16e6afb"
+    },
+    "PROVENANCE.json": {
+      "bytes": 1834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/PROVENANCE.json",
+      "sha256": "598282773eadfc82aabe16b4172ca87d3b0ebb00f3639606297e0c45a780902a"
+    },
+    "PROVENANCE.json.diff": {
+      "bytes": 1404,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/PROVENANCE.json.diff",
+      "sha256": "8adcfbe4525b0eebe053f583e5617f860ef600982edcc7e97d5ca18e5f465418"
+    },
+    "REPORT.md": {
+      "bytes": 2371,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/REPORT.md",
+      "sha256": "ca71f7a4734d0f27c9dd89c21ee807aea7165ff2a605afb41b699673a32e6661"
+    },
+    "REPORT.md.diff": {
+      "bytes": 6621,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/REPORT.md.diff",
+      "sha256": "5b24e64880fd96aa8185e6982c17d483e0ffd4acc9df62b43cc155119f0aa0f0"
+    },
+    "add_inputs.py": {
+      "bytes": 19461,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/add_inputs.py",
+      "sha256": "f2a4b81d0f5572ce5baeba771774126094df3500b5eff01cbbce32e08c0e9917"
+    },
+    "record.py": {
+      "bytes": 25044,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/record.py",
+      "sha256": "0a26d8928d9853fd44a0960f852ce56d2cbce018fb7c8887fddbf1aa17e18e9e"
+    },
+    "record.py.diff": {
+      "bytes": 4337,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/record.py.diff",
+      "sha256": "a6caadfffee4c6adb1f7df0c5edd03ec2ce4cea30cd459fbea9264e69ad27839"
+    },
+    "supervise.py": {
+      "bytes": 16934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/supervise.py",
+      "sha256": "e2258264783de69fa4d2a10c9c71ede7d4cabc0f80f87c17ba23935e32c9039d"
+    },
+    "supervise.py.diff": {
+      "bytes": 1467,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/supervise.py.diff",
+      "sha256": "7258c03bae733fc1a57e93d18e00a406639332d00e9777780510cfafd78866dd"
+    }
+  },
+  "productionHead": "282f8477e61a33bd5ec4a571b934829490adef73",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "m0-additive-held-source-pins-r2"
+}
