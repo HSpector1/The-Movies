@@ -1,0 +1,26 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/bounded-json-candidate.mjs
++++ /Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs
+@@ -39,14 +39,21 @@
+       }
+       add(1)
+     } else {
+-      clone=Object.create(null);add(1);let count=0
++      clone=Object.create(null);add(1);let count=0;const emitted=[]
+       for(const name of Object.keys(v)){
+         if(v[name]===undefined)continue
+         if(count++)add(1)
+         key(name);add(1)
+-        clone[name]=emit(v[name])
++        clone[name]=emit(v[name]);emitted.push(name)
+       }
+       add(1)
++      // Compare owned data only; native serialization never observes the source.
++      const ordinary=Object.keys(clone)
++      if(emitted.some((name,i)=>name!==ordinary[i])){
++        const handler=Object.create(null)
++        handler.ownKeys=()=>emitted
++        clone=new Proxy(clone,handler)
++      }
+     }
+     visiting.delete(v);return clone
+   }

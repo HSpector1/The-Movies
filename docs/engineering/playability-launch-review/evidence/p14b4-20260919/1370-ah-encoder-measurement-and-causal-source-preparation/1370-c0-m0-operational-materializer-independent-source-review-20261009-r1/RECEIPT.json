@@ -1,0 +1,39 @@
+{
+  "acceptedR10SourceChanged": false,
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_REQUIRES_COMPLETE_RECORDED_EXACT_ROUTE",
+  "exactSuppliedDiffVerified": true,
+  "executionAuthorization": false,
+  "findings": [],
+  "limits": [
+    "Only HEAD/date/isolated M0 path/arm/result label and pinned parent design gate change.",
+    "Types root is one-shot; existing child directory intentionally refuses later reuse. Any separate capture root must retain accepted source and get its own exact binding.",
+    "No bare materializer launch: retain actual owned process group supervisor, bounded finalization and cleanup, exact current tools/roots/FD/ref/disk/AC guards.",
+    "No new whole-production proof is claimed from pre-checkpoint snapshots.",
+    "Original H-first combined acceptance and H8708 remain unchanged."
+  ],
+  "parentScopeAdoptionSha256": "c0d8e338c9f8a9dced79328711736323431903cabe7410091cc4f90191bd7f7d",
+  "predecessorSourceSha256": "28e546e77e6dfd414427b5d645a65a3c549c1f1011be812d07ee13da9a5e26ed",
+  "schema": "1370-m0-operational-materializer-independent-static-review-r1",
+  "sourcePinsSha256": "9b97142a396c2eac4d0fb3aa77b70207863b50ba7a551d758973b8682fa97510",
+  "sourceSha256": "3540d202d3a7cb6f6b44ca5a6ddc28f1c50147b5f580e2a084b98059c319852e",
+  "testsMaterializationOrGameExecuted": false,
+  "unchangedFunctions": [
+    "need",
+    "sha",
+    "remaining",
+    "free",
+    "guard",
+    "cmd",
+    "open_dir",
+    "attrs",
+    "exact_mode",
+    "write_all",
+    "pinned",
+    "safe_rel",
+    "expected_overlays",
+    "validate_manifest",
+    "verify_archive_roster",
+    "write_archive",
+    "apply_overlay"
+  ]
+}

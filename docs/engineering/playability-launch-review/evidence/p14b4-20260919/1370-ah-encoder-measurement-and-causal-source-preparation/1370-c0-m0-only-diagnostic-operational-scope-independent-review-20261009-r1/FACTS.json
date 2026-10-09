@@ -1,0 +1,73 @@
+{
+  "H8708GateStillOpen": true,
+  "acceptedHistoricalFrameNotReopened": true,
+  "acceptedObserverChanged": false,
+  "allFiveAcceptedR10SourceBytesAuthenticated": true,
+  "inputs": {
+    "1370-c0-h-m0-416-diagnostic-route-proposal-r1/PLAN.md": {
+      "bytes": 5810,
+      "sha256": "341b8440f7ddaa6e5760f5e81042ab3a91f14cbfe92cd4c31174f70394f140ec"
+    },
+    "1370-c0-h-m0-corrected-overlay-source-manifest-independent-review-r2/M0-RECEIPT.json": {
+      "bytes": 1201,
+      "sha256": "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8"
+    },
+    "1370-c0-h-m0-corrected-overlay-source-manifest-r2/M0-SOURCE-MANIFEST.json": {
+      "bytes": 7400,
+      "sha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba"
+    },
+    "1370-c0-h-m0-focused-red-cap-type-gate-independent-review-r2/RECEIPT.json": {
+      "bytes": 723,
+      "sha256": "7b4f3b652d9d4f8c5594927826e756fc7ec792157e8192399c50f02f699848ed"
+    },
+    "1370-c0-h-m0-focused-red-cap-type-gate-proposal-r2/PLAN.md": {
+      "bytes": 2716,
+      "sha256": "16406aaef7970a7c1caca97c95d49e5139105f357a986b6109fea9ba2e112479"
+    },
+    "1370-c0-h-m0-observer-verification-design-r2/PLAN.md": {
+      "bytes": 9567,
+      "sha256": "416e3d827934c6e0748532b37eaffb1f7447d914788112713eec0b9ed7c74eb7"
+    },
+    "1370-c0-h-m0-observer-verification-independent-design-review-r2/RECEIPT.json": {
+      "bytes": 830,
+      "sha256": "d7ec88eeae8c97ed4d7a1eb42d9dfbd3e77ff14f1b2247c1ba5501636cf713f2"
+    },
+    "1370-c0-m0-market-observer-next-recorded-route-readiness-20261009-r1/FACTS.json": {
+      "bytes": 9390,
+      "sha256": "d4ebf5989df8ed2732b95081a1d77d8c875c4905cf03c0a3ee4bddd73b04419c"
+    },
+    "1370-c0-m0-market-observer-next-recorded-route-readiness-20261009-r1/NOTE.md": {
+      "bytes": 3587,
+      "sha256": "3607bdbf47e30f4c413d66cb7e77c6f96b68bf82a7b7e51e8673d4d2e725a991"
+    }
+  },
+  "noTestsGameMaterializationFullscanProductionMutation": true,
+  "originalCombinedHFirstAndBothTypesRequirementsPreserved": true,
+  "productionHead": null,
+  "productionHeadMustBeActualFutureCheckpoint": true,
+  "remainingGates": [
+    "Parent adoption of separately labelled M0-only diagnostic subset",
+    "Versioned new HEAD/date/isolated-root operational source/static/exact admission",
+    "Observed exact M0 mirror/source/runtime/dependency identity and materialization acceptance",
+    "M0 full root/UI types and diagnostic collection",
+    "Real engine/promise wiring RED and no added helper/RNG/catch behavior; ec85 function-only evidence insufficient",
+    "Exact recorded300/330 M0 capture with full ten-file/phase/count/cap/cleanup/postflight acceptance",
+    "Same-M0 four raw preimages/order/RNG neutrality and deterministic replay",
+    "Both neutral H/M0 arms still required before combined/cross-era internal causation"
+  ],
+  "schema": "1370-m0-only-diagnostic-operational-scope-independent-facts-r1",
+  "scopeChangeRequired": true,
+  "sourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "target": {
+    "authorWeek": 196,
+    "earliestUnmatchedTerminalSourceOrder": 24,
+    "freezeWeek": 208,
+    "issuers": [
+      "studio-aca408ec-r01",
+      "studio-aca408ec-r02",
+      "studio-aca408ec-r03"
+    ],
+    "talentId": "person-studio-aca408ec-r01-0"
+  }
+}

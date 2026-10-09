@@ -1,0 +1,8 @@
+{
+  "actualExecution": false,
+  "causeAttribution": "UNPROVEN",
+  "otherThirteenMethodsExactlyEqualAstAndOriginalTextOutsideChangedMethod": true,
+  "pythonAstParse": true,
+  "sameFourteenTests": true,
+  "unchangedRecorderSha256": "5647ba67e1f96fa4a8f0894c7bd95055a820e63e5412aceb03cf7de25b9d13ec"
+}

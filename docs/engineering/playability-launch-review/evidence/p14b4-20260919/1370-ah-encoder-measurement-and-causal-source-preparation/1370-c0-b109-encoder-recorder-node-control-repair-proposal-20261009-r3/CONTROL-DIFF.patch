@@ -1,0 +1,59 @@
+--- preserved-r2/test-recorder-repair.py
++++ r3/test-recorder-repair.py
+@@ -102,17 +102,49 @@
+    result=recorder.finalize_result(root,{'status':'PURE_ENCODER_CONTROLS_COMPLETE_UNADOPTED'},1,clock=lambda:0,writer=fail)
+    self.assertEqual(result['status'],'STOP_FINALIZATION');self.assertTrue((root/'OVERRIDE-STOP.json').exists());self.assertTrue((root/'RESULT.json').exists())
+  def test_actual_tiny_node_preload_settings_are_absent_and_group_clear(self):
+-  self.need('child_environment','start_owned','ready_go','clear','process_alive');config=json.loads((path.parent/'CONFIG.json').read_bytes());owned={}
++  self.need('child_environment','start_owned','ready_go','clear','process_alive');config=json.loads((path.parent/'CONFIG.json').read_bytes());owned={'info':{}}
+   code='process.stdout.write(JSON.stringify({version:process.version,options:process.env.NODE_OPTIONS??null,path:process.env.NODE_PATH??null,argv:process.execArgv}))'
++  diagnostics={'schema':'1370-b109-tiny-node-control-diagnostics-r3','testDeadlineSeconds':10,'captureBytesCapPerStream':65536,'contentPrefixBytesCap':4096,'diagnosticBytesCap':32768,'stages':{},'SC_OPEN_MAX':os.sysconf('SC_OPEN_MAX'),'causeAttribution':'UNPROVEN','expectedNodeVersion':'v20.20.2'}
++  def stage(name):diagnostics['stages'][name]=time.monotonic()
++  primary=None;cleanup_error=None;report_error=None
+   with self.scratch() as work:
+    root=pathlib.Path(work);env=recorder.child_environment({**os.environ,'NODE_OPTIONS':'--require /does/not/exist','NODE_PATH':'/unexpected'})
+    with (root/'stdout').open('wb') as out,(root/'stderr').open('wb') as err:
+     try:
+-     recorder.start_owned([config['nodePath'],'-e',code],str(root),env,out.fileno(),err.fileno(),owned);recorder.ready_go(owned,time.monotonic()+2);end=time.monotonic()+2
+-     while owned['child'].poll() is None and time.monotonic()<end:time.sleep(.01)
+-     self.assertEqual(owned['child'].poll(),0)
++     started=time.monotonic();deadline=started+10;diagnostics['testStartedMonotonic']=started;diagnostics['completionDeadlineMonotonic']=deadline
++     stage('beforeOwnedFork');recorder.start_owned([config['nodePath'],'-e',code],str(root),env,out.fileno(),err.fileno(),owned);stage('parentRegistrationReturned')
++     recorder.ready_go(owned,deadline);stage('readyGoReturned');diagnostics['pgidConfirmed']=owned.get('pgidConfirmed',False)
++     while owned['child'].poll() is None and time.monotonic()<deadline:time.sleep(min(.01,max(0,deadline-time.monotonic())))
++     stage('completionWaitReturned');diagnostics['completionDeadlineReached']=time.monotonic()>=deadline;diagnostics['exitBeforeCleanup']=owned['child'].poll()
++     self.assertLess(time.monotonic(),deadline,'tiny Node ten-second startup/completion deadline');self.assertEqual(owned['child'].poll(),0)
++    except BaseException as exc:
++     primary=exc;diagnostics['primaryError']=repr(exc)[:2048]
+     finally:
+-     recorder.close_startup_fds(owned)
+-     if owned.get('child') is not None:self.assertTrue(recorder.clear(owned['child'],time.monotonic()+1))
+-   actual=json.loads((root/'stdout').read_bytes());self.assertEqual(actual,{'version':'v20.20.2','options':None,'path':None,'argv':['-e',code]});self.assertEqual((root/'stderr').read_bytes(),b'');self.assertFalse(recorder.process_alive(owned['child'].pid))
++     stage('cleanupStarted');diagnostics['ownedPid']=None if owned.get('child') is None else owned['child'].pid;diagnostics['ownedPgid']=diagnostics['ownedPid'];diagnostics['pgidConfirmed']=owned.get('pgidConfirmed',False);diagnostics['startupOwnedBeforeExec']=owned.get('info',{}).get('startupOwnedBeforeExec',False)
++     try:recorder.close_startup_fds(owned)
++     except BaseException as exc:cleanup_error=exc;diagnostics['startupFdCleanupError']=repr(exc)[:2048]
++     if owned.get('child') is not None:
++      try:
++       clear=recorder.clear(owned['child'],time.monotonic()+1);diagnostics['clearReturned']=clear;diagnostics['exitAfterCleanup']=owned['child'].poll();diagnostics['freshGroupClear']=not recorder.process_alive(owned['child'].pid)
++       self.assertTrue(clear);self.assertTrue(diagnostics['freshGroupClear'])
++      except BaseException as exc:cleanup_error=exc;diagnostics['groupCleanupError']=repr(exc)[:2048]
++     else:diagnostics['clearReturned']=None;diagnostics['freshGroupClear']=None
++     stage('cleanupFinished')
++   try:
++    captured={}
++    for name in ('stdout','stderr'):
++     capture=root/name;size=capture.stat().st_size;entry={'actualBytes':size,'sha256':None,'prefixBase64':None,'contentTruncated':size>4096,'hashUnavailable':True};diagnostics[name]=entry
++     self.assertLessEqual(size,65536,'tiny Node retained '+name+' cap')
++     with capture.open('rb') as stream:raw=stream.read(65537)
++     self.assertEqual(len(raw),size);self.assertLessEqual(len(raw),65536)
++     entry.update({'sha256':hashlib.sha256(raw).hexdigest(),'prefixBase64':__import__('base64').b64encode(raw[:4096]).decode('ascii'),'hashUnavailable':False});captured[name]=raw
++    actual=json.loads(captured['stdout']);self.assertEqual(actual,{'version':'v20.20.2','options':None,'path':None,'argv':['-e',code]});self.assertEqual(captured['stderr'],b'');self.assertFalse(recorder.process_alive(owned['child'].pid));diagnostics['exactNodeEnvironmentArgvOutputAssertionsPassed']=True
++   except BaseException as exc:
++    report_error=exc;diagnostics['retainedOutputOrExactAssertionError']=repr(exc)[:2048];diagnostics['exactNodeEnvironmentArgvOutputAssertionsPassed']=False
++   finally:
++    stage('diagnosticsBeforeTemporaryRemoval');diagnostics['primaryFailure']=primary is not None;diagnostics['cleanupFailure']=cleanup_error is not None;diagnostics['outputAssertionFailure']=report_error is not None
++    encoded=json.dumps(diagnostics,sort_keys=True,separators=(',',':'));self.assertLessEqual(len(encoded.encode()),32768,'tiny Node diagnostic cap');print(encoded,flush=True)
++   if cleanup_error is not None:raise cleanup_error
++   if primary is not None:raise primary
++   if report_error is not None:raise report_error
+ if __name__=='__main__':unittest.main(argv=[sys.argv[0],*rest])

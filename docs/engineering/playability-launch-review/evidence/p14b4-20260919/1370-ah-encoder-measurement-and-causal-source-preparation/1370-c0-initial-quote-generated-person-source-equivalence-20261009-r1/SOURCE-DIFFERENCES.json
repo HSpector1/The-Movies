@@ -1,0 +1,98 @@
+[
+  {
+    "Aline": 236,
+    "Hline": 223,
+    "effect": "Only change to priced generated-person fields: H44.36540781416331 vsA/F144. Preserves provenance anchor; actual941/170 observed differences reproduced.",
+    "file": "src/core/hollywood.ts",
+    "pair": "H\u2192A/F1",
+    "reachedForRow0": true,
+    "statement": "entered.push({id:person.id,age:person.age}); person={...person,age:Math.floor(person.age)} before offerForTalent"
+  },
+  {
+    "F1line": 445,
+    "effect": "Existing caller supplies no fifthage argument; personAge therefore equals identical draw. Fullbody normalizes exactly to H/A; same calls/order/fields.",
+    "file": "src/core/worldgen.ts",
+    "pair": "A\u2192F1",
+    "reachedForRow0": true,
+    "statement": "generateTalent(seed,blocks,age?:number); drawnAge sampled once; personAge=age??drawnAge; age:personAge"
+  },
+  {
+    "F1line": 552,
+    "effect": "Fourth argument authored name; fifth undefined. Rolewriter selects unchanged ROLE_BLOCKS writer,copycount1 and identical derived person seed.",
+    "file": "src/core/worldgen.ts",
+    "pair": "A\u2192F1",
+    "reachedForRow0": "creative writer tail reached; scientist guard not reached",
+    "statement": "generateIndustryTalent(...,age?:number); scientist age guard; generateTalent(...,age)"
+  },
+  {
+    "F1line": 291,
+    "effect": "Captured208 clamps208; shared[52,104,156,208] catalogue selects208; both factor0.9. Remaining complete offerbody token-identical.",
+    "file": "src/core/employment.ts",
+    "pair": "A\u2192F1",
+    "reachedForRow0": true,
+    "statement": "length factor selects largest catalogue term<=clampedterm instead of direct cataloguekey"
+  },
+  {
+    "F1line": 229,
+    "effect": "Firstfresh rival/index0 alwaysgenerates writer. Added retirement filter cannot change generated person choice.",
+    "file": "src/core/hollywood.ts",
+    "pair": "A\u2192F1",
+    "reachedForRow0": "authored true branch reached; altered free-agent search not reached",
+    "statement": "authored ? undefined : talent.find(...contractEndRefusal...)"
+  },
+  {
+    "F1line": 206,
+    "effect": "Business-only root; neither deterministic generator nor quote reads it. No change to seed/id/role/name/age/pricing.",
+    "file": "src/core/hollywood.ts",
+    "pair": "A\u2192F1",
+    "reachedForRow0": true,
+    "statement": "screenplayShelving root added to RivalBusiness before entry"
+  },
+  {
+    "F1line": 184,
+    "effect": "Schedules career due records only; recordPlayerEmployment alters Hollywood playerledger only. Neither rewrites talent/quote values or samplesRNG.",
+    "file": "src/core/hollywood.ts",
+    "pair": "A\u2192F1",
+    "reachedForRow0": "afterquote and beforediagnostic",
+    "statement": "scheduleProfessionReconciliation(recordPlayerEmployment(...)) after all entrantquotes"
+  },
+  {
+    "F1line": 263,
+    "effect": "Reads appended.role and creates provenance/careerroot; no talentfieldmutation.",
+    "file": "src/core/aging.ts",
+    "pair": "A\u2192F1",
+    "reachedForRow0": "afterquote",
+    "statement": "withTalentProvenance also writes professionAnchors when livecareerroot exists"
+  },
+  {
+    "Aline": 717,
+    "effect": "Target is a forced newly generated authored entrant with separatepersonseed, not reusedgenesisperson. Capturedseed/id fixed; fresh keyed streams and complete generator dependency proof remove earlier RNG order as pricinginput.",
+    "file": "src/core/worldgen.ts",
+    "pair": "H\u2192A/F1",
+    "reachedForRow0": "earlierworldgen initialization",
+    "statement": "generateWorld commits initial drawnpeople agefloors/provenance; F1 also addsnewcareer/P15roots"
+  },
+  {
+    "F1line": 119,
+    "effect": "Not referenced by complete persongenerator/salarycurve helper block. Relevantgeneration eightmatrices and81 checkedTUNINGproperties equal.",
+    "file": "src/core/worldgen.ts",
+    "pair": "A\u2192F1",
+    "reachedForRow0": "world generation force setup only",
+    "statement": "FORCE_ORDER imported/re-exported fromtuning"
+  },
+  {
+    "F1line": 123,
+    "effect": "Entireexecutable tokenstream identical; roleOVR reads sameperceivedskills andsameOVR weights/gates.",
+    "file": "src/core/talentSummary.ts",
+    "pair": "A\u2192F1",
+    "reachedForRow0": true,
+    "statement": "public summary/profession comments change"
+  },
+  {
+    "effect": "Diagnostic capturesalary beforefirsttick; laterweek93 holdintervention cannot affect initialquote.",
+    "file": "src/core/hollywoodTick.ts",
+    "pair": "F0\u2192F1",
+    "reachedForRow0": false,
+    "statement": "single filmcommission hold return control"
+  }
+]

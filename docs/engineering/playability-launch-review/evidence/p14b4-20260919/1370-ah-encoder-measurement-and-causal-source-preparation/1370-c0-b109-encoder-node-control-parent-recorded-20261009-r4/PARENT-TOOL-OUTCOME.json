@@ -1,0 +1,83 @@
+{
+  "actualToolExit": 0,
+  "actualToolSession": 87364,
+  "benchmarkExecuted": false,
+  "childStageCauseKnown": false,
+  "diagnostics": {
+    "SC_OPEN_MAX": 1048575,
+    "captureBytesCapPerStream": 65536,
+    "causeAttribution": "UNPROVEN",
+    "cleanupFailure": false,
+    "clearReturned": true,
+    "completionDeadlineMonotonic": 65079.465521688,
+    "completionDeadlineReached": false,
+    "contentPrefixBytesCap": 4096,
+    "diagnosticBytesCap": 32768,
+    "exactNodeEnvironmentArgvOutputAssertionsPassed": true,
+    "exitAfterCleanup": 0,
+    "exitBeforeCleanup": 0,
+    "expectedNodeVersion": "v20.20.2",
+    "freshGroupClear": true,
+    "outputAssertionFailure": false,
+    "ownedPgid": 38494,
+    "ownedPid": 38494,
+    "pgidConfirmed": true,
+    "primaryFailure": false,
+    "schema": "1370-b109-tiny-node-control-diagnostics-r4",
+    "stages": {
+      "beforeOwnedFork": 65069.465525241,
+      "cleanupFinished": 65071.72858456,
+      "cleanupStarted": 65071.728041677,
+      "completionWaitReturned": 65071.727242765,
+      "diagnosticsBeforeTemporaryRemoval": 65071.730000585,
+      "parentRegistrationReturned": 65069.468024203,
+      "readyGoReturned": 65069.469744682
+    },
+    "startupOwnedBeforeExec": true,
+    "stderr": {
+      "actualBytes": 0,
+      "contentTruncated": false,
+      "hashUnavailable": false,
+      "prefixBase64": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "actualBytes": 223,
+      "contentTruncated": false,
+      "hashUnavailable": false,
+      "prefixBase64": "eyJ2ZXJzaW9uIjoidjIwLjIwLjIiLCJvcHRpb25zIjpudWxsLCJwYXRoIjpudWxsLCJhcmd2IjpbIi1lIiwicHJvY2Vzcy5zdGRvdXQud3JpdGUoSlNPTi5zdHJpbmdpZnkoe3ZlcnNpb246cHJvY2Vzcy52ZXJzaW9uLG9wdGlvbnM6cHJvY2Vzcy5lbnYuTk9ERV9PUFRJT05TPz9udWxsLHBhdGg6cHJvY2Vzcy5lbnYuTk9ERV9QQVRIPz9udWxsLGFyZ3Y6cHJvY2Vzcy5leGVjQXJndn0pKSJdfQ==",
+      "sha256": "c25d84b6ba0020a3e956f19a0db77976d66e4c41e3047713cf20204dbd23e262"
+    },
+    "testDeadlineSeconds": 10,
+    "testStartedMonotonic": 65069.465521688
+  },
+  "encoderControlsExecuted": false,
+  "freshOwnedGroupAbsent": true,
+  "gameExecuted": false,
+  "head": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "heavyLockAbsent": true,
+  "helperMetaExit": 0,
+  "log": {
+    "bytes": 3714,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-repaired-node-control-lane-20261009-r4/controls.lane.log",
+    "sha256": "288a4ae7f576df9deb397208a6067dd1c37f8cdb7c00cf57ecb4e00a8a6ae6cf"
+  },
+  "meta": {
+    "bytes": 483,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-repaired-node-control-lane-20261009-r4/controls.lane.log.meta",
+    "sha256": "7c21655b89eb798a05e8f61e06ca8395193c03ad6d1a965b5ff1ab85f0f710d0"
+  },
+  "nodeStartupThroughObservedCompletionSeconds": 2.26172107700404,
+  "originalFailedGreenPreserved": true,
+  "ownedNodePgid": 38494,
+  "readyGoToObservedCompletionSeconds": 2.2574980830031564,
+  "sourcePinsReverified": true,
+  "status": "ACTUAL_REPAIRED_RECORDER_CONTROLS_PASS_PENDING_INDEPENDENT_REVIEW",
+  "syntaxWarningPreserved": true,
+  "testCases": 14,
+  "testElapsedSeconds": 2.41,
+  "testFailures": 0,
+  "tinyTemporaryFixturesAbsent": true,
+  "trailingStopRole": "Expected patched25ms preflight-alarm test output; not an actual whole90 expiry.",
+  "utc": "2026-10-09T15:16:14.109524+00:00"
+}

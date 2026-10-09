@@ -1,0 +1,35 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-changed-route-controls-lane-20261009-r1/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/test_changed_route.py",
+    "--source-dir",
+    "<EXACT_INDEPENDENTLY_ACCEPTED_SOURCE_DIR>",
+    "--source-pins-sha",
+    "<EXACT_SOURCE_PINS_SHA>",
+    "--route-review",
+    "<EXACT_SOURCE_REVIEW_RECEIPT_PATH>",
+    "--route-review-sha",
+    "<EXACT_RECEIPT_SHA>",
+    "--output-root",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-changed-route-controls-output-20261009-r1"
+  ],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "helperSha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+  "historicalAcceptedDcf2SourcePinsSha256": "939cc8b45f91f54afc1561003732c3dc8b0e43c654363b8793e9cc9ac8ce8c29",
+  "historicalAcceptedSourceReviewSha256": "034ee4b02bb38b53f3a1d7a4b4a1c8351f257981330ca1ae9af24559886ee5a8",
+  "noExecutionClaimed": true,
+  "schema": "1370-m0-changed-route-controls-argv-template-r1",
+  "status": "SOURCE_PROPOSAL_UNRUN_REVIEW_AND_ROOT_GRANT_REQUIRED",
+  "unexpectedHelperWait": "STOP"
+}

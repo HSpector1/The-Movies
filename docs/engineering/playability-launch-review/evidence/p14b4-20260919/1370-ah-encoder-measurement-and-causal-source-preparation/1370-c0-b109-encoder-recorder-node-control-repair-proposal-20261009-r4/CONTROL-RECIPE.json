@@ -1,0 +1,51 @@
+{
+  "actualNodeTestStartupThroughCompletionSeconds": 10,
+  "preservedObservedStopReceiptSha256": "b07928aaa87d385ddb2707e13f95a6218f860f1f0e572676cd716f836fa5fa55",
+  "proposedControls": {
+    "acceptanceRequires": [
+      "actual tool/helper/meta0 and all14 pass",
+      "one bounded tinyNode diagnostic record retained in helper log",
+      "exact Node20 sanitized env/argv/output/exit0 and fresh groupclear assertions",
+      "no surviving owned group or leftover temporary fixture",
+      "no automatic encoder/benchmark/game qualification"
+    ],
+    "argv": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/test-recorder-repair.py",
+      "--recorder",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/record-pure-node.py",
+      "-v"
+    ],
+    "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "expectedExit": 0,
+    "expectedTests": 14,
+    "laneParentMustBeOwned0700AndLogMetaAbsent": true,
+    "recordedLane": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-repaired-node-control-lane-20261009-r4/controls.lane.log",
+      "<exact argv above>"
+    ]
+  },
+  "recorderPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/record-pure-node.py",
+  "recorderSha256": "5647ba67e1f96fa4a8f0894c7bd95055a820e63e5412aceb03cf7de25b9d13ec",
+  "schema": "1370-b109-test-only-node-control-repair-recipe-r4",
+  "scope": "One existing tiny actualNode test only; no recorder/encoder/benchmark/launcher change; no cause assertion; no repeated old failed attempt required.",
+  "status": "UNRUN_INDEPENDENT_SOURCE_REVIEW_AND_ROOT_LANE_GRANT_REQUIRED",
+  "unchangedBounds": {
+    "B109": [
+      300,
+      375,
+      390
+    ],
+    "active": 75,
+    "recorderChild": 60,
+    "whole": 90
+  }
+}

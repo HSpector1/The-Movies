@@ -1,0 +1,42 @@
+{
+  "changedFunctionsOrClasses": {
+    "record.py": [
+      "fork_ready",
+      "validated_spec",
+      "quick_guards",
+      "lane"
+    ],
+    "supervise.py": [
+      "read_roles",
+      "finalize_bound",
+      "supervise"
+    ]
+  },
+  "materializerSourceChanged": false,
+  "observerSourceChanged": false,
+  "predecessor": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6",
+  "schema": "1370-m0-recorded-materialization-role-diff-r1",
+  "sourceHashRoles": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/materialize.py": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r1/materialize.py": "3540d202d3a7cb6f6b44ca5a6ddc28f1c50147b5f580e2a084b98059c319852e"
+  },
+  "status": "SOURCE_PROPOSAL_UNRUN",
+  "syntaxParsedOnly": true,
+  "testsExecuted": false,
+  "unchangedFunctionsOrClasses": {
+    "record.py": [
+      "update_free_minimum",
+      "write_once",
+      "still_alive",
+      "terminate"
+    ],
+    "supervise.py": [
+      "alive_group",
+      "kill_owned",
+      "watch",
+      "write_once",
+      "DeadlineExpired",
+      "check_deadline"
+    ]
+  }
+}

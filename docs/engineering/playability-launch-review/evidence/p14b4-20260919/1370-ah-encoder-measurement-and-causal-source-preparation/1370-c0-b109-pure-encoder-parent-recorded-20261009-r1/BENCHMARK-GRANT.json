@@ -1,0 +1,45 @@
+{
+  "acceptedEncoderControlsReceiptSha256": "ae9a25c570ccae1da2600bbd8eecee79efacddfd67fa6bece831ff7e161928ea",
+  "all21RolesAndEightConfigRolesReverified": true,
+  "bounds": [
+    60,
+    75,
+    90
+  ],
+  "captureMetadataRole": "Current identity only; original whole hash remains prior accepted provenance; actual bounded308 member must freshly authenticate.",
+  "claims": "Pure encoder timings and exact-byte/refusal/purity only; no full109 feasibility or gameplay acceptance.",
+  "currentCaptureMetadata": {
+    "ctimeNs": "1791439909827355864",
+    "dev": "16777220",
+    "ino": "166406220",
+    "mode": "33188",
+    "mtimeNs": "1791439909827355864",
+    "nlink": "1",
+    "size": "141237093"
+  },
+  "freeBytes": 6025523200,
+  "gameOrSourceIntegrationAuthorized": false,
+  "head": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "oldOwnedGroupsAbsent": true,
+  "recipe": {
+    "argv": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-lane-20261009-r2/benchmark.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/record-pure-node.py",
+      "benchmark"
+    ],
+    "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+    "expectedActualExit": 0,
+    "laneDirectoryParentCreatesPrivateBeforeActualLaunch": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-lane-20261009-r2",
+    "mode": "benchmark",
+    "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-output-20261009-r2"
+  },
+  "sourceAcceptanceSha256": "20163ef5aee5683bf31c8446887545922e4d0517773dae4d86f59831c85f176a",
+  "status": "PARENT_ADOPTED_ENCODER11_AND_GRANTED_ONE_PURE_INDEXED308_BENCHMARK",
+  "utc": "2026-10-09T15:23:51.779657+00:00",
+  "wholeCaptureHashFreshlyRead": false
+}

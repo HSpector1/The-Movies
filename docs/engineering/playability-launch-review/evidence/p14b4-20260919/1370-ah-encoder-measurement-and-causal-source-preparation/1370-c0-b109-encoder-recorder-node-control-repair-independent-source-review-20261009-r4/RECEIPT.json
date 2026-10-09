@@ -1,0 +1,101 @@
+{
+  "actualAcceptanceRequirements": [
+    "Separate root lane grant and authenticated current pinned Node20/helper/source/predecessor",
+    "Actual tool/helper/meta0 and all14 pass",
+    "Bounded retained tiny-Node diagnostics, owned cleanup/group absence, removed fixture",
+    "No encoder/benchmark/game qualification implied"
+  ],
+  "allFourteenControlsUnrun": true,
+  "benchmarkExecuted": false,
+  "boundsUnchanged": {
+    "B109": [
+      300,
+      375,
+      390
+    ],
+    "recorder": [
+      60,
+      75,
+      90
+    ]
+  },
+  "captureDecoded": false,
+  "concreteFindings": [],
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_TEST_REPAIR",
+  "gameExecuted": false,
+  "manifestSha256": "b673978c6c4527dafe0746b708639b529b1fb7f1edbb1cf6ae00d7f6f19e9251",
+  "nodeExecuted": false,
+  "otherThirteenMethodsAstAndTextExact": true,
+  "pins": [
+    {
+      "bytes": 1284,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/SOURCE-PINS.json",
+      "sha256": "b673978c6c4527dafe0746b708639b529b1fb7f1edbb1cf6ae00d7f6f19e9251"
+    },
+    {
+      "bytes": 12543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    },
+    {
+      "bytes": 6363,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/CONTROL-DIFF.patch",
+      "sha256": "a7193ef32a3667420c9ceff27bbc6034951ec7986e092e6f1d38796028a8a35e"
+    },
+    {
+      "bytes": 2234,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/CONTROL-RECIPE.json",
+      "sha256": "ddad9d244c761da7d94d0acf228f25ee5015dd433abb37a7d43a74f36deaa5a6"
+    },
+    {
+      "bytes": 1738,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/PLAN.md",
+      "sha256": "1f64967ffdfacae273bfa7f880ef145d7c5af7d59b97228134a54c2171c92398"
+    },
+    {
+      "bytes": 299,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/STATIC-CONTROLS.json",
+      "sha256": "deb85a8f241ca21e4cbf236bb1e205f1ee6a67cf2ae9642a2c2c076c674a6ff6"
+    },
+    {
+      "bytes": 2313,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "6c152d4681c2e772f7e155a904047bd5f56da8eb297d8291354dc44f60587557"
+    },
+    {
+      "bytes": 14033,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/record-pure-node.py",
+      "sha256": "5647ba67e1f96fa4a8f0894c7bd95055a820e63e5412aceb03cf7de25b9d13ec"
+    },
+    {
+      "bytes": 3586,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/CONFIG.json",
+      "sha256": "2d5310488f12bd20f381914558f31df5ccd6d275c5b7f1d8efe4f86eb845dd3b"
+    },
+    {
+      "bytes": 8906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py",
+      "sha256": "1da16a7d5624f41fcc98a5586fb71ce3f303e5c41f1d59dc3b5c7053e8d82e56"
+    },
+    {
+      "bytes": 1850,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-controls-observed-stop-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "b07928aaa87d385ddb2707e13f95a6218f860f1f0e572676cd716f836fa5fa55"
+    }
+  ],
+  "recipeSha256": "ddad9d244c761da7d94d0acf228f25ee5015dd433abb37a7d43a74f36deaa5a6",
+  "recorderUnchanged": true,
+  "report": {
+    "bytes": 3009,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-independent-source-review-20261009-r4/REPORT.md",
+    "sha256": "55642f81c2455a56293b72656e3a88c5f7bbb54be8c7fa29838ac563b51e5be2"
+  },
+  "schema": "1370-b109-tiny-node-control-repair-independent-source-review-r4",
+  "sourceImplementedOrAdopted": false,
+  "suppliedDiffExact": true,
+  "testDeadlineSeconds": 10,
+  "testSha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0",
+  "testsExecuted": false,
+  "textOutsideChangedMethodExact": true,
+  "utc": "2026-10-09T15:13:50.029718+00:00"
+}

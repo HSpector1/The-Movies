@@ -1,0 +1,44 @@
+{
+  "actualToolExit": 0,
+  "actualToolSession": 4473,
+  "benchmarkOrGameExecuted": false,
+  "freshGroupAbsent": true,
+  "groups": 11,
+  "head": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "heavyLockAbsent": true,
+  "helperMetaExit": 0,
+  "overrideAbsent": true,
+  "ownedPgid": 43964,
+  "pairs": 281,
+  "pins": [
+    {
+      "bytes": 919,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-output-20261009-r2/RESULT.json",
+      "sha256": "7542b5895dd05004411737786e37c35baadb6a37e395163a0e75c4a6dadbbef9"
+    },
+    {
+      "bytes": 712,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-output-20261009-r2/stdout.bin",
+      "sha256": "d1c46175eee480d6e1bdda11518592da358b67035042b2ff165246b71dfb8038"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-output-20261009-r2/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 377,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-lane-20261009-r2/controls.lane.log",
+      "sha256": "b3308b05cdc058140cc10c6f50d873673cd44a920deb198df04523c50c1d2292"
+    },
+    {
+      "bytes": 343,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-lane-20261009-r2/controls.lane.log.meta",
+      "sha256": "e6dd7cdc4828e5786132e4485bfb9bff7c6cdfbb48abcb631c18ab7ed96cfd3d"
+    }
+  ],
+  "recorderChildExit": 0,
+  "recorderElapsedSeconds": 1.3397667629978969,
+  "status": "ACTUAL_ENCODER11_PASS_PENDING_INDEPENDENT_REVIEW",
+  "utc": "2026-10-09T15:21:19.815061+00:00"
+}

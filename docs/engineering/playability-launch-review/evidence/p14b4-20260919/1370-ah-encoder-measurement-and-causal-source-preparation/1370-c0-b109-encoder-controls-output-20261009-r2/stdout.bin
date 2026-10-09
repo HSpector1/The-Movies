@@ -1,0 +1,12 @@
+PASS exact primitives and finite number rendering
+PASS captured key order, integer keys and escaping
+PASS undefined object omission and sparse-array null
+PASS shared references are allowed while cycles refuse
+PASS own toJSON refuses; inherited toJSON is ignored like baseline
+PASS unsupported atoms and nonfinite numbers refuse
+PASS exact-fit and cap refusal for every small budget
+PASS string raw precheck and escaped token budget
+PASS property-key cache is per call and cannot mask object mutation
+PASS getter visitation order remains identical
+PASS deterministic nested corpus
+{"status":"ENCODER_EQUIVALENCE_AND_REFUSALS_PASSED","groups":11,"pairs":281,"game":false,"saveImports":false,"captureDecode":false}

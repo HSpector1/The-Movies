@@ -1,0 +1,13 @@
+{
+  "authoredGroups": 22,
+  "benchmarkByteIdentical": true,
+  "execution": "NONE",
+  "freshOutputLanePathsAbsent": true,
+  "original16GroupsVerbatim": true,
+  "pythonAstOnly": [
+    "record-pure-node.py",
+    "test-recorder-repair.py"
+  ],
+  "r1AllPinsUnchanged": true,
+  "recorderOnlyThreeSubstitutions": true
+}

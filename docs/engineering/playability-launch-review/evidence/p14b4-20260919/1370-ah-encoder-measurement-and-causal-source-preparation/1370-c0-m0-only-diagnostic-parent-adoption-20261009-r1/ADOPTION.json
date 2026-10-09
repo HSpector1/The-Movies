@@ -1,0 +1,17 @@
+{
+  "status": "PARENT_ADOPTED_ISOLATED_M0_DIAGNOSTIC_DESIGN_ONLY",
+  "sourceReviewSha256": "a4591c34f4b6406f20e5e35c0d85cbab74945dc79b1ef79fffbdf8d75b1f1180",
+  "productionGuardHead": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "canonicalM0Source": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "scope": "Observe M0 own week196 author to week208 replacement assignment using unchanged accepted r10 observer; prepare narrow operational binding. No launch until actual source/exact/materialization/types/collection/wiring checks, subsequent capture and same-era neutrality/replay.",
+  "combinedHFirstRouteUnchanged": true,
+  "H8708Waived": false,
+  "executionAuthorization": false,
+  "historicalAcceptedR9ReplayRequired": false,
+  "productionSourceChangesAuthorized": false,
+  "remoteRefsVerified": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26"
+  }
+}

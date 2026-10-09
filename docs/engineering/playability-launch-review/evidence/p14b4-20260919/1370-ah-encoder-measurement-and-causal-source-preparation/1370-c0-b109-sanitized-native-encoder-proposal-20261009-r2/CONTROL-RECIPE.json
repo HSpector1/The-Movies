@@ -1,0 +1,73 @@
+{
+  "after": [
+    "Record helper/meta and recorder actual exits, exact outputs and owned group absence.",
+    "If promising, independently review a future B109 source change and qualified equivalence/refusal controls/one-tick308 parity before any game.",
+    "No blind full109 retry; weighted encoder-only estimate near/exceeding300seconds rejects another attempt. Later-size growth and residual save/tick/gzip/readback costs remain unmeasured."
+  ],
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "caps": {
+    "activeSeconds": 75,
+    "nodeSeconds": 60,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576,
+    "wholeSeconds": 90
+  },
+  "executionAuthorization": false,
+  "focusScope": "R2 clone-local conditional Proxy key-order repair; all original16 groups verbatim plus six focused groups. No source-domain exclusions; unrun.",
+  "helperRole": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "preconditions": [
+    "Independent review accepts R2 candidate, all22 authored groups, CONFIG and three-line recorder-only version diff.",
+    "Root separately grants sole lane; all fresh output/lane/log/meta paths absent.",
+    "Same authentic indexed308 source, current metadata/FD checks, Node20.20.2, 60/75/90 caps and actual zero helper/recorder/child exits required.",
+    "No game, source integration or full109 retry authorized; unchanged300/375/390 bounds."
+  ],
+  "recipes": [
+    {
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r2/controls.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py",
+        "controls"
+      ],
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "expectedActualExit": 0,
+      "laneDirectoryParentCreatesPrivateBeforeActualLaunch": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r2",
+      "mode": "controls",
+      "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r2"
+    },
+    {
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-benchmark-lane-20261009-r2/benchmark.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py",
+        "benchmark"
+      ],
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "expectedActualExit": 0,
+      "laneDirectoryParentCreatesPrivateBeforeActualLaunch": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-benchmark-lane-20261009-r2",
+      "mode": "benchmark",
+      "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-benchmark-output-20261009-r2"
+    }
+  ],
+  "requiredEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "schema": "1370-b109-pure-encoder-recorded-control-recipe-r2",
+  "status": "UNREVIEWED_UNRUN_REQUIRES_SEPARATE_PARENT_LANE_GRANT"
+}

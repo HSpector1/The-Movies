@@ -1,0 +1,33 @@
+{
+  "actualControlsExecuted": false,
+  "executionAuthorization": false,
+  "files": {
+    "CONTROL-DIFF.patch": {
+      "bytes": 6363,
+      "sha256": "a7193ef32a3667420c9ceff27bbc6034951ec7986e092e6f1d38796028a8a35e"
+    },
+    "CONTROL-RECIPE.json": {
+      "bytes": 2234,
+      "sha256": "ddad9d244c761da7d94d0acf228f25ee5015dd433abb37a7d43a74f36deaa5a6"
+    },
+    "PLAN.md": {
+      "bytes": 1738,
+      "sha256": "1f64967ffdfacae273bfa7f880ef145d7c5af7d59b97228134a54c2171c92398"
+    },
+    "STATIC-CONTROLS.json": {
+      "bytes": 299,
+      "sha256": "deb85a8f241ca21e4cbf236bb1e205f1ee6a67cf2ae9642a2c2c076c674a6ff6"
+    },
+    "test-recorder-repair.py": {
+      "bytes": 12543,
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    }
+  },
+  "noRecorderEncoderBenchmarkLauncherChange": true,
+  "observedStopReceiptSha256": "b07928aaa87d385ddb2707e13f95a6218f860f1f0e572676cd716f836fa5fa55",
+  "preservedR2SourcePinsSha256": "6c152d4681c2e772f7e155a904047bd5f56da8eb297d8291354dc44f60587557",
+  "preservedR3SourcePinsSha256": "1c5e577a3ca7b6942c49866e7bdfb04952bcdc32b385c4520a4c3d93580047e8",
+  "schema": "1370-b109-test-only-node-control-repair-proposal-r4",
+  "status": "FROZEN_PROPOSAL_UNRUN",
+  "utc": "2026-10-09T15:08:23.999399+00:00"
+}

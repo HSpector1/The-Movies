@@ -1,0 +1,11 @@
+{
+  "execution": "NONE",
+  "pythonAstParses": [
+    "record-pure-node.py",
+    "test-recorder-repair.py"
+  ],
+  "original11GroupsVerbatim": true,
+  "benchmarkByteIdentical": true,
+  "freshOutputAndLanePathsAbsentAtStaticCheck": true,
+  "unresolvedProxyIntegerOrderBoundary": true
+}

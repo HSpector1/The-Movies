@@ -1,0 +1,11 @@
+{
+  "actualExecutionOrIntegrationAuthorized": false,
+  "designReviewSha256": "8b174e8babfa68d026aa0a4d0b049a9d2d6bd941f17e9cf04d68abe41480f24a",
+  "heldOriginalNativeSourcePins": "112a66297f367b4e543b09ce91c5d427f2f766762271c83842f7fc467122205c",
+  "implementationProposalAuthorized": true,
+  "requiredControls": "Reverse/mixed/nested/per-occurrence Proxy ordering, undefined omissions/source getters, inherited handler-trap pollution, ordinary plain cases, caps and pre-native refusal, existing16groups",
+  "scope": "New versioned scratch-only native encoder proposal: wrap only fresh sanitized null-prototype object data clones when necessary to expose exact recorded emitted key order. Handler is fresh null-prototype with only ownKeys. Default get/descriptor operations access clone only. Arrays unchanged; no original reads/caches/refusals/caps/admissions waived. Captured original key list may be reused if omitted names remain safely absent from extensible clone.",
+  "sourceDomainExclusionAuthorized": false,
+  "status": "PARENT_ADOPTED_SMALL_OWNED_PROXY_ORDER_REPAIR_DESIGN_ONLY",
+  "utc": "2026-10-09T15:42:13.333108+00:00"
+}

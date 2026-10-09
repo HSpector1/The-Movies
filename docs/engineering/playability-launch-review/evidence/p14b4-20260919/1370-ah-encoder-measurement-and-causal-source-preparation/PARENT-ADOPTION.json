@@ -1,0 +1,38 @@
+{
+  "M0Controls": "13 groups authored, independent review pending; old dcf2 route remains immutable and unrun. Rebind operational HEAD in a separately reviewed version after this checkpoint.",
+  "baseHead": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "mainMergeOrProductionMutationAuthorized": false,
+  "nativeEncoder": {
+    "authoredGroups": 22,
+    "benchmarkExecuted": false,
+    "controlsExecuted": false,
+    "decision": "ADOPT_SOURCE_ONLY_UNRUN",
+    "executionAuthorized": false,
+    "review": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "d0f32d7f625128305ca62f2dcdef5a67d6b4738b6828d1df5e09e1d3e9c19a7e"
+  },
+  "row0": {
+    "annual": [
+      394607,
+      395548
+    ],
+    "bonus": [
+      71029,
+      71199
+    ],
+    "decision": "ADOPT_ROW0_SOURCE_BRIDGE_WITH_SCOPE_CORRECTIONS",
+    "failedF0r2Excluded": true,
+    "measuredInputRole": "Accepted F1 observer helper and isolated-key recomputations transported by independently verified deterministic source equivalence; not original offer locals or new historical measurements.",
+    "otherRowsOrLedgerClosure": false,
+    "remainingChangedContracts": 38,
+    "remainingStartWeeks": {
+      "0": 22,
+      "208": 16
+    },
+    "review": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "9814ce7dcaf76b0fd141e28e0bf1de930c8575bc5c19bccd0fb1a313c38f7ceb"
+  },
+  "schema": "1370-ah-parent-causal-source-adoption-r1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "utc": "2026-10-09T15:55:14.847375+00:00"
+}

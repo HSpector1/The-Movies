@@ -1,0 +1,23 @@
+/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/record-pure-node.py:236: SyntaxWarning: 'return' in a 'finally' block
+  return code
+test_actual_tiny_node_preload_settings_are_absent_and_group_clear (__main__.TinyRecorderControls.test_actual_tiny_node_preload_settings_are_absent_and_group_clear) ... {"SC_OPEN_MAX":1048575,"captureBytesCapPerStream":65536,"causeAttribution":"UNPROVEN","cleanupFailure":false,"clearReturned":true,"completionDeadlineMonotonic":65079.465521688,"completionDeadlineReached":false,"contentPrefixBytesCap":4096,"diagnosticBytesCap":32768,"exactNodeEnvironmentArgvOutputAssertionsPassed":true,"exitAfterCleanup":0,"exitBeforeCleanup":0,"expectedNodeVersion":"v20.20.2","freshGroupClear":true,"outputAssertionFailure":false,"ownedPgid":38494,"ownedPid":38494,"pgidConfirmed":true,"primaryFailure":false,"schema":"1370-b109-tiny-node-control-diagnostics-r4","stages":{"beforeOwnedFork":65069.465525241,"cleanupFinished":65071.72858456,"cleanupStarted":65071.728041677,"completionWaitReturned":65071.727242765,"diagnosticsBeforeTemporaryRemoval":65071.730000585,"parentRegistrationReturned":65069.468024203,"readyGoReturned":65069.469744682},"startupOwnedBeforeExec":true,"stderr":{"actualBytes":0,"contentTruncated":false,"hashUnavailable":false,"prefixBase64":"","sha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},"stdout":{"actualBytes":223,"contentTruncated":false,"hashUnavailable":false,"prefixBase64":"eyJ2ZXJzaW9uIjoidjIwLjIwLjIiLCJvcHRpb25zIjpudWxsLCJwYXRoIjpudWxsLCJhcmd2IjpbIi1lIiwicHJvY2Vzcy5zdGRvdXQud3JpdGUoSlNPTi5zdHJpbmdpZnkoe3ZlcnNpb246cHJvY2Vzcy52ZXJzaW9uLG9wdGlvbnM6cHJvY2Vzcy5lbnYuTk9ERV9PUFRJT05TPz9udWxsLHBhdGg6cHJvY2Vzcy5lbnYuTk9ERV9QQVRIPz9udWxsLGFyZ3Y6cHJvY2Vzcy5leGVjQXJndn0pKSJdfQ==","sha256":"c25d84b6ba0020a3e956f19a0db77976d66e4c41e3047713cf20204dbd23e262"},"testDeadlineSeconds":10,"testStartedMonotonic":65069.465521688}
+ok
+test_alarm_after_candidate_write_has_override (__main__.TinyRecorderControls.test_alarm_after_candidate_write_has_override) ... ok
+test_alarm_before_candidate_write_has_override (__main__.TinyRecorderControls.test_alarm_before_candidate_write_has_override) ... ok
+test_blocked_startup_is_owned_before_exec_and_cleared (__main__.TinyRecorderControls.test_blocked_startup_is_owned_before_exec_and_cleared) ... ok
+test_fixed_caps (__main__.TinyRecorderControls.test_fixed_caps) ... ok
+test_hard_alarm_names_actual_bound (__main__.TinyRecorderControls.test_hard_alarm_names_actual_bound) ... ok
+test_late_exit_exact_child_and_active_deadlines (__main__.TinyRecorderControls.test_late_exit_exact_child_and_active_deadlines) ... ok
+test_late_postwrite_is_stop_without_blocking_after_deadline (__main__.TinyRecorderControls.test_late_postwrite_is_stop_without_blocking_after_deadline) ... ok
+test_owned_survivor_cannot_be_clear (__main__.TinyRecorderControls.test_owned_survivor_cannot_be_clear) ... ok
+test_pending_alarm_at_fork_return_keeps_owned_pid (__main__.TinyRecorderControls.test_pending_alarm_at_fork_return_keeps_owned_pid) ... ok
+test_positive_active_guard (__main__.TinyRecorderControls.test_positive_active_guard) ... ok
+test_real_preflight_alarm_interrupts_authentication (__main__.TinyRecorderControls.test_real_preflight_alarm_interrupts_authentication) ... ok
+test_sanitized_environment_copy (__main__.TinyRecorderControls.test_sanitized_environment_copy) ... ok
+test_timely_finalization (__main__.TinyRecorderControls.test_timely_finalization) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 2.410s
+
+OK
+{"status": "STOP_WHOLE_90_SECONDS", "output": null, "actualChildExit": null, "groupClear": true}

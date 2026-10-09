@@ -1,0 +1,82 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/supervise.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/supervise.py
+@@ -1,7 +1,7 @@
+ #!/usr/bin/env python3
+ """Independent whole-clock supervisor for one reviewed sparse materialization.
+ 
+-Source-only proposal. The unfilled binding cannot launch this lane.
++M0 role adaptation of accepted r6 owned930 wrapper. Source-only proposal; unfilled binding cannot launch.
+ """
+ 
+ import json
+@@ -14,7 +14,15 @@
+ import sys
+ import time
+ 
+-from materialize import Stop, canonical_json, file_sha, require
++import importlib.util
++import stat
++_GUARD=Path("/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/materialize.py")
++require_guard_sha="2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896"
++if _GUARD.resolve(strict=True)!=_GUARD or not stat.S_ISREG(_GUARD.lstat().st_mode) or _GUARD.is_symlink() or hashlib.sha256(_GUARD.read_bytes()).hexdigest()!=require_guard_sha:
++    raise RuntimeError("accepted read-only r6 helper source drift")
++_module_spec=importlib.util.spec_from_file_location("accepted_r6_readonly_helpers",_GUARD)
++_g=importlib.util.module_from_spec(_module_spec);_module_spec.loader.exec_module(_g)
++Stop,canonical_json,file_sha,require=_g.Stop,_g.canonical_json,_g.file_sha,_g.require
+ 
+ WHOLE_SECONDS = 930
+ POLL_SECONDS = 0.05
+@@ -98,6 +106,7 @@
+     raw = spec_path.read_bytes()
+     data = json.loads(raw.decode("utf-8"))
+     require(isinstance(data, dict), "invalid binding object")
++    require(sys.dont_write_bytecode and not sys.flags.optimize and data.get("status")=="REVIEWED_FILLED_UNRUN" and data.get("executionAuthorization") is True and data.get("noDetachedChildren") is True, "reviewed isolated no-detach exact binding required")
+     for key in ("outputParent", "outputRoot", "scratchParent", "scratchRoot",
+                 "recorderLockPath", "supervisorPath", "supervisorSha256"):
+         require(isinstance(data.get(key), str) and bool(data[key]),
+@@ -175,7 +184,7 @@
+         require(not lock.exists() and not lock.is_symlink(), "owned lock not cleared")
+         check_deadline(start, limit, clock)
+         # All expensive postflight I/O precedes the final success commit.
+-        prepared = {"schema": "1370-c0-sparse-supervisor-r4",
++        prepared = {"schema": "1370-c0-m0-materialization-supervisor-r1",
+                     "status": "PREPARED_UNREVIEWED", "specSha256": starting_sha,
+                     "workerPid": worker_pid, "childGroup": child_group,
+                     "workerExit": observed["workerExit"],
+@@ -198,16 +207,15 @@
+         if not output.exists():
+             output.mkdir(mode=0o700)
+         require(output.is_dir() and not output.is_symlink(), "bound output changed")
+-        if scratch.exists() and not scratch.is_symlink() and \
+-                not alive_group(worker_pid) and not alive_group(child_group):
+-            shutil.rmtree(scratch)
++        # M0 partial leaves and durable sibling receipts are retained on STOP.
++        # No deletion of this root or the separately protected H mirror is authorized.
+         try:
+             if lock.is_file() and not lock.is_symlink() and \
+                     lock.read_text(encoding="utf-8").startswith(str(worker_pid) + ":"):
+                 lock.unlink()
+         except OSError:
+             pass
+-        final = {"schema": "1370-c0-sparse-supervisor-r4", "status": "STOP",
++        final = {"schema": "1370-c0-m0-materialization-supervisor-r1", "status": "STOP",
+                  "specSha256": starting_sha, "workerPid": worker_pid,
+                  "childGroup": child_group, "workerExit": observed["workerExit"],
+                  "timedOut": isinstance(exc, DeadlineExpired) or
+@@ -217,6 +225,7 @@
+                  "workerGroupClear": not alive_group(worker_pid),
+                  "childGroupClear": not alive_group(child_group),
+                  "scratchClear": not scratch.exists(),
++                 "partialMirrorPreserved": scratch.exists(),
+                  "freeMinimum": child_result.get("freeMinimum") if isinstance(child_result, dict) else None,
+                  "startMonotonic": start, "endMonotonic": clock()}
+         path = output / ("SUPERVISOR-OVERRIDE-STOP.json" if
+@@ -252,7 +261,7 @@
+                 env = dict(os.environ)
+                 env["SPARSE_1370_SUPERVISOR_FD"] = str(report_write)
+                 os.execve(sys.executable, [sys.executable,
+-                           str(Path(__file__).parent / "record.py"), str(spec_path)], env)
++                           "-I", "-B", str(Path(__file__).parent / "record.py"), str(spec_path)], env)
+             except BaseException:
+                 os._exit(126)
+         os.close(report_write)

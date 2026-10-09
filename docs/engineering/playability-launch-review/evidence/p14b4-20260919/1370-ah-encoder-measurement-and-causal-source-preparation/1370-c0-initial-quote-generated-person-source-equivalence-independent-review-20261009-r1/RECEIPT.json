@@ -1,0 +1,434 @@
+{
+  "authorReceiptSha256": "86e8bc464ad49ef7f10a860178efb84925a32e3d28650eb8159f84d73f401c4d",
+  "decision": "ACCEPT_ROW0_SOURCE_BRIDGE_WITH_SCOPE_CORRECTIONS",
+  "engineFixtureNodeOrRngDrawExecution": false,
+  "facts": {
+    "bytes": 1435,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/FACTS.json",
+    "sha256": "153ce45e93d05ffde2a42fa7944efdf9a0de2f13f251e7629e2a775a9c63fc64"
+  },
+  "fourDigestCauseOrLedgerAdmission": false,
+  "fullScanOrGitCommand": false,
+  "measurementRolePreserved": "F1 observer transported by deterministic source proof",
+  "newHistoricalMeasurements": false,
+  "originalQuoteLocalsCaptured": false,
+  "otherChangedContractStarts": {
+    "0": 22,
+    "208": 16
+  },
+  "otherChangedContracts": 38,
+  "otherRowsOrWeek208CauseAccepted": false,
+  "pins": [
+    {
+      "bytes": 6840,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/RECEIPT.json",
+      "sha256": "86e8bc464ad49ef7f10a860178efb84925a32e3d28650eb8159f84d73f401c4d"
+    },
+    {
+      "bytes": 4276,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/NOTE.md",
+      "sha256": "7574ef691c6b237c152eec7fa7b7668cd2c21aaf5a348fb5cbc774d855ba49e6"
+    },
+    {
+      "bytes": 12412,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/SOURCE-PINS.json",
+      "sha256": "038888024a8190a1bd5f8c5df897bda779649e16a3864c993eeb78f5df4ff4a5"
+    },
+    {
+      "bytes": 17518,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/GENERATOR-BODY-PROOF.json",
+      "sha256": "19dde87c79384695367089e7bf5e99c5c25538204f8110ba653f6ea662b8229a"
+    },
+    {
+      "bytes": 4562,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/SOURCE-DIFFERENCES.json",
+      "sha256": "dd72581aa1821cbce247d495d364f675a5621ece3aaae6d1546f0eeea63378fc"
+    },
+    {
+      "bytes": 116991,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/MANIFEST.json",
+      "sha256": "9fc209f9fbf0e0240c404383f4b08338c9a16902d1cacc89600ff80a538038ae"
+    },
+    {
+      "bytes": 61536,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/MANIFEST.json",
+      "sha256": "455533456a90d2ed6c871083c66f945e861e585d8f26bdb31370ab67857086e4"
+    },
+    {
+      "bytes": 11903,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/diagnostic.test.ts",
+      "sha256": "222f8968b2d7c6db16dd6c52546791b63538c2114012ece4c2605dbbd56b868f"
+    },
+    {
+      "bytes": 3717,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+    },
+    {
+      "bytes": 2925892,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r6-20261008-r1/child.stdout",
+      "sha256": "fc494f5ed09ec9df02380490f1bc2dcac3f4cf293fb8734e0329a4a8d43e4c18"
+    },
+    {
+      "bytes": 5706,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-employment-quote-existing-input-addendum-20261009-r1/FACTS.json",
+      "sha256": "ccdf44b6ae7bddc84058a54659de61908bd176af1f5a418343b4e748041d59bd"
+    },
+    {
+      "bytes": 2864,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-employment-quote-existing-input-addendum-20261009-r1/NOTE.md",
+      "sha256": "a470df48d45fb7d408ceae31ca7319ab9f07ab5e9d0f3b6526b9a8c2d7f2177e"
+    },
+    {
+      "bytes": 6708,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-employment-quote-source-trace-20261009-r1/FACTS.json",
+      "sha256": "21bdfb8339fe390ac51e20c0d301c2b0249a3153852b7d840d35253831fc67f5"
+    },
+    {
+      "bytes": 94021,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/trace.ndjson",
+      "sha256": "889d23bfc8f79378311b7642b823fafedeb37c4e17126ca4d2ffa4fa4ea31994"
+    },
+    {
+      "bytes": 12000,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/RESULT.json",
+      "sha256": "4c7392c6b0bbca57c0d87cc54230fed21eea0ea4dadf52a398ede306b2c35a71"
+    },
+    {
+      "bytes": 705,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-observed-audit-result-independent-review-r2/RECEIPT.json",
+      "sha256": "b496f7f176d80a651d8170ed7fefc9828fb43ee64709026ce3f8d39256d8855a"
+    },
+    {
+      "bytes": 10195,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r2/f0-clean-f0-film-20261006-r1-f0-clean/RESULT.json",
+      "sha256": "d50fde8014e150b5b562f74088b0aaf571dc54958d529ee49b8c187bdddc1427"
+    },
+    {
+      "bytes": 66516,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r2/f0-clean-f0-film-20261006-r1-f0-clean/preimages/trace.ndjson",
+      "sha256": "f2c7bd802c39d813832380d9e1ef060d5e11638808df60813d0c91fbc08a6ae4"
+    },
+    {
+      "bytes": 344313,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/REPORT.json",
+      "sha256": "b419fd0eea96ce9f646842fefeb7b1cc028a0dd07ee1146aca4892e36a47be1c"
+    },
+    {
+      "bytes": 2566,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-observed-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "faf6df1cb38011ff74b7fbbca9c712da242d13cc6b15f8581dc1f1019202cb3d"
+    },
+    {
+      "bytes": 29410,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-adoption-output-20261008-r1/CANDIDATE-FRAME.ndjson",
+      "sha256": "8b0b70f110c37199dc320045b2fec0ac384c323fddfba88bbae620bf34766c50"
+    }
+  ],
+  "productionMutation": false,
+  "report": {
+    "bytes": 5597,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/REPORT.md",
+    "sha256": "10c7c779b59489c6d425675b7840c35afdde6759959ae3e6306df43aaa7004a2"
+  },
+  "row0BonusDelta": 170,
+  "row0MissingPricingInputsUnderSourceProof": [],
+  "row0SalaryDelta": 941,
+  "schema": "1370-c0-initial-quote-generated-person-source-bridge-independent-review-r1",
+  "scopeCorrections": [
+    "39 other becomes38 other",
+    "Do not call all remaining38 initial;16 start208",
+    "F1 observer helper recomputation is not original offer-local capture"
+  ],
+  "selectedSourcePins": [
+    {
+      "bytes": 124743,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/actions.ts",
+      "role": "A",
+      "sha256": "a31925c5ba059ccfb8f5dbe458c342aa72bfaaf3c15c3907e7415700fd53aa53",
+      "sourcePath": "src/core/actions.ts"
+    },
+    {
+      "bytes": 4101,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/data/wordlists.ts",
+      "role": "A",
+      "sha256": "6642296c7a0a4d385c6eb00e7b9ff4eb3213f72a6799b197549cba23718ebfac",
+      "sourcePath": "src/core/data/wordlists.ts"
+    },
+    {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "role": "A",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a",
+      "sourcePath": "src/core/employment.ts"
+    },
+    {
+      "bytes": 16824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts",
+      "role": "A",
+      "sha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea",
+      "sourcePath": "src/core/hollywood.ts"
+    },
+    {
+      "bytes": 4152,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodStartingData.ts",
+      "role": "A",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976",
+      "sourcePath": "src/core/hollywoodStartingData.ts"
+    },
+    {
+      "bytes": 2560,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/industryEmployment.ts",
+      "role": "A",
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39",
+      "sourcePath": "src/core/industryEmployment.ts"
+    },
+    {
+      "bytes": 3704,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/math.ts",
+      "role": "A",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670",
+      "sourcePath": "src/core/math.ts"
+    },
+    {
+      "bytes": 1990,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/researchPeople.ts",
+      "role": "A",
+      "sha256": "5202ec8a75b396a25418183c765cb8a1f10cb4b26e6e2f74bf83eee2c818e7fa",
+      "sourcePath": "src/core/researchPeople.ts"
+    },
+    {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/rng.ts",
+      "role": "A",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+      "sourcePath": "src/core/rng.ts"
+    },
+    {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts",
+      "role": "A",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4",
+      "sourcePath": "src/core/talentSummary.ts"
+    },
+    {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "role": "A",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4",
+      "sourcePath": "src/core/tuning.ts"
+    },
+    {
+      "bytes": 34912,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/worldgen.ts",
+      "role": "A",
+      "sha256": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7",
+      "sourcePath": "src/core/worldgen.ts"
+    },
+    {
+      "bytes": 2130,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/harness/p13a/fixtures.ts",
+      "role": "A",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+      "sourcePath": "src/harness/p13a/fixtures.ts"
+    },
+    {
+      "bytes": 130337,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/actions.ts",
+      "role": "F1",
+      "sha256": "88acf224e5bf9dbe7234eb6933d0f7e02bea55fc1ac68b65711f4b7d54e1898f",
+      "sourcePath": "src/core/actions.ts"
+    },
+    {
+      "bytes": 15022,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/aging.ts",
+      "role": "F1",
+      "sha256": "f0fa2af61d7b8cfaff9923be46c07c21134f899ec2321dccc618a1160aa75c34",
+      "sourcePath": "src/core/aging.ts"
+    },
+    {
+      "bytes": 4101,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/data/wordlists.ts",
+      "role": "F1",
+      "sha256": "6642296c7a0a4d385c6eb00e7b9ff4eb3213f72a6799b197549cba23718ebfac",
+      "sourcePath": "src/core/data/wordlists.ts"
+    },
+    {
+      "bytes": 28207,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/employment.ts",
+      "role": "F1",
+      "sha256": "6c3fec2129c0a461ec0de8e3e20f4bb47e4150bb9f0c39fd7201fae6a3951ce0",
+      "sourcePath": "src/core/employment.ts"
+    },
+    {
+      "bytes": 17327,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/hollywood.ts",
+      "role": "F1",
+      "sha256": "c9281b85fab7fe6ce72568f318a545fce01343da86c8fd9c7db8ee5e3bd17f1f",
+      "sourcePath": "src/core/hollywood.ts"
+    },
+    {
+      "bytes": 4152,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/hollywoodStartingData.ts",
+      "role": "F1",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976",
+      "sourcePath": "src/core/hollywoodStartingData.ts"
+    },
+    {
+      "bytes": 2560,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/industryEmployment.ts",
+      "role": "F1",
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39",
+      "sourcePath": "src/core/industryEmployment.ts"
+    },
+    {
+      "bytes": 3704,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/math.ts",
+      "role": "F1",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670",
+      "sourcePath": "src/core/math.ts"
+    },
+    {
+      "bytes": 24313,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/professionHistory.ts",
+      "role": "F1",
+      "sha256": "aa28b6283f9738726bc649d840e5a25e744671d614a04a804534992c6204fccf",
+      "sourcePath": "src/core/professionHistory.ts"
+    },
+    {
+      "bytes": 1990,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/researchPeople.ts",
+      "role": "F1",
+      "sha256": "5202ec8a75b396a25418183c765cb8a1f10cb4b26e6e2f74bf83eee2c818e7fa",
+      "sourcePath": "src/core/researchPeople.ts"
+    },
+    {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/rng.ts",
+      "role": "F1",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+      "sourcePath": "src/core/rng.ts"
+    },
+    {
+      "bytes": 25267,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/talentSummary.ts",
+      "role": "F1",
+      "sha256": "ef4ff968b8348bab6b31fdc9f1fed0d5293c1da13dd9c0a755da64beafd1cce1",
+      "sourcePath": "src/core/talentSummary.ts"
+    },
+    {
+      "bytes": 143696,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/tuning.ts",
+      "role": "F1",
+      "sha256": "dbc81b7b2c1e3b160266a792c2485506db906858dcc6a34bcc7a62e9a2072125",
+      "sourcePath": "src/core/tuning.ts"
+    },
+    {
+      "bytes": 36190,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/worldgen.ts",
+      "role": "F1",
+      "sha256": "7c38162376e5a5d69fd5f7ee56c4c76c2958dbde6a9940b097ccb257f5755f58",
+      "sourcePath": "src/core/worldgen.ts"
+    },
+    {
+      "bytes": 2130,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/harness/p13a/fixtures.ts",
+      "role": "F1",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+      "sourcePath": "src/harness/p13a/fixtures.ts"
+    },
+    {
+      "bytes": 122996,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/actions.ts",
+      "role": "H",
+      "sha256": "3babe482e7d6cf5800eea79a8c199c1e842c3dca3a32546a25bacf271c942878",
+      "sourcePath": "src/core/actions.ts"
+    },
+    {
+      "bytes": 4101,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/data/wordlists.ts",
+      "role": "H",
+      "sha256": "6642296c7a0a4d385c6eb00e7b9ff4eb3213f72a6799b197549cba23718ebfac",
+      "sourcePath": "src/core/data/wordlists.ts"
+    },
+    {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+      "role": "H",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a",
+      "sourcePath": "src/core/employment.ts"
+    },
+    {
+      "bytes": 15466,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywood.ts",
+      "role": "H",
+      "sha256": "49854f77a0ab33558556e047eafc65f92e4a35ec95c93afb119c7df589748359",
+      "sourcePath": "src/core/hollywood.ts"
+    },
+    {
+      "bytes": 4152,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodStartingData.ts",
+      "role": "H",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976",
+      "sourcePath": "src/core/hollywoodStartingData.ts"
+    },
+    {
+      "bytes": 2560,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/industryEmployment.ts",
+      "role": "H",
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39",
+      "sourcePath": "src/core/industryEmployment.ts"
+    },
+    {
+      "bytes": 3704,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/math.ts",
+      "role": "H",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670",
+      "sourcePath": "src/core/math.ts"
+    },
+    {
+      "bytes": 1990,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/researchPeople.ts",
+      "role": "H",
+      "sha256": "5202ec8a75b396a25418183c765cb8a1f10cb4b26e6e2f74bf83eee2c818e7fa",
+      "sourcePath": "src/core/researchPeople.ts"
+    },
+    {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/rng.ts",
+      "role": "H",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+      "sourcePath": "src/core/rng.ts"
+    },
+    {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentSummary.ts",
+      "role": "H",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4",
+      "sourcePath": "src/core/talentSummary.ts"
+    },
+    {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "role": "H",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4",
+      "sourcePath": "src/core/tuning.ts"
+    },
+    {
+      "bytes": 33437,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/worldgen.ts",
+      "role": "H",
+      "sha256": "7ca9cb4e73ee9b8ebae4fdc449c4e12229f9b0078bb4d20e22a98baa60b81b42",
+      "sourcePath": "src/core/worldgen.ts"
+    },
+    {
+      "bytes": 2130,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/harness/p13a/fixtures.ts",
+      "role": "H",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+      "sourcePath": "src/harness/p13a/fixtures.ts"
+    }
+  ],
+  "sourcePinsSha256": "038888024a8190a1bd5f8c5df897bda779649e16a3864c993eeb78f5df4ff4a5",
+  "utc": "2026-10-09T15:51:50.146838+00:00"
+}

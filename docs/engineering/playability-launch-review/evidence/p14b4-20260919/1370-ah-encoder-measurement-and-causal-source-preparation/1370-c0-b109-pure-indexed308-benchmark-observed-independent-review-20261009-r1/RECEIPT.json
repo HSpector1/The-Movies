@@ -1,0 +1,136 @@
+{
+  "actualHelperMetaExit": 0,
+  "actualNodeChildExit": 0,
+  "actualToolExit": 0,
+  "actualToolSession": 86155,
+  "benchmarkNodeElapsedSeconds": 7.2893840249999995,
+  "captureDecodedByReview": false,
+  "currentCaptureMetadataVerified": {
+    "ctimeNs": "1791439909827355864",
+    "dev": "16777220",
+    "ino": "166406220",
+    "mode": "33188",
+    "mtimeNs": "1791439909827355864",
+    "nlink": "1",
+    "size": "141237093"
+  },
+  "decision": "ACCEPT_OBSERVED_PURE_INDEXED308_ENCODER_BENCHMARK_WITH_NO_109_RETRY",
+  "full109RuntimePrediction": false,
+  "heavyLockAbsent": true,
+  "independentFreshOwnedGroupAbsent": true,
+  "inputPurityEachTrial": true,
+  "mediansMs": {
+    "state": {
+      "baseline": 128.91895999999997,
+      "candidate": 100.30061899999987
+    },
+    "wholeRow": {
+      "baseline": 279.2696169999999,
+      "candidate": 173.88905799999975
+    }
+  },
+  "nextBenchmarkOrGameAuthorized": false,
+  "nextCandidateImplemented": false,
+  "nextDesignOnly": "Fresh bounded validation/counting + null-prototype sanitized object/array clones + one native stringify; preserve all refusals, access order, caps and admissions",
+  "overrideAbsent": true,
+  "ownedPgid": 48938,
+  "pins": [
+    {
+      "bytes": 2415,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/BENCHMARK-TOOL-OUTCOME.json",
+      "sha256": "293e3a166e49f48c87418a950c38d65b179bf27be99703d9bd63c31b089ef550"
+    },
+    {
+      "bytes": 2051,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/BENCHMARK-GRANT.json",
+      "sha256": "92cb0e7ccf8006dbe2af72cea47aae491c7497f4e39623b560eb21165de0ca70"
+    },
+    {
+      "bytes": 3586,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/CONFIG.json",
+      "sha256": "2d5310488f12bd20f381914558f31df5ccd6d275c5b7f1d8efe4f86eb845dd3b"
+    },
+    {
+      "bytes": 1179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    {
+      "bytes": 5253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+    },
+    {
+      "bytes": 2175,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/bounded-json-candidate.mjs",
+      "sha256": "ac7ed0d6ad1b2d47e0e12de6e9ec738129049806aa7d5ac0b7cfd3a60452de7c"
+    },
+    {
+      "bytes": 4169,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-encoder.mjs",
+      "sha256": "1694d6a4cfec1b9ec9bf2db4ef4078d0fbe104291549c0a0c37e0a25ba6b5b50"
+    },
+    {
+      "bytes": 24196,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+    },
+    {
+      "bytes": 8906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py",
+      "sha256": "1da16a7d5624f41fcc98a5586fb71ce3f303e5c41f1d59dc3b5c7053e8d82e56"
+    },
+    {
+      "bytes": 3074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    },
+    {
+      "bytes": 921,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-output-20261009-r2/RESULT.json",
+      "sha256": "a498d2b8fe815d6d6b00e7e56f116a3e411031eb26c899aad48608cf62703261"
+    },
+    {
+      "bytes": 3354,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-output-20261009-r2/stdout.bin",
+      "sha256": "560eceb4dfac2b693d584adbb3c91934e574eeba76096a80cda8355855872429"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-output-20261009-r2/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 379,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-lane-20261009-r2/benchmark.lane.log",
+      "sha256": "20966509e1d41d6cfecd9113b67082295683b5ad333618fe4135282b0d3d4ffe"
+    },
+    {
+      "bytes": 344,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-lane-20261009-r2/benchmark.lane.log.meta",
+      "sha256": "115eda0f0ba752187ecb9f1fc9bac7eba33db30ac56c27884ea78f943022c107"
+    }
+  ],
+  "rawAndStateExactEachTrial": true,
+  "recorderElapsedSeconds": 8.345375273987884,
+  "report": {
+    "bytes": 4881,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-indexed308-benchmark-observed-independent-review-20261009-r1/REPORT.md",
+    "sha256": "ccab6fa5b81afb020d7c4fee70371eaa75e8aec2a4923ee3c9c544ed7f49a808"
+  },
+  "retainedReaderClosedExact": true,
+  "schema": "1370-b109-pure-indexed308-benchmark-observed-independent-review-r1",
+  "tokenOnlyIntegrationOr109RetryRejected": true,
+  "utc": "2026-10-09T15:30:40.939333+00:00",
+  "weighted110EncoderOnlySeconds": {
+    "baseline": 503.37429042999986,
+    "candidate": 348.6792568599995
+  },
+  "weightedReductionFraction": 0.3073161194582553,
+  "wholeCaptureFreshlyRehashed": false
+}

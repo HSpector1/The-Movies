@@ -1,0 +1,146 @@
+{
+  "actualFirstQuote": {
+    "committedAge": 44,
+    "index": 0,
+    "provenance": {
+      "ageAtEntry": 44.36540781416331,
+      "entryWeek": 0,
+      "kind": "authored_exact_week",
+      "personId": "person-studio-aca408ec-r01-0"
+    },
+    "rngState": "2598418427,508725886,1318803286,3129010527",
+    "row": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+      "endedWeek": null,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 395548,
+        "endWeekExclusive": 208,
+        "signingBonus": 71199,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-0",
+        "termWeeks": 208
+      }
+    }
+  },
+  "arithmetic": {
+    "ageFactorFractional": 0.9667019589399015,
+    "ageFactorInteger": 0.9690082644628099,
+    "agingBonusRecomputed": 71199,
+    "agingRoundedSalary": 395548,
+    "bonusDelta": 170,
+    "bonusFraction": 0.18,
+    "capturedAgeAtEntry": 44.36540781416331,
+    "capturedCommittedAge": 44,
+    "deltaObserved": 941,
+    "historicalAgeInference": "Same unchanged keyed generateTalent/generateIndustryTalent path and identical writer role/name input; H has no actual captured week0Talent row. H age44.365... is source-level inference from the accepted aging anchor, not a new H measurement.",
+    "historicalBonusRecomputed": 71029,
+    "historicalRoundedSalary": 394607,
+    "newRoundedPossibleIntegers": [
+      395548,
+      395549
+    ],
+    "newUnroundedRangeFromRoundedHAssumingCommonOtherFactors": [
+      395547.9309569865,
+      395548.9333427327
+    ],
+    "ratio": 1.0023857461977603,
+    "ratioArithmeticClaim": "Consistency/rounding interval only; not reconstruction of missing source pricing inputs or exact JS multiplication intermediates."
+  },
+  "authenticFramePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-adoption-output-20261008-r1/CANDIDATE-FRAME.ndjson",
+  "authenticFrameSha256": "8b0b70f110c37199dc320045b2fec0ac384c323fddfba88bbae620bf34766c50",
+  "minimumMissingNumericalInputs": "Actual week0 salaryCurve(person) and scarcity jitter (or an authenticated unrounded offer arithmetic readback). Talent fame/perceived writer skills and numeric jitter are absent from full44employment and firstQuote. Rounded H ask alone admits two new asks,395548/395549. A source-derived/common base estimate is not a captured input.",
+  "noCauseClosureForRemainingRowsOrWeek208": true,
+  "noFixtureGameEngineImportOrExecution": true,
+  "noProtectedMutationOrFullScan": true,
+  "row0Aging": {
+    "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+    "endedWeek": 208,
+    "reason": "entry",
+    "studioId": "studio-aca408ec-r01",
+    "terms": {
+      "annualSalary": 395548,
+      "endWeekExclusive": 208,
+      "signingBonus": 71199,
+      "startWeek": 0,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "termWeeks": 208
+    }
+  },
+  "row0Historical": {
+    "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+    "endedWeek": 208,
+    "reason": "entry",
+    "studioId": "studio-aca408ec-r01",
+    "terms": {
+      "annualSalary": 394607,
+      "endWeekExclusive": 208,
+      "signingBonus": 71029,
+      "startWeek": 0,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "termWeeks": 208
+    }
+  },
+  "schema": "1370-c0-initial-employment-quote-source-trace-r1",
+  "sourceAuthentication": "H bytes against accepted9fc209 r7 manifest; aging bytes from exact read-only Git3aaf and matching accepted materialized source for trace snippets. No engine/fixture import.",
+  "sourceRoles": {
+    "agingTested772": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "documentationCarrier": "1d2359d7d99444c0e6a438ac0d90e75f2361e083",
+    "historicalOriginal": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "measured771": "2d3a00fd01a4e950f97474fe74cc5adfd4cea241"
+  },
+  "sources": {
+    "employment.ts": {
+      "agingSha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a",
+      "historicalCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+      "historicalSha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a",
+      "sameBytes": true,
+      "testedAgingCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229"
+    },
+    "hollywood.ts": {
+      "agingSha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea",
+      "historicalCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+      "historicalSha256": "49854f77a0ab33558556e047eafc65f92e4a35ec95c93afb119c7df589748359",
+      "sameBytes": false,
+      "testedAgingCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229"
+    },
+    "hollywoodStartingData.ts": {
+      "agingSha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976",
+      "historicalCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+      "historicalSha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976",
+      "sameBytes": true,
+      "testedAgingCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229"
+    },
+    "rng.ts": {
+      "agingSha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+      "historicalCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+      "historicalSha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+      "sameBytes": true,
+      "testedAgingCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229"
+    },
+    "talentSummary.ts": {
+      "agingSha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4",
+      "historicalCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+      "historicalSha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4",
+      "sameBytes": true,
+      "testedAgingCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229"
+    },
+    "tuning.ts": {
+      "agingSha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4",
+      "historicalCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+      "historicalSha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4",
+      "sameBytes": true,
+      "testedAgingCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229"
+    },
+    "worldgen.ts": {
+      "agingSha256": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7",
+      "historicalCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+      "historicalSha256": "7ca9cb4e73ee9b8ebae4fdc449c4e12229f9b0078bb4d20e22a98baa60b81b42",
+      "sameBytes": false,
+      "testedAgingCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229"
+    }
+  },
+  "status": "INITIAL_AGE_PRICING_MECHANISM_IDENTIFIED_EXACT_SALARY_INPUTS_UNCAPTURED",
+  "utc": "2026-10-09T15:17:56.940343+00:00"
+}

@@ -1,0 +1,1435 @@
+{
+  "authoritativeCorrections": {
+    "M0": "ISOLATED_DIAGNOSTIC_SOURCE_ONLY_UNRUN_NO_H_WAIVER",
+    "M0Controls": "REFINE_SOURCE_ONLY_UNRUN_82e96f43: stub runId mismatch and missing exact accepted-review-to-source-pins/HEAD/source-tree linkage; r1 immutable, r2 pending.",
+    "nativeR1": "HELD_UNRUN_PROXY_ORDER_DEFECT",
+    "nativeR2": "INDEPENDENT_SOURCE_ACCEPTED_22_CONTROLS_UNRUN",
+    "otherChangedContractCount": 38,
+    "otherStartWeeks": {
+      "0": 22,
+      "208": 16
+    },
+    "scalarRole": "F1 observer recomputations transported by source proof, not original offer locals or fresh historical measurement",
+    "tokenEncoderDisposition": "30.73161195% lower encoder-only early308 proxy still348.679256860seconds exceeds shared300; reject token-only integration/full109 retry"
+  },
+  "baseHead": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "claims": "Recorder14, original encoder11 and narrow genuine308 benchmark are independently observed. Token-only retry rejected. Row0 causal source bridge adopted with corrected scope. Native22 and M0 controls are unrun source proposals; no game integration or ledger/phase completion.",
+  "files": [
+    {
+      "bytes": 379,
+      "gitBlobOid": "17c3890c230237be2f6f61e60efba883dd37c2ae",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-benchmark-lane-20261009-r2/benchmark.lane.log",
+      "sha256": "20966509e1d41d6cfecd9113b67082295683b5ad333618fe4135282b0d3d4ffe",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-lane-20261009-r2/benchmark.lane.log"
+    },
+    {
+      "bytes": 344,
+      "gitBlobOid": "23bcaf4ee34616da177d81665e6592e006c369b5",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-benchmark-lane-20261009-r2/benchmark.lane.log.meta",
+      "sha256": "115eda0f0ba752187ecb9f1fc9bac7eba33db30ac56c27884ea78f943022c107",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-lane-20261009-r2/benchmark.lane.log.meta"
+    },
+    {
+      "bytes": 921,
+      "gitBlobOid": "2547d99fda8d7c286d3084f74f2d3c60f636bae3",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-benchmark-output-20261009-r2/RESULT.json",
+      "sha256": "a498d2b8fe815d6d6b00e7e56f116a3e411031eb26c899aad48608cf62703261",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-output-20261009-r2/RESULT.json"
+    },
+    {
+      "bytes": 0,
+      "gitBlobOid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-benchmark-output-20261009-r2/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-output-20261009-r2/stderr.bin"
+    },
+    {
+      "bytes": 3354,
+      "gitBlobOid": "70ba8cdb0be040465e321976672e3727eaa8abd7",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-benchmark-output-20261009-r2/stdout.bin",
+      "sha256": "560eceb4dfac2b693d584adbb3c91934e574eeba76096a80cda8355855872429",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-output-20261009-r2/stdout.bin"
+    },
+    {
+      "bytes": 377,
+      "gitBlobOid": "617ae6bdca103726661c7198677939cba8e3eee0",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-controls-lane-20261009-r2/controls.lane.log",
+      "sha256": "b3308b05cdc058140cc10c6f50d873673cd44a920deb198df04523c50c1d2292",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-lane-20261009-r2/controls.lane.log"
+    },
+    {
+      "bytes": 343,
+      "gitBlobOid": "753277327bcaebc60658977e5a758e97b9a93844",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-controls-lane-20261009-r2/controls.lane.log.meta",
+      "sha256": "e6dd7cdc4828e5786132e4485bfb9bff7c6cdfbb48abcb631c18ab7ed96cfd3d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-lane-20261009-r2/controls.lane.log.meta"
+    },
+    {
+      "bytes": 919,
+      "gitBlobOid": "e0208d7614b8abb47b1cc1755eb24f8be87d72d4",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-controls-output-20261009-r2/RESULT.json",
+      "sha256": "7542b5895dd05004411737786e37c35baadb6a37e395163a0e75c4a6dadbbef9",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-output-20261009-r2/RESULT.json"
+    },
+    {
+      "bytes": 0,
+      "gitBlobOid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-controls-output-20261009-r2/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-output-20261009-r2/stderr.bin"
+    },
+    {
+      "bytes": 712,
+      "gitBlobOid": "a4f7f16ff4e88c6112feac7d08b3cb6d24cbfc8c",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-controls-output-20261009-r2/stdout.bin",
+      "sha256": "d1c46175eee480d6e1bdda11518592da358b67035042b2ff165246b71dfb8038",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-output-20261009-r2/stdout.bin"
+    },
+    {
+      "bytes": 6941,
+      "gitBlobOid": "6f0c69022ffc5f852d710ee25ed479b14e4e7a27",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-node-control-parent-recorded-20261009-r4/GRANT.json",
+      "sha256": "2ddb6015d499ae22bb73cb9d5983fe5993baeb858e177023f5e8ceeefdc8af9c",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-node-control-parent-recorded-20261009-r4/GRANT.json"
+    },
+    {
+      "bytes": 3362,
+      "gitBlobOid": "c42e2a9f1c0e33c0339312e27a30125553eaf446",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-node-control-parent-recorded-20261009-r4/PARENT-TOOL-OUTCOME.json",
+      "sha256": "8dfa73e43857e8937d79073cfcace9c01e35c1ee32b33ac588866e34fd61e253",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-node-control-parent-recorded-20261009-r4/PARENT-TOOL-OUTCOME.json"
+    },
+    {
+      "bytes": 7493,
+      "gitBlobOid": "68df5674da407f802f9e0584a529f65e44313fd5",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-observed-independent-review-20261009-r4/RECEIPT.json",
+      "sha256": "c7ea7604c061bfd40fcb07ef7815096aa9f524d1caf9b3d19b43a4436c4eca67",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-observed-independent-review-20261009-r4/RECEIPT.json"
+    },
+    {
+      "bytes": 2291,
+      "gitBlobOid": "5570d65e730625d95609ee7e31fd9470cdcfa547",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-observed-independent-review-20261009-r4/REPORT.md",
+      "sha256": "801bf5a89f71d2d6d292a258782b0ed27dbd0ebe48ac02e0b4162d6c5fc338ae",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-observed-independent-review-20261009-r4/REPORT.md"
+    },
+    {
+      "bytes": 4426,
+      "gitBlobOid": "89adf2278169ff568fdc4fbb01f2a63469871456",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-independent-source-review-20261009-r4/RECEIPT.json",
+      "sha256": "7b353717f8054287f5b166c0020f015c0adea7642223c75e6029edf8e9a1dcc4",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-independent-source-review-20261009-r4/RECEIPT.json"
+    },
+    {
+      "bytes": 3009,
+      "gitBlobOid": "6a6a6371c5064f54625dcf758555f5a7b94f1e83",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-independent-source-review-20261009-r4/REPORT.md",
+      "sha256": "55642f81c2455a56293b72656e3a88c5f7bbb54be8c7fa29838ac563b51e5be2",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-independent-source-review-20261009-r4/REPORT.md"
+    },
+    {
+      "bytes": 6112,
+      "gitBlobOid": "42fa84109184224e142ccb722d61d058e624582d",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3/CONTROL-DIFF.patch",
+      "sha256": "6de92ec59e35404138e4622ba605080d64618761bad210a3834b0ed0266ae490",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3/CONTROL-DIFF.patch"
+    },
+    {
+      "bytes": 2234,
+      "gitBlobOid": "e7bf6bacea8e9cc12f6c1884394a990026a0a431",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3/CONTROL-RECIPE.json",
+      "sha256": "8d8eaf6ca709757929ccced451c9b82abb11e3cdf58ace0d0932d2458e264591",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3/CONTROL-RECIPE.json"
+    },
+    {
+      "bytes": 1264,
+      "gitBlobOid": "f3462502ec9b7ec2c96c748a43eeabf93ccc1aa2",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3/PLAN.md",
+      "sha256": "e17bda592f242334779390915e4aa99f95e23b9edd48c6f9fbfef149f5b6b104",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3/PLAN.md"
+    },
+    {
+      "bytes": 1183,
+      "gitBlobOid": "e7d1c92983209e728439be81f5336586bdaa2dc3",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3/SOURCE-PINS.json",
+      "sha256": "1c5e577a3ca7b6942c49866e7bdfb04952bcdc32b385c4520a4c3d93580047e8",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3/SOURCE-PINS.json"
+    },
+    {
+      "bytes": 299,
+      "gitBlobOid": "954ba41e3fbee3d20f89cf679dbce47f13bd220c",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3/STATIC-CONTROLS.json",
+      "sha256": "deb85a8f241ca21e4cbf236bb1e205f1ee6a67cf2ae9642a2c2c076c674a6ff6",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3/STATIC-CONTROLS.json"
+    },
+    {
+      "bytes": 12297,
+      "gitBlobOid": "f399e68c7b4e4d0f4a269a123f2cc34dc8463e32",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3/test-recorder-repair.py",
+      "sha256": "9af0b499e7fe9d2c381cdb0c97cd0ce25b7f9cb076d3dd1c8e72ae54ec09156f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3/test-recorder-repair.py"
+    },
+    {
+      "bytes": 6363,
+      "gitBlobOid": "bc2cc64d7250aeb46aa28d89d49bdb81f9faa395",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/CONTROL-DIFF.patch",
+      "sha256": "a7193ef32a3667420c9ceff27bbc6034951ec7986e092e6f1d38796028a8a35e",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/CONTROL-DIFF.patch"
+    },
+    {
+      "bytes": 2234,
+      "gitBlobOid": "6f1b10089bfa04e1a4e1aec5276ce7af0063c88b",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/CONTROL-RECIPE.json",
+      "sha256": "ddad9d244c761da7d94d0acf228f25ee5015dd433abb37a7d43a74f36deaa5a6",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/CONTROL-RECIPE.json"
+    },
+    {
+      "bytes": 1738,
+      "gitBlobOid": "ca17e6994ee8a9352a7bd0f1a5999526f126d105",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/PLAN.md",
+      "sha256": "1f64967ffdfacae273bfa7f880ef145d7c5af7d59b97228134a54c2171c92398",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/PLAN.md"
+    },
+    {
+      "bytes": 1284,
+      "gitBlobOid": "94b8537960e9b903502936443730ebe57f598225",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/SOURCE-PINS.json",
+      "sha256": "b673978c6c4527dafe0746b708639b529b1fb7f1edbb1cf6ae00d7f6f19e9251",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/SOURCE-PINS.json"
+    },
+    {
+      "bytes": 299,
+      "gitBlobOid": "954ba41e3fbee3d20f89cf679dbce47f13bd220c",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/STATIC-CONTROLS.json",
+      "sha256": "deb85a8f241ca21e4cbf236bb1e205f1ee6a67cf2ae9642a2c2c076c674a6ff6",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/STATIC-CONTROLS.json"
+    },
+    {
+      "bytes": 12543,
+      "gitBlobOid": "fa646992e4bb78d81316d9bc41b88a187ec1919c",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/test-recorder-repair.py"
+    },
+    {
+      "bytes": 3714,
+      "gitBlobOid": "ec6f3739b1dac5a175ed71a0f25c9dfb77d1eec0",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-repaired-node-control-lane-20261009-r4/controls.lane.log",
+      "sha256": "288a4ae7f576df9deb397208a6067dd1c37f8cdb7c00cf57ecb4e00a8a6ae6cf",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-repaired-node-control-lane-20261009-r4/controls.lane.log"
+    },
+    {
+      "bytes": 483,
+      "gitBlobOid": "4fd4c2340e2b2cf34b3c80f87ee72e5868a7f661",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-encoder-recorder-repaired-node-control-lane-20261009-r4/controls.lane.log.meta",
+      "sha256": "7c21655b89eb798a05e8f61e06ca8395193c03ad6d1a965b5ff1ab85f0f710d0",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-repaired-node-control-lane-20261009-r4/controls.lane.log.meta"
+    },
+    {
+      "bytes": 4836,
+      "gitBlobOid": "460da6b2dc6e5293f62fde3f797e412f37c9da1e",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-pure-encoder-controls-observed-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "ae9a25c570ccae1da2600bbd8eecee79efacddfd67fa6bece831ff7e161928ea",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-controls-observed-independent-review-20261009-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 2518,
+      "gitBlobOid": "750b6ec664ac008e3917b8d30b69aa3df137f514",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-pure-encoder-controls-observed-independent-review-20261009-r1/REPORT.md",
+      "sha256": "9dc13d62ba057e805abc7c1bbae0a3d8995b6001de180ee843d700f17d2a78bd",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-controls-observed-independent-review-20261009-r1/REPORT.md"
+    },
+    {
+      "bytes": 1010,
+      "gitBlobOid": "ae54f2f9951300afb94a141f6f3f0d6250c958e7",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/BENCHMARK-AND-NATIVE-DESIGN-ADOPTION.json",
+      "sha256": "cb558bc022879a21581005b03ce68b22e45c97be95f2c36ef34053679dbebdb4",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/BENCHMARK-AND-NATIVE-DESIGN-ADOPTION.json"
+    },
+    {
+      "bytes": 2051,
+      "gitBlobOid": "7ffeaf0d37d0c020afc05249ad3d19cd861d8974",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/BENCHMARK-GRANT.json",
+      "sha256": "92cb0e7ccf8006dbe2af72cea47aae491c7497f4e39623b560eb21165de0ca70",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/BENCHMARK-GRANT.json"
+    },
+    {
+      "bytes": 2415,
+      "gitBlobOid": "77547134d8636e610658defe51dd0919203d623b",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/BENCHMARK-TOOL-OUTCOME.json",
+      "sha256": "293e3a166e49f48c87418a950c38d65b179bf27be99703d9bd63c31b089ef550",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/BENCHMARK-TOOL-OUTCOME.json"
+    },
+    {
+      "bytes": 1622,
+      "gitBlobOid": "3709cf7c4b8a410fb980cbddc4d7338ee19e0708",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/ENCODER-CONTROLS-GRANT.json",
+      "sha256": "14c29add1e6080fb89b485478c8c05435d624807b78f3b514b3c97ebce39c652",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/ENCODER-CONTROLS-GRANT.json"
+    },
+    {
+      "bytes": 1666,
+      "gitBlobOid": "e511f4bb20115eb6b461d42d8412cf32be09602c",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/ENCODER-CONTROLS-TOOL-OUTCOME.json",
+      "sha256": "87b05b3269e1786d1d520065f67dbce852de2d183f46bff416322e30edfa7053",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/ENCODER-CONTROLS-TOOL-OUTCOME.json"
+    },
+    {
+      "bytes": 2461,
+      "gitBlobOid": "f234067079e1cfecfb503c2d8188802b7a4d879a",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/LESSONS.md",
+      "sha256": "7d4e76b3538adf80e7b3bb61f51e274023d1a7ef65582e1fb0c0e54729bce084",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/LESSONS.md"
+    },
+    {
+      "bytes": 1136,
+      "gitBlobOid": "cd52de5613374d99b8d00936f9275119f4644897",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/NATIVE-PROXY-ORDER-DESIGN-ADOPTION.json",
+      "sha256": "04fb3794f6cea63b5af711b7a0cc0af1c4417dd60146b665328ec3ac996fa35b",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/NATIVE-PROXY-ORDER-DESIGN-ADOPTION.json"
+    },
+    {
+      "bytes": 5899,
+      "gitBlobOid": "039fd074aa240ac4c952dc73fe0c6b95cced0b89",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-pure-indexed308-benchmark-observed-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "f6464e06ad7dbaa8a80ca7565cdffde918cc12d2da103aee6f41c04ba509491e",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-indexed308-benchmark-observed-independent-review-20261009-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 4881,
+      "gitBlobOid": "8fec66ff570823999049f57dff8927fcd004767d",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-pure-indexed308-benchmark-observed-independent-review-20261009-r1/REPORT.md",
+      "sha256": "ccab6fa5b81afb020d7c4fee70371eaa75e8aec2a4923ee3c9c544ed7f49a808",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-indexed308-benchmark-observed-independent-review-20261009-r1/REPORT.md"
+    },
+    {
+      "bytes": 6165,
+      "gitBlobOid": "8b6a1556b9b3b49fbf47257a125cb66faddd1f90",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-independent-source-review-20261009-r2/RECEIPT.json",
+      "sha256": "d0f32d7f625128305ca62f2dcdef5a67d6b4738b6828d1df5e09e1d3e9c19a7e",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-independent-source-review-20261009-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 5413,
+      "gitBlobOid": "cfeaa0073a51259cb6703f918967ec406ac7ad50",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-independent-source-review-20261009-r2/REPORT.md",
+      "sha256": "7d2f90f887327dbb0003897f6011fa614a30fc6a88398f43fc6757cddb016f4d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-independent-source-review-20261009-r2/REPORT.md"
+    },
+    {
+      "bytes": 3910,
+      "gitBlobOid": "fdeb72c9de1f5e024b12083e0442701d295ab876",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/CONFIG.json",
+      "sha256": "27afaa21eb3544a6b4edc35a8fd6a618bfbe03baeeb0b4f04743d4abe05f1fbb",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/CONFIG.json"
+    },
+    {
+      "bytes": 3460,
+      "gitBlobOid": "329053b1c0b146da784d2ca2e23549725403cb88",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/CONFIG.json.diff",
+      "sha256": "914b9205817108041e985d8de9140a8e59b38855944c88e1af07a8ccce6e730f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/CONFIG.json.diff"
+    },
+    {
+      "bytes": 3803,
+      "gitBlobOid": "fb258db97d6177ec40d5aa0c4b57e36ddaf16c49",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/CONTROL-RECIPE.json",
+      "sha256": "613e401a123eb2167ec72883486882306696196331ba9e1e5c70e62c7d51788d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/CONTROL-RECIPE.json"
+    },
+    {
+      "bytes": 2543,
+      "gitBlobOid": "2ede1f955246bab73bd65fc354f44a764cafb8a1",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/REPORT.md",
+      "sha256": "989d50f96eeb4500a9b24c5f98c6ef72d0e0420f9535475b239d151d4ab0ef78",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/REPORT.md"
+    },
+    {
+      "bytes": 1723,
+      "gitBlobOid": "140091843141a29da945ca9e1af9c6df0c566928",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "112a66297f367b4e543b09ce91c5d427f2f766762271c83842f7fc467122205c",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/SOURCE-PINS.json"
+    },
+    {
+      "bytes": 282,
+      "gitBlobOid": "222d7828880e3ca0975d7123835dc9eda2ba88fc",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/STATIC-CHECKS.json",
+      "sha256": "6f62ac6bc40f719aaf6423bdb0a11951359f9bbf3f79bf889d5c21ab29446a8c",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/STATIC-CHECKS.json"
+    },
+    {
+      "bytes": 5253,
+      "gitBlobOid": "51075c887704e215a55614761ec8f196b911b210",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/benchmark-308.mjs"
+    },
+    {
+      "bytes": 2175,
+      "gitBlobOid": "e8919de4056f8412b775d80fefe5bfe02a037b3b",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "db4c2508beb74401f06167050965a56b1d02d7fe8beb13c84c28e9887e62b73c",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/bounded-json-candidate.mjs"
+    },
+    {
+      "bytes": 4408,
+      "gitBlobOid": "de76d3b5d5dcca4fa2a0b15a5dc0c484ff8a2cdd",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/bounded-json-candidate.mjs.diff",
+      "sha256": "d9799370ca0498fe66a7301dbe5f5ed5902e4f3c38359f071b009cdf38c4c5ca",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/bounded-json-candidate.mjs.diff"
+    },
+    {
+      "bytes": 14050,
+      "gitBlobOid": "b4285277a57b8183e82d2b5cefad3d00e9409dd2",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/record-pure-node.py",
+      "sha256": "084db30d7a178a4fca48cad097040fa799c94d7eee358108185224fee8f92604",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/record-pure-node.py"
+    },
+    {
+      "bytes": 2931,
+      "gitBlobOid": "ec2f515f4e02270df1dbb62bae4af2c12052e4f4",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/record-pure-node.py.diff",
+      "sha256": "2b5ff7e17bd2a2a7603572b34321d3ba2ae045bdc1c1d81361b6e9751fcf52ff",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/record-pure-node.py.diff"
+    },
+    {
+      "bytes": 7285,
+      "gitBlobOid": "18ddf97ebbc748ae06810a50ba9b5b204f043a70",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "b1d76d24ac3ea35867968860897cfe578778dfd3bec7c17b3fdab3b83f240854",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/test-encoder.mjs"
+    },
+    {
+      "bytes": 4470,
+      "gitBlobOid": "50fea441be7301a14d760e031f4acb47ccc8fe66",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/test-encoder.mjs.diff",
+      "sha256": "6a036d4e856a9b121206dce2849412ebfd6b7a2a6da5ebfac0c7d0888f3346f1",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/test-encoder.mjs.diff"
+    },
+    {
+      "bytes": 12543,
+      "gitBlobOid": "fa646992e4bb78d81316d9bc41b88a187ec1919c",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/test-recorder-repair.py"
+    },
+    {
+      "bytes": 3911,
+      "gitBlobOid": "a4e52cbfeb70fdddbbdf473c88e5b2b91f5e8598",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONFIG.json",
+      "sha256": "96d2da10a6e04cd8992fcb1fccd945c0a96543e6a9db6f8523c510c64926d389",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONFIG.json"
+    },
+    {
+      "bytes": 2478,
+      "gitBlobOid": "303bd3718bf31c46cd5b775d54ec8fb7a17cda3c",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONFIG.json.diff",
+      "sha256": "c540588ba9d4a6cfd1d3d149cf1babf71029b58489e9a859a35592e1499720c3",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONFIG.json.diff"
+    },
+    {
+      "bytes": 3788,
+      "gitBlobOid": "8374d7b359cd33b38335b0db0d3ba957ec6ad486",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONTROL-RECIPE.json",
+      "sha256": "94bfc73784db8aff30b462809cf092a2ace7799b952c236be421ebb68953e166",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONTROL-RECIPE.json"
+    },
+    {
+      "bytes": 3358,
+      "gitBlobOid": "bbcdcf77a6d217f25ec1b18764c9daf2f3ec95d5",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/REPORT.md",
+      "sha256": "9cc6837eda8fce0ea89361a53463c90437c95c4168a46dad1dbe6420c92bc615",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/REPORT.md"
+    },
+    {
+      "bytes": 1724,
+      "gitBlobOid": "6d38c3c49b290d94651862625e324e0e1dad2f97",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "a5dd80809ee3d81ab584cd1610de49d92c4908211f519c1c1fb0d0959d13be78",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/SOURCE-PINS.json"
+    },
+    {
+      "bytes": 313,
+      "gitBlobOid": "1cdc758f0250a2b1332b59f16447ee65796c2d13",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/STATIC-CHECKS.json",
+      "sha256": "8484534877f77f051950ae814a0d20d5a9e661426e395d5d2be6f3912006f33d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/STATIC-CHECKS.json"
+    },
+    {
+      "bytes": 5253,
+      "gitBlobOid": "51075c887704e215a55614761ec8f196b911b210",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/benchmark-308.mjs"
+    },
+    {
+      "bytes": 2512,
+      "gitBlobOid": "93f47a54bb7dcde712f75c339dbde405b47121cc",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs",
+      "sha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs"
+    },
+    {
+      "bytes": 1037,
+      "gitBlobOid": "c14690035dce33aa291724ae41c6d8193bae9cf0",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs.diff",
+      "sha256": "0e0194844dec12d930b758707788eaa918e0cc5762c514351967c4f04c87415d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs.diff"
+    },
+    {
+      "bytes": 14050,
+      "gitBlobOid": "531cf8bae3e84fbc538af52e20d7fa29d1f2cb39",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py",
+      "sha256": "76a6076ad2f77b8645124675ae37ee231ad6f89efa5c6f659de1db2614372d45",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py"
+    },
+    {
+      "bytes": 2947,
+      "gitBlobOid": "5b3452fd820ebc153a5b3639f5dd82cb8e7c27e5",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py.diff",
+      "sha256": "1208c601b34bfb49f537b96bc565db3c9e041ca127e37b1c58973b4d1504fc98",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py.diff"
+    },
+    {
+      "bytes": 10655,
+      "gitBlobOid": "226d947a7975a942d1363571d5325bc0d48e1f5f",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs",
+      "sha256": "915f48c72a195d0d3e837f39b0da4e852bf8db4bf05dc0f39d4aa45fb4f43177",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs"
+    },
+    {
+      "bytes": 3856,
+      "gitBlobOid": "bfd0b6ac28960c4b8541d6d51cdf2a16a1f9a154",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs.diff",
+      "sha256": "68538bf576c0ee8726196f0c742b7d1528afb334a2b1b4b933ea710e679a1c5e",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs.diff"
+    },
+    {
+      "bytes": 12543,
+      "gitBlobOid": "fa646992e4bb78d81316d9bc41b88a187ec1919c",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-recorder-repair.py"
+    },
+    {
+      "bytes": 5371,
+      "gitBlobOid": "db49cd9658cc136c100211e240e9e46a92739d58",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-proxy-order-independent-design-review-20261009-r1/RECEIPT.json",
+      "sha256": "8b174e8babfa68d026aa0a4d0b049a9d2d6bd941f17e9cf04d68abe41480f24a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-proxy-order-independent-design-review-20261009-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 5724,
+      "gitBlobOid": "f427545c858b5fa118c81c7ac4f832c70b13d6f5",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-b109-sanitized-native-proxy-order-independent-design-review-20261009-r1/REPORT.md",
+      "sha256": "8bfabe01c6b4d9f7c31f325d96f170562c9fb8570e70e2ce1477b36042fd73e8",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-proxy-order-independent-design-review-20261009-r1/REPORT.md"
+    },
+    {
+      "bytes": 5706,
+      "gitBlobOid": "34aeebb69c0bcd90c710fccdf4e58c5dc51776d1",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-initial-employment-quote-existing-input-addendum-20261009-r1/FACTS.json",
+      "sha256": "ccdf44b6ae7bddc84058a54659de61908bd176af1f5a418343b4e748041d59bd",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-initial-employment-quote-existing-input-addendum-20261009-r1/FACTS.json"
+    },
+    {
+      "bytes": 2864,
+      "gitBlobOid": "c491e3eb824050d4a76c190a551fafed22f80d81",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-initial-employment-quote-existing-input-addendum-20261009-r1/NOTE.md",
+      "sha256": "a470df48d45fb7d408ceae31ca7319ab9f07ab5e9d0f3b6526b9a8c2d7f2177e",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-initial-employment-quote-existing-input-addendum-20261009-r1/NOTE.md"
+    },
+    {
+      "bytes": 6708,
+      "gitBlobOid": "87a8221f3e868541f2b590475fbfac8eb1259720",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-initial-employment-quote-source-trace-20261009-r1/FACTS.json",
+      "sha256": "21bdfb8339fe390ac51e20c0d301c2b0249a3153852b7d840d35253831fc67f5",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-initial-employment-quote-source-trace-20261009-r1/FACTS.json"
+    },
+    {
+      "bytes": 2755,
+      "gitBlobOid": "b6b2f5414df7d42cd7b5b8f3a02a9ed5ddff5762",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-initial-employment-quote-source-trace-20261009-r1/NOTE.md",
+      "sha256": "6d58b91ce9a6774bf8bf94613cfd5438551c000506745f2a2981662cacf1bae1",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-initial-employment-quote-source-trace-20261009-r1/NOTE.md"
+    },
+    {
+      "bytes": 17518,
+      "gitBlobOid": "627a31aad2ddeba00b56dc0c0ce4a5bd2205acbe",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/GENERATOR-BODY-PROOF.json",
+      "sha256": "19dde87c79384695367089e7bf5e99c5c25538204f8110ba653f6ea662b8229a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/GENERATOR-BODY-PROOF.json"
+    },
+    {
+      "bytes": 4276,
+      "gitBlobOid": "1d71434a7cf121e40ec6a43b0e7a6028395182c1",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/NOTE.md",
+      "sha256": "7574ef691c6b237c152eec7fa7b7668cd2c21aaf5a348fb5cbc774d855ba49e6",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/NOTE.md"
+    },
+    {
+      "bytes": 6840,
+      "gitBlobOid": "d5e502a258fa1e2af7f4760d9722b87d3eb1fa3a",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/RECEIPT.json",
+      "sha256": "86e8bc464ad49ef7f10a860178efb84925a32e3d28650eb8159f84d73f401c4d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 4562,
+      "gitBlobOid": "be347af5e0787e442155226e87721fac87e37f35",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/SOURCE-DIFFERENCES.json",
+      "sha256": "dd72581aa1821cbce247d495d364f675a5621ece3aaae6d1546f0eeea63378fc",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/SOURCE-DIFFERENCES.json"
+    },
+    {
+      "bytes": 12412,
+      "gitBlobOid": "72d2c22002b540241f11929c5b96b0a5606191cb",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/SOURCE-PINS.json",
+      "sha256": "038888024a8190a1bd5f8c5df897bda779649e16a3864c993eeb78f5df4ff4a5",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/SOURCE-PINS.json"
+    },
+    {
+      "bytes": 1435,
+      "gitBlobOid": "487e2fb173eb55b825427e0304330b6c0f5011d7",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/FACTS.json",
+      "sha256": "153ce45e93d05ffde2a42fa7944efdf9a0de2f13f251e7629e2a775a9c63fc64",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/FACTS.json"
+    },
+    {
+      "bytes": 20367,
+      "gitBlobOid": "07de65b4c7bf12769ffa39ab93a64a1af4badaaa",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "9814ce7dcaf76b0fd141e28e0bf1de930c8575bc5c19bccd0fb1a313c38f7ceb",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 5597,
+      "gitBlobOid": "ea002a0f956ded67cf6eb991db846b1ef8340a9f",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/REPORT.md",
+      "sha256": "10c7c779b59489c6d425675b7840c35afdde6759959ae3e6306df43aaa7004a2",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/REPORT.md"
+    },
+    {
+      "bytes": 3342,
+      "gitBlobOid": "94cb1947c0f68e0bf2a6889a5a1a83ea317d8d89",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-only-diagnostic-operational-scope-independent-review-20261009-r1/FACTS.json",
+      "sha256": "ece328f2a93d8eaa3b51a56262c907a665e79f7a0db5cfe1135f089c4aca7518",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-operational-scope-independent-review-20261009-r1/FACTS.json"
+    },
+    {
+      "bytes": 4990,
+      "gitBlobOid": "e35d26f50bc536c27a83b8fa664011ded957604c",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-only-diagnostic-operational-scope-independent-review-20261009-r1/NOTE.md",
+      "sha256": "520102a0742e04293a003c590f2ef47f5e79b3be2ca3bfec8888790ce07e38ee",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-operational-scope-independent-review-20261009-r1/NOTE.md"
+    },
+    {
+      "bytes": 1226,
+      "gitBlobOid": "fd8e27fd6d9ddd040d5e0577d2a6fbb6d66b756d",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-only-diagnostic-operational-scope-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "a4591c34f4b6406f20e5e35c0d85cbab74945dc79b1ef79fffbdf8d75b1f1180",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-operational-scope-independent-review-20261009-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 1038,
+      "gitBlobOid": "c665b9b685a69a1dde251040510412615fb921bb",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "c0d8e338c9f8a9dced79328711736323431903cabe7410091cc4f90191bd7f7d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r1/ADOPTION.json"
+    },
+    {
+      "bytes": 1632,
+      "gitBlobOid": "c8b3b7c72b267502c590f2f14d98f24d54918186",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-operational-materializer-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "c9c78e2f07f41716c86d26f65561fd5c027e9c05da2dbb3059149975c4c58ed6",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-independent-source-review-20261009-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 2427,
+      "gitBlobOid": "659ee50b8d24c293fe339043c956319c4f404f3c",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-operational-materializer-proposal-20261009-r1/ARGV-PROPOSED.json",
+      "sha256": "a67e6de76b3fe468d17cad5bdcb2b20340985624faea7f769f58e6320dc85932",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r1/ARGV-PROPOSED.json"
+    },
+    {
+      "bytes": 2927,
+      "gitBlobOid": "075dfc7c9bcac58c7343cef0288bbf0dc19adc3a",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-operational-materializer-proposal-20261009-r1/BINDING-PROPOSED.json",
+      "sha256": "5f81876ab1c0cf9c42d3c4c0563ece65dc405ad34db8e87c79efeb90785432f2",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r1/BINDING-PROPOSED.json"
+    },
+    {
+      "bytes": 3048,
+      "gitBlobOid": "b53f05550ad4b0296e6a12f305ffcbf9cff3f781",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-operational-materializer-proposal-20261009-r1/PLAN.md",
+      "sha256": "1758ec2deee839455fc921568c771ce1e4ad0469157f0d49921b2fdaab867d09",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r1/PLAN.md"
+    },
+    {
+      "bytes": 4307,
+      "gitBlobOid": "3142e340d93cf69fea6777cdc52adfaeefd13ffd",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-operational-materializer-proposal-20261009-r1/SOURCE-DIFF.patch",
+      "sha256": "2dc7c55381910468a0888a8c1c00a0722655eb0eeacf7f904dba1ba35dba535f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r1/SOURCE-DIFF.patch"
+    },
+    {
+      "bytes": 1425,
+      "gitBlobOid": "c3652d386a0cb3143f823a4d825a6cb13d905dc0",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-operational-materializer-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "9b97142a396c2eac4d0fb3aa77b70207863b50ba7a551d758973b8682fa97510",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r1/SOURCE-PINS.json"
+    },
+    {
+      "bytes": 14964,
+      "gitBlobOid": "cd88c5a22adb633754dfe92bbdd70d7867d8c607",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-operational-materializer-proposal-20261009-r1/materialize.py",
+      "sha256": "3540d202d3a7cb6f6b44ca5a6ddc28f1c50147b5f580e2a084b98059c319852e",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r1/materialize.py"
+    },
+    {
+      "bytes": 2985,
+      "gitBlobOid": "9661b629b042324d767332a5b934a52740bd566e",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-controls-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "82e96f43c2d248caf866760844ab080ff74d56357b1008524dba4277ec00dd9d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-independent-source-review-20261009-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 3268,
+      "gitBlobOid": "6b9ea8cfaa934b15fe1297ab7e7f8d4b8c4f48ff",
+      "mode": 384,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-controls-independent-source-review-20261009-r1/REPORT.md",
+      "sha256": "f9ea9803d308e6696d49d6bc4e9d94d093c812150a65b6ba3845ed6ab1928e74",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-independent-source-review-20261009-r1/REPORT.md"
+    },
+    {
+      "bytes": 1576,
+      "gitBlobOid": "c9bfce520055e99291e21503e1e3ed1dcd122fa7",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/ARGV-TEMPLATE.json",
+      "sha256": "669c2ba3f48eb5bb98db8120022d58b9a210110ef910f07031cba200aecec560",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/ARGV-TEMPLATE.json"
+    },
+    {
+      "bytes": 4231,
+      "gitBlobOid": "fcacf322557ec12e08a32e1821e38b7bacef238a",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/GUARD-ADAPTER-PATHS.md",
+      "sha256": "8000fafe5db0f703148d0a37d1e6186f135bdf0c992da3c863827d6cc8a4f16e",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/GUARD-ADAPTER-PATHS.md"
+    },
+    {
+      "bytes": 2979,
+      "gitBlobOid": "0b926c47838d22e515e67d881b5d4e13a7f453e8",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/PLAN.md",
+      "sha256": "2e4d189d208c538899cf1017e530e1537679bd29e9460d161768b17c55be750d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/PLAN.md"
+    },
+    {
+      "bytes": 939,
+      "gitBlobOid": "63336e23a6be99f54f24078b256852862935a26a",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "2d6c05cf16815ac6869e78c057f4321e3c7be48b7209d1331f7f78bed01f1d50",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/SOURCE-PINS.json"
+    },
+    {
+      "bytes": 15980,
+      "gitBlobOid": "24893b7dedaf4780cb309bd345cf52bebb591967",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/test_changed_route.py",
+      "sha256": "c3a15c16a48a23d4eaf64ddcf6c6273446b44de2401c008f34f78658b3adb437",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/test_changed_route.py"
+    },
+    {
+      "bytes": 992,
+      "gitBlobOid": "aa34547d2498f76eaeb743966b27a671be8c53c4",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "034ee4b02bb38b53f3a1d7a4b4a1c8351f257981330ca1ae9af24559886ee5a8",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-independent-source-review-20261009-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 5476,
+      "gitBlobOid": "18f26b9597897d3088f0bcc615e7d79a17e82208",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-independent-source-review-20261009-r1/REPORT.md",
+      "sha256": "5df4748c70bc2bf09f053bc90223ba2e11054182d9d95c3d46911cdd89fc36cb",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-independent-source-review-20261009-r1/REPORT.md"
+    },
+    {
+      "bytes": 4687,
+      "gitBlobOid": "520894d308a78ebcde703657afb733f074d795df",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/ADOPTION-PROCEDURE.md",
+      "sha256": "457cf9d3cff6eb8c0ca0cd6c333a16966123bff9d04bd0bc91bafec6aba52694",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/ADOPTION-PROCEDURE.md"
+    },
+    {
+      "bytes": 6626,
+      "gitBlobOid": "14928add42c69c8e86d66becb41b22116bd770fe",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/BINDING-UNFILLED.json",
+      "sha256": "78695df5f01d3a8a6cbab0458e9ea2f70c998dd2106b6e12a62a64f85dec76ea",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/BINDING-UNFILLED.json"
+    },
+    {
+      "bytes": 2158,
+      "gitBlobOid": "ae31c7b2e255b859ad518a30f249cbd9d6b04ff6",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/CHANGED-CONTROLS.md",
+      "sha256": "5b324bce784639b28b6c45639bb126e808b874302687ded8ad9dbb8dc0ab2699",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/CHANGED-CONTROLS.md"
+    },
+    {
+      "bytes": 3488,
+      "gitBlobOid": "d8a7bcdadec3ae9942d1109f87f051e3b18d6815",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/GUARD-TRANSITION.md",
+      "sha256": "a9f7e96a901d750373632a40244bc4f8df4e112b700b1c7ff6ee0f22da93b2e2",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/GUARD-TRANSITION.md"
+    },
+    {
+      "bytes": 1327,
+      "gitBlobOid": "7d38083448a7faaffbe1a61610c12d92cebef357",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/LAUNCH-UNFILLED.json",
+      "sha256": "44320d5fd42c906efd6080494142135cbdfd53b3687fd20d4c9c9876cdaa8c3c",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/LAUNCH-UNFILLED.json"
+    },
+    {
+      "bytes": 3036,
+      "gitBlobOid": "90700d557c4352fe18afdfa1786e6519362e5458",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/PLAN.md",
+      "sha256": "fcd57fcfe551124a8336b53265b1dc227fade07c3d64a4728f78e439a42a43dd",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/PLAN.md"
+    },
+    {
+      "bytes": 1257,
+      "gitBlobOid": "d4e251f79d3cc1aeafbf51eefad75068d36b9183",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/ROLE-DIFF.json",
+      "sha256": "88f799fe01ad9622ee90f75da4e742fb1214ede5be834c2c3914a4bfe6cd976a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/ROLE-DIFF.json"
+    },
+    {
+      "bytes": 2029,
+      "gitBlobOid": "fdf96f1357ee10bd9c598e9a882d4a5ac716a9db",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "939cc8b45f91f54afc1561003732c3dc8b0e43c654363b8793e9cc9ac8ce8c29",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/SOURCE-PINS.json"
+    },
+    {
+      "bytes": 21430,
+      "gitBlobOid": "ee265383d90fa5b3d10318638ae6ed7b0611148c",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/record.py",
+      "sha256": "b8df39f65b0f8fc60cc11eae4e67808aac3b1d78331d495f023b62684189c7f8",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/record.py"
+    },
+    {
+      "bytes": 15807,
+      "gitBlobOid": "a9ffab12799432ebcf7238b30e05c7f78d2c9c52",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/record.py.DIFF.patch",
+      "sha256": "8ab1ac83762f9c0680c67e0e38257823fb2bec7857f699a8e2e55d1e5ebddf74",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/record.py.DIFF.patch"
+    },
+    {
+      "bytes": 15375,
+      "gitBlobOid": "d836d670f90645de7886f503db445b389a5f09f2",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/supervise.py",
+      "sha256": "8eaf5fabdf298df579851b06f45d636b92393e235e8af6b5f2ec52fcfc0bd03f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/supervise.py"
+    },
+    {
+      "bytes": 4812,
+      "gitBlobOid": "b9b036db69daa9332d6cda84d6eac2dc7e3f0d9d",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/supervise.py.DIFF.patch",
+      "sha256": "6b37570a29f458d98780c9640119e44382a055fbda58ceaef989e038b43e2ab7",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1/supervise.py.DIFF.patch"
+    },
+    {
+      "bytes": 1692,
+      "gitBlobOid": "a1c29cae2179853d1c4a61a053368b91526e52ca",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/PARENT-ADOPTION.json",
+      "sha256": "83a3b773eb1e5bf0279e52aa221b3dac2fba9fc1f8d354217873641d4b7b799d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ah-checkpoint-preparation-20261009-r1/PARENT-ADOPTION.json"
+    },
+    {
+      "bytes": 116991,
+      "gitBlobOid": "c2f345626552638f4ba56252ac530b55257c6f9d",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1369-c0-preimage-replay-proposal-r7/MANIFEST.json",
+      "sha256": "9fc209f9fbf0e0240c404383f4b08338c9a16902d1cacc89600ff80a538038ae",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/MANIFEST.json"
+    },
+    {
+      "bytes": 122996,
+      "gitBlobOid": "e3c67c2a35577afbc918912539ac877f942e91ae",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/actions.ts",
+      "sha256": "3babe482e7d6cf5800eea79a8c199c1e842c3dca3a32546a25bacf271c942878",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/actions.ts"
+    },
+    {
+      "bytes": 26075,
+      "gitBlobOid": "e8e5acaa1e6a94ac1de7db13eb46840efb55616f",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts"
+    },
+    {
+      "bytes": 15466,
+      "gitBlobOid": "bc286060015042326c2b4a424ac51e019972b34e",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywood.ts",
+      "sha256": "49854f77a0ab33558556e047eafc65f92e4a35ec95c93afb119c7df589748359",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywood.ts"
+    },
+    {
+      "bytes": 25220,
+      "gitBlobOid": "f8e8539d3c0f780e58027640de333d6168db7654",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentSummary.ts"
+    },
+    {
+      "bytes": 134171,
+      "gitBlobOid": "c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts"
+    },
+    {
+      "bytes": 33437,
+      "gitBlobOid": "646e3382d3dde1c7153857f1117b87c8a7fab50e",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/worldgen.ts",
+      "sha256": "7ca9cb4e73ee9b8ebae4fdc449c4e12229f9b0078bb4d20e22a98baa60b81b42",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/worldgen.ts"
+    },
+    {
+      "bytes": 124743,
+      "gitBlobOid": "da0a86d8710a39bf33097477749be3034964ec4d",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/actions.ts",
+      "sha256": "a31925c5ba059ccfb8f5dbe458c342aa72bfaaf3c15c3907e7415700fd53aa53",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/actions.ts"
+    },
+    {
+      "bytes": 26075,
+      "gitBlobOid": "e8e5acaa1e6a94ac1de7db13eb46840efb55616f",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts"
+    },
+    {
+      "bytes": 16824,
+      "gitBlobOid": "377da502bcfa55afe31c243ab0909b2c0012d269",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts",
+      "sha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts"
+    },
+    {
+      "bytes": 25220,
+      "gitBlobOid": "f8e8539d3c0f780e58027640de333d6168db7654",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts"
+    },
+    {
+      "bytes": 134171,
+      "gitBlobOid": "c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts"
+    },
+    {
+      "bytes": 34912,
+      "gitBlobOid": "94f83a85e1e59532013ab4735f73a67a916a5332",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/worldgen.ts",
+      "sha256": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/worldgen.ts"
+    },
+    {
+      "bytes": 10195,
+      "gitBlobOid": "0677616459b804d07d74b1629fb1854996a9e469",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1370-c0-f0-film-observer-recorded-runs-r2/f0-clean-f0-film-20261006-r1-f0-clean/RESULT.json",
+      "sha256": "d50fde8014e150b5b562f74088b0aaf571dc54958d529ee49b8c187bdddc1427",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r2/f0-clean-f0-film-20261006-r1-f0-clean/RESULT.json"
+    },
+    {
+      "bytes": 66516,
+      "gitBlobOid": "aa4398e358e348c3cc814dd92fb405cb87330def",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1370-c0-f0-film-observer-recorded-runs-r2/f0-clean-f0-film-20261006-r1-f0-clean/preimages/trace.ndjson",
+      "sha256": "f2c7bd802c39d813832380d9e1ef060d5e11638808df60813d0c91fbc08a6ae4",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f0-film-observer-recorded-runs-r2/f0-clean-f0-film-20261006-r1-f0-clean/preimages/trace.ndjson"
+    },
+    {
+      "bytes": 61536,
+      "gitBlobOid": "04af0bc4e5ece82e2511f52e3dcbf7443458566d",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/MANIFEST.json",
+      "sha256": "455533456a90d2ed6c871083c66f945e861e585d8f26bdb31370ab67857086e4",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/MANIFEST.json"
+    },
+    {
+      "bytes": 11903,
+      "gitBlobOid": "78f4567778efd6847b5ee3287a7c2ed049df7e46",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/diagnostic.test.ts",
+      "sha256": "222f8968b2d7c6db16dd6c52546791b63538c2114012ece4c2605dbbd56b868f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/diagnostic.test.ts"
+    },
+    {
+      "bytes": 12000,
+      "gitBlobOid": "75cb5612b5d90c2187b8d6b62c726597076965b9",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/RESULT.json",
+      "sha256": "4c7392c6b0bbca57c0d87cc54230fed21eea0ea4dadf52a398ede306b2c35a71",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/RESULT.json"
+    },
+    {
+      "bytes": 94021,
+      "gitBlobOid": "960626d1a92cdf518781b23f8e78ef7dc7522e4a",
+      "mode": 420,
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ah-encoder-measurement-and-causal-source-preparation/row0-proof-inputs/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/trace.ndjson",
+      "sha256": "889d23bfc8f79378311b7642b823fafedeb37c4e17126ca4d2ffa4fa4ea31994",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/trace.ndjson"
+    }
+  ],
+  "groups": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-lane-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-output-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-lane-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-output-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-node-control-parent-recorded-20261009-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-observed-independent-review-20261009-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-independent-source-review-20261009-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-repaired-node-control-lane-20261009-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-controls-observed-independent-review-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-indexed308-benchmark-observed-independent-review-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-proxy-order-independent-design-review-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-initial-employment-quote-existing-input-addendum-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-initial-employment-quote-source-trace-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-operational-scope-independent-review-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-independent-source-review-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-independent-source-review-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-independent-source-review-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-independent-source-review-20261009-r1"
+  ],
+  "payloadBytes": 1624335,
+  "payloadFiles": 137,
+  "priorGitBlobs": [
+    {
+      "bytes": 3717,
+      "gitBlobOid": "90b803f7d93c38c5d402e0abafc842c9a678ca63",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 2925892,
+      "gitBlobOid": "ce639a9605d8d2767de4f4333c6dedae96a15d2b",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-c0-aging-era-sparse-output-r6-20261008-r1/child.stdout",
+      "sha256": "fc494f5ed09ec9df02380490f1bc2dcac3f4cf293fb8734e0329a4a8d43e4c18",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r6-20261008-r1/child.stdout"
+    },
+    {
+      "bytes": 705,
+      "gitBlobOid": "6b3128f1455881efe9625f2363b1d3a1f40f3097",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-third-verification/f1-observed-review.json",
+      "sha256": "b496f7f176d80a651d8170ed7fefc9828fb43ee64709026ce3f8d39256d8855a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-observed-audit-result-independent-review-r2/RECEIPT.json"
+    },
+    {
+      "bytes": 344313,
+      "gitBlobOid": "8667786c99c2b0936eca3d9e15423e7d4b204237",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-c0-three-employment-preimages-comparison-20261009-r1/REPORT.json",
+      "sha256": "b419fd0eea96ce9f646842fefeb7b1cc028a0dd07ee1146aca4892e36a47be1c",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/REPORT.json"
+    },
+    {
+      "bytes": 2566,
+      "gitBlobOid": "8214119d5691b32cb94922784312e2b9693ad349",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-c0-three-employment-preimages-observed-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "faf6df1cb38011ff74b7fbbca9c712da242d13cc6b15f8581dc1f1019202cb3d",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-observed-independent-review-20261009-r1/RECEIPT.json"
+    },
+    {
+      "bytes": 29410,
+      "gitBlobOid": "88e9ef936bf6c756921dc87839a7e32d1fd4c2dd",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-c0-aging-era-employment-witness-r9-adoption-output-20261008-r1/CANDIDATE-FRAME.ndjson",
+      "sha256": "8b0b70f110c37199dc320045b2fec0ac384c323fddfba88bbae620bf34766c50",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-adoption-output-20261008-r1/CANDIDATE-FRAME.ndjson"
+    },
+    {
+      "bytes": 4101,
+      "gitBlobOid": "0fef42035f908fef0f60b7f33b58dae8454bc7a8",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/data/wordlists.ts",
+      "sha256": "6642296c7a0a4d385c6eb00e7b9ff4eb3213f72a6799b197549cba23718ebfac",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/data/wordlists.ts"
+    },
+    {
+      "bytes": 4152,
+      "gitBlobOid": "4cb6bb16a1aacd7e9a405c2e40cd5834c86bfbdb",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/hollywoodStartingData.ts",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodStartingData.ts"
+    },
+    {
+      "bytes": 2560,
+      "gitBlobOid": "4c10dba4575bbad2b8160dbaea60954880ff7d25",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/industryEmployment.ts",
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/industryEmployment.ts"
+    },
+    {
+      "bytes": 3704,
+      "gitBlobOid": "8a0161e044bfe6fc331d9a0eb30bda425899a958",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/math.ts",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/math.ts"
+    },
+    {
+      "bytes": 1990,
+      "gitBlobOid": "44fd6ab1a72f93b9fdab9a423beeda0c1b8273cf",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/researchPeople.ts",
+      "sha256": "5202ec8a75b396a25418183c765cb8a1f10cb4b26e6e2f74bf83eee2c818e7fa",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/researchPeople.ts"
+    },
+    {
+      "bytes": 8555,
+      "gitBlobOid": "9b851192e8e5dc297a44fc27845b8b6c53486436",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/rng.ts"
+    },
+    {
+      "bytes": 2130,
+      "gitBlobOid": "9ab3eee75b0b2b2733f350bbc3964aa5ba176de8",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/harness/p13a/fixtures.ts",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/harness/p13a/fixtures.ts"
+    },
+    {
+      "bytes": 130337,
+      "gitBlobOid": "27a46da6c7d8fdf1651abad5f4006438db07941c",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/actions.ts",
+      "sha256": "88acf224e5bf9dbe7234eb6933d0f7e02bea55fc1ac68b65711f4b7d54e1898f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/actions.ts"
+    },
+    {
+      "bytes": 15022,
+      "gitBlobOid": "7730a41a6a66a56a788bff5d2f7f978e469231c9",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/aging.ts",
+      "sha256": "f0fa2af61d7b8cfaff9923be46c07c21134f899ec2321dccc618a1160aa75c34",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/aging.ts"
+    },
+    {
+      "bytes": 4101,
+      "gitBlobOid": "0fef42035f908fef0f60b7f33b58dae8454bc7a8",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/data/wordlists.ts",
+      "sha256": "6642296c7a0a4d385c6eb00e7b9ff4eb3213f72a6799b197549cba23718ebfac",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/data/wordlists.ts"
+    },
+    {
+      "bytes": 28207,
+      "gitBlobOid": "4f8849fff44b2a680740b0a612f54f9f7ee704e8",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "src/core/employment.ts",
+      "sha256": "6c3fec2129c0a461ec0de8e3e20f4bb47e4150bb9f0c39fd7201fae6a3951ce0",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/employment.ts"
+    },
+    {
+      "bytes": 17327,
+      "gitBlobOid": "c4ad7ae9529318431cc7d47f04a496f813289115",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "src/core/hollywood.ts",
+      "sha256": "c9281b85fab7fe6ce72568f318a545fce01343da86c8fd9c7db8ee5e3bd17f1f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/hollywood.ts"
+    },
+    {
+      "bytes": 4152,
+      "gitBlobOid": "4cb6bb16a1aacd7e9a405c2e40cd5834c86bfbdb",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/hollywoodStartingData.ts",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/hollywoodStartingData.ts"
+    },
+    {
+      "bytes": 2560,
+      "gitBlobOid": "4c10dba4575bbad2b8160dbaea60954880ff7d25",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/industryEmployment.ts",
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/industryEmployment.ts"
+    },
+    {
+      "bytes": 3704,
+      "gitBlobOid": "8a0161e044bfe6fc331d9a0eb30bda425899a958",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/math.ts",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/math.ts"
+    },
+    {
+      "bytes": 24313,
+      "gitBlobOid": "3ea34a8799ce6bcdc363cd95d602785703dcd17b",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/professionHistory.ts",
+      "sha256": "aa28b6283f9738726bc649d840e5a25e744671d614a04a804534992c6204fccf",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/professionHistory.ts"
+    },
+    {
+      "bytes": 1990,
+      "gitBlobOid": "44fd6ab1a72f93b9fdab9a423beeda0c1b8273cf",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/researchPeople.ts",
+      "sha256": "5202ec8a75b396a25418183c765cb8a1f10cb4b26e6e2f74bf83eee2c818e7fa",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/researchPeople.ts"
+    },
+    {
+      "bytes": 8555,
+      "gitBlobOid": "9b851192e8e5dc297a44fc27845b8b6c53486436",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/rng.ts"
+    },
+    {
+      "bytes": 25267,
+      "gitBlobOid": "092ea0c8498c45868318b14bf11fca51d769fb6d",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/talentSummary.ts",
+      "sha256": "ef4ff968b8348bab6b31fdc9f1fed0d5293c1da13dd9c0a755da64beafd1cce1",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/talentSummary.ts"
+    },
+    {
+      "bytes": 143696,
+      "gitBlobOid": "0010838c18afb3e301488bbd98ec1c1234087a0e",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/tuning.ts",
+      "sha256": "dbc81b7b2c1e3b160266a792c2485506db906858dcc6a34bcc7a62e9a2072125",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/tuning.ts"
+    },
+    {
+      "bytes": 36190,
+      "gitBlobOid": "eba1733c811fe3033ab764af898228e4aa3e673f",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/worldgen.ts",
+      "sha256": "7c38162376e5a5d69fd5f7ee56c4c76c2958dbde6a9940b097ccb257f5755f58",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/core/worldgen.ts"
+    },
+    {
+      "bytes": 2130,
+      "gitBlobOid": "9ab3eee75b0b2b2733f350bbc3964aa5ba176de8",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/harness/p13a/fixtures.ts",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-control-source-original-cap-proposal-r4/arms/f1/tree/src/harness/p13a/fixtures.ts"
+    },
+    {
+      "bytes": 4101,
+      "gitBlobOid": "0fef42035f908fef0f60b7f33b58dae8454bc7a8",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/data/wordlists.ts",
+      "sha256": "6642296c7a0a4d385c6eb00e7b9ff4eb3213f72a6799b197549cba23718ebfac",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/data/wordlists.ts"
+    },
+    {
+      "bytes": 4152,
+      "gitBlobOid": "4cb6bb16a1aacd7e9a405c2e40cd5834c86bfbdb",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/hollywoodStartingData.ts",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodStartingData.ts"
+    },
+    {
+      "bytes": 2560,
+      "gitBlobOid": "4c10dba4575bbad2b8160dbaea60954880ff7d25",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/industryEmployment.ts",
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/industryEmployment.ts"
+    },
+    {
+      "bytes": 3704,
+      "gitBlobOid": "8a0161e044bfe6fc331d9a0eb30bda425899a958",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/math.ts",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/math.ts"
+    },
+    {
+      "bytes": 1990,
+      "gitBlobOid": "44fd6ab1a72f93b9fdab9a423beeda0c1b8273cf",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/researchPeople.ts",
+      "sha256": "5202ec8a75b396a25418183c765cb8a1f10cb4b26e6e2f74bf83eee2c818e7fa",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/researchPeople.ts"
+    },
+    {
+      "bytes": 8555,
+      "gitBlobOid": "9b851192e8e5dc297a44fc27845b8b6c53486436",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/rng.ts"
+    },
+    {
+      "bytes": 2130,
+      "gitBlobOid": "9ab3eee75b0b2b2733f350bbc3964aa5ba176de8",
+      "priorCommit": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+      "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-b-release-109-tick-run-20261008-4812-r1/baseline-tree/src/harness/p13a/fixtures.ts",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+      "source": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/harness/p13a/fixtures.ts"
+    }
+  ],
+  "rawMachineWideFilesCopied": 0,
+  "runtimeDependenciesOrGitCopied": false,
+  "schema": "1370-ah-finite-new-evidence-archive-r1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "EXACT_FINITE_PAYLOADS_VERIFIED_WITH_PRIOR_GIT_BLOB_READBACK"
+}

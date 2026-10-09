@@ -1,0 +1,23 @@
+{
+  "B109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "actualControlBenchmarkOrGameExecutionAuthorized": false,
+  "approvedNextWork": "Separate scratch-only candidate + meaningful parity/refusal controls + same indexed308 benchmark proposal for independently reviewed fresh bounded sanitized null-prototype clones and one native serialization; no object cache or fewer admissions.",
+  "designReportSha256": "ccab6fa5b81afb020d7c4fee70371eaa75e8aec2a4923ee3c9c544ed7f49a808",
+  "head": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "implementationInScratchAuthorized": true,
+  "observedReviewSha256": "f6464e06ad7dbaa8a80ca7565cdffde918cc12d2da103aee6f41c04ba509491e",
+  "productionIntegrationAuthorized": false,
+  "recorderBoundsUnchanged": [
+    60,
+    75,
+    90
+  ],
+  "sourceAccessOrderAndRefusalPurityUnchanged": true,
+  "status": "PARENT_ADOPTED_MEASURED_BENCHMARK_REJECTION_AND_NEXT_PURE_DESIGN",
+  "tokenOnlyIntegrationAnd109RetryRejected": true,
+  "utc": "2026-10-09T15:31:48.510730+00:00"
+}

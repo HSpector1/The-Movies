@@ -1,0 +1,113 @@
+{
+  "actualHelperMetaExit": 0,
+  "actualNodeChildExit": 0,
+  "actualToolExit": 0,
+  "actualToolSession": 4473,
+  "benchmarkUnrun": true,
+  "captureDecoded": false,
+  "decision": "ACCEPT_OBSERVED_PURE_ENCODER_EQUIVALENCE_AND_REFUSAL_CONTROLS",
+  "equivalencePairs": 281,
+  "fullScanRepeated": false,
+  "gameExecuted": false,
+  "groups": 11,
+  "heavyLockAbsent": true,
+  "independentControlsRepeated": false,
+  "independentFreshOwnedGroupAbsent": true,
+  "overrideAbsent": true,
+  "ownedPgid": 43964,
+  "pins": [
+    {
+      "bytes": 1666,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/ENCODER-CONTROLS-TOOL-OUTCOME.json",
+      "sha256": "87b05b3269e1786d1d520065f67dbce852de2d183f46bff416322e30edfa7053"
+    },
+    {
+      "bytes": 1622,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/ENCODER-CONTROLS-GRANT.json",
+      "sha256": "14c29add1e6080fb89b485478c8c05435d624807b78f3b514b3c97ebce39c652"
+    },
+    {
+      "bytes": 7493,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-observed-independent-review-20261009-r4/RECEIPT.json",
+      "sha256": "c7ea7604c061bfd40fcb07ef7815096aa9f524d1caf9b3d19b43a4436c4eca67"
+    },
+    {
+      "bytes": 1550,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-independent-source-review-20261009-r2/RECEIPT.json",
+      "sha256": "20163ef5aee5683bf31c8446887545922e4d0517773dae4d86f59831c85f176a"
+    },
+    {
+      "bytes": 3586,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/CONFIG.json",
+      "sha256": "2d5310488f12bd20f381914558f31df5ccd6d275c5b7f1d8efe4f86eb845dd3b"
+    },
+    {
+      "bytes": 2313,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "6c152d4681c2e772f7e155a904047bd5f56da8eb297d8291354dc44f60587557"
+    },
+    {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    {
+      "bytes": 2175,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/bounded-json-candidate.mjs",
+      "sha256": "ac7ed0d6ad1b2d47e0e12de6e9ec738129049806aa7d5ac0b7cfd3a60452de7c"
+    },
+    {
+      "bytes": 4169,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-encoder.mjs",
+      "sha256": "1694d6a4cfec1b9ec9bf2db4ef4078d0fbe104291549c0a0c37e0a25ba6b5b50"
+    },
+    {
+      "bytes": 14033,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/record-pure-node.py",
+      "sha256": "5647ba67e1f96fa4a8f0894c7bd95055a820e63e5412aceb03cf7de25b9d13ec"
+    },
+    {
+      "bytes": 919,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-output-20261009-r2/RESULT.json",
+      "sha256": "7542b5895dd05004411737786e37c35baadb6a37e395163a0e75c4a6dadbbef9"
+    },
+    {
+      "bytes": 712,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-output-20261009-r2/stdout.bin",
+      "sha256": "d1c46175eee480d6e1bdda11518592da358b67035042b2ff165246b71dfb8038"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-output-20261009-r2/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 377,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-lane-20261009-r2/controls.lane.log",
+      "sha256": "b3308b05cdc058140cc10c6f50d873673cd44a920deb198df04523c50c1d2292"
+    },
+    {
+      "bytes": 343,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-lane-20261009-r2/controls.lane.log.meta",
+      "sha256": "e6dd7cdc4828e5786132e4485bfb9bff7c6cdfbb48abcb631c18ab7ed96cfd3d"
+    }
+  ],
+  "recorderBoundsUnchanged": [
+    60,
+    75,
+    90
+  ],
+  "recorderElapsedSeconds": 1.3397667629978969,
+  "report": {
+    "bytes": 2518,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-controls-observed-independent-review-20261009-r1/REPORT.md",
+    "sha256": "9dc13d62ba057e805abc7c1bbae0a3d8995b6001de180ee843d700f17d2a78bd"
+  },
+  "schema": "1370-b109-pure-encoder-controls-observed-independent-review-r1",
+  "sourceConfigUnchanged": true,
+  "sourceOrGameplayAdopted": false,
+  "speedupMeasured": false,
+  "stderrBytes": 0,
+  "stdoutBytes": 712,
+  "utc": "2026-10-09T15:23:11.878926+00:00"
+}

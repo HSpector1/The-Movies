@@ -1,0 +1,61 @@
+{
+  "actualToolExit": 0,
+  "actualToolSession": 86155,
+  "currentDecision": "No full B109 retry or source integration from this result: candidate encoder-only estimate348.679s exceeds the unchanged shared300s limit before remaining unmeasured work. Further design/measurement needed.",
+  "freshGroupAbsent": true,
+  "full109RuntimePrediction": false,
+  "gameExecuted": false,
+  "head": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "heavyLockAbsent": true,
+  "helperMetaExit": 0,
+  "mediansMs": {
+    "state": {
+      "baseline": 128.91895999999997,
+      "candidate": 100.30061899999987
+    },
+    "wholeRow": {
+      "baseline": 279.2696169999999,
+      "candidate": 173.88905799999975
+    }
+  },
+  "nodeBenchmarkElapsedSeconds": 7.2893840249999995,
+  "overrideAbsent": true,
+  "ownedPgid": 48938,
+  "pins": [
+    {
+      "bytes": 921,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-output-20261009-r2/RESULT.json",
+      "sha256": "a498d2b8fe815d6d6b00e7e56f116a3e411031eb26c899aad48608cf62703261"
+    },
+    {
+      "bytes": 3354,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-output-20261009-r2/stdout.bin",
+      "sha256": "560eceb4dfac2b693d584adbb3c91934e574eeba76096a80cda8355855872429"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-output-20261009-r2/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 379,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-lane-20261009-r2/benchmark.lane.log",
+      "sha256": "20966509e1d41d6cfecd9113b67082295683b5ad333618fe4135282b0d3d4ffe"
+    },
+    {
+      "bytes": 344,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-benchmark-lane-20261009-r2/benchmark.lane.log.meta",
+      "sha256": "115eda0f0ba752187ecb9f1fc9bac7eba33db30ac56c27884ea78f943022c107"
+    }
+  ],
+  "recorderChildExit": 0,
+  "recorderElapsedSeconds": 8.345375273987884,
+  "snapshotBytesAndInputPurityPassed": true,
+  "status": "ACTUAL_PURE_BENCHMARK_PASS_BUT_300_SECOND_RETRY_REJECTED_PENDING_INDEPENDENT_REVIEW",
+  "utc": "2026-10-09T15:25:26.629574+00:00",
+  "weighted110EncoderOnlySeconds": {
+    "baseline": 503.37429042999986,
+    "candidate": 348.6792568599995
+  },
+  "weightedReductionFraction": 0.3073161194582553
+}

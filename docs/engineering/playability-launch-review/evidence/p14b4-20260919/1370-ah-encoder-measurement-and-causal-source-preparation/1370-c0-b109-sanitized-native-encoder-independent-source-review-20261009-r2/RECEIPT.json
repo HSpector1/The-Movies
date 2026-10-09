@@ -1,0 +1,134 @@
+{
+  "B109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "additionalGroups": 6,
+  "allPinnedFilesRegularPhysicalSingleLinked": true,
+  "authoredGroups": 22,
+  "benchmarkByteIdentical": true,
+  "benchmarkExecuted": false,
+  "benchmarkSha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2",
+  "boundsSeconds": {
+    "active": 75,
+    "node": 60,
+    "whole": 90
+  },
+  "candidateSha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697",
+  "captureReadOrDecoded": false,
+  "cloneOnlyConditionalProxy": true,
+  "configRolesAuthenticated": true,
+  "configSha256": "96d2da10a6e04cd8992fcb1fccd945c0a96543e6a9db6f8523c510c64926d389",
+  "controlRecipeSha256": "94bfc73784db8aff30b462809cf092a2ace7799b952c236be421ebb68953e166",
+  "controlsExecuted": false,
+  "controlsSha256": "915f48c72a195d0d3e837f39b0da4e852bf8db4bf05dc0f39d4aa45fb4f43177",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN",
+  "designReviewSha256": "8b174e8babfa68d026aa0a4d0b049a9d2d6bd941f17e9cf04d68abe41480f24a",
+  "executionAuthorization": false,
+  "gameExecuted": false,
+  "gameOrSourceIntegrationAuthorized": false,
+  "noConcreteFindings": true,
+  "noObjectResultCache": true,
+  "nullPrototypeTargetAndOwnKeysOnlyHandler": true,
+  "observedNode20QualificationRequired": true,
+  "original11ControlsPreserved": true,
+  "original16ControlsPreserved": true,
+  "parentAdoptions": {
+    "nativeDesign": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/BENCHMARK-AND-NATIVE-DESIGN-ADOPTION.json",
+      "sha256": "cb558bc022879a21581005b03ce68b22e45c97be95f2c36ef34053679dbebdb4"
+    },
+    "proxyOrderDesign": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-pure-encoder-parent-recorded-20261009-r1/NATIVE-PROXY-ORDER-DESIGN-ADOPTION.json",
+      "sha256": "04fb3794f6cea63b5af711b7a0cc0af1c4417dd60146b665328ec3ac996fa35b"
+    }
+  },
+  "performanceClaim": false,
+  "pins": [
+    {
+      "bytes": 3911,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONFIG.json",
+      "sha256": "96d2da10a6e04cd8992fcb1fccd945c0a96543e6a9db6f8523c510c64926d389"
+    },
+    {
+      "bytes": 2478,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONFIG.json.diff",
+      "sha256": "c540588ba9d4a6cfd1d3d149cf1babf71029b58489e9a859a35592e1499720c3"
+    },
+    {
+      "bytes": 3788,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONTROL-RECIPE.json",
+      "sha256": "94bfc73784db8aff30b462809cf092a2ace7799b952c236be421ebb68953e166"
+    },
+    {
+      "bytes": 3358,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/REPORT.md",
+      "sha256": "9cc6837eda8fce0ea89361a53463c90437c95c4168a46dad1dbe6420c92bc615"
+    },
+    {
+      "bytes": 313,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/STATIC-CHECKS.json",
+      "sha256": "8484534877f77f051950ae814a0d20d5a9e661426e395d5d2be6f3912006f33d"
+    },
+    {
+      "bytes": 5253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+    },
+    {
+      "bytes": 2512,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs",
+      "sha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697"
+    },
+    {
+      "bytes": 1037,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs.diff",
+      "sha256": "0e0194844dec12d930b758707788eaa918e0cc5762c514351967c4f04c87415d"
+    },
+    {
+      "bytes": 14050,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py",
+      "sha256": "76a6076ad2f77b8645124675ae37ee231ad6f89efa5c6f659de1db2614372d45"
+    },
+    {
+      "bytes": 2947,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py.diff",
+      "sha256": "1208c601b34bfb49f537b96bc565db3c9e041ca127e37b1c58973b4d1504fc98"
+    },
+    {
+      "bytes": 10655,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs",
+      "sha256": "915f48c72a195d0d3e837f39b0da4e852bf8db4bf05dc0f39d4aa45fb4f43177"
+    },
+    {
+      "bytes": 3856,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs.diff",
+      "sha256": "68538bf576c0ee8726196f0c742b7d1528afb334a2b1b4b933ea710e679a1c5e"
+    },
+    {
+      "bytes": 12543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    }
+  ],
+  "productionOrGitMutation": false,
+  "recorder14ControlsByteIdentical": true,
+  "recorderAcceptedMechanismsUnchanged": true,
+  "recorderSha256": "76a6076ad2f77b8645124675ae37ee231ad6f89efa5c6f659de1db2614372d45",
+  "recorderVersionOnlySubstitutions": [
+    "CONFIG_SHA",
+    "output-r2",
+    "groups22"
+  ],
+  "report": {
+    "bytes": 5413,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-independent-source-review-20261009-r2/REPORT.md",
+    "sha256": "7d2f90f887327dbb0003897f6011fa614a30fc6a88398f43fc6757cddb016f4d"
+  },
+  "schema": "1370-b109-sanitized-native-encoder-independent-source-review-r2",
+  "sourceDir": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2",
+  "sourcePinsSha256": "a5dd80809ee3d81ab584cd1610de49d92c4908211f519c1c1fb0d0959d13be78",
+  "sourceTraversalRefusalsCapsAndPurityPreserved": true,
+  "utc": "2026-10-09T15:49:37.727250+00:00"
+}

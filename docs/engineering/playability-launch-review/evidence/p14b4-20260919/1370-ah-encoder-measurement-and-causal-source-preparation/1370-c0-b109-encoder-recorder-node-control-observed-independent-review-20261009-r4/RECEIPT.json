@@ -1,0 +1,158 @@
+{
+  "actualHelperMetaExit": 0,
+  "actualToolExit": 0,
+  "allFourteenPass": true,
+  "benchmarkExecuted": false,
+  "boundsChanged": false,
+  "causeAttribution": "UNPROVEN",
+  "currentGitFactsIndependentlyQueried": false,
+  "decision": "ACCEPT_OBSERVED_RECORDER_REPAIR_CONTROLS",
+  "encoderElevenUnrun": true,
+  "gameExecuted": false,
+  "heavyLockAbsent": true,
+  "independentFreshOwnedGroupAbsent": true,
+  "independentTestsExecuted": false,
+  "ownedPgid": 38494,
+  "parentToolSession": 87364,
+  "pins": [
+    {
+      "bytes": 3362,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-node-control-parent-recorded-20261009-r4/PARENT-TOOL-OUTCOME.json",
+      "sha256": "8dfa73e43857e8937d79073cfcace9c01e35c1ee32b33ac588866e34fd61e253"
+    },
+    {
+      "bytes": 6941,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-node-control-parent-recorded-20261009-r4/GRANT.json",
+      "sha256": "2ddb6015d499ae22bb73cb9d5983fe5993baeb858e177023f5e8ceeefdc8af9c"
+    },
+    {
+      "bytes": 3714,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-repaired-node-control-lane-20261009-r4/controls.lane.log",
+      "sha256": "288a4ae7f576df9deb397208a6067dd1c37f8cdb7c00cf57ecb4e00a8a6ae6cf"
+    },
+    {
+      "bytes": 483,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-repaired-node-control-lane-20261009-r4/controls.lane.log.meta",
+      "sha256": "7c21655b89eb798a05e8f61e06ca8395193c03ad6d1a965b5ff1ab85f0f710d0"
+    }
+  ],
+  "readyGoToObservedCompletionSeconds": 2.2574980830031564,
+  "report": {
+    "bytes": 2291,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-observed-independent-review-20261009-r4/REPORT.md",
+    "sha256": "801bf5a89f71d2d6d292a258782b0ed27dbd0ebe48ac02e0b4162d6c5fc338ae"
+  },
+  "schema": "1370-b109-tiny-node-recorder-control-observed-independent-review-r4",
+  "sourceAndToolsVerifiedRoles": [
+    {
+      "bytes": 3586,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/CONFIG.json",
+      "sha256": "2d5310488f12bd20f381914558f31df5ccd6d275c5b7f1d8efe4f86eb845dd3b"
+    },
+    {
+      "bytes": 6361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/CONTROL-RECIPE.json",
+      "sha256": "e58ae3a9d744aa1211d5d88b05bec1b8cdee066e4f2c1baf973831af35422051"
+    },
+    {
+      "bytes": 770,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/OWNERSHIP-PROVENANCE.json",
+      "sha256": "86f4608169529bc8e8bd33d5d4db60f9db88aa35fafe0d002a979b15674656ef"
+    },
+    {
+      "bytes": 3490,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/PLAN.md",
+      "sha256": "4ce8b2ebbe3c1c18a0c8243e962ed66dc9d305306f20f241b12cdc80da2a6780"
+    },
+    {
+      "bytes": 18247,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/RECORDER-DIFF.patch",
+      "sha256": "247cfb55539dcec8fbb88582e3b4554632e2b3d7b300b01ac620cae505df5a23"
+    },
+    {
+      "bytes": 913,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/STATIC-AUTHORING-CHECKS.json",
+      "sha256": "cee699a2a7419b6ee0ea790a0e32e333d5ae0ce1b272947889dabeaecca28ea4"
+    },
+    {
+      "bytes": 5253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+    },
+    {
+      "bytes": 2175,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/bounded-json-candidate.mjs",
+      "sha256": "ac7ed0d6ad1b2d47e0e12de6e9ec738129049806aa7d5ac0b7cfd3a60452de7c"
+    },
+    {
+      "bytes": 2875,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/bounded-json.diff",
+      "sha256": "9fcf418066562702e0e0d20ad28501d23fd939b823798ce7f7a2e41d4de1a9e2"
+    },
+    {
+      "bytes": 14033,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/record-pure-node.py",
+      "sha256": "5647ba67e1f96fa4a8f0894c7bd95055a820e63e5412aceb03cf7de25b9d13ec"
+    },
+    {
+      "bytes": 4169,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-encoder.mjs",
+      "sha256": "1694d6a4cfec1b9ec9bf2db4ef4078d0fbe104291549c0a0c37e0a25ba6b5b50"
+    },
+    {
+      "bytes": 8906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py",
+      "sha256": "1da16a7d5624f41fcc98a5586fb71ce3f303e5c41f1d59dc3b5c7053e8d82e56"
+    },
+    {
+      "bytes": 6363,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/CONTROL-DIFF.patch",
+      "sha256": "a7193ef32a3667420c9ceff27bbc6034951ec7986e092e6f1d38796028a8a35e"
+    },
+    {
+      "bytes": 2234,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/CONTROL-RECIPE.json",
+      "sha256": "ddad9d244c761da7d94d0acf228f25ee5015dd433abb37a7d43a74f36deaa5a6"
+    },
+    {
+      "bytes": 1738,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/PLAN.md",
+      "sha256": "1f64967ffdfacae273bfa7f880ef145d7c5af7d59b97228134a54c2171c92398"
+    },
+    {
+      "bytes": 299,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/STATIC-CONTROLS.json",
+      "sha256": "deb85a8f241ca21e4cbf236bb1e205f1ee6a67cf2ae9642a2c2c076c674a6ff6"
+    },
+    {
+      "bytes": 12543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-proposal-20261009-r4/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    },
+    {
+      "bytes": 92324688,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+      "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+    },
+    {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    {
+      "bytes": 4426,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-repair-independent-source-review-20261009-r4/RECEIPT.json",
+      "sha256": "7b353717f8054287f5b166c0020f015c0adea7642223c75e6029edf8e9a1dcc4"
+    }
+  ],
+  "sourceManifestSha256": "b673978c6c4527dafe0746b708639b529b1fb7f1edbb1cf6ae00d7f6f19e9251",
+  "startupToObservedCompletionSeconds": 2.26172107700404,
+  "tinyFixturesAbsent": true,
+  "utc": "2026-10-09T15:20:01.707091+00:00",
+  "wholeRuntimeInventoryRepeated": false
+}

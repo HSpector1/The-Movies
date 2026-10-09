@@ -1,0 +1,42 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/test-encoder.mjs
++++ /Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs
+@@ -50,4 +50,39 @@
+   }finally{JSON.stringify=native}
+ })
+ 
++
++// R2 additions preserve all sixteen R1 groups verbatim.
++function orderedProxy(data,order,log=[]){return new Proxy(data,{ownKeys(){log.push('keys');return typeof order==='function'?order():order},getOwnPropertyDescriptor(t,k){log.push('desc:'+String(k));return Reflect.getOwnPropertyDescriptor(t,k)},get(t,k,r){log.push('get:'+String(k));return Reflect.get(t,k,r)}})}
++test('proxy reverse and mixed integer order exact bytes and caps',()=>{
++  for(const order of [['2','1'],['z','2','__proto__','1','a']]){
++    const make=()=>{const v=Object.create(null);for(const k of order)v[k]=k;return orderedProxy(v,order)}
++    const expected=baseline.boundedJson(make());assert.deepEqual(candidate.boundedJson(make()),expected);assert.deepEqual(candidate.boundedJson(make(),expected.length),expected);refusal(make,/STOP_JSON_CAP/,expected.length-1)
++  }
++})
++test('nested and shared proxy order is fresh on each occurrence',()=>freshParity(log=>{
++  let n=0;const v=orderedProxy({'1':1,'2':2},()=>++n%2?['2','1']:['1','2'],log)
++  const nested=orderedProxy({a:[v,v],'1':v,'2':{x:v}},['a','2','1'],log)
++  return {nested,again:v}
++}))
++test('proxy omitted names preserve all original hook traces',()=>{
++  for(const all of [false,true])freshParity(log=>orderedProxy({'1':all?undefined:1,'2':undefined,z:undefined,a:all?undefined:2,end:undefined},['z','2','a','1','end'],log))
++  freshParity(log=>orderedProxy({},[],log))
++})
++test('proxy stateful values retain two reads and undefined refusal',()=>{
++  const make=(log,refuse)=>{let n=0;const t={'1':1,omit:undefined};Object.defineProperty(t,'2',{enumerable:true,configurable:true,get(){log.push('getter:'+ ++n);return n===1?7:refuse?undefined:8}});return orderedProxy(t,['omit','2','1'],log)}
++  freshParity(log=>make(log,false));const a=[],b=[];assert.throws(()=>baseline.boundedJson(make(a,true)));assert.throws(()=>candidate.boundedJson(make(b,true)));assert.deepEqual(a,b)
++})
++test('null handler ignores inherited get and descriptor traps',()=>{
++  const names=['get','getOwnPropertyDescriptor'],old=names.map(k=>Object.getOwnPropertyDescriptor(Object.prototype,k));let calls=0
++  const source=orderedProxy({'1':1,'2':2},['2','1'])
++  try{for(const k of names){const d=Object.create(null);d.configurable=true;d.value=function(){calls++;throw Error('inherited handler trap')};Object.defineProperty(Object.prototype,k,d)};assert.deepEqual(candidate.boundedJson(source),baseline.boundedJson(source));assert.equal(calls,0)}
++  finally{for(const k of names)delete Object.prototype[k];names.forEach((k,i)=>{if(old[i])Object.defineProperty(Object.prototype,k,Object.setPrototypeOf(old[i],null))})}
++})
++test('canonical clones stay plain and mismatched clones own safe handler',()=>{
++  const NativeProxy=globalThis.Proxy;let wraps=0
++  const reversed=orderedProxy({'1':1,'2':2},['2','1'])
++  globalThis.Proxy=function(target,handler){wraps++;assert.equal(Object.getPrototypeOf(target),null);assert.equal(Object.getPrototypeOf(handler),null);assert.deepEqual(Object.keys(handler),['ownKeys']);assert.ok(Object.keys(target).every(k=>{const d=Object.getOwnPropertyDescriptor(target,k);return d.enumerable&&d.configurable&&Object.hasOwn(d,'value')}));return new NativeProxy(target,handler)}
++  try{candidate.boundedJson({'1':1,'2':2,z:[{x:1}]});assert.equal(wraps,0);candidate.boundedJson(reversed);assert.equal(wraps,1)}finally{globalThis.Proxy=NativeProxy}
++})
++
+ process.stdout.write(JSON.stringify({status:'ENCODER_EQUIVALENCE_AND_REFUSALS_PASSED',groups,pairs,game:false,saveImports:false,captureDecode:false})+'\n')

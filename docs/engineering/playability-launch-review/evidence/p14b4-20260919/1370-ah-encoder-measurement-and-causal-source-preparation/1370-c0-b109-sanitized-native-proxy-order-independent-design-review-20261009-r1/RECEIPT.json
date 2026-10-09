@@ -1,0 +1,105 @@
+{
+  "benchmarkExecuted": false,
+  "boundsChanged": false,
+  "concreteDefect": "Original Proxy integer ownKeys order is lost in ordinary clone native enumeration; equal byte count does not detect it",
+  "decision": "REFINE_R1_PROXY_KEY_ORDER_ACCEPT_SMALL_REPAIR_DESIGN",
+  "gameOrIntegrationAuthorized": false,
+  "implementationPerformed": false,
+  "manifestSha256": "112a66297f367b4e543b09ce91c5d427f2f766762271c83842f7fc467122205c",
+  "optionalCapturedOriginalKeysReuseAcceptedForExtensibleConfigurableTargets": true,
+  "pinnedNode20ControlsRequiredBeforeQualification": true,
+  "pins": [
+    {
+      "bytes": 1723,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "112a66297f367b4e543b09ce91c5d427f2f766762271c83842f7fc467122205c"
+    },
+    {
+      "bytes": 3910,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/CONFIG.json",
+      "sha256": "27afaa21eb3544a6b4edc35a8fd6a618bfbe03baeeb0b4f04743d4abe05f1fbb"
+    },
+    {
+      "bytes": 3460,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/CONFIG.json.diff",
+      "sha256": "914b9205817108041e985d8de9140a8e59b38855944c88e1af07a8ccce6e730f"
+    },
+    {
+      "bytes": 3803,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/CONTROL-RECIPE.json",
+      "sha256": "613e401a123eb2167ec72883486882306696196331ba9e1e5c70e62c7d51788d"
+    },
+    {
+      "bytes": 2543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/REPORT.md",
+      "sha256": "989d50f96eeb4500a9b24c5f98c6ef72d0e0420f9535475b239d151d4ab0ef78"
+    },
+    {
+      "bytes": 282,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/STATIC-CHECKS.json",
+      "sha256": "6f62ac6bc40f719aaf6423bdb0a11951359f9bbf3f79bf889d5c21ab29446a8c"
+    },
+    {
+      "bytes": 5253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+    },
+    {
+      "bytes": 2175,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "db4c2508beb74401f06167050965a56b1d02d7fe8beb13c84c28e9887e62b73c"
+    },
+    {
+      "bytes": 4408,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/bounded-json-candidate.mjs.diff",
+      "sha256": "d9799370ca0498fe66a7301dbe5f5ed5902e4f3c38359f071b009cdf38c4c5ca"
+    },
+    {
+      "bytes": 14050,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/record-pure-node.py",
+      "sha256": "084db30d7a178a4fca48cad097040fa799c94d7eee358108185224fee8f92604"
+    },
+    {
+      "bytes": 2931,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/record-pure-node.py.diff",
+      "sha256": "2b5ff7e17bd2a2a7603572b34321d3ba2ae045bdc1c1d81361b6e9751fcf52ff"
+    },
+    {
+      "bytes": 7285,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "b1d76d24ac3ea35867968860897cfe578778dfd3bec7c17b3fdab3b83f240854"
+    },
+    {
+      "bytes": 4470,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/test-encoder.mjs.diff",
+      "sha256": "6a036d4e856a9b121206dce2849412ebfd6b7a2a6da5ebfac0c7d0888f3346f1"
+    },
+    {
+      "bytes": 12543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r1/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    }
+  ],
+  "r1HeldUnrun": true,
+  "repairDesignAccepted": true,
+  "report": {
+    "bytes": 5724,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-proxy-order-independent-design-review-20261009-r1/REPORT.md",
+    "sha256": "8bfabe01c6b4d9f7c31f325d96f170562c9fb8570e70e2ce1477b36042fd73e8"
+  },
+  "requiredRepairConditions": [
+    "Wrap only newly owned sanitized object target when emitted key order differs",
+    "Null-prototype target AND ownKeys-only null-prototype handler",
+    "Only clone-local descriptor/value forwarding; no additional original traversal",
+    "Preserve undefined omission, original reads, all refusals and byte caps",
+    "Arrays unchanged; one final native stringify; no object-result/order cache"
+  ],
+  "schema": "1370-b109-sanitized-native-proxy-order-independent-design-review-r1",
+  "specificationReferences": [
+    "https://tc39.es/ecma262/multipage/structured-data.html#sec-serializejsonobject",
+    "https://tc39.es/ecma262/multipage/abstract-operations.html#sec-enumerableownproperties",
+    "https://tc39.es/ecma262/multipage/ordinary-and-exotic-objects-behaviours.html#sec-proxy-object-internal-methods-and-internal-slots-ownpropertykeys"
+  ],
+  "testsExecuted": false,
+  "utc": "2026-10-09T15:41:09.950222+00:00"
+}

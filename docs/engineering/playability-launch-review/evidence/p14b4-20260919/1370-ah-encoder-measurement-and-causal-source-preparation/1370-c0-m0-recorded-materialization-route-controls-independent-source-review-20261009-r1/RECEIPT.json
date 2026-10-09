@@ -1,0 +1,41 @@
+{
+  "allPinsExact": true,
+  "controlSha256": "c3a15c16a48a23d4eaf64ddcf6c6273446b44de2401c008f34f78658b3adb437",
+  "currentOrPendingHeadAssumed": false,
+  "decision": "REFINE_SOURCE_ONLY_UNRUN",
+  "executionAuthorization": false,
+  "findings": [
+    {
+      "defect": "actual_stub changes mirror basename to owned-leaf but leaves template runId unchanged. Actual recorder.lane requires mirrorPath.name == runId. Nominal test07 therefore necessarily returns STOP and cannot satisfy its positive assertion.",
+      "executionRequiredToProveDefect": false,
+      "id": "F1",
+      "line": 126,
+      "minimalRepair": "Set owned stub runId to the owned mirror leaf basename before serializing binding and starting the stub; retain every existing source/receipt/exit/cleanup/cap assertion.",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/test_changed_route.py",
+      "severity": "blocking"
+    },
+    {
+      "defect": "prepare independently hashes the supplied source manifest/files and supplied accepted review but never requires review.sourcePinsSha256 == --source-pins-sha. Matching recorder/supervisor hashes alone does not establish that the accepted review covers the supplied complete package/template. Manifest/template productionHead consistency is likewise not asserted before imports/output creation.",
+      "executionRequiredToProveDefect": false,
+      "id": "F2",
+      "line": 27,
+      "minimalRepair": "Before output-root creation/imports, require the exact accepted review sourcePinsSha256 to equal the authenticated supplied manifest SHA, and require authenticated manifest productionHead/productionSourceTree to match the authenticated binding template. Preserve the parameterized future exact review and avoid assuming the pending checkpoint HEAD.",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/test_changed_route.py",
+      "severity": "blocking"
+    }
+  ],
+  "remainingChangedControlScopeAppropriateStatically": true,
+  "report": {
+    "bytes": 3268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-independent-source-review-20261009-r1/REPORT.md",
+    "sha256": "f9ea9803d308e6696d49d6bc4e9d94d093c812150a65b6ba3845ed6ab1928e74"
+  },
+  "routeSourcePinsSha256": "939cc8b45f91f54afc1561003732c3dc8b0e43c654363b8793e9cc9ac8ce8c29",
+  "routeSourceReviewSha256": "034ee4b02bb38b53f3a1d7a4b4a1c8351f257981330ca1ae9af24559886ee5a8",
+  "schema": "1370-m0-recorded-route-controls-independent-source-review-r1",
+  "sourceDir": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1",
+  "sourcePinsSha256": "2d6c05cf16815ac6869e78c057f4321e3c7be48b7209d1331f7f78bed01f1d50",
+  "testsImportsMaterializationGameGuardScanGitExecuted": false,
+  "unittestGroups": 13,
+  "utc": "2026-10-09T15:56:49.386608+00:00"
+}

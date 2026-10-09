@@ -1,0 +1,17 @@
+{
+  "allSuppliedPinsAndPatchesExact": true,
+  "archiveBeforeFiveFieldAdoptionAccepted": true,
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_REQUIRES_CHANGED_CONTROLS_EXACT_BINDING_AND_CURRENT_GUARDS",
+  "executionAuthorization": false,
+  "findings": [],
+  "fullSemanticFiveAuthorizationExclusionsCorrect": true,
+  "guardCoreTwoPointerExclusionsCorrect": true,
+  "predecessorSourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+  "recorderSha256": "b8df39f65b0f8fc60cc11eae4e67808aac3b1d78331d495f023b62684189c7f8",
+  "reportSha256": "5df4748c70bc2bf09f053bc90223ba2e11054182d9d95c3d46911cdd89fc36cb",
+  "schema": "1370-m0-recorded-route-independent-source-review-r1",
+  "sourcePinsSha256": "939cc8b45f91f54afc1561003732c3dc8b0e43c654363b8793e9cc9ac8ce8c29",
+  "supervisorSha256": "8eaf5fabdf298df579851b06f45d636b92393e235e8af6b5f2ec52fcfc0bd03f",
+  "testsImportsMaterializationGameCaptureFullInventoryExecuted": false,
+  "unchangedRoleFunctionsByteExact": true
+}

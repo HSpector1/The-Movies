@@ -1,0 +1,21 @@
+{
+  "causalOrLedgerClosure": false,
+  "changesOriginalCombinedAcceptance": false,
+  "decision": "ACCEPT_DESIGN_ONLY_ISOLATED_M0_DIAGNOSTIC_SCOPE_CONTINGENT_PARENT_ADOPTION",
+  "executionAuthorization": false,
+  "factsSha256": "ece328f2a93d8eaa3b51a56262c907a665e79f7a0db5cfe1135f089c4aca7518",
+  "noteSha256": "520102a0742e04293a003c590f2ef47f5e79b3be2ca3bfec8888790ce07e38ee",
+  "observedGameAcceptance": false,
+  "parentCanAdoptSeparateM0Diagnostic": true,
+  "productionHead": null,
+  "readinessFactsSha256": "d4ebf5989df8ed2732b95081a1d77d8c875c4905cf03c0a3ee4bddd73b04419c",
+  "readinessNoteSha256": "3607bdbf47e30f4c413d66cb7e77c6f96b68bf82a7b7e51e8673d4d2e725a991",
+  "schema": "1370-m0-only-diagnostic-operational-scope-independent-review-r1",
+  "scope": "Permitted M0-only question and ordered remaining gates; combined H-first/both types/H neutrality/cross-era gates retained, no launch admitted.",
+  "sourceChanged": false,
+  "sourceManifestSha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba",
+  "sourceReviewSha256": "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8",
+  "testsOrFullscanExecuted": false,
+  "utc": "2026-10-09T15:12:24.557012+00:00",
+  "waivesH8708": false
+}

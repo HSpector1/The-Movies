@@ -1,0 +1,57 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "ADOPTION-PROCEDURE.md": {
+      "bytes": 4687,
+      "sha256": "457cf9d3cff6eb8c0ca0cd6c333a16966123bff9d04bd0bc91bafec6aba52694"
+    },
+    "BINDING-UNFILLED.json": {
+      "bytes": 6626,
+      "sha256": "78695df5f01d3a8a6cbab0458e9ea2f70c998dd2106b6e12a62a64f85dec76ea"
+    },
+    "CHANGED-CONTROLS.md": {
+      "bytes": 2158,
+      "sha256": "5b324bce784639b28b6c45639bb126e808b874302687ded8ad9dbb8dc0ab2699"
+    },
+    "GUARD-TRANSITION.md": {
+      "bytes": 3488,
+      "sha256": "a9f7e96a901d750373632a40244bc4f8df4e112b700b1c7ff6ee0f22da93b2e2"
+    },
+    "LAUNCH-UNFILLED.json": {
+      "bytes": 1327,
+      "sha256": "44320d5fd42c906efd6080494142135cbdfd53b3687fd20d4c9c9876cdaa8c3c"
+    },
+    "PLAN.md": {
+      "bytes": 3036,
+      "sha256": "fcd57fcfe551124a8336b53265b1dc227fade07c3d64a4728f78e439a42a43dd"
+    },
+    "ROLE-DIFF.json": {
+      "bytes": 1257,
+      "sha256": "88f799fe01ad9622ee90f75da4e742fb1214ede5be834c2c3914a4bfe6cd976a"
+    },
+    "record.py": {
+      "bytes": 21430,
+      "sha256": "b8df39f65b0f8fc60cc11eae4e67808aac3b1d78331d495f023b62684189c7f8"
+    },
+    "record.py.DIFF.patch": {
+      "bytes": 15807,
+      "sha256": "8ab1ac83762f9c0680c67e0e38257823fb2bec7857f699a8e2e55d1e5ebddf74"
+    },
+    "supervise.py": {
+      "bytes": 15375,
+      "sha256": "8eaf5fabdf298df579851b06f45d636b92393e235e8af6b5f2ec52fcfc0bd03f"
+    },
+    "supervise.py.DIFF.patch": {
+      "bytes": 4812,
+      "sha256": "6b37570a29f458d98780c9640119e44382a055fbda58ceaef989e038b43e2ab7"
+    }
+  },
+  "predecessorSourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+  "productionHead": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "1370-m0-recorded-materialization-source-pins-r1",
+  "sourceReviewRequired": true,
+  "status": "READY_SOURCE_REVIEW_REQUIRED_UNRUN",
+  "syntaxParsedOnly": true,
+  "testsMaterializationOrGameExecuted": false
+}

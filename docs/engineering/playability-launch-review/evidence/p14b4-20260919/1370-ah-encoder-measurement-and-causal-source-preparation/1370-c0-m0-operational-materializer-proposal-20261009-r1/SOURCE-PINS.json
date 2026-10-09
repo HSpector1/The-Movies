@@ -1,0 +1,34 @@
+{
+  "acceptedObserverSourceManifestSha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba",
+  "executionAuthorization": false,
+  "files": {
+    "ARGV-PROPOSED.json": {
+      "bytes": 2427,
+      "sha256": "a67e6de76b3fe468d17cad5bdcb2b20340985624faea7f769f58e6320dc85932"
+    },
+    "BINDING-PROPOSED.json": {
+      "bytes": 2927,
+      "sha256": "5f81876ab1c0cf9c42d3c4c0563ece65dc405ad34db8e87c79efeb90785432f2"
+    },
+    "PLAN.md": {
+      "bytes": 3048,
+      "sha256": "1758ec2deee839455fc921568c771ce1e4ad0469157f0d49921b2fdaab867d09"
+    },
+    "SOURCE-DIFF.patch": {
+      "bytes": 4307,
+      "sha256": "2dc7c55381910468a0888a8c1c00a0722655eb0eeacf7f904dba1ba35dba535f"
+    },
+    "materialize.py": {
+      "bytes": 14964,
+      "sha256": "3540d202d3a7cb6f6b44ca5a6ddc28f1c50147b5f580e2a084b98059c319852e"
+    }
+  },
+  "parentScopeAdoptionSha256": "c0d8e338c9f8a9dced79328711736323431903cabe7410091cc4f90191bd7f7d",
+  "predecessorIndependentSourceReviewSha256": "2e3f28a983d80cd1e7e626fad921773bc17e11331c338b4d4ce63be9c25efddf",
+  "predecessorMaterializerSha256": "28e546e77e6dfd414427b5d645a65a3c549c1f1011be812d07ee13da9a5e26ed",
+  "productionHead": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "schema": "1370-m0-operational-materializer-source-pins-r1",
+  "staticSyntaxParsedOnly": true,
+  "status": "DRAFT_SOURCE_REVIEW_REQUIRED_UNRUN",
+  "testsGameMaterializationOrFullscanRun": false
+}

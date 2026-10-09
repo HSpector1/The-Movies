@@ -1,0 +1,36 @@
+{
+  "acPower": true,
+  "all21RolesReverified": true,
+  "benchmarkAndGameAuthorized": false,
+  "bounds": [
+    60,
+    75,
+    90
+  ],
+  "freeBytes": 6083305472,
+  "head": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "oldNodeGroupAbsent": true,
+  "priorGrantSha256": "2ddb6015d499ae22bb73cb9d5983fe5993baeb858e177023f5e8ceeefdc8af9c",
+  "recipe": {
+    "argv": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-lane-20261009-r2/controls.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/record-pure-node.py",
+      "controls"
+    ],
+    "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+    "expectedActualExit": 0,
+    "laneDirectoryParentCreatesPrivateBeforeActualLaunch": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-lane-20261009-r2",
+    "mode": "controls",
+    "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-output-20261009-r2"
+  },
+  "recorderObservedReceiptSha256": "c7ea7604c061bfd40fcb07ef7815096aa9f524d1caf9b3d19b43a4436c4eca67",
+  "sourceAcceptanceSha256": "20163ef5aee5683bf31c8446887545922e4d0517773dae4d86f59831c85f176a",
+  "status": "PARENT_ADOPTED_RECORDER14_AND_GRANTED_ENCODER11_ONLY",
+  "utc": "2026-10-09T15:20:47.714749+00:00",
+  "wholeHistoricalOrProductionGuardReuseClaim": false
+}

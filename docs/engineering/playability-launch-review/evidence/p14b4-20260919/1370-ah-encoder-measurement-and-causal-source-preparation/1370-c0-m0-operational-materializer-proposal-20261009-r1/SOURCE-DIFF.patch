@@ -1,0 +1,68 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-h-m0-mirror-materializer-proposal-r2/materialize.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r1/materialize.py
+@@ -1,15 +1,18 @@
+ #!/usr/bin/env python3
+-"""One-shot, unrun H/M0 mirror materializer; no dependency installation."""
++"""One-shot, unrun isolated M0 diagnostic mirror materializer; accepted r10 source unchanged."""
+ import argparse,hashlib,json,os,pathlib,re,shutil,signal,stat,subprocess,tarfile,time
+ 
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+ INPUTS=S/'1370-c0-h-m0-observer-verification-design-r2/MIRROR-INPUTS.json'
+ DESIGN_REVIEW=S/'1370-c0-h-m0-observer-verification-independent-design-review-r2/RECEIPT.json'
+-OUT_ROOT=S/'1370-c0-h-m0-observer-mirrors-r2'
++OUT_ROOT=S/'1370-c0-m0-observer-mirrors-20261009-r1'
++PARENT_ADOPTION=S/'1370-c0-m0-only-diagnostic-parent-adoption-20261009-r1/ADOPTION.json'
++PARENT_ADOPTION_SHA='c0d8e338c9f8a9dced79328711736323431903cabe7410091cc4f90191bd7f7d'
++M0_SCOPE_REVIEW_SHA='a4591c34f4b6406f20e5e35c0d85cbab74945dc79b1ef79fffbdf8d75b1f1180'
+ INPUTS_SHA='84d89b19ffc40f02c9a908bf8ae3cdbf34e4ff65ce2c1cf63687c140746e1154'
+ DESIGN_REVIEW_SHA='d7ec88eeae8c97ed4d7a1eb42d9dfbd3e77ff14f1b2247c1ba5501636cf713f2'
+-PRODUCTION_HEAD='f8c0628739227accfa446276b0613f47bc805a78'
++PRODUCTION_HEAD='dcf2d60337d9310ba5caba028a1be8dc9be1ad26'
+ PRODUCTION_TREE='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+ PRODUCTION_REF='refs/heads/wip/headless-program-20260916-ts'
+ PREFLIGHT=int(3.5*1024**3)
+@@ -197,14 +200,14 @@
+  signal.signal(signal.SIGALRM,lambda *_:(_ for _ in ()).throw(TimeoutError('900-second materializer deadline')))
+  signal.setitimer(signal.ITIMER_REAL,WALL)
+  ap=argparse.ArgumentParser()
+- ap.add_argument('--arm',choices=['H','M0'],required=True)
++ ap.add_argument('--arm',choices=['M0'],required=True)
+  ap.add_argument('--run-id',required=True)
+  ap.add_argument('--source-manifest',required=True)
+  ap.add_argument('--source-manifest-sha',required=True)
+  ap.add_argument('--source-review',required=True)
+  ap.add_argument('--source-review-sha',required=True)
+  args=ap.parse_args();arm=args.arm;run_id=args.run_id
+- need(re.fullmatch(r'20261008-(h|m0)-(types|route)-r[0-9]+',run_id) and
++ need(re.fullmatch(r'20261009-m0-(types|route)-r[0-9]+',run_id) and
+       run_id.split('-')[1]==arm.lower(),'wrong run ID')
+  need(free()>=PREFLIGHT,'3.5 GiB preflight')
+  guard(run_id)
+@@ -213,6 +216,17 @@
+  need(review.get('decision')=='ACCEPT_DESIGN_ONLY' and review.get('inputsSha256')==INPUTS_SHA,
+       'design review not bound')
+  need(inputs.get('schema')=='1370-c0-h-m0-observer-verification-inputs-design-r2','wrong inputs')
++ adoption=json.loads(pinned(PARENT_ADOPTION,PARENT_ADOPTION_SHA,100000))
++ need(adoption.get('status')=='PARENT_ADOPTED_ISOLATED_M0_DIAGNOSTIC_DESIGN_ONLY' and
++      adoption.get('sourceReviewSha256')==M0_SCOPE_REVIEW_SHA and
++      adoption.get('productionGuardHead')==PRODUCTION_HEAD and
++      adoption.get('productionSourceTree')==PRODUCTION_TREE and
++      adoption.get('canonicalM0Source')==inputs['arms']['M0']['sourceCommit'] and
++      adoption.get('combinedHFirstRouteUnchanged') is True and
++      adoption.get('H8708Waived') is False and
++      adoption.get('executionAuthorization') is False and
++      adoption.get('productionSourceChangesAuthorized') is False,
++      'isolated M0 parent design scope not bound')
+  for key in ('source-manifest-sha','source-review-sha'):
+   need(re.fullmatch(r'[0-9a-f]{64}',getattr(args,key.replace('-','_'))),'missing source hash')
+  mpath=pathlib.Path(args.source_manifest);rpath=pathlib.Path(args.source_review)
+@@ -239,7 +253,7 @@
+       not any(p.is_dir() for p in OUT_ROOT.iterdir()),
+       'output collision/concurrent mirror')
+  out.mkdir(mode=0o700)
+- result={'schema':'1370-c0-h-m0-mirror-materializer-result-r2','status':'RUNNING',
++ result={'schema':'1370-c0-m0-isolated-operational-materializer-result-r1','status':'RUNNING',
+          'arm':arm,'runId':run_id,'sourceCommit':commit,'sourceTree':inputs['arms'][arm]['sourceTree'],
+          'mirrorPath':str(out),'sourceManifestSha256':args.source_manifest_sha,
+          'sourceReviewSha256':args.source_review_sha}

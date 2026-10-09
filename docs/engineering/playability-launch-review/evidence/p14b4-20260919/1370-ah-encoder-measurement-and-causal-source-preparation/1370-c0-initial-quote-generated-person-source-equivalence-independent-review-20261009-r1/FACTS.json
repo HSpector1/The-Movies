@@ -1,0 +1,51 @@
+{
+  "F0r2Accepted": false,
+  "F0r2FirstSalaryLineEqualToAcceptedF1": true,
+  "F1measurementRole": "Accepted F1 observer pure helper/fresh isolated-key recomputations, not original offer locals or new historical measurements",
+  "annualDelta": 941,
+  "bonusDelta": 170,
+  "calculation": [
+    {
+      "age": 44.36540781416331,
+      "ageFactor": 0.9667019589399015,
+      "annualSalary": 394607,
+      "signingBonus": 71029,
+      "unroundedAnnual": 394606.7222040563
+    },
+    {
+      "age": 44,
+      "ageFactor": 0.96900826446281,
+      "annualSalary": 395548,
+      "signingBonus": 71199,
+      "unroundedAnnual": 395548.1536911653
+    }
+  ],
+  "changedContractStarts": {
+    "0": 23,
+    "208": 16
+  },
+  "fullGeneratorSpecializationEqual": true,
+  "fullOffer208SpecializationEqual": true,
+  "fullReachedWriterTailEqual": true,
+  "matrixCount": 8,
+  "otherChangedContractStartsAfterRow0": {
+    "0": 22,
+    "208": 16
+  },
+  "otherChangedContracts": 38,
+  "referencedTuningClosureCount": 63,
+  "salaryAndCompleteHelperBlockEqual": true,
+  "scope": "row0 only",
+  "selectedSourceEntries": 41,
+  "sourceRoles": {
+    "A": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "F1": "modern src13880 plus later film-hold intervention",
+    "H": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d"
+  },
+  "tuningPropertiesMatched": 81,
+  "unchangedContractStarts": {
+    "0": 1,
+    "265": 4
+  },
+  "wholeTalentSummaryExecutableTokensEqual": true
+}
