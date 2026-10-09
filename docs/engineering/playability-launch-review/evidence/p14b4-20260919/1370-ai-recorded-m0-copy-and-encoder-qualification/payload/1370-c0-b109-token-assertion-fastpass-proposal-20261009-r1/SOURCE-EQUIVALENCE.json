@@ -1,0 +1,96 @@
+{
+  "status": "UNRUN_ASSERTION_FASTPASS_SOURCE_PROOF",
+  "basePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/bounded-json-candidate.mjs",
+  "baseSha256": "ac7ed0d6ad1b2d47e0e12de6e9ec738129049806aa7d5ac0b7cfd3a60452de7c",
+  "normalizationExactlyRecreatesAllBaseBytes": true,
+  "assertOkSites": 7,
+  "assertNotEqualSites": 1,
+  "replacements": [
+    {
+      "original": "assert.ok(next<=limit,'STOP_JSON_CAP')",
+      "replacement": "const withinLimit=next<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_JSON_CAP')",
+      "occurrences": 2,
+      "semanticReason": "add byte cap; <= relational coercion evaluated exactly once"
+    },
+    {
+      "original": "assert.ok(Buffer.byteLength(value)<=limit,'STOP_STRING_CAP')",
+      "replacement": "const withinLimit=Buffer.byteLength(value)<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_STRING_CAP')",
+      "occurrences": 1,
+      "semanticReason": "raw string byte precheck; Buffer byte length and <= coercion once before stringify"
+    },
+    {
+      "original": "assert.ok(typeof value!=='bigint' && typeof value!=='function' && typeof value!=='symbol','STOP_NON_JSON')",
+      "replacement": "const jsonAtom=typeof value!=='bigint' && typeof value!=='function' && typeof value!=='symbol';if(!jsonAtom)assert.ok(jsonAtom,'STOP_NON_JSON')",
+      "occurrences": 1,
+      "semanticReason": "atom type short circuit operands unchanged"
+    },
+    {
+      "original": "assert.ok(Number.isFinite(value),'STOP_NON_FINITE')",
+      "replacement": "const finite=Number.isFinite(value);if(!finite)assert.ok(finite,'STOP_NON_FINITE')",
+      "occurrences": 1,
+      "semanticReason": "finite once; same Number.isFinite result fed to failed assertion"
+    },
+    {
+      "original": "assert.notEqual(v,undefined)",
+      "replacement": "const defined=v!==undefined;if(!defined)assert.notEqual(v,undefined)",
+      "occurrences": 1,
+      "semanticReason": "undefined refusal; same notEqual method and original two arguments when failed"
+    },
+    {
+      "original": "assert.ok(!visiting.has(v),'STOP_CYCLE')",
+      "replacement": "const acyclic=!visiting.has(v);if(!acyclic)assert.ok(acyclic,'STOP_CYCLE')",
+      "occurrences": 1,
+      "semanticReason": "set lookup before unchanged visiting.add"
+    },
+    {
+      "original": "assert.ok(!Object.hasOwn(v,'toJSON'),'STOP_CUSTOM_JSON')",
+      "replacement": "const ordinary=!Object.hasOwn(v,'toJSON');if(!ordinary)assert.ok(ordinary,'STOP_CUSTOM_JSON')",
+      "occurrences": 1,
+      "semanticReason": "same own property check before array/key traversal"
+    }
+  ],
+  "preserved": "Every token piece/key cache/buffer join/visiting update/property read/traversal/cap expression and ordering outside eight assertion call replacements is byte exact. Each ok predicate executes once with same short circuit/coercion, saved original false boolean reaches same assert.ok(message). No > inversion: NaN and coercive limit still fail original <=. Undefined branch uses v!==undefined once then invokes same notEqual(v,undefined) only for original failing value.",
+  "allowedScopeAssumptions": "Requested omission of successful built-in assertion calls assumes standard unmodified node:assert/strict behavior. Instrumentation of successful assertion calls is intentionally changed by this optimization, not a source-data domain exclusion. JSON/Proxy/source getter/trap behavior is otherwise unchanged. No original-container native stringify, object-result cache, chunk/writer change or newdata semantics.",
+  "limits": "Reasoned source equivalence, not measured performance or controls success. Preserve/refuse all original input domains; no limit narrowing.",
+  "controlArchitectureVersions": {
+    "parentAuthorization": "Root explicitly authorized two strategy-specific expectations; no source-domain exclusion.",
+    "predecessorSha256": "60c967d1701eb84d07ee4a18d58c490450ca06370c1c53f661201a269ca13e17",
+    "portableGroupsByteExact": 20,
+    "deltas": [
+      {
+        "group": 16,
+        "successfulSourceContainerStringifyCount": "1\u21920",
+        "refusalZeroAssertions": "unchanged"
+      },
+      {
+        "group": 22,
+        "reversedSuccessfulCloneProxyCount": "1\u21920",
+        "ordinaryZeroAndAllAssertionCode": "unchanged"
+      }
+    ],
+    "titleChanges": "two groups describe token strategy",
+    "fourSubstitutionReverseByteExact": true,
+    "sharedBytesTraversalRefusalCapPollutionAssertions": "unchanged",
+    "expectedGroupsUnrun": 22,
+    "expectedPairsUnrun": 283
+  },
+  "noSourceContainerNativeSerializationProof": {
+    "stringifySites": [
+      "stringToken only receives typeof string values or Object.keys string names",
+      "atom fallback only reached for nonobject emit branch; undefined and unsupported atoms refused beforehand"
+    ],
+    "containerPath": "literal delimiter and recursively emitted token pieces; Buffer.from(pieces.join()) at completion",
+    "ProxyConstructionSites": 0
+  },
+  "qualifiedRecorderVersionProof": {
+    "r5Sha256": "cc97d645a165323c4e266235c9ff7cdfd7d7bda053b758570ac5680aed402f4f",
+    "onlyChanges": "CONFIG_SHA and fresh token-fastpass OUTPUTS prefix/version",
+    "normalizationByteExact": true,
+    "headerSchemaRemainQualified": true,
+    "bounds": [
+      60,
+      75,
+      90
+    ]
+  }
+}

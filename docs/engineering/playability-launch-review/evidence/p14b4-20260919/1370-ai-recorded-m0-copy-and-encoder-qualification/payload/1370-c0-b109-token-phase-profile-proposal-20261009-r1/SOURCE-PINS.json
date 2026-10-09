@@ -1,0 +1,74 @@
+{
+  "CONFIG.json": {
+    "bytes": 5250,
+    "sha256": "701239d900079aaf87264a991cc90454bf3e976ad262eff65ef3687ff7722100"
+  },
+  "CONFIG.json.diff": {
+    "bytes": 4702,
+    "sha256": "f3018cfc4671bc94f9e62eef4538c776950d73714c3e25c8b7c970093858f5be"
+  },
+  "CONTROL-AND-PROFILE-RECIPE.json": {
+    "bytes": 3562,
+    "sha256": "f8d1e4a108355f1a399727a67a8d4a1ce5134a7a3c4ded6ddad97e3b83364003"
+  },
+  "INPUT-PINS.json": {
+    "bytes": 2705,
+    "sha256": "85462e3dc477b85820ff0988b543b2d8b644fda8206a005eedd51fa5a3b02c8c"
+  },
+  "REPORT.md": {
+    "bytes": 4292,
+    "sha256": "39bfbef36911433eeddca3e6be060168da794ea0ef44618937c91d8aadb2f63a"
+  },
+  "SOURCE-EQUIVALENCE.json": {
+    "bytes": 1474,
+    "sha256": "96d8b4785cdc6d5e9a49d32879831123435e7794f265efbdc3c21809583dcebf"
+  },
+  "STATIC-CHECKS.json": {
+    "bytes": 908,
+    "sha256": "3de777db8361cb98429e4fbc7cf08c38782f713c0bfa61e120c9628a669bfb6e"
+  },
+  "UNPROFILED-FASTPASS-OBSERVED-RECEIPT.json": {
+    "bytes": 1606,
+    "sha256": "bbdf1726103147cd3f4d8d8ed981511af73e0d9484aa19d6aab516cbb5ff0c0a"
+  },
+  "UNPROFILED-FASTPASS-OBSERVED-REPORT.md": {
+    "bytes": 1676,
+    "sha256": "34f2c59015323b822b01547ef1ff15086c2c9939b14f55f455c38d77c148dff6"
+  },
+  "benchmark-308-profile.mjs": {
+    "bytes": 7920,
+    "sha256": "5a84f9545257d9597589de2926f21fa38e04124fba62d9a3b87315fcc12ec9e1"
+  },
+  "benchmark-308-profile.mjs.diff": {
+    "bytes": 7758,
+    "sha256": "bbbd449cae98ce726b37fc5348ed79c215ef7f863ccd92d2a360f407fbb49d1a"
+  },
+  "benchmark-308.unprofiled.mjs": {
+    "bytes": 5253,
+    "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+  },
+  "bounded-json-candidate.mjs": {
+    "bytes": 3360,
+    "sha256": "62a9013d4d9609db4fe2a315cf2fac8a57c82499db2122ad12882ff9ea7a6668"
+  },
+  "bounded-json-candidate.mjs.diff": {
+    "bytes": 5852,
+    "sha256": "0e8e8cc279a5b96f6215dff7a9d37aacebdbe1175a27334b45342b2ff920b7c5"
+  },
+  "record-pure-node.py": {
+    "bytes": 14247,
+    "sha256": "ae3ce4a6cc0ac0500c4b0fc9db2b6a62b0aa6cfc90331b49f6488c9b566ecb34"
+  },
+  "record-pure-node.py.diff": {
+    "bytes": 1907,
+    "sha256": "c13dbb7b4cc72ab52c1f81556af0f5992c7ccc7ead51e9b3cd9a0721be7637af"
+  },
+  "test-encoder.mjs": {
+    "bytes": 10720,
+    "sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926"
+  },
+  "test-recorder-repair.py": {
+    "bytes": 12543,
+    "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+  }
+}

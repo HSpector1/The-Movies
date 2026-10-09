@@ -1,0 +1,23 @@
+{
+  "actualToolHelperRecorderNodeZero": true,
+  "all15SourcePins": true,
+  "crossSessionVariantComparison": false,
+  "currentCaptureMetadataOnlyMatched": true,
+  "exactGrantOutcomeRoles": 36,
+  "fixtureRuntimeRawAndStateExact": {
+    "member": 308,
+    "rawBytes": 4228063,
+    "rawSha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a",
+    "stateBytes": 2103442,
+    "stateSha256": "cac7fcc155b45be663ac516b244cf3e5fe0c4ec4fb204fb6bd173d9b17d04f7e"
+  },
+  "freshOwned85073Absent": true,
+  "independentMedianAndFormula": {
+    "baseline": 504.0934774699999,
+    "candidate": 341.60933565000045
+  },
+  "noOverrideOrHeavyLock": true,
+  "percentReduction": 32.23293874689529,
+  "priorAcceptedWholeCaptureProvenanceMatched": true,
+  "sourceEnforcedCompleteBytesPurityRetainedReader": true
+}

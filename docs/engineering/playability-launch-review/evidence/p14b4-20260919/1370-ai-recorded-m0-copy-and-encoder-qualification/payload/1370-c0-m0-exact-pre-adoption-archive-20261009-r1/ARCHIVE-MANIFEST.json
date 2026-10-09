@@ -1,0 +1,55 @@
+{
+  "files": [
+    {
+      "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/BINDING-DRAFT.json",
+      "bytes": 12008,
+      "mode": 384,
+      "sha256": "4d23bc3c74e0cc55aab85171dbe3b6ddfde25dc9eba86ea15e9b593740d60fca",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json"
+    },
+    {
+      "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/LAUNCH-SPEC.json",
+      "bytes": 1737,
+      "mode": 384,
+      "sha256": "240411095b9493ee8027f438187e6cedc9612c46a81533618ca2bf488dc18f1f",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/LAUNCH-SPEC.json"
+    },
+    {
+      "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/IDENTITY.json",
+      "bytes": 4796,
+      "mode": 384,
+      "sha256": "b699168dbb3ca9c709d70df29b17ae0ec8cb04b77b5748773e185886c8cd2050",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/IDENTITY.json"
+    },
+    {
+      "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/GUARD-PROOF-ROLES.json",
+      "bytes": 16599,
+      "mode": 384,
+      "sha256": "5e7f44d9840a16dcfd13b55f301e140e3dba553eeb6ab813e2a6f29b1f9f58a6",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/GUARD-PROOF-ROLES.json"
+    },
+    {
+      "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/REPORT.md",
+      "bytes": 1205,
+      "mode": 384,
+      "sha256": "2bd84e1f44ebd2506ca94c7ae9a0c4a71abbf1fa65ac24fb182dd6cb3947dc36",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/REPORT.md"
+    },
+    {
+      "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/PINS.json",
+      "bytes": 947,
+      "mode": 384,
+      "sha256": "1c9616427bf952e5fab3a3646fe51868b2a70dd4a8ba7878d0638e06645b4d26",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/PINS.json"
+    }
+  ],
+  "originalExactReview": {
+    "bytes": 5383,
+    "mode": 420,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "de74c395f9ed9633d74949c79c9f56b726f9554f89787084b21f9808bea56bd3"
+  },
+  "schema": "m0-exact-original-six-archive/v1",
+  "sourceMutated": false,
+  "status": "BYTE_IDENTICAL_PRE_ADOPTION_ARCHIVE"
+}

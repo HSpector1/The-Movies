@@ -1,0 +1,84 @@
+{
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "before-fill",
+    "before-fill-r1"
+  ],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "fullPrivateR9InventoryRequired": true,
+  "historicalReplayAuthorized": false,
+  "materializationGameAuthorized": false,
+  "noHeavyHelperBecauseSnapshotRequiresHeavyLockAbsent": true,
+  "parentPidBecomesSnapshotPid": 21697,
+  "prior16OwnedControlGroupsFreshlyAbsent": true,
+  "protectedWriteAndRenamerFreeze": "Production/common/R9/H read-only from this baseline through dependent M0 chain; no Git writes or engine/dependency operations",
+  "rawPsFdLocalOnly": true,
+  "roles": [
+    {
+      "bytes": 2966,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/ARGV-TEMPLATE.json",
+      "sha256": "80e32136743534c6f703481963aa53be5b65843c1f5e06982bb0488035d868cd"
+    },
+    {
+      "bytes": 3235,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/CONFIG.json",
+      "sha256": "03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d"
+    },
+    {
+      "bytes": 21237,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/DIFF.patch",
+      "sha256": "898d05161cb870bc7e0247a2afb1ddfa4dfeca62b67685bb913752e139a0f3f5"
+    },
+    {
+      "bytes": 5275,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/PLAN.md",
+      "sha256": "4ee6aae49e7d7f9242b278127fb7e3cb5db7cef602889c146610cfc85613a4e1"
+    },
+    {
+      "bytes": 1000,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/ROLE-DIFF.json",
+      "sha256": "401defcdf1e80951f6e1623dc81e97ae2efa4f013c4555631b74bb6cd699a9ef"
+    },
+    {
+      "bytes": 519,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/STATIC-PROOF.json",
+      "sha256": "ee5f7f22d97dbc345e236e38240584367a9eb367b1e549f1f1aab980b96981c9"
+    },
+    {
+      "bytes": 20999,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py",
+      "sha256": "259c4bac30fd506a67779d2c59fd29f51c8a6f75e140f7c37f6cff625aa23a58"
+    },
+    {
+      "bytes": 1426,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/SOURCE-PINS.json",
+      "sha256": "6941ca219fad32fe77982f71985052be5743d76820eea48caea2e0305c78bca9"
+    },
+    {
+      "bytes": 2032,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "8012fc503c1b11b2c9e8b2fd27d57c2155c277dcd6d1aca4bdde324f44926cd1"
+    },
+    {
+      "bytes": 2224,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-source-review-20261009-r1/EXACT-BEFORE-FILL-ARGV.json",
+      "sha256": "81f7062ef00bcb6d92f73e60d4ee89859cc13124e26d0bcc6c144f30bf4cc54b"
+    }
+  ],
+  "startMonotonic": 70561.200003165,
+  "status": "ROOT_ADOPTED_EXACT_SOURCE_ARGV_AND_GRANTED_SINGLE_DIRECT_FULL_GUARD",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/before-fill.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/before-fill.stdout",
+  "utc": "2026-10-09T16:46:58.914607+00:00"
+}

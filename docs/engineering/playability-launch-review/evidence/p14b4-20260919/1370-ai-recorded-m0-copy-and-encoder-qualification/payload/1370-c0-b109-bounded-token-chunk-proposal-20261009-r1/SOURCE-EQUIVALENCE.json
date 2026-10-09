@@ -1,0 +1,27 @@
+{
+  "assumptions": "Standard native builtins; internal Array.join/Buffer calls change. No guarantee for arbitrary monkeypatched these allocation builtins. Existing JSON.stringify/Proxy source instrumentation controls preserved.",
+  "benchmark": "Streaming baseline role remains read/parse/purity/certification only. referenceEncoder994d is timed baseline arm. Same actual308 one warmup+3 alternating pairs/state+wholeRow.",
+  "candidateChanges": [
+    "fresh owned chunks/pending arrays and pendingBytes",
+    "flush bounded whole tokens via join/Buffer.from after existing add cap",
+    "oversized admitted whole token standalone buffer",
+    "final flush and Buffer.concat exact admitted byte total"
+  ],
+  "candidateUnchangedByExactReversal": [
+    "all source traversal and double reads",
+    "all eight assertion fastpaths and comparison/coercion order",
+    "finite/-0/undefined/escaping",
+    "cycle/own toJSON guards",
+    "per-call key-token cache and its cap/update order"
+  ],
+  "controls": "All original22 bytes including token architecture expectations preserved; appended sixgroups authorize no input container stringify or cache. 321 expected positive byte pairs authored, not observed.",
+  "recorderControlsCopiedForProvenanceOnly": "Original14 synthetic tests still expect generic22 report; no rerun/claim against this28 config. Reuse prior23 observed mechanism proof narrowly through exact normalized source.",
+  "recorderOperationalSubstitutionsOnly": [
+    "CONFIG_SHA",
+    "unique output prefix",
+    "benchmark expected status",
+    "expected controls groups 22 to28"
+  ],
+  "recorderQualifiedMechanismUnchanged": true,
+  "unrun": true
+}

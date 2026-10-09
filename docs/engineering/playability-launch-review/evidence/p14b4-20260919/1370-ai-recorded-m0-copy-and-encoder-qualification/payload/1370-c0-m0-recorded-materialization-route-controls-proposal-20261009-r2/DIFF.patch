@@ -1,0 +1,41 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1/test_changed_route.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r2/test_changed_route.py
+@@ -25,6 +25,10 @@
+   digest=role if isinstance(role,str) else role['sha256'];assert sha((source/name).read_bytes())==digest,name
+  reviewraw=Path(args.route_review).read_bytes();assert sha(reviewraw)==args.route_review_sha
+  review=json.loads(reviewraw);assert review['decision'].startswith('ACCEPT_SOURCE_ONLY_UNRUN')
++ assert review.get('sourcePinsSha256')==args.source_pins_sha,'source-pins review linkage'
++ template=json.loads((source/'BINDING-UNFILLED.json').read_bytes())
++ for key in ('productionHead','productionSourceTree'):
++  assert isinstance(pins.get(key),str) and bool(pins[key]) and pins[key]==template.get(key),'manifest/template '+key+' inconsistency'
+  assert review['recorderSha256']==sha((source/'record.py').read_bytes())
+  assert review['supervisorSha256']==sha((source/'supervise.py').read_bytes())
+  assert root.is_absolute() and root.parent==S and not os.path.lexists(root)
+@@ -67,6 +71,18 @@
+    return self.rec.validated_spec(path)
+  def test_01_noncircular_admission_positive(self):
+   self.assertEqual(self.admission()['productionHead'],self.template['productionHead'])
++ def test_01b_prepare_roles_before_output_reds(self):
++  for key in ('sourcePinsSha256','productionHead','productionSourceTree'):
++   w=self.workspace('prepare-'+key);source=w/'source';source.mkdir(mode=0o700)
++   # Own synthetic authenticated manifest; no code is imported by prepare.
++   for name in ('record.py','supervise.py','BINDING-UNFILLED.json'):(source/name).write_bytes((SOURCE/name).read_bytes())
++   manifest={'files':{name:{'sha256':sha((source/name).read_bytes())} for name in ('record.py','supervise.py','BINDING-UNFILLED.json')},'productionHead':self.template['productionHead'],'productionSourceTree':self.template['productionSourceTree']}
++   if key!='sourcePinsSha256':manifest[key]='wrong'
++   manifest_sha=put(source/'SOURCE-PINS.json',manifest);review=copy.deepcopy(REVIEW);review['sourcePinsSha256']='0'*64 if key=='sourcePinsSha256' else manifest_sha
++   review_sha=put(w/'review.json',review);out=w/'must-not-be-created';args=SimpleNamespace(source_dir=str(source),source_pins_sha=manifest_sha,route_review=str(w/'review.json'),route_review_sha=review_sha,output_root=str(out))
++   pattern='source-pins' if key=='sourcePinsSha256' else key
++   with self.subTest(role=key),self.assertRaisesRegex(AssertionError,pattern):prepare(args)
++   self.assertFalse(os.path.lexists(out))
+  def test_02_auth_source_review_semantic_reds(self):
+   mutations=[lambda s:s.update(status='DRAFT'),lambda s:s.update(executionAuthorization=False),lambda s:s.update(materializerSha256='0'*64),lambda s:s.update(recorderSha256='0'*64),lambda s:s.update(supervisorSha256='0'*64),lambda s:s.update(routeSourceReviewSha256='0'*64),lambda s:s.update(sourceSha='0'*40),lambda s:s.update(exactBindingReviewSha256='0'*64),lambda s:s.update(materializerArgv=s['materializerArgv']+['wrong'])]
+   for i,fn in enumerate(mutations):
+@@ -123,7 +139,7 @@
+    s['outputParent']=s['scratchParent']=str(w);Path(s[role]).mkdir();path=self.seal(s,w)
+    with self.subTest(role=role),patch.object(self.sup,'PARENT',w),self.assertRaises(self.sup.Stop):self.sup.read_roles(path)
+  def actual_stub(self,mode,timeout=False,final_cap=False):
+-  w=self.workspace(mode);s=self.accepted_mock_spec(w);s['mirrorPath']=s['scratchRoot']+'/owned-leaf';s['materializeReceiptPath']=s['scratchRoot']+'/owned-leaf.MATERIALIZE-RESULT.json';path=w/'binding.json';put(path,s)
++  w=self.workspace(mode);s=self.accepted_mock_spec(w);s['runId']='owned-leaf';s['mirrorPath']=s['scratchRoot']+'/'+s['runId'];s['materializeReceiptPath']=s['scratchRoot']+'/'+s['runId']+'.MATERIALIZE-RESULT.json';path=w/'binding.json';put(path,s)
+   s['materializerArgv']=[s['pythonPath'],'-I','-B',str(self.stub),mode,str(path)]
+   readfd,writefd=os.pipe();previous=os.environ.get('SPARSE_1370_SUPERVISOR_FD');os.environ['SPARSE_1370_SUPERVISOR_FD']=str(writefd)
+   try:

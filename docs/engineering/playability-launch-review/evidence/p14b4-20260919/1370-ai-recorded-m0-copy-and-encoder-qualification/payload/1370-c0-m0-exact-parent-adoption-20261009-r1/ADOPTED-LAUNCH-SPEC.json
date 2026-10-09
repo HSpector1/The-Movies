@@ -1,0 +1,41 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json"
+  ],
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "4cfdbc36dae7fab7dc0687b48f3c7d84abc94b8ac0aca146273306d96bd261e4",
+  "bindingSha256": "71e2db2dbe2dabfbf9d885002a9096e0e291d0ed315b92129f8098e5ceada78e",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactReview": {
+    "bytes": 5383,
+    "mode": 420,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "de74c395f9ed9633d74949c79c9f56b726f9554f89787084b21f9808bea56bd3"
+  },
+  "executionAuthorization": true,
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "helperSha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+  "note": "Parent adopted exactly five authorization fields after six-file original archive readback. External independent adopted preflight and parent actual grant remain required.",
+  "originalArchiveManifest": {
+    "bytes": 2712,
+    "mode": 420,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/ARCHIVE-MANIFEST.json",
+    "sha256": "7728b59ddd6b817b5372d8d0878b935b6bd9e9e0ea977589f9db5aceb4ab312b"
+  },
+  "schema": "1370-m0-recorded-materialization-launch-template-r3",
+  "status": "REVIEWED_ADOPTED_UNRUN_REQUIRES_EXTERNAL_PREFLIGHT",
+  "unexpectedHelperWait": "STOP; wait is outside930 wrapper clock"
+}

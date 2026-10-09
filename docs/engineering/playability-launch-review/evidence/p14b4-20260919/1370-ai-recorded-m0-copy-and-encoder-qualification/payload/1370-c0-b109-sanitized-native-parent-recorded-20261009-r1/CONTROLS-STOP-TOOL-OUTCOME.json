@@ -1,0 +1,32 @@
+{
+  "actualToolExit": 2,
+  "actualToolSession": 67483,
+  "benchmarkRan": false,
+  "cause": "Original child error unavailable; suspected fixture issue is unproven.",
+  "externalNumericOwnedPgid": null,
+  "head": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "heavyLockAbsent": true,
+  "helperMetaExit": 2,
+  "lanePins": [
+    {
+      "bytes": 254,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r2/controls.lane.log",
+      "sha256": "91188253a878c52d53fe3f178720d4f305516453114de3f6b87607264cc9aa81"
+    },
+    {
+      "bytes": 342,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r2/controls.lane.log.meta",
+      "sha256": "370e52861af7cef78b0800fb3a1c4ce6f069976ce337caa88e7a3bc937ccc1ce"
+    }
+  ],
+  "nativeControlQualificationAccepted": false,
+  "observedRecorderError": "RuntimeError('STOP_CHILD_EXIT_1')",
+  "outputDirectoryExists": true,
+  "outputFiles": [],
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r2",
+  "schema": "1370-native22-actual-stop-r1",
+  "sourceInferenceNotExternalNumericProbe": "Pinned recorder reaches CHILD_EXIT_1 assertion only after clear() returned groupclear and no failure; assertion escapes finally before buffered child stdout/stderr and RESULT preservation. Independent source-path review pending.",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "ACTUAL_CHILD_EXIT1_RECORDER_EXIT2_NO_RETAINED_CHILD_OUTPUT_PENDING_REVIEW",
+  "utc": "2026-10-09T16:03:20.582752+00:00"
+}

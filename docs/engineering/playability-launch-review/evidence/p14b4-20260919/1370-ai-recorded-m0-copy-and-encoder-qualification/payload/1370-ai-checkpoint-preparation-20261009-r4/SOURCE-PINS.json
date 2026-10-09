@@ -1,0 +1,26 @@
+{
+  "ADDED-ROLES.json": {
+    "bytes": 78530,
+    "sha256": "0b79d8b626d57936b8c2a9a549ff8c91b82b0183282ac6dc4ceda772ad6c9b42"
+  },
+  "COVERAGE-AUDIT.json": {
+    "bytes": 7137,
+    "sha256": "6c34fbc35a4de94a38e64efcd00b9cc7e45e341384d3250fbc32c65fd5e9218f"
+  },
+  "INVENTORY-DRAFT.json": {
+    "bytes": 528315,
+    "sha256": "5df165a5f9c13752fd270dd1458e7526a558cba310b09b3864658cabb9b13241"
+  },
+  "LOCAL-HASH-SIZE-ONLY.json": {
+    "bytes": 9267,
+    "sha256": "82b8e4aae963aa9fe42f4e22a4859b8d60a19244146dafe0c33bdb66cb036dc5"
+  },
+  "REPORT.md": {
+    "bytes": 1473,
+    "sha256": "28d007154e6edc4c2723af062cada893eedae2c21baf104457d5f0c9d28bfab6"
+  },
+  "SELECTED-DIRECTORIES.json": {
+    "bytes": 8019,
+    "sha256": "50276c9c3ecf1e2d4abd63cbbb60b7ae7b200d03503a04bc0b792b8a5282a433"
+  }
+}

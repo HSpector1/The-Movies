@@ -1,0 +1,106 @@
+{
+  "actualHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "executionAuthorization": false,
+  "files": {
+    "materializer": {
+      "byteIdenticalFunctionsOrClasses": [
+        "need",
+        "sha",
+        "remaining",
+        "free",
+        "guard",
+        "cmd",
+        "open_dir",
+        "attrs",
+        "exact_mode",
+        "write_all",
+        "pinned",
+        "safe_rel",
+        "expected_overlays",
+        "validate_manifest",
+        "verify_archive_roster",
+        "write_archive",
+        "apply_overlay",
+        "main"
+      ],
+      "newSha256": "dbc465cde82a458325660b4d61f0b1a05f57b227a6285d1979a675656e5a8d70",
+      "normalizedFullAstEqual": true,
+      "oldSha256": "3540d202d3a7cb6f6b44ca5a6ddc28f1c50147b5f580e2a084b98059c319852e",
+      "onlyListedLiteralSubstitutions": true,
+      "operationalLiteralChangedFunctionsOrClasses": [],
+      "sameFunctionNames": true
+    },
+    "recorder": {
+      "byteIdenticalFunctionsOrClasses": [
+        "update_free_minimum",
+        "write_once",
+        "still_alive",
+        "terminate",
+        "fork_ready",
+        "quick_guards",
+        "lane"
+      ],
+      "newSha256": "d8ea6a3652fdc2f09f81442e042eb166c9fbcb29f71f16f9ac911aa309625699",
+      "normalizedFullAstEqual": true,
+      "oldSha256": "b8df39f65b0f8fc60cc11eae4e67808aac3b1d78331d495f023b62684189c7f8",
+      "onlyListedLiteralSubstitutions": true,
+      "operationalLiteralChangedFunctionsOrClasses": [
+        "validated_spec"
+      ],
+      "sameFunctionNames": true
+    },
+    "supervisor": {
+      "byteIdenticalFunctionsOrClasses": [
+        "alive_group",
+        "kill_owned",
+        "watch",
+        "read_roles",
+        "write_once",
+        "DeadlineExpired",
+        "check_deadline",
+        "finalize_bound",
+        "supervise"
+      ],
+      "newSha256": "8eaf5fabdf298df579851b06f45d636b92393e235e8af6b5f2ec52fcfc0bd03f",
+      "normalizedFullAstEqual": true,
+      "oldSha256": "8eaf5fabdf298df579851b06f45d636b92393e235e8af6b5f2ec52fcfc0bd03f",
+      "onlyListedLiteralSubstitutions": true,
+      "operationalLiteralChangedFunctionsOrClasses": [],
+      "sameFunctionNames": true
+    }
+  },
+  "importsTestsScansMaterializationExecuted": false,
+  "literalSubstitutions": {
+    "materializer": {
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r1/ADOPTION.json": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r1": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r2",
+      "1370-c0-m0-observer-mirrors-20261009-r1": "1370-c0-m0-observer-mirrors-20261009-r2",
+      "1370-c0-m0-operational-materialization-lane-20261009-r1": "1370-c0-m0-operational-materialization-lane-20261009-r2",
+      "20261009-m0-types-r1": "20261009-m0-types-r2",
+      "c0d8e338c9f8a9dced79328711736323431903cabe7410091cc4f90191bd7f7d": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017",
+      "dcf2d60337d9310ba5caba028a1be8dc9be1ad26": "02d50716fe787eaed425b40f822ce91f4463deba"
+    },
+    "recordedRoute": {
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r1/ADOPTION.json": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r1": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r2",
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r1": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r2",
+      "1370-c0-m0-observer-mirrors-20261009-r1": "1370-c0-m0-observer-mirrors-20261009-r2",
+      "1370-c0-m0-operational-materialization-lane-20261009-r1": "1370-c0-m0-operational-materialization-lane-20261009-r2",
+      "1370-c0-m0-recorded-materialization-20261009-r1.lock": "1370-c0-m0-recorded-materialization-20261009-r2.lock",
+      "1370-c0-m0-recorded-materialization-output-20261009-r1": "1370-c0-m0-recorded-materialization-output-20261009-r2",
+      "20261009-m0-types-r1": "20261009-m0-types-r2",
+      "c0d8e338c9f8a9dced79328711736323431903cabe7410091cc4f90191bd7f7d": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017",
+      "dcf2d60337d9310ba5caba028a1be8dc9be1ad26": "02d50716fe787eaed425b40f822ce91f4463deba"
+    }
+  },
+  "materializerPredecessorPinsSha256": "9b97142a396c2eac4d0fb3aa77b70207863b50ba7a551d758973b8682fa97510",
+  "observerSourceChanged": false,
+  "oldHead": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "parentAdoptionPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+  "parentAdoptionSha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017",
+  "r9ReplayedOrCopied": false,
+  "routePredecessorPinsSha256": "939cc8b45f91f54afc1561003732c3dc8b0e43c654363b8793e9cc9ac8ce8c29",
+  "schema": "1370-m0-operational-rebind-body-proof-r2",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "SOURCE_PROPOSAL_UNRUN"
+}

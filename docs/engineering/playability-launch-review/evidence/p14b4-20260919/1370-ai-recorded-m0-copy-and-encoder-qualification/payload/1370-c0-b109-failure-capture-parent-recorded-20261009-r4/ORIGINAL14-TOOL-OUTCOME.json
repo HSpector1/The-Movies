@@ -1,0 +1,72 @@
+{
+  "actualToolExit": 0,
+  "actualToolSession": 51487,
+  "allCapturedOwnedGroupsFreshlyAbsent": true,
+  "elapsedTestSeconds": 0.634,
+  "heavyLockAbsent": true,
+  "helperMetaExit": 0,
+  "nodeDiagnostics": {
+    "SC_OPEN_MAX": 1048575,
+    "captureBytesCapPerStream": 65536,
+    "causeAttribution": "UNPROVEN",
+    "cleanupFailure": false,
+    "clearReturned": true,
+    "completionDeadlineMonotonic": 69091.367656263,
+    "completionDeadlineReached": false,
+    "contentPrefixBytesCap": 4096,
+    "diagnosticBytesCap": 32768,
+    "exactNodeEnvironmentArgvOutputAssertionsPassed": true,
+    "exitAfterCleanup": 0,
+    "exitBeforeCleanup": 0,
+    "expectedNodeVersion": "v20.20.2",
+    "freshGroupClear": true,
+    "outputAssertionFailure": false,
+    "ownedPgid": 97764,
+    "ownedPid": 97764,
+    "pgidConfirmed": true,
+    "primaryFailure": false,
+    "schema": "1370-b109-tiny-node-control-diagnostics-r4",
+    "stages": {
+      "beforeOwnedFork": 69081.367658561,
+      "cleanupFinished": 69081.860495875,
+      "cleanupStarted": 69081.860104295,
+      "completionWaitReturned": 69081.859385932,
+      "diagnosticsBeforeTemporaryRemoval": 69081.862870017,
+      "parentRegistrationReturned": 69081.368907511,
+      "readyGoReturned": 69081.370789543
+    },
+    "startupOwnedBeforeExec": true,
+    "stderr": {
+      "actualBytes": 0,
+      "contentTruncated": false,
+      "hashUnavailable": false,
+      "prefixBase64": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "actualBytes": 223,
+      "contentTruncated": false,
+      "hashUnavailable": false,
+      "prefixBase64": "eyJ2ZXJzaW9uIjoidjIwLjIwLjIiLCJvcHRpb25zIjpudWxsLCJwYXRoIjpudWxsLCJhcmd2IjpbIi1lIiwicHJvY2Vzcy5zdGRvdXQud3JpdGUoSlNPTi5zdHJpbmdpZnkoe3ZlcnNpb246cHJvY2Vzcy52ZXJzaW9uLG9wdGlvbnM6cHJvY2Vzcy5lbnYuTk9ERV9PUFRJT05TPz9udWxsLHBhdGg6cHJvY2Vzcy5lbnYuTk9ERV9QQVRIPz9udWxsLGFyZ3Y6cHJvY2Vzcy5leGVjQXJndn0pKSJdfQ==",
+      "sha256": "c25d84b6ba0020a3e956f19a0db77976d66e4c41e3047713cf20204dbd23e262"
+    },
+    "testDeadlineSeconds": 10,
+    "testStartedMonotonic": 69081.367656263
+  },
+  "pins": [
+    {
+      "bytes": 1994,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-original14-lane-20261009-r4/original14.lane.log",
+      "sha256": "06c4e28cd4a677fd8465a67c1935a3057e519e3bc556ab7a89985977d591ee81"
+    },
+    {
+      "bytes": 464,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-original14-lane-20261009-r4/original14.lane.log.meta",
+      "sha256": "04e2f13c48aa456d4317edec814eca5b841569d7ac016f0ee15a0faeffce1e71"
+    }
+  ],
+  "status": "ACTUAL_ORIGINAL14_PASS",
+  "temporaryFixturesGone": true,
+  "tests": 14,
+  "utc": "2026-10-09T16:23:00.713626+00:00"
+}

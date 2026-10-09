@@ -1,0 +1,28 @@
+{
+  "acceptedReadonlyHelperPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/materialize.py",
+  "acceptedReadonlyHelperSha256": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896",
+  "changedFunctions": [
+    "current",
+    "main"
+  ],
+  "executionAuthorization": false,
+  "helperModified": false,
+  "predecessorSnapshotPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/snapshot.py",
+  "predecessorSnapshotSha256": "ed43cd95fbbc13a2194338a8fe8dd48e05a56b1b77a4cdcb377f60ea17429740",
+  "schema": "1370-m0-full-guard-source-role-diff-r1",
+  "sourceArtifactReceiptHashesVerified": true,
+  "sourceImportsGuardScansTestsMaterializationExecuted": false,
+  "status": "SOURCE_PROPOSAL_UNRUN",
+  "syntaxParsedOnly": true,
+  "unchangedFunctions": [
+    "require",
+    "sha",
+    "canonical",
+    "read",
+    "write",
+    "dump",
+    "command",
+    "directory_identity",
+    "ancestry"
+  ]
+}

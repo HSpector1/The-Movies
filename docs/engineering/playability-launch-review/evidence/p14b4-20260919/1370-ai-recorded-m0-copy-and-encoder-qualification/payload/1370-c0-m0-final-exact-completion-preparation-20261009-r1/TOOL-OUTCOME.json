@@ -1,0 +1,12 @@
+{
+  "status": "ACTUAL_EXACT_JSON_COMPLETION_ZERO_HELD_UNRUN",
+  "actualCorrectedExit": 0,
+  "executionAuthorization": false,
+  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1",
+  "bindingRawSha256": "4d23bc3c74e0cc55aab85171dbe3b6ddfde25dc9eba86ea15e9b593740d60fca",
+  "bindingSemanticSha256": "4cfdbc36dae7fab7dc0687b48f3c7d84abc94b8ac0aca146273306d96bd261e4",
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "candidatePinsSha256": "1c9616427bf952e5fab3a3646fe51868b2a70dd4a8ba7878d0638e06645b4d26",
+  "preparationSyntaxStopPreserved": true,
+  "materializerImportsTestsFullscanGitOrLaunchExecuted": false
+}

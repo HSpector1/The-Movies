@@ -1,0 +1,193 @@
+{
+  "B109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "acPower": true,
+  "benchmarkOrGameAuthorized": false,
+  "bounds": [
+    60,
+    75,
+    90
+  ],
+  "captureMetadataCheckedOnly": {
+    "ctimeNs": "1791439909827355864",
+    "dev": "16777220",
+    "ino": "166406220",
+    "mode": "33188",
+    "mtimeNs": "1791439909827355864",
+    "nlink": "1",
+    "size": "141237093"
+  },
+  "docsOnlyPredecessor": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "earlierOwnedGroupsAbsent": [
+    38494,
+    43964,
+    48938
+  ],
+  "freeBytes": 6089515008,
+  "head": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "recipe": {
+    "argv": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r2/controls.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py",
+      "controls"
+    ],
+    "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+    "expectedActualExit": 0,
+    "laneDirectoryParentCreatesPrivateBeforeActualLaunch": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r2",
+    "mode": "controls",
+    "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r2"
+  },
+  "recorderMechanismsUnchangedPerIndependentReview": true,
+  "roles": [
+    {
+      "bytes": 1724,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "a5dd80809ee3d81ab584cd1610de49d92c4908211f519c1c1fb0d0959d13be78"
+    },
+    {
+      "bytes": 3911,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONFIG.json",
+      "sha256": "96d2da10a6e04cd8992fcb1fccd945c0a96543e6a9db6f8523c510c64926d389"
+    },
+    {
+      "bytes": 2478,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONFIG.json.diff",
+      "sha256": "c540588ba9d4a6cfd1d3d149cf1babf71029b58489e9a859a35592e1499720c3"
+    },
+    {
+      "bytes": 3788,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONTROL-RECIPE.json",
+      "sha256": "94bfc73784db8aff30b462809cf092a2ace7799b952c236be421ebb68953e166"
+    },
+    {
+      "bytes": 3358,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/REPORT.md",
+      "sha256": "9cc6837eda8fce0ea89361a53463c90437c95c4168a46dad1dbe6420c92bc615"
+    },
+    {
+      "bytes": 313,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/STATIC-CHECKS.json",
+      "sha256": "8484534877f77f051950ae814a0d20d5a9e661426e395d5d2be6f3912006f33d"
+    },
+    {
+      "bytes": 5253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+    },
+    {
+      "bytes": 2512,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs",
+      "sha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697"
+    },
+    {
+      "bytes": 1037,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs.diff",
+      "sha256": "0e0194844dec12d930b758707788eaa918e0cc5762c514351967c4f04c87415d"
+    },
+    {
+      "bytes": 14050,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py",
+      "sha256": "76a6076ad2f77b8645124675ae37ee231ad6f89efa5c6f659de1db2614372d45"
+    },
+    {
+      "bytes": 2947,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py.diff",
+      "sha256": "1208c601b34bfb49f537b96bc565db3c9e041ca127e37b1c58973b4d1504fc98"
+    },
+    {
+      "bytes": 10655,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs",
+      "sha256": "915f48c72a195d0d3e837f39b0da4e852bf8db4bf05dc0f39d4aa45fb4f43177"
+    },
+    {
+      "bytes": 3856,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs.diff",
+      "sha256": "68538bf576c0ee8726196f0c742b7d1528afb334a2b1b4b933ea710e679a1c5e"
+    },
+    {
+      "bytes": 12543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    },
+    {
+      "bytes": 1179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    {
+      "bytes": 5253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+    },
+    {
+      "bytes": 2512,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs",
+      "sha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697"
+    },
+    {
+      "bytes": 10655,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs",
+      "sha256": "915f48c72a195d0d3e837f39b0da4e852bf8db4bf05dc0f39d4aa45fb4f43177"
+    },
+    {
+      "bytes": 24196,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+    },
+    {
+      "bytes": 12543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    },
+    {
+      "bytes": 3074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    },
+    {
+      "bytes": 6165,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-independent-source-review-20261009-r2/RECEIPT.json",
+      "sha256": "d0f32d7f625128305ca62f2dcdef5a67d6b4738b6828d1df5e09e1d3e9c19a7e"
+    },
+    {
+      "bytes": 92324688,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+      "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+    },
+    {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    {
+      "bytes": 7493,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-node-control-observed-independent-review-20261009-r4/RECEIPT.json",
+      "sha256": "c7ea7604c061bfd40fcb07ef7815096aa9f524d1caf9b3d19b43a4436c4eca67"
+    }
+  ],
+  "schema": "1370-native22-parent-controls-grant-r1",
+  "sourceReviewReceiptSha256": "d0f32d7f625128305ca62f2dcdef5a67d6b4738b6828d1df5e09e1d3e9c19a7e",
+  "sourceReviewSha256": "a5dd80809ee3d81ab584cd1610de49d92c4908211f519c1c1fb0d0959d13be78",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "ADOPT_SOURCE_AND_GRANT_EXACT_PURE22_CONTROLS_ONLY",
+  "utc": "2026-10-09T16:01:34.409812+00:00",
+  "wholeProductionOrHistoricalGuardReuseClaim": false
+}

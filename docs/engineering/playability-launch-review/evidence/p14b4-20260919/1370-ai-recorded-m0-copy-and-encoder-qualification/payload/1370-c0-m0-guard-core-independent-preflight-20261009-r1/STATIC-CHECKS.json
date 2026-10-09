@@ -1,0 +1,14 @@
+{
+  "allCandidateAndPreparationPinsExact": true,
+  "authorizationAndReviewPointersNull": true,
+  "completeSupervisorHelperArgvAndEnvironment": true,
+  "exactSixCandidateFiles": true,
+  "freshAllOutputsAndLocksAbsent": true,
+  "freshExactAncestryEntries": 14,
+  "freshFiveToolBytesAndIdentities": true,
+  "freshStrictRoots": 9,
+  "gitLinkCount76Admitted": true,
+  "guardCoreComputed": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "pinnedFullGuardAndParentAndSourceRolesAuthenticated": 31,
+  "sourcePackageAndReviewAndArgvRolesExact": true
+}

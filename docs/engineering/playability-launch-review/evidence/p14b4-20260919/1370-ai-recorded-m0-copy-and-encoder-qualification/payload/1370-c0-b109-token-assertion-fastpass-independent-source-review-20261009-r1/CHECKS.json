@@ -1,0 +1,18 @@
+{
+  "all15PinsAuthenticated": true,
+  "all22TestsOtherwiseFullBytesExact": true,
+  "all4DiffsExact": true,
+  "all8ConfigRolesAuthenticated": true,
+  "benchmarkAndOriginal14Exact": true,
+  "configNonRoleFieldsExact": true,
+  "eightAssertionReverseFullBytesExact": true,
+  "expected22Groups283PairsUnrun": true,
+  "freshBothOutputAndLaneRolesAbsent": true,
+  "noObjectResultCache": true,
+  "noOriginalContainerStringifyOrProxyConstruction": true,
+  "perCallBoundedKeyTokenCacheUnchanged": true,
+  "qualifiedRecorderFullBytesExactAfterOnlyConfigOutputSubstitutions": true,
+  "sameFalseAssertArguments": true,
+  "sevenPredicatesBooleanOnceAndStrictUndefinedRefusal": true,
+  "twentyPortableGroupsPlusTwoAuthorizedArchitectureDeltas": true
+}

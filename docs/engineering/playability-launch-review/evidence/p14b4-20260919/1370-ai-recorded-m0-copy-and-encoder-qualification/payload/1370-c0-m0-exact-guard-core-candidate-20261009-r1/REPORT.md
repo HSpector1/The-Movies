@@ -1,0 +1,4 @@
+Exact guard core filled from accepted source templates and independently admitted full guard; execution disabled.
+Guard core SHA256 d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020
+Preflight and exact receipt pointers remain null. Root must independently accept guard core, insert preflight receipt, compute full semantic and launch/raw pins, independently review exact candidate, archive all six files, then adopt only five authorization fields. No launch or imported source.
+Strict roots/ancestry and five tool identities freshly matched/read; refs/process/FD/AC/disk are snapshot-time facts under parent freeze, not newly measured here. Fresh absent r2 output/mirror/lane/locks checked without deletion. Raw machine PS/FD not copied. No inventories/Git/tests/materializer/engine operations.

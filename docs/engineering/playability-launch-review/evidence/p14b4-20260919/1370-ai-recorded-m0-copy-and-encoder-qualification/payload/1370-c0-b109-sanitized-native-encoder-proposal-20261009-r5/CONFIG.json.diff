@@ -1,0 +1,44 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/CONFIG.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/CONFIG.json
+@@ -55,18 +55,18 @@
+     },
+     "benchmark": {
+       "bytes": 5253,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/benchmark-308.mjs",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/benchmark-308.mjs",
+       "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+     },
+     "candidate": {
+       "bytes": 2512,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/bounded-json-candidate.mjs",
+       "sha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697"
+     },
+     "controls": {
+-      "bytes": 10655,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs",
+-      "sha256": "915f48c72a195d0d3e837f39b0da4e852bf8db4bf05dc0f39d4aa45fb4f43177"
++      "bytes": 10744,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/test-encoder.mjs",
++      "sha256": "60c967d1701eb84d07ee4a18d58c490450ca06370c1c53f661201a269ca13e17"
+     },
+     "index": {
+       "bytes": 24196,
+@@ -75,7 +75,7 @@
+     },
+     "recorderControls": {
+       "bytes": 12543,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-recorder-repair.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/test-recorder-repair.py",
+       "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+     },
+     "targetResult": {
+@@ -84,6 +84,6 @@
+       "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+     }
+   },
+-  "schema": "1370-b109-sanitized-native-pure-encoder-config-r2",
+-  "status": "UNREVIEWED_UNRUN_SOURCE_PROPOSAL"
++  "schema": "1370-b109-sanitized-native-pure-encoder-config-r5",
++  "status": "UNREVIEWED_UNRUN_FIXTURE_DESCRIPTOR_ONLY_SOURCE_PROPOSAL"
+ }

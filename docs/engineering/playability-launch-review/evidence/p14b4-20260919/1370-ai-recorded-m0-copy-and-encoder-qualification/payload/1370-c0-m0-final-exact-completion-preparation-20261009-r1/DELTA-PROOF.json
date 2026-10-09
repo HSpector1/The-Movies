@@ -1,0 +1,55 @@
+{
+  "authorizationFieldsUnchanged": true,
+  "bindingChangedFields": [
+    "preflightReviewPath",
+    "preflightReviewSha256"
+  ],
+  "bindingRawSha256": "4d23bc3c74e0cc55aab85171dbe3b6ddfde25dc9eba86ea15e9b593740d60fca",
+  "candidateSixFiles": {
+    "BINDING-DRAFT.json": {
+      "bytes": 12008,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json",
+      "sha256": "4d23bc3c74e0cc55aab85171dbe3b6ddfde25dc9eba86ea15e9b593740d60fca"
+    },
+    "GUARD-PROOF-ROLES.json": {
+      "bytes": 16599,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/GUARD-PROOF-ROLES.json",
+      "sha256": "5e7f44d9840a16dcfd13b55f301e140e3dba553eeb6ab813e2a6f29b1f9f58a6"
+    },
+    "IDENTITY.json": {
+      "bytes": 4796,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/IDENTITY.json",
+      "sha256": "b699168dbb3ca9c709d70df29b17ae0ec8cb04b77b5748773e185886c8cd2050"
+    },
+    "LAUNCH-SPEC.json": {
+      "bytes": 1737,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/LAUNCH-SPEC.json",
+      "sha256": "240411095b9493ee8027f438187e6cedc9612c46a81533618ca2bf488dc18f1f"
+    },
+    "PINS.json": {
+      "bytes": 947,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/PINS.json",
+      "sha256": "1c9616427bf952e5fab3a3646fe51868b2a70dd4a8ba7878d0638e06645b4d26"
+    },
+    "REPORT.md": {
+      "bytes": 1205,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/REPORT.md",
+      "sha256": "2bd84e1f44ebd2506ca94c7ae9a0c4a71abbf1fa65ac24fb182dd6cb3947dc36"
+    }
+  },
+  "exactReviewFieldsNull": true,
+  "executionAuthorization": false,
+  "finalPreflightPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-guard-core-independent-preflight-20261009-r1/FINAL-RECEIPT.json",
+  "finalPreflightSha256": "742d071a72b97ebe1112ebb34482d078d0a335c56dbbad2492eb7601fc1b89fb",
+  "fullSemanticSha256": "4cfdbc36dae7fab7dc0687b48f3c7d84abc94b8ac0aca146273306d96bd261e4",
+  "guardCoreBeforeAndAfterEqual": true,
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "identityByteExact": true,
+  "newCandidate": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1",
+  "noMaterializerImportTestsFullscanGitOrLaunch": true,
+  "noNewBindingKeys": true,
+  "originalCandidate": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-guard-core-candidate-20261009-r1",
+  "originalCandidatePinsSha256": "c3783530939165ca2a32732b10ef3ff950a707e3eac83fe14027e24facec3c99",
+  "originalSixFilesRereadByteExact": true,
+  "status": "ACTUAL_FINITE_COMPLETION_HELD_UNRUN"
+}

@@ -1,0 +1,1038 @@
+{
+  "absentRuntimePaths": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2.MATERIALIZE-RESULT.json",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-20261009-r2.lock",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log.meta",
+    "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK"
+  ],
+  "archiveFilesVerified": 6,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json"
+  ],
+  "bindingSemanticSha256": "4cfdbc36dae7fab7dc0687b48f3c7d84abc94b8ac0aca146273306d96bd261e4",
+  "bindingSha256": "71e2db2dbe2dabfbf9d885002a9096e0e291d0ed315b92129f8098e5ceada78e",
+  "changedBindingFields": [
+    "exactBindingReviewDecision",
+    "exactBindingReviewPath",
+    "exactBindingReviewSha256",
+    "executionAuthorization",
+    "status"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "--no-optional-locks",
+        "-C",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "seconds": 0.03710212699661497,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 41,
+      "stdoutSha256": "4b1be45687efd3a555a05deafa649511f016ccc9e5845f88439d314419e23ffc"
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "--no-optional-locks",
+        "-C",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "rev-parse",
+        "HEAD:src"
+      ],
+      "exit": 0,
+      "seconds": 0.039630448998650536,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 41,
+      "stdoutSha256": "95b9b4ed07684cb46d666470c725fe429e2ab32e5249be84c239d2f7abbab351"
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "--no-optional-locks",
+        "-C",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all"
+      ],
+      "exit": 0,
+      "seconds": 0.4832796490081819,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "--no-optional-locks",
+        "-C",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "ls-remote",
+        "--exit-code",
+        "origin",
+        "refs/heads/wip/headless-program-20260916-ts"
+      ],
+      "exit": 0,
+      "seconds": 0.6290775219968054,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 85,
+      "stdoutSha256": "3b14363937f69781b02197a72058e3172d70c7210f6f121aa874a072b11d0d52"
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "--no-optional-locks",
+        "-C",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "seconds": 0.03161672499845736,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 41,
+      "stdoutSha256": "4e8166336bfdd03e65782ce4052123fd598a59166d9984039dbf4be3e6ddfd67"
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "--no-optional-locks",
+        "-C",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+        "rev-parse",
+        "HEAD:src"
+      ],
+      "exit": 0,
+      "seconds": 0.05197804699128028,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 41,
+      "stdoutSha256": "e06f4b3bf6818c5fa85146a67154c51cd484832299596d23a4fc9e0366bb6659"
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "--no-optional-locks",
+        "-C",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all"
+      ],
+      "exit": 0,
+      "seconds": 0.1683938510104781,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/usr/sbin/sysctl",
+        "-n",
+        "kern.bootsessionuuid"
+      ],
+      "exit": 0,
+      "seconds": 0.00520553499518428,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 37,
+      "stdoutSha256": "382e2f00ecef519e5a9470710b8847009f186abeef138fafd98ebf8e9277c387"
+    },
+    {
+      "argv": [
+        "/usr/bin/pmset",
+        "-g",
+        "batt"
+      ],
+      "exit": 0,
+      "seconds": 0.02519132501038257,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 105,
+      "stdoutSha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    {
+      "argv": [
+        "/bin/ps",
+        "-axo",
+        "pid=,ppid=,pgid=,lstart=,state=,comm=,args="
+      ],
+      "exit": 0,
+      "localOnlyStdout": {
+        "archiveBytes": false,
+        "bytes": 104188,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-adopted-preflight-current-local-only-20261009-r1/ps.raw",
+        "sha256": "ad4077fda76ce313eaccd06c873f61918e12999209de262d0b307e9ec23b6a96"
+      },
+      "seconds": 0.10433468199335039,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 104188,
+      "stdoutSha256": "ad4077fda76ce313eaccd06c873f61918e12999209de262d0b307e9ec23b6a96"
+    },
+    {
+      "argv": [
+        "/usr/sbin/lsof",
+        "-n",
+        "-P",
+        "-w",
+        "-F0pftan"
+      ],
+      "exit": 0,
+      "localOnlyStdout": {
+        "archiveBytes": false,
+        "bytes": 669673,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-adopted-preflight-current-local-only-20261009-r1/fd.raw",
+        "sha256": "7527a03cd39cf53cae9302ed46a99a109f8af477b33d658716dc1ea5c104541a"
+      },
+      "seconds": 0.4708843909902498,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 669673,
+      "stdoutSha256": "7527a03cd39cf53cae9302ed46a99a109f8af477b33d658716dc1ea5c104541a"
+    }
+  ],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "elapsedSeconds": 2.243768883010489,
+  "engineExecuted": false,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "finishedUtc": "2026-10-09T17:31:52.952211+00:00",
+  "freeBytes": 5618561024,
+  "fullBaselineReuseUnderParentMaintainedFreeze": true,
+  "fullInventoryRepeated": false,
+  "fullPostflightRequired": true,
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "otherOriginalFilesVerified": 5,
+  "ownedGroupsAbsent": [
+    85073,
+    80407,
+    6563,
+    3779,
+    18930,
+    18939,
+    18940,
+    18944,
+    18947,
+    18948,
+    18950,
+    18952,
+    18954,
+    18956,
+    18957,
+    18958,
+    18959,
+    18961,
+    18968,
+    18972,
+    96706,
+    98020
+  ],
+  "protectedFdCheck": {
+    "matchedEntries": 2,
+    "numericEntries": 0,
+    "scopes": [
+      "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+      "/Users/zacheryspector/The-Movies-headless-program",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
+      "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2"
+    ],
+    "unknownNumericAccessEntries": 0,
+    "writeAccessEntries": 0
+  },
+  "roles": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/materialize.py": {
+      "bytes": 30502,
+      "identity": [
+        16777220,
+        166558815,
+        420,
+        1,
+        30502,
+        1791496305438062287,
+        1791496305438062287
+      ],
+      "sha256": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-independent-review-r2/M0-RECEIPT.json": {
+      "bytes": 1201,
+      "identity": [
+        16777220,
+        166416036,
+        420,
+        1,
+        1201,
+        1791450289798429799,
+        1791450289798429799
+      ],
+      "sha256": "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-r2/M0-SOURCE-MANIFEST.json": {
+      "bytes": 7400,
+      "identity": [
+        16777220,
+        166415980,
+        420,
+        1,
+        7400,
+        1791450174207414479,
+        1791450174207414479
+      ],
+      "sha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTED-LAUNCH-SPEC.json": {
+      "bytes": 2274,
+      "identity": [
+        16777220,
+        166750935,
+        420,
+        1,
+        2274,
+        1791566581063915129,
+        1791566581063915129
+      ],
+      "sha256": "e58ea56079b2dfc48bfb321ed9452e3ea5e373ae6a7a153768c77a9c8959ef79"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTION.json": {
+      "bytes": 2964,
+      "identity": [
+        16777220,
+        166750936,
+        420,
+        1,
+        2964,
+        1791566581066523416,
+        1791566581066523416
+      ],
+      "sha256": "364fab7501f5a5917e3425703773c88f5a0e49de1b518fcda209074751a285e8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/grant_and_launch.py": {
+      "bytes": 5021,
+      "identity": [
+        16777220,
+        166750957,
+        420,
+        1,
+        5021,
+        1791566664375333339,
+        1791566664375333339
+      ],
+      "sha256": "08d9fd638eb173997a6fd42124dc2061b54e3f20a408ad98329a021ac625af2e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/ARCHIVE-MANIFEST.json": {
+      "bytes": 2712,
+      "identity": [
+        16777220,
+        166750933,
+        420,
+        1,
+        2712,
+        1791566581055733930,
+        1791566581055733930
+      ],
+      "sha256": "7728b59ddd6b817b5372d8d0878b935b6bd9e9e0ea977589f9db5aceb4ab312b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/BINDING-DRAFT.json": {
+      "bytes": 12008,
+      "identity": [
+        16777220,
+        166750927,
+        384,
+        1,
+        12008,
+        1791566581042189256,
+        1791566581042189256
+      ],
+      "sha256": "4d23bc3c74e0cc55aab85171dbe3b6ddfde25dc9eba86ea15e9b593740d60fca"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/GUARD-PROOF-ROLES.json": {
+      "bytes": 16599,
+      "identity": [
+        16777220,
+        166750930,
+        384,
+        1,
+        16599,
+        1791566581048197724,
+        1791566581048197724
+      ],
+      "sha256": "5e7f44d9840a16dcfd13b55f301e140e3dba553eeb6ab813e2a6f29b1f9f58a6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/IDENTITY.json": {
+      "bytes": 4796,
+      "identity": [
+        16777220,
+        166750929,
+        384,
+        1,
+        4796,
+        1791566581046236855,
+        1791566581046236855
+      ],
+      "sha256": "b699168dbb3ca9c709d70df29b17ae0ec8cb04b77b5748773e185886c8cd2050"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/LAUNCH-SPEC.json": {
+      "bytes": 1737,
+      "identity": [
+        16777220,
+        166750928,
+        384,
+        1,
+        1737,
+        1791566581044096283,
+        1791566581044096283
+      ],
+      "sha256": "240411095b9493ee8027f438187e6cedc9612c46a81533618ca2bf488dc18f1f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/PINS.json": {
+      "bytes": 947,
+      "identity": [
+        16777220,
+        166750932,
+        384,
+        1,
+        947,
+        1791566581054037571,
+        1791566581054037571
+      ],
+      "sha256": "1c9616427bf952e5fab3a3646fe51868b2a70dd4a8ba7878d0638e06645b4d26"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/REPORT.md": {
+      "bytes": 1205,
+      "identity": [
+        16777220,
+        166750931,
+        384,
+        1,
+        1205,
+        1791566581052042000,
+        1791566581052042000
+      ],
+      "sha256": "2bd84e1f44ebd2506ca94c7ae9a0c4a71abbf1fa65ac24fb182dd6cb3947dc36"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/diagnostic.test.ts": {
+      "bytes": 12710,
+      "identity": [
+        16777220,
+        166415853,
+        420,
+        1,
+        12710,
+        1791450016103790904,
+        1791450016103790904
+      ],
+      "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "identity": [
+        16777220,
+        166415847,
+        420,
+        1,
+        4729,
+        1791447368156572368,
+        1791450016096507247
+      ],
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/modern-opportunityPromises.ts": {
+      "bytes": 24797,
+      "identity": [
+        16777220,
+        166415854,
+        420,
+        1,
+        24797,
+        1791446893761588416,
+        1791450016101274153
+      ],
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/modern-promises.ts": {
+      "bytes": 112969,
+      "identity": [
+        16777220,
+        166415852,
+        420,
+        1,
+        112969,
+        1791447283363552150,
+        1791450016099812074
+      ],
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/modern-talentMarket.ts": {
+      "bytes": 116906,
+      "identity": [
+        16777220,
+        166415845,
+        420,
+        1,
+        116906,
+        1791449737639471911,
+        1791450016095025097
+      ],
+      "sha256": "71c775336c581fb5c5ad8923d4648bc8bf492ee38f235214f861fd1d0e7ac804"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json": {
+      "bytes": 12182,
+      "identity": [
+        16777220,
+        166750934,
+        384,
+        1,
+        12182,
+        1791566581059354252,
+        1791566581061225816
+      ],
+      "sha256": "71e2db2dbe2dabfbf9d885002a9096e0e291d0ed315b92129f8098e5ceada78e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/GUARD-PROOF-ROLES.json": {
+      "bytes": 16599,
+      "identity": [
+        16777220,
+        166750273,
+        384,
+        1,
+        16599,
+        1791565892743367981,
+        1791565892743367981
+      ],
+      "sha256": "5e7f44d9840a16dcfd13b55f301e140e3dba553eeb6ab813e2a6f29b1f9f58a6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/IDENTITY.json": {
+      "bytes": 4796,
+      "identity": [
+        16777220,
+        166750272,
+        384,
+        1,
+        4796,
+        1791565892741734750,
+        1791565892741734750
+      ],
+      "sha256": "b699168dbb3ca9c709d70df29b17ae0ec8cb04b77b5748773e185886c8cd2050"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/LAUNCH-SPEC.json": {
+      "bytes": 1737,
+      "identity": [
+        16777220,
+        166750271,
+        384,
+        1,
+        1737,
+        1791565892739962356,
+        1791565892739962356
+      ],
+      "sha256": "240411095b9493ee8027f438187e6cedc9612c46a81533618ca2bf488dc18f1f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/PINS.json": {
+      "bytes": 947,
+      "identity": [
+        16777220,
+        166750275,
+        384,
+        1,
+        947,
+        1791565892746919788,
+        1791565892746919788
+      ],
+      "sha256": "1c9616427bf952e5fab3a3646fe51868b2a70dd4a8ba7878d0638e06645b4d26"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/REPORT.md": {
+      "bytes": 1205,
+      "identity": [
+        16777220,
+        166750274,
+        384,
+        1,
+        1205,
+        1791565892745211536,
+        1791565892745211536
+      ],
+      "sha256": "2bd84e1f44ebd2506ca94c7ae9a0c4a71abbf1fa65ac24fb182dd6cb3947dc36"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-independent-review-20261009-r1/RECEIPT.json": {
+      "bytes": 5383,
+      "identity": [
+        16777220,
+        166750674,
+        420,
+        1,
+        5383,
+        1791566246848513980,
+        1791566246848513980
+      ],
+      "sha256": "de74c395f9ed9633d74949c79c9f56b726f9554f89787084b21f9808bea56bd3"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/AFTER-FILL-SCOPE-CLARIFICATION.json": {
+      "bytes": 2871,
+      "identity": [
+        16777220,
+        166750059,
+        384,
+        1,
+        2871,
+        1791565713380795896,
+        1791565713380923337
+      ],
+      "sha256": "93a585e81b1393c78740d68020ec47eba7ba37d1274f57abeb3a61c72e0353fe"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-guard-core-independent-preflight-20261009-r1/FINAL-RECEIPT.json": {
+      "bytes": 6996,
+      "identity": [
+        16777220,
+        166750126,
+        420,
+        1,
+        6996,
+        1791565778347320959,
+        1791565778347320959
+      ],
+      "sha256": "742d071a72b97ebe1112ebb34482d078d0a335c56dbbad2492eb7601fc1b89fb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json": {
+      "bytes": 1496,
+      "identity": [
+        16777220,
+        166743114,
+        420,
+        1,
+        1496,
+        1791561694442348218,
+        1791561694442348218
+      ],
+      "sha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-observed-review-20261009-r1/RECEIPT.json": {
+      "bytes": 2381,
+      "identity": [
+        16777220,
+        166749670,
+        420,
+        1,
+        2381,
+        1791565240221457714,
+        1791565240221457714
+      ],
+      "sha256": "fe5073d75831162fb0de0ee702a38ed92e795c2f269c7621982bda2b97324fcf"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-independent-source-review-20261009-r3/RECEIPT.json": {
+      "bytes": 1689,
+      "identity": [
+        16777220,
+        166743551,
+        420,
+        1,
+        1689,
+        1791562345690083091,
+        1791562345690083091
+      ],
+      "sha256": "3842280e52b19638430bf183ec54fd8af1f83397ebfcd504898248b83f9cfd9c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r3/ARGV-PROPOSED.json": {
+      "bytes": 2427,
+      "identity": [
+        16777220,
+        166743521,
+        420,
+        1,
+        2427,
+        1791562281218211753,
+        1791562281218211753
+      ],
+      "sha256": "efd6988396345b3746dd4461dcdd27b644620808ace445678b793740869805f2"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r3/BINDING-PROPOSED.json": {
+      "bytes": 2870,
+      "identity": [
+        16777220,
+        166743522,
+        420,
+        1,
+        2870,
+        1791562281218661790,
+        1791562281218661790
+      ],
+      "sha256": "fd4e5e6ca4c9ca5718416103b28e43b88129accdc85a7e718110fdac90cb98ba"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r3/PLAN.md": {
+      "bytes": 1147,
+      "identity": [
+        16777220,
+        166743525,
+        420,
+        1,
+        1147,
+        1791562281220229251,
+        1791562281220229251
+      ],
+      "sha256": "0e802285f0dddee22d3524e8289f1e816ed92194007f663035082f5e421a72a6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r3/REPAIR-AND-LITERAL-PROOF.json": {
+      "bytes": 2727,
+      "identity": [
+        16777220,
+        166743524,
+        420,
+        1,
+        2727,
+        1791562281219995625,
+        1791562281219995625
+      ],
+      "sha256": "a850389ed5869d7254a987916599aa584be325fdea1af2ea48f100c1a6ed3a07"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r3/SOURCE-DIFF.patch": {
+      "bytes": 903,
+      "identity": [
+        16777220,
+        166743523,
+        420,
+        1,
+        903,
+        1791562281219554724,
+        1791562281219554724
+      ],
+      "sha256": "c0f2e097e2a36a8a3688ee21ee7a04cc96a161ebf9cf6212db1bebfa9d319335"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r3/SOURCE-PINS.json": {
+      "bytes": 1529,
+      "identity": [
+        16777220,
+        166743526,
+        420,
+        1,
+        1529,
+        1791562281221474947,
+        1791562281221474947
+      ],
+      "sha256": "c08d9acd5eaddd721aa7867a109c62eb6081cad0ffa182ba95fbd2d66c6873b6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r3/materialize.py": {
+      "bytes": 14964,
+      "identity": [
+        16777220,
+        166743520,
+        420,
+        1,
+        14964,
+        1791562281193576724,
+        1791562281193576724
+      ],
+      "sha256": "d906c1ba2631bee45a50c64348757b29a75c20dc53458d765c340e137e0b50d5"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-independent-source-review-20261009-r3/RECEIPT.json": {
+      "bytes": 1523,
+      "identity": [
+        16777220,
+        166743897,
+        420,
+        1,
+        1523,
+        1791562649275041019,
+        1791562649275041019
+      ],
+      "sha256": "77889570601c9b25f182047de35fc7dc245f9b68b59ff039924323e4a92f82d6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/ADOPTION-PROCEDURE.md": {
+      "bytes": 6336,
+      "identity": [
+        16777220,
+        166743712,
+        420,
+        1,
+        6336,
+        1791562436289674327,
+        1791562436289674327
+      ],
+      "sha256": "a4e2b37f469f642b97519514083325d824ec59623555a4a2cb2745be5d13f566"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/BINDING-UNFILLED.json": {
+      "bytes": 6945,
+      "identity": [
+        16777220,
+        166743705,
+        420,
+        1,
+        6945,
+        1791562436241967436,
+        1791562436241967436
+      ],
+      "sha256": "cb9ea189349e8439ba40b6886bc1dccf7bde690148112f5bde7888f746be0e2a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/CHANGED-CONTROLS.md": {
+      "bytes": 3807,
+      "identity": [
+        16777220,
+        166743713,
+        420,
+        1,
+        3807,
+        1791562436290102937,
+        1791562436290102937
+      ],
+      "sha256": "b0a619698973f19b5adb498a3b368202efe92a704fcfc73b297ca03de4d7d388"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/COMPLETE-ROLES-AND-BODY-PROOF.json": {
+      "bytes": 1804,
+      "identity": [
+        16777220,
+        166743709,
+        420,
+        1,
+        1804,
+        1791562436287329936,
+        1791562436287329936
+      ],
+      "sha256": "16c315d8d7af0c1f3e0b33117a082be47924387d3e5a59b2490ed5c40901be95"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/GUARD-TRANSITION.md": {
+      "bytes": 5137,
+      "identity": [
+        16777220,
+        166743711,
+        420,
+        1,
+        5137,
+        1791562436289203219,
+        1791562436289203219
+      ],
+      "sha256": "5d8b603360e1bd4e74bc24dd6c3fdf783f9c6631ca6f7bf7c1edc400446a416a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/LAUNCH-UNFILLED.json": {
+      "bytes": 1327,
+      "identity": [
+        16777220,
+        166743706,
+        420,
+        1,
+        1327,
+        1791562436243109624,
+        1791562436243109624
+      ],
+      "sha256": "e031d13597e8cc428dd0fc521bf00200afd3befa59b4110b7d879e7d7118c4bb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/PLAN.md": {
+      "bytes": 4685,
+      "identity": [
+        16777220,
+        166743710,
+        420,
+        1,
+        4685,
+        1791562436288609907,
+        1791562436288609907
+      ],
+      "sha256": "22f496f1c2afa0308f58434afeb167f0ff712cb508803eafecee979ffb6da914"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/SOURCE-PINS.json": {
+      "bytes": 2335,
+      "identity": [
+        16777220,
+        166743714,
+        420,
+        1,
+        2335,
+        1791562436291903396,
+        1791562436291903396
+      ],
+      "sha256": "a37f4ffc9d315f0a621e9544776d7917d294f927adc1c1adfcf998700cc526c4"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/record.py": {
+      "bytes": 21430,
+      "identity": [
+        16777220,
+        166743703,
+        420,
+        1,
+        21430,
+        1791562436223265579,
+        1791562436223265579
+      ],
+      "sha256": "5752b2988c8bc5b649ed2f39153dad95f4cdc3b9793396865fa3989f8f75fb7a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/record.py.DIFF.patch": {
+      "bytes": 970,
+      "identity": [
+        16777220,
+        166743707,
+        420,
+        1,
+        970,
+        1791562436246526083,
+        1791562436246526083
+      ],
+      "sha256": "54d08593cc50393fc495e64ddb8ae7a9b85323d87b46486ce02f7b72a9cbdbfd"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/supervise.py": {
+      "bytes": 15375,
+      "identity": [
+        16777220,
+        166743704,
+        420,
+        1,
+        15375,
+        1791562436223973229,
+        1791562436223973229
+      ],
+      "sha256": "8eaf5fabdf298df579851b06f45d636b92393e235e8af6b5f2ec52fcfc0bd03f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/supervise.py.DIFF.patch": {
+      "bytes": 0,
+      "identity": [
+        16777220,
+        166743708,
+        420,
+        1,
+        0,
+        1791562436248731238,
+        1791562436248731238
+      ],
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": {
+      "bytes": 3361,
+      "identity": [
+        16777220,
+        166476929,
+        420,
+        1,
+        3361,
+        1791474364204870184,
+        1791474364204870184
+      ],
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "/usr/bin/git": {
+      "bytes": 167120,
+      "identity": [
+        16777220,
+        1152921500312781356,
+        493,
+        76,
+        167120,
+        1721213367000000000,
+        1721213367000000000
+      ],
+      "sha256": "fe38fea56d944c3b7e9df10617b1fa5432d7b75cc346d7eacb607d083ea11711"
+    },
+    "/usr/bin/pmset": {
+      "bytes": 400608,
+      "identity": [
+        16777220,
+        1152921500312782445,
+        493,
+        1,
+        400608,
+        1721213367000000000,
+        1721213367000000000
+      ],
+      "sha256": "de2d7c69b8c1375a652484ba429ea4605f0458a9340ce1c5130ed1dd782218df"
+    },
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14": {
+      "bytes": 50472,
+      "identity": [
+        16777220,
+        72062271,
+        493,
+        1,
+        50472,
+        1777768792071538162,
+        1777768792073003377
+      ],
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "/usr/sbin/lsof": {
+      "bytes": 340288,
+      "identity": [
+        16777220,
+        1152921500312789974,
+        493,
+        1,
+        340288,
+        1721213367000000000,
+        1721213367000000000
+      ],
+      "sha256": "40659ac68e85f56955736c06eadbd8864a65da3bf4827029fc845129b5165258"
+    },
+    "/usr/sbin/sysctl": {
+      "bytes": 151680,
+      "identity": [
+        16777220,
+        1152921500312790132,
+        493,
+        1,
+        151680,
+        1721213367000000000,
+        1721213367000000000
+      ],
+      "sha256": "c266586ca2cd39ea836e23ad932646144c53f71ebb1f9a493abeb865d90cbd21"
+    }
+  },
+  "schema": "m0-independent-adopted-current-audit/v1",
+  "sourceImported": false,
+  "sourcePackageFileCounts": [
+    6,
+    11
+  ],
+  "startedUtc": "2026-10-09T17:31:50.708061+00:00",
+  "status": "ACCEPT_CURRENT_BOUNDED_READONLY"
+}

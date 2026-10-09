@@ -1,0 +1,17 @@
+{
+  "addedControlScope": "Three synthetic F2 mismatch admissions in one tiny unittest group; no broad suite expansion.",
+  "executionAuthorization": false,
+  "operationalHeadGuessedOrRebound": false,
+  "originalSourceChanged": false,
+  "predecessorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r1",
+  "predecessorSourcePinsSha256": "2d6c05cf16815ac6869e78c057f4321e3c7be48b7209d1331f7f78bed01f1d50",
+  "refineReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-independent-source-review-20261009-r1/RECEIPT.json",
+  "refineReceiptSha256": "82e96f43c2d248caf866760844ab080ff74d56357b1008524dba4277ec00dd9d",
+  "repairs": [
+    "F1 owned stub runId equals mirror leaf basename before binding write",
+    "F2 authenticated review/source-pins plus manifest/template HEAD/tree linkage before imports/output creation"
+  ],
+  "schema": "1370-m0-changed-route-controls-repair-r2",
+  "status": "SOURCE_PROPOSAL_UNRUN",
+  "testsImportsGuardScansMaterializationGameExecuted": false
+}

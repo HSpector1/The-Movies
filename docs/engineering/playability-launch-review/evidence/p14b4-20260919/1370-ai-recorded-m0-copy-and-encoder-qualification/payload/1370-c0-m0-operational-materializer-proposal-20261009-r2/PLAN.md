@@ -1,0 +1,5 @@
+# M0 materializer operational rebind r2 — unrun
+
+Only operational globals change from accepted r1: actual AH HEAD, pinned parent adoption path/hash and new isolated output parent. All 18 function ASTs, including main, are identical. Accepted M0 r10 scientific source, source manifest/review,900 bound/caps and protected H scope are unchanged. New runId/output/lane/source paths are supplied in templates; paths have NOT been freshly observed absent. New materializer source acceptance and recorded route/exact/current/full guard admission remain required. Old dcf2 source/receipt do not transfer acceptance by implication. No imports, execution, tests, scans or Git commands were run.
+
+See SOURCE-DIFF.patch and REBINDS-AND-BODY-PROOF.json for exact substitutions and equality. Parent design adoption is /Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json SHA 476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017. Current production is 02d50716fe787eaed425b40f822ce91f4463deba; src 13880d9b0ba72aff5d4c5bcf5d12fe682c5de554. The original H-first/H8708 gates remain unchanged. No R9 replay or copy.

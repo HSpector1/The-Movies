@@ -1,0 +1,5 @@
+# M0 materializer r3 relative adoption-path repair — unrun
+
+Fixes the actual relative PARENT_ADOPTION literal missed by the r2 substitution. The source now reads r2 parent ADOPTION.json whose SHA is476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017 and whose guarded HEAD is02d50716fe787eaed425b40f822ce91f4463deba. No other executable source bytes change. All18 function AST bodies are identical to r2; each actual top-level path was parsed and compared individually, and three literal receipt paths were read and hashed without importing source.
+
+Fresh source package path and resulting source/argv hashes change; the unconsumed isolated output parent,20261009-m0-types-r2 run ID and lane remainr2 to avoid unnecessary root churn. Old r1/r2 source, STOP/refinement receipts and intended-substitution proof are preserved. No execution, imports, fullscan, exact fill or protected mutation. Independent acceptance of this materializer must precede complete recorded-route pinning so that its template contains the actual accepted materializer review. Scientific r10 source,900 bound/caps, protected H/R9 and scope remain unchanged.

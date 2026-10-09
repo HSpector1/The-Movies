@@ -1,0 +1,62 @@
+{
+  "CONFIG.json": {
+    "bytes": 3931,
+    "sha256": "3fd3b21c188b7a8b6991dcb2e10c894f7674a5e3c2bd12a6bafe322a283e941e"
+  },
+  "CONFIG.json.diff": {
+    "bytes": 2571,
+    "sha256": "f05c6c01a9e42a5c4837e88231f950f64ecd3feaf80aa6877fcbe1ac74d81fdc"
+  },
+  "CONTROL-RECIPE.json": {
+    "bytes": 3214,
+    "sha256": "4138de4128ec33d67602beff63ae8decb3275749fd87bab091b1659055ea7d54"
+  },
+  "REPORT.md": {
+    "bytes": 3864,
+    "sha256": "c708a4a2a8814db33831099cef5df4d8a4b205c50f43ae69875b26be4d481f11"
+  },
+  "SOURCE-EQUIVALENCE.json": {
+    "bytes": 5325,
+    "sha256": "194ae57cc0074af562096023a6d7d2fe89ef3c38b8bfb64dc1562e1c45559c1c"
+  },
+  "STATIC-CHECKS.json": {
+    "bytes": 434,
+    "sha256": "32c77c206d63a1f893fc030e076a484b51a1723cf0aa1135494b35a96ca55419"
+  },
+  "benchmark-308.mjs": {
+    "bytes": 5253,
+    "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+  },
+  "bounded-json-candidate.mjs": {
+    "bytes": 2492,
+    "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+  },
+  "bounded-json-candidate.mjs.diff": {
+    "bytes": 3113,
+    "sha256": "bc958715ddd93ccee39e9f66534568a8c5d58cbe306eb7b91f7b13fe426fb482"
+  },
+  "record-pure-node.py": {
+    "bytes": 14248,
+    "sha256": "89abbb1db46f0bba3d1c177fa274b00dcd556975340d6f960c38972afe0c7be5"
+  },
+  "record-pure-node.py.diff": {
+    "bytes": 1136,
+    "sha256": "eafde43c69bc2f484e86446f80a05bb6d57a9f386ab07f4a168bf87405b96c3c"
+  },
+  "test-encoder.mjs": {
+    "bytes": 10720,
+    "sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926"
+  },
+  "test-encoder.mjs.diff": {
+    "bytes": 3207,
+    "sha256": "8dab2a3780ebb8888e80b60bd20635a4f7bd90dda48a33f68370c1c091e7e09d"
+  },
+  "test-encoder.native-r5.predecessor.mjs": {
+    "bytes": 10744,
+    "sha256": "60c967d1701eb84d07ee4a18d58c490450ca06370c1c53f661201a269ca13e17"
+  },
+  "test-recorder-repair.py": {
+    "bytes": 12543,
+    "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+  }
+}

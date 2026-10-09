@@ -1,0 +1,11 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs
++++ /Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/test-encoder.mjs
+@@ -52,7 +52,7 @@
+ 
+ 
+ // R2 additions preserve all sixteen R1 groups verbatim.
+-function orderedProxy(data,order,log=[]){return new Proxy(data,{ownKeys(){log.push('keys');return typeof order==='function'?order():order},getOwnPropertyDescriptor(t,k){log.push('desc:'+String(k));return Reflect.getOwnPropertyDescriptor(t,k)},get(t,k,r){log.push('get:'+String(k));return Reflect.get(t,k,r)}})}
++function orderedProxy(data,order,log=[]){return new Proxy(data,{ownKeys(){log.push('keys');return typeof order==='function'?order():order},getOwnPropertyDescriptor(t,k){log.push('desc:'+String(k));const descriptor=Reflect.getOwnPropertyDescriptor(t,k);return descriptor===undefined?undefined:Object.setPrototypeOf(descriptor,null)},get(t,k,r){log.push('get:'+String(k));return Reflect.get(t,k,r)}})}
+ test('proxy reverse and mixed integer order exact bytes and caps',()=>{
+   for(const order of [['2','1'],['z','2','__proto__','1','a']]){
+     const make=()=>{const v=Object.create(null);for(const k of order)v[k]=k;return orderedProxy(v,order)}

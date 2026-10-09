@@ -1,0 +1,57 @@
+{
+  "afterFill": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "<ACTUAL_REVIEWED_RETAINED_H_LEAF_PATH>",
+    "after-fill",
+    "after-fill-r1",
+    "<ACTUAL_APPROVED_NEW_BASELINE_PATH>",
+    "<ACTUAL_APPROVED_NEW_BASELINE_SHA>"
+  ],
+  "beforeFill": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "<ACTUAL_REVIEWED_RETAINED_H_LEAF_PATH>",
+    "before-fill",
+    "before-fill-r1"
+  ],
+  "claimLimit": "Template only. Exact H leaf and actual baseline/groups remain unfilled; no scan/launch authority.",
+  "copiedRootProofReuse": "NONE: complete fresh private inventory and bytes compared to accepted555867.",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "guardScriptSha256": "259c4bac30fd506a67779d2c59fd29f51c8a6f75e140f7c37f6cff625aa23a58",
+  "postflight": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "<ACTUAL_REVIEWED_RETAINED_H_LEAF_PATH>",
+    "postflight",
+    "postflight-r1",
+    "<ACTUAL_APPROVED_NEW_BASELINE_PATH>",
+    "<ACTUAL_APPROVED_NEW_BASELINE_SHA>",
+    "<ACTUAL_AUTHENTICATED_WORKER_AND_CHILD_PGIDS_CSV>"
+  ],
+  "rawPsFdPolicy": "Local-only raw evidence, hashes/sizes only in published backup.",
+  "recording": "Parent separately owns reviewed fullscan recording/actual tool receipt; do not use HEAVY-LANE-LOCK helper because accepted current guard requires that lock absent.",
+  "schema": "1370-m0-full-guard-argv-template-r1",
+  "sourceConfigSha256": "03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d",
+  "status": "SOURCE_PROPOSAL_UNRUN_REVIEW_AND_ROOT_GRANT_REQUIRED"
+}

@@ -1,0 +1,104 @@
+{
+  "allAdapterPinsAndExactDiffAuthenticated": true,
+  "guardSourcePinsSha256": "6941ca219fad32fe77982f71985052be5743d76820eea48caea2e0305c78bca9",
+  "guardScriptSha256": "259c4bac30fd506a67779d2c59fd29f51c8a6f75e140f7c37f6cff625aa23a58",
+  "configSha256": "03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d",
+  "changedFunctions": [
+    "current",
+    "main"
+  ],
+  "nineUtilityFunctionsByteExact": true,
+  "unchangedAcceptedReadOnlyHelperSha256": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896",
+  "originalCopyAdoptedBindingSha256": "5f6de7413b9a28a9e30284062e99bf52a3ea83f9ba0074515b3257515c8b0c0f",
+  "actualRetainedHLeaf": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+  "HCurrentFiniteMetadata": {
+    "parent": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2",
+      "device": 16777220,
+      "inode": 166418910,
+      "mode": "0o40700",
+      "bytes": 128,
+      "mtimeNs": 1791451453565647134,
+      "ctimeNs": 1791451453565647134
+    },
+    "leaf": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+      "device": 16777220,
+      "inode": 166418911,
+      "mode": "0o40700",
+      "bytes": 416,
+      "mtimeNs": 1791462534662274730,
+      "ctimeNs": 1791462534662274730
+    },
+    "dependencyLink": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1/node_modules",
+      "device": 16777220,
+      "inode": 166421468,
+      "mode": "0o120755",
+      "bytes": 62,
+      "mtimeNs": 1791452251986317412,
+      "ctimeNs": 1791452251986317412
+    },
+    "receipt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1.MATERIALIZE-RESULT.json",
+      "device": 16777220,
+      "inode": 166420362,
+      "mode": "0o100600",
+      "bytes": 1350,
+      "mtimeNs": 1791451453566110617,
+      "ctimeNs": 1791451453566110617
+    }
+  },
+  "HMaterializeReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1.MATERIALIZE-RESULT.json",
+    "bytes": 1350,
+    "sha256": "b8c70f731fc730cea3ba7238674fb964fb973e6ffcf58fcb03e0dbbd139196b6",
+    "status": "MIRROR_MATERIALIZED_SOURCE_ONLY",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceTree": "0ee21d8179977aaa0726ffb5d1b2bb2568c9df97"
+  },
+  "HSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-r2/H-SOURCE-MANIFEST.json",
+    "sha256": "e2f92aa60063b754f110ec31f08080bfd461f6a150f74394464739c2d4cab7ff"
+  },
+  "HStaticSourceReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-independent-review-r2/H-RECEIPT.json",
+    "sha256": "5e6f23884af9527f991665020414404455f182cc3a62abe5a5602bb019804dbf",
+    "decision": "ACCEPT_STATIC_FULL_ERA_OBSERVER_ONLY"
+  },
+  "HSelectedSixFilesMatchPinnedRoles": {
+    "src/core/talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1/src/core/talentMarket.ts",
+      "bytes": 98582,
+      "sha256": "4f35113066c6424229d32ec9aa0b43a33f9b65a6a91734e6f27cb26b878ce1a9"
+    },
+    "src/core/promises.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1/src/core/promises.ts",
+      "bytes": 63061,
+      "sha256": "f57e65fca449c6edbfabfead397ec8b1d2afd3522052599ebc1041616594df20"
+    },
+    "src/core/m0FeasibilityWitness.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1/src/core/m0FeasibilityWitness.ts",
+      "bytes": 4729,
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "tests/diagnostic.test.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1/tests/diagnostic.test.ts",
+      "bytes": 12710,
+      "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7"
+    },
+    "src/harness/p13a/fixtures.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1/src/harness/p13a/fixtures.ts",
+      "bytes": 2130,
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+    },
+    "src/core/tick.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1/src/core/tick.ts",
+      "bytes": 58458,
+      "sha256": "ad0faa9216093f657cf16ecebe66a6cc65aee4bcc407b7d79d6e48a847465deb"
+    }
+  },
+  "HDependencySymlinkTarget": "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+  "HFullScientificIdentityProved": false,
+  "freshProtectionOrInventoryExecuted": false
+}

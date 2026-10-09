@@ -1,0 +1,72 @@
+{
+  "actualOwnedGroupsFreshlyAbsent": [
+    74005,
+    74268
+  ],
+  "actualToolExit": 0,
+  "actualToolSession": 7232,
+  "candidateEncoderOnlyProxyReductionPercent": 31.709468168005216,
+  "gameOrFull109IntegrationAuthorized": false,
+  "helperExit": 0,
+  "helperMetaExit": 0,
+  "helperPid": 74005,
+  "mediansMs": {
+    "state": {
+      "baseline": 94.85502799999995,
+      "candidate": 62.98639800000001
+    },
+    "wholeRow": {
+      "baseline": 145.44549499999994,
+      "candidate": 102.50879999999961
+    }
+  },
+  "nodeExit": 0,
+  "ownedPgid": 74268,
+  "recorderElapsedSeconds": 6.634846550994553,
+  "recorderExit": 0,
+  "roles": [
+    {
+      "bytes": 921,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-benchmark-output-20261009-r1/RESULT.json",
+      "sha256": "c62787611a0db9d8f2c3ae8a3ba9e21bf03fd3ba1be0f957a36860860ea7fbf8"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-benchmark-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3862,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-benchmark-output-20261009-r1/stdout.bin",
+      "sha256": "cd5118088253236168961e07732d5738a9cdb8286aab61066b9f31d4a9043b51"
+    },
+    {
+      "bytes": 385,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-benchmark-lane-20261009-r1/benchmark.lane.log",
+      "sha256": "5071eed88d67ed31a143c31322501ebc84f47a2aa3f9bbdf17481cf0a36cf483"
+    },
+    {
+      "bytes": 338,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-benchmark-lane-20261009-r1/benchmark.lane.log.meta",
+      "sha256": "1884e7383934d6543fcfcd28610ac356dffd474e9d0fe9ba54fc9a014dcdd582"
+    },
+    {
+      "bytes": 10845,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-parent-recorded-20261009-r1/BENCHMARK-GRANT.json",
+      "sha256": "06ea3838925dc94334003d10d33decb46e316d5aca4cd8afb26e493cf6f12470"
+    }
+  ],
+  "schema": "bounded-token-chunk-root-benchmark-tool-outcome/v1",
+  "scope": "Same-run paired fastpass994d versus chunk early308 encoder-only measurement; no later-size, nonencoding-cost, or end-to-end feasibility conclusion.",
+  "status": "ACTUAL_PAIRED_EARLY308_BENCHMARK_EXIT_ZERO_AWAIT_INDEPENDENT_REVIEW",
+  "timedArms": {
+    "baseline": "ACCEPTED_UNPROFILED_FASTPASS_994d",
+    "candidate": "BOUNDED_TOKEN_CHUNK"
+  },
+  "toolCompletionChunk": "c2d4ef",
+  "utc": "2026-10-09T17:50:04.700917+00:00",
+  "weighted110EncoderOnlySeconds": {
+    "baseline": 310.93588932999984,
+    "candidate": 212.33977247999962
+  }
+}

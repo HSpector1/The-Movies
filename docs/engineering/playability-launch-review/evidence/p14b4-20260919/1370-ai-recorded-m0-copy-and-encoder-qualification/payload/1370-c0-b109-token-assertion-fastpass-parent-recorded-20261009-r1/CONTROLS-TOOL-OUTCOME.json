@@ -1,0 +1,50 @@
+{
+  "actualToolExit": 0,
+  "actualToolSession": 6871,
+  "benchmarkGameOrIntegrationExecuted": false,
+  "freshOwnedGroupAbsent": true,
+  "groups": 22,
+  "heavyLockAbsent": true,
+  "helperMetaExit": 0,
+  "nodeExit": 0,
+  "overrideAbsent": true,
+  "ownedPgid": 80407,
+  "pairs": 283,
+  "priorRootPreparationStopPreserved": "PREPARATION-STOP.json",
+  "recorderElapsedSeconds": 1.8076020080043236,
+  "recorderExit": 0,
+  "roles": [
+    {
+      "bytes": 9046,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-parent-recorded-20261009-r1/CONTROLS-GRANT.json",
+      "sha256": "c3e153ff18c5bdc3cd267adbb0cef20753638bfb8b312f622ab98a31bbda69ee"
+    },
+    {
+      "bytes": 920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-controls-output-20261009-r1/RESULT.json",
+      "sha256": "b30ff9e2490732a1df04d598474a55223356de69d3f7d6396f93dae28613f7ae"
+    },
+    {
+      "bytes": 1363,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-controls-output-20261009-r1/stdout.bin",
+      "sha256": "84d57f514bb593b8921da779705f627133e9ae216b1691ce7376063054bed85b"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-controls-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 393,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-controls-lane-20261009-r1/controls.lane.log",
+      "sha256": "d880ccc47c47c607748d3da149123f108f365b5b2cf2eecff901e1e79868e79e"
+    },
+    {
+      "bytes": 342,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-controls-lane-20261009-r1/controls.lane.log.meta",
+      "sha256": "bf54f9573fb0035e0478285511a8b3a349dc2f3322b6ad00d01aa2e5767966b2"
+    }
+  ],
+  "status": "ACTUAL_TOKEN_FASTPASS22_PASS_PENDING_INDEPENDENT_REVIEW",
+  "utc": "2026-10-09T16:57:18.250223+00:00"
+}

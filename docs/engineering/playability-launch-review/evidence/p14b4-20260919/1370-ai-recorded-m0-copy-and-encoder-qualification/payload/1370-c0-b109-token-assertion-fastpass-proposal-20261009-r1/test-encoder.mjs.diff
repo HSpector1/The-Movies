@@ -1,0 +1,31 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/test-encoder.mjs
++++ /Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-encoder.mjs
+@@ -41,12 +41,12 @@
+   refusal(()=>Object.defineProperty({},'toJSON',{value:undefined}),/STOP_CUSTOM_JSON/)
+ })
+ test('safe proto keys and integer ordering',()=>{const v=Object.create(null);v.z=1;v['10']=10;v.__proto__={safe:true};v['2']=2;v.constructor=3;equal(v)})
+-test('caps and refusals occur before native container serialization',()=>{
++test('token caps and refusals never serialize source containers',()=>{
+   const native=JSON.stringify;let containers=0
+   JSON.stringify=function(v,...args){if(v!==null&&typeof v==='object'){containers++;assert.equal(Object.getPrototypeOf(v),null)}return native(v,...args)}
+   try{
+     for(const [make,pattern,cap] of [[()=>({x:'\n'.repeat(8)}),/STOP_JSON_CAP/,16],[()=>({a:'123',b:'456'}),/STOP_JSON_CAP/,18],[()=>({x:Infinity}),/STOP_NON_FINITE/,baseline.MAX],[()=>({x:1n}),/STOP_NON_JSON/,baseline.MAX],[()=>({toJSON:undefined}),/STOP_CUSTOM_JSON/,baseline.MAX],[()=> 'é'.repeat(10),/STOP_STRING_CAP/,19]]){containers=0;assert.throws(()=>candidate.boundedJson(make(),cap),pattern);assert.equal(containers,0)}
+-    containers=0;assert.equal(candidate.boundedJson({x:[1,null]}).toString(),'{"x":[1,null]}');assert.equal(containers,1)
++    containers=0;assert.equal(candidate.boundedJson({x:[1,null]}).toString(),'{"x":[1,null]}');assert.equal(containers,0)
+   }finally{JSON.stringify=native}
+ })
+ 
+@@ -78,11 +78,11 @@
+   try{for(const k of names){const d=Object.create(null);d.configurable=true;d.value=function(){calls++;throw Error('inherited handler trap')};Object.defineProperty(Object.prototype,k,d)};assert.deepEqual(candidate.boundedJson(source),baseline.boundedJson(source));assert.equal(calls,0)}
+   finally{for(const k of names)delete Object.prototype[k];names.forEach((k,i)=>{if(old[i])Object.defineProperty(Object.prototype,k,Object.setPrototypeOf(old[i],null))})}
+ })
+-test('canonical clones stay plain and mismatched clones own safe handler',()=>{
++test('token emission creates no clone Proxy wrapping',()=>{
+   const NativeProxy=globalThis.Proxy;let wraps=0
+   const reversed=orderedProxy({'1':1,'2':2},['2','1'])
+   globalThis.Proxy=function(target,handler){wraps++;assert.equal(Object.getPrototypeOf(target),null);assert.equal(Object.getPrototypeOf(handler),null);assert.deepEqual(Object.keys(handler),['ownKeys']);assert.ok(Object.keys(target).every(k=>{const d=Object.getOwnPropertyDescriptor(target,k);return d.enumerable&&d.configurable&&Object.hasOwn(d,'value')}));return new NativeProxy(target,handler)}
+-  try{candidate.boundedJson({'1':1,'2':2,z:[{x:1}]});assert.equal(wraps,0);candidate.boundedJson(reversed);assert.equal(wraps,1)}finally{globalThis.Proxy=NativeProxy}
++  try{candidate.boundedJson({'1':1,'2':2,z:[{x:1}]});assert.equal(wraps,0);candidate.boundedJson(reversed);assert.equal(wraps,0)}finally{globalThis.Proxy=NativeProxy}
+ })
+ 
+ process.stdout.write(JSON.stringify({status:'ENCODER_EQUIVALENCE_AND_REFUSALS_PASSED',groups,pairs,game:false,saveImports:false,captureDecode:false})+'\n')

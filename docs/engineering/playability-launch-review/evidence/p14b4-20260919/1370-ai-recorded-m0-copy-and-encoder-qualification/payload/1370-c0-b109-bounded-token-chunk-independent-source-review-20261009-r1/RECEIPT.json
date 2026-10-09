@@ -1,0 +1,20 @@
+{
+  "accumulationOnlyReversalExact": true,
+  "authoredGroups": 28,
+  "authoredPairs": 321,
+  "candidateSha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b",
+  "concreteFindings": [],
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_BOUNDED_TOKEN_CHUNK",
+  "integrationOrRetryAuthorized": false,
+  "original22Exact": true,
+  "performanceAccepted": false,
+  "proposalSourcePinsPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/SOURCE-PINS.json",
+  "proposalSourcePinsSha256": "c9a590fcea32c857660ce60606592a691face6dd1dcd1f29b6ea24ec904f6db3",
+  "recorderFourSubstitutionsExact": true,
+  "reportSha256": "ba859056441847931923f808f250adc9052db5c5213a539c0203930bdadea1c0",
+  "roleAuditSha256": "7b896c661ab56669318decbbe5620aadc29d3b8af557dd3d07c71c8c6b608103",
+  "runtimeExecutionPerformed": false,
+  "schema": "1370-b109-bounded-token-chunk-independent-source-review-r1",
+  "sourceImportPerformed": false,
+  "toolMetadataAuditSha256": "ecd6d2d057fdd7dbc59008c527cf6ed6f73d6bb7d0e13ebb8dd740ba075d6b45"
+}

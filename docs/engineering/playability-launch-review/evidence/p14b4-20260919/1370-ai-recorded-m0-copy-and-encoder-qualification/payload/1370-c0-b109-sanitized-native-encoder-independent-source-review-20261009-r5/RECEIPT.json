@@ -1,0 +1,46 @@
+{
+  "B109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "actualDiagnosticCauseReceiptSha256": "e504a4f5ea4fa8c1fa39e19f8e087bf8e38288af31552a21b74ff62c599ee2a1",
+  "all12PinsExact": true,
+  "all22GroupAssertionsOrderPreserved": true,
+  "allEightCONFIGRolesExact": true,
+  "allThreeDiffsExact": true,
+  "benchmarkSha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2",
+  "candidateBenchmarkOriginal14ByteIdentical": true,
+  "candidateSha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697",
+  "configSha256": "82f95b47b18d3343ef433b3009a87d6ba15675cb4010b9507c00f9ebf33c2669",
+  "controlRecipeSha256": "f1d73d1a555c21f74786c4fe32b9b61833fb0b5168eacf3593c3fcb7dba79ae9",
+  "controlsExecuted": false,
+  "controlsSha256": "60c967d1701eb84d07ee4a18d58c490450ca06370c1c53f661201a269ca13e17",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_FIXTURE_DESCRIPTOR_REPAIR",
+  "executionAuthorization": false,
+  "findings": [],
+  "freshDescriptorOnlyPrototypeMutation": true,
+  "gameBenchmarkIntegrationAuthorized": false,
+  "importsNodeTestsChildCaptureDecodeFullScanGitExecuted": false,
+  "oldR2LostErrorCause": "UNKNOWN",
+  "originalSourceDescriptorsAndHookCountsPreserved": true,
+  "qualifiedR4RecorderByteExactAfterOnlyConfigShaOutputVersionNormalization": true,
+  "recorderBoundsSeconds": [
+    60,
+    75,
+    90
+  ],
+  "recorderSha256": "cc97d645a165323c4e266235c9ff7cdfd7d7bda053b758570ac5680aed402f4f",
+  "report": {
+    "bytes": 3699,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-independent-source-review-20261009-r5/REPORT.md",
+    "sha256": "527beb853e872c8e836b9782cee47fd8b3cce02e2edec404e2c431096f56dd47"
+  },
+  "reusedRecorderObservedQualificationSha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa",
+  "schema": "1370-b109-sanitized-native-encoder-independent-source-review-r5",
+  "soleFixtureHelperReplacementExact": true,
+  "sourceDir": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5",
+  "sourcePinsSha256": "7b9e8df031d6ff9e314a5bddbafe7abd6e853245594a8eb4bc5fef2a5386548d",
+  "undefinedDescriptorUnchanged": true,
+  "utc": "2026-10-09T16:32:25.951341+00:00"
+}

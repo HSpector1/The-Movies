@@ -1,0 +1,58 @@
+--- accepted-fastpass/test-encoder.mjs
++++ bounded-token-chunk/test-encoder.mjs
+@@ -85,4 +85,55 @@
+   try{candidate.boundedJson({'1':1,'2':2,z:[{x:1}]});assert.equal(wraps,0);candidate.boundedJson(reversed);assert.equal(wraps,0)}finally{globalThis.Proxy=NativeProxy}
+ })
+ 
++
++// Six chunk-specific groups. The original twenty-two groups above are byte-identical.
++const referenceRole=config.roles.referenceEncoder;assert.equal(hash(readFileSync(referenceRole.path)),referenceRole.sha256)
++const referenceEncoder=await import(pathToFileURL(referenceRole.path))
++function chunkEqual(value,limit=baseline.MAX){const output=equal(value,limit);assert.deepEqual(referenceEncoder.boundedJson(value,limit),output);return output}
++function chunkRefusal(factory,pattern,limit=baseline.MAX){for(const encoder of [baseline.boundedJson,referenceEncoder.boundedJson,candidate.boundedJson])assert.throws(()=>encoder(factory(),limit),pattern)}
++function chunkFreshParity(make,pattern){
++  const logs=[],outputs=[]
++  for(const encoder of [baseline.boundedJson,referenceEncoder.boundedJson,candidate.boundedJson]){const log=[];logs.push(log);if(pattern)assert.throws(()=>encoder(make(log)),pattern);else outputs.push(encoder(make(log)))}
++  assert.deepEqual(logs[1],logs[0]);assert.deepEqual(logs[2],logs[0])
++  if(!pattern){assert.deepEqual(outputs[1],outputs[0]);assert.deepEqual(outputs[2],outputs[0]);pairs++}
++}
++test('chunk whole-token count and UTF8 byte seams retain exact-fit caps',()=>{
++  const cases=[...([2047,2048,2049].map(n=>Array(n).fill(0))),...([-1,0,1].map(delta=>['x'.repeat(65536-6+delta),0]))]
++  for(const value of cases){const raw=chunkEqual(value);chunkEqual(value,raw.length);chunkRefusal(()=>value,/STOP_JSON_CAP/,raw.length-1)}
++})
++test('oversized whole tokens preserve Unicode escaping and cap refusals',()=>{
++  const key='😀\n'.repeat(12000)
++  for(const value of ['x'.repeat(65537),'é'.repeat(40000),'😀'.repeat(20000),'\n'.repeat(40000),'\ud800'.repeat(12000),{[key]:1}]){
++    const raw=chunkEqual(value);assert.ok(raw.length>65536);chunkEqual(value,raw.length);chunkRefusal(()=>value,/STOP_(JSON|STRING)_CAP/,raw.length-1)
++  }
++})
++test('late refusal after multiple chunks cannot return or retain partial output',()=>{
++  const prefix=()=>Array(40000).fill(0)
++  for(const [make,pattern] of [[()=>[...prefix(),Infinity],/STOP_NON_FINITE/],[()=>[...prefix(),1n],/STOP_NON_JSON/],[()=>[...prefix(),{toJSON:undefined}],/STOP_CUSTOM_JSON/],[()=>{const x={};x.self=x;return [...prefix(),x]},/STOP_CYCLE/]]){chunkRefusal(make,pattern);chunkEqual({after:[1,null,'fresh']})}
++  const value=[...prefix(),{end:true}],cap=referenceEncoder.boundedJson(value).length-1;chunkRefusal(()=>value,/STOP_JSON_CAP/,cap);chunkEqual({after:[1,null,'fresh']})
++})
++test('source getters Proxy traces and dynamic length stay exact across seams',()=>{
++  chunkFreshParity(log=>{const v=Array(2048).fill(0);let n=0;Object.defineProperty(v,'2047',{configurable:true,get(){log.push(++n);return n===1?1:{last:2}}});return v})
++  chunkFreshParity(log=>new Proxy(Array(2048).fill(0),{get(t,k,r){log.push(String(k));return Reflect.get(t,k,r)}}))
++  chunkFreshParity(log=>{const v=Array(2050).fill(0);Object.defineProperty(v,'2047',{configurable:true,get(){log.push('shrink');v.length=2048;return 7}});return v})
++  chunkFreshParity(log=>{const v=Array(2048).fill(0);let n=0;Object.defineProperty(v,'2047',{configurable:true,get(){log.push(++n);if(n===1)v.push(8,9);return n}});return v})
++  chunkFreshParity(log=>{const v=Array(2048).fill(0);let n=0;Object.defineProperty(v,'2047',{configurable:true,get(){log.push(++n);return n===1?1:undefined}});return v},/./)
++})
++test('shared references repeated keys and mutation remain fresh across chunks and calls',()=>{
++  const shared={same:1},value=Array(3000).fill(shared);const first=chunkEqual(value);shared.same=9;const second=chunkEqual(value);assert.notDeepEqual(first,second)
++  chunkEqual(Array.from({length:1200},(_,i)=>({'repeated\n😀':i,nested:{'repeated\n😀':i+1}})))
++})
++test('chunk token architecture and unusual limit coercion preserve original checkpoints',()=>{
++  const nativeStringify=JSON.stringify,NativeProxy=globalThis.Proxy;let containers=0,wraps=0
++  JSON.stringify=function(v,...args){if(v!==null&&typeof v==='object')containers++;return nativeStringify(v,...args)}
++  globalThis.Proxy=function(...args){wraps++;return new NativeProxy(...args)}
++  try{chunkEqual(Array.from({length:2100},(_,i)=>({same:i})));assert.equal(containers,0);assert.equal(wraps,0)}finally{JSON.stringify=nativeStringify;globalThis.Proxy=NativeProxy}
++  const encoders=[referenceEncoder.boundedJson,candidate.boundedJson],logs=[],outputs=[]
++  for(const encoder of encoders){const log=[],value=Array(2100).fill(0);let reads=0;Object.defineProperty(value,'2047',{get(){log.push('get:'+ ++reads);return 0}});const limit={valueOf(){log.push('limit');return baseline.MAX}};logs.push(log);outputs.push(encoder(value,limit))}
++  assert.deepEqual(logs[1],logs[0]);assert.deepEqual(outputs[1],outputs[0]);pairs++
++  const late=[]
++  for(const encoder of encoders){let count=0;const log=[],limit={valueOf(){log.push(++count);return count===4100?NaN:baseline.MAX}};assert.throws(()=>encoder(Array(2100).fill(0),limit),/STOP_JSON_CAP/);assert.equal(count,4100);late.push(log)}
++  assert.deepEqual(late[1],late[0]);chunkRefusal(()=>[0],/STOP_JSON_CAP/,NaN);chunkRefusal(()=>[0],TypeError,Symbol('limit'))
++})
++
+ process.stdout.write(JSON.stringify({status:'ENCODER_EQUIVALENCE_AND_REFUSALS_PASSED',groups,pairs,game:false,saveImports:false,captureDecode:false})+'\n')

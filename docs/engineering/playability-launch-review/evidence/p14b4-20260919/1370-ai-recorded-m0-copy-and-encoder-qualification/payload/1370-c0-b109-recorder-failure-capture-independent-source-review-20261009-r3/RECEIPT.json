@@ -1,0 +1,48 @@
+{
+  "B109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "CONFIGOriginal14ByteIdentical": true,
+  "allPinsExact": true,
+  "authoredEndToEndFailureControls": 3,
+  "candidateNative22BenchmarkUnchanged": true,
+  "controlsImportsNodeTestsCaptureDecodeGuardScanGitExecuted": false,
+  "decision": "REFINE_SOURCE_ONLY_UNRUN",
+  "executionAuthorization": false,
+  "failureControlsSha256": "3c7b8c168281153e3d93239c4694f98d450e247964f6d1ef14bc57b95bdfe80a",
+  "findings": [
+    {
+      "catchSites": [
+        "main body except",
+        "post-cleanup validation except"
+      ],
+      "defect": "Both failure=str(exc) assignments can leave failure empty after a caught empty-message exception and permit COMPLETE/exit0 with valid buffered child0 output.",
+      "id": "F1",
+      "minimalRepair": "Use str(exc) or repr(exc) at both catches, preserving existing nonempty STOP strings and cleanup/deadline precedence. Add focused branch regressions showing empty-message failures never emit success.",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r3/record-pure-node.py",
+      "severity": "blocking"
+    }
+  ],
+  "otherControlsAndSuiteAppropriateStatically": true,
+  "recorderBoundsSeconds": [
+    60,
+    75,
+    90
+  ],
+  "recorderSha256": "0f3012ef87ebb537c5015bf3e96d30aa4bdd5614d0b2275dfe2431c316d01c69",
+  "report": {
+    "bytes": 4426,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-independent-source-review-20261009-r3/REPORT.md",
+    "sha256": "78cb5e0252098b2cd1cd8ea429ce749b988f299d828a77c264239e9fc3c9ea38"
+  },
+  "schema": "1370-b109-recorder-failure-capture-independent-source-review-r3",
+  "sourceDir": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r3",
+  "sourcePinsSha256": "4780f5357b2a4afb97215283536473c7163da36caf34204216ae74436291d0b3",
+  "suiteAlarmChangesGameOrRecorderBounds": false,
+  "suppliedRecorderDiffExact": true,
+  "testSuiteAlarmSeconds": 285,
+  "unchangedTopFunctionsClassesExceptMain": 17,
+  "utc": "2026-10-09T16:14:26.874992+00:00"
+}

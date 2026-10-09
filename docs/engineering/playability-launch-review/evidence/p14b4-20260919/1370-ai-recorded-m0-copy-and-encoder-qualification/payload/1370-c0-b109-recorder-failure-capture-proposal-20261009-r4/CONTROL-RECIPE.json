@@ -1,0 +1,84 @@
+{
+  "status": "UNRUN_REQUIRES_INDEPENDENT_SOURCE_ACCEPTANCE_AND_ROOT_SOLE_LANE_GRANT",
+  "executionAuthorization": false,
+  "helper": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "requiredEnvironment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "GIT_OPTIONAL_LOCKS": "0"
+  },
+  "recipes": [
+    {
+      "role": "red",
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-red-lane-20261009-r4",
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-red-lane-20261009-r4/red.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py",
+        "--recorder",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py"
+      ],
+      "expectedActualExit": 1
+    },
+    {
+      "role": "green",
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-green-lane-20261009-r4",
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-green-lane-20261009-r4/green.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py",
+        "--recorder",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/record-pure-node.py"
+      ],
+      "expectedActualExit": 0
+    },
+    {
+      "role": "original14",
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-original14-lane-20261009-r4",
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-original14-lane-20261009-r4/original14.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-repair.py",
+        "--recorder",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/record-pure-node.py"
+      ],
+      "expectedActualExit": 0
+    },
+    {
+      "role": "diagnostic-native22-only-after-controls-pass-and-root-grant",
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r4",
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r4/controls.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/record-pure-node.py",
+        "controls"
+      ],
+      "expectedActualExit": "UNPREDICTED; STOP preserved if failure repeats",
+      "freshOutput": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r4"
+    }
+  ],
+  "suiteAlarmSeconds": 285,
+  "claims": "RED nine cases fail oldr2; GREEN nine cases pass repairedr4; four unittest methods including six subtests, plus unchanged original14 separate. Predictions only, no execution."
+}

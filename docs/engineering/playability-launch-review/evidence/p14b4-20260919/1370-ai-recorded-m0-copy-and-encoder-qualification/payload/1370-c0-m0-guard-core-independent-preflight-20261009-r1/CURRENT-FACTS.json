@@ -1,0 +1,69 @@
+{
+  "acPower": true,
+  "actualFiveOverlayBytesMatched": true,
+  "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+  "freeBytes": 5840179200,
+  "historicalR9GameOwnedGroupClaim": false,
+  "liveOriginWorkingRefExact": true,
+  "oldPidsAndScannerFreshAbsent": [
+    25951,
+    29271,
+    21697
+  ],
+  "outputLaneAndLockAbsence": true,
+  "priorOwnedNumericGroupsFreshAbsent": [
+    85073,
+    80407,
+    6563,
+    3779,
+    18930,
+    18939,
+    18940,
+    18944,
+    18947,
+    18948,
+    18950,
+    18952,
+    18954,
+    18956,
+    18957,
+    18958,
+    18959,
+    18961,
+    18968,
+    18972
+  ],
+  "privateClean": true,
+  "privateHead": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "privateSrc": "b47ac0ba2785c9619209696cba2c883860d62894",
+  "productionClean": true,
+  "productionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "productionSrc": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "protectedFdScopes": [
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+    "/Users/zacheryspector/The-Movies-headless-program",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2"
+  ],
+  "protectedNumericReadDescriptors": 1,
+  "rawPsFdLocalOnly": true,
+  "rawRoles": [
+    {
+      "archiveBytes": false,
+      "bytes": 87946,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-guard-core-current-local-only-20261009-r1/CURRENT-PS.local",
+      "sha256": "2390ad2034b2e6714195604b42972cf50ef6b0c06f03322b376885f453b121a0"
+    },
+    {
+      "archiveBytes": false,
+      "bytes": 650250,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-guard-core-current-local-only-20261009-r1/CURRENT-LSOF.local",
+      "sha256": "089db700fdc58ebadb8e4968bb4f577c1adabd2b5527101fdc72978db9ae4d9c"
+    }
+  ],
+  "relevantProcessMarkersAbsent": true,
+  "snapshotCurrentScopeReuseUnderParentFreeze": true,
+  "utc": "2026-10-09T17:07:27.519528+00:00",
+  "writableOrUnknownProtectedNumericFdAbsent": true
+}

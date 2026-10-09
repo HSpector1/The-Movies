@@ -1,0 +1,43 @@
+{
+  "acceptedUnprofiledCandidateSha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5",
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "benchmarkSha256": "5a84f9545257d9597589de2926f21fa38e04124fba62d9a3b87315fcc12ec9e1",
+  "boundsUnchanged": [
+    60,
+    75,
+    90
+  ],
+  "candidateSha256": "62a9013d4d9609db4fe2a315cf2fac8a57c82499db2122ad12882ff9ea7a6668",
+  "checksSha256": "4782bb2f06951a03872936df0dd4949f5ce2943c0444a0db419d8b0ef8625394",
+  "concreteDefects": [],
+  "configSha256": "701239d900079aaf87264a991cc90454bf3e976ad262eff65ef3687ff7722100",
+  "controlsAndProfileStatus": "UNRUN",
+  "controlsSha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_FIXED_TOKEN_PHASE_PROFILE",
+  "executionAuthorization": false,
+  "expectedControlsGroupsPairs": [
+    22,
+    283
+  ],
+  "gameFull109IntegrationOrRetryAuthorized": false,
+  "maximumLastProfileRecords": 1,
+  "perSuccessClockReads": 4,
+  "perTokenClockReads": 0,
+  "preservedUnprofiledBenchmarkSha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2",
+  "preservedUnprofiledObservedReceiptSha256": "bbdf1726103147cd3f4d8d8ed981511af73e0d9484aa19d6aab516cbb5ff0c0a",
+  "recordFields": 7,
+  "recorderMechanismNormalizationExact": true,
+  "recorderSha256": "ae3ce4a6cc0ac0500c4b0fc9db2b6a62b0aa6cfc90331b49f6488c9b566ecb34",
+  "refusalReentrantClearProof": "SOURCE_ONLY_NOT_A_NEW_OBSERVED_API_CONTROL",
+  "reportSha256": "1fe9171307d67fec4d0c6c3b7a1a868bc6734b04641f5b808dada42e40741940",
+  "reviewedSourceDir": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1",
+  "schema": "1370-b109-token-phase-profile-independent-source-review-r1",
+  "sourceImportOrExecutionPerformed": false,
+  "sourcePinsSha256": "9bff3cee5230e68dbbd6609fbd097f8430d735ff45e18f987e4c9d202cbca585",
+  "successProfileRecordsPerBenchmark": 8,
+  "timingAndGcCausalClaimsAccepted": false
+}

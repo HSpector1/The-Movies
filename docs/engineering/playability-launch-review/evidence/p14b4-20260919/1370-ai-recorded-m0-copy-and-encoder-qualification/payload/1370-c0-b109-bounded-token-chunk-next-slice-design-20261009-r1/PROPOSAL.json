@@ -1,0 +1,80 @@
+{
+  "admission": "same existing add next<=limit predicate once before every growth; bytes update and key-cache cap/refusal order preserved; actual final bytes certified by admitted scalar total",
+  "baseEncoderSha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5",
+  "benchmark": "one separately reviewed/granted genuine indexed308 paired run: unchanged streaming12c37 retained reader/purity certifier; timed referenceEncoder role994d versus new chunk candidate, one warmup+three alternating pairs for state and wholeRow; roles/labels exact and no cross-session comparison",
+  "candidateImplemented": false,
+  "chunkRules": [
+    "never split a token or UTF16/UTF8 code point",
+    "use supplied token byte lengths, no extra source read or byteLength call in emission",
+    "flush before adding a token that would exceed either pending threshold; that token first passes its original add cap",
+    "owned per-call chunks/pending arrays/scalars only; no source object stored or result cache",
+    "refusal returns no partial result and retains no module/global state",
+    "successful final Buffer.concat receives exact admitted total bytes, all outputs checked byte-exact externally"
+  ],
+  "claimLimit": "early308 complete byte/purity/retained-reader parity and in-run timing only; moved joins/Buffer work belongs inside emission, so old phase medians cannot be reused as attribution/comparison; no GC/memory root-cause or full109 feasibility",
+  "evidenceRoles": [
+    {
+      "bytes": 2518,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "13a8df2aaffa2e2129eadffdfeeedcc783108da6ec79e225542618b27f56503f"
+    },
+    {
+      "bytes": 2909,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-independent-observed-review-20261009-r1/REPORT.md",
+      "sha256": "b23cb2904a932b6269546b58b051eb3f62ca3696d38b42a78586243667d054cc"
+    },
+    {
+      "bytes": 12366,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-parent-recorded-20261009-r1/PROFILE-TOOL-OUTCOME.json",
+      "sha256": "d22c5bb33b0ef02c4b3b017a8bd4d7442292062ffabd1c058fb627f01457021b"
+    },
+    {
+      "bytes": 2492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+    },
+    {
+      "bytes": 1606,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-fastpass-indexed308-benchmark-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "bbdf1726103147cd3f4d8d8ed981511af73e0d9484aa19d6aab516cbb5ff0c0a"
+    },
+    {
+      "bytes": 10720,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926"
+    },
+    {
+      "bytes": 5253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+    }
+  ],
+  "gameOrIntegrationAuthorized": false,
+  "newFocusedControlGroups": [
+    "exact token-count4095/4096/4097 and byte65535/65536/65537 seams with mixed ASCII/nonASCII/escaped strings; every small/exact-fit cap parity",
+    "one admitted token larger than64KiB; huge escaped token refusal before accumulation; no token splitting incl astral/lone-surrogate keys/values",
+    "late finite/custom-toJSON/cycle/cap refusal after multiple flushed chunks, no partial output/global retention; fresh subsequent successful call",
+    "stateful getter, Proxy trap/source order and dynamic array shrink/growth placed across a chunk boundary; original two-read/refusal logs exact",
+    "shared references and changing repeated keys across chunks/calls, confirming no object-result or cross-call cache",
+    "stringify/source-container and Proxy construction zero counts remain original token expectations; unusual NaN/coercive limits once/at same checkpoints"
+  ],
+  "oneChange": "replace pieces accumulation/final giant join with per-call bounded whole-token chunks, per-chunk join+Buffer.from and one final Buffer.concat",
+  "recommendation": "one isolated unprofiled bounded token-chunk Buffer accumulator compared in-run with accepted unprofiled fastpass994d",
+  "status": "DESIGN_ONLY_NO_IMPLEMENTATION_OR_EXECUTION_AUTHORIZED",
+  "testsOrBenchmarkExecuted": false,
+  "thresholds": {
+    "maxPendingTokens": 4096,
+    "oversizedWholeToken": "flush existing pending tokens, encode this complete admitted token alone; threshold is flush trigger not an input refusal",
+    "targetPendingUtf8Bytes": 65536
+  },
+  "unchanged": [
+    "all eight accepted assertion fastpaths",
+    "string raw cap and token rendering",
+    "Object.keys order, source double reads and dynamic array length timing",
+    "cycle and own/inherited toJSON rules",
+    "finite/-0/undefined/sparse/escaping behavior",
+    "bounded fresh per-call key-token cache",
+    "all22 controls source and two token architecture expectations",
+    "Node20 and60/75/90; B109300/375/390/full110/complete fields"
+  ]
+}

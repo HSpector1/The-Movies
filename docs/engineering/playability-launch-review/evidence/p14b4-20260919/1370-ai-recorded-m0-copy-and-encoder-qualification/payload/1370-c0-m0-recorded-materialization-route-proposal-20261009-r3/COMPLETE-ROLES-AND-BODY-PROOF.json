@@ -1,0 +1,33 @@
+{
+  "actualMaterializerPathLiteralMatchesBindingAndArgv": true,
+  "actualMaterializerReviewSourceAndPinHashesVerified": true,
+  "executionAuthorization": false,
+  "importsTestsScansMaterializationExecuted": false,
+  "literalSubstitutions": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r2": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r2": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3"
+  },
+  "materializerReviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-independent-source-review-20261009-r3/RECEIPT.json",
+  "materializerReviewSha256": "3842280e52b19638430bf183ec54fd8af1f83397ebfcd504898248b83f9cfd9c",
+  "materializerSha256": "d906c1ba2631bee45a50c64348757b29a75c20dc53458d765c340e137e0b50d5",
+  "materializerSourcePinsSha256": "c08d9acd5eaddd721aa7867a109c62eb6081cad0ffa182ba95fbd2d66c6873b6",
+  "normalizedFullRecorderAstEqual": true,
+  "outRootRunIdAndLaneUnchangedFromUnconsumedR2": true,
+  "predecessorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r2",
+  "predecessorSourcePinsSha256": "72dffafdada676c1e068a9d04254ca0975261594a70fabe22e946c31ec7a2491",
+  "recorderOnlyOperationalLiteralChangedFunctions": [
+    "validated_spec"
+  ],
+  "recorderUnchangedFunctions": [
+    "update_free_minimum",
+    "write_once",
+    "still_alive",
+    "terminate",
+    "fork_ready",
+    "quick_guards",
+    "lane"
+  ],
+  "schema": "1370-m0-complete-recorded-route-repair-r3",
+  "status": "SOURCE_PROPOSAL_UNRUN",
+  "supervisorBytesUnchanged": true
+}

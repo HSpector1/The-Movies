@@ -1,0 +1,28 @@
+{
+  "actualToolHelperRecorderNodeExits": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "actualToolSession": 25584,
+  "checksSha256": "eb73e81764ef1b72c25e84a8b9e10cfc8e36dcee3b8061c10860ec3ac3c1b9a4",
+  "decision": "ACCEPT_OBSERVED_PHASE_INSTRUMENTED_TOKEN22_ENCODER_CONTROLS_ONLY",
+  "groups": 22,
+  "independentlyFreshOwnedGroupAbsent": true,
+  "ownedPgid": 96706,
+  "pairs": 283,
+  "parentGrantSha256": "3ec42e3e830b336330336ec3f121fcc53198277ec3945c87319f8f0f580b04e4",
+  "parentOutcomeSha256": "2a1bb03db91f5d358d9be95c3efc25445bd984f12e26bc74e0c4edb7a1419ce4",
+  "profilePerformanceOrGameQualified": false,
+  "profilingApiNegativeTestsObserved": false,
+  "recorderElapsedSeconds": 1.2708469920034986,
+  "reportSha256": "76591e64a2023f06079eeb1d53f6b73c4a7bf6c3e02491188ef06518dca7dbac",
+  "resultSha256": "959f2bd36337765c7787b6ed24ad8dba1ff2ba817140b0988d3d38b5c7bf3acf",
+  "reviewExecutionPerformed": false,
+  "schema": "1370-b109-token-phase-profile22-controls-independent-observed-review-r1",
+  "sourcePinsSha256": "9bff3cee5230e68dbbd6609fbd097f8430d735ff45e18f987e4c9d202cbca585",
+  "sourceReviewSha256": "b17141031e5689062c8c12b91c9e07d3e2a09b038a32e435005c830c19b79fd5",
+  "stderrBytes": 0,
+  "stdoutSha256": "84d57f514bb593b8921da779705f627133e9ae216b1691ce7376063054bed85b"
+}

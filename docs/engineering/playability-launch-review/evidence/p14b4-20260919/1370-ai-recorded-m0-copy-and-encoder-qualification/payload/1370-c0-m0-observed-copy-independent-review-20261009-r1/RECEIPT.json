@@ -1,0 +1,206 @@
+{
+  "M0LockAndOverrideAbsent": true,
+  "actualFullPostflight": {
+    "actualToolExit": 0,
+    "baseline": {
+      "bytes": 8082048,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+      "sha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15"
+    },
+    "configSha256": "03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d",
+    "elapsedSeconds": 460.84118072499405,
+    "entireImmutableMapExactlyEqual": true,
+    "inventoryElapsedSeconds": 357.99810795699887,
+    "outcome": {
+      "bytes": 3899,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/POSTFLIGHT-TOOL-OUTCOME.json",
+      "sha256": "01ac54475b7f235ede88fba9b0d2404d236d4444c531b88d6659d37306cf7264"
+    },
+    "pins": {
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/PINS.json",
+      "sha256": "da51ab104ee0d699d5f420afa8e93c02baf1a2612715bfa957d9487b8869c58d"
+    },
+    "procedureSha256": "259c4bac30fd506a67779d2c59fd29f51c8a6f75e140f7c37f6cff625aa23a58",
+    "snapshot": {
+      "bytes": 8088711,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/SNAPSHOT.json",
+      "sha256": "e2437a790741acdca15e515200bdc9a308062ded72e2aa5ebaeb8fd86977e6c8"
+    },
+    "snapshotPid": 17678,
+    "toolSession": 66152
+  },
+  "actualMaterialization": {
+    "actualToolExit": 0,
+    "childExit": 0,
+    "childPgid": 10655,
+    "helperMetaExit": 0,
+    "helperPid": 10372,
+    "outcome": {
+      "bytes": 4132,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/TOOL-OUTCOME.json",
+      "sha256": "a414715aea926a344c5308e9db3e006391437e3689a49d58acba57c1ae98a1fc"
+    },
+    "recorderElapsedSeconds": 83.80405662000703,
+    "supervisorElapsedSeconds": 83.95704543900501,
+    "supervisorExit": 0,
+    "toolSession": 2159,
+    "workerExit": 0,
+    "workerPid": 10639
+  },
+  "actualNewScratchBytes": 117879601,
+  "allNineStrictProtectedRootsStable": true,
+  "bindingSemanticSha256": "4cfdbc36dae7fab7dc0687b48f3c7d84abc94b8ac0aca146273306d96bd261e4",
+  "bindingSha256": "71e2db2dbe2dabfbf9d885002a9096e0e291d0ed315b92129f8098e5ceada78e",
+  "bridgeAndDependencyLinkExcludedFromAdmittedRoster": true,
+  "claimLimit": "Actual source-only mirror/copy and full protected postflight accepted. Bridge/dependency link, TypeScript/import compatibility, observer route, neutrality, scientific H equivalence, causality and ledger admission remain separate unaccepted stages.",
+  "copiedIndependentRegularInodes": 11060,
+  "currentWorkerChildGroupsCheckedBeforeAndAfter": [
+    10639,
+    10655
+  ],
+  "decision": "ACCEPT_OBSERVED_M0_SOURCE_ONLY_MATERIALIZATION_COPY",
+  "dependencyInventories": {
+    "copiedDependencies": {
+      "directory": 1401,
+      "regular": 11060,
+      "symlink": 24
+    },
+    "productionDependencies": {
+      "directory": 1401,
+      "regular": 11060,
+      "symlink": 24
+    }
+  },
+  "freshActualOwnedGroupsAbsent": [
+    10372,
+    10639,
+    10655,
+    17678
+  ],
+  "globalIdleClaimAfterParentSeparateControlGrant": false,
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "heldProtectedFreezeParentAttested": true,
+  "materializeSiblingReceipt": {
+    "bytes": 1549,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2.MATERIALIZE-RESULT.json",
+    "sha256": "f584835a2893a3f9fc8e26df8765423a62096ced49a94d4f09ff1c935401e0f9"
+  },
+  "materializedRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "noMaterializerGameTestsOrSubmittedSourceImportsByReviewer": true,
+  "noRepeatedProtectedInventoryOrSuccessfulMirrorReadback": true,
+  "observedPostflightDecision": "ACCEPT_OBSERVED_M0_FULL_POSTFLIGHT_READONLY",
+  "physicalReadback": {
+    "actualExit": 0,
+    "elapsedSeconds": 4.553147839003941,
+    "execSession": 9803,
+    "facts": {
+      "bytes": 978422,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/COPY-READBACK-FACTS.json",
+      "sha256": "e46dcc9cf81f7ce3462e1cdd34618f37f68ac75a90d5f95f112ee93966e96bfe"
+    },
+    "repeated": false,
+    "source": {
+      "bytes": 10659,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/readback.py",
+      "sha256": "90d9cfce6821cae31c86e7ec33d5e3b45112a508cdfa77d44e680df11ca05f85"
+    }
+  },
+  "postflightComparison": {
+    "actualExit": 0,
+    "facts": {
+      "bytes": 11747,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/POSTFLIGHT-COMPARISON-FACTS.json",
+      "sha256": "a70a7de2be9f09adf439900ab2ca9d32cd2dde7fa0b02e761f79b0971c7a7b41"
+    },
+    "source": {
+      "bytes": 9908,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/review-postflight-r2.py",
+      "sha256": "51720d4301a7e1c5b83a1f9c5ccedf2caa837738bbdb18cea8b970fe53559abf"
+    }
+  },
+  "preservedReviewerAuditParserStop": {
+    "bytes": 828,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/AUDIT-PARSER-STOP.json",
+    "sha256": "e22a24c23f5f63edae750db30400754c43683dd291019d855796dd9db8857b84"
+  },
+  "privatePhysicalSourcePaths": 176,
+  "productionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "protectedDigests": {
+    "commonGit": "ec026c43a5175dc37b0eedbef6085753ef56fe8b06f7958d1163db592daf6436",
+    "copied": "f33f505c16fb4e60fc639f5268969e14b9187ebf1c639209eeceae584a8fc5eb",
+    "production": "61a060e46cbb3ccb0e984cd368ca61ebdc62944ef0dcb261fe534f97af80a98d",
+    "retainedHLeaf": "a9cd945fe7dc2cd46bd9fddbc1afe2042ce0656da60c7ddb2b1c666c1bd7906e",
+    "retainedHParent": "7783177ca88740e6bc6525f8c98127f43dea38e3bdb3f72c97400956359b6deb"
+  },
+  "protectedRawFdAggregate": {
+    "AFTER": {
+      "numericMatches": 0,
+      "protectedMatches": 2,
+      "unknownNumericAccessMatches": 0,
+      "writeMatches": 0
+    },
+    "BEFORE": {
+      "numericMatches": 0,
+      "protectedMatches": 2,
+      "unknownNumericAccessMatches": 0,
+      "writeMatches": 0
+    }
+  },
+  "rawMachinewideEvidenceLocalOnly": [
+    {
+      "archiveBytes": false,
+      "bytes": 629504,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/AFTER-LSOF.bin",
+      "sha256": "cbe7c85400be58c3e1b4388379ef80dcd8715a7af9c012d80f5fc6d7333e344c"
+    },
+    {
+      "archiveBytes": false,
+      "bytes": 89139,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/AFTER-PS.txt",
+      "sha256": "dd8ea525b0c4514f4932a4082b79cd8351f06f973efbcf166152ac04c0a26108"
+    },
+    {
+      "archiveBytes": false,
+      "bytes": 669840,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/BEFORE-LSOF.bin",
+      "sha256": "e333298451a7968ba4758aeaaf155dafe08d1f2e0aa5d36d10af03fef9710117"
+    },
+    {
+      "archiveBytes": false,
+      "bytes": 104488,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/BEFORE-PS.txt",
+      "sha256": "98067b2790ebf899c3c548d2d8a30268509b79ee67c4c9bd60fd516d6cf10ff0"
+    }
+  ],
+  "report": {
+    "bytes": 5481,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/REPORT.md",
+    "sha256": "5f073966f890f0a20d6f2c059f2647ddcdcf835a9059105f9702a97faacca90e"
+  },
+  "reviewerExecutionScope": "Read-only isolated stdlib audits and bounded Git artifact queries only, as recorded. No source module import, materialization, Node, fixture or game execution.",
+  "scannerPidFreshlyAbsent": true,
+  "schema": "m0-independent-observed-source-only-materialization-copy/v1",
+  "scientificHWaiver": false,
+  "sourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "sourceOnlyAdmission": true,
+  "sourceRoster": {
+    "actualBytes": 117875377,
+    "actualRegularFiles": 1677,
+    "completeNoExtraFileRoster": true,
+    "exactModesSingleLinksAndPhysical0700Directories": true,
+    "newOverlayFiles": 2,
+    "overlayFilesVerified": 5,
+    "preoverlayBytes": 117828630,
+    "preoverlayFiles": 1675,
+    "sourceManifestSha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba",
+    "sourceReviewSha256": "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8",
+    "unchangedGitBlobFilesVerified": 1672
+  },
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "typesImportCompatibilityGameObserverNeutralityCausalLedgerAccepted": false,
+  "typesReady": false,
+  "unchangedBudgetAndTimingCapsSatisfied": true,
+  "utc": "2026-10-09T17:52:25.558336+00:00"
+}

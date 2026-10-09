@@ -1,0 +1,152 @@
+{
+  "actualToolExit": 0,
+  "actualToolSession": 13162,
+  "benchmark": {
+    "captureWholeHashProvenance": "PRIOR_ACCEPTED_ONLY_NOT_REHASHED_HERE",
+    "claimLimit": "Encoder-only early308 fixture timing; no end-to-end109 prediction, later-size feasibility, gameplay/source admission or automatic repeat. B109300/375/390/full110 complete admissions unchanged.",
+    "currentCaptureMetadataRole": "CURRENT_PREPARATION_OBSERVATION_NOT_RETROSPECTIVE_OLD_FILE_IDENTITY",
+    "elapsedSeconds": 7.690503266,
+    "executionAuthorization": false,
+    "fixture": {
+      "member": 308,
+      "rawBytes": 4228063,
+      "rawSha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a",
+      "stateBytes": 2103442,
+      "stateSha256": "cac7fcc155b45be663ac516b244cf3e5fe0c4ec4fb204fb6bd173d9b17d04f7e"
+    },
+    "formula": "110*(16*stateMedianMs+9*wholeRowMedianMs)/1000",
+    "game": false,
+    "inputPurityEachTrial": true,
+    "mediansMs": {
+      "state": {
+        "baseline": 115.80776199999991,
+        "candidate": 83.67623100000037
+      },
+      "wholeRow": {
+        "baseline": 303.30486500000006,
+        "candidate": 196.30219099999977
+      }
+    },
+    "rawAndStateExactEachTrial": true,
+    "retainedReaderClosedExact": true,
+    "saveImports": false,
+    "sourceRoles": {
+      "acceptedCaptureReceipt": {
+        "bytes": 1179,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+        "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+      },
+      "baseline": {
+        "bytes": 11414,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+        "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+      },
+      "benchmark": {
+        "bytes": 5253,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/benchmark-308.mjs",
+        "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+      },
+      "candidate": {
+        "bytes": 2492,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs",
+        "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+      },
+      "controls": {
+        "bytes": 10720,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-encoder.mjs",
+        "sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926"
+      },
+      "index": {
+        "bytes": 24196,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+        "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+      },
+      "recorderControls": {
+        "bytes": 12543,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-recorder-repair.py",
+        "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+      },
+      "targetResult": {
+        "bytes": 3074,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+        "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+      }
+    },
+    "status": "PURE_INDEXED308_ENCODER_BENCHMARK_COMPLETE",
+    "timingsMs": {
+      "state": {
+        "baseline": [
+          115.80776199999991,
+          129.673906,
+          106.67300999999998
+        ],
+        "candidate": [
+          139.66020799999978,
+          83.67623100000037,
+          81.64118999999982
+        ]
+      },
+      "wholeRow": {
+        "baseline": [
+          267.79422200000045,
+          303.30486500000006,
+          339.0081310000005
+        ],
+        "candidate": [
+          196.30219099999977,
+          178.45496399999956,
+          202.77882499999942
+        ]
+      }
+    },
+    "weighted110EncoderOnlySeconds": {
+      "baseline": 504.0934774699999,
+      "candidate": 341.60933565000045
+    }
+  },
+  "claims": "Early308 encoder-only measured proxy, no full-run prediction; prior variant measurements not a controlled cross-session A/B.",
+  "elapsedSeconds": 8.683228984999005,
+  "freshOwnedGroupAbsent": true,
+  "heavyLockAbsent": true,
+  "helperMetaExit": 0,
+  "integrationFull109Authorized": false,
+  "nodeExit": 0,
+  "overrideAbsent": true,
+  "ownedPgid": 85073,
+  "proxyPercentReduction": 32.23293874689529,
+  "recorderExit": 0,
+  "roles": [
+    {
+      "bytes": 9544,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-parent-recorded-20261009-r1/BENCHMARK-GRANT.json",
+      "sha256": "97055a2c28d0ec670e46d6007f73900bf78e518f94604a81c08f229ef3e1b808"
+    },
+    {
+      "bytes": 921,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-benchmark-output-20261009-r1/RESULT.json",
+      "sha256": "da71fb9615894a33b2c8097efde164178fcb141e76a09c2701b56a46d762de63"
+    },
+    {
+      "bytes": 3339,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-benchmark-output-20261009-r1/stdout.bin",
+      "sha256": "60b1e565c6948a46ecfa3fb6d047e0c5803758d77471da7597e61482efa7a262"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-benchmark-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 395,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-benchmark-lane-20261009-r1/benchmark.lane.log",
+      "sha256": "f7a3dc51532b885e8fe34bedc326571a24aff78cbee41060790bfdc4dcd74892"
+    },
+    {
+      "bytes": 343,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-benchmark-lane-20261009-r1/benchmark.lane.log.meta",
+      "sha256": "9361575e34118fecd90c95a849d441689e99d844f79923dba8690dde20f99305"
+    }
+  ],
+  "status": "ACTUAL_TOKEN_FASTPASS_PURE_BENCHMARK_ZERO_PENDING_INDEPENDENT_REVIEW",
+  "utc": "2026-10-09T16:59:27.030687+00:00"
+}

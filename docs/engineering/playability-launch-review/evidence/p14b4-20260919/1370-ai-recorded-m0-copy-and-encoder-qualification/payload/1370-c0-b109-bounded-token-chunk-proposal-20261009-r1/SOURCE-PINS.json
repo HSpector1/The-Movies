@@ -1,0 +1,97 @@
+{
+  "CONFIG.json": {
+    "bytes": 4354,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/CONFIG.json",
+    "sha256": "59d94b70eb2e4c3093fde24529326769d8ab74ac51e73c954f8832a180061527"
+  },
+  "CONFIG.json.diff": {
+    "bytes": 4852,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/CONFIG.json.diff",
+    "sha256": "8751f35046ff5b290fb0a19fc3fb0221e2648d1326d654bd2d6dfcd8b3f11d35"
+  },
+  "CONTROL-RECIPE.json": {
+    "bytes": 3833,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/CONTROL-RECIPE.json",
+    "sha256": "165f9934b70dfc48d7dc0f1d06b19688f421de96eee512ae6fae4ea33b5529e4"
+  },
+  "PROVENANCE.json": {
+    "bytes": 1919,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/PROVENANCE.json",
+    "sha256": "44b731129073ddc7f6f67ee5b2893ce866c9c677643122f6bf2ae9f208c82242"
+  },
+  "REPORT.md": {
+    "bytes": 2990,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/REPORT.md",
+    "sha256": "41911d6d966bf0752134a52849f49d56a00e792e739f290a5b26ac236c9ef15a"
+  },
+  "SOURCE-EQUIVALENCE.json": {
+    "bytes": 1661,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/SOURCE-EQUIVALENCE.json",
+    "sha256": "e4cd740a232b0b6d8db2e01ccfdd7b58ec55ddca0391a2dcd63be65616b0dbf3"
+  },
+  "STATIC-CHECKS.json": {
+    "bytes": 956,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/STATIC-CHECKS.json",
+    "sha256": "db0f5db5e1e88bfd349b9cb234567a1f28a479c9f826a1c05c2215fef48478a7"
+  },
+  "benchmark-308.mjs": {
+    "bytes": 5649,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.mjs",
+    "sha256": "dbbc202e6b473dd81aec427c8cd05ac09c4c6268c64daa52ac061ffc046ce53a"
+  },
+  "benchmark-308.mjs.diff": {
+    "bytes": 6181,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.mjs.diff",
+    "sha256": "99be45bf2edcf6cbb915c3dea7e1da82e712208db75d55648a53d6ea17694dd3"
+  },
+  "benchmark-308.unmodified-reader.mjs": {
+    "bytes": 5253,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.unmodified-reader.mjs",
+    "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+  },
+  "bounded-json-candidate.mjs": {
+    "bytes": 2880,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+    "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+  },
+  "bounded-json-candidate.mjs.diff": {
+    "bytes": 1537,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs.diff",
+    "sha256": "f25cbe2fc91ca91dc2e7556bded6728e8a762ddd25fe70c7486c0361cb8157de"
+  },
+  "bounded-json-reference.mjs": {
+    "bytes": 2492,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-reference.mjs",
+    "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+  },
+  "record-pure-node.py": {
+    "bytes": 14258,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/record-pure-node.py",
+    "sha256": "d0b8380d0ef982f8675ef8affdafd60bac200717132875fe50f220c648586cc2"
+  },
+  "record-pure-node.py.diff": {
+    "bytes": 3000,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/record-pure-node.py.diff",
+    "sha256": "a68a8d18785c1ba0c657d1815b9163d888e907988a8539be627d31f44fa62c63"
+  },
+  "test-encoder.mjs": {
+    "bytes": 15839,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs",
+    "sha256": "015326a19a12225b5fb736bbf85d637f8e925cf4c0f5bd00240061cf9cd880b4"
+  },
+  "test-encoder.mjs.diff": {
+    "bytes": 5600,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs.diff",
+    "sha256": "acf5c5976e8dbc8b51780997e25f663f11cff1780d1580f16b9e0cde67995606"
+  },
+  "test-encoder.original22.mjs": {
+    "bytes": 10720,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.original22.mjs",
+    "sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926"
+  },
+  "test-recorder-repair.py": {
+    "bytes": 12543,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-recorder-repair.py",
+    "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "status": "TEXT_HASH_NORMALIZATION_ONLY_UNRUN",
+  "eightAssertionReplacementNormalizationExact": true,
+  "twentyPortableGroupsAndSharedAssertionsExact": true,
+  "benchmarkExactR5": true,
+  "original14ExactR5": true,
+  "qualifiedRecorderMechanismsExactAfterTwoRoleSubstitutions": true,
+  "configSha256": "3fd3b21c188b7a8b6991dcb2e10c894f7674a5e3c2bd12a6bafe322a283e941e",
+  "expectedGroupsUnrun": 22,
+  "expectedPairsUnrun": 283
+}

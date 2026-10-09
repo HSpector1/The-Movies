@@ -1,0 +1,77 @@
+{
+  "comparison": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/REPORT.json",
+    "bytes": 344313,
+    "sha256": "b419fd0eea96ce9f646842fefeb7b1cc028a0dd07ee1146aca4892e36a47be1c"
+  },
+  "H_employment": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/H-original-employment.json",
+    "bytes": 13113,
+    "sha256": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750"
+  },
+  "A_employment": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/post-aging-employment.json",
+    "bytes": 13113,
+    "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+  },
+  "R9_frame": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/accepted-witness-frame.ndjson",
+    "bytes": 29410,
+    "sha256": "8b0b70f110c37199dc320045b2fec0ac384c323fddfba88bbae620bf34766c50"
+  },
+  "comparison_acceptance": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-observed-independent-review-20261009-r1/RECEIPT.json",
+    "bytes": 2566,
+    "sha256": "faf6df1cb38011ff74b7fbbca9c712da242d13cc6b15f8581dc1f1019202cb3d"
+  },
+  "row0_review": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/RECEIPT.json",
+    "bytes": 20367,
+    "sha256": "9814ce7dcaf76b0fd141e28e0bf1de930c8575bc5c19bccd0fb1a313c38f7ceb"
+  },
+  "source_pins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/SOURCE-PINS.json",
+    "bytes": 12412,
+    "sha256": "038888024a8190a1bd5f8c5df897bda779649e16a3864c993eeb78f5df4ff4a5"
+  },
+  "H_result": {
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/RESULT.json",
+    "bytes": 9842,
+    "sha256": "5235b18b83c8e70dd12b36a7bda932e78cb5b55ef344419a92e4e370f540c5cc"
+  },
+  "H_context": {
+    "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/preimages/terminal-context.ndjson",
+    "bytes": 2822809,
+    "sha256": "8e9e1f68bcfee6a3d6f235b433e1f2e2d455dcc8a005c4011b78c25023bde268"
+  },
+  "F1_result": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/RESULT.json",
+    "bytes": 12000,
+    "sha256": "4c7392c6b0bbca57c0d87cc54230fed21eea0ea4dadf52a398ede306b2c35a71"
+  },
+  "F1_context": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/terminal-context.ndjson",
+    "bytes": 3426122,
+    "sha256": "ffc5a7347500924edf03e89fcf71a8481f8b61e7e3f494f351f4a54009703480"
+  },
+  "F1_trace": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/trace.ndjson",
+    "bytes": 94021,
+    "sha256": "889d23bfc8f79378311b7642b823fafedeb37c4e17126ca4d2ffa4fa4ea31994"
+  },
+  "AF_manifest": {
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-af-post-restart-repairs-and-diagnostic-preparation/ARCHIVE-MANIFEST.json",
+    "bytes": 77405,
+    "sha256": "e9d1439a15a26bd2090f85cb8f45299d6774a04a98cb5288aaa592e6486846ff"
+  },
+  "AC_manifest": {
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ac-accepted-source-and-current-head-preparation/ARCHIVE-MANIFEST.json",
+    "bytes": 5059,
+    "sha256": "29e185aeedd7b6ce4d4b80cae286b45aedaa6b18a50ec8352edc001c88ffc6f0"
+  },
+  "AG_manifest": {
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/ARCHIVE-MANIFEST.json",
+    "bytes": 1322241,
+    "sha256": "4c3db20dd953d1501944a47806070852dbf6b7211d05a98e5e79c16858ca7149"
+  }
+}

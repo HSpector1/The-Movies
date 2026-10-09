@@ -1,0 +1,62 @@
+{
+  "acceptedObserverSourceManifestSha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba",
+  "executionAuthorization": false,
+  "files": {
+    "ADOPTION-PROCEDURE.md": {
+      "bytes": 5408,
+      "sha256": "c6e501b637a61f6383c43477d4a0a5a59a72516b3d460083a70e88f52aadc9fb"
+    },
+    "BINDING-UNFILLED.json": {
+      "bytes": 6762,
+      "sha256": "abb2d118eace11aa43ef58dd80d2bf71e1a7ac04618afdfdae7030ae822146d5"
+    },
+    "CHANGED-CONTROLS.md": {
+      "bytes": 2879,
+      "sha256": "f3d068060a4a94eaf30ee65e826950429868ea4aa3729908e79d4870a5431505"
+    },
+    "GUARD-TRANSITION.md": {
+      "bytes": 4209,
+      "sha256": "a6e133e8e95a5617dcc22d2c3f251add014028e1e1968c7d417bc302d8eb0c9a"
+    },
+    "LAUNCH-UNFILLED.json": {
+      "bytes": 1327,
+      "sha256": "76e675264c2b972b4816f5e9c49c8b1767a7211793162429c91eb9838e17cca9"
+    },
+    "PLAN.md": {
+      "bytes": 3757,
+      "sha256": "b3f8a5ea6a9419ac3720437b3b9fe12206edff8f9ed55402bf7f91f5bdad25f8"
+    },
+    "REBINDS-AND-BODY-PROOF.json": {
+      "bytes": 5325,
+      "sha256": "dede399e050e8cc769aea5d9c10a08cc8c709b39b20032e081fce8d34867585d"
+    },
+    "ROLE-DIFF.json": {
+      "bytes": 1487,
+      "sha256": "73e6577aaabddc553d034b4df975d530f18ee2066eb34e6a1dd7d5a30e5647f4"
+    },
+    "record.py": {
+      "bytes": 21430,
+      "sha256": "d8ea6a3652fdc2f09f81442e042eb166c9fbcb29f71f16f9ac911aa309625699"
+    },
+    "record.py.DIFF.patch": {
+      "bytes": 2123,
+      "sha256": "d03a0466088bf8f97c28c57db7401a3836d9617849400fe28f984446cff95d9f"
+    },
+    "supervise.py": {
+      "bytes": 15375,
+      "sha256": "8eaf5fabdf298df579851b06f45d636b92393e235e8af6b5f2ec52fcfc0bd03f"
+    },
+    "supervise.py.DIFF.patch": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "importsTestsScansMaterializationGameExecuted": false,
+  "parentScopeAdoptionSha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017",
+  "predecessorSourcePinsSha256": "939cc8b45f91f54afc1561003732c3dc8b0e43c654363b8793e9cc9ac8ce8c29",
+  "productionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "1370-m0-recorded-materialization-source-pins-r2",
+  "status": "READY_SOURCE_REVIEW_REQUIRED_UNRUN",
+  "syntaxParsedOnly": true
+}

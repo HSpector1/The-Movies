@@ -1,0 +1,21 @@
+{
+  "actualOutcomeSha256": "f72110dba9c7af9b08470c3d5ad6204fef4ff8fb62ebd91221b2a799053c3b48",
+  "executionAuthorization": false,
+  "freshProductionCommonFullProofAccepted": true,
+  "historicalHScientificWaiver": false,
+  "newHistoricalNumericGroupClaim": false,
+  "next": "Exact guard-core fill then independent preflight/full-semantic/exact/adoption/adoptedpreflight; no current materialization/game authority",
+  "productionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "protectedWriteAndRenamerFreezeMaintained": true,
+  "r9PrivateAdmission": "Full fresh inventory and protected/source/root comparisons against555867 and original actual copy; no continuity shortcut/replay",
+  "r9PrivateRootReuseExplicitlyAccepted": true,
+  "retainedHProtectionOnly": true,
+  "reviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-observed-review-20261009-r1/RECEIPT.json",
+  "reviewSha256": "fe5073d75831162fb0de0ee702a38ed92e795c2f269c7621982bda2b97324fcf",
+  "snapshotPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+  "snapshotSha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "PARENT_ADOPTED_NEW_OPERATIONAL_FULL_GUARD_BASELINE_FOR_EXACT_FILL_ONLY",
+  "subsequentPureEncoderLanes": "Only independent scratch/output/native builtins, no protectedroot source/dependency writes; no full guard equivalence inferred solely from those lanes. Subsequent reviewed after-fill/postflight guards remain required.",
+  "utc": "2026-10-09T17:01:07.101259+00:00"
+}

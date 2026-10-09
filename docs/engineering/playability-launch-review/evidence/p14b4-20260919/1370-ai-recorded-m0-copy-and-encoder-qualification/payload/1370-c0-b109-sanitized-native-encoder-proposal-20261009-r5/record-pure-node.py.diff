@@ -1,0 +1,13 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/record-pure-node.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/record-pure-node.py
+@@ -2,8 +2,8 @@
+ late exit/active checks and sanitized Node environment; no game or Save imports."""
+ import datetime,hashlib,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='96d2da10a6e04cd8992fcb1fccd945c0a96543e6a9db6f8523c510c64926d389';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
+-OUTPUTS={mode:SCRATCH/('1370-c0-b109-sanitized-native-encoder-'+mode+'-output-20261009-r4') for mode in ('controls','benchmark')}
++CONFIG_SHA='82f95b47b18d3343ef433b3009a87d6ba15675cb4010b9507c00f9ebf33c2669';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
++OUTPUTS={mode:SCRATCH/('1370-c0-b109-sanitized-native-encoder-'+mode+'-output-20261009-r5') for mode in ('controls','benchmark')}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()

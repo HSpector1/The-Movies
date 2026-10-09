@@ -1,0 +1,123 @@
+{
+  "actualToolExit": 1,
+  "actualToolSession": 81011,
+  "allOwnedGroupsFreshlyAbsent": true,
+  "caseCount": 9,
+  "cases": [
+    {
+      "actualRecorderReturn": 0,
+      "case": "main-empty-KeyboardInterrupt",
+      "caughtException": null,
+      "faultInjected": true,
+      "outputFiles": [
+        "RESULT.json",
+        "stderr.bin",
+        "stdout.bin"
+      ],
+      "ownedPid": 96442,
+      "schema": "1370-b109-tiny-main-case-return-r4"
+    },
+    {
+      "actualRecorderReturn": 0,
+      "case": "main-empty-TimeoutError",
+      "caughtException": null,
+      "faultInjected": true,
+      "outputFiles": [
+        "RESULT.json",
+        "stderr.bin",
+        "stdout.bin"
+      ],
+      "ownedPid": 96443,
+      "schema": "1370-b109-tiny-main-case-return-r4"
+    },
+    {
+      "actualRecorderReturn": 0,
+      "case": "main-empty-BaseException",
+      "caughtException": null,
+      "faultInjected": true,
+      "outputFiles": [
+        "RESULT.json",
+        "stderr.bin",
+        "stdout.bin"
+      ],
+      "ownedPid": 96444,
+      "schema": "1370-b109-tiny-main-case-return-r4"
+    },
+    {
+      "actualRecorderReturn": null,
+      "case": "finally-empty-KeyboardInterrupt",
+      "caughtException": "KeyboardInterrupt()",
+      "faultInjected": true,
+      "outputFiles": [],
+      "ownedPid": 96445,
+      "schema": "1370-b109-tiny-main-case-return-r4"
+    },
+    {
+      "actualRecorderReturn": null,
+      "case": "finally-empty-TimeoutError",
+      "caughtException": "TimeoutError()",
+      "faultInjected": true,
+      "outputFiles": [],
+      "ownedPid": 96446,
+      "schema": "1370-b109-tiny-main-case-return-r4"
+    },
+    {
+      "actualRecorderReturn": null,
+      "case": "finally-empty-BaseException",
+      "caughtException": "BaseException()",
+      "faultInjected": true,
+      "outputFiles": [],
+      "ownedPid": 96447,
+      "schema": "1370-b109-tiny-main-case-return-r4"
+    },
+    {
+      "actualRecorderReturn": null,
+      "case": "invalid-json",
+      "caughtException": "JSONDecodeError('Expecting value: line 1 column 1 (char 0)')",
+      "faultInjected": false,
+      "outputFiles": [],
+      "ownedPid": 96448,
+      "schema": "1370-b109-tiny-main-case-return-r4"
+    },
+    {
+      "actualRecorderReturn": null,
+      "case": "nonzero",
+      "caughtException": "RuntimeError('STOP_CHILD_EXIT_7')",
+      "faultInjected": false,
+      "outputFiles": [],
+      "ownedPid": 96449,
+      "schema": "1370-b109-tiny-main-case-return-r4"
+    },
+    {
+      "actualRecorderReturn": null,
+      "case": "wrong-role",
+      "caughtException": "RuntimeError('STOP_REPORT_ROLE')",
+      "faultInjected": false,
+      "outputFiles": [],
+      "ownedPid": 96450,
+      "schema": "1370-b109-tiny-main-case-return-r4"
+    }
+  ],
+  "elapsedTestSeconds": 7.586,
+  "expectedFailures": 9,
+  "heavyLockAbsent": true,
+  "helperMetaExit": 1,
+  "oldFinalizationExceptionsLostArtifactsObserved": 6,
+  "oldMainCatchFalseSuccessObserved": 3,
+  "pins": [
+    {
+      "bytes": 14279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-red-lane-20261009-r4/red.lane.log",
+      "sha256": "1153de88b1e64e19c658c03af323fca68d4ff1625394b8eaac9513da75cde95a"
+    },
+    {
+      "bytes": 473,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-red-lane-20261009-r4/red.lane.log.meta",
+      "sha256": "200e0cee80898497cad86d97cdc3722d0df8dc6011d95e1b7e6d4a24a93da06b"
+    }
+  ],
+  "status": "ACTUAL_RED_ALL_NINE_EXPECTED_FAILURES",
+  "temporaryFixturesGone": true,
+  "unittestMethods": 4,
+  "utc": "2026-10-09T16:21:36.496730+00:00"
+}

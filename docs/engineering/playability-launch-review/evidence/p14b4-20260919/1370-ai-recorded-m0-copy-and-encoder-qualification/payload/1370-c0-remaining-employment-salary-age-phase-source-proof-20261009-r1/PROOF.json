@@ -1,0 +1,3463 @@
+{
+  "schema": "1370-remaining-contract-salary-age-phase-source-proof-r1",
+  "status": "PROPOSED_SOURCE_ATTRIBUTION_REQUIRES_INDEPENDENT_REVIEW",
+  "execution": "stdlib bounded reads/hash/JSON/table only; no source imports, RNG, Node, engine, tests, game, Git or production writes",
+  "sourceRoles": {
+    "H": "accepted r7 historical8708 source manifest",
+    "A": "accepted materialization qualified3aaf source payload; selected files only, not current whole freeze",
+    "F1": "accepted modern film-hold artifacts; only row0 measured jitter reused through accepted bridge; no evolved stats transport"
+  },
+  "scope": {
+    "initialRows": 22,
+    "renewedRows": 16,
+    "distinctMissingJitterRoles": 23,
+    "newAnnualAttributions": 0
+  },
+  "preservationArgument": "Diagnostic supplies no actions. Historical initial person receives max28/workHistory override, which cannot alter roleOVR(perceived skills)/fame salaryCurve. Enumerated tick talent path takes industry talent, preserves existing people or appends unique supply, maps releaseCareers/developTalent immutable replacements preserving age and salary, then carries same person fields through terminal roots/settlement to diagnostic. Therefore captured H stored salary and age can anchor initial pricing inputs; evolved skills/fame cannot be transported backwards. This finite source path argument does not claim every module or arbitrary action preserves person fields.",
+  "observerPhase": "H terminal context208 is post-growth, post-increment, post-settlement. PriceAt/commit winner quote at208 before observer changes employment/cash/market/promise roots without changing person. It can supply H current salaryCurve vector at settlement, not earlier persisted proposal submission quote. A materializes new-week birthday ages before terminal market; source-derived ages may be transported using common entry anchor, while missing A evolved pricing vector remains missing.",
+  "H_F1_salaryScalarAgreement24": "artifact corroboration only; no F1 evolved state substitution",
+  "knownJitter": {
+    "talentId": "person-studio-aca408ec-r01-0",
+    "value": 0.9757723039761186,
+    "reuse": "only through identical fresh stream key/call source proof; no execution"
+  },
+  "missingJitterRoles": [
+    {
+      "talentId": "person-studio-aca408ec-r01-1",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r01-1",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-2",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r01-2",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-3",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r01-3",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-4",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r01-4",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-5",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r01-5",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-0",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r02-0",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-1",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r02-1",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-2",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r02-2",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-3",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r02-3",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-4",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r02-4",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-5",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r02-5",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-0",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r03-0",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-1",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r03-1",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-2",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r03-2",
+      "initialRequired": false,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-3",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r03-3",
+      "initialRequired": true,
+      "renewalRequired": true,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-4",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r03-4",
+      "initialRequired": true,
+      "renewalRequired": false,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-5",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r03-5",
+      "initialRequired": true,
+      "renewalRequired": false,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r04-0",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r04-0",
+      "initialRequired": true,
+      "renewalRequired": false,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r04-1",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r04-1",
+      "initialRequired": true,
+      "renewalRequired": false,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r04-2",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r04-2",
+      "initialRequired": true,
+      "renewalRequired": false,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r04-3",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r04-3",
+      "initialRequired": true,
+      "renewalRequired": false,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r04-4",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r04-4",
+      "initialRequired": true,
+      "renewalRequired": false,
+      "acceptedMeasurement": null
+    },
+    {
+      "talentId": "person-studio-aca408ec-r04-5",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r04-5",
+      "initialRequired": true,
+      "renewalRequired": false,
+      "acceptedMeasurement": null
+    }
+  ],
+  "records": [
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+        0
+      ],
+      "H_sourceOrder": 1,
+      "A_sourceOrder": 1,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r01-1",
+      "role": "director",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r01-1",
+        "annualSalary": 140129,
+        "signingBonus": 25223,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r01-1",
+        "annualSalary": 141075,
+        "signingBonus": 25394,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 2,
+      "F1_person208_line": 2,
+      "H_age208": 48.70801517856732,
+      "F1_age208": 52,
+      "H_storedSalary208": 52634.56989789868,
+      "F1_storedSalary208": 52634.56989789868,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r01-1",
+          "creativeRole": "director",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 52634.56989789868,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 48.70801517856732,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 48,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+        0
+      ],
+      "H_sourceOrder": 2,
+      "A_sourceOrder": 2,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r01-2",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r01-2",
+        "annualSalary": 221213,
+        "signingBonus": 39818,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r01-2",
+        "annualSalary": 220859,
+        "signingBonus": 39755,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 3,
+      "F1_person208_line": 3,
+      "H_age208": 30.706232958391467,
+      "F1_age208": 34,
+      "H_storedSalary208": 87173.18066075392,
+      "F1_storedSalary208": 87173.18066075392,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r01-2",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 87173.18066075392,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 30.706232958391467,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 30,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+        0
+      ],
+      "H_sourceOrder": 3,
+      "A_sourceOrder": 3,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r01-3",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r01-3",
+        "annualSalary": 745778,
+        "signingBonus": 134240,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r01-3",
+        "annualSalary": 745914,
+        "signingBonus": 134265,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 4,
+      "F1_person208_line": 4,
+      "H_age208": 40.04834772311771,
+      "F1_age208": 44,
+      "H_storedSalary208": 289501.5043446407,
+      "F1_storedSalary208": 289501.5043446407,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r01-3",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 289501.5043446407,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 40.04834772311771,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 40,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+        0
+      ],
+      "H_sourceOrder": 4,
+      "A_sourceOrder": 4,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r01-4",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r01-4",
+        "annualSalary": 915853,
+        "signingBonus": 164854,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r01-4",
+        "annualSalary": 916051,
+        "signingBonus": 164889,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 5,
+      "F1_person208_line": 5,
+      "H_age208": 34.8353363537762,
+      "F1_age208": 38,
+      "H_storedSalary208": 360046.52868806233,
+      "F1_storedSalary208": 360046.52868806233,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r01-4",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 360046.52868806233,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 34.8353363537762,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 34,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+        0
+      ],
+      "H_sourceOrder": 5,
+      "A_sourceOrder": 5,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r01-5",
+      "role": "craft",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r01-5",
+        "annualSalary": 191719,
+        "signingBonus": 34509,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r01-5",
+        "annualSalary": 191216,
+        "signingBonus": 34419,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 6,
+      "F1_person208_line": 6,
+      "H_age208": 29.927234713302248,
+      "F1_age208": 33,
+      "H_storedSalary208": 76896.30773879046,
+      "F1_storedSalary208": 76896.30773879046,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r01-5",
+          "creativeRole": "craft",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 76896.30773879046,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 29.927234713302248,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 29,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208",
+        0
+      ],
+      "H_sourceOrder": 30,
+      "A_sourceOrder": 30,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r02-0",
+      "role": "writer",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r02-0",
+        "annualSalary": 304978,
+        "signingBonus": 54896,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r02-0",
+        "annualSalary": 292260,
+        "signingBonus": 52607,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 7,
+      "F1_person208_line": 7,
+      "H_age208": 53.09611512878311,
+      "F1_age208": 57,
+      "H_storedSalary208": 94481.14475959158,
+      "F1_storedSalary208": 94481.14475959158,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r02-0",
+          "creativeRole": "writer",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 94481.14475959158,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 53.09611512878311,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 53,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 53.09611512878311,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 57,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-1:208",
+        0
+      ],
+      "H_sourceOrder": 31,
+      "A_sourceOrder": 31,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r02-1",
+      "role": "director",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r02-1",
+        "annualSalary": 454396,
+        "signingBonus": 81791,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r02-1",
+        "annualSalary": 445718,
+        "signingBonus": 80229,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 8,
+      "F1_person208_line": 8,
+      "H_age208": 40.255207774620324,
+      "F1_age208": 44,
+      "H_storedSalary208": 114398.28126530939,
+      "F1_storedSalary208": 114398.28126530939,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r02-1",
+          "creativeRole": "director",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 114398.28126530939,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 40.255207774620324,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 40,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 40.255207774620324,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 44,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208",
+        0
+      ],
+      "H_sourceOrder": 32,
+      "A_sourceOrder": 32,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r02-2",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r02-2",
+        "annualSalary": 198718,
+        "signingBonus": 35769,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r02-2",
+        "annualSalary": 191769,
+        "signingBonus": 34518,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 9,
+      "F1_person208_line": 9,
+      "H_age208": 40.093064922683496,
+      "F1_age208": 44,
+      "H_storedSalary208": 41638.76015922036,
+      "F1_storedSalary208": 41638.76015922036,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r02-2",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 41638.76015922036,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 40.093064922683496,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 40,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 40.093064922683496,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 44,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208",
+        0
+      ],
+      "H_sourceOrder": 33,
+      "A_sourceOrder": 33,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r02-3",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r02-3",
+        "annualSalary": 902597,
+        "signingBonus": 162467,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r02-3",
+        "annualSalary": 876801,
+        "signingBonus": 157824,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 10,
+      "F1_person208_line": 10,
+      "H_age208": 54.082681874932234,
+      "F1_age208": 58,
+      "H_storedSalary208": 325554.3594725216,
+      "F1_storedSalary208": 325554.3594725216,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r02-3",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 325554.3594725216,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 54.082681874932234,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 54,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 54.082681874932234,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 58,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-4:208",
+        0
+      ],
+      "H_sourceOrder": 34,
+      "A_sourceOrder": 34,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r02-4",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r02-4",
+        "annualSalary": 674886,
+        "signingBonus": 121479,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r02-4",
+        "annualSalary": 656727,
+        "signingBonus": 118211,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 11,
+      "F1_person208_line": 11,
+      "H_age208": 43.19009438114523,
+      "F1_age208": 47,
+      "H_storedSalary208": 191754.5004688392,
+      "F1_storedSalary208": 191754.5004688392,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r02-4",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 191754.5004688392,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 43.19009438114523,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 43,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 43.19009438114523,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 47,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-5:208",
+        0
+      ],
+      "H_sourceOrder": 35,
+      "A_sourceOrder": 35,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r02-5",
+      "role": "craft",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r02-5",
+        "annualSalary": 302264,
+        "signingBonus": 54408,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r02-5",
+        "annualSalary": 291337,
+        "signingBonus": 52441,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 12,
+      "F1_person208_line": 12,
+      "H_age208": 49.92240797196069,
+      "F1_age208": 53,
+      "H_storedSalary208": 96667.69164427022,
+      "F1_storedSalary208": 96667.69164427022,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r02-5",
+          "creativeRole": "craft",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 96667.69164427022,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 49.92240797196069,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 49,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 49.92240797196069,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 53,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208",
+        0
+      ],
+      "H_sourceOrder": 24,
+      "A_sourceOrder": 24,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "role": "writer",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r01-0",
+        "annualSalary": 514171,
+        "signingBonus": 92551,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r01-0",
+        "annualSalary": 499573,
+        "signingBonus": 89923,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 1,
+      "F1_person208_line": 1,
+      "H_age208": 44.36540781416331,
+      "F1_age208": 48,
+      "H_storedSalary208": 154938.60069756274,
+      "F1_storedSalary208": 154938.60069756274,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r01-0",
+          "creativeRole": "writer",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 154938.60069756274,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 44.36540781416331,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 44,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": 0.9757723039761186,
+          "origin": "accepted F1 row0 salary observation with exact common keyed offer caller",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 44.36540781416331,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 48,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-1:208",
+        0
+      ],
+      "H_sourceOrder": 25,
+      "A_sourceOrder": 25,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r01-1",
+      "role": "director",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r01-1",
+        "annualSalary": 254011,
+        "signingBonus": 45722,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r01-1",
+        "annualSalary": 242680,
+        "signingBonus": 43682,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 2,
+      "F1_person208_line": 2,
+      "H_age208": 48.70801517856732,
+      "F1_age208": 52,
+      "H_storedSalary208": 52634.56989789868,
+      "F1_storedSalary208": 52634.56989789868,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r01-1",
+          "creativeRole": "director",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 52634.56989789868,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 48.70801517856732,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 48,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 48.70801517856732,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 52,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-2:208",
+        0
+      ],
+      "H_sourceOrder": 26,
+      "A_sourceOrder": 26,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r01-2",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r01-2",
+        "annualSalary": 345627,
+        "signingBonus": 62213,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r01-2",
+        "annualSalary": 346793,
+        "signingBonus": 62423,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 3,
+      "F1_person208_line": 3,
+      "H_age208": 30.706232958391467,
+      "F1_age208": 34,
+      "H_storedSalary208": 87173.18066075392,
+      "F1_storedSalary208": 87173.18066075392,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r01-2",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 87173.18066075392,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 30.706232958391467,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 30,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 30.706232958391467,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 34,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-3:208",
+        0
+      ],
+      "H_sourceOrder": 27,
+      "A_sourceOrder": 27,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r01-3",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r01-3",
+        "annualSalary": 935256,
+        "signingBonus": 168346,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r01-3",
+        "annualSalary": 916663,
+        "signingBonus": 164999,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 4,
+      "F1_person208_line": 4,
+      "H_age208": 40.04834772311771,
+      "F1_age208": 44,
+      "H_storedSalary208": 289501.5043446407,
+      "F1_storedSalary208": 289501.5043446407,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r01-3",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 289501.5043446407,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 40.04834772311771,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 40,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 40.04834772311771,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 44,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-4:208",
+        0
+      ],
+      "H_sourceOrder": 28,
+      "A_sourceOrder": 28,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r01-4",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r01-4",
+        "annualSalary": 1097654,
+        "signingBonus": 197578,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r01-4",
+        "annualSalary": 1092446,
+        "signingBonus": 196640,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 5,
+      "F1_person208_line": 5,
+      "H_age208": 34.8353363537762,
+      "F1_age208": 38,
+      "H_storedSalary208": 360046.52868806233,
+      "F1_storedSalary208": 360046.52868806233,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r01-4",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 360046.52868806233,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 34.8353363537762,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 34,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 34.8353363537762,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 38,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-5:208",
+        0
+      ],
+      "H_sourceOrder": 29,
+      "A_sourceOrder": 29,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r01-5",
+      "role": "craft",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r01-5",
+        "annualSalary": 256389,
+        "signingBonus": 46150,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r01-5",
+        "annualSalary": 257634,
+        "signingBonus": 46374,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 6,
+      "F1_person208_line": 6,
+      "H_age208": 29.927234713302248,
+      "F1_age208": 33,
+      "H_storedSalary208": 76896.30773879046,
+      "F1_storedSalary208": 76896.30773879046,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r01-5",
+          "creativeRole": "craft",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 76896.30773879046,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 29.927234713302248,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 29,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 29.927234713302248,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 33,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+        0
+      ],
+      "H_sourceOrder": 6,
+      "A_sourceOrder": 6,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r02-0",
+      "role": "writer",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r02-0",
+        "annualSalary": 225703,
+        "signingBonus": 40627,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r02-0",
+        "annualSalary": 225992,
+        "signingBonus": 40679,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 7,
+      "F1_person208_line": 7,
+      "H_age208": 53.09611512878311,
+      "F1_age208": 57,
+      "H_storedSalary208": 94481.14475959158,
+      "F1_storedSalary208": 94481.14475959158,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r02-0",
+          "creativeRole": "writer",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 94481.14475959158,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 53.09611512878311,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 53,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+        0
+      ],
+      "H_sourceOrder": 7,
+      "A_sourceOrder": 7,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r02-1",
+      "role": "director",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r02-1",
+        "annualSalary": 312775,
+        "signingBonus": 56300,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r02-1",
+        "annualSalary": 313082,
+        "signingBonus": 56355,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 8,
+      "F1_person208_line": 8,
+      "H_age208": 40.255207774620324,
+      "F1_age208": 44,
+      "H_storedSalary208": 114398.28126530939,
+      "F1_storedSalary208": 114398.28126530939,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r02-1",
+          "creativeRole": "director",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 114398.28126530939,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 40.255207774620324,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 40,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+        0
+      ],
+      "H_sourceOrder": 8,
+      "A_sourceOrder": 8,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r02-2",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r02-2",
+        "annualSalary": 115168,
+        "signingBonus": 20730,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r02-2",
+        "annualSalary": 115209,
+        "signingBonus": 20738,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 9,
+      "F1_person208_line": 9,
+      "H_age208": 40.093064922683496,
+      "F1_age208": 44,
+      "H_storedSalary208": 41638.76015922036,
+      "F1_storedSalary208": 41638.76015922036,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r02-2",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 41638.76015922036,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 40.093064922683496,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 40,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+        0
+      ],
+      "H_sourceOrder": 9,
+      "A_sourceOrder": 9,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r02-3",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r02-3",
+        "annualSalary": 764724,
+        "signingBonus": 137650,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r02-3",
+        "annualSalary": 765621,
+        "signingBonus": 137812,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 10,
+      "F1_person208_line": 10,
+      "H_age208": 54.082681874932234,
+      "F1_age208": 58,
+      "H_storedSalary208": 325554.3594725216,
+      "F1_storedSalary208": 325554.3594725216,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r02-3",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 325554.3594725216,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 54.082681874932234,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 54,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+        0
+      ],
+      "H_sourceOrder": 10,
+      "A_sourceOrder": 10,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r02-4",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r02-4",
+        "annualSalary": 473037,
+        "signingBonus": 85147,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r02-4",
+        "annualSalary": 473558,
+        "signingBonus": 85240,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 11,
+      "F1_person208_line": 11,
+      "H_age208": 43.19009438114523,
+      "F1_age208": 47,
+      "H_storedSalary208": 191754.5004688392,
+      "F1_storedSalary208": 191754.5004688392,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r02-4",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 191754.5004688392,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 43.19009438114523,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 43,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+        0
+      ],
+      "H_sourceOrder": 11,
+      "A_sourceOrder": 11,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r02-5",
+      "role": "craft",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r02-5",
+        "annualSalary": 248219,
+        "signingBonus": 44679,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r02-5",
+        "annualSalary": 250600,
+        "signingBonus": 45108,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 12,
+      "F1_person208_line": 12,
+      "H_age208": 49.92240797196069,
+      "F1_age208": 53,
+      "H_storedSalary208": 96667.69164427022,
+      "F1_storedSalary208": 96667.69164427022,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r02-5",
+          "creativeRole": "craft",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 96667.69164427022,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 49.92240797196069,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 49,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+        0
+      ],
+      "H_sourceOrder": 12,
+      "A_sourceOrder": 12,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r03-0",
+      "role": "writer",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r03-0",
+        "annualSalary": 257206,
+        "signingBonus": 46297,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r03-0",
+        "annualSalary": 257755,
+        "signingBonus": 46396,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 13,
+      "F1_person208_line": 13,
+      "H_age208": 51.182996256107096,
+      "F1_age208": 55,
+      "H_storedSalary208": 101334.70443558876,
+      "F1_storedSalary208": 101334.70443558876,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r03-0",
+          "creativeRole": "writer",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 101334.70443558876,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 51.182996256107096,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 51,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:208",
+        0
+      ],
+      "H_sourceOrder": 36,
+      "A_sourceOrder": 36,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r03-0",
+      "role": "writer",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r03-0",
+        "annualSalary": 341615,
+        "signingBonus": 61491,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r03-0",
+        "annualSalary": 324580,
+        "signingBonus": 58424,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 13,
+      "F1_person208_line": 13,
+      "H_age208": 51.182996256107096,
+      "F1_age208": 55,
+      "H_storedSalary208": 101334.70443558876,
+      "F1_storedSalary208": 101334.70443558876,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r03-0",
+          "creativeRole": "writer",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 101334.70443558876,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 51.182996256107096,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 51,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 51.182996256107096,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 55,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+        0
+      ],
+      "H_sourceOrder": 13,
+      "A_sourceOrder": 13,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r03-1",
+      "role": "director",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r03-1",
+        "annualSalary": 180956,
+        "signingBonus": 32572,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r03-1",
+        "annualSalary": 181799,
+        "signingBonus": 32724,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 14,
+      "F1_person208_line": 14,
+      "H_age208": 46.581942481860075,
+      "F1_age208": 50,
+      "H_storedSalary208": 72831.92713181998,
+      "F1_storedSalary208": 72831.92713181998,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r03-1",
+          "creativeRole": "director",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 72831.92713181998,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 46.581942481860075,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 46,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:208",
+        0
+      ],
+      "H_sourceOrder": 37,
+      "A_sourceOrder": 37,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r03-1",
+      "role": "director",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r03-1",
+        "annualSalary": 291925,
+        "signingBonus": 52547,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r03-1",
+        "annualSalary": 282555,
+        "signingBonus": 50860,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 14,
+      "F1_person208_line": 14,
+      "H_age208": 46.581942481860075,
+      "F1_age208": 50,
+      "H_storedSalary208": 72831.92713181998,
+      "F1_storedSalary208": 72831.92713181998,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r03-1",
+          "creativeRole": "director",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 72831.92713181998,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 46.581942481860075,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 46,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 46.581942481860075,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 50,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+        0
+      ],
+      "H_sourceOrder": 38,
+      "A_sourceOrder": 38,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r03-2",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r03-2",
+        "annualSalary": 538698,
+        "signingBonus": 96966,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r03-2",
+        "annualSalary": 543983,
+        "signingBonus": 97917,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 15,
+      "F1_person208_line": 15,
+      "H_age208": 28,
+      "F1_age208": 32,
+      "H_storedSalary208": 120688.48196299552,
+      "F1_storedSalary208": 120688.48196299552,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r03-2",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 120688.48196299552,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 28,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 28,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 28,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 32,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+        0
+      ],
+      "H_sourceOrder": 15,
+      "A_sourceOrder": 15,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r03-3",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r03-3",
+        "annualSalary": 832539,
+        "signingBonus": 149857,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r03-3",
+        "annualSalary": 831383,
+        "signingBonus": 149649,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 16,
+      "F1_person208_line": 16,
+      "H_age208": 31.872599486928138,
+      "F1_age208": 35,
+      "H_storedSalary208": 302845.7600088954,
+      "F1_storedSalary208": 302845.7600088954,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r03-3",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 302845.7600088954,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 31.872599486928138,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 31,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:208",
+        0
+      ],
+      "H_sourceOrder": 39,
+      "A_sourceOrder": 39,
+      "startWeek": 208,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r03-3",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r03-3",
+        "annualSalary": 1058689,
+        "signingBonus": 190564,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r03-3",
+        "annualSalary": 1059738,
+        "signingBonus": 190753,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "H_person208_line": 16,
+      "F1_person208_line": 16,
+      "H_age208": 31.872599486928138,
+      "F1_age208": 35,
+      "H_storedSalary208": 302845.7600088954,
+      "F1_storedSalary208": 302845.7600088954,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r03-3",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 302845.7600088954,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 31.872599486928138,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 31,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 208,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        },
+        "H_renewalAge": {
+          "value": 31.872599486928138,
+          "origin": "H terminal208 same person after tick return; preserves historical age",
+          "phase": "settlement208 quote input"
+        },
+        "A_renewalAge": {
+          "value": 35,
+          "origin": "A entry fractional provenance anchor at0 and ageAt/materialization before terminal208",
+          "phase": "settlement208 source-derived; not F1 evolved person transport"
+        },
+        "H_renewalSalaryCurveInputs": {
+          "valueAvailable": true,
+          "origin": "exact H terminal208 full person perceived skills/fame; market settlement does not mutate person after quote",
+          "phase": "current settlement208 pricing vector; scalar not evaluated here"
+        },
+        "A_renewalSalaryCurveInputs": {
+          "valueAvailable": false,
+          "origin": "NO accepted aging208 full pricing state for this ID in these inputs; F1 modern film-hold context inadmissible substitute",
+          "phase": "required aging settlement208 pricing vector"
+        },
+        "studioFloorPremium": {
+          "valueAvailable": "not numerically closed in this slice",
+          "origin": "shared studioOffer/proposalPriceAt call path; preserved contract terms alone do not identify all upstream factors",
+          "phase": "settlement208, distinguish persisted proposal submission quote"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-4:0",
+        0
+      ],
+      "H_sourceOrder": 16,
+      "A_sourceOrder": 16,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r03-4",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r03-4",
+        "annualSalary": 258369,
+        "signingBonus": 46506,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r03-4",
+        "annualSalary": 257827,
+        "signingBonus": 46409,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 17,
+      "F1_person208_line": 17,
+      "H_age208": 28.588303918345026,
+      "F1_age208": 32,
+      "H_storedSalary208": 90501.12976259706,
+      "F1_storedSalary208": 90501.12976259706,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r03-4",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 90501.12976259706,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 28.588303918345026,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 28,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-5:0",
+        0
+      ],
+      "H_sourceOrder": 17,
+      "A_sourceOrder": 17,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r03-5",
+      "role": "craft",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r03-5",
+        "annualSalary": 682358,
+        "signingBonus": 122824,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r03-5",
+        "annualSalary": 686939,
+        "signingBonus": 123649,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 18,
+      "F1_person208_line": 18,
+      "H_age208": 49.652968596419115,
+      "F1_age208": 53,
+      "H_storedSalary208": 281243.63725026173,
+      "F1_storedSalary208": 281243.63725026173,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r03-5",
+          "creativeRole": "craft",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 281243.63725026173,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 49.652968596419115,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 49,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-0:0",
+        0
+      ],
+      "H_sourceOrder": 18,
+      "A_sourceOrder": 18,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r04-0",
+      "role": "writer",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r04-0",
+        "annualSalary": 733109,
+        "signingBonus": 131960,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r04-0",
+        "annualSalary": 734049,
+        "signingBonus": 132129,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 19,
+      "F1_person208_line": 19,
+      "H_age208": 36.85040859598189,
+      "F1_age208": 40,
+      "H_storedSalary208": 252787.49260303596,
+      "F1_storedSalary208": 252787.49260303596,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r04-0",
+          "creativeRole": "writer",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 252787.49260303596,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 36.85040859598189,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 36,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-1:0",
+        0
+      ],
+      "H_sourceOrder": 19,
+      "A_sourceOrder": 19,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r04-1",
+      "role": "director",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r04-1",
+        "annualSalary": 790279,
+        "signingBonus": 142250,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r04-1",
+        "annualSalary": 790134,
+        "signingBonus": 142224,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 20,
+      "F1_person208_line": 20,
+      "H_age208": 33.361823482084816,
+      "F1_age208": 37,
+      "H_storedSalary208": 302791.0982953983,
+      "F1_storedSalary208": 302791.0982953983,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r04-1",
+          "creativeRole": "director",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 302791.0982953983,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 33.361823482084816,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 33,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-2:0",
+        0
+      ],
+      "H_sourceOrder": 20,
+      "A_sourceOrder": 20,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r04-2",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r04-2",
+        "annualSalary": 378934,
+        "signingBonus": 68208,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r04-2",
+        "annualSalary": 379009,
+        "signingBonus": 68222,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 21,
+      "F1_person208_line": 21,
+      "H_age208": 34.80258332496116,
+      "F1_age208": 38,
+      "H_storedSalary208": 151498.611327841,
+      "F1_storedSalary208": 151498.611327841,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r04-2",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 151498.611327841,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 34.80258332496116,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 34,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-3:0",
+        0
+      ],
+      "H_sourceOrder": 21,
+      "A_sourceOrder": 21,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r04-3",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r04-3",
+        "annualSalary": 891573,
+        "signingBonus": 160483,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r04-3",
+        "annualSalary": 895479,
+        "signingBonus": 161186,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 22,
+      "F1_person208_line": 22,
+      "H_age208": 42.82028348171056,
+      "F1_age208": 46,
+      "H_storedSalary208": 346358.41215763247,
+      "F1_storedSalary208": 346358.41215763247,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r04-3",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 346358.41215763247,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 42.82028348171056,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 42,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-4:0",
+        0
+      ],
+      "H_sourceOrder": 22,
+      "A_sourceOrder": 22,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r04-4",
+      "role": "actor",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r04-4",
+        "annualSalary": 395202,
+        "signingBonus": 71136,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r04-4",
+        "annualSalary": 395223,
+        "signingBonus": 71140,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 23,
+      "F1_person208_line": 23,
+      "H_age208": 35.08365010216108,
+      "F1_age208": 39,
+      "H_storedSalary208": 138495.40113608318,
+      "F1_storedSalary208": 138495.40113608318,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r04-4",
+          "creativeRole": "actor",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 138495.40113608318,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 35.08365010216108,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 35,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r04:contract:person-studio-aca408ec-r04-5:0",
+        0
+      ],
+      "H_sourceOrder": 23,
+      "A_sourceOrder": 23,
+      "startWeek": 0,
+      "termWeeks": 208,
+      "talentId": "person-studio-aca408ec-r04-5",
+      "role": "craft",
+      "H_terms": {
+        "talentId": "person-studio-aca408ec-r04-5",
+        "annualSalary": 732031,
+        "signingBonus": 131766,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "A_terms": {
+        "talentId": "person-studio-aca408ec-r04-5",
+        "annualSalary": 733476,
+        "signingBonus": 132026,
+        "termWeeks": 208,
+        "startWeek": 0,
+        "endWeekExclusive": 208
+      },
+      "H_person208_line": 24,
+      "F1_person208_line": 24,
+      "H_age208": 48.21165402732983,
+      "F1_age208": 52,
+      "H_storedSalary208": 303282.85805532604,
+      "F1_storedSalary208": 303282.85805532604,
+      "bonusFractionCheck": true,
+      "annualAttribution": "UNEXPLAINED_MISSING_PRICING_ROLES",
+      "inputRoles": {
+        "seed": {
+          "value": "p13a-core-causal-01",
+          "origin": "accepted H RESULT and common fixture/caller source bridge",
+          "phase": "generation/quote shared"
+        },
+        "identityRole": {
+          "value": "person-studio-aca408ec-r04-5",
+          "creativeRole": "craft",
+          "origin": "stable actual contract identity and exact authored team index source",
+          "phase": "generation\u2192observer"
+        },
+        "initialSalaryCurve": {
+          "value": 303282.85805532604,
+          "origin": "H terminal208 stored salary preserved by enumerated historical person replacement paths; common full creative generator/helper/constants source bridge",
+          "phase": "generation/pre-initial-offer scalar, transported by preservation; not evolved208 salaryCurve"
+        },
+        "H_initialAge": {
+          "value": 48.21165402732983,
+          "origin": "same H terminal208 exact fractional age; historical tick person paths preserve age after authored max28",
+          "phase": "authored entry/week0; source transport"
+        },
+        "A_initialAge": {
+          "value": 48,
+          "origin": "same generated person + A committed age floor",
+          "phase": "week0 source-derived, not new capture"
+        },
+        "jitter": {
+          "value": null,
+          "origin": "NO accepted observation for this ID; do not invert rounded salary",
+          "phase": "fresh hiring/offer-ID independent week/term"
+        },
+        "offerWeekTerm": {
+          "week": 0,
+          "termWeeks": 208,
+          "origin": "actual H/A contract terms",
+          "phase": "committed contract; initial offer0 or settlement208"
+        }
+      }
+    }
+  ],
+  "claimLimit": "All38 annual quotes remain unexplained; no new historical measurement, annual cause, ledger admission, F1\u2192A evolved fields, rounded-salary inversion, week208 unmatched-placement resolution, or current full source freeze."
+}

@@ -1,0 +1,83 @@
+{
+  "actualRecorder": {
+    "bytes": 1055,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/RESULT.json",
+    "sha256": "3041a1b7bb8b5b820238c708d3ab2d634651fd6019b81544f8a7bf61ddf8eff9"
+  },
+  "actualRunOutcome": {
+    "bytes": 4132,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/TOOL-OUTCOME.json",
+    "sha256": "a414715aea926a344c5308e9db3e006391437e3689a49d58acba57c1ae98a1fc"
+  },
+  "actualSupervisor": {
+    "bytes": 464,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/SUPERVISOR.json",
+    "sha256": "2e7160b79225eae23e4fb0983e00c945b4588092f188b36285c3aac859cb281f"
+  },
+  "actualWorkerChildPgids": [
+    10639,
+    10655
+  ],
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "postflight",
+    "postflight-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+    "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15",
+    "10639,10655"
+  ],
+  "baseline": {
+    "bytes": 8082048,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+    "sha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15"
+  },
+  "config": {
+    "bytes": 3235,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/CONFIG.json",
+    "sha256": "03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactArgvRole": {
+    "bytes": 2443,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/EXACT-POSTFLIGHT-ARGV.json",
+    "sha256": "a4eda7f0640623445ccd713195a7bca646e30c705b7aa4ebb703e630673bc029"
+  },
+  "gameTypesMaterializationAuthorized": false,
+  "guardSource": {
+    "bytes": 20999,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py",
+    "sha256": "259c4bac30fd506a67779d2c59fd29f51c8a6f75e140f7c37f6cff625aa23a58"
+  },
+  "independentArgvReview": {
+    "bytes": 9178,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-postflight-argv-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "d43a75ef69fe772a796f173b231aad167b446464ff2861461d5ffcc4f4597e9c"
+  },
+  "noHeavyHelperBecauseGuardRequiresLockAbsent": true,
+  "parentPidBecomesSnapshotPid": 17678,
+  "protectedFreezeMaintained": true,
+  "rawPsFdLocalOnly": true,
+  "schema": "m0-postflight-parent-full-guard-grant/v1",
+  "soleRecordedHeavyLane": true,
+  "sourceScript": {
+    "bytes": 3259,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/grant_postflight.py",
+    "sha256": "902bc7681b8aab77f926b652fd87ba0edc9fb3720a549eebd43b014dc7102f98"
+  },
+  "startMonotonic": 73609.658479631,
+  "status": "ROOT_ADOPTED_EXACT_POSTFLIGHT_ARGV_AND_GRANTED_ONE_DIRECT_FULL_GUARD",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/postflight.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/postflight.stdout",
+  "utc": "2026-10-09T17:37:47.412876+00:00"
+}

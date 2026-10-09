@@ -1,0 +1,30 @@
+{
+  "predecessorCandidate": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs",
+    "bytes": 2492,
+    "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+  },
+  "predecessorRecorder": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/record-pure-node.py",
+    "bytes": 14248,
+    "sha256": "89abbb1db46f0bba3d1c177fa274b00dcd556975340d6f960c38972afe0c7be5"
+  },
+  "candidateNormalization": "Remove added perf_hooks import, bound clock, module record and takeLastProfile export; remove entry reset/completed flag/try/phaseStart; unindent existing original body two spaces; replace instrumented successful tail and refusal finally with original emit(value);return Buffer.from(pieces.join('')). This reproduces every original byte.",
+  "recorderReversals": {
+    "configSha256": [
+      "701239d900079aaf87264a991cc90454bf3e976ad262eff65ef3687ff7722100",
+      "3fd3b21c188b7a8b6991dcb2e10c894f7674a5e3c2bd12a6bafe322a283e941e"
+    ],
+    "outputPrefix": [
+      "1370-c0-b109-token-phase-profile-",
+      "1370-c0-b109-token-assertion-fastpass-"
+    ],
+    "expectedBenchmarkReport": [
+      "PURE_INDEXED308_ENCODER_PHASE_PROFILE_COMPLETE",
+      "PURE_INDEXED308_ENCODER_BENCHMARK_COMPLETE"
+    ]
+  },
+  "candidateExact": true,
+  "recorderExact": true,
+  "controlsAndOriginalBenchmarkExact": true
+}

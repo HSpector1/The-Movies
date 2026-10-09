@@ -1,0 +1,38 @@
+{
+  "schema": "1370-remaining-employment-quote-next-slice-independent-r1",
+  "decision": "ACCEPT_BOUNDED_NEXT_SOURCE_ONLY_SLICE_NO_ANNUAL_ATTRIBUTION",
+  "files": {
+    "REPORT.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/REPORT.md",
+      "bytes": 6127,
+      "sha256": "a3817c0a9f7b34c8558c7bb774dd026485e3fef04034dd013ec6d78779af2bd3"
+    },
+    "FACTS.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/FACTS.json",
+      "bytes": 45945,
+      "sha256": "27d72ea9903a7a6953b89768f0cd77518c6b3643c3ddb7b7aba7b2902f9124d8"
+    },
+    "INPUT-PINS.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/INPUT-PINS.json",
+      "bytes": 4251,
+      "sha256": "b23846669624467a16a2b111f7df806760e1f595338e7c6161a99d9c7a1c35a6"
+    },
+    "review.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/review.py",
+      "bytes": 6173,
+      "sha256": "479f9f0f03d1e8a1c818592c4113ce8d2a3701665410ef3ea21a7ec1951dbf41"
+    }
+  },
+  "counts": {
+    "remainingWeek0": 22,
+    "remainingWeek208": 16,
+    "bonusRelationsVerified": 38
+  },
+  "pending": [
+    "legacy salary/age input transport source proof",
+    "quote/observer phase proof",
+    "22 other hiring jitter measurements",
+    "aging-side renewal pricing inputs"
+  ],
+  "claimLimit": "No game, execution of engine/source/RNG, new measurement or full causal closure; parent owns further authorization."
+}

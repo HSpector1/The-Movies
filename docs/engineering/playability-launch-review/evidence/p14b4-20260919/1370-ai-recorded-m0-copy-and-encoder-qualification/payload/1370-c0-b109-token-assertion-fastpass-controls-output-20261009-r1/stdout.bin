@@ -1,0 +1,23 @@
+PASS exact primitives and finite number rendering
+PASS captured key order, integer keys and escaping
+PASS undefined object omission and sparse-array null
+PASS shared references are allowed while cycles refuse
+PASS own toJSON refuses; inherited toJSON is ignored like baseline
+PASS unsupported atoms and nonfinite numbers refuse
+PASS exact-fit and cap refusal for every small budget
+PASS string raw precheck and escaped token budget
+PASS property-key cache is per call and cannot mask object mutation
+PASS getter visitation order remains identical
+PASS deterministic nested corpus
+PASS stateful first-check and second-value reads
+PASS dynamic array shrink and growth preserve emitted length
+PASS null prototypes prevent inherited hooks including array pollution
+PASS safe proto keys and integer ordering
+PASS token caps and refusals never serialize source containers
+PASS proxy reverse and mixed integer order exact bytes and caps
+PASS nested and shared proxy order is fresh on each occurrence
+PASS proxy omitted names preserve all original hook traces
+PASS proxy stateful values retain two reads and undefined refusal
+PASS null handler ignores inherited get and descriptor traps
+PASS token emission creates no clone Proxy wrapping
+{"status":"ENCODER_EQUIVALENCE_AND_REFUSALS_PASSED","groups":22,"pairs":283,"game":false,"saveImports":false,"captureDecode":false}

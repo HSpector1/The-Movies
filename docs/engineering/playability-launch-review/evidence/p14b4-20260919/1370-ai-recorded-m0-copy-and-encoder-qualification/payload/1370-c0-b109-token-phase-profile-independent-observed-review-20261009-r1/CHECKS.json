@@ -1,0 +1,92 @@
+{
+  "actualToolHelperRecorderNodeZero": true,
+  "actualToolSession": 96812,
+  "all18SourcePinsExact": true,
+  "allGrantOutcomeRoleEntriesExact": 42,
+  "arithmeticGapTo300NotMeasuredRuntimeHeadroom": 4.727257180000208,
+  "completeBytesPurityRetainedReaderSourceEnforced": true,
+  "eightCompletedProfiles": 8,
+  "exactRuntimeMember308": {
+    "member": 308,
+    "rawBytes": 4228063,
+    "rawSha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a",
+    "stateBytes": 2103442,
+    "stateSha256": "cac7fcc155b45be663ac516b244cf3e5fe0c4ec4fb204fb6bd173d9b17d04f7e"
+  },
+  "freshOwned98020Absent": true,
+  "independentProfiledWeightedProxySeconds": {
+    "baseline": 439.4372461600002,
+    "candidate": 295.2727428199998
+  },
+  "noCrossSessionOrGcRootCauseClaim": true,
+  "noOverrideOrLock": true,
+  "phaseMediansMs": {
+    "state": {
+      "bufferMs": 0.8928679999999076,
+      "initEmissionMs": 48.00536199999988,
+      "internalElapsedMs": 78.29512599999998,
+      "joinMs": 32.341649999999845,
+      "outsidePhasesMs": 0.048471000000063214,
+      "phaseSumMs": 78.29512599999998
+    },
+    "wholeRow": {
+      "bufferMs": 2.16537100000005,
+      "initEmissionMs": 101.33549500000026,
+      "internalElapsedMs": 158.942008,
+      "joinMs": 53.1399449999999,
+      "outsidePhasesMs": 0.05742999999984022,
+      "phaseSumMs": 158.942008
+    }
+  },
+  "priorWholeHashProvenanceAndCurrentMetadataDistinct": true,
+  "trialChecks": [
+    {
+      "emissionPlusJoinPercentInternal": 97.84735858403725,
+      "label": "state",
+      "sumAndIntervalAndBytesValid": true,
+      "trial": "warmup"
+    },
+    {
+      "emissionPlusJoinPercentInternal": 97.17331702103635,
+      "label": "state",
+      "sumAndIntervalAndBytesValid": true,
+      "trial": 0
+    },
+    {
+      "emissionPlusJoinPercentInternal": 98.85609022403435,
+      "label": "state",
+      "sumAndIntervalAndBytesValid": true,
+      "trial": 1
+    },
+    {
+      "emissionPlusJoinPercentInternal": 98.93184788834186,
+      "label": "state",
+      "sumAndIntervalAndBytesValid": true,
+      "trial": 2
+    },
+    {
+      "emissionPlusJoinPercentInternal": 97.21263180008245,
+      "label": "wholeRow",
+      "sumAndIntervalAndBytesValid": true,
+      "trial": "warmup"
+    },
+    {
+      "emissionPlusJoinPercentInternal": 97.32787734277964,
+      "label": "wholeRow",
+      "sumAndIntervalAndBytesValid": true,
+      "trial": 0
+    },
+    {
+      "emissionPlusJoinPercentInternal": 98.71363147516306,
+      "label": "wholeRow",
+      "sumAndIntervalAndBytesValid": true,
+      "trial": 1
+    },
+    {
+      "emissionPlusJoinPercentInternal": 98.63763455159064,
+      "label": "wholeRow",
+      "sumAndIntervalAndBytesValid": true,
+      "trial": 2
+    }
+  ]
+}

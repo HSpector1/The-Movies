@@ -1,0 +1,36 @@
+{
+  "schema": "1370-m0-controls-bounded-parent-runner-source-pins-r3",
+  "status": "UNRUN_INDEPENDENT_SOURCE_REVIEW_AND_SEPARATE_PARENT_GRANT_REQUIRED",
+  "executionAuthorization": false,
+  "files": {
+    "run_controls.py": {
+      "bytes": 7811,
+      "sha256": "0fa665c5608cfe8fc0e2964137fe8cfce993c45e20814c5bfa4e4c6e39a1eed5"
+    },
+    "CONFIG.json": {
+      "bytes": 2762,
+      "sha256": "cc3a613fef7e19161a917ddc126a5864ab3a19f37e052567169fc5b263f20043"
+    },
+    "ARGV-TEMPLATE.json": {
+      "bytes": 2526,
+      "sha256": "2669c82aa2daeeb988c299163d2cd7603ac71c5212b59a28918653c6450e38d3"
+    },
+    "SOURCE-DIFF.patch": {
+      "bytes": 1302,
+      "sha256": "052786b6ce7447adf2f325ac87eb4b597bae3bfcc6978985fcf8347b21160b8f"
+    },
+    "PLAN.md": {
+      "bytes": 7908,
+      "sha256": "40cd1ffd6a233508531ba23da5d66936a15b49566b08f3e4c42cb95606e9069e"
+    }
+  },
+  "controlsSourcePinsSha256": "44be4f080b93ba2566da5f80719475b0b1de6c1e6eba763711323a8244ca1a30",
+  "routeSourcePinsSha256": "a37f4ffc9d315f0a621e9544776d7917d294f927adc1c1adfcf998700cc526c4",
+  "routeSourceReviewSha256": "77889570601c9b25f182047de35fc7dc245f9b68b59ff039924323e4a92f82d6",
+  "original14MethodsChanged": false,
+  "syntaxParsedOnly": true,
+  "importsTestsGameMaterializationGuardScansGitExecuted": false,
+  "predecessorSourcePinsSha256": "d0e6dc12d1fd4e0a391c07a4d1d32dd6776445b8ea635dd70582a357c5e35b88",
+  "repair": "Unmask before durable fork registry write/fsync; masked waitpid uses WNOHANG only with unmasked polls, preserving original0/WNOHANG semantics. Physical hard-stop guarantee is not claimed; hard/incomplete-registry STOP cannot qualify clearance.",
+  "literalPhysicalHardStopGuarantee": false
+}

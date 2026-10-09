@@ -1,0 +1,36 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "ARGV-TEMPLATE.json": {
+      "bytes": 1576,
+      "sha256": "f7fdbf262b8e90d2be66235189dce26c5f3aab49568c8829c9bcdb5bff73705d"
+    },
+    "DIFF.patch": {
+      "bytes": 4183,
+      "sha256": "61269758ea91e3b5000e9d89c8ee5235b1f0bf5fed0ba1d66afe9901ffbf0f98"
+    },
+    "GUARD-ADAPTER-PATHS.md": {
+      "bytes": 4231,
+      "sha256": "8000fafe5db0f703148d0a37d1e6186f135bdf0c992da3c863827d6cc8a4f16e"
+    },
+    "PLAN.md": {
+      "bytes": 3312,
+      "sha256": "e0b71bd121ba2d16892c104e49a24e6ac03505d27ef5022da17317e2ca993ded"
+    },
+    "REPAIR.json": {
+      "bytes": 1092,
+      "sha256": "fc9bed2b510c2bc072b4c14c2b994a57635bf85a7e4b8f6651497086d9ace2fe"
+    },
+    "test_changed_route.py": {
+      "bytes": 17646,
+      "sha256": "7147c3ad51397f74b5f3e0d681755bbbb4b4a373d56d79c61ab8f0f15fda0fc3"
+    }
+  },
+  "guardSnapshotReferenceSha256": "ed43cd95fbbc13a2194338a8fe8dd48e05a56b1b77a4cdcb377f60ea17429740",
+  "predecessorSourcePinsSha256": "2d6c05cf16815ac6869e78c057f4321e3c7be48b7209d1331f7f78bed01f1d50",
+  "schema": "1370-m0-changed-route-controls-source-pins-r2",
+  "sourceImportsTestsMaterializationGameFullScanExecuted": false,
+  "status": "READY_SOURCE_REVIEW_REQUIRED_UNRUN",
+  "syntaxParsedOnly": true,
+  "unittestGroups": 14
+}

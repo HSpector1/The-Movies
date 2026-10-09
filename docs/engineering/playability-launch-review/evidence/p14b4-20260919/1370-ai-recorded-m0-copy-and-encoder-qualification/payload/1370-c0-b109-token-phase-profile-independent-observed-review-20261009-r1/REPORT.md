@@ -1,0 +1,14 @@
+Accepted the actual pure indexed308 completed-call phase profile descriptively only. Tool96812/helper/meta/recorder/Node all0, recorder7.200315591s, child6.391023132s, stdout7947B/stderr0. Exact42 grant/outcome roles and18 source pins authenticate. Actual owned group98020 independently freshly absent; no override/output extras/heavy lock. Recorder generic benchmark status and child profile-specific status match the reviewed route.
+
+All eight completed records (one warmup plus three timed encodings for each state/wholeRow input) have the seven required candidate fields plus two benchmark-derived fields. Each is complete, finite/nonnegative, matches exact encoded length (state2103442B; whole row4228062B excluding newline), sums its phases to internal elapsed, fits inside the outer interval and reproduces outsidePhases. Timed outer values exactly match candidate trial arrays. Independent phase medians and three-trial encoder medians reproduce the report. Destructive consumption and fresh-success publication are enforced by the pinned successful path; this is not an executed negative profile-API/refusal/reentrant test.
+
+| Input | Init/emission median ms | Join median ms | Buffer median ms | Internal elapsed median ms |
+|---|---:|---:|---:|---:|
+| State |48.005362|32.341650|0.892868|78.295126|
+| Whole row |101.335495|53.139945|2.165371|158.942008|
+
+Initialization/emission and join account for the bulk of these observed intervals; Buffer conversion is smaller here. Independent medians must not be added to reconstruct a median total. These intervals include scheduling/possible GC pauses; no GC causation, allocation root cause, calibrated timing overhead or historical unprofiled bottleneck is established. Exactly four clock reads applies completed successful calls; refusals can leave before later boundaries.
+
+Complete baseline/candidate raw/state bytes, input purity, retained reader/path identity and exact closure are enforced by unchanged authenticated308 reader and reviewed profile source before success. Runtime raw4228063B SHA9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a/state SHAcac7fcc155b45be663ac516b244cf3e5fe0c4ec4fb204fb6bd173d9b17d04f7e, accepted capture/index/receipt roles and current metadata match. Whole141MB hash remains prior accepted provenance only; this review neither rehashed that capture nor decoded or reran it.
+
+Instrumented weighted proxy independently reproduces439.43724616→295.27274282s. Its4.72725718s arithmetic gap to300 is not measured full-run headroom: other work and later-state sizes are absent, and this instrumented run cannot supersede or be compared head-to-head with prior unprofiled341.60933565s. No full109 feasibility, integration or retry is accepted. B109300/375/390/full110/complete fields remain unchanged. No source import/test/Node/game/fullscan/Git/production mutation occurred in this independent review.

@@ -1,0 +1,21 @@
+{
+  "directoryNames": [
+    "1370-c0-b109-token-phase-profile-benchmark-lane-20261009-r1",
+    "1370-c0-b109-token-phase-profile-benchmark-output-20261009-r1",
+    "1370-c0-b109-token-phase-profile-controls-lane-20261009-r1",
+    "1370-c0-b109-token-phase-profile-controls-output-20261009-r1",
+    "1370-c0-b109-token-phase-profile-independent-observed-review-20261009-r1",
+    "1370-c0-b109-token-phase-profile-independent-source-review-20261009-r1",
+    "1370-c0-b109-token-phase-profile-parent-recorded-20261009-r1",
+    "1370-c0-b109-token-phase-profile-proposal-20261009-r1",
+    "1370-c0-b109-token-phase-profile22-controls-independent-observed-review-20261009-r1",
+    "1370-c0-m0-exact-candidate-fill-preparation-20261009-r1",
+    "1370-c0-m0-exact-guard-core-candidate-20261009-r1",
+    "1370-c0-m0-final-exact-candidate-20261009-r1",
+    "1370-c0-m0-final-exact-completion-preparation-20261009-r1",
+    "1370-c0-m0-final-exact-independent-review-20261009-r1",
+    "1370-c0-m0-guard-core-current-local-only-20261009-r1",
+    "1370-c0-m0-guard-core-independent-preflight-20261009-r1"
+  ],
+  "scope": "Immediate names then bounded traversal within these literal finite packages only"
+}

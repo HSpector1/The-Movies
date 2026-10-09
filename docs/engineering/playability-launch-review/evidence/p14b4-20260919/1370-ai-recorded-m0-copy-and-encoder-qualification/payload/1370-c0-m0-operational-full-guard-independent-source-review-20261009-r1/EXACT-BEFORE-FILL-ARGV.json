@@ -1,0 +1,35 @@
+{
+  "schema": "1370-m0-full-guard-before-fill-exact-unrun-r1",
+  "decision": "ACCEPT_EXACT_M0_FULL_GUARD_BEFORE_FILL_UNRUN",
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "before-fill",
+    "before-fill-r1"
+  ],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "guardSourcePinsSha256": "6941ca219fad32fe77982f71985052be5743d76820eea48caea2e0305c78bca9",
+  "guardScriptSha256": "259c4bac30fd506a67779d2c59fd29f51c8a6f75e140f7c37f6cff625aa23a58",
+  "configSha256": "03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d",
+  "retainedHMaterializeReceiptSha256": "b8c70f731fc730cea3ba7238674fb964fb973e6ffcf58fcb03e0dbbd139196b6",
+  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1",
+  "runtimePreconditions": [
+    "Parent separately grants sole direct recorded fullscan; no heavy helper creates HEAVY-LANE-LOCK.",
+    "Parent creates private HERE/evidence parent if absent; output label root remains fresh.",
+    "Current boot/tools/source/refs/clean/AC/free/FD/roots/groups/locks and protected freeze pass actual script checks.",
+    "No production/common/copied/H writes or external same-UID renaming from actual baseline through dependent stages.",
+    "Actual full snapshot success and independent observed review are required; no source receipt substitutes for fresh inventory."
+  ],
+  "parentRecording": "Retain actual direct tool exit/stdout/stderr/hash/meta; raw machine-wide PS/FD files remain local-only, publish hashes/sizes only.",
+  "executionAuthorization": false
+}

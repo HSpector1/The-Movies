@@ -1,0 +1,62 @@
+{
+  "schema": "m0-preflight-fresh-command-readbacks-r1",
+  "commands": [
+    {
+      "name": "ps",
+      "chunk_id": "fcc78a",
+      "wall_time_seconds": 0.137810562,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "name": "lsof",
+      "chunk_id": "d33475",
+      "wall_time_seconds": 0.447814091,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "name": "productionHeadAndSrc",
+      "chunk_id": "a302c5",
+      "wall_time_seconds": 0.000030555,
+      "exit_code": 0,
+      "original_token_count": 21,
+      "output": "02d50716fe787eaed425b40f822ce91f4463deba\n13880d9b0ba72aff5d4c5bcf5d12fe682c5de554\n"
+    },
+    {
+      "name": "productionCleanStatus",
+      "chunk_id": "7e58aa",
+      "wall_time_seconds": 0.418895825,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "name": "liveOriginWorkingRef",
+      "chunk_id": "45696d",
+      "wall_time_seconds": 0.749676219,
+      "exit_code": 0,
+      "original_token_count": 22,
+      "output": "02d50716fe787eaed425b40f822ce91f4463deba\trefs/heads/wip/headless-program-20260916-ts\n"
+    },
+    {
+      "name": "acPower",
+      "chunk_id": "205b18",
+      "wall_time_seconds": 0.000033492,
+      "exit_code": 0,
+      "original_token_count": 27,
+      "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n"
+    },
+    {
+      "name": "bootSessionUuid",
+      "chunk_id": "c6c2a0",
+      "wall_time_seconds": 0.000097902,
+      "exit_code": 0,
+      "original_token_count": 10,
+      "output": "452DE205-E1D6-462E-8673-553462BB0166\n"
+    }
+  ],
+  "rawPsFdLocalOnly": true
+}

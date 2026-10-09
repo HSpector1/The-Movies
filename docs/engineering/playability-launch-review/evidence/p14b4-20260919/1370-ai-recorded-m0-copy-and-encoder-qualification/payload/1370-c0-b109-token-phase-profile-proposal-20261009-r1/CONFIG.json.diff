@@ -1,0 +1,84 @@
+--- accepted-fastpass/CONFIG.json
++++ unrun-phase-profile/CONFIG.json
+@@ -33,7 +33,7 @@
+     "member": 308,
+     "sha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a"
+   },
+-  "metadataClaim": "Current readonly preparation stat only; not a historical whole-file identity proof. Prior accepted whole capture hash is provenance only. Runtime308 raw hash is freshly checked.",
++  "metadataClaim": "Inherited accepted fastpass preparation metadata only; not freshly observed by this profiler author or a retrospective whole-file identity proof. Prior accepted whole capture hash is provenance only. Runtime308 raw hash and retained FD/path identity are freshly checked.",
+   "nodePath": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+   "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+   "priorTokenOnlyProvenance": {
+@@ -54,18 +54,18 @@
+       "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+     },
+     "benchmark": {
+-      "bytes": 5253,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/benchmark-308.mjs",
+-      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
++      "bytes": 7920,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/benchmark-308-profile.mjs",
++      "sha256": "5a84f9545257d9597589de2926f21fa38e04124fba62d9a3b87315fcc12ec9e1"
+     },
+     "candidate": {
+-      "bytes": 2492,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs",
+-      "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
++      "bytes": 3360,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/bounded-json-candidate.mjs",
++      "sha256": "62a9013d4d9609db4fe2a315cf2fac8a57c82499db2122ad12882ff9ea7a6668"
+     },
+     "controls": {
+       "bytes": 10720,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-encoder.mjs",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/test-encoder.mjs",
+       "sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926"
+     },
+     "index": {
+@@ -75,15 +75,43 @@
+     },
+     "recorderControls": {
+       "bytes": 12543,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-recorder-repair.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/test-recorder-repair.py",
+       "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+     },
+     "targetResult": {
+       "bytes": 3074,
+       "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+       "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
++    },
++    "unprofiledBenchmark": {
++      "bytes": 5253,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/benchmark-308.unprofiled.mjs",
++      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
++    },
++    "unprofiledTimingReceipt": {
++      "bytes": 1606,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/UNPROFILED-FASTPASS-OBSERVED-RECEIPT.json",
++      "sha256": "bbdf1726103147cd3f4d8d8ed981511af73e0d9484aa19d6aab516cbb5ff0c0a"
++    },
++    "unprofiledTimingReport": {
++      "bytes": 1676,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/UNPROFILED-FASTPASS-OBSERVED-REPORT.md",
++      "sha256": "34f2c59015323b822b01547ef1ff15086c2c9939b14f55f455c38d77c148dff6"
+     }
+   },
+-  "schema": "1370-b109-token-assertion-fastpass-config-r1",
+-  "status": "UNREVIEWED_UNRUN_TOKEN_ASSERTION_FASTPASS_SOURCE_PROPOSAL"
++  "schema": "1370-b109-token-phase-profile-config-r1",
++  "status": "UNREVIEWED_UNRUN_TOKEN_PHASE_PROFILE_SOURCE_PROPOSAL",
++  "profiling": {
++    "fixedPhaseBoundariesPerCandidateCall": 4,
++    "perCallRecordCount": 1,
++    "staleOrRefusedProfileAllowed": false,
++    "warmupPerInput": 1,
++    "recordedPairsPerInput": 3,
++    "inputLabels": [
++      "state",
++      "wholeRow"
++    ],
++    "expectedBenchmarkStatus": "PURE_INDEXED308_ENCODER_PHASE_PROFILE_COMPLETE",
++    "uninstrumentedTimingsRemainSeparate": true
++  }
+ }

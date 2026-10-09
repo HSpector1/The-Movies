@@ -1,0 +1,19 @@
+{
+  "nodePath": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+  "nodeBytes": 92324688,
+  "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+  "captureLstat": {
+    "dev": 16777220,
+    "ino": 166406220,
+    "size": 141237093,
+    "mtimeNs": 1791439909827355864,
+    "ctimeNs": 1791439909827355864,
+    "mode": 33188,
+    "nlink": 1
+  },
+  "captureContentsRead": false,
+  "candidateAccumulationReversalEquals994d": true,
+  "expectedGroupsAuthored": 28,
+  "expectedPairsAuthored": 321,
+  "testsExecuted": false
+}

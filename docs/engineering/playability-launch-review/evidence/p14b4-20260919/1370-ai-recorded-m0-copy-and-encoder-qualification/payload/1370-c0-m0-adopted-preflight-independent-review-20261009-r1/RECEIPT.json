@@ -1,0 +1,168 @@
+{
+  "acPower": true,
+  "acceptedFullBaseline": {
+    "bytes": 8082048,
+    "fullInventoryRepeated": false,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+    "previouslyAuthenticatedReusedUnderMaintainedFreeze": true,
+    "sha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15"
+  },
+  "acceptedFullGuardObservedReview": {
+    "bytes": 2381,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "fe5073d75831162fb0de0ee702a38ed92e795c2f269c7621982bda2b97324fcf"
+  },
+  "acceptedWorkerMarkerScopeClear": true,
+  "actualProbe": {
+    "elapsedSeconds": 2.243768883010489,
+    "exit": 0,
+    "finishedUtc": "2026-10-09T17:31:52.952211+00:00",
+    "startedUtc": "2026-10-09T17:31:50.708061+00:00",
+    "toolSession": 33800
+  },
+  "adoptedLaunch": {
+    "bytes": 2274,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTED-LAUNCH-SPEC.json",
+    "sha256": "e58ea56079b2dfc48bfb321ed9452e3ea5e373ae6a7a153768c77a9c8959ef79"
+  },
+  "archivalErratum": "Full semantic excludes exactly five authorization fields and includes preflight pointer/hash; guard core additionally excludes those two fields. Historical candidate REPORT bytes remain unchanged.",
+  "archiveManifest": {
+    "bytes": 2712,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/ARCHIVE-MANIFEST.json",
+    "sha256": "7728b59ddd6b817b5372d8d0878b935b6bd9e9e0ea977589f9db5aceb4ab312b"
+  },
+  "archiveOriginalsVerified": 6,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json"
+  ],
+  "auditSource": {
+    "bytes": 12229,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-adopted-preflight-independent-review-20261009-r1/audit.py",
+    "sha256": "9f4f8da2ccb5a00d5fcce3e4f6ef198ff10bfa8a53620ce0ac8ed8140ea6671e"
+  },
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "4cfdbc36dae7fab7dc0687b48f3c7d84abc94b8ac0aca146273306d96bd261e4",
+  "bindingSha256": "71e2db2dbe2dabfbf9d885002a9096e0e291d0ed315b92129f8098e5ceada78e",
+  "bootUuidExact": true,
+  "changedBindingFields": [
+    "exactBindingReviewDecision",
+    "exactBindingReviewPath",
+    "exactBindingReviewSha256",
+    "executionAuthorization",
+    "status"
+  ],
+  "claimLimit": "Adopted exact readiness only. Fresh bounded current evidence plus previously accepted full baseline under maintained parent freeze. No materialization/types/game/neutrality/ledger/H-scientific admission. Actual outcome and full protected postflight remain required.",
+  "currentFacts": {
+    "bytes": 31847,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-adopted-preflight-independent-review-20261009-r1/CURRENT-FACTS.json",
+    "sha256": "5cbd96cbe2a08199dbaff19a858835b4dd655b1ceb1f2a47a04232870c1367cf"
+  },
+  "currentOtherOriginalFilesByteIdentical": 5,
+  "currentProtectedFdCheck": {
+    "matchedEntries": 2,
+    "numericEntries": 0,
+    "scopes": [
+      "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+      "/Users/zacheryspector/The-Movies-headless-program",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
+      "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2"
+    ],
+    "unknownNumericAccessEntries": 0,
+    "writeAccessEntries": 0
+  },
+  "currentStrictRootsAndAncestryExact": true,
+  "currentToolIdentitiesAndHashesExact": true,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "decision": "ACCEPT_ADOPTED_M0_MATERIALIZATION_PREFLIGHT_UNRUN",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactReview": {
+    "bytes": 5383,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "de74c395f9ed9633d74949c79c9f56b726f9554f89787084b21f9808bea56bd3"
+  },
+  "freeBytes": 5618561024,
+  "freezeScopeClarification": {
+    "bytes": 2871,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/AFTER-FILL-SCOPE-CLARIFICATION.json",
+    "sha256": "93a585e81b1393c78740d68020ec47eba7ba37d1274f57abeb3a61c72e0353fe"
+  },
+  "freshKnownOwnedGroupsAbsent": [
+    85073,
+    80407,
+    6563,
+    3779,
+    18930,
+    18939,
+    18940,
+    18944,
+    18947,
+    18948,
+    18950,
+    18952,
+    18954,
+    18956,
+    18957,
+    18958,
+    18959,
+    18961,
+    18968,
+    18972,
+    96706,
+    98020
+  ],
+  "fullPostflightRequired": true,
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "localOnlyRawPolicy": "Complete raw PS/FD files remain private local-only and are not admitted to archive; hashes and sizes are in CURRENT-FACTS command records.",
+  "noEngineOrMaterializerExecuted": true,
+  "noSubmittedSourceImported": true,
+  "noTestsOrGitMutation": true,
+  "parentAdoption": {
+    "bytes": 2964,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTION.json",
+    "sha256": "364fab7501f5a5917e3425703773c88f5a0e49de1b518fcda209074751a285e8"
+  },
+  "parentLauncherSourceReviewedOnly": {
+    "bytes": 5021,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/grant_and_launch.py",
+    "sha256": "08d9fd638eb173997a6fd42124dc2061b54e3f20a408ad98329a021ac625af2e"
+  },
+  "privateR9Clean": true,
+  "privateR9Head": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "privateR9SourceTree": "b47ac0ba2785c9619209696cba2c883860d62894",
+  "productionCleanAndLiveWorkingRefExact": true,
+  "productionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "receiptMustRemainExternalToBinding": true,
+  "report": {
+    "bytes": 4521,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-adopted-preflight-independent-review-20261009-r1/REPORT.md",
+    "sha256": "bd666d575b22ea71a122669e22e27889c6ee899d08761a3937851c04cdcfff56"
+  },
+  "rootOwnsActualLaunch": true,
+  "runtimePathsAbsent": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2.MATERIALIZE-RESULT.json",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-20261009-r2.lock",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log.meta",
+    "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK"
+  ],
+  "schema": "m0-independent-adopted-preflight/v1",
+  "utc": "2026-10-09T17:33:27.817895+00:00"
+}

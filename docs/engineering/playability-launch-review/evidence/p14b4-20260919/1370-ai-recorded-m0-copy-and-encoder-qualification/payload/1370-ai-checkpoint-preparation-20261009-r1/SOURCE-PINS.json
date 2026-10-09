@@ -1,0 +1,18 @@
+{
+  "INVENTORY-DRAFT.json": {
+    "bytes": 209206,
+    "sha256": "98888818b513bd61fba861d39a067486f0bbe5c5cc2bcffb161c282f64beab81"
+  },
+  "REPORT.md": {
+    "bytes": 2206,
+    "sha256": "eb00378afb630511045153987184683766b6e3a8a7090e2a291636aa56ae2412"
+  },
+  "SELECTED-DIRECTORIES.json": {
+    "bytes": 5269,
+    "sha256": "74b1649b73693e7658632d4e9f097bce7f68a0135429765172e87dc9ac8fee3e"
+  },
+  "inventory-draft.py": {
+    "bytes": 5549,
+    "sha256": "870f25f6f832ce248b22d16600d02301e7dd257433743837fd0766ce49602069"
+  }
+}

@@ -1,0 +1,5 @@
+Accepted actual fastpass22 controls only. Tool6871/helper/meta/recorder/Node all exited0, recorder1.807602008s, stdout1363B exact ordered22 PASS groups plus22groups/283pairs summary, stderr0. Actual raw/RESULT/meta pins and all source/grant roles authenticate; owned numeric group80407 is independently freshly absent, no output extras/override/heavy lock. The retained qualified r4 recorder schema is expected after exact config/output version wiring.
+
+Twenty portable groups and the two architecture expectations were reviewed/versioned before execution. These observed results qualify the authored byte/refusal/traversal/cap/pollution controls only. No measured speedup, benchmark, capturedecode, gameplay, integration or full109 feasibility is inferred.
+
+The separately preserved root preparation KeyError('files') preceded grant/output/child creation; its corrected flat manifest read did not edit source. It is not an encoder or launched controls failure. Original artifacts remain preserved. This review ran no controls, Node, imports, scans, game or Git/production mutation. A pure308 benchmark still requires a separate parent grant.

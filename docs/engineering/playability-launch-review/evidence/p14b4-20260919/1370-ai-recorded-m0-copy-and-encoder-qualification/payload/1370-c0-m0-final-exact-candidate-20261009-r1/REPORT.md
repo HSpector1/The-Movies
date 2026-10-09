@@ -1,0 +1,6 @@
+Final exact candidate completed under root-adopted final preflight 742d071a72b97ebe1112ebb34482d078d0a335c56dbbad2492eb7601fc1b89fb.
+Original six-file guard-core candidate preserved. Binding changes only preflightReviewPath and preflightReviewSha256. Authorization fields/status remain unchanged; executionfalse and exact receipt pointersnull.
+Guard core d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020
+Full semantic 4cfdbc36dae7fab7dc0687b48f3c7d84abc94b8ac0aca146273306d96bd261e4
+Full semantic excludes exactly five authorization fields, including pinned preflight pointer/hash. Guard core additionally excludes exactly two preflight pointer fields. No receipt binds a digest containing its own hash.
+Launch points to this new binding/raw/semantic with argv prefix/cwd/environment/helper source unchanged. IDENTITY bytes are exact original. GUARD-PROOF-ROLES retains fullguard/source/controls roles and adds accepted finalpreflight/currentfacts/root93a585 scope clarification pointers. Root must independently exact-review, archive these six exact bytes before changing five authorization fields, then externally review adopted launch. No materializer/import/tests/Git/fullscan/launch.

@@ -1,0 +1,22 @@
+{
+  "INPUT-PINS.json": {
+    "bytes": 10568,
+    "sha256": "317bb5012ce56498c31801637fc2f098c640c034effa4885da55190d2081246a"
+  },
+  "PROOF.json": {
+    "bytes": 136304,
+    "sha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2"
+  },
+  "REPORT.md": {
+    "bytes": 3770,
+    "sha256": "042857d94af1a45e958722f2c9a2c2a3c05e33d9598f90f52ba60a2cc110a9a0"
+  },
+  "SOURCE-BLOCKS.json": {
+    "bytes": 68197,
+    "sha256": "e5b144d0cb47d2bb93c50c4e63de4855084c6d9af1bb11ac4905527aafeeaeb6"
+  },
+  "author-proof.py": {
+    "bytes": 17866,
+    "sha256": "079f53f8bb1c0d2d4d9dd4be20e95fd5a7db0a00dea3d96e3ed5a2a9f4d7d395"
+  }
+}

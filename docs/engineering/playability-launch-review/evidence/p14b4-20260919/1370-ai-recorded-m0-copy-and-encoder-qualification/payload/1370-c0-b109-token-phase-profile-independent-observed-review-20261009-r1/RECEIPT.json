@@ -1,0 +1,61 @@
+{
+  "actualToolHelperRecorderNodeExits": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "actualToolSession": 96812,
+  "allTrialSumsIntervalsBytesValid": true,
+  "candidatePhaseMediansMs": {
+    "state": {
+      "bufferMs": 0.8928679999999076,
+      "initEmissionMs": 48.00536199999988,
+      "internalElapsedMs": 78.29512599999998,
+      "joinMs": 32.341649999999845,
+      "outsidePhasesMs": 0.048471000000063214,
+      "phaseSumMs": 78.29512599999998
+    },
+    "wholeRow": {
+      "bufferMs": 2.16537100000005,
+      "initEmissionMs": 101.33549500000026,
+      "internalElapsedMs": 158.942008,
+      "joinMs": 53.1399449999999,
+      "outsidePhasesMs": 0.05742999999984022,
+      "phaseSumMs": 158.942008
+    }
+  },
+  "checksSha256": "5398b17f1bbd84897008885986229d1ac006df4ed2d1f395b78644fbb2414de4",
+  "completeProfiles": 8,
+  "crossSessionVariantComparison": false,
+  "currentMetadataNotHistoricalIdentity": true,
+  "decision": "ACCEPT_OBSERVED_PURE_INDEXED308_TOKEN_PHASE_PROFILE_DESCRIPTIVE_ONLY_REJECT_FULL109_INTEGRATION_RETRY",
+  "gcOrUnprofiledRuntimeCauseAccepted": false,
+  "independentMediansAreAdditive": false,
+  "independentlyFreshOwnedGroupAbsent": true,
+  "instrumentedOnlyWeightedProxySeconds": {
+    "baseline": 439.4372461600002,
+    "candidate": 295.2727428199998
+  },
+  "integrationFull109RetryAuthorized": false,
+  "observed22ControlsReceiptSha256": "6d60821e89fbc2c851ad8d3f3fd38aa4f3f3a9cde9219a0af8c926f826dc4c77",
+  "outsidePhasesIsCalibratedOverhead": false,
+  "ownedPgid": 98020,
+  "parentGrantSha256": "94bca373e29e2fdf55ea5641e6b18f9eb6b66570ea59b3bba1ecb69224c1dfb1",
+  "parentOutcomeSha256": "d22c5bb33b0ef02c4b3b017a8bd4d7442292062ffabd1c058fb627f01457021b",
+  "priorUnprofiled341SecondsSuperseded": false,
+  "profilingApiNegativeControlsObserved": false,
+  "recorderElapsedSeconds": 7.200315590991522,
+  "reportSha256": "b23cb2904a932b6269546b58b051eb3f62ca3696d38b42a78586243667d054cc",
+  "resultSha256": "7568501a884258bef6adc771231f710d1ec8fe998f730162d72021334959d3cb",
+  "reviewExecutionPerformed": false,
+  "schema": "1370-b109-token-phase-profile-independent-observed-review-r1",
+  "sourcePinsSha256": "9bff3cee5230e68dbbd6609fbd097f8430d735ff45e18f987e4c9d202cbca585",
+  "sourceReviewSha256": "b17141031e5689062c8c12b91c9e07d3e2a09b038a32e435005c830c19b79fd5",
+  "stderrBytes": 0,
+  "stdoutBytes": 7947,
+  "stdoutSha256": "9e5eac7a3ae3400af2a9bbd73300c467dd9d2f1832695f9d3b8861f38701dfa9",
+  "timedProfiles": 6,
+  "warmupProfiles": 2,
+  "wholeCaptureHashPriorProvenanceOnly": true
+}

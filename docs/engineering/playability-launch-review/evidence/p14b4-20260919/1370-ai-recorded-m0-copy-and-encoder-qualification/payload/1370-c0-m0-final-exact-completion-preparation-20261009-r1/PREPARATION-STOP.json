@@ -1,0 +1,9 @@
+{
+  "status": "PREPARATION_SYNTAX_STOP_CORRECTED_BEFORE_ANY_CANDIDATE_BODY",
+  "actualExit": 1,
+  "error": "SyntaxError unmatched closing parenthesis in roles comprehension",
+  "candidateBodyExecuted": false,
+  "originalCandidateModified": false,
+  "materializerOrRouteExecuted": false,
+  "correction": "Removed one unmatched parenthesis; finite completion then returned0."
+}

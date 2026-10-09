@@ -1,0 +1,41 @@
+{
+  "actualQualificationRequired": [
+    "all14 pass",
+    "16 durable IDs equal result history and fresh group absence",
+    "actual tool/helper/meta/runner zero",
+    "parent actual elapsed<=285 and no unexpected wait",
+    "no unresolved groups, cleanup errors, sticky stop, caps or override"
+  ],
+  "checks": {
+    "ARGV-TEMPLATE.json": true,
+    "CONFIG.json": true,
+    "PLAN.md": true,
+    "SOURCE-DIFF.patch": true,
+    "role:controls": true,
+    "role:controlsPins": true,
+    "role:helper": true,
+    "role:routePins": true,
+    "role:routeReview": true,
+    "run_controls.py": true
+  },
+  "concreteDefects": [],
+  "configSha256": "cc3a613fef7e19161a917ddc126a5864ab3a19f37e052567169fc5b263f20043",
+  "controlsSourcePinsSha256": "44be4f080b93ba2566da5f80719475b0b1de6c1e6eba763711323a8244ca1a30",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_REQUIRES_SEPARATE_PARENT_GRANT_AND_OBSERVED_16_GROUPS",
+  "executionPerformed": false,
+  "limits": {
+    "activeSeconds": 255,
+    "helperLogBytes": 1048576,
+    "ownedOutputBytes": 83886080,
+    "physicalHardStopGuarantee": false,
+    "requiredDurableOwnedForks": 16,
+    "wholeSeconds": 285
+  },
+  "reportSha256": "6b5d2ca6ebb49e7e524f836b1139f24725686e6638b572f47cfa8f4f26cab338",
+  "reviewedSourceDir": "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-runner-proposal-20261009-r3",
+  "routeSourcePinsSha256": "a37f4ffc9d315f0a621e9544776d7917d294f927adc1c1adfcf998700cc526c4",
+  "routeSourceReviewSha256": "77889570601c9b25f182047de35fc7dc245f9b68b59ff039924323e4a92f82d6",
+  "runnerSha256": "0fa665c5608cfe8fc0e2964137fe8cfce993c45e20814c5bfa4e4c6e39a1eed5",
+  "schema": "1370-m0-controls-bounded-parent-runner-independent-source-review-r3",
+  "sourcePinsSha256": "7e313645b9da63dafdac93e886e35c6a2cc7aef62f9da4e2974fdc7d07c8ac2a"
+}

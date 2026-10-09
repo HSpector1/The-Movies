@@ -1,0 +1,30 @@
+{
+  "authoredExpectedPairs": 321,
+  "authoredGroups": 28,
+  "benchmarkOriginalReaderAndPurityStatementsUnchanged": true,
+  "candidateReversedAccumulationOnlyEquals994d": true,
+  "captureWholeHashReadOrComputed": false,
+  "controlsOriginal22BytesRecoveredExactly": true,
+  "currentCaptureLstatOnly": {
+    "ctimeNs": "1791439909827355864",
+    "dev": "16777220",
+    "ino": "166406220",
+    "mode": "33188",
+    "mtimeNs": "1791439909827355864",
+    "nlink": "1",
+    "size": "141237093"
+  },
+  "newPositivePairs": {
+    "architectureAndCoercion": 2,
+    "freshCache": 3,
+    "lateRefusalFreshCalls": 5,
+    "oversized": 12,
+    "seams": 12,
+    "sourceOrder": 4
+  },
+  "original22Sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926",
+  "recorderFourSubstitutionsReverseExactly": true,
+  "recorderPythonAstParseOnly": true,
+  "status": "STATIC_AUTHORING_CHECKS_ONLY_NO_CANDIDATE_IMPORT_OR_EXECUTION",
+  "testsOrNodeExecuted": false
+}

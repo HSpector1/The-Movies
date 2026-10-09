@@ -1,0 +1,33 @@
+{
+  "schema": "pure-token-phase-profile-static-checks/v1",
+  "pythonRecorderAstParsed": true,
+  "jsExecutedOrImported": false,
+  "controlsExecuted": false,
+  "benchmarkOrCaptureDecoded": false,
+  "gameOrFullScanOrGitCommand": false,
+  "original22ControlsByteIdentical": true,
+  "originalRecorderControlsByteIdentical": true,
+  "originalBenchmarkPreservedByteIdentical": true,
+  "candidateOriginalBodyExactAfterRemovingOnlyInstrumentation": true,
+  "recorderExactAfterOnlyConfigHashOutputPrefixExpectedReportStatusReversal": true,
+  "nodeActiveWholeBoundsUnchanged": [
+    60,
+    75,
+    90
+  ],
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "warmupsPerInput": 1,
+  "timedPairsPerInput": 3,
+  "controlsGroupsAndPairsUnrun": [
+    22,
+    283
+  ],
+  "perCandidateCallClockReads": 4,
+  "perTokenClocks": 0,
+  "ownedProfileRecordMaximum": 1,
+  "refusalFinallyClearsReentrantPartialRecord": true
+}

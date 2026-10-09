@@ -1,0 +1,379 @@
+{
+  "actualToolExit": 0,
+  "actualToolSession": 53167,
+  "allOwnedGroupsFreshlyAbsent": true,
+  "caseCount": 9,
+  "cases": [
+    {
+      "actualRecorderReturn": 2,
+      "case": "main-empty-KeyboardInterrupt",
+      "freshExactOwnedGroupAbsent": true,
+      "result": {
+        "actualChildExit": 0,
+        "boundsSeconds": {
+          "active": 75,
+          "node": 60,
+          "whole": 90
+        },
+        "childPid": 96981,
+        "configSha256": "c76447efdba165f7412198ce883a334fa3a57af9dd8bc227efd60914510baec7",
+        "elapsedSeconds": 0.816444298994611,
+        "executionAuthorization": false,
+        "game": false,
+        "groupClear": true,
+        "mode": "controls",
+        "ownedPgid": 96981,
+        "pgidConfirmed": true,
+        "sanitizedEnvironment": [
+          "NODE_OPTIONS",
+          "NODE_PATH"
+        ],
+        "schema": "1370-b109-pure-encoder-recorder-r4",
+        "sourceOrGameplayAdoption": false,
+        "startupOwnedBeforeExec": true,
+        "status": "KeyboardInterrupt()",
+        "stderrBytes": 0,
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdoutBytes": 65,
+        "stdoutSha256": "e90e481c4199ec532804e7d864e57e47fc11628cfd66258877c1035d60cd041c",
+        "timedOut": false,
+        "utc": "2026-10-09T16:21:38.799325+00:00"
+      },
+      "schema": "1370-b109-tiny-main-failure-control-r4",
+      "stderrBase64": "",
+      "stdoutBase64": "eyJzdGF0dXMiOiJFTkNPREVSX0VRVUlWQUxFTkNFX0FORF9SRUZVU0FMU19QQVNTRUQiLCJncm91cHMiOjIyfQo="
+    },
+    {
+      "actualRecorderReturn": 2,
+      "case": "main-empty-TimeoutError",
+      "freshExactOwnedGroupAbsent": true,
+      "result": {
+        "actualChildExit": 0,
+        "boundsSeconds": {
+          "active": 75,
+          "node": 60,
+          "whole": 90
+        },
+        "childPid": 96982,
+        "configSha256": "61cb66da51f61f66cfa01d7a92cba548b75cccc0b5ad6701ef2270dfdfa284a7",
+        "elapsedSeconds": 0.7963414029945852,
+        "executionAuthorization": false,
+        "game": false,
+        "groupClear": true,
+        "mode": "controls",
+        "ownedPgid": 96982,
+        "pgidConfirmed": true,
+        "sanitizedEnvironment": [
+          "NODE_OPTIONS",
+          "NODE_PATH"
+        ],
+        "schema": "1370-b109-pure-encoder-recorder-r4",
+        "sourceOrGameplayAdoption": false,
+        "startupOwnedBeforeExec": true,
+        "status": "TimeoutError()",
+        "stderrBytes": 0,
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdoutBytes": 65,
+        "stdoutSha256": "e90e481c4199ec532804e7d864e57e47fc11628cfd66258877c1035d60cd041c",
+        "timedOut": true,
+        "utc": "2026-10-09T16:21:39.610798+00:00"
+      },
+      "schema": "1370-b109-tiny-main-failure-control-r4",
+      "stderrBase64": "",
+      "stdoutBase64": "eyJzdGF0dXMiOiJFTkNPREVSX0VRVUlWQUxFTkNFX0FORF9SRUZVU0FMU19QQVNTRUQiLCJncm91cHMiOjIyfQo="
+    },
+    {
+      "actualRecorderReturn": 2,
+      "case": "main-empty-BaseException",
+      "freshExactOwnedGroupAbsent": true,
+      "result": {
+        "actualChildExit": 0,
+        "boundsSeconds": {
+          "active": 75,
+          "node": 60,
+          "whole": 90
+        },
+        "childPid": 96983,
+        "configSha256": "2e87fc95cbd1a45118bcaa3d2c67f06fcd37164e053fbe11cdef8adee5f286f3",
+        "elapsedSeconds": 0.7872353499988094,
+        "executionAuthorization": false,
+        "game": false,
+        "groupClear": true,
+        "mode": "controls",
+        "ownedPgid": 96983,
+        "pgidConfirmed": true,
+        "sanitizedEnvironment": [
+          "NODE_OPTIONS",
+          "NODE_PATH"
+        ],
+        "schema": "1370-b109-pure-encoder-recorder-r4",
+        "sourceOrGameplayAdoption": false,
+        "startupOwnedBeforeExec": true,
+        "status": "BaseException()",
+        "stderrBytes": 0,
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdoutBytes": 65,
+        "stdoutSha256": "e90e481c4199ec532804e7d864e57e47fc11628cfd66258877c1035d60cd041c",
+        "timedOut": false,
+        "utc": "2026-10-09T16:21:40.412508+00:00"
+      },
+      "schema": "1370-b109-tiny-main-failure-control-r4",
+      "stderrBase64": "",
+      "stdoutBase64": "eyJzdGF0dXMiOiJFTkNPREVSX0VRVUlWQUxFTkNFX0FORF9SRUZVU0FMU19QQVNTRUQiLCJncm91cHMiOjIyfQo="
+    },
+    {
+      "actualRecorderReturn": 2,
+      "case": "finally-empty-KeyboardInterrupt",
+      "freshExactOwnedGroupAbsent": true,
+      "result": {
+        "actualChildExit": 0,
+        "boundsSeconds": {
+          "active": 75,
+          "node": 60,
+          "whole": 90
+        },
+        "childPid": 96984,
+        "configSha256": "3125ee5ee733902f66fdc299445d7793fc77fbdd82dbe87b595f136c2470de83",
+        "elapsedSeconds": 0.7930968900036532,
+        "executionAuthorization": false,
+        "game": false,
+        "groupClear": true,
+        "mode": "controls",
+        "ownedPgid": 96984,
+        "pgidConfirmed": true,
+        "sanitizedEnvironment": [
+          "NODE_OPTIONS",
+          "NODE_PATH"
+        ],
+        "schema": "1370-b109-pure-encoder-recorder-r4",
+        "sourceOrGameplayAdoption": false,
+        "startupOwnedBeforeExec": true,
+        "status": "KeyboardInterrupt()",
+        "stderrBytes": 0,
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdoutBytes": 65,
+        "stdoutSha256": "e90e481c4199ec532804e7d864e57e47fc11628cfd66258877c1035d60cd041c",
+        "timedOut": false,
+        "utc": "2026-10-09T16:21:41.218430+00:00"
+      },
+      "schema": "1370-b109-tiny-main-failure-control-r4",
+      "stderrBase64": "",
+      "stdoutBase64": "eyJzdGF0dXMiOiJFTkNPREVSX0VRVUlWQUxFTkNFX0FORF9SRUZVU0FMU19QQVNTRUQiLCJncm91cHMiOjIyfQo="
+    },
+    {
+      "actualRecorderReturn": 2,
+      "case": "finally-empty-TimeoutError",
+      "freshExactOwnedGroupAbsent": true,
+      "result": {
+        "actualChildExit": 0,
+        "boundsSeconds": {
+          "active": 75,
+          "node": 60,
+          "whole": 90
+        },
+        "childPid": 96985,
+        "configSha256": "3372c8b361b57d19328b27717aa0f80f0f7df8680c895c34d692296c4c74974e",
+        "elapsedSeconds": 0.8888418009883026,
+        "executionAuthorization": false,
+        "game": false,
+        "groupClear": true,
+        "mode": "controls",
+        "ownedPgid": 96985,
+        "pgidConfirmed": true,
+        "sanitizedEnvironment": [
+          "NODE_OPTIONS",
+          "NODE_PATH"
+        ],
+        "schema": "1370-b109-pure-encoder-recorder-r4",
+        "sourceOrGameplayAdoption": false,
+        "startupOwnedBeforeExec": true,
+        "status": "TimeoutError()",
+        "stderrBytes": 0,
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdoutBytes": 65,
+        "stdoutSha256": "e90e481c4199ec532804e7d864e57e47fc11628cfd66258877c1035d60cd041c",
+        "timedOut": true,
+        "utc": "2026-10-09T16:21:42.116184+00:00"
+      },
+      "schema": "1370-b109-tiny-main-failure-control-r4",
+      "stderrBase64": "",
+      "stdoutBase64": "eyJzdGF0dXMiOiJFTkNPREVSX0VRVUlWQUxFTkNFX0FORF9SRUZVU0FMU19QQVNTRUQiLCJncm91cHMiOjIyfQo="
+    },
+    {
+      "actualRecorderReturn": 2,
+      "case": "finally-empty-BaseException",
+      "freshExactOwnedGroupAbsent": true,
+      "result": {
+        "actualChildExit": 0,
+        "boundsSeconds": {
+          "active": 75,
+          "node": 60,
+          "whole": 90
+        },
+        "childPid": 97233,
+        "configSha256": "d29b95982fe6bb9246a1350049d9609cc321b14981ae6044ad9dcf4d5382e142",
+        "elapsedSeconds": 0.9964645319996634,
+        "executionAuthorization": false,
+        "game": false,
+        "groupClear": true,
+        "mode": "controls",
+        "ownedPgid": 97233,
+        "pgidConfirmed": true,
+        "sanitizedEnvironment": [
+          "NODE_OPTIONS",
+          "NODE_PATH"
+        ],
+        "schema": "1370-b109-pure-encoder-recorder-r4",
+        "sourceOrGameplayAdoption": false,
+        "startupOwnedBeforeExec": true,
+        "status": "BaseException()",
+        "stderrBytes": 0,
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdoutBytes": 65,
+        "stdoutSha256": "e90e481c4199ec532804e7d864e57e47fc11628cfd66258877c1035d60cd041c",
+        "timedOut": false,
+        "utc": "2026-10-09T16:21:43.121618+00:00"
+      },
+      "schema": "1370-b109-tiny-main-failure-control-r4",
+      "stderrBase64": "",
+      "stdoutBase64": "eyJzdGF0dXMiOiJFTkNPREVSX0VRVUlWQUxFTkNFX0FORF9SRUZVU0FMU19QQVNTRUQiLCJncm91cHMiOjIyfQo="
+    },
+    {
+      "actualRecorderReturn": 2,
+      "case": "invalid-json",
+      "freshExactOwnedGroupAbsent": true,
+      "result": {
+        "actualChildExit": 0,
+        "boundsSeconds": {
+          "active": 75,
+          "node": 60,
+          "whole": 90
+        },
+        "childPid": 97235,
+        "configSha256": "efdafef162ad2d5119aae190c085f4ebcb03c8ccd3b82b80198fff473a3ecc99",
+        "elapsedSeconds": 0.8214416020055069,
+        "executionAuthorization": false,
+        "game": false,
+        "groupClear": true,
+        "mode": "controls",
+        "ownedPgid": 97235,
+        "pgidConfirmed": true,
+        "sanitizedEnvironment": [
+          "NODE_OPTIONS",
+          "NODE_PATH"
+        ],
+        "schema": "1370-b109-pure-encoder-recorder-r4",
+        "sourceOrGameplayAdoption": false,
+        "startupOwnedBeforeExec": true,
+        "status": "Expecting value: line 1 column 1 (char 0)",
+        "stderrBytes": 0,
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdoutBytes": 9,
+        "stdoutSha256": "60498ebafa3f473a2a72c1242e8c3202bf50a6d81dfc721958be1550f46faf33",
+        "timedOut": false,
+        "utc": "2026-10-09T16:21:43.951389+00:00"
+      },
+      "schema": "1370-b109-tiny-main-failure-control-r4",
+      "stderrBase64": "",
+      "stdoutBase64": "bm90LWpzb24K"
+    },
+    {
+      "actualRecorderReturn": 2,
+      "case": "nonzero",
+      "freshExactOwnedGroupAbsent": true,
+      "result": {
+        "actualChildExit": 7,
+        "boundsSeconds": {
+          "active": 75,
+          "node": 60,
+          "whole": 90
+        },
+        "childPid": 97236,
+        "configSha256": "fdb25e0c6dbf723b5eacedc7b956ecd9fb0c84f0a8c2b57d2976a34b629f7726",
+        "elapsedSeconds": 0.8276892040012171,
+        "executionAuthorization": false,
+        "game": false,
+        "groupClear": true,
+        "mode": "controls",
+        "ownedPgid": 97236,
+        "pgidConfirmed": true,
+        "sanitizedEnvironment": [
+          "NODE_OPTIONS",
+          "NODE_PATH"
+        ],
+        "schema": "1370-b109-pure-encoder-recorder-r4",
+        "sourceOrGameplayAdoption": false,
+        "startupOwnedBeforeExec": true,
+        "status": "STOP_CHILD_EXIT_7",
+        "stderrBytes": 20,
+        "stderrSha256": "d6f5773c090ddb8744e01f67cef92f81885a94dde6e3f51f520ab0984dd61d3a",
+        "stdoutBytes": 20,
+        "stdoutSha256": "678129cd116030653dca2e81766c32d8420155f26d8e77bce0da0ebe86b2c647",
+        "timedOut": false,
+        "utc": "2026-10-09T16:21:44.789046+00:00"
+      },
+      "schema": "1370-b109-tiny-main-failure-control-r4",
+      "stderrBase64": "dGlueS1ub256ZXJvLXN0ZGVycgo=",
+      "stdoutBase64": "dGlueS1ub256ZXJvLXN0ZG91dAo="
+    },
+    {
+      "actualRecorderReturn": 2,
+      "case": "wrong-role",
+      "freshExactOwnedGroupAbsent": true,
+      "result": {
+        "actualChildExit": 0,
+        "boundsSeconds": {
+          "active": 75,
+          "node": 60,
+          "whole": 90
+        },
+        "childPid": 97237,
+        "configSha256": "534e828f2fc90b6614024cdebe834bdeac839870ead215a09881ed0f224abb26",
+        "elapsedSeconds": 0.795670785009861,
+        "executionAuthorization": false,
+        "game": false,
+        "groupClear": true,
+        "mode": "controls",
+        "ownedPgid": 97237,
+        "pgidConfirmed": true,
+        "sanitizedEnvironment": [
+          "NODE_OPTIONS",
+          "NODE_PATH"
+        ],
+        "schema": "1370-b109-pure-encoder-recorder-r4",
+        "sourceOrGameplayAdoption": false,
+        "startupOwnedBeforeExec": true,
+        "status": "STOP_REPORT_ROLE",
+        "stderrBytes": 0,
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdoutBytes": 36,
+        "stdoutSha256": "ca40e692e7bc335c727bade27dc640ae7466ac2da5de8c7d9fbe9e97cffd0d23",
+        "timedOut": false,
+        "utc": "2026-10-09T16:21:45.596519+00:00"
+      },
+      "schema": "1370-b109-tiny-main-failure-control-r4",
+      "stderrBase64": "",
+      "stdoutBase64": "eyJzdGF0dXMiOiJXUk9OR19ST0xFIiwiZ3JvdXBzIjoyMn0K"
+    }
+  ],
+  "elapsedTestSeconds": 7.623,
+  "heavyLockAbsent": true,
+  "helperMetaExit": 0,
+  "pins": [
+    {
+      "bytes": 12253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-green-lane-20261009-r4/green.lane.log",
+      "sha256": "8d44f398ad74c715b5237a8d3306e4e8234c879d382f6721f6e046c7a75e8b18"
+    },
+    {
+      "bytes": 473,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-green-lane-20261009-r4/green.lane.log.meta",
+      "sha256": "2c4c10a5eae84023c4ab3705d1fed7a9a1c4a6f738cc7eef925482ebf7601f27"
+    }
+  ],
+  "recorderFailureReturnsAll2": true,
+  "status": "ACTUAL_GREEN_ALL_NINE_PASS_WITH_RETAINED_FAILURE_OUTPUTS",
+  "temporaryFixturesGone": true,
+  "unittestMethods": 4,
+  "utc": "2026-10-09T16:22:17.530649+00:00"
+}

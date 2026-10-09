@@ -1,0 +1,37 @@
+{
+  "acceptedFastpassControls": {
+    "bytes": 1443,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-fastpass22-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "eff6cc2be373de7cad1d85c00824f5bc4837d23be131eb8f6bd74b3fb2ad57db"
+  },
+  "acceptedFastpassSourceReview": {
+    "bytes": 1747,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "655ad594b839b54f21a5f9adde32b713599dd475e9f0ad554c0853f9d9b6fdbd"
+  },
+  "baseSourcePins": {
+    "bytes": 2012,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "0af677410da44ddd535f77712a0e35937e7cdf9014c405a35432b742d928118f"
+  },
+  "descriptivePhaseProfileObserved": {
+    "bytes": 2518,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "13a8df2aaffa2e2129eadffdfeeedcc783108da6ec79e225542618b27f56503f"
+  },
+  "designProposal": {
+    "bytes": 5353,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-next-slice-design-20261009-r1/PROPOSAL.json",
+    "sha256": "863861b58689838a4568ee9c7f96b1906e424ea4bd365a2648100bb6394bc792"
+  },
+  "parentSourceOnlyAdoption": {
+    "bytes": 984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-design-parent-adoption-20261009-r1/ADOPTION.json",
+    "sha256": "0d54fbe31140c0c2c2a728c90a3b62e96b5b3af6b9875a81a04956992d0f9be4"
+  },
+  "qualifiedRecorderMechanismObserved": {
+    "bytes": 3829,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+    "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+  }
+}

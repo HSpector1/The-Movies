@@ -1,0 +1,39 @@
+{
+  "schema": "salary-age-phase-independent-source-review/v1",
+  "decision": "ACCEPT_SOURCE_PROOF_ONLY_NO_ANNUAL_ATTRIBUTION",
+  "utc": "2026-10-09T16:56:58.018500+00:00",
+  "sourcePinsSha256": "f0b3effc9f231c66f50727b68fac2419dbfb8f3cbfb2108d8d4cd4c6ca8a9db7",
+  "proofSha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2",
+  "inputPinsSha256": "317bb5012ce56498c31801637fc2f098c640c034effa4885da55190d2081246a",
+  "facts": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-independent-source-review-20261009-r1/FACTS.json",
+    "bytes": 15187,
+    "sha256": "7bdd4a15f1f02563546f217a290e3da6054b623b21133e1eac40851c5a53f364"
+  },
+  "report": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-independent-source-review-20261009-r1/REPORT.md",
+    "bytes": 2569,
+    "sha256": "1d3556082ceac11d24ff123e4e5afc582303dd969d2be40eff5e44a4a5ddcd6b"
+  },
+  "remainingChangedContracts": 38,
+  "remainingWeek0Contracts": 22,
+  "remainingWeek208Contracts": 16,
+  "missingJitterIDs": 23,
+  "newAnnualAttributions": 0,
+  "supplementalSourceRoles": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/rivalResearch.ts",
+      "bytes": 18927,
+      "sha256": "eb7753e88b31e980f504f28421346447eb6ece2308e42d1032fb7e9cc6e38d74"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/starPower.ts",
+      "bytes": 9011,
+      "sha256": "007c98dcaf612f87f7197bd14ddeb89df7a2cb0ae6542027f33d398976ccb881"
+    }
+  ],
+  "execution": false,
+  "productionMutation": false,
+  "fullScanOrGitCommand": false,
+  "claimLimit": "Finite enumerated tick source transport and phase/input-role authentication only; no annual cause, evolved F1 transport, current source freeze, ledger admission, game or digest attribution."
+}

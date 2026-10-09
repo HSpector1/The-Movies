@@ -1,0 +1,59 @@
+{
+  "actualLaunchPerformed": false,
+  "adoptedBinding": {
+    "bytes": 12182,
+    "mode": 384,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json",
+    "sha256": "71e2db2dbe2dabfbf9d885002a9096e0e291d0ed315b92129f8098e5ceada78e"
+  },
+  "adoptedLaunchSpec": {
+    "bytes": 2274,
+    "mode": 420,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTED-LAUNCH-SPEC.json",
+    "sha256": "e58ea56079b2dfc48bfb321ed9452e3ea5e373ae6a7a153768c77a9c8959ef79"
+  },
+  "archivalErratum": {
+    "artifact": {
+      "bytes": 1205,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/REPORT.md",
+      "sha256": "2bd84e1f44ebd2506ca94c7ae9a0c4a71abbf1fa65ac24fb182dd6cb3947dc36"
+    },
+    "authoritativeClarification": "Full execution semantic EXCLUDES exactly the five authorization fields A and INCLUDES preflightReviewPath/preflightReviewSha256. Guard core additionally EXCLUDES those two preflight fields. Actual canonical digests are correct.",
+    "classification": "Non-executable archival prose error; original bytes preserved; root agreed receipt/adoption clarify it.",
+    "incorrectSentence": "Full semantic excludes exactly five authorization fields, including pinned preflight pointer/hash."
+  },
+  "archiveManifest": {
+    "bytes": 2712,
+    "mode": 420,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/ARCHIVE-MANIFEST.json",
+    "sha256": "7728b59ddd6b817b5372d8d0878b935b6bd9e9e0ea977589f9db5aceb4ab312b"
+  },
+  "archiveReadbackBeforeBindingReplacement": true,
+  "bindingSemanticSha256": "4cfdbc36dae7fab7dc0687b48f3c7d84abc94b8ac0aca146273306d96bd261e4",
+  "changedFields": [
+    "exactBindingReviewDecision",
+    "exactBindingReviewPath",
+    "exactBindingReviewSha256",
+    "executionAuthorization",
+    "status"
+  ],
+  "exactReview": {
+    "bytes": 5383,
+    "mode": 420,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "de74c395f9ed9633d74949c79c9f56b726f9554f89787084b21f9808bea56bd3"
+  },
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "originalBinding": {
+    "bytes": 12008,
+    "mode": 384,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-pre-adoption-archive-20261009-r1/BINDING-DRAFT.json",
+    "sha256": "4d23bc3c74e0cc55aab85171dbe3b6ddfde25dc9eba86ea15e9b593740d60fca"
+  },
+  "originalIdentityGuardedNoFollowAtomicReplacementAndFsync": true,
+  "originalOtherFiveCandidateFilesByteIdentical": true,
+  "schema": "m0-exact-five-field-parent-adoption/v1",
+  "scope": "Isolated M0 source materialization only, no types/game/neutrality/ledger acceptance; full postflight required.",
+  "status": "ADOPTED_UNRUN_PENDING_INDEPENDENT_ADOPTED_PREFLIGHT",
+  "utc": "2026-10-09T17:23:01.064957+00:00"
+}

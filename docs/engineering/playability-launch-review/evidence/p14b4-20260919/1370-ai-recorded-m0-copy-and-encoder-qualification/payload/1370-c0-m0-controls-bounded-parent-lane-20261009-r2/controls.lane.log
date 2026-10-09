@@ -1,0 +1,20 @@
+test_01_noncircular_admission_positive (exact_m0_controls.Controls.test_01_noncircular_admission_positive) ... ok
+test_01b_prepare_roles_before_output_reds (exact_m0_controls.Controls.test_01b_prepare_roles_before_output_reds) ... ok
+test_02_auth_source_review_semantic_reds (exact_m0_controls.Controls.test_02_auth_source_review_semantic_reds) ... ok
+test_03_full_semantic_and_guard_core_reds (exact_m0_controls.Controls.test_03_full_semantic_and_guard_core_reds) ... ok
+test_04_preflight_scope_reds (exact_m0_controls.Controls.test_04_preflight_scope_reds) ... ok
+test_05_quick_roles_positive_and_reds (exact_m0_controls.Controls.test_05_quick_roles_positive_and_reds) ... ok
+test_06_supervisor_output_collisions_before_fork (exact_m0_controls.Controls.test_06_supervisor_output_collisions_before_fork) ... ok
+test_07_actual_success_readygo_cleanup (exact_m0_controls.Controls.test_07_actual_success_readygo_cleanup) ... ok
+test_08_actual_stop_retains_stderr_leaf_cleanup (exact_m0_controls.Controls.test_08_actual_stop_retains_stderr_leaf_cleanup) ... ok
+test_09_actual_timeout_cleanup (exact_m0_controls.Controls.test_09_actual_timeout_cleanup) ... ok
+test_10_actual_fast_exit_log_cap (exact_m0_controls.Controls.test_10_actual_fast_exit_log_cap) ... ok
+test_11_actual_fast_exit_after_reap_cap (exact_m0_controls.Controls.test_11_actual_fast_exit_after_reap_cap) ... ok
+test_12_child_stdout_role_reds (exact_m0_controls.Controls.test_12_child_stdout_role_reds) ... ok
+test_13_child_sibling_role_reds (exact_m0_controls.Controls.test_13_child_sibling_role_reds) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 6.155s
+
+OK
+{"result": "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-output-20261009-r2/RESULT.json", "status": "CONTROLS_PASS"}

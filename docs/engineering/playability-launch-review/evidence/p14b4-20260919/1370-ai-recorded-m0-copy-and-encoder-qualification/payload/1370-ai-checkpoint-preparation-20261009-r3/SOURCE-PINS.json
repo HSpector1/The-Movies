@@ -1,0 +1,26 @@
+{
+  "ADDED-ROLES.json": {
+    "bytes": 51404,
+    "sha256": "25102fd2d4d9682c7d331938eee7ae2d897744f16c3698db28e395467715f513"
+  },
+  "HANDOFF-DRAFT.md": {
+    "bytes": 5234,
+    "sha256": "9649e9d2b73383104e30a3d12b2b1889fde1dcc615088ccdae0ec77d8edb3ab7"
+  },
+  "HANDOFF-SOURCE-PIN.json": {
+    "bytes": 195,
+    "sha256": "c678da9cbb70e842a1f5cebe440ff60f2a9ea3c01b471effb97443a76c1f20d2"
+  },
+  "INVENTORY-DRAFT.json": {
+    "bytes": 421770,
+    "sha256": "204ceda26d646957eae9df81d4e7edf12d4766752f911e2a1db89d2078ea239a"
+  },
+  "REPORT.md": {
+    "bytes": 545,
+    "sha256": "50b57efe4778b9a275f8fec318ff0a975e44fa6533a2fd5fd9567c4893dd1a74"
+  },
+  "SELECTED-DIRECTORIES.json": {
+    "bytes": 1193,
+    "sha256": "76dcff7e7f4b8dc7f79cfbeb4bbedb4f6a5235e2417b5148fb7f4e04235ce36c"
+  }
+}

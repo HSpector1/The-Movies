@@ -1,0 +1,54 @@
+{
+  "actualOwnedGroupsFreshlyAbsent": [
+    71531,
+    71794
+  ],
+  "actualToolExit": 0,
+  "actualToolSession": 13786,
+  "benchmarkAuthorized": false,
+  "gameOrFull109IntegrationAuthorized": false,
+  "helperExit": 0,
+  "helperMetaExit": 0,
+  "helperPid": 71531,
+  "nodeExit": 0,
+  "ownedPgid": 71794,
+  "recorderElapsedSeconds": 1.5891659010085277,
+  "recorderExit": 0,
+  "roles": [
+    {
+      "bytes": 920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-controls-output-20261009-r1/RESULT.json",
+      "sha256": "ed0fb71b4cf41f356833f07fcc5421fc996c4320d585c6bc245837b4b2603bfc"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-controls-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-controls-output-20261009-r1/stdout.bin",
+      "sha256": "275c04994bb80c299b18df5982829f3fa929ff13c0e7d361fd343399123a1653"
+    },
+    {
+      "bytes": 383,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-controls-lane-20261009-r1/controls.lane.log",
+      "sha256": "3943a91d684ad3db2af03d29e444ae235d36488970de193a854c229cadc4ccdc"
+    },
+    {
+      "bytes": 337,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-controls-lane-20261009-r1/controls.lane.log.meta",
+      "sha256": "8a6c07377eef4c7ac1308a69c06664ba835c6b17450053b09b60a7eb45a6e125"
+    },
+    {
+      "bytes": 10322,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-parent-recorded-20261009-r1/CONTROLS-GRANT.json",
+      "sha256": "6bb298fbe6e27fd9480cb235d21d963176c2ca1aa9119944941f8fec74080808"
+    }
+  ],
+  "schema": "bounded-token-chunk-root-controls-tool-outcome/v1",
+  "scope": "Actual correctness only; no source or performance adoption until independent observed review.",
+  "status": "ACTUAL_28_CONTROLS_EXIT_ZERO_AWAIT_INDEPENDENT_OBSERVED_REVIEW",
+  "toolCompletionChunk": "b33072",
+  "utc": "2026-10-09T17:47:43.425369+00:00"
+}

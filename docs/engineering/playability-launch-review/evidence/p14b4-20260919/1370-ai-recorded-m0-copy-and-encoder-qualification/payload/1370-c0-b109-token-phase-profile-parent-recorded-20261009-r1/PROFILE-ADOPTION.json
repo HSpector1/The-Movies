@@ -1,0 +1,42 @@
+{
+  "actualExits": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "actualToolSession": 96812,
+  "instrumentedProxySeconds": {
+    "baseline": 439.4372461600002,
+    "candidate": 295.2727428199998
+  },
+  "integrationFull109RetryAuthorized": false,
+  "interpretation": "Emission and token joining dominate measured successful intervals; Buffer conversion is small. Instrumentation, GC and scheduling remain possible influences. No later-boundary or full-run feasibility evidence.",
+  "phaseMediansMs": {
+    "state": {
+      "bufferMs": 0.8928679999999076,
+      "initEmissionMs": 48.00536199999988,
+      "internalElapsedMs": 78.29512599999998,
+      "joinMs": 32.341649999999845,
+      "outsidePhasesMs": 0.048471000000063214,
+      "phaseSumMs": 78.29512599999998
+    },
+    "wholeRow": {
+      "bufferMs": 2.16537100000005,
+      "initEmissionMs": 101.33549500000026,
+      "internalElapsedMs": 158.942008,
+      "joinMs": 53.1399449999999,
+      "outsidePhasesMs": 0.05742999999984022,
+      "phaseSumMs": 158.942008
+    }
+  },
+  "priorUnprofiledProxySeconds": 341.60933565,
+  "priorUnprofiledSuperseded": false,
+  "review": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "13a8df2aaffa2e2129eadffdfeeedcc783108da6ec79e225542618b27f56503f"
+  },
+  "schema": "pure-encoder-profile-parent-adoption/v1",
+  "status": "ACCEPT_DESCRIPTIVE_PHASE_MEASUREMENT_ONLY",
+  "utc": "2026-10-09T17:23:48.486333+00:00"
+}

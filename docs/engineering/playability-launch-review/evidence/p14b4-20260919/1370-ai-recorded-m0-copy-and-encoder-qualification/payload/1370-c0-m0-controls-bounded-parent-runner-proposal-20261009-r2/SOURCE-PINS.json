@@ -1,0 +1,35 @@
+{
+  "schema": "1370-m0-controls-bounded-parent-runner-source-pins-r2",
+  "status": "UNRUN_INDEPENDENT_SOURCE_REVIEW_AND_SEPARATE_PARENT_GRANT_REQUIRED",
+  "executionAuthorization": false,
+  "files": {
+    "run_controls.py": {
+      "bytes": 7563,
+      "sha256": "75467b4cbd3db8828f79ad1007c33a6f029b23157413a9b0306c0f6b9cba1b4e"
+    },
+    "CONFIG.json": {
+      "bytes": 2762,
+      "sha256": "333171371e6b6abfee6f0d02b56bb114f97622061164579f0726b54d6befe146"
+    },
+    "ARGV-TEMPLATE.json": {
+      "bytes": 2496,
+      "sha256": "bbcd400782b51ed8d95cbfe8b636eda4116c92319b35384ceabb9a5a5dec8a9f"
+    },
+    "SOURCE-DIFF.patch": {
+      "bytes": 1227,
+      "sha256": "222c53eeb0a94fd6573b0c65fee30cfb309794d33e0db507a3dda8151167917e"
+    },
+    "PLAN.md": {
+      "bytes": 6757,
+      "sha256": "3d4b5c622172848c612d679a2f09e4096102e0686834a041666a73895424a643"
+    }
+  },
+  "controlsSourcePinsSha256": "44be4f080b93ba2566da5f80719475b0b1de6c1e6eba763711323a8244ca1a30",
+  "routeSourcePinsSha256": "a37f4ffc9d315f0a621e9544776d7917d294f927adc1c1adfcf998700cc526c4",
+  "routeSourceReviewSha256": "77889570601c9b25f182047de35fc7dc245f9b68b59ff039924323e4a92f82d6",
+  "original14MethodsChanged": false,
+  "syntaxParsedOnly": true,
+  "importsTestsGameMaterializationGuardScansGitExecuted": false,
+  "predecessorSourcePinsSha256": "e95837af56e9d6462b19d63a4900bf95e4296a23a72e4d8b3f89861217b94c08",
+  "repair": "Move only durable registry write/fsync after SIGALRM unmask; keep PID memory ownership before unmask. Hard STOP may lack complete external numeric evidence and cannot qualify clearance."
+}

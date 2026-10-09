@@ -1,0 +1,9 @@
+{
+  "status": "ROOT_PREPARATION_STOP_BEFORE_GRANT_OR_LAUNCH",
+  "toolChunk": "f9f54a",
+  "actualToolExit": 1,
+  "error": "KeyError: files at line8; root assumed a wrapped SOURCE-PINS schema but actual authenticated package uses flat filename map",
+  "sourceOrEvidenceMutationBeforeFailure": false,
+  "childOrLaneLaunched": false,
+  "repair": "Read actual manifest, use its flat map without changing any source or pins."
+}

@@ -1,0 +1,104 @@
+{
+  "B109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "actualOutcomes": {
+    "GREEN": {
+      "elapsedTestSeconds": 7.623,
+      "helperMetaExit": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-failure-capture-parent-recorded-20261009-r4/GREEN-TOOL-OUTCOME.json",
+      "sha256": "0f99509ca38e12c4159f302b9e3e672151a61ab9f25e35bd2e4624e5a3eb37c3",
+      "tool": 53167,
+      "toolExit": 0
+    },
+    "ORIGINAL14": {
+      "elapsedTestSeconds": 0.634,
+      "helperMetaExit": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-failure-capture-parent-recorded-20261009-r4/ORIGINAL14-TOOL-OUTCOME.json",
+      "sha256": "e30ce90900ed286aa0b5932ccf41b6f0b1d90f74d61cb4b1ae5dcb7ab82e16bc",
+      "tool": 51487,
+      "toolExit": 0
+    },
+    "RED": {
+      "elapsedTestSeconds": 7.586,
+      "helperMetaExit": 1,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-failure-capture-parent-recorded-20261009-r4/RED-TOOL-OUTCOME.json",
+      "sha256": "15faacd260c5a8f2a0d009e6a2f7d4d579568150252135b949f892aae87da55d",
+      "tool": 81011,
+      "toolExit": 1
+    }
+  },
+  "all23SharedGrantRolesAuthenticated": true,
+  "allGREENExactEmbeddedStreamsAndResultHashesVerified": true,
+  "allLaneAndMetaPinsExact": true,
+  "candidateNative22BenchmarkUnchanged": true,
+  "decision": "ACCEPT_OBSERVED_RECORDER_FAILURE_CAPTURE_CONTROLS_ONLY",
+  "executionAuthorization": false,
+  "failureControlsSha256": "d0aedb812aff40d7d55fa3748fcf239d450e73d74f8e560379376f6620be81d0",
+  "grants": {
+    "GREEN": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-failure-capture-parent-recorded-20261009-r4/GREEN-GRANT.json",
+      "sha256": "6c9e40a1cd763b0b3ae9fe34f4aafffbcc26db6adb9719945c02bf78c324eba7"
+    },
+    "ORIGINAL14": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-failure-capture-parent-recorded-20261009-r4/ORIGINAL14-GRANT.json",
+      "sha256": "caf09f41b6ffe525f4c3fd8d6832b7d3a934a52370adb95a9d9fbfdef68fa9d6"
+    },
+    "RED": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-failure-capture-parent-recorded-20261009-r4/RED-GRANT.json",
+      "sha256": "78d10c4c8b50e9812878588e05345e389bc61642e29a68c1962dff17ab2bcab1"
+    }
+  },
+  "heavyLockAbsent": true,
+  "individualGREENRecorderReturnsAll2": true,
+  "native22ActualFailureCause": "STILL_UNKNOWN_PENDING_SEPARATE_DIAGNOSTIC",
+  "native22DiagnosticLaneAndOutputAbsent": true,
+  "newNative22OrBenchmarkOrGameQualification": false,
+  "observedGREENCasesPass": 9,
+  "observedOldFinallyArtifactLosses": 6,
+  "observedOldMainFalseSuccesses": 3,
+  "observedREDExpectedFailures": 9,
+  "original14Pass": 14,
+  "recordedNumericGroupsIndependentlyFreshAbsent": [
+    96442,
+    96443,
+    96444,
+    96445,
+    96446,
+    96447,
+    96448,
+    96449,
+    96450,
+    96981,
+    96982,
+    96983,
+    96984,
+    96985,
+    97233,
+    97235,
+    97236,
+    97237,
+    97764
+  ],
+  "recorderBoundsSeconds": [
+    60,
+    75,
+    90
+  ],
+  "recorderSha256": "c728a80c898d101355b0b83f567179c67510ecd681971820de175e13bb77afa2",
+  "report": {
+    "bytes": 4296,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/REPORT.md",
+    "sha256": "ce4e410892bac97c12f211dfc65b2ea94052c0f8af7d9e4ed0209eb0e9b0b8cc"
+  },
+  "schema": "1370-b109-recorder-failure-capture-observed-independent-review-r4",
+  "sourcePinsSha256": "b616d3ccdd1af247ed2116388ce258aed63de543df5127395135cb455cc501ae",
+  "sourceReviewSha256": "16bdbc9a6c65cd0b5116975dc999fa135c8fbba40652396dc4f4536b59e494c6",
+  "syntheticSuiteAlarmSeconds": 285,
+  "temporaryFixturesGone": true,
+  "testsImportsChildLaunchCaptureDecodeFullScanGitExecuted": false,
+  "unrecordedOriginal14GroupIdsInvented": false,
+  "utc": "2026-10-09T16:25:30.093614+00:00"
+}

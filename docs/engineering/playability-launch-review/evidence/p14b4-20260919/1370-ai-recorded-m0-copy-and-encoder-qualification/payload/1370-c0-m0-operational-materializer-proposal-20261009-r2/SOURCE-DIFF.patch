@@ -1,0 +1,19 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r1/materialize.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r2/materialize.py
+@@ -6,13 +6,13 @@
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+ INPUTS=S/'1370-c0-h-m0-observer-verification-design-r2/MIRROR-INPUTS.json'
+ DESIGN_REVIEW=S/'1370-c0-h-m0-observer-verification-independent-design-review-r2/RECEIPT.json'
+-OUT_ROOT=S/'1370-c0-m0-observer-mirrors-20261009-r1'
++OUT_ROOT=S/'1370-c0-m0-observer-mirrors-20261009-r2'
+ PARENT_ADOPTION=S/'1370-c0-m0-only-diagnostic-parent-adoption-20261009-r1/ADOPTION.json'
+-PARENT_ADOPTION_SHA='c0d8e338c9f8a9dced79328711736323431903cabe7410091cc4f90191bd7f7d'
++PARENT_ADOPTION_SHA='476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017'
+ M0_SCOPE_REVIEW_SHA='a4591c34f4b6406f20e5e35c0d85cbab74945dc79b1ef79fffbdf8d75b1f1180'
+ INPUTS_SHA='84d89b19ffc40f02c9a908bf8ae3cdbf34e4ff65ce2c1cf63687c140746e1154'
+ DESIGN_REVIEW_SHA='d7ec88eeae8c97ed4d7a1eb42d9dfbd3e77ff14f1b2247c1ba5501636cf713f2'
+-PRODUCTION_HEAD='dcf2d60337d9310ba5caba028a1be8dc9be1ad26'
++PRODUCTION_HEAD='02d50716fe787eaed425b40f822ce91f4463deba'
+ PRODUCTION_TREE='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+ PRODUCTION_REF='refs/heads/wip/headless-program-20260916-ts'
+ PREFLIGHT=int(3.5*1024**3)

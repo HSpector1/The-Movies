@@ -1,0 +1,38 @@
+{
+  "actualToolHelperRecorderNodeExits": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "actualToolSession": 87102,
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "captureWholeHashRole": "PRIOR_ACCEPTED_ONLY_NOT_REHASHED_HERE",
+  "checksSha256": "32cd960df522f3a8f248c32a60b6a2543edd69b6624e50ed1a4dbf78f9dbb905",
+  "configSha256": "82f95b47b18d3343ef433b3009a87d6ba15675cb4010b9507c00f9ebf33c2669",
+  "crossSessionTimingComparison": false,
+  "currentMetadataRole": "CURRENT_ONLY_NOT_RETROSPECTIVE",
+  "decision": "ACCEPT_OBSERVED_PURE_INDEXED308_SANITIZED_NATIVE_BENCHMARK_ONLY_REJECT_FULL109_INTEGRATION_RETRY",
+  "elapsedSeconds": 7.426589353999589,
+  "freshOwnedGroup6563Absent": true,
+  "integrationOrFull109RetryAuthorized": false,
+  "parentGrantSha256": "ed1999298ed39f75a52f6c4c12bb0c8f968a2623acb3a001b51ea23a763e08e9",
+  "parentOutcomeSha256": "535f16177018423ebd4eb27a73816641a5b7caf19d69ce941504fb424995b0ba",
+  "percentReduction": 21.746224200056275,
+  "reportSha256": "7b0ab80ea0a61664b6fe28b5796e0491928434af3b3f591432e202d9048a2463",
+  "resultSha256": "68e7119e5059bdbb00a13ca90520e79371552452189f8fb1cffb0dbee17b917c",
+  "reviewExecutionPerformed": false,
+  "runtimeMember308RawSha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a",
+  "schema": "1370-b109-sanitized-native-indexed308-benchmark-independent-observed-review-r5",
+  "sourcePinsSha256": "7b9e8df031d6ff9e314a5bddbafe7abd6e853245594a8eb4bc5fef2a5386548d",
+  "stderrBytes": 0,
+  "stdoutSha256": "1e1c07a804b21b586e5449128d60a1e1eec5b0d9be8c93026d71fc477ff1b6c9",
+  "weightedEncoderOnlySeconds": {
+    "baseline": 479.38696553000034,
+    "candidate": 375.13840122
+  }
+}

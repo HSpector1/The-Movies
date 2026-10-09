@@ -1,0 +1,36 @@
+{
+  "schema": "1370-m0-full-guard-independent-static-source-review-r1",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_REQUIRES_EXACT_PARENT_GUARD_RECORDING",
+  "sourcePinsSha256": "6941ca219fad32fe77982f71985052be5743d76820eea48caea2e0305c78bca9",
+  "sourceSha256": "259c4bac30fd506a67779d2c59fd29f51c8a6f75e140f7c37f6cff625aa23a58",
+  "configSha256": "03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d",
+  "predecessorSnapshotSha256": "ed43cd95fbbc13a2194338a8fe8dd48e05a56b1b77a4cdcb377f60ea17429740",
+  "freshPrivateFullInventoryRequired": true,
+  "nineUtilityBodiesByteExact": true,
+  "findings": [],
+  "beforeFillExactDecision": "ACCEPT_EXACT_M0_FULL_GUARD_BEFORE_FILL_UNRUN",
+  "beforeFillExactSha256": "81f7062ef00bcb6d92f73e60d4ee89859cc13124e26d0bcc6c144f30bf4cc54b",
+  "retainedHLeaf": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+  "retainedHMaterializeReceiptSha256": "b8c70f731fc730cea3ba7238674fb964fb973e6ffcf58fcb03e0dbbd139196b6",
+  "HScientificWaiver": false,
+  "fullFreshCurrentProtectionPassed": false,
+  "executionAuthorization": false,
+  "files": {
+    "REPORT.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-source-review-20261009-r1/REPORT.md",
+      "bytes": 5611,
+      "sha256": "f7349ad5b514fee771f455435b91e8587e8a91670104b25be40e456ea59e75f9"
+    },
+    "FACTS.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-source-review-20261009-r1/FACTS.json",
+      "bytes": 4896,
+      "sha256": "baa5e5caf286966e526e726954fdd391352b02a493960b3082986b9f3ea52b34"
+    },
+    "EXACT-BEFORE-FILL-ARGV.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-source-review-20261009-r1/EXACT-BEFORE-FILL-ARGV.json",
+      "bytes": 2224,
+      "sha256": "81f7062ef00bcb6d92f73e60d4ee89859cc13124e26d0bcc6c144f30bf4cc54b"
+    }
+  },
+  "testsImportsFullScanMaterializationGameGitExecuted": false
+}

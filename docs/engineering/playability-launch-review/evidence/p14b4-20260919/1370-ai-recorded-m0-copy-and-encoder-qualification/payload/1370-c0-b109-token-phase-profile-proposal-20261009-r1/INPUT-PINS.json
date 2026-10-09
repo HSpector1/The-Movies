@@ -1,0 +1,57 @@
+[
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/SOURCE-PINS.json",
+    "bytes": 2012,
+    "sha256": "0af677410da44ddd535f77712a0e35937e7cdf9014c405a35432b742d928118f"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs",
+    "bytes": 2492,
+    "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/benchmark-308.mjs",
+    "bytes": 5253,
+    "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-encoder.mjs",
+    "bytes": 10720,
+    "sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/record-pure-node.py",
+    "bytes": 14248,
+    "sha256": "89abbb1db46f0bba3d1c177fa274b00dcd556975340d6f960c38972afe0c7be5"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/CONFIG.json",
+    "bytes": 3931,
+    "sha256": "3fd3b21c188b7a8b6991dcb2e10c894f7674a5e3c2bd12a6bafe322a283e941e"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/CONTROL-RECIPE.json",
+    "bytes": 3214,
+    "sha256": "4138de4128ec33d67602beff63ae8decb3275749fd87bab091b1659055ea7d54"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-fastpass-indexed308-benchmark-independent-observed-review-20261009-r1/RECEIPT.json",
+    "bytes": 1606,
+    "sha256": "bbdf1726103147cd3f4d8d8ed981511af73e0d9484aa19d6aab516cbb5ff0c0a"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-fastpass-indexed308-benchmark-independent-observed-review-20261009-r1/REPORT.md",
+    "bytes": 1676,
+    "sha256": "34f2c59015323b822b01547ef1ff15086c2c9939b14f55f455c38d77c148dff6"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-parent-recorded-20261009-r1/BENCHMARK-TOOL-OUTCOME.json",
+    "bytes": 6361,
+    "sha256": "8a995f892b63f5c6a6cdc1728e1f1110ab135f05b522cd431178261d84da1cdd"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-parent-recorded-20261009-r1/BENCHMARK-ADOPTION.json",
+    "bytes": 1042,
+    "sha256": "acc21c334cd31353083bdc0de0a1c8330b348f76a6a5b11b6dc3681676ae4a83"
+  }
+]

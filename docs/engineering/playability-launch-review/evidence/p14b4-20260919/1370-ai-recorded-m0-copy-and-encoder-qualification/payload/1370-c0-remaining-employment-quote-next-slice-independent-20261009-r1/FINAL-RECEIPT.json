@@ -1,0 +1,44 @@
+{
+  "schema": "1370-remaining-quote-next-slice-final-receipt-r1",
+  "decision": "ACCEPT_BOUNDED_NEXT_SOURCE_ONLY_SLICE_NO_ANNUAL_ATTRIBUTION",
+  "files": {
+    "RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/RECEIPT.json",
+      "bytes": 1673,
+      "sha256": "57e13b5154ea415292966f8e2cdf314a8c0f50633c54e0081067c196e56c99f8"
+    },
+    "SCOPE-CORRECTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/SCOPE-CORRECTION.json",
+      "bytes": 1060,
+      "sha256": "88e2865fd1ab3654741f9877fff5a74309ba178c8451de579d556ab989499d89"
+    },
+    "REPORT.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/REPORT.md",
+      "bytes": 6127,
+      "sha256": "a3817c0a9f7b34c8558c7bb774dd026485e3fef04034dd013ec6d78779af2bd3"
+    },
+    "FACTS.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/FACTS.json",
+      "bytes": 45945,
+      "sha256": "27d72ea9903a7a6953b89768f0cd77518c6b3643c3ddb7b7aba7b2902f9124d8"
+    },
+    "INPUT-PINS.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/INPUT-PINS.json",
+      "bytes": 4251,
+      "sha256": "b23846669624467a16a2b111f7df806760e1f595338e7c6161a99d9c7a1c35a6"
+    },
+    "review.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/review.py",
+      "bytes": 6173,
+      "sha256": "479f9f0f03d1e8a1c818592c4113ce8d2a3701665410ef3ea21a7ec1951dbf41"
+    }
+  },
+  "controllingCorrection": "SCOPE-CORRECTION.json",
+  "remaining": {
+    "week0": 22,
+    "week208": 16,
+    "missingDistinctJitterRoles": 23,
+    "bonusRelationsVerified": 38
+  },
+  "claimLimit": "No annual quote attribution, no new measurement, no engine/RNG/Node/game/test or protected inventory/Git operations."
+}

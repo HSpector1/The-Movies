@@ -1,0 +1,190 @@
+{
+  "acPower": true,
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "boundsUnchanged": [
+    60,
+    75,
+    90
+  ],
+  "freeBytes": 6056988672,
+  "gameIntegrationFull109Authorized": false,
+  "head": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "priorOwnedGroup3779FreshlyAbsent": true,
+  "productionOrHistoricalWholeGuardReuseClaim": false,
+  "recipe": {
+    "argv": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-benchmark-lane-20261009-r5/benchmark.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/record-pure-node.py",
+      "benchmark"
+    ],
+    "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+    "expectedActualHelperRecorderChildExits": [
+      0,
+      0,
+      0
+    ],
+    "freshOutput": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-benchmark-output-20261009-r5",
+    "mode": "benchmark",
+    "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-benchmark-lane-20261009-r5"
+  },
+  "roles": [
+    {
+      "bytes": 2225,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-independent-source-review-20261009-r5/RECEIPT.json",
+      "sha256": "87e796d45c29b84d97da7df2fb0049ee1fa009ac4d2cf1bf48c21ea441f04063"
+    },
+    {
+      "bytes": 1580,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/SOURCE-PINS.json",
+      "sha256": "7b9e8df031d6ff9e314a5bddbafe7abd6e853245594a8eb4bc5fef2a5386548d"
+    },
+    {
+      "bytes": 3935,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/CONFIG.json",
+      "sha256": "82f95b47b18d3343ef433b3009a87d6ba15675cb4010b9507c00f9ebf33c2669"
+    },
+    {
+      "bytes": 2445,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/CONFIG.json.diff",
+      "sha256": "3dd1dcbb38b256ed3ffea84a81b4e552238efc21b4be71eae31fefab611bb213"
+    },
+    {
+      "bytes": 3322,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/CONTROL-RECIPE.json",
+      "sha256": "f1d73d1a555c21f74786c4fe32b9b61833fb0b5168eacf3593c3fcb7dba79ae9"
+    },
+    {
+      "bytes": 3048,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/REPORT.md",
+      "sha256": "c9d994ad28976b0f0015b29387569b7fd48deb0e8e38d22042c45f6a08822240"
+    },
+    {
+      "bytes": 447,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/STATIC-CHECKS.json",
+      "sha256": "63fbfb56cf4c11e8ad2ab953f7fbd288695c19c977de0cfe82b0442a298ec061"
+    },
+    {
+      "bytes": 5253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+    },
+    {
+      "bytes": 2512,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/bounded-json-candidate.mjs",
+      "sha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697"
+    },
+    {
+      "bytes": 14248,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/record-pure-node.py",
+      "sha256": "cc97d645a165323c4e266235c9ff7cdfd7d7bda053b758570ac5680aed402f4f"
+    },
+    {
+      "bytes": 1136,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/record-pure-node.py.diff",
+      "sha256": "673514fbe50d1d1b62abb5d346f7120230f8664e6b105f04649a40cf73251a4c"
+    },
+    {
+      "bytes": 10744,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/test-encoder.mjs",
+      "sha256": "60c967d1701eb84d07ee4a18d58c490450ca06370c1c53f661201a269ca13e17"
+    },
+    {
+      "bytes": 1273,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/test-encoder.mjs.diff",
+      "sha256": "d709d630bee1bfd1ae69a0a421ded14fbd82202c08519fec18488c99d68f1e17"
+    },
+    {
+      "bytes": 12543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    },
+    {
+      "bytes": 1179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    {
+      "bytes": 5253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+    },
+    {
+      "bytes": 2512,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/bounded-json-candidate.mjs",
+      "sha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697"
+    },
+    {
+      "bytes": 10744,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/test-encoder.mjs",
+      "sha256": "60c967d1701eb84d07ee4a18d58c490450ca06370c1c53f661201a269ca13e17"
+    },
+    {
+      "bytes": 24196,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+    },
+    {
+      "bytes": 12543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    },
+    {
+      "bytes": 3074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    },
+    {
+      "bytes": 92324688,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+      "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+    },
+    {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    {
+      "bytes": 3829,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+      "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+    },
+    {
+      "bytes": 4766,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native22-diagnostic-observed-independent-review-20261009-r4/RECEIPT.json",
+      "sha256": "e504a4f5ea4fa8c1fa39e19f8e087bf8e38288af31552a21b74ff62c599ee2a1"
+    },
+    {
+      "bytes": 2847,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native22-controls-observed-independent-review-20261009-r5/RECEIPT.json",
+      "sha256": "5ef36c99e984569f6d6c7ec1b38df130f207478323b2b4d7ddef11f8be08497f"
+    },
+    {
+      "bytes": 1834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-parent-recorded-20261009-r5/CONTROLS-TOOL-OUTCOME.json",
+      "sha256": "86ea3a9882ee46cf4996c31d8626b18c102c18ae7a9550312400a3ab72043dde"
+    }
+  ],
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "PARENT_ADOPTED_OBSERVED_NATIVE22_AND_GRANTED_PURE_GENUINE308_BENCHMARK_ONLY",
+  "utc": "2026-10-09T16:39:54.753861+00:00",
+  "wholeCaptureHashClaim": "prior provenance only; current metadata and selected raw308 checked by recorder"
+}

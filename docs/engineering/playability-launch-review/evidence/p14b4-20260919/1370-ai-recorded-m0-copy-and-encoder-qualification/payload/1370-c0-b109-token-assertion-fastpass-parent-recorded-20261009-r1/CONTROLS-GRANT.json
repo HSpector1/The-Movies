@@ -1,0 +1,188 @@
+{
+  "acPower": true,
+  "benchmarkGameIntegrationFull109Authorized": false,
+  "boundsSeconds": {
+    "active": 75,
+    "node": 60,
+    "whole": 90
+  },
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "freeBytes": 5842980864,
+  "head": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "originalNative22Preserved": "20 portable groups byte-exact;2 explicitly versioned token architecture counts from1to0/titles before any run",
+  "priorFullGuardToolExit": 0,
+  "priorScannerPidFreshlyAbsent": 21697,
+  "protectedWriteFreezeMaintained": true,
+  "recipe": {
+    "argv": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-controls-lane-20261009-r1/controls.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/record-pure-node.py",
+      "controls"
+    ],
+    "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+    "mode": "controls",
+    "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-controls-output-20261009-r1",
+    "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-controls-lane-20261009-r1",
+    "requiredActualHelperRecorderChildExits": [
+      0,
+      0,
+      0
+    ]
+  },
+  "recordedMechanism23ReusedByExactNormalization": true,
+  "reviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-independent-source-review-20261009-r1/RECEIPT.json",
+  "reviewSha256": "655ad594b839b54f21a5f9adde32b713599dd475e9f0ad554c0853f9d9b6fdbd",
+  "roles": [
+    {
+      "bytes": 1747,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "655ad594b839b54f21a5f9adde32b713599dd475e9f0ad554c0853f9d9b6fdbd"
+    },
+    {
+      "bytes": 2012,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "0af677410da44ddd535f77712a0e35937e7cdf9014c405a35432b742d928118f"
+    },
+    {
+      "bytes": 3931,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/CONFIG.json",
+      "sha256": "3fd3b21c188b7a8b6991dcb2e10c894f7674a5e3c2bd12a6bafe322a283e941e"
+    },
+    {
+      "bytes": 2571,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/CONFIG.json.diff",
+      "sha256": "f05c6c01a9e42a5c4837e88231f950f64ecd3feaf80aa6877fcbe1ac74d81fdc"
+    },
+    {
+      "bytes": 3214,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/CONTROL-RECIPE.json",
+      "sha256": "4138de4128ec33d67602beff63ae8decb3275749fd87bab091b1659055ea7d54"
+    },
+    {
+      "bytes": 3864,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/REPORT.md",
+      "sha256": "c708a4a2a8814db33831099cef5df4d8a4b205c50f43ae69875b26be4d481f11"
+    },
+    {
+      "bytes": 5325,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/SOURCE-EQUIVALENCE.json",
+      "sha256": "194ae57cc0074af562096023a6d7d2fe89ef3c38b8bfb64dc1562e1c45559c1c"
+    },
+    {
+      "bytes": 434,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/STATIC-CHECKS.json",
+      "sha256": "32c77c206d63a1f893fc030e076a484b51a1723cf0aa1135494b35a96ca55419"
+    },
+    {
+      "bytes": 5253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+    },
+    {
+      "bytes": 2492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+    },
+    {
+      "bytes": 3113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs.diff",
+      "sha256": "bc958715ddd93ccee39e9f66534568a8c5d58cbe306eb7b91f7b13fe426fb482"
+    },
+    {
+      "bytes": 14248,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/record-pure-node.py",
+      "sha256": "89abbb1db46f0bba3d1c177fa274b00dcd556975340d6f960c38972afe0c7be5"
+    },
+    {
+      "bytes": 1136,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/record-pure-node.py.diff",
+      "sha256": "eafde43c69bc2f484e86446f80a05bb6d57a9f386ab07f4a168bf87405b96c3c"
+    },
+    {
+      "bytes": 10720,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926"
+    },
+    {
+      "bytes": 3207,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-encoder.mjs.diff",
+      "sha256": "8dab2a3780ebb8888e80b60bd20635a4f7bd90dda48a33f68370c1c091e7e09d"
+    },
+    {
+      "bytes": 10744,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-encoder.native-r5.predecessor.mjs",
+      "sha256": "60c967d1701eb84d07ee4a18d58c490450ca06370c1c53f661201a269ca13e17"
+    },
+    {
+      "bytes": 12543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    },
+    {
+      "bytes": 1179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    {
+      "bytes": 5253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/benchmark-308.mjs",
+      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+    },
+    {
+      "bytes": 2492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+    },
+    {
+      "bytes": 10720,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926"
+    },
+    {
+      "bytes": 24196,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+    },
+    {
+      "bytes": 12543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-recorder-repair.py",
+      "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+    },
+    {
+      "bytes": 3074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    },
+    {
+      "bytes": 92324688,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+      "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+    },
+    {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    }
+  ],
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "PARENT_ADOPTED_FASTPASS_SOURCE_AND_GRANTED22_TOKEN_CONTROLS_ONLY",
+  "utc": "2026-10-09T16:56:58.201415+00:00"
+}

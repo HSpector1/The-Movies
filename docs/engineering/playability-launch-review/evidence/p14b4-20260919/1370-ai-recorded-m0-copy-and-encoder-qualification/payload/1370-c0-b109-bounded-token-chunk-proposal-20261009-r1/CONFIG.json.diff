@@ -1,0 +1,90 @@
+--- accepted-fastpass/CONFIG.json
++++ bounded-token-chunk/CONFIG.json
+@@ -16,6 +16,12 @@
+     "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/boundaries.ndjson.gz",
+     "sha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e"
+   },
++  "chunkPolicy": {
++    "nativeBuiltinsAssumption": "standard native Array/String/Buffer builtins; source getter/trap order remains exact",
++    "oversizedWholeToken": "flush prior pending; single whole-token Buffer, no new admission limit",
++    "pendingTokenMax": 4096,
++    "pendingUtf8Target": 65536
++  },
+   "currentCaptureMetadata": {
+     "ctimeNs": "1791439909827355864",
+     "dev": "16777220",
+@@ -33,15 +39,10 @@
+     "member": 308,
+     "sha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a"
+   },
+-  "metadataClaim": "Current readonly preparation stat only; not a historical whole-file identity proof. Prior accepted whole capture hash is provenance only. Runtime308 raw hash is freshly checked.",
++  "metadataClaim": "Current source-preparation readonly lstat only; not historical identity. Prior accepted whole capture SHA is provenance only. Future runtime checks indexed308 raw SHA.",
+   "nodePath": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+   "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+-  "priorTokenOnlyProvenance": {
+-    "baselineSeconds": 503.37429043,
+-    "candidateSeconds": 348.67925686,
+-    "claim": "Prior measured encoder-only proxy; token-only integration/full109 retry rejected. No new performance claim.",
+-    "reviewReportSha256": "ccab6fa5b81afb020d7c4fee70371eaa75e8aec2a4923ee3c9c544ed7f49a808"
+-  },
++  "readerAndPurityRole": "baseline is immutable streaming12c37, not the timed referenceEncoder",
+   "roles": {
+     "acceptedCaptureReceipt": {
+       "bytes": 1179,
+@@ -54,19 +55,19 @@
+       "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+     },
+     "benchmark": {
+-      "bytes": 5253,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/benchmark-308.mjs",
+-      "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
++      "bytes": 5649,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.mjs",
++      "sha256": "dbbc202e6b473dd81aec427c8cd05ac09c4c6268c64daa52ac061ffc046ce53a"
+     },
+     "candidate": {
+-      "bytes": 2492,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs",
+-      "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
++      "bytes": 2880,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
++      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+     },
+     "controls": {
+-      "bytes": 10720,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-encoder.mjs",
+-      "sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926"
++      "bytes": 15839,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs",
++      "sha256": "015326a19a12225b5fb736bbf85d637f8e925cf4c0f5bd00240061cf9cd880b4"
+     },
+     "index": {
+       "bytes": 24196,
+@@ -75,8 +76,13 @@
+     },
+     "recorderControls": {
+       "bytes": 12543,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/test-recorder-repair.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-recorder-repair.py",
+       "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
++    },
++    "referenceEncoder": {
++      "bytes": 2492,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs",
++      "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+     },
+     "targetResult": {
+       "bytes": 3074,
+@@ -84,6 +90,10 @@
+       "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+     }
+   },
+-  "schema": "1370-b109-token-assertion-fastpass-config-r1",
+-  "status": "UNREVIEWED_UNRUN_TOKEN_ASSERTION_FASTPASS_SOURCE_PROPOSAL"
++  "schema": "1370-b109-bounded-token-chunk-config-r1",
++  "status": "UNREVIEWED_UNRUN_BOUNDED_TOKEN_CHUNK_SOURCE_PROPOSAL",
++  "timedArms": {
++    "baseline": "accepted_unprofiled_fastpass994d",
++    "candidate": "bounded_token_chunk"
++  }
+ }

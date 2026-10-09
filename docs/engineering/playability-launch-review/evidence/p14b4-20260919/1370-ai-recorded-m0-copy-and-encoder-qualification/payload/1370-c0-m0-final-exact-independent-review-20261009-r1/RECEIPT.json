@@ -1,0 +1,79 @@
+{
+  "schema": "m0-final-exact-independent-review/v1",
+  "decision": "ACCEPT_EXACT_FILLED_UNRUN",
+  "utc": "2026-10-09T17:17:26.846489+00:00",
+  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1",
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json",
+  "bindingRawSha256": "4d23bc3c74e0cc55aab85171dbe3b6ddfde25dc9eba86ea15e9b593740d60fca",
+  "bindingSemanticSha256": "4cfdbc36dae7fab7dc0687b48f3c7d84abc94b8ac0aca146273306d96bd261e4",
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "candidatePinsSha256": "1c9616427bf952e5fab3a3646fe51868b2a70dd4a8ba7878d0638e06645b4d26",
+  "launchSpecSha256": "240411095b9493ee8027f438187e6cedc9612c46a81533618ca2bf488dc18f1f",
+  "recorderSha256": "5752b2988c8bc5b649ed2f39153dad95f4cdc3b9793396865fa3989f8f75fb7a",
+  "supervisorSha256": "8eaf5fabdf298df579851b06f45d636b92393e235e8af6b5f2ec52fcfc0bd03f",
+  "routeSourcePinsSha256": "a37f4ffc9d315f0a621e9544776d7917d294f927adc1c1adfcf998700cc526c4",
+  "routeSourceReviewSha256": "77889570601c9b25f182047de35fc7dc245f9b68b59ff039924323e4a92f82d6",
+  "materializerSha256": "d906c1ba2631bee45a50c64348757b29a75c20dc53458d765c340e137e0b50d5",
+  "materializerSourcePinsSha256": "c08d9acd5eaddd721aa7867a109c62eb6081cad0ffa182ba95fbd2d66c6873b6",
+  "materializerSourceReviewSha256": "3842280e52b19638430bf183ec54fd8af1f83397ebfcd504898248b83f9cfd9c",
+  "manifestSha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba",
+  "preflightReviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-guard-core-independent-preflight-20261009-r1/FINAL-RECEIPT.json",
+  "preflightReviewSha256": "742d071a72b97ebe1112ebb34482d078d0a335c56dbbad2492eb7601fc1b89fb",
+  "fullGuardSnapshotSha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15",
+  "fullGuardObservedReviewSha256": "fe5073d75831162fb0de0ee702a38ed92e795c2f269c7621982bda2b97324fcf",
+  "fullGuardParentAdoptionSha256": "7a5f127f11eccf8cb3614756e4e538e6ea3b9281921264fd4d3ba639fd6a757e",
+  "parentAfterFillScopeClarificationSha256": "93a585e81b1393c78740d68020ec47eba7ba37d1274f57abeb3a61c72e0353fe",
+  "controlsObservedReviewSha256": "251c53a4089fbdaf0e6466a8fcf27f8489b31bad945264af4e152576d61b61c5",
+  "exactArgv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json"
+  ],
+  "exactCwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "exactEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "excludedAuthorizationFields": [
+    "status",
+    "executionAuthorization",
+    "exactBindingReviewPath",
+    "exactBindingReviewSha256",
+    "exactBindingReviewDecision"
+  ],
+  "guardCoreAdditionallyExcludes": [
+    "preflightReviewPath",
+    "preflightReviewSha256"
+  ],
+  "archivalErratum": {
+    "artifact": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/REPORT.md",
+      "bytes": 1205,
+      "sha256": "2bd84e1f44ebd2506ca94c7ae9a0c4a71abbf1fa65ac24fb182dd6cb3947dc36"
+    },
+    "incorrectSentence": "Full semantic excludes exactly five authorization fields, including pinned preflight pointer/hash.",
+    "authoritativeClarification": "Full execution semantic EXCLUDES exactly the five authorization fields A and INCLUDES preflightReviewPath/preflightReviewSha256. Guard core additionally EXCLUDES those two preflight fields. Actual canonical digests are correct.",
+    "classification": "Non-executable archival prose error; original bytes preserved; root agreed receipt/adoption clarify it."
+  },
+  "permittedAdoptedLaunchMetadata": "New raw binding checksum, exact accepted review/archive roles and truthful adopted-unrun status/authorization metadata only; reviewed argv/cwd/env/helper/core/full semantic and execution semantics remain exact. External independently reviewed adopted preflight remains required.",
+  "executionAuthorization": false,
+  "facts": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-independent-review-20261009-r1/FACTS.json",
+    "bytes": 12276,
+    "sha256": "f6b8cccb21c2ee04d1b16ef83542be38d4fb399ccd1a15b267eea53799a9f75f"
+  },
+  "report": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-independent-review-20261009-r1/REPORT.md",
+    "bytes": 4569,
+    "sha256": "6d7a9325fa3e4a21e8161ef9082fbde60906960e113f7d76185b8ed216fa7e3f"
+  },
+  "importsMaterializerTestsFullscanGitMutationLaunchExecuted": false,
+  "claimLimit": "Exact filled candidate accepted unrun only; root six-file archive then exactly five-field adoption and external adopted-preflight/actual grant required. Full postflight and H scientific/source-neutrality limits preserved."
+}

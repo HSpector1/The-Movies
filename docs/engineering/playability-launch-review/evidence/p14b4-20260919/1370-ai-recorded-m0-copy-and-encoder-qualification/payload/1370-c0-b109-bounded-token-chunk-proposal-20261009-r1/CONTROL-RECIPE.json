@@ -1,0 +1,84 @@
+{
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "boundsSeconds": {
+    "active": 75,
+    "node": 60,
+    "whole": 90
+  },
+  "executionAuthorization": false,
+  "expectedAuthoredControls": {
+    "groups": 28,
+    "observed": false,
+    "pairs": 321
+  },
+  "helper": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "mechanismReuse": {
+    "bytes": 3829,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+    "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+  },
+  "original14CopiedUnrunProvenanceOnly": true,
+  "preconditions": [
+    "Independent review of accumulation-only source/diff; original22 plus six groups; genuine308 timed reference distinct from reader; normalized recorder mechanism.",
+    "Root sole lane grant only after M0 priority; fresh output/lane/log/meta absence and exact role/tool hashes.",
+    "Actual28 groups/321 authored positive pairs; helper/recorder/Node0, exact retained streams and owned numeric group freshly absent; independent observed acceptance before benchmark.",
+    "Benchmark needs separate root grant after controls acceptance; one warmup+3 alternating pairs/state+wholeRow, exact raw308/bytes/purity/readers.",
+    "No automatic integration/full109/game retry regardless of encoder-only result; 300/375/390 and full110 admission remain unchanged."
+  ],
+  "recipes": [
+    {
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-controls-lane-20261009-r1/controls.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/record-pure-node.py",
+        "controls"
+      ],
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "mode": "controls",
+      "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-controls-output-20261009-r1",
+      "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-controls-lane-20261009-r1",
+      "requiredActualHelperRecorderChildExits": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-benchmark-lane-20261009-r1/benchmark.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/record-pure-node.py",
+        "benchmark"
+      ],
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "mode": "benchmark",
+      "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-benchmark-output-20261009-r1",
+      "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-benchmark-lane-20261009-r1",
+      "requiredActualHelperRecorderChildExits": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "requiredEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "status": "UNRUN_REQUIRES_INDEPENDENT_SOURCE_ACCEPTANCE_AND_SEPARATE_ROOT_GRANTS"
+}

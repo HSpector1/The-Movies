@@ -1,0 +1,18 @@
+{
+  "acceptedCaptureProvenanceAndIndexMatched": true,
+  "all12SourcePinsAuthenticated": true,
+  "boundsAndCaps": true,
+  "currentMetadataOnlyMatched": true,
+  "freshOwned6563Absent": true,
+  "grantAndOutcomeRolesAuthenticated": 35,
+  "heavyLockCurrentlyPresent": false,
+  "independentMediansFormula": {
+    "baseline": 479.38696553000034,
+    "candidate": 375.13840122
+  },
+  "overrideAbsent": true,
+  "percentReduction": 21.746224200056275,
+  "rawStreamAndResultPinsExact": true,
+  "sourceEnforcedExactBytesPurityRetainedReader": true,
+  "zeroToolHelperRecorderNode": true
+}

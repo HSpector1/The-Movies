@@ -1,0 +1,3 @@
+# Lessons
+
+Whole-token chunking is a measured improvement for this early-boundary encoder workload:28groups/321pairs retain exact bytes and refusal order, and the paired fastpass comparison reduces the projected encoder work31.709468168%. The scope is one genuine308 fixture and unchanged native builtin assumptions. Preserve the separate reader/timed-reference identities, independent warmup/trial records, and all bounds. Lower encoder work does not measure later state growth, save/tick/gzip/readback overhead, or full109 completion. Do not turn this useful result into an automatic integration or retry.

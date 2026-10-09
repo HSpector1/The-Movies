@@ -1,0 +1,23 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-runner-proposal-20261009-r1/run_controls.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-runner-proposal-20261009-r2/run_controls.py
+@@ -63,15 +63,14 @@
+   need(STOP is None and time.monotonic()-START<ACTIVE,'suite stopped before fork')
+   retire(); need(len(OWNED)==1,'unresolved earlier owned child')
+   pid=REAL_FORK()
+-  if pid==0:
+-   signal.pthread_sigmask(signal.SIG_SETMASK,previous); return 0
+-  slot['pid']=pid
+-  # Durable numeric ownership before unmask; parent can audit a hard STOP.
+-  os.write(REGFD,(json.dumps({'event':'ownedFork','pid':pid})+'\n').encode()); os.fsync(REGFD)
+-  return pid
++  if pid==0: return 0
++  slot['pid']=pid  # In-memory ownership is complete before pending alarms resume.
+  finally:
+   if slot['pid'] is None and slot in OWNED: OWNED.remove(slot)
+   signal.pthread_sigmask(signal.SIG_SETMASK,previous)
++ # Potentially blocking durability is outside the signal-masked section.
++ os.write(REGFD,(json.dumps({'event':'ownedFork','pid':pid})+'\n').encode()); os.fsync(REGFD)
++ return pid
+ def tracked_wait(pid,flags):
+  previous=signal.pthread_sigmask(signal.SIG_BLOCK,MASK)
+  try:

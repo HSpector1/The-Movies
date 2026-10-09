@@ -1,0 +1,34 @@
+{
+  "CONFIG.json": {
+    "bytes": 3911,
+    "sha256": "96d2da10a6e04cd8992fcb1fccd945c0a96543e6a9db6f8523c510c64926d389"
+  },
+  "CONTROL-RECIPE.json": {
+    "bytes": 4696,
+    "sha256": "a0073e73024bfe95fb80a4b207faf4cfc9e891eb8c2b1b5e8930bea82c3e7d75"
+  },
+  "REPORT.md": {
+    "bytes": 2938,
+    "sha256": "e955cd461a75961e15a1155035980e557e603beb06ef511203e8ba861c7cdfc4"
+  },
+  "STATIC-CHECKS.json": {
+    "bytes": 268,
+    "sha256": "16e69a80656de75a46fb43c843d966d67154bc6f81d3ce8d12641e4c690584ee"
+  },
+  "record-pure-node.py": {
+    "bytes": 14222,
+    "sha256": "0f3012ef87ebb537c5015bf3e96d30aa4bdd5614d0b2275dfe2431c316d01c69"
+  },
+  "record-pure-node.py.diff": {
+    "bytes": 4648,
+    "sha256": "2e521e6c9f434060adf48d0b6e078f8755c23136a6cd6033aff4619842f386be"
+  },
+  "test-recorder-failure-capture.py": {
+    "bytes": 6083,
+    "sha256": "3c7b8c168281153e3d93239c4694f98d450e247964f6d1ef14bc57b95bdfe80a"
+  },
+  "test-recorder-repair.py": {
+    "bytes": 12543,
+    "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+  }
+}

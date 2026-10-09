@@ -1,0 +1,177 @@
+[
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/CONFIG.json",
+    "bytes": 4354,
+    "sha256": "59d94b70eb2e4c3093fde24529326769d8ab74ac51e73c954f8832a180061527"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/CONFIG.json.diff",
+    "bytes": 4852,
+    "sha256": "8751f35046ff5b290fb0a19fc3fb0221e2648d1326d654bd2d6dfcd8b3f11d35"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/CONTROL-RECIPE.json",
+    "bytes": 3833,
+    "sha256": "165f9934b70dfc48d7dc0f1d06b19688f421de96eee512ae6fae4ea33b5529e4"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/PROVENANCE.json",
+    "bytes": 1919,
+    "sha256": "44b731129073ddc7f6f67ee5b2893ce866c9c677643122f6bf2ae9f208c82242"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/REPORT.md",
+    "bytes": 2990,
+    "sha256": "41911d6d966bf0752134a52849f49d56a00e792e739f290a5b26ac236c9ef15a"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/SOURCE-EQUIVALENCE.json",
+    "bytes": 1661,
+    "sha256": "e4cd740a232b0b6d8db2e01ccfdd7b58ec55ddca0391a2dcd63be65616b0dbf3"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/STATIC-CHECKS.json",
+    "bytes": 956,
+    "sha256": "db0f5db5e1e88bfd349b9cb234567a1f28a479c9f826a1c05c2215fef48478a7"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.mjs",
+    "bytes": 5649,
+    "sha256": "dbbc202e6b473dd81aec427c8cd05ac09c4c6268c64daa52ac061ffc046ce53a"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.mjs.diff",
+    "bytes": 6181,
+    "sha256": "99be45bf2edcf6cbb915c3dea7e1da82e712208db75d55648a53d6ea17694dd3"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.unmodified-reader.mjs",
+    "bytes": 5253,
+    "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+    "bytes": 2880,
+    "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs.diff",
+    "bytes": 1537,
+    "sha256": "f25cbe2fc91ca91dc2e7556bded6728e8a762ddd25fe70c7486c0361cb8157de"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-reference.mjs",
+    "bytes": 2492,
+    "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/record-pure-node.py",
+    "bytes": 14258,
+    "sha256": "d0b8380d0ef982f8675ef8affdafd60bac200717132875fe50f220c648586cc2"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/record-pure-node.py.diff",
+    "bytes": 3000,
+    "sha256": "a68a8d18785c1ba0c657d1815b9163d888e907988a8539be627d31f44fa62c63"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs",
+    "bytes": 15839,
+    "sha256": "015326a19a12225b5fb736bbf85d637f8e925cf4c0f5bd00240061cf9cd880b4"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs.diff",
+    "bytes": 5600,
+    "sha256": "acf5c5976e8dbc8b51780997e25f663f11cff1780d1580f16b9e0cde67995606"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.original22.mjs",
+    "bytes": 10720,
+    "sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-recorder-repair.py",
+    "bytes": 12543,
+    "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+    "bytes": 1179,
+    "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+    "bytes": 11414,
+    "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.mjs",
+    "bytes": 5649,
+    "sha256": "dbbc202e6b473dd81aec427c8cd05ac09c4c6268c64daa52ac061ffc046ce53a"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+    "bytes": 2880,
+    "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs",
+    "bytes": 15839,
+    "sha256": "015326a19a12225b5fb736bbf85d637f8e925cf4c0f5bd00240061cf9cd880b4"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+    "bytes": 24196,
+    "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-recorder-repair.py",
+    "bytes": 12543,
+    "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs",
+    "bytes": 2492,
+    "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+    "bytes": 3074,
+    "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-fastpass22-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+    "bytes": 1443,
+    "sha256": "eff6cc2be373de7cad1d85c00824f5bc4837d23be131eb8f6bd74b3fb2ad57db"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-independent-source-review-20261009-r1/RECEIPT.json",
+    "bytes": 1747,
+    "sha256": "655ad594b839b54f21a5f9adde32b713599dd475e9f0ad554c0853f9d9b6fdbd"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/SOURCE-PINS.json",
+    "bytes": 2012,
+    "sha256": "0af677410da44ddd535f77712a0e35937e7cdf9014c405a35432b742d928118f"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-independent-observed-review-20261009-r1/RECEIPT.json",
+    "bytes": 2518,
+    "sha256": "13a8df2aaffa2e2129eadffdfeeedcc783108da6ec79e225542618b27f56503f"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-next-slice-design-20261009-r1/PROPOSAL.json",
+    "bytes": 5353,
+    "sha256": "863861b58689838a4568ee9c7f96b1906e424ea4bd365a2648100bb6394bc792"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-design-parent-adoption-20261009-r1/ADOPTION.json",
+    "bytes": 984,
+    "sha256": "0d54fbe31140c0c2c2a728c90a3b62e96b5b3af6b9875a81a04956992d0f9be4"
+  },
+  {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+    "bytes": 3829,
+    "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+  }
+]

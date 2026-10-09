@@ -1,0 +1,28 @@
+{
+  "commands": [
+    {
+      "name": "privateHeadSrc",
+      "chunk_id": "afa0ab",
+      "wall_time_seconds": 0.000034091,
+      "exit_code": 0,
+      "original_token_count": 21,
+      "output": "3aaf55e0c06c4b745b0b722cc56913050b1ee229\nb47ac0ba2785c9619209696cba2c883860d62894\n"
+    },
+    {
+      "name": "privateCleanStatus",
+      "chunk_id": "8ceae9",
+      "wall_time_seconds": 0.018689044,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "name": "oldPidsAndScannerAbsent",
+      "chunk_id": "2d58e7",
+      "wall_time_seconds": 0.000020374,
+      "exit_code": 1,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ]
+}

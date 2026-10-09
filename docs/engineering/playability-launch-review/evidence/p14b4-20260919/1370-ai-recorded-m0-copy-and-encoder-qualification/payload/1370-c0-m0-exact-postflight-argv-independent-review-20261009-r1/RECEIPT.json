@@ -1,0 +1,148 @@
+{
+  "actualHelperPid": 10372,
+  "actualSpecSha256": "71e2db2dbe2dabfbf9d885002a9096e0e291d0ed315b92129f8098e5ceada78e",
+  "actualWorkerChildPgids": [
+    10639,
+    10655
+  ],
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "postflight",
+    "postflight-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+    "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15",
+    "10639,10655"
+  ],
+  "baselineSha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15",
+  "claimLimit": "Exact postflight command readiness only. Actual scan/immutable equality and independent physical mirror/readback acceptance remain required; no types/game/neutrality/ledger/H-scientific claim.",
+  "configSha256": "03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "decision": "ACCEPT_EXACT_M0_POSTFLIGHT_FULL_GUARD_ARGV_UNRUN",
+  "directRunWithoutHeavyHelperRequired": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "freshOutputAbsent": true,
+  "freshOwnedGroupsAbsent": [
+    10372,
+    10639,
+    10655
+  ],
+  "fullInventoryPerformed": false,
+  "globalAndM0LocksAbsent": true,
+  "guardExecutedByReviewer": false,
+  "guardSourceSha256": "259c4bac30fd506a67779d2c59fd29f51c8a6f75e140f7c37f6cff625aa23a58",
+  "materializedSourceTreeAccepted": false,
+  "protectedFreezeMaintainedByParent": true,
+  "rawPsFdArchiveAdmission": false,
+  "roles": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json": {
+      "bytes": 3717,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ACTUAL-RUNNING-DESCENDANTS.json": {
+      "bytes": 221,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ACTUAL-RUNNING-DESCENDANTS.json",
+      "sha256": "86ddc0b7edd6c043514cfc56cd9f5a0d0bb5846fd65f5391dd0c8ff67e47974d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTED-LAUNCH-SPEC.json": {
+      "bytes": 2274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTED-LAUNCH-SPEC.json",
+      "sha256": "e58ea56079b2dfc48bfb321ed9452e3ea5e373ae6a7a153768c77a9c8959ef79"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTION.json": {
+      "bytes": 2964,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "364fab7501f5a5917e3425703773c88f5a0e49de1b518fcda209074751a285e8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/EXACT-POSTFLIGHT-ARGV.json": {
+      "bytes": 2443,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/EXACT-POSTFLIGHT-ARGV.json",
+      "sha256": "a4eda7f0640623445ccd713195a7bca646e30c705b7aa4ebb703e630673bc029"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/GRANT.json": {
+      "bytes": 7515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/GRANT.json",
+      "sha256": "f4a429c2ad1ff862c6d1f2395f6f233846ca7047fcfa28993906531e9291e70b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/TOOL-OUTCOME.json": {
+      "bytes": 4132,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/TOOL-OUTCOME.json",
+      "sha256": "a414715aea926a344c5308e9db3e006391437e3689a49d58acba57c1ae98a1fc"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-postflight-argv-independent-review-20261009-r1/REPORT.md": {
+      "bytes": 1625,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-postflight-argv-independent-review-20261009-r1/REPORT.md",
+      "sha256": "7ee3d946ef8004038e8c3aedc117857e7656a81d0664b412f7edf7333fc032fb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2.MATERIALIZE-RESULT.json": {
+      "bytes": 1549,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2.MATERIALIZE-RESULT.json",
+      "sha256": "f584835a2893a3f9fc8e26df8765423a62096ced49a94d4f09ff1c935401e0f9"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/CONFIG.json": {
+      "bytes": 3235,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/CONFIG.json",
+      "sha256": "03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json": {
+      "bytes": 8082048,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+      "sha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py": {
+      "bytes": 20999,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py",
+      "sha256": "259c4bac30fd506a67779d2c59fd29f51c8a6f75e140f7c37f6cff625aa23a58"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log": {
+      "bytes": 224,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log",
+      "sha256": "d9dd7181fa6dd3ad4aece163ded618f1780f1c95263bb49077a800aae6fb7353"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log.meta": {
+      "bytes": 434,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log.meta",
+      "sha256": "c739b2fb46b0283151a7d94885e1364ea6fb6b10ca5dc1d7291ff17bcfb030d1"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/RESULT.json": {
+      "bytes": 1055,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/RESULT.json",
+      "sha256": "3041a1b7bb8b5b820238c708d3ab2d634651fd6019b81544f8a7bf61ddf8eff9"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/SUPERVISOR-PREPARED.json": {
+      "bytes": 334,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/SUPERVISOR-PREPARED.json",
+      "sha256": "6cf294196a81860ec36b96fd02e8f6f73fad606d612b014be483fcfd7cbe828e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/SUPERVISOR.json": {
+      "bytes": 464,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/SUPERVISOR.json",
+      "sha256": "2e7160b79225eae23e4fb0983e00c945b4588092f188b36285c3aac859cb281f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/child.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/child.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/child.stdout": {
+      "bytes": 164,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/child.stdout",
+      "sha256": "f56ad153b2ccc2978700f10447aff8449e8ad832143e61cf7c29d5dffb32e8bf"
+    }
+  },
+  "rootOwnsSoleActualScan": true,
+  "schema": "m0-exact-postflight-argv-independent-review/v1",
+  "sourceImported": false,
+  "supervisorOverrideAbsent": true,
+  "utc": "2026-10-09T17:37:26.843839+00:00"
+}

@@ -1,0 +1,125 @@
+{
+  "controlsObservedReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-changed-route14-controls-independent-observed-review-20261009-r3/RECEIPT.json",
+    "sha256": "251c53a4089fbdaf0e6466a8fcf27f8489b31bad945264af4e152576d61b61c5"
+  },
+  "currentCommandsSha256": "40bd2f041e6be73d93e203df33ee37a1fcceebea017497f7fb6c244e60840fc4",
+  "currentFacts": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-guard-core-independent-preflight-20261009-r1/CURRENT-FACTS.json",
+    "sha256": "4673b4356dfd5e974294f939a775416dead29ce7f9764e2bbceab8995836372f"
+  },
+  "currentFdScopes": [
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+    "/Users/zacheryspector/The-Movies-headless-program",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2"
+  ],
+  "currentPrivateCommandsSha256": "cf6433c28e9c9905ad60f8bf297532a6c2d003f3dfd3e920b91d02e3b0d4b50a",
+  "currentProductionPrivateRefCleanBootAcDiskAccepted": true,
+  "currentStrictRootScopes": [
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects",
+    "/Users/zacheryspector/The-Movies-headless-program",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1"
+  ],
+  "currentToolScopes": [
+    "/usr/bin/git",
+    "/usr/bin/pmset",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "/usr/sbin/lsof",
+    "/usr/sbin/sysctl"
+  ],
+  "decision": "ACCEPT_M0_MATERIALIZATION_PREFLIGHT",
+  "executionAuthorization": false,
+  "freeBytes": 5840179200,
+  "freshPriorOwnedNumericGroups": [
+    85073,
+    80407,
+    6563,
+    3779,
+    18930,
+    18939,
+    18940,
+    18944,
+    18947,
+    18948,
+    18950,
+    18952,
+    18954,
+    18956,
+    18957,
+    18958,
+    18959,
+    18961,
+    18968,
+    18972
+  ],
+  "freshProductionCommonFullProofAccepted": true,
+  "fullGuardObservedReview": {
+    "decision": "ACCEPT_OBSERVED_M0_FULL_GUARD_BEFORE_FILL_READONLY",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "fe5073d75831162fb0de0ee702a38ed92e795c2f269c7621982bda2b97324fcf"
+  },
+  "fullGuardParentAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/BEFORE-FILL-ADOPTION.json",
+    "sha256": "7a5f127f11eccf8cb3614756e4e538e6ea3b9281921264fd4d3ba639fd6a757e"
+  },
+  "fullGuardSnapshot": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+    "sha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15"
+  },
+  "fullPostflightEqualityRequired": true,
+  "gitMutationOrProtectedWrite": false,
+  "guardCoreCandidatePinsSha256": "c3783530939165ca2a32732b10ef3ff950a707e3eac83fe14027e24facec3c99",
+  "guardCoreFullSemanticAndExactPointersIntentionallyNull": true,
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "hScientificAdmissionOrWaiver": false,
+  "historicalR9GameOwnedGroupClaim": false,
+  "materializerSourcePinsSha256": "c08d9acd5eaddd721aa7867a109c62eb6081cad0ffa182ba95fbd2d66c6873b6",
+  "materializerSourceReviewSha256": "3842280e52b19638430bf183ec54fd8af1f83397ebfcd504898248b83f9cfd9c",
+  "parentAfterFillScopeClarification": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/AFTER-FILL-SCOPE-CLARIFICATION.json",
+    "sha256": "93a585e81b1393c78740d68020ec47eba7ba37d1274f57abeb3a61c72e0353fe"
+  },
+  "parentProspectiveClarificationAccepted": true,
+  "preservedBasePreflightReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-guard-core-independent-preflight-20261009-r1/RECEIPT.json",
+    "sha256": "063a6ae998741f8babade805b26c8016cdb528a00a33579c9c3c45944686919a"
+  },
+  "privateAcceptedFullProof": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/SNAPSHOT.json",
+    "sha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347"
+  },
+  "productionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "protectedDigests": {
+    "commonGit": "ec026c43a5175dc37b0eedbef6085753ef56fe8b06f7958d1163db592daf6436",
+    "copied": "f33f505c16fb4e60fc639f5268969e14b9187ebf1c639209eeceae584a8fc5eb",
+    "production": "61a060e46cbb3ccb0e984cd368ca61ebdc62944ef0dcb261fe534f97af80a98d",
+    "retainedHLeaf": "a9cd945fe7dc2cd46bd9fddbc1afe2042ce0656da60c7ddb2b1c666c1bd7906e",
+    "retainedHParent": "7783177ca88740e6bc6525f8c98127f43dea38e3bdb3f72c97400956359b6deb"
+  },
+  "protectedWriteAndRenamerFreezeRequired": true,
+  "r9PrivateRootReuseExplicitlyAccepted": true,
+  "rawPsFdLocalOnly": true,
+  "reportSha256": "9ea3ac6943a687f6158979365f86701665ca90b2946c74630821c359a698d26b",
+  "retainedHLeafPath": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+  "retainedHProtectionOnly": true,
+  "reviewedBindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-guard-core-candidate-20261009-r1/BINDING-DRAFT.json",
+  "reviewedCandidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-guard-core-candidate-20261009-r1",
+  "reviewedGuardCoreBindingSha256": "c9eed71d414c1b747d12ced8521003ff963dfee1c19ecec1cf0df05ddc9fa08d",
+  "routeSourcePinsSha256": "a37f4ffc9d315f0a621e9544776d7917d294f927adc1c1adfcf998700cc526c4",
+  "routeSourceReviewSha256": "77889570601c9b25f182047de35fc7dc245f9b68b59ff039924323e4a92f82d6",
+  "schema": "1370-m0-guard-core-independent-preflight-r1",
+  "scope": "after-fill bounded current guards under maintained freeze; postflight full baseline equality; uncertainty requires refreshed full proof/new review",
+  "scopeAddendumSha256": "5a6504d68e7ae62c45cb7aad4126fedad5f60dfa19dc6d7f9a34cd3e39785b8e",
+  "sourceImportsTestsMaterializationGameFullscanExecuted": false,
+  "staticChecksSha256": "37b6f476f819eacb08d228c8dfdbcde6822f6de5cf623f02d3b60418276405dc",
+  "thirdFullInventoryExplicitlyRequiredByAcceptedProcedure": false
+}

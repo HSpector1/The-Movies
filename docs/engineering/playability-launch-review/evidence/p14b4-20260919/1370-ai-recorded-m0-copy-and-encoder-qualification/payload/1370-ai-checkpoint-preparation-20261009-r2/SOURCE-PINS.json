@@ -1,0 +1,22 @@
+{
+  "EXACT-ROLE-AUDIT.json": {
+    "bytes": 151011,
+    "sha256": "3a4d2e96b6eebef36d5259e7fb1ea605b91d5bbd0ba36be66141fea4ad78add3"
+  },
+  "INVENTORY-DRAFT.json": {
+    "bytes": 360248,
+    "sha256": "20c6d895f7909befc999e00ea9706e5e56aeeea3739337c00e54170e980e9c28"
+  },
+  "REPORT.md": {
+    "bytes": 1662,
+    "sha256": "669c9c42b0cab87cf3ea95e46019783320565ba688d5eb74a856e60161f4bcf4"
+  },
+  "SELECTED-DIRECTORIES.json": {
+    "bytes": 5269,
+    "sha256": "74b1649b73693e7658632d4e9f097bce7f68a0135429765172e87dc9ac8fee3e"
+  },
+  "augment-exact-roles.py": {
+    "bytes": 5687,
+    "sha256": "4c7c18c6808429f7c190fd3795ea71ce5b133b1344ab69aa1e8121a1a31775a6"
+  }
+}

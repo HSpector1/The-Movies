@@ -1,0 +1,12 @@
+{
+  "exactReviewAndArchiveAndFiveFieldAdoptionAndAdoptedPreflightStillRequired": true,
+  "executionAuthorization": false,
+  "freshFinalExactCandidateRequired": true,
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "originalGuardCoreCandidateImmutable": true,
+  "productionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "receiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-guard-core-independent-preflight-20261009-r1/FINAL-RECEIPT.json",
+  "receiptSha256": "742d071a72b97ebe1112ebb34482d078d0a335c56dbbad2492eb7601fc1b89fb",
+  "status": "PARENT_ADOPTED_GUARD_CORE_PREFLIGHT_FOR_FULL_SEMANTIC_FILL_ONLY",
+  "utc": "2026-10-09T17:11:33.784399+00:00"
+}

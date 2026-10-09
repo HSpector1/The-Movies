@@ -1,0 +1,49 @@
+{
+  "B109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "CONFIGOriginal14ByteIdentical": true,
+  "actualTinyCasesAuthored": 9,
+  "allEightCONFIGRoleHashesExact": true,
+  "allPinsExact": true,
+  "authenticationAndCleanupUnmocked": true,
+  "benchmarkGameIntegrationAuthorized": false,
+  "bothFailureCatchFallbacksFixed": true,
+  "bothSuppliedDiffsExact": true,
+  "configSha256": "96d2da10a6e04cd8992fcb1fccd945c0a96543e6a9db6f8523c510c64926d389",
+  "controlRecipeSha256": "6aa04a02eb52d4f2c95ba2cdeea7d1afed9e12e371aeda9cbd020807d0f15c90",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN",
+  "emptyFaultCases": 6,
+  "executionAuthorization": false,
+  "expectedObservedGREEN": "All9 positive repair cases with retained bytes/RESULT/numeric group cleanup",
+  "expectedObservedRED": "All9 negative oldR2 cases with exact expected escape/false-success evidence",
+  "failureControlsSha256": "d0aedb812aff40d7d55fa3748fcf239d450e73d74f8e560379376f6620be81d0",
+  "finallyFaultAfterRealCleanup": true,
+  "findings": [],
+  "native22CandidateBenchmarkUnchanged": true,
+  "original14ControlsSeparateUnchanged": true,
+  "perCaseDiagnosticBeforeAssertions": true,
+  "realChildZeroAndFullOutputRequiredBeforeMainFault": true,
+  "recorderBoundsSeconds": [
+    60,
+    75,
+    90
+  ],
+  "recorderSha256": "c728a80c898d101355b0b83f567179c67510ecd681971820de175e13bb77afa2",
+  "report": {
+    "bytes": 4744,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-independent-source-review-20261009-r4/REPORT.md",
+    "sha256": "9907f8c067f892e84a05914608859de89cae5b73972e8318c20ab40e2a77783f"
+  },
+  "schema": "1370-b109-recorder-failure-capture-independent-source-review-r4",
+  "sourceDir": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4",
+  "sourcePinsSha256": "b616d3ccdd1af247ed2116388ce258aed63de543df5127395135cb455cc501ae",
+  "startupGuardWrappersDelegateActualFunctions": true,
+  "syntheticSuiteAlarmSeconds": 285,
+  "testsImportsNodeCaptureDecodeGuardScanGitExecuted": false,
+  "unchangedNonMainFunctionsClasses": 17,
+  "unittestMethods": 4,
+  "utc": "2026-10-09T16:19:26.747140+00:00"
+}

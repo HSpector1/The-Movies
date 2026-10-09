@@ -1,0 +1,39 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/bounded-json-candidate.mjs
++++ /Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs
+@@ -3,15 +3,15 @@
+ export const MAX = 16 * 1024**2
+ export function boundedJson(value, limit=MAX) {
+   const pieces=[]; let bytes=0, keyBytes=0; const visiting=new Set(), keys=new Map()
+-  const add = (text, size) => { const next=bytes+size; assert.ok(next<=limit,'STOP_JSON_CAP'); bytes=next; pieces.push(text) }
++  const add = (text, size) => { const next=bytes+size; const withinLimit=next<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_JSON_CAP'); bytes=next; pieces.push(text) }
+   const stringToken = value => {
+-    assert.ok(Buffer.byteLength(value)<=limit,'STOP_STRING_CAP')
++    const withinLimit=Buffer.byteLength(value)<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_STRING_CAP')
+     const text=JSON.stringify(value); return [text,Buffer.byteLength(text)]
+   }
+   const atom = value => {
+-    assert.ok(typeof value!=='bigint' && typeof value!=='function' && typeof value!=='symbol','STOP_NON_JSON')
++    const jsonAtom=typeof value!=='bigint' && typeof value!=='function' && typeof value!=='symbol';if(!jsonAtom)assert.ok(jsonAtom,'STOP_NON_JSON')
+     if (typeof value==='string') {const token=stringToken(value);add(token[0],token[1]);return}
+-    if (typeof value==='number') {assert.ok(Number.isFinite(value),'STOP_NON_FINITE');const text=String(value);add(text,text.length);return}
++    if (typeof value==='number') {const finite=Number.isFinite(value);if(!finite)assert.ok(finite,'STOP_NON_FINITE');const text=String(value);add(text,text.length);return}
+     if (value===null) {add('null',4);return}
+     if (typeof value==='boolean') {add(value?'true':'false',value?4:5);return}
+     // emit rejects undefined before atom; retain the baseline's remaining law.
+@@ -21,12 +21,12 @@
+     let token=keys.get(value)
+     if (token!==undefined) {add(token[0],token[1]);return}
+     token=stringToken(value);add(token[0],token[1])
+-    const next=keyBytes+token[1];assert.ok(next<=limit,'STOP_JSON_CAP');keyBytes=next;keys.set(value,token)
++    const next=keyBytes+token[1];const withinLimit=next<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_JSON_CAP');keyBytes=next;keys.set(value,token)
+   }
+   function emit(v) {
+-    if (v===null || typeof v!=='object') { assert.notEqual(v,undefined); atom(v); return }
+-    assert.ok(!visiting.has(v),'STOP_CYCLE'); visiting.add(v)
+-    assert.ok(!Object.hasOwn(v,'toJSON'),'STOP_CUSTOM_JSON')
++    if (v===null || typeof v!=='object') { const defined=v!==undefined;if(!defined)assert.notEqual(v,undefined); atom(v); return }
++    const acyclic=!visiting.has(v);if(!acyclic)assert.ok(acyclic,'STOP_CYCLE'); visiting.add(v)
++    const ordinary=!Object.hasOwn(v,'toJSON');if(!ordinary)assert.ok(ordinary,'STOP_CUSTOM_JSON')
+     if (Array.isArray(v)) {
+       add('[',1); for(let i=0;i<v.length;i++){if(i)add(',',1); if(v[i]===undefined)add('null',4);else emit(v[i])} add(']',1)
+     } else {

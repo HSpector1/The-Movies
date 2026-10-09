@@ -1,0 +1,14 @@
+{
+  "all14Passed": true,
+  "all16DurableGroupsEqualHistoryAndFreshlyAbsent": true,
+  "forcedWholeTimeoutOrPhysicalStopClaim": false,
+  "materializationGameAuthority": false,
+  "next": "Separately admitted full guards then exact route review/adoption before any actual M0 copy.",
+  "outcomeSha256": "5acfb378da7dee530b2738f0e8e910117d9b3a27c2d66e29e4f9374072ade036",
+  "reviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-changed-route14-controls-independent-observed-review-20261009-r3/RECEIPT.json",
+  "reviewSha256": "251c53a4089fbdaf0e6466a8fcf27f8489b31bad945264af4e152576d61b61c5",
+  "status": "PARENT_ADOPTED_OBSERVED14_TINY_CONTROLS_ONLY",
+  "supervisorStops": "All16 intentionally forced retained-finalization controls, including recorder-success case; no actual copy failure inferred.",
+  "unexplainedFailure": false,
+  "utc": "2026-10-09T16:51:19.437881+00:00"
+}

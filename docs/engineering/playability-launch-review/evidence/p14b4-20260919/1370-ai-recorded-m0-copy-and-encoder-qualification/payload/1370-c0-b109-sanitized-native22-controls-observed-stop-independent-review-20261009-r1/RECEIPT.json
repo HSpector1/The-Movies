@@ -1,0 +1,59 @@
+{
+  "B109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "actualChildCause": "UNKNOWN_DISCARDED_STDERR",
+  "actualFirstFailingGroup": null,
+  "allSourcePinsUnchanged": true,
+  "boundsSeconds": [
+    60,
+    75,
+    90
+  ],
+  "candidateSha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697",
+  "controlsSha256": "915f48c72a195d0d3e837f39b0da4e852bf8db4bf05dc0f39d4aa45fb4f43177",
+  "decision": "STOP_OBSERVED_NATIVE22_CONTROLS_CHILD_EXIT_1_CAUSE_UNKNOWN",
+  "executionAuthorization": false,
+  "fixtureDescriptorPollutionHazardStaticOnly": true,
+  "fixtureHazardAttributedToActualStop": false,
+  "grant": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-parent-recorded-20261009-r1/CONTROLS-GRANT.json",
+    "sha256": "34c4da47cdb4fcd4eba4886437c41fc668de11fc31646b23c4c190245081a297"
+  },
+  "independentNumericPidOrPgidRecorded": false,
+  "lane": {
+    "controls.lane.log": {
+      "bytes": 254,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r2/controls.lane.log",
+      "sha256": "91188253a878c52d53fe3f178720d4f305516453114de3f6b87607264cc9aa81"
+    },
+    "controls.lane.log.meta": {
+      "bytes": 342,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r2/controls.lane.log.meta",
+      "sha256": "370e52861af7cef78b0800fb3a1c4ce6f069976ce337caa88e7a3bc937ccc1ce"
+    }
+  },
+  "nextAttemptCandidateAnd22ControlsMustRemainUnchanged": true,
+  "outputExistsEmpty": true,
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r2",
+  "ownedPgid": null,
+  "parentToolReported": {
+    "exit": 2,
+    "session": 67483
+  },
+  "recorderSha256": "76a6076ad2f77b8645124675ae37ee231ad6f89efa5c6f659de1db2614372d45",
+  "repairScope": "Recorder post-cleanup validation catch and bounded failure evidence only; three actual tiny diagnostics regression controls plus unchanged original14",
+  "report": {
+    "bytes": 4662,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native22-controls-observed-stop-independent-review-20261009-r1/REPORT.md",
+    "sha256": "34adcbbe90e162ab7c58c59494d5552fb3c9688324af2e2b609eab7bff9f05e2"
+  },
+  "schema": "1370-native22-controls-observed-stop-independent-review-r1",
+  "sourceImpliedChildExit": 1,
+  "sourceImpliedCleanupReturnedClear": true,
+  "sourcePinsSha256": "a5dd80809ee3d81ab584cd1610de49d92c4908211f519c1c1fb0d0959d13be78",
+  "testsImportsGameCaptureDecodeGuardScanGitExecuted": false,
+  "utc": "2026-10-09T16:06:08.439722+00:00"
+}

@@ -1,0 +1,288 @@
+{
+  "actualToolExit": 0,
+  "actualToolSession": 96812,
+  "claims": "Instrumented successful-call phases; per-trial sums/outerinterval/bytes exact. GC/scheduling/profilebookkeeping may perturb; independent medians need not sum; no unprofiled runtime rootcause or full-run prediction.",
+  "completedProfiles": 8,
+  "elapsedSeconds": 7.200315590991522,
+  "freshOwnedGroupAbsent": true,
+  "gameOrIntegrationExecuted": false,
+  "heavyLockAbsent": true,
+  "helperMetaExit": 0,
+  "nodeExit": 0,
+  "overrideAbsent": true,
+  "ownedPgid": 98020,
+  "profile": {
+    "candidatePhaseMediansMs": {
+      "state": {
+        "bufferMs": 0.8928679999999076,
+        "initEmissionMs": 48.00536199999988,
+        "internalElapsedMs": 78.29512599999998,
+        "joinMs": 32.341649999999845,
+        "outsidePhasesMs": 0.048471000000063214,
+        "phaseSumMs": 78.29512599999998
+      },
+      "wholeRow": {
+        "bufferMs": 2.16537100000005,
+        "initEmissionMs": 101.33549500000026,
+        "internalElapsedMs": 158.942008,
+        "joinMs": 53.1399449999999,
+        "outsidePhasesMs": 0.05742999999984022,
+        "phaseSumMs": 158.942008
+      }
+    },
+    "candidatePhaseProfilesMs": {
+      "state": [
+        {
+          "bufferMs": 2.2131550000001425,
+          "complete": true,
+          "encodedBytes": 2103442,
+          "initEmissionMs": 43.740320999999994,
+          "internalElapsedMs": 78.29512599999998,
+          "joinMs": 32.341649999999845,
+          "outerElapsedMs": 78.33141999999998,
+          "outsidePhasesMs": 0.03629399999999805,
+          "phaseSumMs": 78.29512599999998
+        },
+        {
+          "bufferMs": 0.8928679999999076,
+          "complete": true,
+          "encodedBytes": 2103442,
+          "initEmissionMs": 48.00536199999988,
+          "internalElapsedMs": 78.05405800000017,
+          "joinMs": 29.155828000000383,
+          "outerElapsedMs": 78.10784300000023,
+          "outsidePhasesMs": 0.0537850000000617,
+          "phaseSumMs": 78.05405800000017
+        },
+        {
+          "bufferMs": 0.8928160000000389,
+          "complete": true,
+          "encodedBytes": 2103442,
+          "initEmissionMs": 49.346927999999934,
+          "internalElapsedMs": 83.5850989999999,
+          "joinMs": 33.34535499999993,
+          "outerElapsedMs": 83.63356999999996,
+          "outsidePhasesMs": 0.048471000000063214,
+          "phaseSumMs": 83.5850989999999
+        }
+      ],
+      "wholeRow": [
+        {
+          "bufferMs": 3.978185000000849,
+          "complete": true,
+          "encodedBytes": 4228062,
+          "initEmissionMs": 91.75920499999938,
+          "internalElapsedMs": 148.87733500000013,
+          "joinMs": 53.1399449999999,
+          "outerElapsedMs": 148.92033099999935,
+          "outsidePhasesMs": 0.04299599999922066,
+          "phaseSumMs": 148.87733500000013
+        },
+        {
+          "bufferMs": 2.0478759999996328,
+          "complete": true,
+          "encodedBytes": 4228062,
+          "initEmissionMs": 115.46311700000024,
+          "internalElapsedMs": 159.19823600000018,
+          "joinMs": 41.68724300000031,
+          "outerElapsedMs": 159.25933900000018,
+          "outsidePhasesMs": 0.061103000000002794,
+          "phaseSumMs": 159.19823600000018
+        },
+        {
+          "bufferMs": 2.16537100000005,
+          "complete": true,
+          "encodedBytes": 4228062,
+          "initEmissionMs": 101.33549500000026,
+          "internalElapsedMs": 158.942008,
+          "joinMs": 55.44114199999967,
+          "outerElapsedMs": 158.99943799999983,
+          "outsidePhasesMs": 0.05742999999984022,
+          "phaseSumMs": 158.942008
+        }
+      ]
+    },
+    "candidateWarmupPhaseProfilesMs": {
+      "state": {
+        "bufferMs": 2.185024999999996,
+        "complete": true,
+        "encodedBytes": 2103442,
+        "initEmissionMs": 79.46363699999995,
+        "internalElapsedMs": 101.5043649999999,
+        "joinMs": 19.85570299999995,
+        "outerElapsedMs": 101.87499800000012,
+        "outsidePhasesMs": 0.37063300000022537,
+        "phaseSumMs": 101.5043649999999
+      },
+      "wholeRow": {
+        "bufferMs": 4.160918999999922,
+        "complete": true,
+        "encodedBytes": 4228062,
+        "initEmissionMs": 93.07090500000004,
+        "internalElapsedMs": 149.27769500000022,
+        "joinMs": 52.04587100000026,
+        "outerElapsedMs": 149.32227599999987,
+        "outsidePhasesMs": 0.044580999999652704,
+        "phaseSumMs": 149.27769500000022
+      }
+    },
+    "captureWholeHashProvenance": "PRIOR_ACCEPTED_ONLY_NOT_REHASHED_HERE",
+    "claimLimit": "Instrumented candidate phase timings on the same early308 fixture only. Clock calls, profile bookkeeping, scheduling and GC perturb timing; a measured phase includes costs/GC within that interval and does not prove the unprofiled runtime root cause. OutsidePhases includes wrapper/clock/profile publication overhead, not a calibrated overhead correction. Independent phase medians need not sum to median total. Prior uninstrumented timing is preserved separately; no controlled cross-session variant comparison, end-to-end109 prediction, later-size feasibility, gameplay/source admission, integration or automatic repeat. B109300/375/390/full110 complete admissions unchanged.",
+    "currentCaptureMetadataRole": "CURRENT_PREPARATION_OBSERVATION_NOT_RETROSPECTIVE_OLD_FILE_IDENTITY",
+    "elapsedSeconds": 6.391023131999999,
+    "executionAuthorization": false,
+    "fixture": {
+      "member": 308,
+      "rawBytes": 4228063,
+      "rawSha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a",
+      "stateBytes": 2103442,
+      "stateSha256": "cac7fcc155b45be663ac516b244cf3e5fe0c4ec4fb204fb6bd173d9b17d04f7e"
+    },
+    "formula": "110*(16*stateMedianMs+9*wholeRowMedianMs)/1000",
+    "game": false,
+    "inputPurityEachTrial": true,
+    "mediansMs": {
+      "state": {
+        "baseline": 108.54007100000035,
+        "candidate": 78.33141999999998
+      },
+      "wholeRow": {
+        "baseline": 250.91587999999956,
+        "candidate": 158.99943799999983
+      }
+    },
+    "profileContract": "initEmission includes original initialization+emit; join and Buffer are separately timed. Exactly four bound clock calls per candidate invocation; one fixed owned record consumed once after success. Phase medians need not sum to median total.",
+    "profiledWeighted110EncoderOnlySeconds": {
+      "baseline": 439.4372461600002,
+      "candidate": 295.2727428199998
+    },
+    "rawAndStateExactEachTrial": true,
+    "retainedReaderClosedExact": true,
+    "saveImports": false,
+    "sourceRoles": {
+      "acceptedCaptureReceipt": {
+        "bytes": 1179,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+        "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+      },
+      "baseline": {
+        "bytes": 11414,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+        "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+      },
+      "benchmark": {
+        "bytes": 7920,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/benchmark-308-profile.mjs",
+        "sha256": "5a84f9545257d9597589de2926f21fa38e04124fba62d9a3b87315fcc12ec9e1"
+      },
+      "candidate": {
+        "bytes": 3360,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/bounded-json-candidate.mjs",
+        "sha256": "62a9013d4d9609db4fe2a315cf2fac8a57c82499db2122ad12882ff9ea7a6668"
+      },
+      "controls": {
+        "bytes": 10720,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/test-encoder.mjs",
+        "sha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926"
+      },
+      "index": {
+        "bytes": 24196,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+        "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+      },
+      "recorderControls": {
+        "bytes": 12543,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/test-recorder-repair.py",
+        "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+      },
+      "targetResult": {
+        "bytes": 3074,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+        "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+      },
+      "unprofiledBenchmark": {
+        "bytes": 5253,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/benchmark-308.unprofiled.mjs",
+        "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+      },
+      "unprofiledTimingReceipt": {
+        "bytes": 1606,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/UNPROFILED-FASTPASS-OBSERVED-RECEIPT.json",
+        "sha256": "bbdf1726103147cd3f4d8d8ed981511af73e0d9484aa19d6aab516cbb5ff0c0a"
+      },
+      "unprofiledTimingReport": {
+        "bytes": 1676,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/UNPROFILED-FASTPASS-OBSERVED-REPORT.md",
+        "sha256": "34f2c59015323b822b01547ef1ff15086c2c9939b14f55f455c38d77c148dff6"
+      }
+    },
+    "status": "PURE_INDEXED308_ENCODER_PHASE_PROFILE_COMPLETE",
+    "timingsMs": {
+      "state": {
+        "baseline": [
+          107.88962599999991,
+          108.54007100000035,
+          116.171288
+        ],
+        "candidate": [
+          78.33141999999998,
+          78.10784300000023,
+          83.63356999999996
+        ]
+      },
+      "wholeRow": {
+        "baseline": [
+          248.383734,
+          250.91587999999956,
+          286.84025100000053
+        ],
+        "candidate": [
+          148.92033099999935,
+          159.25933900000018,
+          158.99943799999983
+        ]
+      }
+    },
+    "uninstrumentedTimingProvenance": {
+      "comparison": "Separate prior measurement only; no controlled cross-session comparison.",
+      "receiptSha256": "bbdf1726103147cd3f4d8d8ed981511af73e0d9484aa19d6aab516cbb5ff0c0a",
+      "reportSha256": "34f2c59015323b822b01547ef1ff15086c2c9939b14f55f455c38d77c148dff6",
+      "sourceSha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+    }
+  },
+  "recorderExit": 0,
+  "roles": [
+    {
+      "bytes": 10919,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-parent-recorded-20261009-r1/PROFILE-GRANT.json",
+      "sha256": "94bca373e29e2fdf55ea5641e6b18f9eb6b66570ea59b3bba1ecb69224c1dfb1"
+    },
+    {
+      "bytes": 921,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-benchmark-output-20261009-r1/RESULT.json",
+      "sha256": "7568501a884258bef6adc771231f710d1ec8fe998f730162d72021334959d3cb"
+    },
+    {
+      "bytes": 7947,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-benchmark-output-20261009-r1/stdout.bin",
+      "sha256": "9e5eac7a3ae3400af2a9bbd73300c467dd9d2f1832695f9d3b8861f38701dfa9"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-benchmark-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 385,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-benchmark-lane-20261009-r1/benchmark.lane.log",
+      "sha256": "157f1a6a94116bcdc1407db64902acbb69d324c2d277ae88341a436d06f6f8df"
+    },
+    {
+      "bytes": 338,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-benchmark-lane-20261009-r1/benchmark.lane.log.meta",
+      "sha256": "d808e0e9db8975f90469012c65d84f49d83c846340d8a7a6969b025445b7adef"
+    }
+  ],
+  "status": "ACTUAL_PURE_INDEXED308_PHASE_PROFILE_ZERO_PENDING_INDEPENDENT_REVIEW",
+  "utc": "2026-10-09T17:16:08.146396+00:00"
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "1370-m0-parent-control-runner-config-r2",
+  "executionAuthorization": false,
+  "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+  "helperLog": "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-lane-20261009-r2/controls.lane.log",
+  "runnerOutput": "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-output-20261009-r2",
+  "controlOutput": "/Users/zacheryspector/studio-scratch/1370-c0-m0-changed-route-controls-output-20261009-r2",
+  "roles": {
+    "controls": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r2/test_changed_route.py",
+      "sha256": "7147c3ad51397f74b5f3e0d681755bbbb4b4a373d56d79c61ab8f0f15fda0fc3"
+    },
+    "controlsPins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-controls-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "44be4f080b93ba2566da5f80719475b0b1de6c1e6eba763711323a8244ca1a30"
+    },
+    "routePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/SOURCE-PINS.json",
+      "sha256": "a37f4ffc9d315f0a621e9544776d7917d294f927adc1c1adfcf998700cc526c4"
+    },
+    "routeReview": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-independent-source-review-20261009-r3/RECEIPT.json",
+      "sha256": "77889570601c9b25f182047de35fc7dc245f9b68b59ff039924323e4a92f82d6"
+    },
+    "helper": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    }
+  },
+  "controlArgs": {
+    "source_dir": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3",
+    "source_pins_sha": "a37f4ffc9d315f0a621e9544776d7917d294f927adc1c1adfcf998700cc526c4",
+    "route_review": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-independent-source-review-20261009-r3/RECEIPT.json",
+    "route_review_sha": "77889570601c9b25f182047de35fc7dc245f9b68b59ff039924323e4a92f82d6",
+    "output_root": "/Users/zacheryspector/studio-scratch/1370-c0-m0-changed-route-controls-output-20261009-r2"
+  },
+  "bounds": {
+    "suiteActiveSeconds": 255,
+    "wholeRunnerSeconds": 285,
+    "ownedOutputBytes": 83886080,
+    "helperLogBytes": 1048576,
+    "expectedOwnedStubForks": 16
+  },
+  "claimLimit": "Source-only proposal; no execution grant, materialization or current guards."
+}

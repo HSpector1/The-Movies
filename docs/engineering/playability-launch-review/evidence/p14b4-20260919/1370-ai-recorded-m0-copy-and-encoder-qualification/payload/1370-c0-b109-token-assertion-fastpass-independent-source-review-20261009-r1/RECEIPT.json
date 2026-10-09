@@ -1,0 +1,37 @@
+{
+  "acceptedTokenBaseSha256": "ac7ed0d6ad1b2d47e0e12de6e9ec738129049806aa7d5ac0b7cfd3a60452de7c",
+  "actualControlsOrBenchmarkExecuted": false,
+  "architectureControlGroupsVersioned": [
+    16,
+    22
+  ],
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "benchmarkSha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2",
+  "boundsUnchanged": [
+    60,
+    75,
+    90
+  ],
+  "candidateSha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5",
+  "checksSha256": "a9253ac66f4ad11d291c6088c682b054a992bf76256daa21df09267f0fa165ec",
+  "concreteDefects": [],
+  "configSha256": "3fd3b21c188b7a8b6991dcb2e10c894f7674a5e3c2bd12a6bafe322a283e941e",
+  "controlsSha256": "ebafcbfa40fa861e1b554110a4bea98f21873e0faa2446575272cb67f0c90926",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_EIGHT_ASSERTION_FASTPATHS_WITH_VERSIONED22_CONTROLS",
+  "executionAuthorization": false,
+  "expected22Groups283Pairs": "UNRUN",
+  "gameOrFull109IntegrationAuthorized": false,
+  "original20PortableControlGroupsExact": true,
+  "recorderMechanismFullBytesExactAfterConfigOutputSubstitutions": true,
+  "recorderSha256": "89abbb1db46f0bba3d1c177fa274b00dcd556975340d6f960c38972afe0c7be5",
+  "reportSha256": "eeb704250c5a8c05225170390cfbc0315c256a1d44072029ec46d248db46a957",
+  "reusedObserved23RecorderMechanismReceiptSha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa",
+  "reviewedSourceDir": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1",
+  "schema": "1370-b109-token-assertion-fastpass-independent-source-review-r1",
+  "sourcePinsSha256": "0af677410da44ddd535f77712a0e35937e7cdf9014c405a35432b742d928118f",
+  "standardUnmodifiedAssertAssumption": true
+}

@@ -1,0 +1,166 @@
+{
+  "acPower": true,
+  "adoptedPreflight": {
+    "bytes": 8097,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-adopted-preflight-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "0b34f9aea8fbfd2ed04dca2aaea3546c7b5e6eb4cf39be79a7ee4bea2fdd053c"
+  },
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json"
+  ],
+  "bindingSemanticSha256": "4cfdbc36dae7fab7dc0687b48f3c7d84abc94b8ac0aca146273306d96bd261e4",
+  "bounds": {
+    "combinedChildLogsBytes": 33554432,
+    "continuousFreeBytes": 3221225472,
+    "materializerSeconds": 900,
+    "mirrorBytes": 167772160,
+    "preflightFreeBytes": 3758096384,
+    "recorderAdmissionFreeBytesIncludingSourceProjection": 3422552064,
+    "recorderContinuousFreeBytesIncludingReserve": 3355443200,
+    "totalNewScratchBytes": 469762048,
+    "wholeSupervisorSeconds": 930
+  },
+  "currentStrictRootsAndAncestryExact": true,
+  "currentToolIdentitiesAndHashesExact": true,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "freeBytes": 5616267264,
+  "fullPostflightRequired": true,
+  "gameTypesCollectionWiringNeutralityAuthorized": false,
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "priorOwnedGroupsFreshlyAbsent": [
+    96706,
+    98020
+  ],
+  "productionCleanAndLiveWorkingRefExact": true,
+  "productionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "protectedFreezeMaintainedSinceFullGuard28679": true,
+  "reviewDecision": "ACCEPT_ADOPTED_M0_MATERIALIZATION_PREFLIGHT_UNRUN",
+  "roles": [
+    {
+      "bytes": 8097,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-adopted-preflight-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "0b34f9aea8fbfd2ed04dca2aaea3546c7b5e6eb4cf39be79a7ee4bea2fdd053c"
+    },
+    {
+      "bytes": 2274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTED-LAUNCH-SPEC.json",
+      "sha256": "e58ea56079b2dfc48bfb321ed9452e3ea5e373ae6a7a153768c77a9c8959ef79"
+    },
+    {
+      "bytes": 12182,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-candidate-20261009-r1/BINDING-DRAFT.json",
+      "sha256": "71e2db2dbe2dabfbf9d885002a9096e0e291d0ed315b92129f8098e5ceada78e"
+    },
+    {
+      "bytes": 2964,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "364fab7501f5a5917e3425703773c88f5a0e49de1b518fcda209074751a285e8"
+    },
+    {
+      "bytes": 5021,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/grant_and_launch.py",
+      "sha256": "08d9fd638eb173997a6fd42124dc2061b54e3f20a408ad98329a021ac625af2e"
+    },
+    {
+      "bytes": 5383,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-final-exact-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "de74c395f9ed9633d74949c79c9f56b726f9554f89787084b21f9808bea56bd3"
+    },
+    {
+      "bytes": 6996,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-guard-core-independent-preflight-20261009-r1/FINAL-RECEIPT.json",
+      "sha256": "742d071a72b97ebe1112ebb34482d078d0a335c56dbbad2492eb7601fc1b89fb"
+    },
+    {
+      "bytes": 14964,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r3/materialize.py",
+      "sha256": "d906c1ba2631bee45a50c64348757b29a75c20dc53458d765c340e137e0b50d5"
+    },
+    {
+      "bytes": 1689,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-independent-source-review-20261009-r3/RECEIPT.json",
+      "sha256": "3842280e52b19638430bf183ec54fd8af1f83397ebfcd504898248b83f9cfd9c"
+    },
+    {
+      "bytes": 2427,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r3/ARGV-PROPOSED.json",
+      "sha256": "efd6988396345b3746dd4461dcdd27b644620808ace445678b793740869805f2"
+    },
+    {
+      "bytes": 1496,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+      "sha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017"
+    },
+    {
+      "bytes": 21430,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/record.py",
+      "sha256": "5752b2988c8bc5b649ed2f39153dad95f4cdc3b9793396865fa3989f8f75fb7a"
+    },
+    {
+      "bytes": 1523,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-independent-source-review-20261009-r3/RECEIPT.json",
+      "sha256": "77889570601c9b25f182047de35fc7dc245f9b68b59ff039924323e4a92f82d6"
+    },
+    {
+      "bytes": 15375,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/supervise.py",
+      "sha256": "8eaf5fabdf298df579851b06f45d636b92393e235e8af6b5f2ec52fcfc0bd03f"
+    },
+    {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    {
+      "bytes": 167120,
+      "path": "/usr/bin/git",
+      "sha256": "fe38fea56d944c3b7e9df10617b1fa5432d7b75cc346d7eacb607d083ea11711"
+    },
+    {
+      "bytes": 400608,
+      "path": "/usr/bin/pmset",
+      "sha256": "de2d7c69b8c1375a652484ba429ea4605f0458a9340ce1c5130ed1dd782218df"
+    },
+    {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    {
+      "bytes": 340288,
+      "path": "/usr/sbin/lsof",
+      "sha256": "40659ac68e85f56955736c06eadbd8864a65da3bf4827029fc845129b5165258"
+    },
+    {
+      "bytes": 151680,
+      "path": "/usr/sbin/sysctl",
+      "sha256": "c266586ca2cd39ea836e23ad932646144c53f71ebb1f9a493abeb865d90cbd21"
+    }
+  ],
+  "rootPidBecomesHelperPid": 10372,
+  "runtimePathsFreshlyAbsent": [
+    "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-20261009-r2.lock",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2"
+  ],
+  "schema": "m0-root-exact-materialization-grant/v1",
+  "status": "GRANTED_ONE_EXACT_RECORDED_M0_SOURCE_MATERIALIZATION_ONLY",
+  "unexpectedHelperWaitIsStop": true,
+  "utc": "2026-10-09T17:33:45.550110+00:00"
+}

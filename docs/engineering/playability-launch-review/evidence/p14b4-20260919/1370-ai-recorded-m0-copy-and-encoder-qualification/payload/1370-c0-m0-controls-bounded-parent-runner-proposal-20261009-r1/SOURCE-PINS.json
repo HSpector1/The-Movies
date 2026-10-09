@@ -1,0 +1,29 @@
+{
+  "schema": "1370-m0-controls-bounded-parent-runner-source-pins-r1",
+  "status": "UNRUN_INDEPENDENT_SOURCE_REVIEW_AND_SEPARATE_PARENT_GRANT_REQUIRED",
+  "executionAuthorization": false,
+  "files": {
+    "run_controls.py": {
+      "bytes": 7558,
+      "sha256": "a7e3ab602797d508275f7eca878ce5b878cd4823645162a69795c9d5b5caf6a6"
+    },
+    "CONFIG.json": {
+      "bytes": 2762,
+      "sha256": "f18f17a811407054d4238b999fa453272de67ee95e4b2190b4e2826af99b6a7f"
+    },
+    "ARGV-TEMPLATE.json": {
+      "bytes": 2223,
+      "sha256": "cfa18a3bc3bb804385035ab8b448e167f6673224ef79b7ff8c01437b5f89985c"
+    },
+    "PLAN.md": {
+      "bytes": 5356,
+      "sha256": "713fa84b585890b0772c0f6626e41ecc10bac2138d144fe317fcfd47fddb5cb3"
+    }
+  },
+  "controlsSourcePinsSha256": "44be4f080b93ba2566da5f80719475b0b1de6c1e6eba763711323a8244ca1a30",
+  "routeSourcePinsSha256": "a37f4ffc9d315f0a621e9544776d7917d294f927adc1c1adfcf998700cc526c4",
+  "routeSourceReviewSha256": "77889570601c9b25f182047de35fc7dc245f9b68b59ff039924323e4a92f82d6",
+  "original14MethodsChanged": false,
+  "syntaxParsedOnly": true,
+  "importsTestsGameMaterializationGuardScansGitExecuted": false
+}

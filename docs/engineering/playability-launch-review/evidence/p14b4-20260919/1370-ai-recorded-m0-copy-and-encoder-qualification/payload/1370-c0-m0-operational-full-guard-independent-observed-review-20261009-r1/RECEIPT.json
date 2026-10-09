@@ -1,0 +1,36 @@
+{
+  "schema": "m0-full-guard-independent-observed-review/v1",
+  "decision": "ACCEPT_OBSERVED_M0_FULL_GUARD_BEFORE_FILL_READONLY",
+  "utc": "2026-10-09T17:00:40.181356+00:00",
+  "snapshotPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+  "snapshotSha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15",
+  "snapshotPinsSha256": "1dae72d8afa5d0185f4bdf8e8c0a9cc4cae43a1779d2a0ca8177cb87d932abd8",
+  "parentActualOutcomeSha256": "f72110dba9c7af9b08470c3d5ad6204fef4ff8fb62ebd91221b2a799053c3b48",
+  "guardSourcePinsSha256": "6941ca219fad32fe77982f71985052be5743d76820eea48caea2e0305c78bca9",
+  "guardScriptSha256": "259c4bac30fd506a67779d2c59fd29f51c8a6f75e140f7c37f6cff625aa23a58",
+  "guardConfigSha256": "03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d",
+  "sourceReviewSha256": "8012fc503c1b11b2c9e8b2fd27d57c2155c277dcd6d1aca4bdde324f44926cd1",
+  "exactReviewSha256": "81f7062ef00bcb6d92f73e60d4ee89859cc13124e26d0bcc6c144f30bf4cc54b",
+  "actualToolSession": 66435,
+  "actualToolExit": 0,
+  "actualScannerPid": 21697,
+  "scannerPidFreshlyAbsent": true,
+  "operationalProductionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "operationalSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "retainedHLeaf": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+  "facts": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-observed-review-20261009-r1/FACTS.json",
+    "bytes": 11466,
+    "sha256": "bb5ca5697b1c60a0db98bbcca0ee7ca77b27d20bb2d63a9c5136a3a015203738"
+  },
+  "report": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-observed-review-20261009-r1/REPORT.md",
+    "bytes": 2934,
+    "sha256": "47b2af70e3bbe334890846106be5c52f7259dc734acf0d4d301b59c57b2fcce2"
+  },
+  "ownsOrClearsHistoricalGameGroups": false,
+  "newMaterializationOrGameAuthorization": false,
+  "independentFullScanOrSourceImport": false,
+  "productionMutation": false,
+  "claimLimit": "Accepted actual fresh before-fill protection baseline under parent-maintained protected write/renamer freeze; no H scientific/source-neutrality waiver, historical game-group proof, exact binding adoption or materialization/game grant."
+}

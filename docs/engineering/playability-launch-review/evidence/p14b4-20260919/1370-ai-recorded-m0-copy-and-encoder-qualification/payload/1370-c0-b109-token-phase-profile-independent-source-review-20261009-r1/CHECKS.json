@@ -1,0 +1,23 @@
+{
+  "all11ConfigRolesExact": true,
+  "all11InputPinsExact": true,
+  "all18PackagePinsExact": true,
+  "all4ExactDiffBodiesVerified": true,
+  "destructiveConsume": true,
+  "eightBoundedProfilesSixTimedTwoWarmup": true,
+  "entryAndFailedOuterClearIncludingNestedSuccess": true,
+  "exactProfileFieldsFiniteNonnegativeByteSumAndOuterIntervalValidation": true,
+  "fourClockReadSuccessAndNoPerTokenTimers": true,
+  "freshSevenFieldRecordOnlyAfterSuccess": true,
+  "inheritedCaptureMetadataRuntimeValidatedNoRetrospectiveClaim": true,
+  "normalizedFullEncoderBytesExact994d": true,
+  "oneWarmupThreeAlternatingTrialsPerInputUnchanged": true,
+  "original22ControlsAndOriginal14Exact": true,
+  "outputCapAndBoundsUnchanged": true,
+  "profileStatusAndTimingClaimsDistinctHonest": true,
+  "recorderFullByteNormalizeOnlyConfigOutputExpectedStatus": true,
+  "sameRuntime308ExactBytesPurityRetainedReaderChecks": true,
+  "separateGrantRecipesFreshAbsent": true,
+  "sourceTraversalAndCapsUnchanged": true,
+  "unprofiledF069AndPriorMeasuredReceiptReportPreserved": true
+}

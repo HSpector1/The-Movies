@@ -1,0 +1,29 @@
+{
+  "actualToolHelperRecorderNodeExits": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "actualToolSession": 6871,
+  "benchmarkOrGameQualified": false,
+  "checksSha256": "ce6e6b3788451ec579a90f029a421c5fca37fa28e9708998277364654e64c09c",
+  "decision": "ACCEPT_OBSERVED_TOKEN_ASSERTION_FASTPASS22_CONTROLS_ONLY",
+  "groups": 22,
+  "independentlyFreshOwnedGroupAbsent": true,
+  "ownedPgid": 80407,
+  "pairs": 283,
+  "parentGrantSha256": "c3e153ff18c5bdc3cd267adbb0cef20753638bfb8b312f622ab98a31bbda69ee",
+  "parentOutcomeSha256": "9bdec04f22609b12b81453c0642e04fb0e498640111bd87068168633a786d877",
+  "preparationStopPreservedSha256": "9b60bb61f93732fbc8bf513859e97edf04b0b12bb1dd765b770fb91d82bc7b95",
+  "recorderElapsedSeconds": 1.8076020080043236,
+  "reportSha256": "a96a78136924a2f7399ea8036459f0470cbafb8b43120f81ae8c56a576aa5d61",
+  "resultSha256": "b30ff9e2490732a1df04d598474a55223356de69d3f7d6396f93dae28613f7ae",
+  "reviewExecutionPerformed": false,
+  "schema": "1370-b109-token-fastpass22-controls-independent-observed-review-r1",
+  "sourceArchitectureExpectationsVersionedBeforeRun": true,
+  "sourcePinsSha256": "0af677410da44ddd535f77712a0e35937e7cdf9014c405a35432b742d928118f",
+  "sourceReviewSha256": "655ad594b839b54f21a5f9adde32b713599dd475e9f0ad554c0853f9d9b6fdbd",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutSha256": "84d57f514bb593b8921da779705f627133e9ae216b1691ce7376063054bed85b"
+}

@@ -1,0 +1,57 @@
+{
+  "actualAstLiteralPaths": {
+    "DESIGN_REVIEW": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-verification-independent-design-review-r2/RECEIPT.json",
+    "INPUTS": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-verification-design-r2/MIRROR-INPUTS.json",
+    "OUT_ROOT": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+    "PARENT_ADOPTION": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+    "PRODUCTION_HEAD": "02d50716fe787eaed425b40f822ce91f4463deba",
+    "PRODUCTION_TREE": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "REPO": "/Users/zacheryspector/The-Movies-headless-program",
+    "S": "/Users/zacheryspector/studio-scratch"
+  },
+  "actualLiteralReceiptPathHashChecks": {
+    "DESIGN_REVIEW": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-verification-independent-design-review-r2/RECEIPT.json",
+      "sha256": "d7ec88eeae8c97ed4d7a1eb42d9dfbd3e77ff14f1b2247c1ba5501636cf713f2"
+    },
+    "INPUTS": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-verification-design-r2/MIRROR-INPUTS.json",
+      "sha256": "84d89b19ffc40f02c9a908bf8ae3cdbf34e4ff65ce2c1cf63687c140746e1154"
+    },
+    "PARENT_ADOPTION": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+      "sha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017"
+    }
+  },
+  "all18FunctionAstBodiesIdentical": true,
+  "codeRepairOnly": "PARENT_ADOPTION actual relative literal r1\u2192r2; expected hash was already r2 and remains476c4b",
+  "executionAuthorization": false,
+  "importsTestsScansMaterializationExecuted": false,
+  "outRootRunIdAndLaneUnchangedFromUnconsumedR2": true,
+  "predecessorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r2",
+  "predecessorSourcePinsSha256": "cba244df804ae17b82fdba7960e49a6ac0b0e648c91c29ba9342e7a94760d6c0",
+  "refineReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-ah-rebind-and-controls-independent-source-review-20261009-r1/RECEIPT.json",
+  "refineReceiptSha256": "f93195f89bef47c5b09c9e1e25decc8d0ab265f9c5f54f85a5fd1d2cc1340682",
+  "schema": "1370-m0-materializer-relative-adoption-repair-r3",
+  "status": "SOURCE_PROPOSAL_UNRUN",
+  "unchangedFunctionNames": [
+    "need",
+    "sha",
+    "remaining",
+    "free",
+    "guard",
+    "cmd",
+    "open_dir",
+    "attrs",
+    "exact_mode",
+    "write_all",
+    "pinned",
+    "safe_rel",
+    "expected_overlays",
+    "validate_manifest",
+    "verify_archive_roster",
+    "write_archive",
+    "apply_overlay",
+    "main"
+  ]
+}

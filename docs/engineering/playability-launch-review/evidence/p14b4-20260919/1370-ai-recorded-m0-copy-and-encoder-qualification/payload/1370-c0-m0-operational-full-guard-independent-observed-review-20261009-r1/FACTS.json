@@ -1,0 +1,269 @@
+{
+  "schema": "m0-full-guard-independent-observed-facts/v1",
+  "actualOutcome": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/BEFORE-FILL-TOOL-OUTCOME.json",
+    "bytes": 3860,
+    "sha256": "f72110dba9c7af9b08470c3d5ad6204fef4ff8fb62ebd91221b2a799053c3b48"
+  },
+  "grant": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/BEFORE-FILL-GRANT.json",
+    "bytes": 4160,
+    "sha256": "51630052e3ca420c4160281acdcf634df2c1c25657ba1e879cab702677ca8829"
+  },
+  "snapshot": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+    "bytes": 8082048,
+    "sha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15"
+  },
+  "pins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/PINS.json",
+    "bytes": 507,
+    "sha256": "1dae72d8afa5d0185f4bdf8e8c0a9cc4cae43a1779d2a0ca8177cb87d932abd8"
+  },
+  "sourceReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-source-review-20261009-r1/RECEIPT.json",
+    "bytes": 2032,
+    "sha256": "8012fc503c1b11b2c9e8b2fd27d57c2155c277dcd6d1aca4bdde324f44926cd1"
+  },
+  "exactReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-source-review-20261009-r1/EXACT-BEFORE-FILL-ARGV.json",
+    "bytes": 2224,
+    "sha256": "81f7062ef00bcb6d92f73e60d4ee89859cc13124e26d0bcc6c144f30bf4cc54b"
+  },
+  "guardSource": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py",
+    "bytes": 20999,
+    "sha256": "259c4bac30fd506a67779d2c59fd29f51c8a6f75e140f7c37f6cff625aa23a58"
+  },
+  "guardSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/SOURCE-PINS.json",
+    "bytes": 1426,
+    "sha256": "6941ca219fad32fe77982f71985052be5743d76820eea48caea2e0305c78bca9"
+  },
+  "config": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/CONFIG.json",
+    "bytes": 3235,
+    "sha256": "03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d"
+  },
+  "priorFullPrivateProof": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/SNAPSHOT.json",
+    "sha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347"
+  },
+  "parentScopeAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+    "sha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017"
+  },
+  "actualToolSession": 66435,
+  "actualScannerPid": 21697,
+  "actualToolAndDirectExit": 0,
+  "snapshotElapsedSeconds": 489.3901485219976,
+  "inventoryElapsedSeconds": 382.95944522299396,
+  "exactArgvCwdEnvironmentMatch": true,
+  "parentPinnedRolesAuthenticated": 19,
+  "acceptedImportedR6SourceFilesAuthenticated": 8,
+  "stdout": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/before-fill.stdout",
+    "bytes": 443,
+    "sha256": "14a0137a2b434adaaf07ce67503f0012499c9e55455db6e3d097fbae8d0d23f8"
+  },
+  "stderr": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/before-fill.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "freshScannerPidAbsence": {
+    "argv": [
+      "/bin/ps",
+      "-p",
+      "21697",
+      "-o",
+      "pid=,ppid=,pgid=,state=,comm="
+    ],
+    "actualExit": 1,
+    "stdoutBytes": 0,
+    "readOnlyQuery": true,
+    "utc": "2026-10-09T17:00:40.179726+00:00"
+  },
+  "fullInventories": {
+    "productionRows": 12485,
+    "copiedRows": 12485,
+    "typeCountsEach": {
+      "regular": 11060,
+      "directory": 1401,
+      "symlink": 24
+    },
+    "bothExactPriorMetadataAndInodeMapEquality": true,
+    "productionCopyComparableRowsEqualIgnoringOnlyInode": true,
+    "all11060RegularCopiedInodesIndependent": true,
+    "allocatedBytes": {
+      "copied": 250314752,
+      "production": 250314752
+    }
+  },
+  "privateSource": {
+    "paths": 176,
+    "exactPriorPhysicalCheckoutEquality": true,
+    "exactActualCopyPayloadEquality": true,
+    "exactProtectedDigestEqualityToPrior": true,
+    "copiedRootGitDependenciesStrictAndAncestryEqualToPrior": true,
+    "originalCopyBindingAndResultSupervisorPayloadHashesUnchanged": true,
+    "overrideAbsent": true
+  },
+  "protectedDigests": {
+    "commonGit": "ec026c43a5175dc37b0eedbef6085753ef56fe8b06f7958d1163db592daf6436",
+    "copied": "f33f505c16fb4e60fc639f5268969e14b9187ebf1c639209eeceae584a8fc5eb",
+    "production": "61a060e46cbb3ccb0e984cd368ca61ebdc62944ef0dcb261fe534f97af80a98d",
+    "retainedHLeaf": "a9cd945fe7dc2cd46bd9fddbc1afe2042ce0656da60c7ddb2b1c666c1bd7906e",
+    "retainedHParent": "7783177ca88740e6bc6525f8c98127f43dea38e3bdb3f72c97400956359b6deb"
+  },
+  "strictRoots": {
+    "commonGitRoot": {
+      "ctimeNs": 1791475054920875233,
+      "device": 16777220,
+      "inode": 157454052,
+      "mode": 493,
+      "mtimeNs": 1791475054920875233,
+      "path": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git"
+    },
+    "commonObjects": {
+      "ctimeNs": 1791493320461260435,
+      "device": 16777220,
+      "inode": 157454083,
+      "mode": 493,
+      "mtimeNs": 1791493320461260435,
+      "path": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects"
+    },
+    "copiedDependencies": {
+      "ctimeNs": 1791498512390967424,
+      "device": 16777220,
+      "inode": 166568569,
+      "mode": 493,
+      "mtimeNs": 1790738039503311431,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules"
+    },
+    "copiedGit": {
+      "ctimeNs": 1791498505730619861,
+      "device": 16777220,
+      "inode": 166568331,
+      "mode": 448,
+      "mtimeNs": 1791498505730619861,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git"
+    },
+    "copiedRoot": {
+      "ctimeNs": 1791498505800985629,
+      "device": 16777220,
+      "inode": 166568330,
+      "mode": 448,
+      "mtimeNs": 1791498505800985629,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1"
+    },
+    "productionDependencyRoot": {
+      "ctimeNs": 1790738039503311431,
+      "device": 16777220,
+      "inode": 158487026,
+      "mode": 493,
+      "mtimeNs": 1790738039503311431,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    },
+    "productionRoot": {
+      "ctimeNs": 1791471316296107826,
+      "device": 16777220,
+      "inode": 158484765,
+      "mode": 493,
+      "mtimeNs": 1791471316296107826,
+      "path": "/Users/zacheryspector/The-Movies-headless-program"
+    },
+    "retainedHLeaf": {
+      "ctimeNs": 1791462534662274730,
+      "device": 16777220,
+      "inode": 166418911,
+      "mode": 448,
+      "mtimeNs": 1791462534662274730,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1"
+    },
+    "retainedHParent": {
+      "ctimeNs": 1791451453565647134,
+      "device": 16777220,
+      "inode": 166418910,
+      "mode": 448,
+      "mtimeNs": 1791451453565647134,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2"
+    }
+  },
+  "protectedStrictRootsBeforeAfterEqual": true,
+  "scratchParentIdentity": {
+    "device": 16777220,
+    "inode": 164902343,
+    "mode": 493,
+    "path": "/Users/zacheryspector/studio-scratch"
+  },
+  "scratchPolicy": "Device/inode/mode strict. Parent mtime/ctime and child deltas informational; parallel authorized scratch-only preparations/reviews may create siblings. This exception never applies to production/common/copied roots or copied .git/node_modules.",
+  "operationalProductionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "operationalSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "originalCopyProductionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "docsOnlyChangedPathsCount": 1438,
+  "allChangedPathsWithinExplicitDocsOrHandoffScope": true,
+  "currentBefore": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralAndRetainedHPassed": true,
+    "freeBytes": 5863178240,
+    "lsofRawBytes": 655280,
+    "lsofRawSha256": "d54d67b59dd600ebc1e206ed5f4561ad8fd6f9681270e682bf117057794c2425",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": false,
+    "ownedGroupIdsChecked": [],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawBytes": 108509,
+    "psRawSha256": "072a33eb36c5fbdb38313ffb04da3d874abbbfb00626747c4c189880a843a769",
+    "relevantWorkersAbsent": true
+  },
+  "currentAfter": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralAndRetainedHPassed": true,
+    "freeBytes": 5852483584,
+    "lsofRawBytes": 650058,
+    "lsofRawSha256": "ad67b4770cced9bd0961cd7d27482be277f5caebbd03e80f8e537e104a771550",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": false,
+    "ownedGroupIdsChecked": [],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawBytes": 106746,
+    "psRawSha256": "4a00b9e5f959879a9a8d70123e80bc0d41d5a3782b8c7d29886a705232288c1c",
+    "relevantWorkersAbsent": true
+  },
+  "retainedHLeaf": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+  "rawPsFdRoles": [
+    {
+      "archiveBytes": false,
+      "bytes": 650058,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/AFTER-LSOF.bin",
+      "sha256": "ad67b4770cced9bd0961cd7d27482be277f5caebbd03e80f8e537e104a771550"
+    },
+    {
+      "archiveBytes": false,
+      "bytes": 106746,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/AFTER-PS.txt",
+      "sha256": "4a00b9e5f959879a9a8d70123e80bc0d41d5a3782b8c7d29886a705232288c1c"
+    },
+    {
+      "archiveBytes": false,
+      "bytes": 655280,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/BEFORE-LSOF.bin",
+      "sha256": "d54d67b59dd600ebc1e206ed5f4561ad8fd6f9681270e682bf117057794c2425"
+    },
+    {
+      "archiveBytes": false,
+      "bytes": 108509,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/BEFORE-PS.txt",
+      "sha256": "072a33eb36c5fbdb38313ffb04da3d874abbbfb00626747c4c189880a843a769"
+    }
+  ],
+  "rawPsFdBytesLocalOnly": true,
+  "rawPsFdContentPublished": false,
+  "parentMaintainedProtectedWriteRenamerFreeze": true,
+  "ownedGroupIdsChecked": [],
+  "ownedGroupClearanceClaim": false,
+  "historicalScientificAdmission": false,
+  "materializationOrGameExecuted": false,
+  "independentRepeatedFullScanOrSourceImport": false
+}

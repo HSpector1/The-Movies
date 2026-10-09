@@ -1,0 +1,11 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r2/materialize.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r3/materialize.py
+@@ -7,7 +7,7 @@
+ INPUTS=S/'1370-c0-h-m0-observer-verification-design-r2/MIRROR-INPUTS.json'
+ DESIGN_REVIEW=S/'1370-c0-h-m0-observer-verification-independent-design-review-r2/RECEIPT.json'
+ OUT_ROOT=S/'1370-c0-m0-observer-mirrors-20261009-r2'
+-PARENT_ADOPTION=S/'1370-c0-m0-only-diagnostic-parent-adoption-20261009-r1/ADOPTION.json'
++PARENT_ADOPTION=S/'1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json'
+ PARENT_ADOPTION_SHA='476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017'
+ M0_SCOPE_REVIEW_SHA='a4591c34f4b6406f20e5e35c0d85cbab74945dc79b1ef79fffbdf8d75b1f1180'
+ INPUTS_SHA='84d89b19ffc40f02c9a908bf8ae3cdbf34e4ff65ce2c1cf63687c140746e1154'

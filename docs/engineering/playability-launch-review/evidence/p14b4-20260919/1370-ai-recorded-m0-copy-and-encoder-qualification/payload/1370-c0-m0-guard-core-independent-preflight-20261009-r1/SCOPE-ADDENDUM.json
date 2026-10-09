@@ -1,0 +1,15 @@
+{
+  "afterFill": "fresh bounded current guards under maintained protection/renamer freeze",
+  "basePreflightSha256": "063a6ae998741f8babade805b26c8016cdb528a00a33579c9c3c45944686919a",
+  "currentFactsSha256": "4673b4356dfd5e974294f939a775416dead29ce7f9764e2bbceab8995836372f",
+  "driftOrContinuityUncertaintyRequiresFreshFullProofAndNewReview": true,
+  "newExecutionAuthorization": false,
+  "parentClarification": {
+    "bytes": 2871,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/AFTER-FILL-SCOPE-CLARIFICATION.json",
+    "sha256": "93a585e81b1393c78740d68020ec47eba7ba37d1274f57abeb3a61c72e0353fe"
+  },
+  "postflight": "fresh full protected baseline equality and actual mirror/source/output/group readback",
+  "status": "PARENT_CLARIFICATION_AUTHENTICATED_WITH_UNCHANGED_GUARD_CORE_AND_CURRENT_FACTS",
+  "thirdFullInventoryRequired": false
+}

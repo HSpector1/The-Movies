@@ -1,0 +1,41 @@
+{
+  "acceptedHelperPath": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+  "acceptedHelperSha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "executionAuthorization": false,
+  "helperWrapperPrefix": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log"
+  ],
+  "materializerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r2/materialize.py",
+    "--arm",
+    "M0",
+    "--run-id",
+    "20261009-m0-types-r2",
+    "--source-manifest",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-r2/M0-SOURCE-MANIFEST.json",
+    "--source-manifest-sha",
+    "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba",
+    "--source-review",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-independent-review-r2/M0-RECEIPT.json",
+    "--source-review-sha",
+    "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8"
+  ],
+  "note": "Materializer argv is concrete for independent source review. Complete accepted group-safe recorder/helper invocation, current executable pins/metadata and exact absent-path/current guards remain independently reviewed gates; no bare materializer launch is granted. Helper pre-child wait is outside the900 deadline; unexpected wait STOP.",
+  "ownedGroupRecorderBinding": null,
+  "requiredEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "requiredLaneLog": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log",
+  "requiredLaneLogMeta": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log.meta",
+  "schema": "1370-m0-operational-materializer-argv-source-proposal-r2",
+  "status": "DRAFT_UNRUN_NOT_LAUNCH_AUTHORITY"
+}

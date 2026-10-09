@@ -1,0 +1,153 @@
+{
+  "all14LocalOnlyExact": true,
+  "all584PredecessorRowsFreshlyAuthenticatedUnchanged": true,
+  "allRequestedLiteralDirectoriesComplete": true,
+  "completionRoles": [
+    {
+      "bytes": 9262,
+      "mode": "0600",
+      "nlink": 1,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/RECEIPT.json",
+      "role": "m0FinalObservedCopy",
+      "sha256": "381ec5af685ce78f002ff260e166e9a13aa40ac1432e2a635900511a8a30d78d"
+    },
+    {
+      "bytes": 1860,
+      "mode": "0644",
+      "nlink": 1,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/OBSERVED-COPY-ADOPTION.json",
+      "role": "m0ParentObservedAdoption",
+      "sha256": "ec17dc69df4c1b8c3e5af8ef88d43fc4bceea82b2278325ec14cf2398651a8dd"
+    },
+    {
+      "bytes": 1638,
+      "mode": "0644",
+      "nlink": 1,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-independent-observed-review-20261009-r1/RECEIPT.json",
+      "role": "chunkFinalPairedReview",
+      "sha256": "59ad5be0c2f356d83febad87c5375937212a0af935ba52cc7214add9d85da29f"
+    },
+    {
+      "bytes": 1453,
+      "mode": "0644",
+      "nlink": 1,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-parent-recorded-20261009-r1/BENCHMARK-ADOPTION.json",
+      "role": "chunkParentAdoption",
+      "sha256": "d63af2ffdb817928ed0b6da7912decd857bb544d2c713b54f99c701e03c182d6"
+    },
+    {
+      "bytes": 1537,
+      "mode": "0644",
+      "nlink": 1,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ai-checkpoint-root-finalization-20261009-r1/NEXT-SLICE-ADOPTION.json",
+      "role": "rootNextSliceAdoption",
+      "sha256": "5588db394c55d6a380451fe7742e0f67820993036183be2a95c46d7a1a7efec1"
+    }
+  ],
+  "onlyM0SiblingReceiptNoMirrorTraversal": true,
+  "outcomes": [
+    {
+      "declaredRoles": 6,
+      "exactFileRolesCovered": 6,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-parent-recorded-20261009-r1/BENCHMARK-TOOL-OUTCOME.json",
+      "outcomeSha256": "8ee89a63d0f1af83f7f07812abbe6054171e4cfabc5cf19da335bbd47b16fa23"
+    },
+    {
+      "declaredRoles": 6,
+      "exactFileRolesCovered": 6,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-parent-recorded-20261009-r1/CONTROLS-TOOL-OUTCOME.json",
+      "outcomeSha256": "3573cd6cc9222b09be42b383833b2ef5320217283fd51f8742c16e152b04f856"
+    },
+    {
+      "declaredRoles": 0,
+      "exactFileRolesCovered": 0,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-failure-capture-parent-recorded-20261009-r4/DIAGNOSTIC-TOOL-OUTCOME.json",
+      "outcomeSha256": "7993ca920fa930c11eed74a827545e64589a8974dc72c823e7064c34b2c665e1"
+    },
+    {
+      "declaredRoles": 0,
+      "exactFileRolesCovered": 0,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-failure-capture-parent-recorded-20261009-r4/GREEN-TOOL-OUTCOME.json",
+      "outcomeSha256": "0f99509ca38e12c4159f302b9e3e672151a61ab9f25e35bd2e4624e5a3eb37c3"
+    },
+    {
+      "declaredRoles": 0,
+      "exactFileRolesCovered": 0,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-failure-capture-parent-recorded-20261009-r4/ORIGINAL14-TOOL-OUTCOME.json",
+      "outcomeSha256": "e30ce90900ed286aa0b5932ccf41b6f0b1d90f74d61cb4b1ae5dcb7ab82e16bc"
+    },
+    {
+      "declaredRoles": 0,
+      "exactFileRolesCovered": 0,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-failure-capture-parent-recorded-20261009-r4/RED-TOOL-OUTCOME.json",
+      "outcomeSha256": "15faacd260c5a8f2a0d009e6a2f7d4d579568150252135b949f892aae87da55d"
+    },
+    {
+      "declaredRoles": 0,
+      "exactFileRolesCovered": 0,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-parent-recorded-20261009-r1/CONTROLS-STOP-TOOL-OUTCOME.json",
+      "outcomeSha256": "de91632cc123f60637fed7cbbc990661294ff8647dd57771decdd5a6dff287da"
+    },
+    {
+      "declaredRoles": 6,
+      "exactFileRolesCovered": 6,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-parent-recorded-20261009-r5/BENCHMARK-TOOL-OUTCOME.json",
+      "outcomeSha256": "535f16177018423ebd4eb27a73816641a5b7caf19d69ce941504fb424995b0ba"
+    },
+    {
+      "declaredRoles": 0,
+      "exactFileRolesCovered": 0,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-parent-recorded-20261009-r5/CONTROLS-TOOL-OUTCOME.json",
+      "outcomeSha256": "86ea3a9882ee46cf4996c31d8626b18c102c18ae7a9550312400a3ab72043dde"
+    },
+    {
+      "declaredRoles": 6,
+      "exactFileRolesCovered": 6,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-parent-recorded-20261009-r1/BENCHMARK-TOOL-OUTCOME.json",
+      "outcomeSha256": "8a995f892b63f5c6a6cdc1728e1f1110ab135f05b522cd431178261d84da1cdd"
+    },
+    {
+      "declaredRoles": 6,
+      "exactFileRolesCovered": 6,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-parent-recorded-20261009-r1/CONTROLS-TOOL-OUTCOME.json",
+      "outcomeSha256": "9bdec04f22609b12b81453c0642e04fb0e498640111bd87068168633a786d877"
+    },
+    {
+      "declaredRoles": 6,
+      "exactFileRolesCovered": 6,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-parent-recorded-20261009-r1/CONTROLS-TOOL-OUTCOME.json",
+      "outcomeSha256": "2a1bb03db91f5d358d9be95c3efc25445bd984f12e26bc74e0c4edb7a1419ce4"
+    },
+    {
+      "declaredRoles": 6,
+      "exactFileRolesCovered": 6,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-parent-recorded-20261009-r1/PROFILE-TOOL-OUTCOME.json",
+      "outcomeSha256": "d22c5bb33b0ef02c4b3b017a8bd4d7442292062ffabd1c058fb627f01457021b"
+    },
+    {
+      "declaredRoles": 189,
+      "exactFileRolesCovered": 189,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-root-recorded-20261009-r3/TOOL-OUTCOME.json",
+      "outcomeSha256": "5acfb378da7dee530b2738f0e8e910117d9b3a27c2d66e29e4f9374072ade036"
+    },
+    {
+      "declaredRoles": 12,
+      "exactFileRolesCovered": 12,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/TOOL-OUTCOME.json",
+      "outcomeSha256": "a414715aea926a344c5308e9db3e006391437e3689a49d58acba57c1ae98a1fc"
+    },
+    {
+      "declaredRoles": 9,
+      "exactFileRolesCovered": 9,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/BEFORE-FILL-TOOL-OUTCOME.json",
+      "outcomeSha256": "f72110dba9c7af9b08470c3d5ad6204fef4ff8fb62ebd91221b2a799053c3b48"
+    },
+    {
+      "declaredRoles": 6,
+      "exactFileRolesCovered": 6,
+      "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/POSTFLIGHT-TOOL-OUTCOME.json",
+      "outcomeSha256": "01ac54475b7f235ede88fba9b0d2404d236d4444c531b88d6659d37306cf7264"
+    }
+  ],
+  "pendingAdditions": []
+}

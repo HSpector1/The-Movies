@@ -1,0 +1,22 @@
+--- accepted-fastpass/record-pure-node.py
++++ unrun-phase-profile/record-pure-node.py
+@@ -2,8 +2,8 @@
+ late exit/active checks and sanitized Node environment; no game or Save imports."""
+ import datetime,hashlib,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='3fd3b21c188b7a8b6991dcb2e10c894f7674a5e3c2bd12a6bafe322a283e941e';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
+-OUTPUTS={mode:SCRATCH/('1370-c0-b109-token-assertion-fastpass-'+mode+'-output-20261009-r1') for mode in ('controls','benchmark')}
++CONFIG_SHA='701239d900079aaf87264a991cc90454bf3e976ad262eff65ef3687ff7722100';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
++OUTPUTS={mode:SCRATCH/('1370-c0-b109-token-phase-profile-'+mode+'-output-20261009-r1') for mode in ('controls','benchmark')}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()
+@@ -224,7 +224,7 @@
+     try:
+      require(child is not None and child.poll()==0,'CHILD_EXIT_'+str(None if child is None else child.returncode))
+      observed_exit_guard(started,child_started,len(buffers['stdout']),len(buffers['stderr']))
+-     last=json.loads(bytes(buffers['stdout']).splitlines()[-1]);expected='ENCODER_EQUIVALENCE_AND_REFUSALS_PASSED' if mode=='controls' else 'PURE_INDEXED308_ENCODER_BENCHMARK_COMPLETE'
++     last=json.loads(bytes(buffers['stdout']).splitlines()[-1]);expected='ENCODER_EQUIVALENCE_AND_REFUSALS_PASSED' if mode=='controls' else 'PURE_INDEXED308_ENCODER_PHASE_PROFILE_COMPLETE'
+      require(last.get('status')==expected and not buffers['stderr'] and (mode!='controls' or last.get('groups')==22),'REPORT_ROLE');active_guard(started)
+     except BaseException as exc:
+      failure=str(exc) or repr(exc);timedout=isinstance(exc,TimeoutError) or 'DEADLINE' in failure or '_SECONDS' in failure

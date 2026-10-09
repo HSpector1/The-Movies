@@ -1,0 +1,13 @@
+{
+  "actualRetainedHLeafDeferredToReviewedArgv": true,
+  "configLiteralMatchesActualBytes": true,
+  "executionAuthorization": false,
+  "freshPrivateFullInventoryRequired": true,
+  "importsGuardScansTestsExecuted": false,
+  "nineUnchangedFunctionsSeeRoleDiff": true,
+  "noImportedHelperMainOrMaterializeCalls": true,
+  "oldProductionPayloadDigestsNotUsedAsNewBaseline": true,
+  "originalAcceptedCopyBindingUnmodified": true,
+  "schema": "1370-m0-full-guard-source-static-proof-r1",
+  "status": "SOURCE_PROPOSAL_UNRUN"
+}

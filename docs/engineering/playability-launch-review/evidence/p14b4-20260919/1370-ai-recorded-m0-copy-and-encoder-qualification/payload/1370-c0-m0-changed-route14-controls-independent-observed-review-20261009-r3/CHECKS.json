@@ -1,0 +1,171 @@
+{
+  "actual14Groups": [
+    "test_01_noncircular_admission_positive",
+    "test_01b_prepare_roles_before_output_reds",
+    "test_02_auth_source_review_semantic_reds",
+    "test_03_full_semantic_and_guard_core_reds",
+    "test_04_preflight_scope_reds",
+    "test_05_quick_roles_positive_and_reds",
+    "test_06_supervisor_output_collisions_before_fork",
+    "test_07_actual_success_readygo_cleanup",
+    "test_08_actual_stop_retains_stderr_leaf_cleanup",
+    "test_09_actual_timeout_cleanup",
+    "test_10_actual_fast_exit_log_cap",
+    "test_11_actual_fast_exit_after_reap_cap",
+    "test_12_child_stdout_role_reds",
+    "test_13_child_sibling_role_reds"
+  ],
+  "actualToolHelperRunnerExits": [
+    0,
+    0,
+    0
+  ],
+  "actualToolSession": 39481,
+  "all16IndependentlyFreshAbsent": true,
+  "durableRegistryExactlyMatches16History": [
+    18930,
+    18939,
+    18940,
+    18944,
+    18947,
+    18948,
+    18950,
+    18952,
+    18954,
+    18956,
+    18957,
+    18958,
+    18959,
+    18961,
+    18968,
+    18972
+  ],
+  "forced285TimeoutTestExecuted": false,
+  "grantRolePins": 13,
+  "grantSha256": "957e49fd62ca868c5d8b36da207dd6b2ce20be147d082f217a1d37973becf152",
+  "heavyLockCurrentlyPresent": false,
+  "helperElapsedUpperWithResolutionSeconds": 8,
+  "helperLogBytes": 1815,
+  "helperSecondsSecondResolution": 7,
+  "nestedActualResults": [
+    {
+      "case": "34-bad-sourceCommit",
+      "childExit": 0,
+      "childPid": 18957,
+      "reason": "Stop:M0 sibling receipt source/overlay role mismatch",
+      "status": "STOP"
+    },
+    {
+      "case": "31-bad-arm",
+      "childExit": 0,
+      "childPid": 18952,
+      "reason": "Stop:M0 sibling receipt source/overlay role mismatch",
+      "status": "STOP"
+    },
+    {
+      "case": "29-stdout-run",
+      "childExit": 0,
+      "childPid": 18948,
+      "reason": "Stop:M0 child stdout role mismatch",
+      "status": "STOP"
+    },
+    {
+      "case": "25-stop",
+      "childExit": 2,
+      "childPid": 18939,
+      "reason": "Stop:materializer child exited 2",
+      "status": "STOP"
+    },
+    {
+      "case": "26-timeout",
+      "childExit": null,
+      "childPid": 18940,
+      "reason": "Stop:whole materialization deadline",
+      "status": "STOP"
+    },
+    {
+      "case": "28-cap",
+      "childExit": 0,
+      "childPid": 18947,
+      "reason": "Stop:final child-log cap",
+      "status": "STOP"
+    },
+    {
+      "case": "24-success",
+      "childExit": 0,
+      "childPid": 18930,
+      "reason": null,
+      "status": "MATERIALIZED_UNREVIEWED_UNRUN"
+    },
+    {
+      "case": "30-stdout-sha",
+      "childExit": 0,
+      "childPid": 18950,
+      "reason": "Stop:durable M0 sibling receipt hash mismatch",
+      "status": "STOP"
+    },
+    {
+      "case": "39-bad-overlayFiles",
+      "childExit": 0,
+      "childPid": 18972,
+      "reason": "Stop:M0 sibling receipt source/overlay role mismatch",
+      "status": "STOP"
+    },
+    {
+      "case": "33-bad-mirrorPath",
+      "childExit": 0,
+      "childPid": 18956,
+      "reason": "Stop:M0 sibling receipt source/overlay role mismatch",
+      "status": "STOP"
+    },
+    {
+      "case": "27-cap",
+      "childExit": null,
+      "childPid": 18944,
+      "reason": "Stop:32 MiB combined child-log cap",
+      "status": "STOP"
+    },
+    {
+      "case": "35-bad-sourceTree",
+      "childExit": 0,
+      "childPid": 18958,
+      "reason": "Stop:M0 sibling receipt source/overlay role mismatch",
+      "status": "STOP"
+    },
+    {
+      "case": "32-bad-runId",
+      "childExit": 0,
+      "childPid": 18954,
+      "reason": "Stop:M0 sibling receipt source/overlay role mismatch",
+      "status": "STOP"
+    },
+    {
+      "case": "38-bad-sourceBytes",
+      "childExit": 0,
+      "childPid": 18968,
+      "reason": "Stop:M0 sibling receipt source/overlay role mismatch",
+      "status": "STOP"
+    },
+    {
+      "case": "36-bad-sourceManifestSha256",
+      "childExit": 0,
+      "childPid": 18959,
+      "reason": "Stop:M0 sibling receipt source/overlay role mismatch",
+      "status": "STOP"
+    },
+    {
+      "case": "37-bad-sourceReviewSha256",
+      "childExit": 0,
+      "childPid": 18961,
+      "reason": "Stop:M0 sibling receipt source/overlay role mismatch",
+      "status": "STOP"
+    }
+  ],
+  "outcomeArtifactPins": 189,
+  "ownedOutputBytes": 67550025,
+  "registrySha256": "03805d62cffdae85332987c383837ffd78ad3e3408952f4419214f977823ec85",
+  "resultSha256": "f299e304a1c81bac6196ae7bbccf5854bacbc5147eb990b78df269441e7f9907",
+  "runnerSeconds": 6.630309963002219,
+  "supervisorForcedStopRetentionAssertionsAll16": true,
+  "unittestSeconds": 6.155
+}

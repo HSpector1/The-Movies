@@ -1,0 +1,95 @@
+{
+  "actualChildPgid": 10655,
+  "actualObservedProcessToolChunk": "31204f",
+  "actualOwnedGroupsFreshlyAbsent": [
+    10372,
+    10639,
+    10655
+  ],
+  "actualRunningDescendantsFileScope": "Later targeted census found zero helper descendants after exit; not a live capture or global absence claim. Earlier tool chunk preserves observed running tree.",
+  "actualToolExit": 0,
+  "actualWorkerPid": 10639,
+  "childExit": 0,
+  "freeMinimum": 5491830784,
+  "gameTypesNeutralityAuthorized": false,
+  "helperExit": 0,
+  "helperMetaExit": 0,
+  "helperPid": 10372,
+  "helperStartEndWholeSeconds": 84,
+  "locksAndOverrideAbsent": true,
+  "noUnexpectedHelperWait": true,
+  "protectedFreezeMaintained": true,
+  "recorderElapsedSeconds": 83.80405662000703,
+  "roles": [
+    {
+      "bytes": 1055,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/RESULT.json",
+      "sha256": "3041a1b7bb8b5b820238c708d3ab2d634651fd6019b81544f8a7bf61ddf8eff9"
+    },
+    {
+      "bytes": 334,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/SUPERVISOR-PREPARED.json",
+      "sha256": "6cf294196a81860ec36b96fd02e8f6f73fad606d612b014be483fcfd7cbe828e"
+    },
+    {
+      "bytes": 464,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/SUPERVISOR.json",
+      "sha256": "2e7160b79225eae23e4fb0983e00c945b4588092f188b36285c3aac859cb281f"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/child.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 164,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-output-20261009-r2/child.stdout",
+      "sha256": "f56ad153b2ccc2978700f10447aff8449e8ad832143e61cf7c29d5dffb32e8bf"
+    },
+    {
+      "bytes": 224,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log",
+      "sha256": "d9dd7181fa6dd3ad4aece163ded618f1780f1c95263bb49077a800aae6fb7353"
+    },
+    {
+      "bytes": 434,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log.meta",
+      "sha256": "c739b2fb46b0283151a7d94885e1364ea6fb6b10ca5dc1d7291ff17bcfb030d1"
+    },
+    {
+      "bytes": 1549,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2.MATERIALIZE-RESULT.json",
+      "sha256": "f584835a2893a3f9fc8e26df8765423a62096ced49a94d4f09ff1c935401e0f9"
+    },
+    {
+      "bytes": 7515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/GRANT.json",
+      "sha256": "f4a429c2ad1ff862c6d1f2395f6f233846ca7047fcfa28993906531e9291e70b"
+    },
+    {
+      "bytes": 2274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTED-LAUNCH-SPEC.json",
+      "sha256": "e58ea56079b2dfc48bfb321ed9452e3ea5e373ae6a7a153768c77a9c8959ef79"
+    },
+    {
+      "bytes": 2964,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "364fab7501f5a5917e3425703773c88f5a0e49de1b518fcda209074751a285e8"
+    },
+    {
+      "bytes": 221,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/ACTUAL-RUNNING-DESCENDANTS.json",
+      "sha256": "86ddc0b7edd6c043514cfc56cd9f5a0d0bb5846fd65f5391dd0c8ff67e47974d"
+    }
+  ],
+  "schema": "m0-root-actual-materialization-tool-outcome/v1",
+  "sourceTreeAcceptanceClaim": false,
+  "status": "ACTUAL_EXIT_ZERO_AWAIT_FULL_POSTFLIGHT_AND_INDEPENDENT_COPY_ADMISSION",
+  "supervisorElapsedSeconds": 83.95704543900501,
+  "supervisorExit": 0,
+  "supervisorPidObservedInThatToolChunk": 10638,
+  "toolCompletionChunk": "16193f",
+  "toolSession": 2159,
+  "utc": "2026-10-09T17:35:58.211232+00:00",
+  "workerExit": 0
+}

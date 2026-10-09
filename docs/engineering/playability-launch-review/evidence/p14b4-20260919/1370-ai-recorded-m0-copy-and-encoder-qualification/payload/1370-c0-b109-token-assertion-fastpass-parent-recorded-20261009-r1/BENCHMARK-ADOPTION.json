@@ -1,0 +1,14 @@
+{
+  "benchmarkOutcomeSha256": "8a995f892b63f5c6a6cdc1728e1f1110ab135f05b522cd431178261d84da1cdd",
+  "benchmarkReviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-fastpass-indexed308-benchmark-independent-observed-review-20261009-r1/RECEIPT.json",
+  "benchmarkReviewSha256": "bbdf1726103147cd3f4d8d8ed981511af73e0d9484aa19d6aab516cbb5ff0c0a",
+  "controlsReviewSha256": "eff6cc2be373de7cad1d85c00824f5bc4837d23be131eb8f6bd74b3fb2ad57db",
+  "crossSessionControlledComparison": false,
+  "full109RetryAuthorized": false,
+  "integrationAuthorized": false,
+  "nextDesignOnly": "Profile a few emission/join/Buffer phase boundaries on the same genuine308 pure fixture before another algorithm change; independently review and separately grant controls/profile. No engine or failedpartial decoding.",
+  "sharedB109NodeSeconds": 300,
+  "status": "PARENT_ADOPTED_TOKEN_FASTPASS22_AND_PURE_BENCHMARK_REJECTED_INTEGRATION_FULL109",
+  "utc": "2026-10-09T17:02:00.180972+00:00",
+  "weightedEarly308EncoderOnlySeconds": 341.60933565000045
+}

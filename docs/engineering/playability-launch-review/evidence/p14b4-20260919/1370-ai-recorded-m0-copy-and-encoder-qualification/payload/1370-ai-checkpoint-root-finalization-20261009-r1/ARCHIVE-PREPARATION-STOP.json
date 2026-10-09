@@ -1,0 +1,10 @@
+{
+  "actualExit": 1,
+  "actualToolChunk": "8aad72",
+  "cause": "Root accidentally passed literal REPLACE_BEFORE_RUN instead of the computed inventory hash. The finalizer refused at its initial inventory hash check, before Git calls/source reads or archive writes.",
+  "correction": "Use actual independently computed input hash; original attempted invocation and source remain preserved.",
+  "inventorySha256": "6a3a400323219862e7f952982f0d02b22ee7dfa9d7201324080156ab67069d97",
+  "sourceOrInventoryDefect": false,
+  "status": "PRESERVED_ROOT_INVOCATION_ERROR_BEFORE_ARCHIVE_WRITES",
+  "targetAbsentAfterStop": true
+}

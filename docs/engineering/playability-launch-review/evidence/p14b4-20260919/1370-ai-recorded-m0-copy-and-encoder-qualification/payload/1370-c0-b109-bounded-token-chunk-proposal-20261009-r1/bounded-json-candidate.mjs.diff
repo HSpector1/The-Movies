@@ -1,0 +1,27 @@
+--- accepted-fastpass/bounded-json-candidate.mjs
++++ bounded-token-chunk/bounded-json-candidate.mjs
+@@ -2,8 +2,15 @@
+ import assert from 'node:assert/strict'
+ export const MAX = 16 * 1024**2
+ export function boundedJson(value, limit=MAX) {
+-  const pieces=[]; let bytes=0, keyBytes=0; const visiting=new Set(), keys=new Map()
+-  const add = (text, size) => { const next=bytes+size; const withinLimit=next<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_JSON_CAP'); bytes=next; pieces.push(text) }
++  // Standard native Array/String/Buffer builtins are assumed. Fresh owned chunks only.
++  const chunks=[]; let pending=[], pendingBytes=0, bytes=0, keyBytes=0; const visiting=new Set(), keys=new Map()
++  const flush = () => { if(pending.length){chunks.push(Buffer.from(pending.join('')));pending=[];pendingBytes=0} }
++  const add = (text, size) => {
++    const next=bytes+size; const withinLimit=next<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_JSON_CAP'); bytes=next
++    if(pending.length>=4096 || pendingBytes+size>65536)flush()
++    if(size>65536){chunks.push(Buffer.from(text));return}
++    pending.push(text);pendingBytes+=size
++  }
+   const stringToken = value => {
+     const withinLimit=Buffer.byteLength(value)<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_STRING_CAP')
+     const text=JSON.stringify(value); return [text,Buffer.byteLength(text)]
+@@ -35,5 +42,5 @@
+     }
+     visiting.delete(v)
+   }
+-  emit(value);return Buffer.from(pieces.join(''))
++  emit(value);flush();return Buffer.concat(chunks,bytes)
+ }

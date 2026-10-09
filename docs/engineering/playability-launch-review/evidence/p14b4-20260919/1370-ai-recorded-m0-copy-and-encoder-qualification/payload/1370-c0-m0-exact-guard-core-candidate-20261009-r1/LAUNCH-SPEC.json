@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materialization-lane-20261009-r2/c0-mirror-20261009-m0-types-r2.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-guard-core-candidate-20261009-r1/BINDING-DRAFT.json"
+  ],
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-guard-core-candidate-20261009-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": null,
+  "bindingSha256": "c9eed71d414c1b747d12ced8521003ff963dfee1c19ecec1cf0df05ddc9fa08d",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactReview": null,
+  "executionAuthorization": false,
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "helperSha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+  "note": "The full supervisor/recorder path is supplied; bindings and current guard proof remain null/unfilled. Never invoke bare materializer.",
+  "schema": "1370-m0-recorded-materialization-launch-template-r3",
+  "status": "GUARD_CORE_FILLED_PREFLIGHT_AND_EXACT_REVIEW_PENDING_UNRUN",
+  "unexpectedHelperWait": "STOP; wait is outside930 wrapper clock"
+}

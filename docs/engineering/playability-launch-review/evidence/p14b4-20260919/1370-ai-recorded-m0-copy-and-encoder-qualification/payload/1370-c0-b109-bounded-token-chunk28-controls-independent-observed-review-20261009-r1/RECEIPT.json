@@ -1,0 +1,32 @@
+{
+  "actualExits": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "actualToolSession": 13786,
+  "concreteFindings": [],
+  "decision": "ACCEPT_OBSERVED_BOUNDED_TOKEN_CHUNK_28_CONTROLS_CORRECTNESS_ONLY",
+  "factsSha256": "2968dcffb5d162ae7c7075b5f301f1ff98d27da324759bcabdff7ef1d531b239",
+  "grantSha256": "6bb298fbe6e27fd9480cb235d21d963176c2ca1aa9119944941f8fec74080808",
+  "groups": 28,
+  "independentlyFreshAbsentGroups": [
+    71531,
+    71794
+  ],
+  "integrationOrFull109RetryAuthorized": false,
+  "ownedPgid": 71794,
+  "pairs": 321,
+  "parentOutcomeSha256": "3573cd6cc9222b09be42b383833b2ef5320217283fd51f8742c16e152b04f856",
+  "performanceAccepted": false,
+  "recorderElapsedSeconds": 1.5891659010085277,
+  "reportSha256": "e565bbc37aead6012405d000b7980ca938fb8a813683fbd7d61778c0fe1813f8",
+  "reviewExecutionPerformed": false,
+  "schema": "1370-b109-bounded-token-chunk28-controls-independent-observed-review-r1",
+  "sourceReviewSha256": "b2d82e38b0f9ebf99681a77e58906f5348f4d7c1e95e822bcf76f6a686fd08c8",
+  "stderrBytes": 0,
+  "stdoutBytes": 1834,
+  "stdoutSha256": "275c04994bb80c299b18df5982829f3fa929ff13c0e7d361fd343399123a1653"
+}

@@ -1,0 +1,78 @@
+{
+  "status": "UNRUN_REQUIRES_INDEPENDENT_PROFILE_SOURCE_ACCEPTANCE_AND_SEPARATE_ROOT_GRANTS",
+  "executionAuthorization": false,
+  "helper": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "requiredEnvironment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "GIT_OPTIONAL_LOCKS": "0"
+  },
+  "boundsSeconds": {
+    "node": 60,
+    "active": 75,
+    "whole": 90
+  },
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "preconditions": [
+    "Independent source acceptance of fixed phase boundaries/profile cleanup, exact22 controls and recorder byte-normalization proof.",
+    "Root separately grants sole controls lane; fresh output/lane/log/meta absence.",
+    "Actual22/283 and helper/recorder/child0 plus captured streams/PID/group absence required before separately granted profile.",
+    "Profile separately root granted; genuine indexed308 reader/metadata/caps/one warmup+3 alternating pairs per state+wholeRow unchanged.",
+    "No new optimization, integration/game/full109 or automatic next execution; unprofiled measured fastpass341.60933565 encoder-only seconds remains prior provenance."
+  ],
+  "recipes": [
+    {
+      "mode": "controls",
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-controls-lane-20261009-r1",
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-controls-lane-20261009-r1/controls.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/record-pure-node.py",
+        "controls"
+      ],
+      "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-controls-output-20261009-r1",
+      "requiredActualHelperRecorderChildExits": [
+        0,
+        0,
+        0
+      ],
+      "label": "unchanged22controls"
+    },
+    {
+      "mode": "benchmark",
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-benchmark-lane-20261009-r1",
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-benchmark-lane-20261009-r1/benchmark.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-proposal-20261009-r1/record-pure-node.py",
+        "benchmark"
+      ],
+      "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-benchmark-output-20261009-r1",
+      "requiredActualHelperRecorderChildExits": [
+        0,
+        0,
+        0
+      ],
+      "label": "pureIndexed308PhaseProfile"
+    }
+  ],
+  "expectedControlsGroups": 22,
+  "expectedControlsPairs": 283,
+  "expectedProfileReportStatus": "PURE_INDEXED308_ENCODER_PHASE_PROFILE_COMPLETE"
+}

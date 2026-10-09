@@ -1,0 +1,279 @@
+{
+  "schema": "salary-age-phase-independent-source-review-facts/v1",
+  "packagePins": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/SOURCE-PINS.json",
+      "bytes": 640,
+      "sha256": "f0b3effc9f231c66f50727b68fac2419dbfb8f3cbfb2108d8d4cd4c6ca8a9db7"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/PROOF.json",
+      "bytes": 136304,
+      "sha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/INPUT-PINS.json",
+      "bytes": 10568,
+      "sha256": "317bb5012ce56498c31801637fc2f098c640c034effa4885da55190d2081246a"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/REPORT.md",
+      "bytes": 3770,
+      "sha256": "042857d94af1a45e958722f2c9a2c2a3c05e33d9598f90f52ba60a2cc110a9a0"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/SOURCE-BLOCKS.json",
+      "bytes": 68197,
+      "sha256": "e5b144d0cb47d2bb93c50c4e63de4855084c6d9af1bb11ac4905527aafeeaeb6"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/author-proof.py",
+      "bytes": 17866,
+      "sha256": "079f53f8bb1c0d2d4d9dd4be20e95fd5a7db0a00dea3d96e3ed5a2a9f4d7d395"
+    }
+  ],
+  "authenticatedInputPins": {
+    "A_aging.ts": {
+      "bytes": 13741,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/aging.ts",
+      "sha256": "38fd1e6704213a5b6cca8af7ffe9fcd6562fc9c242792eb1410209a27fa6baec"
+    },
+    "A_copy_acceptance": {
+      "bytes": 3717,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+    },
+    "A_copy_payload": {
+      "bytes": 2925892,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r6-20261008-r1/child.stdout",
+      "sha256": "fc494f5ed09ec9df02380490f1bc2dcac3f4cf293fb8734e0329a4a8d43e4c18"
+    },
+    "A_employment.ts": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "A_hollywood.ts": {
+      "bytes": 16824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts",
+      "sha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea"
+    },
+    "A_talentMarket.ts": {
+      "bytes": 76993,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+      "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+    },
+    "A_tick.ts": {
+      "bytes": 60753,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tick.ts",
+      "sha256": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15"
+    },
+    "F1_context": {
+      "bytes": 3426122,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/terminal-context.ndjson",
+      "sha256": "ffc5a7347500924edf03e89fcf71a8481f8b61e7e3f494f351f4a54009703480"
+    },
+    "F1_result": {
+      "bytes": 12000,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/RESULT.json",
+      "sha256": "4c7392c6b0bbca57c0d87cc54230fed21eea0ea4dadf52a398ede306b2c35a71"
+    },
+    "F1_trace": {
+      "bytes": 94021,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-film-hold-original-cap-recorded-runs-r4/f1-clean-f1-original-cap-20261008-r1-f1-clean/preimages/trace.ndjson",
+      "sha256": "889d23bfc8f79378311b7642b823fafedeb37c4e17126ca4d2ffa4fa4ea31994"
+    },
+    "H_context": {
+      "bytes": 2822809,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/preimages/terminal-context.ndjson",
+      "sha256": "8e9e1f68bcfee6a3d6f235b433e1f2e2d455dcc8a005c4011b78c25023bde268"
+    },
+    "H_development.ts": {
+      "bytes": 8137,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/development.ts",
+      "sha256": "ce37f726f18270f6d9d0aa6444ed23104cf963418365f00192a13f5fc55153fc"
+    },
+    "H_diagnostic": {
+      "bytes": 4560,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/diagnostic.test.ts",
+      "sha256": "960bbc14eb6597ace936f1ccc116f5538a869a428f6d3fe2b3c3cdb11b9349a3"
+    },
+    "H_employment.ts": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "H_hollywood.ts": {
+      "bytes": 15466,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywood.ts",
+      "sha256": "49854f77a0ab33558556e047eafc65f92e4a35ec95c93afb119c7df589748359"
+    },
+    "H_hollywoodStartingData.ts": {
+      "bytes": 4152,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodStartingData.ts",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+    },
+    "H_hollywoodTick.ts": {
+      "bytes": 27601,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodTick.ts",
+      "sha256": "f6c37fc29d5cf7f858e2a52e0bc6603a56e4dfcfaf8caa590806d559019b3422"
+    },
+    "H_industryEmployment.ts": {
+      "bytes": 2560,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/industryEmployment.ts",
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39"
+    },
+    "H_manifest": {
+      "bytes": 116991,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/MANIFEST.json",
+      "sha256": "9fc209f9fbf0e0240c404383f4b08338c9a16902d1cacc89600ff80a538038ae"
+    },
+    "H_physicalPlans.ts": {
+      "bytes": 39535,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/physicalPlans.ts",
+      "sha256": "52e5901b41d97fa384888b88671ae97723a33a6c695898f22f7dd8adaafd67de"
+    },
+    "H_promises.ts": {
+      "bytes": 61031,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/promises.ts",
+      "sha256": "6c6f01309df85d4e8deaa8658f361f50f2c2c9ae11cbec2433970416ebcca318"
+    },
+    "H_queueAdmission.ts": {
+      "bytes": 4226,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/queueAdmission.ts",
+      "sha256": "c22c1210ee33bff0ea4a5aac395350a966af9706ba991111146bb200c25dcb25"
+    },
+    "H_releaseCareers.ts": {
+      "bytes": 4411,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/releaseCareers.ts",
+      "sha256": "b8050c8a70b165e42ed2841bbcfd99eb27ff5986529aa94dc511e5bd196ee965"
+    },
+    "H_result": {
+      "bytes": 9842,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/RESULT.json",
+      "sha256": "5235b18b83c8e70dd12b36a7bda932e78cb5b55ef344419a92e4e370f540c5cc"
+    },
+    "H_rng.ts": {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+    },
+    "H_talentMarket.ts": {
+      "bytes": 74153,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentMarket.ts",
+      "sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03"
+    },
+    "H_talentSummary.ts": {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "H_technology.ts": {
+      "bytes": 97036,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/technology.ts",
+      "sha256": "2842cb82fe703921d03bf73463dc5ae0a6724057bbb24588d299e32ce23d6fda"
+    },
+    "H_tick.ts": {
+      "bytes": 58458,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tick.ts",
+      "sha256": "ad0faa9216093f657cf16ecebe66a6cc65aee4bcc407b7d79d6e48a847465deb"
+    },
+    "H_worldgen.ts": {
+      "bytes": 33437,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/worldgen.ts",
+      "sha256": "7ca9cb4e73ee9b8ebae4fdc449c4e12229f9b0078bb4d20e22a98baa60b81b42"
+    },
+    "bridge_GENERATOR-BODY-PROOF.json": {
+      "bytes": 17518,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/GENERATOR-BODY-PROOF.json",
+      "sha256": "19dde87c79384695367089e7bf5e99c5c25538204f8110ba653f6ea662b8229a"
+    },
+    "bridge_NOTE.md": {
+      "bytes": 4276,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/NOTE.md",
+      "sha256": "7574ef691c6b237c152eec7fa7b7668cd2c21aaf5a348fb5cbc774d855ba49e6"
+    },
+    "bridge_RECEIPT.json": {
+      "bytes": 6840,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/RECEIPT.json",
+      "sha256": "86e8bc464ad49ef7f10a860178efb84925a32e3d28650eb8159f84d73f401c4d"
+    },
+    "bridge_SOURCE-DIFFERENCES.json": {
+      "bytes": 4562,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/SOURCE-DIFFERENCES.json",
+      "sha256": "dd72581aa1821cbce247d495d364f675a5621ece3aaae6d1546f0eeea63378fc"
+    },
+    "prior_facts": {
+      "bytes": 45945,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/FACTS.json",
+      "sha256": "27d72ea9903a7a6953b89768f0cd77518c6b3643c3ddb7b7aba7b2902f9124d8"
+    },
+    "prior_final_receipt": {
+      "bytes": 2107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/FINAL-RECEIPT.json",
+      "sha256": "712c27ec3dd5d9dec21e28150b02d24a4edec63c28b4fe9d2061f7dbbeb2192e"
+    },
+    "prior_input_pins": {
+      "bytes": 4251,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/INPUT-PINS.json",
+      "sha256": "b23846669624467a16a2b111f7df806760e1f595338e7c6161a99d9c7a1c35a6"
+    },
+    "row0_review": {
+      "bytes": 20367,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "9814ce7dcaf76b0fd141e28e0bf1de930c8575bc5c19bccd0fb1a313c38f7ceb"
+    },
+    "scope_correction": {
+      "bytes": 1060,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-quote-next-slice-independent-20261009-r1/SCOPE-CORRECTION.json",
+      "sha256": "88e2865fd1ab3654741f9877fff5a74309ba178c8451de579d556ab989499d89"
+    },
+    "source_pins": {
+      "bytes": 12412,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial-quote-generated-person-source-equivalence-20261009-r1/SOURCE-PINS.json",
+      "sha256": "038888024a8190a1bd5f8c5df897bda779649e16a3864c993eeb78f5df4ff4a5"
+    }
+  },
+  "supplementalHManifestAuthenticatedCallees": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/rivalResearch.ts",
+      "bytes": 18927,
+      "sha256": "eb7753e88b31e980f504f28421346447eb6ece2308e42d1032fb7e9cc6e38d74"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/starPower.ts",
+      "bytes": 9011,
+      "sha256": "007c98dcaf612f87f7197bd14ddeb89df7a2cb0ae6542027f33d398976ccb881"
+    }
+  ],
+  "checks": {
+    "inputFilesAuthenticated": 40,
+    "retainedSourceExcerptsAuthenticated": 25,
+    "priorRowBaseFactsUnchanged": 38,
+    "week0Rows": 22,
+    "week208Rows": 16,
+    "H208PersonsStableIdentityJoined": 24,
+    "HAndF1StoredSalaryAgreementOnly": 24,
+    "bonusDownstreamChecks": 38,
+    "missingJitterDistinctIDs": 23,
+    "F1SalaryTraceObservations": 1,
+    "newAnnualAttributions": 0
+  },
+  "sourceTransport": {
+    "initialSalary": "H stored salary survives enumerated tick replacements and matches generated salaryCurve before age/workHistory overrides; accepted shared full creative-generator proof covers all four roles. It is not current evolved208 salaryCurve.",
+    "HEntryAge": "H fractional age survives the enumerated tick path after authored max28 override.",
+    "AEntryAge": "floor(H entry age), derived from identical generated entry and committed floor before offer.",
+    "A208Age": "floor(H entry age+208/52), derived from exact entry provenance and materialization before terminal pricing.",
+    "H208PricingVector": "H terminal full person is after growth/increment/settlement and unchanged by terminal commit; applicable to settlement208, not earlier submitted quotes.",
+    "F1": "Only accepted row0 jitter transports via the existing source bridge; stored-salary agreement is corroboration. No evolved F1 skills/fame/person or renewal pricing vector transports."
+  },
+  "claimLimits": [
+    "All38 annual quotes remain unexplained.",
+    "23 distinct fresh jitter observations remain missing.",
+    "A208 evolved pricing vectors for16 renewal rows remain unavailable in this slice.",
+    "Release-floor/premium inputs are not numerically closed.",
+    "Enumerated tick-only path, not arbitrary actions/all modules/general source neutrality.",
+    "Selected old source authentication, not a current full source freeze or protected inventory.",
+    "No engine, fixture, Node, RNG draws, imports, tests, game, decompression, full scan or Git command."
+  ]
+}

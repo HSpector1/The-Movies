@@ -1,0 +1,13 @@
+file:///Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs:43
+      for(const name of Object.keys(v)){
+                               ^
+
+TypeError: Invalid property descriptor. Cannot both specify accessors and a value or writable attribute, #<Object>
+    at Function.keys (<anonymous>)
+    at emit (file:///Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs:43:32)
+    at Module.boundedJson (file:///Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/bounded-json-candidate.mjs:60:15)
+    at file:///Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs:78:215
+    at test (file:///Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs:11:44)
+    at file:///Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/test-encoder.mjs:75:1
+
+Node.js v20.20.2

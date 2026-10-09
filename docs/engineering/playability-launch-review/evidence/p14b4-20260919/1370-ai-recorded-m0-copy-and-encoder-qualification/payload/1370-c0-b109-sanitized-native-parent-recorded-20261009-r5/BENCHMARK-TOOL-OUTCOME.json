@@ -1,0 +1,153 @@
+{
+  "actualNodeExit": 0,
+  "actualToolExit": 0,
+  "actualToolSession": 87102,
+  "benchmark": {
+    "captureWholeHashProvenance": "PRIOR_ACCEPTED_ONLY_NOT_REHASHED_HERE",
+    "claimLimit": "Encoder-only early308 fixture timing; no end-to-end109 prediction, later-size feasibility, gameplay/source admission or automatic repeat. B109300/375/390/full110 complete admissions unchanged.",
+    "currentCaptureMetadataRole": "CURRENT_PREPARATION_OBSERVATION_NOT_RETROSPECTIVE_OLD_FILE_IDENTITY",
+    "elapsedSeconds": 6.515714039,
+    "executionAuthorization": false,
+    "fixture": {
+      "member": 308,
+      "rawBytes": 4228063,
+      "rawSha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a",
+      "stateBytes": 2103442,
+      "stateSha256": "cac7fcc155b45be663ac516b244cf3e5fe0c4ec4fb204fb6bd173d9b17d04f7e"
+    },
+    "formula": "110*(16*stateMedianMs+9*wholeRowMedianMs)/1000",
+    "game": false,
+    "inputPurityEachTrial": true,
+    "mediansMs": {
+      "state": {
+        "baseline": 136.7256550000002,
+        "candidate": 122.57793000000015
+      },
+      "wholeRow": {
+        "baseline": 241.161427,
+        "candidate": 161.01135799999975
+      }
+    },
+    "rawAndStateExactEachTrial": true,
+    "retainedReaderClosedExact": true,
+    "saveImports": false,
+    "sourceRoles": {
+      "acceptedCaptureReceipt": {
+        "bytes": 1179,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+        "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+      },
+      "baseline": {
+        "bytes": 11414,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+        "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+      },
+      "benchmark": {
+        "bytes": 5253,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/benchmark-308.mjs",
+        "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+      },
+      "candidate": {
+        "bytes": 2512,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/bounded-json-candidate.mjs",
+        "sha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697"
+      },
+      "controls": {
+        "bytes": 10744,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/test-encoder.mjs",
+        "sha256": "60c967d1701eb84d07ee4a18d58c490450ca06370c1c53f661201a269ca13e17"
+      },
+      "index": {
+        "bytes": 24196,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+        "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+      },
+      "recorderControls": {
+        "bytes": 12543,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/test-recorder-repair.py",
+        "sha256": "31858b4eb164e7b0cec97691f245d95cccf32e8106bbe7dc539e57bc95b462f0"
+      },
+      "targetResult": {
+        "bytes": 3074,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+        "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+      }
+    },
+    "status": "PURE_INDEXED308_ENCODER_BENCHMARK_COMPLETE",
+    "timingsMs": {
+      "state": {
+        "baseline": [
+          151.16065500000013,
+          136.7256550000002,
+          116.107481
+        ],
+        "candidate": [
+          122.57793000000015,
+          92.67084599999998,
+          127.31671199999982
+        ]
+      },
+      "wholeRow": {
+        "baseline": [
+          238.18569000000025,
+          254.56982000000062,
+          241.161427
+        ],
+        "candidate": [
+          161.01135799999975,
+          162.85890800000016,
+          157.46669800000018
+        ]
+      }
+    },
+    "weighted110EncoderOnlySeconds": {
+      "baseline": 479.38696553000034,
+      "candidate": 375.13840122
+    }
+  },
+  "claims": "Early308 encoder-only proxy; no end-to-end or later-size prediction; candidate remains above300 before other costs.",
+  "elapsedSeconds": 7.426589353999589,
+  "freshOwnedGroupAbsent": true,
+  "full109RetryOrIntegrationAuthorized": false,
+  "heavyLockAbsent": true,
+  "helperMetaExit": 0,
+  "overrideAbsent": true,
+  "ownedPgid": 6563,
+  "proxyPercentReduction": 21.746224200056275,
+  "recorderExit": 0,
+  "roles": [
+    {
+      "bytes": 8925,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-parent-recorded-20261009-r5/BENCHMARK-GRANT.json",
+      "sha256": "ed1999298ed39f75a52f6c4c12bb0c8f968a2623acb3a001b51ea23a763e08e9"
+    },
+    {
+      "bytes": 919,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-benchmark-output-20261009-r5/RESULT.json",
+      "sha256": "68e7119e5059bdbb00a13ca90520e79371552452189f8fb1cffb0dbee17b917c"
+    },
+    {
+      "bytes": 3319,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-benchmark-output-20261009-r5/stdout.bin",
+      "sha256": "1e1c07a804b21b586e5449128d60a1e1eec5b0d9be8c93026d71fc477ff1b6c9"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-benchmark-output-20261009-r5/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 395,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-benchmark-lane-20261009-r5/benchmark.lane.log",
+      "sha256": "b94c7edcbc25e6d30235131789541a213f07069073dbebb70bf2bf2102377b78"
+    },
+    {
+      "bytes": 343,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-benchmark-lane-20261009-r5/benchmark.lane.log.meta",
+      "sha256": "37e30bf74e289a1cc40d3a7d49f4ca7aa9306a457055bef6d44fa02e3d142f97"
+    }
+  ],
+  "status": "ACTUAL_PURE_NATIVE_BENCHMARK_ZERO_REQUIRES_INDEPENDENT_OBSERVED_REVIEW",
+  "utc": "2026-10-09T16:40:46.465493+00:00",
+  "wholeCaptureHashClaim": "Prior accepted only; indexed member freshly checked"
+}

@@ -1,0 +1,10 @@
+{
+  "actualExecSession": 37253,
+  "actualExit": 1,
+  "auditPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/review-postflight.py",
+  "auditSha256": "279c527d81bfb212381ac5e4dadfa1d4654a38ca81c35cab67de1ca1fee0e69b",
+  "correction": "Separate review-postflight-r2.py changes only two helper-meta parsing/assertion lines to exact accepted three-line text format. No physical readback, fullscan, source import, game or Git mutation.",
+  "reason": "Audit JSONDecodeError parsing accepted three-line plain-text helper .meta as JSON at line75; materialization/guard success not rejected. Previous full immutable/readback assertions passed before this audit-only parser stop.",
+  "schema": "independent-postflight-audit-parser-stop/v1",
+  "utc": "2026-10-09T17:50:10.451478+00:00"
+}

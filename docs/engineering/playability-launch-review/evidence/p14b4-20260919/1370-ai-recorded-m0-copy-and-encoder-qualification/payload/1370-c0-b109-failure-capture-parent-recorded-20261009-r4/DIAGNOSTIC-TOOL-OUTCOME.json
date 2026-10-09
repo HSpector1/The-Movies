@@ -1,0 +1,50 @@
+{
+  "actualNodeExit": 1,
+  "actualToolExit": 2,
+  "actualToolSession": 2099,
+  "benchmarkRan": false,
+  "candidateAndTestBytesUnchanged": true,
+  "controls22Qualified": false,
+  "freshOwnedGroupAbsent": true,
+  "heavyLockAbsent": true,
+  "helperMetaExit": 2,
+  "observedError": "TypeError: Invalid property descriptor. Cannot both specify accessors and a value or writable attribute",
+  "observedFirstFailingGroup": "null handler ignores inherited get and descriptor traps",
+  "observedSite": "candidate Object.keys(v), test-encoder.mjs:78:215 inside group beginning75",
+  "originalR2LostErrorCauseRemainsUnknown": true,
+  "overrideAbsent": true,
+  "ownedPgid": 484,
+  "pins": [
+    {
+      "bytes": 896,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r4/RESULT.json",
+      "sha256": "4c6a6e86798952d19e315e876c14b314b9450fedd504cb9bf317b6131a984c3b"
+    },
+    {
+      "bytes": 1122,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r4/stdout.bin",
+      "sha256": "7b9c1776c8889004738e810482c8c35eb1022354874e50e2c99b650a62dc1e4b"
+    },
+    {
+      "bytes": 1096,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r4/stderr.bin",
+      "sha256": "8e3b31475efae2d642a04573e1f4020657ce3e9187c88d4218dee297734cf2fb"
+    },
+    {
+      "bytes": 370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r4/controls.lane.log",
+      "sha256": "f718c572d710f33b7b2b4ab54886b5c03f6ae16fbef8253a815c8705f4e81bbc"
+    },
+    {
+      "bytes": 342,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r4/controls.lane.log.meta",
+      "sha256": "a95624b172c783733c10f4172717e63f552c481c1824d5413ce1b79a3951de9d"
+    }
+  ],
+  "recordedPassedPrefixGroups": 20,
+  "recorderElapsedSeconds": 1.1962528400035808,
+  "sourceInferredFixtureCausePendingIndependentAdoption": "Proxy fixture returns a normal Reflect data descriptor inheriting polluted Object.prototype.get; it becomes an invalid accessor+data descriptor before clone/native serialization.",
+  "status": "ACTUAL_UNCHANGED_NATIVE22_DIAGNOSTIC_STOP_WITH_RETAINED_FIRST_FAILURE",
+  "totalAuthoredGroups": 22,
+  "utc": "2026-10-09T16:27:34.599772+00:00"
+}

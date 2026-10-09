@@ -1,0 +1,10 @@
+{
+  "status": "STATIC_BYTES_ONLY_UNRUN",
+  "candidateByteIdenticalR2": true,
+  "benchmarkByteIdenticalR2": true,
+  "original14ByteIdenticalR2": true,
+  "testOriginal22PrefixSuffixAndAssertionsExact": true,
+  "recorderOnlyConfigShaAndOutputPathsDifferR4": true,
+  "qualifiedR4RecorderSha256": "c728a80c898d101355b0b83f567179c67510ecd681971820de175e13bb77afa2",
+  "configSha256": "82f95b47b18d3343ef433b3009a87d6ba15675cb4010b9507c00f9ebf33c2669"
+}

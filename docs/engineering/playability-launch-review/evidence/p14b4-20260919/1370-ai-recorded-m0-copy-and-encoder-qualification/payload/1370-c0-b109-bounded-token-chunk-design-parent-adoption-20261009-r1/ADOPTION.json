@@ -1,0 +1,12 @@
+{
+  "decision": "ADOPT_ONE_FINITE_SOURCE_PROPOSAL_ONLY",
+  "designPinsSha256": "987b85cc7bbf6a40f5e398feee0193c0eb4baf48b3117a765231cb7f605f0ce6",
+  "executionAuthorization": false,
+  "implementationAuthorMayPrepareScratchOnly": true,
+  "independentParentAssessment": "Accumulation-only candidate is a bounded experiment consistent with measured emission/join costs, not an established performance fix. Preserve existing traversal/refusal/cap/coercion order and per-call key cache. Six focused groups augment unchanged22; independent source review and parent grants remain required. Benchmark must compare unprofiled994d and candidate in one paired process, using original reader separately.",
+  "productionMutationOrFull109RetryAuthorized": false,
+  "proposalSha256": "863861b58689838a4568ee9c7f96b1906e424ea4bd365a2648100bb6394bc792",
+  "protectedRootFreezeUnchanged": true,
+  "schema": "bounded-token-chunk-design-parent-adoption/v1",
+  "utc": "2026-10-09T17:25:56.096556+00:00"
+}

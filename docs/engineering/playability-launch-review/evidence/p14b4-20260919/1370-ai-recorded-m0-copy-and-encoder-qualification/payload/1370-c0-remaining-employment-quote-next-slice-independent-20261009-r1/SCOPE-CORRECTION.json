@@ -1,0 +1,15 @@
+{
+  "schema": "1370-remaining-quote-next-slice-scope-correction-r1",
+  "supersedesClaims": [
+    "REPORT.md sentence Other renewal IDs are in the remaining initial group.",
+    "RECEIPT.json pending list if read as all required jitter measurements."
+  ],
+  "correction": "Two renewal IDs are outside the remaining 22 changed initial rows: row 0 (known jitter) and person-studio-aca408ec-r03-2 (unchanged initial contract, unmeasured jitter). The 22 missing initial jitter values plus the latter renewal-only value are 23 distinct missing jitter roles. The annual salary of the unchanged initial row cannot supply that draw by inversion. All 38 remaining annual quotes remain unexplained here.",
+  "renewalOutsideRemainingInitial": [
+    "person-studio-aca408ec-r01-0",
+    "person-studio-aca408ec-r03-2"
+  ],
+  "missingDistinctJitterRoles": 23,
+  "existingReceiptSha256": "57e13b5154ea415292966f8e2cdf314a8c0f50633c54e0081067c196e56c99f8",
+  "preservation": "Original note and receipt preserved; this correction controls that count and membership sentence."
+}

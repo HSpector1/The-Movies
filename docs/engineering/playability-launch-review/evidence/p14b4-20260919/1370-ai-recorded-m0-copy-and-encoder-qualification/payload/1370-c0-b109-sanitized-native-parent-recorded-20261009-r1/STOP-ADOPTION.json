@@ -1,0 +1,13 @@
+{
+  "status": "PARENT_ADOPTED_ACTUAL_NATIVE22_STOP_ONLY",
+  "review": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native22-controls-observed-stop-independent-review-20261009-r1/RECEIPT.json",
+  "reviewSha256": "6553264ad4e4d07b122dd0ff49c944c4bb91510faa739ce00bf74c7e57cb930b",
+  "actualToolSession": 67483,
+  "actualExit": 2,
+  "originalChildErrorAndFirstFailingGroupUnknown": true,
+  "cleanupRole": "Source-implied successful clear before CHILD_EXIT_1 assertion; no retained numeric external PGID proof",
+  "outputDirectoryEmpty": true,
+  "controlsPassClaim": false,
+  "benchmarkOrGameAuthorized": false,
+  "next": "Review and qualify narrow recorder failure-capture repair; then separately grant exactly unchanged22 diagnostic once, retaining success or failure. No fixture repair inferred as observed cause."
+}

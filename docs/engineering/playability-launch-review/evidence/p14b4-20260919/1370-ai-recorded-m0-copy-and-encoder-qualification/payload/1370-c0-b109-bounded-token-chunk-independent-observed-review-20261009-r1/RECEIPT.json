@@ -1,0 +1,48 @@
+{
+  "actualExits": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "actualToolSession": 7232,
+  "authentications": 42,
+  "concreteFindings": [],
+  "controlsReviewSha256": "4dc5ba780ed74245d508dc117d799b3eee263f3d22d26d3860730981f0bc6272",
+  "decision": "ACCEPT_OBSERVED_SAME_RUN_EARLY308_FASTPASS_CHUNK_TIMING_ONLY",
+  "factsSha256": "e0bd8509ce9ad239811064970bcbe3d40f4e10b135a5d5390ef3373732f68806",
+  "grantSha256": "06ea3838925dc94334003d10d33decb46e316d5aca4cd8afb26e493cf6f12470",
+  "helperMetaPlainText": true,
+  "independentlyFreshAbsentGroups": [
+    74005,
+    74268
+  ],
+  "integrationOrRetryAuthorized": false,
+  "laterGrowthOrFull109FeasibilityAccepted": false,
+  "mediansMs": {
+    "state": {
+      "baseline": 94.85502799999995,
+      "candidate": 62.98639800000001
+    },
+    "wholeRow": {
+      "baseline": 145.44549499999994,
+      "candidate": 102.50879999999961
+    }
+  },
+  "parentOutcomeSha256": "8ee89a63d0f1af83f7f07812abbe6054171e4cfabc5cf19da335bbd47b16fa23",
+  "recorderElapsedSeconds": 6.634846550994553,
+  "reductionPercent": 31.709468168005216,
+  "reportSha256": "296b306187daeb8e03f30f89ca53d2f7ef68aa775df94c70afc536b25ace15d6",
+  "reviewExecutionPerformed": false,
+  "sameRunTimingAccepted": true,
+  "schema": "1370-b109-bounded-token-chunk-independent-observed-review-r1",
+  "sourceReviewSha256": "b2d82e38b0f9ebf99681a77e58906f5348f4d7c1e95e822bcf76f6a686fd08c8",
+  "stderrBytes": 0,
+  "stdoutBytes": 3862,
+  "stdoutSha256": "cd5118088253236168961e07732d5738a9cdb8286aab61066b9f31d4a9043b51",
+  "weighted110EncoderOnlySeconds": {
+    "baseline": 310.93588932999984,
+    "candidate": 212.33977247999962
+  }
+}

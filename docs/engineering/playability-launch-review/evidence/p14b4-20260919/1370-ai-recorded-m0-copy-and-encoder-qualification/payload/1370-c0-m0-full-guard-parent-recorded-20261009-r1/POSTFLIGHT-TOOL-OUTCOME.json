@@ -1,0 +1,87 @@
+{
+  "actualOwnedPidsAndGroupsFreshlyAbsent": [
+    17678,
+    10372,
+    10639,
+    10655
+  ],
+  "actualToolCompletionChunk": "a4a0dc",
+  "actualToolExit": 0,
+  "actualToolSession": 66152,
+  "actualWorkerChildPgidsCheckedBeforeAndAfter": [
+    10639,
+    10655
+  ],
+  "baseline": {
+    "bytes": 8082048,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+    "sha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15"
+  },
+  "files": [
+    {
+      "bytes": 629504,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/AFTER-LSOF.bin",
+      "preservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "cbe7c85400be58c3e1b4388379ef80dcd8715a7af9c012d80f5fc6d7333e344c"
+    },
+    {
+      "bytes": 89139,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/AFTER-PS.txt",
+      "preservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "dd8ea525b0c4514f4932a4082b79cd8351f06f973efbcf166152ac04c0a26108"
+    },
+    {
+      "bytes": 669840,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/BEFORE-LSOF.bin",
+      "preservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "e333298451a7968ba4758aeaaf155dafe08d1f2e0aa5d36d10af03fef9710117"
+    },
+    {
+      "bytes": 104488,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/BEFORE-PS.txt",
+      "preservationAction": "LOCAL_HASH_SIZE_ONLY",
+      "sha256": "98067b2790ebf899c3c548d2d8a30268509b79ee67c4c9bd60fd516d6cf10ff0"
+    },
+    {
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/PINS.json",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "sha256": "da51ab104ee0d699d5f420afa8e93c02baf1a2612715bfa957d9487b8869c58d"
+    },
+    {
+      "bytes": 8088711,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/SNAPSHOT.json",
+      "preservationAction": "COPY_FINITE_PAYLOAD",
+      "sha256": "e2437a790741acdca15e515200bdc9a308062ded72e2aa5ebaeb8fd86977e6c8"
+    }
+  ],
+  "immutableDeepEqualityToAdmittedBaseline": true,
+  "inventoryElapsedSeconds": 357.99810795699887,
+  "newGameOrTypesAcceptance": false,
+  "postflightGrant": {
+    "bytes": 4043,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/POSTFLIGHT-GRANT.json",
+    "sha256": "618538053ebde5b01ed544d67f1714e5a14fb05657ebacf12dd55de2ca1e5028"
+  },
+  "protectedFreezeMaintained": true,
+  "schema": "m0-full-postflight-actual-tool-outcome/v1",
+  "snapshot": {
+    "bytes": 8088711,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/postflight-r1/SNAPSHOT.json",
+    "sha256": "e2437a790741acdca15e515200bdc9a308062ded72e2aa5ebaeb8fd86977e6c8"
+  },
+  "snapshotElapsedSeconds": 460.84118072499405,
+  "snapshotPid": 17678,
+  "status": "ACTUAL_FULL_POSTFLIGHT_EXIT_ZERO_AWAIT_INDEPENDENT_OBSERVED_ADMISSION",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/postflight.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 443,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/postflight.stdout",
+    "sha256": "422eda0f7f3aaf42eb864e09550d51bfc32720eb2f5fb8da9ea8f9feaffbdf61"
+  },
+  "utc": "2026-10-09T17:46:53.685341+00:00"
+}

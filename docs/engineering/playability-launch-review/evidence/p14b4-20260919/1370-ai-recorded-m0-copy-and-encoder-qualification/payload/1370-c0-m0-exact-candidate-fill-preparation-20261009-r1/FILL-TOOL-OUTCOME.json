@@ -1,0 +1,50 @@
+{
+  "actualExit": 0,
+  "allSixCandidateRoles": {
+    "BINDING-DRAFT.json": {
+      "bytes": 11837,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-guard-core-candidate-20261009-r1/BINDING-DRAFT.json",
+      "sha256": "c9eed71d414c1b747d12ced8521003ff963dfee1c19ecec1cf0df05ddc9fa08d"
+    },
+    "GUARD-PROOF-ROLES.json": {
+      "bytes": 15432,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-guard-core-candidate-20261009-r1/GUARD-PROOF-ROLES.json",
+      "sha256": "c199d4b620ae1a843ad632c2fc6e9c728a466ecd9c5c354038a099621aea54fd"
+    },
+    "IDENTITY.json": {
+      "bytes": 4796,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-guard-core-candidate-20261009-r1/IDENTITY.json",
+      "sha256": "b699168dbb3ca9c709d70df29b17ae0ec8cb04b77b5748773e185886c8cd2050"
+    },
+    "LAUNCH-SPEC.json": {
+      "bytes": 1680,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-guard-core-candidate-20261009-r1/LAUNCH-SPEC.json",
+      "sha256": "b655946b9107af2b4e7e32560fa45cd051147762bef072e0bb014b190c081bfa"
+    },
+    "PINS.json": {
+      "bytes": 886,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-guard-core-candidate-20261009-r1/PINS.json",
+      "sha256": "c3783530939165ca2a32732b10ef3ff950a707e3eac83fe14027e24facec3c99"
+    },
+    "REPORT.md": {
+      "bytes": 810,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-guard-core-candidate-20261009-r1/REPORT.md",
+      "sha256": "6effa5eff7f17bb1083a2d85e4416cef41d8ebbb16f06f9513b3aae5c9ddfd04"
+    }
+  },
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-candidate-fill-preparation-20261009-r1/fill-exact-candidate.py"
+  ],
+  "bindingSha256": "c9eed71d414c1b747d12ced8521003ff963dfee1c19ecec1cf0df05ddc9fa08d",
+  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-guard-core-candidate-20261009-r1",
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-candidate-fill-preparation-20261009-r1",
+  "executionAuthorization": false,
+  "fullSemanticPendingPreflightPointerInsertion": true,
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "materializerSourceOrEngineImportsTestsGitFullScansLaunchExecuted": false,
+  "preflightAndExactPointersHeldNull": true,
+  "status": "ACTUAL_BOUNDED_JSON_FILL_EXIT0_EXECUTION_HELD"
+}

@@ -1,0 +1,11 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r2/record.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/record.py
+@@ -152,7 +152,7 @@
+                 "recorderSha256", "supervisorPath", "supervisorSha256", "sourceSha"):
+         require(isinstance(spec.get(key), str) and bool(spec[key]),
+                 "missing exact " + key)
+-    require(Path(spec["materializerPath"]) == Path("/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r2/materialize.py") and
++    require(Path(spec["materializerPath"]) == Path("/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r3/materialize.py") and
+             file_sha(Path(spec["materializerPath"])) == spec["materializerSha256"],
+             "materializer source drift")
+     require(Path(spec["recorderPath"]) == Path(__file__) and

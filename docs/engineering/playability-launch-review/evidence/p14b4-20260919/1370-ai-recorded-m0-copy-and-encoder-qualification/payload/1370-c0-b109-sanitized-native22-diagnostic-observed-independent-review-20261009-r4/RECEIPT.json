@@ -1,0 +1,100 @@
+{
+  "B109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "actualCapturedCause": "Ordinary Reflect descriptor returned by input orderedProxy inherits polluted Object.prototype.get and becomes an invalid data+accessor descriptor during Object.keys source descriptor conversion.",
+  "actualNodeExit": 1,
+  "actualToolExit": 2,
+  "all22GrantRolesAuthenticated": true,
+  "benchmarkGameOrSourceIntegrationAuthorized": false,
+  "decision": "STOP_OBSERVED_NATIVE22_DIAGNOSTIC_TEST_FIXTURE_DESCRIPTOR_POLLUTION",
+  "elapsedSeconds": 1.1962528400035808,
+  "encoder22Qualified": false,
+  "executionAuthorization": false,
+  "firstFailingGroup": "null handler ignores inherited get and descriptor traps",
+  "firstFailingGroupOrdinal": 21,
+  "grant": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-failure-capture-parent-recorded-20261009-r4/DIAGNOSTIC-GRANT.json",
+    "sha256": "f9bd26bb6464c6230b0d293c56751640a2b34d0fd942b13f76e893f1c71ea2a3"
+  },
+  "heavyLockAbsent": true,
+  "helperMetaExit": 2,
+  "importsTestsLaunchCaptureDecodeFullScanGitExecuted": false,
+  "independentlyFreshOwnedGroupAbsent": true,
+  "lanePins": {
+    "controls.lane.log": {
+      "bytes": 370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r4/controls.lane.log",
+      "sha256": "f718c572d710f33b7b2b4ab54886b5c03f6ae16fbef8253a815c8705f4e81bbc"
+    },
+    "controls.lane.log.meta": {
+      "bytes": 342,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r4/controls.lane.log.meta",
+      "sha256": "a95624b172c783733c10f4172717e63f552c481c1824d5413ce1b79a3951de9d"
+    }
+  },
+  "minimumProspectiveRepair": "Fixture-only null prototype on freshly returned defined Reflect descriptor; no candidate changes, undefined remains undefined, all22 assertions remain.",
+  "observedOrderedPassPrefix": [
+    "exact primitives and finite number rendering",
+    "captured key order, integer keys and escaping",
+    "undefined object omission and sparse-array null",
+    "shared references are allowed while cycles refuse",
+    "own toJSON refuses; inherited toJSON is ignored like baseline",
+    "unsupported atoms and nonfinite numbers refuse",
+    "exact-fit and cap refusal for every small budget",
+    "string raw precheck and escaped token budget",
+    "property-key cache is per call and cannot mask object mutation",
+    "getter visitation order remains identical",
+    "deterministic nested corpus",
+    "stateful first-check and second-value reads",
+    "dynamic array shrink and growth preserve emitted length",
+    "null prototypes prevent inherited hooks including array pollution",
+    "safe proto keys and integer ordering",
+    "caps and refusals occur before native container serialization",
+    "proxy reverse and mixed integer order exact bytes and caps",
+    "nested and shared proxy order is fresh on each occurrence",
+    "proxy omitted names preserve all original hook traces",
+    "proxy stateful values retain two reads and undefined refusal"
+  ],
+  "observedSite": "candidate43:32 / test78:215 / group75",
+  "originalR2LostErrorCause": "UNKNOWN",
+  "overrideAbsent": true,
+  "ownedPgid": 484,
+  "parentOutcome": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-failure-capture-parent-recorded-20261009-r4/DIAGNOSTIC-TOOL-OUTCOME.json",
+    "sha256": "7993ca920fa930c11eed74a827545e64589a8974dc72c823e7064c34b2c665e1"
+  },
+  "parentTool": 2099,
+  "prefixGroupCount": 20,
+  "recorderBoundsSeconds": [
+    60,
+    75,
+    90
+  ],
+  "report": {
+    "bytes": 4046,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native22-diagnostic-observed-independent-review-20261009-r4/REPORT.md",
+    "sha256": "a6263e23af334c6af2708c8b5ed18c6638a71eac703e867ced05ae07419a74aa"
+  },
+  "result": {
+    "bytes": 896,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r4/RESULT.json",
+    "sha256": "4c6a6e86798952d19e315e876c14b314b9450fedd504cb9bf317b6131a984c3b"
+  },
+  "schema": "1370-b109-native22-diagnostic-observed-independent-review-r4",
+  "sourceAndCandidateUnchanged": true,
+  "stderr": {
+    "bytes": 1096,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r4/stderr.bin",
+    "sha256": "8e3b31475efae2d642a04573e1f4020657ce3e9187c88d4218dee297734cf2fb"
+  },
+  "stdout": {
+    "bytes": 1122,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r4/stdout.bin",
+    "sha256": "7b9c1776c8889004738e810482c8c35eb1022354874e50e2c99b650a62dc1e4b"
+  },
+  "timedOut": false,
+  "utc": "2026-10-09T16:30:12.399778+00:00"
+}

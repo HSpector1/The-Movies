@@ -1,0 +1,33 @@
+{
+  "actualGroups": 28,
+  "actualPairs": 321,
+  "candidateSha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b",
+  "controlsObservedReviewSha256": "4dc5ba780ed74245d508dc117d799b3eee263f3d22d26d3860730981f0bc6272",
+  "decision": "ADOPT_OBSERVED_28_CONTROL_CORRECTNESS_AND_SAME_RUN_EARLY308_TIMING_ONLY",
+  "full109RetryAuthorized": false,
+  "independentReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "59ad5be0c2f356d83febad87c5375937212a0af935ba52cc7214add9d85da29f"
+  },
+  "laterBoundaryAndNonEncoderCostsMeasured": false,
+  "mediansMs": {
+    "state": {
+      "baseline": 94.85502799999995,
+      "candidate": 62.98639800000001
+    },
+    "wholeRow": {
+      "baseline": 145.44549499999994,
+      "candidate": 102.50879999999961
+    }
+  },
+  "nextPerformanceQuestion": "Bound later-size encoder work and residual tick/save/gzip/readback cost before proposing any exact full109 route; preserve300/375/390 and complete110 boundaries.",
+  "productionOrFull109IntegrationAuthorized": false,
+  "proxyReductionPercent": 31.709468168005216,
+  "schema": "bounded-token-chunk-parent-observed-adoption/v1",
+  "timedReference": "accepted unprofiled fastpass994d",
+  "utc": "2026-10-09T17:51:49.583779+00:00",
+  "weighted110EncoderOnlySeconds": {
+    "baseline": 310.93588932999984,
+    "candidate": 212.33977247999962
+  }
+}

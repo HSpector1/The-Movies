@@ -1,0 +1,30 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-runner-proposal-20261009-r2/run_controls.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-runner-proposal-20261009-r3/run_controls.py
+@@ -72,15 +72,18 @@
+  os.write(REGFD,(json.dumps({'event':'ownedFork','pid':pid})+'\n').encode()); os.fsync(REGFD)
+  return pid
+ def tracked_wait(pid,flags):
+- previous=signal.pthread_sigmask(signal.SIG_BLOCK,MASK)
+- try:
+-  result=REAL_WAIT(pid,flags)
+-  if result[0]:
+-   for slot in OWNED:
+-    if slot['pid']==result[0]: slot['reaped']=True
+-   retire()
+-  return result
+- finally: signal.pthread_sigmask(signal.SIG_SETMASK,previous)
++ need(flags in (0,os.WNOHANG),'unexpected owned wait flags')
++ while True:
++  previous=signal.pthread_sigmask(signal.SIG_BLOCK,MASK)
++  try:
++   result=REAL_WAIT(pid,os.WNOHANG)  # Never intentionally block while masked.
++   if result[0]:
++    for slot in OWNED:
++     if slot['pid']==result[0]: slot['reaped']=True
++    retire()
++  finally: signal.pthread_sigmask(signal.SIG_SETMASK,previous)
++  if flags==os.WNOHANG or result[0]: return result
++  time.sleep(.05)  # Preserve blocking-wait semantics with unmasked bounded polls.
+ def install_registration(test):
+  original_setup=test.Controls.setUpClass
+  def setup(cls):

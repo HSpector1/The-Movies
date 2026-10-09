@@ -1,0 +1,45 @@
+{
+  "actualChildExit": 0,
+  "actualToolExit": 0,
+  "actualToolSession": 49214,
+  "benchmarkGameOrIntegrationExecuted": false,
+  "freshOwnedGroupAbsent": true,
+  "groups": 22,
+  "head": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "heavyLockAbsent": true,
+  "helperMetaExit": 0,
+  "overrideAbsent": true,
+  "ownedPgid": 3779,
+  "pairs": 283,
+  "pins": [
+    {
+      "bytes": 918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r5/RESULT.json",
+      "sha256": "a23f729799eb7ad679a12643a54677df6afacde0ea9b44c2e11bad50a83465de"
+    },
+    {
+      "bytes": 1387,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r5/stdout.bin",
+      "sha256": "b4f39225b8f7ffe9dd5a550fdfef25343feb80384850a1e986b489406823a69c"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-output-20261009-r5/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 393,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r5/controls.lane.log",
+      "sha256": "d7923b377bfff8c2856ab8964f2d7e33b10a45d3c7a3b5f1033db83de7ad25ca"
+    },
+    {
+      "bytes": 342,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-controls-lane-20261009-r5/controls.lane.log.meta",
+      "sha256": "0fcca9841c2cf62eb129a1a71081fe4b3abdd16e2c6d45cba1d7200eb14a2d64"
+    }
+  ],
+  "recorderElapsedSeconds": 1.3798723240033723,
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "ACTUAL_NATIVE22_PASS_PENDING_INDEPENDENT_OBSERVED_REVIEW",
+  "utc": "2026-10-09T16:33:48.674397+00:00"
+}

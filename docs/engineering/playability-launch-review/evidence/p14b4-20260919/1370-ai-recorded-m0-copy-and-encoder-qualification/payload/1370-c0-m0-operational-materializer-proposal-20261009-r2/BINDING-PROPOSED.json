@@ -1,0 +1,41 @@
+{
+  "arm": "M0",
+  "bounds": {
+    "continuousFreeBytes": 3221225472,
+    "inheritedTotalNewScratchBytes": 469762048,
+    "materializerSeconds": 900,
+    "mirrorBytes": 167772160,
+    "preflightFreeBytes": 3758096384
+  },
+  "candidatePathObservationPending": true,
+  "candidatePathsObservedAbsentAtAuthoringOnly": [],
+  "claimLimit": "Source/binding proposal only; new materializer independent review, concrete recorded group-safe exact launch/adoption/preflight and observed materialization required. Accepted old source receipt does not transfer to this changed operational script; r10 observer bytes stay unchanged. No H/root cleanup or game admission.",
+  "exactReview": null,
+  "executionAuthorization": false,
+  "isolatedMirrorParent": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+  "laterCaptureBoundsUnchanged": [
+    300,
+    330
+  ],
+  "materializeReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2.MATERIALIZE-RESULT.json",
+  "materializerPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-materializer-proposal-20261009-r2/materialize.py",
+  "materializerSha256": "dbc465cde82a458325660b4d61f0b1a05f57b227a6285d1979a675656e5a8d70",
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "operationalTransitionPredecessorHead": "dcf2d60337d9310ba5caba028a1be8dc9be1ad26",
+  "parentScopeAdoptionPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+  "parentScopeAdoptionSha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017",
+  "productionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+  "remainingOwnedGroupRecorderExactBinding": null,
+  "retainedHRoot": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2",
+  "runId": "20261009-m0-types-r2",
+  "schema": "1370-m0-operational-materializer-source-proposal-binding-r2",
+  "sourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "sourceManifestPath": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-r2/M0-SOURCE-MANIFEST.json",
+  "sourceManifestSha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba",
+  "sourceReviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-independent-review-r2/M0-RECEIPT.json",
+  "sourceReviewSha256": "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8",
+  "status": "DRAFT_SOURCE_REVIEW_REQUIRED_UNRUN"
+}

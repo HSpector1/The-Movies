@@ -1,0 +1,27 @@
+{
+  "bindingSemanticSha256": "4cfdbc36dae7fab7dc0687b48f3c7d84abc94b8ac0aca146273306d96bd261e4",
+  "files": {
+    "BINDING-DRAFT.json": {
+      "bytes": 12008,
+      "sha256": "4d23bc3c74e0cc55aab85171dbe3b6ddfde25dc9eba86ea15e9b593740d60fca"
+    },
+    "GUARD-PROOF-ROLES.json": {
+      "bytes": 16599,
+      "sha256": "5e7f44d9840a16dcfd13b55f301e140e3dba553eeb6ab813e2a6f29b1f9f58a6"
+    },
+    "IDENTITY.json": {
+      "bytes": 4796,
+      "sha256": "b699168dbb3ca9c709d70df29b17ae0ec8cb04b77b5748773e185886c8cd2050"
+    },
+    "LAUNCH-SPEC.json": {
+      "bytes": 1737,
+      "sha256": "240411095b9493ee8027f438187e6cedc9612c46a81533618ca2bf488dc18f1f"
+    },
+    "REPORT.md": {
+      "bytes": 1205,
+      "sha256": "2bd84e1f44ebd2506ca94c7ae9a0c4a71abbf1fa65ac24fb182dd6cb3947dc36"
+    }
+  },
+  "guardCoreSha256": "d347b8e8504161c394d1338444919844871f80099b635538d8078ca3fc4a6020",
+  "status": "FINAL_EXACT_CANDIDATE_UNRUN_REVIEW_PENDING"
+}

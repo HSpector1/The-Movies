@@ -1,0 +1,10 @@
+{
+  "status": "STATIC_BYTES_ONLY_NO_IMPORT_OR_EXECUTION",
+  "configByteIdentical": true,
+  "original14ByteIdentical": true,
+  "candidateAndNative22PathsRemainR2": true,
+  "sourceBaseRecorderSha256": "76a6076ad2f77b8645124675ae37ee231ad6f89efa5c6f659de1db2614372d45",
+  "normalizedCatchCount": 2,
+  "r3Preserved": true,
+  "nineCasesFourMethodsSixSubtests": "source text only; unrun"
+}

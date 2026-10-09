@@ -1,0 +1,42 @@
+{
+  "status": "UNRUN_REVIEW_AND_SEPARATE_PARENT_GRANT_REQUIRED",
+  "executionAuthorization": false,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-lane-20261009-r1/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-runner-proposal-20261009-r1/run_controls.py",
+    "<EXACT_NEW_RUNNER_SOURCE_PINS_SHA>"
+  ],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin"
+  },
+  "requiredFreshPaths": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-output-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-changed-route-controls-output-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-lane-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-lane-20261009-r1/controls.lane.log",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-controls-bounded-parent-lane-20261009-r1/controls.lane.log.meta"
+  ],
+  "bounds": {
+    "suiteActiveSeconds": 255,
+    "wholeRunnerSeconds": 285,
+    "ownedOutputBytes": 83886080,
+    "helperLogBytes": 1048576,
+    "expectedOwnedStubForks": 16
+  },
+  "outerActualReceiptRequirements": [
+    "No unexpected helper wait; actual tool/helper/meta and runner exit0 only for pass.",
+    "Actual helper elapsed <=285 seconds; startup clock begins after initial os/signal/time imports and includes remaining imports/authentication through finalization.",
+    "Read retained ownership records, every16 owned numeric groups cleared, no unresolved registry/cleanup errors/sticky override, all14pass and caps.",
+    "A hard exit124 supplies no cleanup or pass claim; parent independently resolves the authenticated numeric ownership registry before lane reuse."
+  ],
+  "noMaterializationOrGame": true
+}

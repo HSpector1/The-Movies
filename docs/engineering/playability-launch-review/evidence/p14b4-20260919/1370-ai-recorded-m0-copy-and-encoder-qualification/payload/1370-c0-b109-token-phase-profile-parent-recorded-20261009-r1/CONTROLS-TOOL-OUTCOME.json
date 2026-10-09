@@ -1,0 +1,50 @@
+{
+  "actualToolExit": 0,
+  "actualToolSession": 25584,
+  "claims": "Original22 byte/traversal/refusal controls on instrumented encoder; no extra executed profile API failure controls or performance qualification.",
+  "elapsedSeconds": 1.2708469920034986,
+  "freshOwnedGroupAbsent": true,
+  "groups": 22,
+  "heavyLockAbsent": true,
+  "helperMetaExit": 0,
+  "nodeExit": 0,
+  "overrideAbsent": true,
+  "ownedPgid": 96706,
+  "pairs": 283,
+  "profileMeasurementsOrGameIntegrationExecuted": false,
+  "recorderExit": 0,
+  "roles": [
+    {
+      "bytes": 10526,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-parent-recorded-20261009-r1/CONTROLS-GRANT.json",
+      "sha256": "3ec42e3e830b336330336ec3f121fcc53198277ec3945c87319f8f0f580b04e4"
+    },
+    {
+      "bytes": 920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-controls-output-20261009-r1/RESULT.json",
+      "sha256": "959f2bd36337765c7787b6ed24ad8dba1ff2ba817140b0988d3d38b5c7bf3acf"
+    },
+    {
+      "bytes": 1363,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-controls-output-20261009-r1/stdout.bin",
+      "sha256": "84d57f514bb593b8921da779705f627133e9ae216b1691ce7376063054bed85b"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-controls-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 383,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-controls-lane-20261009-r1/controls.lane.log",
+      "sha256": "3d96bb6eff73a50444b3c885834fe1b7b91168c35d29c12e7a4bb0a1b028fdde"
+    },
+    {
+      "bytes": 337,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-controls-lane-20261009-r1/controls.lane.log.meta",
+      "sha256": "2fc4508be02ab23d366c39b1239687ad8319837f4a3201dd6187deb16ad10d06"
+    }
+  ],
+  "status": "ACTUAL_PHASE_INSTRUMENTED_ENCODER22_PASS_PENDING_INDEPENDENT_REVIEW",
+  "utc": "2026-10-09T17:14:01.438181+00:00"
+}

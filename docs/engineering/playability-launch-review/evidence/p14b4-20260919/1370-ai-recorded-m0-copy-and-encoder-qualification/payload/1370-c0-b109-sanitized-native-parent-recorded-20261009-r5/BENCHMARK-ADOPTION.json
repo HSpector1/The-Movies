@@ -1,0 +1,17 @@
+{
+  "basis": "Exact-byte22-group qualification passes; genuine early308 encoder-only proxy exceeds300 before all other costs. No native integration/full109 retry. Prior token measurement from a different run is not a controlled head-to-head comparison.",
+  "benchmarkReviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-indexed308-benchmark-observed-independent-review-20261009-r5/RECEIPT.json",
+  "benchmarkReviewSha256": "b214d12a1f3ac51945924684c7ef005e1201a8fb50a08847dacdc28cda051c22",
+  "candidateWeightedEncoderOnlySeconds": 375.13840122,
+  "controlsReviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native22-controls-observed-independent-review-20261009-r5/RECEIPT.json",
+  "controlsReviewSha256": "5ef36c99e984569f6d6c7ec1b38df130f207478323b2b4d7ddef11f8be08497f",
+  "full109RetryAuthorized": false,
+  "integrationAuthorized": false,
+  "nextHypothesisSourceOnly": "Token encoder assertion pass-path overhead; equivalent predicates/traversal/refusals require independent review and separately granted22 controls/unchanged benchmark; no speed claim.",
+  "outcomePath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-parent-recorded-20261009-r5/BENCHMARK-TOOL-OUTCOME.json",
+  "outcomeSha256": "535f16177018423ebd4eb27a73816641a5b7caf19d69ce941504fb424995b0ba",
+  "priorFailuresPreserved": true,
+  "sharedB109NodeSeconds": 300,
+  "status": "PARENT_ADOPTED_NATIVE22_AND_PURE_BENCHMARK_REJECTED_FULL109_RETRY",
+  "utc": "2026-10-09T16:48:24.492744+00:00"
+}

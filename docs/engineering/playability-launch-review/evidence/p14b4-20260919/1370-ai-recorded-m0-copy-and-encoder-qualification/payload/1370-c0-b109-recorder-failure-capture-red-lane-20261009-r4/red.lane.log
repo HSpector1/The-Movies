@@ -1,0 +1,124 @@
+/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r2/record-pure-node.py:236: SyntaxWarning: 'return' in a 'finally' block
+  return code
+{"actualRecorderReturn": 0, "case": "main-empty-KeyboardInterrupt", "caughtException": null, "faultInjected": true, "outputFiles": ["RESULT.json", "stderr.bin", "stdout.bin"], "ownedPid": 96442, "schema": "1370-b109-tiny-main-case-return-r4"}
+F{"actualRecorderReturn": 0, "case": "main-empty-TimeoutError", "caughtException": null, "faultInjected": true, "outputFiles": ["RESULT.json", "stderr.bin", "stdout.bin"], "ownedPid": 96443, "schema": "1370-b109-tiny-main-case-return-r4"}
+F{"actualRecorderReturn": 0, "case": "main-empty-BaseException", "caughtException": null, "faultInjected": true, "outputFiles": ["RESULT.json", "stderr.bin", "stdout.bin"], "ownedPid": 96444, "schema": "1370-b109-tiny-main-case-return-r4"}
+F{"actualRecorderReturn": null, "case": "finally-empty-KeyboardInterrupt", "caughtException": "KeyboardInterrupt()", "faultInjected": true, "outputFiles": [], "ownedPid": 96445, "schema": "1370-b109-tiny-main-case-return-r4"}
+F{"actualRecorderReturn": null, "case": "finally-empty-TimeoutError", "caughtException": "TimeoutError()", "faultInjected": true, "outputFiles": [], "ownedPid": 96446, "schema": "1370-b109-tiny-main-case-return-r4"}
+F{"actualRecorderReturn": null, "case": "finally-empty-BaseException", "caughtException": "BaseException()", "faultInjected": true, "outputFiles": [], "ownedPid": 96447, "schema": "1370-b109-tiny-main-case-return-r4"}
+F{"actualRecorderReturn": null, "case": "invalid-json", "caughtException": "JSONDecodeError('Expecting value: line 1 column 1 (char 0)')", "faultInjected": false, "outputFiles": [], "ownedPid": 96448, "schema": "1370-b109-tiny-main-case-return-r4"}
+F{"actualRecorderReturn": null, "case": "nonzero", "caughtException": "RuntimeError('STOP_CHILD_EXIT_7')", "faultInjected": false, "outputFiles": [], "ownedPid": 96449, "schema": "1370-b109-tiny-main-case-return-r4"}
+F{"actualRecorderReturn": null, "case": "wrong-role", "caughtException": "RuntimeError('STOP_REPORT_ROLE')", "faultInjected": false, "outputFiles": [], "ownedPid": 96450, "schema": "1370-b109-tiny-main-case-return-r4"}
+F
+======================================================================
+FAIL: test_empty_exception_never_becomes_complete (__main__.FailureCaptureControls.test_empty_exception_never_becomes_complete) (stage='main', kind='KeyboardInterrupt')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 71, in test_empty_exception_never_becomes_complete
+    fault=kind();self.run_case(stage+'-empty-'+kind.__name__,code,0,repr(fault),fault=fault,stage=stage)
+                 ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 46, in run_case
+    self.assertIsNone(caught,'main must return STOP after preserving artifacts: '+str(caught));self.assertEqual(actual,2)
+                                                                                               ~~~~~~~~~~~~~~~~^^^^^^^^^^
+AssertionError: 0 != 2
+
+======================================================================
+FAIL: test_empty_exception_never_becomes_complete (__main__.FailureCaptureControls.test_empty_exception_never_becomes_complete) (stage='main', kind='TimeoutError')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 71, in test_empty_exception_never_becomes_complete
+    fault=kind();self.run_case(stage+'-empty-'+kind.__name__,code,0,repr(fault),fault=fault,stage=stage)
+                 ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 46, in run_case
+    self.assertIsNone(caught,'main must return STOP after preserving artifacts: '+str(caught));self.assertEqual(actual,2)
+                                                                                               ~~~~~~~~~~~~~~~~^^^^^^^^^^
+AssertionError: 0 != 2
+
+======================================================================
+FAIL: test_empty_exception_never_becomes_complete (__main__.FailureCaptureControls.test_empty_exception_never_becomes_complete) (stage='main', kind='BaseException')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 71, in test_empty_exception_never_becomes_complete
+    fault=kind();self.run_case(stage+'-empty-'+kind.__name__,code,0,repr(fault),fault=fault,stage=stage)
+                 ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 46, in run_case
+    self.assertIsNone(caught,'main must return STOP after preserving artifacts: '+str(caught));self.assertEqual(actual,2)
+                                                                                               ~~~~~~~~~~~~~~~~^^^^^^^^^^
+AssertionError: 0 != 2
+
+======================================================================
+FAIL: test_empty_exception_never_becomes_complete (__main__.FailureCaptureControls.test_empty_exception_never_becomes_complete) (stage='finally', kind='KeyboardInterrupt')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 71, in test_empty_exception_never_becomes_complete
+    fault=kind();self.run_case(stage+'-empty-'+kind.__name__,code,0,repr(fault),fault=fault,stage=stage)
+                 ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 46, in run_case
+    self.assertIsNone(caught,'main must return STOP after preserving artifacts: '+str(caught));self.assertEqual(actual,2)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'KeyboardInterrupt()' is not None : main must return STOP after preserving artifacts: KeyboardInterrupt()
+
+======================================================================
+FAIL: test_empty_exception_never_becomes_complete (__main__.FailureCaptureControls.test_empty_exception_never_becomes_complete) (stage='finally', kind='TimeoutError')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 71, in test_empty_exception_never_becomes_complete
+    fault=kind();self.run_case(stage+'-empty-'+kind.__name__,code,0,repr(fault),fault=fault,stage=stage)
+                 ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 46, in run_case
+    self.assertIsNone(caught,'main must return STOP after preserving artifacts: '+str(caught));self.assertEqual(actual,2)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'TimeoutError()' is not None : main must return STOP after preserving artifacts: TimeoutError()
+
+======================================================================
+FAIL: test_empty_exception_never_becomes_complete (__main__.FailureCaptureControls.test_empty_exception_never_becomes_complete) (stage='finally', kind='BaseException')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 71, in test_empty_exception_never_becomes_complete
+    fault=kind();self.run_case(stage+'-empty-'+kind.__name__,code,0,repr(fault),fault=fault,stage=stage)
+                 ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 46, in run_case
+    self.assertIsNone(caught,'main must return STOP after preserving artifacts: '+str(caught));self.assertEqual(actual,2)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'BaseException()' is not None : main must return STOP after preserving artifacts: BaseException()
+
+======================================================================
+FAIL: test_invalid_json_preserves_streams_and_pid (__main__.FailureCaptureControls.test_invalid_json_preserves_streams_and_pid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 63, in test_invalid_json_preserves_streams_and_pid
+    self.run_case('invalid-json',"if(process.version!=='v20.20.2'||process.env.NODE_OPTIONS!==undefined||process.env.NODE_PATH!==undefined)process.exit(91);process.stdout.write('not-json\\n');",0,None)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 46, in run_case
+    self.assertIsNone(caught,'main must return STOP after preserving artifacts: '+str(caught));self.assertEqual(actual,2)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "JSONDecodeError('Expecting value: line 1 column 1 (char 0)')" is not None : main must return STOP after preserving artifacts: JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
+
+======================================================================
+FAIL: test_nonzero_preserves_distinct_streams_and_pid (__main__.FailureCaptureControls.test_nonzero_preserves_distinct_streams_and_pid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 61, in test_nonzero_preserves_distinct_streams_and_pid
+    self.run_case('nonzero',"if(process.version!=='v20.20.2'||process.env.NODE_OPTIONS!==undefined||process.env.NODE_PATH!==undefined)process.exit(91);process.stdout.write('tiny-nonzero-stdout\\n');process.stderr.write('tiny-nonzero-stderr\\n');process.exitCode=7;",7,'STOP_CHILD_EXIT_7')
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 46, in run_case
+    self.assertIsNone(caught,'main must return STOP after preserving artifacts: '+str(caught));self.assertEqual(actual,2)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "RuntimeError('STOP_CHILD_EXIT_7')" is not None : main must return STOP after preserving artifacts: RuntimeError('STOP_CHILD_EXIT_7')
+
+======================================================================
+FAIL: test_wrong_report_role_preserves_streams_and_pid (__main__.FailureCaptureControls.test_wrong_report_role_preserves_streams_and_pid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 65, in test_wrong_report_role_preserves_streams_and_pid
+    self.run_case('wrong-role',"if(process.version!=='v20.20.2'||process.env.NODE_OPTIONS!==undefined||process.env.NODE_PATH!==undefined)process.exit(91);process.stdout.write(JSON.stringify({status:'WRONG_ROLE',groups:22})+'\\n');",0,'STOP_REPORT_ROLE')
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-proposal-20261009-r4/test-recorder-failure-capture.py", line 46, in run_case
+    self.assertIsNone(caught,'main must return STOP after preserving artifacts: '+str(caught));self.assertEqual(actual,2)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "RuntimeError('STOP_REPORT_ROLE')" is not None : main must return STOP after preserving artifacts: RuntimeError('STOP_REPORT_ROLE')
+
+----------------------------------------------------------------------
+Ran 4 tests in 7.586s
+
+FAILED (failures=9)

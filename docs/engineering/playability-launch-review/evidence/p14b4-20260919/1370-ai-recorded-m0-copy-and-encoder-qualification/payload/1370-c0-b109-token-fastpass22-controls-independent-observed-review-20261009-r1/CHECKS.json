@@ -1,0 +1,47 @@
+{
+  "actualToolHelperRecorderNodeExits": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "actualToolSession": 6871,
+  "all15SourcePinsExact": true,
+  "exactGrantAndOutcomeRoleEntries": 34,
+  "groups": 22,
+  "noOverrideOrHeavyLock": true,
+  "ordered22PassGroups": [
+    "exact primitives and finite number rendering",
+    "captured key order, integer keys and escaping",
+    "undefined object omission and sparse-array null",
+    "shared references are allowed while cycles refuse",
+    "own toJSON refuses; inherited toJSON is ignored like baseline",
+    "unsupported atoms and nonfinite numbers refuse",
+    "exact-fit and cap refusal for every small budget",
+    "string raw precheck and escaped token budget",
+    "property-key cache is per call and cannot mask object mutation",
+    "getter visitation order remains identical",
+    "deterministic nested corpus",
+    "stateful first-check and second-value reads",
+    "dynamic array shrink and growth preserve emitted length",
+    "null prototypes prevent inherited hooks including array pollution",
+    "safe proto keys and integer ordering",
+    "token caps and refusals never serialize source containers",
+    "proxy reverse and mixed integer order exact bytes and caps",
+    "nested and shared proxy order is fresh on each occurrence",
+    "proxy omitted names preserve all original hook traces",
+    "proxy stateful values retain two reads and undefined refusal",
+    "null handler ignores inherited get and descriptor traps",
+    "token emission creates no clone Proxy wrapping"
+  ],
+  "ownedPgid80407IndependentlyFreshAbsent": true,
+  "pairs": 283,
+  "preparationStopSha256": "9b60bb61f93732fbc8bf513859e97edf04b0b12bb1dd765b770fb91d82bc7b95",
+  "recorderQualifiedR4SchemaExpected": true,
+  "stderrBytes": 0,
+  "stdoutBytes": 1363,
+  "versionedArchitectureGroups": [
+    16,
+    22
+  ]
+}

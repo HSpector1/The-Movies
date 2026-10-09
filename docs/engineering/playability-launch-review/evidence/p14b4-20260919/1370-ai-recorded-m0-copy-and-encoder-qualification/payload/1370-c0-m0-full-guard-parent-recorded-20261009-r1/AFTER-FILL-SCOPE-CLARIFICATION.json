@@ -1,0 +1,40 @@
+{
+  "acceptedFullBaselineSha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15",
+  "authorityReading": "ADOPTION-PROCEDURE requires current identity/proof at fill and actual current guards at independently reviewed adopted preflight. GUARD-TRANSITION requires a fresh complete operational baseline before exact launch and full protected equality after actual exit. An available adapter after-fill phase alone does not mandate another full scan. Independent c0 review confirms this reading.",
+  "clarification": "The original parent phrase subsequent reviewed after-fill/postflight guards remain required means after-fill fresh bounded current guards under the maintained protected freeze, and postflight fresh full protected baseline equality. It does not introduce an extra full dependency inventory between the admitted before-fill baseline and launch.",
+  "freshCurrentGuardScopesRequired": [
+    "all strict protected root and ancestry identities",
+    "exact Python/Git/lsof/pmset/sysctl identities and hashes",
+    "current boot/HEAD/src/clean/live working ref",
+    "AC and disk floors",
+    "process and actual known owned-group clearance",
+    "production/common/R9/H explicit-access-field writable-FD clearance",
+    "fresh output/mirror/lane/lock absence",
+    "all source/review/argv/binding/adoption roles"
+  ],
+  "gameOrMaterializationExecutionAuthorization": false,
+  "historicalHScientificWaiver": false,
+  "originalAdoptionUnchanged": true,
+  "postflight": "Fresh full production/common/R9/H equality to admitted28679 baseline remains required, plus independent actual M0 mirror/source/output/group readback.",
+  "preconditions": "Protected production/common/R9/H writes and renaming remain frozen. Any identity/byte/metadata/continuity uncertainty requires refreshed full proof and separately reviewed binding; this clarification cannot excuse drift or an unexplained failure.",
+  "r9ReplayOrRematerializationAuthorized": false,
+  "roles": [
+    {
+      "bytes": 1685,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/BEFORE-FILL-ADOPTION.json",
+      "sha256": "7a5f127f11eccf8cb3614756e4e538e6ea3b9281921264fd4d3ba639fd6a757e"
+    },
+    {
+      "bytes": 6336,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/ADOPTION-PROCEDURE.md",
+      "sha256": "a4e2b37f469f642b97519514083325d824ec59623555a4a2cb2745be5d13f566"
+    },
+    {
+      "bytes": 5137,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-route-proposal-20261009-r3/GUARD-TRANSITION.md",
+      "sha256": "5d8b603360e1bd4e74bc24dd6c3fdf783f9c6631ca6f7bf7c1edc400446a416a"
+    }
+  ],
+  "status": "PROSPECTIVE_PARENT_OPERATIONAL_AFTER_FILL_GUARD_SCOPE_CLARIFICATION",
+  "utc": "2026-10-09T17:08:33.380043+00:00"
+}

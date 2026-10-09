@@ -1,0 +1,80 @@
+{
+  "actualSnapshotPid": 21697,
+  "actualToolExit": 0,
+  "actualToolSession": 66435,
+  "copiedDependencyRows": 12485,
+  "directSnapshotExit": 0,
+  "elapsedFromGrantToReadbackSeconds": 511.6656919950037,
+  "freshGroupClaim": "Actual scanner PID absent only; guard ownedGroupIdsChecked empty and no fresh numeric R9 game group claim.",
+  "inventoryElapsedSeconds": 382.95944522299396,
+  "materializationOrGameExecuted": false,
+  "operationalHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+  "productionDependencyRows": 12485,
+  "protectedFreezeMaintainedByParent": true,
+  "rawPsFdLocalOnly": true,
+  "retainedHLeaf": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+  "roles": [
+    {
+      "archiveBytes": false,
+      "bytes": 650058,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/AFTER-LSOF.bin",
+      "sha256": "ad67b4770cced9bd0961cd7d27482be277f5caebbd03e80f8e537e104a771550"
+    },
+    {
+      "archiveBytes": false,
+      "bytes": 106746,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/AFTER-PS.txt",
+      "sha256": "4a00b9e5f959879a9a8d70123e80bc0d41d5a3782b8c7d29886a705232288c1c"
+    },
+    {
+      "archiveBytes": false,
+      "bytes": 655280,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/BEFORE-LSOF.bin",
+      "sha256": "d54d67b59dd600ebc1e206ed5f4561ad8fd6f9681270e682bf117057794c2425"
+    },
+    {
+      "archiveBytes": false,
+      "bytes": 108509,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/BEFORE-PS.txt",
+      "sha256": "072a33eb36c5fbdb38313ffb04da3d874abbbfb00626747c4c189880a843a769"
+    },
+    {
+      "archiveBytes": true,
+      "bytes": 8082048,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+      "sha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15"
+    },
+    {
+      "archiveBytes": true,
+      "bytes": 4160,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/BEFORE-FILL-GRANT.json",
+      "sha256": "51630052e3ca420c4160281acdcf634df2c1c25657ba1e879cab702677ca8829"
+    },
+    {
+      "archiveBytes": true,
+      "bytes": 443,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/before-fill.stdout",
+      "sha256": "14a0137a2b434adaaf07ce67503f0012499c9e55455db6e3d097fbae8d0d23f8"
+    },
+    {
+      "archiveBytes": true,
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-guard-parent-recorded-20261009-r1/before-fill.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archiveBytes": true,
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/PINS.json",
+      "sha256": "1dae72d8afa5d0185f4bdf8e8c0a9cc4cae43a1779d2a0ca8177cb87d932abd8"
+    }
+  ],
+  "snapshotElapsedSeconds": 489.3901485219976,
+  "snapshotPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/evidence/before-fill-r1/SNAPSHOT.json",
+  "snapshotPidFreshlyAbsent": true,
+  "snapshotSha256": "28679dbcc0536c72ec9da4bff8e591b8988025101e1977914334e6f8a538ed15",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "ACTUAL_FULL_GUARD_ZERO_PENDING_INDEPENDENT_OBSERVED_REVIEW",
+  "supervisorOrHeavyHelperUsed": false,
+  "utc": "2026-10-09T16:55:30.566678+00:00"
+}
