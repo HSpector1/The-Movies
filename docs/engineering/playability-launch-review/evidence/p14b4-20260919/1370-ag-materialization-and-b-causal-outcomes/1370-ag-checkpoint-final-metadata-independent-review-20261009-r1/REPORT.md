@@ -1,0 +1,7 @@
+Bounded final checkpoint metadata review
+
+Authoritative overlay resolves stale B109 RUNNING, accepted-frame-absent/comparison-unrun, R7 addendum pending and active-output privacy labels. Original r3 files remain immutable historical evidence. The current narrative accurately limits R9 to accepted historical employment preimage and artifact-only descriptive comparison; B109 to timeout STOP/cleanup; recorder controls to GREEN STOP; encoder11/benchmark to unrun. No measured speedup, completed B109 baseline, intervention result, rich-ledger admission or downstream closure is claimed.
+
+One authoritative prose correction remains: AG line13 attributes the +1,168,350 cash difference to avoided severance/payroll/overhead. Accepted one-tick FACTS instead records 1,224,444 severance avoided, offset by 47,094 additional payroll and 9,000 additional overhead. Replace that sentence with the exact decomposition. HANDOFF's simple cash+1,168,350 statement is already accurate. Parent states a narrow history-preserving follow-up correction will incorporate this receipt; originals must remain intact.
+
+No candidate payload or runtime inventory was rehashed. Parent owns the independently completed 1269 candidate/18 companion copy and Git verification. This review reread finite metadata/documents and accepted small receipts only; no Git command, production write, test, Node import, game, gzip decode or full scan occurred. Published HEAD 453654c07b108d6f984c1a226be8ad5997bbef2a is parent-reported and not independently Git-queried here.

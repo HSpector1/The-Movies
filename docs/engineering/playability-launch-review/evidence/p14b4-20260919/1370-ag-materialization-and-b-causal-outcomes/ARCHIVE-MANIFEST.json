@@ -20012,6 +20012,29 @@
     "role": "Immutable original R7 STOP receipt; its literal pending decision is historical and superseded only for full-guard completeness by the separately pinned addendum. R7 outcome remains STOP/no frame/unknown cause.",
     "sha256": "2fa2f8c709ab0438312867c04f2221bb2423dd822bcd3a9c380dc605dfd6e753"
   },
+  "parentFollowupVerification": {
+    "files": [
+      {
+        "bytes": 3392,
+        "gitBlobOid": "5935a7aee8148b9c3cf1af1ca1c62e455d59b136",
+        "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-ag-checkpoint-final-metadata-independent-review-20261009-r1/RECEIPT.json",
+        "sha256": "f9c32ef95f7a1582f0dba0afd203a3c5fd403a58f578f833d13b36aac35612e7"
+      },
+      {
+        "bytes": 1538,
+        "gitBlobOid": "ad68ec09cb0929e767c3194c82b1ab957db43a72",
+        "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-ag-checkpoint-final-metadata-independent-review-20261009-r1/REPORT.md",
+        "sha256": "606d4126e0a8596547ddc7a5d1179d5bedef7df26b573446019dbe4d53211c42"
+      },
+      {
+        "bytes": 495,
+        "gitBlobOid": "eb87222ef2e0b4827bc7ae3240770c6bcefb239a",
+        "repositoryPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-ag-parent-checkpoint-20261009-r1/PUSH-READBACK.json",
+        "sha256": "c6e95fd9690e940f1055202d2f72e17abde0784ad00c00f1c64d040a382d47b8"
+      }
+    ],
+    "scope": "Preserve actual 453654c0 remote/Git readback and bounded metadata review. Authoritative outcome/HANDOFF correct cash decomposition; archived original proposals remain unchanged."
+  },
   "parentMetadataAdoption": {
     "changes": "Metadata corrections only; originals archived verbatim. Root verified all candidate hashes, sizes, modes, blob OIDs and 97 prior Git blobs before applying.",
     "originalProposalPinsSha256": "9aa0c9063aef626c28bc2fa781392d106ff84adc1cdc20014f3840624f0a15ae",

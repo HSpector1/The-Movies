@@ -1,0 +1,69 @@
+{
+  "decision": "REFINE_AUTHORITATIVE_ONE_TICK_CASH_WORDING_ONLY",
+  "fullRuntimeScanExecuted": false,
+  "metadataOverlayAccepted": true,
+  "otherCurrentOutcomeClaimsAcceptedWithinScope": true,
+  "parentFollowupCorrectionPending": true,
+  "payloadInventoryReverified": false,
+  "pins": [
+    {
+      "bytes": 4597,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ag-checkpoint-backup-preparation-20261008-r3/PREPARATION-PINS.json",
+      "sha256": "9aa0c9063aef626c28bc2fa781392d106ff84adc1cdc20014f3840624f0a15ae"
+    },
+    {
+      "bytes": 1318026,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ag-checkpoint-backup-preparation-20261008-r3/BACKUP-MANIFEST-PROPOSED.json",
+      "sha256": "1cac13df0c5bee7b9a0b4b4091e3e210267aadd96d7f3556ce578842f81d1b0d"
+    },
+    {
+      "bytes": 10926,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ag-checkpoint-backup-preparation-20261008-r3/1370-AG-OUTCOME-PROPOSED.md",
+      "sha256": "a3d51bcf4e7d876d32584d18b109457109dceca792159ddc03c4313104ba0d2d"
+    },
+    {
+      "bytes": 11521,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ag-checkpoint-backup-preparation-20261008-r3/HANDOFF-PROPOSED.md",
+      "sha256": "4a0e071205679ea3b7b349c5e12b029b8567dbf2bc2761d7fea249621c15d965"
+    },
+    {
+      "bytes": 3464,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ag-checkpoint-backup-preparation-20261008-r3/PRIVACY-CONTENT-REVIEW.json",
+      "sha256": "1cc3cadafcb6821b8d0845f421c01ce954b4e140262abeefa968826d73280793"
+    },
+    {
+      "bytes": 11806,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/1370-ag-checkpoint-final-metadata-overlay-20261009-r1/METADATA-OVERLAY.json",
+      "sha256": "2dd5c6a0683e682ad4351d24da8d27528936d7c41aadb469c6e021ba11518ff5"
+    },
+    {
+      "bytes": 1320780,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ag-materialization-and-b-causal-outcomes/ARCHIVE-MANIFEST.json",
+      "sha256": "ec62918e35ccdeac07389c90ea731a0ae58deaed44364ff6199bdbd8bcf5325a"
+    },
+    {
+      "bytes": 11478,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AG-historical-employment-and-b-causal-outcomes.md",
+      "sha256": "9cf3541659b16b8d5e6821b9dde5dafb16e5018e334f73b15b397c176f223748"
+    },
+    {
+      "bytes": 13079,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+      "sha256": "72bfce6408ea9d4132c9bbebf1450c60acba0de957edaaf4c88f22a188d25d6d"
+    },
+    {
+      "bytes": 22770,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/FACTS.json",
+      "sha256": "d59ee958db7996635cb2f7699adfb007e3d160319528fbfaccef763e5b2b4cd4"
+    }
+  ],
+  "productionWrites": false,
+  "report": {
+    "bytes": 1538,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ag-checkpoint-final-metadata-independent-review-20261009-r1/REPORT.md",
+    "sha256": "606d4126e0a8596547ddc7a5d1179d5bedef7df26b573446019dbe4d53211c42"
+  },
+  "schema": "1370-ag-final-metadata-independent-review-r1",
+  "testsOrGameExecuted": false,
+  "utc": "2026-10-09T15:12:13.817587+00:00"
+}

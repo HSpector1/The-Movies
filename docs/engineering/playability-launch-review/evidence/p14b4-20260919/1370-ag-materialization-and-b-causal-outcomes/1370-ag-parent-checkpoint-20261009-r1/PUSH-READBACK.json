@@ -1,0 +1,14 @@
+{
+  "status": "PUSH_AND_COMMITTED_ARCHIVE_READBACK_VERIFIED",
+  "head": "453654c07b108d6f984c1a226be8ad5997bbef2a",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "clean": true,
+  "remoteRefs": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "453654c07b108d6f984c1a226be8ad5997bbef2a"
+  },
+  "historyPreserved": true,
+  "exactCopiedGitBlobsVerified": 1287,
+  "mainMerged": false,
+  "handoffIncluded": true
+}
