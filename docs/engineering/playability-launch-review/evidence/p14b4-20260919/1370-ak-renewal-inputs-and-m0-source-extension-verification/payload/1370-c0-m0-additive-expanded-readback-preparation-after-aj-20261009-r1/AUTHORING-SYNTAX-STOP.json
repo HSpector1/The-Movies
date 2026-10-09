@@ -1,0 +1,9 @@
+{
+  "status": "AUTHORING_SYNTAX_STOP_BEFORE_BODY",
+  "actualAuthoringExit": 1,
+  "cause": "Outer author-script string delimiter at line 11 was malformed. Parser stopped before proposal directory creation or source generation.",
+  "repair": "Only author string delimiter and generated safe-name backslash representation corrected; generated verifier is never imported or run.",
+  "proposalExecuted": false,
+  "mirrorRead": false,
+  "scanPerformed": false
+}

@@ -1,0 +1,22 @@
+{
+  "futureAuthority": null,
+  "newWalkReason": "Exactly one root node_modules symlink; no target recursion; expected dirs/files union and before/after full metadata",
+  "outlinePins": {
+    "bytes": 648,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-source-outline-after-aj-20261009-r1/PINS.json",
+    "sha256": "3a926490b5990bd99308716ab1742d62737c8852fc7f4b5150ed85b52b9d8706"
+  },
+  "priorReader": {
+    "bytes": 10659,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/readback.py",
+    "sha256": "90d9cfce6821cae31c86e7ec33d5e3b45112a508cdfa77d44e680df11ca05f85"
+  },
+  "reusedHelperRange": [
+    7,
+    38
+  ],
+  "reusedReqSigOpenDirReadTextByteExact": true,
+  "runtimeBoundary": "240s timer through owned artifact fsync/summary; actual nonzero or late result remains STOP, positive facts alone insufficient",
+  "sourceImportsTestsNodeRngGameGitOrMirrorScanPerformed": false,
+  "sourceOnly": true
+}

@@ -1,0 +1,1 @@
+Source-only adaptation of reviewed before-fill wrapper110717; fullguard snapshot/config unchanged. Resolves actual baseline744095 and requires actual held candidate PINS plus baseline adoption201d in exact independently reviewed argv. No scan grant or execution; exact argv proposal pending candidate.

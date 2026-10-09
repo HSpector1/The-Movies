@@ -1,0 +1,40 @@
+{
+  "author": {
+    "bytes": 7785,
+    "path": "/Users/zacheryspector/studio-scratch/repair-expanded-readback-python-after-aj.py",
+    "sha256": "fe42ffa582852a20190b89307712da521e77e431081879b3f423f7a92da8cf65"
+  },
+  "files": {
+    "CONFIG.json.diff": {
+      "bytes": 664,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/CONFIG.json.diff",
+      "sha256": "f7869cc35e685603f53f2cd955e56508d265493fa67f0d9521f25a702e705c13"
+    },
+    "RECIPE.json": {
+      "bytes": 819,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/RECIPE.json",
+      "sha256": "cda99f558c91c20592431d8cd2bc75baf4b59dce1e85f0c7a02c9b327e4477ab"
+    },
+    "REPAIR-PROOF.json": {
+      "bytes": 12015,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/REPAIR-PROOF.json",
+      "sha256": "b5605df3ac0648a4f11fd6128e8b69698ce087e0bce7015879cf1238033bf072"
+    },
+    "REPAIR-REPORT.md": {
+      "bytes": 1213,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/REPAIR-REPORT.md",
+      "sha256": "a2c6b1eb6e884d2ebf445f078883bc65521a77ae4f9fded81e8f0bfd6b0b0af0"
+    },
+    "SOURCE-PINS.json": {
+      "bytes": 3143,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/SOURCE-PINS.json",
+      "sha256": "912cfde9ad88ebb3dcc0571f9af2191e3d851296f3e06df70d5569c3ebe68b1d"
+    },
+    "verify-expanded.py.diff": {
+      "bytes": 843,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/verify-expanded.py.diff",
+      "sha256": "9f85a063243efe83d66bdda8d92ef0ba835a10b34a3fa456822316c9e349afeb"
+    }
+  },
+  "status": "SOURCE_ONLY_REPAIR_PROVENANCE_UNRUN"
+}

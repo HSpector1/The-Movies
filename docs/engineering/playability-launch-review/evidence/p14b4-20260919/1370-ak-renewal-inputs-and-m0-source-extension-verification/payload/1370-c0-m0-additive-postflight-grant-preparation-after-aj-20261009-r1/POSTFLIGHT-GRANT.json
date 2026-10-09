@@ -1,0 +1,127 @@
+{
+  "acPower": true,
+  "actualAdditiveOutcome": {
+    "bytes": 6079,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/TOOL-OUTCOME.json",
+    "sha256": "12e398382dc7a08830c01f09f1a14e8e30eed3cb8ea61729d6e82d1c763bf846"
+  },
+  "actualOwnedPidsAndPgids": [
+    44676,
+    45166,
+    45180,
+    45181,
+    45183,
+    45200,
+    65494,
+    66258,
+    73148
+  ],
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "postflight",
+    "postflight-after-aj-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+    "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912",
+    "44676,45166,45180,45181,45183,45200,65494,66258,73148"
+  ],
+  "baselineAdoption": {
+    "bytes": 2326,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-ADOPTION.json",
+    "sha256": "201d1aba2f3569321539f639c246f92f795e1cbd81924afcfa8933ec48e56fa0"
+  },
+  "baselineSnapshot": {
+    "bytes": 8303116,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+    "sha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912"
+  },
+  "config": {
+    "bytes": 3536,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG.json",
+    "sha256": "a4b88b0181bf525f6144a71f05bb7d78a17fd46bbfbe88d0e2aea90a89874b4c"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactArgvProposal": {
+    "bytes": 4222,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/EXACT-ARGV-PROPOSAL.json",
+    "sha256": "59d60d5957ab514af894cd641b2b3303fa2b33b6ad12053740dc617636733b3b"
+  },
+  "exactRepairReview": {
+    "bytes": 2632,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-exact-argv-independent-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "c839700aa434eba1d71c6f61c292ae1c6db17cd209a8f9ecd8146e4adb9d5671"
+  },
+  "expandedReadbackReview": {
+    "bytes": 5127,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-independent-observed-review-after-aj-20261009-r3/RECEIPT.json",
+    "sha256": "d951b96b4c6327c89f17b5c07fd258d5f8467df99d8151ed9b1f3f1a56861db3"
+  },
+  "filledCandidatePins": {
+    "bytes": 1188,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-candidate-after-aj-20261009-r1/PINS.json",
+    "sha256": "1f524d59840874fd86a75d9fafa0cd6e8be94d6deff3c3e4be0d5e4d9d123983"
+  },
+  "freeBytes": 5338669056,
+  "globalProcessAbsenceClaim": false,
+  "guardSource": {
+    "bytes": 21431,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+    "sha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee"
+  },
+  "noHeavyHelperBecauseGuardRequiresLockAbsent": true,
+  "outputParentRole": {
+    "device": 16777220,
+    "inode": 166766846,
+    "mode": 448,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence"
+  },
+  "parentPidBecomesSnapshotPid": 76882,
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "protectedWriteAndRenamerFreeze": "Production/common/R9/H/dependencies read-only from this baseline through dependent reviewed route and protected postflight; no Git writes or install/cache operations",
+  "rawPsFdLocalOnly": true,
+  "selectedPriorPidAndPgidAbsent": [
+    44676,
+    45166,
+    45180,
+    45181,
+    45183,
+    45200,
+    65494,
+    66258,
+    73148,
+    77313,
+    77576,
+    78074,
+    79310,
+    79573,
+    85523,
+    93713
+  ],
+  "soleRecordedHeavyLane": true,
+  "sourceReview": {
+    "bytes": 6806,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-root-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "a06cdade7513d63e793e27b67a74571ca16b896ae0ee2ee1aeda94d2c854053c"
+  },
+  "sourceScript": {
+    "bytes": 5726,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/grant_postflight.py",
+    "sha256": "e5e7bee050f4c69fe44eaa1c215f129e097705a60dfcbb0db6e2b93e3caf5f06"
+  },
+  "startMonotonic": 85118.845086558,
+  "status": "ROOT_ADOPTED_EXACT_SOURCE_ARGV_AND_GRANTED_SINGLE_DIRECT_AJ_POSTFLIGHT_FULL_GUARD",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/postflight.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/postflight.stdout",
+  "typesGameOrAdditiveExecutionAuthorized": false,
+  "utc": "2026-10-09T20:49:37.112820+00:00"
+}

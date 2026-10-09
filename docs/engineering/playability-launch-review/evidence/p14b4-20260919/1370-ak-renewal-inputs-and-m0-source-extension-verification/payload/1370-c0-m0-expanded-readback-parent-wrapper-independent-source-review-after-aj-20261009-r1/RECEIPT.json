@@ -1,0 +1,50 @@
+{
+  "checks": {
+    "bytes": 9746,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-expanded-readback-parent-wrapper-independent-source-review-after-aj-20261009-r1/CHECKS.json",
+    "sha256": "ac576cec7f8ab406d6fba177ef569d044d4b20327c650ee8221490ea4da2735d"
+  },
+  "config": {
+    "bytes": 6419,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/CONFIG.json",
+    "sha256": "eece793d3622935824c14bcce7aea2c185cffc9df65144037e3d79575907c9c2"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_EXACT_M0_READBACK_PARENT_WRAPPER",
+  "executionAuthorization": false,
+  "filledReadbackReview": {
+    "bytes": 9200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-filled-independent-review-after-aj-20261009-r2/RECEIPT.json",
+    "sha256": "10ce9ac2c0a14dcfa6a7e81401abb11dd753c6d071f699419d6265e48740d15c"
+  },
+  "findings": [],
+  "physicalReadbackComplete": false,
+  "protectedPostflightComplete": false,
+  "recipe": {
+    "bytes": 794,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/RECIPE.json",
+    "sha256": "dc49935f3d6824bddf9a8ced7103903d4c6dda6b5a5ff16df06111bcfce06247"
+  },
+  "report": {
+    "bytes": 1330,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-expanded-readback-parent-wrapper-independent-source-review-after-aj-20261009-r1/REPORT.md",
+    "sha256": "ffa4249aef56dda01ed4f32ccac62bf71d244df068fca705ed6b4692b2d5214c"
+  },
+  "reviewerExecutedWrapperVerifierOrTests": false,
+  "schema": "1370-m0-expanded-readback-parent-wrapper-independent-source-review-after-aj-v1",
+  "sourcePins": {
+    "bytes": 2183,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/SOURCE-PINS.json",
+    "sha256": "dfbf25dc7d97aa654dedf625abfd2c2209dcb089c3870d4c49b17d4540125a30"
+  },
+  "utc": "2026-10-09T20:37:32.163438+00:00",
+  "verifier": {
+    "bytes": 18821,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/verify-expanded.py",
+    "sha256": "f3b7d31b20570414d41bfa6641e198022a46a904798ddc3340db20a74510aab7"
+  },
+  "wrapper": {
+    "bytes": 5501,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-grant-readback.py",
+    "sha256": "c1b7fc6286af51c425d326823d0fbab417a344275b41751c1e5c488ed320e1ea"
+  }
+}

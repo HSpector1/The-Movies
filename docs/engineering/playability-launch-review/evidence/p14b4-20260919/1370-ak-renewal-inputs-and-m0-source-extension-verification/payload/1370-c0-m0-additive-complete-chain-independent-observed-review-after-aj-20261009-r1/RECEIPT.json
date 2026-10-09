@@ -1,0 +1,154 @@
+{
+  "actualAdditiveOutcome": {
+    "bytes": 6079,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/TOOL-OUTCOME.json",
+    "sha256": "12e398382dc7a08830c01f09f1a14e8e30eed3cb8ea61729d6e82d1c763bf846"
+  },
+  "actualAdditiveReview": {
+    "bytes": 6137,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "e2c7bba284f70e408d6432a8a19060195593ce92ee74c5fb892801b878c4fd41"
+  },
+  "actualAdditiveSourcePins": "6158d78ede4cf86aa5a6a68fec56a9c7e29c085399ef0d6cbe198a1655df4f5e",
+  "actualPostflightToolExit": 0,
+  "actualPostflightToolSession": 84610,
+  "afterFillSnapshot": {
+    "bytes": 8307874,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/after-fill-after-aj-r2/SNAPSHOT.json",
+    "sha256": "c337f7d827ddc3dbe9ef79669c64e00465a064a6e0c846407c75a23bb91ba260"
+  },
+  "beforeFillSnapshot": {
+    "bytes": 8303116,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+    "sha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912"
+  },
+  "bridgeBytes": 1517743,
+  "bridgeFiles": 63,
+  "checks": [
+    "Complete retained postflight immutable object equals beforefill744095 and afterfillc337: all protected digests/dependency/physicalcheckout/maps/metadata/inodes/private R9 original-copy authorities and currentH root roles.",
+    "Same authenticated source/config; actualgrant/rawtool84610 final0/stdout exact summary/stderr0, guarded before/after FD/process predicates accepted in recorded scope.",
+    "Genuine actual additivefive0 and physical readback1740/119393120 with strictoriginal1677/nonrootdirs+canonical63/one link/21package roles remain authenticated by prior independent receipts and immutable payload facts.",
+    "Fresh scanner76882 plus nine selected actual prior PID/PGID pairs absent; heavy lane lock absent, unknown readback verifier PID not invented.",
+    "Original failed setup/readback preserved; path-alias repair source-qualified, failures never relabeled successful."
+  ],
+  "decision": "ACCEPT_OBSERVED_M0_ADDITIVE_COMPLETE_WITH_FULL_PROTECTED_POSTFLIGHT",
+  "dependencyLinks": 1,
+  "dependencyPackageRoles": 21,
+  "elapsedSeconds": 452.36274259099446,
+  "facts": {
+    "bytes": 1872789,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r3.json",
+    "sha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2"
+  },
+  "findings": [],
+  "fullImmutableEqualityIndependentlyVerified": true,
+  "gameAccepted": false,
+  "inventoryElapsedSeconds": 350.0274525040004,
+  "knownPidsAndPgidsFreshAbsent": [
+    76882,
+    44676,
+    45166,
+    45180,
+    45181,
+    45183,
+    45200,
+    65494,
+    66258,
+    73148
+  ],
+  "limitations": [
+    "No new scan or repeat mirror/dependency inventory by reviewer; finite retained snapshots/facts compared.",
+    "Fullguard covers current production/common/privateR9/H/dependencies; originalM0 preservation is from independent expanded physical readback, not these protected maps.",
+    "No globalprocessabsence, uninterruptedmutationguarantee, runtime/types/game/pricing/scientificH or renewal cause admission.",
+    "Protected freeze remains root-controlled until explicit adoption/release."
+  ],
+  "newExecutionAuthorized": false,
+  "numericReadbackVerifierPidNotCaptured": true,
+  "original1677StrictPreservationAccepted": true,
+  "parentCompleteAdoptionStillRequired": true,
+  "physicalExpandedReadbackAccepted": true,
+  "physicalReadbackSourcePins": {
+    "bytes": 3143,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/SOURCE-PINS.json",
+    "sha256": "912cfde9ad88ebb3dcc0571f9af2191e3d851296f3e06df70d5569c3ebe68b1d"
+  },
+  "postflightActualTool": {
+    "bytes": 1258,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/POSTFLIGHT-ACTUAL-TOOL.json",
+    "sha256": "5055a37cba13817cc86f37a20239ffabbb1420a70d593980f15db5f10ac03949"
+  },
+  "postflightConfig": {
+    "bytes": 3536,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG.json",
+    "sha256": "a4b88b0181bf525f6144a71f05bb7d78a17fd46bbfbe88d0e2aea90a89874b4c"
+  },
+  "postflightGrant": {
+    "bytes": 5706,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/POSTFLIGHT-GRANT.json",
+    "sha256": "7c279472f2a98ac4a7aed61c136706bfe792793ad6f5e8fef0a65fe39cfd1a0c"
+  },
+  "postflightOutcome": {
+    "bytes": 4733,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/POSTFLIGHT-TOOL-OUTCOME.json",
+    "sha256": "524c130424946e9b042aaad06d10da5ac2de3df06361e116543f930d113ec05f"
+  },
+  "postflightPins": {
+    "bytes": 507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/PINS.json",
+    "sha256": "6ad9224051865ddce688d515750e96e8cc9e86c4f443c072a02e6b6285775d11"
+  },
+  "postflightSnapshot": {
+    "bytes": 8318692,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/SNAPSHOT.json",
+    "sha256": "f005363a8d7657ba7a78c0820b50a2cb2dffb798d469b7abdf69e5acf6ce6893"
+  },
+  "postflightSource": {
+    "bytes": 21431,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+    "sha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee"
+  },
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "protectedPostflightAccepted": true,
+  "rawMachineCapturesLocalHashSizeOnly": [
+    {
+      "bytes": 92096,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/BEFORE-PS.txt",
+      "sha256": "08132090598910bc6a940691aacf0d0ad15970f404e8d1d8f5db7a2945723b3d"
+    },
+    {
+      "bytes": 91500,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/AFTER-PS.txt",
+      "sha256": "154deebd0bbf9c4cf3a6821798b461ae4522018da0f5002b69f98a982d834d3c"
+    },
+    {
+      "bytes": 631993,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/BEFORE-LSOF.bin",
+      "sha256": "7f7a655943205156c362f3bc314b0c8002053c94cfc2bc172b52dd23374b0879"
+    },
+    {
+      "bytes": 631129,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/AFTER-LSOF.bin",
+      "sha256": "3b7dd235762c5994128f6b56bb39ed8b3c4c826dd409407331f30e4d80636cb5"
+    }
+  ],
+  "readbackOutcome": {
+    "bytes": 3450,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r2/TOOL-OUTCOME.json",
+    "sha256": "0670f8d9f2262be8e0917dfaae8f6d115ddf117336f20930f2f899014c10cba7"
+  },
+  "readbackReview": {
+    "bytes": 5127,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-independent-observed-review-after-aj-20261009-r3/RECEIPT.json",
+    "sha256": "d951b96b4c6327c89f17b5c07fd258d5f8467df99d8151ed9b1f3f1a56861db3"
+  },
+  "regularBytes": 119393120,
+  "regularFiles": 1740,
+  "remainingGates": [
+    "Root complete chain adoption and explicit sole-lane release before separate next work grants.",
+    "Final checkpoint complete inventory/raw-policy review/claims/archive remains separate bookkeeping."
+  ],
+  "renewalCausesClosed": 0,
+  "schema": "1370-m0-additive-complete-chain-independent-observed-review-r1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "typesReady": false
+}

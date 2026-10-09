@@ -1,0 +1,29 @@
+{
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": null,
+  "files": {
+    "BINDING-DRAFT.json": {
+      "bytes": 13068,
+      "sha256": "f147695e91a7c53b5f5b696b43a7421f8721ccf3e6273f3aea8e72bbbff4b86b"
+    },
+    "GUARD-PROOF-ROLES.json": {
+      "bytes": 15466,
+      "sha256": "a6c0b9ed0001623d67391d9388253b5efb46593df8b9d15f1c8c0a4dc1d3f576"
+    },
+    "IDENTITY.json": {
+      "bytes": 7581,
+      "sha256": "556ce88b6e6fb824ccc88eba1e22184b6f821fbebe6858ea17d3e39de0ee3c5c"
+    },
+    "LAUNCH-SPEC.json": {
+      "bytes": 2446,
+      "sha256": "0f29c956eac6f973ab7911e9b5eab6d8bc040114d71b22c6316eb4393e4fbbc7"
+    },
+    "REPORT.md": {
+      "bytes": 1499,
+      "sha256": "74f7c5883a13971e2e73e5203942508c8b362aed1acb3c6dee62011c7cd0650c"
+    }
+  },
+  "guardCoreCandidateBindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+  "guardCoreSha256": "69f4a0a4e5bb4d686ef03178dafa9b4c27c11d8671745d61a0537fd725adf69d",
+  "status": "GUARD_CORE_CANDIDATE_PREFLIGHT_PENDING_UNRUN"
+}

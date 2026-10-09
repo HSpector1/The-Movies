@@ -1,0 +1,34 @@
+{
+  "additionalDerivedGitBlobs": {
+    "talentMarket": "f036fcec9191374dc5554c5cdc33372b53cd7926",
+    "talentSummary": "f8e8539d3c0f780e58027640de333d6168db7654",
+    "tuning": "c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9"
+  },
+  "exactSourceExcerpts": 11,
+  "exactUnifiedDiffs": [
+    "BINDING-UNFILLED.json",
+    "PLAN.md",
+    "outer-recorder.py",
+    "supervise.py",
+    "test-supervisor.py",
+    "witness.mts"
+  ],
+  "externalRolesVerified": 20,
+  "filesVerified": 18,
+  "schema": "1370-a208-independent-finite-source-audit/v1",
+  "selectionRows": 16,
+  "sourceImportsOrExecution": false,
+  "sourceOrderRange": [
+    24,
+    39
+  ],
+  "supportFilesVerified": 9,
+  "unchangedPriorFiles": [
+    "POLICY.sb",
+    "bounds-guard.mjs",
+    "test-outer.py",
+    "test-synthetic.mjs",
+    "witness-core.mjs",
+    "worktree-guard.mjs"
+  ]
+}

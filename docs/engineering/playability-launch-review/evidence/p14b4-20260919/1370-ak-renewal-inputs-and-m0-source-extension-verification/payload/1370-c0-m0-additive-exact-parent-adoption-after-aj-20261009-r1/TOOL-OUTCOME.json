@@ -1,0 +1,133 @@
+{
+  "actualChildExit": 0,
+  "actualChildPid": 45200,
+  "actualHelperExit": 0,
+  "actualHelperPid": 44676,
+  "actualRecorderExit": 0,
+  "actualSupervisorExit": 0,
+  "actualSupervisorPidObserved": 45181,
+  "actualTool": {
+    "bytes": 989,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "8492a32a3c59c22421931863f653dbcd2e906605ee6770da25afecf703e66f7e"
+  },
+  "actualToolExit": 0,
+  "actualToolSession": 45234,
+  "actualWorkerPid": 45183,
+  "adoptedBinding": {
+    "bytes": 13448,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+    "sha256": "35e596a0ee6d5119fd2a84f03f3fc0a7398be1208a8f65e4c4824ca67e269a50"
+  },
+  "adoptedLaunch": {
+    "bytes": 3571,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/ADOPTED-LAUNCH-SPEC.json",
+    "sha256": "4bdca6f36f0dd20067da512a5f3bf01c840043a236c1000862f8acf93ab27c08"
+  },
+  "adoptedPreflight": {
+    "bytes": 1819,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "27ea7d31e160ab0aa44effcfebe1c91195297ed2eb183f5f2373f535e7658986"
+  },
+  "bindingSha256": "35e596a0ee6d5119fd2a84f03f3fc0a7398be1208a8f65e4c4824ca67e269a50",
+  "bodyElapsedSeconds": 166.16561845398974,
+  "bounds": {
+    "bodyResultBytes": 100000,
+    "childSeconds": 180,
+    "combinedChildLogsBytes": 33554432,
+    "wholeSeconds": 210
+  },
+  "claimLimit": "Actual recorded exits and source-produced completion only. Legacy status strings retained verbatim; independent physical readback and full protected postflight required for adoption. No types/game/scientific admission.",
+  "exitDerivations": {
+    "actualChildExit": "Authenticated RESULT.childExit0",
+    "actualHelperExit": "Parent exec replaced itself with Bash heavy helper; actual tool exit0",
+    "actualRecorderExit": "Authenticated SUPERVISOR.workerExit0",
+    "actualSupervisorExit": "Exact heavy helper meta end exit0 for Python supervisor command",
+    "actualToolExit": "Final actual tool chunk f437c9 exit_code0"
+  },
+  "globalProcessAbsenceClaim": false,
+  "grant": {
+    "bytes": 8340,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/GRANT.json",
+    "sha256": "c6bc9a1c508816bcd71de8e68c497cf2929493e5b5fb5e27a9da33118d6d2b5b"
+  },
+  "helperLog": {
+    "bytes": 209,
+    "path": "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log",
+    "sha256": "0299ef72c5418dcb6580c6968786b9f69cbb7251b697b73530476c2f870f9cf9"
+  },
+  "helperMeta": {
+    "bytes": 445,
+    "path": "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log.meta",
+    "sha256": "391fbeebf7046dc5cab7aad49b39511f23f136215683b50d069e92ddf1abdd3e"
+  },
+  "independentPhysicalReadbackComplete": false,
+  "outputRoles": {
+    "ADDITIVE-RESULT.json": {
+      "bytes": 1154,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/ADDITIVE-RESULT.json",
+      "sha256": "8d4045366d5f74c9e255cf741ef562abe6b8977d991d421518fa2213ef54b854"
+    },
+    "CHILD-OWNED.json": {
+      "bytes": 71,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/CHILD-OWNED.json",
+      "sha256": "d4c1ccbd557c5851ea53afa4ef2a966e573c4b88c5da8d5485cc1abef4e4e32c"
+    },
+    "FIRST-WRITE-PHASE.json": {
+      "bytes": 424,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/FIRST-WRITE-PHASE.json",
+      "sha256": "60ecc952a2764f9a877926a6b13a816d130dbc9804a33aa63113721581f84e73"
+    },
+    "RESULT.json": {
+      "bytes": 1170,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/RESULT.json",
+      "sha256": "f7b1cf08b4a99bf6b1b42c804cbb049d09f004defbc190cbbf92c8dadc8f4ae5"
+    },
+    "SUPERVISOR-PREPARED.json": {
+      "bytes": 327,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/SUPERVISOR-PREPARED.json",
+      "sha256": "2bf61cbfaf6cfc819784715b3ba6a3abd6d126a49f894f7b10f740243abc5ea5"
+    },
+    "SUPERVISOR.json": {
+      "bytes": 452,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/SUPERVISOR.json",
+      "sha256": "251a8faabce3dc36a094dea59f699c38be345eddcaca5f1b97e49218e3ac8d8f"
+    },
+    "child.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/child.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "child.stdout": {
+      "bytes": 275,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/child.stdout",
+      "sha256": "75e97cb57f7f0211485a398c38005bd5d1915a5fe0d099ef9c4744a788dcf959"
+    }
+  },
+  "ownedPidsAndPgidsFreshlyAbsent": [
+    44676,
+    45166,
+    45180,
+    45181,
+    45183,
+    45200
+  ],
+  "protectedFreezeContinues": true,
+  "protectedPostflightComplete": false,
+  "recorderElapsedSeconds": 170.8921371079923,
+  "reportedBridgeFilesAdded": 63,
+  "reportedDependencyLink": "node_modules -> production node_modules",
+  "reportedExpandedRegularBytes": 119393120,
+  "reportedExpandedRegularFiles": 1740,
+  "reportedOriginalFilesUnchanged": 1677,
+  "runningDescendants": {
+    "bytes": 1183,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/ACTUAL-RUNNING-DESCENDANTS.json",
+    "sha256": "2e4d715174bebd35aa37b820ba0a76615eaf88ed0a8905c47de7b9c430bf75b9"
+  },
+  "status": "ACTUAL_M0_ADDITIVE_COMPLETE_REQUIRES_INDEPENDENT_READBACK_AND_FULL_POSTFLIGHT",
+  "supervisorElapsedSeconds": 171.1778902280057,
+  "typesOrGameAccepted": false,
+  "unexpectedHelperWait": false,
+  "utc": "2026-10-09T20:27:01.420756+00:00"
+}

@@ -1,0 +1,138 @@
+{
+  "bounds": {
+    "factsBytes": 4194304,
+    "perFileBytes": 33554432,
+    "regularBytes": 119393120,
+    "regularFiles": 1740,
+    "wholeSeconds": 240
+  },
+  "executionAuthorization": false,
+  "fixedRoles": {
+    "copyFacts": {
+      "bytes": 978422,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/COPY-READBACK-FACTS.json",
+      "sha256": "e46dcc9cf81f7ce3462e1cdd34618f37f68ac75a90d5f95f112ee93966e96bfe"
+    },
+    "inputs": {
+      "bytes": 27220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json",
+      "sha256": "a9f50c1d0cb6ae54084becf514ed7908c41572050e0df19a50007e3a804ff881"
+    },
+    "routeSourcePins": {
+      "bytes": 4923,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/SOURCE-PINS.json",
+      "sha256": "6158d78ede4cf86aa5a6a68fec56a9c7e29c085399ef0d6cbe198a1655df4f5e"
+    },
+    "routeSourceReview": {
+      "bytes": 16957,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-independent-source-review-after-aj-20261009-r4/RECEIPT.json",
+      "sha256": "30fec9b708aee9355cbf4ddae37a80a752901a5535dd4d546707ed0468f8a7dc"
+    }
+  },
+  "futureAuthority": {
+    "roles": {
+      "actualTool": {
+        "bytes": 989,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/ACTUAL-TOOL.json",
+        "sha256": "8492a32a3c59c22421931863f653dbcd2e906605ee6770da25afecf703e66f7e"
+      },
+      "binding": {
+        "bytes": 13448,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+        "sha256": "35e596a0ee6d5119fd2a84f03f3fc0a7398be1208a8f65e4c4824ca67e269a50"
+      },
+      "bodyResult": {
+        "bytes": 1154,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/ADDITIVE-RESULT.json",
+        "sha256": "8d4045366d5f74c9e255cf741ef562abe6b8977d991d421518fa2213ef54b854"
+      },
+      "childOwned": {
+        "bytes": 71,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/CHILD-OWNED.json",
+        "sha256": "d4c1ccbd557c5851ea53afa4ef2a966e573c4b88c5da8d5485cc1abef4e4e32c"
+      },
+      "childStderr": {
+        "bytes": 0,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/child.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "childStdout": {
+        "bytes": 275,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/child.stdout",
+        "sha256": "75e97cb57f7f0211485a398c38005bd5d1915a5fe0d099ef9c4744a788dcf959"
+      },
+      "exactReview": {
+        "bytes": 2785,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-final-exact-independent-review-after-aj-20261009-r1/RECEIPT.json",
+        "sha256": "d86d88453393c6ce9c941bf7f6b992c90e49833d91835c40fdf274278ae19fcc"
+      },
+      "firstWritePhase": {
+        "bytes": 424,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/FIRST-WRITE-PHASE.json",
+        "sha256": "60ecc952a2764f9a877926a6b13a816d130dbc9804a33aa63113721581f84e73"
+      },
+      "helperMeta": {
+        "bytes": 445,
+        "path": "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log.meta",
+        "sha256": "391fbeebf7046dc5cab7aad49b39511f23f136215683b50d069e92ddf1abdd3e"
+      },
+      "originalSiblingReceipt": {
+        "bytes": 1549,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2.MATERIALIZE-RESULT.json",
+        "sha256": "f584835a2893a3f9fc8e26df8765423a62096ced49a94d4f09ff1c935401e0f9"
+      },
+      "parentToolOutcome": {
+        "bytes": 6079,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/TOOL-OUTCOME.json",
+        "sha256": "12e398382dc7a08830c01f09f1a14e8e30eed3cb8ea61729d6e82d1c763bf846"
+      },
+      "preflightReview": {
+        "bytes": 8199,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-preflight-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+        "sha256": "3bce48d3f7bac785ca024f7609c7a46a2c832c3adfe9d4d6a7cc0501b4f83018"
+      },
+      "recorderResult": {
+        "bytes": 1170,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/RESULT.json",
+        "sha256": "f7b1cf08b4a99bf6b1b42c804cbb049d09f004defbc190cbbf92c8dadc8f4ae5"
+      },
+      "supervisorResult": {
+        "bytes": 452,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/SUPERVISOR.json",
+        "sha256": "251a8faabce3dc36a094dea59f699c38be345eddcaca5f1b97e49218e3ac8d8f"
+      }
+    },
+    "status": "AUTHENTIC_ACTUAL_COMPLETION_PACKET_READBACK_UNRUN"
+  },
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "originalSiblingReceipt": {
+    "bytes": 1549,
+    "gitBlobOid": "dd09dcabfcedf85d09749c1b4ef8ffab6173d755",
+    "identity": [
+      16777220,
+      166753270,
+      384,
+      1,
+      1549,
+      1791567307991637401,
+      1791567307991637401
+    ],
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2.MATERIALIZE-RESULT.json",
+    "sha256": "f584835a2893a3f9fc8e26df8765423a62096ced49a94d4f09ff1c935401e0f9"
+  },
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r2.json",
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "pythonTool": {
+    "identity": [
+      16777220,
+      72062271,
+      493,
+      1
+    ],
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "sourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "SOURCE_ONLY_UNRUN_FUTURE_ACTUAL_AUTHORITY_NULL"
+}

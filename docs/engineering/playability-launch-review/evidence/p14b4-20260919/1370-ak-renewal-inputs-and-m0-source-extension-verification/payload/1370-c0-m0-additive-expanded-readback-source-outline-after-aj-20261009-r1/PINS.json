@@ -1,0 +1,16 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "NOTE.md": {
+      "bytes": 4736,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-source-outline-after-aj-20261009-r1/NOTE.md",
+      "sha256": "9bf7aa9a6be36bcd0419676f5ea31b85c0e9842feff5c987a6fab4bfdb73168a"
+    },
+    "PROOF.json": {
+      "bytes": 3274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-source-outline-after-aj-20261009-r1/PROOF.json",
+      "sha256": "5314a6dcdf59367749dce757ba175215910678530179dd8aacbe79e448145066"
+    }
+  },
+  "status": "SOURCE_ONLY_EXPANDED_READBACK_OUTLINE_UNRUN"
+}

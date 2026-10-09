@@ -1,0 +1,24 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/test-supervisor.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-supervisor.py
+@@ -51,6 +51,12 @@
+                      'boundsAmendment': amendment, 'parentBoundsAdoption': adoption,
+                      'node': profile['nodeVersion'],
+                      'firstQuote': quote}
++            payload = {'schema':'1370-a208-selected16-snapshot-r1','phase':'after-natural-tick208-return','week':208,
++                       'seed':'p13a-core-causal-01','rows':[{} for _ in range(16)],'pricingHelpersCalled':0,
++                       'extraRngCalls':0,'premiumAttribution':False,'floorAttribution':False}
++            payloadraw = (json.dumps(payload, separators=(',', ':'))+'\n').encode()
++            frame.update(settlement208Base64=base64.b64encode(payloadraw).decode(),settlement208Bytes=len(payloadraw),
++                         settlement208Rows=16,settlement208Sha256=supervisor.sha(payloadraw))
+             raw = (json.dumps(frame, separators=(',', ':')) + '\n').encode()
+             self.assertEqual(supervisor.validate_frame(raw, profile)['employmentRows'], 44)
+             frame['preflight'] = {'head': supervisor.SOURCE}
+@@ -88,7 +94,7 @@
+                         'files': files}
+             manifest_bytes = (json.dumps(manifest, indent=2) + '\n').encode()
+             (root / 'SOURCE-PINS.json').write_bytes(manifest_bytes)
+-            receipt = {'schema': '1370-c0-aging-era-employment-witness-independent-static-review-r9',
++            receipt = {'schema': '1370-c0-aging-era-settlement208-witness-independent-static-review-r1',
+                        'status': 'FROZEN_SOURCE_ONLY_UNRUN', 'sourceDirectory': str(root),
+                        'sourcePinsSha256': supervisor.sha(manifest_bytes),
+                        'sourceSha': supervisor.SOURCE,

@@ -1,0 +1,36 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/outer-recorder.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/outer-recorder.py
+@@ -135,11 +135,33 @@
+     return child_exit, child_exit is not None and not group_alive(pid)
+ 
+ 
++def validate_settlement208_payload(frame):
++    encoded = frame['settlement208Base64']
++    if not isinstance(encoded, str) or len(encoded) > 4 * ((64 * 1024 + 2) // 3):
++        raise ValueError('a208-encoded-cap')
++    raw = base64.b64decode(encoded, validate=True)
++    if (not raw or len(raw) > 64 * 1024 or frame['settlement208Bytes'] != len(raw) or
++            frame['settlement208Rows'] != 16 or
++            hashlib.sha256(raw).hexdigest() != frame['settlement208Sha256'] or
++            base64.b64encode(raw).decode('ascii') != frame['settlement208Base64']):
++        raise ValueError('a208-bytes-role')
++    value = json.loads(raw.decode('utf8'))
++    if (value.get('schema') != '1370-a208-selected16-snapshot-r1' or
++            value.get('phase') != 'after-natural-tick208-return' or value.get('week') != 208 or
++            value.get('seed') != 'p13a-core-causal-01' or
++            not isinstance(value.get('rows'), list) or len(value['rows']) != 16 or
++            value.get('pricingHelpersCalled') != 0 or value.get('extraRngCalls') != 0 or
++            value.get('premiumAttribution') is not False or value.get('floorAttribution') is not False):
++        raise ValueError('a208-phase-role')
++    return value
++
++
+ def validate_outer_frame(raw):
+     if not raw.endswith(b'\n') or raw.count(b'\n') != 1 or len(raw) > MAX_STDOUT:
+         raise RuntimeError('STOP_OUTER_FRAME_SHAPE')
+     try:
+         frame = json.loads(raw.decode('utf8'))
++        validate_settlement208_payload(frame)
+         preimage = base64.b64decode(frame['preimageBase64'], validate=True)
+         if (frame['status'] != 'MATCHED_AGING_ERA_PREIMAGE_CANDIDATE' or
+                 frame['protocol'] != PROTOCOL or frame['sourceSha'] != SOURCE or

@@ -1,0 +1,1243 @@
+[
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/talentMarket.ts",
+    "slices": [
+      {
+        "firstLine": 48,
+        "function": "initialTalentMarket",
+        "lastLine": 50,
+        "sliceSha256": "907ea454023c96ced5b393876ba597c0dd08d8becdee36abcdf9d3da3d387b86"
+      },
+      {
+        "firstLine": 95,
+        "function": "subjectTerms",
+        "lastLine": 97,
+        "sliceSha256": "a6b732a5782db0c21d2915f7c69529528772e151d74d8f48ab183e7e0c8e633b"
+      },
+      {
+        "firstLine": 112,
+        "function": "employmentRow",
+        "lastLine": 114,
+        "sliceSha256": "c2eca89b7f97d465b87ae0cb2c5fa71560518a69a464a07db2144b901185c274"
+      },
+      {
+        "firstLine": 117,
+        "function": "decisionWeekOf",
+        "lastLine": 123,
+        "sliceSha256": "44ab8b5e2e1cebd1b6cf261a4263fcdcce54a5969db724478868797a33e3a971"
+      },
+      {
+        "firstLine": 170,
+        "function": "caseOpenForTalent",
+        "lastLine": 173,
+        "sliceSha256": "ad64c477b031b7a9a7c831587b6a263851beeb447559d22559ea0c750a329c0d"
+      },
+      {
+        "firstLine": 194,
+        "function": "releaseFloor",
+        "lastLine": 219,
+        "sliceSha256": "d780e742e76da48a4824d79caa3080792d1bdaf73790d3925470b5d2aaa4ff3b"
+      },
+      {
+        "firstLine": 227,
+        "function": "studioOffer",
+        "lastLine": 244,
+        "sliceSha256": "d2abe59d08453c218c3473dc5e9a3d1e3686b06c5258909a8b9f03983e658c4c"
+      },
+      {
+        "firstLine": 299,
+        "function": "proposalDraft",
+        "lastLine": 334,
+        "sliceSha256": "979f582c304f42e5aeb6560a46f4b3265226d1b22be22b6e4e546c63847a5ff9"
+      },
+      {
+        "firstLine": 344,
+        "function": "proposalPriceAt",
+        "lastLine": 352,
+        "sliceSha256": "de8985b6581614ef764170efaf076110dd54da24134605c55194444c6fa2bfa1"
+      },
+      {
+        "firstLine": 404,
+        "function": "submitProposal",
+        "lastLine": 438,
+        "sliceSha256": "3714ecd7c73741f506588ed4ab2ec117b8f7435939c6e49b044e40f636d6916c"
+      },
+      {
+        "firstLine": 889,
+        "function": "closeCase",
+        "lastLine": 911,
+        "sliceSha256": "5addd6cd39121ae4516c79fd0c25db9f6f234f3fbfaf10c61802765382980187"
+      },
+      {
+        "firstLine": 946,
+        "function": "commitRivalWinner",
+        "lastLine": 991,
+        "sliceSha256": "775062ac7cc6ad4328d373b246589c708912102d2d2ee3b75071a96d1937cac8"
+      },
+      {
+        "firstLine": 1119,
+        "function": "settleCase",
+        "lastLine": 1154,
+        "sliceSha256": "110057622fa89d5489fa78ddbd57f442d57bcc466d53cb0a298323cf7bfda220"
+      },
+      {
+        "firstLine": 1173,
+        "function": "advanceTalentMarketWeek",
+        "lastLine": 1250,
+        "sliceSha256": "0d9dfa44456b7ccd49f1ac5cfcf51ee8e8fe26efaa58be340d13dcf78c6857b9"
+      },
+      {
+        "firstLine": 1252,
+        "function": "openCasesAt",
+        "lastLine": 1254,
+        "sliceSha256": "9224056a00cb6709de0a4e20ecf921542fe50dd4d65fe7e46cc881263a9dc3ae"
+      },
+      {
+        "firstLine": 1275,
+        "function": "authorRivalPromise",
+        "lastLine": 1296,
+        "sliceSha256": "61ba74d3210cbfa6c0ccee4c7444160261f5ed4f58a287bbebc5a90168ef2385"
+      },
+      {
+        "firstLine": 1302,
+        "function": "rivalPremiumTier",
+        "lastLine": 1306,
+        "sliceSha256": "9fb8b1ea8171a636c659c16eab2eda6f471b746b758aa76199337c850e400efd"
+      },
+      {
+        "firstLine": 1105,
+        "function": "commitWinningPromise",
+        "lastLine": 1117,
+        "sliceSha256": "8a6670c70b5854e0225eea7a4044ef6f2db64ff505d68bf4a77a35f15da846d3"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 1485,
+    "sourceRole": {
+      "bytes": 74153,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentMarket.ts",
+      "sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "bc286060015042326c2b4a424ac51e019972b34e",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/hollywood.ts",
+    "slices": [
+      {
+        "firstLine": 155,
+        "function": "initializeHollywood",
+        "lastLine": 183,
+        "sliceSha256": "998990e068d5e4622a3e55edf2f2e01cc9d7f1b4b45ed86208b54debe47016d6"
+      },
+      {
+        "firstLine": 186,
+        "function": "enterRival",
+        "lastLine": 248,
+        "sliceSha256": "0a2aac4949ba55c7502c96b0247e188ee2abb541b3933b33878472342f0146f1"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 248,
+    "sourceRole": {
+      "bytes": 15466,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywood.ts",
+      "sha256": "49854f77a0ab33558556e047eafc65f92e4a35ec95c93afb119c7df589748359"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "2034448d508975535360aae0d1319a8b53903f77",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/hollywoodTick.ts",
+    "slices": [
+      {
+        "firstLine": 36,
+        "function": "industryMarket",
+        "lastLine": 38,
+        "sliceSha256": "2ae574c30b5d94644dd5a077da8af91285be67f90ce4b817c9a8aaa07c94f848"
+      },
+      {
+        "firstLine": 41,
+        "function": "appendReceipt",
+        "lastLine": 43,
+        "sliceSha256": "8eac33269c081f75d52660e730d0f98ed966ae4a7f7bd4a3054aa1941a0fde2c"
+      },
+      {
+        "firstLine": 44,
+        "function": "hotDevelopment",
+        "lastLine": 46,
+        "sliceSha256": "ac948593a34debd548ba6ac381e3abef3785275eb753af88940eed7b0f84aa9d"
+      },
+      {
+        "firstLine": 47,
+        "function": "storeHotDevelopment",
+        "lastLine": 53,
+        "sliceSha256": "488f6aae7046777a372abdccac0faa40aed0921d1402280d034f4f36fde907df"
+      },
+      {
+        "firstLine": 54,
+        "function": "currentEmployees",
+        "lastLine": 56,
+        "sliceSha256": "37e39153686e0c5f35b5056df6edbcb0e6462f4c277942dd3704e73669619ef1"
+      },
+      {
+        "firstLine": 57,
+        "function": "operatingReserve",
+        "lastLine": 59,
+        "sliceSha256": "36369c097d9e8f00471e686a518c3098af15311ffcd6ac453a38884e28b9a0e8"
+      },
+      {
+        "firstLine": 60,
+        "function": "partsFor",
+        "lastLine": 63,
+        "sliceSha256": "2d23a598ce868b62defa2ddc19f646d079b445d69b07791b03903b65793c0fb3"
+      },
+      {
+        "firstLine": 64,
+        "function": "inputsFor",
+        "lastLine": 71,
+        "sliceSha256": "35c7a601555a24cc122e20bb5c580a65ebdc267dcdcafbe5f31c0eba34066fb5"
+      },
+      {
+        "firstLine": 75,
+        "function": "operateStage",
+        "lastLine": 88,
+        "sliceSha256": "f6c67dfb0ff408d4cdb62c0b91d43a40825cbde2fd68e151c3bbe79bb044d3af"
+      },
+      {
+        "firstLine": 91,
+        "function": "staff",
+        "lastLine": 152,
+        "sliceSha256": "dd10bcdf2c139e4e9243da968dfa3f76b41420ba60e1295ec1198f5daefaed15"
+      },
+      {
+        "firstLine": 154,
+        "function": "decide",
+        "lastLine": 232,
+        "sliceSha256": "761f26c1b8c5210023529e65442ddcfb5d8b6f37931a4a916aabce744c80acdf"
+      },
+      {
+        "firstLine": 235,
+        "function": "advanceHollywoodWeek",
+        "lastLine": 329,
+        "sliceSha256": "409b7c12c39574631f95684a5e42fed21fab2f3c8e4181e426e40605e350e58d"
+      },
+      {
+        "firstLine": 332,
+        "function": "finishHollywoodWeek",
+        "lastLine": 365,
+        "sliceSha256": "1a94ed85ae637f56ad949232612ca9f846ef0e04ae5aa1a91bec0401e515fc22"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 365,
+    "sourceRole": {
+      "bytes": 27601,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodTick.ts",
+      "sha256": "f6c37fc29d5cf7f858e2a52e0bc6603a56e4dfcfaf8caa590806d559019b3422"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "8229ff7614ae23ec82b9e316d1232f6002a6d1ab",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/hollywoodPolicy.ts",
+    "slices": [
+      {
+        "firstLine": 33,
+        "function": "chooseIndustryPackage",
+        "lastLine": 37,
+        "sliceSha256": "446e0153d767b3a7983aef95a1e0d15b35b51391d8d2e5d864ca430acf03ff59"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 74,
+    "sourceRole": {
+      "bytes": 5883,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodPolicy.ts",
+      "sha256": "f2a43e3642699cd5144786b980b0440d64f6057ce05ae8544675e1e56cbb4994"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "4c10dba4575bbad2b8160dbaea60954880ff7d25",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/industryEmployment.ts",
+    "slices": [
+      {
+        "firstLine": 10,
+        "function": "recordPlayerEmployment",
+        "lastLine": 35,
+        "sliceSha256": "589c04122c5f98171e93b47c0c745fc28bd176e54f279219eba6988c92c9ffd7"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 35,
+    "sourceRole": {
+      "bytes": 2560,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/industryEmployment.ts",
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "c963b66c6bb1e17965795c9e38e54c22b716043b",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/rivalResearch.ts",
+    "slices": [
+      {
+        "firstLine": 77,
+        "function": "appendReceipt",
+        "lastLine": 79,
+        "sliceSha256": "6d6740a37f85c83ff19a41db74904e9d3006813f3f4e68906326676086fa4449"
+      },
+      {
+        "firstLine": 130,
+        "function": "admitFor",
+        "lastLine": 180,
+        "sliceSha256": "da3c9bbc485a1faf021bbc4b6884a544468f304a6e4f2dbd427d00480a64b242"
+      },
+      {
+        "firstLine": 183,
+        "function": "workingBusiness",
+        "lastLine": 191,
+        "sliceSha256": "c43efa33f084b55a5d977cec9363ce42a992d1d0c62b11133ff854d0469eea6f"
+      },
+      {
+        "firstLine": 200,
+        "function": "admitRivalPlans",
+        "lastLine": 209,
+        "sliceSha256": "0a5d359e0dd69254a433364f4e156e9c632c345e8891a142777787c83e3569ad"
+      },
+      {
+        "firstLine": 212,
+        "function": "admitRivalPlansInWeek",
+        "lastLine": 215,
+        "sliceSha256": "9ad7d69b26fc30bfa8c1b0f85fdcef5833a67a496f933a14f47630913a91c7ce"
+      },
+      {
+        "firstLine": 223,
+        "function": "advanceRivalResearch",
+        "lastLine": 264,
+        "sliceSha256": "3390caa2ec7eee53969826f635b52179fd147011f918b877d17898a9e2642b2e"
+      },
+      {
+        "firstLine": 273,
+        "function": "completeRivalPlans",
+        "lastLine": 314,
+        "sliceSha256": "6fe2734231ad9e3d744d7c60bc928d1ecbfa12c824b01e4314680f0c4b64d85c"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 314,
+    "sourceRole": {
+      "bytes": 18927,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/rivalResearch.ts",
+      "sha256": "eb7753e88b31e980f504f28421346447eb6ece2308e42d1032fb7e9cc6e38d74"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "cd8b491deca6eb1cb7692bd2cc137f1e85f7143a",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/technologyRival.ts",
+    "slices": [
+      {
+        "firstLine": 19,
+        "function": "considerRivalSoundPurchase",
+        "lastLine": 25,
+        "sliceSha256": "16c452991ec3e9c837362ef154fd4e19252ea79b217787126e917ff72550ddd6"
+      },
+      {
+        "firstLine": 27,
+        "function": "considerRivalAdoption",
+        "lastLine": 75,
+        "sliceSha256": "c3135295cc8c72a13f1b3665c6fe659354826e949b5c21d0d4a0ff9fb46219a9"
+      },
+      {
+        "firstLine": 78,
+        "function": "selectRivalSoundProduction",
+        "lastLine": 84,
+        "sliceSha256": "96b175df3f3eddf62691ff0376453ef17aeefde12a3e192321651e4fc3ffa9e0"
+      },
+      {
+        "firstLine": 86,
+        "function": "rivalInstallationSlots",
+        "lastLine": 90,
+        "sliceSha256": "51dd6411656c990a10979dfa2fab16d8c555ecd435b169613dccb71eaf9f8848"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 90,
+    "sourceRole": {
+      "bytes": 6810,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/technologyRival.ts",
+      "sha256": "69c8fa5ab2446b0cb3c74678538bd4b308917e0c8021e71355e5c54d07803520"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "87052b7d00287c0a32184a4a273c6fbf9ba802c5",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/technologyProduction.ts",
+    "slices": [
+      {
+        "firstLine": 60,
+        "function": "createProductionTechnologyPolicy",
+        "lastLine": 63,
+        "sliceSha256": "210bb5b0b95d5d4f63d016485174ce684b47621476e25ff1ff0e9ae3904ea099"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 159,
+    "sourceRole": {
+      "bytes": 9909,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/technologyProduction.ts",
+      "sha256": "aa77c468b2b59742fcf5fea9d24229ab0e0f01d656b25a18af59ce987fa3f176"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "299de7850d0cfd4e0cad7681e2c161eadd13d15e",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/technology.ts",
+    "slices": [
+      {
+        "firstLine": 579,
+        "function": "advanceRivalResearchWeek",
+        "lastLine": 588,
+        "sliceSha256": "4102537e2372da36409aec2e0d6428411e3928d4a2b48b9cc19192fde67efe12"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 1265,
+    "sourceRole": {
+      "bytes": 97036,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/technology.ts",
+      "sha256": "2842cb82fe703921d03bf73463dc5ae0a6724057bbb24588d299e32ce23d6fda"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "0c76fb53c0399b6cbe9a27edac9ff977c897d55d",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/promises.ts",
+    "slices": [
+      {
+        "firstLine": 503,
+        "function": "attachPromise",
+        "lastLine": 579,
+        "sliceSha256": "6f8173479b83b5c09bbc8ebefcabb5f3aa39d1544be7f8aafd28dd1fbaa88eca"
+      },
+      {
+        "firstLine": 120,
+        "function": "appendFirstTakes",
+        "lastLine": 143,
+        "sliceSha256": "5345e6061ceacfefe410bb9a39faede6981c9c5093484d457495f41830367986"
+      },
+      {
+        "firstLine": 712,
+        "function": "advancePromisesWeek",
+        "lastLine": 752,
+        "sliceSha256": "e87f196247bf14b3738cf622299444ac54f1804e56bda4b16bcf8f16228140e1"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 1157,
+    "sourceRole": {
+      "bytes": 61031,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/promises.ts",
+      "sha256": "6c6f01309df85d4e8deaa8658f361f50f2c2c9ae11cbec2433970416ebcca318"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "9ab3eee75b0b2b2733f350bbc3964aa5ba176de8",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/harness/p13a/fixtures.ts",
+    "slices": [
+      {
+        "firstLine": 9,
+        "function": "p13aGeneratedStudio",
+        "lastLine": 12,
+        "sliceSha256": "77f9efddb60c211e01ad2d67b1b0f04bf712f30e497255cb99ce8ba4d87640f7"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 38,
+    "sourceRole": {
+      "bytes": 2130,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/harness/p13a/fixtures.ts",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "4cb6bb16a1aacd7e9a405c2e40cd5834c86bfbdb",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/hollywoodStartingData.ts",
+    "slices": [
+      {
+        "firstLine": 1,
+        "function": "complete finite authored manifest",
+        "lastLine": 52,
+        "sliceSha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 52,
+    "sourceRole": {
+      "bytes": 4152,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodStartingData.ts",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/tuning.ts",
+    "slices": [
+      {
+        "firstLine": 30,
+        "function": "exact tier/term constants",
+        "lastLine": 30,
+        "sliceSha256": "3c3fa713480a2f7e64b0beacc7804155cdce504b64b849093dae09ebf4f4ec9a"
+      },
+      {
+        "firstLine": 406,
+        "function": "exact tier/term constants",
+        "lastLine": 406,
+        "sliceSha256": "4d1fa749bc0c69f1a2cb23115bbf294a856be517876fd2d04357755675ac0d2b"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 2386,
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "H_manifest.arms.historical.files",
+    "arm": "H",
+    "authenticatedGitMode": null,
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "943661035cb3627b306c6630e6156f027c2c06bb",
+    "modeQualification": "H manifest supplies SHA/commit only; Git mode not authenticated and not claimed",
+    "repositoryPath": "src/core/tick.ts",
+    "slices": [
+      {
+        "firstLine": 1036,
+        "function": "finalized new-week pipeline through terminal market",
+        "lastLine": 1111,
+        "sliceSha256": "3bb286944921cfa3dbfc03f8b2e99144a55d6c0bf69803b3f9ec69b0329913d6"
+      },
+      {
+        "firstLine": 190,
+        "function": "tick",
+        "lastLine": 1111,
+        "sliceSha256": "79596f637577f4032dbbf730cfa5ea9b861cf73817507a9fc4992accdd0081a8"
+      }
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceLines": 1132,
+    "sourceRole": {
+      "bytes": 58458,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tick.ts",
+      "sha256": "ad0faa9216093f657cf16ecebe66a6cc65aee4bcc407b7d79d6e48a847465deb"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "f036fcec9191374dc5554c5cdc33372b53cd7926",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/talentMarket.ts",
+    "slices": [
+      {
+        "firstLine": 49,
+        "function": "initialTalentMarket",
+        "lastLine": 51,
+        "sliceSha256": "907ea454023c96ced5b393876ba597c0dd08d8becdee36abcdf9d3da3d387b86"
+      },
+      {
+        "firstLine": 96,
+        "function": "subjectTerms",
+        "lastLine": 98,
+        "sliceSha256": "a6b732a5782db0c21d2915f7c69529528772e151d74d8f48ab183e7e0c8e633b"
+      },
+      {
+        "firstLine": 113,
+        "function": "employmentRow",
+        "lastLine": 115,
+        "sliceSha256": "c2eca89b7f97d465b87ae0cb2c5fa71560518a69a464a07db2144b901185c274"
+      },
+      {
+        "firstLine": 118,
+        "function": "decisionWeekOf",
+        "lastLine": 124,
+        "sliceSha256": "44ab8b5e2e1cebd1b6cf261a4263fcdcce54a5969db724478868797a33e3a971"
+      },
+      {
+        "firstLine": 171,
+        "function": "caseOpenForTalent",
+        "lastLine": 174,
+        "sliceSha256": "ad64c477b031b7a9a7c831587b6a263851beeb447559d22559ea0c750a329c0d"
+      },
+      {
+        "firstLine": 195,
+        "function": "releaseFloor",
+        "lastLine": 220,
+        "sliceSha256": "d780e742e76da48a4824d79caa3080792d1bdaf73790d3925470b5d2aaa4ff3b"
+      },
+      {
+        "firstLine": 228,
+        "function": "studioOffer",
+        "lastLine": 245,
+        "sliceSha256": "d2abe59d08453c218c3473dc5e9a3d1e3686b06c5258909a8b9f03983e658c4c"
+      },
+      {
+        "firstLine": 300,
+        "function": "proposalDraft",
+        "lastLine": 335,
+        "sliceSha256": "979f582c304f42e5aeb6560a46f4b3265226d1b22be22b6e4e546c63847a5ff9"
+      },
+      {
+        "firstLine": 345,
+        "function": "proposalPriceAt",
+        "lastLine": 353,
+        "sliceSha256": "de8985b6581614ef764170efaf076110dd54da24134605c55194444c6fa2bfa1"
+      },
+      {
+        "firstLine": 405,
+        "function": "submitProposal",
+        "lastLine": 439,
+        "sliceSha256": "3714ecd7c73741f506588ed4ab2ec117b8f7435939c6e49b044e40f636d6916c"
+      },
+      {
+        "firstLine": 921,
+        "function": "closeCase",
+        "lastLine": 943,
+        "sliceSha256": "5addd6cd39121ae4516c79fd0c25db9f6f234f3fbfaf10c61802765382980187"
+      },
+      {
+        "firstLine": 978,
+        "function": "commitRivalWinner",
+        "lastLine": 1023,
+        "sliceSha256": "775062ac7cc6ad4328d373b246589c708912102d2d2ee3b75071a96d1937cac8"
+      },
+      {
+        "firstLine": 1159,
+        "function": "settleCase",
+        "lastLine": 1194,
+        "sliceSha256": "110057622fa89d5489fa78ddbd57f442d57bcc466d53cb0a298323cf7bfda220"
+      },
+      {
+        "firstLine": 1213,
+        "function": "advanceTalentMarketWeek",
+        "lastLine": 1290,
+        "sliceSha256": "0d9dfa44456b7ccd49f1ac5cfcf51ee8e8fe26efaa58be340d13dcf78c6857b9"
+      },
+      {
+        "firstLine": 1292,
+        "function": "openCasesAt",
+        "lastLine": 1294,
+        "sliceSha256": "9224056a00cb6709de0a4e20ecf921542fe50dd4d65fe7e46cc881263a9dc3ae"
+      },
+      {
+        "firstLine": 1315,
+        "function": "authorRivalPromise",
+        "lastLine": 1336,
+        "sliceSha256": "61ba74d3210cbfa6c0ccee4c7444160261f5ed4f58a287bbebc5a90168ef2385"
+      },
+      {
+        "firstLine": 1342,
+        "function": "rivalPremiumTier",
+        "lastLine": 1346,
+        "sliceSha256": "9fb8b1ea8171a636c659c16eab2eda6f471b746b758aa76199337c850e400efd"
+      },
+      {
+        "firstLine": 1145,
+        "function": "commitWinningPromise",
+        "lastLine": 1157,
+        "sliceSha256": "8a6670c70b5854e0225eea7a4044ef6f2db64ff505d68bf4a77a35f15da846d3"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 1525,
+    "sourceRole": {
+      "bytes": 76993,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+      "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "377da502bcfa55afe31c243ab0909b2c0012d269",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/hollywood.ts",
+    "slices": [
+      {
+        "firstLine": 156,
+        "function": "initializeHollywood",
+        "lastLine": 184,
+        "sliceSha256": "998990e068d5e4622a3e55edf2f2e01cc9d7f1b4b45ed86208b54debe47016d6"
+      },
+      {
+        "firstLine": 187,
+        "function": "enterRival",
+        "lastLine": 268,
+        "sliceSha256": "d9acbef974a042d5aac8c33cf62415da422b9ecf29da3c7f79f8235462ab513b"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 268,
+    "sourceRole": {
+      "bytes": 16824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts",
+      "sha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "8f4d6bb92053819cae270803b1ebd7094df2cad2",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/hollywoodTick.ts",
+    "slices": [
+      {
+        "firstLine": 36,
+        "function": "industryMarket",
+        "lastLine": 38,
+        "sliceSha256": "2ae574c30b5d94644dd5a077da8af91285be67f90ce4b817c9a8aaa07c94f848"
+      },
+      {
+        "firstLine": 41,
+        "function": "appendReceipt",
+        "lastLine": 43,
+        "sliceSha256": "8eac33269c081f75d52660e730d0f98ed966ae4a7f7bd4a3054aa1941a0fde2c"
+      },
+      {
+        "firstLine": 44,
+        "function": "hotDevelopment",
+        "lastLine": 46,
+        "sliceSha256": "ac948593a34debd548ba6ac381e3abef3785275eb753af88940eed7b0f84aa9d"
+      },
+      {
+        "firstLine": 47,
+        "function": "storeHotDevelopment",
+        "lastLine": 53,
+        "sliceSha256": "488f6aae7046777a372abdccac0faa40aed0921d1402280d034f4f36fde907df"
+      },
+      {
+        "firstLine": 54,
+        "function": "currentEmployees",
+        "lastLine": 56,
+        "sliceSha256": "37e39153686e0c5f35b5056df6edbcb0e6462f4c277942dd3704e73669619ef1"
+      },
+      {
+        "firstLine": 57,
+        "function": "operatingReserve",
+        "lastLine": 59,
+        "sliceSha256": "36369c097d9e8f00471e686a518c3098af15311ffcd6ac453a38884e28b9a0e8"
+      },
+      {
+        "firstLine": 60,
+        "function": "partsFor",
+        "lastLine": 63,
+        "sliceSha256": "2d23a598ce868b62defa2ddc19f646d079b445d69b07791b03903b65793c0fb3"
+      },
+      {
+        "firstLine": 64,
+        "function": "inputsFor",
+        "lastLine": 71,
+        "sliceSha256": "35c7a601555a24cc122e20bb5c580a65ebdc267dcdcafbe5f31c0eba34066fb5"
+      },
+      {
+        "firstLine": 75,
+        "function": "operateStage",
+        "lastLine": 88,
+        "sliceSha256": "f6c67dfb0ff408d4cdb62c0b91d43a40825cbde2fd68e151c3bbe79bb044d3af"
+      },
+      {
+        "firstLine": 91,
+        "function": "staff",
+        "lastLine": 165,
+        "sliceSha256": "7aded186f12811b03a9c60321421f29d14637b39ba5114e4f498248ad3381146"
+      },
+      {
+        "firstLine": 167,
+        "function": "decide",
+        "lastLine": 245,
+        "sliceSha256": "761f26c1b8c5210023529e65442ddcfb5d8b6f37931a4a916aabce744c80acdf"
+      },
+      {
+        "firstLine": 248,
+        "function": "advanceHollywoodWeek",
+        "lastLine": 347,
+        "sliceSha256": "6962921acaecf8ced4982b04421395bf5f178df2b293504dc1d791e109ee4de0"
+      },
+      {
+        "firstLine": 350,
+        "function": "finishHollywoodWeek",
+        "lastLine": 383,
+        "sliceSha256": "1a94ed85ae637f56ad949232612ca9f846ef0e04ae5aa1a91bec0401e515fc22"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 383,
+    "sourceRole": {
+      "bytes": 28890,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodTick.ts",
+      "sha256": "0ca2aa00684465a313cb6321cd458b69be14c695a67ca2baec833244b9cd8d4f"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "8229ff7614ae23ec82b9e316d1232f6002a6d1ab",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/hollywoodPolicy.ts",
+    "slices": [
+      {
+        "firstLine": 33,
+        "function": "chooseIndustryPackage",
+        "lastLine": 37,
+        "sliceSha256": "446e0153d767b3a7983aef95a1e0d15b35b51391d8d2e5d864ca430acf03ff59"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 74,
+    "sourceRole": {
+      "bytes": 5883,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodPolicy.ts",
+      "sha256": "f2a43e3642699cd5144786b980b0440d64f6057ce05ae8544675e1e56cbb4994"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "4c10dba4575bbad2b8160dbaea60954880ff7d25",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/industryEmployment.ts",
+    "slices": [
+      {
+        "firstLine": 10,
+        "function": "recordPlayerEmployment",
+        "lastLine": 35,
+        "sliceSha256": "589c04122c5f98171e93b47c0c745fc28bd176e54f279219eba6988c92c9ffd7"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 35,
+    "sourceRole": {
+      "bytes": 2560,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/industryEmployment.ts",
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "c963b66c6bb1e17965795c9e38e54c22b716043b",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/rivalResearch.ts",
+    "slices": [
+      {
+        "firstLine": 77,
+        "function": "appendReceipt",
+        "lastLine": 79,
+        "sliceSha256": "6d6740a37f85c83ff19a41db74904e9d3006813f3f4e68906326676086fa4449"
+      },
+      {
+        "firstLine": 130,
+        "function": "admitFor",
+        "lastLine": 180,
+        "sliceSha256": "da3c9bbc485a1faf021bbc4b6884a544468f304a6e4f2dbd427d00480a64b242"
+      },
+      {
+        "firstLine": 183,
+        "function": "workingBusiness",
+        "lastLine": 191,
+        "sliceSha256": "c43efa33f084b55a5d977cec9363ce42a992d1d0c62b11133ff854d0469eea6f"
+      },
+      {
+        "firstLine": 200,
+        "function": "admitRivalPlans",
+        "lastLine": 209,
+        "sliceSha256": "0a5d359e0dd69254a433364f4e156e9c632c345e8891a142777787c83e3569ad"
+      },
+      {
+        "firstLine": 212,
+        "function": "admitRivalPlansInWeek",
+        "lastLine": 215,
+        "sliceSha256": "9ad7d69b26fc30bfa8c1b0f85fdcef5833a67a496f933a14f47630913a91c7ce"
+      },
+      {
+        "firstLine": 223,
+        "function": "advanceRivalResearch",
+        "lastLine": 264,
+        "sliceSha256": "3390caa2ec7eee53969826f635b52179fd147011f918b877d17898a9e2642b2e"
+      },
+      {
+        "firstLine": 273,
+        "function": "completeRivalPlans",
+        "lastLine": 314,
+        "sliceSha256": "6fe2734231ad9e3d744d7c60bc928d1ecbfa12c824b01e4314680f0c4b64d85c"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 314,
+    "sourceRole": {
+      "bytes": 18927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/rivalResearch.ts",
+      "sha256": "eb7753e88b31e980f504f28421346447eb6ece2308e42d1032fb7e9cc6e38d74"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "cd8b491deca6eb1cb7692bd2cc137f1e85f7143a",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/technologyRival.ts",
+    "slices": [
+      {
+        "firstLine": 19,
+        "function": "considerRivalSoundPurchase",
+        "lastLine": 25,
+        "sliceSha256": "16c452991ec3e9c837362ef154fd4e19252ea79b217787126e917ff72550ddd6"
+      },
+      {
+        "firstLine": 27,
+        "function": "considerRivalAdoption",
+        "lastLine": 75,
+        "sliceSha256": "c3135295cc8c72a13f1b3665c6fe659354826e949b5c21d0d4a0ff9fb46219a9"
+      },
+      {
+        "firstLine": 78,
+        "function": "selectRivalSoundProduction",
+        "lastLine": 84,
+        "sliceSha256": "96b175df3f3eddf62691ff0376453ef17aeefde12a3e192321651e4fc3ffa9e0"
+      },
+      {
+        "firstLine": 86,
+        "function": "rivalInstallationSlots",
+        "lastLine": 90,
+        "sliceSha256": "51dd6411656c990a10979dfa2fab16d8c555ecd435b169613dccb71eaf9f8848"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 90,
+    "sourceRole": {
+      "bytes": 6810,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/technologyRival.ts",
+      "sha256": "69c8fa5ab2446b0cb3c74678538bd4b308917e0c8021e71355e5c54d07803520"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "87052b7d00287c0a32184a4a273c6fbf9ba802c5",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/technologyProduction.ts",
+    "slices": [
+      {
+        "firstLine": 60,
+        "function": "createProductionTechnologyPolicy",
+        "lastLine": 63,
+        "sliceSha256": "210bb5b0b95d5d4f63d016485174ce684b47621476e25ff1ff0e9ae3904ea099"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 159,
+    "sourceRole": {
+      "bytes": 9909,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/technologyProduction.ts",
+      "sha256": "aa77c468b2b59742fcf5fea9d24229ab0e0f01d656b25a18af59ce987fa3f176"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "299de7850d0cfd4e0cad7681e2c161eadd13d15e",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/technology.ts",
+    "slices": [
+      {
+        "firstLine": 579,
+        "function": "advanceRivalResearchWeek",
+        "lastLine": 588,
+        "sliceSha256": "4102537e2372da36409aec2e0d6428411e3928d4a2b48b9cc19192fde67efe12"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 1265,
+    "sourceRole": {
+      "bytes": 97036,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/technology.ts",
+      "sha256": "2842cb82fe703921d03bf73463dc5ae0a6724057bbb24588d299e32ce23d6fda"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "111692ea5054e58a5b4b580c04ca258e2120bc3e",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/promises.ts",
+    "slices": [
+      {
+        "firstLine": 503,
+        "function": "attachPromise",
+        "lastLine": 582,
+        "sliceSha256": "f3482c0a2a08901dd72c8d6f0bd5cc279b9c52d289005e2f44f6f66fc73673e3"
+      },
+      {
+        "firstLine": 120,
+        "function": "appendFirstTakes",
+        "lastLine": 143,
+        "sliceSha256": "5345e6061ceacfefe410bb9a39faede6981c9c5093484d457495f41830367986"
+      },
+      {
+        "firstLine": 722,
+        "function": "advancePromisesWeek",
+        "lastLine": 762,
+        "sliceSha256": "e87f196247bf14b3738cf622299444ac54f1804e56bda4b16bcf8f16228140e1"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 1457,
+    "sourceRole": {
+      "bytes": 75960,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/promises.ts",
+      "sha256": "df355709ec9569a70c034db7dd9f8b4cf62611d86687c57c4f964ccc16092e2c"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "9ab3eee75b0b2b2733f350bbc3964aa5ba176de8",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/harness/p13a/fixtures.ts",
+    "slices": [
+      {
+        "firstLine": 9,
+        "function": "p13aGeneratedStudio",
+        "lastLine": 12,
+        "sliceSha256": "77f9efddb60c211e01ad2d67b1b0f04bf712f30e497255cb99ce8ba4d87640f7"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 38,
+    "sourceRole": {
+      "bytes": 2130,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/harness/p13a/fixtures.ts",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "4cb6bb16a1aacd7e9a405c2e40cd5834c86bfbdb",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/hollywoodStartingData.ts",
+    "slices": [
+      {
+        "firstLine": 1,
+        "function": "complete finite authored manifest",
+        "lastLine": 52,
+        "sliceSha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 52,
+    "sourceRole": {
+      "bytes": 4152,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodStartingData.ts",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/tuning.ts",
+    "slices": [
+      {
+        "firstLine": 30,
+        "function": "exact tier/term constants",
+        "lastLine": 30,
+        "sliceSha256": "3c3fa713480a2f7e64b0beacc7804155cdce504b64b849093dae09ebf4f4ec9a"
+      },
+      {
+        "firstLine": 406,
+        "function": "exact tier/term constants",
+        "lastLine": 406,
+        "sliceSha256": "4d1fa749bc0c69f1a2cb23115bbf294a856be517876fd2d04357755675ac0d2b"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 2386,
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "328c2e28f7e209b4ab6b96c6e59f1d1739ad0db5",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/tick.ts",
+    "slices": [
+      {
+        "firstLine": 1058,
+        "function": "finalized new-week pipeline through terminal market",
+        "lastLine": 1145,
+        "sliceSha256": "8cc368576b70542ae2cd0f15238559d15c5df09da9c9c3dda2736d532404dbec"
+      },
+      {
+        "firstLine": 192,
+        "function": "tick",
+        "lastLine": 1145,
+        "sliceSha256": "b9038b0b843b6bb133ce678921d4c0dab3fcb79b56b7f524314f7de1bed54295"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 1166,
+    "sourceRole": {
+      "bytes": 60753,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tick.ts",
+      "sha256": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admissionRole": "A_copy_payload.sourceManifest",
+    "arm": "A",
+    "authenticatedGitMode": "100644",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOidDerivedFromAuthenticatedRawBytes": "5d993e91daeaaaed9fe3629a0f20b6651eca52da",
+    "modeQualification": "A accepted sourceManifest.mode",
+    "repositoryPath": "src/core/relationships.ts",
+    "slices": [
+      {
+        "firstLine": 271,
+        "function": "advanceRelationshipsWeek",
+        "lastLine": 310,
+        "sliceSha256": "d3fad9ad6633a5a38cb673a0197acab560918e2c2e70998ea16c7f8674a27fc9"
+      }
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceLines": 493,
+    "sourceRole": {
+      "bytes": 27999,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/relationships.ts",
+      "sha256": "8e1b1a7c5339f8520a7504f99a26b6410c1d834fde701c629635a9e63c4f6789"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  }
+]

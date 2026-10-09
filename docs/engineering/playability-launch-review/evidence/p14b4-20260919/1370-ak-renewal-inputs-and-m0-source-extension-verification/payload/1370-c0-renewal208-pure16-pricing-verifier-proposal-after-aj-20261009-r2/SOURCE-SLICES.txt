@@ -1,0 +1,551 @@
+=== H src/core/talentSummary.ts skillVector 51-59 ===
+function skillVector(talent: Talent, discipline: Discipline, use: SkillUse): number[] {
+  const keys = SKILL_ORDER[discipline]
+  const profile = talent.skills[discipline]
+  const out: number[] = new Array(keys.length)
+  for (let i = 0; i < keys.length; i++) {
+    out[i] = profile[keys[i]!]![use]
+  }
+  return out
+}
+
+=== H src/core/talentSummary.ts applyGates 80-90 ===
+function applyGates(x: number, weightedMeanVal: number, minCore: number): number {
+  let gate: number
+  if (weightedMeanVal >= TUNING.OVR_GATE_99_MEAN && minCore >= TUNING.OVR_GATE_99_MINCORE) {
+    gate = 99
+  } else if (weightedMeanVal >= TUNING.OVR_GATE_95_MEAN && minCore >= TUNING.OVR_GATE_95_MINCORE) {
+    gate = 95
+  } else {
+    gate = 94 // hard cap below the elite gate
+  }
+  return Math.min(x, gate)
+}
+
+=== H src/core/talentSummary.ts ovrCore 94-121 ===
+function ovrCore(skills: number[], discipline: Discipline): number {
+  const w = OVR_WEIGHTS[discipline]
+
+  let weightedMeanVal = 0
+  for (let i = 0; i < skills.length; i++) weightedMeanVal += w[i]! * skills[i]!
+
+  // Weakness penalty — core-weighted RMS of deficits below the "no-weak-spot" line.
+  let deficitSq = 0
+  for (let i = 0; i < skills.length; i++) {
+    const deficit = Math.max(0, TUNING.OVR_WEAKNESS_KNEE - skills[i]!)
+    deficitSq += w[i]! * deficit * deficit
+  }
+  const weaknessPen = TUNING.OVR_WEAKNESS_COEF * Math.sqrt(deficitSq)
+
+  // Breadth requirement — reward covering all six (core-weighted fraction ≥ floor).
+  let breadth = 0
+  for (let i = 0; i < skills.length; i++) {
+    if (skills[i]! >= TUNING.OVR_BREADTH_FLOOR) breadth += w[i]!
+  }
+  const breadthPen = TUNING.OVR_BREADTH_COEF * (1 - breadth)
+
+  const raw = weightedMeanVal - weaknessPen - breadthPen
+
+  let minCore = Infinity
+  for (const s of skills) if (s < minCore) minCore = s
+
+  return clamp(Math.floor(applyGates(raw, weightedMeanVal, minCore)), 1, 99)
+}
+
+=== H src/core/talentSummary.ts roleOVR 125-127 ===
+export function roleOVR(talent: Talent, discipline: Discipline): number {
+  return ovrCore(skillVector(talent, discipline, 'perceived'), discipline)
+}
+
+=== H src/core/worldgen.ts salaryCurve 166-173 ===
+export function salaryCurve(talent: Talent): number {
+  if (talent.role === 'scientist') return SCIENTIST_ANNUAL_SALARY / TUNING.CONTRACT_ANNUAL_MULT
+  const primaryDiscipline = ROLE_TO_DISCIPLINE[talent.role]
+  const primaryOVR = roleOVR(talent, primaryDiscipline)
+  const s = primaryOVR / 100
+  const f = talent.fame / 100
+  return TUNING.SALARY_BASE + TUNING.SALARY_SKILL_COEF * s * s + TUNING.SALARY_FAME_COEF * f * f
+}
+
+=== H src/core/employment.ts ageFactor 263-267 ===
+function ageFactor(age: number): number {
+  const d = (age - TUNING.CONTRACT_AGE_PRIME) / TUNING.CONTRACT_AGE_SPREAD
+  const bell = Math.max(0, 1 - d * d)
+  return TUNING.CONTRACT_AGE_FACTOR_MIN + (1 - TUNING.CONTRACT_AGE_FACTOR_MIN) * bell
+}
+
+=== H src/core/employment.ts offerForTalent 271-294 ===
+export function offerForTalent(
+  seed: string,
+  talent: Talent,
+  termWeeks: number,
+  week: number,
+): ContractOffer {
+  const term = clamp(termWeeks, TUNING.CONTRACT_MIN_WEEKS, TUNING.CONTRACT_MAX_WEEKS)
+  const lengthFactor = TUNING.CONTRACT_LENGTH_FACTOR[term] ?? 1.0
+  // Per-talent scarcity jitter (stable per person; not per week/term).
+  const jitterS = stream(seed, 'hiring', `offer-${talent.id}`)
+  const jitter = 1 + (jitterS.next() * 2 - 1) * TUNING.CONTRACT_SCARCITY_JITTER
+  const annual = talent.role === 'scientist' ? SCIENTIST_ANNUAL_SALARY : iround(
+    salaryCurve(talent) * TUNING.CONTRACT_ANNUAL_MULT * lengthFactor * ageFactor(talent.age) * jitter,
+  )
+  const signingBonus = iround(annual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
+  return {
+    talentId: talent.id,
+    annualSalary: annual,
+    signingBonus,
+    termWeeks: term,
+    startWeek: week,
+    endWeekExclusive: week + term,
+  }
+}
+
+=== H src/core/employment.ts contractOffer 296-307 ===
+export function contractOffer(
+  state: GameState,
+  talentId: string,
+  termWeeks: number,
+  week: number = state.market.tick,
+): ContractOffer {
+  const talent = state.talent.find((t) => t.id === talentId)
+  if (talent === undefined) {
+    throw new Error(`contractOffer: unknown talent id "${talentId}"`)
+  }
+  return offerForTalent(state.seed, talent, termWeeks, week)
+}
+
+=== H src/core/talentMarket.ts releaseFloor 194-219 ===
+export function releaseFloor(
+  state: GameState,
+  releasingStudioId: string,
+  talentId: string,
+  week: number = state.market.tick,
+): { floorAnnual: number; validUntilWeek: number } | null {
+  const hollywood = state.hollywood
+  if (hollywood === null) return null
+  let best: { floorAnnual: number; validUntilWeek: number } | null = null
+  for (const receipt of hollywood.receipts) {
+    if (receipt.kind !== 'employment' || receipt.reason !== 'termination') continue
+    if (receipt.studioId !== releasingStudioId || receipt.talentId !== talentId) continue
+    // The player's release always writes its own ledger row; that row is the
+    // evidence of record for the one-batch edge the mirror can still miss.
+    if (releasingStudioId === hollywood.playerStudioId &&
+      !state.ledger.some((row) => row.kind === 'termination' && row.talentId === talentId && row.week === receipt.week)) continue
+    const row = hollywood.employment.find((e) => e.contractId === receipt.contractId)
+    if (row === undefined) continue
+    const validUntilWeek = row.terms.endWeekExclusive
+    if (week >= validUntilWeek) continue // the memory lapsed with the original term
+    if (best === null || row.terms.annualSalary > best.floorAnnual) {
+      best = { floorAnnual: row.terms.annualSalary, validUntilWeek }
+    }
+  }
+  return best
+}
+
+=== H src/core/talentMarket.ts studioOffer 227-244 ===
+export function studioOffer(
+  state: GameState,
+  studioId: string,
+  talentId: string,
+  termWeeks: number,
+  week: number = state.market.tick,
+): ContractOffer {
+  const offer = contractOffer(state, talentId, termWeeks, week)
+  const floor = releaseFloor(state, studioId, talentId, week)
+  if (floor === null || floor.floorAnnual <= offer.annualSalary) return offer
+  // The bonus is the same published fraction of the annual everywhere (§2.1.4 /
+  // `offerForTalent`), so a floored annual carries a floored bonus.
+  return {
+    ...offer,
+    annualSalary: floor.floorAnnual,
+    signingBonus: iround(floor.floorAnnual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION),
+  }
+}
+
+=== H src/core/talentMarket.ts proposalPriceAt 344-352 ===
+function proposalPriceAt(
+  state: GameState,
+  proposal: Pick<TalentMarketProposal, 'talentId' | 'issuerStudioId' | 'termWeeks' | 'premiumTier'>,
+  week: number,
+): { askAnnual: number; annualSalary: number; signingBonus: number } {
+  const ask = studioOffer(state, proposal.issuerStudioId, proposal.talentId, proposal.termWeeks, week)
+  const annualSalary = iround(ask.annualSalary * proposal.premiumTier)
+  return { askAnnual: ask.annualSalary, annualSalary, signingBonus: iround(annualSalary * TUNING.CONTRACT_SIGNING_BONUS_FRACTION) }
+}
+
+=== H src/core/math.ts clamp 10-12 ===
+export function clamp(v: number, lo: number, hi: number): number {
+  return v < lo ? lo : v > hi ? hi : v
+}
+
+=== H src/core/tuning.ts 73-75 ===
+  SALARY_BASE: 25_000,
+  SALARY_SKILL_COEF: 150_000,
+  SALARY_FAME_COEF: 600_000,
+
+=== H src/core/tuning.ts 205-212 ===
+  OVR_WEAKNESS_KNEE: 80,
+  OVR_WEAKNESS_COEF: 0.5,
+  OVR_BREADTH_FLOOR: 70,
+  OVR_BREADTH_COEF: 6,
+  OVR_GATE_99_MEAN: 98,
+  OVR_GATE_99_MINCORE: 94,
+  OVR_GATE_95_MEAN: 93,
+  OVR_GATE_95_MINCORE: 88,
+
+=== H src/core/tuning.ts 376-389 ===
+  CONTRACT_MIN_WEEKS: 52, // 1 year
+  CONTRACT_MAX_WEEKS: 208, // 4 years
+  CONTRACT_TERM_OPTIONS: [52, 104, 156, 208] as readonly number[], // 1/2/3/4-year offers
+
+  // Contract offer pricing (D-11.6). askAnnualSalary = salaryCurve × ANNUAL_MULT ×
+  // lengthFactor × ageFactor × scarcityJitter. ANNUAL_MULT MUST stay < ~9.75 so a
+  // freelancer stays pricier per single film (FREELANCER_FEE_PREMIUM band, D-11.10).
+  CONTRACT_ANNUAL_MULT: 3.0, // per-production salaryCurve → annual salary
+  CONTRACT_LENGTH_FACTOR: { 52: 1.08, 104: 1.0, 156: 0.95, 208: 0.9 } as Record<number, number>,
+  CONTRACT_AGE_PRIME: 34, // age of peak market demand (bell centered here)
+  CONTRACT_AGE_FACTOR_MIN: 0.85, // youngest/oldest ageFactor floor
+  CONTRACT_AGE_SPREAD: 22, // age half-spread for the ageFactor bell
+  CONTRACT_SCARCITY_JITTER: 0.08, // ± deterministic jitter from the 'hiring' stream
+  CONTRACT_SIGNING_BONUS_FRACTION: 0.18, // signingBonus = round(annualSalary × this)
+
+=== H src/core/tuning.ts 406-406 ===
+  MARKET_PREMIUM_TIERS: [1.0, 1.05, 1.1, 1.15, 1.2, 1.25] as readonly number[],
+
+=== H src/core/tuning.ts 2027-2062 ===
+export const SKILL_ORDER = {
+  acting: [
+    'actingTechnique',
+    'emotionalRange',
+    'dialogueDelivery',
+    'comicTiming',
+    'physicalPerformance',
+    'screenPresence',
+  ],
+  writing: [
+    'storyStructure',
+    'characterDevelopment',
+    'dialogue',
+    'originality',
+    'narrativePacing',
+    'rewriting',
+  ],
+  directing: [
+    'visualStorytelling',
+    'performanceDirection',
+    'toneControl',
+    'directingPacing',
+    'productionManagement',
+    'adaptability',
+  ],
+  craft: [
+    'cinematography',
+    'editing',
+    'productionDesign',
+    'soundAndMusic',
+    'effectsExecution',
+    'technicalCoordination',
+  ],
+  research: ['scientificMethod', 'acoustics', 'instrumentation', 'experimentation', 'engineering', 'documentation'],
+} as const satisfies Record<Discipline, readonly string[]>
+
+
+=== H src/core/tuning.ts 2091-2097 ===
+export const ROLE_TO_DISCIPLINE = {
+  writer: 'writing',
+  director: 'directing',
+  actor: 'acting',
+  craft: 'craft',
+  scientist: 'research',
+} as const satisfies Record<CreativeRole, Discipline>
+
+=== H src/core/tuning.ts 2160-2172 ===
+export const OVR_WEIGHTS = {
+  // acting: presence + emotionalRange lead; comicTiming softest.
+  acting: [0.18, 0.2, 0.16, 0.1, 0.14, 0.22],
+  // writing: structure + character lead; rewriting softest.
+  writing: [0.2, 0.2, 0.16, 0.14, 0.17, 0.13],
+  // directing: performanceDirection + visualStorytelling lead.
+  directing: [0.2, 0.2, 0.18, 0.14, 0.15, 0.13],
+  // craft: balanced (inert headless — D-4/OQ-6).
+  craft: [0.17, 0.17, 0.17, 0.17, 0.16, 0.16],
+  research: [0.2, 0.2, 0.15, 0.2, 0.15, 0.1],
+} as const satisfies Record<Discipline, readonly number[]>
+
+// ── D-9.3 base per-genre skill profiles (unnormalized 6-vectors in SKILL_ORDER) ─
+
+=== A src/core/talentSummary.ts skillVector 51-59 ===
+function skillVector(talent: Talent, discipline: Discipline, use: SkillUse): number[] {
+  const keys = SKILL_ORDER[discipline]
+  const profile = talent.skills[discipline]
+  const out: number[] = new Array(keys.length)
+  for (let i = 0; i < keys.length; i++) {
+    out[i] = profile[keys[i]!]![use]
+  }
+  return out
+}
+
+=== A src/core/talentSummary.ts applyGates 80-90 ===
+function applyGates(x: number, weightedMeanVal: number, minCore: number): number {
+  let gate: number
+  if (weightedMeanVal >= TUNING.OVR_GATE_99_MEAN && minCore >= TUNING.OVR_GATE_99_MINCORE) {
+    gate = 99
+  } else if (weightedMeanVal >= TUNING.OVR_GATE_95_MEAN && minCore >= TUNING.OVR_GATE_95_MINCORE) {
+    gate = 95
+  } else {
+    gate = 94 // hard cap below the elite gate
+  }
+  return Math.min(x, gate)
+}
+
+=== A src/core/talentSummary.ts ovrCore 94-121 ===
+function ovrCore(skills: number[], discipline: Discipline): number {
+  const w = OVR_WEIGHTS[discipline]
+
+  let weightedMeanVal = 0
+  for (let i = 0; i < skills.length; i++) weightedMeanVal += w[i]! * skills[i]!
+
+  // Weakness penalty — core-weighted RMS of deficits below the "no-weak-spot" line.
+  let deficitSq = 0
+  for (let i = 0; i < skills.length; i++) {
+    const deficit = Math.max(0, TUNING.OVR_WEAKNESS_KNEE - skills[i]!)
+    deficitSq += w[i]! * deficit * deficit
+  }
+  const weaknessPen = TUNING.OVR_WEAKNESS_COEF * Math.sqrt(deficitSq)
+
+  // Breadth requirement — reward covering all six (core-weighted fraction ≥ floor).
+  let breadth = 0
+  for (let i = 0; i < skills.length; i++) {
+    if (skills[i]! >= TUNING.OVR_BREADTH_FLOOR) breadth += w[i]!
+  }
+  const breadthPen = TUNING.OVR_BREADTH_COEF * (1 - breadth)
+
+  const raw = weightedMeanVal - weaknessPen - breadthPen
+
+  let minCore = Infinity
+  for (const s of skills) if (s < minCore) minCore = s
+
+  return clamp(Math.floor(applyGates(raw, weightedMeanVal, minCore)), 1, 99)
+}
+
+=== A src/core/talentSummary.ts roleOVR 125-127 ===
+export function roleOVR(talent: Talent, discipline: Discipline): number {
+  return ovrCore(skillVector(talent, discipline, 'perceived'), discipline)
+}
+
+=== A src/core/worldgen.ts salaryCurve 167-174 ===
+export function salaryCurve(talent: Talent): number {
+  if (talent.role === 'scientist') return SCIENTIST_ANNUAL_SALARY / TUNING.CONTRACT_ANNUAL_MULT
+  const primaryDiscipline = ROLE_TO_DISCIPLINE[talent.role]
+  const primaryOVR = roleOVR(talent, primaryDiscipline)
+  const s = primaryOVR / 100
+  const f = talent.fame / 100
+  return TUNING.SALARY_BASE + TUNING.SALARY_SKILL_COEF * s * s + TUNING.SALARY_FAME_COEF * f * f
+}
+
+=== A src/core/employment.ts ageFactor 263-267 ===
+function ageFactor(age: number): number {
+  const d = (age - TUNING.CONTRACT_AGE_PRIME) / TUNING.CONTRACT_AGE_SPREAD
+  const bell = Math.max(0, 1 - d * d)
+  return TUNING.CONTRACT_AGE_FACTOR_MIN + (1 - TUNING.CONTRACT_AGE_FACTOR_MIN) * bell
+}
+
+=== A src/core/employment.ts offerForTalent 271-294 ===
+export function offerForTalent(
+  seed: string,
+  talent: Talent,
+  termWeeks: number,
+  week: number,
+): ContractOffer {
+  const term = clamp(termWeeks, TUNING.CONTRACT_MIN_WEEKS, TUNING.CONTRACT_MAX_WEEKS)
+  const lengthFactor = TUNING.CONTRACT_LENGTH_FACTOR[term] ?? 1.0
+  // Per-talent scarcity jitter (stable per person; not per week/term).
+  const jitterS = stream(seed, 'hiring', `offer-${talent.id}`)
+  const jitter = 1 + (jitterS.next() * 2 - 1) * TUNING.CONTRACT_SCARCITY_JITTER
+  const annual = talent.role === 'scientist' ? SCIENTIST_ANNUAL_SALARY : iround(
+    salaryCurve(talent) * TUNING.CONTRACT_ANNUAL_MULT * lengthFactor * ageFactor(talent.age) * jitter,
+  )
+  const signingBonus = iround(annual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
+  return {
+    talentId: talent.id,
+    annualSalary: annual,
+    signingBonus,
+    termWeeks: term,
+    startWeek: week,
+    endWeekExclusive: week + term,
+  }
+}
+
+=== A src/core/employment.ts contractOffer 296-307 ===
+export function contractOffer(
+  state: GameState,
+  talentId: string,
+  termWeeks: number,
+  week: number = state.market.tick,
+): ContractOffer {
+  const talent = state.talent.find((t) => t.id === talentId)
+  if (talent === undefined) {
+    throw new Error(`contractOffer: unknown talent id "${talentId}"`)
+  }
+  return offerForTalent(state.seed, talent, termWeeks, week)
+}
+
+=== A src/core/talentMarket.ts releaseFloor 195-220 ===
+export function releaseFloor(
+  state: GameState,
+  releasingStudioId: string,
+  talentId: string,
+  week: number = state.market.tick,
+): { floorAnnual: number; validUntilWeek: number } | null {
+  const hollywood = state.hollywood
+  if (hollywood === null) return null
+  let best: { floorAnnual: number; validUntilWeek: number } | null = null
+  for (const receipt of hollywood.receipts) {
+    if (receipt.kind !== 'employment' || receipt.reason !== 'termination') continue
+    if (receipt.studioId !== releasingStudioId || receipt.talentId !== talentId) continue
+    // The player's release always writes its own ledger row; that row is the
+    // evidence of record for the one-batch edge the mirror can still miss.
+    if (releasingStudioId === hollywood.playerStudioId &&
+      !state.ledger.some((row) => row.kind === 'termination' && row.talentId === talentId && row.week === receipt.week)) continue
+    const row = hollywood.employment.find((e) => e.contractId === receipt.contractId)
+    if (row === undefined) continue
+    const validUntilWeek = row.terms.endWeekExclusive
+    if (week >= validUntilWeek) continue // the memory lapsed with the original term
+    if (best === null || row.terms.annualSalary > best.floorAnnual) {
+      best = { floorAnnual: row.terms.annualSalary, validUntilWeek }
+    }
+  }
+  return best
+}
+
+=== A src/core/talentMarket.ts studioOffer 228-245 ===
+export function studioOffer(
+  state: GameState,
+  studioId: string,
+  talentId: string,
+  termWeeks: number,
+  week: number = state.market.tick,
+): ContractOffer {
+  const offer = contractOffer(state, talentId, termWeeks, week)
+  const floor = releaseFloor(state, studioId, talentId, week)
+  if (floor === null || floor.floorAnnual <= offer.annualSalary) return offer
+  // The bonus is the same published fraction of the annual everywhere (§2.1.4 /
+  // `offerForTalent`), so a floored annual carries a floored bonus.
+  return {
+    ...offer,
+    annualSalary: floor.floorAnnual,
+    signingBonus: iround(floor.floorAnnual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION),
+  }
+}
+
+=== A src/core/talentMarket.ts proposalPriceAt 345-353 ===
+function proposalPriceAt(
+  state: GameState,
+  proposal: Pick<TalentMarketProposal, 'talentId' | 'issuerStudioId' | 'termWeeks' | 'premiumTier'>,
+  week: number,
+): { askAnnual: number; annualSalary: number; signingBonus: number } {
+  const ask = studioOffer(state, proposal.issuerStudioId, proposal.talentId, proposal.termWeeks, week)
+  const annualSalary = iround(ask.annualSalary * proposal.premiumTier)
+  return { askAnnual: ask.annualSalary, annualSalary, signingBonus: iround(annualSalary * TUNING.CONTRACT_SIGNING_BONUS_FRACTION) }
+}
+
+=== A src/core/math.ts clamp 10-12 ===
+export function clamp(v: number, lo: number, hi: number): number {
+  return v < lo ? lo : v > hi ? hi : v
+}
+
+=== A src/core/tuning.ts 73-75 ===
+  SALARY_BASE: 25_000,
+  SALARY_SKILL_COEF: 150_000,
+  SALARY_FAME_COEF: 600_000,
+
+=== A src/core/tuning.ts 205-212 ===
+  OVR_WEAKNESS_KNEE: 80,
+  OVR_WEAKNESS_COEF: 0.5,
+  OVR_BREADTH_FLOOR: 70,
+  OVR_BREADTH_COEF: 6,
+  OVR_GATE_99_MEAN: 98,
+  OVR_GATE_99_MINCORE: 94,
+  OVR_GATE_95_MEAN: 93,
+  OVR_GATE_95_MINCORE: 88,
+
+=== A src/core/tuning.ts 376-389 ===
+  CONTRACT_MIN_WEEKS: 52, // 1 year
+  CONTRACT_MAX_WEEKS: 208, // 4 years
+  CONTRACT_TERM_OPTIONS: [52, 104, 156, 208] as readonly number[], // 1/2/3/4-year offers
+
+  // Contract offer pricing (D-11.6). askAnnualSalary = salaryCurve × ANNUAL_MULT ×
+  // lengthFactor × ageFactor × scarcityJitter. ANNUAL_MULT MUST stay < ~9.75 so a
+  // freelancer stays pricier per single film (FREELANCER_FEE_PREMIUM band, D-11.10).
+  CONTRACT_ANNUAL_MULT: 3.0, // per-production salaryCurve → annual salary
+  CONTRACT_LENGTH_FACTOR: { 52: 1.08, 104: 1.0, 156: 0.95, 208: 0.9 } as Record<number, number>,
+  CONTRACT_AGE_PRIME: 34, // age of peak market demand (bell centered here)
+  CONTRACT_AGE_FACTOR_MIN: 0.85, // youngest/oldest ageFactor floor
+  CONTRACT_AGE_SPREAD: 22, // age half-spread for the ageFactor bell
+  CONTRACT_SCARCITY_JITTER: 0.08, // ± deterministic jitter from the 'hiring' stream
+  CONTRACT_SIGNING_BONUS_FRACTION: 0.18, // signingBonus = round(annualSalary × this)
+
+=== A src/core/tuning.ts 406-406 ===
+  MARKET_PREMIUM_TIERS: [1.0, 1.05, 1.1, 1.15, 1.2, 1.25] as readonly number[],
+
+=== A src/core/tuning.ts 2027-2062 ===
+export const SKILL_ORDER = {
+  acting: [
+    'actingTechnique',
+    'emotionalRange',
+    'dialogueDelivery',
+    'comicTiming',
+    'physicalPerformance',
+    'screenPresence',
+  ],
+  writing: [
+    'storyStructure',
+    'characterDevelopment',
+    'dialogue',
+    'originality',
+    'narrativePacing',
+    'rewriting',
+  ],
+  directing: [
+    'visualStorytelling',
+    'performanceDirection',
+    'toneControl',
+    'directingPacing',
+    'productionManagement',
+    'adaptability',
+  ],
+  craft: [
+    'cinematography',
+    'editing',
+    'productionDesign',
+    'soundAndMusic',
+    'effectsExecution',
+    'technicalCoordination',
+  ],
+  research: ['scientificMethod', 'acoustics', 'instrumentation', 'experimentation', 'engineering', 'documentation'],
+} as const satisfies Record<Discipline, readonly string[]>
+
+
+=== A src/core/tuning.ts 2091-2097 ===
+export const ROLE_TO_DISCIPLINE = {
+  writer: 'writing',
+  director: 'directing',
+  actor: 'acting',
+  craft: 'craft',
+  scientist: 'research',
+} as const satisfies Record<CreativeRole, Discipline>
+
+=== A src/core/tuning.ts 2160-2172 ===
+export const OVR_WEIGHTS = {
+  // acting: presence + emotionalRange lead; comicTiming softest.
+  acting: [0.18, 0.2, 0.16, 0.1, 0.14, 0.22],
+  // writing: structure + character lead; rewriting softest.
+  writing: [0.2, 0.2, 0.16, 0.14, 0.17, 0.13],
+  // directing: performanceDirection + visualStorytelling lead.
+  directing: [0.2, 0.2, 0.18, 0.14, 0.15, 0.13],
+  // craft: balanced (inert headless — D-4/OQ-6).
+  craft: [0.17, 0.17, 0.17, 0.17, 0.16, 0.16],
+  research: [0.2, 0.2, 0.15, 0.2, 0.15, 0.1],
+} as const satisfies Record<Discipline, readonly number[]>
+
+// ── D-9.3 base per-genre skill profiles (unnormalized 6-vectors in SKILL_ORDER) ─

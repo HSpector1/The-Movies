@@ -1,0 +1,41 @@
+{
+  "EPERMCauseEstablished": false,
+  "a208GameGranted": false,
+  "actualDiagnosticRerunAuthorized": false,
+  "alarmCausalRelationEstablished": false,
+  "checks": {
+    "bytes": 7923,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-cleanup-diagnostics-independent-design-review-after-aj-20261009-r1/CHECKS.json",
+    "sha256": "a2be8a0de7f0e5364b245768fb13c52ca9077c7826f0893f23d6850742d93ddc"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_HELD_A208_OWNED_CLEANUP_DIAGNOSTIC_DESIGN",
+  "exactEPERMTargetCaptured": false,
+  "executionAuthorization": false,
+  "findings": [],
+  "observedStop": {
+    "bytes": 8497,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-stop-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "61b7698513fbe12d0f2705da01e70762f41fd2544254cadc09e381f3459b0496"
+  },
+  "parentObservedAdoption": {
+    "bytes": 1661,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-observed-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "9155410c75344c7933d97067ca28be28028842e8e08e4ba153807dd8f40f0fc5"
+  },
+  "permissionScope": "SOURCE_PREPARATION_ONLY; independent implementation/control review and separate actual root grants required",
+  "pythonControlsAccepted": false,
+  "renewalCausesClosed": 0,
+  "report": {
+    "bytes": 1589,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-cleanup-diagnostics-independent-design-review-after-aj-20261009-r1/REPORT.md",
+    "sha256": "e5ec77c317bb170ef35c25f7073aabb25755bb7c1424c1c2bd2b5df10fffb6b0"
+  },
+  "reviewerExecutedSignalsTestsNodeImportsGameScanGitOrProtectedMutation": false,
+  "schema": "1370-a208-owned-cleanup-diagnostics-independent-design-review-v1",
+  "sourcePlan": {
+    "bytes": 2357,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-stop-independent-observed-review-after-aj-20261009-r1/NEXT-SLICE-DESIGN.md",
+    "sha256": "89303d79de42e09f2db6804686d2c741552fe51bfddbc1eed4eb30e09c4214ad"
+  },
+  "utc": "2026-10-09T21:11:56.212997+00:00"
+}

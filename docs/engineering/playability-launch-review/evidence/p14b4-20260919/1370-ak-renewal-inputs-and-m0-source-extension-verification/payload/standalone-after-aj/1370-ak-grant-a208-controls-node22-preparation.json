@@ -1,0 +1,55 @@
+{
+  "changes": [
+    {
+      "new": "1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1",
+      "old": "1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1"
+    },
+    {
+      "new": "1370-c0-a208-controls-node22-parent-recorded-after-aj-20261009-r1",
+      "old": "1370-c0-a208-controls-parent-recorded-after-aj-20261009-r1"
+    },
+    {
+      "new": "ACCEPT_SOURCE_ONLY_UNRUN_A208_NODE22_PARENT_CONTROL_WRAPPER",
+      "old": "ACCEPT_SOURCE_ONLY_UNRUN_A208_PARENT_CONTROL_WRAPPER"
+    },
+    {
+      "new": "8e6a73e06cb774e61d103439bd17536ee97302802cea21cb48a5a93d808776cf",
+      "old": "e304e8707580bae518ba12e7e15eb353c2a5d67b23dbc491fba29c2cdfbda6d4"
+    },
+    {
+      "new": "ACCEPT_SOURCE_ONLY_UNRUN_A208_NODE22_FILLED_CONTROLS_ROUTE",
+      "old": "ACCEPT_SOURCE_ONLY_UNRUN_A208_FILLED_CONTROLS_ROUTE"
+    },
+    {
+      "new": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5",
+      "old": "9548de6af338fe98a3dde78a1599850152fdab48db0c9e25576de8deb48acecc"
+    },
+    {
+      "new": "09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb",
+      "old": "53b996cf65721bab186ed2043031fb470ad8868d838fac7ab0cd17bad81b0565"
+    },
+    {
+      "new": "7da501eb54301aaf0a22c5dc29e4dff786ee4bd9bfff490153d951c54bd7b9eb",
+      "old": "39ff9d37dbde559e4e047db7ab3b9f7b5a0ed0c3afa898c03eec6a6dafbc638c"
+    },
+    {
+      "new": "-output-after-aj-node22-20261009-r1",
+      "old": "-output-after-aj-filled-20261009-r1"
+    },
+    {
+      "new": "-lane-after-aj-node22-20261009-r1",
+      "old": "-lane-after-aj-filled-20261009-r1"
+    },
+    {
+      "new": "scope=json.loads(Path(c['runtimeGrant']['path']).read_text());assert scope['executionAuthorization'] is False and scope['actualRuntimeGrant'] is None\nassert scope['status']=='ROOT_ADOPTED_PROSPECTIVE_NODE22_TOOL_MATCH_SOURCE_ONLY' and scope['requestedConfigReplacement']=={'nodePath':c['nodePath'],'nodeBytes':c['nodeBytes'],'nodeSha256':c['nodeSha256']} and len(c['roles'])==30",
+      "old": "scope=json.loads(Path(c['runtimeGrant']['path']).read_text());assert scope['executionAuthorization'] is False and scope['actualRuntimeGrant'] is None"
+    }
+  ],
+  "newPath": "/Users/zacheryspector/studio-scratch/1370-ak-grant-a208-controls-node22.py",
+  "newSha256": "25ea8ec1b2bd8f9d2a4a643dd8c98c8dc630eaa815c6ba66a3ccc85a855a7e88",
+  "oldPath": "/Users/zacheryspector/studio-scratch/1370-ak-grant-a208-controls.py",
+  "oldSha256": "59663b878e3ee7ed8978554582d6c98e32753c98c4f5342161ee7e080e503b2c",
+  "originalPreservedUnrun": true,
+  "postflightCompletionRequired": true,
+  "runtimeExecuted": false
+}

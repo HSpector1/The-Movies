@@ -1,0 +1,107 @@
+{
+  "M0Original1677InventoryIncluded": false,
+  "actualToolExit": 0,
+  "actualToolSession": 43355,
+  "claimLimit": "Observed retained read-only scan establishes current protection baseline only; source/metadata endpoints and exact prior private evidence are verified. No future mutable state, uninterrupted mutation-free interval, M0 extension, H scientific acceptance or runtime grant is inferred.",
+  "cleanupCheckUtc": "2026-10-09T19:54:31.480294+00:00",
+  "completeMapEntriesPerDependencyArm": 12485,
+  "configSha256": "a4b88b0181bf525f6144a71f05bb7d78a17fd46bbfbe88d0e2aea90a89874b4c",
+  "decision": "ACCEPT_OBSERVED_READONLY_CURRENT_AJ_BEFORE_FILL_FULL_GUARD",
+  "dependencyCounts": {
+    "directory": 1401,
+    "regular": 11060,
+    "symlink": 24
+  },
+  "distinctRegularDependencyInodesVerified": true,
+  "elapsedSeconds": 497.5831342330057,
+  "evidencePinsSha256": "5b38eae5b5f523835d9a6883ad65c279437159cfa69550bb846fb622a19499d2",
+  "exactPreviousPrivateMapsVerified": true,
+  "exactSetupReviewSha256": "001d11159f786c90173f099aa25567a7da9a7826042aa3dc43c085698d5eda69",
+  "executionAuthorization": false,
+  "findings": [],
+  "freshScannerPidAndPgidAbsent": true,
+  "gameRun": false,
+  "globalProcessAbsenceClaim": false,
+  "guardSourceSha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee",
+  "heavyLaneLockAbsent": true,
+  "inventoryElapsedSeconds": 390.25846129099955,
+  "originalCopyProductionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "originalPrivateProofSha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347",
+  "outcomeSha256": "07646a7a1620318c3ded960d1b2a99a82af385d84d6a70d29e29c1aa4e830607",
+  "physicalCheckoutEntries": 176,
+  "priorR1SetupStopPreserved": true,
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "protectedFreezeRequired": true,
+  "rawPsFdContentsExported": false,
+  "rawPsFdLocalOnly": true,
+  "remainingGates": [
+    "Independent exact filled route/config and reused source controls linkage review.",
+    "After-fill full baseline equality and scoped fresh operational authority.",
+    "Separate exact bounded additive grant and actual original1677/expanded1740 readback.",
+    "Protected postflight equality, owned cleanup and independent observed adoption."
+  ],
+  "roles": {
+    "actualTool": {
+      "bytes": 996,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-ACTUAL-TOOL.json",
+      "sha256": "cb140a6740706dc3c2f8f8c188c7e4bfc048220af67687f060338a3dfa70d5e7"
+    },
+    "audit": {
+      "bytes": 5585,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-observed-independent-review-after-aj-20261009-r1/audit.py",
+      "sha256": "71d0d5112ddff72c41f5e3fbec294142ffaca06636c0f9acd25b0d9a86507612"
+    },
+    "evidencePins": {
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/PINS.json",
+      "sha256": "5b38eae5b5f523835d9a6883ad65c279437159cfa69550bb846fb622a19499d2"
+    },
+    "facts": {
+      "bytes": 1753,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-observed-independent-review-after-aj-20261009-r1/FACTS.json",
+      "sha256": "f246cbbc4d7587c2cc809192334de8ec0332327361610df7413699da199988f4"
+    },
+    "grant": {
+      "bytes": 3752,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-GRANT.json",
+      "sha256": "b049a5611db92b4a1cf5608999547b7d65442e022f9312f1345429e4accbd286"
+    },
+    "outcome": {
+      "bytes": 4206,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-TOOL-OUTCOME.json",
+      "sha256": "07646a7a1620318c3ded960d1b2a99a82af385d84d6a70d29e29c1aa4e830607"
+    },
+    "report": {
+      "bytes": 2293,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-observed-independent-review-after-aj-20261009-r1/REPORT.md",
+      "sha256": "c3c8b1a869cd9fce1926aba69f71b36c2b7d6beb53f7543129ab7c6c9b85345a"
+    },
+    "snapshot": {
+      "bytes": 8303116,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+      "sha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/before-fill.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 467,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/before-fill.stdout",
+      "sha256": "93ad19b93a0d18ea4b27641c9b21cf9e4a9aab39011c365bcfefa824845768a5"
+    }
+  },
+  "scannerPid": 93713,
+  "schema": "1370-m0-additive-current-aj-full-guard-independent-observed-review/v1",
+  "scientificHAdmission": false,
+  "scratchParentIdentityStrictTimestampsInformational": true,
+  "snapshotOwnedGroupClearanceClaim": false,
+  "snapshotOwnedGroupIdsChecked": [],
+  "snapshotSha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912",
+  "sourcePinsSha256": "3293ac99fc8e43b5834cf4e4330f85501295915fd9e2c2da48b5e88d941e856e",
+  "sourceReviewSha256": "a06cdade7513d63e793e27b67a74571ca16b896ae0ee2ee1aeda94d2c854053c",
+  "strictProtectedRootsBeforeAfterEqual": 9,
+  "typesReady": false
+}

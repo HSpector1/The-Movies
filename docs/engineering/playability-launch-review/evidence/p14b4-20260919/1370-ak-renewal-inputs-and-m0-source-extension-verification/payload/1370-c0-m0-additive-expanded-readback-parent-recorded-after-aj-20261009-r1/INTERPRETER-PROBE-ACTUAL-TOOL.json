@@ -1,0 +1,11 @@
+{
+  "chunks": [
+    {
+      "chunk_id": "41066d",
+      "wall_time_seconds": 0.522466005,
+      "exit_code": 0,
+      "original_token_count": 100,
+      "output": "{\"executable\": \"/usr/local/opt/python@3.14/bin/python3.14\", \"executableResolved\": \"/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14\", \"baseExecutable\": \"/usr/local/opt/python@3.14/bin/python3.14\", \"version\": \"3.14.4 (main, May  2 2026, 23:00:00) [Clang 14.0.0 (clang-1400.0.29.202)]\", \"argv\": [\"-c\"], \"pid\": 66258, \"isolated\": 1, \"noBytecode\": true}\n"
+    }
+  ]
+}

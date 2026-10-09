@@ -1,0 +1,31 @@
+{
+  "afterAJScope": true,
+  "config": {
+    "bytes": 12590,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/CONFIG.json",
+    "sha256": "42b4a95fe03756b433a6391f404080ef92dbc780675ad35dcd186f7cfcbd38c1"
+  },
+  "core": {
+    "bytes": 10881,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/verify-pricing-core.mjs",
+    "sha256": "6aebe062785f1dad699d4dd85a118e9bcdfa08cb748086a864aea80537b67580"
+  },
+  "decision": "READY_SOURCE_ONLY_HELD_RENEWAL208_PURE16_PRICING_PENDING_INDEPENDENT_REVIEW",
+  "executionAuthorization": false,
+  "futureA208": null,
+  "numericPricesEvaluated": false,
+  "recorder": {
+    "bytes": 14534,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/record-pure-node.py",
+    "sha256": "be323be957cbe53f01d6b650182a18feb0fd5cb1306a412627bd32c9d6eea670"
+  },
+  "renewalPricingCausesClosed": 0,
+  "schema": "1370-renewal208-pure16-pricing-preparation/v1",
+  "sourceExecution": false,
+  "sourcePins": {
+    "bytes": 14724,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "27634566f669e1bf9d93e7b797181ce21a6e7a8f7165ab526a6bb0c98bc0b4c7"
+  },
+  "sourcePinsSha256": "27634566f669e1bf9d93e7b797181ce21a6e7a8f7165ab526a6bb0c98bc0b4c7"
+}

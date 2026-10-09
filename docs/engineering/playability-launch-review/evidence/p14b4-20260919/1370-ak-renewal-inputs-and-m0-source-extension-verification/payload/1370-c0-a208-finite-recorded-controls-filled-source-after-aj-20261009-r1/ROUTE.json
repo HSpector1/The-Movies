@@ -1,0 +1,62 @@
+{
+  "bounds": {
+    "eachParentActiveSeconds": 75,
+    "eachParentChildSeconds": 60,
+    "eachParentWholeSeconds": 90,
+    "eachStreamBytes": 1048576,
+    "ownedFixtureBytes": 8388608,
+    "pythonDriverActiveSeconds": 45,
+    "pythonDriverWholeSeconds": 55
+  },
+  "commands": {
+    "js": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-lane-after-aj-filled-20261009-r1/controls.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/record.py",
+      "js"
+    ],
+    "python": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-lane-after-aj-filled-20261009-r1/controls.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/record.py",
+      "python"
+    ]
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "expected": {
+    "jsGroups": 13,
+    "noChildReportValidationMethods": 3,
+    "nodeWorkers": "Native --test workers inherit the exact recorded Node PGID; no invented PID list.",
+    "outerGroupInheritedGrandchildren": 2,
+    "pythonDirectSetsidGroups": 7,
+    "pythonMethods": 14,
+    "sandboxProbesInOwnedDriverGroup": 4
+  },
+  "grant": {
+    "bytes": 2977,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-prospective-parent-scope-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "39ff9d37dbde559e4e047db7ab3b9f7b5a0ed0c3afa898c03eec6a6dafbc638c"
+  },
+  "schema": "1370-a208-finite-recorded-controls-route-r1",
+  "sequence": "One JS arm then one Python arm; stop on any nonzero/mismatch/override/cleanup uncertainty. No auto retry. Separately record both raw tool outcomes/helper log/meta/stdout/stderr/RESULT and driver registry/fixtures.",
+  "sourceReview": {
+    "bytes": 1573,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-independent-source-review-after-aj-20261009-r2/RECEIPT.json",
+    "sha256": "a4f568dc17dd37133a2ceb8f83a449622981ae6db9a48048a91028155543060c"
+  }
+}

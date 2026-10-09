@@ -1,0 +1,63 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/CONFIG.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/CONFIG.json
+@@ -110,12 +110,17 @@
+       "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+     }
+   },
+-  "pythonFixture": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-fixture-after-aj-20261009-r2",
++  "pythonFixture": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-fixture-after-aj-filled-20261009-r1",
+   "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+   "roles": {
++    "acceptedSourceReview": {
++      "bytes": 1573,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-independent-source-review-after-aj-20261009-r2/RECEIPT.json",
++      "sha256": "a4f568dc17dd37133a2ceb8f83a449622981ae6db9a48048a91028155543060c"
++    },
+     "driver": {
+       "bytes": 8874,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/drive.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/drive.py",
+       "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+     },
+     "helper": {
+@@ -223,6 +228,11 @@
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+       "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+     },
++    "prospectiveControlScope": {
++      "bytes": 2977,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-prospective-parent-scope-after-aj-20261009-r1/ADOPTION.json",
++      "sha256": "39ff9d37dbde559e4e047db7ab3b9f7b5a0ed0c3afa898c03eec6a6dafbc638c"
++    },
+     "python": {
+       "bytes": 50472,
+       "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+@@ -230,16 +240,24 @@
+     },
+     "reportControls": {
+       "bytes": 2924,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/test_reports.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/test_reports.py",
+       "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+     },
+     "reportGuard": {
+       "bytes": 3203,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/report_guard.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/report_guard.py",
+       "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+     }
+   },
+-  "runtimeGrant": null,
++  "runtimeGrant": {
++    "bytes": 2977,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-prospective-parent-scope-after-aj-20261009-r1/ADOPTION.json",
++    "sha256": "39ff9d37dbde559e4e047db7ab3b9f7b5a0ed0c3afa898c03eec6a6dafbc638c"
++  },
+   "schema": "1370-a208-finite-recorded-controls-config-r1",
+-  "sourceReview": null
++  "sourceReview": {
++    "bytes": 1573,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-independent-source-review-after-aj-20261009-r2/RECEIPT.json",
++    "sha256": "a4f568dc17dd37133a2ceb8f83a449622981ae6db9a48048a91028155543060c"
++  }
+ }

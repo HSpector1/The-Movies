@@ -1,0 +1,16 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/add_inputs.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/add_inputs.py
+@@ -5,10 +5,10 @@
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+ MIRROR=S/'1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2'
+ OUT=S/'1370-c0-m0-additive-input-output-20261009-r2/RESULT.json'
+-INPUTS=S/'1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/INPUTS.json'
+-INPUTS_SHA='d72e3292aff7d640c544e752e7bd54f6b66aebebf8a82cadda110d74f8111520'
++INPUTS=S/'1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json'
++INPUTS_SHA='a9f50c1d0cb6ae54084becf514ed7908c41572050e0df19a50007e3a804ff881'
+ SOURCE='292d6fd3b5293fe2a520b681ae4c1dde997dc113'
+-HEAD='282f8477e61a33bd5ec4a571b934829490adef73'
++HEAD='f0fb818fe7534c3e3784206d16728b015c7f059a'
+ TREE='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+ REF='refs/heads/wip/headless-program-20260916-ts'
+ ORIGIN='https://github.com/HSpector1/The-Movies.git'

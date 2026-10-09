@@ -1,0 +1,754 @@
+[
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 395548,
+        "endWeekExclusive": 208,
+        "signingBonus": 71199,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-0",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208",
+    "ASourceOrder": 24,
+    "HCaseContractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+    "HObservedWinningReserveWeeks": 18,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 394607,
+        "endWeekExclusive": 208,
+        "signingBonus": 71029,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-0",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208",
+    "HSourceOrder": 24,
+    "commonSourceDerivedPremiumExpression": "tiers[2]",
+    "identity": [
+      "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "talentId": "person-studio-aca408ec-r01-0",
+    "winningStudioId": "studio-aca408ec-r02"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 141075,
+        "endWeekExclusive": 208,
+        "signingBonus": 25394,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-1",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-1:208",
+    "ASourceOrder": 25,
+    "HCaseContractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+    "HObservedWinningReserveWeeks": 18,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 140129,
+        "endWeekExclusive": 208,
+        "signingBonus": 25223,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-1",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-1:208",
+    "HSourceOrder": 25,
+    "commonSourceDerivedPremiumExpression": "tiers[2]",
+    "identity": [
+      "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-1:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "talentId": "person-studio-aca408ec-r01-1",
+    "winningStudioId": "studio-aca408ec-r02"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 220859,
+        "endWeekExclusive": 208,
+        "signingBonus": 39755,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-2",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-2:208",
+    "ASourceOrder": 26,
+    "HCaseContractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+    "HObservedWinningReserveWeeks": 18,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 221213,
+        "endWeekExclusive": 208,
+        "signingBonus": 39818,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-2",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-2:208",
+    "HSourceOrder": 26,
+    "commonSourceDerivedPremiumExpression": "tiers[2]",
+    "identity": [
+      "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-2:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "talentId": "person-studio-aca408ec-r01-2",
+    "winningStudioId": "studio-aca408ec-r02"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 745914,
+        "endWeekExclusive": 208,
+        "signingBonus": 134265,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-3",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-3:208",
+    "ASourceOrder": 27,
+    "HCaseContractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+    "HObservedWinningReserveWeeks": 18,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 745778,
+        "endWeekExclusive": 208,
+        "signingBonus": 134240,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-3",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-3:208",
+    "HSourceOrder": 27,
+    "commonSourceDerivedPremiumExpression": "tiers[2]",
+    "identity": [
+      "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-3:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "talentId": "person-studio-aca408ec-r01-3",
+    "winningStudioId": "studio-aca408ec-r02"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 916051,
+        "endWeekExclusive": 208,
+        "signingBonus": 164889,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-4",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-4:208",
+    "ASourceOrder": 28,
+    "HCaseContractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+    "HObservedWinningReserveWeeks": 18,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 915853,
+        "endWeekExclusive": 208,
+        "signingBonus": 164854,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-4",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-4:208",
+    "HSourceOrder": 28,
+    "commonSourceDerivedPremiumExpression": "tiers[2]",
+    "identity": [
+      "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-4:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "talentId": "person-studio-aca408ec-r01-4",
+    "winningStudioId": "studio-aca408ec-r02"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 191216,
+        "endWeekExclusive": 208,
+        "signingBonus": 34419,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-5",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-5:208",
+    "ASourceOrder": 29,
+    "HCaseContractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+    "HObservedWinningReserveWeeks": 18,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r01",
+      "terms": {
+        "annualSalary": 191719,
+        "endWeekExclusive": 208,
+        "signingBonus": 34509,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r01-5",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-5:208",
+    "HSourceOrder": 29,
+    "commonSourceDerivedPremiumExpression": "tiers[2]",
+    "identity": [
+      "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-5:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "talentId": "person-studio-aca408ec-r01-5",
+    "winningStudioId": "studio-aca408ec-r02"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r02",
+      "terms": {
+        "annualSalary": 225992,
+        "endWeekExclusive": 208,
+        "signingBonus": 40679,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-0",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208",
+    "ASourceOrder": 30,
+    "HCaseContractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+    "HObservedWinningReserveWeeks": 13,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r02",
+      "terms": {
+        "annualSalary": 225703,
+        "endWeekExclusive": 208,
+        "signingBonus": 40627,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-0",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208",
+    "HSourceOrder": 30,
+    "commonSourceDerivedPremiumExpression": "tiers[1]",
+    "identity": [
+      "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "talentId": "person-studio-aca408ec-r02-0",
+    "winningStudioId": "studio-aca408ec-r01"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r02",
+      "terms": {
+        "annualSalary": 313082,
+        "endWeekExclusive": 208,
+        "signingBonus": 56355,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-1",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-1:208",
+    "ASourceOrder": 31,
+    "HCaseContractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+    "HObservedWinningReserveWeeks": 13,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r02",
+      "terms": {
+        "annualSalary": 312775,
+        "endWeekExclusive": 208,
+        "signingBonus": 56300,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-1",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-1:208",
+    "HSourceOrder": 31,
+    "commonSourceDerivedPremiumExpression": "tiers[1]",
+    "identity": [
+      "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-1:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "talentId": "person-studio-aca408ec-r02-1",
+    "winningStudioId": "studio-aca408ec-r01"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r02",
+      "terms": {
+        "annualSalary": 115209,
+        "endWeekExclusive": 208,
+        "signingBonus": 20738,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-2",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208",
+    "ASourceOrder": 32,
+    "HCaseContractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+    "HObservedWinningReserveWeeks": 13,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r02",
+      "terms": {
+        "annualSalary": 115168,
+        "endWeekExclusive": 208,
+        "signingBonus": 20730,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-2",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208",
+    "HSourceOrder": 32,
+    "commonSourceDerivedPremiumExpression": "tiers[1]",
+    "identity": [
+      "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "talentId": "person-studio-aca408ec-r02-2",
+    "winningStudioId": "studio-aca408ec-r01"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r02",
+      "terms": {
+        "annualSalary": 765621,
+        "endWeekExclusive": 208,
+        "signingBonus": 137812,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-3",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208",
+    "ASourceOrder": 33,
+    "HCaseContractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+    "HObservedWinningReserveWeeks": 13,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r02",
+      "terms": {
+        "annualSalary": 764724,
+        "endWeekExclusive": 208,
+        "signingBonus": 137650,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-3",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208",
+    "HSourceOrder": 33,
+    "commonSourceDerivedPremiumExpression": "tiers[1]",
+    "identity": [
+      "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "talentId": "person-studio-aca408ec-r02-3",
+    "winningStudioId": "studio-aca408ec-r01"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r02",
+      "terms": {
+        "annualSalary": 473558,
+        "endWeekExclusive": 208,
+        "signingBonus": 85240,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-4",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-4:208",
+    "ASourceOrder": 34,
+    "HCaseContractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+    "HObservedWinningReserveWeeks": 13,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r02",
+      "terms": {
+        "annualSalary": 473037,
+        "endWeekExclusive": 208,
+        "signingBonus": 85147,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-4",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-4:208",
+    "HSourceOrder": 34,
+    "commonSourceDerivedPremiumExpression": "tiers[1]",
+    "identity": [
+      "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-4:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "talentId": "person-studio-aca408ec-r02-4",
+    "winningStudioId": "studio-aca408ec-r01"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r02",
+      "terms": {
+        "annualSalary": 250600,
+        "endWeekExclusive": 208,
+        "signingBonus": 45108,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-5",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-5:208",
+    "ASourceOrder": 35,
+    "HCaseContractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+    "HObservedWinningReserveWeeks": 13,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r02",
+      "terms": {
+        "annualSalary": 248219,
+        "endWeekExclusive": 208,
+        "signingBonus": 44679,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r02-5",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-5:208",
+    "HSourceOrder": 35,
+    "commonSourceDerivedPremiumExpression": "tiers[1]",
+    "identity": [
+      "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-5:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "talentId": "person-studio-aca408ec-r02-5",
+    "winningStudioId": "studio-aca408ec-r01"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r03",
+      "terms": {
+        "annualSalary": 257755,
+        "endWeekExclusive": 208,
+        "signingBonus": 46396,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-0",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:208",
+    "ASourceOrder": 36,
+    "HCaseContractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+    "HObservedWinningReserveWeeks": 20,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r03",
+      "terms": {
+        "annualSalary": 257206,
+        "endWeekExclusive": 208,
+        "signingBonus": 46297,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-0",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:208",
+    "HSourceOrder": 36,
+    "commonSourceDerivedPremiumExpression": "tiers[1]",
+    "identity": [
+      "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "talentId": "person-studio-aca408ec-r03-0",
+    "winningStudioId": "studio-aca408ec-r03"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r03",
+      "terms": {
+        "annualSalary": 181799,
+        "endWeekExclusive": 208,
+        "signingBonus": 32724,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-1",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:208",
+    "ASourceOrder": 37,
+    "HCaseContractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+    "HObservedWinningReserveWeeks": 20,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r03",
+      "terms": {
+        "annualSalary": 180956,
+        "endWeekExclusive": 208,
+        "signingBonus": 32572,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-1",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:208",
+    "HSourceOrder": 37,
+    "commonSourceDerivedPremiumExpression": "tiers[1]",
+    "identity": [
+      "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "talentId": "person-studio-aca408ec-r03-1",
+    "winningStudioId": "studio-aca408ec-r03"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r03",
+      "terms": {
+        "annualSalary": 330318,
+        "endWeekExclusive": 208,
+        "signingBonus": 59457,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-2",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+    "ASourceOrder": 38,
+    "HCaseContractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:0",
+    "HObservedWinningReserveWeeks": 20,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r03",
+      "terms": {
+        "annualSalary": 330318,
+        "endWeekExclusive": 208,
+        "signingBonus": 59457,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-2",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+    "HSourceOrder": 38,
+    "commonSourceDerivedPremiumExpression": "tiers[1]",
+    "identity": [
+      "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "talentId": "person-studio-aca408ec-r03-2",
+    "winningStudioId": "studio-aca408ec-r03"
+  },
+  {
+    "AOriginalContract": {
+      "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r03",
+      "terms": {
+        "annualSalary": 831383,
+        "endWeekExclusive": 208,
+        "signingBonus": 149649,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-3",
+        "termWeeks": 208
+      }
+    },
+    "ASingleSuccessor": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:208",
+    "ASourceOrder": 39,
+    "HCaseContractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+    "HObservedWinningReserveWeeks": 20,
+    "HOriginalContract": {
+      "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+      "endedWeek": 208,
+      "reason": "entry",
+      "studioId": "studio-aca408ec-r03",
+      "terms": {
+        "annualSalary": 832539,
+        "endWeekExclusive": 208,
+        "signingBonus": 149857,
+        "startWeek": 0,
+        "talentId": "person-studio-aca408ec-r03-3",
+        "termWeeks": 208
+      }
+    },
+    "HSingleSuccessor": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:208",
+    "HSourceOrder": 39,
+    "commonSourceDerivedPremiumExpression": "tiers[1]",
+    "identity": [
+      "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:208",
+      0
+    ],
+    "newNumericRenewalAttribution": false,
+    "numericPremiumTierEvaluated": false,
+    "releaseFloor": "SOURCE_PROVED_NULL_AT_208_PRECOMMIT_PENDING_INDEPENDENT_REVIEW",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "talentId": "person-studio-aca408ec-r03-3",
+    "winningStudioId": "studio-aca408ec-r03"
+  }
+]

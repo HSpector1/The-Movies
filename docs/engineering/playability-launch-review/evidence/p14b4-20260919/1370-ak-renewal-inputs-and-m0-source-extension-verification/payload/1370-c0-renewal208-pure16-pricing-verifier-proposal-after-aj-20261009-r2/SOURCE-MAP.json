@@ -1,0 +1,640 @@
+[
+  {
+    "arm": "H",
+    "endLine": 59,
+    "file": "src/core/talentSummary.ts",
+    "function": "skillVector",
+    "gitBlobOidDerived": "f8e8539d3c0f780e58027640de333d6168db7654",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "07aca4fb5872da72d64515ce6f86c5c6481ca9dd54febb0cd17f084debe62316",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src",
+    "startLine": 51,
+    "treeOid": null
+  },
+  {
+    "arm": "H",
+    "endLine": 90,
+    "file": "src/core/talentSummary.ts",
+    "function": "applyGates",
+    "gitBlobOidDerived": "f8e8539d3c0f780e58027640de333d6168db7654",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "459593db14c0683d6d4e0433a6f331859f7d224e9f866b93189fd8f67db214aa",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src",
+    "startLine": 80,
+    "treeOid": null
+  },
+  {
+    "arm": "H",
+    "endLine": 121,
+    "file": "src/core/talentSummary.ts",
+    "function": "ovrCore",
+    "gitBlobOidDerived": "f8e8539d3c0f780e58027640de333d6168db7654",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "6e36724ac625a807f3083e3447e701c088f04e739ed6fab4f423af8f34f40e97",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src",
+    "startLine": 94,
+    "treeOid": null
+  },
+  {
+    "arm": "H",
+    "endLine": 127,
+    "file": "src/core/talentSummary.ts",
+    "function": "roleOVR",
+    "gitBlobOidDerived": "f8e8539d3c0f780e58027640de333d6168db7654",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "44fb62517d4f23ffb73bd47417971a1fbdb0dbf17c9f8be8306051de7a5d714b",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src",
+    "startLine": 125,
+    "treeOid": null
+  },
+  {
+    "arm": "H",
+    "endLine": 173,
+    "file": "src/core/worldgen.ts",
+    "function": "salaryCurve",
+    "gitBlobOidDerived": "646e3382d3dde1c7153857f1117b87c8a7fab50e",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "d07abf5d1e70fe39cdd9d0941cab06bf58a6eee7f0f183b06a2bfa0d6770c859",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 33437,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/worldgen.ts",
+      "sha256": "7ca9cb4e73ee9b8ebae4fdc449c4e12229f9b0078bb4d20e22a98baa60b81b42"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src",
+    "startLine": 166,
+    "treeOid": null
+  },
+  {
+    "arm": "H",
+    "endLine": 267,
+    "file": "src/core/employment.ts",
+    "function": "ageFactor",
+    "gitBlobOidDerived": "e8e5acaa1e6a94ac1de7db13eb46840efb55616f",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "e647fa07286078959f59066b481e4685ce8efe64478c9e965b8b35f1fd63ce72",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src",
+    "startLine": 263,
+    "treeOid": null
+  },
+  {
+    "arm": "H",
+    "endLine": 294,
+    "file": "src/core/employment.ts",
+    "function": "offerForTalent",
+    "gitBlobOidDerived": "e8e5acaa1e6a94ac1de7db13eb46840efb55616f",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "10800fcfd62d532abfbb6a695817cb1aaf6869fe894ace7d8657d6a9d96b45b0",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src",
+    "startLine": 271,
+    "treeOid": null
+  },
+  {
+    "arm": "H",
+    "endLine": 307,
+    "file": "src/core/employment.ts",
+    "function": "contractOffer",
+    "gitBlobOidDerived": "e8e5acaa1e6a94ac1de7db13eb46840efb55616f",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "c3c2eff27c49c797cf2063c98d017267dfeadac42339526be5c6889fce5eb353",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src",
+    "startLine": 296,
+    "treeOid": null
+  },
+  {
+    "arm": "H",
+    "endLine": 219,
+    "file": "src/core/talentMarket.ts",
+    "function": "releaseFloor",
+    "gitBlobOidDerived": "1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "2ae1a456e688357b3ecc25a73a642c99a12c548437374b567acc92a5406cfd36",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 74153,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentMarket.ts",
+      "sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src",
+    "startLine": 194,
+    "treeOid": null
+  },
+  {
+    "arm": "H",
+    "endLine": 244,
+    "file": "src/core/talentMarket.ts",
+    "function": "studioOffer",
+    "gitBlobOidDerived": "1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "455c12ea6e7689e8f6f789b266953b020fa3e50ba888fb31afaee722ad18b4f4",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 74153,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentMarket.ts",
+      "sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src",
+    "startLine": 227,
+    "treeOid": null
+  },
+  {
+    "arm": "H",
+    "endLine": 352,
+    "file": "src/core/talentMarket.ts",
+    "function": "proposalPriceAt",
+    "gitBlobOidDerived": "1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "0a3ceb0eb230f1bcba284ec7f0777a0d745d22a6b4550c2b125e682c0638cac2",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 74153,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentMarket.ts",
+      "sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src",
+    "startLine": 344,
+    "treeOid": null
+  },
+  {
+    "arm": "H",
+    "endLine": 12,
+    "file": "src/core/math.ts",
+    "function": "clamp",
+    "gitBlobOidDerived": "8a0161e044bfe6fc331d9a0eb30bda425899a958",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "543a1dda388688632adafbb08faa3cfbf3e3a90f813a6fdfb1ca66b148e77b05",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 3704,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/math.ts",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src",
+    "startLine": 10,
+    "treeOid": null
+  },
+  {
+    "arm": "H",
+    "endLine": 75,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "16262976f1b5c6556bab22d42920c27965f5ed0b83e2d2d12cd4241e7996b528",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 73
+  },
+  {
+    "arm": "H",
+    "endLine": 212,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "0255124e81d1f40f9000b35510cd826ed51fda1ab68770286a5677e64921d1ad",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 205
+  },
+  {
+    "arm": "H",
+    "endLine": 389,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "b3e82ab3863ca9870062ac8fff447ebee48a3edfb1e2ba97fa57c4543d0038e4",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 376
+  },
+  {
+    "arm": "H",
+    "endLine": 406,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "4d1fa749bc0c69f1a2cb23115bbf294a856be517876fd2d04357755675ac0d2b",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 406
+  },
+  {
+    "arm": "H",
+    "endLine": 2062,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "c49d5868aaa4564a8702db5aca4bd18a4121ae421b316df524b700e5ce5cefc3",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 2027
+  },
+  {
+    "arm": "H",
+    "endLine": 2097,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "2bd811c0734ba2941577754dedc957add5ef42af0b3beadd49b51a2d51d7ec87",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 2091
+  },
+  {
+    "arm": "H",
+    "endLine": 2172,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "49f9ddb5be5f5fa15f732f906d08ed318f631a2e9aff7539007418c1ecc17444",
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 2160
+  },
+  {
+    "arm": "A",
+    "endLine": 59,
+    "file": "src/core/talentSummary.ts",
+    "function": "skillVector",
+    "gitBlobOidDerived": "f8e8539d3c0f780e58027640de333d6168db7654",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "07aca4fb5872da72d64515ce6f86c5c6481ca9dd54febb0cd17f084debe62316",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src",
+    "startLine": 51,
+    "treeOid": null
+  },
+  {
+    "arm": "A",
+    "endLine": 90,
+    "file": "src/core/talentSummary.ts",
+    "function": "applyGates",
+    "gitBlobOidDerived": "f8e8539d3c0f780e58027640de333d6168db7654",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "459593db14c0683d6d4e0433a6f331859f7d224e9f866b93189fd8f67db214aa",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src",
+    "startLine": 80,
+    "treeOid": null
+  },
+  {
+    "arm": "A",
+    "endLine": 121,
+    "file": "src/core/talentSummary.ts",
+    "function": "ovrCore",
+    "gitBlobOidDerived": "f8e8539d3c0f780e58027640de333d6168db7654",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "6e36724ac625a807f3083e3447e701c088f04e739ed6fab4f423af8f34f40e97",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src",
+    "startLine": 94,
+    "treeOid": null
+  },
+  {
+    "arm": "A",
+    "endLine": 127,
+    "file": "src/core/talentSummary.ts",
+    "function": "roleOVR",
+    "gitBlobOidDerived": "f8e8539d3c0f780e58027640de333d6168db7654",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "44fb62517d4f23ffb73bd47417971a1fbdb0dbf17c9f8be8306051de7a5d714b",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src",
+    "startLine": 125,
+    "treeOid": null
+  },
+  {
+    "arm": "A",
+    "endLine": 174,
+    "file": "src/core/worldgen.ts",
+    "function": "salaryCurve",
+    "gitBlobOidDerived": "94f83a85e1e59532013ab4735f73a67a916a5332",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "d07abf5d1e70fe39cdd9d0941cab06bf58a6eee7f0f183b06a2bfa0d6770c859",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 34912,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/worldgen.ts",
+      "sha256": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src",
+    "startLine": 167,
+    "treeOid": null
+  },
+  {
+    "arm": "A",
+    "endLine": 267,
+    "file": "src/core/employment.ts",
+    "function": "ageFactor",
+    "gitBlobOidDerived": "e8e5acaa1e6a94ac1de7db13eb46840efb55616f",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "e647fa07286078959f59066b481e4685ce8efe64478c9e965b8b35f1fd63ce72",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src",
+    "startLine": 263,
+    "treeOid": null
+  },
+  {
+    "arm": "A",
+    "endLine": 294,
+    "file": "src/core/employment.ts",
+    "function": "offerForTalent",
+    "gitBlobOidDerived": "e8e5acaa1e6a94ac1de7db13eb46840efb55616f",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "10800fcfd62d532abfbb6a695817cb1aaf6869fe894ace7d8657d6a9d96b45b0",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src",
+    "startLine": 271,
+    "treeOid": null
+  },
+  {
+    "arm": "A",
+    "endLine": 307,
+    "file": "src/core/employment.ts",
+    "function": "contractOffer",
+    "gitBlobOidDerived": "e8e5acaa1e6a94ac1de7db13eb46840efb55616f",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "c3c2eff27c49c797cf2063c98d017267dfeadac42339526be5c6889fce5eb353",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src",
+    "startLine": 296,
+    "treeOid": null
+  },
+  {
+    "arm": "A",
+    "endLine": 220,
+    "file": "src/core/talentMarket.ts",
+    "function": "releaseFloor",
+    "gitBlobOidDerived": "f036fcec9191374dc5554c5cdc33372b53cd7926",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "2ae1a456e688357b3ecc25a73a642c99a12c548437374b567acc92a5406cfd36",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 76993,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+      "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src",
+    "startLine": 195,
+    "treeOid": null
+  },
+  {
+    "arm": "A",
+    "endLine": 245,
+    "file": "src/core/talentMarket.ts",
+    "function": "studioOffer",
+    "gitBlobOidDerived": "f036fcec9191374dc5554c5cdc33372b53cd7926",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "455c12ea6e7689e8f6f789b266953b020fa3e50ba888fb31afaee722ad18b4f4",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 76993,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+      "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src",
+    "startLine": 228,
+    "treeOid": null
+  },
+  {
+    "arm": "A",
+    "endLine": 353,
+    "file": "src/core/talentMarket.ts",
+    "function": "proposalPriceAt",
+    "gitBlobOidDerived": "f036fcec9191374dc5554c5cdc33372b53cd7926",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "0a3ceb0eb230f1bcba284ec7f0777a0d745d22a6b4550c2b125e682c0638cac2",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 76993,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+      "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src",
+    "startLine": 345,
+    "treeOid": null
+  },
+  {
+    "arm": "A",
+    "endLine": 12,
+    "file": "src/core/math.ts",
+    "function": "clamp",
+    "gitBlobOidDerived": "8a0161e044bfe6fc331d9a0eb30bda425899a958",
+    "gitMode": null,
+    "modeClaim": "No new mode authentication; original accepted roles retained.",
+    "sliceSha256": "543a1dda388688632adafbb08faa3cfbf3e3a90f813a6fdfb1ca66b148e77b05",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 3704,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/math.ts",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src",
+    "startLine": 10,
+    "treeOid": null
+  },
+  {
+    "arm": "A",
+    "endLine": 75,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "16262976f1b5c6556bab22d42920c27965f5ed0b83e2d2d12cd4241e7996b528",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 73
+  },
+  {
+    "arm": "A",
+    "endLine": 212,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "0255124e81d1f40f9000b35510cd826ed51fda1ab68770286a5677e64921d1ad",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 205
+  },
+  {
+    "arm": "A",
+    "endLine": 389,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "b3e82ab3863ca9870062ac8fff447ebee48a3edfb1e2ba97fa57c4543d0038e4",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 376
+  },
+  {
+    "arm": "A",
+    "endLine": 406,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "4d1fa749bc0c69f1a2cb23115bbf294a856be517876fd2d04357755675ac0d2b",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 406
+  },
+  {
+    "arm": "A",
+    "endLine": 2062,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "c49d5868aaa4564a8702db5aca4bd18a4121ae421b316df524b700e5ce5cefc3",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 2027
+  },
+  {
+    "arm": "A",
+    "endLine": 2097,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "2bd811c0734ba2941577754dedc957add5ef42af0b3beadd49b51a2d51d7ec87",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 2091
+  },
+  {
+    "arm": "A",
+    "endLine": 2172,
+    "file": "src/core/tuning.ts",
+    "sliceSha256": "49f9ddb5be5f5fa15f732f906d08ed318f631a2e9aff7539007418c1ecc17444",
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "startLine": 2160
+  }
+]

@@ -1,0 +1,109 @@
+{
+  "checks": [
+    "Null futureAuthority refuses before grant/mirror/dependency target/output access; fixed source packet later authenticated.",
+    "Source producer fields checked against exact accepted r4 recorder/supervisor/body/helper text; required rawtool/helpermeta/owned group and zero exits are prospective concrete outcome contract, not invented observations.",
+    "Binding exact/preflight semantic/core/source linkage and three owned IDs absence precede mirror reads; initial/fullfinal observed role hashes retained.",
+    "Original1677 regular file SHA/Git OID/bytes/mode/nlink/dev/inode/mtime/ctime strict; all original nonroot directories exact; original sibling receipt strict physical/byte/blob role.",
+    "Exactly63 canonical100644 bridge blobs;1740 regular119393120 bytes; exact expected directory/file union and one nofollow node_modules link; two roster walks and final root FD/path equality.",
+    "Exactly21 installed package name/version/pinned-file roles plus target directory identity; no full production/dependency traversal.",
+    "Originalroot phasebefore exact and actual intentional bridge/link rootafter bound to body/recorder and final root.",
+    "Copied finite reader helpers byte-exact; separate240-second original monotonic/hardalarm through facts fsync/summary, no deadline reset, failure exits2 and no deletion.",
+    "Exact physical Python path/hash/identity also matches later actual binding tool role."
+  ],
+  "configSha256": "d3bdb8ab56cfa8b433ab405099344d1e99f6731a9f60ebca053ee4d0ab06a1b7",
+  "decision": "ACCEPT_SOURCE_ONLY_HELD_M0_ADDITIVE_EXPANDED_READBACK_VERIFIER",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "findings": [],
+  "fixedRoles": {
+    "copyFacts": {
+      "bytes": 978422,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/COPY-READBACK-FACTS.json",
+      "sha256": "e46dcc9cf81f7ce3462e1cdd34618f37f68ac75a90d5f95f112ee93966e96bfe"
+    },
+    "inputs": {
+      "bytes": 27220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json",
+      "sha256": "a9f50c1d0cb6ae54084becf514ed7908c41572050e0df19a50007e3a804ff881"
+    },
+    "routeSourcePins": {
+      "bytes": 4923,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/SOURCE-PINS.json",
+      "sha256": "6158d78ede4cf86aa5a6a68fec56a9c7e29c085399ef0d6cbe198a1655df4f5e"
+    },
+    "routeSourceReview": {
+      "bytes": 16957,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-independent-source-review-after-aj-20261009-r4/RECEIPT.json",
+      "sha256": "30fec9b708aee9355cbf4ddae37a80a752901a5535dd4d546707ed0468f8a7dc"
+    }
+  },
+  "frozenHashes": {
+    "CONFIG.json": {
+      "bytes": 2571,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/CONFIG.json",
+      "sha256": "d3bdb8ab56cfa8b433ab405099344d1e99f6731a9f60ebca053ee4d0ab06a1b7"
+    },
+    "FILL-REQUIREMENTS.json": {
+      "bytes": 1256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/FILL-REQUIREMENTS.json",
+      "sha256": "08f600c64d8ef84e8b1c8a03cd74037e8f3ae68292ae6030e41c83eedb7b8a38"
+    },
+    "REPORT.md": {
+      "bytes": 1168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/REPORT.md",
+      "sha256": "2d178143d856658fc58c7d139048b106e95370cc3072427d8432524b9f774a76"
+    },
+    "REUSE-PROOF.json": {
+      "bytes": 1004,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/REUSE-PROOF.json",
+      "sha256": "4d8b583d45dcdf7f94fb7f9b7b4c908516fd4078bb80dae09c6211bd029fdcce"
+    },
+    "verify-expanded.py": {
+      "bytes": 18821,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/verify-expanded.py",
+      "sha256": "f3b7d31b20570414d41bfa6641e198022a46a904798ddc3340db20a74510aab7"
+    }
+  },
+  "futureAuthority": null,
+  "limitations": [
+    "Source review only; no imports/exec/test/scanner/mirror/dependency payload reads.",
+    "240-second signal bound is a source failure/refusal design, not measured runtime or hard-kill guarantee. Blocking kernel/output operations still require qualified outer recording supervision.",
+    "Positive fsynced facts alone cannot admit success if later clock/tool/helper outcome fails.",
+    "No types/game/renewal numeric cause or H scientific admission."
+  ],
+  "remainingGates": [
+    "Fresh immutable filled CONFIG/sourcepins with actual14role packet and independently reviewed concrete producer outcomes, grant/recipe.",
+    "Root separate exact read-only240-second recorded lane/outer authority and source review; no verification during another heavy job.",
+    "Actual verifier exit0/scopedcleanup and independent facts review, then full protected postflight and root adoption."
+  ],
+  "roles": {
+    "CONFIG.json": {
+      "bytes": 2571,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/CONFIG.json",
+      "sha256": "d3bdb8ab56cfa8b433ab405099344d1e99f6731a9f60ebca053ee4d0ab06a1b7"
+    },
+    "FILL-REQUIREMENTS.json": {
+      "bytes": 1256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/FILL-REQUIREMENTS.json",
+      "sha256": "08f600c64d8ef84e8b1c8a03cd74037e8f3ae68292ae6030e41c83eedb7b8a38"
+    },
+    "RECIPE.json": {
+      "bytes": 764,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/RECIPE.json",
+      "sha256": "15565a4db9b8ac32cddfb3557eeb0a1c80d3feb5a0cad65844b09928c5bfaecf"
+    },
+    "SOURCE-PINS.json": {
+      "bytes": 1566,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+      "sha256": "e248ed880d2e7ff72d790840b768d1441237b2939a424441042bcdbd125f7061"
+    },
+    "verify-expanded.py": {
+      "bytes": 18821,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/verify-expanded.py",
+      "sha256": "f3b7d31b20570414d41bfa6641e198022a46a904798ddc3340db20a74510aab7"
+    }
+  },
+  "schema": "1370-m0-additive-expanded-readback-independent-source-review-r1",
+  "sourcePinsSha256": "e248ed880d2e7ff72d790840b768d1441237b2939a424441042bcdbd125f7061",
+  "verifierSha256": "f3b7d31b20570414d41bfa6641e198022a46a904798ddc3340db20a74510aab7"
+}

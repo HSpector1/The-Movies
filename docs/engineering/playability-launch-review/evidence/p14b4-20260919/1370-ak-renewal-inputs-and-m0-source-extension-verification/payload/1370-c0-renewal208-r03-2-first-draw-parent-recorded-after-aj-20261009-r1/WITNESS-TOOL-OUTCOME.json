@@ -1,0 +1,55 @@
+{
+  "actualRecorder": {
+    "bytes": 926,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-output-20261009-r1/RESULT.json",
+    "sha256": "df9984cdd9e8d76449001489b206b24327618ddda785c010c835734a50e00921"
+  },
+  "actualTool": {
+    "bytes": 680,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-parent-recorded-after-aj-20261009-r1/WITNESS-ACTUAL-TOOL.json",
+    "sha256": "20df62f48e85edb030a235a26a2cfb2560c5f184de327f7f0fea5299202af9a4"
+  },
+  "actualToolExit": 0,
+  "actualToolSessionId": 15050,
+  "childExit": 0,
+  "configSha256": "22597cd15bceec96176ad4247cdf11146aa6651bfd15d01366b105731fff83ba",
+  "elapsedSeconds": 1.3130052230117144,
+  "freshPidAndPgidAbsent": [
+    79310,
+    79573
+  ],
+  "globalAbsenceClaimed": false,
+  "grant": {
+    "bytes": 13909,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-parent-recorded-after-aj-20261009-r1/WITNESS-GRANT.json",
+    "sha256": "3f2a35e7a93f629ce5960de945bae5475b524f17939e274e2af1a11ae7ebb394"
+  },
+  "helperLog": {
+    "bytes": 414,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-lane-20261009-r1/first-draw-witness.lane.log",
+    "sha256": "593ae00987821bd9c2d9a3cc0e16dfeb93326498869bbcd0ad3a0bff51485b4b"
+  },
+  "helperMeta": {
+    "bytes": 351,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-lane-20261009-r1/first-draw-witness.lane.log.meta",
+    "sha256": "e90b858c3acff5eff5ac86725cd4486c28347a14e7d2fb3afd8ccad2c12c0c57"
+  },
+  "helperMetaExit": 0,
+  "laneLockAbsent": true,
+  "recorderExit": 0,
+  "renewalPricingCausesClosed": 0,
+  "rows": 1,
+  "sourcePinsSha256": "b5055ac3e7f4bee5a299517d7513859a746ffc1fcbc662d9b505c97e5d2dc83b",
+  "status": "ACTUAL_RENEWAL208_ONE_KEY_WITNESS_COMPLETE_PENDING_INDEPENDENT_OBSERVED_REVIEW",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-output-20261009-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 615,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-output-20261009-r1/stdout.bin",
+    "sha256": "02fbee91b4e3bcfe349c352e4a4df8208d1f6e596158b340ddc925fda7977de4"
+  },
+  "utc": "2026-10-09T19:28:26.640202+00:00"
+}

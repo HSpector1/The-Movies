@@ -1,0 +1,11 @@
+--- immutable-failed-r2/CONFIG.json
++++ fresh-r3/CONFIG.json
+@@ -120,7 +120,7 @@
+     "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2.MATERIALIZE-RESULT.json",
+     "sha256": "f584835a2893a3f9fc8e26df8765423a62096ced49a94d4f09ff1c935401e0f9"
+   },
+-  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r2.json",
++  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r3.json",
+   "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+   "pythonTool": {
+     "identity": [

@@ -1,0 +1,32 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 2571,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/CONFIG.json",
+      "sha256": "d3bdb8ab56cfa8b433ab405099344d1e99f6731a9f60ebca053ee4d0ab06a1b7"
+    },
+    "FILL-REQUIREMENTS.json": {
+      "bytes": 1256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/FILL-REQUIREMENTS.json",
+      "sha256": "08f600c64d8ef84e8b1c8a03cd74037e8f3ae68292ae6030e41c83eedb7b8a38"
+    },
+    "REPORT.md": {
+      "bytes": 1168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/REPORT.md",
+      "sha256": "2d178143d856658fc58c7d139048b106e95370cc3072427d8432524b9f774a76"
+    },
+    "REUSE-PROOF.json": {
+      "bytes": 1004,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/REUSE-PROOF.json",
+      "sha256": "4d8b583d45dcdf7f94fb7f9b7b4c908516fd4078bb80dae09c6211bd029fdcce"
+    },
+    "verify-expanded.py": {
+      "bytes": 18821,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/verify-expanded.py",
+      "sha256": "f3b7d31b20570414d41bfa6641e198022a46a904798ddc3340db20a74510aab7"
+    }
+  },
+  "futureAuthority": null,
+  "status": "SOURCE_ONLY_UNRUN_EXPANDED_READBACK_AUTHORITY_NULL"
+}

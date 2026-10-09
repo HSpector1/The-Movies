@@ -1,0 +1,39 @@
+{
+  "baseline": {
+    "bytes": 14534,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/record-pure-node.py",
+    "sha256": "be323be957cbe53f01d6b650182a18feb0fd5cb1306a412627bd32c9d6eea670"
+  },
+  "candidate": {
+    "bytes": 14530,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/record-pure-node.py",
+    "sha256": "2ee9051143bd569ffa2cfb83d5429ddea86b8c1262e3d76923a9e7acecac1e35"
+  },
+  "changes": [
+    [
+      "CONFIG_SHA='42b4a95fe03756b433a6391f404080ef92dbc780675ad35dcd186f7cfcbd38c1'",
+      "CONFIG_SHA='c7a24275d784df2c9a81fc8bcf1143f9daa4fe916fc73e095b121498774ce1ce'"
+    ],
+    [
+      "'1370-c0-renewal208-pure16-pricing-'+mode+'-output-20261009-r1'",
+      "'1370-c0-renewal208-pure16-pricing-'+mode+'-output-20261009-r2'"
+    ],
+    [
+      "expected='PURE_RENEWAL208_PURE16_PRICING_PAIRS_AGREE'",
+      "expected='PURE_RENEWAL208_PRICING_PAIRS_AGREE'"
+    ],
+    [
+      "last.get('selectedRows')==23",
+      "last.get('selectedRows')==16"
+    ],
+    [
+      "last.get('renewalAttribution') is False",
+      "last.get('renewalCauseAdmission') is False"
+    ]
+  ],
+  "inverseFullTextByteExact": true,
+  "mechanismsUnchanged": "60/75/90; owned fork/READY/GO; stream caps; sticky failures/override; cleanup and finalization",
+  "sourceOnly": true,
+  "successInterfaceOnly": true,
+  "syntheticProtocolAuthoredOnly": true
+}

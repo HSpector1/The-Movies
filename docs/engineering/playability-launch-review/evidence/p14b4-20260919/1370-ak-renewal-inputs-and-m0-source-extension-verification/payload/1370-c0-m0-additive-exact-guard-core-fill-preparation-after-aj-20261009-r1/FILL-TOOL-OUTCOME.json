@@ -1,0 +1,21 @@
+{
+  "authorFillElapsedSeconds": 1.152451125002699,
+  "bindingSha256": "f147695e91a7c53b5f5b696b43a7421f8721ccf3e6273f3aea8e72bbbff4b86b",
+  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-candidate-after-aj-20261009-r1",
+  "executionAuthorization": false,
+  "futureFinalCandidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1",
+  "gitMutationOrFullScan": false,
+  "guardCoreSha256": "69f4a0a4e5bb4d686ef03178dafa9b4c27c11d8671745d61a0537fd725adf69d",
+  "launch": {
+    "bytes": 2446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-candidate-after-aj-20261009-r1/LAUNCH-SPEC.json",
+    "sha256": "0f29c956eac6f973ab7911e9b5eab6d8bc040114d71b22c6316eb4393e4fbbc7"
+  },
+  "pins": {
+    "bytes": 1188,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-candidate-after-aj-20261009-r1/PINS.json",
+    "sha256": "1f524d59840874fd86a75d9fafa0cd6e8be94d6deff3c3e4be0d5e4d9d123983"
+  },
+  "sourceImportedOrCandidateExecuted": false,
+  "status": "READY_GUARD_CORE_CANDIDATE_HELD_UNRUN"
+}

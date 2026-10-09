@@ -1,0 +1,71 @@
+{
+  "checks": [
+    "Exact11 listed replacements reconstruct entire wrapper; qualified original ownership/recording/authority/argv/absence mechanisms unchanged.",
+    "Actual Node22 accepted filled source/pins/config/recorder/route roles authenticated; amendment is source-only false/null actualRuntimeGrant and replacement tool fields align exactly;30 roles required.",
+    "Future complete M0 adoption/fullpostflight/solelane gate remains mandatory, actual acceptedRoles hashes and scoped owned PID/PGID absence required.",
+    "Python arm retains separately observedJS13 review with exact newsourcepins; counts13/14/3 and all bounds retained.",
+    "Fresh Node22 lane/output/fixture paths match accepted route; exclusive grant before exec helper; no pricing fields added."
+  ],
+  "config": {
+    "bytes": 15164,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/CONFIG.json",
+    "sha256": "09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_NODE22_PARENT_CONTROL_WRAPPER",
+  "exactElevenChangeReconstruction": true,
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "filledSourceReview": {
+    "bytes": 4501,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "8e6a73e06cb774e61d103439bd17536ee97302802cea21cb48a5a93d808776cf"
+  },
+  "findings": [],
+  "limitations": [
+    "Source review only; no future completion file fabricated or operational proof assumed.",
+    "No new full FD scan added: inherited bounded guards and complete M0 postflight remain prerequisites.",
+    "No Node20/22 runtime equivalence, syntheticactualpass/game/pricing/renewal admission.",
+    "No wrapper execution/import/tests/scanner/Node/Git/protectedwrites."
+  ],
+  "preparation": {
+    "bytes": 2641,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-grant-a208-controls-node22-preparation.json",
+    "sha256": "dc5b70809ce4289ea1f3cf70fb7a02ebdfa90d9a3cbdf7de8afe06f81bd7a05a"
+  },
+  "priorWrapper": {
+    "bytes": 6947,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-grant-a208-controls.py",
+    "sha256": "59663b878e3ee7ed8978554582d6c98e32753c98c4f5342161ee7e080e503b2c"
+  },
+  "prospectiveAmendment": {
+    "bytes": 4638,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "7da501eb54301aaf0a22c5dc29e4dff786ee4bd9bfff490153d951c54bd7b9eb"
+  },
+  "recorder": {
+    "bytes": 14474,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py",
+    "sha256": "3767643eff8348e7bf132e6eee3be132747e96b581d7f916d48964bf8f9d8ddb"
+  },
+  "remainingGates": [
+    "Actual root M0 protected completion/adoption must exist and be accepted.",
+    "Separate external actual JS grant, observedJSreview, then Python grant and observedreview."
+  ],
+  "route": {
+    "bytes": 2824,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/ROUTE.json",
+    "sha256": "6fdae62563b62fb22adaa289403cdfa3ed00daa11df21489e189b9dc03fb93d6"
+  },
+  "schema": "1370-a208-node22-parent-wrapper-independent-source-review-r1",
+  "sourcePins": {
+    "bytes": 5579,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5"
+  },
+  "sourcePinsSha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5",
+  "wrapper": {
+    "bytes": 7204,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-grant-a208-controls-node22.py",
+    "sha256": "25ea8ec1b2bd8f9d2a4a643dd8c98c8dc630eaa815c6ba66a3ccc85a855a7e88"
+  }
+}

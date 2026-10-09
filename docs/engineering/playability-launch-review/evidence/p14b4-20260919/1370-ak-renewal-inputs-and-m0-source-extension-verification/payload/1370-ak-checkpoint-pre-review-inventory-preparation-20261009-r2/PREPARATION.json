@@ -1,0 +1,21 @@
+{
+  "status": "COMPLETE_PRE_REVIEW_ONLY_NOT_ARCHIVED",
+  "inventory": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-pre-review-inventory-preparation-20261009-r2/INVENTORY-FINAL-PRE-REVIEW.json",
+    "bytes": 543325,
+    "sha256": "b24ecd8aa02ee4f1e2102dea81b95e4e74bf6a830794fb1845458a63e2850bea",
+    "mode": "0644",
+    "nlink": 1
+  },
+  "preservedEarlierDraft": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-pre-review-inventory-preparation-20261009-r1/INVENTORY-DRAFT.json",
+  "rawPolicy": {
+    "localHashSizeOnly": 18,
+    "bytes": 7619304,
+    "machineRaw": 17,
+    "syntheticPadding": 1
+  },
+  "missingActualArtifacts": [],
+  "repoOrGitMutated": false,
+  "runtimeExecuted": false,
+  "rootFinalClaimReviewAndArchiveSeparate": true
+}

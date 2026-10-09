@@ -1,0 +1,52 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 12563,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/CONFIG.json",
+      "sha256": "1d6c6bc66e053296dfb6d8aa115d7d093d94d4b30c42983aafff561388aa762f"
+    },
+    "REPORT.md": {
+      "bytes": 1976,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/REPORT.md",
+      "sha256": "80bd00030c5266d39291e1f2648688fc475b5567cd65f049f898edd4e50624b8"
+    },
+    "REUSE.diff": {
+      "bytes": 5957,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/REUSE.diff",
+      "sha256": "02757a3041b93a9ef294a60f0ace5c4bf385697aec3bd268a058112843cab36a"
+    },
+    "REUSE.json": {
+      "bytes": 1869,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/REUSE.json",
+      "sha256": "ee6815e9557843f596d9b38f13a4ce8505ccf30f9766a4451009db236ce57434"
+    },
+    "ROUTE.json": {
+      "bytes": 2239,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/ROUTE.json",
+      "sha256": "1b63e924cb6f395f3e3178e7f808e6350162de7cf80662f3641a91cfdb69f7d0"
+    },
+    "drive.py": {
+      "bytes": 8454,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/drive.py",
+      "sha256": "7e4437d2a3a15b711ad10a470ed1fdb9cfbc9104df7ef39e2245c07bd7240ce3"
+    },
+    "prepare.py": {
+      "bytes": 16252,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/prepare.py",
+      "sha256": "ea52ebbd2c37cc4d8c0d66936a3cf07608bf6d980be5120d33b267709073559f"
+    },
+    "record.py": {
+      "bytes": 14508,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/record.py",
+      "sha256": "4aa3c90e51abf8cbcdf88837e45c728e4d41f749f67c3af677762957b453363b"
+    }
+  },
+  "observerPins": {
+    "bytes": 9882,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+  },
+  "runtimeGrant": null,
+  "schema": "1370-a208-finite-recorded-controls-pins-r1"
+}

@@ -1,0 +1,171 @@
+{
+  "actualHelperLog": {
+    "bytes": 209,
+    "path": "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log",
+    "sha256": "0299ef72c5418dcb6580c6968786b9f69cbb7251b697b73530476c2f870f9cf9"
+  },
+  "actualHelperMeta": {
+    "bytes": 445,
+    "path": "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log.meta",
+    "sha256": "391fbeebf7046dc5cab7aad49b39511f23f136215683b50d069e92ddf1abdd3e"
+  },
+  "actualPacketRoles": {
+    "actualTool": {
+      "bytes": 989,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/ACTUAL-TOOL.json",
+      "sha256": "8492a32a3c59c22421931863f653dbcd2e906605ee6770da25afecf703e66f7e"
+    },
+    "binding": {
+      "bytes": 13448,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+      "sha256": "35e596a0ee6d5119fd2a84f03f3fc0a7398be1208a8f65e4c4824ca67e269a50"
+    },
+    "bodyResult": {
+      "bytes": 1154,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/ADDITIVE-RESULT.json",
+      "sha256": "8d4045366d5f74c9e255cf741ef562abe6b8977d991d421518fa2213ef54b854"
+    },
+    "childOwned": {
+      "bytes": 71,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/CHILD-OWNED.json",
+      "sha256": "d4c1ccbd557c5851ea53afa4ef2a966e573c4b88c5da8d5485cc1abef4e4e32c"
+    },
+    "childStderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/child.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "childStdout": {
+      "bytes": 275,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/child.stdout",
+      "sha256": "75e97cb57f7f0211485a398c38005bd5d1915a5fe0d099ef9c4744a788dcf959"
+    },
+    "exactReview": {
+      "bytes": 2785,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-final-exact-independent-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d86d88453393c6ce9c941bf7f6b992c90e49833d91835c40fdf274278ae19fcc"
+    },
+    "firstWritePhase": {
+      "bytes": 424,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/FIRST-WRITE-PHASE.json",
+      "sha256": "60ecc952a2764f9a877926a6b13a816d130dbc9804a33aa63113721581f84e73"
+    },
+    "helperMeta": {
+      "bytes": 445,
+      "path": "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log.meta",
+      "sha256": "391fbeebf7046dc5cab7aad49b39511f23f136215683b50d069e92ddf1abdd3e"
+    },
+    "originalSiblingReceipt": {
+      "bytes": 1549,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2.MATERIALIZE-RESULT.json",
+      "sha256": "f584835a2893a3f9fc8e26df8765423a62096ced49a94d4f09ff1c935401e0f9"
+    },
+    "parentToolOutcome": {
+      "bytes": 6079,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/TOOL-OUTCOME.json",
+      "sha256": "12e398382dc7a08830c01f09f1a14e8e30eed3cb8ea61729d6e82d1c763bf846"
+    },
+    "preflightReview": {
+      "bytes": 8199,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-preflight-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "3bce48d3f7bac785ca024f7609c7a46a2c832c3adfe9d4d6a7cc0501b4f83018"
+    },
+    "recorderResult": {
+      "bytes": 1170,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/RESULT.json",
+      "sha256": "f7b1cf08b4a99bf6b1b42c804cbb049d09f004defbc190cbbf92c8dadc8f4ae5"
+    },
+    "supervisorResult": {
+      "bytes": 452,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/SUPERVISOR.json",
+      "sha256": "251a8faabce3dc36a094dea59f699c38be345eddcaca5f1b97e49218e3ac8d8f"
+    }
+  },
+  "actualParentToolOutcome": {
+    "bytes": 6079,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/TOOL-OUTCOME.json",
+    "sha256": "12e398382dc7a08830c01f09f1a14e8e30eed3cb8ea61729d6e82d1c763bf846"
+  },
+  "actualRecordedCompletionReview": {
+    "bytes": 6137,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "e2c7bba284f70e408d6432a8a19060195593ce92ee74c5fb892801b878c4fd41"
+  },
+  "checks": [
+    "Exact fourteen concrete roles authenticated against closed observed tool45234 and accepted e2c7 review; helper log/meta current bytes agree.",
+    "Only CONFIG futureAuthority plus fresh facts-r2 output changed; verifier and three source documents byte-identical to accepted81b265.",
+    "Actual exact/preflight binding pointers and output names/ownership/bodyphase schemas remain consistent; clocks/bounds/tool roles unchanged.",
+    "Recipe points exact fresh local verifier/pins, with grant path/hash still unfilled separate operational authority.",
+    "Historical null wording in copied report/configstatus is qualified by fill receipt; no relabeling original source or future successful readback."
+  ],
+  "config": {
+    "bytes": 6419,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/CONFIG.json",
+    "sha256": "eece793d3622935824c14bcce7aea2c185cffc9df65144037e3d79575907c9c2"
+  },
+  "decision": "ACCEPT_EXACT_FILLED_UNRUN_M0_ADDITIVE_EXPANDED_READBACK",
+  "executionAuthorization": false,
+  "findings": [],
+  "frozenFiles": {
+    "CONFIG.json": {
+      "bytes": 6419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/CONFIG.json",
+      "sha256": "eece793d3622935824c14bcce7aea2c185cffc9df65144037e3d79575907c9c2"
+    },
+    "FILL-REQUIREMENTS.json": {
+      "bytes": 1256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/FILL-REQUIREMENTS.json",
+      "sha256": "08f600c64d8ef84e8b1c8a03cd74037e8f3ae68292ae6030e41c83eedb7b8a38"
+    },
+    "REPORT.md": {
+      "bytes": 1168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/REPORT.md",
+      "sha256": "2d178143d856658fc58c7d139048b106e95370cc3072427d8432524b9f774a76"
+    },
+    "REUSE-PROOF.json": {
+      "bytes": 1004,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/REUSE-PROOF.json",
+      "sha256": "4d8b583d45dcdf7f94fb7f9b7b4c908516fd4078bb80dae09c6211bd029fdcce"
+    },
+    "verify-expanded.py": {
+      "bytes": 18821,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/verify-expanded.py",
+      "sha256": "f3b7d31b20570414d41bfa6641e198022a46a904798ddc3340db20a74510aab7"
+    }
+  },
+  "limitations": [
+    "No mirror payload/target/package reads or verifier import/execution/tests/scans/Git/protected writes.",
+    "Actual completion proves recorded reports only until physical readback.",
+    "No new expiry claim or expanded runtime scope."
+  ],
+  "physicalReadbackComplete": false,
+  "protectedPostflightComplete": false,
+  "recipe": {
+    "bytes": 794,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/RECIPE.json",
+    "sha256": "dc49935f3d6824bddf9a8ced7103903d4c6dda6b5a5ff16df06111bcfce06247"
+  },
+  "remainingGates": [
+    "Root separate exact240-second read-only controlled recording grant and fresh sole-lane/ownership guards.",
+    "Actual verifier tool/helper result and finite facts independently reviewed.",
+    "Full protected postflight and independent adoption; no types/game admission."
+  ],
+  "schema": "1370-m0-additive-expanded-readback-exact-filled-independent-review-r2",
+  "sourcePins": {
+    "bytes": 2183,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/SOURCE-PINS.json",
+    "sha256": "dfbf25dc7d97aa654dedf625abfd2c2209dcb089c3870d4c49b17d4540125a30"
+  },
+  "sourcePinsSha256": "dfbf25dc7d97aa654dedf625abfd2c2209dcb089c3870d4c49b17d4540125a30",
+  "sourceReview": {
+    "bytes": 6866,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "81b265485e77dbb7ca5ed5c6c55b4a5913045371e8c971f00e44d4416648ed54"
+  },
+  "verifier": {
+    "bytes": 18821,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/verify-expanded.py",
+    "sha256": "f3b7d31b20570414d41bfa6641e198022a46a904798ddc3340db20a74510aab7"
+  },
+  "verifierExecuted": false
+}

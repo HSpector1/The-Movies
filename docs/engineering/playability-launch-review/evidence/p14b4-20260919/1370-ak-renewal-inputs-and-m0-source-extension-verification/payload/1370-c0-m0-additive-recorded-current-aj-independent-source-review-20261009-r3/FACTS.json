@@ -1,0 +1,104 @@
+{
+  "AJPublishedReadbackRole": {
+    "bytes": 828,
+    "mode": "0644",
+    "nlink": 1,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "746c05848363878e65cabe3ad3407dc71536e89925e4dd85769f09e818266214"
+  },
+  "allPinnedFilesPhysicalRegularSingleLink": true,
+  "bindingAllOtherFieldsExact": true,
+  "bindingChangedFields": [
+    "docsOnlyTransition",
+    "materializerArgv",
+    "materializerArgvRolePath",
+    "materializerArgvRoleSha256",
+    "materializerPath",
+    "materializerSha256",
+    "parentScopeAdoptionPath",
+    "parentScopeAdoptionSha256",
+    "productionHead",
+    "recorderPath",
+    "recorderSha256",
+    "supervisorPath"
+  ],
+  "bodyThreeInverseLiteralSubstitutionsFullByteEquality": true,
+  "functionComparison": {
+    "add_inputs.py": {
+      "changedFunctions": [],
+      "functions": 26
+    },
+    "record.py": {
+      "changedFunctions": [
+        "validated_spec"
+      ],
+      "functions": 10
+    },
+    "supervise.py": {
+      "changedFunctions": [],
+      "functions": 10
+    }
+  },
+  "input63BridgeDepsCopyAuthorityBoundsUnchanged": true,
+  "inputOnlyOperationalHeadFullTextAndStructuralDifference": true,
+  "limitations": [
+    "No fresh Git/ref/clean query, protected inventory, FD/process/power/disk/tool runtime probe performed; published AJ and parent scope are authenticated evidence roles.",
+    "Reuse covers only unchanged seven-method mechanisms, not new HEAD/INPUTS/source-role admission or actual current deadline/group behavior.",
+    "Fresh full protection baseline, exact fill/preflight/archive/adoption/grant, actual expanded readback/full postflight remain required."
+  ],
+  "observedR2ControlReceiptRole": {
+    "bytes": 4164,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-observed-independent-review-20261009-r2/RECEIPT.json",
+    "sha256": "9da1cfa0797a7bc85c1193e6481cf84ee690f04bb309edda6fd70eccec27b075"
+  },
+  "observedR2RetainedArtifactsReauthenticated": 9,
+  "originalSevenMethodsAndTargetsASTsAuthenticated": true,
+  "parentScopeAdoptionRole": {
+    "bytes": 2289,
+    "mode": "0644",
+    "nlink": 1,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-aj-scope-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "13be428dfe3bdba1bc4ce4f2348bd194d2473c4c812df2b5f0bfec936b76b8e8"
+  },
+  "predecessorFilesAuthenticated": 15,
+  "preservedNamedPathsFreshAbsent": [
+    {
+      "lexists": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2"
+    },
+    {
+      "lexists": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-20261009-r2.lock"
+    },
+    {
+      "lexists": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-input-output-20261009-r2"
+    },
+    {
+      "lexists": false,
+      "path": "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log"
+    },
+    {
+      "lexists": false,
+      "path": "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.meta"
+    },
+    {
+      "lexists": false,
+      "path": "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK"
+    }
+  ],
+  "provenanceRolesAuthenticated": 24,
+  "r3ControlsExecuted": false,
+  "recordOneHeadLiteralInverseFullByteEquality": true,
+  "scope": "Independent bounded source/metadata/control-reuse review only; source files read and AST parsed, no candidate imports or execution",
+  "sourceAndExactRuntimeAuthorityNull": true,
+  "sourceFileCount": 19,
+  "sourcePinRole": {
+    "bytes": 5745,
+    "mode": "0600",
+    "nlink": 1,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/SOURCE-PINS.json",
+    "sha256": "94f70526a969dabcee87ab9e63a40bfaa00ac224e458e849db42b8c0f1515995"
+  },
+  "supervisorByteEquality": true
+}

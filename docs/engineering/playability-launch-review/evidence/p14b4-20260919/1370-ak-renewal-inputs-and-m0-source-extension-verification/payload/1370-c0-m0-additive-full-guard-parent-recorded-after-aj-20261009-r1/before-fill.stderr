@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py", line 161, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py", line 127, in main
+    output=HERE/'evidence'/label;require(not os.path.lexists(output),'snapshot output already used');output.mkdir(mode=0o700)
+                                                                                                     ~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 1011, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r2'

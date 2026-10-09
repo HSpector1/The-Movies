@@ -1,0 +1,59 @@
+{
+  "actualRuntimeGrant": null,
+  "bounds": {
+    "eachParentActiveSeconds": 75,
+    "eachParentChildSeconds": 60,
+    "eachParentWholeSeconds": 90,
+    "eachStreamBytes": 1048576,
+    "ownedFixtureBytes": 8388608,
+    "pythonDriverActiveSeconds": 45,
+    "pythonDriverWholeSeconds": 55
+  },
+  "claimLimit": "Prospective finite source-fill authority only. Actual launch and observed controls remain unrun; no historical or future run is relabeled.",
+  "executionAuthorization": false,
+  "expected": {
+    "inheritedSandboxProbes": 4,
+    "jsGroups": 13,
+    "ownedDirectOuterGroups": 7,
+    "pythonObserverMethods": 14,
+    "separateProtocolMethods": 3
+  },
+  "gameOrPricingExecutionAuthorized": false,
+  "immutableScopeNotAnActualLaunchGrant": true,
+  "intendedSequence": [
+    "js13",
+    "python3ProtocolThen14ObserverMethods"
+  ],
+  "noncircularFillRecipe": {
+    "bytes": 4435,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-exact-fill-recipe-after-aj-20261009-r1/FILL-RECIPE.md",
+    "sha256": "ca73e83daf82400eee116cdec66b469bae1da87bdc64828f4a4dc129375553c3"
+  },
+  "permissionToPrepareReviewedFilledRoute": true,
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "renewalCausesClosed": 0,
+  "schema": "1370-a208-controls-prospective-parent-scope-v1",
+  "sourceFillConstraints": [
+    "Preserve original source r1 and REFINE and r2 review",
+    "Keep recorder ownership/clocks/caps/failure-retention mechanisms and original observer18 files",
+    "Fresh physical locally pinned byte-identical driver/report validator/protocol tests; no old HERE config reuse",
+    "Config authenticates actual immutable source review and this scope as roles; no future hash or circular grant role",
+    "Independent filled source/exact review must authenticate new CONFIG/recorder/local-role/output/fixture/lane paths",
+    "Actual outer grant remains outside CONFIG and binds filled sources plus independent review and current sole-lane guards",
+    "No launch until current M0 protected scan/additive/postflight chain completes and root separately grants each arm",
+    "Stop on actual nonzero/timeout/shape mismatch/override/unresolved ownership; retain originals and do not automatic retry"
+  ],
+  "sourcePins": {
+    "bytes": 3402,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/SOURCE-PINS.json",
+    "sha256": "1c267921f7dd0bb0db8e65ddf356bd9649f36658410324fc550a0cbc0f200cca"
+  },
+  "sourceReview": {
+    "bytes": 1573,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-independent-source-review-after-aj-20261009-r2/RECEIPT.json",
+    "sha256": "a4f568dc17dd37133a2ceb8f83a449622981ae6db9a48048a91028155543060c"
+  },
+  "status": "ROOT_ADOPTED_REVIEWED_SOURCE_AND_AUTHORIZED_FINITE_EXACT_FILL_ONLY",
+  "utc": "2026-10-09T20:05:35.812016+00:00"
+}

@@ -1,0 +1,43 @@
+{
+  "adoptedBinding": {
+    "bytes": 13448,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+    "sha256": "35e596a0ee6d5119fd2a84f03f3fc0a7398be1208a8f65e4c4824ca67e269a50"
+  },
+  "adoptedLaunch": {
+    "bytes": 3571,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/ADOPTED-LAUNCH-SPEC.json",
+    "sha256": "4bdca6f36f0dd20067da512a5f3bf01c840043a236c1000862f8acf93ab27c08"
+  },
+  "archiveManifest": {
+    "bytes": 5234,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-pre-adoption-archive-after-aj-20261009-r1/ARCHIVE-MANIFEST.json",
+    "sha256": "d93b83ce358c59c4ce44b9af262d0fb72c7e17e606f3433b843089c2de37b041"
+  },
+  "bindingSemanticSha256": "3949fb78642c7324d61e1c23f967f10a056e17d3a5ae5a850ebbb73969c4e8e5",
+  "changedFields": [
+    "exactBindingReviewDecision",
+    "exactBindingReviewPath",
+    "exactBindingReviewSha256",
+    "executionAuthorization",
+    "status"
+  ],
+  "claimLimit": "Parent adoption only; independent adopted preflight and separate owned recorded launch remain required. Original six files retained exactly. No source extension, types or game execution claimed.",
+  "exactReview": {
+    "bytes": 2785,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-final-exact-independent-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "d86d88453393c6ce9c941bf7f6b992c90e49833d91835c40fdf274278ae19fcc"
+  },
+  "guardCoreSha256": "69f4a0a4e5bb4d686ef03178dafa9b4c27c11d8671745d61a0537fd725adf69d",
+  "nonbindingFiveBytesAndMetadataUnchanged": true,
+  "originalRawBindingSha256": "afb63886674e50034d802af42bafacd5e9d119b96dfadc256e5b29668e4d30a7",
+  "protectedFreezeMaintained": true,
+  "runtimeLaunchGranted": false,
+  "sourceScript": {
+    "bytes": 5243,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-adopt-final-candidate.py",
+    "sha256": "d9d9c963d943aa6ceda3896f9990b00b2301a2128d1d78976501a70359774be0"
+  },
+  "status": "ROOT_ARCHIVED_SIX_ORIGINALS_AND_ADOPTED_EXACTLY_FIVE_AUTHORIZATION_FIELDS_UNRUN",
+  "utc": "2026-10-09T20:18:45.996007+00:00"
+}

@@ -1,0 +1,38 @@
+test_python_status_counts_failure_and_cleanup_refused (a208_report_checks.Reports.test_python_status_counts_failure_and_cleanup_refused) ... ok
+test_tap_count_failure_skip_todo_cancel_and_stderr_refused (a208_report_checks.Reports.test_tap_count_failure_skip_todo_cancel_and_stderr_refused) ... ok
+test_valid_producers_and_old_gate_red (a208_report_checks.Reports.test_valid_producers_and_old_gate_red) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.010s
+
+OK
+test_exact_external_bounds_roles_and_path_substitution (test-supervisor.py.SyntheticRouteTests.test_exact_external_bounds_roles_and_path_substitution) ... ok
+test_frame_validation_and_digest_stop (test-supervisor.py.SyntheticRouteTests.test_frame_validation_and_digest_stop) ... ok
+test_preflight_is_within_whole_recorder_clock (test-supervisor.py.SyntheticRouteTests.test_preflight_is_within_whole_recorder_clock) ... ok
+test_sandbox_stdout_denied_write_and_moved_parent_fd_closed (test-supervisor.py.SyntheticRouteTests.test_sandbox_stdout_denied_write_and_moved_parent_fd_closed) ... ok
+test_source_review_required_and_exact (test-supervisor.py.SyntheticRouteTests.test_source_review_required_and_exact) ... ok
+test_blocked_launch_with_inherited_child_group_is_hard_stopped (test-outer.py.OuterRecorderSyntheticTests.test_blocked_launch_with_inherited_child_group_is_hard_stopped) ... ok
+test_blocked_parent_pipe_forwarding_stops (test-outer.py.OuterRecorderSyntheticTests.test_blocked_parent_pipe_forwarding_stops) ... ok
+test_blocked_preflight_is_hard_stopped (test-outer.py.OuterRecorderSyntheticTests.test_blocked_preflight_is_hard_stopped) ... ok
+test_cap_and_prelaunch_deadline_stop (test-outer.py.OuterRecorderSyntheticTests.test_cap_and_prelaunch_deadline_stop) ... ok
+test_term_ignored_still_stops_by_hard_deadline (test-outer.py.OuterRecorderSyntheticTests.test_term_ignored_still_stops_by_hard_deadline) ... ok
+test_zero_exit_with_live_group_member_stops (test-outer.py.OuterRecorderSyntheticTests.test_zero_exit_with_live_group_member_stops) ... ok
+test_zero_exit_with_malformed_or_multiple_frames_stops (test-outer.py.OuterRecorderSyntheticTests.test_zero_exit_with_malformed_or_multiple_frames_stops) ... ok
+test_transport_role_and_byte_integrity (test-settlement208-frame.py.Settlement208TransportTests.test_transport_role_and_byte_integrity) ... ok
+test_wrong_phase_and_cap (test-settlement208-frame.py.Settlement208TransportTests.test_wrong_phase_and_cap) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 2.155s
+
+OK
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py", line 162, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py", line 144, in main
+    PHASE='cleanup';hard_kill()
+                    ~~~~~~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py", line 35, in hard_kill
+    try:os.killpg(slot['pid'],signal.SIGKILL)
+        ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted

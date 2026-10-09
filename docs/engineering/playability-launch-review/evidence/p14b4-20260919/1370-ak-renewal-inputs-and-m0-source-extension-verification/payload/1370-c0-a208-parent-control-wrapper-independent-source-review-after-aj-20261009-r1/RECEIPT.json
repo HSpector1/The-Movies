@@ -1,0 +1,50 @@
+{
+  "checks": [
+    "Exact isolated/no-bytecode/nonoptimized args/mode shape: JS7 user args, Python9 with separate observed JS review.",
+    "Wrapper review authenticates full wrapper role; accepted filled source review/pins/config/all files/all CONFIG roles and exact Node/Python/helper roles authenticated.",
+    "Prospective scope role is loaded/authenticated by path/hash; execution false and actualRuntimeGrant null remain unchanged.",
+    "Actual future root completion requires adopted M0 full-protection status, postflight/sole-lane booleans/current AJ head and authenticated acceptedRoles; all reported prior owned PID/PGID pairs freshly absent.",
+    "Python requires separate ACCEPT_OBSERVED_A208_JS_CONTROLS with exact source pins/all13Passed before grant.",
+    "Fresh clean local/remote HEAD/source, AC/free/no heavy lock and absent exact lane/output/fixture checked before exclusive fsynced grant.",
+    "Absent whole lane directory covers helper log/meta paths; exact Bash helper argv executes recorder mode in local filled HERE/cwd.",
+    "Ownership/clocks/streams/caps remain accepted recorder/driver responsibilities; external actual grant records source roles and exact command, then root PID becomes helper via execve.",
+    "Only actual 13 JS/14 observer Python/3 separate protocol counts; no pricing fields or cause claims."
+  ],
+  "config": {
+    "bytes": 14193,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/CONFIG.json",
+    "sha256": "53b996cf65721bab186ed2043031fb470ad8868d838fac7ab0cd17bad81b0565"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_PARENT_CONTROL_WRAPPER",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "filledSourceReviewSha256": "e304e8707580bae518ba12e7e15eb353c2a5d67b23dbc491fba29c2cdfbda6d4",
+  "findings": [],
+  "limitations": [
+    "Read-only source review with scratch receipt only; no wrapper execution/import/tests/scan/Git/protected writes.",
+    "Completion role SHA is supplied by root at launch; source review accepts interface rather than future role contents.",
+    "No global worker-clearance guarantee; no whole elapsed bound for external Bash helper wait."
+  ],
+  "recorder": {
+    "bytes": 14474,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/record.py",
+    "sha256": "3215c7eb2a9cfaf6a71c22b6410a9f7d2d4db30844be9b6919f9dd610c2916d8"
+  },
+  "remainingGates": [
+    "Actual root M0 completion role must exist and be independently adopted, not a fabricated future file.",
+    "Root must separately provide authenticated review/completion roles and grant each exact arm.",
+    "Actual outputs and independent observed controls review; no automatic retry."
+  ],
+  "route": {
+    "bytes": 2783,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/ROUTE.json",
+    "sha256": "f71cb9345df730bd93675022c86f250a3b4b61c13c48480a6840f19ee574cfc1"
+  },
+  "schema": "1370-a208-parent-control-wrapper-independent-source-review-r1",
+  "sourcePinsSha256": "9548de6af338fe98a3dde78a1599850152fdab48db0c9e25576de8deb48acecc",
+  "wrapper": {
+    "bytes": 6947,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-grant-a208-controls.py",
+    "sha256": "59663b878e3ee7ed8978554582d6c98e32753c98c4f5342161ee7e080e503b2c"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "actualClosedWorkCoverageAccepted": true,
+  "checks": {
+    "bytes": 17055,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-complete-pre-review-inventory-independent-review-20261009-r1/CHECKS.json",
+    "sha256": "cc9cfc367691c2b1d758d79a0b172cd4834394ceac11426943fe3a609e31573d"
+  },
+  "decision": "ACCEPT_COMPLETE_PRE_REVIEW_FINITE_CHECKPOINT_INVENTORY_RAW_POLICY",
+  "executionAuthorization": false,
+  "finalAddedRolesRequireFiniteHashAndMetadataVerification": true,
+  "findings": [],
+  "forbiddenIncrement": [
+    "new scientific/runtime facts",
+    "additional raw artifacts",
+    "execution grants or observation-status relabeling"
+  ],
+  "inventory": {
+    "bytes": 543325,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-pre-review-inventory-preparation-20261009-r2/INVENTORY-FINAL-PRE-REVIEW.json",
+    "sha256": "b24ecd8aa02ee4f1e2102dea81b95e4e74bf6a830794fb1845458a63e2850bea"
+  },
+  "permittedDocumentaryCorrection": {
+    "new": "Earlier preserved draft inventories are incomplete and remain ineligible for finalization; this finalized inventory covers the explicitly selected closed work.",
+    "old": "Inventory incomplete: qualified finalizer must refuse it."
+  },
+  "permittedFinalFiniteIncrement": [
+    "independent checkpoint claims review roles",
+    "this inventory review and finite audit roles",
+    "root adoption roles",
+    "final report/HANDOFF/document roles",
+    "claim/inventory/finalizer role bookkeeping only"
+  ],
+  "priorGitObjectVerificationDeferredToFinalizer": true,
+  "rawPublicationPermitted": false,
+  "report": {
+    "bytes": 2195,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-complete-pre-review-inventory-independent-review-20261009-r1/REPORT.md",
+    "sha256": "61bb6a2d74036e6c5c1f9be5b838fe683e46b4c4b894f82a01596237ec1d6295"
+  },
+  "reviewerArchivedOrMutatedGitRepoProtectedRootsOrRanRuntime": false,
+  "schema": "1370-ak-complete-pre-review-inventory-independent-review-v1",
+  "utc": "2026-10-09T21:20:51.552792+00:00"
+}

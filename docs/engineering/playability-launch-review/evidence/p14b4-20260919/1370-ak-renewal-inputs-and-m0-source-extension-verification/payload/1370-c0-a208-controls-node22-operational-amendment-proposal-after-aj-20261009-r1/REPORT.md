@@ -1,0 +1,7 @@
+# Proposed A208 controls tool amendment
+
+Match prospective A208 controls to the actual original R9 runtime: `/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node`, version label `v22.23.2`, 115440320 bytes, SHA256 `0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6`. The current executable's streamed bytes, device/inode and mode equal authenticated original R9 DRAFT-REPORT actualNode. Original adopted binding authenticates path/version; candidate pins, adopted preflight and observed review preserve that chain. No Node command was executed.
+
+Preserve Node20 filled package9548 and reviewe304 unrun. Independently review this nonruntime amendment, then parent adopts it before a fresh derivative fill. Changes are limited to three CONFIG tool fields, fresh paths and immutable amendment role wiring, and recorder CONFIG SHA/output literals. All18 observer source files, local driver/report_guard/protocol bytes, assertions and bounds remain exact. The preserved `native-node20-tap` result label is informational provenance, not a version or equivalence assertion; actual Node22 output must satisfy the unchanged strict validator.
+
+No controls, game, imports or scans ran. Future filled source and actual runtime grant remain absent. Parent's separate arm grants require M0 postflight admission/current guards and independent filled review. No Node22 pass or renewal cause is claimed.

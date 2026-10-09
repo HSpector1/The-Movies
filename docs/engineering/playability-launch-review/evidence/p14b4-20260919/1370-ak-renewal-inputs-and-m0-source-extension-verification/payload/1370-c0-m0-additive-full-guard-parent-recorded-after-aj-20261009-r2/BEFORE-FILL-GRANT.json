@@ -1,0 +1,77 @@
+{
+  "acPower": true,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "before-fill",
+    "before-fill-after-aj-r3"
+  ],
+  "config": {
+    "bytes": 3536,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG.json",
+    "sha256": "a4b88b0181bf525f6144a71f05bb7d78a17fd46bbfbe88d0e2aea90a89874b4c"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactArgvProposal": {
+    "bytes": 1740,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/EXACT-ARGV-PROPOSAL.json",
+    "sha256": "bbfd52484cc6160a53ae219aa0d093d5f69f231a860427dc68866d097afb8a26"
+  },
+  "exactRepairReview": {
+    "bytes": 11936,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-exact-setup-repair-independent-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "001d11159f786c90173f099aa25567a7da9a7826042aa3dc43c085698d5eda69"
+  },
+  "freeBytes": 5565579264,
+  "globalProcessAbsenceClaim": false,
+  "guardSource": {
+    "bytes": 21431,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+    "sha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee"
+  },
+  "noHeavyHelperBecauseGuardRequiresLockAbsent": true,
+  "outputParentRole": {
+    "device": 16777220,
+    "inode": 166766846,
+    "mode": 448,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence"
+  },
+  "parentPidBecomesSnapshotPid": 93713,
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "protectedWriteAndRenamerFreeze": "Production/common/R9/H/dependencies read-only from this baseline through dependent reviewed route and protected postflight; no Git writes or install/cache operations",
+  "rawPsFdLocalOnly": true,
+  "selectedPriorPidAndPgidAbsent": [
+    77313,
+    77576,
+    79310,
+    79573,
+    85523
+  ],
+  "soleRecordedHeavyLane": true,
+  "sourceReview": {
+    "bytes": 6806,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-root-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "a06cdade7513d63e793e27b67a74571ca16b896ae0ee2ee1aeda94d2c854053c"
+  },
+  "sourceScript": {
+    "bytes": 4668,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/grant_before_fill.py",
+    "sha256": "110717276f325d44e00bd0d5d36db9ece6a1fc193a78c42b68ab2f09c405d6ce"
+  },
+  "startMonotonic": 80984.6510297,
+  "status": "ROOT_ADOPTED_EXACT_SOURCE_ARGV_AND_GRANTED_SINGLE_DIRECT_AJ_FULL_GUARD",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/before-fill.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/before-fill.stdout",
+  "typesGameOrAdditiveExecutionAuthorized": false,
+  "utc": "2026-10-09T19:40:42.772427+00:00"
+}

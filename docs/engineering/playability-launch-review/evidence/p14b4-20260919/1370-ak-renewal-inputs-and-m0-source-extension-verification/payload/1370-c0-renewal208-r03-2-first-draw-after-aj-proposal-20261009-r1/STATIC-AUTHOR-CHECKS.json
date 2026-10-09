@@ -1,0 +1,19 @@
+{
+  "HAndAEmploymentByteEqual": true,
+  "HAndARngByteEqualAndOriginalMatch": true,
+  "authenticatorAndWitnessByteIdentical": true,
+  "both44PreimageIdentityOccurrence38Exact": true,
+  "controlsHaveNoFirstDrawStreamOrNextCall": true,
+  "exactlyOneProjectedKey": true,
+  "executionAuthorization": false,
+  "externalRolesAuthenticated": 18,
+  "newRecorderASTParseOnly": true,
+  "nodeOrRngOrCompilerOrTestsOrGameExecuted": false,
+  "old18PackageFilesAuthenticated": 18,
+  "recordedModesOutputLanePathsAbsent": true,
+  "rngOriginalErasedMapDiffByteIdentical": true,
+  "schema": "1370-renewal208-first-draw-static-author-checks-r1",
+  "sevenRecorderSubstitutionsReverseFullTextExact": true,
+  "sourceOnly": true,
+  "syntheticControlGroupCount": 8
+}

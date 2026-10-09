@@ -1,0 +1,62 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/CONFIG.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/CONFIG.json
+@@ -104,12 +104,12 @@
+     },
+     "authenticate": {
+       "bytes": 2500,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/authenticate-inputs.mjs",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/authenticate-inputs.mjs",
+       "sha256": "f23609403d723dd999563336c605f27ba7919535c691a72a5690ae51d9d7c98d"
+     },
+     "core": {
+       "bytes": 10881,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/verify-pricing-core.mjs",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/verify-pricing-core.mjs",
+       "sha256": "6aebe062785f1dad699d4dd85a118e9bcdfa08cb748086a864aea80537b67580"
+     },
+     "existingNumericReview": {
+@@ -144,7 +144,7 @@
+     },
+     "inputContract": {
+       "bytes": 683,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/A208-INPUT-CONTRACT.json",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/A208-INPUT-CONTRACT.json",
+       "sha256": "32cedd51027a2f52b015c7f9519ac1558f8f95e0fa7366326be72f41ab1bb500"
+     },
+     "newNumericAdoption": {
+@@ -204,12 +204,12 @@
+     },
+     "pricingInputs": {
+       "bytes": 32093,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/PRICING-INPUTS.json",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/PRICING-INPUTS.json",
+       "sha256": "898ba633c28fae5c4a588f3a426c41f7fcde42f94303af7f3a74158591e63390"
+     },
+     "primitiveErasure": {
+       "bytes": 870,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/PRIMITIVE-ERASURE.json",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/PRIMITIVE-ERASURE.json",
+       "sha256": "dedb77f72574d33f68361844d7d4815cdddcfdea7ba2070b4e53a6a7cac356d1"
+     },
+     "qualifiedFailureRecorderReview": {
+@@ -219,17 +219,17 @@
+     },
+     "sourceMap": {
+       "bytes": 26773,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/SOURCE-MAP.json",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/SOURCE-MAP.json",
+       "sha256": "87ed4d610443c4bbd5eefc2d1ceb52a778e4495005fbc392dc80d5619ddac13b"
+     },
+     "sourceSlices": {
+       "bytes": 20963,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/SOURCE-SLICES.txt",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/SOURCE-SLICES.txt",
+       "sha256": "90bd1b716085f39791a93134cb4461472a5836c35e31a586d6fc3cfe2d20014d"
+     },
+     "verification": {
+       "bytes": 1645,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/verify-renewal-pricing.mjs",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/verify-renewal-pricing.mjs",
+       "sha256": "152acd6f23192b17df3e8c3279989e3d933154929cf99a92690ba5e4d592b135"
+     }
+   },

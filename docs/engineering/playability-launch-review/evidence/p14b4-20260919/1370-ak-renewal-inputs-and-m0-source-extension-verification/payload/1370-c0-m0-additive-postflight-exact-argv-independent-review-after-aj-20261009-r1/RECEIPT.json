@@ -1,0 +1,49 @@
+{
+  "actualAdditiveRecordedCompletionAccepted": true,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "postflight",
+    "postflight-after-aj-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+    "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912",
+    "44676,45166,45180,45181,45183,45200,65494,66258,73148"
+  ],
+  "checks": {
+    "bytes": 20485,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-exact-argv-independent-review-after-aj-20261009-r1/CHECKS.json",
+    "sha256": "1821364048476a71804c6859d0ad4a49b06570c9ce781708deae1c83f6a75878"
+  },
+  "completeRootAdoption": false,
+  "decision": "ACCEPT_EXACT_POSTFLIGHT_FULL_GUARD_ARGV_AND_OBSERVED_ADDITIVE",
+  "exactArgvProposal": {
+    "bytes": 4222,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/EXACT-ARGV-PROPOSAL.json",
+    "sha256": "59d60d5957ab514af894cd641b2b3303fa2b33b6ad12053740dc617636733b3b"
+  },
+  "executionAuthorization": false,
+  "findings": [],
+  "physicalReadbackAccepted": true,
+  "protectedPostflightAccepted": false,
+  "rawPsFdLocalHashSizeOnly": true,
+  "report": {
+    "bytes": 1688,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-exact-argv-independent-review-after-aj-20261009-r1/REPORT.md",
+    "sha256": "3ad4e261422812fbe0397cd43f3efd0198963eeaa7a84f39f84aa88f309812ca"
+  },
+  "reviewerExecutedScanTestsNodeGitOrProtectedMutation": false,
+  "schema": "1370-m0-additive-exact-postflight-argv-independent-review-after-aj-v1",
+  "utc": "2026-10-09T20:49:10.079477+00:00",
+  "wrapper": {
+    "bytes": 5726,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/grant_postflight.py",
+    "sha256": "e5e7bee050f4c69fe44eaa1c215f129e097705a60dfcbb0db6e2b93e3caf5f06"
+  },
+  "wrapperSha256": "e5e7bee050f4c69fe44eaa1c215f129e097705a60dfcbb0db6e2b93e3caf5f06"
+}

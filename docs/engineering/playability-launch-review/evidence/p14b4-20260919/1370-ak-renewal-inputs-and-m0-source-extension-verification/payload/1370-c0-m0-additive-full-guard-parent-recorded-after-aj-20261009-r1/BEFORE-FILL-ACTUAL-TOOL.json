@@ -1,0 +1,20 @@
+{
+  "chunks": [
+    {
+      "chunk_id": "da78ca",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 2203,
+      "wall_time_seconds": 1.001304098
+    },
+    {
+      "chunk_id": "9f7718",
+      "exit_code": 1,
+      "original_token_count": 67,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r1/BEFORE-FILL-GRANT.json\", \"bytes\": 2954, \"sha256\": \"afe0da07dcdd2ae261b635950ff962db9ebae959e591110b79f48d7a96848317\"}, \"snapshotPid\": 85523}\n",
+      "wall_time_seconds": 1.6893e-05
+    }
+  ],
+  "schema": "actual-tool-chunks/v1",
+  "toolSessionId": 2203
+}

@@ -1,0 +1,66 @@
+{
+  "actualNewRuns": 0,
+  "baseRecorder": {
+    "bytes": 14453,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/record-pure-node.py",
+    "sha256": "68c3b15c65fc57075a7dec54a1ba15c26e1a537a314ef0916023775de89d7e8b"
+  },
+  "baseSourcePins": {
+    "bytes": 8515,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
+  },
+  "bounds": {
+    "active": 75,
+    "eachCapturedStreamBytes": 1048576,
+    "node": 60,
+    "whole": 90
+  },
+  "durableNumericIdentity": "RESULT.json retains childPid/ownedPgid on completed finalization; no pre-exec durable registry claim",
+  "fullTextEqualAfterReverseSubstitutions": true,
+  "incompleteHardStop": "STOP unqualified; no lane/group clearance inferred from missing RESULT",
+  "ownershipClockCaptureCleanupFunctionsUnchanged": true,
+  "qualifiedFailureMechanism": {
+    "bytes": 3829,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+    "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+  },
+  "schema": "1370-renewal208-recorder-reuse-r1",
+  "substitutions": [
+    {
+      "count": 1,
+      "new": "CONFIG_SHA='22597cd15bceec96176ad4247cdf11146aa6651bfd15d01366b105731fff83ba'",
+      "old": "CONFIG_SHA='ca1f6be9aaf236c26e3b81589b983c11fe93b9a6b321f6e224cccc4b3af7698e'"
+    },
+    {
+      "count": 1,
+      "new": "1370-c0-renewal208-r03-2-first-draw-after-aj-",
+      "old": "1370-c0-initial22-first-draw-"
+    },
+    {
+      "count": 1,
+      "new": "PURE_RENEWAL208_R03_2_INPUT_AND_REFUSAL_CONTROLS_PASSED",
+      "old": "PURE_INITIAL23_INPUT_AND_REFUSAL_CONTROLS_PASSED"
+    },
+    {
+      "count": 1,
+      "new": "PURE_RENEWAL208_R03_2_FIRST_DRAW_COMPLETE",
+      "old": "PURE_INITIAL23_FIRST_DRAWS_COMPLETE"
+    },
+    {
+      "count": 1,
+      "new": "len(last['rows'])==1",
+      "old": "len(last['rows'])==23"
+    },
+    {
+      "count": 1,
+      "new": "last.get('unknownDrawsMeasured')==0 and last.get('knownControlDraws')==0 and last.get('syntheticControlOnly') is True)",
+      "old": "last.get('unknownDrawsMeasured')==0)"
+    },
+    {
+      "count": 1,
+      "new": "failure or 'PURE_RENEWAL208_R03_2_'+str(mode)",
+      "old": "failure or 'PURE_INITIAL23_'+str(mode)"
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "acPower": true,
+  "adoptedPreflight": {
+    "bytes": 1819,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "27ea7d31e160ab0aa44effcfebe1c91195297ed2eb183f5f2373f535e7658986"
+  },
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json"
+  ],
+  "bindingSemanticSha256": "3949fb78642c7324d61e1c23f967f10a056e17d3a5ae5a850ebbb73969c4e8e5",
+  "bounds": {
+    "bodyResultBytes": 100000,
+    "childSeconds": 180,
+    "combinedChildLogsBytes": 33554432,
+    "wholeSeconds": 210
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "freeBytes": 5542752256,
+  "gameTypesCollectionWiringNeutralityAuthorized": false,
+  "globalWorkerAbsenceClaim": false,
+  "guardCoreSha256": "69f4a0a4e5bb4d686ef03178dafa9b4c27c11d8671745d61a0537fd725adf69d",
+  "independentExpandedReadbackAndFullProtectedPostflightRequired": true,
+  "priorOwnedScannerPidsAndPgidsAbsent": [
+    93713,
+    78074
+  ],
+  "protectedFreezeMaintainedSinceBaseline744095": true,
+  "roles": [
+    {
+      "bytes": 1819,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "27ea7d31e160ab0aa44effcfebe1c91195297ed2eb183f5f2373f535e7658986"
+    },
+    {
+      "bytes": 3571,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/ADOPTED-LAUNCH-SPEC.json",
+      "sha256": "4bdca6f36f0dd20067da512a5f3bf01c840043a236c1000862f8acf93ab27c08"
+    },
+    {
+      "bytes": 13448,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+      "sha256": "35e596a0ee6d5119fd2a84f03f3fc0a7398be1208a8f65e4c4824ca67e269a50"
+    },
+    {
+      "bytes": 2194,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "81984fa53c5f69f93ae718b35d2d85c306feaab8acc4e0fdc3c5eeb3a34134cb"
+    },
+    {
+      "bytes": 6951,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ak-grant-additive.py",
+      "sha256": "be3a92487ba1ffd55865444e5b27cf487658fbceb56a2b8a8039045799cd4a06"
+    },
+    {
+      "bytes": 2785,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-final-exact-independent-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d86d88453393c6ce9c941bf7f6b992c90e49833d91835c40fdf274278ae19fcc"
+    },
+    {
+      "bytes": 8199,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-preflight-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "3bce48d3f7bac785ca024f7609c7a46a2c832c3adfe9d4d6a7cc0501b4f83018"
+    },
+    {
+      "bytes": 19458,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/add_inputs.py",
+      "sha256": "3f76b3cb27ec1e932b23c8f40d848b5f3dfba9a339c78fb3d950b9291fefbd27"
+    },
+    {
+      "bytes": 16957,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-independent-source-review-after-aj-20261009-r4/RECEIPT.json",
+      "sha256": "30fec9b708aee9355cbf4ddae37a80a752901a5535dd4d546707ed0468f8a7dc"
+    },
+    {
+      "bytes": 634,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-fill-preparation-after-aj-20261009-r1/FILLED-ARGV-ROLE.json",
+      "sha256": "b7926bb4c21d627f3dd38d513d1e6b82532c560444a306716476960c71877000"
+    },
+    {
+      "bytes": 2289,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-aj-scope-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "13be428dfe3bdba1bc4ce4f2348bd194d2473c4c812df2b5f0bfec936b76b8e8"
+    },
+    {
+      "bytes": 25044,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/record.py",
+      "sha256": "7dc307b9e505ce171557d47c5ca710fa213d22fb06d1e93a3d30e3765ff90da2"
+    },
+    {
+      "bytes": 16957,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-independent-source-review-after-aj-20261009-r4/RECEIPT.json",
+      "sha256": "30fec9b708aee9355cbf4ddae37a80a752901a5535dd4d546707ed0468f8a7dc"
+    },
+    {
+      "bytes": 16934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/supervise.py",
+      "sha256": "e2258264783de69fa4d2a10c9c71ede7d4cabc0f80f87c17ba23935e32c9039d"
+    },
+    {
+      "bytes": 8303116,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+      "sha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912"
+    },
+    {
+      "bytes": 5769,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-observed-independent-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "0efcbe97fc3ecbfbd25fa4a75355ba1d87ef5ddaaed423ef87c9b61a6075be35"
+    },
+    {
+      "bytes": 2326,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-ADOPTION.json",
+      "sha256": "201d1aba2f3569321539f639c246f92f795e1cbd81924afcfa8933ec48e56fa0"
+    },
+    {
+      "bytes": 7499,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-fill-preparation-after-aj-20261009-r1/BOUNDED-CURRENT-METADATA.json",
+      "sha256": "02e61009bc6a2d5ce9e78304905716daccdc4f966d1c7e7ee515fd76c5549ea9"
+    },
+    {
+      "bytes": 5234,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-pre-adoption-archive-after-aj-20261009-r1/ARCHIVE-MANIFEST.json",
+      "sha256": "d93b83ce358c59c4ce44b9af262d0fb72c7e17e606f3433b843089c2de37b041"
+    },
+    {
+      "bytes": 167120,
+      "path": "/usr/bin/git",
+      "sha256": "fe38fea56d944c3b7e9df10617b1fa5432d7b75cc346d7eacb607d083ea11711"
+    },
+    {
+      "bytes": 400608,
+      "path": "/usr/bin/pmset",
+      "sha256": "de2d7c69b8c1375a652484ba429ea4605f0458a9340ce1c5130ed1dd782218df"
+    },
+    {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    {
+      "bytes": 340288,
+      "path": "/usr/sbin/lsof",
+      "sha256": "40659ac68e85f56955736c06eadbd8864a65da3bf4827029fc845129b5165258"
+    },
+    {
+      "bytes": 151680,
+      "path": "/usr/sbin/sysctl",
+      "sha256": "c266586ca2cd39ea836e23ad932646144c53f71ebb1f9a493abeb865d90cbd21"
+    }
+  ],
+  "rootPidBecomesHelperPid": 44676,
+  "runtimePathsFreshlyAbsent": [
+    "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-20261009-r2.lock",
+    "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log",
+    "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.meta",
+    "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log.meta",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/GRANT.json"
+  ],
+  "schema": "m0-additive-root-exact-grant/v1",
+  "status": "GRANTED_ONE_EXACT_RECORDED_M0_ADDITIVE_INPUT_ROUTE_ONLY",
+  "unexpectedHelperWaitIsStop": true,
+  "utc": "2026-10-09T20:22:37.735327+00:00"
+}

@@ -1,0 +1,131 @@
+{
+  "acceptedObservedControls": {
+    "bytes": 4164,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-observed-independent-review-20261009-r2/RECEIPT.json",
+    "sha256": "9da1cfa0797a7bc85c1193e6481cf84ee690f04bb309edda6fd70eccec27b075"
+  },
+  "claimLimit": "Mapping only: original seven observed mechanisms and method ASTs unchanged. No actual r3 tests or metadata/source admission controls claimed; independent reviewer decides narrow reuse, then exact operational fill/guard/ref/source checks remain separate.",
+  "methods": [
+    {
+      "method": "test_01_preflight_exact_and_one_below",
+      "originalMethodAstSha256": "d182fbc2d226124bef6f74192efb86c9cb888bb3f50effc15a81d0473c3d5ead",
+      "targets": [
+        {
+          "astSha256": "1e1d993e43f1b30f9a7a3580ae038a7292309860ba18cd5dfca3dc09518ac01f",
+          "file": "add_inputs.py",
+          "function": "preflight_space",
+          "unchanged": true
+        }
+      ]
+    },
+    {
+      "method": "test_02_actual_owned_bounded_pipes",
+      "originalMethodAstSha256": "bcf79f057bfcd9b5d577189d2bf8b2b8321ddfa1746ff8da091d73ab85b78140",
+      "targets": [
+        {
+          "astSha256": "10b1d80923fef061b7e145e485a2d1b7ad5185a4afa46f2b8059871e05bbd5f2",
+          "file": "add_inputs.py",
+          "function": "bounded_blob",
+          "unchanged": true
+        },
+        {
+          "astSha256": "757930e129ec873ff0a2182eeab4ac95dab1a112d042d6719f2ddf4d3540e24d",
+          "file": "record.py",
+          "function": "fork_ready",
+          "unchanged": true
+        },
+        {
+          "astSha256": "a5c65a11d2c1019097440f22e9790fac60ac4fe5cd78772cdddec888949eabf1",
+          "file": "record.py",
+          "function": "still_alive",
+          "unchanged": true
+        }
+      ]
+    },
+    {
+      "method": "test_03_exact_fixture_link",
+      "originalMethodAstSha256": "4f1b98b8922deb86cb3a7c55f448be15fb0b649c7b734c9711f4837d54fb7a97",
+      "targets": [
+        {
+          "astSha256": "8d32e7c310e6dfa3945a6201bece7e10c2faf51dc925c54aeb573e68cb858b99",
+          "file": "add_inputs.py",
+          "function": "exact_roster",
+          "unchanged": true
+        }
+      ]
+    },
+    {
+      "method": "test_04_mocked_deadline_predicate_not_elapsed",
+      "originalMethodAstSha256": "29f4601bbd96f8966d57fbd1bb02371642d48563fd2f33dd58609e89d949022b",
+      "targets": [
+        {
+          "astSha256": "95f31c5d850e3abc5ee633b3e254cfdcd08716a0a1a6f15902b7cdaecf5bd3c1",
+          "file": "add_inputs.py",
+          "function": "remaining",
+          "unchanged": true
+        },
+        {
+          "astSha256": "386237a998a0d783f6dff7b175883a153a61893bfd3610f2c7082a505ce26af2",
+          "file": "supervise.py",
+          "function": "check_deadline",
+          "unchanged": true
+        }
+      ]
+    },
+    {
+      "method": "test_05_root_transition_predicate",
+      "originalMethodAstSha256": "f9f19a5a109de32cb750bddda9d4a21761c996f2009f7eae34eeb24e60b0d2c7",
+      "targets": [
+        {
+          "astSha256": "75721685bab16ca7cacd6a2b08d1c8c2601ba2fc1d70c4661abaa74655abbdd9",
+          "file": "record.py",
+          "function": "check_root_transition",
+          "unchanged": true
+        }
+      ]
+    },
+    {
+      "method": "test_06_extracted_failure_reap_fake_clock",
+      "originalMethodAstSha256": "8692e7933e8163220ca85fd87c406d3cd0b0df5553ab0efa1425eabaeb1ab1b9",
+      "targets": [
+        {
+          "astSha256": "ec35af55b9aa96af1609be000518e637c4b42f63c7f1a804a03f152bff3549a2",
+          "file": "record.py",
+          "function": "reap_failed_child",
+          "unchanged": true
+        }
+      ]
+    },
+    {
+      "method": "test_07_extracted_pre_setsid_exact_pid_fallback",
+      "originalMethodAstSha256": "3684979484fbc6f95ab53a1fd12721e035ae5e8af65d28810bf30f7b361a68ab",
+      "targets": [
+        {
+          "astSha256": "2445b91d8f65760b65893173472baa6cc7fafbe98e29393fde15ae6b0567ddcc",
+          "file": "supervise.py",
+          "function": "hard_terminate_known",
+          "unchanged": true
+        },
+        {
+          "astSha256": "4563f39515de048e030cc3b7c3b5387c5d0f89f491e0ac30af814b486284ebfa",
+          "file": "supervise.py",
+          "function": "supervise",
+          "unchanged": true
+        }
+      ]
+    }
+  ],
+  "originalControlsPins": {
+    "bytes": 2676,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/SOURCE-PINS.json",
+    "sha256": "73bbea8af39d83aad7d674a905f3879ba6144c40fc726687b1640f99b1c1f97e"
+  },
+  "originalTestSource": {
+    "bytes": 8277,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/test_controls.py",
+    "sha256": "bb4d65b110dde271da8940277dd244e8f0796fa34e8ad4395cb4ca4d1f8bcb9a"
+  },
+  "reuseQualifiedByIndependentReview": false,
+  "testsCopiedOrChanged": false,
+  "testsExecuted": false
+}

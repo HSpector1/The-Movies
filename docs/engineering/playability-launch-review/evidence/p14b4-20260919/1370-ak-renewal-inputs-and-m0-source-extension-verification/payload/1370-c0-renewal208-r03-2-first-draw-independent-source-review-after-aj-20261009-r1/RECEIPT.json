@@ -1,0 +1,60 @@
+{
+  "ASourceOrder": 38,
+  "HSourceOrder": 38,
+  "annualSalaryOrBonusArithmetic": false,
+  "auditScope": {
+    "configRoles": 27,
+    "externalRoles": 18,
+    "packageFiles": 22,
+    "productionOrGitWrites": false,
+    "sourceImportsOrExecution": false
+  },
+  "authoredControlGroups": 8,
+  "configSha256": "22597cd15bceec96176ad4247cdf11146aa6651bfd15d01366b105731fff83ba",
+  "controlsObserved": false,
+  "controlsSha256": "db88aeb9932759ce2c6db13b64d2cfd8fd50db1378c803f66aff8e9268ca89c5",
+  "coreSha256": "ec21d10860bb8c227b9ced957aec34c094bf7f95102f692206d9b953fc2804dd",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_PURE_RENEWAL208_FIRST_DRAW",
+  "executionAuthorization": false,
+  "findings": [],
+  "futureObservedRequirements": [
+    "Separate exact root controls grant and independently accepted actual eight controls before witness grant.",
+    "Exact recorded launch outcomes, retained outputs and fresh owned-group cleanup evidence.",
+    "One exact selected numeric row; no game or renewal pricing attribution."
+  ],
+  "heldRoles": [
+    "operationalRuntimeAuthority",
+    "sourceReview",
+    "controlsGrant",
+    "witnessGrant"
+  ],
+  "identity": [
+    "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+    0
+  ],
+  "inputRows": 1,
+  "key": "offer-person-studio-aca408ec-r03-2",
+  "knownControlDraws": 0,
+  "numericOnlyFutureScope": true,
+  "ownershipQualification": "Completed RESULT ownership follows accepted READY/GO recorder. No durable pre-exec registry or hard-stop guarantee claimed; incomplete failure finalization remains STOP.",
+  "proofs": [
+    "Fixed EXPECTED literal equals INPUTS and accepted gap projection. Complete validation precedes exactly one fresh stream and one next call.",
+    "Original RNG, erased RNG, erasure proof/diff, authenticator and witness entry are byte-identical to accepted initial23 package.",
+    "Eight synthetic validation/encoding controls never invoke firstDraw or measureAll; no selected or row0 key draws.",
+    "Native jitter operation order is 1 + (firstDraw * 2 - 1) * 0.08; report cap 8192 bytes.",
+    "Seven declared substitutions exactly reproduce recorder text; accepted 60/75/90 bounds, READY/GO ownership, bounded streams and failure preservation remain."
+  ],
+  "purpose": "hiring",
+  "recorderSha256": "ed80971fe55ff03788591143e75146c84ff28659670cf6517485115a0063f1d3",
+  "renewalAttribution": false,
+  "salaryAttribution": false,
+  "schema": "1370-renewal208-one-key-independent-source-review/v1",
+  "seed": "p13a-core-causal-01",
+  "sourceOnly": true,
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "b5055ac3e7f4bee5a299517d7513859a746ffc1fcbc662d9b505c97e5d2dc83b"
+  },
+  "sourcePinsSha256": "b5055ac3e7f4bee5a299517d7513859a746ffc1fcbc662d9b505c97e5d2dc83b",
+  "witnessObserved": false
+}

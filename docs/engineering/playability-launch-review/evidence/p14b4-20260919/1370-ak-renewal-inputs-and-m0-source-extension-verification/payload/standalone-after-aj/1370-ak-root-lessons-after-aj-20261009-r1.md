@@ -1,0 +1,11 @@
+# Lessons after AJ
+
+- Validate the actual producer's success report against every copied recorder predicate before executing it. Two independently caught source defects reused initial-pricing expectations in a renewal verifier and a control runner. The 16-row verifier needs its real status/count/cause flag; TAP and unittest need their own genuine result protocols. Preserve both rejected proposals and qualify only corrected versions.
+- A source-path rebind must include literal path comparisons inside validation code. M0 r3 updated its binding and argv but retained the old materializer path in the recorder. The one-literal r4 correction preserves the accepted mechanisms; it does not turn historical controls into a new-version run.
+- Check output-parent existence before launching a guard that creates only its direct output child. The first actual before-fill attempt failed at mkdir before inventories. Record that setup failure, provision only the declared parent, review a fresh label, and retain the successful rerun under its own role.
+- Preserve consumed preparation stages. A guard-core PINS file used by a later scan must remain byte-identical when preflight and exact-review pointers are filled. Use a separate final candidate and archive its original six files before the five authorization fields change.
+- Historical endpoint evidence needs a preservation argument through that endpoint. Renewal source proof must cover A weeks209–416 where terminal employment history is the evidence, even if the price was determined at208.
+- Typed function signatures can put a closing brace at column zero before the function body. A naive slice extractor omitted complete policy functions; the independent reviewer repaired the proof with authenticated complete source slices. Do not confuse an incomplete proof excerpt with a production defect.
+- Keep scientific and operational conclusions separate. A successful integrity scan permits use of a protected baseline. A recovered keyed draw supplies one numeric input. Neither by itself explains a renewal price or closes1363.
+
+This is an in-progress root note for the next checkpoint. Actual outcomes, failures and review receipts remain authoritative; no downstream implementation or runtime acceptance is claimed here.

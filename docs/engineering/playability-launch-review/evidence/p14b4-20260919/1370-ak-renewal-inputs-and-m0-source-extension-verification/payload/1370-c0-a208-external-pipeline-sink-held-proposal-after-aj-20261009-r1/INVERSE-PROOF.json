@@ -1,0 +1,124 @@
+{
+  "actualControlsReceipt": null,
+  "actualWitnessGrant": null,
+  "adoptedPreflight": null,
+  "archiveAdoption": null,
+  "exactFilledBinding": null,
+  "exactReview": null,
+  "executionAuthorization": false,
+  "frozenObserverChanged": false,
+  "operationalRuntimeAuthority": null,
+  "originalRoles": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/bounded-sink-r9-proposed.py": {
+      "bytes": 3687,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/bounded-sink-r9-proposed.py",
+      "sha256": "9bd9fa9f1bc00712d000bd73097de8db930bfcab87c47dbefee2017725aaa8ef"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/launch-pipeline-r9-proposed.sh": {
+      "bytes": 1252,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/launch-pipeline-r9-proposed.sh",
+      "sha256": "0ebc508d9a181b1071769399c62baa86fbe2d2c20678c8590c79e969b68d5bd4"
+    }
+  },
+  "pipelineFullInverseBytesExact": true,
+  "pipelineSubstitutions": [
+    [
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1"
+    ],
+    [
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/bounded-sink-r9-proposed.py",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/bounded-sink-a208-held.py"
+    ]
+  ],
+  "preserved": {
+    "PIPESTATUSAssertions": true,
+    "activeSeconds": 742,
+    "innerSeconds": 720,
+    "maxFrameBytes": 524288,
+    "oneFrameValidation": true,
+    "pipelinePythonFlagsAndPipe": true,
+    "sinkAuthenticatedValidatorAndSourceReview": true,
+    "sinkForwardSeconds": 10,
+    "sinkReadSeconds": 760,
+    "wholeRecorderSeconds": 750
+  },
+  "runtimeExecuted": false,
+  "sinkFullInverseBytesExact": true,
+  "sinkSubstitutions": [
+    [
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1"
+    ],
+    [
+      "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759",
+      "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    ],
+    [
+      "0ee1071d6a78fc944fbbe0aba5fb2a823572b6684f5d13261831233610d93c32",
+      "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+    ]
+  ],
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1",
+  "sourceImported": false,
+  "sourcePinsSha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf",
+  "sourceReads": {
+    "/Users/zacheryspector/studio-scratch/1370-ak-grant-a208-controls-node22.py": {
+      "bytes": 7204,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ak-grant-a208-controls-node22.py",
+      "sha256": "25ea8ec1b2bd8f9d2a4a643dd8c98c8dc630eaa815c6ba66a3ccc85a855a7e88"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-parent-adoption-after-aj-20261009-r1/ADOPTION.json": {
+      "bytes": 4638,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "7da501eb54301aaf0a22c5dc29e4dff786ee4bd9bfff490153d951c54bd7b9eb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-independent-source-review-after-aj-20261009-r1/FD-SCOPE-CLARIFICATION.json": {
+      "bytes": 1515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-independent-source-review-after-aj-20261009-r1/FD-SCOPE-CLARIFICATION.json",
+      "sha256": "be28c1c1249ba945f1f5d6803a0fff4fe5dfaa8d27ae2184923744af24c284f9"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-independent-source-review-after-aj-20261009-r1/RECEIPT.json": {
+      "bytes": 4501,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "8e6a73e06cb774e61d103439bd17536ee97302802cea21cb48a5a93d808776cf"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-minimal-exact-launch-input-map-after-aj-20261009-r1/NOTE.md": {
+      "bytes": 4820,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-minimal-exact-launch-input-map-after-aj-20261009-r1/NOTE.md",
+      "sha256": "46e46033ef941265a8a0b24e2ae0870186c19465dc93cd9aa223dabb07ebd1f9"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-minimal-exact-launch-input-map-after-aj-20261009-r1/RECEIPT.json": {
+      "bytes": 1150,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-minimal-exact-launch-input-map-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "424f0e50197f54ddea35dcacbbdec3df009cfbe640d5bcdc50f35ce311be43d8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-node22-parent-control-wrapper-independent-source-review-after-aj-20261009-r1/RECEIPT.json": {
+      "bytes": 4038,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-node22-parent-control-wrapper-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "1f9685c804a428c9658c12de821db42e608077bb6abe3f96e26da238e307a3be"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/bounded-sink-r9-proposed.py": {
+      "bytes": 3687,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/bounded-sink-r9-proposed.py",
+      "sha256": "9bd9fa9f1bc00712d000bd73097de8db930bfcab87c47dbefee2017725aaa8ef"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/launch-pipeline-r9-proposed.sh": {
+      "bytes": 1252,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/launch-pipeline-r9-proposed.sh",
+      "sha256": "0ebc508d9a181b1071769399c62baa86fbe2d2c20678c8590c79e969b68d5bd4"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 9882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/supervise.py": {
+      "bytes": 22673,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/supervise.py",
+      "sha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+    }
+  },
+  "status": "SOURCE_ONLY_HELD_UNRUN_EXACT_ADAPTER_SUBSTITUTIONS",
+  "supervisorSha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+}

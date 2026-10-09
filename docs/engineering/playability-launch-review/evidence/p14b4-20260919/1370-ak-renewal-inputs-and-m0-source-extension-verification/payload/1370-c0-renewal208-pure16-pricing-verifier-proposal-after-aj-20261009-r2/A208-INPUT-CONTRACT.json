@@ -1,0 +1,29 @@
+{
+  "futureObservedIndependentReceipt": null,
+  "futureObservedRole": null,
+  "historicalOfferLocalCapture": false,
+  "observerSchemaAgreement": "Exact direct message from c0: person id/role/age/fame and primary six perceived skills in SKILL_ORDER; old/current employment, case, winnerReceipt, business, currentProposalCount, terminationReceipts. Frozen payload 65536 bytes.",
+  "phase": "after-natural-tick208-return",
+  "rows": 16,
+  "schema": "1370-a208-selected16-snapshot-r1",
+  "seed": "p13a-core-causal-01",
+  "sourceOrders": [
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39
+  ],
+  "week": 208
+}

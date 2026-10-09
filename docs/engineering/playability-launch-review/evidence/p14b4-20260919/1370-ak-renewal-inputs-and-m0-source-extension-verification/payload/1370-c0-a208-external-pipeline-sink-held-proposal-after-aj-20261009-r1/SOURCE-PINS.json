@@ -1,0 +1,52 @@
+{
+  "executionAuthorization": false,
+  "roles": {
+    "AUTHOR-SCRIPT": {
+      "bytes": 8683,
+      "path": "/Users/zacheryspector/studio-scratch/prepare-a208-adapters-held-after-aj.py",
+      "sha256": "b1fded6a1320b27424b3222b09771f3cb3c8f176ad2e9ebc389f5a1a9e37df4c"
+    },
+    "INVERSE-PROOF.json": {
+      "bytes": 7545,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/INVERSE-PROOF.json",
+      "sha256": "fa8a4459bf67d21dd7dea6cb86df8a4a70a67c3ad6b252465355b8efb35577cd"
+    },
+    "NODE22-MAP-ADDENDUM.md": {
+      "bytes": 624,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/NODE22-MAP-ADDENDUM.md",
+      "sha256": "d837f1c76077ee9c20347418fc12183cd9262b80eeef3b21d72ff09722f142b0"
+    },
+    "PIPELINE.diff": {
+      "bytes": 1086,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/PIPELINE.diff",
+      "sha256": "e37dfb5822845603ceb70b56d15641721890e66815b6d0f94f0bb1a099f533e4"
+    },
+    "RECIPE-SKETCH-HELD.json": {
+      "bytes": 1443,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/RECIPE-SKETCH-HELD.json",
+      "sha256": "54617094b24a8dab594014d3577c513a7f06976cf747cf759ed86be60646b7f8"
+    },
+    "REPORT.md": {
+      "bytes": 927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/REPORT.md",
+      "sha256": "360f5d5eeec057f4582754b307466a4682a07b10b451f0b3928fc0d072eafbda"
+    },
+    "SINK.diff": {
+      "bytes": 839,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/SINK.diff",
+      "sha256": "0ffb313c322059c6ac36657ef6a64e931585219f6353836f6d07a3ad43987697"
+    },
+    "bounded-sink-a208-held.py": {
+      "bytes": 3682,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/bounded-sink-a208-held.py",
+      "sha256": "9138c982912f53d8241721ec231555de3d8e9dae959e651c9b36dcf96a4f9700"
+    },
+    "launch-pipeline-a208-held.sh": {
+      "bytes": 1244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+      "sha256": "46640b541fb04c67fcd5f72602ab128ca056416cd37ad946f248a50da1d6886a"
+    }
+  },
+  "schema": "1370-a208-held-external-adapters-source-pins-v1",
+  "status": "SOURCE_ONLY_HELD_UNRUN"
+}

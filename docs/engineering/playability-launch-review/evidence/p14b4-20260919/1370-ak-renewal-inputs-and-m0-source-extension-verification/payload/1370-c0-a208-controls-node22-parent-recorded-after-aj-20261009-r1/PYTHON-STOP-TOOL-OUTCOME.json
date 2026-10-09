@@ -1,0 +1,84 @@
+{
+  "actualDriverExit": -14,
+  "actualDriverPid": 37835,
+  "actualHelperExit": 2,
+  "actualHelperPid": 37572,
+  "actualRecorderExitFromHelperMeta": 2,
+  "actualTool": {
+    "bytes": 624,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-parent-recorded-after-aj-20261009-r1/PYTHON-ACTUAL-TOOL.json",
+    "sha256": "5be0ef41c6de92b57354e55acb132d05846c938547ed4aea4f2ba7abc2878caa"
+  },
+  "actualToolExit": 2,
+  "actualToolSession": 10832,
+  "allControlsAccepted": false,
+  "causeLimit": "Exact cause/target of EPERM and alarm-exit relation not established by current retained data; do not infer that later absence or suite OK retroactively passes cleanup.",
+  "driverResultAbsent": true,
+  "durableOwnershipRegistry": {
+    "bytes": 1743,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-fixture-after-aj-node22-20261009-r1/OWNED.ndjson",
+    "sha256": "7c8e7cd1aacac208bd4dd4620c0f5b7f645d95553335dab8bdd697ee8f76e725"
+  },
+  "elapsedSeconds": 3.3214245960116386,
+  "globalProcessAbsenceClaim": false,
+  "grant": {
+    "bytes": 17301,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-parent-recorded-after-aj-20261009-r1/PYTHON-GRANT.json",
+    "sha256": "ee0ee7c9d51f61bb15905390238c83ae4c37864ca0c1eed0542993f857477f84"
+  },
+  "helperLog": {
+    "bytes": 383,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-lane-after-aj-node22-20261009-r1/controls.log",
+    "sha256": "6a2bbdc98fc090062dfa1a7de1bc349c8be0c9fef0d6a9f7eb5d2038dc745544"
+  },
+  "helperMeta": {
+    "bytes": 354,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-lane-after-aj-node22-20261009-r1/controls.log.meta",
+    "sha256": "68d0d87962cc4d1c224a6202ba36dbcea206326845f4c80ddf8ca5dd102f3a69"
+  },
+  "knownPidsAndPgidsFreshAbsent": [
+    37572,
+    37835,
+    37840,
+    37842,
+    37844,
+    37847,
+    37849,
+    37856,
+    37857,
+    37858,
+    37860,
+    37862,
+    37863
+  ],
+  "next": "Independent preserved-failure review and bounded diagnostic/repair plan before any new run; no A208 game or pure16 pricing grant.",
+  "observedSuiteReports": "3 report protocol methods OK and14 observer methods OK, followed by traceback PermissionError at drive.hard_kill os.killpg; no driver RESULT",
+  "postFailureScopedOwnership": {
+    "bytes": 5588,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-parent-recorded-after-aj-20261009-r1/PYTHON-POST-FAILURE-OWNERSHIP.json",
+    "sha256": "6d7ff0bba1621f0e39f91e69af6b12c073ed485d6f70e69c27d0ff547cc9741a"
+  },
+  "recorderResult": {
+    "bytes": 899,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-output-after-aj-node22-20261009-r1/RESULT.json",
+    "sha256": "923b13e9861cac55b66ad12acde2c6e214b9043082d867bbb07b5c914cd5017a"
+  },
+  "registeredDirectForks": 7,
+  "registeredInheritedProbes": 4,
+  "sourcePinsSha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5",
+  "sourceReportedRecorderTimedOut": false,
+  "status": "STOP_ACTUAL_A208_PYTHON_CONTROLS_CLEANUP_FAILURE_REQUIRES_INDEPENDENT_ATTRIBUTION",
+  "stderr": {
+    "bytes": 3407,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-output-after-aj-node22-20261009-r1/stderr.bin",
+    "sha256": "cd501734bd870a48f714cd9c7f28b4e10209ce24cc5074a65d4db6024d450ccf"
+  },
+  "stdout": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-output-after-aj-node22-20261009-r1/stdout.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "tracebackTargetPgidNotCaptured": true,
+  "unexpectedHelperWait": false,
+  "utc": "2026-10-09T21:05:42.041300+00:00"
+}

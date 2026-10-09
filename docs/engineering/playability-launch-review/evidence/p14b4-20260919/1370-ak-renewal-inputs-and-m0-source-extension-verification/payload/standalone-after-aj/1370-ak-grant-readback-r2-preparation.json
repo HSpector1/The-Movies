@@ -1,0 +1,34 @@
+{
+  "changes": [
+    {
+      "new": "1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r2",
+      "old": "1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1"
+    },
+    {
+      "new": "1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3",
+      "old": "1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2"
+    },
+    {
+      "new": "1370-c0-m0-expanded-readback-physical-python-repair-independent-review-after-aj-20261009-r3",
+      "old": "1370-c0-m0-additive-expanded-readback-filled-independent-review-after-aj-20261009-r2"
+    },
+    {
+      "new": "1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r2.log",
+      "old": "1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log"
+    },
+    {
+      "new": "6cf6dbf2f303287d6ba76ce1ac81f86fbe52e16912545f831f7850758b2e48ad",
+      "old": "10ce9ac2c0a14dcfa6a7e81401abb11dd753c6d071f699419d6265e48740d15c"
+    },
+    {
+      "new": "ids=[44676,45166,45180,45181,45183,45200,65494,66258]",
+      "old": "ids=[44676,45166,45180,45181,45183,45200]"
+    }
+  ],
+  "executionPerformed": false,
+  "newPath": "/Users/zacheryspector/studio-scratch/1370-ak-grant-readback-r2.py",
+  "newSha256": "317726909cdfd892b20168d39f12cd749c74c8e4650f458587a4fdba22f5e488",
+  "oldPath": "/Users/zacheryspector/studio-scratch/1370-ak-grant-readback.py",
+  "oldSha256": "c1b7fc6286af51c425d326823d0fbab417a344275b41751c1e5c488ed320e1ea",
+  "originalPreserved": true
+}

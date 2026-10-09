@@ -1,0 +1,30 @@
+{
+  "config": {
+    "bytes": 13118,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/CONFIG.json",
+    "sha256": "4b269726743163f99ab9764a7a15041e24c7bd4a1d884ac54bdfee57c4049f39"
+  },
+  "decision": "READY_SOURCE_ONLY_HELD_A208_FINITE_CONTROLS_ROUTE_R2_PENDING_INDEPENDENT_REVIEW",
+  "driver": {
+    "bytes": 8874,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/drive.py",
+    "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+  },
+  "executed": false,
+  "executionAuthorization": false,
+  "recorder": {
+    "bytes": 14467,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/record.py",
+    "sha256": "1aa053d9112cad523dc92fb22e8fc417ffc91c8718372efa0c9fe558896879a8"
+  },
+  "sourcePins": {
+    "bytes": 3402,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/SOURCE-PINS.json",
+    "sha256": "1c267921f7dd0bb0db8e65ddf356bd9649f36658410324fc550a0cbc0f200cca"
+  },
+  "validator": {
+    "bytes": 3203,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/report_guard.py",
+    "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+  }
+}

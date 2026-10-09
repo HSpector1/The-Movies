@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: selected16 minimum projection is pure over deeply frozen synthetic state
+ok 1 - selected16 minimum projection is pure over deeply frozen synthetic state
+  ---
+  duration_ms: 13.427176
+  type: 'test'
+  ...
+# Subtest: wrong phase and seed refused
+ok 2 - wrong phase and seed refused
+  ---
+  duration_ms: 1.69888
+  type: 'test'
+  ...
+# Subtest: missing and duplicate selected person refused
+ok 3 - missing and duplicate selected person refused
+  ---
+  duration_ms: 3.737297
+  type: 'test'
+  ...
+# Subtest: identity occurrence order and incomplete history refused
+ok 4 - identity occurrence order and incomplete history refused
+  ---
+  duration_ms: 1.083971
+  type: 'test'
+  ...
+# Subtest: case winner policy missing duplicate and closed-proposal contexts refused
+ok 5 - case winner policy missing duplicate and closed-proposal contexts refused
+  ---
+  duration_ms: 10.985112
+  type: 'test'
+  ...
+# Subtest: nonfinite input accessor and smaller cap refused without source mutation
+ok 6 - nonfinite input accessor and smaller cap refused without source mutation
+  ---
+  duration_ms: 10.99908
+  type: 'test'
+  ...
+# Subtest: natural416 wrapper serializes208 before later mutations without extra factory or tick calls
+ok 7 - natural416 wrapper serializes208 before later mutations without extra factory or tick calls
+  ---
+  duration_ms: 5.937155
+  type: 'test'
+  ...
+# Subtest: captures exactly 416 ticks and the existing first quote without pricing
+ok 8 - captures exactly 416 ticks and the existing first quote without pricing
+  ---
+  duration_ms: 5.015116
+  type: 'test'
+  ...
+# Subtest: wrong quote stops before any tick
+ok 9 - wrong quote stops before any tick
+  ---
+  duration_ms: 0.97504
+  type: 'test'
+  ...
+# Subtest: changed ledger digest and wrong horizon stop
+ok 10 - changed ledger digest and wrong horizon stop
+  ---
+  duration_ms: 3.2101
+  type: 'test'
+  ...
+# Subtest: inner deadline stops after bounded tick
+ok 11 - inner deadline stops after bounded tick
+  ---
+  duration_ms: 0.373354
+  type: 'test'
+  ...
+# Subtest: skip-worktree modification remains visible to direct byte guard
+ok 12 - skip-worktree modification remains visible to direct byte guard
+  ---
+  duration_ms: 280.930448
+  type: 'test'
+  ...
+# Subtest: frozen external bounds review and parent adoption reject path substitution
+ok 13 - frozen external bounds review and parent adoption reject path substitution
+  ---
+  duration_ms: 3.647971
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 471.928435

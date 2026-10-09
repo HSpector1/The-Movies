@@ -1,0 +1,97 @@
+{
+  "actualToolExit": 0,
+  "actualToolSessionId": 15050,
+  "childExit": 0,
+  "cleanupCheckUtc": "2026-10-09T19:29:29.981324+00:00",
+  "configSha256": "22597cd15bceec96176ad4247cdf11146aa6651bfd15d01366b105731fff83ba",
+  "controlsObservedReview": {
+    "bytes": 3569,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-controls-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "15ab0718016b63c5c7860e050b2feb661a8cfdcb035bbb4266aa7ad765c828fe"
+  },
+  "decision": "ACCEPT_OBSERVED_PURE_RENEWAL208_ONE_KEY_FIRST_DRAW_NUMERIC_ONLY",
+  "elapsedSeconds": 1.3130052230117144,
+  "exactInputProjectionVerified": true,
+  "findings": [],
+  "freshIndependentPidAndPgidAbsent": [
+    79310,
+    79573
+  ],
+  "globalAbsenceClaimed": false,
+  "heavyLaneLockAbsent": true,
+  "helperMetaExit": 0,
+  "helperPid": 79310,
+  "historicalOfferLocalObservation": false,
+  "nativeBinary64JitterOperationOrderVerified": true,
+  "numericOnly": true,
+  "outcomeSha256": "b0ac7eb884f9bd116df9a9c1607b70f4b6cbe2f37848cb4fde24645aadd8b889",
+  "ownedPgid": 79573,
+  "qualification": "Admits the isolated fresh-stream first draw and native-order jitter for one exact authenticated key only. Accepted source RNG equivalence is reused; no RNG was re-executed during review. It does not observe a historical offer-local draw, determine prices or close any renewal cause. Four recorded outcomes are zero; inherited helper SyntaxWarning is retained, child stderr empty.",
+  "recorderExit": 0,
+  "renewalAttribution": false,
+  "renewalPricingCausesClosed": 0,
+  "rerun": false,
+  "roles": {
+    "actualRecorder": {
+      "bytes": 926,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-output-20261009-r1/RESULT.json",
+      "sha256": "df9984cdd9e8d76449001489b206b24327618ddda785c010c835734a50e00921"
+    },
+    "actualTool": {
+      "bytes": 680,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-parent-recorded-after-aj-20261009-r1/WITNESS-ACTUAL-TOOL.json",
+      "sha256": "20df62f48e85edb030a235a26a2cfb2560c5f184de327f7f0fea5299202af9a4"
+    },
+    "grant": {
+      "bytes": 13909,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-parent-recorded-after-aj-20261009-r1/WITNESS-GRANT.json",
+      "sha256": "3f2a35e7a93f629ce5960de945bae5475b524f17939e274e2af1a11ae7ebb394"
+    },
+    "helperLog": {
+      "bytes": 414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-lane-20261009-r1/first-draw-witness.lane.log",
+      "sha256": "593ae00987821bd9c2d9a3cc0e16dfeb93326498869bbcd0ad3a0bff51485b4b"
+    },
+    "helperMeta": {
+      "bytes": 351,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-lane-20261009-r1/first-draw-witness.lane.log.meta",
+      "sha256": "e90b858c3acff5eff5ac86725cd4486c28347a14e7d2fb3afd8ccad2c12c0c57"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-output-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 615,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-output-20261009-r1/stdout.bin",
+      "sha256": "02fbee91b4e3bcfe349c352e4a4df8208d1f6e596158b340ddc925fda7977de4"
+    }
+  },
+  "rows": [
+    {
+      "firstDraw": 0.6570006266701967,
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+        0
+      ],
+      "jitter": 1.0251201002672314,
+      "key": "offer-person-studio-aca408ec-r03-2",
+      "ordinal": 38,
+      "purpose": "hiring",
+      "role": "missing-renewal208-isolated-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-2",
+      "talentId": "person-studio-aca408ec-r03-2"
+    }
+  ],
+  "salaryAttribution": false,
+  "schema": "1370-renewal208-one-key-witness-independent-observed-review/v1",
+  "sourceAndGrantRoleHashesVerified": true,
+  "sourcePinsSha256": "b5055ac3e7f4bee5a299517d7513859a746ffc1fcbc662d9b505c97e5d2dc83b",
+  "sourceReview": {
+    "bytes": 2893,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "4463ba339b5de10d89b7c7ab74776b378cf5f5195c48b14445aca708d3803ab3"
+  }
+}

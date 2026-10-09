@@ -1,0 +1,306 @@
+{
+  "actualNodeExecutableIdentity": {
+    "nodeBytes": 115440320,
+    "nodePath": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+    "nodeSha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+  },
+  "actualOperationalAmendmentReviewAndAdoptionPinned": true,
+  "actualSourceReviewOrRuntimeGrantInsertedByReviewer": false,
+  "configChangedFields": [
+    "nodeBytes",
+    "nodePath",
+    "nodeSha256",
+    "pythonFixture",
+    "roles",
+    "runtimeGrant"
+  ],
+  "configRoleCount": 30,
+  "freshFixtureOutputLanePathsAbsentAtReview": true,
+  "historicalNativeNode20TapLabelInformationalOnly": true,
+  "localModulesByteIdentical": true,
+  "manifestAndReadySeparatelyAuthenticated": true,
+  "manifestEntryCount": 15,
+  "node20Node22EquivalenceClaimed": false,
+  "nodeBinaryReadOrExecuted": false,
+  "observerFileCount": 18,
+  "original39ffScopeRetained": true,
+  "packagePhysicalFileCount": 17,
+  "recorderFullInverseTextAndNormalizedAstExact": true,
+  "recorderSubstitutions": [
+    [
+      "CONFIG_SHA='53b996cf65721bab186ed2043031fb470ad8868d838fac7ab0cd17bad81b0565'",
+      "CONFIG_SHA='09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb'"
+    ],
+    [
+      "OUTPUTS={mode:SCRATCH/('1370-c0-a208-controls-'+mode+'-output-after-aj-filled-20261009-r1') for mode in ('js','python')}",
+      "OUTPUTS={mode:SCRATCH/('1370-c0-a208-controls-'+mode+'-output-after-aj-node22-20261009-r1') for mode in ('js','python')}"
+    ]
+  ],
+  "reviewerCountingCorrection": "Two reviewer-only author assertions incorrectly treated17 physical files as17/16 manifest entries. Manifest has15 entries plus SOURCE-PINS and separately linked READY-RECEIPT; corrected without producer changes. No controls or producer source failed.",
+  "roles": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-independent-source-review-after-aj-20261009-r1/RECEIPT.json": {
+      "bytes": 2869,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "747ee2283e8de0584323c5107670614cf95b75229e2a1e1a3cbf492f17eb64db"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-parent-adoption-after-aj-20261009-r1/ADOPTION.json": {
+      "bytes": 4638,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "7da501eb54301aaf0a22c5dc29e4dff786ee4bd9bfff490153d951c54bd7b9eb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-proposal-after-aj-20261009-r1/PROPOSED-AMENDMENT.json": {
+      "bytes": 4491,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-proposal-after-aj-20261009-r1/PROPOSED-AMENDMENT.json",
+      "sha256": "df2388f17e90bcce7db0397fc9f7d706a4c2db9c823567c272fede7572c06310"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-prospective-parent-scope-after-aj-20261009-r1/ADOPTION.json": {
+      "bytes": 2977,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-prospective-parent-scope-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "39ff9d37dbde559e4e047db7ab3b9f7b5a0ed0c3afa898c03eec6a6dafbc638c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/CONFIG.json": {
+      "bytes": 14193,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/CONFIG.json",
+      "sha256": "53b996cf65721bab186ed2043031fb470ad8868d838fac7ab0cd17bad81b0565"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/ROUTE.json": {
+      "bytes": 2783,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/ROUTE.json",
+      "sha256": "f71cb9345df730bd93675022c86f250a3b4b61c13c48480a6840f19ee574cfc1"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 4500,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/SOURCE-PINS.json",
+      "sha256": "9548de6af338fe98a3dde78a1599850152fdab48db0c9e25576de8deb48acecc"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/drive.py": {
+      "bytes": 8874,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/drive.py",
+      "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/record.py": {
+      "bytes": 14474,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/record.py",
+      "sha256": "3215c7eb2a9cfaf6a71c22b6410a9f7d2d4db30844be9b6919f9dd610c2916d8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/report_guard.py": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/test_reports.py": {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/CONFIG.json": {
+      "bytes": 15164,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/CONFIG.json",
+      "sha256": "09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/CONFIG.json.diff": {
+      "bytes": 4694,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/CONFIG.json.diff",
+      "sha256": "943a2731096757b2cc12d08507c89739b6f616ac4047c85ea7bdc3a6e0d08337"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/CONTROL-RECIPE.md": {
+      "bytes": 1572,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/CONTROL-RECIPE.md",
+      "sha256": "56e27c8d0b233ebccc57bda42477042a40e7cc429edbc11b8a7b46e183470d00"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/INVERSE-AND-ROLE-PROOF.json": {
+      "bytes": 3134,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/INVERSE-AND-ROLE-PROOF.json",
+      "sha256": "08dd7f27f76cf6ca110b6d6f772507461fb25437284449456dca453a2392819d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/PREPARATION-ABSENCE.json": {
+      "bytes": 1407,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/PREPARATION-ABSENCE.json",
+      "sha256": "bdf46cf97e1ab52f4053736c83cc5d3bc68b8ec90ede5e1bf58f40a664684070"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/PROVENANCE.json": {
+      "bytes": 8297,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/PROVENANCE.json",
+      "sha256": "fea5d53eeadd9dd531be27d4254fea66d865318b568e904964bb4f9253ed8d86"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/READY-RECEIPT.json": {
+      "bytes": 2693,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/READY-RECEIPT.json",
+      "sha256": "b8607000f47e2bcb2a80ddc1be4d219826d43ccb45616a19802781838e37aa1d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/REPORT.md": {
+      "bytes": 958,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/REPORT.md",
+      "sha256": "e427156eb9506cb4b76816b4edb6c9aa679c032fc8949d583ba06a50a6d46f13"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/ROUTE.json": {
+      "bytes": 2824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/ROUTE.json",
+      "sha256": "6fdae62563b62fb22adaa289403cdfa3ed00daa11df21489e189b9dc03fb93d6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/ROUTE.json.diff": {
+      "bytes": 3118,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/ROUTE.json.diff",
+      "sha256": "83952c3a0282dd75d102cbddc0545d3271bc830ff9ebefc16a06e741c023624b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 5579,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/SOURCE-PINS.json",
+      "sha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/WRAPPER-CHANGES.md": {
+      "bytes": 1232,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/WRAPPER-CHANGES.md",
+      "sha256": "d0c48c0727a967c72655da5e8ff64ea0743a330737424f9e487b4993363ac6ff"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py": {
+      "bytes": 8874,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py",
+      "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py": {
+      "bytes": 14474,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py",
+      "sha256": "3767643eff8348e7bf132e6eee3be132747e96b581d7f916d48964bf8f9d8ddb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py.diff": {
+      "bytes": 1148,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py.diff",
+      "sha256": "0e4988cab40486a7c113d48f72a0ab40e9602127eb20e1691febecd8b4b68acc"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/report_guard.py": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/test_reports.py": {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-independent-source-review-after-aj-20261009-r2/RECEIPT.json": {
+      "bytes": 1573,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-independent-source-review-after-aj-20261009-r2/RECEIPT.json",
+      "sha256": "a4f568dc17dd37133a2ceb8f83a449622981ae6db9a48048a91028155543060c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/BINDING-UNFILLED.json": {
+      "bytes": 587,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/BINDING-UNFILLED.json",
+      "sha256": "d2ba88acfbf78221d4795a5f8a4f7b0588f2ab43fc60e8b062cda03dcdf8391a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/PHASE-INPUT-PROOF.json": {
+      "bytes": 35081,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/PHASE-INPUT-PROOF.json",
+      "sha256": "36c521a883dca9a16a8e2c48da87ec779ef7fff4667372db165665e2a0447e06"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/PLAN.md": {
+      "bytes": 4086,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/PLAN.md",
+      "sha256": "0a18eff4f23c83dab62eeff3ec83f555bc656c4bf5b2401a93e7bd0ca8cd161d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/POLICY.sb": {
+      "bytes": 93,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/POLICY.sb",
+      "sha256": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SELECTION.json": {
+      "bytes": 20248,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SELECTION.json",
+      "sha256": "a77f53a854df5112f2391f3bc3d01d64674ebd92f16ec6389a77ff7544a8bff7"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 9882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/bounds-guard.mjs": {
+      "bytes": 4153,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/bounds-guard.mjs",
+      "sha256": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/outer-recorder.py": {
+      "bytes": 11082,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/outer-recorder.py",
+      "sha256": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/settlement208-core.mjs": {
+      "bytes": 21888,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/settlement208-core.mjs",
+      "sha256": "8d18864aa6943d1aec534a4f78746eb614c66b32862cac80528e9f2d9bee367e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/supervise.py": {
+      "bytes": 22673,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/supervise.py",
+      "sha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/synthetic-employment.json": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/synthetic-employment.json",
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-outer.py": {
+      "bytes": 3290,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-outer.py",
+      "sha256": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-settlement208-frame.py": {
+      "bytes": 2027,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-settlement208-frame.py",
+      "sha256": "ed0218a3520cd01c8199f17426d59bf78e83ec85b2684b881d402405698a0b5f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-settlement208.mjs": {
+      "bytes": 7008,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-settlement208.mjs",
+      "sha256": "eed9e598428ed969b6ff1e044df7e20f563f5fbd7b4143f884de472edfddf609"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-supervisor.py": {
+      "bytes": 11204,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-supervisor.py",
+      "sha256": "eeef1208a677e1f885151808bbe97a5357a23817b664a9b3cb41296c652e2ba0"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-synthetic.mjs": {
+      "bytes": 4873,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-synthetic.mjs",
+      "sha256": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/witness-core.mjs": {
+      "bytes": 3520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/witness-core.mjs",
+      "sha256": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/witness.mts": {
+      "bytes": 5731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/witness.mts",
+      "sha256": "f82c50aa830d672de685bbfc6f49951ef56fcc3f4714ffe7b6a31100fe50e704"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/worktree-guard.mjs": {
+      "bytes": 2211,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/worktree-guard.mjs",
+      "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json": {
+      "bytes": 5517,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    }
+  },
+  "routeChangedFields": [
+    "commands",
+    "cwd",
+    "grant"
+  ],
+  "sourceImportTestsNodeGameFullscanGitOrProtectedWritePerformed": false,
+  "sourceOnlyRuntimeGrant7daIsNotExecutionPermission": true,
+  "status": "NODE22_DERIVATIVE_SOURCE_ONLY_UNRUN",
+  "threeDiffsIndependentlyReproduced": true
+}

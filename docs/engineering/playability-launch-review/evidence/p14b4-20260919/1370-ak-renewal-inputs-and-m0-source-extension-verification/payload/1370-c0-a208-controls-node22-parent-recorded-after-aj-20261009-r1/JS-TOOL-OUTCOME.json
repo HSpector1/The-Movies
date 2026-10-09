@@ -1,0 +1,55 @@
+{
+  "actualChildExit": 0,
+  "actualChildPid": 33363,
+  "actualHelperExit": 0,
+  "actualHelperPid": 33099,
+  "actualRecorderExitFromHelperMeta": 0,
+  "actualTool": {
+    "bytes": 620,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-parent-recorded-after-aj-20261009-r1/JS-ACTUAL-TOOL.json",
+    "sha256": "833198ba5fd4fcbaa621f7fded9aa588e5515a9ba9d68bdd4eb2dc646cc04cd6"
+  },
+  "actualToolExit": 0,
+  "actualToolSession": 61548,
+  "elapsedSeconds": 1.441669624997303,
+  "gameOrRenewalCauseAccepted": false,
+  "globalProcessAbsenceClaim": false,
+  "grant": {
+    "bytes": 16787,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-parent-recorded-after-aj-20261009-r1/JS-GRANT.json",
+    "sha256": "9d4056f7923222947765c1180c1bc3aa6b4071e52ef228afdc3bc61092647bf2"
+  },
+  "helperLog": {
+    "bytes": 398,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-lane-after-aj-node22-20261009-r1/controls.log",
+    "sha256": "50914de6626e0a74da520a18de6515293ca6379669b4ab8e9c949cf77f984a2e"
+  },
+  "helperMeta": {
+    "bytes": 350,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-lane-after-aj-node22-20261009-r1/controls.log.meta",
+    "sha256": "759e8a6e6f67faa3e8093d21342db5c63f7b850f0239f4631487bab2ab59c666"
+  },
+  "ownedPidsAndPgidsFreshAbsent": [
+    33099,
+    33363
+  ],
+  "result": {
+    "bytes": 913,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-output-after-aj-node22-20261009-r1/RESULT.json",
+    "sha256": "f6871b8bcf24838ca5fe235a95030a04ed892e7b334a21683aa1d193bae78d19"
+  },
+  "sourcePinsSha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5",
+  "status": "ACTUAL_A208_NODE22_JS_CONTROLS_EXIT0_PENDING_INDEPENDENT_ADMISSION",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-output-after-aj-node22-20261009-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 2571,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-output-after-aj-node22-20261009-r1/stdout.bin",
+    "sha256": "a43804f558008ac1d6ae110ac1c47e2bc789e7277bfe6e16dfd6b750f1281a2b"
+  },
+  "unexpectedHelperWait": false,
+  "utc": "2026-10-09T21:01:05.137321+00:00"
+}

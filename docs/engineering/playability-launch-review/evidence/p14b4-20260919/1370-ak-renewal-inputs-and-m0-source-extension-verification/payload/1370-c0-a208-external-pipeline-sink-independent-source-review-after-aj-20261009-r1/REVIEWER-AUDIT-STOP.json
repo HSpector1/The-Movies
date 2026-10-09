@@ -1,0 +1,21 @@
+{
+  "correctedAuditExit": 0,
+  "correction": "Match actual authenticated validator consumer: compare the two required decision values using get; other independently valid decision fields remain permitted.",
+  "failedAssertion": "review decision mapping exact two-field dictionary equality",
+  "observerOrSinkExecuted": false,
+  "originalAudit": {
+    "bytes": 7796,
+    "path": "/Users/zacheryspector/studio-scratch/review_a208_held_adapters_neutral.py",
+    "sha256": "b95ca315634941118411387dd7f9342b0e78545970369a80b4160a9089b39fba"
+  },
+  "originalAuditExit": 1,
+  "outputReviewDirectoryExistedAtFailure": false,
+  "runtimeSourceDefect": false,
+  "sourcePackageChanged": false,
+  "status": "REVIEWER_PREPARATION_ASSERTION_STOP_PRESERVED",
+  "successfulAudit": {
+    "bytes": 7828,
+    "path": "/Users/zacheryspector/studio-scratch/review_a208_held_adapters_neutral_r2.py",
+    "sha256": "9385d6343825b74f22e8b1a6634ec390230a8f614ee38b73315801d150d9bd23"
+  }
+}

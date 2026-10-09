@@ -1,0 +1,58 @@
+{
+  "acPower": true,
+  "actualFreeBytes": 5542277120,
+  "bindingSha256": "35e596a0ee6d5119fd2a84f03f3fc0a7398be1208a8f65e4c4824ca67e269a50",
+  "configSha256": "eece793d3622935824c14bcce7aea2c185cffc9df65144037e3d79575907c9c2",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "decision": "GRANT_READONLY_EXPANDED_M0_READBACK",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactReview": {
+    "bytes": 9200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-filled-independent-review-after-aj-20261009-r2/RECEIPT.json",
+    "sha256": "10ce9ac2c0a14dcfa6a7e81401abb11dd753c6d071f699419d6265e48740d15c"
+  },
+  "gameExecutionAuthorized": false,
+  "globalWorkerAbsenceClaim": false,
+  "helper": {
+    "bytes": 3361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r2.json",
+  "priorOwnedPidsAndPgidsAbsent": [
+    44676,
+    45166,
+    45180,
+    45181,
+    45183,
+    45200
+  ],
+  "protectedFreezeMaintainedSinceBaseline744095": true,
+  "readbackLimitSeconds": 240,
+  "rootPidBecomesHelperPid": 65494,
+  "runtimeArgvPrefix": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/verify-expanded.py",
+    "dfbf25dc7d97aa654dedf625abfd2c2209dcb089c3870d4c49b17d4540125a30"
+  ],
+  "schema": "1370-m0-expanded-readback-root-grant/v1",
+  "soleLaneReserved": true,
+  "sourcePinsSha256": "dfbf25dc7d97aa654dedf625abfd2c2209dcb089c3870d4c49b17d4540125a30",
+  "unexpectedHelperWaitIsStop": true,
+  "utc": "2026-10-09T20:37:53.894798+00:00",
+  "wrapper": {
+    "bytes": 5501,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-grant-readback.py",
+    "sha256": "c1b7fc6286af51c425d326823d0fbab417a344275b41751c1e5c488ed320e1ea"
+  },
+  "wrapperReview": {
+    "bytes": 2505,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-expanded-readback-parent-wrapper-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "bb0a8495b0e9f4c092f6f9e4937ca7fb3c103550f172b8ba07ea156f9734fbec"
+  }
+}

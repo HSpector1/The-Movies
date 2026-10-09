@@ -1,0 +1,31 @@
+{
+  "checkedBeforeReboundRuntimeFilesWritten": true,
+  "checks": [
+    {
+      "lexists": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2"
+    },
+    {
+      "lexists": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-20261009-r2.lock"
+    },
+    {
+      "lexists": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-input-output-20261009-r2"
+    },
+    {
+      "lexists": false,
+      "path": "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log"
+    },
+    {
+      "lexists": false,
+      "path": "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.meta"
+    },
+    {
+      "lexists": false,
+      "path": "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK"
+    }
+  ],
+  "scope": "Exact named scratch output/lock/log paths only; no inventory or mirror reads; absence is preparation fact and must be freshly checked at launch.",
+  "utcEpochSeconds": 1791574311.9605272
+}

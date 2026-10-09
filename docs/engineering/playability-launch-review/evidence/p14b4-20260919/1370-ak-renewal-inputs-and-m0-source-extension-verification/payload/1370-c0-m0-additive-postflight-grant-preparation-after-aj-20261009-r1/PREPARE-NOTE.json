@@ -1,0 +1,49 @@
+{
+  "actualAdditiveOutcome": null,
+  "actualExpandedReadbackReview": null,
+  "actualOwnedPids": null,
+  "executionAuthorization": false,
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-afterfill-grant-preparation-after-aj-20261009-r1/grant_after_fill.py",
+    "sha256": "4344a9bb4227b42af0aa0f17973a976e0fc6605ccd26acb3b4b8b161d5aaf775"
+  },
+  "status": "SOURCE_ONLY_UNRUN_POSTFLIGHT_WRAPPER_PENDING_ACTUAL_ADDITIVE_AND_EXACT_REVIEW",
+  "substitutions": [
+    [
+      "ACCEPT_EXACT_AFTER_FILL_FULL_GUARD_ARGV_AND_FILLED_CANDIDATE",
+      "ACCEPT_EXACT_POSTFLIGHT_FULL_GUARD_ARGV_AND_OBSERVED_ADDITIVE"
+    ],
+    [
+      "[*e['afterFill'][:-2]",
+      "[*e['postflight'][:-3]"
+    ],
+    [
+      "'744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912']",
+      "'744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912',x['ownedGroupsCsv']]"
+    ],
+    [
+      "ids=[77313,77576,79310,79573,85523,93713]",
+      "assert x['ownedGroupsCsv']==','.join(map(str,x['ownedPidsAndPgids']))\nassert x['ownedPidsAndPgids'] and all(type(pid) is int and pid>1 for pid in x['ownedPidsAndPgids'])\nassert role(x['additiveOutcome']['path'])==x['additiveOutcome'] and role(x['expandedReadbackReview']['path'])==x['expandedReadbackReview']\nids=sorted(set([77313,77576,79310,79573,85523,93713,78074]+x['ownedPidsAndPgids']))"
+    ],
+    [
+      "after-fill.stdout",
+      "postflight.stdout"
+    ],
+    [
+      "after-fill.stderr",
+      "postflight.stderr"
+    ],
+    [
+      "AFTER-FILL-GRANT.json",
+      "POSTFLIGHT-GRANT.json"
+    ],
+    [
+      "ROOT_ADOPTED_EXACT_SOURCE_ARGV_AND_GRANTED_SINGLE_DIRECT_AJ_AFTER_FILL_FULL_GUARD",
+      "ROOT_ADOPTED_EXACT_SOURCE_ARGV_AND_GRANTED_SINGLE_DIRECT_AJ_POSTFLIGHT_FULL_GUARD"
+    ],
+    [
+      "'filledCandidatePins':x['filledCandidatePins']",
+      "'filledCandidatePins':x['filledCandidatePins'],'actualAdditiveOutcome':x['additiveOutcome'],'expandedReadbackReview':x['expandedReadbackReview'],'actualOwnedPidsAndPgids':x['ownedPidsAndPgids']"
+    ]
+  ]
+}

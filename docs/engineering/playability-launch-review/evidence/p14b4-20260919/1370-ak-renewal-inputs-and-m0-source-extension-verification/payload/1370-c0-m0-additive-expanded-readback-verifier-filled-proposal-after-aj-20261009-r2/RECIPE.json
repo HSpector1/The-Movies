@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/verify-expanded.py",
+    "dfbf25dc7d97aa654dedf625abfd2c2209dcb089c3870d4c49b17d4540125a30",
+    "<ACTUAL_SEPARATE_ROOT_READBACK_GRANT_PATH>",
+    "<ACTUAL_GRANT_SHA256>"
+  ],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "futureAuthority": null,
+  "noOwnChildProcesses": true,
+  "parentBoundedRecordedLaneRequired": true,
+  "status": "FILLED_PACKET_UNRUN_SEPARATE_ROOT_GRANT_REQUIRED"
+}

@@ -1,0 +1,69 @@
+{
+  "actualRuntimeGrantExternalAndUnfilled": true,
+  "authorityRolesAdded": [
+    "operationalToolAmendment",
+    "operationalToolAmendmentReview",
+    "operationalToolAmendmentAdoption"
+  ],
+  "boundsCountsSourceReviewAndAssertionsUnchanged": true,
+  "configChangedFields": [
+    "nodeBytes",
+    "nodePath",
+    "nodeSha256",
+    "pythonFixture",
+    "roles",
+    "runtimeGrant"
+  ],
+  "controlsExecuted": false,
+  "localModuleRoles": {
+    "drive.py": {
+      "bytes": 8874,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py",
+      "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+    },
+    "report_guard.py": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    },
+    "test_reports.py": {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    }
+  },
+  "localModulesByteIdentical": true,
+  "nativeNode20TapHistoricalLabel": "Preserved report_guard protocol string native-node20-tap is a historical informational label for its strict TAP13 shape checks. It does not assert Node version or qualify Node22 controls. Actual executable identity is the Node22 CONFIG/tool role; report validator assertions remain unchanged.",
+  "node20Node22EquivalenceClaimed": false,
+  "observer18RolesByteIdentical": true,
+  "originalNode20FilledReview": {
+    "bytes": 14906,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "e304e8707580bae518ba12e7e15eb353c2a5d67b23dbc491fba29c2cdfbda6d4"
+  },
+  "originalNode20SourcePins": {
+    "bytes": 4500,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "9548de6af338fe98a3dde78a1599850152fdab48db0c9e25576de8deb48acecc"
+  },
+  "originalProspectiveScopeRoleRetained": true,
+  "recorderExactInverseBytes": true,
+  "recorderLiteralSubstitutions": [
+    [
+      "CONFIG_SHA='53b996cf65721bab186ed2043031fb470ad8868d838fac7ab0cd17bad81b0565'",
+      "CONFIG_SHA='09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb'"
+    ],
+    [
+      "OUTPUTS={mode:SCRATCH/('1370-c0-a208-controls-'+mode+'-output-after-aj-filled-20261009-r1') for mode in ('js','python')}",
+      "OUTPUTS={mode:SCRATCH/('1370-c0-a208-controls-'+mode+'-output-after-aj-node22-20261009-r1') for mode in ('js','python')}"
+    ]
+  ],
+  "recorderNormalizedFullAstEqual": true,
+  "routeChangedFields": [
+    "commands",
+    "cwd",
+    "grant"
+  ],
+  "runtimeGrantConfigFieldMeansAdoptedProspectiveScopeOnly": true,
+  "schema": "1370-a208-node22-filled-inverse-proof-v1"
+}

@@ -1,0 +1,120 @@
+{
+  "afterAJArchiveScopeOnly": true,
+  "currentPublishedDocsHeadAtPreparation": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "decision": "READY_AFTER_AJ_SOURCE_ONLY_PREMIUM_FLOOR_CLOSURE_PENDING_INDEPENDENT_REVIEW",
+  "executionAuthorization": false,
+  "inputRoles": {
+    "ACopyPayload": {
+      "bytes": 2925892,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r6-20261008-r1/child.stdout",
+      "sha256": "fc494f5ed09ec9df02380490f1bc2dcac3f4cf293fb8734e0329a4a8d43e4c18"
+    },
+    "AObservedAdmission": {
+      "bytes": 3032,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-observed-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "d681f73e3613248c7ccd0be7736e46bd1fe424dd62ea099a60e031e774238f64"
+    },
+    "AR9ObserverRoles": {
+      "SOURCE-PINS.json": {
+        "bytes": 1824,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/SOURCE-PINS.json",
+        "sha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759"
+      },
+      "witness-core.mjs": {
+        "bytes": 3520,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/witness-core.mjs",
+        "sha256": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d"
+      },
+      "witness.mts": {
+        "bytes": 5196,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/witness.mts",
+        "sha256": "afce97a16063085964c4a92d49c0495312452b7eec8d6b9b6bcc9edbc01cc736"
+      }
+    },
+    "HManifest": {
+      "bytes": 116991,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/MANIFEST.json",
+      "sha256": "9fc209f9fbf0e0240c404383f4b08338c9a16902d1cacc89600ff80a538038ae"
+    },
+    "HObserver": {
+      "bytes": 4560,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/diagnostic.test.ts",
+      "sha256": "960bbc14eb6597ace936f1ccc116f5538a869a428f6d3fe2b3c3cdb11b9349a3"
+    },
+    "gapFacts": {
+      "bytes": 220989,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/FACTS.json",
+      "sha256": "d928be4e8022203f4c0c86fe1c8196397c41f04e89fc984b1133693812988044"
+    },
+    "gapPins": {
+      "bytes": 10141,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/INPUT-PINS.json",
+      "sha256": "2b735e42554c2e27cb048c377cc8359f329410990333afc69087e45d882c6738"
+    },
+    "gapReceipt": {
+      "bytes": 2837,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/RECEIPT.json",
+      "sha256": "46d78843ee8e2cf61c501a6ca2aebe6a16b66aa9745751c2d60c7ca7bdcf9479"
+    },
+    "phaseProof": {
+      "bytes": 136304,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/PROOF.json",
+      "sha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2"
+    },
+    "r1IndependentRefine": {
+      "bytes": 4553,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "8f37215876ae187c7aa52435c0dafd915302cc2386f418abf79f72e474d8e00f"
+    },
+    "r1ProposalReceipt": {
+      "bytes": 2894,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "f51506bdfcc6f7dbd03284ff3cdde16eb8009c4b09fe69c3ff81027d51f6d0ee"
+    }
+  },
+  "newNumericRenewalCausesClosed": 0,
+  "preparationSourceQualification": "PREPARATION.py preserves primary authoring. Final finite augmentation includes all hollywoodTick helpers, complete tick, commitWinningPromise, first-takes, promise-week and A-only relationship-week root-preservation slices; receipt pins final arm-specific artifacts.",
+  "productionSourceUnchanged": true,
+  "proposedPrecommitNullFloors": 16,
+  "proposedSourcePremiumBranches": 16,
+  "roles": {
+    "OBSERVER-SLICES.txt": {
+      "bytes": 13448,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r2/OBSERVER-SLICES.txt",
+      "sha256": "a030a122cfdd154c144060b0da308f1b6d86842f4480a9dd5c7a1bc1ab6398eb"
+    },
+    "PREPARATION.py": {
+      "bytes": 16668,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r2/PREPARATION.py",
+      "sha256": "94cc8f87e1d23a762a59f42892007ba9df1f6d1a77cfd239ca5a07354ca4ef88"
+    },
+    "REPORT.md": {
+      "bytes": 1725,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r2/REPORT.md",
+      "sha256": "34441644391fbb452fc5d2b40afdf7f781756920e08d005bfddc0e94621d78f3"
+    },
+    "SELECTED16.json": {
+      "bytes": 27035,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r2/SELECTED16.json",
+      "sha256": "00c1c26964991adc0b2b8aa467e67a7bf006e2ff1d3c3975ff9522eb223ef9fd"
+    },
+    "SOURCE-MAP.json": {
+      "bytes": 46982,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r2/SOURCE-MAP.json",
+      "sha256": "a3d4e04db5538193eb54ff9dc1a501fab1fa660cc5585181230d6c049b50f976"
+    },
+    "SOURCE-SLICES.txt": {
+      "bytes": 308839,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r2/SOURCE-SLICES.txt",
+      "sha256": "900c814a461c807055255a6152ee6cfebd7342dd6476964dbfce82f79fd66711"
+    },
+    "WRITER-CALLER-PROOF.json": {
+      "bytes": 6593,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r2/WRITER-CALLER-PROOF.json",
+      "sha256": "8f58e0f2a795bddf7cd1333a77563dde9fa2c11d4fa281de15e2211176163d33"
+    }
+  },
+  "selectedRows": 16,
+  "sourceBytesRead": 1087284,
+  "sourceExecution": false
+}

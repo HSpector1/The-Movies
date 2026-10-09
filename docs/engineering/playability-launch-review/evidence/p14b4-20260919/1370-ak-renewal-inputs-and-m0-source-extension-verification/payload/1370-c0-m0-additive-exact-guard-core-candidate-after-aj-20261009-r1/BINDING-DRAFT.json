@@ -1,0 +1,335 @@
+{
+  "additionalFdScopes": [
+    {
+      "commonGitRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
+      "productionRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1"
+    },
+    {
+      "commonGitRoot": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2",
+      "productionRoot": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2"
+    },
+    {
+      "commonGitRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+      "productionRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2"
+    }
+  ],
+  "additiveReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/ADDITIVE-RESULT.json",
+  "ancestryIdentity": {
+    "/": [
+      16777220,
+      2,
+      493
+    ],
+    "/Users": [
+      16777220,
+      643588,
+      493
+    ],
+    "/Users/zacheryspector": [
+      16777220,
+      685348,
+      448
+    ],
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H": [
+      16777220,
+      157454051,
+      493
+    ],
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git": [
+      16777220,
+      157454052,
+      493
+    ],
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects": [
+      16777220,
+      157454083,
+      493
+    ],
+    "/Users/zacheryspector/The-Movies-headless-program": [
+      16777220,
+      158484765,
+      493
+    ],
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules": [
+      16777220,
+      158487026,
+      493
+    ],
+    "/Users/zacheryspector/studio-scratch": [
+      16777220,
+      164902343,
+      493
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1": [
+      16777220,
+      166568330,
+      448
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git": [
+      16777220,
+      166568331,
+      448
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules": [
+      16777220,
+      166568569,
+      493
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2": [
+      16777220,
+      166418910,
+      448
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1": [
+      16777220,
+      166418911,
+      448
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2": [
+      16777220,
+      166751331,
+      448
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2": [
+      16777220,
+      166751332,
+      448
+    ]
+  },
+  "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+  "bounds": {
+    "bodyResultBytes": 100000,
+    "childSeconds": 180,
+    "combinedChildLogsBytes": 33554432,
+    "wholeSeconds": 210
+  },
+  "commonGitRoot": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+  "copyFactsSha256": "e46dcc9cf81f7ce3462e1cdd34618f37f68ac75a90d5f95f112ee93966e96bfe",
+  "currentBoundedMetadataPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-fill-preparation-after-aj-20261009-r1/BOUNDED-CURRENT-METADATA.json",
+  "currentBoundedMetadataSha256": "02e61009bc6a2d5ce9e78304905716daccdc4f966d1c7e7ee515fd76c5549ea9",
+  "currentFullGuardParentAdoptionPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-ADOPTION.json",
+  "currentFullGuardParentAdoptionSha256": "201d1aba2f3569321539f639c246f92f795e1cbd81924afcfa8933ec48e56fa0",
+  "currentFullGuardReviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-observed-independent-review-after-aj-20261009-r1/RECEIPT.json",
+  "currentFullGuardReviewSha256": "0efcbe97fc3ecbfbd25fa4a75355ba1d87ef5ddaaed423ef87c9b61a6075be35",
+  "currentFullGuardSnapshotPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+  "currentFullGuardSnapshotSha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912",
+  "docsOnlyTransition": {
+    "explicitParentFreezeAndReuseAcceptanceRequired": true,
+    "freshProductionCommonFullProofRequired": true,
+    "fromProductionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+    "r9ReplayOrCopyRequired": false,
+    "toProductionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a"
+  },
+  "exactBindingReviewDecision": null,
+  "exactBindingReviewPath": null,
+  "exactBindingReviewSha256": null,
+  "executionAuthorization": false,
+  "expectedOverlayFiles": [
+    {
+      "bytes": 116906,
+      "destination": "src/core/talentMarket.ts",
+      "sha256": "71c775336c581fb5c5ad8923d4648bc8bf492ee38f235214f861fd1d0e7ac804"
+    },
+    {
+      "bytes": 112969,
+      "destination": "src/core/promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    {
+      "bytes": 24797,
+      "destination": "src/core/opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    {
+      "bytes": 4729,
+      "destination": "src/core/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 12710,
+      "destination": "tests/diagnostic.test.ts",
+      "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7"
+    }
+  ],
+  "gitPath": "/usr/bin/git",
+  "helperLogName": "m0-additive-input-20261009-r2.lane.log",
+  "launchCwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "launchEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "lsofPath": "/usr/sbin/lsof",
+  "m0ObserverSourceReviewSha256": "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8",
+  "m0SourceManifestSha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba",
+  "materializerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/add_inputs.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json"
+  ],
+  "materializerArgvRolePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-fill-preparation-after-aj-20261009-r1/FILLED-ARGV-ROLE.json",
+  "materializerArgvRoleSha256": "b7926bb4c21d627f3dd38d513d1e6b82532c560444a306716476960c71877000",
+  "materializerPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/add_inputs.py",
+  "materializerSha256": "3f76b3cb27ec1e932b23c8f40d848b5f3dfba9a339c78fb3d950b9291fefbd27",
+  "materializerSourceReviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-independent-source-review-after-aj-20261009-r4/RECEIPT.json",
+  "materializerSourceReviewSha256": "30fec9b708aee9355cbf4ddae37a80a752901a5535dd4d546707ed0468f8a7dc",
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "noDetachedChildren": true,
+  "noExternalSameUidRenamer": true,
+  "originalM0RootMetadata": [
+    16777220,
+    166751332,
+    16832,
+    11,
+    352,
+    1791567307020759106,
+    1791567307020759106
+  ],
+  "outputParent": "/Users/zacheryspector/studio-scratch",
+  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2",
+  "parentScopeAdoptionPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-aj-scope-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+  "parentScopeAdoptionSha256": "13be428dfe3bdba1bc4ce4f2348bd194d2473c4c812df2b5f0bfec936b76b8e8",
+  "phaseReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/FIRST-WRITE-PHASE.json",
+  "preflightReviewPath": null,
+  "preflightReviewSha256": null,
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionRoot": "/Users/zacheryspector/The-Movies-headless-program",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "recorderLockPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-20261009-r2.lock",
+  "recorderPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/record.py",
+  "recorderSha256": "7dc307b9e505ce171557d47c5ca710fa213d22fb06d1e93a3d30e3765ff90da2",
+  "retainedHLeafPath": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+  "routeSourceReviewDecision": "ACCEPT_SOURCE_ONLY_UNRUN_ADDITIVE_RECORDED_ROUTE",
+  "routeSourceReviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-independent-source-review-after-aj-20261009-r4/RECEIPT.json",
+  "routeSourceReviewSha256": "30fec9b708aee9355cbf4ddae37a80a752901a5535dd4d546707ed0468f8a7dc",
+  "runId": "20261009-m0-additive-input-r1",
+  "schema": "m0-additive-held-binding-r1",
+  "scratchParent": "/Users/zacheryspector/studio-scratch",
+  "scratchRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+  "sourceSha": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "status": "DRAFT_EXACT_REVIEW_PENDING_UNRUN",
+  "strictRootMetadata": {
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git": [
+      16777220,
+      157454052,
+      493,
+      1791475054920875233,
+      1791475054920875233
+    ],
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects": [
+      16777220,
+      157454083,
+      493,
+      1791493320461260435,
+      1791493320461260435
+    ],
+    "/Users/zacheryspector/The-Movies-headless-program": [
+      16777220,
+      158484765,
+      493,
+      1791471316296107826,
+      1791471316296107826
+    ],
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules": [
+      16777220,
+      158487026,
+      493,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1": [
+      16777220,
+      166568330,
+      448,
+      1791498505800985629,
+      1791498505800985629
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git": [
+      16777220,
+      166568331,
+      448,
+      1791498505730619861,
+      1791498505730619861
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules": [
+      16777220,
+      166568569,
+      493,
+      1790738039503311431,
+      1791498512390967424
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2": [
+      16777220,
+      166418910,
+      448,
+      1791451453565647134,
+      1791451453565647134
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1": [
+      16777220,
+      166418911,
+      448,
+      1791462534662274730,
+      1791462534662274730
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2": [
+      16777220,
+      166751331,
+      448,
+      1791567307990813418,
+      1791567307990813418
+    ]
+  },
+  "supervisorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/supervise.py",
+  "supervisorSha256": "e2258264783de69fa4d2a10c9c71ede7d4cabc0f80f87c17ba23935e32c9039d",
+  "toolRoles": {
+    "/usr/bin/git": {
+      "identity": [
+        16777220,
+        1152921500312781356,
+        493,
+        76
+      ],
+      "sha256": "fe38fea56d944c3b7e9df10617b1fa5432d7b75cc346d7eacb607d083ea11711"
+    },
+    "/usr/bin/pmset": {
+      "identity": [
+        16777220,
+        1152921500312782445,
+        493,
+        1
+      ],
+      "sha256": "de2d7c69b8c1375a652484ba429ea4605f0458a9340ce1c5130ed1dd782218df"
+    },
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14": {
+      "identity": [
+        16777220,
+        72062271,
+        493,
+        1
+      ],
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "/usr/sbin/lsof": {
+      "identity": [
+        16777220,
+        1152921500312789974,
+        493,
+        1
+      ],
+      "sha256": "40659ac68e85f56955736c06eadbd8864a65da3bf4827029fc845129b5165258"
+    },
+    "/usr/sbin/sysctl": {
+      "identity": [
+        16777220,
+        1152921500312790132,
+        493,
+        1
+      ],
+      "sha256": "c266586ca2cd39ea836e23ad932646144c53f71ebb1f9a493abeb865d90cbd21"
+    }
+  }
+}

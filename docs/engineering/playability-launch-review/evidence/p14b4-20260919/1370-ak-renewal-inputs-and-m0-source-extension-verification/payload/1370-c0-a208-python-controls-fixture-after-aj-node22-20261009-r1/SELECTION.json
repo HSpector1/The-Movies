@@ -1,0 +1,673 @@
+{
+  "evolvedPricingInputFields": [
+    "id",
+    "role",
+    "age",
+    "fame",
+    "skills[primaryDiscipline][six exact source keys].perceived"
+  ],
+  "paySource": "authenticated A full44 paired preimage; identity/context validation only, no arithmetic/inversion",
+  "primaryDiscipline": {
+    "actor": "acting",
+    "craft": "craft",
+    "director": "directing",
+    "scientist": "research",
+    "writer": "writing"
+  },
+  "rows": [
+    {
+      "creativeRole": "writer",
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 395548,
+          "endWeekExclusive": 208,
+          "signingBonus": 71199,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r01-0",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 0,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 499573,
+          "endWeekExclusive": 416,
+          "signingBonus": 89923,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r01-0",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 24,
+      "talentId": "person-studio-aca408ec-r01-0"
+    },
+    {
+      "creativeRole": "director",
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-1:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 141075,
+          "endWeekExclusive": 208,
+          "signingBonus": 25394,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r01-1",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 1,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-1:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 242680,
+          "endWeekExclusive": 416,
+          "signingBonus": 43682,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r01-1",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 25,
+      "talentId": "person-studio-aca408ec-r01-1"
+    },
+    {
+      "creativeRole": "actor",
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-2:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 220859,
+          "endWeekExclusive": 208,
+          "signingBonus": 39755,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r01-2",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 2,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-2:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 346793,
+          "endWeekExclusive": 416,
+          "signingBonus": 62423,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r01-2",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 26,
+      "talentId": "person-studio-aca408ec-r01-2"
+    },
+    {
+      "creativeRole": "actor",
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-3:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 745914,
+          "endWeekExclusive": 208,
+          "signingBonus": 134265,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r01-3",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 3,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-3:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 916663,
+          "endWeekExclusive": 416,
+          "signingBonus": 164999,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r01-3",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 27,
+      "talentId": "person-studio-aca408ec-r01-3"
+    },
+    {
+      "creativeRole": "actor",
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-4:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 916051,
+          "endWeekExclusive": 208,
+          "signingBonus": 164889,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r01-4",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 4,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-4:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 1092446,
+          "endWeekExclusive": 416,
+          "signingBonus": 196640,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r01-4",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 28,
+      "talentId": "person-studio-aca408ec-r01-4"
+    },
+    {
+      "creativeRole": "craft",
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-5:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 191216,
+          "endWeekExclusive": 208,
+          "signingBonus": 34419,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r01-5",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 5,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-5:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 257634,
+          "endWeekExclusive": 416,
+          "signingBonus": 46374,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r01-5",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 29,
+      "talentId": "person-studio-aca408ec-r01-5"
+    },
+    {
+      "creativeRole": "writer",
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 225992,
+          "endWeekExclusive": 208,
+          "signingBonus": 40679,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r02-0",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 6,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 292260,
+          "endWeekExclusive": 416,
+          "signingBonus": 52607,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r02-0",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 30,
+      "talentId": "person-studio-aca408ec-r02-0"
+    },
+    {
+      "creativeRole": "director",
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-1:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 313082,
+          "endWeekExclusive": 208,
+          "signingBonus": 56355,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r02-1",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 7,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-1:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 445718,
+          "endWeekExclusive": 416,
+          "signingBonus": 80229,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r02-1",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 31,
+      "talentId": "person-studio-aca408ec-r02-1"
+    },
+    {
+      "creativeRole": "actor",
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 115209,
+          "endWeekExclusive": 208,
+          "signingBonus": 20738,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r02-2",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 8,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 191769,
+          "endWeekExclusive": 416,
+          "signingBonus": 34518,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r02-2",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 32,
+      "talentId": "person-studio-aca408ec-r02-2"
+    },
+    {
+      "creativeRole": "actor",
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 765621,
+          "endWeekExclusive": 208,
+          "signingBonus": 137812,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r02-3",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 9,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 876801,
+          "endWeekExclusive": 416,
+          "signingBonus": 157824,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r02-3",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 33,
+      "talentId": "person-studio-aca408ec-r02-3"
+    },
+    {
+      "creativeRole": "actor",
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-4:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 473558,
+          "endWeekExclusive": 208,
+          "signingBonus": 85240,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r02-4",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 10,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-4:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 656727,
+          "endWeekExclusive": 416,
+          "signingBonus": 118211,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r02-4",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 34,
+      "talentId": "person-studio-aca408ec-r02-4"
+    },
+    {
+      "creativeRole": "craft",
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-5:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 250600,
+          "endWeekExclusive": 208,
+          "signingBonus": 45108,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r02-5",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 11,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-5:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 291337,
+          "endWeekExclusive": 416,
+          "signingBonus": 52441,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r02-5",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 35,
+      "talentId": "person-studio-aca408ec-r02-5"
+    },
+    {
+      "creativeRole": "writer",
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r03",
+        "terms": {
+          "annualSalary": 257755,
+          "endWeekExclusive": 208,
+          "signingBonus": 46396,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r03-0",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 12,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r03",
+        "terms": {
+          "annualSalary": 324580,
+          "endWeekExclusive": 416,
+          "signingBonus": 58424,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r03-0",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 36,
+      "talentId": "person-studio-aca408ec-r03-0"
+    },
+    {
+      "creativeRole": "director",
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r03",
+        "terms": {
+          "annualSalary": 181799,
+          "endWeekExclusive": 208,
+          "signingBonus": 32724,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r03-1",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 13,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r03",
+        "terms": {
+          "annualSalary": 282555,
+          "endWeekExclusive": 416,
+          "signingBonus": 50860,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r03-1",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 37,
+      "talentId": "person-studio-aca408ec-r03-1"
+    },
+    {
+      "creativeRole": "actor",
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r03",
+        "terms": {
+          "annualSalary": 330318,
+          "endWeekExclusive": 208,
+          "signingBonus": 59457,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r03-2",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 14,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r03",
+        "terms": {
+          "annualSalary": 543983,
+          "endWeekExclusive": 416,
+          "signingBonus": 97917,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r03-2",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 38,
+      "talentId": "person-studio-aca408ec-r03-2"
+    },
+    {
+      "creativeRole": "actor",
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:208",
+        0
+      ],
+      "oldRowFinal": {
+        "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r03",
+        "terms": {
+          "annualSalary": 831383,
+          "endWeekExclusive": 208,
+          "signingBonus": 149649,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r03-3",
+          "termWeeks": 208
+        }
+      },
+      "oldSourceOrder": 15,
+      "renewalRowFinal": {
+        "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:208",
+        "endedWeek": 416,
+        "reason": "replacement",
+        "studioId": "studio-aca408ec-r03",
+        "terms": {
+          "annualSalary": 1059738,
+          "endWeekExclusive": 416,
+          "signingBonus": 190753,
+          "startWeek": 208,
+          "talentId": "person-studio-aca408ec-r03-3",
+          "termWeeks": 208
+        }
+      },
+      "sourceOrder": 39,
+      "talentId": "person-studio-aca408ec-r03-3"
+    }
+  ],
+  "schema": "1370-a208-selected16-r1",
+  "seed": "p13a-core-causal-01",
+  "skillOrder": {
+    "acting": [
+      "actingTechnique",
+      "emotionalRange",
+      "dialogueDelivery",
+      "comicTiming",
+      "physicalPerformance",
+      "screenPresence"
+    ],
+    "craft": [
+      "cinematography",
+      "editing",
+      "productionDesign",
+      "soundAndMusic",
+      "effectsExecution",
+      "technicalCoordination"
+    ],
+    "directing": [
+      "visualStorytelling",
+      "performanceDirection",
+      "toneControl",
+      "directingPacing",
+      "productionManagement",
+      "adaptability"
+    ],
+    "research": [
+      "scientificMethod",
+      "acoustics",
+      "instrumentation",
+      "experimentation",
+      "engineering",
+      "documentation"
+    ],
+    "writing": [
+      "storyStructure",
+      "characterDevelopment",
+      "dialogue",
+      "originality",
+      "narrativePacing",
+      "rewriting"
+    ]
+  },
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "week": 208
+}

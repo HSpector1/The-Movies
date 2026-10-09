@@ -1,0 +1,49 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/witness.mts
++++ /Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/witness.mts
+@@ -4,7 +4,8 @@
+ import { dirname, join, resolve } from 'node:path'
+ import { pathToFileURL } from 'node:url'
+ import { execFileSync } from 'node:child_process'
+-import { observeLedger, SOURCE } from './witness-core.mjs'
++import { SOURCE } from './witness-core.mjs'
++import { observeSettlement208Ledger } from './settlement208-core.mjs'
+ import { worktreeFile } from './worktree-guard.mjs'
+ import { validateBoundsRoles } from './bounds-guard.mjs'
+ 
+@@ -14,6 +15,10 @@
+   cwd: root, encoding: 'utf8', timeout: 15_000, maxBuffer: 1024 * 1024,
+ }).trim()
+ const blobPins = {
++  'src/core/talentMarket.ts': 'f036fcec9191374dc5554c5cdc33372b53cd7926',
++  'src/core/talentSummary.ts': 'f8e8539d3c0f780e58027640de333d6168db7654',
++  'src/core/tuning.ts': 'c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9',
++
+   'src/core/aging.ts': 'e1b88562ded631e0142b2783555e866d4a884d04',
+   'src/core/employment.ts': 'e8e5acaa1e6a94ac1de7db13eb46840efb55616f',
+   'src/core/hollywood.ts': '377da502bcfa55afe31c243ab0909b2c0012d269',
+@@ -38,7 +43,7 @@
+     if (git(root, 'rev-parse', `HEAD:${path}`) !== blob) fail('SOURCE_BLOB')
+     worktreeSha256[path] = worktreeFile(root, path, blob, binding.worktreeSha256[path])
+   }
+-  const observerPaths = ['witness-core.mjs', 'worktree-guard.mjs', 'bounds-guard.mjs', 'witness.mts', 'supervise.py', 'outer-recorder.py', 'POLICY.sb'] as const
++  const observerPaths = ['witness-core.mjs', 'settlement208-core.mjs', 'worktree-guard.mjs', 'bounds-guard.mjs', 'witness.mts', 'supervise.py', 'outer-recorder.py', 'POLICY.sb'] as const
+   for (const path of observerPaths) {
+     if (sha(readFileSync(join(thisDir, path))) !== binding.observerSha256[path]) fail('OBSERVER_PIN')
+   }
+@@ -64,13 +69,15 @@
+   const fixture = await import(pathToFileURL(join(root, 'src/harness/p13a/fixtures.ts')).href)
+   const engine = await import(pathToFileURL(join(root, 'src/core/tick.ts')).href)
+   const started = Date.now()
+-  const result = observeLedger(fixture.p13aGeneratedStudio, engine.tick)
++  const result = observeSettlement208Ledger(fixture.p13aGeneratedStudio, engine.tick)
+   const postflight = sourceGuard(root, thisDir, binding)
+   const frame = {
+     status: 'MATCHED_AGING_ERA_PREIMAGE_CANDIDATE', protocol: 'single-bounded-stdout-frame-no-files',
+     sourceSha: SOURCE, seed: 'p13a-core-causal-01', weeks: 416,
+     sourceBlobs: blobPins, worktreeSha256: preflight.worktreeSha256, preflight, postflight,
+     boundsAmendment: binding.boundsAmendment, parentBoundsAdoption: binding.parentBoundsAdoption,
++    settlement208Bytes: result.settlement208Bytes.length, settlement208Rows: result.settlement208Rows,
++    settlement208Sha256: result.settlement208Sha256, settlement208Base64: result.settlement208Bytes.toString('base64'),
+     firstQuote: result.firstQuote, employmentBytes: result.employmentBytes.length,
+     employmentRows: result.rows, digests: result.digests, elapsedMs: Date.now() - started,
+     node: process.version, preimageBase64: result.employmentBytes.toString('base64'),

@@ -1,0 +1,57 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 6419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/CONFIG.json",
+      "sha256": "a0fa01c8e9a16d58ab99919d7b082f033c30aa0f6bc7171a2a794fe117d209e3"
+    },
+    "FILL-REQUIREMENTS.json": {
+      "bytes": 1256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/FILL-REQUIREMENTS.json",
+      "sha256": "08f600c64d8ef84e8b1c8a03cd74037e8f3ae68292ae6030e41c83eedb7b8a38"
+    },
+    "REPORT.md": {
+      "bytes": 1168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/REPORT.md",
+      "sha256": "2d178143d856658fc58c7d139048b106e95370cc3072427d8432524b9f774a76"
+    },
+    "REUSE-PROOF.json": {
+      "bytes": 1004,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/REUSE-PROOF.json",
+      "sha256": "4d8b583d45dcdf7f94fb7f9b7b4c908516fd4078bb80dae09c6211bd029fdcce"
+    },
+    "verify-expanded.py": {
+      "bytes": 18854,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/verify-expanded.py",
+      "sha256": "ba57a653d6c276635cbe1cdae4d51fe407e42e3b9a80148a1bc1a4b84edca502"
+    }
+  },
+  "observedFailureAttribution": {
+    "bytes": 4426,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-expanded-readback-failure-independent-attribution-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "fedba7eda2203ce80d37f319e65371dffb9ca8aba04538d7dc2d610f2e9d84e5"
+  },
+  "originalSourcePins": {
+    "bytes": 1566,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "e248ed880d2e7ff72d790840b768d1441237b2939a424441042bcdbd125f7061"
+  },
+  "originalSourceReview": {
+    "bytes": 6866,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "81b265485e77dbb7ca5ed5c6c55b4a5913045371e8c971f00e44d4416648ed54"
+  },
+  "predecessorFilledReview": {
+    "bytes": 9200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-filled-independent-review-after-aj-20261009-r2/RECEIPT.json",
+    "sha256": "10ce9ac2c0a14dcfa6a7e81401abb11dd753c6d071f699419d6265e48740d15c"
+  },
+  "predecessorFilledSourcePins": {
+    "bytes": 2183,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/SOURCE-PINS.json",
+    "sha256": "dfbf25dc7d97aa654dedf625abfd2c2209dcb089c3870d4c49b17d4540125a30"
+  },
+  "status": "PHYSICAL_PYTHON_PREDICATE_REPAIR_SOURCE_ONLY_UNRUN_REVIEW_REQUIRED",
+  "verifierExecutionPerformed": false
+}

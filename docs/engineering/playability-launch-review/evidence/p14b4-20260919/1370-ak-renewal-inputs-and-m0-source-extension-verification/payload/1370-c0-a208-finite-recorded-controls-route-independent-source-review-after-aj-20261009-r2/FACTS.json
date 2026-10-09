@@ -1,0 +1,33 @@
+{
+  "configRolesAuthenticated": 25,
+  "driverThreeControlsBeforeObserver14SourceProved": true,
+  "fixedProbeCaptureScope": "Post-capture cap of fixed finite probes, not generic bounded communicate allocation.",
+  "importsExecutionNodeTestsGameGitScansProtectedWrites": false,
+  "negativeControlsAuthored": [
+    "test_valid_producers_and_old_gate_red",
+    "test_tap_count_failure_skip_todo_cancel_and_stderr_refused",
+    "test_python_status_counts_failure_and_cleanup_refused"
+  ],
+  "originalDriverByteInverseExceptTwoAddedLines": true,
+  "originalJsGroups": 13,
+  "originalObserverFilesByteRolesExact": true,
+  "originalPythonObserverMethods": 14,
+  "packageFilesAuthenticated": 11,
+  "packagePins": {
+    "bytes": 3402,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/SOURCE-PINS.json",
+    "sha256": "1c267921f7dd0bb0db8e65ddf356bd9649f36658410324fc550a0cbc0f200cca"
+  },
+  "parentMechanismReuseScope": "Unchanged parent recorder mechanism ASTs; new mode-specific producer gate and pure report controls remain UNRUN. Driver45/55 and parent60/75/90 caps unchanged.",
+  "producerGate": {
+    "js": "Explicit native Node20 TAP13 ordered ok1..13, plan1..13,tests13/pass13/fail0/cancelled0/skipped0/todo0/suites0, no not-ok/directive/error or stderr.",
+    "python": "PASS14,zero failures/errors,null reason/stickyStop,empty cleanup errors,7 unique ready/reaped/clear direct groups plus4 unique completed probes in actual parent PGID,finite elapsed<45 and gamefalse; retained Ran14/OK unittest diagnostics."
+  },
+  "pythonProducerReportMethodsRemainsOriginalObserver14": true,
+  "recorderAllOwnershipClockCaptureCleanupFunctionAstsEqual": true,
+  "refineClosed": "F1",
+  "runtimeGrantUnfilled": true,
+  "separateNoChildReportValidationMethods": 3,
+  "streamCapsAndFixtureCapUnchanged": true,
+  "totalPythonMethodsIfBothSuitesPass": 17
+}

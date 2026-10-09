@@ -1,0 +1,34 @@
+{
+  "H8708Waived": false,
+  "additiveObservedControlsParentAdoptionSha256": "924fe37d4b09f58a5d442aa5612800fea06868396ef3ee176936ae8a48b80c79",
+  "additiveObservedControlsReviewSha256": "9da1cfa0797a7bc85c1193e6481cf84ee690f04bb309edda6fd70eccec27b075",
+  "additiveRouteSourceReviewSha256": "81492801b0284d73c65b63e0082473e6b45767a673b2248898f40f8ae29870f9",
+  "canonicalM0Source": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "combinedHFirstRouteUnchanged": true,
+  "currentFullGuardsYetRun": false,
+  "executionAuthorization": false,
+  "historicalAHGuardNotCurrentProof": true,
+  "historicalAcceptedR9ReplayRequired": false,
+  "operationalTransition": {
+    "actualHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+    "docsOnlyVerified": true,
+    "docsTransitionFactsSha256": "20c4ad5aba3580d5ff05e921e4a8d1ee824162257095a9aa6a63a74e69878017",
+    "predecessor": "02d50716fe787eaed425b40f822ce91f4463deba",
+    "priorAdoptionPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+    "priorAdoptionSha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017",
+    "privateHistoricalReuseRequiresSeparatelyReviewedContinuity": true,
+    "sourceBodiesScopeAndNoHWaiverUnchanged": true,
+    "wholeProductionCommonGuardMustRefresh": true
+  },
+  "productionGuardHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionSourceChangesAuthorized": false,
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "remoteRefsVerified": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "f0fb818fe7534c3e3784206d16728b015c7f059a"
+  },
+  "scope": "Continue the accepted isolated M0 diagnostic design through the independently reviewed additive63-file bridge and dependency-link route before later types/wiring/capture gates. Adopt current docs-only guard identity; actual full scans and additive execution still require reviewed exact inputs and separate recorded root grants. No gameplay production mutation or H waiver.",
+  "sourceReviewSha256": "a4591c34f4b6406f20e5e35c0d85cbab74945dc79b1ef79fffbdf8d75b1f1180",
+  "status": "PARENT_ADOPTED_ISOLATED_M0_DIAGNOSTIC_DESIGN_ONLY",
+  "utc": "2026-10-09T19:16:36.802804+00:00"
+}

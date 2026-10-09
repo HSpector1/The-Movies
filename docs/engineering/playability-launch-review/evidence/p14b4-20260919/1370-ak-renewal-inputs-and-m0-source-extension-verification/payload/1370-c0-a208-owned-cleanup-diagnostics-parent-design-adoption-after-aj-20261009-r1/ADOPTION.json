@@ -1,0 +1,31 @@
+{
+  "actualRetryAuthorized": false,
+  "constraints": [
+    "Fresh derivative only; retain all original source/grants/streams/registry and failed outcome.",
+    "Explicit event/field/aggregate caps within existing1MiB stream and8MiB fixture caps; nonblocking/best-effort diagnostics must not delay hard deadlines.",
+    "Only retained owned identities, no PS-discovered targets or new positive signals; sticky refusal on any cleanup error or uncertainty.",
+    "Continue remaining already-owned cleanup only within existing45/55 driver and60/75/90 parent bounds; deadline precedence and no stale success.",
+    "Keep3+14 assertions and7owned groups/4inherited probes unchanged.",
+    "Authored focused injected-EPERM/timer/cap RED/GREEN controls and independent implementation review before any separately granted diagnostic run.",
+    "No inferred original target, host cause, SIGALRM cause, game/pricing/P17/P18 admission."
+  ],
+  "executionAuthorization": false,
+  "independentReview": {
+    "bytes": 2079,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-cleanup-diagnostics-independent-design-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "4a4fd9bc3f5e1fe5ae68c7c8a1b72eca64695ff26888060b707c7355f1f6dd75"
+  },
+  "next": "Prepare narrow failure-capture/cleanup-continuation source and explicit event schema under these constraints; no automatic real retry.",
+  "originalEpermTargetHostCauseAndAlarmRelationRemainUnknown": true,
+  "originalFailurePreserved": true,
+  "pythonControlsAccepted": false,
+  "schema": "1370-a208-owned-cleanup-diagnostic-design-root-adoption/v1",
+  "sourcePlan": {
+    "bytes": 2357,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-stop-independent-observed-review-after-aj-20261009-r1/NEXT-SLICE-DESIGN.md",
+    "sha256": "89303d79de42e09f2db6804686d2c741552fe51bfddbc1eed4eb30e09c4214ad"
+  },
+  "sourcePreparationAuthorized": true,
+  "status": "ROOT_ADOPTED_SOURCE_PREPARATION_ONLY_OWNED_CLEANUP_DIAGNOSTICS",
+  "utc": "2026-10-09T21:12:38.091907+00:00"
+}

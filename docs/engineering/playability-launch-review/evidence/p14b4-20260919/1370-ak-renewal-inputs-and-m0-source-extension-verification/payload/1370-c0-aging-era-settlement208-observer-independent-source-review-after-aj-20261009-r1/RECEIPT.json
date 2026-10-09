@@ -1,0 +1,102 @@
+{
+  "boundsUnchanged": {
+    "activeSeconds": 742,
+    "innerSeconds": 720,
+    "stdoutBytes": 524288,
+    "wholeSeconds": 750
+  },
+  "claimLimit": "Mathematically sufficient source transport of settlement208 person inputs; no quote-local capture, precommit freeze/feasibility reconstruction, numeric A208 observation, runtime bound proof or pay-cause closure.",
+  "controlsAuthored": {
+    "newJsGroups": 7,
+    "newPythonTransportMethods": 2,
+    "originalSyntheticAndOuterFilesByteIdentical": true
+  },
+  "controlsObserved": false,
+  "decision": {
+    "controls": "ACCEPT_SOURCE_ONLY_AUTHORED_UNRUN_ROUTE_HELD",
+    "launch": "STOP_UNFILLED_UNRUN",
+    "phaseProjection": "ACCEPT_DESIGN_SOURCE_ONLY",
+    "selected16Inputs": "ACCEPT_SOURCE_ONLY_UNRUN",
+    "witnessSource": "ACCEPT_SOURCE_ONLY_UNRUN"
+  },
+  "executionAuthorization": false,
+  "findings": [],
+  "frozenHashes": {
+    "BINDING-UNFILLED.json": "d2ba88acfbf78221d4795a5f8a4f7b0588f2ab43fc60e8b062cda03dcdf8391a",
+    "PHASE-INPUT-PROOF.json": "36c521a883dca9a16a8e2c48da87ec779ef7fff4667372db165665e2a0447e06",
+    "PLAN.md": "0a18eff4f23c83dab62eeff3ec83f555bc656c4bf5b2401a93e7bd0ca8cd161d",
+    "POLICY.sb": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5",
+    "SELECTION.json": "a77f53a854df5112f2391f3bc3d01d64674ebd92f16ec6389a77ff7544a8bff7",
+    "bounds-guard.mjs": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f",
+    "outer-recorder.py": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8",
+    "settlement208-core.mjs": "8d18864aa6943d1aec534a4f78746eb614c66b32862cac80528e9f2d9bee367e",
+    "supervise.py": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e",
+    "synthetic-employment.json": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58",
+    "test-outer.py": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab",
+    "test-settlement208-frame.py": "ed0218a3520cd01c8199f17426d59bf78e83ec85b2684b881d402405698a0b5f",
+    "test-settlement208.mjs": "eed9e598428ed969b6ff1e044df7e20f563f5fbd7b4143f884de472edfddf609",
+    "test-supervisor.py": "eeef1208a677e1f885151808bbe97a5357a23817b664a9b3cb41296c652e2ba0",
+    "test-synthetic.mjs": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60",
+    "witness-core.mjs": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d",
+    "witness.mts": "f82c50aa830d672de685bbfc6f49951ef56fcc3f4714ffe7b6a31100fe50e704",
+    "worktree-guard.mjs": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+  },
+  "gameRun": false,
+  "launchRequirements": [
+    "Separately reviewed exact recorded controls argv/tools/ownership and finite suite bounds; actual independently accepted controls.",
+    "New exact reviewed runtime/current/protected binding and independent source/input receipt adoption.",
+    "Separate root once-only actual observer grant, protected postflight and independent raw208/full416 observed review."
+  ],
+  "newPayloadBounds": {
+    "bytes": 65536,
+    "rowBytes": 4096
+  },
+  "numericPricesEvaluated": false,
+  "renewalPricingCausesClosed": 0,
+  "roles": {
+    "FACTS.json": {
+      "bytes": 835,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/FACTS.json",
+      "sha256": "1561fb755fa5641ce8eb1579addeedae1b70899ae93d5bcd06a1daec215923c9"
+    },
+    "REPORT.md": {
+      "bytes": 2775,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/REPORT.md",
+      "sha256": "e130be9bf79649626bab019c14a649be47ca300ac05845c90e553cd5b44395c2"
+    },
+    "audit.py": {
+      "bytes": 3142,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/audit.py",
+      "sha256": "4a29041a5c24b5c3db286d96b8634d40cb6998e57e8134929be12b7b5eabeb2a"
+    }
+  },
+  "schema": "1370-c0-aging-era-settlement208-witness-independent-static-review-r1",
+  "selectedRows": 16,
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1",
+  "sourceOccurrences": 0,
+  "sourceOnlyProjectionFields": [
+    "id",
+    "role",
+    "age",
+    "fame",
+    "skills[primaryDiscipline][six SKILL_ORDER keys].perceived"
+  ],
+  "sourceOrders": [
+    24,
+    39
+  ],
+  "sourcePinsSha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf",
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "status": "FROZEN_SOURCE_ONLY_UNRUN",
+  "supportFileHashes": {
+    "BINDING-UNFILLED.json.diff": "63c3a6ae95f8a761062d65ef9e3c97b37d816f901f7d0685d25720f113828f26",
+    "CONTROL-RECIPE-HELD.json": "1f34a558409c8fdc041308e036c654bac87153044fdc20c898cb7b289871454d",
+    "PLAN.md.diff": "3ae09dffa6278d939c0663d66fa4f2434134ba65e6328dcefb1d841019347e0d",
+    "STATIC-AUTHOR-CHECKS.json": "76e11d7321497b60c8abfd12c131c5c6baa55c804d7ce72aeec95c0c58f458d7",
+    "author_finish.py": "d9ac55a8c3da4a3bdd2853873f8bb42ce1ef14337eb5d8767ae3e0d03318b656",
+    "outer-recorder.py.diff": "e7074e925999594d33ea811ae43f358361a7d79f3268a8047553a80f1dacd797",
+    "supervise.py.diff": "516ed33a95e770781ba1c352df8523b45ec47b488679e3f439b10868ac088284",
+    "test-supervisor.py.diff": "af9a6442dfdb6c4867ea9f58ab15b30694cce94aa0767c389985314fded12b93",
+    "witness.mts.diff": "45bd7291e5efd083b5146a07fe921f253d02498504eacc0536c8a9a1c22b4b03"
+  }
+}

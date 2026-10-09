@@ -1,0 +1,35 @@
+{
+  "actualAuthorToolExit": 0,
+  "candidatePinsSha256": "1f524d59840874fd86a75d9fafa0cd6e8be94d6deff3c3e4be0d5e4d9d123983",
+  "executionAuthorization": false,
+  "files": {
+    "BOUNDED-CURRENT-METADATA.json": {
+      "bytes": 7499,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-fill-preparation-after-aj-20261009-r1/BOUNDED-CURRENT-METADATA.json",
+      "sha256": "02e61009bc6a2d5ce9e78304905716daccdc4f966d1c7e7ee515fd76c5549ea9"
+    },
+    "FILL-TOOL-OUTCOME.json": {
+      "bytes": 1159,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-fill-preparation-after-aj-20261009-r1/FILL-TOOL-OUTCOME.json",
+      "sha256": "47785506baa336af6a42ceb24ea82ed2db2ab1a6c97199d30d364183889d7062"
+    },
+    "FILLED-ARGV-ROLE.json": {
+      "bytes": 634,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-fill-preparation-after-aj-20261009-r1/FILLED-ARGV-ROLE.json",
+      "sha256": "b7926bb4c21d627f3dd38d513d1e6b82532c560444a306716476960c71877000"
+    },
+    "PLAN.md": {
+      "bytes": 2470,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-fill-preparation-after-aj-20261009-r1/PLAN.md",
+      "sha256": "5d8d2e0c1bb0bedc112aa95dde7349318cfb3bbe121c59c284b449381c774813"
+    },
+    "fill.py": {
+      "bytes": 17396,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-fill-preparation-after-aj-20261009-r1/fill.py",
+      "sha256": "efe8f90f58c103ca04cce6b7146b2cf9a46451a04fe0857aa4aba9c79b2d8232"
+    }
+  },
+  "guardCoreSha256": "69f4a0a4e5bb4d686ef03178dafa9b4c27c11d8671745d61a0537fd725adf69d",
+  "sourceImportedOrCandidateExecuted": false,
+  "status": "AUTHOR_BOUNDED_FILL_COMPLETE_CANDIDATE_READY_HELD_UNRUN"
+}

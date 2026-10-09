@@ -1,0 +1,47 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/ROUTE.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/ROUTE.json
+@@ -13,26 +13,26 @@
+       "/bin/bash",
+       "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+       "0",
+-      "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-lane-after-aj-filled-20261009-r1/controls.log",
++      "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-lane-after-aj-node22-20261009-r1/controls.log",
+       "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+       "-I",
+       "-B",
+-      "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/record.py",
++      "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py",
+       "js"
+     ],
+     "python": [
+       "/bin/bash",
+       "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+       "0",
+-      "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-lane-after-aj-filled-20261009-r1/controls.log",
++      "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-lane-after-aj-node22-20261009-r1/controls.log",
+       "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+       "-I",
+       "-B",
+-      "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/record.py",
++      "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py",
+       "python"
+     ]
+   },
+-  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1",
++  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1",
+   "environment": {
+     "GIT_OPTIONAL_LOCKS": "0",
+     "PYTHONDONTWRITEBYTECODE": "1"
+@@ -48,9 +48,9 @@
+     "sandboxProbesInOwnedDriverGroup": 4
+   },
+   "grant": {
+-    "bytes": 2977,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-prospective-parent-scope-after-aj-20261009-r1/ADOPTION.json",
+-    "sha256": "39ff9d37dbde559e4e047db7ab3b9f7b5a0ed0c3afa898c03eec6a6dafbc638c"
++    "bytes": 4638,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
++    "sha256": "7da501eb54301aaf0a22c5dc29e4dff786ee4bd9bfff490153d951c54bd7b9eb"
+   },
+   "schema": "1370-a208-finite-recorded-controls-route-r1",
+   "sequence": "One JS arm then one Python arm; stop on any nonzero/mismatch/override/cleanup uncertainty. No auto retry. Separately record both raw tool outcomes/helper log/meta/stdout/stderr/RESULT and driver registry/fixtures.",

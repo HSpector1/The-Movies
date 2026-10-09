@@ -1,0 +1,16 @@
+{
+  "actualRun": false,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/test-report-protocol.py"
+  ],
+  "checks": "old RED/intended16 GREEN; six wrong field values, missing cause flag and nonempty stderr refuse",
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2",
+  "executionAuthorization": false,
+  "expectedGroups": 1,
+  "fixtureKind": "explicitly synthetic report only; AST-extracted frozen recorder predicate; no recorder/pricing import, child, Node, engine, RNG or pay computation",
+  "separateParentBoundedGrantRequired": true,
+  "status": "AUTHORED_ONLY_UNRUN_SYNTHETIC_PROTOCOL"
+}

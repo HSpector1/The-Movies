@@ -1,0 +1,19 @@
+{
+  "nullFloor": "Admitted source proof gates exact selected precommit null; studioOffer returns original offer without new arithmetic.",
+  "ovrFunctionsIdenticalAcrossArms": true,
+  "premiumOrder": "rounded base annual -> rounded annual*premium -> rounded finalannual*0.18; base signing bonus still evaluated before premium",
+  "rngSubstitution": "Original fresh-stream expression replaced only by independently admitted firstDraw; no RNG import/call.",
+  "scientistBranchOmission": "Selected creative roles checked before pricing; scientist unsupported and refused.",
+  "typeOnlyReplacements": {
+    ": Discipline": "",
+    ": SkillUse": "",
+    ": Talent": "",
+    ": number": "",
+    ": number[]": "",
+    "export function": "function",
+    "keys[i]!": "keys[i]",
+    "profile[keys[i]]!": "profile[keys[i]]",
+    "skills[i]!": "skills[i]",
+    "w[i]!": "w[i]"
+  }
+}

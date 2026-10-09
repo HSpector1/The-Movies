@@ -1,0 +1,36 @@
+{
+  "controlReuse": {
+    "acceptedObservedR2Decision": "ACCEPT_OBSERVED_SEVEN_ADDITIVE_TINY_CONTROLS_ONLY",
+    "acceptedObservedR2ReceiptSha256": "9da1cfa0797a7bc85c1193e6481cf84ee690f04bb309edda6fd70eccec27b075",
+    "actualCurrentGuardOrLaunchCovered": false,
+    "all7MethodASTsAndMappedMechanismASTsEqual": true,
+    "changedOperationalHeadInputSourceAdmissionCovered": false,
+    "r2TestsObserved": 7,
+    "r3TestsExecuted": false,
+    "r3TestsPassedClaimed": false,
+    "scopeLimit": "Existing seven controlled mechanisms only; preserve all original actual/mock-clock/cleanup claim limits."
+  },
+  "controlReuseDisposition": "ACCEPT_NARROW_UNCHANGED_R2_SEVEN_METHOD_MECHANISM_QUALIFICATION_ONLY",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_ADDITIVE_RECORDED_ROUTE",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "factsSha256": "2b603b9b592e8d9d40a136e95ef4004ca78180c2ac5f8b4603d0cf5af213a2bb",
+  "findings": [],
+  "limitations": [
+    "No fresh Git/ref/clean query, protected inventory, FD/process/power/disk/tool runtime probe performed; published AJ and parent scope are authenticated evidence roles.",
+    "Reuse covers only unchanged seven-method mechanisms, not new HEAD/INPUTS/source-role admission or actual current deadline/group behavior.",
+    "Fresh full protection baseline, exact fill/preflight/archive/adoption/grant, actual expanded readback/full postflight remain required."
+  ],
+  "parentScopeAdoptionSha256": "13be428dfe3bdba1bc4ce4f2348bd194d2473c4c812df2b5f0bfec936b76b8e8",
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "recorderSha256": "2550f77715a5f96c860257eeb38185881b16f0398244848a006d289f0106e4e5",
+  "reportSha256": "8e0baa24c82ea1ec30918aeb1cc496d84a35a06b5609094310a07219f3b2ac7b",
+  "schema": "1370-c0-m0-additive-current-aj-independent-source-review-r3",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3",
+  "sourceOnly": true,
+  "sourcePinsSha256": "94f70526a969dabcee87ab9e63a40bfaa00ac224e458e849db42b8c0f1515995",
+  "sourceSha256": "3f76b3cb27ec1e932b23c8f40d848b5f3dfba9a339c78fb3d950b9291fefbd27",
+  "supervisorSha256": "e2258264783de69fa4d2a10c9c71ede7d4cabc0f80f87c17ba23935e32c9039d",
+  "utc": "2026-10-09T19:39:30.341629+00:00"
+}

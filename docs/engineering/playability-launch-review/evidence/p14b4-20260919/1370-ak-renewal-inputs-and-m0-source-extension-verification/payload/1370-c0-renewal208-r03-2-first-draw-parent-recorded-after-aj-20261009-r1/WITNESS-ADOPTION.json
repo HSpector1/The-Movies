@@ -1,0 +1,38 @@
+{
+  "actualToolSessionId": 15050,
+  "decision": "ADOPT_OBSERVED_RENEWAL208_R03_2_ISOLATED_FIRST_DRAW_NUMERIC_ONLY",
+  "executionAuthorization": false,
+  "historicalOfferLocalMeasurement": false,
+  "independentReview": {
+    "bytes": 4599,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-witness-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "4cd9db6c62a1b9272eed11041deb6bf1df5aa2f671638b3dc8c93a1286c322d6"
+  },
+  "newRenewalPayCausesClosed": 0,
+  "noRerunNeededForThisAcceptedNumericInput": true,
+  "remainingMissingA208PricingVectors": 16,
+  "remainingMissingRenewalKeyedDraws": 0,
+  "renewalPayCausesRemain": 16,
+  "selectedRow": {
+    "firstDraw": 0.6570006266701967,
+    "identity": [
+      "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+      0
+    ],
+    "jitter": 1.0251201002672314,
+    "key": "offer-person-studio-aca408ec-r03-2",
+    "ordinal": 38,
+    "purpose": "hiring",
+    "role": "missing-renewal208-isolated-first-draw",
+    "seed": "p13a-core-causal-01",
+    "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-2",
+    "talentId": "person-studio-aca408ec-r03-2"
+  },
+  "sourcePinsSha256": "b5055ac3e7f4bee5a299517d7513859a746ffc1fcbc662d9b505c97e5d2dc83b",
+  "stdout": {
+    "bytes": 615,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-output-20261009-r1/stdout.bin",
+    "sha256": "02fbee91b4e3bcfe349c352e4a4df8208d1f6e596158b340ddc925fda7977de4"
+  },
+  "utc": "2026-10-09T19:30:34.496260+00:00"
+}

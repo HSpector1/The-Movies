@@ -1,0 +1,11 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/record.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/record.py
+@@ -199,7 +199,7 @@
+             Path(sys.executable).resolve(strict=True)==Path(spec["pythonPath"]),
+             "exact isolated no-bytecode Python required")
+     require(spec.get("sourceSha")=="292d6fd3b5293fe2a520b681ae4c1dde997dc113" and
+-            spec.get("productionHead")=="282f8477e61a33bd5ec4a571b934829490adef73" and
++            spec.get("productionHead")=="f0fb818fe7534c3e3784206d16728b015c7f059a" and
+             spec.get("productionSourceTree")=="13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+             "M0 source/new docs guard mismatch")
+     require(spec["scratchRoot"]=="/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2" and

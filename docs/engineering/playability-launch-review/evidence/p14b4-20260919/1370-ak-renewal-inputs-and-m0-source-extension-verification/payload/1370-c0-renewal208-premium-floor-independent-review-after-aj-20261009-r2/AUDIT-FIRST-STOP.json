@@ -1,0 +1,9 @@
+{
+  "actualArtifactAuditExit": 1,
+  "toolChunkId": "e77a89",
+  "failure": "Review audit attempted json.loads on authenticated HObserver TypeScript text at original audit.py line35; JSONDecodeError before source supplement or FACTS output.",
+  "repair": "Keep HObserver as raw authenticated bytes; parse JSON only for JSON role inputs.",
+  "sourceOrEngineExecution": false,
+  "productionMutation": false,
+  "claimLimit": "Reviewer artifact parser failure, not a proposal source/runtime failure. Original proposal bytes unchanged."
+}

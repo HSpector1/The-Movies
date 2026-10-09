@@ -1,0 +1,42 @@
+{
+  "actualToolShape": "chunks[-1].exit_code==0, authenticated raw tool JSON",
+  "fillRule": "Exact future observed role packet requires new immutable CONFIG/sourcepins plus independent review. A real outcome schema difference requires a reviewed source adapter; do not guess or fabricate fields. Root grant is outside CONFIG to avoid self-referential hash. No actual scan authorized.",
+  "futureAuthority": null,
+  "grantCLIFields": [
+    "decision=GRANT_READONLY_EXPANDED_M0_READBACK",
+    "sourcePinsSha256",
+    "configSha256",
+    "bindingSha256",
+    "soleLaneReserved=true",
+    "readbackLimitSeconds=240"
+  ],
+  "parentToolOutcomeRequiredFields": [
+    "actualToolExit",
+    "actualHelperExit",
+    "actualSupervisorExit",
+    "actualRecorderExit",
+    "actualChildExit",
+    "unexpectedHelperWait",
+    "bindingSha256",
+    "actualHelperPid",
+    "actualWorkerPid",
+    "actualChildPid"
+  ],
+  "roles": [
+    "binding",
+    "exactReview",
+    "preflightReview",
+    "parentToolOutcome",
+    "actualTool",
+    "helperMeta",
+    "recorderResult",
+    "supervisorResult",
+    "bodyResult",
+    "firstWritePhase",
+    "childOwned",
+    "childStdout",
+    "childStderr",
+    "originalSiblingReceipt"
+  ],
+  "status": "PROSPECTIVE_ROLE_CONTRACT_ONLY"
+}

@@ -1,0 +1,82 @@
+{
+  "actualHelperExit": 2,
+  "actualToolExit": 2,
+  "actualVerifierExitFromMeta": 2,
+  "allowedFreshSourceRepair": {
+    "new": "req(Path(sys.executable).resolve(strict=True)==Path(py['path']),'exact physical Python executable')",
+    "old": "req(sys.executable==py['path'],'exact physical Python executable')",
+    "scope": "One predicate only; retain fixed physical path/binary SHA/nlink/dev/inode/mode checks and later actual binding tool linkage."
+  },
+  "cause": "Interpreter sys.executable uses /usr/local/opt alias while strict physical resolution equals pinned Cellar Python. Exact spelling predicate refuses before grant packet/mirror/target/output access.",
+  "decision": "ACCEPT_OBSERVED_FAILURE_ATTRIBUTION_ALLOW_NARROW_FRESH_PHYSICAL_PYTHON_PREDICATE_REPAIR",
+  "executionAuthorization": false,
+  "factsOutputFreshAbsent": true,
+  "failedSourcePinsSha256": "dfbf25dc7d97aa654dedf625abfd2c2209dcb089c3870d4c49b17d4540125a30",
+  "failedVerifier": {
+    "bytes": 18821,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/verify-expanded.py",
+    "sha256": "f3b7d31b20570414d41bfa6641e198022a46a904798ddc3340db20a74510aab7"
+  },
+  "failureOutcome": {
+    "bytes": 2589,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/STOP-TOOL-OUTCOME.json",
+    "sha256": "cd33f40a1a3bb85e248881afaf4bab1ba2eb1c520ba7680eb1793c6e007f0d65"
+  },
+  "knownPidAndPgidFreshAbsent": [
+    65494,
+    66258
+  ],
+  "limitations": [
+    "Observed failure/probe artifact review only; no verifier/scanner/test/Node/import/Git/protected writes.",
+    "Known helper/probe identities only; no invented verifier PID or machine-wide process absence.",
+    "Repair allowance changes path comparison semantics only, no deadline/data/source-role waiver or automatic retry."
+  ],
+  "mirrorReadbackStarted": false,
+  "numericVerifierPidNotCaptured": true,
+  "preservedRoles": {
+    "1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log": {
+      "bytes": 130,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log",
+      "sha256": "3fa53b86274141f9c01c25243a9a462eb0be03db1c9ff2490f8479c52513104b"
+    },
+    "1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log.meta": {
+      "bytes": 613,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log.meta",
+      "sha256": "3b7b581fc15383813fd3105f70a6f87752cb94fec1a4308f70995d5c65af27c6"
+    },
+    "ACTUAL-TOOL.json": {
+      "bytes": 1244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/ACTUAL-TOOL.json",
+      "sha256": "4eb4fdbc1c29506af3642925590d57d95d032fa8dcdfbf6c320a721f3f09abb5"
+    },
+    "GRANT.json": {
+      "bytes": 2476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/GRANT.json",
+      "sha256": "97aef1b2da99e57c361a814219b062996ef36e7d47ae6d7fa4f91c31e5cd7829"
+    },
+    "INTERPRETER-PROBE-ACTUAL-TOOL.json": {
+      "bytes": 602,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/INTERPRETER-PROBE-ACTUAL-TOOL.json",
+      "sha256": "8a72987e5207cb4b33594f028a810335d0a610cd87f77daa02553cd5096d7037"
+    }
+  },
+  "probe": {
+    "argv": [
+      "-c"
+    ],
+    "baseExecutable": "/usr/local/opt/python@3.14/bin/python3.14",
+    "executable": "/usr/local/opt/python@3.14/bin/python3.14",
+    "executableResolved": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "isolated": 1,
+    "noBytecode": true,
+    "pid": 66258,
+    "version": "3.14.4 (main, May  2 2026, 23:00:00) [Clang 14.0.0 (clang-1400.0.29.202)]"
+  },
+  "readbackSucceeded": false,
+  "remainingGates": [
+    "Preserve failed sources/config/pins/grant/raw/helper/meta/output absence as failed attempt.",
+    "Fresh derivative package/config/output/recipe/pins and independent source/exact review; actual240-second grant separately.",
+    "No readback success until actual exit0 and independent physical facts/postflight review."
+  ],
+  "schema": "1370-expanded-readback-independent-failure-attribution-r1"
+}

@@ -1,0 +1,18 @@
+{
+  "chunks": [
+    {
+      "chunk_id": "201e0e",
+      "wall_time_seconds": 1.002128309,
+      "session_id": 12444,
+      "original_token_count": 261,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r2/GRANT.json\", \"bytes\": 2524, \"sha256\": \"a1ffc014ba24ffe78af403ddcb271e67b89725bb840a18b1da880ec85f9bcf71\"}, \"rootPidBecomesHelperPid\": 73148, \"argv\": [\"/bin/bash\", \"/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh\", \"0\", \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r2.log\", \"/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14\", \"-I\", \"-B\", \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/verify-expanded.py\", \"912cfde9ad88ebb3dcc0571f9af2191e3d851296f3e06df70d5569c3ebe68b1d\", \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r2/GRANT.json\", \"a1ffc014ba24ffe78af403ddcb271e67b89725bb840a18b1da880ec85f9bcf71\"]}\n"
+    },
+    {
+      "chunk_id": "a19b29",
+      "wall_time_seconds": 0.000017002,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ]
+}

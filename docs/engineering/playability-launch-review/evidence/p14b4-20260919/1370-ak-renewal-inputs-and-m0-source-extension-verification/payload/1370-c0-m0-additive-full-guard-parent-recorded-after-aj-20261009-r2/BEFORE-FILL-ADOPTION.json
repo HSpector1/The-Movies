@@ -1,0 +1,39 @@
+{
+  "additiveTypesOrGameExecutionAuthorized": false,
+  "boundedReadOnlyMissingMetadataAuthorized": true,
+  "continuousFreezeDeclaration": "Root and delegated agents have performed scratch source preparation and read-only reviews only since before-fill grant. Production/common/R9/H/dependencies remain frozen through exact fill, required after-fill equality, single additive lane and protected postflight. No scanner running now; no tests or runtime grants given.",
+  "exactFillAuthorized": true,
+  "freshProductionCommonFullProofAccepted": true,
+  "independentObservedReview": {
+    "bytes": 5769,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-observed-independent-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "0efcbe97fc3ecbfbd25fa4a75355ba1d87ef5ddaaed423ef87c9b61a6075be35"
+  },
+  "originalM0InventoryExcluded": true,
+  "originalM0Protection": "Separate accepted1677 copy authority and future body check_old plus expanded readback, strict root and nonroot metadata; never infer from this snapshot",
+  "outcome": {
+    "bytes": 4206,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-TOOL-OUTCOME.json",
+    "sha256": "07646a7a1620318c3ded960d1b2a99a82af385d84d6a70d29e29c1aa4e830607"
+  },
+  "privatePreviousSnapshotSha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347",
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "r9PrivateRootReuseExplicitlyAccepted": true,
+  "rawPsFdLocalHashSizeOnly": true,
+  "remaining": [
+    "exact held candidate",
+    "after-fill equality",
+    "independent preflight/exact review",
+    "sixfile archive and fivefield parent adoption",
+    "reviewed launch/actual additive",
+    "expanded readback and full protected postflight"
+  ],
+  "snapshot": {
+    "bytes": 8303116,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+    "sha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912"
+  },
+  "status": "ROOT_ADOPTED_OBSERVED_CURRENT_AJ_READONLY_BEFORE_FILL_BASELINE",
+  "utc": "2026-10-09T19:55:25.412422+00:00"
+}

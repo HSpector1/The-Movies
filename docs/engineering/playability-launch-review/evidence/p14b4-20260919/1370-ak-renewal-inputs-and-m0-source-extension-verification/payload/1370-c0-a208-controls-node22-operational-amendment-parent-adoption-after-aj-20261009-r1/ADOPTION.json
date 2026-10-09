@@ -1,0 +1,104 @@
+{
+  "a208ValuesMeasured": false,
+  "actualRuntimeGrant": null,
+  "controlsObserved": false,
+  "executionAuthorization": false,
+  "futureFillAllowedChanges": [
+    "CONFIG nodePath/nodeBytes/nodeSha256",
+    "fresh local module role paths; original module bytes identical",
+    "fresh unused fixture/output/lane paths",
+    "CONFIG authenticates actual independently reviewed parent operational amendment as a role",
+    "recorder CONFIG_SHA and fixed output paths only; inverse byte proof required",
+    "ROUTE/recipe local path wiring and hashes only"
+  ],
+  "historicalSyntheticControlNodeIdentityUnresolved": true,
+  "independentReview": {
+    "bytes": 2869,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "747ee2283e8de0584323c5107670614cf95b75229e2a1e1a3cbf492f17eb64db"
+  },
+  "matchingOriginalR9Node22Tool": {
+    "bytes": 115440320,
+    "ctimeNs": 1788891257831136852,
+    "device": 16777220,
+    "inode": 158092549,
+    "mode": "0755",
+    "mtimeNs": 1785277486000000000,
+    "nlink": 1,
+    "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+    "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6",
+    "statStableAcrossStreamHash": true,
+    "versionCommandExecuted": false,
+    "versionFromAuthenticatedOriginalR9Binding": "v22.23.2"
+  },
+  "node20Node22EquivalenceClaimed": false,
+  "originalNode20FilledSourcePreservedUnrun": true,
+  "originalProspectiveScope": {
+    "bytes": 2977,
+    "mode": "0644",
+    "nlink": 1,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-prospective-parent-scope-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "39ff9d37dbde559e4e047db7ab3b9f7b5a0ed0c3afa898c03eec6a6dafbc638c"
+  },
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "proposal": {
+    "bytes": 4491,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-proposal-after-aj-20261009-r1/PROPOSED-AMENDMENT.json",
+    "sha256": "df2388f17e90bcce7db0397fc9f7d706a4c2db9c823567c272fede7572c06310"
+  },
+  "protectedFreezeContinues": true,
+  "protocolLabelQualification": "Preserved report_guard protocol string native-node20-tap is a historical informational label for its strict TAP13 shape checks. It does not assert Node version or qualify Node22 controls. Actual executable identity is the Node22 CONFIG/tool role; report validator assertions remain unchanged.",
+  "remainingGates": [
+    "fresh derivative fill preserving Node20 packages",
+    "independent filled source/paths/protocol review",
+    "current M0 postflight admission and fresh operational guards",
+    "root separate actual grants for JS and Python arms",
+    "independent actual controls review"
+  ],
+  "renewalCausesClosed": 0,
+  "requestedConfigReplacement": {
+    "nodeBytes": 115440320,
+    "nodePath": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+    "nodeSha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+  },
+  "roleProof": {
+    "bytes": 10940,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-proposal-after-aj-20261009-r1/ROLE-PROOF.json",
+    "sha256": "d25766b041273c87d2e730bebb9b8ee713b21d6a0c685928ca1b9cc4a3b7fdc2"
+  },
+  "schema": "1370-a208-node22-operational-amendment-parent-adoption/v1",
+  "sourcePins": {
+    "bytes": 657,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "eb9f27964717907a1dae602eb94608994ef1323ebda1e0bffc11cd6628f11f76"
+  },
+  "status": "ROOT_ADOPTED_PROSPECTIVE_NODE22_TOOL_MATCH_SOURCE_ONLY",
+  "unchanged": {
+    "allAssertionsAndStopConditions": true,
+    "bounds": {
+      "eachParentActiveSeconds": 75,
+      "eachParentChildSeconds": 60,
+      "eachParentWholeSeconds": 90,
+      "eachStreamBytes": 1048576,
+      "ownedFixtureBytes": 8388608,
+      "pythonDriverActiveSeconds": 45,
+      "pythonDriverWholeSeconds": 55
+    },
+    "driverReportGuardProtocolBytes": true,
+    "expected": {
+      "inheritedSandboxProbes": 4,
+      "jsGroups": 13,
+      "ownedDirectOuterGroups": 7,
+      "pythonObserverMethods": 14,
+      "separateProtocolMethods": 3
+    },
+    "intendedSequence": [
+      "js13",
+      "python3ProtocolThen14ObserverMethods"
+    ],
+    "noEngineSourceOrGameRuleChange": true,
+    "observerFiles18": true
+  },
+  "utc": "2026-10-09T20:39:31.637726+00:00"
+}

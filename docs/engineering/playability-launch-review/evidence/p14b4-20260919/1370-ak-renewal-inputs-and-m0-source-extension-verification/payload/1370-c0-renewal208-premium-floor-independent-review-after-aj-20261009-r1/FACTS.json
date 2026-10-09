@@ -1,0 +1,223 @@
+{
+  "derivedBlobOidsMatch": true,
+  "executionAuthorized": false,
+  "expiredOldTermsAt208RuleVerified": true,
+  "finiteSliceCoverageFinding": {
+    "description": "Identical H/A ranges miss cited local functions because source offsets differ; raw extracts reproduce their declared ranges but are incomplete.",
+    "id": "F1",
+    "minimumAdditionalRanges": {
+      "A:src/core/talentMarket.ts": [
+        [
+          1210,
+          1289
+        ]
+      ],
+      "H:src/core/hollywoodTick.ts": [
+        [
+          330,
+          344
+        ]
+      ],
+      "H:src/core/talentMarket.ts": [
+        [
+          889,
+          915
+        ],
+        [
+          1119,
+          1156
+        ],
+        [
+          1190,
+          1249
+        ],
+        [
+          1298,
+          1306
+        ]
+      ]
+    },
+    "requestedRangesBeyondEOF": [
+      {
+        "actualEnd": 248,
+        "arm": "H",
+        "path": "src/core/hollywood.ts",
+        "requested": [
+          222,
+          274
+        ]
+      },
+      {
+        "actualEnd": 365,
+        "arm": "H",
+        "path": "src/core/hollywoodTick.ts",
+        "requested": [
+          348,
+          384
+        ]
+      },
+      {
+        "actualEnd": 1132,
+        "arm": "H",
+        "path": "src/core/tick.ts",
+        "requested": [
+          1109,
+          1146
+        ]
+      },
+      {
+        "actualEnd": 268,
+        "arm": "A",
+        "path": "src/core/hollywood.ts",
+        "requested": [
+          222,
+          274
+        ]
+      },
+      {
+        "actualEnd": 383,
+        "arm": "A",
+        "path": "src/core/hollywoodTick.ts",
+        "requested": [
+          348,
+          384
+        ]
+      }
+    ]
+  },
+  "newRenewalCausesClosed": 0,
+  "nullPremiumAndFloorAreUnadmittedPlaceholders": true,
+  "rawSliceReconstructionExact": true,
+  "remainingProofs": [
+    "Transitive no-policy-mutation/alias proof from fixed entry reserveWeeks through reached initialization, weekly helpers and action/harness seam to submission; proposal premium material fields preserved through authoring/revision/freeze/settlement.",
+    "Complete reached selected-person employment/receipt writers and exact contractId uniqueness: no term/endWeekExclusive rewrite or unseen termination memory surviving208.",
+    "Unique open subject case/precommit order: no prior same208 committed renewal or duplicate/overlapping qualifying record when proposalPriceAt reads the floor; selected H/A case/winner path proven from caller or separately observed precommit roles.",
+    "After-natural-tick208 observer phase must preserve actual A evolved pricing values through terminal pass; H full vectors/15 jitters remain reusable, one keyed draw absent."
+  ],
+  "roles": {
+    "A:src/core/hollywood.ts": {
+      "bytes": 16824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts",
+      "sha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea"
+    },
+    "A:src/core/hollywoodStartingData.ts": {
+      "bytes": 4152,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodStartingData.ts",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+    },
+    "A:src/core/hollywoodTick.ts": {
+      "bytes": 28890,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodTick.ts",
+      "sha256": "0ca2aa00684465a313cb6321cd458b69be14c695a67ca2baec833244b9cd8d4f"
+    },
+    "A:src/core/talentMarket.ts": {
+      "bytes": 76993,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+      "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+    },
+    "A:src/core/tick.ts": {
+      "bytes": 60753,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tick.ts",
+      "sha256": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15"
+    },
+    "A:src/core/tuning.ts": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "A_copy_payload": {
+      "bytes": 2925892,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-output-r6-20261008-r1/child.stdout",
+      "sha256": "fc494f5ed09ec9df02380490f1bc2dcac3f4cf293fb8734e0329a4a8d43e4c18"
+    },
+    "H:src/core/hollywood.ts": {
+      "bytes": 15466,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywood.ts",
+      "sha256": "49854f77a0ab33558556e047eafc65f92e4a35ec95c93afb119c7df589748359"
+    },
+    "H:src/core/hollywoodStartingData.ts": {
+      "bytes": 4152,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodStartingData.ts",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+    },
+    "H:src/core/hollywoodTick.ts": {
+      "bytes": 27601,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodTick.ts",
+      "sha256": "f6c37fc29d5cf7f858e2a52e0bc6603a56e4dfcfaf8caa590806d559019b3422"
+    },
+    "H:src/core/talentMarket.ts": {
+      "bytes": 74153,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentMarket.ts",
+      "sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03"
+    },
+    "H:src/core/tick.ts": {
+      "bytes": 58458,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tick.ts",
+      "sha256": "ad0faa9216093f657cf16ecebe66a6cc65aee4bcc407b7d79d6e48a847465deb"
+    },
+    "H:src/core/tuning.ts": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "H_manifest": {
+      "bytes": 116991,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/MANIFEST.json",
+      "sha256": "9fc209f9fbf0e0240c404383f4b08338c9a16902d1cacc89600ff80a538038ae"
+    },
+    "OBLIGATIONS.json": {
+      "bytes": 3756,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/OBLIGATIONS.json",
+      "sha256": "6bff0d8e6cbcef24339390a9d1b155302d7ee7a5d68b76352bfce9bbc7117e86"
+    },
+    "REPORT.md": {
+      "bytes": 1182,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/REPORT.md",
+      "sha256": "82676b9d40892ef6a8d06698373a74a55f140922ee15ef5d70f9470e52640fc9"
+    },
+    "SELECTED16.json": {
+      "bytes": 23787,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/SELECTED16.json",
+      "sha256": "4efcc49d6db9001be87dfce9edf33524b4c92a82ce373340bd5f83dbed9a230f"
+    },
+    "SOURCE-MAP.json": {
+      "bytes": 10081,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/SOURCE-MAP.json",
+      "sha256": "eb22790d0021385f1f587bf88d21cd10abd72eb9e635a8f7a39a95206f366b7c"
+    },
+    "SOURCE-SLICES.txt": {
+      "bytes": 90084,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/SOURCE-SLICES.txt",
+      "sha256": "4ca64da73d955836d582394326b4406ae38e67cfefb5bf2b55bcf038c5e1ac7e"
+    },
+    "acceptedGapFacts": {
+      "bytes": 220989,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/FACTS.json",
+      "sha256": "d928be4e8022203f4c0c86fe1c8196397c41f04e89fc984b1133693812988044"
+    },
+    "acceptedGapPins": {
+      "bytes": 10141,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/INPUT-PINS.json",
+      "sha256": "2b735e42554c2e27cb048c377cc8359f329410990333afc69087e45d882c6738"
+    },
+    "acceptedGapReceipt": {
+      "bytes": 2837,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/RECEIPT.json",
+      "sha256": "46d78843ee8e2cf61c501a6ca2aebe6a16b66aa9745751c2d60c7ca7bdcf9479"
+    },
+    "acceptedPhaseProof": {
+      "bytes": 136304,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/PROOF.json",
+      "sha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2"
+    },
+    "proposalReceipt": {
+      "bytes": 2894,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "f51506bdfcc6f7dbd03284ff3cdde16eb8009c4b09fe69c3ff81027d51f6d0ee"
+    }
+  },
+  "selectedProjectionExact": true,
+  "selectedRows": 16,
+  "sourceAdmissionAnchorsMatch": true,
+  "sourceRows": 12
+}

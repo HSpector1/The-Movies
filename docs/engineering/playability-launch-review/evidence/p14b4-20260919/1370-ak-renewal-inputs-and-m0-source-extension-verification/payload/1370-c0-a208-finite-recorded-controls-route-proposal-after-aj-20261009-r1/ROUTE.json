@@ -1,0 +1,53 @@
+{
+  "bounds": {
+    "eachParentActiveSeconds": 75,
+    "eachParentChildSeconds": 60,
+    "eachParentWholeSeconds": 90,
+    "eachStreamBytes": 1048576,
+    "ownedFixtureBytes": 8388608,
+    "pythonDriverActiveSeconds": 45,
+    "pythonDriverWholeSeconds": 55
+  },
+  "commands": {
+    "js": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-lane-after-aj-20261009-r1/controls.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/record.py",
+      "js"
+    ],
+    "python": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-lane-after-aj-20261009-r1/controls.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/record.py",
+      "python"
+    ]
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "expected": {
+    "jsGroups": 13,
+    "nodeWorkers": "Native --test workers inherit the exact recorded Node PGID; no invented PID list.",
+    "outerGroupInheritedGrandchildren": 2,
+    "pythonDirectSetsidGroups": 7,
+    "pythonMethods": 14,
+    "sandboxProbesInOwnedDriverGroup": 4
+  },
+  "grant": null,
+  "schema": "1370-a208-finite-recorded-controls-route-r1",
+  "sequence": "One JS arm then one Python arm; stop on any nonzero/mismatch/override/cleanup uncertainty. No auto retry. Separately record both raw tool outcomes/helper log/meta/stdout/stderr/RESULT and driver registry/fixtures.",
+  "sourceReview": null
+}

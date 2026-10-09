@@ -1,0 +1,8 @@
+{
+  "cause": "Overbroad final status-prefix comparison matched three versioned status strings; exact result-status expression comparison resolves it without altering any generated source bytes.",
+  "runtimeFailure": false,
+  "sourceBytesChangedForCorrection": false,
+  "sourceOrTestExecuted": false,
+  "stage": "reverse full-text recorder substitution proof",
+  "status": "AUTHOR_TIME_ASSERTION_ONLY_PRESERVED"
+}

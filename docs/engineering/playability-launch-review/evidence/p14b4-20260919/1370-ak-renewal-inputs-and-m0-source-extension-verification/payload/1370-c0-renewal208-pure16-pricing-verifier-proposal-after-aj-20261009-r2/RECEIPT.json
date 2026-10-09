@@ -1,0 +1,33 @@
+{
+  "config": {
+    "bytes": 12590,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/CONFIG.json",
+    "sha256": "c7a24275d784df2c9a81fc8bcf1143f9daa4fe916fc73e095b121498774ce1ce"
+  },
+  "decision": "READY_SOURCE_ONLY_THREE_PREDICATE_PURE16_REPAIR_UNRUN",
+  "executionAuthorization": false,
+  "futureA208": null,
+  "pricingNodeRngGameOrTestsExecuted": false,
+  "recorder": {
+    "bytes": 14530,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/record-pure-node.py",
+    "sha256": "2ee9051143bd569ffa2cfb83d5429ddea86b8c1262e3d76923a9e7acecac1e35"
+  },
+  "repairProof": {
+    "bytes": 18533,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/REPAIR-PROOF.json",
+    "sha256": "40e82c1bdaed0ef895884abf0ca2a2e8025c90dc894e8157c6a60eef4345f2ca"
+  },
+  "sourcePins": {
+    "bytes": 16458,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/SOURCE-PINS.json",
+    "sha256": "77a01dd3b821ac4a4396ee123b00f86bb28a64f6f6d5cb56dad28fcbababe175"
+  },
+  "sourcePinsSha256": "77a01dd3b821ac4a4396ee123b00f86bb28a64f6f6d5cb56dad28fcbababe175",
+  "syntheticProtocol": {
+    "bytes": 2082,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/test-report-protocol.py",
+    "sha256": "d99ccb86ad32009c2f5ebe599aaf45f12a6aac6f79d4a61152e3458921231554"
+  },
+  "utc": "2026-10-09T19:48:54.377155+00:00"
+}

@@ -1,0 +1,85 @@
+{
+  "announcedPrefinalSourcePinsSha256": "1b6697695b838969590f47a1791dcb64e701a2ab91025029c4de27486be7b69b",
+  "authoringStop": {
+    "bytes": 456,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/AUTHORING-SYNTAX-STOP.json",
+    "sha256": "442b28df5f3d5ad455380654857cf143dfa00fc1c8c83204ea174a2819fdf3ec"
+  },
+  "claimLimit": "Author proposal, not independent acceptance. Root/m0 source review and later real observed authority fill plus separate grant required.",
+  "config": {
+    "bytes": 2571,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/CONFIG.json",
+    "sha256": "d3bdb8ab56cfa8b433ab405099344d1e99f6731a9f60ebca053ee4d0ab06a1b7"
+  },
+  "executionAuthorization": false,
+  "finalFiles": {
+    "CONFIG.json": {
+      "bytes": 2571,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/CONFIG.json",
+      "sha256": "d3bdb8ab56cfa8b433ab405099344d1e99f6731a9f60ebca053ee4d0ab06a1b7"
+    },
+    "FILL-REQUIREMENTS.json": {
+      "bytes": 1256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/FILL-REQUIREMENTS.json",
+      "sha256": "08f600c64d8ef84e8b1c8a03cd74037e8f3ae68292ae6030e41c83eedb7b8a38"
+    },
+    "RECIPE.json": {
+      "bytes": 764,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/RECIPE.json",
+      "sha256": "15565a4db9b8ac32cddfb3557eeb0a1c80d3feb5a0cad65844b09928c5bfaecf"
+    },
+    "REPORT.md": {
+      "bytes": 1168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/REPORT.md",
+      "sha256": "2d178143d856658fc58c7d139048b106e95370cc3072427d8432524b9f774a76"
+    },
+    "REUSE-PROOF.json": {
+      "bytes": 1004,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/REUSE-PROOF.json",
+      "sha256": "4d8b583d45dcdf7f94fb7f9b7b4c908516fd4078bb80dae09c6211bd029fdcce"
+    },
+    "SOURCE-PINS.json": {
+      "bytes": 1566,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+      "sha256": "e248ed880d2e7ff72d790840b768d1441237b2939a424441042bcdbd125f7061"
+    },
+    "verify-expanded.py": {
+      "bytes": 18821,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/verify-expanded.py",
+      "sha256": "f3b7d31b20570414d41bfa6641e198022a46a904798ddc3340db20a74510aab7"
+    }
+  },
+  "finalPythonLinkageDiff": {
+    "bytes": 2262,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/FINAL-PYTHON-LINKAGE.diff",
+    "sha256": "83390e445260ee6d933193f950f50ae4f3fce46f20ace172e85369d023239772"
+  },
+  "futureAuthority": null,
+  "helperTextByteExact": true,
+  "mirrorOrDependencyPayloadRead": false,
+  "preservedPrefinal": {
+    "bytes": 2344,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/PREFINAL-ARCHIVE-MANIFEST.json",
+    "sha256": "a810e0bfc17b410483ad4b41504807b40be73b557273bad3a57f36288870f0bc"
+  },
+  "proposalExecuted": false,
+  "proposalImported": false,
+  "recipe": {
+    "bytes": 764,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/RECIPE.json",
+    "sha256": "15565a4db9b8ac32cddfb3557eeb0a1c80d3feb5a0cad65844b09928c5bfaecf"
+  },
+  "sourceParsedOnly": true,
+  "sourcePins": {
+    "bytes": 1566,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "e248ed880d2e7ff72d790840b768d1441237b2939a424441042bcdbd125f7061"
+  },
+  "status": "READY_SOURCE_ONLY_UNRUN_AUTHORITY_NULL",
+  "testsOrScanRun": false,
+  "verifier": {
+    "bytes": 18821,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-proposal-after-aj-20261009-r1/verify-expanded.py",
+    "sha256": "f3b7d31b20570414d41bfa6641e198022a46a904798ddc3340db20a74510aab7"
+  }
+}

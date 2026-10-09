@@ -1,0 +1,28 @@
+{
+  "currentGuardFactsRead": false,
+  "decision": "HOLD_EXACT_M0_ADDITIVE_FILL_PENDING_VERSIONED_PATH_CORRECTION",
+  "defect": {
+    "effect": "A valid r3 filled binding fails materializer source drift before any child/output creation.",
+    "heldBindingMaterializerPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/add_inputs.py",
+    "line": 184,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/record.py",
+    "requiredMaterializerPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/add_inputs.py"
+  },
+  "executionAuthorization": false,
+  "launchHeld": true,
+  "originalAcceptancePreserved": true,
+  "originalSourcePins": {
+    "bytes": 5745,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/SOURCE-PINS.json",
+    "sha256": "94f70526a969dabcee87ab9e63a40bfaa00ac224e458e849db42b8c0f1515995"
+  },
+  "originalSourceReview": {
+    "bytes": 2357,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-current-aj-independent-source-review-20261009-r3/RECEIPT.json",
+    "sha256": "10acbce94bde8e5a58e5905915743f119097b47408a3d2203992dc321ac6f617"
+  },
+  "r3TestsExecuted": false,
+  "requiredRepair": "Fresh independently reviewed version correcting the one required materializerPath literal and its own source/binding/argv/launch hashes and paths; preserve body and INPUTS semantics.",
+  "schema": "m0-additive-r3-source-path-hold-addendum-r1",
+  "unchangedSevenMechanismReuseQualificationPreserved": true
+}

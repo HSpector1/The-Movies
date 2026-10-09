@@ -1,0 +1,11 @@
+{
+  "allAbsentAtSourcePreparation": true,
+  "claimLimit": "Bounded source preparation observation only; final root grant must freshly recheck exact paths and current guards. Current M0 scan is active and no controls lane is granted.",
+  "paths": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-fixture-after-aj-filled-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-output-after-aj-filled-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-lane-after-aj-filled-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-output-after-aj-filled-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-lane-after-aj-filled-20261009-r1"
+  ]
+}

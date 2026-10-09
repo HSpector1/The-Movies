@@ -1,0 +1,63 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json"
+  ],
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "3949fb78642c7324d61e1c23f967f10a056e17d3a5ae5a850ebbb73969c4e8e5",
+  "bindingSha256": "35e596a0ee6d5119fd2a84f03f3fc0a7398be1208a8f65e4c4824ca67e269a50",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactReview": {
+    "bytes": 2785,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-final-exact-independent-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "d86d88453393c6ce9c941bf7f6b992c90e49833d91835c40fdf274278ae19fcc"
+  },
+  "executionAuthorization": true,
+  "guardCoreCandidateBindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+  "guardCoreSha256": "69f4a0a4e5bb4d686ef03178dafa9b4c27c11d8671745d61a0537fd725adf69d",
+  "helperSha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+  "materializerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/add_inputs.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json"
+  ],
+  "originalExactLaunchArchive": {
+    "bytes": 2784,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-pre-adoption-archive-after-aj-20261009-r1/LAUNCH-SPEC.json",
+    "sha256": "337c93eb33b65f00db336f801e787a09161640c782d4dd18f7a112c88b823a78"
+  },
+  "originalExactPinsArchive": {
+    "bytes": 1353,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-pre-adoption-archive-after-aj-20261009-r1/PINS.json",
+    "sha256": "1674f56bedabf9cca674eaece2884a285efdaec70e91e1bd5125d8a45c8467f8"
+  },
+  "preflightReview": {
+    "bytes": 8199,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-preflight-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "3bce48d3f7bac785ca024f7609c7a46a2c832c3adfe9d4d6a7cc0501b4f83018"
+  },
+  "runtimeArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json"
+  ],
+  "sourceAuthenticatedOuterBootstrapRequired": true,
+  "status": "PARENT_ADOPTED_EXACT_LAUNCH_REQUIRES_ADOPTED_PREFLIGHT_AND_ROOT_GRANT",
+  "unexpectedHelperWait": "STOP; no recorder or supervisor clock covers an outer helper wait"
+}

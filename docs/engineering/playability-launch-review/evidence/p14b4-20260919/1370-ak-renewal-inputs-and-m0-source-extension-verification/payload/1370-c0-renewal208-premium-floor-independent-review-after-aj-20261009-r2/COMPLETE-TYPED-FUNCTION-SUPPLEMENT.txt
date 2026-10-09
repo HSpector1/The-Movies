@@ -1,0 +1,170 @@
+{"arm": "H", "firstLine": 33, "function": "chooseIndustryPackage", "gitBlobOid": "8229ff7614ae23ec82b9e316d1232f6002a6d1ab", "lastLine": 74, "repositoryPath": "src/core/hollywoodPolicy.ts", "sliceSha256": "3acb1fb15038316da10fde48bb09e640d1a9fea28463715f86bcab0734c0fee1", "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d", "sourceRole": {"bytes": 5883, "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodPolicy.ts", "sha256": "f2a43e3642699cd5144786b980b0440d64f6057ce05ae8544675e1e56cbb4994"}}
+33: export function chooseIndustryPackage(input:ReceptionInputs,policy:RivalBusiness['policy'],options:{
+34:   seed:string;key:string;cashAvailable:number;weeklyCost:number;lockScreenplay:boolean
+35:   /** P14B.4 seating preference (plan :215-236): bound-open member masks (promises.ts promisedCastMasks); absent = no preference. */
+36:   promisedMasks?:ReadonlyMap<string,readonly CastSlot[]>
+37: }):IndustryPackageChoice|null {
+38:   const planning=perceivedPlanningInputs(input)
+39:   const actors=[planning.cast.lead,planning.cast.antagonist,planning.cast.support]
+40:   let best:IndustryPackageChoice|null=null;let bestScore=-Infinity;let bestBenefit=0
+41:   const masks=options.promisedMasks
+42:   // Benefit = DISTINCT beneficiaries whose assigned slot satisfies their mask (the cast is distinct by construction).
+43:   const benefitOf=(cast:ReceptionInputs['cast']):number=>masks===undefined?0:CAST_SLOTS.filter(slot=>masks.get(cast[slot].id)?.includes(slot)===true).length
+44:   for(const shape of options.lockScreenplay?[planning.shape]:SHAPES)for(const billing of BILLINGS) {
+45:     let inp:ReceptionInputs={...planning,shape,shapeEffects:resolveShape(shape),cast:{lead:actors[billing[0]]!,antagonist:actors[billing[1]]!,support:actors[billing[2]]!}}
+46:     const benefit=benefitOf(inp.cast)
+47:     if(!options.lockScreenplay) {
+48:       const center=forecastCenters(inp,true,true).core.delivered
+49:       const range=(n:number):[number,number]=>[clamp(n-TUNING.HOLLYWOOD_PROMISE_HALF_WIDTH,-1,1),clamp(n+TUNING.HOLLYWOOD_PROMISE_HALF_WIDTH,-1,1)]
+50:       inp={...inp,promise:{...inp.promise,ranges:{intimacy:range(center.intimacy),tonalWeight:range(center.tonalWeight),kineticEnergy:range(center.kineticEnergy)}}}
+51:     }
+52:     const required=inp.concept.baseNegativeCost*inp.shapeEffects.budgetDemandMultiplier*inp.era.costScale
+53:     for(const scale of TUNING.HOLLYWOOD_NEGATIVE_CHOICES) {
+54:       const negative=Math.round(required*scale*policy.negativeScale)
+55:       const base={...inp,budget:{negative,marketing:0}}
+56:       for(const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base,true))) {
+57:         if(negative+marketing>options.cashAvailable)continue
+58:         const candidate={...base,budget:{negative,marketing}}
+59:         const forecast=computeForecast(candidate,{seed:options.seed,productionId:options.key,directorId:inp.director.id,releasedFilms:[],concepts:[inp.concept]},true,true)
+60:         const expectedIncrementalContribution=forecast.expectedTotal*TUNING.STUDIO_RENTAL_BLENDED-negative-marketing
+61:         // First payment follows eight production advances; the full six-week
+62:         // run receives its last payment after fourteen operating charges.
+63:         const holdOperatingMargin=-options.weeklyCost*(TUNING.PRODUCTION_TICKS+TUNING.THEATRICAL_WEEKS)
+64:         const expectedOperatingMargin=expectedIncrementalContribution+holdOperatingMargin
+65:         // Preference is a small cost of departing from the authored spend posture; outcomes remain uncertain.
+66:         const score=expectedOperatingMargin-Math.abs(marketing/Math.max(negative,1)-policy.marketingRatio)*TUNING.HOLLYWOOD_POLICY_PREFERENCE_COST
+67:         if(options.lockScreenplay&&score<=holdOperatingMargin)continue
+68:         // Maximize benefit among candidates that passed the cash and viability gates, then the ordinary score, then the inherited strict-greater BILLINGS order.
+69:         if(benefit>bestBenefit||(benefit===bestBenefit&&score>bestScore)){bestBenefit=benefit;bestScore=score;best={shape,promise:inp.promise,budget:{negative,marketing},cast:{lead:inp.cast.lead.id,antagonist:inp.cast.antagonist.id,support:inp.cast.support.id},expectedOperatingMargin,expectedIncrementalContribution,holdOperatingMargin}}
+70:       }
+71:     }
+72:   }
+73:   return best
+74: }
+
+{"arm": "H", "firstLine": 60, "function": "createProductionTechnologyPolicy", "gitBlobOid": "87052b7d00287c0a32184a4a273c6fbf9ba802c5", "lastLine": 98, "repositoryPath": "src/core/technologyProduction.ts", "sliceSha256": "7c06f36207354dd305457f73f98391905be216436be8e24f650c2e3b5912ed85", "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d", "sourceRole": {"bytes": 9909, "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/technologyProduction.ts", "sha256": "aa77c468b2b59742fcf5fea9d24229ab0e0f01d656b25a18af59ce987fa3f176"}}
+60: export function createProductionTechnologyPolicy(state: ProductionTechnologyFacts, studioId = playerId(state)): {
+61:   policy: ProductionAllocationPolicy<ProductionClockView>
+62:   technology: () => StudioTechnology
+63: } {
+64:   let next = state.technology
+65:   const selection = (productionId: string) => next.productions.find((row) => row.studioId === studioId && row.productionId === productionId)
+66:   return {
+67:     technology: () => next,
+68:     policy: {
+69:       allowsFacility(productionId, facility) {
+70:         const row = selection(productionId)
+71:         if (row === undefined || row.method === 'silent') return true
+72:         const adoption = operationalAdoption(state, row.studioId, row.adoptionId)
+73:         // A sound selection must never quietly fall back to a different chain.
+74:         if (adoption === null) return facility.capability !== 'soundstage' && facility.capability !== 'post'
+75:         if (facility.capability === 'soundstage') return facility.id === adoption.stageFacilityId
+76:         if (facility.capability === 'post') return facility.id === adoption.postFacilityId
+77:         return true
+78:       },
+79:       beforePhaseEntered(production, phase, reservations, week) {
+80:         if (phase !== 'shooting' || studioId === undefined) return
+81:         const previous = selection(production.id)
+82:         if (previous !== undefined && previous.lockedWeek !== null) return
+83:         if (previous?.method === 'synchronized-dialogue') {
+84:           const adoption = operationalAdoption(state, studioId, previous.adoptionId)
+85:           if (adoption === null || !reservations.some((reservation) => reservation.capability === 'soundstage' && reservation.facilityId === adoption.stageFacilityId)) {
+86:             throw new Error('Filming cannot begin outside the selected operational stage, capture and Post chain.')
+87:           }
+88:         }
+89:         const locked: ProductionTechnology = previous === undefined
+90:           ? { studioId, productionId: production.id, method: 'silent', adoptionId: null, lockedWeek: week }
+91:           : { ...previous, lockedWeek: week }
+92:         next = { ...next, productions: previous === undefined
+93:           ? [...next.productions, locked]
+94:           : next.productions.map((row) => row === previous ? locked : row) }
+95:       },
+96:     },
+97:   }
+98: }
+
+{"arm": "A", "firstLine": 33, "function": "chooseIndustryPackage", "gitBlobOid": "8229ff7614ae23ec82b9e316d1232f6002a6d1ab", "lastLine": 74, "repositoryPath": "src/core/hollywoodPolicy.ts", "sliceSha256": "3acb1fb15038316da10fde48bb09e640d1a9fea28463715f86bcab0734c0fee1", "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229", "sourceRole": {"bytes": 5883, "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodPolicy.ts", "sha256": "f2a43e3642699cd5144786b980b0440d64f6057ce05ae8544675e1e56cbb4994"}}
+33: export function chooseIndustryPackage(input:ReceptionInputs,policy:RivalBusiness['policy'],options:{
+34:   seed:string;key:string;cashAvailable:number;weeklyCost:number;lockScreenplay:boolean
+35:   /** P14B.4 seating preference (plan :215-236): bound-open member masks (promises.ts promisedCastMasks); absent = no preference. */
+36:   promisedMasks?:ReadonlyMap<string,readonly CastSlot[]>
+37: }):IndustryPackageChoice|null {
+38:   const planning=perceivedPlanningInputs(input)
+39:   const actors=[planning.cast.lead,planning.cast.antagonist,planning.cast.support]
+40:   let best:IndustryPackageChoice|null=null;let bestScore=-Infinity;let bestBenefit=0
+41:   const masks=options.promisedMasks
+42:   // Benefit = DISTINCT beneficiaries whose assigned slot satisfies their mask (the cast is distinct by construction).
+43:   const benefitOf=(cast:ReceptionInputs['cast']):number=>masks===undefined?0:CAST_SLOTS.filter(slot=>masks.get(cast[slot].id)?.includes(slot)===true).length
+44:   for(const shape of options.lockScreenplay?[planning.shape]:SHAPES)for(const billing of BILLINGS) {
+45:     let inp:ReceptionInputs={...planning,shape,shapeEffects:resolveShape(shape),cast:{lead:actors[billing[0]]!,antagonist:actors[billing[1]]!,support:actors[billing[2]]!}}
+46:     const benefit=benefitOf(inp.cast)
+47:     if(!options.lockScreenplay) {
+48:       const center=forecastCenters(inp,true,true).core.delivered
+49:       const range=(n:number):[number,number]=>[clamp(n-TUNING.HOLLYWOOD_PROMISE_HALF_WIDTH,-1,1),clamp(n+TUNING.HOLLYWOOD_PROMISE_HALF_WIDTH,-1,1)]
+50:       inp={...inp,promise:{...inp.promise,ranges:{intimacy:range(center.intimacy),tonalWeight:range(center.tonalWeight),kineticEnergy:range(center.kineticEnergy)}}}
+51:     }
+52:     const required=inp.concept.baseNegativeCost*inp.shapeEffects.budgetDemandMultiplier*inp.era.costScale
+53:     for(const scale of TUNING.HOLLYWOOD_NEGATIVE_CHOICES) {
+54:       const negative=Math.round(required*scale*policy.negativeScale)
+55:       const base={...inp,budget:{negative,marketing:0}}
+56:       for(const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base,true))) {
+57:         if(negative+marketing>options.cashAvailable)continue
+58:         const candidate={...base,budget:{negative,marketing}}
+59:         const forecast=computeForecast(candidate,{seed:options.seed,productionId:options.key,directorId:inp.director.id,releasedFilms:[],concepts:[inp.concept]},true,true)
+60:         const expectedIncrementalContribution=forecast.expectedTotal*TUNING.STUDIO_RENTAL_BLENDED-negative-marketing
+61:         // First payment follows eight production advances; the full six-week
+62:         // run receives its last payment after fourteen operating charges.
+63:         const holdOperatingMargin=-options.weeklyCost*(TUNING.PRODUCTION_TICKS+TUNING.THEATRICAL_WEEKS)
+64:         const expectedOperatingMargin=expectedIncrementalContribution+holdOperatingMargin
+65:         // Preference is a small cost of departing from the authored spend posture; outcomes remain uncertain.
+66:         const score=expectedOperatingMargin-Math.abs(marketing/Math.max(negative,1)-policy.marketingRatio)*TUNING.HOLLYWOOD_POLICY_PREFERENCE_COST
+67:         if(options.lockScreenplay&&score<=holdOperatingMargin)continue
+68:         // Maximize benefit among candidates that passed the cash and viability gates, then the ordinary score, then the inherited strict-greater BILLINGS order.
+69:         if(benefit>bestBenefit||(benefit===bestBenefit&&score>bestScore)){bestBenefit=benefit;bestScore=score;best={shape,promise:inp.promise,budget:{negative,marketing},cast:{lead:inp.cast.lead.id,antagonist:inp.cast.antagonist.id,support:inp.cast.support.id},expectedOperatingMargin,expectedIncrementalContribution,holdOperatingMargin}}
+70:       }
+71:     }
+72:   }
+73:   return best
+74: }
+
+{"arm": "A", "firstLine": 60, "function": "createProductionTechnologyPolicy", "gitBlobOid": "87052b7d00287c0a32184a4a273c6fbf9ba802c5", "lastLine": 98, "repositoryPath": "src/core/technologyProduction.ts", "sliceSha256": "7c06f36207354dd305457f73f98391905be216436be8e24f650c2e3b5912ed85", "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229", "sourceRole": {"bytes": 9909, "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/technologyProduction.ts", "sha256": "aa77c468b2b59742fcf5fea9d24229ab0e0f01d656b25a18af59ce987fa3f176"}}
+60: export function createProductionTechnologyPolicy(state: ProductionTechnologyFacts, studioId = playerId(state)): {
+61:   policy: ProductionAllocationPolicy<ProductionClockView>
+62:   technology: () => StudioTechnology
+63: } {
+64:   let next = state.technology
+65:   const selection = (productionId: string) => next.productions.find((row) => row.studioId === studioId && row.productionId === productionId)
+66:   return {
+67:     technology: () => next,
+68:     policy: {
+69:       allowsFacility(productionId, facility) {
+70:         const row = selection(productionId)
+71:         if (row === undefined || row.method === 'silent') return true
+72:         const adoption = operationalAdoption(state, row.studioId, row.adoptionId)
+73:         // A sound selection must never quietly fall back to a different chain.
+74:         if (adoption === null) return facility.capability !== 'soundstage' && facility.capability !== 'post'
+75:         if (facility.capability === 'soundstage') return facility.id === adoption.stageFacilityId
+76:         if (facility.capability === 'post') return facility.id === adoption.postFacilityId
+77:         return true
+78:       },
+79:       beforePhaseEntered(production, phase, reservations, week) {
+80:         if (phase !== 'shooting' || studioId === undefined) return
+81:         const previous = selection(production.id)
+82:         if (previous !== undefined && previous.lockedWeek !== null) return
+83:         if (previous?.method === 'synchronized-dialogue') {
+84:           const adoption = operationalAdoption(state, studioId, previous.adoptionId)
+85:           if (adoption === null || !reservations.some((reservation) => reservation.capability === 'soundstage' && reservation.facilityId === adoption.stageFacilityId)) {
+86:             throw new Error('Filming cannot begin outside the selected operational stage, capture and Post chain.')
+87:           }
+88:         }
+89:         const locked: ProductionTechnology = previous === undefined
+90:           ? { studioId, productionId: production.id, method: 'silent', adoptionId: null, lockedWeek: week }
+91:           : { ...previous, lockedWeek: week }
+92:         next = { ...next, productions: previous === undefined
+93:           ? [...next.productions, locked]
+94:           : next.productions.map((row) => row === previous ? locked : row) }
+95:       },
+96:     },
+97:   }
+98: }
+

@@ -1,0 +1,32 @@
+{
+  "config": {
+    "bytes": 12563,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/CONFIG.json",
+    "sha256": "1d6c6bc66e053296dfb6d8aa115d7d093d94d4b30c42983aafff561388aa762f"
+  },
+  "counts": {
+    "test-outer.py": 7,
+    "test-settlement208-frame.py": 2,
+    "test-settlement208.mjs": 7,
+    "test-supervisor.py": 5,
+    "test-synthetic.mjs": 6
+  },
+  "decision": "READY_SOURCE_ONLY_HELD_A208_FINITE_CONTROLS_ROUTE_PENDING_INDEPENDENT_REVIEW",
+  "driver": {
+    "bytes": 8454,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/drive.py",
+    "sha256": "7e4437d2a3a15b711ad10a470ed1fdb9cfbc9104df7ef39e2245c07bd7240ce3"
+  },
+  "executed": false,
+  "executionAuthorization": false,
+  "recorder": {
+    "bytes": 14508,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/record.py",
+    "sha256": "4aa3c90e51abf8cbcdf88837e45c728e4d41f749f67c3af677762957b453363b"
+  },
+  "sourcePins": {
+    "bytes": 2559,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "9d405a6cfae2fe81bf6356aeb93e0df8c75b5399c7a524978cc9db7a5b73986f"
+  }
+}

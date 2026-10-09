@@ -1,0 +1,33 @@
+{
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "3949fb78642c7324d61e1c23f967f10a056e17d3a5ae5a850ebbb73969c4e8e5",
+  "files": {
+    "BINDING-DRAFT.json": {
+      "bytes": 13256,
+      "sha256": "afb63886674e50034d802af42bafacd5e9d119b96dfadc256e5b29668e4d30a7"
+    },
+    "GUARD-PROOF-ROLES.json": {
+      "bytes": 16206,
+      "sha256": "0d9e9df26a9005c1c67c4e79d57efb2561a9dfd215feb8551a4d60f8769fb8ba"
+    },
+    "IDENTITY.json": {
+      "bytes": 7581,
+      "sha256": "556ce88b6e6fb824ccc88eba1e22184b6f821fbebe6858ea17d3e39de0ee3c5c"
+    },
+    "LAUNCH-SPEC.json": {
+      "bytes": 2784,
+      "sha256": "337c93eb33b65f00db336f801e787a09161640c782d4dd18f7a112c88b823a78"
+    },
+    "REPORT.md": {
+      "bytes": 989,
+      "sha256": "fdfe657ea9070a9b768c24c067f3e5885d640de253838730d2390027c685f3d5"
+    }
+  },
+  "guardCoreSha256": "69f4a0a4e5bb4d686ef03178dafa9b4c27c11d8671745d61a0537fd725adf69d",
+  "immutableGuardCorePins": {
+    "bytes": 1188,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-guard-core-candidate-after-aj-20261009-r1/PINS.json",
+    "sha256": "1f524d59840874fd86a75d9fafa0cd6e8be94d6deff3c3e4be0d5e4d9d123983"
+  },
+  "status": "EXACT_FILLED_UNRUN_INDEPENDENT_REVIEW_PENDING"
+}

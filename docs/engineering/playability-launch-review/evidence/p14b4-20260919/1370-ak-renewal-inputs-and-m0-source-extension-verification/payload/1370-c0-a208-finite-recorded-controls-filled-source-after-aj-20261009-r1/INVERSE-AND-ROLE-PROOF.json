@@ -1,0 +1,49 @@
+{
+  "actualLaunchGrantExternalAndAbsent": true,
+  "configAddedAuthorityRoles": [
+    "acceptedSourceReview",
+    "prospectiveControlScope"
+  ],
+  "configChangedFields": [
+    "pythonFixture",
+    "roles",
+    "sourceReview",
+    "runtimeGrant"
+  ],
+  "driverByteIdentical": true,
+  "localModuleRoles": {
+    "driver": {
+      "bytes": 8874,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/drive.py",
+      "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+    },
+    "reportControls": {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    },
+    "reportGuard": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    }
+  },
+  "observer18RolesAndBoundsAndCountsUnchanged": true,
+  "prospectiveScopeExecutionAuthorization": false,
+  "recorderExactInverseBytes": true,
+  "recorderLiteralSubstitutions": [
+    [
+      "CONFIG_SHA='4b269726743163f99ab9764a7a15041e24c7bd4a1d884ac54bdfee57c4049f39'",
+      "CONFIG_SHA='53b996cf65721bab186ed2043031fb470ad8868d838fac7ab0cd17bad81b0565'"
+    ],
+    [
+      "OUTPUTS={mode:SCRATCH/('1370-c0-a208-controls-'+mode+'-output-after-aj-20261009-r2') for mode in ('js','python')}",
+      "OUTPUTS={mode:SCRATCH/('1370-c0-a208-controls-'+mode+'-output-after-aj-filled-20261009-r1') for mode in ('js','python')}"
+    ]
+  ],
+  "recorderNormalizedFullAstEqual": true,
+  "reportControlsByteIdentical": true,
+  "reportGuardByteIdentical": true,
+  "runtimeGrantFieldIsProspectiveScopeOnly": true,
+  "sourceImportsOrControlsExecuted": false
+}

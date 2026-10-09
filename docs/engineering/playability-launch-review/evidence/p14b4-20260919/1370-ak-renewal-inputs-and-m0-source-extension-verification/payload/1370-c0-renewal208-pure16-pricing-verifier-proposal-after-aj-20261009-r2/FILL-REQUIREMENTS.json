@@ -1,0 +1,24 @@
+{
+  "currentOperationalGuards": null,
+  "freshFilledPackageIndependentReviewRequired": true,
+  "futureA208": null,
+  "numericEvaluation": false,
+  "packetFields": [
+    "sourcePinsSha256",
+    "configSha256",
+    "resultSha256",
+    "stdoutSha256",
+    "snapshotSha256",
+    "reviewSha256"
+  ],
+  "reviewInterface": "Observed A208 receipt must expose these exact five payload/launch hashes; c0 frame uses settlement208Rows/Bytes/Sha256/Base64. Any schema discrepancy requires fresh separately reviewed source adaptation, not guessed fill.",
+  "rolesMissing": [
+    "A208SourcePins",
+    "A208Config",
+    "A208Result",
+    "A208Stdout",
+    "A208Snapshot",
+    "A208IndependentReceipt"
+  ],
+  "rootExecutionGrant": null
+}

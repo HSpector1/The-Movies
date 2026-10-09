@@ -1,0 +1,47 @@
+{
+  "bindingPreservedFields": [
+    "outputRoot",
+    "recorderLockPath",
+    "additiveReceiptPath",
+    "phaseReceiptPath",
+    "helperLogName",
+    "runId",
+    "mirrorPath",
+    "scratchRoot",
+    "bounds",
+    "originalM0RootMetadata",
+    "expectedOverlayFiles",
+    "copyFactsSha256"
+  ],
+  "bodyAllTopLevelFunctionAstsEqual": true,
+  "bodyExactInverseSubstitutions": [
+    [
+      "INPUTS=S/'1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/INPUTS.json'",
+      "INPUTS=S/'1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json'"
+    ],
+    [
+      "INPUTS_SHA='d72e3292aff7d640c544e752e7bd54f6b66aebebf8a82cadda110d74f8111520'",
+      "INPUTS_SHA='a9f50c1d0cb6ae54084becf514ed7908c41572050e0df19a50007e3a804ff881'"
+    ],
+    [
+      "HEAD='282f8477e61a33bd5ec4a571b934829490adef73'",
+      "HEAD='f0fb818fe7534c3e3784206d16728b015c7f059a'"
+    ]
+  ],
+  "bodyFunctionCount": 26,
+  "inputAuthorityAndBridgeDependencyCopyRolesEqual": true,
+  "inputsOnlyOperationalHeadChanged": true,
+  "recordChangedFunctions": [
+    "validated_spec"
+  ],
+  "recordExactInverseSubstitution": [
+    "282f8477e61a33bd5ec4a571b934829490adef73",
+    "f0fb818fe7534c3e3784206d16728b015c7f059a"
+  ],
+  "recordFunctionCount": 10,
+  "recordOtherTopLevelFunctionAstsEqual": true,
+  "sourceOrTestImportsExecution": false,
+  "sourceParseOnly": true,
+  "supervisorByteIdentical": true,
+  "supervisorFunctionCount": 9
+}

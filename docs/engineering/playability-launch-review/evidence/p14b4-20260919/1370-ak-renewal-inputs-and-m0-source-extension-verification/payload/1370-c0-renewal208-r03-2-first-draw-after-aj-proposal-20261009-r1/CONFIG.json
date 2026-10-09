@@ -1,0 +1,167 @@
+{
+  "annualSalaryOrBonusArithmetic": false,
+  "bounds": {
+    "activeSeconds": 75,
+    "nodeSeconds": 60,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576,
+    "wholeSeconds": 90,
+    "witnessReportBytes": 8192
+  },
+  "controlsGrant": null,
+  "controlsGroups": 8,
+  "executionAuthorization": false,
+  "game": false,
+  "knownRow0Draws": 0,
+  "nodeBytes": 92324688,
+  "nodePath": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+  "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+  "operationalRuntimeAuthority": null,
+  "productionHeadAtPreparation": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "renewalAttribution": false,
+  "roles": {
+    "AEmployment": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/post-aging-employment.json",
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    "AJPublishedReadback": {
+      "bytes": 828,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+      "sha256": "746c05848363878e65cabe3ad3407dc71536e89925e4dd85769f09e818266214"
+    },
+    "A_employment.ts": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "A_rng.ts": {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+    },
+    "HEmployment": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/H-original-employment.json",
+      "sha256": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750"
+    },
+    "H_employment.ts": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "H_rng.ts": {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+    },
+    "acceptedInitial23NumericObservedReview": {
+      "bytes": 4219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-witness-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "54b305c8b48c96cd664c037d592f955b8ca8e59e53337d5c287ffb7331f303c7"
+    },
+    "acceptedInitial23NumericStdout": {
+      "bytes": 9419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-output-20261009-r1/stdout.bin",
+      "sha256": "653213f9f107ffc576dad0c2d7df18c9e04c04d7bc5020ae90e19f257543a549"
+    },
+    "acceptedInitial23SourcePins": {
+      "bytes": 8515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-witness-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60"
+    },
+    "acceptedInitial23SourceReview": {
+      "bytes": 2886,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-first-draw-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "c441b19fc17d20eaf7b13a0477807e711f58a3a92f3717e7c645aa3d1974e66f"
+    },
+    "authenticate": {
+      "bytes": 2179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/authenticate-inputs.mjs",
+      "sha256": "04cedc4037d2d27f2bae261e708cab40090e5f48c1c6abc74b9e1a8905cbdb48"
+    },
+    "controls": {
+      "bytes": 2370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/test-first-draw.mjs",
+      "sha256": "db88aeb9932759ce2c6db13b64d2cfd8fd50db1378c803f66aff8e9268ca89c5"
+    },
+    "core": {
+      "bytes": 4256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/first-draw-core.mjs",
+      "sha256": "ec21d10860bb8c227b9ced957aec34c094bf7f95102f692206d9b953fc2804dd"
+    },
+    "independentRenewalGapDesignReview": {
+      "bytes": 3022,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-independent-design-review-20261009-r1/RECEIPT.json",
+      "sha256": "12145d203cd76fd36e94b4b8a862505d9e4e150c0af8058fcc47cba881d8292e"
+    },
+    "inputs": {
+      "bytes": 715,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/INPUTS.json",
+      "sha256": "698983001bd6d08e172663b6ca7017d193247830fbffe91bd5bad66a82be3f6d"
+    },
+    "parentRenewalDesignAdoption": {
+      "bytes": 1702,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-design-parent-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "8f29b3860b2992378fc3fe7408557cffbefe5b4da6685bc0c42951407d171268"
+    },
+    "pricingJitterConstant": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "qualifiedFailurePreservingRecorderMechanism": {
+      "bytes": 3829,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+      "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+    },
+    "renewalGapDesign": {
+      "bytes": 2837,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/RECEIPT.json",
+      "sha256": "46d78843ee8e2cf61c501a6ca2aebe6a16b66aa9745751c2d60c7ca7bdcf9479"
+    },
+    "renewalGapFacts": {
+      "bytes": 220989,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/FACTS.json",
+      "sha256": "d928be4e8022203f4c0c86fe1c8196397c41f04e89fc984b1133693812988044"
+    },
+    "renewalGapInputPins": {
+      "bytes": 10141,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/INPUT-PINS.json",
+      "sha256": "2b735e42554c2e27cb048c377cc8359f329410990333afc69087e45d882c6738"
+    },
+    "rngErased": {
+      "bytes": 6427,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/rng.type-erased.mjs",
+      "sha256": "6534a0670862dc7a6778373d0375628d59761e1af27b84d5a79fc76c2c80fedc"
+    },
+    "rngOriginal": {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/rng.original.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+    },
+    "sourceInputRoles": {
+      "bytes": 6796,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/SOURCE-INPUT-ROLES.json",
+      "sha256": "505f6afbf22085bab0aec2f721cc78d2e0e8fe177be0d200d065354aea5f4d46"
+    },
+    "typeErasureProof": {
+      "bytes": 5143,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/RNG-TYPE-ERASURE.json",
+      "sha256": "c8f6fc562e447c733e1f171e7fb0e184e2686da7b4459ec8dbf16dfa118b665e"
+    },
+    "witness": {
+      "bytes": 234,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/witness-first-draw.mjs",
+      "sha256": "c3a37aefd609623486da3f505fb9233ab2e166e422eac872fdc2409ae6c2fd2d"
+    }
+  },
+  "schema": "1370-renewal208-r03-2-first-draw-config-r1",
+  "sourceReview": null,
+  "status": "SOURCE_ONLY_UNRUN_ONE_KEY_FIRST_DRAW_PROPOSAL",
+  "unknownInitialDraws": 0,
+  "unknownRenewalDraws": 1,
+  "witnessGrant": null,
+  "witnessRows": 1
+}

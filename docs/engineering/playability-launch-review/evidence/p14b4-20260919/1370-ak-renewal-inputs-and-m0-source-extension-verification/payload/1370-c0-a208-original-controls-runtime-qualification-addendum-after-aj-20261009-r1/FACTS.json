@@ -1,0 +1,92 @@
+{
+  "acceptedActualHistoricalR9Runtime": {
+    "bindingSha256": "5e1c3010c5369423cadb4cf46c1efc8b445890e52ed42ebb934d88e92834fba1",
+    "nodeExecPath": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+    "nodeExecutableSha256InBinding": null,
+    "nodeVersion": "v22.23.2",
+    "requiredEnvironment": {
+      "GIT_OPTIONAL_LOCKS": "0",
+      "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    }
+  },
+  "actualA208ControlsObserved": false,
+  "actualOriginalR9ControlsExit": 0,
+  "actualOriginalR9ControlsToolSession": 71024,
+  "crossVersionEquivalenceEstablished": false,
+  "decision": "SOURCE_ONLY_ORIGINAL_CONTROL_RUNTIME_QUALIFICATION_LIMIT_RECORDED",
+  "inheritedR6NodeQualification": {
+    "authenticatedNodePathVersionHashInReceipt": false,
+    "reportedTests": "node --test test-synthetic.mjs5/5"
+  },
+  "inheritedR7NodeQualification": {
+    "authenticatedNodePathVersionHashInReceipt": false,
+    "reportedTests": "Node6/6"
+  },
+  "originalR9ControlScope": "17 shell/Git/sandbox policy probes, no Node process",
+  "originalR9ControlsNodeRole": null,
+  "originalR9ControlsPythonRole": {
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "pendingChoice": "Either explicitly adopt Node20-only mechanism controls and retain distinct Node22 runtime qualification, or author a fresh independently reviewed Node22 CONFIG/tool-role derivative before controls when exact-runtime qualification is intended. Preserve Node20 versions; no in-place switch/relabel.",
+  "proposedCurrentA208ControlsNode": {
+    "bytes": 92324688,
+    "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+  },
+  "roles": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-independent-source-review-after-aj-20261009-r1/RECEIPT.json": {
+      "bytes": 14906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "e304e8707580bae518ba12e7e15eb353c2a5d67b23dbc491fba29c2cdfbda6d4"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/CONFIG.json": {
+      "bytes": 14193,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/CONFIG.json",
+      "sha256": "53b996cf65721bab186ed2043031fb470ad8868d838fac7ab0cd17bad81b0565"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r6/RECEIPT.json": {
+      "bytes": 5250,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r6/RECEIPT.json",
+      "sha256": "02b6052169f67c29464f1b8b6c08b1fc7921a7a13f0e3b0328537b8e8e7ba8f0"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r7/RECEIPT.json": {
+      "bytes": 5544,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r7/RECEIPT.json",
+      "sha256": "4f873fc7b0d0d24d0d339d1893f523a717da6bd00942a5920bc67ee659d317ff"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r9/RECEIPT.json": {
+      "bytes": 3626,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r9/RECEIPT.json",
+      "sha256": "9652d41c68cf1adcbc6614702226a49ed5c49b4cbabd3857f96baa9134c1c75f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-adoption-output-20261008-r1/ADOPTED-LAUNCH-SPEC.json": {
+      "bytes": 9544,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-adoption-output-20261008-r1/ADOPTED-LAUNCH-SPEC.json",
+      "sha256": "b9dcfb46d2c9cbd465e028a2835a42ff0d01c7e0897e608fff45032543e2ffbe"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-controls-output-20261008-r1/RESULT.json": {
+      "bytes": 17829,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-controls-output-20261008-r1/RESULT.json",
+      "sha256": "b3124183608cb5cd1e758f719d8a633659b46809593e6eeb3d0dbb445a7e8561"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/CONTROL-RECIPE.json": {
+      "bytes": 3186,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/CONTROL-RECIPE.json",
+      "sha256": "43ddc237bec6a796917ac96c4c8cba060399b236ef1019203c6b55393bf48531"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/PARENT-CONTROLS-OUTCOME.json": {
+      "bytes": 893,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/PARENT-CONTROLS-OUTCOME.json",
+      "sha256": "9fbdfac8fc0a6e8b081d075564911a886c81d9c95274ce8a2d2baab30ce64eeb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-exact-draft-20261008-r1/BINDING-DRAFT.json": {
+      "bytes": 3698,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-exact-draft-20261008-r1/BINDING-DRAFT.json",
+      "sha256": "5e1c3010c5369423cadb4cf46c1efc8b445890e52ed42ebb934d88e92834fba1"
+    }
+  },
+  "sourceReviewPermitsOnlyUnrunControls": "ACCEPT_SOURCE_ONLY_UNRUN_A208_FILLED_CONTROLS_ROUTE",
+  "sourceTestsNodeGameScanGitOrProtectedMutationPerformed": false
+}

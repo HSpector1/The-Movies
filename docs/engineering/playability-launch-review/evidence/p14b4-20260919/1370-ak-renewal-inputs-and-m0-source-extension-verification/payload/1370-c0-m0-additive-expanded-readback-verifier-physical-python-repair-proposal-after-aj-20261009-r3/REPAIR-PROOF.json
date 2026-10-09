@@ -1,0 +1,182 @@
+{
+  "actual14RolePacketAndPythonPhysicalHashIdentityBindingChecksUnchanged": true,
+  "actualFailureExits": {
+    "helper": 2,
+    "tool": 2,
+    "verifierMeta": 2
+  },
+  "actualProbeRole": {
+    "bytes": 602,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/INTERPRETER-PROBE-ACTUAL-TOOL.json",
+    "sha256": "8a72987e5207cb4b33594f028a810335d0a610cd87f77daa02553cd5096d7037"
+  },
+  "actualProbeSpelling": "/usr/local/opt/python@3.14/bin/python3.14",
+  "actualProbeStrictPhysicalResolution": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "configOnlyChange": "outputPath",
+  "currentGroupProbePerformed": false,
+  "failureOutcome": {
+    "bytes": 2589,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/STOP-TOOL-OUTCOME.json",
+    "sha256": "cd33f40a1a3bb85e248881afaf4bab1ba2eb1c520ba7680eb1793c6e007f0d65"
+  },
+  "freshOutput": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r3.json",
+  "independentFailureAttribution": {
+    "bytes": 4426,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-expanded-readback-failure-independent-attribution-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "fedba7eda2203ce80d37f319e65371dffb9ca8aba04538d7dc2d610f2e9d84e5"
+  },
+  "inverseFullVerifierTextExact": true,
+  "mainOtherTextExactByInverse": true,
+  "mirrorOrDependencyPayloadRead": false,
+  "newPredicate": "req(Path(sys.executable).resolve(strict=True)==Path(py['path']),'exact physical Python executable')",
+  "newRuntimeGrant": null,
+  "numericFailedVerifierPidKnown": false,
+  "oldPredicate": "req(sys.executable==py['path'],'exact physical Python executable')",
+  "originalFailedVerifier": {
+    "bytes": 18821,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/verify-expanded.py",
+    "sha256": "f3b7d31b20570414d41bfa6641e198022a46a904798ddc3340db20a74510aab7"
+  },
+  "originalFilledReview": {
+    "bytes": 9200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-filled-independent-review-after-aj-20261009-r2/RECEIPT.json",
+    "sha256": "10ce9ac2c0a14dcfa6a7e81401abb11dd753c6d071f699419d6265e48740d15c"
+  },
+  "originalSourcePins": {
+    "bytes": 2183,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/SOURCE-PINS.json",
+    "sha256": "dfbf25dc7d97aa654dedf625abfd2c2209dcb089c3870d4c49b17d4540125a30"
+  },
+  "priorOutputAbsent": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r2.json",
+  "readbackSucceeded": false,
+  "roles": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-filled-independent-review-after-aj-20261009-r2/RECEIPT.json": {
+      "bytes": 9200,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-filled-independent-review-after-aj-20261009-r2/RECEIPT.json",
+      "sha256": "10ce9ac2c0a14dcfa6a7e81401abb11dd753c6d071f699419d6265e48740d15c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log": {
+      "bytes": 130,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log",
+      "sha256": "3fa53b86274141f9c01c25243a9a462eb0be03db1c9ff2490f8479c52513104b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log.meta": {
+      "bytes": 613,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log.meta",
+      "sha256": "3b7b581fc15383813fd3105f70a6f87752cb94fec1a4308f70995d5c65af27c6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/ACTUAL-TOOL.json": {
+      "bytes": 1244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/ACTUAL-TOOL.json",
+      "sha256": "4eb4fdbc1c29506af3642925590d57d95d032fa8dcdfbf6c320a721f3f09abb5"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/GRANT.json": {
+      "bytes": 2476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/GRANT.json",
+      "sha256": "97aef1b2da99e57c361a814219b062996ef36e7d47ae6d7fa4f91c31e5cd7829"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/INTERPRETER-PROBE-ACTUAL-TOOL.json": {
+      "bytes": 602,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/INTERPRETER-PROBE-ACTUAL-TOOL.json",
+      "sha256": "8a72987e5207cb4b33594f028a810335d0a610cd87f77daa02553cd5096d7037"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/STOP-TOOL-OUTCOME.json": {
+      "bytes": 2589,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/STOP-TOOL-OUTCOME.json",
+      "sha256": "cd33f40a1a3bb85e248881afaf4bab1ba2eb1c520ba7680eb1793c6e007f0d65"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/CONFIG.json": {
+      "bytes": 6419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/CONFIG.json",
+      "sha256": "eece793d3622935824c14bcce7aea2c185cffc9df65144037e3d79575907c9c2"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/FILL-REQUIREMENTS.json": {
+      "bytes": 1256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/FILL-REQUIREMENTS.json",
+      "sha256": "08f600c64d8ef84e8b1c8a03cd74037e8f3ae68292ae6030e41c83eedb7b8a38"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/RECIPE.json": {
+      "bytes": 794,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/RECIPE.json",
+      "sha256": "dc49935f3d6824bddf9a8ced7103903d4c6dda6b5a5ff16df06111bcfce06247"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/REPORT.md": {
+      "bytes": 1168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/REPORT.md",
+      "sha256": "2d178143d856658fc58c7d139048b106e95370cc3072427d8432524b9f774a76"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/REUSE-PROOF.json": {
+      "bytes": 1004,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/REUSE-PROOF.json",
+      "sha256": "4d8b583d45dcdf7f94fb7f9b7b4c908516fd4078bb80dae09c6211bd029fdcce"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/SOURCE-PINS.json": {
+      "bytes": 2183,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/SOURCE-PINS.json",
+      "sha256": "dfbf25dc7d97aa654dedf625abfd2c2209dcb089c3870d4c49b17d4540125a30"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/verify-expanded.py": {
+      "bytes": 18821,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/verify-expanded.py",
+      "sha256": "f3b7d31b20570414d41bfa6641e198022a46a904798ddc3340db20a74510aab7"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/CONFIG.json": {
+      "bytes": 6419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/CONFIG.json",
+      "sha256": "a0fa01c8e9a16d58ab99919d7b082f033c30aa0f6bc7171a2a794fe117d209e3"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/FILL-REQUIREMENTS.json": {
+      "bytes": 1256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/FILL-REQUIREMENTS.json",
+      "sha256": "08f600c64d8ef84e8b1c8a03cd74037e8f3ae68292ae6030e41c83eedb7b8a38"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/REPORT.md": {
+      "bytes": 1168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/REPORT.md",
+      "sha256": "2d178143d856658fc58c7d139048b106e95370cc3072427d8432524b9f774a76"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/REUSE-PROOF.json": {
+      "bytes": 1004,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/REUSE-PROOF.json",
+      "sha256": "4d8b583d45dcdf7f94fb7f9b7b4c908516fd4078bb80dae09c6211bd029fdcce"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/SOURCE-PINS.json": {
+      "bytes": 3143,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/SOURCE-PINS.json",
+      "sha256": "912cfde9ad88ebb3dcc0571f9af2191e3d851296f3e06df70d5569c3ebe68b1d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/verify-expanded.py": {
+      "bytes": 18854,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/verify-expanded.py",
+      "sha256": "ba57a653d6c276635cbe1cdae4d51fe407e42e3b9a80148a1bc1a4b84edca502"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-expanded-readback-failure-independent-attribution-after-aj-20261009-r1/RECEIPT.json": {
+      "bytes": 4426,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-expanded-readback-failure-independent-attribution-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "fedba7eda2203ce80d37f319e65371dffb9ca8aba04538d7dc2d610f2e9d84e5"
+    }
+  },
+  "sourceChangedProtected": false,
+  "status": "SOURCE_ONLY_UNRUN_ONE_PREDICATE_REPAIR",
+  "unchangedFunctionASTs": [
+    "absence",
+    "bounded_read",
+    "clock_guard",
+    "fullsig",
+    "inventory",
+    "obj",
+    "open_dir",
+    "physical_dir",
+    "read",
+    "req",
+    "safe",
+    "sig"
+  ],
+  "unchangedPinnedDocuments": [
+    "FILL-REQUIREMENTS.json",
+    "REPORT.md",
+    "REUSE-PROOF.json"
+  ],
+  "verifierImportedOrExecuted": false,
+  "wholeBound240Unchanged": true
+}

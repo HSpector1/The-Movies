@@ -1,0 +1,34 @@
+{
+  "actualToolSession": 45234,
+  "chunks": [
+    {
+      "chunk_id": "e6df0c",
+      "wall_time_seconds": 1.001813788,
+      "session_id": 45234,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "ba07f7",
+      "wall_time_seconds": 5.001201208,
+      "session_id": 45234,
+      "original_token_count": 66,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/GRANT.json\", \"bytes\": 8340, \"sha256\": \"c6bc9a1c508816bcd71de8e68c497cf2929493e5b5fb5e27a9da33118d6d2b5b\"}, \"rootPidBecomesHelperPid\": 44676}\n"
+    },
+    {
+      "chunk_id": "05d579",
+      "wall_time_seconds": 5.00336564,
+      "session_id": 45234,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "f437c9",
+      "wall_time_seconds": 0.00001485,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "finalActualToolExit": 0
+}

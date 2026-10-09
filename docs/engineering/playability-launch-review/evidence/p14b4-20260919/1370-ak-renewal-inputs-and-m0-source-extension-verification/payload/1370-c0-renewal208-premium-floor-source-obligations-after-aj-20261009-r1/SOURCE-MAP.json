@@ -1,0 +1,342 @@
+[
+  {
+    "admission": "H_manifest.arms.historical.files exactSHA; gitblobOID independently derived from authenticated rawbytes",
+    "arm": "H",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOid": "1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e",
+    "mode": "100644",
+    "repositoryPath": "src/core/talentMarket.ts",
+    "slices": [
+      [
+        194,
+        244
+      ],
+      [
+        296,
+        354
+      ],
+      [
+        400,
+        435
+      ],
+      [
+        919,
+        1040
+      ],
+      [
+        1159,
+        1194
+      ],
+      [
+        1230,
+        1291
+      ],
+      [
+        1338,
+        1350
+      ]
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 74153,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/talentMarket.ts",
+      "sha256": "6b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admission": "H_manifest.arms.historical.files exactSHA; gitblobOID independently derived from authenticated rawbytes",
+    "arm": "H",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOid": "bc286060015042326c2b4a424ac51e019972b34e",
+    "mode": "100644",
+    "repositoryPath": "src/core/hollywood.ts",
+    "slices": [
+      [
+        162,
+        210
+      ],
+      [
+        222,
+        274
+      ]
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 15466,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywood.ts",
+      "sha256": "49854f77a0ab33558556e047eafc65f92e4a35ec95c93afb119c7df589748359"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admission": "H_manifest.arms.historical.files exactSHA; gitblobOID independently derived from authenticated rawbytes",
+    "arm": "H",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOid": "2034448d508975535360aae0d1319a8b53903f77",
+    "mode": "100644",
+    "repositoryPath": "src/core/hollywoodTick.ts",
+    "slices": [
+      [
+        92,
+        121
+      ],
+      [
+        150,
+        164
+      ],
+      [
+        254,
+        271
+      ],
+      [
+        348,
+        384
+      ]
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 27601,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodTick.ts",
+      "sha256": "f6c37fc29d5cf7f858e2a52e0bc6603a56e4dfcfaf8caa590806d559019b3422"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admission": "H_manifest.arms.historical.files exactSHA; gitblobOID independently derived from authenticated rawbytes",
+    "arm": "H",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOid": "4cb6bb16a1aacd7e9a405c2e40cd5834c86bfbdb",
+    "mode": "100644",
+    "repositoryPath": "src/core/hollywoodStartingData.ts",
+    "slices": [
+      [
+        1,
+        44
+      ]
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 4152,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodStartingData.ts",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admission": "H_manifest.arms.historical.files exactSHA; gitblobOID independently derived from authenticated rawbytes",
+    "arm": "H",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOid": "c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9",
+    "mode": "100644",
+    "repositoryPath": "src/core/tuning.ts",
+    "slices": [
+      [
+        402,
+        409
+      ]
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admission": "H_manifest.arms.historical.files exactSHA; gitblobOID independently derived from authenticated rawbytes",
+    "arm": "H",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOid": "943661035cb3627b306c6630e6156f027c2c06bb",
+    "mode": "100644",
+    "repositoryPath": "src/core/tick.ts",
+    "slices": [
+      [
+        1040,
+        1074
+      ],
+      [
+        1109,
+        1146
+      ]
+    ],
+    "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+    "sourceRole": {
+      "bytes": 58458,
+      "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/tick.ts",
+      "sha256": "ad0faa9216093f657cf16ecebe66a6cc65aee4bcc407b7d79d6e48a847465deb"
+    },
+    "sourceTreeLocator": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src"
+  },
+  {
+    "admission": "A_copy_payload.sourceManifest exactOID/mode/bytes/SHA",
+    "arm": "A",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOid": "f036fcec9191374dc5554c5cdc33372b53cd7926",
+    "mode": "100644",
+    "repositoryPath": "src/core/talentMarket.ts",
+    "slices": [
+      [
+        194,
+        244
+      ],
+      [
+        296,
+        354
+      ],
+      [
+        400,
+        435
+      ],
+      [
+        919,
+        1040
+      ],
+      [
+        1159,
+        1194
+      ],
+      [
+        1230,
+        1291
+      ],
+      [
+        1338,
+        1350
+      ]
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 76993,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+      "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admission": "A_copy_payload.sourceManifest exactOID/mode/bytes/SHA",
+    "arm": "A",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOid": "377da502bcfa55afe31c243ab0909b2c0012d269",
+    "mode": "100644",
+    "repositoryPath": "src/core/hollywood.ts",
+    "slices": [
+      [
+        162,
+        210
+      ],
+      [
+        222,
+        274
+      ]
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 16824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts",
+      "sha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admission": "A_copy_payload.sourceManifest exactOID/mode/bytes/SHA",
+    "arm": "A",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOid": "8f4d6bb92053819cae270803b1ebd7094df2cad2",
+    "mode": "100644",
+    "repositoryPath": "src/core/hollywoodTick.ts",
+    "slices": [
+      [
+        92,
+        121
+      ],
+      [
+        150,
+        164
+      ],
+      [
+        254,
+        271
+      ],
+      [
+        348,
+        384
+      ]
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 28890,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodTick.ts",
+      "sha256": "0ca2aa00684465a313cb6321cd458b69be14c695a67ca2baec833244b9cd8d4f"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admission": "A_copy_payload.sourceManifest exactOID/mode/bytes/SHA",
+    "arm": "A",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOid": "4cb6bb16a1aacd7e9a405c2e40cd5834c86bfbdb",
+    "mode": "100644",
+    "repositoryPath": "src/core/hollywoodStartingData.ts",
+    "slices": [
+      [
+        1,
+        44
+      ]
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 4152,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodStartingData.ts",
+      "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admission": "A_copy_payload.sourceManifest exactOID/mode/bytes/SHA",
+    "arm": "A",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOid": "c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9",
+    "mode": "100644",
+    "repositoryPath": "src/core/tuning.ts",
+    "slices": [
+      [
+        402,
+        409
+      ]
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  },
+  {
+    "admission": "A_copy_payload.sourceManifest exactOID/mode/bytes/SHA",
+    "arm": "A",
+    "authenticatedTreeObjectOid": null,
+    "gitBlobOid": "328c2e28f7e209b4ab6b96c6e59f1d1739ad0db5",
+    "mode": "100644",
+    "repositoryPath": "src/core/tick.ts",
+    "slices": [
+      [
+        1040,
+        1074
+      ],
+      [
+        1109,
+        1146
+      ]
+    ],
+    "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "sourceRole": {
+      "bytes": 60753,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tick.ts",
+      "sha256": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15"
+    },
+    "sourceTreeLocator": "3aaf55e0c06c4b745b0b722cc56913050b1ee229:src"
+  }
+]

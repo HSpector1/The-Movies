@@ -1,0 +1,1414 @@
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/talentMarket.ts lines194-244 SHA2566b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03 blob1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e =====
+194: export function releaseFloor(
+195:   state: GameState,
+196:   releasingStudioId: string,
+197:   talentId: string,
+198:   week: number = state.market.tick,
+199: ): { floorAnnual: number; validUntilWeek: number } | null {
+200:   const hollywood = state.hollywood
+201:   if (hollywood === null) return null
+202:   let best: { floorAnnual: number; validUntilWeek: number } | null = null
+203:   for (const receipt of hollywood.receipts) {
+204:     if (receipt.kind !== 'employment' || receipt.reason !== 'termination') continue
+205:     if (receipt.studioId !== releasingStudioId || receipt.talentId !== talentId) continue
+206:     // The player's release always writes its own ledger row; that row is the
+207:     // evidence of record for the one-batch edge the mirror can still miss.
+208:     if (releasingStudioId === hollywood.playerStudioId &&
+209:       !state.ledger.some((row) => row.kind === 'termination' && row.talentId === talentId && row.week === receipt.week)) continue
+210:     const row = hollywood.employment.find((e) => e.contractId === receipt.contractId)
+211:     if (row === undefined) continue
+212:     const validUntilWeek = row.terms.endWeekExclusive
+213:     if (week >= validUntilWeek) continue // the memory lapsed with the original term
+214:     if (best === null || row.terms.annualSalary > best.floorAnnual) {
+215:       best = { floorAnnual: row.terms.annualSalary, validUntilWeek }
+216:     }
+217:   }
+218:   return best
+219: }
+220: 
+221: /**
+222:  * The ONE studio-aware pricing entry of companion §2.1.4: the shared P10 ask,
+223:  * floored by R1 for the studio that released this person, BEFORE any premium
+224:  * tier. `offerForTalent` itself stays floor-free, so the stateless Full-Custom
+225:  * preview is unchanged.
+226:  */
+227: export function studioOffer(
+228:   state: GameState,
+229:   studioId: string,
+230:   talentId: string,
+231:   termWeeks: number,
+232:   week: number = state.market.tick,
+233: ): ContractOffer {
+234:   const offer = contractOffer(state, talentId, termWeeks, week)
+235:   const floor = releaseFloor(state, studioId, talentId, week)
+236:   if (floor === null || floor.floorAnnual <= offer.annualSalary) return offer
+237:   // The bonus is the same published fraction of the annual everywhere (§2.1.4 /
+238:   // `offerForTalent`), so a floored annual carries a floored bonus.
+239:   return {
+240:     ...offer,
+241:     annualSalary: floor.floorAnnual,
+242:     signingBonus: iround(floor.floorAnnual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION),
+243:   }
+244: }
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/talentMarket.ts lines296-354 SHA2566b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03 blob1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e =====
+296:  * terms through the shared entry at settlement. A material-term change mints a
+297:  * new digest, which invalidates the prior version.
+298:  */
+299: export function proposalDraft(
+300:   state: GameState,
+301:   issuerStudioId: string,
+302:   talentId: string,
+303:   termWeeks: number,
+304:   premiumTier: number,
+305:   week: number = state.market.tick,
+306:   /** P14B.1 (3): the attached promises' own digest, `''` when none is attached. */
+307:   promisePart = '',
+308: ): ProposalDraft {
+309:   if (!isPremiumTier(premiumTier)) {
+310:     throw new Error(
+311:       `talentMarket: premium tier ${premiumTier} is not offered — P14A prices at ${TUNING.MARKET_PREMIUM_TIERS.join(', ')} and never below the ask (companion §2.1.4/§2.1.7)`,
+312:     )
+313:   }
+314:   const ask = studioOffer(state, issuerStudioId, talentId, termWeeks, week)
+315:   const annualSalary = iround(ask.annualSalary * premiumTier)
+316:   const signingBonus = iround(annualSalary * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
+317:   const startWeek = effectiveWeekFor(state, talentId, week)
+318:   return {
+319:     talentId,
+320:     issuerStudioId,
+321:     termWeeks: ask.termWeeks,
+322:     premiumTier,
+323:     annualSalary,
+324:     signingBonus,
+325:     startWeek,
+326:     endWeekExclusive: startWeek + ask.termWeeks,
+327:     // MATERIAL terms only (companion §2.1.4), WIDENED by P14B.1 (3) with the
+328:     // attached promise. Price is DERIVED, never material: ordinary drift between
+329:     // submission and the decision week must not invalidate a version. A proposal
+330:     // carrying NO promise digests byte-identically to its V28 self, so every
+331:     // migrated proposal re-derives its stored digest unchanged.
+332:     digest: proposalDigest(talentId, issuerStudioId, ask.termWeeks, startWeek, premiumTier, promisePart),
+333:   }
+334: }
+335: 
+336: /**
+337:  * The proposal's price AT `week`, re-derived from its MATERIAL terms through the
+338:  * same shared pricing entry the draft used (companion §2.1.4: "re-derives the six
+339:  * accepted terms through the shared pricing entry at review and at settlement").
+340:  * This is the ONE re-derivation reservation, affordability, ranking, the commit
+341:  * and every "current price" read share; the price stored on the persisted
+342:  * proposal is the submission-week QUOTE and is never read here.
+343:  */
+344: function proposalPriceAt(
+345:   state: GameState,
+346:   proposal: Pick<TalentMarketProposal, 'talentId' | 'issuerStudioId' | 'termWeeks' | 'premiumTier'>,
+347:   week: number,
+348: ): { askAnnual: number; annualSalary: number; signingBonus: number } {
+349:   const ask = studioOffer(state, proposal.issuerStudioId, proposal.talentId, proposal.termWeeks, week)
+350:   const annualSalary = iround(ask.annualSalary * proposal.premiumTier)
+351:   return { askAnnual: ask.annualSalary, annualSalary, signingBonus: iround(annualSalary * TUNING.CONTRACT_SIGNING_BONUS_FRACTION) }
+352: }
+353: 
+354: // ── affordability (companion §2.1.4; neither rule is P11's) ──────────────────
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/talentMarket.ts lines400-435 SHA2566b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03 blob1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e =====
+400:     receipts: [...market.receipts, { ...draft, dropped: draft.dropped ?? [], eventId: `talent-market-event-${market.receipts.length}` }],
+401:   }
+402: }
+403: 
+404: export function submitProposal(state: GameState, intent: ProposalIntent): GameState {
+405:   const week = state.market.tick
+406:   requireOpenCase(state, intent.talentId, week)
+407:   const eligible = marketEligibility(state, intent.talentId, week)
+408:   if (!eligible.proposers.includes(intent.issuerStudioId)) {
+409:     throw new Error(`talentMarket: studio "${intent.issuerStudioId}" may not propose for "${intent.talentId}" — it has not entered, or the person is not in an approved window`)
+410:   }
+411:   const draft = proposalDraft(state, intent.issuerStudioId, intent.talentId, intent.termWeeks, intent.premiumTier, week)
+412:   const refusal = affordabilityRefusal(state, intent.issuerStudioId, draft.signingBonus, week)
+413:   if (refusal !== null) throw new Error(`talentMarket: proposal rejected — ${refusal}`)
+414:   const proposal: TalentMarketProposal = {
+415:     talentId: draft.talentId,
+416:     issuerStudioId: draft.issuerStudioId,
+417:     termWeeks: draft.termWeeks,
+418:     premiumTier: draft.premiumTier,
+419:     startWeek: draft.startWeek,
+420:     annualSalary: draft.annualSalary,
+421:     signingBonus: draft.signingBonus,
+422:     submittedWeek: week,
+423:     digest: draft.digest,
+424:     // A re-submission is this codebase's own "revise in place": the fresh
+425:     // proposal restores the material terms and carries NO promise, so removing a
+426:     // promise is exactly a re-submit with nothing attached.
+427:     promises: [],
+428:     representation: null,
+429:   }
+430:   const others = state.talentMarket.proposals.filter(
+431:     (p) => !(p.talentId === intent.talentId && p.issuerStudioId === intent.issuerStudioId),
+432:   )
+433:   const market = appendReceipt(
+434:     { ...state.talentMarket, proposals: [...others, proposal] },
+435:     { kind: 'proposalSubmitted', week, talentId: intent.talentId, studioId: intent.issuerStudioId, reasons: [] },
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/talentMarket.ts lines919-1040 SHA2566b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03 blob1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e =====
+919:     talentId: proposal.talentId,
+920:     annualSalary: priced.annualSalary,
+921:     signingBonus: priced.signingBonus,
+922:     startWeek: week,
+923:     endWeekExclusive: week + proposal.termWeeks,
+924:     termWeeks: proposal.termWeeks,
+925:   }
+926:   const entry: LedgerEntry = {
+927:     week,
+928:     kind: 'signingBonus',
+929:     amount: -priced.signingBonus,
+930:     talentId: proposal.talentId,
+931:     note: 'market settlement signing bonus',
+932:   }
+933:   return recordPlayerEmployment({
+934:     ...state,
+935:     studio: { ...state.studio, cash: state.studio.cash - priced.signingBonus },
+936:     contracts: [...state.contracts, contract],
+937:     ledger: [...state.ledger, entry],
+938:     freeAgents: state.freeAgents.filter((id) => id !== proposal.talentId),
+939:     economyEngagedEver: true,
+940:   })
+941: }
+942: 
+943: /** The exported P12 signing write set for a RIVAL winner: the employment row with
+944:  * reason `replacement` (the closed union — a lawful hire from the free pool), its
+945:  * ordinal, the `signing` movement and the start receipt. */
+946: function commitRivalWinner(state: GameState, proposal: TalentMarketProposal, week: number): GameState {
+947:   const priced = proposalPriceAt(state, proposal, week)
+948:   const source = state.hollywood!
+949:   const businesses = source.businesses.map((b) =>
+950:     b.studioId !== proposal.issuerStudioId ? b : {
+951:       ...b,
+952:       account: {
+953:         ...b.account,
+954:         periods: b.account.periods.map((p, i) => (i === b.account.periods.length - 1 ? { ...p, movements: { ...p.movements } } : p)),
+955:       },
+956:     })
+957:   const business = businesses.find((b) => b.studioId === proposal.issuerStudioId)!
+958:   const contractId = `${proposal.issuerStudioId}:contract:${proposal.talentId}:${week}`
+959:   const terms: Contract = {
+960:     talentId: proposal.talentId,
+961:     annualSalary: priced.annualSalary,
+962:     signingBonus: priced.signingBonus,
+963:     startWeek: week,
+964:     endWeekExclusive: week + proposal.termWeeks,
+965:     termWeeks: proposal.termWeeks,
+966:   }
+967:   moveRivalMoney(business.account, 'signing', -priced.signingBonus, week)
+968:   const ordinal = source.employment.length
+969:   const receipt: IndustryReceipt = {
+970:     eventId: `industry-event-${source.nextReceipt}`,
+971:     week,
+972:     studioId: proposal.issuerStudioId,
+973:     kind: 'employment',
+974:     talentId: proposal.talentId,
+975:     fromStudioId: null,
+976:     toStudioId: proposal.issuerStudioId,
+977:     contractId,
+978:     reason: 'replacement',
+979:   }
+980:   return {
+981:     ...state,
+982:     hollywood: {
+983:       ...source,
+984:       businesses,
+985:       employment: [...source.employment, { contractId, studioId: proposal.issuerStudioId, terms, endedWeek: null, reason: 'replacement' }],
+986:       activeEmploymentOrdinals: [...source.activeEmploymentOrdinals, ordinal],
+987:       receipts: [...source.receipts, receipt],
+988:       nextReceipt: source.nextReceipt + 1,
+989:     },
+990:   }
+991: }
+992: 
+993: /**
+994:  * The SIX freeze predicates of companion §2.1.7 line 104 ("Proposals that fail
+995:  * reservation, legality or affordability at freeze are dropped with typed reasons
+996:  * before ranking"), named so a decline can state the predicate that actually
+997:  * dropped each proposal instead of asserting a reservation failure for every one.
+998:  */
+999: export type FreezeDrop =
+1000:   | 'issuerNotEntered'
+1001:   | 'subjectCommittedElsewhere'
+1002:   | 'startWeekMoved'
+1003:   | 'belowAsk'
+1004:   | 'materialTermsChanged'
+1005:   | 'bonusUnaffordable'
+1006:   | 'noSeatForRole'
+1007:   /** P14B.1 (5): the attached promise is no longer REASONABLY ACHIEVABLE at W. */
+1008:   | 'promiseNotFeasible'
+1009:   /** P14B.1 (8) / companion §2.1.7: the reservation predicate "not Distrusted". */
+1010:   | 'issuerDistrusted'
+1011: 
+1012: /** The studio as a person would name it; the id only if this world has no identity
+1013:  * for it (a state that could not have produced the proposal in the first place). */
+1014: function studioLabel(state: GameState, studioId: string): string {
+1015:   return state.hollywood?.identities.find((s) => s.studioId === studioId)?.name ?? studioId
+1016: }
+1017: 
+1018: /** CANDIDATE WORDING (the coordinator pinned the CONTRACT — one sentence per
+1019:  * dropped proposal, the issuing studio named, the predicate from this closed
+1020:  * vocabulary — not the prose). Ordering-only: no amount appears in any of them,
+1021:  * and "reservation" appears for the ask predicate ALONE. */
+1022: const DROP_SENTENCE: Record<FreezeDrop, (studio: string) => string> = {
+1023:   issuerNotEntered: (studio) => `${studio} had not entered the industry by the decision week.`,
+1024:   subjectCommittedElsewhere: (studio) => `${studio}'s offer lapsed — this person was already committed elsewhere by the decision week.`,
+1025:   startWeekMoved: (studio) => `${studio}'s offer named a start week that no longer matches this decision.`,
+1026:   belowAsk: (studio) => `${studio}'s offer fell below this person's reservation for that term.`,
+1027:   materialTermsChanged: (studio) => `${studio}'s terms changed since submission.`,
+1028:   bonusUnaffordable: (studio) => `${studio} could not fund the signing bonus.`,
+1029:   noSeatForRole: (studio) => `${studio} had no seat open for this person's role at the decision week.`,
+1030:   promiseNotFeasible: (studio) => `${studio}'s attached promise no longer had a feasible path by the decision week.`,
+1031:   issuerDistrusted: (studio) => `${studio} holds a record this person distrusts.`,
+1032: }
+1033: 
+1034: /**
+1035:  * The rival seat budget at freeze (companion §2.1.4 line 74: rival maintenance
+1036:  * "fills deficits against six fixed seats", and §2.1.7 line 104 drops what fails
+1037:  * legality BEFORE ranking). Held = the studio's rows for that role that survive
+1038:  * PAST W — which is exactly the rows it keeps plus the wins it committed EARLIER
+1039:  * in this same fixed-order weekly pass, because a commit at W writes a row ending
+1040:  * at W + termWeeks. The subject's OWN expiring row is closed at W by
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/talentMarket.ts lines1159-1194 SHA2566b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03 blob1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e =====
+1159:  * The terminal fixed-order step of the weekly advance, appended in `tick.ts`
+1160:  * AFTER `finishHollywoodWeek(finishTechnologyWeek(finalized))` — the pipeline's
+1161:  * last call, on the ALREADY-INCREMENTED week. It could not run earlier: before
+1162:  * the advance `market.tick` is W−1 and the P12 mirror would write a
+1163:  * renewal-shaped pair the validator rejects, and before `finishHollywoodWeek`
+1164:  * the `expiry` receipt the chooser receipt references does not exist.
+1165:  *
+1166:  * Fixed order at the new week W:
+1167:  *   1. INVALIDATION  — a subject released early closes its case, settling nothing
+1168:  *   2. DISCOVERY     — a case opens at the window's first week (the O(active
+1169:  *                      roster) pass `finishHollywoodWeek` and `staff()` already make)
+1170:  *   3. RIVAL TRIGGER — each rival that decided this week evaluates the pure policy
+1171:  *   4. SETTLEMENT    — every open case whose DERIVED decision week has arrived
+1172:  */
+1173: export function advanceTalentMarketWeek(state: GameState): GameState {
+1174:   // Loud, never silent: a live state MUST carry the V28 root. Skipping the market
+1175:   // for a state that merely looks un-migrated would hide a real migration fault.
+1176:   if (state.talentMarket === undefined) {
+1177:     throw new Error('talentMarket: the Save V28 market root is missing — migrate this state to V28 before ticking it')
+1178:   }
+1179:   if (!talentMarketEngaged(state)) return state
+1180:   const week = state.market.tick
+1181:   let next = state
+1182: 
+1183:   // 1. invalidation
+1184:   for (const kase of next.talentMarket.cases) {
+1185:     if (kase.outcome !== null || !releasedEarly(next, kase)) continue
+1186:     next = closeCase(next, kase, 'invalidated', week, 'the subject was released early', null,
+1187:       ['the person was released early and is a free agent now'])
+1188:   }
+1189: 
+1190:   // 2. discovery — authoritative and public; every entered studio sees it at once.
+1191:   const hollywood = next.hollywood!
+1192:   for (const ordinal of hollywood.activeEmploymentOrdinals) {
+1193:     const row = hollywood.employment[ordinal]!
+1194:     if (row.endedWeek !== null) continue
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/talentMarket.ts lines1230-1291 SHA2566b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03 blob1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e =====
+1230:           termWeeks: TUNING.HOLLYWOOD_CONTRACT_WEEKS,
+1231:           premiumTier: rivalPremiumTier(business, descriptor),
+1232:         })
+1233:       } catch {
+1234:         // A refused proposal (reserve, eligibility) writes nothing. The rival simply
+1235:         // does not bid this week; nothing else in the pass is affected.
+1236:       }
+1237:       // Outside the catch: a refusal above leaves no proposal and this is a no-op,
+1238:       // but a failure to author on a proposal that DOES exist is a real fault and
+1239:       // must not be swallowed with it.
+1240:       next = authorRivalPromise(next, kase.talentId, business.studioId)
+1241:     }
+1242:   }
+1243: 
+1244:   // 4. settlement — exactly once, at the decision week.
+1245:   for (const kase of openCasesAt(next, week)) {
+1246:     if (decisionWeekOf(next, kase) > week) continue
+1247:     next = settleCase(next, kase, week)
+1248:   }
+1249:   return next
+1250: }
+1251: 
+1252: function openCasesAt(state: GameState, week: number): TalentMarketCase[] {
+1253:   return state.talentMarket.cases.filter((c) => c.outcome === null && !TERMINAL.has(caseStatusAt(state, c, week)))
+1254: }
+1255: 
+1256: /**
+1257:  * P14B.1 (9), RULING (ii) under S25 symmetry: a rival authors its own promise at
+1258:  * its own proposal site, through the SAME `attachPromise` and the SAME feasibility
+1259:  * service the player uses — at most ONE promise, X = 1, over a window spanning
+1260:  * its own proposed term, attached IFF that rival's OWN feasibility reads
+1261:  * REASONABLY ACHIEVABLE at submission; otherwise none.
+1262:  *
+1263:  * P14B.4 (record 600 / plan "Delegated public preference and strategy
+1264:  * hypothesis"): the candidate order follows the existing shared proven/unproven
+1265:  * archetype (`isProven`). An UNPROVEN person is offered the flexible
+1266:  * `LEAD_OR_SIGNIFICANT_ROLE_COUNT` class (`leadOrAntagonist`, count 1) over the
+1267:  * full proposed term first, then the existing `APPEARANCE_COUNT` fallback; a
+1268:  * PROVEN person keeps `APPEARANCE_COUNT`. The first REASONABLY ACHIEVABLE
+1269:  * candidate is attached; a failed candidate leaves no staged root or reservation
+1270:  * (both reads see the same unchanged state); neither achievable means no
+1271:  * attachment. No lead-only selection, count escalation, role gate or RNG. Pure
+1272:  * and deterministic; the record is the same V30 promise. A losing rival's promise
+1273:  * is simply never bound (ruling (i)).
+1274:  */
+1275: function authorRivalPromise(state: GameState, talentId: string, issuerStudioId: string): GameState {
+1276:   const proposal = state.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId === issuerStudioId)
+1277:   if (proposal === undefined || proposal.promises.length > 0) return state
+1278:   const window = { windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + proposal.termWeeks }
+1279:   const p1: PromiseAttachment = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, ...window }
+1280:   const flexible: PromiseAttachment = {
+1281:     family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT',
+1282:     predicate: { kind: 'castRoleCount', count: 1, seatClass: 'leadOrAntagonist' },
+1283:     ...window,
+1284:   }
+1285:   for (const attachment of isProven(state, talentId) ? [p1] : [flexible, p1]) {
+1286:     const classification = promiseFeasibility(state, {
+1287:       ...attachment,
+1288:       issuerStudioId,
+1289:       beneficiaryPersonId: talentId,
+1290:       startWeek: proposal.startWeek,
+1291:       termWeeks: proposal.termWeeks,
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/talentMarket.ts lines1338-1350 SHA2566b31bc78a5e8ef394f065a4854395bedda71ec64c0c8a80307203e9311b22c03 blob1c6d9a74a5a2912a96d1cbd48805ea6536a93c1e =====
+1338:     const row = proposals[i]
+1339:     const label = `state.talentMarket.proposals[${String(i)}]`
+1340:     if (!isRecord(row)) return fail(`${label} is not a plain object`)
+1341:     if (!Object.hasOwn(row, 'representation')) return fail(`${label}.representation is missing — the key is REQUIRED and pinned null (R10)`)
+1342:     if (row.representation !== null) return fail(`${label}.representation must be null under P14 root version 1 (R10)`)
+1343:   }
+1344: 
+1345:   const hollywood = isRecord(state) ? state.hollywood : null
+1346:   const identities = isRecord(hollywood) && Array.isArray(hollywood.identities) ? hollywood.identities : []
+1347:   const employment = isRecord(hollywood) && Array.isArray(hollywood.employment) ? hollywood.employment : []
+1348:   const industryReceipts = isRecord(hollywood) && Array.isArray(hollywood.receipts) ? hollywood.receipts : []
+1349:   const playerStudioId = isRecord(hollywood) ? hollywood.playerStudioId : undefined
+1350:   const entered = new Set(identities
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/hollywood.ts lines162-210 SHA25649854f77a0ab33558556e047eafc65f92e4a35ec95c93afb119c7df589748359 blobbc286060015042326c2b4a424ac51e019972b34e =====
+162:     name: 'Your Studio', mark: 'YOU', color: '#ECD9AA', founding: origin === 'fresh' ? {kind:'campaign',week:0} : null,
+163:     eligibleWeek: 0, enteredWeek: state.market.tick, recordedFromWeek: state.studioHistory.recordingStartedWeek }]
+164:   HOLLYWOOD_STARTING_MANIFEST.studios.forEach((template,index) => identities.push({
+165:     studioId: uniqueIdentity(`studio-${key}-r${String(index+1).padStart(2,'0')}`,taken),
+166:     role:'rival', row:index+1, name:template.name, mark:template.mark, color:template.color,
+167:     founding: origin === 'fresh' && template.founded ? historicalDate(template.founded) : null,
+168:     eligibleWeek:RIVAL_ARRIVAL_WEEKS[index]!, enteredWeek:null, recordedFromWeek:null,
+169:   }))
+170:   const hollywood: HollywoodState = { version:1, calendarPolicy:CAMPAIGN_CALENDAR_POLICY,
+171:     startingManifest:'living-hollywood-start/v1', origin, originWeek:state.market.tick, worldId:`world-${key}`,
+172:     playerStudioId, identities, businesses:[], employment:[], activeEmploymentOrdinals:[], concepts:[], films:[], careerEvents:[],
+173:     receipts:[], nextReceipt:0, chart:null, previousChart:null }
+174:   // P13B-S3: the physical-plan root TRAVELS WITH THE STATE and is never minted
+175:   // here — the one caller that passes a pre-V23 state is the frozen V18→V19
+176:   // conversion, whose output must carry no root V19 never had.
+177:   let next = {...state, hollywood, technology:state.technology ?? initialTechnology(state.market.tick)} as GameState
+178:   // A due migration entry is at this state's own week, never its scheduled past.
+179:   for (const identity of identities.slice(1)) if (identity.eligibleWeek <= state.market.tick) {
+180:     next = enterRival(next,identity.studioId,origin)
+181:   }
+182:   return recordPlayerEmployment(next,origin==='migration')
+183: }
+184: 
+185: /** Atomic pure entry: no caller-owned object is modified, even if validation throws. */
+186: export function enterRival(state: GameState, studioId: string, origin: 'fresh' | 'migration' | 'scheduled'): GameState {
+187:   const source = state.hollywood
+188:   if (!source) throw new Error('Industry identity registry is not initialized')
+189:   const original = source.identities.find(s => s.studioId === studioId && s.role === 'rival')
+190:   if (!original || original.eligibleWeek > state.market.tick) throw new Error('Rival is not due for entry')
+191:   if (original.enteredWeek !== null) return state
+192:   const h = {...source, identities:source.identities.map(s => ({...s})), businesses:[...source.businesses],
+193:     employment:[...source.employment], activeEmploymentOrdinals:[...source.activeEmploymentOrdinals], films:[...source.films], receipts:[...source.receipts]}
+194:   const identity = h.identities.find(s => s.studioId === studioId)!
+195:   const template = HOLLYWOOD_STARTING_MANIFEST.studios[identity.row-1]!
+196:   const week = state.market.tick
+197:   const authored = origin === 'fresh' && identity.row <= 4
+198:   const account: RivalAccount = {openingBalance:template.capital, openingBasis:'before-capacity-and-signing',
+199:     cash:template.capital, periods:[newFinancePeriod(week,template.capital)]}
+200:   const business: RivalBusiness = {studioId, entryKey:`${studioId}:entry`, account,
+201:     standing:startingStanding(template,authored), operations:{mode:'managed',workflows:[],facilities:rivalStartingFacilities(studioId)}, development:initialManagedScriptDevelopment(), productions:[], activeScriptOrdinals:[], activeRunFilmOrdinals:[], releaseAuthority:initialReleaseAuthority(),
+202:     runs:[], projects:[], nextDecisionWeek:week+1,
+203:     policy:{version:1,affinities:Object.fromEntries(GENRE_ORDER.map(g => [g,template.anchors.includes(g)?5:1])) as Record<Genre,number>,
+204:       negativeScale:template.negativeScale,marketingRatio:template.marketingRatio,reserveWeeks:template.reserveWeeks}}
+205:   const capex = TUNING.BASELINE_DEVELOPMENT_CASTING_CAPEX + TUNING.STAGE_STANDARD_CAPEX +
+206:     TUNING.SCENERY_SHOP_CAPEX + TUNING.POST_BUILDING_CAPEX
+207:   moveRivalMoney(account,'capacity',-capex,week)
+208:   let talent = [...state.talent]
+209:   const reserved = busyTalentIds(state)
+210:   for (const id of state.founding?.applicantIds ?? []) reserved.add(id)
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/hollywood.ts lines222-274 SHA25649854f77a0ab33558556e047eafc65f92e4a35ec95c93afb119c7df589748359 blobbc286060015042326c2b4a424ac51e019972b34e =====
+222:       }
+223:       talent.push(person)
+224:     }
+225:     reserved.add(person.id)
+226:     const terms = offerForTalent(state.seed,person,208,week)
+227:     const contractId = `${studioId}:contract:${person.id}:${week}`
+228:     moveRivalMoney(account,'signing',-terms.signingBonus,week)
+229:     h.activeEmploymentOrdinals.push(h.employment.length)
+230:     h.employment.push({contractId,studioId,terms,endedWeek:null,reason:'entry'})
+231:     h.receipts.push({eventId:`industry-event-${h.nextReceipt++}`,week,studioId,kind:'employment',talentId:person.id,
+232:       fromStudioId:null,toStudioId:studioId,contractId,reason:'entry'})
+233:     return {talentId:person.id,name:person.name,role:RIVAL_CREDIT_ROLES[index]!}
+234:   })
+235:   if (account.cash < 0) throw new Error('Rival entry endowment cannot pay its costed resources')
+236:   identity.enteredWeek = week
+237:   identity.recordedFromWeek = week
+238:   // Scheduled companies genuinely begin here. Migration establishes entry only.
+239:   if (origin === 'scheduled') identity.founding = {kind:'campaign',week}
+240:   h.businesses.push(business)
+241:   h.receipts.push({eventId:`industry-event-${h.nextReceipt++}`,week,studioId,kind:'studioEntered',entryKey:business.entryKey,origin})
+242:   if (authored) template.films!.forEach(([title,year,genre,criticScore,audienceScore,openingGross,totalGross],index) => {
+243:     h.films.push({filmId:`${studioId}:historical-film:${index}`,studioId,conceptId:`${studioId}:historical-concept:${index}`,
+244:       title,genre,credits:credits.map(c => ({...c})),provenance:'authored-start/v1',released:historicalDate(year),
+245:       criticScore,audienceScore,openingGross,totalGross,settled:true})
+246:   })
+247:   return {...state,talent,hollywood:h}
+248: }
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/hollywoodTick.ts lines92-121 SHA256f6c37fc29d5cf7f858e2a52e0bc6603a56e4dfcfaf8caa590806d559019b3422 blob2034448d508975535360aae0d1319a8b53903f77 =====
+92:   const reserveAfterOffer=(terms:import('./types.js').Contract,replacing?:number)=>{
+93:     const employment=[...h.employment,{contractId:'prospective',studioId:b.studioId,terms,endedWeek:null,reason:'replacement' as const}]
+94:     const activeEmploymentOrdinals=[...h.activeEmploymentOrdinals.filter(i=>i!==replacing),employment.length-1]
+95:     return operatingReserve(b,{...h,employment,activeEmploymentOrdinals},week)
+96:   }
+97:   // Same renewal window and immediate replacement terms as the player's renewContract.
+98:   // Ongoing work does not prevent an existing employer from retaining its own people.
+99:   for(const ordinal of [...h.activeEmploymentOrdinals]) {
+100:     const old=h.employment[ordinal]!
+101:     if(old.studioId!==b.studioId||!renewalWindowOpen(old.terms,week))continue
+102:     // P14A.1 (companion §2.1.3 / §2.5, the second bounded staff() edit): this loop
+103:     // runs BEFORE decide() in the same weekly pass and would otherwise auto-renew a
+104:     // rival's expiring person for 208 weeks in the discovery week, so a rival's
+105:     // person could never reach a contested expiry. A CASE SUBJECT is excluded for
+106:     // the whole open-case span — the exclusion lands with the case-open check, not
+107:     // with settlement. Under a case the incumbent's retention is its PROPOSAL.
+108:     if(caseOpenForTalent({...state,hollywood:h,talent},old.terms.talentId,week))continue
+109:     const person=talent.find(t=>t.id===old.terms.talentId)!
+110:     const terms=offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week)
+111:     if(b.account.cash-terms.signingBonus<reserveAfterOffer(terms,ordinal))continue
+112:     const contractId=`${b.studioId}:contract:${person.id}:${week}`
+113:     const newOrdinal=h.employment.length
+114:     h.employment=[...h.employment]
+115:     h.employment[ordinal]={...old,endedWeek:week}
+116:     h.employment.push({contractId,studioId:b.studioId,terms,endedWeek:null,reason:'renewal'})
+117:     h.activeEmploymentOrdinals=h.activeEmploymentOrdinals.map(i=>i===ordinal?newOrdinal:i)
+118:     moveRivalMoney(b.account,'signing',-terms.signingBonus,week)
+119:     appendReceipt(h,{week,studioId:b.studioId,kind:'employment',talentId:person.id,fromStudioId:b.studioId,toStudioId:b.studioId,contractId,reason:'renewal'})
+120:   }
+121:   const occupied=busyTalentIds({...state,hollywood:h,talent})
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/hollywoodTick.ts lines150-164 SHA256f6c37fc29d5cf7f858e2a52e0bc6603a56e4dfcfaf8caa590806d559019b3422 blob2034448d508975535360aae0d1319a8b53903f77 =====
+150:   }
+151:   return next
+152: }
+153: 
+154: function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number) {
+155:   if(week<b.nextDecisionWeek)return
+156:   b.nextDecisionWeek=week+TUNING.HOLLYWOOD_DECISION_WEEKS
+157:   const busy=busyTalentIds({...state,hollywood:h,talent})
+158:   const people=new Map(talent.map(t=>[t.id,t]))
+159:   const employees=currentEmployees(h,b.studioId).map(e=>people.get(e.terms.talentId)!)
+160:   for(const ready of hotDevelopment(b).projects.filter(p=>p.status==='ready')) {
+161:     if(b.productions.length!==0)break
+162:     const director=employees.find(t=>t.role==='director'&&!busy.has(t.id))
+163:     const craft=employees.find(t=>t.role==='craft'&&!busy.has(t.id))
+164:     // P14B.4 seating preference (plan :215-236): eligible PROMISED people enter the triple first, in employment
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/hollywoodTick.ts lines254-271 SHA256f6c37fc29d5cf7f858e2a52e0bc6603a56e4dfcfaf8caa590806d559019b3422 blob2034448d508975535360aae0d1319a8b53903f77 =====
+254:     // week, after its hiring and before it commissions a film — its capital and
+255:     // its research bill are spent from the same account the film draws on.
+256:     physicalPlans=admitRivalPlansInWeek({...state,technology,physicalPlans,hollywood:h,talent},h,b,physicalPlans,week)
+257:     technology=advanceRivalResearch({...state,technology,physicalPlans,hollywood:h,talent},h,b,talent,week)
+258:     decide(state,h,b,talent,week)
+259:     operateStage(b)
+260:     for(const p of b.productions) if(releaseCommitmentRefusal({productions:b.productions,operations:b.operations,releaseAuthority:b.releaseAuthority,concepts:[]},p.id)===null) {
+261:       b.releaseAuthority=withReleaseCommitment(b.releaseAuthority,p.id,week)
+262:     }
+263:     technology=selectRivalSoundProduction(technology,b)
+264:     const productionTechnology=createProductionTechnologyPolicy({...state,hollywood:h,technology},b.studioId)
+265:     const advanced=advanceManagedProductions(b.operations,b.productions,week,committedReleaseIds(b.releaseAuthority),new Set([...scriptOccupiedFacilitySlots(hotDevelopment(b)),...rivalInstallationSlots(technology,b)]),undefined,undefined,productionTechnology.policy)
+266:     technology=productionTechnology.technology()
+267:     for(const production of advanced.firstTakes)firstTakes.push({studioId:b.studioId,production})
+268:     const releasing=advanced.productions.filter(p=>p.remainingTicks===0).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)
+269:     const ids=new Set(releasing.map(p=>p.id))
+270:     if(ids.size!==advanced.admittedReleaseIds.length||advanced.admittedReleaseIds.some(id=>!ids.has(id)))throw new Error('Industry release admission mismatch')
+271:     b.operations=advanced.operations;b.productions=advanced.productions.filter(p=>p.remainingTicks>0)
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/hollywoodTick.ts lines348-384 SHA256f6c37fc29d5cf7f858e2a52e0bc6603a56e4dfcfaf8caa590806d559019b3422 blob2034448d508975535360aae0d1319a8b53903f77 =====
+348:       return {studioId:s.studioId,standing:{...(b?.standing??state.studio.standing)},
+349:         output:b?b.development.projects.length-b.activeScriptOrdinals.length+(h.origin==='fresh'&&s.row<=4?2:0):state.studio.releasedFilms.length}
+350:     })
+351:     h={...h,previousChart:h.chart,chart:{week,rows}}
+352:   }
+353:   const freeAgents=expired.length>0?[...new Set([...state.freeAgents,...expired.map(i=>h.employment[i]!.terms.talentId)])]:state.freeAgents
+354:   let next:GameState=h===source?state:{...state,hollywood:h,freeAgents}
+355:   // P13B-S8: a Scientist whose contract ended holds no seat that can work — the
+356:   // same pause law the player's own release runs, for that studio's own project.
+357:   for(const i of expired) {
+358:     const e=h.employment[i]!
+359:     if(e.studioId===h.playerStudioId)continue
+360:     next={...next,technology:researchAfterEmploymentRelease(next,e.terms.talentId,e.studioId)}
+361:   }
+362:   // Plans that finished their authored build weeks become this studio's plant, on
+363:   // the week that has ARRIVED — the boundary a rival adoption's own clock uses.
+364:   return completeRivalPlans(next)
+365: }
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/hollywoodStartingData.ts lines1-44 SHA2560ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976 blob4cb6bb16a1aacd7e9a405c2e40cd5834c86bfbdb =====
+1: import type { CreativeRole, Genre, Standing } from './types.js'
+2: 
+3: /** Fictional scenario authoring, not recovered original-game economics.
+4:  * All balances are BEFORE once-only capacity acquisition and signing costs.
+5:  * Historical box office, career counts and Standing are settled starting facts.
+6:  * Live popularity is unavailable: policy uses genre affinity only. Action's
+7:  * Adventure adaptation is explicit; Sci-Fi has no successor genre mapping. */
+8: export const HOLLYWOOD_STARTING_MANIFEST = {
+9:   version: 'living-hollywood-start/v1',
+10:   studios: [
+11:     { name: 'Bellwether Pictures', mark: 'BW', color: '#C99542', founded: 1901, capital: 32_000_000,
+12:       standing: [58,46,61], anchors: ['comedy'], negativeScale: 1.0, marketingRatio: .18, reserveWeeks: 13,
+13:       names: ['Iris Bell','Arthur Vale','Mabel Finch','Walter Reed','Clara Moss','Edwin Pike'],
+14:       films: [['The Misdelivered Parcel',1914,'comedy',64,72,2_100_000,7_600_000],['Sunday at the Pier',1918,'comedy',70,76,2_850_000,10_100_000]] },
+15:     { name: 'Rose Lantern Films', mark: 'RL', color: '#C46B75', founded: 1902, capital: 29_000_000,
+16:       standing: [53,59,55], anchors: ['romance'], negativeScale: 1.12, marketingRatio: .16, reserveWeeks: 18,
+17:       names: ['Ada Rowe','Cecil Arden','Evelyn Shore','Paul Mercer','Florence Clay','Hugh Marlow'],
+18:       films: [['A Letter by Lamplight',1915,'romance',75,69,1_600_000,6_400_000],['The Summer Train',1919,'drama',72,73,2_350_000,8_700_000]] },
+19:     { name: 'Night Orchard Productions', mark: 'NO', color: '#8C8EB7', founded: 1906, capital: 23_000_000,
+20:       standing: [45,55,49], anchors: ['horror'], negativeScale: .94, marketingRatio: .14, reserveWeeks: 20,
+21:       names: ['Vera North','Leon Ash','Nora Blythe','Felix Ward','Pearl Benton','Jasper Cole'],
+22:       films: [['The House Beneath the Fog',1916,'horror',67,65,1_300_000,4_800_000],['The Last Candle',1919,'horror',73,70,1_850_000,6_900_000]] },
+23:     { name: 'Silver Current Pictures', mark: 'SC', color: '#6FA5AA', founded: 1917, capital: 20_000_000,
+24:       standing: [43,44,48], anchors: ['romance'], negativeScale: 1.04, marketingRatio: .20, reserveWeeks: 15,
+25:       names: ['Olive Hart','Victor Dune','Sylvia Lane','Daniel Frost','Agnes Wren','Oscar Field'],
+26:       films: [['The Harbour Promise',1917,'romance',61,67,1_100_000,4_200_000],['Between Two Stations',1919,'romance',68,74,1_750_000,6_600_000]] },
+27:     { name: 'Marigold Motion Pictures', mark: 'MM', color: '#D6A747', capital: 24_000_000,
+28:       anchors: ['romance'], negativeScale: 1.05, marketingRatio: .20, reserveWeeks: 15 },
+29:     { name: 'Blackthorn Screenworks', mark: 'BS', color: '#937C9E', capital: 26_000_000,
+30:       anchors: ['horror'], negativeScale: 1.10, marketingRatio: .18, reserveWeeks: 18 },
+31:     { name: 'Trailhead Pictures', mark: 'TP', color: '#B88254', capital: 34_000_000,
+32:       anchors: ['adventure'], negativeScale: 1.18, marketingRatio: .22, reserveWeeks: 13 },
+33:     { name: 'Copper Kite Films', mark: 'CK', color: '#78A888', capital: 28_000_000,
+34:       anchors: ['comedy','horror'], negativeScale: 1.02, marketingRatio: .19, reserveWeeks: 16 },
+35:     { name: 'Bright Meridian Studios', mark: 'BM', color: '#6E9FC0', capital: 38_000_000,
+36:       anchors: ['adventure','comedy'], negativeScale: 1.20, marketingRatio: .24, reserveWeeks: 12 },
+37:   ] as readonly StartingStudio[],
+38: } as const
+39: 
+40: export type StartingStudio = {
+41:   name: string; mark: string; color: string; founded?: number; capital: number;
+42:   standing?: [number,number,number]; anchors: Genre[]; negativeScale: number;
+43:   marketingRatio: number; reserveWeeks: number; names?: string[];
+44:   films?: [string,number,Genre,number,number,number,number][];
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/tuning.ts lines402-409 SHA256573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4 blobc4fc34447aff0eefd6ea52f34b798a1bfa2fabc9 =====
+402:   // continuous input, symmetric for BOTH issuers: annual = round(ask(term) × tier).
+403:   // 1.00 is the plain ask and the floor — a below-ask tier is not offered in P14A.
+404:   // NUMERICAL HYPOTHESIS: the plan records the VALUES as OPEN; only the enum shape,
+405:   // the 1.00 floor and monotonicity are settled.
+406:   MARKET_PREMIUM_TIERS: [1.0, 1.05, 1.1, 1.15, 1.2, 1.25] as readonly number[],
+407: 
+408:   // Freelancers (D-11.10). fee = round(salaryCurve × premium); a one-time project cost.
+409:   FREELANCER_FEE_PREMIUM: 1.5, // freelancer one-film fee vs base per-production salary
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/tick.ts lines1040-1074 SHA256ad0faa9216093f657cf16ecebe66a6cc65aee4bcc407b7d79d6e48a847465deb blob943661035cb3627b306c6630e6156f027c2c06bb =====
+1040:     ...admitted,
+1041:     technology: industry.technology,
+1042:     // P13B-S8: a rival's own admitted plans live on the shared plan root; the
+1043:     // player's admission at step 1.06 already wrote its rows into `admitted`.
+1044:     physicalPlans: industry.physicalPlans,
+1045:     hollywood,
+1046:     rngState: rng.serialize(),
+1047:     market: { ...state.market, tick: currentTick + 1 },
+1048:     talent,
+1049:     studio: {
+1050:       ...admitted.studio,
+1051:       cash,
+1052:       standing,
+1053:       activeProductions: stillActive,
+1054:       releasedFilms,
+1055:     },
+1056:     broadcastItems,
+1057:     contracts,
+1058:     ledger,
+1059:     freeAgents,
+1060:     theatricalRuns,
+1061:     careerEvents,
+1062:     operations,
+1063:     scriptDevelopment,
+1064:     castingSessions,
+1065:     construction,
+1066:     placement,
+1067:     sets,
+1068:     // Stamped, appended, and compacted against the week this advance PRODUCES —
+1069:     // the week `market.tick` now reads — so the log a caller gets back is already
+1070:     // at its steady-state size and the save validator's window check agrees with
+1071:     // it. Compaction is a pure function of that week: same log, same week, same
+1072:     // answer, on every replay.
+1073:     studioEvents: commitStudioEvents(state.studioEvents, events, currentTick + 1),
+1074:     // P06A: prune EXACTLY the released commitment rows in the same atomic
+
+===== H 8708d6a98e6eb4ad53e3a54e431c4b40b974f79d:src/core/tick.ts lines1109-1146 SHA256ad0faa9216093f657cf16ecebe66a6cc65aee4bcc407b7d79d6e48a847465deb blob943661035cb3627b306c6630e6156f027c2c06bb =====
+1109:   )
+1110:   return advanceTalentMarketWeek(advancePromisesWeek(withTakes))
+1111: }
+1112: 
+1113: /**
+1114:  * P09-REQ-040 / P08-R2: a building OPENED is a matter of record. One `facilityCompleted`
+1115:  * row per completion, stamped with the placement's own committed completion week (the
+1116:  * week this advance produces — the same week the studio-events row and the lot show it
+1117:  * opening), appended AFTER every row of the week being advanced so the chronology never
+1118:  * runs backwards. Exact placement identity; P08 never derives construction truth.
+1119:  */
+1120: function facilityCompletionDrafts(completed: readonly PlacedFacility[]): readonly StudioHistoryDraft[] {
+1121:   return completed.map((facility) =>
+1122:     historyDraft({
+1123:       week: facility.completesWeek,
+1124:       kind: 'facilityCompleted',
+1125:       subjects: facilitySubject(facility.id, facility.facilityId),
+1126:       placementId: facility.id,
+1127:       facilityId: facility.facilityId,
+1128:       blueprintId: facility.blueprintId,
+1129:       name: blueprintById(facility.blueprintId)?.name ?? facility.blueprintId,
+1130:     }),
+1131:   )
+1132: }
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/talentMarket.ts lines194-244 SHA2566c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70 blobf036fcec9191374dc5554c5cdc33372b53cd7926 =====
+194:  */
+195: export function releaseFloor(
+196:   state: GameState,
+197:   releasingStudioId: string,
+198:   talentId: string,
+199:   week: number = state.market.tick,
+200: ): { floorAnnual: number; validUntilWeek: number } | null {
+201:   const hollywood = state.hollywood
+202:   if (hollywood === null) return null
+203:   let best: { floorAnnual: number; validUntilWeek: number } | null = null
+204:   for (const receipt of hollywood.receipts) {
+205:     if (receipt.kind !== 'employment' || receipt.reason !== 'termination') continue
+206:     if (receipt.studioId !== releasingStudioId || receipt.talentId !== talentId) continue
+207:     // The player's release always writes its own ledger row; that row is the
+208:     // evidence of record for the one-batch edge the mirror can still miss.
+209:     if (releasingStudioId === hollywood.playerStudioId &&
+210:       !state.ledger.some((row) => row.kind === 'termination' && row.talentId === talentId && row.week === receipt.week)) continue
+211:     const row = hollywood.employment.find((e) => e.contractId === receipt.contractId)
+212:     if (row === undefined) continue
+213:     const validUntilWeek = row.terms.endWeekExclusive
+214:     if (week >= validUntilWeek) continue // the memory lapsed with the original term
+215:     if (best === null || row.terms.annualSalary > best.floorAnnual) {
+216:       best = { floorAnnual: row.terms.annualSalary, validUntilWeek }
+217:     }
+218:   }
+219:   return best
+220: }
+221: 
+222: /**
+223:  * The ONE studio-aware pricing entry of companion §2.1.4: the shared P10 ask,
+224:  * floored by R1 for the studio that released this person, BEFORE any premium
+225:  * tier. `offerForTalent` itself stays floor-free, so the stateless Full-Custom
+226:  * preview is unchanged.
+227:  */
+228: export function studioOffer(
+229:   state: GameState,
+230:   studioId: string,
+231:   talentId: string,
+232:   termWeeks: number,
+233:   week: number = state.market.tick,
+234: ): ContractOffer {
+235:   const offer = contractOffer(state, talentId, termWeeks, week)
+236:   const floor = releaseFloor(state, studioId, talentId, week)
+237:   if (floor === null || floor.floorAnnual <= offer.annualSalary) return offer
+238:   // The bonus is the same published fraction of the annual everywhere (§2.1.4 /
+239:   // `offerForTalent`), so a floored annual carries a floored bonus.
+240:   return {
+241:     ...offer,
+242:     annualSalary: floor.floorAnnual,
+243:     signingBonus: iround(floor.floorAnnual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION),
+244:   }
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/talentMarket.ts lines296-354 SHA2566c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70 blobf036fcec9191374dc5554c5cdc33372b53cd7926 =====
+296:  * startWeek, premiumTier) plus a DIGEST of the derived offer, and re-derives the
+297:  * terms through the shared entry at settlement. A material-term change mints a
+298:  * new digest, which invalidates the prior version.
+299:  */
+300: export function proposalDraft(
+301:   state: GameState,
+302:   issuerStudioId: string,
+303:   talentId: string,
+304:   termWeeks: number,
+305:   premiumTier: number,
+306:   week: number = state.market.tick,
+307:   /** P14B.1 (3): the attached promises' own digest, `''` when none is attached. */
+308:   promisePart = '',
+309: ): ProposalDraft {
+310:   if (!isPremiumTier(premiumTier)) {
+311:     throw new Error(
+312:       `talentMarket: premium tier ${premiumTier} is not offered — P14A prices at ${TUNING.MARKET_PREMIUM_TIERS.join(', ')} and never below the ask (companion §2.1.4/§2.1.7)`,
+313:     )
+314:   }
+315:   const ask = studioOffer(state, issuerStudioId, talentId, termWeeks, week)
+316:   const annualSalary = iround(ask.annualSalary * premiumTier)
+317:   const signingBonus = iround(annualSalary * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
+318:   const startWeek = effectiveWeekFor(state, talentId, week)
+319:   return {
+320:     talentId,
+321:     issuerStudioId,
+322:     termWeeks: ask.termWeeks,
+323:     premiumTier,
+324:     annualSalary,
+325:     signingBonus,
+326:     startWeek,
+327:     endWeekExclusive: startWeek + ask.termWeeks,
+328:     // MATERIAL terms only (companion §2.1.4), WIDENED by P14B.1 (3) with the
+329:     // attached promise. Price is DERIVED, never material: ordinary drift between
+330:     // submission and the decision week must not invalidate a version. A proposal
+331:     // carrying NO promise digests byte-identically to its V28 self, so every
+332:     // migrated proposal re-derives its stored digest unchanged.
+333:     digest: proposalDigest(talentId, issuerStudioId, ask.termWeeks, startWeek, premiumTier, promisePart),
+334:   }
+335: }
+336: 
+337: /**
+338:  * The proposal's price AT `week`, re-derived from its MATERIAL terms through the
+339:  * same shared pricing entry the draft used (companion §2.1.4: "re-derives the six
+340:  * accepted terms through the shared pricing entry at review and at settlement").
+341:  * This is the ONE re-derivation reservation, affordability, ranking, the commit
+342:  * and every "current price" read share; the price stored on the persisted
+343:  * proposal is the submission-week QUOTE and is never read here.
+344:  */
+345: function proposalPriceAt(
+346:   state: GameState,
+347:   proposal: Pick<TalentMarketProposal, 'talentId' | 'issuerStudioId' | 'termWeeks' | 'premiumTier'>,
+348:   week: number,
+349: ): { askAnnual: number; annualSalary: number; signingBonus: number } {
+350:   const ask = studioOffer(state, proposal.issuerStudioId, proposal.talentId, proposal.termWeeks, week)
+351:   const annualSalary = iround(ask.annualSalary * proposal.premiumTier)
+352:   return { askAnnual: ask.annualSalary, annualSalary, signingBonus: iround(annualSalary * TUNING.CONTRACT_SIGNING_BONUS_FRACTION) }
+353: }
+354: 
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/talentMarket.ts lines400-435 SHA2566c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70 blobf036fcec9191374dc5554c5cdc33372b53cd7926 =====
+400:     ...market,
+401:     receipts: [...market.receipts, { ...draft, dropped: draft.dropped ?? [], eventId: `talent-market-event-${market.receipts.length}` }],
+402:   }
+403: }
+404: 
+405: export function submitProposal(state: GameState, intent: ProposalIntent): GameState {
+406:   const week = state.market.tick
+407:   requireOpenCase(state, intent.talentId, week)
+408:   const eligible = marketEligibility(state, intent.talentId, week)
+409:   if (!eligible.proposers.includes(intent.issuerStudioId)) {
+410:     throw new Error(`talentMarket: studio "${intent.issuerStudioId}" may not propose for "${intent.talentId}" — it has not entered, or the person is not in an approved window`)
+411:   }
+412:   const draft = proposalDraft(state, intent.issuerStudioId, intent.talentId, intent.termWeeks, intent.premiumTier, week)
+413:   const refusal = affordabilityRefusal(state, intent.issuerStudioId, draft.signingBonus, week)
+414:   if (refusal !== null) throw new Error(`talentMarket: proposal rejected — ${refusal}`)
+415:   const proposal: TalentMarketProposal = {
+416:     talentId: draft.talentId,
+417:     issuerStudioId: draft.issuerStudioId,
+418:     termWeeks: draft.termWeeks,
+419:     premiumTier: draft.premiumTier,
+420:     startWeek: draft.startWeek,
+421:     annualSalary: draft.annualSalary,
+422:     signingBonus: draft.signingBonus,
+423:     submittedWeek: week,
+424:     digest: draft.digest,
+425:     // A re-submission is this codebase's own "revise in place": the fresh
+426:     // proposal restores the material terms and carries NO promise, so removing a
+427:     // promise is exactly a re-submit with nothing attached.
+428:     promises: [],
+429:     representation: null,
+430:   }
+431:   const others = state.talentMarket.proposals.filter(
+432:     (p) => !(p.talentId === intent.talentId && p.issuerStudioId === intent.issuerStudioId),
+433:   )
+434:   const market = appendReceipt(
+435:     { ...state.talentMarket, proposals: [...others, proposal] },
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/talentMarket.ts lines919-1040 SHA2566c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70 blobf036fcec9191374dc5554c5cdc33372b53cd7926 =====
+919: // ── §2.1.8 settlement ────────────────────────────────────────────────────────
+920: 
+921: function closeCase(
+922:   state: GameState,
+923:   kase: TalentMarketCase,
+924:   outcome: NonNullable<TalentMarketCase['outcome']>,
+925:   week: number,
+926:   reason: string,
+927:   receiptStudioId: string | null,
+928:   reasons: readonly string[],
+929:   dropped: readonly string[] = [],
+930: ): GameState {
+931:   const cases = state.talentMarket.cases.map((c) =>
+932:     c === kase ? { ...c, outcome, closedWeek: week, reason } : c)
+933:   const market = appendReceipt(
+934:     {
+935:       ...state.talentMarket,
+936:       cases,
+937:       // A terminal case keeps no CURRENT proposal: the receipt is the record.
+938:       proposals: state.talentMarket.proposals.filter((p) => p.talentId !== kase.talentId),
+939:     },
+940:     { kind: outcome, week, talentId: kase.talentId, studioId: receiptStudioId, reasons, dropped },
+941:   )
+942:   return { ...state, talentMarket: market }
+943: }
+944: 
+945: /** The P10 commit-from-draft write set for a PLAYER winner: the contract, the
+946:  * bonus ledger row stamped W, the free-agent filter, then `recordPlayerEmployment`
+947:  * LAST so the P12 mirror writes the `player-contract` start. */
+948: function commitPlayerWinner(state: GameState, proposal: TalentMarketProposal, week: number): GameState {
+949:   const priced = proposalPriceAt(state, proposal, week)
+950:   const contract: Contract = {
+951:     talentId: proposal.talentId,
+952:     annualSalary: priced.annualSalary,
+953:     signingBonus: priced.signingBonus,
+954:     startWeek: week,
+955:     endWeekExclusive: week + proposal.termWeeks,
+956:     termWeeks: proposal.termWeeks,
+957:   }
+958:   const entry: LedgerEntry = {
+959:     week,
+960:     kind: 'signingBonus',
+961:     amount: -priced.signingBonus,
+962:     talentId: proposal.talentId,
+963:     note: 'market settlement signing bonus',
+964:   }
+965:   return recordPlayerEmployment({
+966:     ...state,
+967:     studio: { ...state.studio, cash: state.studio.cash - priced.signingBonus },
+968:     contracts: [...state.contracts, contract],
+969:     ledger: [...state.ledger, entry],
+970:     freeAgents: state.freeAgents.filter((id) => id !== proposal.talentId),
+971:     economyEngagedEver: true,
+972:   })
+973: }
+974: 
+975: /** The exported P12 signing write set for a RIVAL winner: the employment row with
+976:  * reason `replacement` (the closed union — a lawful hire from the free pool), its
+977:  * ordinal, the `signing` movement and the start receipt. */
+978: function commitRivalWinner(state: GameState, proposal: TalentMarketProposal, week: number): GameState {
+979:   const priced = proposalPriceAt(state, proposal, week)
+980:   const source = state.hollywood!
+981:   const businesses = source.businesses.map((b) =>
+982:     b.studioId !== proposal.issuerStudioId ? b : {
+983:       ...b,
+984:       account: {
+985:         ...b.account,
+986:         periods: b.account.periods.map((p, i) => (i === b.account.periods.length - 1 ? { ...p, movements: { ...p.movements } } : p)),
+987:       },
+988:     })
+989:   const business = businesses.find((b) => b.studioId === proposal.issuerStudioId)!
+990:   const contractId = `${proposal.issuerStudioId}:contract:${proposal.talentId}:${week}`
+991:   const terms: Contract = {
+992:     talentId: proposal.talentId,
+993:     annualSalary: priced.annualSalary,
+994:     signingBonus: priced.signingBonus,
+995:     startWeek: week,
+996:     endWeekExclusive: week + proposal.termWeeks,
+997:     termWeeks: proposal.termWeeks,
+998:   }
+999:   moveRivalMoney(business.account, 'signing', -priced.signingBonus, week)
+1000:   const ordinal = source.employment.length
+1001:   const receipt: IndustryReceipt = {
+1002:     eventId: `industry-event-${source.nextReceipt}`,
+1003:     week,
+1004:     studioId: proposal.issuerStudioId,
+1005:     kind: 'employment',
+1006:     talentId: proposal.talentId,
+1007:     fromStudioId: null,
+1008:     toStudioId: proposal.issuerStudioId,
+1009:     contractId,
+1010:     reason: 'replacement',
+1011:   }
+1012:   return {
+1013:     ...state,
+1014:     hollywood: {
+1015:       ...source,
+1016:       businesses,
+1017:       employment: [...source.employment, { contractId, studioId: proposal.issuerStudioId, terms, endedWeek: null, reason: 'replacement' }],
+1018:       activeEmploymentOrdinals: [...source.activeEmploymentOrdinals, ordinal],
+1019:       receipts: [...source.receipts, receipt],
+1020:       nextReceipt: source.nextReceipt + 1,
+1021:     },
+1022:   }
+1023: }
+1024: 
+1025: /**
+1026:  * The SIX freeze predicates of companion §2.1.7 line 104 ("Proposals that fail
+1027:  * reservation, legality or affordability at freeze are dropped with typed reasons
+1028:  * before ranking"), named so a decline can state the predicate that actually
+1029:  * dropped each proposal instead of asserting a reservation failure for every one.
+1030:  */
+1031: export type FreezeDrop =
+1032:   | 'issuerNotEntered'
+1033:   | 'subjectCommittedElsewhere'
+1034:   | 'startWeekMoved'
+1035:   | 'belowAsk'
+1036:   | 'materialTermsChanged'
+1037:   | 'bonusUnaffordable'
+1038:   | 'noSeatForRole'
+1039:   /** P14B.1 (5): the attached promise is no longer REASONABLY ACHIEVABLE at W. */
+1040:   | 'promiseNotFeasible'
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/talentMarket.ts lines1159-1194 SHA2566c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70 blobf036fcec9191374dc5554c5cdc33372b53cd7926 =====
+1159: function settleCase(state: GameState, kase: TalentMarketCase, week: number): GameState {
+1160:   const submitted = state.talentMarket.proposals.filter((p) => p.talentId === kase.talentId)
+1161:   if (submitted.length === 0) {
+1162:     return closeCase(state, kase, 'expired', week, 'no proposal was submitted', null, ['no studio proposed before the decision week'])
+1163:   }
+1164:   // Retain the receipt from this exact pre-commit state. Binding employment can
+1165:   // change availability inputs; re-running after that commit is different evidence.
+1166:   const frozen = submitted.map((proposal) => {
+1167:     const feasibility = attachedFeasibility(state, proposal, week)
+1168:     return { proposal, feasibility, drop: survivesFreeze(state, proposal, week, feasibility) }
+1169:   })
+1170:   const survivors = frozen.filter((f) => f.drop === null).map((f) => f.proposal)
+1171:   // The ONE drop list this case produces. It is the decline's own sentences when
+1172:   // everything was dropped, and it rides the SETTLED receipt too — a studio whose
+1173:   // proposal was dropped learns why even when someone else won. No second wording.
+1174:   const dropped = frozen.filter((f) => f.drop !== null)
+1175:     .map((f) => DROP_SENTENCE[f.drop!](studioLabel(state, f.proposal.issuerStudioId)))
+1176:   if (survivors.length === 0) {
+1177:     // Every proposal failed a freeze predicate BEFORE ranking: one typed sentence
+1178:     // per dropped proposal, naming the studio and the predicate that dropped it.
+1179:     return closeCase(state, kase, 'declined', week, 'all proposals dropped', null, dropped, dropped)
+1180:   }
+1181:   const chosen = chooseProposal(state, kase, survivors, week)
+1182:   if (chosen.winner === null) {
+1183:     // A FULL LEGAL survivor set the tie order ran out on — nothing failed
+1184:     // reservation. One ordering-only sentence, no amount. CANDIDATE wording.
+1185:     return closeCase(state, kase, 'declined', week, 'tie exhausted', null,
+1186:       [`this person could not separate ${String(chosen.tiedCount)} equally ranked proposals.`], dropped)
+1187:   }
+1188:   const committed = chosen.winner.issuerStudioId === state.hollywood!.playerStudioId
+1189:     ? commitPlayerWinner(state, chosen.winner, week)
+1190:     : commitRivalWinner(state, chosen.winner, week)
+1191:   const feasibility = frozen.find((f) => f.proposal === chosen.winner)!.feasibility
+1192:   return closeCase(commitWinningPromise(committed, chosen.winner, week, feasibility), kase, 'settled', week, 'settled at the decision week',
+1193:     chosen.winner.issuerStudioId, chosen.reasons, dropped)
+1194: }
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/talentMarket.ts lines1230-1291 SHA2566c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70 blobf036fcec9191374dc5554c5cdc33372b53cd7926 =====
+1230:   // 2. discovery — authoritative and public; every entered studio sees it at once.
+1231:   const hollywood = next.hollywood!
+1232:   for (const ordinal of hollywood.activeEmploymentOrdinals) {
+1233:     const row = hollywood.employment[ordinal]!
+1234:     if (row.endedWeek !== null) continue
+1235:     if (!renewalWindowOpen(row.terms, week)) continue
+1236:     if (next.talentMarket.cases.some((c) => c.contractId === row.contractId)) continue
+1237:     const kase: TalentMarketCase = {
+1238:       talentId: row.terms.talentId,
+1239:       subjectStudioId: row.studioId,
+1240:       contractId: row.contractId,
+1241:       openedWeek: week,
+1242:       outcome: null,
+1243:       closedWeek: null,
+1244:       reason: null,
+1245:     }
+1246:     next = {
+1247:       ...next,
+1248:       talentMarket: appendReceipt(
+1249:         { ...next.talentMarket, cases: [...next.talentMarket.cases, kase] },
+1250:         { kind: 'discovered', week, talentId: kase.talentId, studioId: kase.subjectStudioId, reasons: [] },
+1251:       ),
+1252:     }
+1253:   }
+1254: 
+1255:   // 3. the rival trigger, inside the rival's own weekly decision cadence.
+1256:   for (const kase of openCasesAt(next, week)) {
+1257:     const descriptor: MarketCaseDescriptor = {
+1258:       talentId: kase.talentId,
+1259:       subjectStudioId: kase.subjectStudioId,
+1260:       decisionWeek: decisionWeekOf(next, kase),
+1261:     }
+1262:     for (const business of next.hollywood!.businesses) {
+1263:       if (week < business.nextDecisionWeek) continue // it has not decided this week
+1264:       if (next.talentMarket.proposals.some((p) => p.talentId === kase.talentId && p.issuerStudioId === business.studioId)) continue
+1265:       if (!rivalProposalTrigger(next, next.hollywood!, business, descriptor, week)) continue
+1266:       try {
+1267:         next = submitProposal(next, {
+1268:           talentId: kase.talentId,
+1269:           issuerStudioId: business.studioId,
+1270:           termWeeks: TUNING.HOLLYWOOD_CONTRACT_WEEKS,
+1271:           premiumTier: rivalPremiumTier(business, descriptor),
+1272:         })
+1273:       } catch {
+1274:         // A refused proposal (reserve, eligibility) writes nothing. The rival simply
+1275:         // does not bid this week; nothing else in the pass is affected.
+1276:       }
+1277:       // Outside the catch: a refusal above leaves no proposal and this is a no-op,
+1278:       // but a failure to author on a proposal that DOES exist is a real fault and
+1279:       // must not be swallowed with it.
+1280:       next = authorRivalPromise(next, kase.talentId, business.studioId)
+1281:     }
+1282:   }
+1283: 
+1284:   // 4. settlement — exactly once, at the decision week.
+1285:   for (const kase of openCasesAt(next, week)) {
+1286:     if (decisionWeekOf(next, kase) > week) continue
+1287:     next = settleCase(next, kase, week)
+1288:   }
+1289:   return next
+1290: }
+1291: 
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/talentMarket.ts lines1338-1350 SHA2566c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70 blobf036fcec9191374dc5554c5cdc33372b53cd7926 =====
+1338: /** HYPOTHESIS (the plan records the rival's trigger policy NUMBERS as OPEN): the
+1339:  * rival's tier is derived from its EXISTING policy fields, with no persisted
+1340:  * policy change — an incumbent retains at the ask; a challenger pays above it,
+1341:  * and a cautious studio (a long reserve) pays one band more. */
+1342: function rivalPremiumTier(business: RivalBusiness, descriptor: MarketCaseDescriptor): number {
+1343:   const tiers = TUNING.MARKET_PREMIUM_TIERS
+1344:   const index = (descriptor.subjectStudioId === business.studioId ? 0 : 1) + (business.policy.reserveWeeks >= 16 ? 1 : 0)
+1345:   return tiers[Math.min(index, tiers.length - 1)]!
+1346: }
+1347: 
+1348: // ── the save boundary's validator (R22: no market authority without a receipt) ─
+1349: 
+1350: function isRecord(value: unknown): value is Record<string, unknown> {
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/hollywood.ts lines162-210 SHA2560a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea blob377da502bcfa55afe31c243ab0909b2c0012d269 =====
+162:   const identities: StudioIdentity[] = [{ studioId: playerStudioId, role: 'player', row: 0,
+163:     name: 'Your Studio', mark: 'YOU', color: '#ECD9AA', founding: origin === 'fresh' ? {kind:'campaign',week:0} : null,
+164:     eligibleWeek: 0, enteredWeek: state.market.tick, recordedFromWeek: state.studioHistory.recordingStartedWeek }]
+165:   HOLLYWOOD_STARTING_MANIFEST.studios.forEach((template,index) => identities.push({
+166:     studioId: uniqueIdentity(`studio-${key}-r${String(index+1).padStart(2,'0')}`,taken),
+167:     role:'rival', row:index+1, name:template.name, mark:template.mark, color:template.color,
+168:     founding: origin === 'fresh' && template.founded ? historicalDate(template.founded) : null,
+169:     eligibleWeek:RIVAL_ARRIVAL_WEEKS[index]!, enteredWeek:null, recordedFromWeek:null,
+170:   }))
+171:   const hollywood: HollywoodState = { version:1, calendarPolicy:CAMPAIGN_CALENDAR_POLICY,
+172:     startingManifest:'living-hollywood-start/v1', origin, originWeek:state.market.tick, worldId:`world-${key}`,
+173:     playerStudioId, identities, businesses:[], employment:[], activeEmploymentOrdinals:[], concepts:[], films:[], careerEvents:[],
+174:     receipts:[], nextReceipt:0, chart:null, previousChart:null }
+175:   // P13B-S3: the physical-plan root TRAVELS WITH THE STATE and is never minted
+176:   // here — the one caller that passes a pre-V23 state is the frozen V18→V19
+177:   // conversion, whose output must carry no root V19 never had.
+178:   let next = {...state, hollywood, technology:state.technology ?? initialTechnology(state.market.tick)} as GameState
+179:   // A due migration entry is at this state's own week, never its scheduled past.
+180:   for (const identity of identities.slice(1)) if (identity.eligibleWeek <= state.market.tick) {
+181:     next = enterRival(next,identity.studioId,origin)
+182:   }
+183:   return recordPlayerEmployment(next,origin==='migration')
+184: }
+185: 
+186: /** Atomic pure entry: no caller-owned object is modified, even if validation throws. */
+187: export function enterRival(state: GameState, studioId: string, origin: 'fresh' | 'migration' | 'scheduled'): GameState {
+188:   const source = state.hollywood
+189:   if (!source) throw new Error('Industry identity registry is not initialized')
+190:   const original = source.identities.find(s => s.studioId === studioId && s.role === 'rival')
+191:   if (!original || original.eligibleWeek > state.market.tick) throw new Error('Rival is not due for entry')
+192:   if (original.enteredWeek !== null) return state
+193:   const h = {...source, identities:source.identities.map(s => ({...s})), businesses:[...source.businesses],
+194:     employment:[...source.employment], activeEmploymentOrdinals:[...source.activeEmploymentOrdinals], films:[...source.films], receipts:[...source.receipts]}
+195:   const identity = h.identities.find(s => s.studioId === studioId)!
+196:   const template = HOLLYWOOD_STARTING_MANIFEST.studios[identity.row-1]!
+197:   const week = state.market.tick
+198:   const authored = origin === 'fresh' && identity.row <= 4
+199:   const account: RivalAccount = {openingBalance:template.capital, openingBasis:'before-capacity-and-signing',
+200:     cash:template.capital, periods:[newFinancePeriod(week,template.capital)]}
+201:   const business: RivalBusiness = {studioId, entryKey:`${studioId}:entry`, account,
+202:     standing:startingStanding(template,authored), operations:{mode:'managed',workflows:[],facilities:rivalStartingFacilities(studioId)}, development:initialManagedScriptDevelopment(), productions:[], activeScriptOrdinals:[], activeRunFilmOrdinals:[], releaseAuthority:initialReleaseAuthority(),
+203:     runs:[], projects:[], nextDecisionWeek:week+1,
+204:     policy:{version:1,affinities:Object.fromEntries(GENRE_ORDER.map(g => [g,template.anchors.includes(g)?5:1])) as Record<Genre,number>,
+205:       negativeScale:template.negativeScale,marketingRatio:template.marketingRatio,reserveWeeks:template.reserveWeeks}}
+206:   const capex = TUNING.BASELINE_DEVELOPMENT_CASTING_CAPEX + TUNING.STAGE_STANDARD_CAPEX +
+207:     TUNING.SCENERY_SHOP_CAPEX + TUNING.POST_BUILDING_CAPEX
+208:   moveRivalMoney(account,'capacity',-capex,week)
+209:   let talent = [...state.talent]
+210:   const reserved = busyTalentIds(state)
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/hollywood.ts lines222-274 SHA2560a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea blob377da502bcfa55afe31c243ab0909b2c0012d269 =====
+222:   const entered: {id: string; age: number}[] = []
+223:   const credits = RIVAL_TEAM_ROLES.map((role,index) => {
+224:     let person: Talent | undefined = authored ? undefined : talent.find(t => t.role === role && !reserved.has(t.id))
+225:     if (!person) {
+226:       const id = uniqueIdentity(`person-${studioId}-${index}`,peopleTaken)
+227:       person = generateIndustryTalent(state.seed,id,role,authored ? template.names![index] : undefined)
+228:       if (authored) {
+229:         const discipline = ROLE_TO_DISCIPLINE[role]
+230:         person = {...person,age:Math.max(28,person.age), workHistory:{...person.workHistory,[discipline]:template.films!.length}}
+231:       }
+232:       // P14C.1: the EXACT age at the append is the anchor and is recorded unrounded;
+233:       // the COMMITTED person stores its floor, and it is that committed value
+234:       // `offerForTalent` below prices, so the contract, the row and `state.talent` all
+235:       // agree about which age this person has.
+236:       entered.push({id: person.id, age: person.age})
+237:       person = {...person, age: Math.floor(person.age)}
+238:       talent.push(person)
+239:     }
+240:     reserved.add(person.id)
+241:     const terms = offerForTalent(state.seed,person,208,week)
+242:     const contractId = `${studioId}:contract:${person.id}:${week}`
+243:     moveRivalMoney(account,'signing',-terms.signingBonus,week)
+244:     h.activeEmploymentOrdinals.push(h.employment.length)
+245:     h.employment.push({contractId,studioId,terms,endedWeek:null,reason:'entry'})
+246:     h.receipts.push({eventId:`industry-event-${h.nextReceipt++}`,week,studioId,kind:'employment',talentId:person.id,
+247:       fromStudioId:null,toStudioId:studioId,contractId,reason:'entry'})
+248:     return {talentId:person.id,name:person.name,role:RIVAL_CREDIT_ROLES[index]!}
+249:   })
+250:   if (account.cash < 0) throw new Error('Rival entry endowment cannot pay its costed resources')
+251:   identity.enteredWeek = week
+252:   identity.recordedFromWeek = week
+253:   // Scheduled companies genuinely begin here. Migration establishes entry only.
+254:   if (origin === 'scheduled') identity.founding = {kind:'campaign',week}
+255:   h.businesses.push(business)
+256:   h.receipts.push({eventId:`industry-event-${h.nextReceipt++}`,week,studioId,kind:'studioEntered',entryKey:business.entryKey,origin})
+257:   if (authored) template.films!.forEach(([title,year,genre,criticScore,audienceScore,openingGross,totalGross],index) => {
+258:     h.films.push({filmId:`${studioId}:historical-film:${index}`,studioId,conceptId:`${studioId}:historical-concept:${index}`,
+259:       title,genre,credits:credits.map(c => ({...c})),provenance:'authored-start/v1',released:historicalDate(year),
+260:       criticScore,audienceScore,openingGross,totalGross,settled:true})
+261:   })
+262:   // The provenance write follows the SAME commit as the people it records, and
+263:   // captures each age AS IT IS AT THE APPEND — after the `Math.max(28, …)` raise
+264:   // above, never as drawn.
+265:   let next: GameState = {...state,talent,hollywood:h}
+266:   for (const person of entered) next = withTalentProvenance(next,person)
+267:   return next
+268: }
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/hollywoodTick.ts lines92-121 SHA2560ca2aa00684465a313cb6321cd458b69be14c695a67ca2baec833244b9cd8d4f blob8f4d6bb92053819cae270803b1ebd7094df2cad2 =====
+92:   const reserveAfterOffer=(terms:import('./types.js').Contract,replacing?:number)=>{
+93:     const employment=[...h.employment,{contractId:'prospective',studioId:b.studioId,terms,endedWeek:null,reason:'replacement' as const}]
+94:     const activeEmploymentOrdinals=[...h.activeEmploymentOrdinals.filter(i=>i!==replacing),employment.length-1]
+95:     return operatingReserve(b,{...h,employment,activeEmploymentOrdinals},week)
+96:   }
+97:   // Same renewal window and immediate replacement terms as the player's renewContract.
+98:   // Ongoing work does not prevent an existing employer from retaining its own people.
+99:   for(const ordinal of [...h.activeEmploymentOrdinals]) {
+100:     const old=h.employment[ordinal]!
+101:     if(old.studioId!==b.studioId||!renewalWindowOpen(old.terms,week))continue
+102:     // P14A.1 (companion §2.1.3 / §2.5, the second bounded staff() edit): this loop
+103:     // runs BEFORE decide() in the same weekly pass and would otherwise auto-renew a
+104:     // rival's expiring person for 208 weeks in the discovery week, so a rival's
+105:     // person could never reach a contested expiry. A CASE SUBJECT is excluded for
+106:     // the whole open-case span — the exclusion lands with the case-open check, not
+107:     // with settlement. Under a case the incumbent's retention is its PROPOSAL.
+108:     if(caseOpenForTalent({...state,hollywood:h,talent},old.terms.talentId,week))continue
+109:     const person=talent.find(t=>t.id===old.terms.talentId)!
+110:     const terms=offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week)
+111:     if(b.account.cash-terms.signingBonus<reserveAfterOffer(terms,ordinal))continue
+112:     const contractId=`${b.studioId}:contract:${person.id}:${week}`
+113:     const newOrdinal=h.employment.length
+114:     h.employment=[...h.employment]
+115:     h.employment[ordinal]={...old,endedWeek:week}
+116:     h.employment.push({contractId,studioId:b.studioId,terms,endedWeek:null,reason:'renewal'})
+117:     h.activeEmploymentOrdinals=h.activeEmploymentOrdinals.map(i=>i===ordinal?newOrdinal:i)
+118:     moveRivalMoney(b.account,'signing',-terms.signingBonus,week)
+119:     appendReceipt(h,{week,studioId:b.studioId,kind:'employment',talentId:person.id,fromStudioId:b.studioId,toStudioId:b.studioId,contractId,reason:'renewal'})
+120:   }
+121:   const occupied=busyTalentIds({...state,hollywood:h,talent})
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/hollywoodTick.ts lines150-164 SHA2560ca2aa00684465a313cb6321cd458b69be14c695a67ca2baec833244b9cd8d4f blob8f4d6bb92053819cae270803b1ebd7094df2cad2 =====
+150:     // The affordability check above `continue`s, so a rival that cannot pay discards
+151:     // the person it just minted; provenance written inside a shared mint primitive
+152:     // would record one dead row per unaffordable rival hire per week, forever, in a
+153:     // save validated on every load. Collected here and written by the outer tick with
+154:     // the same `talent` array this returns.
+155:     if(supplied){next=[...next,person];suppliedPeople.push({id:person.id,age:exactAge})}
+156:     const reason=expired?.terms.talentId===person.id?'renewal':'replacement'
+157:     const contractId=`${b.studioId}:contract:${person.id}:${week}`
+158:     h.activeEmploymentOrdinals=[...h.activeEmploymentOrdinals,h.employment.length]
+159:     h.employment=[...h.employment,{contractId,studioId:b.studioId,terms,endedWeek:null,reason}]
+160:     moveRivalMoney(b.account,'signing',-terms.signingBonus,week)
+161:     appendReceipt(h,{week,studioId:b.studioId,kind:'employment',talentId:person.id,fromStudioId:null,toStudioId:b.studioId,contractId,reason})
+162:     unavailable.add(person.id);filled.add(person.id)
+163:   }
+164:   return next
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/hollywoodTick.ts lines254-271 SHA2560ca2aa00684465a313cb6321cd458b69be14c695a67ca2baec833244b9cd8d4f blob8f4d6bb92053819cae270803b1ebd7094df2cad2 =====
+254:    * to the outer tick so provenance is written with the same commit that carries them. */
+255:   suppliedTalent:{id:string;age:number}[]} {
+256:   const source=state.hollywood
+257:   if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[],suppliedTalent:[]}
+258:   const week=state.market.tick
+259:   const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b,account:{...b.account,
+260:     periods:b.account.periods.map((p,i)=>i===b.account.periods.length-1?{...p,movements:{...p.movements}}:p)}}))}
+261:   let talent=state.talent
+262:   let technology=state.technology
+263:   let physicalPlans=state.physicalPlans
+264:   const growth:ReleaseGrowthRecord[]=[]
+265:   const firstTakes:{studioId:string;production:Production}[]=[]
+266:   const suppliedTalent:{id:string;age:number}[]=[]
+267:   for(const b of h.businesses) {
+268:     technology=considerRivalSoundPurchase({...state,technology,hollywood:h},h,b)
+269:     if(week>=b.nextDecisionWeek)talent=staff(state,h,b,talent,week,
+270:       Array.from({length:rivalScientistDemand({...state,technology,physicalPlans,hollywood:h},h,b,talent,week)},()=>'scientist' as const),suppliedTalent)
+271:     // P13B-S8 (audit item 7): this studio's own physical admission and research
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/hollywoodTick.ts lines348-384 SHA2560ca2aa00684465a313cb6321cd458b69be14c695a67ca2baec833244b9cd8d4f blob8f4d6bb92053819cae270803b1ebd7094df2cad2 =====
+348: 
+349: /** End-of-week expiry follows payroll; future entrants are attached by the outer tick. */
+350: export function finishHollywoodWeek(state:GameState):GameState {
+351:   const source=state.hollywood;if(!source)return state
+352:   const week=state.market.tick
+353:   const expired=source.activeEmploymentOrdinals.filter(i=>source.employment[i]!.terms.endWeekExclusive<=week)
+354:   let h=source
+355:   if(expired.length>0) {
+356:     h={...h,employment:[...h.employment],activeEmploymentOrdinals:h.activeEmploymentOrdinals.filter(i=>!expired.includes(i))}
+357:     for(const i of expired) {
+358:       const e=h.employment[i]!
+359:       h.employment[i]={...e,endedWeek:week}
+360:       appendReceipt(h,{week,studioId:e.studioId,kind:'employment',talentId:e.terms.talentId,fromStudioId:e.studioId,toStudioId:null,contractId:e.contractId,reason:'expiry'})
+361:     }
+362:   }
+363:   if(week%13===0||h.chart===null) {
+364:     const rows=h.identities.filter(s=>s.enteredWeek!==null).map(s=>{
+365:       const b=h.businesses.find(b=>b.studioId===s.studioId)
+366:       return {studioId:s.studioId,standing:{...(b?.standing??state.studio.standing)},
+367:         output:b?b.development.projects.length-b.activeScriptOrdinals.length+(h.origin==='fresh'&&s.row<=4?2:0):state.studio.releasedFilms.length}
+368:     })
+369:     h={...h,previousChart:h.chart,chart:{week,rows}}
+370:   }
+371:   const freeAgents=expired.length>0?[...new Set([...state.freeAgents,...expired.map(i=>h.employment[i]!.terms.talentId)])]:state.freeAgents
+372:   let next:GameState=h===source?state:{...state,hollywood:h,freeAgents}
+373:   // P13B-S8: a Scientist whose contract ended holds no seat that can work — the
+374:   // same pause law the player's own release runs, for that studio's own project.
+375:   for(const i of expired) {
+376:     const e=h.employment[i]!
+377:     if(e.studioId===h.playerStudioId)continue
+378:     next={...next,technology:researchAfterEmploymentRelease(next,e.terms.talentId,e.studioId)}
+379:   }
+380:   // Plans that finished their authored build weeks become this studio's plant, on
+381:   // the week that has ARRIVED — the boundary a rival adoption's own clock uses.
+382:   return completeRivalPlans(next)
+383: }
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/hollywoodStartingData.ts lines1-44 SHA2560ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976 blob4cb6bb16a1aacd7e9a405c2e40cd5834c86bfbdb =====
+1: import type { CreativeRole, Genre, Standing } from './types.js'
+2: 
+3: /** Fictional scenario authoring, not recovered original-game economics.
+4:  * All balances are BEFORE once-only capacity acquisition and signing costs.
+5:  * Historical box office, career counts and Standing are settled starting facts.
+6:  * Live popularity is unavailable: policy uses genre affinity only. Action's
+7:  * Adventure adaptation is explicit; Sci-Fi has no successor genre mapping. */
+8: export const HOLLYWOOD_STARTING_MANIFEST = {
+9:   version: 'living-hollywood-start/v1',
+10:   studios: [
+11:     { name: 'Bellwether Pictures', mark: 'BW', color: '#C99542', founded: 1901, capital: 32_000_000,
+12:       standing: [58,46,61], anchors: ['comedy'], negativeScale: 1.0, marketingRatio: .18, reserveWeeks: 13,
+13:       names: ['Iris Bell','Arthur Vale','Mabel Finch','Walter Reed','Clara Moss','Edwin Pike'],
+14:       films: [['The Misdelivered Parcel',1914,'comedy',64,72,2_100_000,7_600_000],['Sunday at the Pier',1918,'comedy',70,76,2_850_000,10_100_000]] },
+15:     { name: 'Rose Lantern Films', mark: 'RL', color: '#C46B75', founded: 1902, capital: 29_000_000,
+16:       standing: [53,59,55], anchors: ['romance'], negativeScale: 1.12, marketingRatio: .16, reserveWeeks: 18,
+17:       names: ['Ada Rowe','Cecil Arden','Evelyn Shore','Paul Mercer','Florence Clay','Hugh Marlow'],
+18:       films: [['A Letter by Lamplight',1915,'romance',75,69,1_600_000,6_400_000],['The Summer Train',1919,'drama',72,73,2_350_000,8_700_000]] },
+19:     { name: 'Night Orchard Productions', mark: 'NO', color: '#8C8EB7', founded: 1906, capital: 23_000_000,
+20:       standing: [45,55,49], anchors: ['horror'], negativeScale: .94, marketingRatio: .14, reserveWeeks: 20,
+21:       names: ['Vera North','Leon Ash','Nora Blythe','Felix Ward','Pearl Benton','Jasper Cole'],
+22:       films: [['The House Beneath the Fog',1916,'horror',67,65,1_300_000,4_800_000],['The Last Candle',1919,'horror',73,70,1_850_000,6_900_000]] },
+23:     { name: 'Silver Current Pictures', mark: 'SC', color: '#6FA5AA', founded: 1917, capital: 20_000_000,
+24:       standing: [43,44,48], anchors: ['romance'], negativeScale: 1.04, marketingRatio: .20, reserveWeeks: 15,
+25:       names: ['Olive Hart','Victor Dune','Sylvia Lane','Daniel Frost','Agnes Wren','Oscar Field'],
+26:       films: [['The Harbour Promise',1917,'romance',61,67,1_100_000,4_200_000],['Between Two Stations',1919,'romance',68,74,1_750_000,6_600_000]] },
+27:     { name: 'Marigold Motion Pictures', mark: 'MM', color: '#D6A747', capital: 24_000_000,
+28:       anchors: ['romance'], negativeScale: 1.05, marketingRatio: .20, reserveWeeks: 15 },
+29:     { name: 'Blackthorn Screenworks', mark: 'BS', color: '#937C9E', capital: 26_000_000,
+30:       anchors: ['horror'], negativeScale: 1.10, marketingRatio: .18, reserveWeeks: 18 },
+31:     { name: 'Trailhead Pictures', mark: 'TP', color: '#B88254', capital: 34_000_000,
+32:       anchors: ['adventure'], negativeScale: 1.18, marketingRatio: .22, reserveWeeks: 13 },
+33:     { name: 'Copper Kite Films', mark: 'CK', color: '#78A888', capital: 28_000_000,
+34:       anchors: ['comedy','horror'], negativeScale: 1.02, marketingRatio: .19, reserveWeeks: 16 },
+35:     { name: 'Bright Meridian Studios', mark: 'BM', color: '#6E9FC0', capital: 38_000_000,
+36:       anchors: ['adventure','comedy'], negativeScale: 1.20, marketingRatio: .24, reserveWeeks: 12 },
+37:   ] as readonly StartingStudio[],
+38: } as const
+39: 
+40: export type StartingStudio = {
+41:   name: string; mark: string; color: string; founded?: number; capital: number;
+42:   standing?: [number,number,number]; anchors: Genre[]; negativeScale: number;
+43:   marketingRatio: number; reserveWeeks: number; names?: string[];
+44:   films?: [string,number,Genre,number,number,number,number][];
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/tuning.ts lines402-409 SHA256573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4 blobc4fc34447aff0eefd6ea52f34b798a1bfa2fabc9 =====
+402:   // continuous input, symmetric for BOTH issuers: annual = round(ask(term) × tier).
+403:   // 1.00 is the plain ask and the floor — a below-ask tier is not offered in P14A.
+404:   // NUMERICAL HYPOTHESIS: the plan records the VALUES as OPEN; only the enum shape,
+405:   // the 1.00 floor and monotonicity are settled.
+406:   MARKET_PREMIUM_TIERS: [1.0, 1.05, 1.1, 1.15, 1.2, 1.25] as readonly number[],
+407: 
+408:   // Freelancers (D-11.10). fee = round(salaryCurve × premium); a one-time project cost.
+409:   FREELANCER_FEE_PREMIUM: 1.5, // freelancer one-film fee vs base per-production salary
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/tick.ts lines1040-1074 SHA256c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15 blob328c2e28f7e209b4ab6b96c6e59f1d1739ad0db5 =====
+1040:   // Nowhere else works: `tick.ts:408-410` states the rule in its own comment ("the
+1041:   // clock is the TICK's to advance, as its last step"), so for the whole body of the
+1042:   // tick `state.market.tick` is still `currentTick` and there is no point inside it
+1043:   // that is both after the advance and before every reader of `talent.age`.
+1044:   //
+1045:   // The invariant this produces is stronger than the original §5 wording and is
+1046:   // exactly validator condition 2: on every state the engine emits,
+1047:   // `talent[i].age === ageAt(row_i, state.market.tick)`. A person whose birthday
+1048:   // falls in week `w` is the new age for the WHOLE of week `w`, because the tick that
+1049:   // produced week `w` set it here. It consumes no RNG, so `rngState` above is final.
+1050:   // The rival supply of `hollywoodTick.ts:142` appended into the same `talent` array,
+1051:   // so its rows are written here, with that commit, BEFORE the materialization reads
+1052:   // them. `withTalentProvenance` anchors each on `state.market.tick` — still
+1053:   // `currentTick`, the week `staff()` itself used.
+1054:   let provenanced: GameState = { ...state, talent, talentProvenance: state.talentProvenance }
+1055:   for (const person of industry.suppliedTalent) provenanced = withTalentProvenance(provenanced, person)
+1056:   const materialized = materializeAges(provenanced, currentTick + 1)
+1057: 
+1058:   let finalized: GameState = {
+1059:     // C2a-M4: the ADMITTED state is the base — it carries this advance's queue
+1060:     // (rows granted or expired are gone from it), the concepts an admitted
+1061:     // original commission minted, and the blueprint root that recorded them.
+1062:     ...admitted,
+1063:     technology: industry.technology,
+1064:     // P13B-S8: a rival's own admitted plans live on the shared plan root; the
+1065:     // player's admission at step 1.06 already wrote its rows into `admitted`.
+1066:     physicalPlans: industry.physicalPlans,
+1067:     hollywood,
+1068:     rngState: rng.serialize(),
+1069:     market: { ...state.market, tick: currentTick + 1 },
+1070:     talent: materialized.talent,
+1071:     talentProvenance: materialized.talentProvenance,
+1072:     studio: {
+1073:       ...admitted.studio,
+1074:       cash,
+
+===== A 3aaf55e0c06c4b745b0b722cc56913050b1ee229:src/core/tick.ts lines1109-1146 SHA256c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15 blob328c2e28f7e209b4ab6b96c6e59f1d1739ad0db5 =====
+1109:   for(const identity of finalized.hollywood?.identities ?? []) {
+1110:     if(identity.role==='rival' && identity.enteredWeek===null && identity.eligibleWeek<=finalized.market.tick) {
+1111:       finalized=enterRival(finalized,identity.studioId,'scheduled')
+1112:     }
+1113:   }
+1114:   // P14A.1 (companion §2.1.8): the TERMINAL, fixed-order market step — appended
+1115:   // after the pipeline's last call, on the already-incremented week, never inside
+1116:   // `advanceHollywoodWeek`/`decide()`, which run pre-increment. By here the P10
+1117:   // expiry step has removed the subject's contract, scheduled rival entry has run,
+1118:   // and `finishHollywoodWeek` has closed the subject's interval and written the
+1119:   // `expiry` receipt the chooser receipt references.
+1120:   // P14B.1 (1): the ONE first-take append, on the week this advance PRODUCES,
+1121:   // for the player's advance and every rival's — one root, one ordinal sequence,
+1122:   // written before anything reads it. P14B.1 (6): promise outcomes are then
+1123:   // evaluated ONCE, before the terminal market step, so a promise kept or broken
+1124:   // this week is already a fact when the market ranks on trust.
+1125:   const takeEntries = [
+1126:     ...productionAdvance.firstTakes.map((production) => ({ studioId: finalized.hollywood?.playerStudioId ?? '', production })),
+1127:     ...industry.firstTakes,
+1128:   ]
+1129:   const withTakes = appendFirstTakes(
+1130:     finishHollywoodWeek(finishTechnologyWeek(finalized)),
+1131:     takeEntries,
+1132:     finalized.market.tick,
+1133:   )
+1134:   // P14B.5 (2): the ONE relationship seam, between the take append and the
+1135:   // promise evaluation — the takes are already a fact, the market has not yet
+1136:   // ranked on D5. Fed THIS advance's delta only: the same take entries, plus this
+1137:   // advance's release results (the player's `records` and every rival's
+1138:   // `industry.growth`), never a scan of a root.
+1139:   const withBonds = advanceRelationshipsWeek(
+1140:     withTakes,
+1141:     { takes: takeEntries, releases: [...records.map((r) => r.filmResult), ...industry.growth.map((r) => r.filmResult)] },
+1142:     finalized.market.tick,
+1143:   )
+1144:   return advanceTalentMarketWeek(advancePromisesWeek(withBonds))
+1145: }
+1146: 
+

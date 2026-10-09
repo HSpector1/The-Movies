@@ -1,0 +1,15 @@
+{
+  "actualToolExit": 1,
+  "actualToolSessionId": 2203,
+  "currentAndProtectedSnapshotsAndFullInventoryNotReached": true,
+  "failedOperation": "snapshot.py line127 output.mkdir(mode=0o700), parent evidence directory absent",
+  "fix": "Provision exact physical0700 evidence parent and independently review a fresh output label/grant; original failed receipts stay immutable.",
+  "snapshotPid": 85523,
+  "snapshotPidAndPgidAbsent": true,
+  "sourceConfigUnchanged": true,
+  "status": "PRESERVED_IDENTIFIED_OUTPUT_PARENT_SETUP_STOP",
+  "stderrBytes": 1058,
+  "stderrSha256": "825be73ce9242c5b268bca29de51ea17e6b6e049b77ca34c01b1b313bfca7495",
+  "stdoutBytes": 0,
+  "utc": "2026-10-09T19:35:15.937162+00:00"
+}

@@ -1,0 +1,151 @@
+{
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "before-fill",
+    "before-fill-after-aj-r3"
+  ],
+  "causeConfirmedBeforeCurrentProtectedAndInventory": true,
+  "exactArgvProposal": {
+    "bytes": 1740,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/EXACT-ARGV-PROPOSAL.json",
+    "sha256": "bbfd52484cc6160a53ae219aa0d093d5f69f231a860427dc68866d097afb8a26"
+  },
+  "freshAbsentPaths": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/before-fill.stdout",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/before-fill.stderr",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-GRANT.json"
+  ],
+  "fullScanExecuted": false,
+  "gitExecuted": false,
+  "globalWorkerClearanceClaim": false,
+  "guardRuntimeExecuted": false,
+  "outputParentRole": {
+    "device": 16777220,
+    "inode": 166766846,
+    "mode": 448,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence"
+  },
+  "priorPidAndPgidFreshAbsent": [
+    85523
+  ],
+  "roles": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r1/BEFORE-FILL-ACTUAL-TOOL.json": {
+      "bytes": 678,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r1/BEFORE-FILL-ACTUAL-TOOL.json",
+      "sha256": "f82a5671346c6900bbb0f9570714c1fe60e0a1c91a73304934d0167de4d818da"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r1/BEFORE-FILL-GRANT.json": {
+      "bytes": 2954,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r1/BEFORE-FILL-GRANT.json",
+      "sha256": "afe0da07dcdd2ae261b635950ff962db9ebae959e591110b79f48d7a96848317"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r1/BEFORE-FILL-STOP.json": {
+      "bytes": 705,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r1/BEFORE-FILL-STOP.json",
+      "sha256": "757eccd1f815fd4cc167c034b3bd0bca2d8f084c81a4a9a1442fe3d1dde68f29"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r1/before-fill.stderr": {
+      "bytes": 1058,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r1/before-fill.stderr",
+      "sha256": "825be73ce9242c5b268bca29de51ea17e6b6e049b77ca34c01b1b313bfca7495"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r1/before-fill.stdout": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r1/before-fill.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/EXACT-ARGV-PROPOSAL.json": {
+      "bytes": 1740,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/EXACT-ARGV-PROPOSAL.json",
+      "sha256": "bbfd52484cc6160a53ae219aa0d093d5f69f231a860427dc68866d097afb8a26"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/grant_before_fill.py": {
+      "bytes": 4668,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/grant_before_fill.py",
+      "sha256": "110717276f325d44e00bd0d5d36db9ece6a1fc193a78c42b68ab2f09c405d6ce"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-root-source-review-after-aj-20261009-r1/RECEIPT.json": {
+      "bytes": 6806,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-root-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "a06cdade7513d63e793e27b67a74571ca16b896ae0ee2ee1aeda94d2c854053c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/ARGV-PROPOSAL.json": {
+      "bytes": 3262,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/ARGV-PROPOSAL.json",
+      "sha256": "5f86c4b8a2f868d9de0fab07f7243f1aa6db7ffc0414058668343be49df01e52"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG-DIFF.patch": {
+      "bytes": 3881,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG-DIFF.patch",
+      "sha256": "e78c4d6553abd20fe2a557866d290808f03c4f9c9da4c82895779da28ed93ce6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG.json": {
+      "bytes": 3536,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG.json",
+      "sha256": "a4b88b0181bf525f6144a71f05bb7d78a17fd46bbfbe88d0e2aea90a89874b4c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/DIFF.patch": {
+      "bytes": 7910,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/DIFF.patch",
+      "sha256": "8857f8264648bf3199a96434f029a155a7bffdc446c2bf9647aaf980826e3fee"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/PLAN.md": {
+      "bytes": 5606,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/PLAN.md",
+      "sha256": "73f96ea428ac6d839e7b0affa1f4471faf35338fbb61a65a6bd0168f13819c60"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/PROVENANCE.json": {
+      "bytes": 6788,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/PROVENANCE.json",
+      "sha256": "757ab01e285d8a8ff800b95bb07b20843055f9184ba75fc4b3c9a50e96260e94"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/SOURCE-PINS.json": {
+      "bytes": 3136,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "3293ac99fc8e43b5834cf4e4330f85501295915fd9e2c2da48b5e88d941e856e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/STATIC-PROOF.json": {
+      "bytes": 4015,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/STATIC-PROOF.json",
+      "sha256": "3b1273e769a77c8da4b018baa00289630e8c0830cb58d29c66bb00e223215f57"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/fill.py": {
+      "bytes": 8331,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/fill.py",
+      "sha256": "2252cf378b1f508c5581f5568f57df3ea734703e30243efd81b3f75779d138c8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py": {
+      "bytes": 21431,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+      "sha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-aj-scope-parent-adoption-after-aj-20261009-r1/ADOPTION.json": {
+      "bytes": 2289,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-aj-scope-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "13be428dfe3bdba1bc4ce4f2348bd194d2473c4c812df2b5f0bfec936b76b8e8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/CONFIG.json": {
+      "bytes": 3235,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/CONFIG.json",
+      "sha256": "03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py": {
+      "bytes": 20999,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/snapshot.py",
+      "sha256": "259c4bac30fd506a67779d2c59fd29f51c8a6f75e140f7c37f6cff625aa23a58"
+    }
+  },
+  "sourceConfigUnchanged": true,
+  "utc": "2026-10-09T19:39:38.179852+00:00",
+  "wrapperExecuted": false,
+  "wrapperSha256": "110717276f325d44e00bd0d5d36db9ece6a1fc193a78c42b68ab2f09c405d6ce"
+}

@@ -1,0 +1,83 @@
+{
+  "actual30ConfigRolesAuthenticated": true,
+  "actualControlsObserved": false,
+  "actualRuntimeGrant": null,
+  "adoptedAmendment": {
+    "bytes": 4638,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "7da501eb54301aaf0a22c5dc29e4dff786ee4bd9bfff490153d951c54bd7b9eb"
+  },
+  "amendmentReview": {
+    "bytes": 2869,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "747ee2283e8de0584323c5107670614cf95b75229e2a1e1a3cbf492f17eb64db"
+  },
+  "configSha256": "09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_NODE22_FILLED_CONTROLS_ROUTE",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "findings": [],
+  "localDriverReportGuardProtocolTestsByteIdentical": true,
+  "nativeNode20TapHistoricalLabel": true,
+  "node20Node22EquivalenceClaimed": false,
+  "observer18RolesAndBoundsUnchanged": true,
+  "predecessorNode20FilledReview": {
+    "bytes": 14906,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "e304e8707580bae518ba12e7e15eb353c2a5d67b23dbc491fba29c2cdfbda6d4"
+  },
+  "predecessorNode20SourcePins": {
+    "bytes": 4500,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "9548de6af338fe98a3dde78a1599850152fdab48db0c9e25576de8deb48acecc"
+  },
+  "recorderExactInverseTwoSubstitutions": true,
+  "recorderSha256": "3767643eff8348e7bf132e6eee3be132747e96b581d7f916d48964bf8f9d8ddb",
+  "remainingGates": [
+    "Current M0 readback/full protected postflight admission.",
+    "Root independently reviewed exact outer wrapper/fresh guards and separate actual JS/Python arm grants.",
+    "Actual controls and independent observed outcome/raw helper/meta/registry/cleanup review."
+  ],
+  "renewalCausesClosed": 0,
+  "roles": {
+    "AUDIT": {
+      "bytes": 12597,
+      "path": "/Users/zacheryspector/studio-scratch/review-a208-node22-filled-after-aj.py",
+      "sha256": "05c811c9be9629529352e5874857ef12a300240cb4eb6643338d03db1a596408"
+    },
+    "CONFIG.json": {
+      "bytes": 15164,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/CONFIG.json",
+      "sha256": "09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb"
+    },
+    "FACTS.json": {
+      "bytes": 22156,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-independent-source-review-after-aj-20261009-r1/FACTS.json",
+      "sha256": "c2c446a5574da9e3d4daad8d985f5a34cdc4392544cab539f749e4884646c800"
+    },
+    "REPORT.md": {
+      "bytes": 2393,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-independent-source-review-after-aj-20261009-r1/REPORT.md",
+      "sha256": "1b8b094e493a70148dc53aa74689d8c1caa90e979cd3d6766125db595d5515dd"
+    },
+    "ROUTE.json": {
+      "bytes": 2824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/ROUTE.json",
+      "sha256": "6fdae62563b62fb22adaa289403cdfa3ed00daa11df21489e189b9dc03fb93d6"
+    },
+    "SOURCE-PINS.json": {
+      "bytes": 5579,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/SOURCE-PINS.json",
+      "sha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5"
+    },
+    "record.py": {
+      "bytes": 14474,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py",
+      "sha256": "3767643eff8348e7bf132e6eee3be132747e96b581d7f916d48964bf8f9d8ddb"
+    }
+  },
+  "routeSha256": "6fdae62563b62fb22adaa289403cdfa3ed00daa11df21489e189b9dc03fb93d6",
+  "schema": "1370-a208-node22-filled-controls-independent-source-review-v1",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1",
+  "sourcePinsSha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5"
+}

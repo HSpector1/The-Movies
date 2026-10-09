@@ -1,0 +1,11 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/record.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/record.py
+@@ -181,7 +181,7 @@
+                 "recorderSha256", "supervisorPath", "supervisorSha256", "sourceSha"):
+         require(isinstance(spec.get(key), str) and bool(spec[key]),
+                 "missing exact " + key)
+-    require(Path(spec["materializerPath"]) == Path("/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/add_inputs.py") and
++    require(Path(spec["materializerPath"]) == Path("/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/add_inputs.py") and
+             file_sha(Path(spec["materializerPath"])) == spec["materializerSha256"],
+             "materializer source drift")
+     require(Path(spec["recorderPath"]) == Path(__file__) and

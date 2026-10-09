@@ -1,0 +1,67 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 13118,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/CONFIG.json",
+      "sha256": "4b269726743163f99ab9764a7a15041e24c7bd4a1d884ac54bdfee57c4049f39"
+    },
+    "R1-R2.diff": {
+      "bytes": 5012,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/R1-R2.diff",
+      "sha256": "2e151594c0182b4cc5e7e56c2e7d6d8e41825bebb89a7184db631feb8fe26f9d"
+    },
+    "REPAIR-PROOF.json": {
+      "bytes": 1253,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/REPAIR-PROOF.json",
+      "sha256": "47c2c5e93600949410f94c370dd7a8cc64b1b8a923fb756185031b89141befe8"
+    },
+    "REPORT.md": {
+      "bytes": 1841,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/REPORT.md",
+      "sha256": "3a4ff644dc84b3abf2438b9b1cfc0d8aa037c6fdacf41b28b9a82e65eeb1b367"
+    },
+    "ROUTE.json": {
+      "bytes": 2280,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/ROUTE.json",
+      "sha256": "7db0f41d31c07324215ebf4072b1960957a69795214afd4b8bc8e6a5957ca182"
+    },
+    "drive.py": {
+      "bytes": 8874,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/drive.py",
+      "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+    },
+    "prepare.py": {
+      "bytes": 16252,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/prepare.py",
+      "sha256": "ea52ebbd2c37cc4d8c0d66936a3cf07608bf6d980be5120d33b267709073559f"
+    },
+    "record.py": {
+      "bytes": 14467,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/record.py",
+      "sha256": "1aa053d9112cad523dc92fb22e8fc417ffc91c8718372efa0c9fe558896879a8"
+    },
+    "repair.py": {
+      "bytes": 12934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/repair.py",
+      "sha256": "b6f6f31825d1d415a57298424edc574e0e55cbc44ce8abafa62f800d603e2d7c"
+    },
+    "report_guard.py": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    },
+    "test_reports.py": {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    }
+  },
+  "observerPins": {
+    "bytes": 9882,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+  },
+  "runtimeGrant": null,
+  "schema": "1370-a208-finite-recorded-controls-pins-r2"
+}

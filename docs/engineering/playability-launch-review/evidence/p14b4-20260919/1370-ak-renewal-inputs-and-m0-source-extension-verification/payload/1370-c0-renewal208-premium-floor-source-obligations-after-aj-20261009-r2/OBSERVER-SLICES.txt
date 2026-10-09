@@ -1,0 +1,229 @@
+===== H accepted diagnostic complete tick-only loop =====
+// Identical diagnostic source is copied into both isolated arms.
+// It records the original four JSON.stringify preimages without changing the engine.
+import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
+import { appendFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { it } from 'vitest'
+import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import { tick } from '../src/core/tick.js'
+import type { GameState } from '../src/core/types.js'
+
+const seed = 'p13a-core-causal-01'
+const endWeek = 416
+const output = process.env.PREIMAGE_OUTPUT
+assert.ok(output && resolve(output) === output, 'PREIMAGE_OUTPUT must be absolute')
+mkdirSync(output, { recursive: true })
+const sha = (bytes: string) => createHash('sha256').update(bytes).digest('hex')
+const encode = (value: unknown) => JSON.stringify(value)
+const settlement = (state: GameState) => state.talentMarket.receipts
+  .filter((r) => r.kind === 'settled' || r.kind === 'declined' || r.kind === 'expired')
+  .map((r) => [r.eventId, r.kind, r.week, r.talentId, r.studioId, r.reasons, r.dropped])
+const eventContext = (state: GameState, receipt: GameState['talentMarket']['receipts'][number]) => {
+  const market = state.talentMarket as unknown as Record<string, unknown>
+  const subject = receipt.talentId
+  return {
+    receipt,
+    cases: state.talentMarket.cases.filter((c) => c.talentId === subject),
+    proposalReceipts: state.talentMarket.receipts.filter((r) => r.talentId === subject),
+    proposals: Array.isArray(market.proposals) ? market.proposals.filter((p: any) => p.talentId === subject) : market.proposals,
+    promises: state.promises.filter((p) => p.beneficiaryPersonId === subject),
+    person: state.talent.find((p) => p.id === subject),
+    employment: state.hollywood!.employment.filter((e) => e.terms.talentId === subject),
+    businesses: state.hollywood!.businesses,
+  }
+}
+const writeFinal = (name: string, value: unknown) => {
+  const bytes = encode(value)
+  writeFileSync(resolve(output, `${name}.json`), bytes, { flag: 'wx' })
+  return { sha256: sha(bytes), bytes: Buffer.byteLength(bytes), length: Array.isArray(value) ? value.length : null }
+}
+
+it('records the full p13a original digest preimages', () => {
+  let state = p13aGeneratedStudio(seed)
+  assert.equal(state.market.tick, 0)
+  let seenReceipts = 0
+  let seenTakes = 0
+  const weeklyPath = resolve(output, 'weekly.ndjson')
+  const chooserPath = resolve(output, 'terminal-context.ndjson')
+  writeFileSync(weeklyPath, '', { flag: 'wx' })
+  writeFileSync(chooserPath, '', { flag: 'wx' })
+  appendFileSync(weeklyPath, encode({ week: 0, receiptsAppended: [], receipts: state.talentMarket.receipts, employment: state.hollywood!.employment,
+    takesAppended: state.firstTakes, firstTakes: state.firstTakes, settlement: settlement(state) }) + '\n')
+  for (let step = 1; step <= endWeek; step++) {
+    state = tick(state)
+    const receipts = state.talentMarket.receipts
+    assert.equal(state.market.tick, step, 'contiguous natural ticks')
+    assert.ok(state.talentMarket.receipts.length >= seenReceipts, 'receipt append-only invariant')
+    assert.ok(state.firstTakes.length >= seenTakes, 'first-take append-only invariant')
+    const addedReceipts = state.talentMarket.receipts.slice(seenReceipts)
+    const addedTakes = state.firstTakes.slice(seenTakes)
+    appendFileSync(weeklyPath, encode({ week: step, receiptsAppended: addedReceipts, receipts,
+      employment: state.hollywood!.employment, takesAppended: addedTakes,
+      firstTakes: state.firstTakes, settlement: settlement(state) }) + '\n')
+    for (const receipt of addedReceipts) {
+      if (receipt.kind === 'settled' || receipt.kind === 'declined' || receipt.kind === 'expired') {
+        appendFileSync(chooserPath, encode({ week: step, ...eventContext(state, receipt) }) + '\n')
+      }
+    }
+    seenReceipts = state.talentMarket.receipts.length
+    seenTakes = state.firstTakes.length
+  }
+  const final = {
+    seed, week: state.market.tick, rngState: state.rngState,
+    settlement: writeFinal('settlement', settlement(state)),
+    receipts: writeFinal('receipts', state.talentMarket.receipts),
+    employment: writeFinal('employment', state.hollywood!.employment),
+    takes: writeFinal('takes', state.firstTakes),
+    weekly: { sha256: sha(readFileSync(weeklyPath, 'utf8')) },
+    terminalContext: { sha256: sha(readFileSync(chooserPath, 'utf8')) },
+  }
+  writeFileSync(resolve(output, 'final.json'), encode(final) + '\n', { flag: 'wx' })
+}, 600_000)
+
+===== A accepted R9 witness exact invocation =====
+// UNRUN proposal. Invoke only after binding is filled and independently accepted.
+import { createHash } from 'node:crypto'
+import { readFileSync, realpathSync } from 'node:fs'
+import { dirname, join, resolve } from 'node:path'
+import { pathToFileURL } from 'node:url'
+import { execFileSync } from 'node:child_process'
+import { observeLedger, SOURCE } from './witness-core.mjs'
+import { worktreeFile } from './worktree-guard.mjs'
+import { validateBoundsRoles } from './bounds-guard.mjs'
+
+const fail = (name: string): never => { throw new Error(`STOP_${name}`) }
+const sha = (bytes: Buffer | string) => createHash('sha256').update(bytes).digest('hex')
+const git = (root: string, ...args: string[]) => execFileSync('git', args, {
+  cwd: root, encoding: 'utf8', timeout: 15_000, maxBuffer: 1024 * 1024,
+}).trim()
+const blobPins = {
+  'src/core/aging.ts': 'e1b88562ded631e0142b2783555e866d4a884d04',
+  'src/core/employment.ts': 'e8e5acaa1e6a94ac1de7db13eb46840efb55616f',
+  'src/core/hollywood.ts': '377da502bcfa55afe31c243ab0909b2c0012d269',
+  'src/core/worldgen.ts': '94f83a85e1e59532013ab4735f73a67a916a5332',
+  'src/core/tick.ts': '328c2e28f7e209b4ab6b96c6e59f1d1739ad0db5',
+  'src/harness/p13a/fixtures.ts': '9ab3eee75b0b2b2733f350bbc3964aa5ba176de8',
+  'tests/bridge-p14b5-relationships.test.ts': '0815114340a983348eae6e98c33843c32c297228',
+  'tests/fixtures/p13a/accepted-v19.json.gz': 'a987ecc4411c48fc8f256e81c93e9abf1fd61d6c',
+} as const
+const runtimePaths = [
+  'package.json', 'package-lock.json',
+  'node_modules/vite/package.json', 'node_modules/vite-node/package.json',
+  'node_modules/vite-node/vite-node.mjs',
+] as const
+function sourceGuard(root: string, thisDir: string, binding: any) {
+  if (binding.nodeVersion !== process.version ||
+      binding.nodeExecPath !== realpathSync(process.execPath)) fail('NODE_IDENTITY')
+  if (git(root, 'rev-parse', 'HEAD') !== SOURCE ||
+      git(root, 'status', '--porcelain=v1', '--untracked-files=all') !== '') fail('SOURCE_DIRTY_OR_WRONG')
+  const worktreeSha256: Record<string, string> = {}
+  for (const [path, blob] of Object.entries(blobPins)) {
+    if (git(root, 'rev-parse', `HEAD:${path}`) !== blob) fail('SOURCE_BLOB')
+    worktreeSha256[path] = worktreeFile(root, path, blob, binding.worktreeSha256[path])
+  }
+  const observerPaths = ['witness-core.mjs', 'worktree-guard.mjs', 'bounds-guard.mjs', 'witness.mts', 'supervise.py', 'outer-recorder.py', 'POLICY.sb'] as const
+  for (const path of observerPaths) {
+    if (sha(readFileSync(join(thisDir, path))) !== binding.observerSha256[path]) fail('OBSERVER_PIN')
+  }
+  const runtime = Object.fromEntries(runtimePaths.map(path => [path, sha(readFileSync(join(root, path)))]))
+  for (const path of runtimePaths) if (runtime[path] !== binding.runtimeSha256[path]) fail('RUNTIME_PIN')
+  const amendments = [validateBoundsRoles(binding.boundsAmendment, binding.parentBoundsAdoption)]
+  return { head: SOURCE, blobs: blobPins, worktreeSha256, observer: binding.observerSha256, runtime,
+    amendments, node: process.version, execPath: realpathSync(process.execPath) }
+}
+
+async function main() {
+  if (process.argv.length !== 3) fail('BINDING_ARGV')
+  const bindingPath = resolve(process.argv[2]!)
+  const binding = JSON.parse(readFileSync(bindingPath, 'utf8'))
+  if (binding.status !== 'REVIEWED_FILLED_UNRUN' || binding.sourceSha !== SOURCE ||
+      !binding.observerSha256 || !binding.runtimeSha256 || !binding.worktreeSha256 ||
+      !binding.boundsAmendment || !binding.parentBoundsAdoption) fail('UNFILLED_OR_UNREVIEWED')
+  const thisDir = dirname(new URL(import.meta.url).pathname)
+  const root = realpathSync(resolve(binding.repoRoot))
+  const preflight = sourceGuard(root, thisDir, binding)
+  if (binding.outputProtocol !== 'single-bounded-stdout-frame-no-files') fail('OUTPUT_PROTOCOL')
+  // Only now may the pinned game modules load. The observer itself has no game rules.
+  const fixture = await import(pathToFileURL(join(root, 'src/harness/p13a/fixtures.ts')).href)
+  const engine = await import(pathToFileURL(join(root, 'src/core/tick.ts')).href)
+  const started = Date.now()
+  const result = observeLedger(fixture.p13aGeneratedStudio, engine.tick)
+  const postflight = sourceGuard(root, thisDir, binding)
+  const frame = {
+    status: 'MATCHED_AGING_ERA_PREIMAGE_CANDIDATE', protocol: 'single-bounded-stdout-frame-no-files',
+    sourceSha: SOURCE, seed: 'p13a-core-causal-01', weeks: 416,
+    sourceBlobs: blobPins, worktreeSha256: preflight.worktreeSha256, preflight, postflight,
+    boundsAmendment: binding.boundsAmendment, parentBoundsAdoption: binding.parentBoundsAdoption,
+    firstQuote: result.firstQuote, employmentBytes: result.employmentBytes.length,
+    employmentRows: result.rows, digests: result.digests, elapsedMs: Date.now() - started,
+    node: process.version, preimageBase64: result.employmentBytes.toString('base64'),
+  }
+  Object.assign(frame, { finalflight: sourceGuard(root, thisDir, binding) })
+  const bytes = Buffer.from(JSON.stringify(frame) + '\n', 'utf8')
+  if (bytes.length > 512 * 1024) fail('STDOUT_CAP')
+  process.stdout.write(bytes)
+}
+main().catch(error => { process.stderr.write(String(error?.stack ?? error) + '\n'); process.exitCode = 2 })
+
+===== A accepted R9 observeLedger complete action seam =====
+import { createHash } from 'node:crypto'
+
+export const SOURCE = '3aaf55e0c06c4b745b0b722cc56913050b1ee229'
+export const SEED = 'p13a-core-causal-01'
+export const WEEKS = 416
+export const SUBJECT = 'person-studio-aca408ec-r01-0'
+export const EXPECTED = Object.freeze({
+  employment: '4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58',
+  settlement: '706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77',
+  receipts: 'af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766',
+  takes: '8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694',
+  rng: '2598418427,508725886,1318803286,3129010527',
+})
+const digest = bytes => createHash('sha256').update(bytes).digest('hex')
+const requireValue = (ok, why) => { if (!ok) throw new Error(`STOP_${why}`) }
+const serialize = value => Buffer.from(JSON.stringify(value), 'utf8')
+const settlementRows = state => state.talentMarket.receipts
+  .filter(r => r.kind === 'settled' || r.kind === 'declined' || r.kind === 'expired')
+
+/** Observes existing state and takes exactly 416 normal ticks. No quote or predicate calls. */
+export function observeLedger(factory, tick, expected = EXPECTED, clock = Date.now) {
+  const started = clock()
+  let state = factory(SEED)
+  requireValue(state?.market?.tick === 0, 'WEEK0')
+  const firstRows = state.hollywood?.employment?.filter(row => row.terms.talentId === SUBJECT)
+  requireValue(firstRows?.length === 1, 'FIRST_ROW_IDENTITY')
+  const firstIndex = state.hollywood.employment.indexOf(firstRows[0])
+  requireValue(firstIndex === 0, 'FIRST_ROW_ORDER')
+  const first = firstRows[0]
+  const person = state.talent.filter(row => row.id === SUBJECT)
+  const provenance = state.talentProvenance?.rows?.filter(row => row.personId === SUBJECT)
+  requireValue(person.length === 1 && provenance?.length === 1, 'FIRST_PERSON_IDENTITY')
+  requireValue(provenance[0].kind === 'authored_exact_week' && provenance[0].entryWeek === 0 &&
+    provenance[0].ageAtEntry === 44.36540781416331, 'FIRST_ANCHOR')
+  requireValue(person[0].age === 44 && first.terms.annualSalary === 395548 &&
+    first.terms.signingBonus === 71199 && first.terms.startWeek === 0, 'FIRST_QUOTE')
+  const firstQuote = JSON.parse(JSON.stringify({ index: firstIndex, row: first,
+    committedAge: person[0].age, provenance: provenance[0], rngState: state.rngState }))
+  for (let step = 1; step <= WEEKS; step++) {
+    requireValue(clock() - started < 720_000, 'INNER_DEADLINE')
+    state = tick(state)
+    requireValue(clock() - started < 720_000, 'INNER_DEADLINE')
+    requireValue(state?.market?.tick === step, 'TICK_HORIZON')
+  }
+  requireValue(state.hollywood?.employment?.length === 44, 'ROW_COUNT')
+  const employmentBytes = serialize(state.hollywood.employment)
+  requireValue(employmentBytes.length > 0 && employmentBytes.length <= 256 * 1024, 'OUTPUT_BOUNDS')
+  const digests = {
+    employment: digest(employmentBytes),
+    settlement: digest(serialize(settlementRows(state).map(r =>
+      [r.eventId, r.kind, r.week, r.talentId, r.studioId, r.reasons, r.dropped]))),
+    receipts: digest(serialize(state.talentMarket.receipts)),
+    takes: digest(serialize(state.firstTakes)),
+    rng: state.rngState,
+  }
+  for (const key of Object.keys(EXPECTED)) requireValue(digests[key] === expected[key], `CONTROL_${key.toUpperCase()}`)
+  requireValue(JSON.stringify(JSON.parse(employmentBytes.toString('utf8'))) === employmentBytes.toString('utf8'), 'ROUNDTRIP')
+  return { employmentBytes, firstQuote, digests, rows: 44, week: WEEKS }
+}

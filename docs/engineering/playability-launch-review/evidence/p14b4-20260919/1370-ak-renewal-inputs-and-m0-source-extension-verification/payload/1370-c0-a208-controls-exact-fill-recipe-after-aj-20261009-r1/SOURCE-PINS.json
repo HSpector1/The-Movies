@@ -1,0 +1,16 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "AUTHORITY-MAP.json": {
+      "bytes": 3011,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-exact-fill-recipe-after-aj-20261009-r1/AUTHORITY-MAP.json",
+      "sha256": "1b923032c54a352c681afb84369c6068ceaf8f3f473217fd566cd945dd3f4cd9"
+    },
+    "FILL-RECIPE.md": {
+      "bytes": 4435,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-exact-fill-recipe-after-aj-20261009-r1/FILL-RECIPE.md",
+      "sha256": "ca73e83daf82400eee116cdec66b469bae1da87bdc64828f4a4dc129375553c3"
+    }
+  },
+  "schema": "1370-a208-controls-exact-fill-recipe-pins-r1"
+}

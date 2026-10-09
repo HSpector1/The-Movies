@@ -1,0 +1,57 @@
+{
+  "actualRecorder": {
+    "bytes": 928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-controls-output-20261009-r1/RESULT.json",
+    "sha256": "72a1051d405ca012f454d76734b02908002da25b969f3ea4f6a1b9a42cf6b594"
+  },
+  "actualTool": {
+    "bytes": 680,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-parent-recorded-after-aj-20261009-r1/CONTROLS-ACTUAL-TOOL.json",
+    "sha256": "fe49c26aeef67f62ef07b4bba693b8c38c64e065335d11c7b97128793f75ccd8"
+  },
+  "actualToolExit": 0,
+  "actualToolSessionId": 26862,
+  "childExit": 0,
+  "configSha256": "22597cd15bceec96176ad4247cdf11146aa6651bfd15d01366b105731fff83ba",
+  "elapsedSeconds": 1.6598591410001973,
+  "freshPidAndPgidAbsent": [
+    77313,
+    77576
+  ],
+  "globalAbsenceClaimed": false,
+  "grant": {
+    "bytes": 13376,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-parent-recorded-after-aj-20261009-r1/CONTROLS-GRANT.json",
+    "sha256": "fc08360dc49f7095bbeb37202048e9589ae7325bc17bdb49546d373f67574ab3"
+  },
+  "groups": 8,
+  "helperLog": {
+    "bytes": 416,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-controls-lane-20261009-r1/first-draw-controls.lane.log",
+    "sha256": "65292f3c7b8b8ab454bea6950081d604c4bc3b0f412af02f8bf7cedce4ae173d"
+  },
+  "helperMeta": {
+    "bytes": 352,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-controls-lane-20261009-r1/first-draw-controls.lane.log.meta",
+    "sha256": "76d4b89b2b5b31ef02096f396e9e11194da0445c40f5603cdc5e5c0b7e70a235"
+  },
+  "helperMetaExit": 0,
+  "laneLockAbsent": true,
+  "recorderExit": 0,
+  "renewalPricingCausesClosed": 0,
+  "sourcePinsSha256": "b5055ac3e7f4bee5a299517d7513859a746ffc1fcbc662d9b505c97e5d2dc83b",
+  "status": "ACTUAL_RENEWAL208_ONE_KEY_CONTROLS_COMPLETE_PENDING_INDEPENDENT_OBSERVED_REVIEW",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-controls-output-20261009-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 459,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-controls-output-20261009-r1/stdout.bin",
+    "sha256": "bb7ce28c8e4f1572b25cad3b7d4d7798f43746cdc9aed9ae94a21108d804e6c7"
+  },
+  "syntheticControlOnly": true,
+  "unknownDrawsMeasured": 0,
+  "utc": "2026-10-09T19:26:48.553313+00:00"
+}

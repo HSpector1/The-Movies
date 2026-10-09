@@ -1,0 +1,20 @@
+{
+  "actualControlsObserved": false,
+  "clarification": "The report phrase fresh tool/HEAD/src/remote/clean/FD/process/owned-group/lock/AC/disk/path guards describes inherited qualifications collectively. It does not impose a new separate whole-machine FD scan on the accepted original Node20 parent-wrapper pattern ad213. Preserve its unchanged outer guards, the control suite bounded inherited FD and sandbox probes, and independently accepted complete M0 protected postflight. No additional FD authority requirement was identified by this source review.",
+  "decision": "CLARIFY_SOURCE_ACCEPTANCE_NO_ADDITIONAL_WHOLE_MACHINE_FD_SCAN",
+  "executionAuthorization": false,
+  "receipt": {
+    "bytes": 4501,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "8e6a73e06cb774e61d103439bd17536ee97302802cea21cb48a5a93d808776cf"
+  },
+  "report": {
+    "bytes": 2393,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-independent-source-review-after-aj-20261009-r1/REPORT.md",
+    "sha256": "1b8b094e493a70148dc53aa74689d8c1caa90e979cd3d6766125db595d5515dd"
+  },
+  "schema": "1370-a208-node22-filled-controls-fd-scope-clarification-v1",
+  "sourceBytesChanged": false,
+  "sourceDecision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_NODE22_FILLED_CONTROLS_ROUTE",
+  "sourcePinsSha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5"
+}

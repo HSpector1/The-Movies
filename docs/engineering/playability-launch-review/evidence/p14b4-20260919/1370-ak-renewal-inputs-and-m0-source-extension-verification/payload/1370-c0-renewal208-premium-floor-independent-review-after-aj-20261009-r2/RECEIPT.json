@@ -1,0 +1,122 @@
+{
+  "AAppendHistoryPreservationRequiredThrough416": true,
+  "AManifestSourceModesAndOidsVerified": true,
+  "HGitModesAuthenticated": false,
+  "auditSource": {
+    "bytes": 7559,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/audit.py",
+    "sha256": "f84a2e63be8250671f76b6d8a5fc5d1d8b9bddedf0e36ee226df142f838afa24"
+  },
+  "claimLimit": "Source-derived selected208 premium branch/null-floor premises on authenticated factory-natural-tick H8708/A3aaf paths only; no arbitrary-action/module-mutation theorem, actual locals, paycauseclosure or execution grant.",
+  "commonSymbolicPremiumBranches": {
+    "tiers[1]": 10,
+    "tiers[2]": 6
+  },
+  "completeTypedFunctionSupplement": {
+    "bytes": 14788,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/COMPLETE-TYPED-FUNCTION-SUPPLEMENT.txt",
+    "sha256": "9511e728c09e74421f438b7a3037c8d7ab312bef578923a126e57ab8c68215db"
+  },
+  "correctedArtifactAuditExit": 0,
+  "decision": "ACCEPT_SOURCE_ONLY_SELECTED16_PREMIUM_BRANCH_AND_NULL_FLOOR_CLOSURE_WITH_REVIEW_SUPPLEMENT",
+  "documentaryCorrections": [
+    "Original REPORT complete-named-functions claim excludes truncated typed signatures; this independently authenticated four-body supplement supplies missing complete bodies without changing proposal bytes.",
+    "Read floor argument with explicit A208-to416 append-history induction, not terminal row count alone."
+  ],
+  "executionAuthorization": false,
+  "facts": {
+    "bytes": 25990,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/FACTS.json",
+    "sha256": "22c46ad56865ab6048714e4659eb7b796c269a60cef3e50c17f16bc364e63c8a"
+  },
+  "historicalOfferLocalMeasurements": false,
+  "initial22AndKnownRow0Retained": true,
+  "newNumericRenewalCausesClosed": 0,
+  "numericTierOrPriceExecution": false,
+  "proposalReceipt": {
+    "bytes": 6346,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r2/RECEIPT.json",
+    "sha256": "ba92e7b9ea8901b3160c76b57b156ba4bd50ab0791484574451f7947c0a08258"
+  },
+  "remainingMeasuredInputs": [
+    "16 actual A208 evolved person pricing vectors",
+    "one r03-2 fresh keyed first draw"
+  ],
+  "remainingRenewalPayCauses": 16,
+  "report": {
+    "bytes": 6258,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/REPORT.md",
+    "sha256": "8fabd2598b0c9b5d0c24a125e63a6aeecea66a3039e930f40102b5c79872a0c0"
+  },
+  "reviewerParserStopPreserved": {
+    "bytes": 532,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/AUDIT-FIRST-STOP.json",
+    "sha256": "d284d0dbb196be0ba93068ee7ba938f0baebf39d0de0b25ab381fc14e4b51ca2"
+  },
+  "schema": "renewal208-selected16-source-closure-independent-review/v2",
+  "selectedRows": 16,
+  "sourceDerivedNullFloorsAtSelected208Precommit": 16,
+  "sourceImportsTestsNodeRngPricingGitFullScansOrProductionWrites": false,
+  "supplementBodies": [
+    {
+      "arm": "H",
+      "firstLine": 33,
+      "function": "chooseIndustryPackage",
+      "gitBlobOid": "8229ff7614ae23ec82b9e316d1232f6002a6d1ab",
+      "lastLine": 74,
+      "repositoryPath": "src/core/hollywoodPolicy.ts",
+      "sliceSha256": "3acb1fb15038316da10fde48bb09e640d1a9fea28463715f86bcab0734c0fee1",
+      "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+      "sourceRole": {
+        "bytes": 5883,
+        "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/hollywoodPolicy.ts",
+        "sha256": "f2a43e3642699cd5144786b980b0440d64f6057ce05ae8544675e1e56cbb4994"
+      }
+    },
+    {
+      "arm": "H",
+      "firstLine": 60,
+      "function": "createProductionTechnologyPolicy",
+      "gitBlobOid": "87052b7d00287c0a32184a4a273c6fbf9ba802c5",
+      "lastLine": 98,
+      "repositoryPath": "src/core/technologyProduction.ts",
+      "sliceSha256": "7c06f36207354dd305457f73f98391905be216436be8e24f650c2e3b5912ed85",
+      "sourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+      "sourceRole": {
+        "bytes": 9909,
+        "path": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-replay-proposal-r7/arms/historical/tree/src/core/technologyProduction.ts",
+        "sha256": "aa77c468b2b59742fcf5fea9d24229ab0e0f01d656b25a18af59ce987fa3f176"
+      }
+    },
+    {
+      "arm": "A",
+      "firstLine": 33,
+      "function": "chooseIndustryPackage",
+      "gitBlobOid": "8229ff7614ae23ec82b9e316d1232f6002a6d1ab",
+      "lastLine": 74,
+      "repositoryPath": "src/core/hollywoodPolicy.ts",
+      "sliceSha256": "3acb1fb15038316da10fde48bb09e640d1a9fea28463715f86bcab0734c0fee1",
+      "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+      "sourceRole": {
+        "bytes": 5883,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywoodPolicy.ts",
+        "sha256": "f2a43e3642699cd5144786b980b0440d64f6057ce05ae8544675e1e56cbb4994"
+      }
+    },
+    {
+      "arm": "A",
+      "firstLine": 60,
+      "function": "createProductionTechnologyPolicy",
+      "gitBlobOid": "87052b7d00287c0a32184a4a273c6fbf9ba802c5",
+      "lastLine": 98,
+      "repositoryPath": "src/core/technologyProduction.ts",
+      "sliceSha256": "7c06f36207354dd305457f73f98391905be216436be8e24f650c2e3b5912ed85",
+      "sourceCommit": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+      "sourceRole": {
+        "bytes": 9909,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/technologyProduction.ts",
+        "sha256": "aa77c468b2b59742fcf5fea9d24229ab0e0f01d656b25a18af59ce987fa3f176"
+      }
+    }
+  ]
+}

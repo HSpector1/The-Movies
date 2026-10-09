@@ -1,0 +1,7 @@
+{
+  "status": "INVENTORY_AUTHORING_STOP_PRESERVED",
+  "actualExit": 1,
+  "scope": "Metadata-only reader authoring; no scanner/runtime/Git/protected writes",
+  "reason": "Initial full stat-result comparison included access time, which may change on read. Corrected stable signature matches qualified finalizer device/inode/mode/nlink/size/mtime/ctime, excludes access time.",
+  "originalError": "AssertionError in info() after os.read; inventory was not produced by failed attempt."
+}

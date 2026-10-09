@@ -1,0 +1,58 @@
+{
+  "actualNode22ControlsObserved": false,
+  "actualRuntimeGrant": null,
+  "amendmentSha256": "df2388f17e90bcce7db0397fc9f7d706a4c2db9c823567c272fede7572c06310",
+  "claimLimit": "Prospective amendment source acceptance only. Future filled derivative independent review, current M0 postflight/current guards and root separate arm grants remain required.",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_NODE22_OPERATIONAL_AMENDMENT",
+  "executionAuthorization": false,
+  "findings": [],
+  "futureFilledSource": null,
+  "historicalSyntheticControlNodeIdentityUnresolved": true,
+  "nativeNode20TapHistoricalLabelExplicit": true,
+  "node20Node22EquivalenceClaimed": false,
+  "observer18AndLocalModulesMustRemainByteIdentical": true,
+  "originalR9Node22RoleProven": true,
+  "permittedDerivativeOnly": true,
+  "renewalCausesClosed": 0,
+  "reviewerNodeCommandOrTestsImportsGameScanGitMutation": false,
+  "roles": {
+    "AUDIT": {
+      "bytes": 10329,
+      "path": "/Users/zacheryspector/studio-scratch/review-a208-node22-amendment-after-aj.py",
+      "sha256": "c9735ed2a57fed1e0b9cf55182a0cf3d9d1213b7952603de5dbc35a579888193"
+    },
+    "FACTS": {
+      "bytes": 17604,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-independent-source-review-after-aj-20261009-r1/FACTS.json",
+      "sha256": "d2caf87f237b092426283d7f858d81d0663e208c41d5dc6ab9eb75c0bcbe4813"
+    },
+    "PROPOSED_AMENDMENT": {
+      "bytes": 4491,
+      "mode": "0600",
+      "nlink": 1,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-proposal-after-aj-20261009-r1/PROPOSED-AMENDMENT.json",
+      "sha256": "df2388f17e90bcce7db0397fc9f7d706a4c2db9c823567c272fede7572c06310"
+    },
+    "REPORT": {
+      "bytes": 2205,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-independent-source-review-after-aj-20261009-r1/REPORT.md",
+      "sha256": "096da62b0f9cba02b9652e83cc9b83d5f95d7cbf313a06a000bbe44bb6f1cc4a"
+    },
+    "ROLE_PROOF": {
+      "bytes": 10940,
+      "mode": "0600",
+      "nlink": 1,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-proposal-after-aj-20261009-r1/ROLE-PROOF.json",
+      "sha256": "d25766b041273c87d2e730bebb9b8ee713b21d6a0c685928ca1b9cc4a3b7fdc2"
+    },
+    "SOURCE_PINS": {
+      "bytes": 657,
+      "mode": "0600",
+      "nlink": 1,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+      "sha256": "eb9f27964717907a1dae602eb94608994ef1323ebda1e0bffc11cd6628f11f76"
+    }
+  },
+  "schema": "1370-a208-node22-operational-amendment-independent-source-review-v1",
+  "sourcePinsSha256": "eb9f27964717907a1dae602eb94608994ef1323ebda1e0bffc11cd6628f11f76"
+}

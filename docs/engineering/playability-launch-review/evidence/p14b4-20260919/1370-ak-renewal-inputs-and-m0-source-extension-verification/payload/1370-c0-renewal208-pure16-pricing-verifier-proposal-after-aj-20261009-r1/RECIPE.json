@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verification-lane-20261009-r1/pricing.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/record-pure-node.py",
+    "verification"
+  ],
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "observedAcceptance": "Independent source and exact filled input-packet review, root operational grant, actual tool/helper/recorder/Node0 and fresh owned-group clearance;16 paypairs/44 nonpaypairs. Discrepancy retained STOP; no auto-retry or cause admission.",
+  "status": "SOURCE_ONLY_UNFILLED_UNRUN",
+  "tools": {
+    "helperSha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+    "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+    "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "unlaunchableUntil": "futureA208 null: no fork/output until separately reviewed observed packet fills all six exact roles and separately reviewed new CONFIG/recorder hashes; actual current operational guards and root grant still required."
+}

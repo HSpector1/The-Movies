@@ -1,0 +1,36 @@
+{
+  "baseline": {
+    "bytes": 14350,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/record-pure-node.py",
+    "sha256": "a69a865a698fa21b66276e80d9d14f5cd709343e79ccc25a18bdf97e7e93348e"
+  },
+  "changes": [
+    [
+      "0e78eda5ad73702635054003d49560f77545c16e2fe5abef297ad456a5498168",
+      "1d6c6bc66e053296dfb6d8aa115d7d093d94d4b30c42983aafff561388aa762f"
+    ],
+    [
+      "OUTPUTS={mode:SCRATCH/('1370-c0-initial23-pricing-'+mode+'-output-20261009-r1') for mode in ('verification',)}",
+      "OUTPUTS={mode:SCRATCH/('1370-c0-a208-controls-'+mode+'-output-after-aj-20261009-r1') for mode in ('js','python')}"
+    ],
+    [
+      "require(isinstance(config.get('futureWitness'),dict),'WITNESS_UNFILLED')",
+      "require(isinstance(config.get('runtimeGrant'),dict),'CONTROLS_GRANT_UNFILLED')"
+    ],
+    [
+      "script=config['roles']['verification']['path'];argv=[config['nodePath'],script,CONFIG_SHA]",
+      "argv=([config['nodePath'],'--test',config['roles']['observer:test-synthetic.mjs']['path'],config['roles']['observer:test-settlement208.mjs']['path']] if mode=='js' else [config['pythonPath'],'-I','-B',config['roles']['driver']['path'],CONFIG_SHA])"
+    ],
+    [
+      "PURE_INITIAL23_PRICING_",
+      "PURE_A208_CONTROLS_"
+    ]
+  ],
+  "executed": false,
+  "parentOwnershipClockMechanisms": "Unchanged fork/READY/GO, source authentication, capture caps, sticky failure and bounded cleanup/finalization. Driver borrows tracked fork/WNOHANG masking pattern and safe known-PID fallback; separately reviewed additions.",
+  "trackingPrecedent": {
+    "bytes": 8223,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/run_controls.py",
+    "sha256": "9d228d3d9260052cec17d0ae46962c5dd169d8089202b6912375f9e9a70719fc"
+  }
+}

@@ -1,0 +1,1 @@
+{"status":"REVIEWER_FUNCTION_VS_CONSTANT_SLICE_NEWLINE_STOP","actualExit":1,"line":54,"sourcePricingOrRngExecution":false,"repair":"Function slices omit final newline; constant line-range slices include final newline"}

@@ -1,0 +1,25 @@
+{
+  "actualAdditiveOutcomeAccepted": false,
+  "actualPostflightAccepted": false,
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_POSTFLIGHT_FULL_GUARD_WRAPPER",
+  "exactFutureArgvReviewStillRequired": true,
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "facts": {
+    "bytes": 2802,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-wrapper-independent-source-review-after-aj-20261009-r1/FACTS.json",
+    "sha256": "a95e0dbfaedc5e8fb2513dbe9ff01193ee307a48b747cf95d449c9fbc4b9b301"
+  },
+  "findings": [],
+  "prepareNote": {
+    "bytes": 2055,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/PREPARE-NOTE.json",
+    "sha256": "4cd3034fddeb8031a5f2a3b747a6f723782e272f38d0cc4ecf1142885d62d6a0"
+  },
+  "schema": "1370-m0-additive-postflight-wrapper-independent-source-review-r1",
+  "wrapper": {
+    "bytes": 5726,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/grant_postflight.py",
+    "sha256": "e5e7bee050f4c69fe44eaa1c215f129e097705a60dfcbb0db6e2b93e3caf5f06"
+  }
+}

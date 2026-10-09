@@ -1,0 +1,32 @@
+{
+  "bindingChangedFields": [
+    "materializerArgv",
+    "materializerArgvRolePath",
+    "materializerArgvRoleSha256",
+    "materializerPath",
+    "recorderPath",
+    "recorderSha256",
+    "supervisorPath"
+  ],
+  "bindingOtherFieldsExact": true,
+  "controlsMappingByteIdentical": true,
+  "externalImmutableInputs": {
+    "bytes": 27220,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json",
+    "sha256": "a9f50c1d0cb6ae54084becf514ed7908c41572050e0df19a50007e3a804ff881"
+  },
+  "materializerByteIdenticalToR3": true,
+  "materializerSha256": "3f76b3cb27ec1e932b23c8f40d848b5f3dfba9a339c78fb3d950b9291fefbd27",
+  "r4TestsExecuted": false,
+  "recorderChangedFunctionOnly": "validated_spec",
+  "recorderExactInverseBytes": true,
+  "recorderNormalizedFullAstEqual": true,
+  "recorderOtherFunctionAstsEqual": true,
+  "recorderSingleLiteralSubstitution": {
+    "line": 184,
+    "new": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/add_inputs.py",
+    "old": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/add_inputs.py"
+  },
+  "supervisorByteIdenticalToR3": true,
+  "supervisorSha256": "e2258264783de69fa4d2a10c9c71ede7d4cabc0f80f87c17ba23935e32c9039d"
+}

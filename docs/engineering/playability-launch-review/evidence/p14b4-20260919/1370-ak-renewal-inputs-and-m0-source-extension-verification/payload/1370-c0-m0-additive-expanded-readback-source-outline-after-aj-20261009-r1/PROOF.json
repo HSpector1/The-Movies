@@ -1,0 +1,74 @@
+{
+  "executionAuthorization": false,
+  "expectedBridgeBytes": 1517743,
+  "expectedBridgeFiles": 63,
+  "expectedExpandedRegularBytes": 119393120,
+  "expectedExpandedRegularFiles": 1740,
+  "expectedOriginalBytes": 117875377,
+  "expectedOriginalFiles": 1677,
+  "expectedSymlinks": 1,
+  "futureActualOutcome": null,
+  "futureReadbackGrant": null,
+  "mirrorReadbackExecuted": false,
+  "reuseHelpers": {
+    "inventoryAdaptOnlyExactSymlink": [
+      46,
+      54
+    ],
+    "open_dir": [
+      10,
+      16
+    ],
+    "read": [
+      17,
+      38
+    ],
+    "safe": [
+      44,
+      45
+    ],
+    "sig": [
+      9,
+      9
+    ]
+  },
+  "roles": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-independent-source-review-after-aj-20261009-r4/RECEIPT.json": {
+      "bytes": 16957,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-independent-source-review-after-aj-20261009-r4/RECEIPT.json",
+      "sha256": "30fec9b708aee9355cbf4ddae37a80a752901a5535dd4d546707ed0468f8a7dc"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json": {
+      "bytes": 27220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json",
+      "sha256": "a9f50c1d0cb6ae54084becf514ed7908c41572050e0df19a50007e3a804ff881"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/add_inputs.py": {
+      "bytes": 19458,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/add_inputs.py",
+      "sha256": "3f76b3cb27ec1e932b23c8f40d848b5f3dfba9a339c78fb3d950b9291fefbd27"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/record.py": {
+      "bytes": 25044,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/record.py",
+      "sha256": "7dc307b9e505ce171557d47c5ca710fa213d22fb06d1e93a3d30e3765ff90da2"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/supervise.py": {
+      "bytes": 16934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r4/supervise.py",
+      "sha256": "e2258264783de69fa4d2a10c9c71ede7d4cabc0f80f87c17ba23935e32c9039d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/COPY-READBACK-FACTS.json": {
+      "bytes": 978422,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/COPY-READBACK-FACTS.json",
+      "sha256": "e46dcc9cf81f7ce3462e1cdd34618f37f68ac75a90d5f95f112ee93966e96bfe"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/readback.py": {
+      "bytes": 10659,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/readback.py",
+      "sha256": "90d9cfce6821cae31c86e7ec33d5e3b45112a508cdfa77d44e680df11ca05f85"
+    }
+  },
+  "sourceImportsTestsNodeGameOrFullScan": false,
+  "status": "SOURCE_ONLY_EXPANDED_READBACK_OUTLINE_UNRUN"
+}

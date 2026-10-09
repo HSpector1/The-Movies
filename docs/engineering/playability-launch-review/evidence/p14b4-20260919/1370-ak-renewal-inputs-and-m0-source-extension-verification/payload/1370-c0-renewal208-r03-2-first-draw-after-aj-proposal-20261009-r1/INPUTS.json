@@ -1,0 +1,20 @@
+{
+  "rngSourceSha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a",
+  "rows": [
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+        0
+      ],
+      "key": "offer-person-studio-aca408ec-r03-2",
+      "ordinal": 38,
+      "purpose": "hiring",
+      "role": "missing-renewal208-isolated-first-draw",
+      "seed": "p13a-core-causal-01",
+      "streamSeed": "p13a-core-causal-01::hiring::offer-person-studio-aca408ec-r03-2",
+      "talentId": "person-studio-aca408ec-r03-2"
+    }
+  ],
+  "schema": "1370-renewal208-r03-2-first-draw-inputs-r1",
+  "sourceInputRolesSha256": "505f6afbf22085bab0aec2f721cc78d2e0e8fe177be0d200d065354aea5f4d46"
+}

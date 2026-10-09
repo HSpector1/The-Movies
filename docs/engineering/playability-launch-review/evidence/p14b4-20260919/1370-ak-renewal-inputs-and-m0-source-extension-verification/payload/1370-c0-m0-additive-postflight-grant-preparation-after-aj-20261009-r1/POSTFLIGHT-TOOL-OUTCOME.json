@@ -1,0 +1,97 @@
+{
+  "actualTool": {
+    "bytes": 1258,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/POSTFLIGHT-ACTUAL-TOOL.json",
+    "sha256": "5055a37cba13817cc86f37a20239ffabbb1420a70d593980f15db5f10ac03949"
+  },
+  "actualToolExit": 0,
+  "actualToolSession": 84610,
+  "additiveTypesOrGameExecutionAuthorized": false,
+  "beforeSnapshot": {
+    "bytes": 8303116,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+    "sha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912"
+  },
+  "config": {
+    "bytes": 3536,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG.json",
+    "sha256": "a4b88b0181bf525f6144a71f05bb7d78a17fd46bbfbe88d0e2aea90a89874b4c"
+  },
+  "fullImmutableEqualsBefore": true,
+  "globalProcessAbsenceClaim": false,
+  "grant": {
+    "bytes": 5706,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/POSTFLIGHT-GRANT.json",
+    "sha256": "7c279472f2a98ac4a7aed61c136706bfe792793ad6f5e8fef0a65fe39cfd1a0c"
+  },
+  "ownedScannerPidAndPgidAbsent": 76882,
+  "pins": {
+    "bytes": 507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/PINS.json",
+    "sha256": "6ad9224051865ddce688d515750e96e8cc9e86c4f443c072a02e6b6285775d11"
+  },
+  "protectedFreezeContinuesPendingIndependentFinalAdoption": true,
+  "rawProcessFilesLocalHashSizeOnly": [
+    {
+      "bytes": 92096,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/BEFORE-PS.txt",
+      "sha256": "08132090598910bc6a940691aacf0d0ad15970f404e8d1d8f5db7a2945723b3d"
+    },
+    {
+      "bytes": 91500,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/AFTER-PS.txt",
+      "sha256": "154deebd0bbf9c4cf3a6821798b461ae4522018da0f5002b69f98a982d834d3c"
+    },
+    {
+      "bytes": 631993,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/BEFORE-LSOF.bin",
+      "sha256": "7f7a655943205156c362f3bc314b0c8002053c94cfc2bc172b52dd23374b0879"
+    },
+    {
+      "bytes": 631129,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/AFTER-LSOF.bin",
+      "sha256": "3b7dd235762c5994128f6b56bb39ed8b3c4c826dd409407331f30e4d80636cb5"
+    }
+  ],
+  "result": {
+    "elapsedSeconds": 452.36274259099446,
+    "inventoryElapsedSeconds": 350.0274525040004,
+    "pinsSha256": "6ad9224051865ddce688d515750e96e8cc9e86c4f443c072a02e6b6285775d11",
+    "snapshotPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/SNAPSHOT.json",
+    "snapshotSha256": "f005363a8d7657ba7a78c0820b50a2cb2dffb798d469b7abdf69e5acf6ce6893",
+    "status": "GUARDS_ACCEPTED_READONLY"
+  },
+  "selectedOtherOwnedPidsAndPgidsAbsent": [
+    44676,
+    45166,
+    45180,
+    45181,
+    45183,
+    45200,
+    65494,
+    66258,
+    73148
+  ],
+  "snapshot": {
+    "bytes": 8318692,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/SNAPSHOT.json",
+    "sha256": "f005363a8d7657ba7a78c0820b50a2cb2dffb798d469b7abdf69e5acf6ce6893"
+  },
+  "source": {
+    "bytes": 21431,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+    "sha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee"
+  },
+  "status": "ACTUAL_TOOL_EXIT0_READONLY_POSTFLIGHT_EQUAL_REQUIRES_INDEPENDENT_ADMISSION",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/postflight.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 466,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/postflight.stdout",
+    "sha256": "09cb7b0d87267fde63faa982d6546496ccf173157b37cd905ba28087dc7026e3"
+  },
+  "utc": "2026-10-09T20:58:09.577165+00:00"
+}

@@ -1,0 +1,90 @@
+{
+  "actualAdditiveObserved": false,
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "3949fb78642c7324d61e1c23f967f10a056e17d3a5ae5a850ebbb73969c4e8e5",
+  "candidateFileIdentities": {
+    "BINDING-DRAFT.json": [
+      16777220,
+      166768795,
+      33152,
+      1,
+      13256,
+      1791576952031285600,
+      1791576952031285600
+    ],
+    "GUARD-PROOF-ROLES.json": [
+      16777220,
+      166768797,
+      33152,
+      1,
+      16206,
+      1791576952033644929,
+      1791576952033644929
+    ],
+    "IDENTITY.json": [
+      16777220,
+      166768798,
+      33152,
+      1,
+      7581,
+      1791576952034318692,
+      1791576952034318692
+    ],
+    "LAUNCH-SPEC.json": [
+      16777220,
+      166768796,
+      33152,
+      1,
+      2784,
+      1791576952032820617,
+      1791576952032820617
+    ],
+    "PINS.json": [
+      16777220,
+      166768800,
+      33152,
+      1,
+      1353,
+      1791576952035710301,
+      1791576952035710301
+    ],
+    "REPORT.md": [
+      16777220,
+      166768799,
+      33152,
+      1,
+      989,
+      1791576952034928505,
+      1791576952034928505
+    ]
+  },
+  "candidatePins": {
+    "bytes": 1353,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/PINS.json",
+    "sha256": "1674f56bedabf9cca674eaece2884a285efdaec70e91e1bd5125d8a45c8467f8"
+  },
+  "decision": "ACCEPT_EXACT_FILLED_UNRUN",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "facts": {
+    "bytes": 24164,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-final-exact-independent-review-after-aj-20261009-r1/FACTS.json",
+    "sha256": "09d4c876859cea54a95d622322817b364561ed56d931d22c430eef55ab1f9f94"
+  },
+  "findings": [],
+  "guardCoreSha256": "69f4a0a4e5bb4d686ef03178dafa9b4c27c11d8671745d61a0537fd725adf69d",
+  "preflightReview": {
+    "bytes": 8199,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-preflight-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "3bce48d3f7bac785ca024f7609c7a46a2c832c3adfe9d4d6a7cc0501b4f83018"
+  },
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "reviewedBinding": {
+    "bytes": 13256,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+    "sha256": "afb63886674e50034d802af42bafacd5e9d119b96dfadc256e5b29668e4d30a7"
+  },
+  "schema": "1370-m0-additive-final-exact-independent-review-r1",
+  "sourcePinsSha256": "6158d78ede4cf86aa5a6a68fec56a9c7e29c085399ef0d6cbe198a1655df4f5e",
+  "sourceReviewSha256": "30fec9b708aee9355cbf4ddae37a80a752901a5535dd4d546707ed0468f8a7dc"
+}

@@ -1,0 +1,123 @@
+{
+  "acceptedRoles": {
+    "actualAdditiveOutcome": {
+      "bytes": 6079,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/TOOL-OUTCOME.json",
+      "sha256": "12e398382dc7a08830c01f09f1a14e8e30eed3cb8ea61729d6e82d1c763bf846"
+    },
+    "actualAdditiveReview": {
+      "bytes": 6137,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "e2c7bba284f70e408d6432a8a19060195593ce92ee74c5fb892801b878c4fd41"
+    },
+    "afterFillSnapshot": {
+      "bytes": 8307874,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/after-fill-after-aj-r2/SNAPSHOT.json",
+      "sha256": "c337f7d827ddc3dbe9ef79669c64e00465a064a6e0c846407c75a23bb91ba260"
+    },
+    "beforeFillSnapshot": {
+      "bytes": 8303116,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+      "sha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912"
+    },
+    "completeIndependentReview": {
+      "bytes": 8376,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-chain-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "002d96ac76da741ffce0e960ffc20afa948574de63e09d79a8ed1e874e6ddb42"
+    },
+    "facts": {
+      "bytes": 1872789,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r3.json",
+      "sha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2"
+    },
+    "physicalReadbackSourcePins": {
+      "bytes": 3143,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/SOURCE-PINS.json",
+      "sha256": "912cfde9ad88ebb3dcc0571f9af2191e3d851296f3e06df70d5569c3ebe68b1d"
+    },
+    "postflightActualTool": {
+      "bytes": 1258,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/POSTFLIGHT-ACTUAL-TOOL.json",
+      "sha256": "5055a37cba13817cc86f37a20239ffabbb1420a70d593980f15db5f10ac03949"
+    },
+    "postflightConfig": {
+      "bytes": 3536,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG.json",
+      "sha256": "a4b88b0181bf525f6144a71f05bb7d78a17fd46bbfbe88d0e2aea90a89874b4c"
+    },
+    "postflightGrant": {
+      "bytes": 5706,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/POSTFLIGHT-GRANT.json",
+      "sha256": "7c279472f2a98ac4a7aed61c136706bfe792793ad6f5e8fef0a65fe39cfd1a0c"
+    },
+    "postflightOutcome": {
+      "bytes": 4733,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/POSTFLIGHT-TOOL-OUTCOME.json",
+      "sha256": "524c130424946e9b042aaad06d10da5ac2de3df06361e116543f930d113ec05f"
+    },
+    "postflightPins": {
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/PINS.json",
+      "sha256": "6ad9224051865ddce688d515750e96e8cc9e86c4f443c072a02e6b6285775d11"
+    },
+    "postflightSnapshot": {
+      "bytes": 8318692,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/SNAPSHOT.json",
+      "sha256": "f005363a8d7657ba7a78c0820b50a2cb2dffb798d469b7abdf69e5acf6ce6893"
+    },
+    "postflightSource": {
+      "bytes": 21431,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+      "sha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee"
+    },
+    "readbackOutcome": {
+      "bytes": 3450,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r2/TOOL-OUTCOME.json",
+      "sha256": "0670f8d9f2262be8e0917dfaae8f6d115ddf117336f20930f2f899014c10cba7"
+    },
+    "readbackReview": {
+      "bytes": 5127,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-independent-observed-review-after-aj-20261009-r3/RECEIPT.json",
+      "sha256": "d951b96b4c6327c89f17b5c07fd258d5f8467df99d8151ed9b1f3f1a56861db3"
+    }
+  },
+  "bridgeBytes": 1517743,
+  "bridgeFiles": 63,
+  "dependencyLinks": 1,
+  "dependencyPackageRoles": 21,
+  "fullImmutableEqualityAccepted": true,
+  "gameAccepted": false,
+  "globalProcessAbsenceClaim": false,
+  "newExecutionAuthorized": false,
+  "next": "Separately granted Node22 A208 finite controls; no game/types source mutation or acceptance. Rebind current production/common scope after documentation publication.",
+  "numericReadbackVerifierPidNotCaptured": true,
+  "original1677StrictPreservationAccepted": true,
+  "originalFailuresPreserved": true,
+  "ownedPidsAndPgids": [
+    76882,
+    44676,
+    45166,
+    45180,
+    45181,
+    45183,
+    45200,
+    65494,
+    66258,
+    73148
+  ],
+  "physicalExpandedReadbackAccepted": true,
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "protectedFreezeMaintainedThroughAcceptedPostflight": true,
+  "protectedInputsRemainReadOnlyUntilSeparateExplicitRouteOrCheckpoint": true,
+  "protectedPostflightAccepted": true,
+  "rawMachineCapturePolicy": "Local hash-and-size-only; no raw publication",
+  "regularBytes": 119393120,
+  "regularFiles": 1740,
+  "renewalCausesClosed": 0,
+  "schema": "1370-m0-additive-complete-root-adoption/v1",
+  "soleLaneReleased": true,
+  "status": "ROOT_ADOPTED_OBSERVED_M0_ADDITIVE_WITH_FULL_PROTECTION",
+  "typesReady": false,
+  "utc": "2026-10-09T21:00:02.359892+00:00"
+}

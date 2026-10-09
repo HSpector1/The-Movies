@@ -1,0 +1,27 @@
+{
+  "actualControlsQualification": false,
+  "authoredOnly": true,
+  "configSha256": "4b269726743163f99ab9764a7a15041e24c7bd4a1d884ac54bdfee57c4049f39",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_FINITE_CONTROLS_ROUTE",
+  "driverSha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "factsSha256": "9f7a174acdcc066cd9a337926c4da88fb71883fd6f07d77aea63fbd22141e2fe",
+  "findings": [],
+  "jsGroups": 13,
+  "observerSourceReviewSha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8",
+  "priorRefineSha256": "b7e868add66837faadba87e682c7c79b146e994145513e398df953247e52fb09",
+  "pythonObserverMethods": 14,
+  "recorderSha256": "1aa053d9112cad523dc92fb22e8fc417ffc91c8718372efa0c9fe558896879a8",
+  "reportControlsSha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8",
+  "reportGuardSha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031",
+  "requiredFutureGates": [
+    "fresh exact config/grant/source-role review",
+    "root sole-lane actual JS13 and separate protocol3+Python14 outcomes",
+    "independent observed stream/count/numeric ownership/group cleanup admission"
+  ],
+  "schema": "1370-a208-finite-recorded-controls-independent-source-review-r1",
+  "separateNoChildProtocolMethods": 3,
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2",
+  "sourcePinsSha256": "1c267921f7dd0bb0db8e65ddf356bd9649f36658410324fc550a0cbc0f200cca"
+}

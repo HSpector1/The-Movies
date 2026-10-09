@@ -1,0 +1,34 @@
+{
+  "actualToolSession": 43355,
+  "chunks": [
+    {
+      "chunk_id": "d0230a",
+      "wall_time_seconds": 1.001806479,
+      "session_id": 43355,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "f26a6a",
+      "wall_time_seconds": 5.001150152,
+      "session_id": 43355,
+      "original_token_count": 67,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-GRANT.json\", \"bytes\": 3752, \"sha256\": \"b049a5611db92b4a1cf5608999547b7d65442e022f9312f1345429e4accbd286\"}, \"snapshotPid\": 93713}\n"
+    },
+    {
+      "chunk_id": "33ca38",
+      "wall_time_seconds": 5.000572744,
+      "session_id": 43355,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "9f9630",
+      "wall_time_seconds": 0.000015747,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "finalActualToolExit": 0
+}

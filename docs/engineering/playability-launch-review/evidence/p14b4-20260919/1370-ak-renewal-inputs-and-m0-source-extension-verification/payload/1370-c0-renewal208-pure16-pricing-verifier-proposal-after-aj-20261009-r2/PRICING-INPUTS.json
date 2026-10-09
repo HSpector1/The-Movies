@@ -1,0 +1,1077 @@
+{
+  "schema": "1370-renewal208-pure16-pricing-inputs-r1",
+  "rows": [
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208",
+        0
+      ],
+      "HSourceOrder": 24,
+      "ASourceOrder": 24,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "creativeRole": "writer",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r01-0",
+        "role": "writer",
+        "age": 44.36540781416331,
+        "fame": 41.73950391308725,
+        "skills": {
+          "writing": {
+            "storyStructure": {
+              "perceived": 64
+            },
+            "characterDevelopment": {
+              "perceived": 82
+            },
+            "dialogue": {
+              "perceived": 69
+            },
+            "originality": {
+              "perceived": 53
+            },
+            "narrativePacing": {
+              "perceived": 76
+            },
+            "rewriting": {
+              "perceived": 77
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "9129e03f8911a3d101f79fb362b2d9c78e1935c2246a652385501959404f1558",
+      "firstDraw": 0.34857689985074103,
+      "jitter": 0.9757723039761186,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r01-0",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+        0
+      ],
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r01",
+      "winningStudioId": "studio-aca408ec-r02",
+      "reserveWeeks": 18,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 395548,
+          "endWeekExclusive": 208,
+          "signingBonus": 71199,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r01-0",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-1:208",
+        0
+      ],
+      "HSourceOrder": 25,
+      "ASourceOrder": 25,
+      "talentId": "person-studio-aca408ec-r01-1",
+      "creativeRole": "director",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r01-1",
+        "role": "director",
+        "age": 48.70801517856732,
+        "fame": 29.09793093836885,
+        "skills": {
+          "directing": {
+            "visualStorytelling": {
+              "perceived": 41
+            },
+            "performanceDirection": {
+              "perceived": 53
+            },
+            "toneControl": {
+              "perceived": 44
+            },
+            "directingPacing": {
+              "perceived": 44
+            },
+            "productionManagement": {
+              "perceived": 57
+            },
+            "adaptability": {
+              "perceived": 58
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "f4c90f944046eaf345d5c42139fb136699c21b80ad91fb5537418e4d52cc7e9e",
+      "firstDraw": 0.8556038967799395,
+      "jitter": 1.0568966234847903,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r01-1",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+        0
+      ],
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r01",
+      "winningStudioId": "studio-aca408ec-r02",
+      "reserveWeeks": 18,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-1:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 141075,
+          "endWeekExclusive": 208,
+          "signingBonus": 25394,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r01-1",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-2:208",
+        0
+      ],
+      "HSourceOrder": 26,
+      "ASourceOrder": 26,
+      "talentId": "person-studio-aca408ec-r01-2",
+      "creativeRole": "actor",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r01-2",
+        "role": "actor",
+        "age": 30.706232958391467,
+        "fame": 35.5911212022642,
+        "skills": {
+          "acting": {
+            "actingTechnique": {
+              "perceived": 50
+            },
+            "emotionalRange": {
+              "perceived": 63
+            },
+            "dialogueDelivery": {
+              "perceived": 63
+            },
+            "comicTiming": {
+              "perceived": 63
+            },
+            "physicalPerformance": {
+              "perceived": 52
+            },
+            "screenPresence": {
+              "perceived": 54
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "f99102d3489a2a505a8365768c914bdee98c4eefeb3423688d2a6f3e68c5eff0",
+      "firstDraw": 0.14396123448386788,
+      "jitter": 0.9430337975174189,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r01-2",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+        0
+      ],
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r01",
+      "winningStudioId": "studio-aca408ec-r02",
+      "reserveWeeks": 18,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-2:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 220859,
+          "endWeekExclusive": 208,
+          "signingBonus": 39755,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r01-2",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-3:208",
+        0
+      ],
+      "HSourceOrder": 27,
+      "ASourceOrder": 27,
+      "talentId": "person-studio-aca408ec-r01-3",
+      "creativeRole": "actor",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r01-3",
+        "role": "actor",
+        "age": 40.04834772311771,
+        "fame": 64.21183835730608,
+        "skills": {
+          "acting": {
+            "actingTechnique": {
+              "perceived": 67
+            },
+            "emotionalRange": {
+              "perceived": 91
+            },
+            "dialogueDelivery": {
+              "perceived": 57
+            },
+            "comicTiming": {
+              "perceived": 70
+            },
+            "physicalPerformance": {
+              "perceived": 68
+            },
+            "screenPresence": {
+              "perceived": 71
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "c30b3a96da1f2cbc7173222215679aad2eec3b2e052d1459626070e2f3fdf2e4",
+      "firstDraw": 0.2815200590994209,
+      "jitter": 0.9650432094559074,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r01-3",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+        0
+      ],
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r01",
+      "winningStudioId": "studio-aca408ec-r02",
+      "reserveWeeks": 18,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-3:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 745914,
+          "endWeekExclusive": 208,
+          "signingBonus": 134265,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r01-3",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-4:208",
+        0
+      ],
+      "HSourceOrder": 28,
+      "ASourceOrder": 28,
+      "talentId": "person-studio-aca408ec-r01-4",
+      "creativeRole": "actor",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r01-4",
+        "role": "actor",
+        "age": 34.8353363537762,
+        "fame": 76.48021872641473,
+        "skills": {
+          "acting": {
+            "actingTechnique": {
+              "perceived": 61
+            },
+            "emotionalRange": {
+              "perceived": 59
+            },
+            "dialogueDelivery": {
+              "perceived": 37
+            },
+            "comicTiming": {
+              "perceived": 47
+            },
+            "physicalPerformance": {
+              "perceived": 63
+            },
+            "screenPresence": {
+              "perceived": 51
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "b31ff482171529b09fc683897b8696ef395aa736864f771673ebc6db62170f90",
+      "firstDraw": 0.13948272936977446,
+      "jitter": 0.9423172366991639,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r01-4",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+        0
+      ],
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r01",
+      "winningStudioId": "studio-aca408ec-r02",
+      "reserveWeeks": 18,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-4:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 916051,
+          "endWeekExclusive": 208,
+          "signingBonus": 164889,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r01-4",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-5:208",
+        0
+      ],
+      "HSourceOrder": 29,
+      "ASourceOrder": 29,
+      "talentId": "person-studio-aca408ec-r01-5",
+      "creativeRole": "craft",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r01-5",
+        "role": "craft",
+        "age": 29.927234713302248,
+        "fame": 25.20298058801346,
+        "skills": {
+          "craft": {
+            "cinematography": {
+              "perceived": 60
+            },
+            "editing": {
+              "perceived": 39
+            },
+            "productionDesign": {
+              "perceived": 74
+            },
+            "soundAndMusic": {
+              "perceived": 67
+            },
+            "effectsExecution": {
+              "perceived": 68
+            },
+            "technicalCoordination": {
+              "perceived": 60
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "6bf1e30fda6b22d3c6a15a18adbc48f9561404c0308cc509e21a8b75d09ff843",
+      "firstDraw": 0.051142517710104585,
+      "jitter": 0.9281828028336168,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r01-5",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+        0
+      ],
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r01",
+      "winningStudioId": "studio-aca408ec-r02",
+      "reserveWeeks": 18,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r01-5:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r01",
+        "terms": {
+          "annualSalary": 191216,
+          "endWeekExclusive": 208,
+          "signingBonus": 34419,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r01-5",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208",
+        0
+      ],
+      "HSourceOrder": 30,
+      "ASourceOrder": 30,
+      "talentId": "person-studio-aca408ec-r02-0",
+      "creativeRole": "writer",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r02-0",
+        "role": "writer",
+        "age": 53.09611512878311,
+        "fame": 35.85775325300802,
+        "skills": {
+          "writing": {
+            "storyStructure": {
+              "perceived": 44
+            },
+            "characterDevelopment": {
+              "perceived": 56
+            },
+            "dialogue": {
+              "perceived": 57
+            },
+            "originality": {
+              "perceived": 76
+            },
+            "narrativePacing": {
+              "perceived": 44
+            },
+            "rewriting": {
+              "perceived": 59
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "af7b4cb01ab7dbb25b32ea17be93410c8d70bc0cca22f85f72c0137b4506b374",
+      "firstDraw": 0.4843733462039381,
+      "jitter": 0.9974997353926301,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r02-0",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+        0
+      ],
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r02",
+      "winningStudioId": "studio-aca408ec-r01",
+      "reserveWeeks": 13,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-0:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 225992,
+          "endWeekExclusive": 208,
+          "signingBonus": 40679,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r02-0",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-1:208",
+        0
+      ],
+      "HSourceOrder": 31,
+      "ASourceOrder": 31,
+      "talentId": "person-studio-aca408ec-r02-1",
+      "creativeRole": "director",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r02-1",
+        "role": "director",
+        "age": 40.255207774620324,
+        "fame": 35.93217334243641,
+        "skills": {
+          "directing": {
+            "visualStorytelling": {
+              "perceived": 68
+            },
+            "performanceDirection": {
+              "perceived": 78
+            },
+            "toneControl": {
+              "perceived": 83
+            },
+            "directingPacing": {
+              "perceived": 70
+            },
+            "productionManagement": {
+              "perceived": 67
+            },
+            "adaptability": {
+              "perceived": 54
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "3930a60bddf25343e4123ab60eb31d1f009bfcd28414d4747e1ee914bd49d631",
+      "firstDraw": 0.6565972110256553,
+      "jitter": 1.0250555537641048,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r02-1",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+        0
+      ],
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r02",
+      "winningStudioId": "studio-aca408ec-r01",
+      "reserveWeeks": 13,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-1:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 313082,
+          "endWeekExclusive": 208,
+          "signingBonus": 56355,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r02-1",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208",
+        0
+      ],
+      "HSourceOrder": 32,
+      "ASourceOrder": 32,
+      "talentId": "person-studio-aca408ec-r02-2",
+      "creativeRole": "actor",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r02-2",
+        "role": "actor",
+        "age": 40.093064922683496,
+        "fame": 19.99370577254149,
+        "skills": {
+          "acting": {
+            "actingTechnique": {
+              "perceived": 45
+            },
+            "emotionalRange": {
+              "perceived": 64
+            },
+            "dialogueDelivery": {
+              "perceived": 58
+            },
+            "comicTiming": {
+              "perceived": 52
+            },
+            "physicalPerformance": {
+              "perceived": 39
+            },
+            "screenPresence": {
+              "perceived": 66
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "d451f3578ed1c25cc00541ac23a0192f673632795d9599f46374edebc3e8ade6",
+      "firstDraw": 0.7270294514019042,
+      "jitter": 1.0363247122243047,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r02-2",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+        0
+      ],
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r02",
+      "winningStudioId": "studio-aca408ec-r01",
+      "reserveWeeks": 13,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-2:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 115209,
+          "endWeekExclusive": 208,
+          "signingBonus": 20738,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r02-2",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208",
+        0
+      ],
+      "HSourceOrder": 33,
+      "ASourceOrder": 33,
+      "talentId": "person-studio-aca408ec-r02-3",
+      "creativeRole": "actor",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r02-3",
+        "role": "actor",
+        "age": 54.082681874932234,
+        "fame": 71.11625348480334,
+        "skills": {
+          "acting": {
+            "actingTechnique": {
+              "perceived": 40
+            },
+            "emotionalRange": {
+              "perceived": 72
+            },
+            "dialogueDelivery": {
+              "perceived": 75
+            },
+            "comicTiming": {
+              "perceived": 57
+            },
+            "physicalPerformance": {
+              "perceived": 59
+            },
+            "screenPresence": {
+              "perceived": 74
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "3c7a4c2f4b2ef5ba951d4788617a13d98e6b5368bd455dfb5342aab4d467f3d4",
+      "firstDraw": 0.4642153570894152,
+      "jitter": 0.9942744571343064,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r02-3",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+        0
+      ],
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r02",
+      "winningStudioId": "studio-aca408ec-r01",
+      "reserveWeeks": 13,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-3:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 765621,
+          "endWeekExclusive": 208,
+          "signingBonus": 137812,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r02-3",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-4:208",
+        0
+      ],
+      "HSourceOrder": 34,
+      "ASourceOrder": 34,
+      "talentId": "person-studio-aca408ec-r02-4",
+      "creativeRole": "actor",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r02-4",
+        "role": "actor",
+        "age": 43.19009438114523,
+        "fame": 54.45031566550803,
+        "skills": {
+          "acting": {
+            "actingTechnique": {
+              "perceived": 60
+            },
+            "emotionalRange": {
+              "perceived": 71
+            },
+            "dialogueDelivery": {
+              "perceived": 70
+            },
+            "comicTiming": {
+              "perceived": 58
+            },
+            "physicalPerformance": {
+              "perceived": 64
+            },
+            "screenPresence": {
+              "perceived": 97
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "36bee1113420ae61525165f75b5d4830388130b39ffaab48cde08275641d6d3f",
+      "firstDraw": 0.11387934512458742,
+      "jitter": 0.938220695219934,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r02-4",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+        0
+      ],
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r02",
+      "winningStudioId": "studio-aca408ec-r01",
+      "reserveWeeks": 13,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-4:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 473558,
+          "endWeekExclusive": 208,
+          "signingBonus": 85240,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r02-4",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-5:208",
+        0
+      ],
+      "HSourceOrder": 35,
+      "ASourceOrder": 35,
+      "talentId": "person-studio-aca408ec-r02-5",
+      "creativeRole": "craft",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r02-5",
+        "role": "craft",
+        "age": 49.92240797196069,
+        "fame": 29.181791114467813,
+        "skills": {
+          "craft": {
+            "cinematography": {
+              "perceived": 58
+            },
+            "editing": {
+              "perceived": 61
+            },
+            "productionDesign": {
+              "perceived": 62
+            },
+            "soundAndMusic": {
+              "perceived": 87
+            },
+            "effectsExecution": {
+              "perceived": 67
+            },
+            "technicalCoordination": {
+              "perceived": 49
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "c593c6d915f661f0268a173c07f0523c073cc598065d8563bc08636fb892b090",
+      "firstDraw": 0.7007206561975181,
+      "jitter": 1.032115304991603,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r02-5",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+        0
+      ],
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r02",
+      "winningStudioId": "studio-aca408ec-r01",
+      "reserveWeeks": 13,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r02:contract:person-studio-aca408ec-r02-5:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r02",
+        "terms": {
+          "annualSalary": 250600,
+          "endWeekExclusive": 208,
+          "signingBonus": 45108,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r02-5",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:208",
+        0
+      ],
+      "HSourceOrder": 36,
+      "ASourceOrder": 36,
+      "talentId": "person-studio-aca408ec-r03-0",
+      "creativeRole": "writer",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r03-0",
+        "role": "writer",
+        "age": 51.182996256107096,
+        "fame": 36.598332542342405,
+        "skills": {
+          "writing": {
+            "storyStructure": {
+              "perceived": 65
+            },
+            "characterDevelopment": {
+              "perceived": 53
+            },
+            "dialogue": {
+              "perceived": 66
+            },
+            "originality": {
+              "perceived": 51
+            },
+            "narrativePacing": {
+              "perceived": 59
+            },
+            "rewriting": {
+              "perceived": 48
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "ec96621bb576c58349d0714e9dbc4e9827cb555e0a0fae51a65bbf2db9a0a7dc",
+      "firstDraw": 0.7172063635662198,
+      "jitter": 1.034753018170595,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r03-0",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+        0
+      ],
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r03",
+      "winningStudioId": "studio-aca408ec-r03",
+      "reserveWeeks": 20,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r03",
+        "terms": {
+          "annualSalary": 257755,
+          "endWeekExclusive": 208,
+          "signingBonus": 46396,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r03-0",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:208",
+        0
+      ],
+      "HSourceOrder": 37,
+      "ASourceOrder": 37,
+      "talentId": "person-studio-aca408ec-r03-1",
+      "creativeRole": "director",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r03-1",
+        "role": "director",
+        "age": 46.581942481860075,
+        "fame": 29.12205452637872,
+        "skills": {
+          "directing": {
+            "visualStorytelling": {
+              "perceived": 61
+            },
+            "performanceDirection": {
+              "perceived": 70
+            },
+            "toneControl": {
+              "perceived": 51
+            },
+            "directingPacing": {
+              "perceived": 56
+            },
+            "productionManagement": {
+              "perceived": 60
+            },
+            "adaptability": {
+              "perceived": 85
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "63fca6db77d8ab3418a4a3c953d1cfa36b72bc32631bdc93608628fb1072bdad",
+      "firstDraw": 0.29803259251639247,
+      "jitter": 0.9676852148026228,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r03-1",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+        0
+      ],
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r03",
+      "winningStudioId": "studio-aca408ec-r03",
+      "reserveWeeks": 20,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r03",
+        "terms": {
+          "annualSalary": 181799,
+          "endWeekExclusive": 208,
+          "signingBonus": 32724,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r03-1",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+        0
+      ],
+      "HSourceOrder": 38,
+      "ASourceOrder": 38,
+      "talentId": "person-studio-aca408ec-r03-2",
+      "creativeRole": "actor",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r03-2",
+        "role": "actor",
+        "age": 28,
+        "fame": 48.24197645647481,
+        "skills": {
+          "acting": {
+            "actingTechnique": {
+              "perceived": 53
+            },
+            "emotionalRange": {
+              "perceived": 61
+            },
+            "dialogueDelivery": {
+              "perceived": 53
+            },
+            "comicTiming": {
+              "perceived": 56
+            },
+            "physicalPerformance": {
+              "perceived": 52
+            },
+            "screenPresence": {
+              "perceived": 64
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "493c727936b8297a554491118e6b0d3f533b210b823f25830775027cffe0ed1d",
+      "firstDraw": 0.6570006266701967,
+      "jitter": 1.0251201002672314,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r03-2",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+        0
+      ],
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r03",
+      "winningStudioId": "studio-aca408ec-r03",
+      "reserveWeeks": 20,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r03",
+        "terms": {
+          "annualSalary": 330318,
+          "endWeekExclusive": 208,
+          "signingBonus": 59457,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r03-2",
+          "termWeeks": 208
+        }
+      }
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:208",
+        0
+      ],
+      "HSourceOrder": 39,
+      "ASourceOrder": 39,
+      "talentId": "person-studio-aca408ec-r03-3",
+      "creativeRole": "actor",
+      "HPerson": {
+        "id": "person-studio-aca408ec-r03-3",
+        "role": "actor",
+        "age": 31.872599486928138,
+        "fame": 65.20885881599932,
+        "skills": {
+          "acting": {
+            "actingTechnique": {
+              "perceived": 83
+            },
+            "emotionalRange": {
+              "perceived": 78
+            },
+            "dialogueDelivery": {
+              "perceived": 89
+            },
+            "comicTiming": {
+              "perceived": 79
+            },
+            "physicalPerformance": {
+              "perceived": 92
+            },
+            "screenPresence": {
+              "perceived": 69
+            }
+          }
+        }
+      },
+      "HContextRawLineSha256": "95b6e5f9710ae7bf9027521fd2bd1c26256ab77c2b90e813735348f782792a29",
+      "firstDraw": 0.6224897031206638,
+      "jitter": 1.0195983524993062,
+      "seed": "p13a-core-causal-01",
+      "purpose": "hiring",
+      "key": "offer-person-studio-aca408ec-r03-3",
+      "drawOriginIdentity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+        0
+      ],
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "subjectStudioId": "studio-aca408ec-r03",
+      "winningStudioId": "studio-aca408ec-r03",
+      "reserveWeeks": 20,
+      "AOriginalContract": {
+        "contractId": "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:0",
+        "endedWeek": 208,
+        "reason": "entry",
+        "studioId": "studio-aca408ec-r03",
+        "terms": {
+          "annualSalary": 831383,
+          "endWeekExclusive": 208,
+          "signingBonus": 149649,
+          "startWeek": 0,
+          "talentId": "person-studio-aca408ec-r03-3",
+          "termWeeks": 208
+        }
+      }
+    }
+  ]
+}

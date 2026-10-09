@@ -1,0 +1,229 @@
+{
+  "controlsGrant": null,
+  "executionAuthorization": false,
+  "externalRoles": {
+    "AEmployment": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/post-aging-employment.json",
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    "AJPublishedReadback": {
+      "bytes": 828,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+      "sha256": "746c05848363878e65cabe3ad3407dc71536e89925e4dd85769f09e818266214"
+    },
+    "A_employment.ts": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "A_hollywood.ts": {
+      "bytes": 16824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts",
+      "sha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea"
+    },
+    "A_promises.ts": {
+      "bytes": 75960,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/promises.ts",
+      "sha256": "df355709ec9569a70c034db7dd9f8b4cf62611d86687c57c4f964ccc16092e2c"
+    },
+    "A_talentMarket.ts": {
+      "bytes": 76993,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+      "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+    },
+    "A_talentSummary.ts": {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "A_tick.ts": {
+      "bytes": 60753,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tick.ts",
+      "sha256": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15"
+    },
+    "A_tuning.ts": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "A_worldgen.ts": {
+      "bytes": 34912,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/worldgen.ts",
+      "sha256": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7"
+    },
+    "baseR9IndependentSourceReview": {
+      "bytes": 3626,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r9/RECEIPT.json",
+      "sha256": "9652d41c68cf1adcbc6614702226a49ed5c49b4cbabd3857f96baa9134c1c75f"
+    },
+    "baseR9ObservedReview": {
+      "bytes": 3032,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-observed-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "d681f73e3613248c7ccd0be7736e46bd1fe424dd62ea099a60e031e774238f64"
+    },
+    "baseR9SourcePins": {
+      "bytes": 1824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/SOURCE-PINS.json",
+      "sha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759"
+    },
+    "independentGapDesignReview": {
+      "bytes": 3022,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-independent-design-review-20261009-r1/RECEIPT.json",
+      "sha256": "12145d203cd76fd36e94b4b8a862505d9e4e150c0af8058fcc47cba881d8292e"
+    },
+    "parentGapDesignAdoption": {
+      "bytes": 1702,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-design-parent-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "8f29b3860b2992378fc3fe7408557cffbefe5b4da6685bc0c42951407d171268"
+    },
+    "parentPremiumFloorSourceAdoption": {
+      "bytes": 2092,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "ef30c2fd1be9e503e3b4cc45ffdefb940566f770614fbd2c072c77e1181c3a1d"
+    },
+    "parentSingleDrawNumericAdoption": {
+      "bytes": 1589,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-parent-recorded-after-aj-20261009-r1/WITNESS-ADOPTION.json",
+      "sha256": "7bb25980c62442674200b3a3e4b9067d740858d70efa44a332a0e65d6226ccb3"
+    },
+    "renewalGapDesign": {
+      "bytes": 2837,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/RECEIPT.json",
+      "sha256": "46d78843ee8e2cf61c501a6ca2aebe6a16b66aa9745751c2d60c7ca7bdcf9479"
+    },
+    "renewalGapFacts": {
+      "bytes": 220989,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/FACTS.json",
+      "sha256": "d928be4e8022203f4c0c86fe1c8196397c41f04e89fc984b1133693812988044"
+    },
+    "renewalGapInputPins": {
+      "bytes": 10141,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/INPUT-PINS.json",
+      "sha256": "2b735e42554c2e27cb048c377cc8359f329410990333afc69087e45d882c6738"
+    }
+  },
+  "files": {
+    "BINDING-UNFILLED.json": {
+      "bytes": 587,
+      "sha256": "d2ba88acfbf78221d4795a5f8a4f7b0588f2ab43fc60e8b062cda03dcdf8391a"
+    },
+    "PHASE-INPUT-PROOF.json": {
+      "bytes": 35081,
+      "sha256": "36c521a883dca9a16a8e2c48da87ec779ef7fff4667372db165665e2a0447e06"
+    },
+    "PLAN.md": {
+      "bytes": 4086,
+      "sha256": "0a18eff4f23c83dab62eeff3ec83f555bc656c4bf5b2401a93e7bd0ca8cd161d"
+    },
+    "POLICY.sb": {
+      "bytes": 93,
+      "sha256": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5"
+    },
+    "SELECTION.json": {
+      "bytes": 20248,
+      "sha256": "a77f53a854df5112f2391f3bc3d01d64674ebd92f16ec6389a77ff7544a8bff7"
+    },
+    "bounds-guard.mjs": {
+      "bytes": 4153,
+      "sha256": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f"
+    },
+    "outer-recorder.py": {
+      "bytes": 11082,
+      "sha256": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8"
+    },
+    "settlement208-core.mjs": {
+      "bytes": 21888,
+      "sha256": "8d18864aa6943d1aec534a4f78746eb614c66b32862cac80528e9f2d9bee367e"
+    },
+    "supervise.py": {
+      "bytes": 22673,
+      "sha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+    },
+    "synthetic-employment.json": {
+      "bytes": 13113,
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    "test-outer.py": {
+      "bytes": 3290,
+      "sha256": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab"
+    },
+    "test-settlement208-frame.py": {
+      "bytes": 2027,
+      "sha256": "ed0218a3520cd01c8199f17426d59bf78e83ec85b2684b881d402405698a0b5f"
+    },
+    "test-settlement208.mjs": {
+      "bytes": 7008,
+      "sha256": "eed9e598428ed969b6ff1e044df7e20f563f5fbd7b4143f884de472edfddf609"
+    },
+    "test-supervisor.py": {
+      "bytes": 11204,
+      "sha256": "eeef1208a677e1f885151808bbe97a5357a23817b664a9b3cb41296c652e2ba0"
+    },
+    "test-synthetic.mjs": {
+      "bytes": 4873,
+      "sha256": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60"
+    },
+    "witness-core.mjs": {
+      "bytes": 3520,
+      "sha256": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d"
+    },
+    "witness.mts": {
+      "bytes": 5731,
+      "sha256": "f82c50aa830d672de685bbfc6f49951ef56fcc3f4714ffe7b6a31100fe50e704"
+    },
+    "worktree-guard.mjs": {
+      "bytes": 2211,
+      "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+    }
+  },
+  "independentSourceReviewReceipt": null,
+  "newPayloadBytesCap": 65536,
+  "newPayloadRows": 16,
+  "noGameOrSourceCallsExecuted": true,
+  "operationalRuntimeAuthority": null,
+  "productionHeadAtPreparation": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "protocol": "single-bounded-stdout-frame-no-files",
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "status": "FROZEN_UNRUN_UNLAUNCHABLE_SOURCE_REVIEW_REQUIRED",
+  "supportFiles": {
+    "BINDING-UNFILLED.json.diff": {
+      "bytes": 1272,
+      "sha256": "63c3a6ae95f8a761062d65ef9e3c97b37d816f901f7d0685d25720f113828f26"
+    },
+    "CONTROL-RECIPE-HELD.json": {
+      "bytes": 1967,
+      "sha256": "1f34a558409c8fdc041308e036c654bac87153044fdc20c898cb7b289871454d"
+    },
+    "PLAN.md.diff": {
+      "bytes": 8222,
+      "sha256": "3ae09dffa6278d939c0663d66fa4f2434134ba65e6328dcefb1d841019347e0d"
+    },
+    "STATIC-AUTHOR-CHECKS.json": {
+      "bytes": 1074,
+      "sha256": "76e11d7321497b60c8abfd12c131c5c6baa55c804d7ce72aeec95c0c58f458d7"
+    },
+    "author_finish.py": {
+      "bytes": 16652,
+      "sha256": "d9ac55a8c3da4a3bdd2853873f8bb42ce1ef14337eb5d8767ae3e0d03318b656"
+    },
+    "outer-recorder.py.diff": {
+      "bytes": 2102,
+      "sha256": "e7074e925999594d33ea811ae43f358361a7d79f3268a8047553a80f1dacd797"
+    },
+    "supervise.py.diff": {
+      "bytes": 4369,
+      "sha256": "516ed33a95e770781ba1c352df8523b45ec47b488679e3f439b10868ac088284"
+    },
+    "test-supervisor.py.diff": {
+      "bytes": 1966,
+      "sha256": "af9a6442dfdb6c4867ea9f58ab15b30694cce94aa0767c389985314fded12b93"
+    },
+    "witness.mts.diff": {
+      "bytes": 3263,
+      "sha256": "45bd7291e5efd083b5146a07fe921f253d02498504eacc0536c8a9a1c22b4b03"
+    }
+  },
+  "witnessGrant": null
+}

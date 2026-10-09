@@ -1,0 +1,37 @@
+{
+  "baseline": {
+    "bytes": 14350,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial23-source-order-pricing-verification-proposal-20261009-r1/record-pure-node.py",
+    "sha256": "a69a865a698fa21b66276e80d9d14f5cd709343e79ccc25a18bdf97e7e93348e"
+  },
+  "candidate": {
+    "bytes": 14534,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r1/record-pure-node.py",
+    "sha256": "be323be957cbe53f01d6b650182a18feb0fd5cb1306a412627bd32c9d6eea670"
+  },
+  "changes": [
+    [
+      "0e78eda5ad73702635054003d49560f77545c16e2fe5abef297ad456a5498168",
+      "42b4a95fe03756b433a6391f404080ef92dbc780675ad35dcd186f7cfcbd38c1"
+    ],
+    [
+      "1370-c0-initial23-pricing-",
+      "1370-c0-renewal208-pure16-pricing-"
+    ],
+    [
+      "require(isinstance(config.get('futureWitness'),dict),'WITNESS_UNFILLED')",
+      "require(isinstance(config.get('futureA208'),dict),'A208_UNFILLED');require(all(config['roles'].get(n) for n in ['A208SourcePins','A208Config','A208Result','A208Stdout','A208Snapshot','A208IndependentReceipt']),'A208_ROLES_UNFILLED')"
+    ],
+    [
+      "PURE_INITIAL23_PRICING_",
+      "PURE_RENEWAL208_PURE16_PRICING_"
+    ]
+  ],
+  "execution": false,
+  "qualifiedFailurePreservation": {
+    "bytes": 3829,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+    "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+  },
+  "unchanged": "60/75/90 clocks; owned fork/READY/GO; finite streams; sticky failure/override preservation. A208 check remains before output mkdir and fork."
+}

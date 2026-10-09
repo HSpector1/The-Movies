@@ -1,0 +1,27 @@
+{
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "files": {
+    "FIELD-MAP.json": {
+      "bytes": 29689,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-fill-mapping-after-aj-20261009-r1/FIELD-MAP.json",
+      "sha256": "f5aa51bdbf77b2eb8c937b386a3d6ba233e8413864efc829a0a3db0c74433bd1"
+    },
+    "PROCEDURE.md": {
+      "bytes": 4913,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-fill-mapping-after-aj-20261009-r1/PROCEDURE.md",
+      "sha256": "337a8dd65605be43419ff89952fbff14b8fcbcaa80c5e6f475dbfd5a6fad14ab"
+    },
+    "REFERENCE-PINS.json": {
+      "bytes": 2078,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-fill-mapping-after-aj-20261009-r1/REFERENCE-PINS.json",
+      "sha256": "0f3084278227c2a7ab134c54b172fd9e358cc730c7e5e69613adb106dbca6a16"
+    },
+    "SOURCE-ACCEPTANCE-ADDENDUM.json": {
+      "bytes": 1648,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-fill-mapping-after-aj-20261009-r1/SOURCE-ACCEPTANCE-ADDENDUM.json",
+      "sha256": "307ee2ce1a42ffd4265eb02f433ebc7a3b73c71a3ccc7e3e1f07a582b0b16335"
+    }
+  },
+  "schema": "m0-additive-exact-fill-map-source-pins-r1"
+}

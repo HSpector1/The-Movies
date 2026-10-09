@@ -1,0 +1,82 @@
+{
+  "configSha256": "53b996cf65721bab186ed2043031fb470ad8868d838fac7ab0cd17bad81b0565",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 14193,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/CONFIG.json",
+      "sha256": "53b996cf65721bab186ed2043031fb470ad8868d838fac7ab0cd17bad81b0565"
+    },
+    "CONFIG.json.diff": {
+      "bytes": 3730,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/CONFIG.json.diff",
+      "sha256": "2f6a037cc83b42655d07172e2047ccc66a19573320eee6d8e88f1ffed7fe33f8"
+    },
+    "CONTROL-RECIPE.md": {
+      "bytes": 1572,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/CONTROL-RECIPE.md",
+      "sha256": "56e27c8d0b233ebccc57bda42477042a40e7cc429edbc11b8a7b46e183470d00"
+    },
+    "INVERSE-AND-ROLE-PROOF.json": {
+      "bytes": 1970,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/INVERSE-AND-ROLE-PROOF.json",
+      "sha256": "406db3f63c8da1f4e7ce9c715b3c51f552a1984f3b4d36ea4547207b2a5e810b"
+    },
+    "PREPARATION-ABSENCE.json": {
+      "bytes": 782,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/PREPARATION-ABSENCE.json",
+      "sha256": "dc1895bab5599f18256118260fa47c140cabbc48e8bd746078a70eb98baf436e"
+    },
+    "PROVENANCE.json": {
+      "bytes": 9685,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/PROVENANCE.json",
+      "sha256": "98b940d61505bd0c7ba7f0e465684abb1df057720dc22df3972e32afd619536c"
+    },
+    "REPORT.md": {
+      "bytes": 1223,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/REPORT.md",
+      "sha256": "d42e54c0a6f4ff886ba597acc475cb8de96779f60025ec60b7194ca948ba9189"
+    },
+    "ROUTE.json": {
+      "bytes": 2783,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/ROUTE.json",
+      "sha256": "f71cb9345df730bd93675022c86f250a3b4b61c13c48480a6840f19ee574cfc1"
+    },
+    "ROUTE.json.diff": {
+      "bytes": 3180,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/ROUTE.json.diff",
+      "sha256": "c5be05b40443731bc804666e245e04f380f8abc6d5011bd58a0b5e03d49f05f9"
+    },
+    "drive.py": {
+      "bytes": 8874,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/drive.py",
+      "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+    },
+    "record.py": {
+      "bytes": 14474,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/record.py",
+      "sha256": "3215c7eb2a9cfaf6a71c22b6410a9f7d2d4db30844be9b6919f9dd610c2916d8"
+    },
+    "record.py.diff": {
+      "bytes": 1135,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/record.py.diff",
+      "sha256": "bab7959a17376c98750320e7e778554e7c2fbfb4c42ad822738c0ed8ca58aae3"
+    },
+    "report_guard.py": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    },
+    "test_reports.py": {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-filled-source-after-aj-20261009-r1/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    }
+  },
+  "originalSourcePinsSha256": "1c267921f7dd0bb0db8e65ddf356bd9649f36658410324fc550a0cbc0f200cca",
+  "originalSourceReviewSha256": "a4f568dc17dd37133a2ceb8f83a449622981ae6db9a48048a91028155543060c",
+  "prospectiveScopeSha256": "39ff9d37dbde559e4e047db7ab3b9f7b5a0ed0c3afa898c03eec6a6dafbc638c",
+  "schema": "1370-a208-finite-controls-filled-source-pins-r1",
+  "status": "READY_INDEPENDENT_FILLED_SOURCE_REVIEW_REQUIRED_HELD_UNRUN"
+}

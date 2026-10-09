@@ -1,0 +1,25 @@
+{
+  "files": {
+    "CONFIG.json.diff": {
+      "bytes": 4925,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/CONFIG.json.diff",
+      "sha256": "d675c1eff35c1d8496a9c8571d80508ea819a550b40f42b251cf67f453dad703"
+    },
+    "FILL-RECEIPT.json": {
+      "bytes": 6998,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/FILL-RECEIPT.json",
+      "sha256": "6c6c5d5e4bda0e3ba728acdf2702a4cd721b11c0684dce89e35160a2be0b8029"
+    },
+    "RECIPE.json": {
+      "bytes": 794,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/RECIPE.json",
+      "sha256": "dc49935f3d6824bddf9a8ced7103903d4c6dda6b5a5ff16df06111bcfce06247"
+    },
+    "SOURCE-PINS.json": {
+      "bytes": 2183,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/SOURCE-PINS.json",
+      "sha256": "dfbf25dc7d97aa654dedf625abfd2c2209dcb089c3870d4c49b17d4540125a30"
+    }
+  },
+  "status": "FILL_PROVENANCE_ONLY_UNRUN"
+}

@@ -1,0 +1,139 @@
+{
+  "bindingSemanticSha256": "3949fb78642c7324d61e1c23f967f10a056e17d3a5ae5a850ebbb73969c4e8e5",
+  "exactReview": {
+    "bytes": 2785,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-final-exact-independent-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "d86d88453393c6ce9c941bf7f6b992c90e49833d91835c40fdf274278ae19fcc"
+  },
+  "files": {
+    "BINDING-DRAFT.json": {
+      "archive": {
+        "bytes": 13256,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-pre-adoption-archive-after-aj-20261009-r1/BINDING-DRAFT.json",
+        "sha256": "afb63886674e50034d802af42bafacd5e9d119b96dfadc256e5b29668e4d30a7"
+      },
+      "original": {
+        "bytes": 13256,
+        "metadata": [
+          16777220,
+          166768795,
+          33152,
+          1,
+          13256,
+          1791576952031285600,
+          1791576952031285600
+        ],
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+        "sha256": "afb63886674e50034d802af42bafacd5e9d119b96dfadc256e5b29668e4d30a7"
+      }
+    },
+    "GUARD-PROOF-ROLES.json": {
+      "archive": {
+        "bytes": 16206,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-pre-adoption-archive-after-aj-20261009-r1/GUARD-PROOF-ROLES.json",
+        "sha256": "0d9e9df26a9005c1c67c4e79d57efb2561a9dfd215feb8551a4d60f8769fb8ba"
+      },
+      "original": {
+        "bytes": 16206,
+        "metadata": [
+          16777220,
+          166768797,
+          33152,
+          1,
+          16206,
+          1791576952033644929,
+          1791576952033644929
+        ],
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/GUARD-PROOF-ROLES.json",
+        "sha256": "0d9e9df26a9005c1c67c4e79d57efb2561a9dfd215feb8551a4d60f8769fb8ba"
+      }
+    },
+    "IDENTITY.json": {
+      "archive": {
+        "bytes": 7581,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-pre-adoption-archive-after-aj-20261009-r1/IDENTITY.json",
+        "sha256": "556ce88b6e6fb824ccc88eba1e22184b6f821fbebe6858ea17d3e39de0ee3c5c"
+      },
+      "original": {
+        "bytes": 7581,
+        "metadata": [
+          16777220,
+          166768798,
+          33152,
+          1,
+          7581,
+          1791576952034318692,
+          1791576952034318692
+        ],
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/IDENTITY.json",
+        "sha256": "556ce88b6e6fb824ccc88eba1e22184b6f821fbebe6858ea17d3e39de0ee3c5c"
+      }
+    },
+    "LAUNCH-SPEC.json": {
+      "archive": {
+        "bytes": 2784,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-pre-adoption-archive-after-aj-20261009-r1/LAUNCH-SPEC.json",
+        "sha256": "337c93eb33b65f00db336f801e787a09161640c782d4dd18f7a112c88b823a78"
+      },
+      "original": {
+        "bytes": 2784,
+        "metadata": [
+          16777220,
+          166768796,
+          33152,
+          1,
+          2784,
+          1791576952032820617,
+          1791576952032820617
+        ],
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/LAUNCH-SPEC.json",
+        "sha256": "337c93eb33b65f00db336f801e787a09161640c782d4dd18f7a112c88b823a78"
+      }
+    },
+    "PINS.json": {
+      "archive": {
+        "bytes": 1353,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-pre-adoption-archive-after-aj-20261009-r1/PINS.json",
+        "sha256": "1674f56bedabf9cca674eaece2884a285efdaec70e91e1bd5125d8a45c8467f8"
+      },
+      "original": {
+        "bytes": 1353,
+        "metadata": [
+          16777220,
+          166768800,
+          33152,
+          1,
+          1353,
+          1791576952035710301,
+          1791576952035710301
+        ],
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/PINS.json",
+        "sha256": "1674f56bedabf9cca674eaece2884a285efdaec70e91e1bd5125d8a45c8467f8"
+      }
+    },
+    "REPORT.md": {
+      "archive": {
+        "bytes": 989,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-pre-adoption-archive-after-aj-20261009-r1/REPORT.md",
+        "sha256": "fdfe657ea9070a9b768c24c067f3e5885d640de253838730d2390027c685f3d5"
+      },
+      "original": {
+        "bytes": 989,
+        "metadata": [
+          16777220,
+          166768799,
+          33152,
+          1,
+          989,
+          1791576952034928505,
+          1791576952034928505
+        ],
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/REPORT.md",
+        "sha256": "fdfe657ea9070a9b768c24c067f3e5885d640de253838730d2390027c685f3d5"
+      }
+    }
+  },
+  "guardCoreSha256": "69f4a0a4e5bb4d686ef03178dafa9b4c27c11d8671745d61a0537fd725adf69d",
+  "originalDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1",
+  "status": "SIX_ORIGINAL_EXACT_CANDIDATE_FILES_ARCHIVED_BEFORE_AUTHORIZATION_MUTATION"
+}

@@ -1,0 +1,306 @@
+{
+  "acPower": true,
+  "adoptedLaunch": {
+    "bytes": 3571,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/ADOPTED-LAUNCH-SPEC.json",
+    "sha256": "4bdca6f36f0dd20067da512a5f3bf01c840043a236c1000862f8acf93ab27c08"
+  },
+  "adoption": {
+    "bytes": 2194,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "81984fa53c5f69f93ae718b35d2d85c306feaab8acc4e0fdc3c5eeb3a34134cb"
+  },
+  "archiveManifest": {
+    "bytes": 5234,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-pre-adoption-archive-after-aj-20261009-r1/ARCHIVE-MANIFEST.json",
+    "sha256": "d93b83ce358c59c4ce44b9af262d0fb72c7e17e606f3433b843089c2de37b041"
+  },
+  "archiveOriginalSixBytesAndMetadataAuthenticated": true,
+  "bindingSemanticSha256": "3949fb78642c7324d61e1c23f967f10a056e17d3a5ae5a850ebbb73969c4e8e5",
+  "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "--no-optional-locks",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 41,
+      "stdoutSha256": "e0033953b130a398654c36f4caceee13f1f53f6542cf48f13075dd205348b866"
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "--no-optional-locks",
+        "rev-parse",
+        "HEAD:src"
+      ],
+      "exit": 0,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 41,
+      "stdoutSha256": "95b9b4ed07684cb46d666470c725fe429e2ab32e5249be84c239d2f7abbab351"
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "--no-optional-locks",
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all"
+      ],
+      "exit": 0,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "--no-optional-locks",
+        "ls-remote",
+        "origin",
+        "refs/heads/main",
+        "refs/heads/wip/headless-program-20260916-ts"
+      ],
+      "exit": 0,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 142,
+      "stdoutSha256": "4445e887dba6a87efcbb2661236001e7148dc7a017534eb19b514d293af019ac"
+    },
+    {
+      "argv": [
+        "/usr/sbin/sysctl",
+        "-n",
+        "kern.bootsessionuuid"
+      ],
+      "exit": 0,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 37,
+      "stdoutSha256": "382e2f00ecef519e5a9470710b8847009f186abeef138fafd98ebf8e9277c387"
+    },
+    {
+      "argv": [
+        "/usr/bin/pmset",
+        "-g",
+        "batt"
+      ],
+      "exit": 0,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 105,
+      "stdoutSha256": "5bc0373060299aa27d461729aaadfd6ff183735f96859285c0f6d9e7db11b01c"
+    },
+    {
+      "argv": [
+        "/bin/ps",
+        "-axo",
+        "pid=,ppid=,pgid=,lstart=,state=,comm=,args="
+      ],
+      "exit": 0,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 92307,
+      "stdoutSha256": "d14f721aeaad30fbaf524a1da4c2ad49adfe02814a73ccf7280554836716a609"
+    },
+    {
+      "argv": [
+        "/bin/ps",
+        "-axo",
+        "comm=,args="
+      ],
+      "exit": 0,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 70227,
+      "stdoutSha256": "a39312064deffc63532cce3f6b4bc127c8ab0a37c23152db93e71f886c582971"
+    },
+    {
+      "argv": [
+        "/usr/sbin/lsof",
+        "-n",
+        "-P",
+        "-w",
+        "-F0pftan"
+      ],
+      "exit": 0,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 647004,
+      "stdoutSha256": "9785e455fd4796035edc21fa9d68f185327dea457d6fc2e834dbca3532bdc6a0"
+    },
+    {
+      "argv": [
+        "/usr/sbin/lsof",
+        "-n",
+        "-P",
+        "-w",
+        "-F0pftan"
+      ],
+      "exit": 0,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 647002,
+      "stdoutSha256": "e70d6ecfc20ce249ea32103967b151f97689e09d092ef1c38b82e66484b9e9b5"
+    },
+    {
+      "argv": [
+        "/usr/sbin/lsof",
+        "-n",
+        "-P",
+        "-w",
+        "-F0pftan"
+      ],
+      "exit": 0,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 647004,
+      "stdoutSha256": "1b0ef02a64615827a7666349661f0f57b9dd7a6f861b841df58cab65bcbcd73e"
+    },
+    {
+      "argv": [
+        "/usr/sbin/lsof",
+        "-n",
+        "-P",
+        "-w",
+        "-F0pftan"
+      ],
+      "exit": 0,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 647004,
+      "stdoutSha256": "17703d00f839178e8169d7035078154f21d42964651f7098af56840adf771ee1"
+    }
+  ],
+  "continuousFreezeAuthority": true,
+  "currentLocalHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "currentLocalSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "currentWorkingTreeClean": true,
+  "fdMechanism": "Exact authenticated accepted r6 single parser function compiled for bounded readonly FD guard; no full materializer/proposed recorder/body/supervisor import or inventory execution.",
+  "fdParserFunctionAstSha256": "16c83467811796cf1fd0fdd37fb50a35427b2d0e18efaf1bd71f986cba310c29",
+  "fdParserSource": {
+    "bytes": 30502,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/materialize.py",
+    "sha256": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896"
+  },
+  "fdScopesPassed": [
+    {
+      "rawLocalOnly": {
+        "bytes": 647004,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-LSOF-0.LOCAL.bin",
+        "sha256": "9785e455fd4796035edc21fa9d68f185327dea457d6fc2e834dbca3532bdc6a0"
+      },
+      "scope": {
+        "commonGitRoot": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+        "productionRoot": "/Users/zacheryspector/The-Movies-headless-program"
+      }
+    },
+    {
+      "rawLocalOnly": {
+        "bytes": 647002,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-LSOF-1.LOCAL.bin",
+        "sha256": "e70d6ecfc20ce249ea32103967b151f97689e09d092ef1c38b82e66484b9e9b5"
+      },
+      "scope": {
+        "commonGitRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
+        "productionRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1"
+      }
+    },
+    {
+      "rawLocalOnly": {
+        "bytes": 647004,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-LSOF-2.LOCAL.bin",
+        "sha256": "1b0ef02a64615827a7666349661f0f57b9dd7a6f861b841df58cab65bcbcd73e"
+      },
+      "scope": {
+        "commonGitRoot": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2",
+        "productionRoot": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2"
+      }
+    },
+    {
+      "rawLocalOnly": {
+        "bytes": 647004,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-LSOF-3.LOCAL.bin",
+        "sha256": "17703d00f839178e8169d7035078154f21d42964651f7098af56840adf771ee1"
+      },
+      "scope": {
+        "commonGitRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+        "productionRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2"
+      }
+    }
+  ],
+  "fiveAuthorizationChangesOnly": [
+    "exactBindingReviewDecision",
+    "exactBindingReviewPath",
+    "exactBindingReviewSha256",
+    "executionAuthorization",
+    "status"
+  ],
+  "fivePhysicalToolsMatch": true,
+  "freeBytes": 5545914368,
+  "freshAbsentPaths": [
+    "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-20261009-r2.lock",
+    "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log",
+    "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.meta",
+    "/Users/zacheryspector/studio-scratch/m0-additive-input-20261009-r2.lane.log.meta",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/GRANT.json"
+  ],
+  "freshTenRootsAndExactAncestryAndOriginalM0MetadataMatch": true,
+  "guardCoreSha256": "69f4a0a4e5bb4d686ef03178dafa9b4c27c11d8671745d61a0537fd725adf69d",
+  "knownScannerPidsAndPgidsAbsent": [
+    93713,
+    78074
+  ],
+  "nonbindingFiveLiveBytesAndIdentitiesUnchanged": true,
+  "rawPsLocalOnly": {
+    "bytes": 92307,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-PS.LOCAL.txt",
+    "sha256": "d14f721aeaad30fbaf524a1da4c2ad49adfe02814a73ccf7280554836716a609"
+  },
+  "relevantWorkerMarkersFreshAbsent": true,
+  "remoteRefsSeparatelyObserved": [
+    "c902a704eb948cc576083d0973c8c23e59937dc1\trefs/heads/main",
+    "f0fb818fe7534c3e3784206d16728b015c7f059a\trefs/heads/wip/headless-program-20260916-ts"
+  ],
+  "scopeLimit": "Actual readonly adopted preflight; root grant/owned additive execution/readback/full postflight remain pending. Numeric/FD/process observations are scoped snapshots, not future blanket absence. Raw machine records local hash/size-only for archive.",
+  "utc": "2026-10-09T20:22:04.066988+00:00",
+  "wrapper": {
+    "bytes": 6951,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-grant-additive.py",
+    "sha256": "be3a92487ba1ffd55865444e5b27cf487658fbceb56a2b8a8039045799cd4a06"
+  }
+}

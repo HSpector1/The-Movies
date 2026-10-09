@@ -1,0 +1,253 @@
+{
+  "contextScope": "old and current employment, closed case, winner receipt, current winner business policy, deleted proposal count, bounded old termination receipts; no premium/floor calculation or promise-feasibility reconstruction.",
+  "executionAuthorization": false,
+  "externalRoles": {
+    "AEmployment": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1/post-aging-employment.json",
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    "AJPublishedReadback": {
+      "bytes": 828,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+      "sha256": "746c05848363878e65cabe3ad3407dc71536e89925e4dd85769f09e818266214"
+    },
+    "A_employment.ts": {
+      "bytes": 26075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "A_hollywood.ts": {
+      "bytes": 16824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts",
+      "sha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea"
+    },
+    "A_promises.ts": {
+      "bytes": 75960,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/promises.ts",
+      "sha256": "df355709ec9569a70c034db7dd9f8b4cf62611d86687c57c4f964ccc16092e2c"
+    },
+    "A_talentMarket.ts": {
+      "bytes": 76993,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+      "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+    },
+    "A_talentSummary.ts": {
+      "bytes": 25220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "A_tick.ts": {
+      "bytes": 60753,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tick.ts",
+      "sha256": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15"
+    },
+    "A_tuning.ts": {
+      "bytes": 134171,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "A_worldgen.ts": {
+      "bytes": 34912,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/worldgen.ts",
+      "sha256": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7"
+    },
+    "baseR9IndependentSourceReview": {
+      "bytes": 3626,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r9/RECEIPT.json",
+      "sha256": "9652d41c68cf1adcbc6614702226a49ed5c49b4cbabd3857f96baa9134c1c75f"
+    },
+    "baseR9ObservedReview": {
+      "bytes": 3032,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-observed-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "d681f73e3613248c7ccd0be7736e46bd1fe424dd62ea099a60e031e774238f64"
+    },
+    "baseR9SourcePins": {
+      "bytes": 1824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/SOURCE-PINS.json",
+      "sha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759"
+    },
+    "independentGapDesignReview": {
+      "bytes": 3022,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-independent-design-review-20261009-r1/RECEIPT.json",
+      "sha256": "12145d203cd76fd36e94b4b8a862505d9e4e150c0af8058fcc47cba881d8292e"
+    },
+    "parentGapDesignAdoption": {
+      "bytes": 1702,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-design-parent-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "8f29b3860b2992378fc3fe7408557cffbefe5b4da6685bc0c42951407d171268"
+    },
+    "parentPremiumFloorSourceAdoption": {
+      "bytes": 2092,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "ef30c2fd1be9e503e3b4cc45ffdefb940566f770614fbd2c072c77e1181c3a1d"
+    },
+    "parentSingleDrawNumericAdoption": {
+      "bytes": 1589,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-parent-recorded-after-aj-20261009-r1/WITNESS-ADOPTION.json",
+      "sha256": "7bb25980c62442674200b3a3e4b9067d740858d70efa44a332a0e65d6226ccb3"
+    },
+    "renewalGapDesign": {
+      "bytes": 2837,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/RECEIPT.json",
+      "sha256": "46d78843ee8e2cf61c501a6ca2aebe6a16b66aa9745751c2d60c7ca7bdcf9479"
+    },
+    "renewalGapFacts": {
+      "bytes": 220989,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/FACTS.json",
+      "sha256": "d928be4e8022203f4c0c86fe1c8196397c41f04e89fc984b1133693812988044"
+    },
+    "renewalGapInputPins": {
+      "bytes": 10141,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/INPUT-PINS.json",
+      "sha256": "2b735e42554c2e27cb048c377cc8359f329410990333afc69087e45d882c6738"
+    }
+  },
+  "original44AIdentityOccurrenceLocators": "16 unchanged paired renewal identities; sourceOrder24..39; occurrence0; each old row is unique and ends208",
+  "phaseTransport": [
+    "Tick release-career growth precedes materialized new-week age and finalized talent assignment.",
+    "Tick terminal return directly invokes advanceTalentMarketWeek after advancePromisesWeek; no engine statement executes after market returns.",
+    "advanceTalentMarketWeek passes evolving state through settlement; returned talent/pricing records are preserved. Its functions construct employment/account/market/promise/contract/ledger roots; no talent or talent-field assignments occur.",
+    "For selected rival winners commitRivalWinner re-derives proposalPriceAt from the current precommit state, then writes business account and appended employment/receipts/ordinals; it spreads the same state talent. closeCase changes only talentMarket.",
+    "The external wrapper serializes the selected persons from that returned state immediately before another natural tick. This is source transport of quote inputs, not observed quote-local capture or precommit availability/freeze evidence."
+  ],
+  "pricingProjection": {
+    "excluded": [
+      "stored salary",
+      "legacy scalar skill",
+      "persona perceived",
+      "actual skill",
+      "secondary skills",
+      "evolved F1 persons"
+    ],
+    "reason": "worldgen salaryCurve169-173 invokes primary roleOVR, whose skillVector reads only six perceived values; ageFactor reads age; key reads id. No helper is invoked by this observer.",
+    "required": "id,role,age,fame,skills[primary discipline][six declared SKILL_ORDER keys].perceived"
+  },
+  "productionHeadAtPreparation": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "requiredActualAcceptance": "selected16 phase/person/context/frame/source/readback integrity; all original416/44/four digests/RNG controls; current protected proofs and owned process cleanup under separately reviewed exact binding. No pay causes before separate pure pricing verification.",
+  "schema": "1370-a208-external-observer-phase-input-proof-r1",
+  "selected16ExactGapProjection": true,
+  "selectionRole": {
+    "bytes": 20248,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SELECTION.json",
+    "sha256": "a77f53a854df5112f2391f3bc3d01d64674ebd92f16ec6389a77ff7544a8bff7"
+  },
+  "sourceExcerpts": [
+    {
+      "exactText": "  // reference). When develop === false, `talent` is state.talent unchanged \u2014 the\n  // validated M0A/D-6 baseline. A single talent working on two same-tick releases\n  // develops once per release, in release order, over the evolving talent list.\n  const industry = advanceHollywoodWeek({...admitted,technology:researchAdvance.technology})\n  // The develop switch belongs to the frozen player corpus. A living industry's\n  // real releases always write their shared career consequences.\n  const allGrowthRecords = [...(develop?records:[]),...industry.growth].sort((a,b)=>\n    a.filmResult.productionId<b.filmResult.productionId?-1:a.filmResult.productionId>b.filmResult.productionId?1:0)\n  const growth = allGrowthRecords.length > 0\n    ? applyReleaseCareers(state.seed,industry.talent,allGrowthRecords)\n    : {talent:industry.talent,careerEvents:[]}\n  const talent = growth.talent\n  const industryFilmIds = new Set(industry.growth.map(r=>r.filmResult.productionId))\n  const newCareerEvents = growth.careerEvents.filter(e=>!industryFilmIds.has(e.filmId))\n",
+      "firstLine": 928,
+      "lastLine": 941,
+      "role": {
+        "bytes": 60753,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tick.ts",
+        "sha256": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15"
+      }
+    },
+    {
+      "exactText": "\n  // P14C.1 (record 762 \u00a710): the ONE materialization, at the TICK TAIL beside the\n  // clock advance below, against `currentTick + 1` \u2014 the week this advance PRODUCES.\n  // Nowhere else works: `tick.ts:408-410` states the rule in its own comment (\"the\n  // clock is the TICK's to advance, as its last step\"), so for the whole body of the\n  // tick `state.market.tick` is still `currentTick` and there is no point inside it\n  // that is both after the advance and before every reader of `talent.age`.\n  //\n  // The invariant this produces is stronger than the original \u00a75 wording and is\n  // exactly validator condition 2: on every state the engine emits,\n  // `talent[i].age === ageAt(row_i, state.market.tick)`. A person whose birthday\n  // falls in week `w` is the new age for the WHOLE of week `w`, because the tick that\n  // produced week `w` set it here. It consumes no RNG, so `rngState` above is final.\n  // The rival supply of `hollywoodTick.ts:142` appended into the same `talent` array,\n  // so its rows are written here, with that commit, BEFORE the materialization reads\n  // them. `withTalentProvenance` anchors each on `state.market.tick` \u2014 still\n  // `currentTick`, the week `staff()` itself used.\n  let provenanced: GameState = { ...state, talent, talentProvenance: state.talentProvenance }\n  for (const person of industry.suppliedTalent) provenanced = withTalentProvenance(provenanced, person)\n  const materialized = materializeAges(provenanced, currentTick + 1)\n\n  let finalized: GameState = {\n    // C2a-M4: the ADMITTED state is the base \u2014 it carries this advance's queue\n    // (rows granted or expired are gone from it), the concepts an admitted\n    // original commission minted, and the blueprint root that recorded them.\n    ...admitted,\n    technology: industry.technology,\n    // P13B-S8: a rival's own admitted plans live on the shared plan root; the\n    // player's admission at step 1.06 already wrote its rows into `admitted`.\n    physicalPlans: industry.physicalPlans,\n    hollywood,\n    rngState: rng.serialize(),\n    market: { ...state.market, tick: currentTick + 1 },\n    talent: materialized.talent,\n    talentProvenance: materialized.talentProvenance,\n    studio: {\n",
+      "firstLine": 1037,
+      "lastLine": 1072,
+      "role": {
+        "bytes": 60753,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tick.ts",
+        "sha256": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15"
+      }
+    },
+    {
+      "exactText": "  // P14A.1 (companion \u00a72.1.8): the TERMINAL, fixed-order market step \u2014 appended\n  // after the pipeline's last call, on the already-incremented week, never inside\n  // `advanceHollywoodWeek`/`decide()`, which run pre-increment. By here the P10\n  // expiry step has removed the subject's contract, scheduled rival entry has run,\n  // and `finishHollywoodWeek` has closed the subject's interval and written the\n  // `expiry` receipt the chooser receipt references.\n  // P14B.1 (1): the ONE first-take append, on the week this advance PRODUCES,\n  // for the player's advance and every rival's \u2014 one root, one ordinal sequence,\n  // written before anything reads it. P14B.1 (6): promise outcomes are then\n  // evaluated ONCE, before the terminal market step, so a promise kept or broken\n  // this week is already a fact when the market ranks on trust.\n  const takeEntries = [\n    ...productionAdvance.firstTakes.map((production) => ({ studioId: finalized.hollywood?.playerStudioId ?? '', production })),\n    ...industry.firstTakes,\n  ]\n  const withTakes = appendFirstTakes(\n    finishHollywoodWeek(finishTechnologyWeek(finalized)),\n    takeEntries,\n    finalized.market.tick,\n  )\n  // P14B.5 (2): the ONE relationship seam, between the take append and the\n  // promise evaluation \u2014 the takes are already a fact, the market has not yet\n  // ranked on D5. Fed THIS advance's delta only: the same take entries, plus this\n  // advance's release results (the player's `records` and every rival's\n  // `industry.growth`), never a scan of a root.\n  const withBonds = advanceRelationshipsWeek(\n    withTakes,\n    { takes: takeEntries, releases: [...records.map((r) => r.filmResult), ...industry.growth.map((r) => r.filmResult)] },\n    finalized.market.tick,\n  )\n  return advanceTalentMarketWeek(advancePromisesWeek(withBonds))\n}\n",
+      "firstLine": 1114,
+      "lastLine": 1145,
+      "role": {
+        "bytes": 60753,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tick.ts",
+        "sha256": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15"
+      }
+    },
+    {
+      "exactText": "export function releaseFloor(\n  state: GameState,\n  releasingStudioId: string,\n  talentId: string,\n  week: number = state.market.tick,\n): { floorAnnual: number; validUntilWeek: number } | null {\n  const hollywood = state.hollywood\n  if (hollywood === null) return null\n  let best: { floorAnnual: number; validUntilWeek: number } | null = null\n  for (const receipt of hollywood.receipts) {\n    if (receipt.kind !== 'employment' || receipt.reason !== 'termination') continue\n    if (receipt.studioId !== releasingStudioId || receipt.talentId !== talentId) continue\n    // The player's release always writes its own ledger row; that row is the\n    // evidence of record for the one-batch edge the mirror can still miss.\n    if (releasingStudioId === hollywood.playerStudioId &&\n      !state.ledger.some((row) => row.kind === 'termination' && row.talentId === talentId && row.week === receipt.week)) continue\n    const row = hollywood.employment.find((e) => e.contractId === receipt.contractId)\n    if (row === undefined) continue\n    const validUntilWeek = row.terms.endWeekExclusive\n    if (week >= validUntilWeek) continue // the memory lapsed with the original term\n    if (best === null || row.terms.annualSalary > best.floorAnnual) {\n      best = { floorAnnual: row.terms.annualSalary, validUntilWeek }\n    }\n  }\n  return best\n}\n\n/**\n * The ONE studio-aware pricing entry of companion \u00a72.1.4: the shared P10 ask,\n * floored by R1 for the studio that released this person, BEFORE any premium\n * tier. `offerForTalent` itself stays floor-free, so the stateless Full-Custom\n * preview is unchanged.\n */\nexport function studioOffer(\n  state: GameState,\n  studioId: string,\n  talentId: string,\n  termWeeks: number,\n  week: number = state.market.tick,\n): ContractOffer {\n  const offer = contractOffer(state, talentId, termWeeks, week)\n  const floor = releaseFloor(state, studioId, talentId, week)\n  if (floor === null || floor.floorAnnual <= offer.annualSalary) return offer\n  // The bonus is the same published fraction of the annual everywhere (\u00a72.1.4 /\n  // `offerForTalent`), so a floored annual carries a floored bonus.\n  return {\n    ...offer,\n    annualSalary: floor.floorAnnual,\n    signingBonus: iround(floor.floorAnnual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION),\n  }\n",
+      "firstLine": 195,
+      "lastLine": 244,
+      "role": {
+        "bytes": 76993,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+        "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+      }
+    },
+    {
+      "exactText": "function proposalPriceAt(\n  state: GameState,\n  proposal: Pick<TalentMarketProposal, 'talentId' | 'issuerStudioId' | 'termWeeks' | 'premiumTier'>,\n  week: number,\n): { askAnnual: number; annualSalary: number; signingBonus: number } {\n  const ask = studioOffer(state, proposal.issuerStudioId, proposal.talentId, proposal.termWeeks, week)\n  const annualSalary = iround(ask.annualSalary * proposal.premiumTier)\n  return { askAnnual: ask.annualSalary, annualSalary, signingBonus: iround(annualSalary * TUNING.CONTRACT_SIGNING_BONUS_FRACTION) }\n}\n\n",
+      "firstLine": 345,
+      "lastLine": 354,
+      "role": {
+        "bytes": 76993,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+        "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+      }
+    },
+    {
+      "exactText": "function closeCase(\n  state: GameState,\n  kase: TalentMarketCase,\n  outcome: NonNullable<TalentMarketCase['outcome']>,\n  week: number,\n  reason: string,\n  receiptStudioId: string | null,\n  reasons: readonly string[],\n  dropped: readonly string[] = [],\n): GameState {\n  const cases = state.talentMarket.cases.map((c) =>\n    c === kase ? { ...c, outcome, closedWeek: week, reason } : c)\n  const market = appendReceipt(\n    {\n      ...state.talentMarket,\n      cases,\n      // A terminal case keeps no CURRENT proposal: the receipt is the record.\n      proposals: state.talentMarket.proposals.filter((p) => p.talentId !== kase.talentId),\n    },\n    { kind: outcome, week, talentId: kase.talentId, studioId: receiptStudioId, reasons, dropped },\n  )\n  return { ...state, talentMarket: market }\n}\n\n/** The P10 commit-from-draft write set for a PLAYER winner: the contract, the\n * bonus ledger row stamped W, the free-agent filter, then `recordPlayerEmployment`\n",
+      "firstLine": 921,
+      "lastLine": 946,
+      "role": {
+        "bytes": 76993,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+        "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+      }
+    },
+    {
+      "exactText": "function commitRivalWinner(state: GameState, proposal: TalentMarketProposal, week: number): GameState {\n  const priced = proposalPriceAt(state, proposal, week)\n  const source = state.hollywood!\n  const businesses = source.businesses.map((b) =>\n    b.studioId !== proposal.issuerStudioId ? b : {\n      ...b,\n      account: {\n        ...b.account,\n        periods: b.account.periods.map((p, i) => (i === b.account.periods.length - 1 ? { ...p, movements: { ...p.movements } } : p)),\n      },\n    })\n  const business = businesses.find((b) => b.studioId === proposal.issuerStudioId)!\n  const contractId = `${proposal.issuerStudioId}:contract:${proposal.talentId}:${week}`\n  const terms: Contract = {\n    talentId: proposal.talentId,\n    annualSalary: priced.annualSalary,\n    signingBonus: priced.signingBonus,\n    startWeek: week,\n    endWeekExclusive: week + proposal.termWeeks,\n    termWeeks: proposal.termWeeks,\n  }\n  moveRivalMoney(business.account, 'signing', -priced.signingBonus, week)\n  const ordinal = source.employment.length\n  const receipt: IndustryReceipt = {\n    eventId: `industry-event-${source.nextReceipt}`,\n    week,\n    studioId: proposal.issuerStudioId,\n    kind: 'employment',\n    talentId: proposal.talentId,\n    fromStudioId: null,\n    toStudioId: proposal.issuerStudioId,\n    contractId,\n    reason: 'replacement',\n  }\n  return {\n    ...state,\n    hollywood: {\n      ...source,\n      businesses,\n      employment: [...source.employment, { contractId, studioId: proposal.issuerStudioId, terms, endedWeek: null, reason: 'replacement' }],\n      activeEmploymentOrdinals: [...source.activeEmploymentOrdinals, ordinal],\n      receipts: [...source.receipts, receipt],\n      nextReceipt: source.nextReceipt + 1,\n    },\n  }\n}\n\n/**\n * The SIX freeze predicates of companion \u00a72.1.7 line 104 (\"Proposals that fail\n * reservation, legality or affordability at freeze are dropped with typed reasons\n",
+      "firstLine": 978,
+      "lastLine": 1027,
+      "role": {
+        "bytes": 76993,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+        "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+      }
+    },
+    {
+      "exactText": "function settleCase(state: GameState, kase: TalentMarketCase, week: number): GameState {\n  const submitted = state.talentMarket.proposals.filter((p) => p.talentId === kase.talentId)\n  if (submitted.length === 0) {\n    return closeCase(state, kase, 'expired', week, 'no proposal was submitted', null, ['no studio proposed before the decision week'])\n  }\n  // Retain the receipt from this exact pre-commit state. Binding employment can\n  // change availability inputs; re-running after that commit is different evidence.\n  const frozen = submitted.map((proposal) => {\n    const feasibility = attachedFeasibility(state, proposal, week)\n    return { proposal, feasibility, drop: survivesFreeze(state, proposal, week, feasibility) }\n  })\n  const survivors = frozen.filter((f) => f.drop === null).map((f) => f.proposal)\n  // The ONE drop list this case produces. It is the decline's own sentences when\n  // everything was dropped, and it rides the SETTLED receipt too \u2014 a studio whose\n  // proposal was dropped learns why even when someone else won. No second wording.\n  const dropped = frozen.filter((f) => f.drop !== null)\n    .map((f) => DROP_SENTENCE[f.drop!](studioLabel(state, f.proposal.issuerStudioId)))\n  if (survivors.length === 0) {\n    // Every proposal failed a freeze predicate BEFORE ranking: one typed sentence\n    // per dropped proposal, naming the studio and the predicate that dropped it.\n    return closeCase(state, kase, 'declined', week, 'all proposals dropped', null, dropped, dropped)\n  }\n  const chosen = chooseProposal(state, kase, survivors, week)\n  if (chosen.winner === null) {\n    // A FULL LEGAL survivor set the tie order ran out on \u2014 nothing failed\n    // reservation. One ordering-only sentence, no amount. CANDIDATE wording.\n    return closeCase(state, kase, 'declined', week, 'tie exhausted', null,\n      [`this person could not separate ${String(chosen.tiedCount)} equally ranked proposals.`], dropped)\n  }\n  const committed = chosen.winner.issuerStudioId === state.hollywood!.playerStudioId\n    ? commitPlayerWinner(state, chosen.winner, week)\n    : commitRivalWinner(state, chosen.winner, week)\n  const feasibility = frozen.find((f) => f.proposal === chosen.winner)!.feasibility\n  return closeCase(commitWinningPromise(committed, chosen.winner, week, feasibility), kase, 'settled', week, 'settled at the decision week',\n    chosen.winner.issuerStudioId, chosen.reasons, dropped)\n}\n\n// \u2500\u2500 the weekly market step (tick.ts, terminal and fixed-order) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n/**\n * The terminal fixed-order step of the weekly advance, appended in `tick.ts`\n * AFTER `finishHollywoodWeek(finishTechnologyWeek(finalized))` \u2014 the pipeline's\n * last call, on the ALREADY-INCREMENTED week. It could not run earlier: before\n * the advance `market.tick` is W\u22121 and the P12 mirror would write a\n * renewal-shaped pair the validator rejects, and before `finishHollywoodWeek`\n * the `expiry` receipt the chooser receipt references does not exist.\n *\n * Fixed order at the new week W:\n *   1. INVALIDATION  \u2014 a subject released early closes its case, settling nothing\n *   2. DISCOVERY     \u2014 a case opens at the window's first week (the O(active\n *                      roster) pass `finishHollywoodWeek` and `staff()` already make)\n *   3. RIVAL TRIGGER \u2014 each rival that decided this week evaluates the pure policy\n *   4. SETTLEMENT    \u2014 every open case whose DERIVED decision week has arrived\n */\nexport function advanceTalentMarketWeek(state: GameState): GameState {\n  // Loud, never silent: a live state MUST carry the V28 root. Skipping the market\n  // for a state that merely looks un-migrated would hide a real migration fault.\n  if (state.talentMarket === undefined) {\n    throw new Error('talentMarket: the Save V28 market root is missing \u2014 migrate this state to V28 before ticking it')\n  }\n  if (!talentMarketEngaged(state)) return state\n  const week = state.market.tick\n  let next = state\n\n  // 1. invalidation\n  for (const kase of next.talentMarket.cases) {\n    if (kase.outcome !== null || !releasedEarly(next, kase)) continue\n    next = closeCase(next, kase, 'invalidated', week, 'the subject was released early', null,\n      ['the person was released early and is a free agent now'])\n  }\n\n  // 2. discovery \u2014 authoritative and public; every entered studio sees it at once.\n  const hollywood = next.hollywood!\n  for (const ordinal of hollywood.activeEmploymentOrdinals) {\n    const row = hollywood.employment[ordinal]!\n    if (row.endedWeek !== null) continue\n    if (!renewalWindowOpen(row.terms, week)) continue\n    if (next.talentMarket.cases.some((c) => c.contractId === row.contractId)) continue\n    const kase: TalentMarketCase = {\n      talentId: row.terms.talentId,\n      subjectStudioId: row.studioId,\n      contractId: row.contractId,\n      openedWeek: week,\n      outcome: null,\n      closedWeek: null,\n      reason: null,\n    }\n    next = {\n      ...next,\n      talentMarket: appendReceipt(\n        { ...next.talentMarket, cases: [...next.talentMarket.cases, kase] },\n        { kind: 'discovered', week, talentId: kase.talentId, studioId: kase.subjectStudioId, reasons: [] },\n      ),\n    }\n  }\n\n  // 3. the rival trigger, inside the rival's own weekly decision cadence.\n  for (const kase of openCasesAt(next, week)) {\n    const descriptor: MarketCaseDescriptor = {\n      talentId: kase.talentId,\n      subjectStudioId: kase.subjectStudioId,\n      decisionWeek: decisionWeekOf(next, kase),\n    }\n    for (const business of next.hollywood!.businesses) {\n      if (week < business.nextDecisionWeek) continue // it has not decided this week\n      if (next.talentMarket.proposals.some((p) => p.talentId === kase.talentId && p.issuerStudioId === business.studioId)) continue\n      if (!rivalProposalTrigger(next, next.hollywood!, business, descriptor, week)) continue\n      try {\n        next = submitProposal(next, {\n          talentId: kase.talentId,\n          issuerStudioId: business.studioId,\n          termWeeks: TUNING.HOLLYWOOD_CONTRACT_WEEKS,\n          premiumTier: rivalPremiumTier(business, descriptor),\n        })\n      } catch {\n        // A refused proposal (reserve, eligibility) writes nothing. The rival simply\n        // does not bid this week; nothing else in the pass is affected.\n      }\n      // Outside the catch: a refusal above leaves no proposal and this is a no-op,\n      // but a failure to author on a proposal that DOES exist is a real fault and\n      // must not be swallowed with it.\n      next = authorRivalPromise(next, kase.talentId, business.studioId)\n    }\n  }\n\n  // 4. settlement \u2014 exactly once, at the decision week.\n  for (const kase of openCasesAt(next, week)) {\n    if (decisionWeekOf(next, kase) > week) continue\n    next = settleCase(next, kase, week)\n  }\n  return next\n}\n\nfunction openCasesAt(state: GameState, week: number): TalentMarketCase[] {\n  return state.talentMarket.cases.filter((c) => c.outcome === null && !TERMINAL.has(caseStatusAt(state, c, week)))\n}\n",
+      "firstLine": 1159,
+      "lastLine": 1294,
+      "role": {
+        "bytes": 76993,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+        "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+      }
+    },
+    {
+      "exactText": "// \u2500\u2500 B7 / D-9.13 salaryCurve \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n// D-9 redefines salary to come from professional ability (primary-discipline OVR,\n// perceived) + star power (fame), kept convex/fame-dominant like B7 so D-1's ledger\n// and M0A economics stay sane. The SALARY_* constants keep their B7 values; the ONLY\n// change is `skill \u2192 primaryOVR`. Signature is now salaryCurve(talent) (D-9.13);\n// callers (worldgen, actions authored) updated accordingly.\n//\n//   primaryOVR = roleOVR(talent, primaryDiscipline)   // 1..99, perceived\n//   salary = SALARY_BASE + SALARY_SKILL_COEF\u00b7(primaryOVR/100)\u00b2 + SALARY_FAME_COEF\u00b7(fame/100)\u00b2\nexport function salaryCurve(talent: Talent): number {\n  if (talent.role === 'scientist') return SCIENTIST_ANNUAL_SALARY / TUNING.CONTRACT_ANNUAL_MULT\n  const primaryDiscipline = ROLE_TO_DISCIPLINE[talent.role]\n  const primaryOVR = roleOVR(talent, primaryDiscipline)\n  const s = primaryOVR / 100\n  const f = talent.fame / 100\n  return TUNING.SALARY_BASE + TUNING.SALARY_SKILL_COEF * s * s + TUNING.SALARY_FAME_COEF * f * f\n}\n",
+      "firstLine": 158,
+      "lastLine": 174,
+      "role": {
+        "bytes": 34912,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/worldgen.ts",
+        "sha256": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7"
+      }
+    },
+    {
+      "exactText": "// The six actual|perceived skill values of a discipline, in SKILL_ORDER.\nfunction skillVector(talent: Talent, discipline: Discipline, use: SkillUse): number[] {\n  const keys = SKILL_ORDER[discipline]\n  const profile = talent.skills[discipline]\n  const out: number[] = new Array(keys.length)\n  for (let i = 0; i < keys.length; i++) {\n    out[i] = profile[keys[i]!]![use]\n  }\n",
+      "firstLine": 50,
+      "lastLine": 57,
+      "role": {
+        "bytes": 25220,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts",
+        "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+      }
+    },
+    {
+      "exactText": "}\n\n// Range midpoint helper.\nfunction midpoint(r: readonly [number, number]): number {\n  return (r[0] + r[1]) / 2\n}\n\n// \u2500\u2500 D-9.2 Role OVR + tier \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n// applyGates(x): enforce the upper-tier ceiling structure (D-9.2).\nfunction applyGates(x: number, weightedMeanVal: number, minCore: number): number {\n  let gate: number\n  if (weightedMeanVal >= TUNING.OVR_GATE_99_MEAN && minCore >= TUNING.OVR_GATE_99_MINCORE) {\n    gate = 99\n  } else if (weightedMeanVal >= TUNING.OVR_GATE_95_MEAN && minCore >= TUNING.OVR_GATE_95_MINCORE) {\n    gate = 95\n  } else {\n    gate = 94 // hard cap below the elite gate\n  }\n  return Math.min(x, gate)\n}\n\n// Core OVR computation over an arbitrary 6-vector of skills (perceived skills for\n// the display OVR; ceilings for the potential ceilingOVR). Weights = OVR_WEIGHTS[d].\nfunction ovrCore(skills: number[], discipline: Discipline): number {\n  const w = OVR_WEIGHTS[discipline]\n\n  let weightedMeanVal = 0\n  for (let i = 0; i < skills.length; i++) weightedMeanVal += w[i]! * skills[i]!\n\n  // Weakness penalty \u2014 core-weighted RMS of deficits below the \"no-weak-spot\" line.\n  let deficitSq = 0\n  for (let i = 0; i < skills.length; i++) {\n    const deficit = Math.max(0, TUNING.OVR_WEAKNESS_KNEE - skills[i]!)\n    deficitSq += w[i]! * deficit * deficit\n  }\n  const weaknessPen = TUNING.OVR_WEAKNESS_COEF * Math.sqrt(deficitSq)\n\n  // Breadth requirement \u2014 reward covering all six (core-weighted fraction \u2265 floor).\n  let breadth = 0\n  for (let i = 0; i < skills.length; i++) {\n    if (skills[i]! >= TUNING.OVR_BREADTH_FLOOR) breadth += w[i]!\n  }\n  const breadthPen = TUNING.OVR_BREADTH_COEF * (1 - breadth)\n\n  const raw = weightedMeanVal - weaknessPen - breadthPen\n\n  let minCore = Infinity\n  for (const s of skills) if (s < minCore) minCore = s\n\n  return clamp(Math.floor(applyGates(raw, weightedMeanVal, minCore)), 1, 99)\n}\n\n// D-9.2 \u2014 role OVR from PERCEIVED skills. Read-only display summary; the sim never\n// reads it. Invariant to the selected film (skills only).\nexport function roleOVR(talent: Talent, discipline: Discipline): number {\n  return ovrCore(skillVector(talent, discipline, 'perceived'), discipline)\n",
+      "firstLine": 70,
+      "lastLine": 126,
+      "role": {
+        "bytes": 25220,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts",
+        "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+      }
+    }
+  ],
+  "status": "SOURCE_ONLY_UNRUN_REQUIRES_INDEPENDENT_REVIEW",
+  "terminalSourceLexicalCorroboration": {
+    "noDirectTalentRootWrites": true,
+    "scope": "Corroboration over authenticated complete file, not a standalone dependency-closure proof. Independent review must inspect complete settlement call/write closure; source-only premium/floor supplement is separately adopted."
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "AJPublishedReadback": {
+    "bytes": 828,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aj-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "746c05848363878e65cabe3ad3407dc71536e89925e4dd85769f09e818266214"
+  },
+  "acceptedMechanismReceipt": {
+    "bytes": 3829,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+    "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+  },
+  "commands": {
+    "controls": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/record-pure-node.py",
+      "controls"
+    ],
+    "witness": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/record-pure-node.py",
+      "witness"
+    ]
+  },
+  "configurationSha256": "22597cd15bceec96176ad4247cdf11146aa6651bfd15d01366b105731fff83ba",
+  "controlsGrant": null,
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactHelperArgv": "Literal recordedHelperArgv arrays below, under the pinned environment/cwd. Parent creates only the absent0700 lane directory immediately after concrete grant/preflight; helper exclusively creates its log/meta. Each mode requires its own separate grant. No recipe execution occurred.",
+  "executionAuthorization": false,
+  "helper": {
+    "bytes": 3361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "independentInputReview": null,
+  "lanePaths": {
+    "controls": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-controls-lane-20261009-r1",
+    "witness": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-lane-20261009-r1"
+  },
+  "operationalRuntimeAuthority": null,
+  "outputPaths": {
+    "controls": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-controls-output-20261009-r1",
+    "witness": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-output-20261009-r1"
+  },
+  "productionHeadAtPreparation": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "python": {
+    "bytes": 50472,
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "recordedHelperArgv": {
+    "controls": [
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-controls-lane-20261009-r1/first-draw-controls.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/record-pure-node.py",
+      "controls"
+    ],
+    "witness": [
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-witness-lane-20261009-r1/first-draw-witness.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1/record-pure-node.py",
+      "witness"
+    ]
+  },
+  "schema": "1370-renewal208-one-key-controls-and-witness-recipe-r1",
+  "scope": "Existing qualified recorder body reused; no autoexecute or grant. No knownrow0 new key. One key only. Prior witness outputs consumed and preserved.",
+  "sequence": [
+    "Independent selected-one-key input/source review including exact erased RNG/source/caller and eight synthetic controls",
+    "Root concrete AJ/current-head/tools/env/source hash/absent output-lane/no other owned group/global lock preflight; separate controls-only grant; operationalRuntimeAuthority remains null in this source proposal",
+    "Actual recorded8 controls then independent observed acceptance: no RNG firstDraw executed, syntheticControlOnly true",
+    "Separate concrete witness grant only after controls accepted; exactlyone fresh keyed stream and one next; independent actual raw/RESULT/source/finite/order/numericownedgroup review",
+    "Numeric draw/jitter admission only; A208 vectors and premium/floor/source-caller pricing transport require separate evidence before16renewal attribution"
+  ],
+  "sourceReview": null,
+  "status": "UNRUN_REQUIRES_INDEPENDENT_SOURCE_REVIEW_THEN_SEPARATE_PARENT_GRANTS",
+  "witnessGrant": null
+}

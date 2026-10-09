@@ -1,0 +1,11 @@
+--- immutable-failed-r2/verify-expanded.py
++++ fresh-r3/verify-expanded.py
+@@ -89,7 +89,7 @@
+   raw,row=bounded_read(Path(r['path']),r['sha256'],1000000);req(row['bytes']==r['bytes'],'source file bytes')
+  cfg=obj(pins['files']['CONFIG.json']);future=cfg['futureAuthority']
+  req(isinstance(future,dict),'STOP_FUTURE_ACTUAL_AUTHORITY_UNFILLED') # BEFORE any output or mutable mirror/target access.
+- py=cfg['pythonTool'];req(sys.executable==py['path'],'exact physical Python executable')
++ py=cfg['pythonTool'];req(Path(sys.executable).resolve(strict=True)==Path(py['path']),'exact physical Python executable')
+  raw,pyrow=bounded_read(Path(py['path']),py['sha256'],33554432)
+  req(pyrow['identity'][:4]==py['identity'],'actual Python identity')
+  grant=obj({'path':sys.argv[2],'sha256':sys.argv[3],'bytes':Path(sys.argv[2]).lstat().st_size})

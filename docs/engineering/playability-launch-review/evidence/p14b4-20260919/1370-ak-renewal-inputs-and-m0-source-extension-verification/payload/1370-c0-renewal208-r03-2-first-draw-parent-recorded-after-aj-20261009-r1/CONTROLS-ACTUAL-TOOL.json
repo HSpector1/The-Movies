@@ -1,0 +1,20 @@
+{
+  "chunks": [
+    {
+      "chunk_id": "abe994",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 26862,
+      "wall_time_seconds": 1.00386257
+    },
+    {
+      "chunk_id": "8f454e",
+      "exit_code": 0,
+      "original_token_count": 67,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-renewal208-r03-2-first-draw-parent-recorded-after-aj-20261009-r1/CONTROLS-GRANT.json\", \"bytes\": 13376, \"sha256\": \"fc08360dc49f7095bbeb37202048e9589ae7325bc17bdb49546d373f67574ab3\"}, \"helperPid\": 77313}\n",
+      "wall_time_seconds": 3.0727e-05
+    }
+  ],
+  "schema": "actual-tool-chunks/v1",
+  "toolSessionId": 26862
+}

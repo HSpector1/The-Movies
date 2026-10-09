@@ -1,0 +1,36 @@
+{
+  "actualControlsReceipt": null,
+  "actualGrant": null,
+  "adapterRoles": {
+    "bounded-sink-a208-held.py": {
+      "bytes": 3682,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/bounded-sink-a208-held.py",
+      "sha256": "9138c982912f53d8241721ec231555de3d8e9dae959e651c9b36dcf96a4f9700"
+    },
+    "launch-pipeline-a208-held.sh": {
+      "bytes": 1244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+      "sha256": "46640b541fb04c67fcd5f72602ab128ca056416cd37ad946f248a50da1d6886a"
+    }
+  },
+  "argvShape": [
+    "/bin/bash",
+    "<accepted-r8-helper>",
+    "0",
+    "<fresh-absent-A208-lane-log>",
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+    "<future-reviewed-external-adopted-A208-binding>",
+    "<actual-adopted-binding-sha256>"
+  ],
+  "cwd": "<future-exact-admitted-cwd>",
+  "executionAuthorization": false,
+  "launchBinding": null,
+  "operationalRuntimeAuthority": null,
+  "requiredEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "status": "HELD_RECIPE_SKETCH_NOT_EXECUTION_AUTHORITY"
+}

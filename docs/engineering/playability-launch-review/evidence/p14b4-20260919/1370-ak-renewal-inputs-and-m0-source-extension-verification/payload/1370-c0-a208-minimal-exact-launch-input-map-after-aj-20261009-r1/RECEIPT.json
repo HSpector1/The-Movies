@@ -1,0 +1,26 @@
+{
+  "A208Observed": false,
+  "controlsObserved": false,
+  "decision": "SOURCE_ONLY_A208_MINIMAL_EXACT_LAUNCH_PREPARATION_MAPPED",
+  "executionAuthorization": false,
+  "facts": {
+    "bytes": 20151,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-minimal-exact-launch-input-map-after-aj-20261009-r1/FACTS.json",
+    "sha256": "cd2ccb79a2543419d21e1a4831bfef94943e9c7d3b5b48da17d669cc3ec03088"
+  },
+  "findings": [
+    "Old pipeline/sink contain R9-specific path/hash literals and require fresh narrow copies.",
+    "Actual controls and current post-M0 guard/scope roles remain pending."
+  ],
+  "inspector": {
+    "bytes": 12479,
+    "path": "/Users/zacheryspector/studio-scratch/a208-launch-note-author-after-aj.py",
+    "sha256": "8b5161e895714822a568602ae0059f6730c3f5add56debe7ce819e77bb5501ee"
+  },
+  "note": {
+    "bytes": 4820,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-minimal-exact-launch-input-map-after-aj-20261009-r1/NOTE.md",
+    "sha256": "46e46033ef941265a8a0b24e2ae0870186c19465dc93cd9aa223dabb07ebd1f9"
+  },
+  "sourcePinsSha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+}

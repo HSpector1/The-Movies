@@ -1,0 +1,33 @@
+{
+  "completionOrCleanupClaim": false,
+  "globalProcessListCaptured": false,
+  "rootHelperPid": 44676,
+  "scopedRows": [
+    {
+      "ps": "44676  2023 44676 Ss   /bin/bash",
+      "requestedOwnedTreePid": 44676
+    },
+    {
+      "ps": "45166 44676 44676 S    caffeinate",
+      "requestedOwnedTreePid": 45166
+    },
+    {
+      "ps": "45180 44676 44676 S    /bin/bash",
+      "requestedOwnedTreePid": 45180
+    },
+    {
+      "ps": "45181 45180 44676 S    /usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python",
+      "requestedOwnedTreePid": 45181
+    },
+    {
+      "ps": "45183 45181 45183 Ss   /usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python",
+      "requestedOwnedTreePid": 45183
+    },
+    {
+      "ps": "45200 45183 45200 Ss   /usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python",
+      "requestedOwnedTreePid": 45200
+    }
+  ],
+  "status": "OBSERVED_RUNNING_OWNED_HELPER_DESCENDANT_TREE_ONLY_NOT_COMPLETION",
+  "utc": "2026-10-09T20:24:02.826957+00:00"
+}

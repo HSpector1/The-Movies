@@ -1,0 +1,41 @@
+{
+  "additionalPredicates": [
+    "Source review sourcePinsSha256 must match this exact one-key package.",
+    "Witness controls observed review must bind this exact package sourcePinsSha256."
+  ],
+  "changes": [
+    [
+      "1370-c0-initial22-first-draw-witness-proposal-20261009-r1",
+      "1370-c0-renewal208-r03-2-first-draw-after-aj-proposal-20261009-r1"
+    ],
+    [
+      "6a7fc799008e8f065b68264d886b8fdf6efabbaec750a2fc0080a97bf6676f60",
+      "b5055ac3e7f4bee5a299517d7513859a746ffc1fcbc662d9b505c97e5d2dc83b"
+    ],
+    [
+      "head='282f8477e61a33bd5ec4a571b934829490adef73'",
+      "head='f0fb818fe7534c3e3784206d16728b015c7f059a'"
+    ],
+    [
+      "for group in [17678,10372,10639,10655,71794,74268]:",
+      "for group in [14652,18122,28843,34331,38312,43572,43835,43836,43837,43838]:"
+    ],
+    [
+      "initial23-first-draw-parent-grant/v1",
+      "renewal208-r03-2-first-draw-parent-grant/v1"
+    ],
+    [
+      "'expectedWitnessRows':23",
+      "'expectedWitnessRows':1"
+    ]
+  ],
+  "execution": false,
+  "operationalRuntimeAuthority": "Concrete separate root grant records actual reviewed source/current HEAD/tools/environment/owned group clearance; original proposal nulls stay historical draft labels.",
+  "originalWrapper": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-initial22-first-draw-parent-recorded-20261009-r1/grant_and_launch.py",
+    "sha256": "faf8c8f68d1a8eadfefc10826ed5a88da18e00fbca0a3f9d4488ce0a90eecde0"
+  },
+  "sourceProposalConfigAndRecipeRemainImmutable": true,
+  "status": "ROOT_WRAPPER_PREPARED_UNRUN_SOURCE_REVIEW_REQUESTED",
+  "wrapperSha256": "21b96d110617aafd2351d63d167e00ee4bb1ab5812719abc7f8e486f7472e336"
+}

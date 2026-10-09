@@ -1,0 +1,36 @@
+{
+  "HGitModesAuthenticated": false,
+  "authorProposal": {
+    "bytes": 6346,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r2/RECEIPT.json",
+    "sha256": "ba92e7b9ea8901b3160c76b57b156ba4bd50ab0791484574451f7947c0a08258"
+  },
+  "claimScope": "Exactly selected16 identity/occurrence pairs on authenticated H8708/A3aaf factory and natural tick paths; no arbitrary-action or module-mutation theorem. Numerical A208 inputs and actual same-order pricing reproduction remain separate.",
+  "decision": "ADOPT_SELECTED16_SOURCE_DERIVED_PREMIUM_BRANCH_AND_NULL_PRECOMMIT_FLOOR_PREMISES",
+  "documentaryCorrections": [
+    "Original REPORT complete-named-functions claim excludes truncated typed signatures; this independently authenticated four-body supplement supplies missing complete bodies without changing proposal bytes.",
+    "Read floor argument with explicit A208-to416 append-history induction, not terminal row count alone."
+  ],
+  "executionAuthorization": false,
+  "historicalOfferLocalMeasurement": false,
+  "independentReview": {
+    "bytes": 5922,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/RECEIPT.json",
+    "sha256": "fd7c8a02893168478ff81fd557dc68f6010d49bd18bbe175d2ec48ed313352cb"
+  },
+  "mandatoryReviewSupplement": {
+    "bytes": 14788,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/COMPLETE-TYPED-FUNCTION-SUPPLEMENT.txt",
+    "sha256": "9511e728c09e74421f438b7a3037c8d7ab312bef578923a126e57ab8c68215db"
+  },
+  "newRenewalPayCausesClosed": 0,
+  "remainingInputs": "A208 evolved person vectors; one-key numerical witness has just run but still awaits its separate independent observed review and parent adoption.",
+  "remainingPayCauses": 16,
+  "requiresAHistoryPreservationThrough416": true,
+  "sourceDerivedBranches": {
+    "tiers[1]": 10,
+    "tiers[2]": 6
+  },
+  "sourceDerivedNullFloors": 16,
+  "utc": "2026-10-09T19:29:36.690252+00:00"
+}

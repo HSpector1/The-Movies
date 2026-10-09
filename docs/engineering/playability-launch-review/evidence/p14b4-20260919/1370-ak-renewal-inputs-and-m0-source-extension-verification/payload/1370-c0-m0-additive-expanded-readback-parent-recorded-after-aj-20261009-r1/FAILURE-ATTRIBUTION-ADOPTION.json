@@ -1,0 +1,21 @@
+{
+  "actualExecutionAuthorization": false,
+  "actualHelperExit": 2,
+  "actualToolExit": 2,
+  "allowedFreshSourceRepair": {
+    "new": "req(Path(sys.executable).resolve(strict=True)==Path(py['path']),'exact physical Python executable')",
+    "old": "req(sys.executable==py['path'],'exact physical Python executable')",
+    "scope": "One predicate only; retain fixed physical path/binary SHA/nlink/dev/inode/mode checks and later actual binding tool linkage."
+  },
+  "failurePreserved": true,
+  "independentReview": {
+    "bytes": 4426,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-expanded-readback-failure-independent-attribution-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "fedba7eda2203ce80d37f319e65371dffb9ca8aba04538d7dc2d610f2e9d84e5"
+  },
+  "noOwnerChoiceRequired": "Operational Python alias equality only; same pinned binary/hash/identity and scientific assertions retained.",
+  "protectedFreezeContinues": true,
+  "readbackSucceeded": false,
+  "status": "ROOT_ADOPTED_OBSERVED_FAILURE_ATTRIBUTION_NARROW_SOURCE_REPAIR_ONLY",
+  "utc": "2026-10-09T20:40:45.182079+00:00"
+}

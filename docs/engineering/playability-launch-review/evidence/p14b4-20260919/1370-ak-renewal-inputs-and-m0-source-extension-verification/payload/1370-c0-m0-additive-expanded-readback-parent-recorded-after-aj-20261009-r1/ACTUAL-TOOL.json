@@ -1,0 +1,11 @@
+{
+  "chunks": [
+    {
+      "chunk_id": "1333ec",
+      "wall_time_seconds": 0.74775821,
+      "exit_code": 2,
+      "original_token_count": 257,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/GRANT.json\", \"bytes\": 2476, \"sha256\": \"97aef1b2da99e57c361a814219b062996ef36e7d47ae6d7fa4f91c31e5cd7829\"}, \"rootPidBecomesHelperPid\": 65494, \"argv\": [\"/bin/bash\", \"/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh\", \"0\", \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log\", \"/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14\", \"-I\", \"-B\", \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-filled-proposal-after-aj-20261009-r2/verify-expanded.py\", \"dfbf25dc7d97aa654dedf625abfd2c2209dcb089c3870d4c49b17d4540125a30\", \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/GRANT.json\", \"97aef1b2da99e57c361a814219b062996ef36e7d47ae6d7fa4f91c31e5cd7829\"]}\n"
+    }
+  ]
+}

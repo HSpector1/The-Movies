@@ -1,0 +1,133 @@
+{
+  "auditSource": {
+    "bytes": 6054,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r1/audit.py",
+    "sha256": "e5b4763d4739745f433e749ea09339cf8cb9a179c3e90e1b4f245d3f8c501dab"
+  },
+  "completePinnedLocalSourceStatementsVerified": true,
+  "decision": "REFINE_FINITE_EXTRACTION_AND_H_MODE_QUALIFICATION_ONLY",
+  "executionAuthorized": false,
+  "facts": {
+    "bytes": 9456,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r1/FACTS.json",
+    "sha256": "d9cfcf84ac541e7010b6385c46e3e188f5482eae536cc99db415784a68a71a9d"
+  },
+  "findings": [
+    {
+      "description": "Identical H/A ranges miss cited local functions because source offsets differ; raw extracts reproduce their declared ranges but are incomplete.",
+      "id": "F1",
+      "minimumAdditionalRanges": {
+        "A:src/core/talentMarket.ts": [
+          [
+            1210,
+            1289
+          ]
+        ],
+        "H:src/core/hollywoodTick.ts": [
+          [
+            330,
+            344
+          ]
+        ],
+        "H:src/core/talentMarket.ts": [
+          [
+            889,
+            915
+          ],
+          [
+            1119,
+            1156
+          ],
+          [
+            1190,
+            1249
+          ],
+          [
+            1298,
+            1306
+          ]
+        ]
+      },
+      "requestedRangesBeyondEOF": [
+        {
+          "actualEnd": 248,
+          "arm": "H",
+          "path": "src/core/hollywood.ts",
+          "requested": [
+            222,
+            274
+          ]
+        },
+        {
+          "actualEnd": 365,
+          "arm": "H",
+          "path": "src/core/hollywoodTick.ts",
+          "requested": [
+            348,
+            384
+          ]
+        },
+        {
+          "actualEnd": 1132,
+          "arm": "H",
+          "path": "src/core/tick.ts",
+          "requested": [
+            1109,
+            1146
+          ]
+        },
+        {
+          "actualEnd": 268,
+          "arm": "A",
+          "path": "src/core/hollywood.ts",
+          "requested": [
+            222,
+            274
+          ]
+        },
+        {
+          "actualEnd": 383,
+          "arm": "A",
+          "path": "src/core/hollywoodTick.ts",
+          "requested": [
+            348,
+            384
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Historical manifest authenticates raw hashes/source commit, not Git modes; qualify H100644 as declared or cite existing authenticated mode evidence. A sourceManifest modes/OIDs/bytes/hashes verified.",
+      "id": "F2"
+    }
+  ],
+  "fullScan": false,
+  "gitCommands": false,
+  "initial22ClosureRetained": true,
+  "minimalRemainingProofs": [
+    "Transitive no-policy-mutation/alias proof from fixed entry reserveWeeks through reached initialization, weekly helpers and action/harness seam to submission; proposal premium material fields preserved through authoring/revision/freeze/settlement.",
+    "Complete reached selected-person employment/receipt writers and exact contractId uniqueness: no term/endWeekExclusive rewrite or unseen termination memory surviving208.",
+    "Unique open subject case/precommit order: no prior same208 committed renewal or duplicate/overlapping qualifying record when proposalPriceAt reads the floor; selected H/A case/winner path proven from caller or separately observed precommit roles.",
+    "After-natural-tick208 observer phase must preserve actual A evolved pricing values through terminal pass; H full vectors/15 jitters remain reusable, one keyed draw absent."
+  ],
+  "newRenewalCausesClosed": 0,
+  "nullPricingFloorsAdmitted": 0,
+  "premiumNumericTiersAdmitted": 0,
+  "productionMutation": false,
+  "proposalReceipt": {
+    "bytes": 2894,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "f51506bdfcc6f7dbd03284ff3cdde16eb8009c4b09fe69c3ff81027d51f6d0ee"
+  },
+  "rawDeclaredSlicesReproduceExactly": true,
+  "readOnlyArtifactAuditActualExit": 0,
+  "remainingRenewalCauses": 16,
+  "report": {
+    "bytes": 5311,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r1/REPORT.md",
+    "sha256": "862cf14b0e982d4419696e4f70e2a5f7d4d96df8c1aa7d82e96fdae1f940225b"
+  },
+  "schema": "renewal208-after-aj-independent-source-review/v1",
+  "selected16ProjectionVerified": true,
+  "sourceImportOrExecution": false
+}

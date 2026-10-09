@@ -1,0 +1,109 @@
+{
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "files": {
+    "ARGV-ROLE.json": {
+      "bytes": 544,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/ARGV-ROLE.json",
+      "sha256": "510a6c5c91180104f48275a211d5c854a926558ac65b255d9c615221d9719b3f"
+    },
+    "ARGV-ROLE.json.diff": {
+      "bytes": 666,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/ARGV-ROLE.json.diff",
+      "sha256": "61081dd9484c98c4af16166a060a63cb58ea335f493a3af09f07ab653097a96e"
+    },
+    "BINDING-UNFILLED.json": {
+      "bytes": 6255,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "sha256": "24f7d4e0e05279866f3742931f5836ea594be8eaf8e251a2cb4869a3f3078a2e"
+    },
+    "BINDING-UNFILLED.json.diff": {
+      "bytes": 4633,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json.diff",
+      "sha256": "e5cbfa667841e03d6ee8e8f7464dda292075402be93a3d2f9e8c64a967db055d"
+    },
+    "CONTROL-REUSE-MAPPING.json": {
+      "bytes": 4916,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/CONTROL-REUSE-MAPPING.json",
+      "sha256": "b0e2529102436b3c1eef4a029f07e7607e9db3216ac74ba6b6cf2ee2f71f2c10"
+    },
+    "INPUTS.json": {
+      "bytes": 27220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json",
+      "sha256": "a9f50c1d0cb6ae54084becf514ed7908c41572050e0df19a50007e3a804ff881"
+    },
+    "INPUTS.json.diff": {
+      "bytes": 674,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json.diff",
+      "sha256": "cdf5b4192b116bf906f4560254fa3000da9cd1712baf62f632431f945aad1f0d"
+    },
+    "INVERSE-AND-BODY-PROOF.json": {
+      "bytes": 1420,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INVERSE-AND-BODY-PROOF.json",
+      "sha256": "b1215e75f0e4783ddb150152e9670a0ce670a13c2856268be9be663674de3a07"
+    },
+    "LAUNCH-UNFILLED.json": {
+      "bytes": 576,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/LAUNCH-UNFILLED.json",
+      "sha256": "d53c49e1b2caaa6d019a4d7c4657c8974ed2fd30d9ffae31bded43a40e140cff"
+    },
+    "LAUNCH-UNFILLED.json.diff": {
+      "bytes": 711,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/LAUNCH-UNFILLED.json.diff",
+      "sha256": "c21b97f9f4c54e69bfac026447037b8c7d9fd00daf7a48b0d106286f42822729"
+    },
+    "PREPARATION-PATH-ABSENCE.json": {
+      "bytes": 1046,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/PREPARATION-PATH-ABSENCE.json",
+      "sha256": "1359b5ff23e2d3b35ff8430ca01047e6b6808dcc69f4e8f582eb74fa571eff4d"
+    },
+    "PROVENANCE.json": {
+      "bytes": 9323,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/PROVENANCE.json",
+      "sha256": "2c429effdc38b6209b54a65e9b2ffb86050ee7a9c0c3a070ae2021e407a1a202"
+    },
+    "REPORT.md": {
+      "bytes": 4967,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/REPORT.md",
+      "sha256": "87312a7aaa5e491371fd6539df5f85e80528bb3d1af3829c340e077fe0328686"
+    },
+    "add_inputs.py": {
+      "bytes": 19458,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/add_inputs.py",
+      "sha256": "3f76b3cb27ec1e932b23c8f40d848b5f3dfba9a339c78fb3d950b9291fefbd27"
+    },
+    "add_inputs.py.diff": {
+      "bytes": 1075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/add_inputs.py.diff",
+      "sha256": "0b80098c311bc4f72db43c78ee6422e817f86c19373441c0746d8cb1e54b85ca"
+    },
+    "prepare.py": {
+      "bytes": 11178,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/prepare.py",
+      "sha256": "0de9b6d07c1fa0c84cc12a6eef782df1997e2e74800661c17ea2228d53f13134"
+    },
+    "record.py": {
+      "bytes": 25044,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/record.py",
+      "sha256": "2550f77715a5f96c860257eeb38185881b16f0398244848a006d289f0106e4e5"
+    },
+    "record.py.diff": {
+      "bytes": 892,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/record.py.diff",
+      "sha256": "b97c99cf05a2060ceeafc2d39a5e889f3315531803f88045f6a24c17ff934835"
+    },
+    "supervise.py": {
+      "bytes": 16934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/supervise.py",
+      "sha256": "e2258264783de69fa4d2a10c9c71ede7d4cabc0f80f87c17ba23935e32c9039d"
+    }
+  },
+  "historicalOriginalRouteSourcePinsSha256": "aa2f171d6da60e39ffa28eb3f16cab09c50b526fa05fd0ff1e299d21945bc0ff",
+  "parentScopeAdoptionSha256": "13be428dfe3bdba1bc4ce4f2348bd194d2473c4c812df2b5f0bfec936b76b8e8",
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "m0-additive-held-source-pins-r3",
+  "sourceImportsTestsNodeGitFullscanGameOrMirrorWrites": false,
+  "status": "READY_INDEPENDENT_REBIND_SOURCE_AND_CONTROL_REUSE_REVIEW_REQUIRED_UNRUN",
+  "unchangedSevenControlsRerun": false
+}

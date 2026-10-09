@@ -1,0 +1,48 @@
+[
+  {
+    "consumer": {
+      "immutablePairs": 44,
+      "mismatches": 0,
+      "originalOfferLocalCapture": false,
+      "renewalAttribution": false,
+      "selectedRows": 23,
+      "status": "PURE_A208_CONTROLS_PAIRS_AGREE",
+      "stderrBytes": 0
+    },
+    "effect": "Valid JS can fail JSON decoding of TAP; valid Python fails status/fields and empty-stderr predicate. Both arms STOP rather than qualify controls.",
+    "id": "F1",
+    "line": 227,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/record.py",
+    "problem": "Final success validation retains pricing-specific JSON fields/status and empty-stderr requirement; neither valid producer has that contract.",
+    "producers": {
+      "js": {
+        "argv": [
+          "/bin/bash",
+          "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+          "0",
+          "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-lane-after-aj-20261009-r1/controls.log",
+          "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+          "-I",
+          "-B",
+          "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/record.py",
+          "js"
+        ],
+        "childOutput": "Node --test TAP for original6 plus new7 groups; no pricing JSON final line.",
+        "expectedGroups": 13
+      },
+      "python": {
+        "errors": 0,
+        "failures": 0,
+        "inheritedProbes": 4,
+        "methods": 14,
+        "ownedGroups": 7,
+        "status": "A208_PYTHON_CONTROLS_PASS",
+        "stderr": "unittest.TextTestRunner(verbosity=2) writes normal success progress/summary to stderr.",
+        "stdout": "Final driver JSON plus bounded test stdout."
+      }
+    },
+    "requiredControls": "Focused source-defined valid/invalid JS/Python report shape controls plus actual source-authenticated13 JS and14 Python runs under separate root grant after repaired source admission; reuse the unchanged parent ownership/clocks/failure-capture qualification only by exact body proof.",
+    "requiredRepair": "Preserve r1. In a fresh route version, use mode-specific bounded report validation: JS exact TAP13/pass13/fail0 and no unexpected error/cancel/skip/todo; Python exact PASS/methods14/failures0/errors0/reason null/stickyStop null/cleanupErrors empty/7 actual owned reaped clear groups/4 inherited probes completed/elapsed within45/game false. Retain normal unittest stderr as authenticated diagnostics rather than requiring it empty. Alternatively author a reviewed thin JS summary producer, preserving all test and raw TAP bytes. Do not fabricate pricing fields or relabel a STOP.",
+    "severity": "BLOCKER"
+  }
+]

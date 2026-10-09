@@ -1,0 +1,52 @@
+{
+  "AJInitialCausesClosed23Preserved": true,
+  "AUTOByteExact": true,
+  "EPERMTargetHostAlarmUnknownPreserved": true,
+  "M0PhysicalProtectedChainClaimsScoped": true,
+  "P17P18NotBuilt": true,
+  "archiveInventoryReviewed": false,
+  "archiveRawPayloadPublicationReviewed": false,
+  "currentGitOrSourceRecomputed": false,
+  "decision": "ACCEPT_SOURCE_ONLY_AK_CHECKPOINT_HUMAN_CLAIMS",
+  "diagnosticSourcePreparationOnly": true,
+  "draftRoles": {
+    "HANDOFF-DRAFT.md": {
+      "bytes": 15501,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/HANDOFF-DRAFT.md",
+      "sha256": "9b391361de95fea51c07e889964c59ccc1072df4c21651d0df7e20fa15df49bb"
+    },
+    "REPORT-DRAFT.md": {
+      "bytes": 6715,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/REPORT-DRAFT.md",
+      "sha256": "343951f6226711d5a356b549f492714f697c4a1522ae490c47844e2f3a18c45e"
+    },
+    "ROOT-CLAIM.txt": {
+      "bytes": 1817,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/ROOT-CLAIM.txt",
+      "sha256": "e62d8763184d2839c8cd6aa3d50e0d046a475bfd0743943567f0b3b468b660c7"
+    }
+  },
+  "executionAuthorization": false,
+  "facts": {
+    "bytes": 9307,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-claims-independent-review-20261009-r1/FACTS.json",
+    "sha256": "73a36db2888981731cc9b934ef8a4fb87bb571c90bf55bc549ad527a19d97046"
+  },
+  "findings": [],
+  "js13AcceptedPythonSTOPPreserved": true,
+  "productionHandoffRole": {
+    "bytes": 14549,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+    "sha256": "39a2bd16fce547a68723841ab7fd7759292697270f7f6e1f2bd1b815edbcbb79"
+  },
+  "renewalCausesRemain16": true,
+  "report": {
+    "bytes": 1814,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-claims-independent-review-20261009-r1/REPORT.md",
+    "sha256": "33094f4e73a8ad20f0c1bc7710314fc5b4becfbb4b45741caf1d5b12d9521fcc"
+  },
+  "requiredCorrections": [],
+  "reviewerExecutedRuntimeTestsImportsScansGitOrProtectedMutation": false,
+  "schema": "1370-ak-checkpoint-human-claims-independent-review-v1",
+  "workloadIllustrationNotRuntime": true
+}

@@ -1,0 +1,450 @@
+{
+  "additionalRolesNeedIndependentExactReview": true,
+  "executionAuthorization": false,
+  "fields": {
+    "additionalFdScopes": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": [
+        {
+          "commonGitRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
+          "productionRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1"
+        },
+        {
+          "commonGitRoot": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2",
+          "productionRoot": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2"
+        },
+        {
+          "commonGitRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+          "productionRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2"
+        }
+      ]
+    },
+    "additiveReceiptPath": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/ADDITIVE-RESULT.json"
+    },
+    "ancestryIdentity": {
+      "fillRule": "Exact union of ten roots and M0 leaf and all ancestors; [device,inode,permissionMode]. Guard also inventories scratch-parent ancestry; union/deduplicate, fill missing M0 entries by physical nonsymlink directory lstat/resolve only. No extra keys outside required union.",
+      "origin": "future guard immutable.ancestry plus fresh bounded missing ancestry",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": {}
+    },
+    "bootSessionUuid": {
+      "fillRule": "Use actual UUID, check current runtime UUID again at adopted preflight; do not bind drifting wall-derived boottime.",
+      "origin": "future independently admitted current guard currentAfter.bootSessionUuid",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": null
+    },
+    "bounds": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": {
+        "bodyResultBytes": 100000,
+        "childSeconds": 180,
+        "combinedChildLogsBytes": 33554432,
+        "wholeSeconds": 210
+      }
+    },
+    "commonGitRoot": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git"
+    },
+    "copyFactsSha256": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "e46dcc9cf81f7ce3462e1cdd34618f37f68ac75a90d5f95f112ee93966e96bfe"
+    },
+    "docsOnlyTransition": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": {
+        "explicitParentFreezeAndReuseAcceptanceRequired": true,
+        "freshProductionCommonFullProofRequired": true,
+        "fromProductionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
+        "r9ReplayOrCopyRequired": false,
+        "toProductionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a"
+      }
+    },
+    "exactBindingReviewDecision": {
+      "fillRule": "Keep held draft values through fill/reviews. Archive exactly six original finite candidate files, then mutate exactly these five fields: REVIEWED_FILLED_UNRUN,true,actual exact receipt path/hash,ACCEPT_EXACT_FILLED_UNRUN. Nothing else may change.",
+      "origin": "future parent adoption after independent exact review",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": null
+    },
+    "exactBindingReviewPath": {
+      "fillRule": "Keep held draft values through fill/reviews. Archive exactly six original finite candidate files, then mutate exactly these five fields: REVIEWED_FILLED_UNRUN,true,actual exact receipt path/hash,ACCEPT_EXACT_FILLED_UNRUN. Nothing else may change.",
+      "origin": "future parent adoption after independent exact review",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": null
+    },
+    "exactBindingReviewSha256": {
+      "fillRule": "Keep held draft values through fill/reviews. Archive exactly six original finite candidate files, then mutate exactly these five fields: REVIEWED_FILLED_UNRUN,true,actual exact receipt path/hash,ACCEPT_EXACT_FILLED_UNRUN. Nothing else may change.",
+      "origin": "future parent adoption after independent exact review",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": null
+    },
+    "executionAuthorization": {
+      "fillRule": "Keep held draft values through fill/reviews. Archive exactly six original finite candidate files, then mutate exactly these five fields: REVIEWED_FILLED_UNRUN,true,actual exact receipt path/hash,ACCEPT_EXACT_FILLED_UNRUN. Nothing else may change.",
+      "origin": "future parent adoption after independent exact review",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": false
+    },
+    "expectedOverlayFiles": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": [
+        {
+          "bytes": 116906,
+          "destination": "src/core/talentMarket.ts",
+          "sha256": "71c775336c581fb5c5ad8923d4648bc8bf492ee38f235214f861fd1d0e7ac804"
+        },
+        {
+          "bytes": 112969,
+          "destination": "src/core/promises.ts",
+          "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+        },
+        {
+          "bytes": 24797,
+          "destination": "src/core/opportunityPromises.ts",
+          "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+        },
+        {
+          "bytes": 4729,
+          "destination": "src/core/m0FeasibilityWitness.ts",
+          "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+        },
+        {
+          "bytes": 12710,
+          "destination": "tests/diagnostic.test.ts",
+          "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7"
+        }
+      ]
+    },
+    "gitPath": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/usr/bin/git"
+    },
+    "helperLogName": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "m0-additive-input-20261009-r2.lane.log"
+    },
+    "launchCwd": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/The-Movies-headless-program"
+    },
+    "launchEnvironment": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": {
+        "GIT_OPTIONAL_LOCKS": "0",
+        "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      }
+    },
+    "lsofPath": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/usr/sbin/lsof"
+    },
+    "m0ObserverSourceReviewSha256": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8"
+    },
+    "m0SourceManifestSha256": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba"
+    },
+    "materializerArgv": {
+      "fillRule": "Pin actual corrected package bytes; exact Python -I -B and body argv binding path must agree with the immutable filled ARGV role. Resolve adopted-binding placeholder before guard-core hashing. No r3 literal waiver.",
+      "origin": "future independently reviewed corrected source version",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": [
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-I",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/add_inputs.py",
+        "<EXACT_ADOPTED_BINDING_PATH>"
+      ]
+    },
+    "materializerArgvRolePath": {
+      "fillRule": "Pin actual corrected package bytes; exact Python -I -B and body argv binding path must agree with the immutable filled ARGV role. Resolve adopted-binding placeholder before guard-core hashing. No r3 literal waiver.",
+      "origin": "future independently reviewed corrected source version",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/ARGV-ROLE.json"
+    },
+    "materializerArgvRoleSha256": {
+      "fillRule": "Pin actual corrected package bytes; exact Python -I -B and body argv binding path must agree with the immutable filled ARGV role. Resolve adopted-binding placeholder before guard-core hashing. No r3 literal waiver.",
+      "origin": "future independently reviewed corrected source version",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "510a6c5c91180104f48275a211d5c854a926558ac65b255d9c615221d9719b3f"
+    },
+    "materializerPath": {
+      "fillRule": "Pin actual corrected package bytes; exact Python -I -B and body argv binding path must agree with the immutable filled ARGV role. Resolve adopted-binding placeholder before guard-core hashing. No r3 literal waiver.",
+      "origin": "future independently reviewed corrected source version",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/add_inputs.py"
+    },
+    "materializerSha256": {
+      "fillRule": "Pin actual corrected package bytes; exact Python -I -B and body argv binding path must agree with the immutable filled ARGV role. Resolve adopted-binding placeholder before guard-core hashing. No r3 literal waiver.",
+      "origin": "future independently reviewed corrected source version",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "3f76b3cb27ec1e932b23c8f40d848b5f3dfba9a339c78fb3d950b9291fefbd27"
+    },
+    "materializerSourceReviewPath": {
+      "fillRule": "Require ACCEPT_SOURCE_ONLY_UNRUN_ADDITIVE_RECORDED_ROUTE plus body/recorder/supervisor/source-pins hash matches; original 10ac plus hold addendum are predecessor roles only.",
+      "origin": "future corrected source review",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": null
+    },
+    "materializerSourceReviewSha256": {
+      "fillRule": "Require ACCEPT_SOURCE_ONLY_UNRUN_ADDITIVE_RECORDED_ROUTE plus body/recorder/supervisor/source-pins hash matches; original 10ac plus hold addendum are predecessor roles only.",
+      "origin": "future corrected source review",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": null
+    },
+    "mirrorPath": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2"
+    },
+    "noDetachedChildren": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": true
+    },
+    "noExternalSameUidRenamer": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": true
+    },
+    "originalM0RootMetadata": {
+      "fillRule": "Require exact seven metadata values [dev,ino,fullMode,nlink,size,mtimeNs,ctimeNs] from authentic accepted copy and fresh physical leaf. Guard does not capture this leaf. Any drift holds; do not silently refresh or replay copy.",
+      "origin": "prior accepted copy facts plus future bounded fresh M0-leaf lstat",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": [
+        16777220,
+        166751332,
+        16832,
+        11,
+        352,
+        1791567307020759106,
+        1791567307020759106
+      ]
+    },
+    "outputParent": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch"
+    },
+    "outputRoot": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2"
+    },
+    "parentScopeAdoptionPath": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-aj-scope-parent-adoption-after-aj-20261009-r1/ADOPTION.json"
+    },
+    "parentScopeAdoptionSha256": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "13be428dfe3bdba1bc4ce4f2348bd194d2473c4c812df2b5f0bfec936b76b8e8"
+    },
+    "phaseReceiptPath": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-output-20261009-r2/FIRST-WRITE-PHASE.json"
+    },
+    "preflightReviewPath": {
+      "fillRule": "Initially null. Insert only accepted ACCEPT_M0_ADDITIVE_PREFLIGHT with guardCoreSha256, productionHead AJ, freshProductionCommonFullProofAccepted=true, r9PrivateRootReuseExplicitlyAccepted=true. Source/path hold and missing metadata must be closed first.",
+      "origin": "future independent guard-core review",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": null
+    },
+    "preflightReviewSha256": {
+      "fillRule": "Initially null. Insert only accepted ACCEPT_M0_ADDITIVE_PREFLIGHT with guardCoreSha256, productionHead AJ, freshProductionCommonFullProofAccepted=true, r9PrivateRootReuseExplicitlyAccepted=true. Source/path hold and missing metadata must be closed first.",
+      "origin": "future independent guard-core review",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": null
+    },
+    "productionHead": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "f0fb818fe7534c3e3784206d16728b015c7f059a"
+    },
+    "productionRoot": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/The-Movies-headless-program"
+    },
+    "productionSourceTree": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+    },
+    "pythonPath": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14"
+    },
+    "recorderLockPath": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-20261009-r2.lock"
+    },
+    "recorderPath": {
+      "fillRule": "Pin actual corrected package bytes; exact Python -I -B and body argv binding path must agree with the immutable filled ARGV role. Resolve adopted-binding placeholder before guard-core hashing. No r3 literal waiver.",
+      "origin": "future independently reviewed corrected source version",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/record.py"
+    },
+    "recorderSha256": {
+      "fillRule": "Pin actual corrected package bytes; exact Python -I -B and body argv binding path must agree with the immutable filled ARGV role. Resolve adopted-binding placeholder before guard-core hashing. No r3 literal waiver.",
+      "origin": "future independently reviewed corrected source version",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "2550f77715a5f96c860257eeb38185881b16f0398244848a006d289f0106e4e5"
+    },
+    "retainedHLeafPath": {
+      "fillRule": "Use exact actual retained leaf; direct child of accepted H parent. No guessed or newly replayed leaf.",
+      "origin": "future actual guard immutable.retainedHLeaf",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": null
+    },
+    "routeSourceReviewDecision": {
+      "fillRule": "Require ACCEPT_SOURCE_ONLY_UNRUN_ADDITIVE_RECORDED_ROUTE plus body/recorder/supervisor/source-pins hash matches; original 10ac plus hold addendum are predecessor roles only.",
+      "origin": "future corrected source review",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": null
+    },
+    "routeSourceReviewPath": {
+      "fillRule": "Require ACCEPT_SOURCE_ONLY_UNRUN_ADDITIVE_RECORDED_ROUTE plus body/recorder/supervisor/source-pins hash matches; original 10ac plus hold addendum are predecessor roles only.",
+      "origin": "future corrected source review",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": null
+    },
+    "routeSourceReviewSha256": {
+      "fillRule": "Require ACCEPT_SOURCE_ONLY_UNRUN_ADDITIVE_RECORDED_ROUTE plus body/recorder/supervisor/source-pins hash matches; original 10ac plus hold addendum are predecessor roles only.",
+      "origin": "future corrected source review",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": null
+    },
+    "runId": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "20261009-m0-additive-input-r1"
+    },
+    "schema": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "m0-additive-held-binding-r1"
+    },
+    "scratchParent": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch"
+    },
+    "scratchRoot": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2"
+    },
+    "sourceSha": {
+      "fillRule": "Preserve exact value unless explicitly overridden below before guard-core review.",
+      "origin": "accepted-template",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "292d6fd3b5293fe2a520b681ae4c1dde997dc113"
+    },
+    "status": {
+      "fillRule": "Keep held draft values through fill/reviews. Archive exactly six original finite candidate files, then mutate exactly these five fields: REVIEWED_FILLED_UNRUN,true,actual exact receipt path/hash,ACCEPT_EXACT_FILLED_UNRUN. Nothing else may change.",
+      "origin": "future parent adoption after independent exact review",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "DRAFT_EXACT_REVIEW_PENDING_UNRUN"
+    },
+    "strictRootMetadata": {
+      "fillRule": "Exactly ten required directories: production/common/objects/prod deps/R9/R9 git/R9 deps/H parent/actual H leaf/M0 parent. Convert directory object to [device,inode,permissionMode,mtimeNs,ctimeNs]. Current guard has nine protected roots, not M0 parent; authenticate separate bounded metadata evidence for missing root and compare all other fresh current metadata under freeze.",
+      "origin": "future guard immutable.strictRoots plus fresh bounded M0-parent metadata",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": {}
+    },
+    "supervisorPath": {
+      "fillRule": "Pin actual corrected package bytes; exact Python -I -B and body argv binding path must agree with the immutable filled ARGV role. Resolve adopted-binding placeholder before guard-core hashing. No r3 literal waiver.",
+      "origin": "future independently reviewed corrected source version",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/supervise.py"
+    },
+    "supervisorSha256": {
+      "fillRule": "Pin actual corrected package bytes; exact Python -I -B and body argv binding path must agree with the immutable filled ARGV role. Resolve adopted-binding placeholder before guard-core hashing. No r3 literal waiver.",
+      "origin": "future independently reviewed corrected source version",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": "e2258264783de69fa4d2a10c9c71ede7d4cabc0f80f87c17ba23935e32c9039d"
+    },
+    "toolRoles": {
+      "fillRule": "Exactly Python/git/lsof/pmset/sysctl: physical regular single-link/executable identity [dev,ino,permissionMode,nlink] and actual SHA256; compare prior accepted expected hashes. Guard snapshot does not supply these fresh tool identities/hashes. No runtime binaries copied.",
+      "origin": "future bounded five physical tool reads",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/BINDING-UNFILLED.json",
+      "value": {}
+    }
+  },
+  "futureActualGuardDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3",
+  "futureActualGuardIndependentReview": null,
+  "futureActualGuardParentAdoption": null,
+  "futureActualGuardSnapshotSha256": null,
+  "missingCurrentData": [
+    "M0 parent strict metadata",
+    "M0 leaf seven-field metadata",
+    "missing M0 ancestry union entries",
+    "five physical tool identity/hash roles",
+    "fresh absent output/lock/helper lane/meta/global-lock facts"
+  ],
+  "proposedAdditionalAuthenticatedBindingRoles": [
+    "currentFullGuardSnapshotPath",
+    "currentFullGuardSnapshotSha256",
+    "currentFullGuardReviewPath",
+    "currentFullGuardReviewSha256",
+    "currentFullGuardParentAdoptionPath",
+    "currentFullGuardParentAdoptionSha256",
+    "currentBoundedMetadataPath",
+    "currentBoundedMetadataSha256"
+  ],
+  "schema": "m0-additive-exact-fill-map-r1"
+}

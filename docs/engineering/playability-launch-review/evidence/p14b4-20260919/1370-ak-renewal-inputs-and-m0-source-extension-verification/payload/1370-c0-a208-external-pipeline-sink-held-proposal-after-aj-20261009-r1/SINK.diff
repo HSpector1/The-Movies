@@ -1,0 +1,15 @@
+--- immutable-R9-original
++++ held-A208-adapter
+@@ -10,9 +10,9 @@
+ import types
+ from pathlib import Path
+ 
+-SOURCE = Path('/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1')
+-SOURCE_PINS_SHA = '584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759'
+-SUPERVISOR_SHA = '0ee1071d6a78fc944fbbe0aba5fb2a823572b6684f5d13261831233610d93c32'
++SOURCE = Path('/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1')
++SOURCE_PINS_SHA = '3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf'
++SUPERVISOR_SHA = '45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e'
+ MAX_FRAME = 512 * 1024
+ READ_SECONDS = 760  # r7 remains 750; ten seconds is sink observation overhead only.
+ FORWARD_SECONDS = 10

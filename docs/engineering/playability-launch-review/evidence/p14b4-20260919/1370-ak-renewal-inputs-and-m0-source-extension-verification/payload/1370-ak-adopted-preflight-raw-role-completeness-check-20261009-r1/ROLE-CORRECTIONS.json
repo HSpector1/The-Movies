@@ -1,0 +1,168 @@
+{
+  "adoptedPreflightFacts": {
+    "bytes": 11263,
+    "mode": "0600",
+    "nlink": 1,
+    "sha256": "c172a1b1049a74277893ae24039b9c7530630982bd1ed7a01c66963dfc375f45",
+    "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/FACTS.json"
+  },
+  "adoptedPreflightReceipt": {
+    "bytes": 1819,
+    "mode": "0600",
+    "nlink": 1,
+    "sha256": "27ea7d31e160ab0aa44effcfebe1c91195297ed2eb183f5f2373f535e7658986",
+    "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/RECEIPT.json"
+  },
+  "factsEmbedOnlyRawPathBytesHashesAndCommandOutputBytesHashes": true,
+  "futurePostflightRawFourNotYetClaimed": true,
+  "inventory": {
+    "bytes": 369941,
+    "mode": "0644",
+    "nlink": 1,
+    "sha256": "074c47dce0cc99fbcf4a6842ddfe769086cd9a5ce6551b39d670030a899223a7",
+    "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-incomplete-inventory-preparation-20261009-r2/INVENTORY-DRAFT.json"
+  },
+  "missingFiniteAuditAddition": {
+    "bytes": 12028,
+    "mode": "0644",
+    "nlink": 1,
+    "package": "1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1",
+    "preservationAction": "COPY_FINITE_PAYLOAD",
+    "reason": "Finite external source-only adopted-preflight audit script; original receipt did not embed a script role.",
+    "relativePath": "review_adopted_neutral.py",
+    "sha256": "cc7c62dff238e8977b130872bd653e9c17633dc8e53140da061839ea0134cf65",
+    "sourcePath": "/Users/zacheryspector/studio-scratch/review_adopted_neutral.py"
+  },
+  "noNewScansNodeTestsImportsGitOrProtectedMutation": true,
+  "originalEightRawRolesRetained": true,
+  "originalInventoryMutated": false,
+  "rawMachineContentsPrintedOrCopied": false,
+  "rawRoleCorrections": [
+    {
+      "actualRole": {
+        "bytes": 647004,
+        "mode": "0600",
+        "nlink": 1,
+        "sha256": "9785e455fd4796035edc21fa9d68f185327dea457d6fc2e834dbca3532bdc6a0",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-LSOF-0.LOCAL.bin"
+      },
+      "alreadySelected": true,
+      "oldPreservationAction": "COPY_FINITE_PAYLOAD",
+      "proposedEntry": {
+        "bytes": 647004,
+        "mode": "0600",
+        "nlink": 1,
+        "package": "1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1",
+        "preservationAction": "LOCAL_HASH_SIZE_ONLY",
+        "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+        "reason": "Genuine whole-machine PS/FD capture; retain only authenticated path/hash/size, never archive raw bytes.",
+        "relativePath": "CURRENT-LSOF-0.LOCAL.bin",
+        "sha256": "9785e455fd4796035edc21fa9d68f185327dea457d6fc2e834dbca3532bdc6a0",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-LSOF-0.LOCAL.bin"
+      },
+      "requiredPreservationAction": "LOCAL_HASH_SIZE_ONLY"
+    },
+    {
+      "actualRole": {
+        "bytes": 647002,
+        "mode": "0600",
+        "nlink": 1,
+        "sha256": "e70d6ecfc20ce249ea32103967b151f97689e09d092ef1c38b82e66484b9e9b5",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-LSOF-1.LOCAL.bin"
+      },
+      "alreadySelected": true,
+      "oldPreservationAction": "COPY_FINITE_PAYLOAD",
+      "proposedEntry": {
+        "bytes": 647002,
+        "mode": "0600",
+        "nlink": 1,
+        "package": "1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1",
+        "preservationAction": "LOCAL_HASH_SIZE_ONLY",
+        "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+        "reason": "Genuine whole-machine PS/FD capture; retain only authenticated path/hash/size, never archive raw bytes.",
+        "relativePath": "CURRENT-LSOF-1.LOCAL.bin",
+        "sha256": "e70d6ecfc20ce249ea32103967b151f97689e09d092ef1c38b82e66484b9e9b5",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-LSOF-1.LOCAL.bin"
+      },
+      "requiredPreservationAction": "LOCAL_HASH_SIZE_ONLY"
+    },
+    {
+      "actualRole": {
+        "bytes": 647004,
+        "mode": "0600",
+        "nlink": 1,
+        "sha256": "1b0ef02a64615827a7666349661f0f57b9dd7a6f861b841df58cab65bcbcd73e",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-LSOF-2.LOCAL.bin"
+      },
+      "alreadySelected": true,
+      "oldPreservationAction": "COPY_FINITE_PAYLOAD",
+      "proposedEntry": {
+        "bytes": 647004,
+        "mode": "0600",
+        "nlink": 1,
+        "package": "1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1",
+        "preservationAction": "LOCAL_HASH_SIZE_ONLY",
+        "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+        "reason": "Genuine whole-machine PS/FD capture; retain only authenticated path/hash/size, never archive raw bytes.",
+        "relativePath": "CURRENT-LSOF-2.LOCAL.bin",
+        "sha256": "1b0ef02a64615827a7666349661f0f57b9dd7a6f861b841df58cab65bcbcd73e",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-LSOF-2.LOCAL.bin"
+      },
+      "requiredPreservationAction": "LOCAL_HASH_SIZE_ONLY"
+    },
+    {
+      "actualRole": {
+        "bytes": 647004,
+        "mode": "0600",
+        "nlink": 1,
+        "sha256": "17703d00f839178e8169d7035078154f21d42964651f7098af56840adf771ee1",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-LSOF-3.LOCAL.bin"
+      },
+      "alreadySelected": true,
+      "oldPreservationAction": "COPY_FINITE_PAYLOAD",
+      "proposedEntry": {
+        "bytes": 647004,
+        "mode": "0600",
+        "nlink": 1,
+        "package": "1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1",
+        "preservationAction": "LOCAL_HASH_SIZE_ONLY",
+        "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+        "reason": "Genuine whole-machine PS/FD capture; retain only authenticated path/hash/size, never archive raw bytes.",
+        "relativePath": "CURRENT-LSOF-3.LOCAL.bin",
+        "sha256": "17703d00f839178e8169d7035078154f21d42964651f7098af56840adf771ee1",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-LSOF-3.LOCAL.bin"
+      },
+      "requiredPreservationAction": "LOCAL_HASH_SIZE_ONLY"
+    },
+    {
+      "actualRole": {
+        "bytes": 92307,
+        "mode": "0600",
+        "nlink": 1,
+        "sha256": "d14f721aeaad30fbaf524a1da4c2ad49adfe02814a73ccf7280554836716a609",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-PS.LOCAL.txt"
+      },
+      "alreadySelected": true,
+      "oldPreservationAction": "COPY_FINITE_PAYLOAD",
+      "proposedEntry": {
+        "bytes": 92307,
+        "mode": "0600",
+        "nlink": 1,
+        "package": "1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1",
+        "preservationAction": "LOCAL_HASH_SIZE_ONLY",
+        "priorGitBlob": "NOT_QUERIED_NO_GIT_OPERATIONS",
+        "reason": "Genuine whole-machine PS/FD capture; retain only authenticated path/hash/size, never archive raw bytes.",
+        "relativePath": "CURRENT-PS.LOCAL.txt",
+        "sha256": "d14f721aeaad30fbaf524a1da4c2ad49adfe02814a73ccf7280554836716a609",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/CURRENT-PS.LOCAL.txt"
+      },
+      "requiredPreservationAction": "LOCAL_HASH_SIZE_ONLY"
+    }
+  ],
+  "rawRolesMisclassified": 5,
+  "rawRolesMissingFromInventory": 0,
+  "receiptEmbedsRawContents": false,
+  "receiptPinsHashOnlyFactsIndirectly": true,
+  "requiredNewRawRoleCountBeforePostflight": 13,
+  "status": "FINITE_ARCHIVAL_POLICY_CORRECTION_REQUIRED"
+}

@@ -1,0 +1,98 @@
+{
+  "claimsLimits": [
+    "Source-derived premium branch and nullfloor proposed only, not historicalofferlocalmeasurement.",
+    "No global arbitraryactions/modulemutation theorem; proof restricted acceptedfactory\u2192natural ticks of H8708 and A3aaf witness paths.",
+    "No authenticatedH Gitmode claimed; A mode from acceptedmanifest only. Tree locator kept without inventing treeOID."
+  ],
+  "classification": "AFTER_AJ_SOURCE_ONLY_PROPOSED_CLOSURE_PENDING_INDEPENDENT_REVIEW",
+  "floorArgument": [
+    "Reached native employment writers append rows and preserve terms on oldrow replacement; exact accepted H208 and A416 appendhistory has exactly2 rows for each selectedperson: old0\u2192208 and sole successor208\u2192416.",
+    "Therefore at selected owncommit no different previous contract with end>208 can exist: it would remain as a third appendedrow in accepted history. Unique oldcontractcase + exactone successor excludes earlier same-subject208 commit; selectedsuccessor is appended only after proposalPriceAt.",
+    "releaseFloor considers only matching terminationreceipt then looks up contractId in that precommit history. For challengers matchingoldstudio is absent; incumbent oldrowend208 skips by week>=validUntilWeek. Receipt existence, reason, ledger guard can only further exclude oldrow, never bypass expiry. Thus floor null independent of terminationreceipt absence.",
+    "No postcommit newrow may be used as a precommit memory; proof relies on explicit sourcecallorder and appendhistory, not observedterminalfloor or guessed A terminalcases."
+  ],
+  "premiumArgument": [
+    "H/A initialization fixedreserve13/18/20/15; selectedwinningrivals r01/r02/r03 match H observedreserves and pairedold/newstudio identities. Directreachedwriters and policycapability recipients preserve reserveWeeks/studioId.",
+    "No actions afterfactory: all selectedwinning rivalproposals originate from rivaltrigger and existing issuer/person proposal skips resubmit. Promiseattachment only adds promise+digest, preserving tier.",
+    "Discovery derives subjectstudio from original contract; exact contractcaseguard and unchangedoldterms preserve descriptor. decision208 reprices persisted winning tier; settlementreceiptissuer/newemploymentstudio identifies selectedwinner.",
+    "Hence common symbolic branch tiers[2] for six r01\u2192r02 subjects and tiers[1] for six r02\u2192r01 plus four r03 incumbent subjects. No tier inferred from roundedpay or emptyterminalproposals."
+  ],
+  "remaining": [
+    "Independent source review must validate complete bounded reached writer/caller closure and all exact16 identity mappings. This authoredproof is not adoption.",
+    "A208 evolvedpersonvectors and r03-2 freshfirstdraw remain missing; no renewal prices/causes are evaluated/admitted.",
+    "Future A208observer must still authenticate reachedphase/personpreservation, exactoperationalauthority/caps/argv/neutrality/416checks before execution."
+  ],
+  "writerSurfaces": [
+    {
+      "sources": [
+        "hollywood.initializeHollywood/enterRival",
+        "hollywoodStartingData"
+      ],
+      "surface": "Initialization",
+      "writes": "Only creates policy/studioId from fixed studio manifest on entry; existing entered identities return unchanged. Initializes empty employment/receipt roots once."
+    },
+    {
+      "sources": [
+        "hollywoodTick.advanceHollywoodWeek/staff/decide/operateStage/storeHotDevelopment"
+      ],
+      "surface": "Tick business copying/local helpers",
+      "writes": "Clone ...b + account; local writes target account/standing/operations/development/productions/projects/decision week/run/authority fields. policy/reserveWeeks/studioId retained. staff creates newterms; oldemployment only endedWeek replacement, append newhistory; open-case subjects skipped."
+    },
+    {
+      "sources": [
+        "hollywoodPolicy.chooseIndustryPackage"
+      ],
+      "surface": "Direct business.policy escape",
+      "writes": "Receives policy but only reads negativeScale/marketingRatio; nested helpers get candidate/input/options scalar keys, never policy object. No policy assignment or policy forwarding."
+    },
+    {
+      "sources": [
+        "rivalResearch",
+        "technologyRival",
+        "technology.advanceRivalResearchWeek"
+      ],
+      "surface": "Research and sound helpers",
+      "writes": "Research clones ...business + account, later ...business + operations; receipt writes are research/capacity kinds and append. Sound helper returns technology, only reads business policy. ResearchWeek reads only business.studioId; returns technology/cost, not business/policy/employment mutations."
+    },
+    {
+      "sources": [
+        "technologyProduction.createProductionTechnologyPolicy",
+        "hollywoodTick.advanceHollywoodWeek"
+      ],
+      "surface": "Production policy distinction",
+      "writes": "productionTechnology.policy is newly constructed operations callback, not b.policy; advanceManagedProductions receives operations/productions/this callback, not reserve policy."
+    },
+    {
+      "sources": [
+        "talentMarket.commitRivalWinner/settleCase/advanceTalentMarketWeek/closeCase"
+      ],
+      "surface": "Selected winner commit / floor / case",
+      "writes": "Prices chosen proposal before append; ...b + account preserves policy. New employment only append, receipt reason replacement. Discovery guards exact oldcontract case uniqueness; case outcome closes and deletes proposals; issuer tier retained on proposal."
+    },
+    {
+      "sources": [
+        "talentMarket.authorRivalPromise",
+        "promises.attachPromise"
+      ],
+      "surface": "Proposal promise attachment",
+      "writes": "Promised {...proposal,promises} and redigest preserve premiumTier and issuer. No auto re-submit when existing issuer/person proposal exists."
+    },
+    {
+      "sources": [
+        "hollywoodTick.finishHollywoodWeek",
+        "industryEmployment.recordPlayerEmployment"
+      ],
+      "surface": "Expiry/player mirror",
+      "writes": "Existing terms/endWeek never overwritten; expiry updates endedWeek, receipts append. Player mirror only playerstudio, copiesnewterms and retains existingrowterms; selected studios are rivals."
+    },
+    {
+      "sources": [
+        "H_diagnostic",
+        "A R9 witness.mts/witness-core.mjs",
+        "harness p13aGeneratedStudio"
+      ],
+      "surface": "Observer actions",
+      "writes": "One shared factory initialization (activateoperations beforeindustryentry), then only natural tick repeatedly; no arbitrary proposal or policy action at196/208."
+    }
+  ]
+}

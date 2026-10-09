@@ -1,0 +1,733 @@
+{
+  "bounds": {
+    "addendumSeconds": 180,
+    "continuousDiskBytes": 3221225472,
+    "preflightDiskBytes": 3758096384,
+    "resultBytes": 100000
+  },
+  "bridge": {
+    "bridgeTree": "faa227af051c5ec529644b5f84151314ea63cc30",
+    "fileCount": 63,
+    "files": [
+      {
+        "bytes": 401,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "d9a77659bae3cf7ea11f974a3755777e013f2a25",
+        "path": "bridge/campaign-origin.ts",
+        "sha256": "8bbe107187306cfbae84a371938766de77e5080f95bfb0a28b5c581ef27eb992"
+      },
+      {
+        "bytes": 5481,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "9f458ba758d6419e44cfc20fbb6328c412791c08",
+        "path": "bridge/cancellation.ts",
+        "sha256": "05f3315b29300c49387e530b96adaac333d9aefd06519592189a00c689541a0d"
+      },
+      {
+        "bytes": 32568,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "6bb2f35fc541ed6f053ccb4af78c7e4b456acbf7",
+        "path": "bridge/casting.ts",
+        "sha256": "f19dbde64892e1fe565bc0c3c225e1aa8a6498d049bc5d257b9297e40612f413"
+      },
+      {
+        "bytes": 30921,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "16fb89e27214ea7b51fa283f870c460867194cfe",
+        "path": "bridge/contract.ts",
+        "sha256": "9cb38f5ec11852093d26b63ed10f532a02072c00c5233a1f0f5002aeca89c4f0"
+      },
+      {
+        "bytes": 24535,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "ee68cb76f0b05622ac0fa3f418a4722e58509b0c",
+        "path": "bridge/development.ts",
+        "sha256": "c2d3632e3d2d7a115772ccec1f95419b96a355f3bf00f7608f90305cc11573c9"
+      },
+      {
+        "bytes": 2077,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "2d083d5c27b7c2ef7152658034e0d8a7c5578885",
+        "path": "bridge/finance-consequence.ts",
+        "sha256": "54ff6fa2aa4f6a77c58ee7a86571d2d34c7f55d4e01e811b7035836d8e732c96"
+      },
+      {
+        "bytes": 7133,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "357ee46491a996bd39e11e6c405bb83cb76abc9d",
+        "path": "bridge/finance-portfolio.ts",
+        "sha256": "b97b964c0a8d64dae5fe94d353d21e807cd2df9a4374edc59d5dee34cd352f4c"
+      },
+      {
+        "bytes": 264,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "2df5e806b04543207ff0b3b2c5e2bbf32ea123d3",
+        "path": "bridge/finance-route.ts",
+        "sha256": "1a0a592a52f799edd9bf376798f4b82798bb9ff48eac8ff302122c0353d848ca"
+      },
+      {
+        "bytes": 8397,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "be472f839332f9a3bbb3626babccc48e9934fed8",
+        "path": "bridge/finance-upcoming.ts",
+        "sha256": "2268abd7f3190e19c0bf3676cf0b3e3e41ddc3d0bd4515e502b06d5bd5f6e718"
+      },
+      {
+        "bytes": 9068,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "5cc134c80e7810f13f898a42712a28518f1d1621",
+        "path": "bridge/finance.ts",
+        "sha256": "70a009376bf47b611c5a23d4286bdc0cc048f805c7ec6bd3b071958a18e77ce5"
+      },
+      {
+        "bytes": 20685,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "c89e45962c59ab0d850967bfa2bd24340ed1f430",
+        "path": "bridge/history.ts",
+        "sha256": "fda2534766a76384e78114877af78f04e55ad3984faa10254dc6e95fbba644fa"
+      },
+      {
+        "bytes": 38397,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "9dac86302b6938990f2805859f465d0c02f43e17",
+        "path": "bridge/industry.ts",
+        "sha256": "3a224f31a441530e519f5537f7e2442a378ff72d05856c833a0d4401cb0cb090"
+      },
+      {
+        "bytes": 49079,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "49c210b62870a963e240eb150af50db6e71b3b73",
+        "path": "bridge/laboratory.ts",
+        "sha256": "92df324beec13c82dd1724ca826bec11b798af2fbc7a5ac19f5be838cf2fc540"
+      },
+      {
+        "bytes": 8415,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "9362bcb368940935003b347e8c9b7b07b9c1dd96",
+        "path": "bridge/lifecycle.ts",
+        "sha256": "9a717590bccbf32a37b46eed8fa3c358fdb4549c66efd8285c5dc38d37634ff5"
+      },
+      {
+        "bytes": 16441,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "185ed4ca7c54b6fc07aaddd42bc66f11a7cb5275",
+        "path": "bridge/market.ts",
+        "sha256": "ee70c9ace78252e156b5e4254ebc83b2879fabb3a0d661efec43adbb9623ba33"
+      },
+      {
+        "bytes": 20671,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "08539860394be1e9b1eefd44aa034817681739f8",
+        "path": "bridge/office.ts",
+        "sha256": "26388cb35169c97d36ecd3cd8406aa656b4dadf5568958e9d086eb9629fe52f7"
+      },
+      {
+        "bytes": 21144,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "5ddcd91c98311866816d511f32148b1fedb0b325",
+        "path": "bridge/operations-events.ts",
+        "sha256": "4f6bda410785d2e4dd7f86729a5b4c30e07f5728cd47bdf1be09d739b866f5af"
+      },
+      {
+        "bytes": 46249,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "96bbed8125a7c3d3f455c8e96df6e6583771dffd",
+        "path": "bridge/people.ts",
+        "sha256": "e2b0f511d904c4af6a52b30d321b7b8f6664def2fa2b670d0a21c996c0008b7b"
+      },
+      {
+        "bytes": 9464,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "e06fb6b68f1b49fd5368c12adbc5ab3439ea285b",
+        "path": "bridge/placement.ts",
+        "sha256": "a43fca45894bd4f4dad6ce7435486d0b66ca645cfb41a763c9971ec35bdd2b96"
+      },
+      {
+        "bytes": 13348,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "a93af778d1f8b0faab85f34d33f2aabaa9d4f5bf",
+        "path": "bridge/plans.ts",
+        "sha256": "b2a01fe1a92aecef5565eae12938ace6d02b24b3e1f6f13db46de3d33fdb0ba1"
+      },
+      {
+        "bytes": 9758,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "263a9ec146f44398b14b06cfaab9b77e54fcb590",
+        "path": "bridge/productionSetup.ts",
+        "sha256": "bb72d6c88295263949cfa6a5d38a83320d83d1b6dc4f2459548cd5b144f3bb19"
+      },
+      {
+        "bytes": 15788,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "9bd607524e9dbe5e1a1d1f9de82a4ac28ecd6ec6",
+        "path": "bridge/promises.ts",
+        "sha256": "c206b985ea238a3f4352bc32544bd5e6476d069c4d46cbdee7973f588476e564"
+      },
+      {
+        "bytes": 10294,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "ed85cebe4c98665899ca5baa354145b2ae9fcc52",
+        "path": "bridge/proof.ts",
+        "sha256": "24a35503fd4ea344d49e371c6e9e173cda4a0345a213f7584d60c4199d685d23"
+      },
+      {
+        "bytes": 5409,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "d8e01e315b7ff800aa42b9e7cc206e8f03c4c8f2",
+        "path": "bridge/protocol.ts",
+        "sha256": "71b920d90ce9a54214c7dd82208a168bd71cab9be60efa11d2ae3a81d7e0b7fa"
+      },
+      {
+        "bytes": 19924,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "5197ffd459d0f5a9634f035bb9d98d36975464d9",
+        "path": "bridge/relationships.ts",
+        "sha256": "44ce8ed44f454a86bea843ea4c010ee6c72069484ef0dc7145310291e64a8e81"
+      },
+      {
+        "bytes": 4006,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "bcfb5bad29dc1cab394c49e88ca4bdd70463fc6f",
+        "path": "bridge/release.ts",
+        "sha256": "81fc9efbdfe3951ef6cb06b5c1cda40fdb1966a4cbd46e89a3c840034484f183"
+      },
+      {
+        "bytes": 2804,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "2f2486d83ba3f0020662fffc26ee720df64c5ce2",
+        "path": "bridge/retirement-extension.ts",
+        "sha256": "3726228b585ba0f0f5d9f6e82202b6e6565923d860b20ce72b8bb08448a496fe"
+      },
+      {
+        "bytes": 64102,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "0df9e365a44965fc75f90429af6b984e72678db1",
+        "path": "bridge/runtime-checkpoint.ts",
+        "sha256": "5fabc2ffd197894945aab4f4d2200d3139d4141026aba5ba57501e088ca0118e"
+      },
+      {
+        "bytes": 22086,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "82e369bd78bfd9cb0ef6498619acc6fc6d2a01ac",
+        "path": "bridge/runtime/campaign-library.ts",
+        "sha256": "6bdaf627ddf7e535480161854279e624ee0638576e617832b3afff9b323c67e4"
+      },
+      {
+        "bytes": 4888,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "eb2fc01e959137e5bbf89bac4ff6870008dc6904",
+        "path": "bridge/runtime/campaign-storage-codec.ts",
+        "sha256": "0a841b9a31e04e21480fd1a64ae95d8d2fd7d9420add04a3b080fc3753031ef1"
+      },
+      {
+        "bytes": 22572,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "f52682a3c928584e1518b988651236d791b714bf",
+        "path": "bridge/runtime/checkpoint-store.ts",
+        "sha256": "41ced764fb4a89bafc6ab9ea826bf0d51b9a6d6f8ab82f5f100e910d347e2561"
+      },
+      {
+        "bytes": 3203,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "2dc9c05f6532657c08a27be07bd3186dfb3ed305",
+        "path": "bridge/runtime/process-incarnation.ts",
+        "sha256": "8e281af4edc3585feaf34d5692960fc5e1eac2d00823cb92c55e047d154afc43"
+      },
+      {
+        "bytes": 13365,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "1a8c94fb686a1f605b13bb61a787e7564214deba",
+        "path": "bridge/runtime/runtime-coordinator.ts",
+        "sha256": "d776930efa3d0d37e4ca18e2fcf16b7e8d4f1d795601048a66eb48c54124e560"
+      },
+      {
+        "bytes": 13804,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "8acc58a54f463fc8f3aa195882163c01f130554f",
+        "path": "bridge/runtime/worker-adapter.ts",
+        "sha256": "68367abb158d6403aaa909bc005f650a9fd102b48e2a2195cf05a3ed44bc9f60"
+      },
+      {
+        "bytes": 7382,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "70956ddbeef29bdc4096d411715c4ddb5b87e8fd",
+        "path": "bridge/runtime/worker-client.ts",
+        "sha256": "2d519dacf33c8b49703d3fc83b6b7aeb3f73dcc1221e70109878fcdc9c244b73"
+      },
+      {
+        "bytes": 1443,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "c315a85011dade10a0c3b75ea249e4f2dcf1bb79",
+        "path": "bridge/runtime/worker-contract.ts",
+        "sha256": "9893145e9360e217e95fc066390bd0e76a85f82978ecc63e437eafcc4d9eb209"
+      },
+      {
+        "bytes": 2707,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "3bfa2a1cdc4878f3ecf75e4f494749da5fdeca75",
+        "path": "bridge/runtime/worker-entry-path.ts",
+        "sha256": "e6d925e85a6e56b1a2b4e7a8f5d71d62e9cb7b33b22d9c5da99167726c7e29de"
+      },
+      {
+        "bytes": 4083,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "5dcb1ea81e29a22858af57fd86d40e27473b345c",
+        "path": "bridge/runtime/worker-entry.ts",
+        "sha256": "6498531c427b49b99be2642e9454a2f38c21371f8923ceb285c8cbd72046ab91"
+      },
+      {
+        "bytes": 1569,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "c1dcd493d50e52944b99a8ed5abbe58f8e98deea",
+        "path": "bridge/schema/README.md",
+        "sha256": "7cd9ca7a6121963f292e946a4c0b6e2ad45a25aa02e06ae88684a9876540b3c5"
+      },
+      {
+        "bytes": 191170,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "3007ee5e13b22ffd77acad483628d0116bace49a",
+        "path": "bridge/schema/bridge-schema.ts",
+        "sha256": "d2272d4938b458701ed9feeacc49dc349890857c0c68431c41576988ca424718"
+      },
+      {
+        "bytes": 870,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "73ff6fd7b838d7611cba15368522a65a56e884ae",
+        "path": "bridge/schema/canonical.ts",
+        "sha256": "b84768f3a565f7e027938fefd46960ffbbd55a35d44a51145e94b82a1529e340"
+      },
+      {
+        "bytes": 3946,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "1b23c89229acd065f0929915bd2a1820bd4789df",
+        "path": "bridge/schema/dsl.ts",
+        "sha256": "199880cc5ad275cdf4e277c7afba44823022d9e0e0b93bbee01e4fb8ad7cef8b"
+      },
+      {
+        "bytes": 24682,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "8c611c8d37244d0a89f23e6cb9642427433f9ced",
+        "path": "bridge/schema/industry-schema.ts",
+        "sha256": "794ef431e62a5f44674f874f9144ed0a667965781e587d23fc0e71eb65c58453"
+      },
+      {
+        "bytes": 3616,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "a29c0b098dd7943a55577b6648eae20852ed9e4f",
+        "path": "bridge/schema/intent-schema.ts",
+        "sha256": "6230f858a05da061f5934e85a93ba247e0483e50a4d2aee845b2e9b642ab366a"
+      },
+      {
+        "bytes": 403927,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "d753895d71cdf8365562120f34f491b1d159cd84",
+        "path": "bridge/schema/project-studio-bridge.schema.json",
+        "sha256": "032d261c21f3f0556593bebfe6f9f9530b4f9330eaee500d11782e247cd41829"
+      },
+      {
+        "bytes": 9369,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "e517d491a3fdc251aac2ac695a820d3629e9800e",
+        "path": "bridge/schema/runtime.ts",
+        "sha256": "1b6de0fbb6cb536ad21f86294fe7df1401a9eecaad8f219218289b21194ef180"
+      },
+      {
+        "bytes": 11542,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "aec7a13b16856957919183b0d6286a6e112bdada",
+        "path": "bridge/server.ts",
+        "sha256": "550fcee8f2a62f7c02004de9f9451621438a08a18a6c689c1720ce33a05034d4"
+      },
+      {
+        "bytes": 96555,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "588dddd788a2ad80f0f4a68f901f9b4d99fe02d9",
+        "path": "bridge/session.ts",
+        "sha256": "100112d2023dc6f2f2f51e4802807e07698b7c4656fd5e8fc0045106c7ec7116"
+      },
+      {
+        "bytes": 5052,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "c0dcb70eaace6ac9063a5ba6462f2a77daecfae8",
+        "path": "bridge/setCommission.ts",
+        "sha256": "b8cbd9548b6cbc922f01a9dfaa709a26e1724c2ff10b5d2cedc5ff7ea4685448"
+      },
+      {
+        "bytes": 6308,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "df4283f59e56f172695c016318f64dd6ae350743",
+        "path": "bridge/snapshot-build-context.ts",
+        "sha256": "f032c8d0201b1401a4cabed7af0dd7c5eaa33463764d81117604747abee701cf"
+      },
+      {
+        "bytes": 4442,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "256f5a402339be901877dc75e1b928fb18f2dc12",
+        "path": "bridge/supervisor/bounded-log.ts",
+        "sha256": "b824426a0b18b8640410704fe147eba7065c8bed6f3dc652af7d705dfddd1f6c"
+      },
+      {
+        "bytes": 2674,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "dc766539814b432b004db2015f9cda38f130828f",
+        "path": "bridge/supervisor/cli-main.ts",
+        "sha256": "463b7516c9249b01198452a17a36b0326c68b1d235a9b2ca12bc49894b235b27"
+      },
+      {
+        "bytes": 340,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "3b503dfa1c0e044d4690eb880a6f419516aa08fb",
+        "path": "bridge/supervisor/cli-packaged.ts",
+        "sha256": "8845eaa0a50b2de0a52268066f56288f4501b07fbe8a16ada13a534a787b7673"
+      },
+      {
+        "bytes": 148,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "fa3bfd712adbaba944cea2ac211d6ab5d6780467",
+        "path": "bridge/supervisor/cli.ts",
+        "sha256": "356c8be795dee9547f90a2a52d5d4d802717e6d0a3905b8641ea8c033103a3e3"
+      },
+      {
+        "bytes": 14463,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "432e3fce2cefe45c77ba13827272221630bf429c",
+        "path": "bridge/supervisor/config.ts",
+        "sha256": "fc56011026657962bdf832d7cf89ffc8bbc889f1678b70ccf0e5a516e0fb71f3"
+      },
+      {
+        "bytes": 35728,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "214e5bd2042c5ff3f9484305e52748b2df22dddc",
+        "path": "bridge/supervisor/lease.ts",
+        "sha256": "1088f2faae97b49475ce5365e743a79c0f46ae16b5ff251e1d158cb8d6105572"
+      },
+      {
+        "bytes": 32800,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "faaf74afb38c8da7fc70f4ab80f55c38b2838e4e",
+        "path": "bridge/supervisor/supervisor.ts",
+        "sha256": "21f6479c9a75b0103e667b8cadced904c7a0ea2cd8d63125d97f846447ebd890"
+      },
+      {
+        "bytes": 2686,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "e5ced5824a8def58bafd30f97607d0dde37dd342",
+        "path": "bridge/testing/c3-active-endurance-contract.ts",
+        "sha256": "c626fecf1e47e94357eb6b81a158b8b7e4ce7dfa8ff1657d4ba6042c82d424d9"
+      },
+      {
+        "bytes": 29875,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "6dcbbea6b19ec48909da721d30c5d35256031d5d",
+        "path": "bridge/testing/c3-active-endurance-observer.ts",
+        "sha256": "545d919844d6063545c645830f7f778bd0fe81572077d2bf718cfe7a3c0cd975"
+      },
+      {
+        "bytes": 27810,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "07d731779d9c2e4a6ed48cd9976f040e90052391",
+        "path": "bridge/testing/in-flight-evidence-verifier.ts",
+        "sha256": "143396e2b21f5db76097b7b1a9959270ac3848628410bdcb2edcf7e7926b70cf"
+      },
+      {
+        "bytes": 6424,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "f0070e62b7c5cad479f9320014e57e0a60cbd783",
+        "path": "bridge/testing/post-commit-response-gate.ts",
+        "sha256": "80aeed00be27c1049e685ab7f8b9bebe9bbae3d135aa41fe87cf0d0533ae1f74"
+      },
+      {
+        "bytes": 4854,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "69eea5705f66a0d1c450473f4e1fa5a7f96f8760",
+        "path": "bridge/trust.ts",
+        "sha256": "2b8add3bf3698d9094f5bb2155fa5fa4d00473689e06cabf6bf94e57cf6ae3cc"
+      },
+      {
+        "bytes": 4537,
+        "kind": "blob",
+        "mode": "100644",
+        "oid": "27aef97e327565489fc0b615ee600a6cfd3f1aa7",
+        "path": "bridge/world.ts",
+        "sha256": "4c063162a2964f8947f40be95360605c139a14f4ef90f38974501db40b55013f"
+      }
+    ],
+    "sourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+    "totalBytes": 1517743
+  },
+  "dependencyPackages": [
+    {
+      "bytes": 754,
+      "name": "@playwright/test",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@playwright/test/package.json",
+      "sha256": "351697e1ef6a68a63557ffedf1992955a2d8979b11e0bf9f175820956951c65b",
+      "version": "1.62.0"
+    },
+    {
+      "bytes": 3906,
+      "name": "@testing-library/jest-dom",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/jest-dom/package.json",
+      "sha256": "69feda5b43fa7a69ece4cda0626efcf0c762098b9c5a82a85fd8fb33f588720a",
+      "version": "6.9.1"
+    },
+    {
+      "bytes": 3387,
+      "name": "@testing-library/react",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/react/package.json",
+      "sha256": "67974b165512b3f03785a70ce8228c1df0ab84408f02d2185aafac171621ed6e",
+      "version": "16.3.2"
+    },
+    {
+      "bytes": 3260,
+      "name": "@testing-library/user-event",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/user-event/package.json",
+      "sha256": "b1de1b34ef51d3d3b442be033f850cb7db0bdffce5e235d371f7a39aa693fad9",
+      "version": "14.6.1"
+    },
+    {
+      "bytes": 4508,
+      "name": "@types/node",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/node/package.json",
+      "sha256": "83e7472f5b94b43acde2e60b39cef9adc278a1f2a5d7cc4b4c677e29da3e0ab9",
+      "version": "26.1.1"
+    },
+    {
+      "bytes": 6109,
+      "name": "@types/react",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/react/package.json",
+      "sha256": "36496fc09a9dcf31b0ca969ce5677c9ce9ebb5c89da9bd6212e0c89b6fae3f88",
+      "version": "19.2.17"
+    },
+    {
+      "bytes": 3383,
+      "name": "@types/react-dom",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/react-dom/package.json",
+      "sha256": "bf90986beaec5f757c164bf1d374f3038dc41b0b06673de4a55fd975d1e5deca",
+      "version": "19.2.3"
+    },
+    {
+      "bytes": 1708,
+      "name": "@types/three",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/three/package.json",
+      "sha256": "b216f2cc4711b6c0115276fa97e1e94a3384845acabe25c214784d577e291f3f",
+      "version": "0.185.0"
+    },
+    {
+      "bytes": 1743,
+      "name": "@vitejs/plugin-react",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@vitejs/plugin-react/package.json",
+      "sha256": "d608755568d9d654c34e9e2da06659df9122fa89d2604ee09cdeda457a20c035",
+      "version": "4.7.0"
+    },
+    {
+      "bytes": 4405,
+      "name": "ajv",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/ajv/package.json",
+      "sha256": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989",
+      "version": "8.20.0"
+    },
+    {
+      "bytes": 1490,
+      "name": "esbuild",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/package.json",
+      "sha256": "cb7d5b1fe478f8cbaae566a86031b6fdf5f7d444354f35d1cb3cba9adf6d2935",
+      "version": "0.25.12"
+    },
+    {
+      "bytes": 2962,
+      "name": "jsdom",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/jsdom/package.json",
+      "sha256": "a6c20d5b30fe842827dcad2866ba234d5c98e9f901d84ea35939f14167e2ea27",
+      "version": "25.0.1"
+    },
+    {
+      "bytes": 5612,
+      "name": "phaser",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/phaser/package.json",
+      "sha256": "2761e48ade77d19cbe2560cbec3cc2c52a4c666fdaae7fe39d6949f7e1738993",
+      "version": "3.90.0"
+    },
+    {
+      "bytes": 1242,
+      "name": "react",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/react/package.json",
+      "sha256": "e40c3ed9b633c9ecf188e09a4be309780a1ea0a9c068278a30ff6a27e7b2dbb6",
+      "version": "19.2.8"
+    },
+    {
+      "bytes": 3057,
+      "name": "react-dom",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/react-dom/package.json",
+      "sha256": "7c82f0967114d4b5d38b1f07e543af87c9919e8d3243f9604004819319cb2200",
+      "version": "19.2.8"
+    },
+    {
+      "bytes": 2845,
+      "name": "saxes",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/saxes/package.json",
+      "sha256": "32052572b41c2a890ed0854798c48454cc5991dcaafe5fb1718a4253046acfd3",
+      "version": "6.0.0"
+    },
+    {
+      "bytes": 3826,
+      "name": "three",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/three/package.json",
+      "sha256": "1d5c438acdc1fe5a52fb8ede2e417afd91fec91d22275c40f7b739591b24e4df",
+      "version": "0.185.1"
+    },
+    {
+      "bytes": 3620,
+      "name": "typescript",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+      "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6",
+      "version": "5.9.3"
+    },
+    {
+      "bytes": 5251,
+      "name": "vite",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vite/package.json",
+      "sha256": "a1d0149fd986fd34b6d35503d2c0d8d9f743c4dbaaf94fbc11812bc84b05884d",
+      "version": "6.4.3"
+    },
+    {
+      "bytes": 2357,
+      "name": "vite-node",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/package.json",
+      "sha256": "7018dacaa212db8e05f454147ac95b817c96b5e45fe56379f8ed54e11617b138",
+      "version": "2.1.9"
+    },
+    {
+      "bytes": 4995,
+      "name": "vitest",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/package.json",
+      "sha256": "6ea35e567829660d9832744086c18526b9ddebd5358c4a0cadfb0a355925f917",
+      "version": "2.1.9"
+    }
+  ],
+  "dependencyTarget": "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+  "executionAuthorization": false,
+  "expandedExpected": {
+    "regularBytes": 119393120,
+    "regularFiles": 1740,
+    "symlinks": 1
+  },
+  "freshQualifiedProductionCommonGuard": null,
+  "independentExactLaunchReview": null,
+  "lockSha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de",
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "operationalHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "roles": {
+    "bridgeInputs": {
+      "bytes": 26930,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-addendum-proposal-r3/BRIDGE-INPUTS.json",
+      "sha256": "2598b0c372eed48d9be04192eb7e33aa52e398a9323d4e2155c176e4cce5efaa"
+    },
+    "bridgePattern": {
+      "bytes": 14319,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-bridge-addendum-proposal-r3/add_bridge.py",
+      "sha256": "72a9bf9f6567afac320373532486c6bfd40663cf019eadb93d32db73a651678d"
+    },
+    "copyFacts": {
+      "bytes": 978422,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/COPY-READBACK-FACTS.json",
+      "sha256": "e46dcc9cf81f7ce3462e1cdd34618f37f68ac75a90d5f95f112ee93966e96bfe"
+    },
+    "copyParentAdoption": {
+      "bytes": 1860,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/OBSERVED-COPY-ADOPTION.json",
+      "sha256": "ec17dc69df4c1b8c3e5af8ef88d43fc4bceea82b2278325ec14cf2398651a8dd"
+    },
+    "copyReceipt": {
+      "bytes": 9262,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observed-copy-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "381ec5af685ce78f002ff260e166e9a13aa40ac1432e2a635900511a8a30d78d"
+    },
+    "depsChecker": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-typecheck-collection-route-template-r1/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "nextStage": {
+      "bytes": 5839,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-post-copy-next-stage-readiness-20261009-r1/NEXT-STAGE.md",
+      "sha256": "0ed30e3ab4feea975b6d6c8c17e05aac631a62c4d0da466cd7c7a1fe080c5df2"
+    },
+    "predecessorRefine": {
+      "bytes": 2975,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "30a1125045e2f8f8a64b7f50555445edc40e2494516e01274e8d99a72e963f09"
+    },
+    "references": {
+      "bytes": 10977,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-post-copy-next-stage-readiness-20261009-r1/REFERENCES.json",
+      "sha256": "d74f9903790006555ce530bcfeaf69f3d2438aebd306457540c549e5be7cb62d"
+    }
+  },
+  "runtimeMechanism": "Existing H additive pattern180s via sole lane; exact outer source-authentication/retained-stream launch to be separately filled/reviewed, not bare path execution",
+  "schema": "m0-additive-bridge-dependency-inputs-r2",
+  "sourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "UNRUN_SOURCE_ONLY_HELD"
+}

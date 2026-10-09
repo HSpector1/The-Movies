@@ -1,0 +1,48 @@
+{
+  "actualToolSession": 44053,
+  "chunks": [
+    {
+      "chunk_id": "5568e0",
+      "wall_time_seconds": 1.003246308,
+      "session_id": 44053,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "7039db",
+      "wall_time_seconds": 5.001451363,
+      "session_id": 44053,
+      "original_token_count": 67,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-afterfill-grant-preparation-after-aj-20261009-r1/AFTER-FILL-GRANT.json\", \"bytes\": 4842, \"sha256\": \"18fbbca2364c611e2bc93c5046b8766daf19d6addf9c86c5e8ceb268c2ff7a72\"}, \"snapshotPid\": 78074}\n"
+    },
+    {
+      "chunk_id": "9ab564",
+      "wall_time_seconds": 5.002011222,
+      "session_id": 44053,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "ad3daf",
+      "wall_time_seconds": 5.001724882,
+      "session_id": 44053,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "bec53a",
+      "wall_time_seconds": 5.000940554,
+      "session_id": 44053,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "940c11",
+      "wall_time_seconds": 0.00001697,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "finalActualToolExit": 0
+}

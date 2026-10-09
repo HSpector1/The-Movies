@@ -1,0 +1,95 @@
+{
+  "actualHelperExit": 0,
+  "actualRegularBytes": 119393120,
+  "actualRegularFiles": 1740,
+  "actualRoles": {
+    "actualTool": {
+      "bytes": 1421,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r2/ACTUAL-TOOL.json",
+      "sha256": "4c7dda587e4c6a76e0310c1e96604bc4e26f68320cd7f1fa03843bb2d8fd22dd"
+    },
+    "descendantObservation": {
+      "bytes": 161,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r2/ACTUAL-RUNNING-DESCENDANTS.json",
+      "sha256": "392f72a8eceae44fbaa6129c742c98aba9a69a11a3560963e655d8253051458b"
+    },
+    "grant": {
+      "bytes": 2524,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r2/GRANT.json",
+      "sha256": "a1ffc014ba24ffe78af403ddcb271e67b89725bb840a18b1da880ec85f9bcf71"
+    },
+    "helperLog": {
+      "bytes": 346,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r2.log",
+      "sha256": "6b6a38c4f7e643c48f658fa7204d00152174ffc3a2351498ce4d9d6c0aef5593"
+    },
+    "helperMeta": {
+      "bytes": 629,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r2.log.meta",
+      "sha256": "9b9214367642baf796596ba4ca05cd8c6fffcbe2cf16b196c0b3a78cbd2d629a"
+    }
+  },
+  "actualToolExit": 0,
+  "actualToolSession": 12444,
+  "actualVerifierExitFromMeta": 0,
+  "canonicalBridgeBytes": 1517743,
+  "canonicalBridgeFiles": 63,
+  "checks": [
+    "All concrete rawtool/grant/source/CONFIG/helpermeta/log/facts hashes and sizes authenticated, three exit0 and exact summary linkage.",
+    "Complete retained1740 roster equals original1677 pluscanonical63; each original bytes/hash/blobOID/fullmetadata exact; each bridge bytes/hash/blobOID/mode/singlelink exact.",
+    "Original nonroot directory metadata exact; one dependency link target/singlelink and21package role hashes/bytes recorded; rootphasebefore/after bound to actualbody.",
+    "All14 actual authority role identities recorded by physical verifier match immutable packet.",
+    "No repeat mirror inventory; only retained finite facts compared. Scoped helper73148 absence checked; verifier numericPID stays unknown."
+  ],
+  "completeRootAdoption": false,
+  "config": {
+    "bytes": 6419,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/CONFIG.json",
+    "sha256": "a0fa01c8e9a16d58ab99919d7b082f033c30aa0f6bc7171a2a794fe117d209e3"
+  },
+  "decision": "ACCEPT_OBSERVED_M0_ADDITIVE_EXPANDED_PHYSICAL_READBACK_PENDING_PROTECTED_POSTFLIGHT",
+  "elapsedSeconds": 4.969758776991512,
+  "exactDependencyLinks": 1,
+  "executionPerformedByReviewer": false,
+  "facts": {
+    "bytes": 1872789,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r3.json",
+    "sha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2"
+  },
+  "findings": [],
+  "finiteDependencyPackageRoles": 21,
+  "knownHelperPidAndPgidFreshAbsent": 73148,
+  "limitations": [
+    "Observed physical readback admission only; no new scanner/import/tests/Node/Git/protected writes or repeat mirror/target traversal.",
+    "Package payloads were verified by accepted executed verifier, reviewer compared retained roles rather than reread installed package bytes.",
+    "No global processabsence or originalfailedattemptsuccess relabeling; freeze continues."
+  ],
+  "numericVerifierPidNotCaptured": true,
+  "original1677StrictFilesPreserved": true,
+  "originalFailedReadbackPreserved": true,
+  "originalNonrootDirectoriesPreserved": true,
+  "physicalReadbackAccepted": true,
+  "protectedPostflightAccepted": false,
+  "readbackOutcome": {
+    "bytes": 3450,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r2/TOOL-OUTCOME.json",
+    "sha256": "0670f8d9f2262be8e0917dfaae8f6d115ddf117336f20930f2f899014c10cba7"
+  },
+  "remainingGates": [
+    "Actual full protected postflight equality and independent review.",
+    "Root final complete adoption/sole-lane release; no circular completion claim."
+  ],
+  "schema": "1370-m0-expanded-readback-independent-observed-r3",
+  "sourcePins": {
+    "bytes": 3143,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/SOURCE-PINS.json",
+    "sha256": "912cfde9ad88ebb3dcc0571f9af2191e3d851296f3e06df70d5569c3ebe68b1d"
+  },
+  "sourcePinsSha256": "912cfde9ad88ebb3dcc0571f9af2191e3d851296f3e06df70d5569c3ebe68b1d",
+  "typesOrGameAccepted": false,
+  "verifier": {
+    "bytes": 18854,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-verifier-physical-python-repair-proposal-after-aj-20261009-r3/verify-expanded.py",
+    "sha256": "ba57a653d6c276635cbe1cdae4d51fe407e42e3b9a80148a1bc1a4b84edca502"
+  }
+}

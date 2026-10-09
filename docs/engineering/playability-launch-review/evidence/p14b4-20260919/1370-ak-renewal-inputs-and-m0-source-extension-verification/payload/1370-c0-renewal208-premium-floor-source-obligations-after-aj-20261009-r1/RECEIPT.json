@@ -1,0 +1,59 @@
+{
+  "decision": "READY_AFTER_AJ_SOURCE_ONLY_PREMIUM_FLOOR_OBLIGATIONS_WITH_EXPLICIT_GAPS",
+  "executionAuthorization": false,
+  "inputRoles": {
+    "acceptedGapFacts": {
+      "bytes": 220989,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/FACTS.json",
+      "sha256": "d928be4e8022203f4c0c86fe1c8196397c41f04e89fc984b1133693812988044"
+    },
+    "acceptedGapPins": {
+      "bytes": 10141,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/INPUT-PINS.json",
+      "sha256": "2b735e42554c2e27cb048c377cc8359f329410990333afc69087e45d882c6738"
+    },
+    "acceptedGapReceipt": {
+      "bytes": 2837,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-and-minimal-observer-design-20261009-r1/RECEIPT.json",
+      "sha256": "46d78843ee8e2cf61c501a6ca2aebe6a16b66aa9745751c2d60c7ca7bdcf9479"
+    },
+    "acceptedPhaseProof": {
+      "bytes": 136304,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-remaining-employment-salary-age-phase-source-proof-20261009-r1/PROOF.json",
+      "sha256": "d84320193744d89918acf35748c917589f623f3f13f31c2f5e5745203571cfc2"
+    }
+  },
+  "newRenewalCausesClosed": 0,
+  "nullPricingFloorsAdmitted": 0,
+  "premiumNumericTiersAdmitted": 0,
+  "roles": {
+    "OBLIGATIONS.json": {
+      "bytes": 3756,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/OBLIGATIONS.json",
+      "sha256": "6bff0d8e6cbcef24339390a9d1b155302d7ee7a5d68b76352bfce9bbc7117e86"
+    },
+    "REPORT.md": {
+      "bytes": 1182,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/REPORT.md",
+      "sha256": "82676b9d40892ef6a8d06698373a74a55f140922ee15ef5d70f9470e52640fc9"
+    },
+    "SELECTED16.json": {
+      "bytes": 23787,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/SELECTED16.json",
+      "sha256": "4efcc49d6db9001be87dfce9edf33524b4c92a82ce373340bd5f83dbed9a230f"
+    },
+    "SOURCE-MAP.json": {
+      "bytes": 10081,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/SOURCE-MAP.json",
+      "sha256": "eb22790d0021385f1f587bf88d21cd10abd72eb9e635a8f7a39a95206f366b7c"
+    },
+    "SOURCE-SLICES.txt": {
+      "bytes": 90084,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-source-obligations-after-aj-20261009-r1/SOURCE-SLICES.txt",
+      "sha256": "4ca64da73d955836d582394326b4406ae38e67cfefb5bf2b55bcf038c5e1ac7e"
+    }
+  },
+  "scope": "AFTER AJ only; scratchnewproposal; unrelatedacceptedroles not reaudit",
+  "selectedRows": 16,
+  "sourceExecution": false
+}

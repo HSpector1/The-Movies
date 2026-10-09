@@ -1,0 +1,259 @@
+{
+  "EPERMCauseEstablished": false,
+  "actualDriverExit": -14,
+  "actualHelperExit": 2,
+  "actualRecorderExit": 2,
+  "actualToolExit": 2,
+  "actualToolSession": 10832,
+  "alarmCausalRelationEstablished": false,
+  "allControlsAccepted": false,
+  "configSha256": "09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb",
+  "decision": "ACCEPT_OBSERVED_A208_PYTHON_CONTROLS_STOP_ONLY",
+  "driverResultAbsent": true,
+  "driverSha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c",
+  "exactEPERMTargetCaptured": false,
+  "executionAuthorization": false,
+  "findings": [
+    {
+      "disposition": "STOP; prospective bounded diagnostics/sticky refusal design only, no actual retry.",
+      "fact": "Uncaught PermissionError in hard_kill finally cleanup aborts subsequent owned-slot handling and driver report finalization; failing numeric target/context is unrecorded.",
+      "id": "F1",
+      "scope": "driver failure capture and owned cleanup"
+    }
+  ],
+  "freshKnownPidsAndPgidsAbsent": [
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37572
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37572
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37835
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37835
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37840
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37840
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37842
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37842
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37844
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37844
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37847
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37847
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37849
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37849
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37856
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37856
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37857
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37857
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37858
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37858
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37860
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37860
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37862
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37862
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pid",
+      "number": 37863
+    },
+    {
+      "freshAbsent": true,
+      "kind": "pgid",
+      "number": 37863
+    }
+  ],
+  "globalProcessAbsenceClaim": false,
+  "lateScopedAbsenceAccepted": true,
+  "pythonControlsAccepted": false,
+  "renewalCausesClosed": 0,
+  "rerunAuthorization": false,
+  "roles": {
+    "actualTool": {
+      "bytes": 624,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-parent-recorded-after-aj-20261009-r1/PYTHON-ACTUAL-TOOL.json",
+      "sha256": "5be0ef41c6de92b57354e55acb132d05846c938547ed4aea4f2ba7abc2878caa"
+    },
+    "config": {
+      "bytes": 15164,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/CONFIG.json",
+      "sha256": "09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb"
+    },
+    "driver": {
+      "bytes": 8874,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py",
+      "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+    },
+    "facts": {
+      "bytes": 39291,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-stop-independent-observed-review-after-aj-20261009-r1/FACTS.json",
+      "sha256": "c99cb9df313dc9e9981e848bef99c6da0665414ad72f326b5721991d6983f6ad"
+    },
+    "grant": {
+      "bytes": 17301,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-parent-recorded-after-aj-20261009-r1/PYTHON-GRANT.json",
+      "sha256": "ee0ee7c9d51f61bb15905390238c83ae4c37864ca0c1eed0542993f857477f84"
+    },
+    "heldNextSliceDesign": {
+      "bytes": 2357,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-stop-independent-observed-review-after-aj-20261009-r1/NEXT-SLICE-DESIGN.md",
+      "sha256": "89303d79de42e09f2db6804686d2c741552fe51bfddbc1eed4eb30e09c4214ad"
+    },
+    "helperLog": {
+      "bytes": 383,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-lane-after-aj-node22-20261009-r1/controls.log",
+      "sha256": "6a2bbdc98fc090062dfa1a7de1bc349c8be0c9fef0d6a9f7eb5d2038dc745544"
+    },
+    "helperMeta": {
+      "bytes": 354,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-lane-after-aj-node22-20261009-r1/controls.log.meta",
+      "sha256": "68d0d87962cc4d1c224a6202ba36dbcea206326845f4c80ddf8ca5dd102f3a69"
+    },
+    "jsReview": {
+      "bytes": 5975,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-js-controls-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "1abeefa371df36fa0bad2a9cf1c435bb9ea55abe6fa78daac2d92f3a9b3ee85a"
+    },
+    "outcome": {
+      "bytes": 3765,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-parent-recorded-after-aj-20261009-r1/PYTHON-STOP-TOOL-OUTCOME.json",
+      "sha256": "107940c1fb176af6181fc4a0c716cf07da0ddfc131ed5bec8d481ec8c93c5493"
+    },
+    "postFailureOwnership": {
+      "bytes": 5588,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-parent-recorded-after-aj-20261009-r1/PYTHON-POST-FAILURE-OWNERSHIP.json",
+      "sha256": "6d7ff0bba1621f0e39f91e69af6b12c073ed485d6f70e69c27d0ff547cc9741a"
+    },
+    "recorder": {
+      "bytes": 14474,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py",
+      "sha256": "3767643eff8348e7bf132e6eee3be132747e96b581d7f916d48964bf8f9d8ddb"
+    },
+    "recorderResult": {
+      "bytes": 899,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-output-after-aj-node22-20261009-r1/RESULT.json",
+      "sha256": "923b13e9861cac55b66ad12acde2c6e214b9043082d867bbb07b5c914cd5017a"
+    },
+    "registry": {
+      "bytes": 1743,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-fixture-after-aj-node22-20261009-r1/OWNED.ndjson",
+      "sha256": "7c8e7cd1aacac208bd4dd4620c0f5b7f645d95553335dab8bdd697ee8f76e725"
+    },
+    "report": {
+      "bytes": 1730,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-stop-independent-observed-review-after-aj-20261009-r1/REPORT.md",
+      "sha256": "e305705c12379d26c9f364f889e2752b496c3a5033b4aae418b2edfc8f08a295"
+    },
+    "sourceReview": {
+      "bytes": 4501,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "8e6a73e06cb774e61d103439bd17536ee97302802cea21cb48a5a93d808776cf"
+    },
+    "stderr": {
+      "bytes": 3407,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-output-after-aj-node22-20261009-r1/stderr.bin",
+      "sha256": "cd501734bd870a48f714cd9c7f28b4e10209ce24cc5074a65d4db6024d450ccf"
+    },
+    "stdout": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-output-after-aj-node22-20261009-r1/stdout.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "schema": "1370-a208-python-controls-stop-independent-observed-review-v1",
+  "sourcePinsSha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5",
+  "suiteMethodReports": [
+    3,
+    14
+  ]
+}

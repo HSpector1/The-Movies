@@ -1,0 +1,20 @@
+--- announced-prefinal
++++ final
+@@ -89,6 +89,9 @@
+   raw,row=bounded_read(Path(r['path']),r['sha256'],1000000);req(row['bytes']==r['bytes'],'source file bytes')
+  cfg=obj(pins['files']['CONFIG.json']);future=cfg['futureAuthority']
+  req(isinstance(future,dict),'STOP_FUTURE_ACTUAL_AUTHORITY_UNFILLED') # BEFORE any output or mutable mirror/target access.
++ py=cfg['pythonTool'];req(sys.executable==py['path'],'exact physical Python executable')
++ raw,pyrow=bounded_read(Path(py['path']),py['sha256'],33554432)
++ req(pyrow['identity'][:4]==py['identity'],'actual Python identity')
+  grant=obj({'path':sys.argv[2],'sha256':sys.argv[3],'bytes':Path(sys.argv[2]).lstat().st_size})
+  req(grant['decision']=='GRANT_READONLY_EXPANDED_M0_READBACK' and grant['sourcePinsSha256']==sys.argv[1] and grant['configSha256']==pins['files']['CONFIG.json']['sha256'] and grant['soleLaneReserved'] is True and grant['readbackLimitSeconds']==240,'separate exact readback grant')
+  required=['binding','exactReview','preflightReview','parentToolOutcome','actualTool','helperMeta','recorderResult','supervisorResult','bodyResult','firstWritePhase','childOwned','childStdout','childStderr','originalSiblingReceipt']
+@@ -102,6 +105,7 @@
+  for name in ['binding','exactReview','preflightReview','parentToolOutcome','actualTool','recorderResult','supervisorResult','bodyResult','firstWritePhase','childOwned','originalSiblingReceipt']:loaded[name]=obj(packet[name])
+  b=loaded['binding'];outcome=loaded['parentToolOutcome'];rec=loaded['recorderResult'];sup=loaded['supervisorResult'];body=loaded['bodyResult'];phase=loaded['firstWritePhase'];owner=loaded['childOwned']
+  req(grant['bindingSha256']==packet['binding']['sha256'],'grant actual binding')
++ req(b['toolRoles'][py['path']]=={'sha256':py['sha256'],'identity':py['identity']},'accepted actual binding Python role')
+  for k in ['actualToolExit','actualHelperExit','actualSupervisorExit','actualRecorderExit','actualChildExit']:req(type(outcome[k]) is int and outcome[k]==0,'actual zero '+k)
+  req(outcome['unexpectedHelperWait'] is False and outcome['bindingSha256']==packet['binding']['sha256'],'actual parent authority')
+  chunks=loaded['actualTool']['chunks'];req(chunks and chunks[-1]['exit_code']==0,'raw actual tool zero')

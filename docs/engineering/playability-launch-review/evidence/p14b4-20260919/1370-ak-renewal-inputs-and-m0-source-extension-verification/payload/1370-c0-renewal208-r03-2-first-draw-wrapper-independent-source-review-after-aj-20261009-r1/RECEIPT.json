@@ -1,0 +1,20 @@
+{
+  "checks": [
+    "Exact accepted initial23 wrapper transformed by six documented substitutions and only two added sourcePinsSha256 guards.",
+    "Current AJ HEAD/source and exact pins, file/tool hashes, clean remote, power/free-space/lock/selected owned groups and absent outputs are checked before exclusive durable grant creation.",
+    "Controls needs exact source review; witness additionally requires separately supplied hash-pinned ACCEPT_OBSERVED review linked to exact package.",
+    "One numeric witness row/eight controls, separate controls/witness paths and grants; unchanged helper exec route and recorder failure preservation.",
+    "Immutable draft CONFIG/recipe nulls stay historical source labels; separate concrete root grant records operational authorization."
+  ],
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_EXACT_RENEWAL208_ONE_KEY_ROOT_WRAPPER",
+  "executionAuthorization": false,
+  "executionObserved": false,
+  "findings": [],
+  "provenanceSha256": "f260c21cbaff6323f85bc1c8273fcf8568f90810f74088c5795853e9f153b06f",
+  "qualification": "Acceptance applies to concrete root invocation using the independently accepted exact source receipt and future independently accepted actual eight-controls receipt. Prefix predicates alone do not authenticate arbitrary review decisions or observed claims. No live guards, control outcomes, process absence, elapsed bound or launch are claimed.",
+  "schema": "1370-renewal208-one-key-wrapper-independent-source-review/v1",
+  "sourcePinsSha256": "b5055ac3e7f4bee5a299517d7513859a746ffc1fcbc662d9b505c97e5d2dc83b",
+  "sourceReceiptInterfaceCompatible": true,
+  "sourceReviewSha256": "4463ba339b5de10d89b7c7ab74776b378cf5f5195c48b14445aca708d3803ab3",
+  "wrapperSha256": "21b96d110617aafd2351d63d167e00ee4bb1ab5812719abc7f8e486f7472e336"
+}

@@ -1,0 +1,80 @@
+{
+  "actualTool": {
+    "bytes": 996,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-ACTUAL-TOOL.json",
+    "sha256": "cb140a6740706dc3c2f8f8c188c7e4bfc048220af67687f060338a3dfa70d5e7"
+  },
+  "actualToolExit": 0,
+  "actualToolSession": 43355,
+  "config": {
+    "bytes": 3536,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG.json",
+    "sha256": "a4b88b0181bf525f6144a71f05bb7d78a17fd46bbfbe88d0e2aea90a89874b4c"
+  },
+  "dependentRuntimeAuthorized": false,
+  "globalProcessAbsenceClaim": false,
+  "grant": {
+    "bytes": 3752,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-GRANT.json",
+    "sha256": "b049a5611db92b4a1cf5608999547b7d65442e022f9312f1345429e4accbd286"
+  },
+  "ownedScannerPidAndPgidAbsent": 93713,
+  "pins": {
+    "bytes": 507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/PINS.json",
+    "sha256": "5b38eae5b5f523835d9a6883ad65c279437159cfa69550bb846fb622a19499d2"
+  },
+  "protectedFreezeContinues": true,
+  "rawProcessFilesLocalHashSizeOnly": [
+    {
+      "bytes": 92374,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/BEFORE-PS.txt",
+      "sha256": "5f49298b70c871ea8f8e5934532bbc6bd26fbcbeabc049209c3f6d08c9f19b0b"
+    },
+    {
+      "bytes": 95237,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/AFTER-PS.txt",
+      "sha256": "47c5d3394917fc7a2644ba4ecf7ed571033bd00ee69c3016e4cfdacd96e6c0d7"
+    },
+    {
+      "bytes": 640617,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/BEFORE-LSOF.bin",
+      "sha256": "bf5b017cd799f10662e8e25472e96762c952098ef9894bf795d837103ae4481d"
+    },
+    {
+      "bytes": 652795,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/AFTER-LSOF.bin",
+      "sha256": "cc21628f2c7aa2b0d891f6bcc4ed74a20733c8ee623d8e82b1313e17bda616a4"
+    }
+  ],
+  "result": {
+    "elapsedSeconds": 497.5831342330057,
+    "inventoryElapsedSeconds": 390.25846129099955,
+    "pinsSha256": "5b38eae5b5f523835d9a6883ad65c279437159cfa69550bb846fb622a19499d2",
+    "snapshotPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+    "snapshotSha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912",
+    "status": "GUARDS_ACCEPTED_READONLY"
+  },
+  "snapshot": {
+    "bytes": 8303116,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+    "sha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912"
+  },
+  "source": {
+    "bytes": 21431,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+    "sha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee"
+  },
+  "status": "ACTUAL_TOOL_EXIT0_READONLY_FULL_GUARD_REQUIRES_INDEPENDENT_OBSERVED_REVIEW",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/before-fill.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 467,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/before-fill.stdout",
+    "sha256": "93ad19b93a0d18ea4b27641c9b21cf9e4a9aab39011c365bcfefa824845768a5"
+  },
+  "utc": "2026-10-09T19:52:29.257042+00:00"
+}

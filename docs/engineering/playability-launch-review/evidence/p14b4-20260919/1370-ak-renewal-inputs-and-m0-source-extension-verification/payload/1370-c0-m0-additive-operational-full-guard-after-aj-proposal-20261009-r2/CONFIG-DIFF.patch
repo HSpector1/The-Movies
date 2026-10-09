@@ -1,0 +1,56 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-preparation-20261009-r1/CONFIG-DIFF.patch
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG-DIFF.patch
+@@ -1,4 +1,5 @@
+ {
++  "additiveRecorderLockPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-20261009-r2.lock",
+   "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+   "bindingSemanticSha256": "18900da834bda366b2177c8ff8ee9a87b97374c02366b97d1c6b06cb4c23f309",
+   "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+@@ -6,7 +7,8 @@
+   "declaredWitnessScratchChildren": [
+     "1370-c0-m0-observer-mirrors-20261009-r2",
+     "1370-c0-m0-recorded-materialization-output-20261009-r2",
+-    "1370-c0-m0-operational-materialization-lane-20261009-r2"
++    "1370-c0-m0-operational-materialization-lane-20261009-r2",
++    "1370-c0-m0-additive-recorded-output-20261009-r2"
+   ],
+   "docsOnlyAllowedFiles": [
+     "HANDOFF.md"
+@@ -16,6 +18,7 @@
+   ],
+   "executionAuthorization": false,
+   "freshCompletePrivateInventoryRequired": true,
++  "m0FdProtectedRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+   "m0RecorderLockPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-20261009-r2.lock",
+   "materializerSha256": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896",
+   "observedCopyReceipt": {
+@@ -25,8 +28,8 @@
+   "observedDecision": "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+   "originalCopyProductionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+   "parentScopeAdoption": {
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+-    "sha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017"
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-aj-scope-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
++    "sha256": "13be428dfe3bdba1bc4ce4f2348bd194d2473c4c812df2b5f0bfec936b76b8e8"
+   },
+   "privateBaseline": {
+     "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/SNAPSHOT.json",
+@@ -36,15 +39,15 @@
+     "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+     "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+   },
+-  "productionHead": "02d50716fe787eaed425b40f822ce91f4463deba",
++  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+   "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+   "requiredFreeBytes": 3758096384,
+   "requiredPythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+   "requiredPythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+   "retainedHParent": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2",
+-  "schema": "1370-m0-operational-full-guard-config-r1",
++  "schema": "1370-m0-additive-after-aj-full-guard-config-r2",
+   "scratchParentPolicy": "Device/inode/mode strict. Parent mtime/ctime and child deltas informational; parallel authorized scratch-only preparations/reviews may create siblings. This exception never applies to production/common/copied roots or copied .git/node_modules.",
+   "sourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+   "sourceReviewSha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794",
+-  "status": "SOURCE_PROPOSAL_UNRUN_ROOT_REVIEW_AND_GRANT_REQUIRED"
++  "status": "SOURCE_PROPOSAL_UNRUN_CURRENT_SCOPE_ADOPTED_SCAN_GRANT_REQUIRED"
+ }

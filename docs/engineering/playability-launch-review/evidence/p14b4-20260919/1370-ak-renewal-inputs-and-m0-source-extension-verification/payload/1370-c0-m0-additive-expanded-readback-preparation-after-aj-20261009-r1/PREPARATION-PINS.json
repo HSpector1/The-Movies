@@ -1,0 +1,35 @@
+{
+  "files": {
+    "AUTHORING-SYNTAX-STOP.json": {
+      "bytes": 456,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/AUTHORING-SYNTAX-STOP.json",
+      "sha256": "442b28df5f3d5ad455380654857cf143dfa00fc1c8c83204ea174a2819fdf3ec"
+    },
+    "FINAL-PYTHON-LINKAGE.diff": {
+      "bytes": 2262,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/FINAL-PYTHON-LINKAGE.diff",
+      "sha256": "83390e445260ee6d933193f950f50ae4f3fce46f20ace172e85369d023239772"
+    },
+    "PREFINAL-ARCHIVE-MANIFEST.json": {
+      "bytes": 2344,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/PREFINAL-ARCHIVE-MANIFEST.json",
+      "sha256": "a810e0bfc17b410483ad4b41504807b40be73b557273bad3a57f36288870f0bc"
+    },
+    "READY.json": {
+      "bytes": 4467,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/READY.json",
+      "sha256": "849866e80ad505b64874726cc11f43d1d6db247e1206b825b965e8eee6600b40"
+    },
+    "prepare.py": {
+      "bytes": 23789,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/prepare.py",
+      "sha256": "add53944bf14d9aafab72bba43f7200825ff2254604f8abcee112a6bf4894f92"
+    },
+    "seal_source.py": {
+      "bytes": 3414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/seal_source.py",
+      "sha256": "fd43fbf6dae03f143f014e5d8b3f2d9d23fbf5fe55cb2b740e7301e36eeeffca"
+    }
+  },
+  "status": "SOURCE_AUTHORING_PROVENANCE_ONLY"
+}

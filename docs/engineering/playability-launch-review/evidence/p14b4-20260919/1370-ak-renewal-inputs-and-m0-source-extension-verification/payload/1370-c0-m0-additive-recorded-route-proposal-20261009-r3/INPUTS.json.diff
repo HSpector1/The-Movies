@@ -1,0 +1,11 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/INPUTS.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json
+@@ -677,7 +677,7 @@
+   "independentExactLaunchReview": null,
+   "lockSha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de",
+   "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+-  "operationalHead": "282f8477e61a33bd5ec4a571b934829490adef73",
++  "operationalHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+   "roles": {
+     "bridgeInputs": {
+       "bytes": 26930,

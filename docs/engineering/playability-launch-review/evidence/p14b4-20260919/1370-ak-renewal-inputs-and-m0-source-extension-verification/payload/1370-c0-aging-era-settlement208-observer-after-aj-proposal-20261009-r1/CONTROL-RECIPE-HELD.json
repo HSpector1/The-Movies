@@ -1,0 +1,47 @@
+{
+  "actualWitnessBoundsUnchanged": {
+    "inner": 720,
+    "settlement208Bytes": 65536,
+    "settlement208RowBytes": 4096,
+    "stdoutBytes": 524288,
+    "supervisorStop": 742,
+    "supervisorWhole": 750
+  },
+  "controlsClockAndOwnership": "Reuse already qualified recorded helper/finite test recorder under concrete root grant; exact owned PID/group retention and suite bounds must be reviewed before actual controls. These placeholder commands are not granted runnable argv.",
+  "controlsGrant": null,
+  "executionAuthorization": false,
+  "operationalRuntimeAuthority": null,
+  "productionHeadAtPreparation": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "prospectivePureCommands": [
+    [
+      "PINNED_NODE20",
+      "--test",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-synthetic.mjs",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-settlement208.mjs"
+    ],
+    [
+      "PINNED_PYTHON",
+      "-I",
+      "-B",
+      "-m",
+      "unittest",
+      "test-supervisor.py",
+      "test-outer.py",
+      "test-settlement208-frame.py"
+    ]
+  ],
+  "schema": "1370-a208-source-control-recipe-r1",
+  "scope": "Author exact runtime and helper argv only after new source controls admission/current binding. Source proposal contains no autoexecute.",
+  "selected16InputReview": null,
+  "sequence": [
+    "independent source/input/phase proof review",
+    "root exact recorded synthetic controls grant and observed admission",
+    "new exact filled binding/runtime/protected-root/current guard reviews and adoption",
+    "separate root actual once-only observer grant",
+    "full protected postflight and independent actual frame208+original416 controls review",
+    "future separately reviewed pure16 source-order pricing verification"
+  ],
+  "sourceReview": null,
+  "status": "SOURCE_ONLY_UNRUN",
+  "witnessGrant": null
+}

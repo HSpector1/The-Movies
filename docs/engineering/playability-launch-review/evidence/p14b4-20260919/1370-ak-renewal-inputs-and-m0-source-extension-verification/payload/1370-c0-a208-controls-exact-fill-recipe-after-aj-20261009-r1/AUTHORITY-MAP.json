@@ -1,0 +1,63 @@
+{
+  "executionAuthorization": false,
+  "externalWrapperMustCheck": [
+    "filled source review decision/sourcePins/config/recorder equality",
+    "prospective scope decision/limits/source identity",
+    "actual operational/tool/current guards",
+    "sole lane/fresh paths",
+    "actual final launch grant outside CONFIG"
+  ],
+  "futureActualLaunchGrant": null,
+  "futureFilledSourceReview": null,
+  "futureProspectiveScope": null,
+  "recorderChecks": {
+    "child": "owned fork/READY/GO, exact child argv, caps and observed report gate.",
+    "config": "Exact recorder CONFIG_SHA.",
+    "roles": "Each role hash authenticated before launch; cap16MiB per finite role.",
+    "runtimeGrant": "Dictionary shape only; no embedded decision validation.",
+    "sourceReview": "Not directly inspected; fill must add explicit role to roles map and external wrapper must verify its semantics."
+  },
+  "roles": [
+    {
+      "bytes": 3402,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/SOURCE-PINS.json",
+      "sha256": "1c267921f7dd0bb0db8e65ddf356bd9649f36658410324fc550a0cbc0f200cca"
+    },
+    {
+      "bytes": 13118,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/CONFIG.json",
+      "sha256": "4b269726743163f99ab9764a7a15041e24c7bd4a1d884ac54bdfee57c4049f39"
+    },
+    {
+      "bytes": 14467,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/record.py",
+      "sha256": "1aa053d9112cad523dc92fb22e8fc417ffc91c8718372efa0c9fe558896879a8"
+    },
+    {
+      "bytes": 8874,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/drive.py",
+      "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+    },
+    {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    },
+    {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    },
+    {
+      "bytes": 2280,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/ROUTE.json",
+      "sha256": "7db0f41d31c07324215ebf4072b1960957a69795214afd4b8bc8e6a5957ca182"
+    },
+    {
+      "bytes": 1573,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-independent-source-review-after-aj-20261009-r2/RECEIPT.json",
+      "sha256": "a4f568dc17dd37133a2ceb8f83a449622981ae6db9a48048a91028155543060c"
+    }
+  ],
+  "sourceOnly": true
+}

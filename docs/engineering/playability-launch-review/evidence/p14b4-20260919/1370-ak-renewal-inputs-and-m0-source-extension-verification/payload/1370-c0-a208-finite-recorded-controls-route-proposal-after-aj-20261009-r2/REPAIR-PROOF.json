@@ -1,0 +1,25 @@
+{
+  "driverOriginalObserverSuitesUnchanged": true,
+  "failure": "F1 producer gate mismatched pricing protocol",
+  "independentRefine": {
+    "bytes": 1245,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "b7e868add66837faadba87e682c7c79b146e994145513e398df953247e52fb09"
+  },
+  "newRecorderDiff": {
+    "bytes": 5012,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r2/R1-R2.diff",
+    "sha256": "2e151594c0182b4cc5e7e56c2e7d6d8e41825bebb89a7184db631feb8fe26f9d"
+  },
+  "originalOwnershipBoundsReused": {
+    "bytes": 1869,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/REUSE.json",
+    "sha256": "ee6815e9557843f596d9b38f13a4ce8505ccf30f9766a4451009db236ce57434"
+  },
+  "priorPins": {
+    "bytes": 2559,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "9d405a6cfae2fe81bf6356aeb93e0df8c75b5399c7a524978cc9db7a5b73986f"
+  },
+  "threeNoChildControlsAuthoredUnrun": true
+}

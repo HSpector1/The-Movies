@@ -1,0 +1,66 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/supervise.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/supervise.py
+@@ -18,13 +18,17 @@
+ OUTER_SECONDS = 750
+ CHILD_STOP_SECONDS = 742
+ SOURCE = '3aaf55e0c06c4b745b0b722cc56913050b1ee229'
+-SOURCE_FILES = ('witness-core.mjs', 'worktree-guard.mjs', 'bounds-guard.mjs', 'witness.mts', 'supervise.py', 'outer-recorder.py', 'POLICY.sb',
++SOURCE_FILES = ('witness-core.mjs', 'settlement208-core.mjs', 'worktree-guard.mjs', 'bounds-guard.mjs', 'witness.mts', 'supervise.py', 'outer-recorder.py', 'POLICY.sb',
+                 'test-synthetic.mjs', 'test-supervisor.py', 'test-outer.py',
+-                'BINDING-UNFILLED.json', 'PLAN.md')
+-OBSERVER_FILES = ('witness-core.mjs', 'worktree-guard.mjs', 'bounds-guard.mjs', 'witness.mts', 'supervise.py', 'outer-recorder.py', 'POLICY.sb')
++                'BINDING-UNFILLED.json', 'PLAN.md', 'SELECTION.json', 'synthetic-employment.json', 'test-settlement208.mjs', 'test-settlement208-frame.py', 'PHASE-INPUT-PROOF.json')
++OBSERVER_FILES = ('witness-core.mjs', 'settlement208-core.mjs', 'worktree-guard.mjs', 'bounds-guard.mjs', 'witness.mts', 'supervise.py', 'outer-recorder.py', 'POLICY.sb')
+ RUNTIME_FILES = ('package.json', 'package-lock.json', 'node_modules/vite/package.json',
+                  'node_modules/vite-node/package.json', 'node_modules/vite-node/vite-node.mjs')
+ BLOB_PINS = {
++    'src/core/talentMarket.ts': 'f036fcec9191374dc5554c5cdc33372b53cd7926',
++    'src/core/talentSummary.ts': 'f8e8539d3c0f780e58027640de333d6168db7654',
++    'src/core/tuning.ts': 'c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9',
++
+     'src/core/aging.ts': 'e1b88562ded631e0142b2783555e866d4a884d04',
+     'src/core/employment.ts': 'e8e5acaa1e6a94ac1de7db13eb46840efb55616f',
+     'src/core/hollywood.ts': '377da502bcfa55afe31c243ab0909b2c0012d269',
+@@ -216,7 +220,7 @@
+     if sha(receipt_bytes) != review_binding['sha256']:
+         raise RuntimeError('STOP_SOURCE_REVIEW_PIN')
+     receipt = json.loads(receipt_bytes)
+-    if (receipt.get('schema') != '1370-c0-aging-era-employment-witness-independent-static-review-r9' or
++    if (receipt.get('schema') != '1370-c0-aging-era-settlement208-witness-independent-static-review-r1' or
+             receipt.get('status') != 'FROZEN_SOURCE_ONLY_UNRUN' or
+             receipt.get('sourceDirectory') != str(source_dir) or
+             receipt.get('sourcePinsSha256') != sha(manifest_bytes) or
+@@ -231,11 +235,33 @@
+     return receipt
+ 
+ 
++def validate_settlement208_payload(frame):
++    encoded = frame['settlement208Base64']
++    if not isinstance(encoded, str) or len(encoded) > 4 * ((64 * 1024 + 2) // 3):
++        raise ValueError('a208-encoded-cap')
++    raw = base64.b64decode(encoded, validate=True)
++    if (not raw or len(raw) > 64 * 1024 or frame['settlement208Bytes'] != len(raw) or
++            frame['settlement208Rows'] != 16 or
++            hashlib.sha256(raw).hexdigest() != frame['settlement208Sha256'] or
++            base64.b64encode(raw).decode('ascii') != frame['settlement208Base64']):
++        raise ValueError('a208-bytes-role')
++    value = json.loads(raw.decode('utf8'))
++    if (value.get('schema') != '1370-a208-selected16-snapshot-r1' or
++            value.get('phase') != 'after-natural-tick208-return' or value.get('week') != 208 or
++            value.get('seed') != 'p13a-core-causal-01' or
++            not isinstance(value.get('rows'), list) or len(value['rows']) != 16 or
++            value.get('pricingHelpersCalled') != 0 or value.get('extraRngCalls') != 0 or
++            value.get('premiumAttribution') is not False or value.get('floorAttribution') is not False):
++        raise ValueError('a208-phase-role')
++    return value
++
++
+ def validate_frame(raw, profile):
+     if not raw.endswith(b'\n') or raw.count(b'\n') != 1 or len(raw) > MAX_STDOUT:
+         raise RuntimeError('STOP_FRAME_SHAPE')
+     try:
+         frame = json.loads(raw.decode('utf8'))
++        validate_settlement208_payload(frame)
+         if frame['status'] != 'MATCHED_AGING_ERA_PREIMAGE_CANDIDATE' or frame['protocol'] != PROTOCOL:
+             raise ValueError('status/protocol')
+         if frame['sourceSha'] != SOURCE or frame['seed'] != 'p13a-core-causal-01' or frame['weeks'] != 416:

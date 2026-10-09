@@ -1,0 +1,49 @@
+{
+  "dependencyCounts": {
+    "directory": 1401,
+    "regular": 11060,
+    "symlink": 24
+  },
+  "dependencyRegularRecordFields": [
+    "acl",
+    "bytes",
+    "inode",
+    "mode",
+    "sha256",
+    "type",
+    "xattrs"
+  ],
+  "docsOnlyChangedPathCount": 2349,
+  "evidencePinsSha256": "5b38eae5b5f523835d9a6883ad65c279437159cfa69550bb846fb622a19499d2",
+  "freshScannerPidPgidAbsent": 93713,
+  "fullScanRerun": false,
+  "heavyLockAbsent": true,
+  "physicalCheckoutCount": 176,
+  "previousPrivateProofSha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347",
+  "privateFieldsExact": [
+    "full physicalCheckout",
+    "full copiedDependencies",
+    "full productionDependencies",
+    "copied protected digest",
+    "original binding/supervisor/result/payload hashes",
+    "allocation",
+    "three strict private roots and ancestry"
+  ],
+  "schema": "1370-m0-current-aj-observed-full-guard-independent-audit/v1",
+  "scratchSiblingAdded": [
+    "1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1",
+    "1370-c0-m0-additive-exact-fill-mapping-after-aj-20261009-r1",
+    "1370-c0-renewal208-pure16-pricing-verifier-independent-source-review-after-aj-20261009-r1",
+    "1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2",
+    "1370-c0-renewal208-pure16-pricing-verifier-repair-preparation-after-aj-20261009-r1",
+    "author_mapping_neutral.py",
+    "read_finite_mapping_neutral.py",
+    "read_finite_mapping_second_neutral.py",
+    "read_finite_mapping_third_neutral.py",
+    "read_mapping_fourth_neutral.py"
+  ],
+  "scratchSiblingRemoved": [],
+  "snapshotSha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912",
+  "sourceImportsOrExecution": false,
+  "strictRootCount": 9
+}

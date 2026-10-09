@@ -1,0 +1,7 @@
+{
+  "status": "ROOT_STATIC_AUDIT_TEXT_MATCH_ERROR_NO_CANDIDATE_EXECUTION",
+  "actualToolChunk": "e86eae",
+  "exitCode": 1,
+  "originalScriptSha256": "1d06b731f61dde40056f4036e87fc360719cc5808908071e0cbcb595b2be12ac",
+  "failure": "Assertion line28 expected a space in renewalCauseAdmission: false; actual frozen core has renewalCauseAdmission:false. No runtime pricing or candidate test ran. Original retained; corrected only review spelling in fresh script."
+}

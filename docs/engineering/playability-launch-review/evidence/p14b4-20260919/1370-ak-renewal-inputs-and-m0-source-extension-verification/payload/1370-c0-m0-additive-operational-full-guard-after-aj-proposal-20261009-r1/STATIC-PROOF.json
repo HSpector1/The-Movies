@@ -1,0 +1,81 @@
+{
+  "allDependencyInventoryProtectedDigestAndPrivateProofEqualityPredicatesUnchanged": true,
+  "exactOldBytesAfterInverseSubstitutions": true,
+  "mainExecutionGuardsUnchangedExceptSnapshotSchemaAndClaimLabel": true,
+  "newM0FdScopeOnly": true,
+  "newRootInProtectedInventory": false,
+  "parentScopeDraftFailsExistingStatusAndDocsVerifiedGateBeforeHelperImport": true,
+  "preparationExecution": "stdlib source/data authoring only; no guard/helper import, fullscan, source execution, Node, Git, tests or game",
+  "sourceConfigChanges": {
+    "declaredWitnessScratchChildren": {
+      "new": [
+        "1370-c0-m0-observer-mirrors-20261009-r2",
+        "1370-c0-m0-additive-recorded-output-20261009-r2",
+        "1370-c0-m0-additive-input-lane-20261009-r2"
+      ],
+      "old": [
+        "1370-c0-m0-observer-mirrors-20261009-r2",
+        "1370-c0-m0-recorded-materialization-output-20261009-r2",
+        "1370-c0-m0-operational-materialization-lane-20261009-r2"
+      ]
+    },
+    "m0FdProtectedRoot": {
+      "new": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+      "old": null
+    },
+    "m0RecorderLockPath": {
+      "new": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-20261009-r2.lock",
+      "old": "/Users/zacheryspector/studio-scratch/1370-c0-m0-recorded-materialization-20261009-r2.lock"
+    },
+    "parentScopeAdoption": {
+      "new": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r1/PARENT-SCOPE-ADOPTION-DRAFT.json",
+        "sha256": "13f5b4b97ced2f3dac439a626dd3f27749ab1640095a785c76f6363200537fdf"
+      },
+      "old": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+        "sha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017"
+      }
+    },
+    "productionHead": {
+      "new": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+      "old": "02d50716fe787eaed425b40f822ce91f4463deba"
+    },
+    "schema": {
+      "new": "1370-m0-additive-after-aj-full-guard-config-r1",
+      "old": "1370-m0-operational-full-guard-config-r1"
+    },
+    "status": {
+      "new": "SOURCE_PROPOSAL_UNRUN_PARENT_SCOPE_UNADOPTED_ROOT_REVIEW_AND_GRANT_REQUIRED",
+      "old": "SOURCE_PROPOSAL_UNRUN_ROOT_REVIEW_AND_GRANT_REQUIRED"
+    }
+  },
+  "sourceSubstitutions": [
+    [
+      "CONFIG_SHA='03d8bdfeba06f14d9f371484805f66d7fcc1013825e9d0875a4368f0d5a9033d'",
+      "CONFIG_SHA='2cbfe932211d5e54afc7c6085a36df57dd77bcf2ecf02003d4324e390cd38678'"
+    ],
+    [
+      "'/1370-c0-m0-recorded-materialization-route-proposal-')",
+      "'/1370-c0-m0-recorded-materialization-route-proposal-','/1370-c0-m0-additive-recorded-route-proposal-')"
+    ],
+    [
+      " module.assert_no_protected_writable_fds(dict(binding,productionRoot=config['retainedHParent'],commonGitRoot=config['retainedHParent']))",
+      " module.assert_no_protected_writable_fds(dict(binding,productionRoot=config['retainedHParent'],commonGitRoot=config['retainedHParent']))\n module.assert_no_protected_writable_fds(dict(binding,productionRoot=config['m0FdProtectedRoot'],commonGitRoot=config['m0FdProtectedRoot']))"
+    ],
+    [
+      "'fdOriginalAndEphemeralAndRetainedHPassed':True",
+      "'fdOriginalAndEphemeralAndRetainedHPassed':True,'fdOriginalM0ParentPassed':True"
+    ],
+    [
+      "'schema':'1370-m0-operational-full-guard-snapshot-r1'",
+      "'schema':'1370-m0-additive-after-aj-full-guard-snapshot-r1'"
+    ],
+    [
+      "operational production/common baseline is02d507.",
+      "operational production/common baseline isAJf0fb818. M0 original1677 preservation is separately checked by accepted additive route/readback; it is not in this guard immutable inventory."
+    ]
+  ],
+  "syntaxParsedOnly": true,
+  "unchangedUtilityFunctions": 9
+}

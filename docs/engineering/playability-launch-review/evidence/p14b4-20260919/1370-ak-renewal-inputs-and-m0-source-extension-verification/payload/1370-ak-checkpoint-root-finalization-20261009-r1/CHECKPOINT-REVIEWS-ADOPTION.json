@@ -1,0 +1,24 @@
+{
+  "acceptedPreReviewInventory": {
+    "bytes": 543325,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-pre-review-inventory-preparation-20261009-r2/INVENTORY-FINAL-PRE-REVIEW.json",
+    "sha256": "b24ecd8aa02ee4f1e2102dea81b95e4e74bf6a830794fb1845458a63e2850bea"
+  },
+  "claimsReview": {
+    "bytes": 2246,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-claims-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "5fbbf1647f919ef23a70926ea0dde693df7fd24d39931adf34af3dd43edbbc33"
+  },
+  "inventoryReview": {
+    "bytes": 2020,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-complete-pre-review-inventory-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "b04d8d99d2363ceb73732a9e547f216bd0e9f586337edf115bf8c9b2f767cf7d"
+  },
+  "permittedChanges": "Exact stale warning correction plus finite documentary/review/adoption/finalization roles only; no scientific role changes.",
+  "priorAJTransport": "65 references,60 distinct roles,five identical repeated references; no payload duplication.",
+  "pythonControlsAccepted": false,
+  "rawMachineAndPaddingPayloadsRemainLocal": true,
+  "runtimeAuthorization": false,
+  "stagedAndPublishedReadbacks": "Performed after archive creation and intentionally outside this noncircular inventory.",
+  "status": "ROOT_ADOPTED_CHECKPOINT_CLAIMS_AND_FINITE_INVENTORY_REVIEWS"
+}

@@ -1,0 +1,44 @@
+{
+  "claimQualifications": [
+    "Postflight is read-only baseline equality; source acceptance does not supply current equality or positive additive admission.",
+    "Expanded readback review may be accepted pending protected postflight; requiring final observed success before running postflight would create a dependency cycle.",
+    "Filled candidate PINS remain original exact pre-adoption evidence; compare original binding hashes against preserved archive, not updated adopted binding. Actual outcome/readback must bind adopted raw/hash/core/semantic separately.",
+    "Wrapper hashes roles and requires exact review; independent exact reviewer must check outcome/readback decisions/content and numeric provenance, not merely existence/hash.",
+    "Source fullguard excludes original M0 inventory; expanded readback/check_old supply that separate protection role.",
+    "No owned numeric values invented; all remain future inputs."
+  ],
+  "exactAllDeclaredSubstitutionsReplay": true,
+  "findings": [],
+  "futureExactDecision": "ACCEPT_EXACT_POSTFLIGHT_FULL_GUARD_ARGV_AND_OBSERVED_ADDITIVE",
+  "futureProposalRequirements": [
+    "exact postflight argv prefix plus original baseline744095 path/hash and actual owned CSV",
+    "candidate PINS historical exact stage role and adopted binding/actual outcome relationship",
+    "actual additive outcome role with genuine tool/helper/supervisor/worker/child identities",
+    "independent expanded-readback role with explicit pending protected-postflight scope",
+    "actual distinct positive owned numeric IDs/groups and CSV source-proof",
+    "accepted baseline201d adoption and744095 snapshot roles consistent with argv",
+    "physical existing0700 evidence parent and fresh declared postflight outputs"
+  ],
+  "importsScansTestsGitToolsNodeGameOrProtectedWrites": false,
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-afterfill-grant-preparation-after-aj-20261009-r1/grant_after_fill.py",
+    "sha256": "4344a9bb4227b42af0aa0f17973a976e0fc6605ccd26acb3b4b8b161d5aaf775"
+  },
+  "prepareNote": {
+    "bytes": 2055,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/PREPARE-NOTE.json",
+    "sha256": "4cd3034fddeb8031a5f2a3b747a6f723782e272f38d0cc4ecf1142885d62d6a0"
+  },
+  "requiredExactReceiptFields": [
+    "exactArgvProposal full role object",
+    "argv exact list",
+    "wrapperSha256"
+  ],
+  "sourceExecutionPerformed": false,
+  "unchangedRoleAndGitFunctionAsts": true,
+  "wrapper": {
+    "bytes": 5726,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/grant_postflight.py",
+    "sha256": "e5e7bee050f4c69fe44eaa1c215f129e097705a60dfcbb0db6e2b93e3caf5f06"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "base12FilesAuthenticated": true,
+  "executionAuthorization": false,
+  "externalRolesAuthenticated": 20,
+  "newJSControlGroupsAuthored": 7,
+  "newNodeEngineCompilerHelperPricingRngCallsExecuted": false,
+  "newPythonTransportMethodsAuthored": 2,
+  "originalR9CoreLedgerControlsAndSelectedSourceHelpersByteIdentical": true,
+  "pythonUnchangedOwnershipClockPolicyCleanupFunctionASTs": {
+    "outer-recorder.py": [
+      "FailureStop",
+      "failure_record",
+      "failure_line",
+      "group_alive",
+      "reap",
+      "start_group",
+      "signal_owned",
+      "clear_group",
+      "run_recorded",
+      "forward_frame",
+      "main"
+    ],
+    "supervise.py": [
+      "FailureStop",
+      "failure_record",
+      "failure_line",
+      "sha",
+      "stop_child",
+      "digest_map",
+      "validate_bounds_roles",
+      "require_launch_window",
+      "validate_null_device",
+      "main"
+    ]
+  },
+  "requiredObservedA208Role": null,
+  "schema": "1370-a208-static-author-checks-r1",
+  "sourceMapKeyOrdersLiteralExtractedFromPinnedTuning": true,
+  "sourceOnly": true
+}

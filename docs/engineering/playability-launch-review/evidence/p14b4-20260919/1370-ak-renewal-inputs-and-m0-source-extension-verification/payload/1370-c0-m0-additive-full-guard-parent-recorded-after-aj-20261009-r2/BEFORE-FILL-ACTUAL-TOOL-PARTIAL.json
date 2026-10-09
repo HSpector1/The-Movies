@@ -1,0 +1,29 @@
+{
+  "chunks": [
+    {
+      "chunk_id": "d0230a",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 43355,
+      "wall_time_seconds": 1.001806479
+    },
+    {
+      "chunk_id": "f26a6a",
+      "original_token_count": 67,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-GRANT.json\", \"bytes\": 3752, \"sha256\": \"b049a5611db92b4a1cf5608999547b7d65442e022f9312f1345429e4accbd286\"}, \"snapshotPid\": 93713}\n",
+      "session_id": 43355,
+      "wall_time_seconds": 5.001150152
+    },
+    {
+      "chunk_id": "33ca38",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 43355,
+      "wall_time_seconds": 5.000572744
+    }
+  ],
+  "schema": "actual-tool-chunks/v1",
+  "snapshotPid": 93713,
+  "status": "RUNNING_NOT_COMPLETE",
+  "toolSessionId": 43355
+}

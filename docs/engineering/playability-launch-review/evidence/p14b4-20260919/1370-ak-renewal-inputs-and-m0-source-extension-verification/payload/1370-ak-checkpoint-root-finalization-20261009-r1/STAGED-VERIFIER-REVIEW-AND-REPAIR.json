@@ -1,0 +1,9 @@
+{
+  "reviewer": "GPT-6.1 Sol b_one_tick_r2_review",
+  "role": "Source-only static diff, no execution",
+  "originalSha256": "00d4d834b2457bfd27ad3435252c60a5d75556b737b9be4215c2a2d129d5ceda",
+  "finding": "Summary18 count alone did not enforce18 actual LOCAL rows.",
+  "repair": "Fresh r2 adds exact actual LOCAL disposition count assertion; r1 retained unchanged.",
+  "repairedSha256": "2a4fdf3bac3bdad033f0b09368ee76c074643a26106f120d3f739b3292e61478",
+  "scope": "Other differences from AJ remain AK path/base/report,18 counts and stronger no local archive/Git predicate. Exact staged/prior object readback retained."
+}

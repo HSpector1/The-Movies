@@ -1,0 +1,34 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/BINDING-UNFILLED.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/BINDING-UNFILLED.json
+@@ -1,14 +1,20 @@
+ {
++  "boundsAmendment": null,
++  "controlsGrant": null,
++  "independentSourceReviewReceipt": null,
++  "nodeExecPath": null,
++  "nodeVersion": null,
++  "observerSha256": null,
++  "operationalRuntimeAuthority": null,
++  "outputProtocol": "single-bounded-stdout-frame-no-files",
++  "parentBoundsAdoption": null,
++  "premiumFloorReview": null,
++  "productionHeadAtPreparation": null,
++  "repoRoot": null,
++  "runtimeSha256": null,
++  "selected16InputReview": null,
++  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+   "status": "UNFILLED_UNRUN",
+-  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+-  "repoRoot": null,
+-  "observerSha256": null,
+-  "runtimeSha256": null,
+-  "worktreeSha256": null,
+-  "nodeVersion": null,
+-  "nodeExecPath": null,
+-  "boundsAmendment": null,
+-  "parentBoundsAdoption": null,
+-  "independentSourceReviewReceipt": null,
+-  "outputProtocol": "single-bounded-stdout-frame-no-files"
++  "witnessGrant": null,
++  "worktreeSha256": null
+ }

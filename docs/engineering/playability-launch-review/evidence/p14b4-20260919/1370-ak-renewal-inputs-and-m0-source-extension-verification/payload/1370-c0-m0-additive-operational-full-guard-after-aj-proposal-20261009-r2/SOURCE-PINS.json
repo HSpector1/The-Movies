@@ -1,0 +1,61 @@
+{
+  "M0OriginalPreservationSeparatelyRequired": true,
+  "currentGuardObserved": false,
+  "executionAuthorization": false,
+  "files": {
+    "ARGV-PROPOSAL.json": {
+      "bytes": 3262,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/ARGV-PROPOSAL.json",
+      "sha256": "5f86c4b8a2f868d9de0fab07f7243f1aa6db7ffc0414058668343be49df01e52"
+    },
+    "CONFIG-DIFF.patch": {
+      "bytes": 3881,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG-DIFF.patch",
+      "sha256": "e78c4d6553abd20fe2a557866d290808f03c4f9c9da4c82895779da28ed93ce6"
+    },
+    "CONFIG.json": {
+      "bytes": 3536,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG.json",
+      "sha256": "a4b88b0181bf525f6144a71f05bb7d78a17fd46bbfbe88d0e2aea90a89874b4c"
+    },
+    "DIFF.patch": {
+      "bytes": 7910,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/DIFF.patch",
+      "sha256": "8857f8264648bf3199a96434f029a155a7bffdc446c2bf9647aaf980826e3fee"
+    },
+    "PLAN.md": {
+      "bytes": 5606,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/PLAN.md",
+      "sha256": "73f96ea428ac6d839e7b0affa1f4471faf35338fbb61a65a6bd0168f13819c60"
+    },
+    "PROVENANCE.json": {
+      "bytes": 6788,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/PROVENANCE.json",
+      "sha256": "757ab01e285d8a8ff800b95bb07b20843055f9184ba75fc4b3c9a50e96260e94"
+    },
+    "STATIC-PROOF.json": {
+      "bytes": 4015,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/STATIC-PROOF.json",
+      "sha256": "3b1273e769a77c8da4b018baa00289630e8c0830cb58d29c66bb00e223215f57"
+    },
+    "fill.py": {
+      "bytes": 8331,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/fill.py",
+      "sha256": "2252cf378b1f508c5581f5568f57df3ea734703e30243efd81b3f75779d138c8"
+    },
+    "snapshot.py": {
+      "bytes": 21431,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+      "sha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee"
+    }
+  },
+  "freshFullInventoryRequired": true,
+  "importsTestsFullScansMaterializationGitExecuted": false,
+  "parentScopeAdopted": true,
+  "parentScopeAdoptionSha256": "13be428dfe3bdba1bc4ce4f2348bd194d2473c4c812df2b5f0bfec936b76b8e8",
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "m0-additive-after-aj-full-guard-source-pins/v2",
+  "status": "READY_INDEPENDENT_SOURCE_AND_EXACT_ARGV_REVIEW_REQUIRED_UNRUN",
+  "syntaxParsedOnly": true
+}

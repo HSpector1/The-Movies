@@ -1,0 +1,46 @@
+{
+  "a208GameGranted": false,
+  "executionAuthorization": false,
+  "freshKnownPidsAndPgidsAbsent": [
+    33099,
+    33363,
+    37572,
+    37835,
+    37840,
+    37842,
+    37844,
+    37847,
+    37849,
+    37856,
+    37857,
+    37858,
+    37860,
+    37862,
+    37863
+  ],
+  "globalProcessAbsenceClaim": false,
+  "js13Accepted": true,
+  "jsReview": {
+    "bytes": 5975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-js-controls-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "1abeefa371df36fa0bad2a9cf1c435bb9ea55abe6fa78daac2d92f3a9b3ee85a"
+  },
+  "lateNumericAbsenceDoesNotRetroactivelyPassCleanup": true,
+  "next": "Independently review diagnostic source plan, then separately adopt only bounded failure-capture repair preparation. Preserve failed run and stop dependent game/pricing work. No blind retry.",
+  "pythonControlsAccepted": false,
+  "pythonDriverCleanupFailed": true,
+  "pythonExactEpermTargetCauseAndAlarmRelationUnknown": true,
+  "pythonReportedMethodsOk": 17,
+  "pythonStopReview": {
+    "bytes": 8497,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-stop-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "61b7698513fbe12d0f2705da01e70762f41fd2544254cadc09e381f3459b0496"
+  },
+  "renewalCausesClosed": 0,
+  "schema": "1370-a208-controls-observed-parent-adoption/v1",
+  "soleHeavyLaneReleased": true,
+  "sourcePinsSha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5",
+  "sourceTreeUnchanged": true,
+  "status": "ROOT_ADOPTED_JS13_SUCCESS_AND_PYTHON_STOP_NO_GAME_GRANT",
+  "utc": "2026-10-09T21:08:36.754084+00:00"
+}

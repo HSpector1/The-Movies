@@ -1,0 +1,19 @@
+{
+  "actualControlsQualification": false,
+  "blockingFindings": [
+    "F1"
+  ],
+  "configSha256": "1d6c6bc66e053296dfb6d8aa115d7d093d94d4b30c42983aafff561388aa762f",
+  "decision": "REFINE_SOURCE_ONLY_UNRUN",
+  "driverSha256": "7e4437d2a3a15b711ad10a470ed1fdb9cfbc9104df7ef39e2245c07bd7240ce3",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "factsSha256": "389a60edaf3dc5ae23c64e646aa896296a3c9639cd9f0792bea72a869aec86b1",
+  "findingsSha256": "2e9efda5be63a058b799ee289201e998d259c215775462394392f49e4db4c289",
+  "observerSourceReviewSha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8",
+  "recorderSha256": "4aa3c90e51abf8cbcdf88837e45c728e4d41f749f67c3af677762957b453363b",
+  "requiredFutureSourceGate": "Use this fresh review schema with ACCEPT_SOURCE_ONLY_UNRUN_A208_FINITE_CONTROLS_ROUTE only after corrected report gates are independently accepted; no current runtime grant is admitted.",
+  "schema": "1370-a208-finite-recorded-controls-independent-source-review-r1",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-proposal-after-aj-20261009-r1",
+  "sourcePinsSha256": "9d405a6cfae2fe81bf6356aeb93e0df8c75b5399c7a524978cc9db7a5b73986f"
+}

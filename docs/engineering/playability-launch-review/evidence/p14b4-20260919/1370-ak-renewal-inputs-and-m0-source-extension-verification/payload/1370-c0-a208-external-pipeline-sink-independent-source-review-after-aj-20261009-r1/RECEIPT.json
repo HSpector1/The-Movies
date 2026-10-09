@@ -1,0 +1,47 @@
+{
+  "a208ValuesMeasured": false,
+  "actualControlsObserved": false,
+  "actualRuntimeGrant": null,
+  "checks": {
+    "bytes": 16385,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-independent-source-review-after-aj-20261009-r1/CHECKS.json",
+    "sha256": "54a2c29ba9350bd298309a130a7b0fd6117b62a663e554659c46e2adabae87e2"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_EXTERNAL_PIPELINE_SINK",
+  "executionAuthorization": false,
+  "findings": [],
+  "observerSourcePins": {
+    "bytes": 9882,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+  },
+  "observerSourceReview": {
+    "bytes": 5517,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+  },
+  "pipeline": {
+    "bytes": 1244,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+    "sha256": "46640b541fb04c67fcd5f72602ab128ca056416cd37ad946f248a50da1d6886a"
+  },
+  "report": {
+    "bytes": 1327,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-independent-source-review-after-aj-20261009-r1/REPORT.md",
+    "sha256": "71d017bab6036db863cc5173debb38fd63156577d55f37deed2cfb95a50b1892"
+  },
+  "schema": "1370-a208-external-pipeline-sink-independent-source-review-after-aj-v1",
+  "sink": {
+    "bytes": 3682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/bounded-sink-a208-held.py",
+    "sha256": "9138c982912f53d8241721ec231555de3d8e9dae959e651c9b36dcf96a4f9700"
+  },
+  "sourceImportedOrExecuted": false,
+  "sourcePins": {
+    "bytes": 2650,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "470026455632aeac39bf57c3db45722fdd68b96f24689fdee70c3c1da8d40748"
+  },
+  "sourcePinsSha256": "470026455632aeac39bf57c3db45722fdd68b96f24689fdee70c3c1da8d40748",
+  "utc": "2026-10-09T20:55:06.680055+00:00"
+}

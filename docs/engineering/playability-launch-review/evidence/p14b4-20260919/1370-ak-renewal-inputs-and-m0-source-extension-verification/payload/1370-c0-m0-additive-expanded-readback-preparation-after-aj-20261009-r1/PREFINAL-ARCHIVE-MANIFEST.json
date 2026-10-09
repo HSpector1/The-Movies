@@ -1,0 +1,42 @@
+{
+  "files": {
+    "CONFIG.json": {
+      "bytes": 2280,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/PREFINAL-SOURCE-PACKAGE/CONFIG.json",
+      "sha256": "db98b6e308bc0e2be991a1131a7064c62015af4a29585afd659d8299743d7560"
+    },
+    "FILL-REQUIREMENTS.json": {
+      "bytes": 1256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/PREFINAL-SOURCE-PACKAGE/FILL-REQUIREMENTS.json",
+      "sha256": "08f600c64d8ef84e8b1c8a03cd74037e8f3ae68292ae6030e41c83eedb7b8a38"
+    },
+    "RECIPE.json": {
+      "bytes": 764,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/PREFINAL-SOURCE-PACKAGE/RECIPE.json",
+      "sha256": "d4d282c639a655e02effc00ed65722839b2b63387b205a584abf8a123b81ceb9"
+    },
+    "REPORT.md": {
+      "bytes": 1168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/PREFINAL-SOURCE-PACKAGE/REPORT.md",
+      "sha256": "2d178143d856658fc58c7d139048b106e95370cc3072427d8432524b9f774a76"
+    },
+    "REUSE-PROOF.json": {
+      "bytes": 1004,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/PREFINAL-SOURCE-PACKAGE/REUSE-PROOF.json",
+      "sha256": "4d8b583d45dcdf7f94fb7f9b7b4c908516fd4078bb80dae09c6211bd029fdcce"
+    },
+    "SOURCE-PINS.json": {
+      "bytes": 1566,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/PREFINAL-SOURCE-PACKAGE/SOURCE-PINS.json",
+      "sha256": "1b6697695b838969590f47a1791dcb64e701a2ab91025029c4de27486be7b69b"
+    },
+    "verify-expanded.py": {
+      "bytes": 18477,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-preparation-after-aj-20261009-r1/PREFINAL-SOURCE-PACKAGE/verify-expanded.py",
+      "sha256": "b8610357ff410e114f8f7361d7033b8f34c629f6ae03f4fdddede65b3c581304"
+    }
+  },
+  "originalRolePathsRemainHistorical": true,
+  "originalSourcePinsSha256": "1b6697695b838969590f47a1791dcb64e701a2ab91025029c4de27486be7b69b",
+  "status": "PREFINAL_ANNOUNCED_BYTES_PRESERVED_BEFORE_FINAL_PYTHON_LINKAGE"
+}

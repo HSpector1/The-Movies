@@ -1,0 +1,37 @@
+{
+  "actualAdditiveExecuted": false,
+  "adoptedBinding": {
+    "bytes": 13448,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-final-candidate-after-aj-20261009-r1/BINDING-DRAFT.json",
+    "sha256": "35e596a0ee6d5119fd2a84f03f3fc0a7398be1208a8f65e4c4824ca67e269a50"
+  },
+  "adoptedLaunch": {
+    "bytes": 3571,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-parent-adoption-after-aj-20261009-r1/ADOPTED-LAUNCH-SPEC.json",
+    "sha256": "4bdca6f36f0dd20067da512a5f3bf01c840043a236c1000862f8acf93ab27c08"
+  },
+  "archiveManifest": {
+    "bytes": 5234,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-exact-pre-adoption-archive-after-aj-20261009-r1/ARCHIVE-MANIFEST.json",
+    "sha256": "d93b83ce358c59c4ce44b9af262d0fb72c7e17e606f3433b843089c2de37b041"
+  },
+  "bindingSemanticSha256": "3949fb78642c7324d61e1c23f967f10a056e17d3a5ae5a850ebbb73969c4e8e5",
+  "decision": "ACCEPT_M0_ADDITIVE_ADOPTED_PREFLIGHT",
+  "executionAuthorization": false,
+  "facts": {
+    "bytes": 11263,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-adopted-preflight-independent-review-after-aj-20261009-r1/FACTS.json",
+    "sha256": "c172a1b1049a74277893ae24039b9c7530630982bd1ed7a01c66963dfc375f45"
+  },
+  "findings": [],
+  "freshProductionCommonFullProofAccepted": true,
+  "guardCoreSha256": "69f4a0a4e5bb4d686ef03178dafa9b4c27c11d8671745d61a0537fd725adf69d",
+  "productionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "r9PrivateRootReuseExplicitlyAccepted": true,
+  "schema": "1370-m0-additive-adopted-preflight-independent-review-r1",
+  "wrapper": {
+    "bytes": 6951,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-grant-additive.py",
+    "sha256": "be3a92487ba1ffd55865444e5b27cf487658fbceb56a2b8a8039045799cd4a06"
+  }
+}

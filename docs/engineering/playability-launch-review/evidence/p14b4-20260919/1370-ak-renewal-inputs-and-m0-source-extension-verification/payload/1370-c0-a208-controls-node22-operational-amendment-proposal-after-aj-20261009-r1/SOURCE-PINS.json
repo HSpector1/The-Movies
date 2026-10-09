@@ -1,0 +1,24 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "PROPOSED-AMENDMENT.json": {
+      "bytes": 4491,
+      "mode": "0600",
+      "nlink": 1,
+      "sha256": "df2388f17e90bcce7db0397fc9f7d706a4c2db9c823567c272fede7572c06310"
+    },
+    "REPORT.md": {
+      "bytes": 1408,
+      "mode": "0600",
+      "nlink": 1,
+      "sha256": "e83f905c3dad81c05078020e07c75d9eb502cbcb025a58aeb1e22c1600f7ba43"
+    },
+    "ROLE-PROOF.json": {
+      "bytes": 10940,
+      "mode": "0600",
+      "nlink": 1,
+      "sha256": "d25766b041273c87d2e730bebb9b8ee713b21d6a0c685928ca1b9cc4a3b7fdc2"
+    }
+  },
+  "schema": "1370-a208-node22-operational-amendment-proposal-pins-v1"
+}

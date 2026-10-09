@@ -1,0 +1,133 @@
+{
+  "currentProductionHeadFromAuthenticatedParentScope": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "guardPredecessorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/SOURCE-PINS.json",
+  "guardPredecessorSha256": "3293ac99fc8e43b5834cf4e4330f85501295915fd9e2c2da48b5e88d941e856e",
+  "historicalR2SourceAndInputsPreserved": true,
+  "noGitNodeHelperEngineTestsGuardOrScansRun": true,
+  "noMirrorsReadOrWritten": true,
+  "originalSevenObservedControlsPreserved": true,
+  "parentCurrentAjScopeAdopted": true,
+  "roles": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/INPUTS.json": {
+      "bytes": 27220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-bridge-dependency-proposal-20261009-r2/INPUTS.json",
+      "sha256": "d72e3292aff7d640c544e752e7bd54f6b66aebebf8a82cadda110d74f8111520"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-observed-independent-review-20261009-r2/RECEIPT.json": {
+      "bytes": 4164,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-observed-independent-review-20261009-r2/RECEIPT.json",
+      "sha256": "9da1cfa0797a7bc85c1193e6481cf84ee690f04bb309edda6fd70eccec27b075"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/ADOPTION.json": {
+      "bytes": 1830,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-controls-parent-recorded-20261009-r2/ADOPTION.json",
+      "sha256": "924fe37d4b09f58a5d442aa5612800fea06868396ef3ee176936ae8a48b80c79"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/SOURCE-PINS.json": {
+      "bytes": 2676,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "73bbea8af39d83aad7d674a905f3879ba6144c40fc726687b1640f99b1c1f97e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/test_controls.py": {
+      "bytes": 8277,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-controls-proposal-20261009-r2/test_controls.py",
+      "sha256": "bb4d65b110dde271da8940277dd244e8f0796fa34e8ad4395cb4ca4d1f8bcb9a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-source-review-20261009-r2/ROUTE-RECEIPT.json": {
+      "bytes": 2100,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-independent-source-review-20261009-r2/ROUTE-RECEIPT.json",
+      "sha256": "81492801b0284d73c65b63e0082473e6b45767a673b2248898f40f8ae29870f9"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/ARGV-ROLE.json": {
+      "bytes": 544,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/ARGV-ROLE.json",
+      "sha256": "066475e5e4804f6396cc76cc7e8603fc10be2f8427f166078d8c82b90edbc99a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/ARGV-ROLE.json.diff": {
+      "bytes": 666,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/ARGV-ROLE.json.diff",
+      "sha256": "99ac1e45b3cf98c82c76fc46593731406463688a8cb3e379e7e0da7b67a5546a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/BINDING-UNFILLED.json": {
+      "bytes": 6245,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/BINDING-UNFILLED.json",
+      "sha256": "1a35fadd99fbd22edd8d8200c1b43bbf88dc0c6f718a40bc827566a78e20e337"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/BINDING-UNFILLED.json.diff": {
+      "bytes": 4961,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/BINDING-UNFILLED.json.diff",
+      "sha256": "975dbf404fb2a8c05892564873252d551b7db461a874bdda7e70b9008382aecb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/LAUNCH-UNFILLED.json": {
+      "bytes": 576,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/LAUNCH-UNFILLED.json",
+      "sha256": "9969be9a0b4afb3f5fad7975d674a49e730c160ec97dcc139405d363c2a5695e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/LAUNCH-UNFILLED.json.diff": {
+      "bytes": 711,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/LAUNCH-UNFILLED.json.diff",
+      "sha256": "2671848673750e9ad8e8c743647d26fc9ade4f1c5dd1675f9d45665ef16e6afb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/PROVENANCE.json": {
+      "bytes": 1834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/PROVENANCE.json",
+      "sha256": "598282773eadfc82aabe16b4172ca87d3b0ebb00f3639606297e0c45a780902a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/PROVENANCE.json.diff": {
+      "bytes": 1404,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/PROVENANCE.json.diff",
+      "sha256": "8adcfbe4525b0eebe053f583e5617f860ef600982edcc7e97d5ca18e5f465418"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/REPORT.md": {
+      "bytes": 2371,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/REPORT.md",
+      "sha256": "ca71f7a4734d0f27c9dd89c21ee807aea7165ff2a605afb41b699673a32e6661"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/REPORT.md.diff": {
+      "bytes": 6621,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/REPORT.md.diff",
+      "sha256": "5b24e64880fd96aa8185e6982c17d483e0ffd4acc9df62b43cc155119f0aa0f0"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/SOURCE-PINS.json": {
+      "bytes": 4207,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/SOURCE-PINS.json",
+      "sha256": "aa2f171d6da60e39ffa28eb3f16cab09c50b526fa05fd0ff1e299d21945bc0ff"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/add_inputs.py": {
+      "bytes": 19461,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/add_inputs.py",
+      "sha256": "f2a4b81d0f5572ce5baeba771774126094df3500b5eff01cbbce32e08c0e9917"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/record.py": {
+      "bytes": 25044,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/record.py",
+      "sha256": "0a26d8928d9853fd44a0960f852ce56d2cbce018fb7c8887fddbf1aa17e18e9e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/record.py.diff": {
+      "bytes": 4337,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/record.py.diff",
+      "sha256": "a6caadfffee4c6adb1f7df0c5edd03ec2ce4cea30cd459fbea9264e69ad27839"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/supervise.py": {
+      "bytes": 16934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/supervise.py",
+      "sha256": "e2258264783de69fa4d2a10c9c71ede7d4cabc0f80f87c17ba23935e32c9039d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/supervise.py.diff": {
+      "bytes": 1467,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r2/supervise.py.diff",
+      "sha256": "7258c03bae733fc1a57e93d18e00a406639332d00e9777780510cfafd78866dd"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-aj-scope-parent-adoption-after-aj-20261009-r1/ADOPTION.json": {
+      "bytes": 2289,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-aj-scope-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "13be428dfe3bdba1bc4ce4f2348bd194d2473c4c812df2b5f0bfec936b76b8e8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-aj-scope-parent-adoption-after-aj-20261009-r1/DOCS-TRANSITION-FACTS.json": {
+      "bytes": 198179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-aj-scope-parent-adoption-after-aj-20261009-r1/DOCS-TRANSITION-FACTS.json",
+      "sha256": "20c4ad5aba3580d5ff05e921e4a8d1ee824162257095a9aa6a63a74e69878017"
+    }
+  },
+  "scanAndAdditiveLaunchAuthorized": false
+}

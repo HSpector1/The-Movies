@@ -1,0 +1,56 @@
+{
+  "afterFill": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "after-fill",
+    "after-fill-after-aj-r1",
+    "<ACTUAL_INDEPENDENTLY_ACCEPTED_AJ_BASELINE_PATH>",
+    "<ACTUAL_INDEPENDENTLY_ACCEPTED_AJ_BASELINE_SHA>"
+  ],
+  "beforeFill": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "before-fill",
+    "before-fill-after-aj-r1"
+  ],
+  "claimLimit": "Concrete retained H path inherited from prior accepted protection; fresh exact current identity/argv review still required. No scan authority until source scope is separately adopted and filled source/config reviewed.",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "guardScriptSha256": "71abe31966bb77f8fd4e2da571601c8ef3e49abbe10ccf408e40c139b32c18a8",
+  "postflight": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "postflight",
+    "postflight-after-aj-r1",
+    "<ACTUAL_INDEPENDENTLY_ACCEPTED_AJ_BASELINE_PATH>",
+    "<ACTUAL_INDEPENDENTLY_ACCEPTED_AJ_BASELINE_SHA>",
+    "<ACTUAL_HELPER_SUPERVISOR_WORKER_CHILD_PGIDS_CSV>"
+  ],
+  "rawPsFdPolicy": "Local-only raw PS/FD, publish hashes/sizes only.",
+  "recording": "Parent direct recorded scan with pinned source/config/argv/stdout/stderr/tool outcome; no HEAVY-LANE-LOCK helper because unchanged guard checks lock absent.",
+  "schema": "m0-additive-after-aj-full-guard-argv-proposal/v1",
+  "sourceConfigSha256": "2cbfe932211d5e54afc7c6085a36df57dd77bcf2ecf02003d4324e390cd38678",
+  "status": "UNRUN_UNADOPTED_PARENT_SCOPE_REFUSES_BEFORE_HELPER_IMPORT"
+}

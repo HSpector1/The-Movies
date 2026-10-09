@@ -1,0 +1,48 @@
+{
+  "actualHelperExit": 2,
+  "actualToolExit": 2,
+  "actualToolWallSeconds": 0.74775821,
+  "actualVerifierExitFromHelperMeta": 2,
+  "causeEvidence": "Same pinned Python -I -B executable reports sys.executable as /usr/local/opt/python@3.14/bin/python3.14, whose strict resolution equals the pinned physical Cellar Python. Existing source compares spelling, not physical resolution. No source guard is waived and failure remains failure.",
+  "factsOutputAbsent": true,
+  "failure": "AssertionError exact physical Python executable",
+  "globalProcessAbsenceClaim": false,
+  "helperPid": 65494,
+  "knownOwnedPidAndPgidAbsent": [
+    65494,
+    66258
+  ],
+  "mirrorReadbackStarted": false,
+  "next": "Independent source attribution; if accepted, fresh one-predicate repair with physical resolution while retaining pinned binary hash/identity checks; fresh source/config/output/reviews/grant required.",
+  "numericVerifierPidNotCaptured": true,
+  "protectedFreezeContinues": true,
+  "readbackSucceeded": false,
+  "roles": {
+    "1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log": {
+      "bytes": 130,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log",
+      "sha256": "3fa53b86274141f9c01c25243a9a462eb0be03db1c9ff2490f8479c52513104b"
+    },
+    "1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log.meta": {
+      "bytes": 613,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-lane-after-aj-20261009-r1.log.meta",
+      "sha256": "3b7b581fc15383813fd3105f70a6f87752cb94fec1a4308f70995d5c65af27c6"
+    },
+    "ACTUAL-TOOL.json": {
+      "bytes": 1244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/ACTUAL-TOOL.json",
+      "sha256": "4eb4fdbc1c29506af3642925590d57d95d032fa8dcdfbf6c320a721f3f09abb5"
+    },
+    "GRANT.json": {
+      "bytes": 2476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/GRANT.json",
+      "sha256": "97aef1b2da99e57c361a814219b062996ef36e7d47ae6d7fa4f91c31e5cd7829"
+    },
+    "INTERPRETER-PROBE-ACTUAL-TOOL.json": {
+      "bytes": 602,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-parent-recorded-after-aj-20261009-r1/INTERPRETER-PROBE-ACTUAL-TOOL.json",
+      "sha256": "8a72987e5207cb4b33594f028a810335d0a610cd87f77daa02553cd5096d7037"
+    }
+  },
+  "status": "STOP_ACTUAL_EXPANDED_READBACK_BEFORE_MIRROR_ACCESS"
+}

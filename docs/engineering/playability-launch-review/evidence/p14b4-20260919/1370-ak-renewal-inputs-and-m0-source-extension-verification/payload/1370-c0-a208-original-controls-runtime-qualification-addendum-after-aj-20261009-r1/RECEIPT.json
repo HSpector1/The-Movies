@@ -1,0 +1,22 @@
+{
+  "A208Run": false,
+  "actualTestsRun": false,
+  "author": {
+    "bytes": 6551,
+    "path": "/Users/zacheryspector/studio-scratch/a208-control-runtime-note-after-aj.py",
+    "sha256": "97534c7251e52ff673a647c14a8a69e0ab68275897a807e626be065617ede6c4"
+  },
+  "decision": "SOURCE_ONLY_ORIGINAL_CONTROL_RUNTIME_QUALIFICATION_LIMIT_RECORDED",
+  "executionAuthorization": false,
+  "facts": {
+    "bytes": 5992,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-original-controls-runtime-qualification-addendum-after-aj-20261009-r1/FACTS.json",
+    "sha256": "cfd2ddbcf17189fc69ef32d92d3bf9f9a052d1817c0851ca06a2e5b0b769f08c"
+  },
+  "note": {
+    "bytes": 2409,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-original-controls-runtime-qualification-addendum-after-aj-20261009-r1/NOTE.md",
+    "sha256": "83fb35b17985b865ebf78e366aa22254b62817f04b17fcaefa4df2ffab623792"
+  },
+  "sourceQualificationGap": "Authenticated original synthetic Node executable/version/hash is not present in the bounded accepted receipts examined."
+}
