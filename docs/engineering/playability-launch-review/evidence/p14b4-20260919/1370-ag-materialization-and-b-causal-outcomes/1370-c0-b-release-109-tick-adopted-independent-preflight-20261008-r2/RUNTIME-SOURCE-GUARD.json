@@ -1,0 +1,28 @@
+{
+  "assemblyCalled": false,
+  "changedProductionFiles": [
+    "src/core/employment.ts",
+    "src/core/hollywoodPolicy.ts",
+    "src/core/hollywoodTick.ts",
+    "src/core/hollywoodValidation.ts",
+    "src/core/rivalResearch.ts",
+    "src/core/save.ts",
+    "src/core/talentMarket.ts",
+    "src/core/technologyRival.ts"
+  ],
+  "dependencyCounts": {
+    "directory": 1393,
+    "regular": 11054,
+    "symlink": 24
+  },
+  "elapsedSeconds": 20.99753302299905,
+  "equalProductionFiles": 180,
+  "game": false,
+  "inheritedSourceKitFiles": 200,
+  "node": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+  "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+  "productionSourceFilesPerArm": 188,
+  "runtimeSha256": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+  "status": "ACCEPTED_READONLY_SOURCE_RUNTIME_GUARD",
+  "tests": false
+}

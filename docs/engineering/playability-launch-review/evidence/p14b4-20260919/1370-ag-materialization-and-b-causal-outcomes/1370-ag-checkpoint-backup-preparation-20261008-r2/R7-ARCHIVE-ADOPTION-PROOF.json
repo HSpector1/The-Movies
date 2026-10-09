@@ -1,0 +1,36 @@
+{
+  "adoptedBindingSha256": "31eed0401487d0be2849c11dcb8e73c8ca6a3a636ec3a755085981ddd9bb4817",
+  "adoptionResultSha256": "a9187d4fd43eeaddecfced9b3b2eecdfbbd32aef3bc6591c16e11796f99b84f5",
+  "archiveCount": 6,
+  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-pre-adoption-archive-20261008-r2",
+  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-exact-draft-20261008-r2",
+  "changedFields": [
+    "exactReview",
+    "executionAuthorization",
+    "status"
+  ],
+  "claimLimit": "Binding/archive evidence only; actual r7 launch failed and did not emit a candidate frame.",
+  "fieldDiff": {
+    "exactReview": {
+      "after": {
+        "decision": "ACCEPT_EXACT_FILLED_UNRUN",
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-exact-independent-review-20261008-r2/RECEIPT.json",
+        "sha256": "562215cc2003b871147f111a1b33c75005512c1abd2fbc9d3cd0424390a0bc77"
+      },
+      "before": null
+    },
+    "executionAuthorization": {
+      "after": true,
+      "before": false
+    },
+    "status": {
+      "after": "REVIEWED_FILLED_UNRUN",
+      "before": "DRAFT_FILLED_UNREVIEWED_UNRUN"
+    }
+  },
+  "fiveOtherArtifactsByteIdentical": true,
+  "originalBindingSha256": "7c08b0c8911f1a75b9a4e6158eb6c8e26ffdd2c3f7de7c6bdbdfbbb4454e751e",
+  "schema": "1370-ag-r7-archived-original-and-three-field-proof-r2",
+  "status": "READONLY_PROOF",
+  "unchangedSemanticSha256": "172b8405bceda94e539619fdf53cfb0f3ea9cfc09042c4a32cbf95a7210102c6"
+}

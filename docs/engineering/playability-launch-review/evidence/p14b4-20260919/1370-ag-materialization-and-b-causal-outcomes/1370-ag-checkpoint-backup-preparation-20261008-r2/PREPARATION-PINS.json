@@ -1,0 +1,15 @@
+{
+  "claimLimit": "Finite read-only backup manifest/proposed1370AG/HANDOFF includes completed actual0 baseline-equal r7 postflight. R7 remains STOP/no frame; no actual owned-PGID clearance claim. Independent STOP addendum and r8 retry remain pending. No copies/Git/production writes or runtime-root traversal.",
+  "executionAuthorization": false,
+  "files": {
+    "1370-AG-OUTCOME-PROPOSED.md": "3c948c40db213293f29971a31a3eadc7a4ea993688e09efb2e29992a7e2bd353",
+    "BACKUP-MANIFEST-PROPOSED.json": "4051b461ce917f4e44e513292cc648f805ee9d491465d474d64c9c9041db38a8",
+    "BACKUP-PLAN.md": "ab859275ef4060b86372984f47fc86eba62da4c6ba1474ec4b54e3a8dbc7ddd2",
+    "HANDOFF-PROPOSED.md": "9f10404f3731630d2d2aff7eed44c14a988151ef5962b9b76c95ff63b2266179",
+    "INVENTORY-SUMMARY.json": "c40d34461d5c04ec00456a4086e5d5e7cc4f04e93af4276b0054dfb495c8acd9",
+    "PRIVACY-CONTENT-REVIEW.json": "12e1eed73a8a9d8aa6f1d53eb61ee334d90abb7d95aa3caf097c00c89fdfbfcf",
+    "R7-ARCHIVE-ADOPTION-PROOF.json": "a14661c0e24317046a40a940d51a39aa3f945236024905812fe50539903bbb5b"
+  },
+  "schema": "1370-ag-checkpoint-backup-preparation-pins-r2",
+  "status": "PROPOSED_COMPLETE_POSTFLIGHT_SCRATCH_ONLY"
+}

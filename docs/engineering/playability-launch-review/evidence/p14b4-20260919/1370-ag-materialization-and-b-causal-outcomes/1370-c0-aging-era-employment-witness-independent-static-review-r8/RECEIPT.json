@@ -1,0 +1,74 @@
+{
+  "adapterSha256": "38afc47e8bcb834df333f2834fdf4a6f5bd3f3826d96c8fce02a9c72d164a16f",
+  "changedSourceFiles": [
+    "outer-recorder.py",
+    "supervise.py",
+    "test-supervisor.py"
+  ],
+  "claimLimit": "Source and bounded diagnostic controls only. No r8 historical/game capture, exact launch/adoption, ledger/C0/1363 admission or protected digest repin. R7 observed STOP remains.",
+  "decision": {
+    "launch": "STOP_UNFILLED_UNRUN",
+    "witnessSource": "ACCEPT_SOURCE_ONLY_UNRUN"
+  },
+  "executionAuthorization": false,
+  "findings": [],
+  "focusedActualReceiptSha256": "f91e338ebfa763fb9c69c5a6e6bbe472215258f6e55f8f578e47871fd8c494f7",
+  "frozenHashes": {
+    "BINDING-UNFILLED.json": "adee3d1fb706125535ecadd03e8ec84ddecfb563c19da03b64bedfbb1419f89a",
+    "PLAN.md": "e6b6b582f0720f6f996b537fefbff7d4c94638423a40ba74379a801e8544b351",
+    "POLICY.sb": "733ad40abe14eb619230091b43e00e9a27c72b1367c304ee5f7b16cc9eebf833",
+    "bounds-guard.mjs": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f",
+    "outer-recorder.py": "e0b03fbb96cff3dfa3e4dbbedaaaf59525810ce2ebe2dd4a631a4432833c85a6",
+    "supervise.py": "02c2058e8348e22e6c329de6f809096ab664a7d374c84c70b0ae5cc872966bc8",
+    "test-outer.py": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab",
+    "test-supervisor.py": "47e0eb620760e825be0417963d8b4e759eab6998e514ad32dc34a176c60facf9",
+    "test-synthetic.mjs": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60",
+    "witness-core.mjs": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d",
+    "witness.mts": "afce97a16063085964c4a92d49c0495312452b7eec8d6b9b6bcc9edbc01cc736",
+    "worktree-guard.mjs": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+  },
+  "gameRun": false,
+  "inheritedActualReceiptSha256": "2e3f89f0974ccb93154e6c53eb163ab90ed8c9503afb283b04b13bd57015e0d7",
+  "reviewScope": [
+    "bounded nested failure stderr preserves existing captured bytes, hashes, truncation, actual PID/group and child exit",
+    "8KiB inner record fits complete8KiB outer prefix;16KiB outer record stays under64KiB stderr cap",
+    "all9 other source files unchanged including witness/game-observer/core/worktree/bounds/policy and frame protocol",
+    "existing failure statuses/cleanup/deadline order and success-frame path retained; diagnostics do not establish valid frame or admission",
+    "source-version-only adapter/sink wiring reviewed; existing PIPESTATUS, caps and validator retained",
+    "old source RED10/11, repaired11/11, inherited outer7 and pure supervisor4 pass; no sandboxed Python probe invoked"
+  ],
+  "reviewer": "Root independent of Sol source author; actual parent-run focused and inherited controls read back.",
+  "schema": "1370-c0-aging-era-employment-witness-independent-static-review-r8",
+  "sinkSha256": "0d9a5bf7e187e141bccc20a1b65740bedd3a67a926b6c7eb873f3df74c78982a",
+  "sourceControlsObserved": {
+    "green-r8": {
+      "actualExit": 0,
+      "logSha256": "bbdb504a45a1d8026e6df56c566ee36a7514fd0fce1a17403dc1134531a80dd4",
+      "metaSha256": "6adf7c8f85710b89b1d9faa1a17cfe250326cd376837aab32d4fae003d9ab976",
+      "testCount": 11
+    },
+    "inherited-outer": {
+      "actualExit": 0,
+      "logSha256": "b6d68a3e052ebe1af6a4e6451a38b74f31f9bf0739771ef2c85a242b7fcb1f89",
+      "metaSha256": "234193cc9c58dfe1c44a5fbe45b8179e08349aeee7fd423622fb34c7f25311c2",
+      "testCount": 7
+    },
+    "inherited-supervisor": {
+      "actualExit": 0,
+      "logSha256": "7d1461f08534b948438fb941919fd98874513233d01f311956b60134240b8417",
+      "metaSha256": "834063f1d44b6c228a8a6b19ed6b7241b0332b64207c7c7b3c0221b9fcb525ee",
+      "testCount": 4
+    },
+    "red-r7": {
+      "actualExit": 1,
+      "logSha256": "bc863194b28461299303942fddffd13fabe4855822cd1ad4ee04f95099c5f406",
+      "metaSha256": "203185c21cf2955882a6d6ae836989d5d7066045399f07fd836cb2705731d040",
+      "testCount": 11
+    }
+  },
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1",
+  "sourcePinsSha256": "0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715",
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "status": "FROZEN_SOURCE_ONLY_UNRUN",
+  "utc": "2026-10-08T23:35:05.299944+00:00"
+}

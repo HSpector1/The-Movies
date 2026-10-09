@@ -1,0 +1,11 @@
+{
+  "decision": "ADOPT_OBSERVED_AGING_ERA_EMPLOYMENT_PREIMAGE_FOR_ARTIFACT_COMPARISON_ONLY",
+  "executionRun": false,
+  "filledRolesSha256": "f476dbb531c0a41237b5be789f9c74b3b2c4998662d2bc728490be51df6ef6c9",
+  "frameSha256": "8b0b70f110c37199dc320045b2fec0ac384c323fddfba88bbae620bf34766c50",
+  "launchSha256": "f5ec83c65641a8112121c0dd62d48bd4aa5cb35431e3c32657fa4d00904daae7",
+  "observedReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-observed-independent-review-20261009-r1/RECEIPT.json",
+  "observedReceiptSha256": "d681f73e3613248c7ccd0be7736e46bd1fe424dd62ea099a60e031e774238f64",
+  "postflightSha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347",
+  "utc": "2026-10-09T14:48:30.133411+00:00"
+}

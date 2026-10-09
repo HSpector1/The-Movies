@@ -1,0 +1,78 @@
+{
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-independent-source-review-20261009-r2/RECEIPT.json": {
+    "bytes": 1550,
+    "sha256": "20163ef5aee5683bf31c8446887545922e4d0517773dae4d86f59831c85f176a"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/CONFIG.json": {
+    "bytes": 3586,
+    "sha256": "2d5310488f12bd20f381914558f31df5ccd6d275c5b7f1d8efe4f86eb845dd3b"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/CONTROL-RECIPE.json": {
+    "bytes": 6361,
+    "sha256": "e58ae3a9d744aa1211d5d88b05bec1b8cdee066e4f2c1baf973831af35422051"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/OWNERSHIP-PROVENANCE.json": {
+    "bytes": 770,
+    "sha256": "86f4608169529bc8e8bd33d5d4db60f9db88aa35fafe0d002a979b15674656ef"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/PLAN.md": {
+    "bytes": 3490,
+    "sha256": "4ce8b2ebbe3c1c18a0c8243e962ed66dc9d305306f20f241b12cdc80da2a6780"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/RECORDER-DIFF.patch": {
+    "bytes": 18247,
+    "sha256": "247cfb55539dcec8fbb88582e3b4554632e2b3d7b300b01ac620cae505df5a23"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/SOURCE-PINS.json": {
+    "bytes": 2313,
+    "sha256": "6c152d4681c2e772f7e155a904047bd5f56da8eb297d8291354dc44f60587557"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/STATIC-AUTHORING-CHECKS.json": {
+    "bytes": 913,
+    "sha256": "cee699a2a7419b6ee0ea790a0e32e333d5ae0ce1b272947889dabeaecca28ea4"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/benchmark-308.mjs": {
+    "bytes": 5253,
+    "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/bounded-json-candidate.mjs": {
+    "bytes": 2175,
+    "sha256": "ac7ed0d6ad1b2d47e0e12de6e9ec738129049806aa7d5ac0b7cfd3a60452de7c"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/bounded-json.diff": {
+    "bytes": 2875,
+    "sha256": "9fcf418066562702e0e0d20ad28501d23fd939b823798ce7f7a2e41d4de1a9e2"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/record-pure-node.py": {
+    "bytes": 14033,
+    "sha256": "5647ba67e1f96fa4a8f0894c7bd95055a820e63e5412aceb03cf7de25b9d13ec"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-encoder.mjs": {
+    "bytes": 4169,
+    "sha256": "1694d6a4cfec1b9ec9bf2db4ef4078d0fbe104291549c0a0c37e0a25ba6b5b50"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py": {
+    "bytes": 8906,
+    "sha256": "1da16a7d5624f41fcc98a5586fb71ce3f303e5c41f1d59dc3b5c7053e8d82e56"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-controls-parent-recorded-20261009-r2/PARENT-TOOL-OUTCOME.json": {
+    "bytes": 2768,
+    "sha256": "9b722312e2b5b3b25bffd0580136d47ebb64c2aee32fb5d048f5559acaf6bc51"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-green-repaired-r2-lane-20261009-r2/green-repaired-r2.lane.log": {
+    "bytes": 1084,
+    "sha256": "2c563adc0c296a81ea314714eef31f0d34b881a40e42f45da683d912fcc87117"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-green-repaired-r2-lane-20261009-r2/green-repaired-r2.lane.log.meta": {
+    "bytes": 469,
+    "sha256": "6a6179c1bffb8a4bc1c31a97b69fb7eb6489d904c5717c2b5b4735f8b45ef21d"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-red-original-r1-lane-20261009-r2/red-original-r1.lane.log": {
+    "bytes": 13555,
+    "sha256": "561cea590286152e1cb4d863a8640931b9393cfb9df899c30025c56e601bb7ae"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-red-original-r1-lane-20261009-r2/red-original-r1.lane.log.meta": {
+    "bytes": 469,
+    "sha256": "97693579d7686493d94528f6da555371c6b6bb695f56144a22cbfbf9eb0cbee7"
+  }
+}

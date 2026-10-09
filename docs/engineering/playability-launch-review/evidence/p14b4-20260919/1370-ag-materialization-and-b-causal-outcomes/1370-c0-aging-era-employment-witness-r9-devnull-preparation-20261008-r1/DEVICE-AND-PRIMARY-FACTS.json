@@ -1,0 +1,38 @@
+{
+  "device": 1124724989,
+  "gid": 0,
+  "inode": 317,
+  "links": 1,
+  "major": 3,
+  "minor": 2,
+  "mode": "0666",
+  "nonsymlink": true,
+  "path": "/dev/null",
+  "policyProbesRun": false,
+  "profiles": [
+    {
+      "lines": [
+        92,
+        95
+      ],
+      "path": "/System/Library/Sandbox/Profiles/system.sb",
+      "sha256": "8bbb46514bcd878192ad7977e33d069d9b5c68e7d85ab82191e6892b74f64467",
+      "snippet": "(allow file-read*\n       file-write-data\n       (literal \"/dev/null\")\n       (literal \"/dev/zero\"))\n"
+    },
+    {
+      "lines": [
+        46,
+        48
+      ],
+      "path": "/System/Library/Sandbox/Profiles/blastdoor.sb",
+      "sha256": "a848411091080309ff912120464e30b0fe4f2d1c00e2294be74f67ad8578f03b",
+      "snippet": "(allow file-read* file-write-data\n       (literal \"/dev/null\")\n       (literal \"/dev/zero\"))\n"
+    }
+  ],
+  "rdev": 50331650,
+  "resolved": "/dev/null",
+  "schema": "1370-witness-r9-devnull-device-primary-facts-r1",
+  "type": "character",
+  "uid": 0,
+  "utc": "2026-10-08T23:57:22.868563+00:00"
+}

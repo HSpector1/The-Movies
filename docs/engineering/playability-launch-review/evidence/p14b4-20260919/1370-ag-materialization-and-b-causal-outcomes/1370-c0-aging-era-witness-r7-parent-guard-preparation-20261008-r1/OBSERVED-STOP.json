@@ -1,0 +1,22 @@
+{
+  "actualExit": 1,
+  "claimLimit": "R1 remains STOP before full snapshots/output directory. No accepted before-fill baseline was emitted. Parent retains original invocation stdout/stderr; no synthetic result substituted.",
+  "evidenceAuthority": "Parent-reported actual before-fill invocation; this author records provided result and separately confirms ordinary system tool metadata. No guard reenactment.",
+  "failure": "read(/usr/bin/git) rejected st_nlink==1 at snapshot.py line93 -> read line22",
+  "measuredGitRole": {
+    "device": 16777220,
+    "gid": 0,
+    "inode": 1152921500312781356,
+    "links": 76,
+    "mode": 493,
+    "path": "/usr/bin/git",
+    "sha256": "fe38fea56d944c3b7e9df10617b1fa5432d7b75cc346d7eacb607d083ea11711",
+    "uid": 0
+  },
+  "oldPreparationPinsSha256": "8860e1915c741fbf0f4490b12cad5da07d9481fb4b10c4238203bb5a766113a2",
+  "oldScriptSha256": "a13ac4fba6cde62d018308914a31007754faf1ff6b22d4e5902dc788f041b85f",
+  "outputCreated": false,
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r1/evidence/before-fill-r1",
+  "schema": "1370-witness-r7-parent-guard-r1-observed-stop-record-r1",
+  "status": "STOP"
+}

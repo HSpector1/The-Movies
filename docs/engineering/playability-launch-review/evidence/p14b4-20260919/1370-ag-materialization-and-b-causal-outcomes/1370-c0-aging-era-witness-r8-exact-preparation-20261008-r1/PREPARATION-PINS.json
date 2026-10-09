@@ -1,0 +1,27 @@
+{
+  "adoptionExecuted": false,
+  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-exact-draft-20261008-r1",
+  "executionAuthorization": false,
+  "files": {
+    "BINDING-TEMPLATE-PENDING.json": "95358a77a09a03ca04c25ad84abf6eb070338f26110b2f99975731514f03408c",
+    "CONFIG-PENDING.json": "0c481e8f81375e306ccbe44fd96c4695df3b2f952a1a3fec47f967dbe550e922",
+    "FILL-RECIPE.json": "29184d2039f34c7b4604fcfba88dd81fa49496d78e15745b0b1a9e4caa3fc494",
+    "LAUNCH-SPEC-TEMPLATE.json": "8fb108f8e784da0d7edaa86629056bb03e105facf0fea1a566336b3d68a59288",
+    "PLAN.md": "a7eeefed585593ae82e17b25458c2a2d33d47abaac8555a1837d26db48377f95",
+    "PROCEDURE-DIFF.patch": "33233a10ce7b2a859a197b2f4af2db5ce0f6fc84b2de85b705a576612b66f231",
+    "adopt_reviewed_candidate.py": "84c78ff72c3b9277578c73c8867ed5b47a9a5bc15af6b75480967b833d05e1fb",
+    "build_preparation.py": "91ac978d6d7f0f6e33b397aea49fbaab9b3571fc4f3c32286912a6334e32ea8b",
+    "fill_actual_candidate.py": "8c123766a9d3a3aed0d15c9685749af604cf8f4f7aeca4771cc0c60e746ad145"
+  },
+  "fillExecuted": false,
+  "fullInventoryRepeated": false,
+  "fullPostflightSha256": "6a1d17ea0ff855fe66fba0f6ce73eb3b2b51730b8ad97c10b8e3d335b167bc69",
+  "gameRun": false,
+  "materializedRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "schema": "1370-witness-r8-exact-preparation-pins-r1",
+  "sourcePinsSha256": "0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715",
+  "sourceReviewSha256": "0df56d411ea22b65e3407b27abe161481acaa06ca4cc7dede11656faa41e8da0",
+  "sourceTestsExecutedByAuthor": false,
+  "status": "FROZEN_ACCEPTED_SOURCE_PREPARATION_UNRUN"
+}

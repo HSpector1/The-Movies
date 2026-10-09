@@ -1,0 +1,119 @@
+{
+  "archiveCandidateBytes": 114043807,
+  "archiveCandidateFiles": 1269,
+  "companionBytesExcludingPins": 2714057,
+  "companionFilesExcludingPins": 17,
+  "files": {
+    "1370-AG-OUTCOME-DRAFT.md": {
+      "bytes": 10882,
+      "gitBlobOid": "c290aa78b4d3da74b6fcc31686585c5ad678313e",
+      "mode": 420,
+      "sha256": "97d1a72a8d2c1ebf5bcd407423ec93a6a611cf5f80cbedecace3f4d861bfd6cc"
+    },
+    "1370-AG-OUTCOME-PROPOSED.md": {
+      "bytes": 10926,
+      "gitBlobOid": "d99f50691665883e5f6187c40b558762f90e994d",
+      "mode": 384,
+      "sha256": "a3d51bcf4e7d876d32584d18b109457109dceca792159ddc03c4313104ba0d2d"
+    },
+    "BACKUP-ACTIONS-DRAFT.md": {
+      "bytes": 2744,
+      "gitBlobOid": "33f0bf01990b65b46e27f38d458139a12eca9a3a",
+      "mode": 420,
+      "sha256": "8b4b3f0cc67c47a3cadfb5db638c628a60918b842c5614de027ce530816ce16c"
+    },
+    "BACKUP-MANIFEST-DRAFT.json": {
+      "bytes": 1305038,
+      "gitBlobOid": "19567a91387e1ad59f3edaf4a997a14cd326151a",
+      "mode": 420,
+      "sha256": "236fe7606564ff4a0b4344d9101020e8b0517cc0b828dc82a25b5b8c24ae52ec"
+    },
+    "BACKUP-MANIFEST-PROPOSED.json": {
+      "bytes": 1318026,
+      "gitBlobOid": "de8788ac6fc997c3f644fddcf71545f63148c9fd",
+      "mode": 384,
+      "sha256": "1cac13df0c5bee7b9a0b4b4091e3e210267aadd96d7f3556ce578842f81d1b0d"
+    },
+    "BACKUP-PLAN.md": {
+      "bytes": 2832,
+      "gitBlobOid": "973c7a0bf9746349b2bb66506c1b62f2295fb96b",
+      "mode": 384,
+      "sha256": "45a2731e0d8f7fe6fe4577b7aecaefc204f472090fc2e3f846548c1cd0b34873"
+    },
+    "HANDOFF-DRAFT.md": {
+      "bytes": 11480,
+      "gitBlobOid": "2351762429bb09f00633ceb123a98ca662176761",
+      "mode": 420,
+      "sha256": "ea7ca57150ce9f278d21b94b336e2950d6f4722e25f27480995b29f1f84e719a"
+    },
+    "HANDOFF-PROPOSED.md": {
+      "bytes": 11521,
+      "gitBlobOid": "99edb67ff822653feccb01bbfd0ee9f56a00e750",
+      "mode": 384,
+      "sha256": "4a0e071205679ea3b7b349c5e12b029b8567dbf2bc2761d7fea249621c15d965"
+    },
+    "INVENTORY-SUMMARY-DRAFT.json": {
+      "bytes": 1062,
+      "gitBlobOid": "985e73917a97121287b794622fcb45843ed110f8",
+      "mode": 420,
+      "sha256": "aabcc5d9360c4aa37bda1bf18fbd63f861bf4026de704ed1fc940405abb67fa9"
+    },
+    "INVENTORY-SUMMARY.json": {
+      "bytes": 1049,
+      "gitBlobOid": "76d36f0616f16aa69d8162f84e5d290cff311658",
+      "mode": 384,
+      "sha256": "555c1319aa9bc3fcf3b78f6dc61e615670d4d02bbb39aeb9a0b8965bba62e625"
+    },
+    "LESSONS-DRAFT.md": {
+      "bytes": 3186,
+      "gitBlobOid": "1588d597c47314481c67131b10d4b88eed703a51",
+      "mode": 420,
+      "sha256": "46f7e448109d954be467fe95154f6eb1562bf44eec11cd3c7fe8a7a37c91b4d8"
+    },
+    "LESSONS.md": {
+      "bytes": 3186,
+      "gitBlobOid": "1588d597c47314481c67131b10d4b88eed703a51",
+      "mode": 384,
+      "sha256": "46f7e448109d954be467fe95154f6eb1562bf44eec11cd3c7fe8a7a37c91b4d8"
+    },
+    "PRIVACY-CONTENT-REVIEW-DRAFT.json": {
+      "bytes": 3468,
+      "gitBlobOid": "1da58e57fce369358144ba7752830cb2cf2c1138",
+      "mode": 420,
+      "sha256": "782c042f91825fc0397aea56a89f79f8dd42ea541e8b51e8d210c36ca57bde06"
+    },
+    "PRIVACY-CONTENT-REVIEW.json": {
+      "bytes": 3464,
+      "gitBlobOid": "b4615cc03f8a45ad6d5d88cafa8cc5a7a742b7b4",
+      "mode": 384,
+      "sha256": "1cc3cadafcb6821b8d0845f421c01ce954b4e140262abeefa968826d73280793"
+    },
+    "finalize_actual_stop.py": {
+      "bytes": 8731,
+      "gitBlobOid": "c04fa27549931f409cd5ed3a0059d35528bf533d",
+      "mode": 420,
+      "sha256": "4e3f7419170546e923bee51a33b5417914df3b751731b67e80d1e3830b4ba519"
+    },
+    "refresh_completed_r9.py": {
+      "bytes": 8867,
+      "gitBlobOid": "9bf84d0ab9aec0821a283e919d0e8dbe473302f0",
+      "mode": 420,
+      "sha256": "26ba13de842fccc54108e29cd0d4c6bbdb215d98f8ff25700adc386da2a1dbb4"
+    },
+    "refresh_employment_comparison.py": {
+      "bytes": 7595,
+      "gitBlobOid": "fc53a1e67bdd4b91697e31b92727a3808eed3dcb",
+      "mode": 420,
+      "sha256": "4e957fff9c909babf0d5aa4e81c415562db38b4073c0e7f528c80820decd77f9"
+    }
+  },
+  "gameOrFullScanExecuted": false,
+  "localOnlyHashSizeFiles": 47,
+  "manifestSha256": "1cac13df0c5bee7b9a0b4b4091e3e210267aadd96d7f3556ce578842f81d1b0d",
+  "priorCheckpointReferences": 97,
+  "productionMutationExecuted": false,
+  "schema": "1370-ag-checkpoint-final-scratch-proposal-pins-r3",
+  "scope": "Finite source/evidence copy/checkpoint proposal. Parent owns safe archive/doc/commit/push/readback; failures preserved and future launch gates unfilled.",
+  "sourceGroups": 121,
+  "status": "FINAL_PROPOSED_CHECKPOINT_AT_ACTUAL_RECORDER_CONTROL_STOP"
+}

@@ -1,0 +1,34 @@
+{
+  "actualToolChunkId": "a7a728",
+  "actualToolExit": 0,
+  "actualToolWallSeconds": 0.69535816,
+  "artifacts": {
+    "H-original-employment.json": {
+      "bytes": 13113,
+      "sha256": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750"
+    },
+    "M0-employment.json": {
+      "bytes": 13113,
+      "sha256": "7e64d2fbfd525edf40daa4fb952fe08ac68d4a877b4d212afd7adcfdca25237d"
+    },
+    "REPORT.json": {
+      "bytes": 344313,
+      "sha256": "b419fd0eea96ce9f646842fefeb7b1cc028a0dd07ee1146aca4892e36a47be1c"
+    },
+    "accepted-witness-frame.ndjson": {
+      "bytes": 29410,
+      "sha256": "8b0b70f110c37199dc320045b2fec0ac384c323fddfba88bbae620bf34766c50"
+    },
+    "post-aging-employment.json": {
+      "bytes": 13113,
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    }
+  },
+  "claimLimit": "Descriptive artifact comparison only; independent observed interpretation pending, no game or ledger admission.",
+  "exactReviewSha256": "a89553315ed834186d3c5fd90855019957e20b46704612b6960b41b19ba2a184",
+  "rolesSha256": "f476dbb531c0a41237b5be789f9c74b3b2c4998662d2bc728490be51df6ef6c9",
+  "schema": "1370-parent-employment-comparison-actual-outcome-r1",
+  "sourceSha256": "8711b25431eea588780ab5e7aca649fac111f828515d52cc4ce477d0ec570408",
+  "status": "DESCRIPTIVE_COMPARISON_COMPLETE",
+  "utc": "2026-10-09T14:52:50.806362+00:00"
+}

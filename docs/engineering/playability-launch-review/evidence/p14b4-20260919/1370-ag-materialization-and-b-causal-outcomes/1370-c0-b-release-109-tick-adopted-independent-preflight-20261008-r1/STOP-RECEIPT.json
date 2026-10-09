@@ -1,0 +1,23 @@
+{
+  "actualHelperAndMetaExit": 1,
+  "actualToolExit": 1,
+  "actualToolSession": 93642,
+  "assembly": false,
+  "decision": "STOP_WRAPPER_COUNT_ASSERTION_AFTER_ACCEPTED_GUARDS",
+  "files": {
+    "BEFORE-CURRENT.json": "bfbe509c138de95ca675cafaef7304af713e86970d2cff03e1824f407748fa2d",
+    "BEFORE-LSOF.bin": "fae1c367bd26073df7b10dd547b1d1c964c5dc7d384138642654ba2669a1d355",
+    "BEFORE-PS.txt": "40afaefe0343e3efb5d9167564a69d24847cd0da2d9a0bbf5d2921eb0c0154e9",
+    "audit-adopted.py": "63a9bcd0c580e7926b9be378242e0864b435b49246ca0e86e2346054b003119a",
+    "driver.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "driver.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime-source.lane.log": "3dd6d4d96f7e91dc82f306d5cf7574fe9387cc71218236f3ae0d3b3f64345d60",
+    "runtime-source.lane.log.meta": "34577085335dd3f520523beaa0073aa59cefcef0029f7cc44fd32229f2138938"
+  },
+  "fullProtectedInventoryRepeated": false,
+  "game": false,
+  "helperLockAbsent": true,
+  "ownedChildCleanup": "Accepted clear() executed in finally; first-attempt numeric PID was not persisted and is not claimed.",
+  "reason": "Review wrapper conflated runtime inventory excluding root .vite (11054/1393/24) with full protected inventory (11060/1401/24). Inherited source and runtime guards and expected runtime digest returned before wrapper assertion.",
+  "tests": false
+}

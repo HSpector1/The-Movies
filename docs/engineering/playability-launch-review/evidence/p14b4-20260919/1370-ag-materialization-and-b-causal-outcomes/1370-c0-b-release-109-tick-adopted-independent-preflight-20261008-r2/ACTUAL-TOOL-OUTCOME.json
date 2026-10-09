@@ -1,0 +1,14 @@
+{
+  "actualHelperExit": 0,
+  "actualToolExit": 0,
+  "actualToolSession": 84675,
+  "assembly": false,
+  "game": false,
+  "helperPgid": 64755,
+  "helperPid": 64755,
+  "metaExit": 0,
+  "ownedGroupClear": true,
+  "runtimeSourceGuardElapsedSeconds": 20.99753302299905,
+  "tests": false,
+  "wholePreflightElapsedSeconds": 25.842847507001352
+}

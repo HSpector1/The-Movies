@@ -1,0 +1,36 @@
+{
+  "B109BaselineSourceMirror": {
+    "additionalScientificHelperFiles": [
+      "tests/streaming.d.mts",
+      "tests/streaming.mjs",
+      "tests/targeted.d.mts",
+      "tests/targeted.mjs"
+    ],
+    "bytes": 5426415,
+    "files": 206,
+    "identitySha256": "452c0ce0a66a4b33f6321a1501eec80ca039a1714b1ccf0608cb9650653bd063",
+    "predecessorShapedPaths": 202
+  },
+  "BSourceMirrors": {
+    "baseline-tree": {
+      "bytes": 5405523,
+      "files": 202,
+      "identitySha256": "77bd6638954576fd3144a211b55422bc5c1d6e241c9552283610eb4095b346e9"
+    },
+    "intervention-tree": {
+      "bytes": 5405672,
+      "files": 202,
+      "identitySha256": "d6303ae7700f50d6ef94c20c7ee58a366c76eb55b38fdc81a955193816ffd0d9"
+    }
+  },
+  "addedArchiveFilesSinceR2": 646,
+  "archiveBytes": 114043807,
+  "archiveFiles": 1269,
+  "excludedEntries": 7,
+  "localOnlyFiles": 47,
+  "newContentClassifiedLocalOnly": 22,
+  "pendingRoles": 0,
+  "priorCheckpointReferences": 97,
+  "roots": 121,
+  "status": "FINAL_PROPOSED_CHECKPOINT_AT_ACTUAL_RECORDER_CONTROL_STOP"
+}

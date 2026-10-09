@@ -1,0 +1,24 @@
+{
+  "status": "LAUNCH_AUTHORIZED_OUTCOME_PENDING",
+  "utc": "2026-10-08T22:24:10.959385+00:00",
+  "adoptedLaunchSpecSha256": "7087159c8dbbe70bed2242aa5562806e5452c3151625c323f392fe6278adcade",
+  "adoptedBindingSha256": "5f6de7413b9a28a9e30284062e99bf52a3ea83f9ba0074515b3257515c8b0c0f",
+  "adoptedPreflightReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-adopted-preflight-independent-review-20261008-r1/RECEIPT.json",
+  "adoptedPreflightReceiptSha256": "a2404e13452395705d93f5db3e9fbb464d537f787fb912b4f105e7fb50fccf29",
+  "requiredEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-20261008-r1-lane/materialize-r6-r1.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json"
+  ],
+  "priorParentPrelaunch": "Inline process scan matched its own command text and refused before any launch, output, or record. Standalone process listing verified no matching worker before this dispatch.",
+  "claimLimit": "Parent authorizes only this reviewed copy; observed outcome remains pending."
+}

@@ -1,0 +1,52 @@
+{
+  "allSourceFilePinsAuthenticated": 12,
+  "b109Bounds": [
+    300,
+    375,
+    390
+  ],
+  "caps": {
+    "active": 75,
+    "child": 60,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576,
+    "whole": 90
+  },
+  "decode": false,
+  "encoderControlGroups": 11,
+  "execution": false,
+  "fullScan": false,
+  "importsOfProposal": false,
+  "ownershipComponentsByteIdenticalToAcceptedB109": [
+    "process_alive",
+    "OwnedChild",
+    "start_owned",
+    "ready_go",
+    "close_startup_fds",
+    "clear"
+  ],
+  "r1PreservedSha256": "7b7c5b167e7581cd395df86fe16f3ebc146bebfa58951a9aff5a64a5b929e5e5",
+  "sourceOnlyRecorderCases": [
+    "test_fixed_caps",
+    "test_late_exit_exact_child_and_active_deadlines",
+    "test_positive_active_guard",
+    "test_hard_alarm_names_actual_bound",
+    "test_sanitized_environment_copy",
+    "test_real_preflight_alarm_interrupts_authentication",
+    "test_blocked_startup_is_owned_before_exec_and_cleared",
+    "test_pending_alarm_at_fork_return_keeps_owned_pid",
+    "test_owned_survivor_cannot_be_clear",
+    "test_timely_finalization",
+    "test_late_postwrite_is_stop_without_blocking_after_deadline",
+    "test_alarm_before_candidate_write_has_override",
+    "test_alarm_after_candidate_write_has_override",
+    "test_actual_tiny_node_preload_settings_are_absent_and_group_clear"
+  ],
+  "sourcePinsSha256": "6c152d4681c2e772f7e155a904047bd5f56da8eb297d8291354dc44f60587557",
+  "unchangedR1Files": [
+    "bounded-json-candidate.mjs",
+    "test-encoder.mjs",
+    "benchmark-308.mjs",
+    "bounded-json.diff"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "claimLimit": "Preparation only; pending current guard/witness and B final outcomes require refresh before one parent-owned safe checkpoint.",
+  "executionAuthorization": false,
+  "files": {
+    "1370-AG-OUTCOME-PROPOSED.md": "6da8da3019a5a3b2d355095a92fdbf3480fa4355fe994c244a53db977aa28bed",
+    "BACKUP-MANIFEST-PROPOSED.json": "e41239ea418453e210174f8363b50d31d7a1e17ccb913832370b3a0b67ce22c0",
+    "BACKUP-PLAN.md": "e04a6b23286f01fae8879b62799269e76c8a0abc318f51b57c8053b90625f6ce",
+    "INVENTORY-SUMMARY.json": "ad8c54d7e1fc662460e8d6806521b7bb821eb6b8c5bee70cdc7ea026c85d4b9c"
+  },
+  "schema": "1370-ag-checkpoint-backup-preparation-pins-r1",
+  "status": "PROPOSED_SCRATCH_ONLY_NOT_COPIED_NOT_COMMITTED"
+}

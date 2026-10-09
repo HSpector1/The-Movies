@@ -1,0 +1,60 @@
+{
+  "all110PublishedLocatorsAuthenticated": true,
+  "all32PathsAndSixIdentitiesAuthenticated": true,
+  "claimLimit": "Design only. No actual109-tick outcome, ledger/C0/1363 admission, protected repin or production fix.",
+  "decision": "ACCEPT_DESIGN_ONLY_PARENT_BOUNDS_ADOPTION_REQUIRED",
+  "designManifestSha256": "964cc771f30ec1c6f587b4d1d514c21037ca7086c0d02d25d0920f013c075972",
+  "evidence": {
+    "AUDIT.json": {
+      "bytes": 7949,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-independent-design-review-20261008-r1/AUDIT.json",
+      "sha256": "9c46e9c37edcd2f64260ef16671a423d69ac5802774ba81f2c1876728d243d9a"
+    },
+    "REPORT.md": {
+      "bytes": 5871,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-independent-design-review-20261008-r1/REPORT.md",
+      "sha256": "eb4abd64ff08a0e95c9fd2bfe0aad334ce25f94ad22ed39563f4e911e78b44f0"
+    },
+    "audit-design.py": {
+      "bytes": 6172,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-independent-design-review-20261008-r1/audit-design.py",
+      "sha256": "53fa9601fb63e1aa581625bb7edb46d3819674268821b4c4b7c71d5dd8337650"
+    }
+  },
+  "findings": [],
+  "launchAuthorizedByThisReceipt": false,
+  "memberIndexSha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855",
+  "nextGate": "Parent explicit operational-bounds adoption before dependent source preparation; changed-source/control and exact/adopted/launch/observed gates remain.",
+  "oneTickObservedReceiptSha256": "98adcb7132bf1a3eb877f2acac02c056ce4eb65142e708cc2365d929059d8918",
+  "oneTickParentAdoptionSha256": "1b667564420555240d806c15717466faf8f18637225d8f13a1cb5197234ee779",
+  "outcomeRequirement": "Observed NONE/PARTIAL/ALL, no forced restoration; baseline/admission/purity/source/deadline/budget/cleanup failures STOP.",
+  "parentOperationalBoundsAdoptionRequired": true,
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "proposedCaps": {
+    "activeSeconds": 375,
+    "childCombinedLogBytes": 1048576,
+    "countedOutputBytes": 268435456,
+    "finalReserveInsideTotalBytes": 131072,
+    "preflightFreeBytes": 3657433088,
+    "runningFloorWithReserveBytes": 3355443200,
+    "sharedNodeSeconds": 300,
+    "singleJsonDecodedMemberBytes": 16777216,
+    "wholeSeconds": 390
+  },
+  "recipeSha256": "7cddcd9540c8c066416de874eebbe06f6c2d4fba9d853e5326c63c9d54cd20e3",
+  "reviewActions": {
+    "fullCaptureRehashed": false,
+    "fullProtectedRootsScanned": false,
+    "gameRun": false,
+    "gitCommands": false,
+    "gzipDecoded": false,
+    "productionWrites": false,
+    "sourceTestsRun": false
+  },
+  "rolesSha256": "779d9de6325b43af1f4d418128e54d82de22a456a92ff347f24dde12aba007a3",
+  "schema": "1370-c0-b-release-109-tick-continuation-independent-design-review-r1",
+  "sourceAuthoringAuthorizedByThisReceipt": false,
+  "testsAuthorizedByThisReceipt": false,
+  "utc": "2026-10-08T23:18:32.702015+00:00"
+}

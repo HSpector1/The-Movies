@@ -1,0 +1,44 @@
+{
+  "activeB109PathsNotRead": [
+    {
+      "reason": "Active B109 lane file; no read/hash before actual completion.",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log"
+    },
+    {
+      "reason": "Active B109 lane file; no read/hash before actual completion.",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log.meta"
+    }
+  ],
+  "localOnlyTotal": 47,
+  "newLocalOnlyPaths": [
+    "1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r1/BEFORE-LSOF.bin",
+    "1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r1/BEFORE-PS.txt",
+    "1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r2/AFTER-LSOF.bin",
+    "1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r2/AFTER-PS.txt",
+    "1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r2/BEFORE-LSOF.bin",
+    "1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r2/BEFORE-PS.txt",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/AFTER-LSOF.bin",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/AFTER-PS.txt",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/BEFORE-LSOF.bin",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/BEFORE-PS.txt",
+    "1370-c0-b-release-109-tick-observed-stop-independent-review-20261008-r1/AFTER-LSOF.bin",
+    "1370-c0-b-release-109-tick-observed-stop-independent-review-20261008-r1/AFTER-PS.txt",
+    "1370-c0-b-release-109-tick-observed-stop-independent-review-20261008-r1/BEFORE-LSOF.bin",
+    "1370-c0-b-release-109-tick-observed-stop-independent-review-20261008-r1/BEFORE-PS.txt",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-pre-r9-20261009-r1/AFTER-LSOF.bin",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-pre-r9-20261009-r1/AFTER-PS.txt",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-pre-r9-20261009-r1/BEFORE-LSOF.bin",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-pre-r9-20261009-r1/BEFORE-PS.txt",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/AFTER-LSOF.bin",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/AFTER-PS.txt",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/BEFORE-LSOF.bin",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/BEFORE-PS.txt"
+  ],
+  "noRawContentCopiedOrPrinted": true,
+  "primaryEvidenceReason": "Small authenticated system sandbox-policy references/snippets and null-device identity; no unrelated machine-wide process/FD enumeration or private app paths.",
+  "reviewedNonPrivatePrimaryEvidenceExceptions": [
+    "1370-c0-aging-era-employment-witness-null-device-parent-design-adoption-20261008-r1/ADOPTION.json",
+    "1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/DEVICE-AND-PRIMARY-FACTS.json"
+  ],
+  "status": "DRAFT_CONTENT_CLASSIFICATION_NEW_FINALIZED_FILES"
+}

@@ -1,0 +1,63 @@
+{
+  "afterChecks": [
+    "Preserve output/raw stdout/stderr and helper/meta actual exits, fresh current roots/refs/FD/groups/source bytes; no witness launch follows automatically."
+  ],
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-controls-lane-20261008-r1/policy-controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/policy_controls.py"
+  ],
+  "bounds": {
+    "capture": "communicate then validate; only fixed tiny-fixture argv, not a streaming hard cap",
+    "eachChildSeconds": 5,
+    "stderrAcceptedMaximumBytes": 65536,
+    "stdoutAcceptedMaximumBytes": 65536,
+    "wholeSeconds": 120
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "executionAuthorization": false,
+  "expectedResult": {
+    "allOwnedGroupsClear": true,
+    "childExit": 0,
+    "fixtureUnchanged": true,
+    "gameRun": false,
+    "helperExit": 0,
+    "newPolicyDeniedRegularMutationProbes": 5,
+    "newPolicyGreenReadonlyProbes": 5,
+    "oldPolicyRedProbes": 2,
+    "pythonUnderSandbox": false,
+    "records": 17,
+    "sourceProofRolesUnchanged": true,
+    "status": "POLICY_CONTROLS_PASSED_SOURCE_ONLY"
+  },
+  "helperRole": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "preconditions": [
+    "Independent source and controls implementation review accepted; parent grants sole lane after full postflight finishes.",
+    "Reserved output and lane/log/meta paths absent; parent creates only private owned lane directory before helper.",
+    "Fresh current root/ref/FD/process/AC/disk checks against frozen production4812/source13880 and parent full postflight baseline.",
+    "Do not inject GIT_* variables into sandbox child: orchestrator explicitly strips GIT_* and NODE_OPTIONS just like witness."
+  ],
+  "pythonRole": {
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "requiredEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "schema": "1370-witness-r9-devnull-control-recipe-r1",
+  "status": "UNREVIEWED_UNRUN_REQUIRES_PARENT_LANE_GRANT",
+  "unrunWiring": {
+    "adapterPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/launch-pipeline-r9-proposed.sh",
+    "adapterSha256": "0ebc508d9a181b1071769399c62baa86fbe2d2c20678c8590c79e969b68d5bd4",
+    "sinkPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/bounded-sink-r9-proposed.py",
+    "sinkSha256": "9bd9fa9f1bc00712d000bd73097de8db930bfcab87c47dbefee2017725aaa8ef"
+  }
+}

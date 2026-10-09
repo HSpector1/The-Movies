@@ -1,0 +1,47 @@
+{
+  "schema": "1370-r6-adopted-preflight-independent-facts-r1",
+  "decision": "PASS_ADOPTED_PREFLIGHT_READONLY",
+  "newBindingSha256": "5f6de7413b9a28a9e30284062e99bf52a3ea83f9ba0074515b3257515c8b0c0f",
+  "semanticSha256": "18900da834bda366b2177c8ff8ee9a87b97374c02366b97d1c6b06cb4c23f309",
+  "adoptionResultSha256": "604efb4d145ab2f2280715b397231170d5d56554cd714a37db988eed8c3d1497",
+  "adoptedLaunchSpecSha256": "7087159c8dbbe70bed2242aa5562806e5452c3151625c323f392fe6278adcade",
+  "archiveFilesVerified": 7,
+  "exactChangedFields": [
+    "exactBindingReviewDecision",
+    "exactBindingReviewPath",
+    "exactBindingReviewSha256",
+    "executionAuthorization",
+    "status"
+  ],
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "srcTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "remoteRefs": {
+    "refs/heads/evidence/1370-r10-clean-captures": "edcdf4c641952f2d20263766993901c59158f5c2",
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "4812bb123781632dd39e44f918eb85a6a2c12623"
+  },
+  "localRefs": "39cdef7b14044b11d7f0561b01c27638712e18da refs/heads/docs/p03a3-ux-north-star\neb58bc0042ebf0c02a16d0bdaa1f5734e1f5f9eb refs/heads/evidence/1370-r10-clean-captures\n4812bb123781632dd39e44f918eb85a6a2c12623 refs/heads/wip/headless-program-20260916-ts\nb18a8f7100dfc00b2e97b61c1d7086f192238c12 refs/heads/wip/p04a2-final-convergence-ts-secondary-20260828\n",
+  "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+  "rootsRolesSourceToolsRuntimeFresh": "PASS",
+  "dependencyFreshIdentityPathModeSizeLinkChecks": "ALL_PASS; exact review all-byte checks and freshly pinned full CLI metadata inventory reused; actual copy must full source/clone/source inventory",
+  "protectedWritableFdGuard": "PASS_R6_EXPLICIT_ACCESS",
+  "reservedPathsAbsent": true,
+  "oldFixtureHeavyWorkersAbsent": true,
+  "freeBytes": 8801316864,
+  "requiredFreeBytes": 3758096384,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-20261008-r1-lane/materialize-r6-r1.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/supervise.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json"
+  ],
+  "requiredLaunchEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "claimLimit": "No reviewer launch; sole parent copy lane under same-UID no-renamer scope. Helper waits remain outside930/unexpected waitsSTOP; fresh actual physical/protected observed copy proof still required."
+}

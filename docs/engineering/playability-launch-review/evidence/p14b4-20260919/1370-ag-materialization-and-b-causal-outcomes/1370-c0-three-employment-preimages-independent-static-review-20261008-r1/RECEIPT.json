@@ -1,0 +1,43 @@
+{
+  "adapterSha256": "a8f66b2509f70e05b2ea1a2224e8fd761b3f1bf0588f024d8be12b09a330c5a5",
+  "claimLimit": "Static minimal future adapter only; accepted actual r7 frame/receipt, independently reviewed filled roles/command and parent execution authorization remain required.",
+  "comparatorExecuted": false,
+  "concreteBlockers": [],
+  "copiedRootRead": false,
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN",
+  "designMemoSha256": "f8f5c471e0ab99691e6b53bcfa5c1c7d9f314d87fdd301a1fb020b7d8940b2ce",
+  "designReviewSha256": "a19f170a4b26769d73c395301b5e49eef01445c5eacddfe9c287eeb24499e913",
+  "executionAuthorization": false,
+  "existingComparatorSha256": "dbd9823d80a8a63d6851b27cbfcd7f2e21e555171864ae0974c4704bee6e0786",
+  "existingRawInputFacts": {
+    "H-original": {
+      "bytes": 13113,
+      "nestedTalentIds": 28,
+      "receiptSha256": "b5d06db3828c4f481375802a53384cc3b0bb9a937c4783fe960cc4b5dd88c2f9",
+      "resultSha256": "5235b18b83c8e70dd12b36a7bda932e78cb5b55ef344419a92e4e370f540c5cc",
+      "rows": 44,
+      "sha256": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750",
+      "uniqueContractIds": 44
+    },
+    "M0": {
+      "bytes": 13113,
+      "nestedTalentIds": 28,
+      "receiptSha256": "676bdd2c18655526a9cffdf18cb6a0b63e7bdd4b1d4ee05e47478706db85d3d7",
+      "resultSha256": "4c3fe1aab82df9cf924f6a5c380e27a9999f5c7e3fa3a4acbfc3854156743207",
+      "rows": 44,
+      "sha256": "7e64d2fbfd525edf40daa4fb952fe08ac68d4a877b4d212afd7adcfdca25237d",
+      "uniqueContractIds": 44
+    }
+  },
+  "futureR7RolesFilled": false,
+  "gameRun": false,
+  "gitCommands": false,
+  "identity": "contractId plus zero-based source-order occurrence",
+  "manifestSha256": "ab40501501bb942646f5b7da5fcea1add7fe7ea85cf4b45163cdec5b48a86435",
+  "pendingRolesSha256": "12ad76d75bd54033e3328457da2caea5443ffafa6454467b31de088bcf61ba3d",
+  "productionWrites": false,
+  "reportSha256": "97bc05c2c0babfcc5c33fb6cd245324a9546a4d63632076d0c6598ae2d8cfc81",
+  "schema": "1370-three-employment-preimages-independent-static-review-r1",
+  "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-preparation-20261008-r1",
+  "sourceTestsAddedOrRun": false
+}

@@ -1,0 +1,26 @@
+{
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "18900da834bda366b2177c8ff8ee9a87b97374c02366b97d1c6b06cb4c23f309",
+  "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+  "copiedRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+  "declaredWitnessScratchChildren": [
+    "1370-c0-aging-era-employment-witness-r7-exact-draft-20261008-r2",
+    "1370-c0-aging-era-employment-witness-r7-lane-20261008-r2",
+    "1370-c0-aging-era-employment-witness-r7-pre-adoption-archive-20261008-r2",
+    "1370-c0-aging-era-employment-witness-r7-adoption-output-20261008-r2"
+  ],
+  "materializerSha256": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896",
+  "observedDecision": "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+  "procedureReviewReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+    "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+  },
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "requiredFreeBytes": 3355443200,
+  "schema": "1370-witness-r7-parent-guard-config-r1",
+  "scratchParentPolicy": "Device/inode/mode strict. Parent mtime/ctime and child deltas informational; parallel authorized scratch-only preparations/reviews may create siblings. This exception never applies to production/common/copied roots or copied .git/node_modules.",
+  "sourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+  "sourceReviewSha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794",
+  "status": "PROPOSAL_UNREVIEWED_UNRUN"
+}

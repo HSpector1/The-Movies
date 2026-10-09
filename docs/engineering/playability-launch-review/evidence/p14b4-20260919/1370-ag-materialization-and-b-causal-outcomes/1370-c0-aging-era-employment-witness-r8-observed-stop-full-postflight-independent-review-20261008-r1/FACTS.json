@@ -1,0 +1,99 @@
+{
+  "actualGroupExplicitBothSnapshotEdges": true,
+  "baselineSha256": "b087ec768c52328d142433555d8549e4d9e365fe4293810fe4fac5c042281a12",
+  "dependencyTypes": {
+    "directory": 1401,
+    "regular": 11060,
+    "symlink": 24
+  },
+  "elapsedSeconds": 451.79721415399945,
+  "fullImmutableBaselineEqual": true,
+  "fullProductionCopiedDependencyComparableAndInodeIndependent": true,
+  "fullScanRepeated": false,
+  "gameTestOrGitRun": false,
+  "inventoryElapsedSeconds": 350.53629882899986,
+  "knownOwnedGroupAbsentCurrent": true,
+  "knownOwnedPgid": 94462,
+  "originalStopReceiptSha256": "645fe9d9e35504b1a2b5ae2f56b0828b4cdad15049ae7e9168947965237af55e",
+  "parentPostflightTool": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/PARENT-TOOL-OUTCOME.json",
+    "sha256": "fa9b989db87d90817ce2d2adffd617c945c4114462f6b8de75326f53a92239ef",
+    "value": {
+      "actualExit": 0,
+      "elapsedSeconds": 451.79721415399945,
+      "fullBaselineEqual": true,
+      "ownedGroupIdsChecked": [
+        94462
+      ],
+      "pinsSha256": "c7aadd41903e6e6ba67312eaeefb61fca5cdb00341c5b37a8c397c3463e1e7a4",
+      "schema": "parent-r8-full-postflight-actual-tool-outcome-r1",
+      "snapshotSha256": "07b785480707a2c972dbdba4b0865461507939c1891f8b5386c40a375dab105e",
+      "toolSessionId": 67302,
+      "utc": "2026-10-09T00:01:03.462216+00:00"
+    }
+  },
+  "parentWitnessToolSha256": "a66c93405fef4eb5760e11028ebf534128a7e2a85cdeec0e9ada31b71f02e3ff",
+  "physicalFiles": 176,
+  "physicalRegularBytes": 4803106,
+  "pinsSha256": "c7aadd41903e6e6ba67312eaeefb61fca5cdb00341c5b37a8c397c3463e1e7a4",
+  "protectedDigests": {
+    "commonGit": "e412715eb23e48e2d14d58419cf30d5b32a1ccc548750965170cac046b7d3a70",
+    "copied": "f33f505c16fb4e60fc639f5268969e14b9187ebf1c639209eeceae584a8fc5eb",
+    "production": "3b236ee5cff80f1e98c77f4cc2d780aadfd9217b9d012fc2f97274c86165082f"
+  },
+  "rawMachineFilesHashSizeOnly": {
+    "AFTER-LSOF.bin": {
+      "archivePolicy": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 493536,
+      "sha256": "371c69fa90e0f3ca8d8b85ac1a4b34b0c19b55481ddfdf89a5d5952bec04f37b"
+    },
+    "AFTER-PS.txt": {
+      "archivePolicy": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 75429,
+      "sha256": "b78e73ce35c9a0647efa0f9aa99b4eff24257426b466e7bc3b562513784865e1"
+    },
+    "BEFORE-LSOF.bin": {
+      "archivePolicy": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 500407,
+      "sha256": "c56189966ca73455f605b1e4d6a393b2b2acf21a06c9073e3ee52d8c5ec4d6c1"
+    },
+    "BEFORE-PS.txt": {
+      "archivePolicy": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 75551,
+      "sha256": "0566aff1c40bc3e87d028210a874ff4aada91f443445a7095c09d8ade750458a"
+    }
+  },
+  "snapshotCurrentAfter": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralPassed": true,
+    "freeBytes": 8385597440,
+    "lsofRawSha256": "371c69fa90e0f3ca8d8b85ac1a4b34b0c19b55481ddfdf89a5d5952bec04f37b",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": true,
+    "ownedGroupIdsChecked": [
+      94462
+    ],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawSha256": "b78e73ce35c9a0647efa0f9aa99b4eff24257426b466e7bc3b562513784865e1",
+    "relevantWorkersAbsent": true
+  },
+  "snapshotCurrentBefore": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralPassed": true,
+    "freeBytes": 8574664704,
+    "lsofRawSha256": "c56189966ca73455f605b1e4d6a393b2b2acf21a06c9073e3ee52d8c5ec4d6c1",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": true,
+    "ownedGroupIdsChecked": [
+      94462
+    ],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawSha256": "0566aff1c40bc3e87d028210a874ff4aada91f443445a7095c09d8ade750458a",
+    "relevantWorkersAbsent": true
+  },
+  "snapshotSha256": "07b785480707a2c972dbdba4b0865461507939c1891f8b5386c40a375dab105e",
+  "sourceFilesCurrent": 12,
+  "status": "FULL_POSTFLIGHT_AUTHENTICATED_BASELINE_EQUAL",
+  "strictCurrentRootAndAncestryMetadataEqual": true,
+  "utc": "2026-10-09T00:01:49.158306+00:00"
+}

@@ -1,0 +1,10 @@
+{
+  "actualHelperExit": 0,
+  "claimLimit": "Parent reports the actual tool exit; authenticated helper meta and outputs independently corroborate it. Reviewer did not own parent toolsession.",
+  "decision": "PARENT_SAVED_ACTUAL_HELPER_COMPLETION_BOUND_AND_CORROBORATED",
+  "metaSha256": "b4711a61e75ae114b0da19f9e509e6720c9e42079c24d3a638b416005d9c4029",
+  "resultSha256": "eac07318cf3dc9149865b35660a78b22ada54866c0013240a0bc972f8ae07e11",
+  "toolRecordPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/PARENT-TOOL-OUTCOME.json",
+  "toolRecordSha256": "5c7573c5289b28e57d1997b1e9cb8bdad6bf619f9f8d7c7ebf143abbf88fd492",
+  "toolSessionId": 52003
+}

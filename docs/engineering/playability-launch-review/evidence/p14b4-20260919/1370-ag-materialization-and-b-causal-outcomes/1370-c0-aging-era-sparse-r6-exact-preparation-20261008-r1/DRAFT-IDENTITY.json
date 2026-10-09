@@ -1,0 +1,20 @@
+{
+  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-r1-pre-adoption-archive-20261008-r1",
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "18900da834bda366b2177c8ff8ee9a87b97374c02366b97d1c6b06cb4c23f309",
+  "candidatePinsSha256": "19a2b91cde3b786aaac79cbeb2fabd965b9020fad8010c65fc1112675cbff2e8",
+  "draftBindingSha256": "6b0407707c4dfc67dc3b268859042dc38b216c3da41eccf4c08a6dfa68aa4dad",
+  "draftPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1",
+  "launchAuthorized": false,
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "sevenDraftFiles": {
+    "ADOPTION-PLAN.md": "9ce039585237997c25052e4835a9216aefd7969e03a1df283341eba022afa999",
+    "BINDING-DRAFT.json": "6b0407707c4dfc67dc3b268859042dc38b216c3da41eccf4c08a6dfa68aa4dad",
+    "BINDING-SEMANTIC.json": "ccae443d002a93d03caa4351b23c0bd929c9aa2a82a36a96884bfbd1c481831a",
+    "CANDIDATE-PINS.json": "19a2b91cde3b786aaac79cbeb2fabd965b9020fad8010c65fc1112675cbff2e8",
+    "DEPENDENCY-LINKS.json": "a6413a03b7a8216122639a8792159876c6b00560d57e620350a15d341ae3489f",
+    "DRAFT-REPORT.json": "0ade0978fd5764736c857f02194d1f172a8cccfcb8d122f5ed1ae9442ee2e278",
+    "SOURCE-MANIFEST.json": "df8abd56d6b9de84aa3552275a7e564e66d53b2718ff33f9c2e3080a449a0c1d"
+  },
+  "sourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d"
+}

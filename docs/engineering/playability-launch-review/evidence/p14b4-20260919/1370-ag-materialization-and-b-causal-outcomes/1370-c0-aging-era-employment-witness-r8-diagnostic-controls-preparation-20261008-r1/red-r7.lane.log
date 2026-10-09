@@ -1,0 +1,95 @@
+FFFFFFFFFF.
+======================================================================
+FAIL: test_actual_supervisor_child_failure_is_retained (__main__.FailureDiagnosticsControls.test_actual_supervisor_child_failure_is_retained)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py", line 45, in test_actual_supervisor_child_failure_is_retained
+    d=json.loads(render(supervisor,exc)).get('failure');self.assertIsInstance(d,dict)
+                                                        ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+AssertionError: None is not an instance of <class 'dict'>
+
+======================================================================
+FAIL: test_binary_stderr_prefix_and_full_capture_digest (__main__.FailureDiagnosticsControls.test_binary_stderr_prefix_and_full_capture_digest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py", line 64, in test_binary_stderr_prefix_and_full_capture_digest
+    d=json.loads(render(outer,exc)).get('failure');self.assertIsInstance(d,dict)
+                                                   ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+AssertionError: None is not an instance of <class 'dict'>
+
+======================================================================
+FAIL: test_cleanup_refusal_has_precedence_over_original_child_exit (__main__.FailureDiagnosticsControls.test_cleanup_refusal_has_precedence_over_original_child_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py", line 109, in test_cleanup_refusal_has_precedence_over_original_child_exit
+    d=json.loads(render(outer,exc)).get('failure');self.assertIsInstance(d,dict)
+                                                   ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+AssertionError: None is not an instance of <class 'dict'>
+
+======================================================================
+FAIL: test_deadline_refusal_has_precedence_over_original_child_exit (__main__.FailureDiagnosticsControls.test_deadline_refusal_has_precedence_over_original_child_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py", line 123, in test_deadline_refusal_has_precedence_over_original_child_exit
+    d=json.loads(render(outer,caught.exception)).get('failure');self.assertIsInstance(d,dict);self.assertTrue(d['ownedGroupCleared'])
+                                                                ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+AssertionError: None is not an instance of <class 'dict'>
+
+======================================================================
+FAIL: test_failure_serializer_caps_arbitrary_status_and_metadata (__main__.FailureDiagnosticsControls.test_failure_serializer_caps_arbitrary_status_and_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py", line 127, in test_failure_serializer_caps_arbitrary_status_and_metadata
+    self.assertLessEqual(len(raw),8192);record=json.loads(raw)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: 1200015 not less than or equal to 8192
+
+======================================================================
+FAIL: test_inner_stderr_truncation_fits_complete_nested_record (__main__.FailureDiagnosticsControls.test_inner_stderr_truncation_fits_complete_nested_record)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py", line 80, in test_inner_stderr_truncation_fits_complete_nested_record
+    d=json.loads(inner).get('failure');self.assertIsInstance(d,dict)
+                                       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+AssertionError: None is not an instance of <class 'dict'>
+
+======================================================================
+FAIL: test_nested_supervisor_error_survives_actual_outer_child (__main__.FailureDiagnosticsControls.test_nested_supervisor_error_survives_actual_outer_child)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py", line 55, in test_nested_supervisor_error_survives_actual_outer_child
+    d=json.loads(render(outer,exc)).get('failure');self.assertIsInstance(d,dict)
+                                                   ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+AssertionError: None is not an instance of <class 'dict'>
+
+======================================================================
+FAIL: test_outer_stderr_truncates_excerpt_without_losing_full_hash (__main__.FailureDiagnosticsControls.test_outer_stderr_truncates_excerpt_without_losing_full_hash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py", line 71, in test_outer_stderr_truncates_excerpt_without_losing_full_hash
+    raw=render(outer,exc);d=json.loads(raw).get('failure');self.assertIsInstance(d,dict)
+                                                           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+AssertionError: None is not an instance of <class 'dict'>
+
+======================================================================
+FAIL: test_stderr_cap_remains_stop_and_counts_only_retained_bytes (__main__.FailureDiagnosticsControls.test_stderr_cap_remains_stop_and_counts_only_retained_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py", line 91, in test_stderr_cap_remains_stop_and_counts_only_retained_bytes
+    d=json.loads(render(outer,exc)).get('failure');self.assertIsInstance(d,dict)
+                                                   ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+AssertionError: None is not an instance of <class 'dict'>
+
+======================================================================
+FAIL: test_stdout_cap_remains_stop_not_a_success_frame (__main__.FailureDiagnosticsControls.test_stdout_cap_remains_stop_not_a_success_frame)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py", line 100, in test_stdout_cap_remains_stop_not_a_success_frame
+    self.assertIsInstance(r.get('failure'),dict);self.assertLessEqual(r['failure']['stdoutBytes'],outer.MAX_STDOUT)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None is not an instance of <class 'dict'>
+
+----------------------------------------------------------------------
+Ran 11 tests in 1.090s
+
+FAILED (failures=10)

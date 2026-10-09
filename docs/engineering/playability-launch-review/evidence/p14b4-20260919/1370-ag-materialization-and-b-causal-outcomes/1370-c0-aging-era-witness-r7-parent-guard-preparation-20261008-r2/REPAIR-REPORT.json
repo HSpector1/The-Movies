@@ -1,0 +1,29 @@
+{
+  "changedLines": [
+    18,
+    22,
+    93
+  ],
+  "claimLimit": "Authoring/static compile/ordinary system metadata only. No guard/fullsnapshot/fill/adoption/copy/game/test execution.",
+  "executionAuthorization": false,
+  "measuredGitRole": {
+    "device": 16777220,
+    "gid": 0,
+    "inode": 1152921500312781356,
+    "links": 76,
+    "mode": 493,
+    "path": "/usr/bin/git",
+    "sha256": "fe38fea56d944c3b7e9df10617b1fa5432d7b75cc346d7eacb607d083ea11711",
+    "uid": 0
+  },
+  "newScriptSha256": "ed43cd95fbbc13a2194338a8fe8dd48e05a56b1b77a4cdcb377f60ea17429740",
+  "originalScriptSha256": "a13ac4fba6cde62d018308914a31007754faf1ff6b22d4e5902dc788f041b85f",
+  "predecessorPinsSha256": "8860e1915c741fbf0f4490b12cad5da07d9481fb4b10c4238203bb5a766113a2",
+  "predecessorStopPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r1/OBSERVED-STOP.json",
+  "predecessorStopSha256": "818cb7f2986df8cde5389b8e20349e6fe81c8fab8fc31142f67d72f5d8c2ec9e",
+  "schema": "1370-witness-r7-parent-guard-link-repair-report-r2",
+  "sourceDiff": "Reader expected_links defaults1; only pinned git tool role AND exact /usr/bin/git path supplies76. Other tool roles remain1. No other code/config changed.",
+  "status": "PROPOSAL_UNREVIEWED_UNRUN",
+  "witnessFillAndAdoptionFinding": "Same /usr/bin/git single-link bug absent. Neither procedure passes gitPath to its single-link read function; git is only an executed pinned command. Their config tool/admission roles contain no /usr/bin/git. Fill uses Path.read_bytes for configured role hashes, and adopter single-link reads those distinct role inputs. No witness source/prep change needed for this defect.",
+  "witnessPreparation": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2"
+}

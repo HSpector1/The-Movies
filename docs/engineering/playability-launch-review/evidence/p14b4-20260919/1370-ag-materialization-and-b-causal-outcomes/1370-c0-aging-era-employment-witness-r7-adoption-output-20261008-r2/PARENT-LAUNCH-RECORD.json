@@ -1,0 +1,24 @@
+{
+  "adoptedLaunchSpecSha256": "699c1be5454d65b2ee960fcac01611b44d1db5610967f4b5bd308fad2c9aeb82",
+  "adoptedPreflightReceiptSha256": "2198071be8c6a398ee539a04a5ee2f5d78c18aace7ec4cc509dce6f7badb7e8b",
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-lane-20261008-r2/witness-r7.lane.log",
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/launch-pipeline.sh",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-exact-draft-20261008-r2/BINDING-DRAFT.json",
+    "31eed0401487d0be2849c11dcb8e73c8ca6a3a636ec3a755085981ddd9bb4817"
+  ],
+  "bindingSha256": "31eed0401487d0be2849c11dcb8e73c8ca6a3a636ec3a755085981ddd9bb4817",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "freeBytes": 8626860032,
+  "parentAdoption": "Exact reviewed launch authorized; no-detach/no-external-protected-renamer assumptions adopted. Full after-fill baseline reused while frozen; independent fresh guards accepted. Scope historical witness only.",
+  "schema": "parent-r7-launch-record-r1",
+  "utc": "2026-10-08T23:19:20.694098+00:00"
+}

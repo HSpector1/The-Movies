@@ -1,0 +1,14 @@
+{
+  "actualExit": 0,
+  "bindingSemanticSha256": "e2b89c293dbe867a31c94f3669e2b9840db8603b297ce158cc26a6fed6f191d4",
+  "bindingSha256": "73b9eb634eed2fd3ef11e1c5ebebb5822f41d430a7e75b71712eb86b5e5d6488",
+  "candidatePinsSha256": "2181b1b79c276ea9f21ca973c041dd68f2247fcdab87b8bffeb45aa6ddbf7684",
+  "draftIdentitySha256": "c18c090129e643ca41af30242d3afe9a1d46386706181d5b53fdacc30cee2294",
+  "gameRun": false,
+  "independentProcedureReviewSha256": "64b87ac489f5ae407b53550f66c010cbff66fa84950639b10bf6b4871282beee",
+  "launchAuthorized": false,
+  "schema": "parent-r8-fill-actual-tool-outcome-r1",
+  "status": "DRAFT_FILLED_UNREVIEWED_UNRUN",
+  "toolSessionId": 86836,
+  "utc": "2026-10-08T23:45:46.608541+00:00"
+}

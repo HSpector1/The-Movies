@@ -1,0 +1,52 @@
+{
+  "acceptedLaneHelper": {
+    "bytes": 3361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "assumptions": [
+    "No external source/output renamer during the owned run.",
+    "Vitest and its descendants do not detach from the owned child session.",
+    "Fresh output/log/meta paths and sole parent-authorized heavy lane.",
+    "Accepted r8 helper supplies umask077; no inherited default022 assumption."
+  ],
+  "classification": "ONE_TICK_DIAGNOSTIC_ONLY",
+  "exactReview": {
+    "bytes": 1485,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-exact-review-20261008-r1/RECEIPT.json",
+    "sha256": "2db74a9c3f61b3e16d338baa9feb101346607367e8852557f05ccbb2ed1c4e18"
+  },
+  "executionAuthorization": true,
+  "followOn109Weeks": "NOT_IMPLEMENTED_NOT_RUN",
+  "independentObservedSourceControlsReview": {
+    "bytes": 1166,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-r3-independent-observed-source-controls-review-20261008-r1/RECEIPT.json",
+    "sha256": "536154e67531678260eb75e89f024c595ca0e2545d20907e57023b8e9b013773"
+  },
+  "manifestSha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5",
+  "modeProof": {
+    "bytes": 41149,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/MODE-PROOF.json",
+    "sha256": "f26814fe3ed2857b8e4c3ddad50fa47398af456e7d2481d2b03e868cbfa0eec8"
+  },
+  "observedSourceControls": {
+    "bytes": 2038,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-r3-source-controls-recorded-20261008-r1/OBSERVED-CONTROLS.json",
+    "sha256": "2ce7dd7861f46f89291589395c0e02499b091e31eb42bf18d4d786a5a8d4585a"
+  },
+  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-b-release-one-tick-run-20261008-4812-r1",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "recorderPython": {
+    "bytes": 50472,
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "schema": "1370-c0-b-release-one-tick-exact-binding-r1",
+  "sourceOnlyReview": {
+    "bytes": 1036,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r3/RECEIPT.json",
+    "sha256": "42210aa6552b585bbdd37270999eaac4bebeb9ae7441f537ce8d29e0c921c308"
+  },
+  "status": "REVIEWED_FILLED_UNRUN"
+}

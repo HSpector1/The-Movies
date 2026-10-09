@@ -1,0 +1,29 @@
+{
+  "claimLimit": "Current adopted/archive bytes and metadata directly observed. Initial adoption syscall sequence not independently observed.",
+  "independentNoFollowReadback": {
+    "BINDING-DRAFT.json": {
+      "bytes": 2691,
+      "device": 16777220,
+      "inode": 166584416,
+      "mode": 384,
+      "nlink": 1,
+      "nofollowReadStable": true,
+      "sha256": "1d961e6badb90588e304938b75d6b488a2e35188992e30232426f823b23f12d2"
+    },
+    "BINDING-ORIGINAL-e0a31a76.json": {
+      "bytes": 2463,
+      "device": 16777220,
+      "inode": 166584415,
+      "mode": 384,
+      "nlink": 1,
+      "nofollowReadStable": true,
+      "sha256": "e0a31a76c19a5c8f18a3f690cba4984f38c5a263920f5d8a573ea8858dda0003"
+    }
+  },
+  "onlyChangedFields": [
+    "exactReview",
+    "executionAuthorization",
+    "status"
+  ],
+  "parentReadbackSha256": "6d0ca9dfc823d465ebcfe0aacda89af19fcab5124547110383434589e48283c1"
+}

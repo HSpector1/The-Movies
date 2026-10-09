@@ -1,0 +1,28 @@
+{
+  "adoption": {
+    "actualToolExit": 0,
+    "actualToolSession": 7594,
+    "adoptedBindingSha256": "5e1c3010c5369423cadb4cf46c1efc8b445890e52ed42ebb934d88e92834fba1",
+    "changedFields": [
+      "exactReview",
+      "executionAuthorization",
+      "status"
+    ],
+    "exactReviewSha256": "352d9f86d493c745823fc4c7af25e7bbac2f56ecf3ca6b030e08961d39fbbc68"
+  },
+  "artifacts": {
+    "ADOPTED-LAUNCH-SPEC.json": "b9dcfb46d2c9cbd465e028a2835a42ff0d01c7e0897e608fff45032543e2ffbe",
+    "ADOPTION-RESULT.json": "970638700d6945a281b2e382558ce51fa81d0021034b4fd3aaf67c8dfe062ec8",
+    "ARCHIVE-MANIFEST.json": "395985f545d887a7e593e4fd712f7d102e27e3cc916a23d2da2038a596953cb5"
+  },
+  "fill": {
+    "actualToolExit": 0,
+    "actualToolSession": 88478,
+    "draftBindingSha256": "854991c8f0ad245d6d8a4f8bd20bf5e4200542f0992bd2a181e5b60f04d69de6",
+    "draftIdentitySha256": "a35c7d74a0011dcfa588ca89b012bab6cc5dc785cfc0b6ffb2365b11eb15f44b"
+  },
+  "gameUnrun": true,
+  "productionProtectedScope": "HEAD4812/src13880 frozen, no detach, no external protected renamer, declared scratch-only since accepted full07b/9bc5; freshBSTOP7f3 before fill, exact review352d before adoption",
+  "schema": "1370-witness-r9-parent-fill-adoption-tool-outcome-r1",
+  "utc": "2026-10-09T14:18:55.483811+00:00"
+}

@@ -1,0 +1,1025 @@
+{
+  "schema": "1370-c0-b-release-109-tick-source-proposal-r1",
+  "status": "SOURCE_PROPOSAL_ONLY_UNREVIEWED_UNRUN",
+  "executionAuthorization": false,
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionHeadRole": "Preparation provenance only; fresh exact binding and independent semantic review name actual post-checkpoint launch HEAD.",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "startBoundary": 307,
+  "endBoundary": 416,
+  "continuousTicksPerArm": 109,
+  "boundariesPerArm": 110,
+  "seed": "p13-public-commercial-adoption",
+  "adoptedCaps": {
+    "activeSeconds": 375,
+    "childCombinedLogBytes": 1048576,
+    "countedOutputBytes": 268435456,
+    "finalReserveInsideTotalBytes": 131072,
+    "preflightFreeBytes": 3657433088,
+    "runningFloorWithReserveBytes": 3355443200,
+    "sharedNodeSeconds": 300,
+    "singleJsonDecodedMemberBytes": 16777216,
+    "wholeSeconds": 390
+  },
+  "candidateWholeFileSha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73",
+  "gameSourceChange": [
+    "src/core/hollywoodTick.ts:r04 cutting release loop only"
+  ],
+  "capture": {
+    "bytes": 141237093,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/boundaries.ndjson.gz",
+    "sha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e"
+  },
+  "members": {
+    "307": {
+      "bytes": 4221574,
+      "gzipOffsetEnd": 90017218,
+      "gzipOffsetStart": 89573772,
+      "member": 307,
+      "sha256": "ade139db3bffd24918a12fbc24c7df31f4a0fc74e9c689ed0403101f2f455c6e"
+    },
+    "308": {
+      "bytes": 4228063,
+      "gzipOffsetEnd": 90461161,
+      "gzipOffsetStart": 90017218,
+      "member": 308,
+      "sha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a"
+    },
+    "309": {
+      "bytes": 4229172,
+      "gzipOffsetEnd": 90904250,
+      "gzipOffsetStart": 90461161,
+      "member": 309,
+      "sha256": "f3774b58e5acb66bbad3be7b54b4939ee9f1b0ba96e61b7bf9b65a2e73c25b04"
+    },
+    "310": {
+      "bytes": 4229042,
+      "gzipOffsetEnd": 91347288,
+      "gzipOffsetStart": 90904250,
+      "member": 310,
+      "sha256": "17da528f1eb85957c2d19df126d9f716a446cd67dfd1504d22dff9ef215cb1f8"
+    },
+    "311": {
+      "bytes": 4170674,
+      "gzipOffsetEnd": 91786068,
+      "gzipOffsetStart": 91347288,
+      "member": 311,
+      "sha256": "89b3569258d6512b9d0517705a854f9d6bf506d8b26e963015dd1fd992ec08e1"
+    },
+    "312": {
+      "bytes": 4182526,
+      "gzipOffsetEnd": 92225916,
+      "gzipOffsetStart": 91786068,
+      "member": 312,
+      "sha256": "0fb1ec739a34e3ae2164063cb7c5d62f98e135b0a3bd93b7a42f2a778326ef1f"
+    },
+    "313": {
+      "bytes": 4210217,
+      "gzipOffsetEnd": 92664579,
+      "gzipOffsetStart": 92225916,
+      "member": 313,
+      "sha256": "3daea5ae82d689276a5ed4ea7e11fd26453dd6d54ed02b89f5b4b6cbc0346ef7"
+    },
+    "314": {
+      "bytes": 4244899,
+      "gzipOffsetEnd": 93111557,
+      "gzipOffsetStart": 92664579,
+      "member": 314,
+      "sha256": "b1f87c4569abbe24abf41bea6179731d70beed1eeaf4cf9e97709198b224e7fc"
+    },
+    "315": {
+      "bytes": 4246239,
+      "gzipOffsetEnd": 93558675,
+      "gzipOffsetStart": 93111557,
+      "member": 315,
+      "sha256": "bccbedad98d09e1d04cbaf443535d6b0a4a1c95647ff5c9b76db2ab306b41e36"
+    },
+    "316": {
+      "bytes": 4247379,
+      "gzipOffsetEnd": 94005905,
+      "gzipOffsetStart": 93558675,
+      "member": 316,
+      "sha256": "bc2dcbe79cb37bfee8f8f2ba08ebf181be8417fd992e211eadf021bd4e5ba8e1"
+    },
+    "317": {
+      "bytes": 4250352,
+      "gzipOffsetEnd": 94453345,
+      "gzipOffsetStart": 94005905,
+      "member": 317,
+      "sha256": "650059871130acb541c0dc779f783bb2d208d4e260b913f790a2f87bc1804680"
+    },
+    "318": {
+      "bytes": 4251458,
+      "gzipOffsetEnd": 94900127,
+      "gzipOffsetStart": 94453345,
+      "member": 318,
+      "sha256": "e9712e6d30956050a794212c8e628f5c3bfe12182c58f08494a07462a1860acf"
+    },
+    "319": {
+      "bytes": 4251323,
+      "gzipOffsetEnd": 95346857,
+      "gzipOffsetStart": 94900127,
+      "member": 319,
+      "sha256": "f9b5b6cce7a2744ae155be3998f36ace2afc98c17e95779740059b9c8896956a"
+    },
+    "320": {
+      "bytes": 4252645,
+      "gzipOffsetEnd": 95793680,
+      "gzipOffsetStart": 95346857,
+      "member": 320,
+      "sha256": "b44bff4587b585eba53c6588a2ba050f7f9ca56767fdb5c886c223d85800ad45"
+    },
+    "321": {
+      "bytes": 4253395,
+      "gzipOffsetEnd": 96240517,
+      "gzipOffsetStart": 95793680,
+      "member": 321,
+      "sha256": "55ce0586f77c1007f3f8d613169d17e41420ab3cba6ec3772a3fe9a0e599e525"
+    },
+    "322": {
+      "bytes": 4275994,
+      "gzipOffsetEnd": 96685691,
+      "gzipOffsetStart": 96240517,
+      "member": 322,
+      "sha256": "195bd3c00e2f631f3108bf30c1b18a9946dc97f08e182c0b66e5278ad7f502b1"
+    },
+    "323": {
+      "bytes": 4310569,
+      "gzipOffsetEnd": 97137882,
+      "gzipOffsetStart": 96685691,
+      "member": 323,
+      "sha256": "1cf3f983673cc1dea9688ebd90241178ade46940f3a6ce0176a8756037498c6a"
+    },
+    "324": {
+      "bytes": 4311914,
+      "gzipOffsetEnd": 97590158,
+      "gzipOffsetStart": 97137882,
+      "member": 324,
+      "sha256": "21ba42db2fc4ed211500d7b64f54031e5d58ae337ca2d46757bbeb47c3021c31"
+    },
+    "325": {
+      "bytes": 4315468,
+      "gzipOffsetEnd": 98042652,
+      "gzipOffsetStart": 97590158,
+      "member": 325,
+      "sha256": "33c815b710d947a7434d62ff3efd659c99d2bd4c780addf823c80f2a66b7512f"
+    },
+    "326": {
+      "bytes": 4318445,
+      "gzipOffsetEnd": 98495405,
+      "gzipOffsetStart": 98042652,
+      "member": 326,
+      "sha256": "a5abec28072b4c762eba8c7dcbf2921955a691c22270a328c01a2ae579504c58"
+    },
+    "327": {
+      "bytes": 4319561,
+      "gzipOffsetEnd": 98947512,
+      "gzipOffsetStart": 98495405,
+      "member": 327,
+      "sha256": "b91871030e915ae5e6c5153d0fb1fdef6b3065cb16927bec116929162079fb6e"
+    },
+    "328": {
+      "bytes": 4319436,
+      "gzipOffsetEnd": 99399547,
+      "gzipOffsetStart": 98947512,
+      "member": 328,
+      "sha256": "50f467736eb171597d7f87ed93380b4ac3434fb0449c9c179698135a44cec390"
+    },
+    "329": {
+      "bytes": 4320758,
+      "gzipOffsetEnd": 99851684,
+      "gzipOffsetStart": 99399547,
+      "member": 329,
+      "sha256": "b8931bde46c0b28ef571e72b9e2ecd0861756e36f0ca7b37a27e92feca6c1c5c"
+    },
+    "330": {
+      "bytes": 4321514,
+      "gzipOffsetEnd": 100303794,
+      "gzipOffsetStart": 99851684,
+      "member": 330,
+      "sha256": "b249fb0a96e2dbb1577104bb66877d055be5d69c9a75637f259d1ef739e2c606"
+    },
+    "331": {
+      "bytes": 4343804,
+      "gzipOffsetEnd": 100754392,
+      "gzipOffsetStart": 100303794,
+      "member": 331,
+      "sha256": "47a5ab42cd812e5be7284d9015b44bd4125bd88763290d149b7218f25ffa7b49"
+    },
+    "332": {
+      "bytes": 4378402,
+      "gzipOffsetEnd": 101212193,
+      "gzipOffsetStart": 100754392,
+      "member": 332,
+      "sha256": "73a1749895037d12f2f13e3bb6f6d74ce7ff45c8681ac3f1ccb7158481021dcd"
+    },
+    "333": {
+      "bytes": 4379742,
+      "gzipOffsetEnd": 101670108,
+      "gzipOffsetStart": 101212193,
+      "member": 333,
+      "sha256": "e582ff2c4be9801e3fa7be16204f4472e39bfb1d6654185a17262c4c473a54c5"
+    },
+    "334": {
+      "bytes": 4380863,
+      "gzipOffsetEnd": 102128151,
+      "gzipOffsetStart": 101670108,
+      "member": 334,
+      "sha256": "25239750e476620997a20cb385614a3567d4866be198165e7ccc33337fd16984"
+    },
+    "335": {
+      "bytes": 4383839,
+      "gzipOffsetEnd": 102586497,
+      "gzipOffsetStart": 102128151,
+      "member": 335,
+      "sha256": "60c3574c69e4777c1ee7932918bdaddfc62186b73d64c01cdee97ee1d0b3c700"
+    },
+    "336": {
+      "bytes": 4384969,
+      "gzipOffsetEnd": 103044054,
+      "gzipOffsetStart": 102586497,
+      "member": 336,
+      "sha256": "bdca8bd552056417bb92eae9ced2c63ec150619a7dadb095b6c211dcf1148ca4"
+    },
+    "337": {
+      "bytes": 4384837,
+      "gzipOffsetEnd": 103501583,
+      "gzipOffsetStart": 103044054,
+      "member": 337,
+      "sha256": "9e877a43ff3a0422f9e802695ac8bf5e523ab36c473acea67da98732e717bc8e"
+    },
+    "338": {
+      "bytes": 4388523,
+      "gzipOffsetEnd": 103959253,
+      "gzipOffsetStart": 103501583,
+      "member": 338,
+      "sha256": "d5fb1a68443584ecae92b3a08beb0062f5459df5ecdd35b3dad75b66dd6112ea"
+    },
+    "339": {
+      "bytes": 4389279,
+      "gzipOffsetEnd": 104416966,
+      "gzipOffsetStart": 103959253,
+      "member": 339,
+      "sha256": "e8e4223f576525b38f1dea9b2900b37c69deaf2b1fd97e27d6bddb04fbd9340c"
+    },
+    "340": {
+      "bytes": 4411882,
+      "gzipOffsetEnd": 104872817,
+      "gzipOffsetStart": 104416966,
+      "member": 340,
+      "sha256": "f455322e97c79cd5310b405dc0c205cea00f875fbf61bc088e89b3de0e999eee"
+    },
+    "341": {
+      "bytes": 4446470,
+      "gzipOffsetEnd": 105336971,
+      "gzipOffsetStart": 104872817,
+      "member": 341,
+      "sha256": "4cb46332ee47632b4468ca5c0b1c56878bcdb72a520f4b7a02520038745ce7a9"
+    },
+    "342": {
+      "bytes": 4447728,
+      "gzipOffsetEnd": 105801290,
+      "gzipOffsetStart": 105336971,
+      "member": 342,
+      "sha256": "2409b8f50aa3b3657195f85c00e58b3cb5ae295fc27c6079e5442db6a5c332df"
+    },
+    "343": {
+      "bytes": 4448952,
+      "gzipOffsetEnd": 106265737,
+      "gzipOffsetStart": 105801290,
+      "member": 343,
+      "sha256": "5c242662bd4685f9cc0809f88e37d367716f96b7acf38a7ba34e8ea85bef600e"
+    },
+    "344": {
+      "bytes": 4451941,
+      "gzipOffsetEnd": 106730490,
+      "gzipOffsetStart": 106265737,
+      "member": 344,
+      "sha256": "4ea6933c65d5e6c270b83f3998068d8e6d7f5451ffa4a33ec775f8e929373482"
+    },
+    "345": {
+      "bytes": 4453048,
+      "gzipOffsetEnd": 107194385,
+      "gzipOffsetStart": 106730490,
+      "member": 345,
+      "sha256": "c24641e34447a3f8a7bf88ab8d3003db474ab425a348c0d2c0b91c7b74e1f98e"
+    },
+    "346": {
+      "bytes": 4452923,
+      "gzipOffsetEnd": 107658208,
+      "gzipOffsetStart": 107194385,
+      "member": 346,
+      "sha256": "6095c58778ca439aa9840f3852b2f3596ba260a904c616dd585357e840ca20e3"
+    },
+    "347": {
+      "bytes": 4454251,
+      "gzipOffsetEnd": 108122177,
+      "gzipOffsetStart": 107658208,
+      "member": 347,
+      "sha256": "d9acfca5b0b5d7943611bf4310dd7adb7bdfa3b231649512aed7f83490739a9b"
+    },
+    "348": {
+      "bytes": 4456552,
+      "gzipOffsetEnd": 108586163,
+      "gzipOffsetStart": 108122177,
+      "member": 348,
+      "sha256": "4dbede06f3ebf5900dbff0f0b42102c4c0bf2a8b6b5c5f0c32335f2f0913114f"
+    },
+    "349": {
+      "bytes": 4479098,
+      "gzipOffsetEnd": 109048329,
+      "gzipOffsetStart": 108586163,
+      "member": 349,
+      "sha256": "9ef820ab83b98a6387c55809ca4d8136cdb35e6471a8a6b0197aea37026be63e"
+    },
+    "350": {
+      "bytes": 4500465,
+      "gzipOffsetEnd": 109515324,
+      "gzipOffsetStart": 109048329,
+      "member": 350,
+      "sha256": "fbf4aa9b6523b007be699a8ef279da5c84d5bbb4371c269ce9a231ae9c7732dd"
+    },
+    "351": {
+      "bytes": 4504146,
+      "gzipOffsetEnd": 109982484,
+      "gzipOffsetStart": 109515324,
+      "member": 351,
+      "sha256": "703de6fa665b964ed1f055ff3b35fe9aca3a5eff86ca957e374267e73f4bd2d3"
+    },
+    "352": {
+      "bytes": 4505267,
+      "gzipOffsetEnd": 110449780,
+      "gzipOffsetStart": 109982484,
+      "member": 352,
+      "sha256": "ed2cac2bb0a931de513b547a2f2aba82e930c9471d3ead5045947a3aee0ee639"
+    },
+    "353": {
+      "bytes": 4522022,
+      "gzipOffsetEnd": 110920723,
+      "gzipOffsetStart": 110449780,
+      "member": 353,
+      "sha256": "6915b8a0fafdeb238d5543c949fb598551634031b2214a6338f1c6c3791eaff5"
+    },
+    "354": {
+      "bytes": 4522274,
+      "gzipOffsetEnd": 111390696,
+      "gzipOffsetStart": 110920723,
+      "member": 354,
+      "sha256": "2c302ba155c253f50edad7aba31ab9a728d4fa216357f62fa8a14ff2294745ce"
+    },
+    "355": {
+      "bytes": 4522874,
+      "gzipOffsetEnd": 111860708,
+      "gzipOffsetStart": 111390696,
+      "member": 355,
+      "sha256": "20bedf577b47f6126d3f4ae197197c11414df8b0b3191cd7bee150d8359f125d"
+    },
+    "356": {
+      "bytes": 4525158,
+      "gzipOffsetEnd": 112330874,
+      "gzipOffsetStart": 111860708,
+      "member": 356,
+      "sha256": "5087a4c4e10daca0a834b7fd48a6fe9ee19631b46c8e0a07cf06097688da2756"
+    },
+    "357": {
+      "bytes": 4527064,
+      "gzipOffsetEnd": 112801154,
+      "gzipOffsetStart": 112330874,
+      "member": 357,
+      "sha256": "dcffadb2b4460e3ff93e822d8db386db50ba2168445863f827e9817d280d7dd3"
+    },
+    "358": {
+      "bytes": 4537998,
+      "gzipOffsetEnd": 113270729,
+      "gzipOffsetStart": 112801154,
+      "member": 358,
+      "sha256": "d087420fda65c090345546cdb2eb82588aedf7853dfaecdb2ab01355dd03853b"
+    },
+    "359": {
+      "bytes": 4556136,
+      "gzipOffsetEnd": 113744044,
+      "gzipOffsetStart": 113270729,
+      "member": 359,
+      "sha256": "f6484170efd4f36957d5bd3606bd68c34ab52add06a8e7859d993613a53d3214"
+    },
+    "360": {
+      "bytes": 4557185,
+      "gzipOffsetEnd": 114217392,
+      "gzipOffsetStart": 113744044,
+      "member": 360,
+      "sha256": "f5876001beec89c32c04455aab055bf3a1e843d5c7f8d1ee30699b7af0a7a05f"
+    },
+    "361": {
+      "bytes": 4569014,
+      "gzipOffsetEnd": 114690249,
+      "gzipOffsetStart": 114217392,
+      "member": 361,
+      "sha256": "728b81d4c0cd765244d27a5d7c82d79519da10f0d5c90eabc56624fa7946dc92"
+    },
+    "362": {
+      "bytes": 4574244,
+      "gzipOffsetEnd": 115163831,
+      "gzipOffsetStart": 114690249,
+      "member": 362,
+      "sha256": "e257585d3d3cd76d47d79b85a50df35e0114e98e93d20139137e57dc2c352439"
+    },
+    "363": {
+      "bytes": 4515678,
+      "gzipOffsetEnd": 115632996,
+      "gzipOffsetStart": 115163831,
+      "member": 363,
+      "sha256": "d6d4b8ba783eaf5c182581db614640f6237ae7e30ac08b463baae7376977675b"
+    },
+    "364": {
+      "bytes": 4518805,
+      "gzipOffsetEnd": 116102199,
+      "gzipOffsetStart": 115632996,
+      "member": 364,
+      "sha256": "cc213542072bc3bbb78d36abe7f1fabe8df8deafd695801552fe9208034de228"
+    },
+    "365": {
+      "bytes": 4538284,
+      "gzipOffsetEnd": 116575358,
+      "gzipOffsetStart": 116102199,
+      "member": 365,
+      "sha256": "42245f219d848f32e3e768d97fb78443936f17b165e7d2737565d3392fec8e0c"
+    },
+    "366": {
+      "bytes": 4538364,
+      "gzipOffsetEnd": 117047895,
+      "gzipOffsetStart": 116575358,
+      "member": 366,
+      "sha256": "93d2ef5c3cb7b05ca84ece31bf011cc90e32c4cde70b43f80a487eb65993b0b5"
+    },
+    "367": {
+      "bytes": 4550297,
+      "gzipOffsetEnd": 117519818,
+      "gzipOffsetStart": 117047895,
+      "member": 367,
+      "sha256": "cdb402c0988448b2bf4e6216e6ab0cda96bc82bc304c0dddbf46c00e38346900"
+    },
+    "368": {
+      "bytes": 4569503,
+      "gzipOffsetEnd": 117995586,
+      "gzipOffsetStart": 117519818,
+      "member": 368,
+      "sha256": "477964c5528e18fb4983edad3c39c8ee1d580b8f7d7b4865aff0f512599eb0e6"
+    },
+    "369": {
+      "bytes": 4571690,
+      "gzipOffsetEnd": 118471496,
+      "gzipOffsetStart": 117995586,
+      "member": 369,
+      "sha256": "10bc21d941948c3642ce721beff5e951984a6dac9f69c164e1673e0c5d35772a"
+    },
+    "370": {
+      "bytes": 4572181,
+      "gzipOffsetEnd": 118947472,
+      "gzipOffsetStart": 118471496,
+      "member": 370,
+      "sha256": "287585496643bb6a31afc163dc7fefa6ff7f46bae797a449c1c0ffb76a6bd9cc"
+    },
+    "371": {
+      "bytes": 4574198,
+      "gzipOffsetEnd": 119423607,
+      "gzipOffsetStart": 118947472,
+      "member": 371,
+      "sha256": "9c08d439518c1aff349a2d5ae11bd5bba4a3631ec826b2b6ff562b0a5d8066bc"
+    },
+    "372": {
+      "bytes": 4575141,
+      "gzipOffsetEnd": 119899311,
+      "gzipOffsetStart": 119423607,
+      "member": 372,
+      "sha256": "e5bff316b7c65e8b9cb57a498188460a2bb873f042391fa6a29b55ee6689c609"
+    },
+    "373": {
+      "bytes": 4586462,
+      "gzipOffsetEnd": 120374365,
+      "gzipOffsetStart": 119899311,
+      "member": 373,
+      "sha256": "85cd20f5289f52e61031a74662285204377eab3f812b9dee6f287494c7515602"
+    },
+    "374": {
+      "bytes": 4590962,
+      "gzipOffsetEnd": 120849986,
+      "gzipOffsetStart": 120374365,
+      "member": 374,
+      "sha256": "abb00e2ea70cc070cf631de9a336a9609a8a94802e3c2496295ab0fef4fe34b4"
+    },
+    "375": {
+      "bytes": 4592017,
+      "gzipOffsetEnd": 121325701,
+      "gzipOffsetStart": 120849986,
+      "member": 375,
+      "sha256": "5a35df9ccb0db0e3cb9804020f446cf2459331af00d8aed3adcebe69039a5153"
+    },
+    "376": {
+      "bytes": 4603793,
+      "gzipOffsetEnd": 121800150,
+      "gzipOffsetStart": 121325701,
+      "member": 376,
+      "sha256": "2c5fc07a4e0ca08962ea4c6c22526c579fd4b6c168b63be8cfc12ae4d5d05479"
+    },
+    "377": {
+      "bytes": 4624323,
+      "gzipOffsetEnd": 122279085,
+      "gzipOffsetStart": 121800150,
+      "member": 377,
+      "sha256": "66e198f932d7c23567c69dd8a71192a4ee1a71ef6405819890ddfc1b1351b920"
+    },
+    "378": {
+      "bytes": 4625124,
+      "gzipOffsetEnd": 122757707,
+      "gzipOffsetStart": 122279085,
+      "member": 378,
+      "sha256": "be3d9ca1d1051b1914c295a9d85c6df4d029d5f7b788512f6c5f6098ae1781d2"
+    },
+    "379": {
+      "bytes": 4626364,
+      "gzipOffsetEnd": 123236461,
+      "gzipOffsetStart": 122757707,
+      "member": 379,
+      "sha256": "b1041de3e4ceb4e332d75afcc7384108d7e1602cb2fbcf3c0223ee7a507dc4c8"
+    },
+    "380": {
+      "bytes": 4628368,
+      "gzipOffsetEnd": 123715379,
+      "gzipOffsetStart": 123236461,
+      "member": 380,
+      "sha256": "52306d9a50d1bbe71a6f6c15163eaa5e024699db28a93516f96596cab2983e48"
+    },
+    "381": {
+      "bytes": 4629588,
+      "gzipOffsetEnd": 124193877,
+      "gzipOffsetStart": 123715379,
+      "member": 381,
+      "sha256": "8908ac4ddc69ecbf097f726c94686ef7e975d0aafc6f8f737d7391284f410c75"
+    },
+    "382": {
+      "bytes": 4630176,
+      "gzipOffsetEnd": 124672378,
+      "gzipOffsetStart": 124193877,
+      "member": 382,
+      "sha256": "44aa4a638e98b2d3cfb7e53933b15d45d1bb3628c5f539e1bfedff1e15bb487a"
+    },
+    "383": {
+      "bytes": 4631494,
+      "gzipOffsetEnd": 125150999,
+      "gzipOffsetStart": 124672378,
+      "member": 383,
+      "sha256": "82b6fe0187f5fd410db2b8135419b7ff901bfe2add6a40b58f9d354aa0163804"
+    },
+    "384": {
+      "bytes": 4632526,
+      "gzipOffsetEnd": 125629662,
+      "gzipOffsetStart": 125150999,
+      "member": 384,
+      "sha256": "f5d00c471102d8ba4152ef24df2453202c47499892565df27a3047ce7c34d531"
+    },
+    "385": {
+      "bytes": 4644183,
+      "gzipOffsetEnd": 126107351,
+      "gzipOffsetStart": 125629662,
+      "member": 385,
+      "sha256": "246fc58f45b8d004de0c7094cb6d092cc6562c053b96bee660a07d869ec54ca7"
+    },
+    "386": {
+      "bytes": 4662222,
+      "gzipOffsetEnd": 126588914,
+      "gzipOffsetStart": 126107351,
+      "member": 386,
+      "sha256": "7b77bd29944d32db52cd012d7261e67ce794bb446418c04942b790dbf9edfe10"
+    },
+    "387": {
+      "bytes": 4663562,
+      "gzipOffsetEnd": 127070592,
+      "gzipOffsetStart": 126588914,
+      "member": 387,
+      "sha256": "dd904aa8f53c0767b002ca81cf30f1141c1c2b58edfb67b29841dbbcd07ad350"
+    },
+    "388": {
+      "bytes": 4664772,
+      "gzipOffsetEnd": 127552363,
+      "gzipOffsetStart": 127070592,
+      "member": 388,
+      "sha256": "8964f7bd2dd8fe957315bdf46fbba4dfaf818b66b10d6e3944b4739763a40541"
+    },
+    "389": {
+      "bytes": 4667204,
+      "gzipOffsetEnd": 128034299,
+      "gzipOffsetStart": 127552363,
+      "member": 389,
+      "sha256": "8b48a9dfb30b820f02381606deb59ab1d65eb8893a89eabc518eee69f10c9bcb"
+    },
+    "390": {
+      "bytes": 4670780,
+      "gzipOffsetEnd": 128515923,
+      "gzipOffsetStart": 128034299,
+      "member": 390,
+      "sha256": "032c9f50cfbab08a19ee3bd676269d6c962a1549f7463e35f8f43b094f857da5"
+    },
+    "391": {
+      "bytes": 4671370,
+      "gzipOffsetEnd": 128997598,
+      "gzipOffsetStart": 128515923,
+      "member": 391,
+      "sha256": "f954a1ced1472fd9b0398b71b7e073c2ffa78d6e4b128714307f90988812a7bb"
+    },
+    "392": {
+      "bytes": 4672688,
+      "gzipOffsetEnd": 129479360,
+      "gzipOffsetStart": 128997598,
+      "member": 392,
+      "sha256": "03846e963fc68456a584a9a496fc4d50bbae3e8d3771d090767e5dfb2ee30fe5"
+    },
+    "393": {
+      "bytes": 4673708,
+      "gzipOffsetEnd": 129961173,
+      "gzipOffsetStart": 129479360,
+      "member": 393,
+      "sha256": "502e2ed34c9261d1b1cf6ec84364c7b955137dfbb342d8ade70d15b4ce52a6ef"
+    },
+    "394": {
+      "bytes": 4685436,
+      "gzipOffsetEnd": 130441819,
+      "gzipOffsetStart": 129961173,
+      "member": 394,
+      "sha256": "c8a5a4135dae5e923e76d04bbe33f92147cba083866bc381907bdd3552ca51e5"
+    },
+    "395": {
+      "bytes": 4703516,
+      "gzipOffsetEnd": 130926587,
+      "gzipOffsetStart": 130441819,
+      "member": 395,
+      "sha256": "fb183d13af4487c76148fd4c97191d9e5d80ef96a105ed46676b5124ba2e6e7d"
+    },
+    "396": {
+      "bytes": 4704846,
+      "gzipOffsetEnd": 131411410,
+      "gzipOffsetStart": 130926587,
+      "member": 396,
+      "sha256": "9733f018289702cabfe41e7e30ac766ad763d6c8124330d0398d2f598f3accf7"
+    },
+    "397": {
+      "bytes": 4706068,
+      "gzipOffsetEnd": 131896393,
+      "gzipOffsetStart": 131411410,
+      "member": 397,
+      "sha256": "650e4d88c9fce1841e30b6c9da003b72010671f7837660cb8118a27773bb2f7f"
+    },
+    "398": {
+      "bytes": 4708069,
+      "gzipOffsetEnd": 132381563,
+      "gzipOffsetStart": 131896393,
+      "member": 398,
+      "sha256": "383086fde889947d55aaa54f7c92f54602394b6e7de931f187f4a36882ff48cc"
+    },
+    "399": {
+      "bytes": 4709292,
+      "gzipOffsetEnd": 132866368,
+      "gzipOffsetStart": 132381563,
+      "member": 399,
+      "sha256": "05dc406cc330258aaea6ab8530808ae273b6433be503a86d1f3a04eaf1e4b011"
+    },
+    "400": {
+      "bytes": 4711436,
+      "gzipOffsetEnd": 133351208,
+      "gzipOffsetStart": 132866368,
+      "member": 400,
+      "sha256": "d653b85934d253123887c83c13a75a011d33fa2644017f9b8f2e491f075f141c"
+    },
+    "401": {
+      "bytes": 4712754,
+      "gzipOffsetEnd": 133836169,
+      "gzipOffsetStart": 133351208,
+      "member": 401,
+      "sha256": "e9fa042d35f6fbe078a11387c7b23669fc16c9ce2230b07e28f541cb8ccd274c"
+    },
+    "402": {
+      "bytes": 4716992,
+      "gzipOffsetEnd": 134321630,
+      "gzipOffsetStart": 133836169,
+      "member": 402,
+      "sha256": "b442240f3a13f325188c8c1fabe8dbda603235abcf3cc643bcaded74a4c57c4d"
+    },
+    "403": {
+      "bytes": 4731172,
+      "gzipOffsetEnd": 134806018,
+      "gzipOffsetStart": 134321630,
+      "member": 403,
+      "sha256": "fd1ea9de3d59c613c60bef25b5bb4595e78e2050e6ebe557fe71112e82ee198b"
+    },
+    "404": {
+      "bytes": 4799085,
+      "gzipOffsetEnd": 135298444,
+      "gzipOffsetStart": 134806018,
+      "member": 404,
+      "sha256": "41555b8003ce0c0184dd3d307f5d8f9d4d3511ac91e7fe2a9558086b0b3f844e"
+    },
+    "405": {
+      "bytes": 4805218,
+      "gzipOffsetEnd": 135791566,
+      "gzipOffsetStart": 135298444,
+      "member": 405,
+      "sha256": "d11de1cc45c7879ab2bda289fa720ca44bbb31e45ad6278c42ea0a51cc42e684"
+    },
+    "406": {
+      "bytes": 4806447,
+      "gzipOffsetEnd": 136284757,
+      "gzipOffsetStart": 135791566,
+      "member": 406,
+      "sha256": "3b2ba1c3e2567d3fec366a80b731ac5a5e2e583d5efb8ffc9293d2b26e6d6627"
+    },
+    "407": {
+      "bytes": 4808368,
+      "gzipOffsetEnd": 136778174,
+      "gzipOffsetStart": 136284757,
+      "member": 407,
+      "sha256": "e4eaae07fc59c148765a9fb15160d5cc1da97dfe220986bf42cc1bdd74331997"
+    },
+    "408": {
+      "bytes": 4822849,
+      "gzipOffsetEnd": 137274409,
+      "gzipOffsetStart": 136778174,
+      "member": 408,
+      "sha256": "df5eac328cffbdaadd6aa1b8ed15831080468f7006356b75bf4de146d948c82b"
+    },
+    "409": {
+      "bytes": 4823447,
+      "gzipOffsetEnd": 137770671,
+      "gzipOffsetStart": 137274409,
+      "member": 409,
+      "sha256": "947acb1b80975461fed3459dc253afc035966806423a42efe1c7bd3d7a60fcf3"
+    },
+    "410": {
+      "bytes": 4824763,
+      "gzipOffsetEnd": 138267015,
+      "gzipOffsetStart": 137770671,
+      "member": 410,
+      "sha256": "44e4017d7cd3ada6d3a1a15e7fbcd700047bb1bb355e813a58d3eedfcf451cf7"
+    },
+    "411": {
+      "bytes": 4826757,
+      "gzipOffsetEnd": 138763511,
+      "gzipOffsetStart": 138267015,
+      "member": 411,
+      "sha256": "02c6f7d21594efe2075ed82e5d19ce4d9f7bb7a9fe7d14843f759ba00b67de81"
+    },
+    "412": {
+      "bytes": 4839626,
+      "gzipOffsetEnd": 139259440,
+      "gzipOffsetStart": 138763511,
+      "member": 412,
+      "sha256": "247b6b5535f5a5b12ba4dc50e0ed97594d687c1ef5abd619e1cb715ca2420edd"
+    },
+    "413": {
+      "bytes": 4843476,
+      "gzipOffsetEnd": 139755874,
+      "gzipOffsetStart": 139259440,
+      "member": 413,
+      "sha256": "0546968bff070dd3c6ebeee2251b2daa3f446711f3a9c8739609470b3ca440af"
+    },
+    "414": {
+      "bytes": 4845313,
+      "gzipOffsetEnd": 140252412,
+      "gzipOffsetStart": 139755874,
+      "member": 414,
+      "sha256": "50d33c6e7ea6eba55e34374ff858c2f90c376c2d51db823f541a295571cbc7bb"
+    },
+    "415": {
+      "bytes": 4786600,
+      "gzipOffsetEnd": 140744885,
+      "gzipOffsetStart": 140252412,
+      "member": 415,
+      "sha256": "28711a7147e4378227d12e3f02ec3c49669f18365a55885cb5fb52e6a391873e"
+    },
+    "416": {
+      "bytes": 4824007,
+      "gzipOffsetEnd": 141237093,
+      "gzipOffsetStart": 140744885,
+      "member": 416,
+      "sha256": "3fab9b23ecf36c789d0a1ab4dd5d5956fd1ac1eb013665d96f00dc74aa472c27"
+    }
+  },
+  "externalPins": {
+    "routeManifest": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/MANIFEST.json",
+      "sha256": "b8a115a2cec4c8dfb91742767362e493768c7ec992908c1aa4c3c05a92618374"
+    },
+    "assembler": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/runner.py",
+      "sha256": "6f7b72d0abbfb9cd381dbd59ad6a6568ec2b0394354ee799c93a6f936663d631"
+    },
+    "runtimeGuard": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/runtime_guard.py",
+      "sha256": "a147d694a0d810a5baa227e6da011031252fd58e67f2b2fc6990881c0bcc7bd7"
+    },
+    "sourceReview": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-independent-review-r3/RECEIPT.json",
+      "sha256": "3f3bb2b8279b9d8931eff58156a5c36b320a0f394b744f9dd826272357c04cdc"
+    },
+    "observedEbg": {
+      "bytes": 1179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    "targetResult": {
+      "bytes": 3074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    },
+    "outerResult": {
+      "bytes": 1693,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "9489d8959d558b08b02b4df6324ff75f78fa6ba1c45be9afcef3fa6c0467fdb7"
+    },
+    "comparatorResult": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-runs-r2/20261008-bonly-adoption-r1/RESULT.json",
+      "sha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa"
+    },
+    "recipeManifest": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/MANIFEST.json",
+      "sha256": "2376eb41b65c7d486a278d12574961cb085db91a1c12a212b973511898bb5c0c"
+    },
+    "acceptedLaneHelper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "acceptedOriginalObserver": {
+      "bytes": 12115,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/observer-ebg.test.ts",
+      "sha256": "e9d476e3b44dcd2ff4be890da127d811da8b5c45ad9664d443bc54ce143cb7fe"
+    },
+    "interventionWholeFile": {
+      "bytes": 40732,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/hollywoodTick.r04-release-off.ts",
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73"
+    },
+    "observedOneTick": {
+      "bytes": 5318,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/RECEIPT.json",
+      "sha256": "98adcb7132bf1a3eb877f2acac02c056ce4eb65142e708cc2365d929059d8918"
+    },
+    "oneTickComparison": {
+      "bytes": 45023,
+      "path": "/Users/zacheryspector/studio-scratch/1370-b-release-one-tick-run-20261008-4812-r1/COMPARISON.json",
+      "sha256": "27b876198ca705008c275a6e2a2f2434bbadb9c8f7e6b7e28048acbc3fe12ba9"
+    },
+    "oneTickFacts": {
+      "bytes": 22770,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/FACTS.json",
+      "sha256": "d59ee958db7996635cb2f7699adfb007e3d160319528fbfaccef763e5b2b4cd4"
+    },
+    "oneTickObserver": {
+      "bytes": 10370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/one-tick.test.ts",
+      "sha256": "58f584748ac9bd843be5450f5edf15862839d7858d1d11db837a36045c24f97f"
+    },
+    "oneTickRecorder": {
+      "bytes": 26594,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/run.py",
+      "sha256": "9dd6b54c75b6bc7401f9f56ca89a882846185450cf5a8a51744d98da013544e0"
+    },
+    "oneTickSourceControlsReview": {
+      "bytes": 1166,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-r3-independent-observed-source-controls-review-20261008-r1/RECEIPT.json",
+      "sha256": "536154e67531678260eb75e89f024c595ca0e2545d20907e57023b8e9b013773"
+    },
+    "oneTickSourceManifest": {
+      "bytes": 5828,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/MANIFEST.json",
+      "sha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5"
+    },
+    "oneTickSourceReview": {
+      "bytes": 1036,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r3/RECEIPT.json",
+      "sha256": "42210aa6552b585bbdd37270999eaac4bebeb9ae7441f537ce8d29e0c921c308"
+    },
+    "parentOneTickAdoption": {
+      "bytes": 834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/PARENT-ADOPTION.json",
+      "sha256": "1b667564420555240d806c15717466faf8f18637225d8f13a1cb5197234ee779"
+    },
+    "patchManifest": {
+      "bytes": 813,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/MANIFEST.json",
+      "sha256": "2376eb41b65c7d486a278d12574961cb085db91a1c12a212b973511898bb5c0c"
+    },
+    "patchRecipe": {
+      "bytes": 5954,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/RECIPE.md",
+      "sha256": "abc05a8e75da2ef0668a5bf1886901c9d7eb5bad95b6be6201453eed11dc0606"
+    },
+    "publishedBoundaryComparator": {
+      "bytes": 4274864,
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-runs-r2/20261008-bonly-adoption-r1/RESULT.json",
+      "sha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa"
+    },
+    "publishedBoundaryComparatorObserved": {
+      "bytes": 1406,
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-independent-observed-review-r1/RECEIPT.json",
+      "sha256": "3a57d7b0cafcfb9f694de5866ef3cda0bdb0ee9f9f5166d844f9b88dfbfe544a"
+    },
+    "retentionIdentityHelper": {
+      "bytes": 584,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/retention.mjs",
+      "sha256": "b4eca17f4dfd93dd5c22c3ec94751d0cdf2838b946b08cf819390d1b28b0e593"
+    },
+    "designManifest": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-design-20261008-r1/MANIFEST.json",
+      "sha256": "964cc771f30ec1c6f587b4d1d514c21037ca7086c0d02d25d0920f013c075972",
+      "bytes": 2100
+    },
+    "designRecipe": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-design-20261008-r1/RECIPE.md",
+      "sha256": "7cddcd9540c8c066416de874eebbe06f6c2d4fba9d853e5326c63c9d54cd20e3",
+      "bytes": 11547
+    },
+    "designReview": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-independent-design-review-20261008-r1/RECEIPT.json",
+      "sha256": "718e79a8653e3f575252dfe466d2072ed816dc5444aebd5fca477ce4be524b46",
+      "bytes": 3072
+    },
+    "designParentAdoption": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-independent-design-review-20261008-r1/PARENT-ADOPTION.json",
+      "sha256": "0d89f7203d35e93f410ba87a757e5b626cda2a23e5af19274ad31880b3c6dc70",
+      "bytes": 1392
+    }
+  },
+  "files": {
+    "BINDING-UNFILLED.json": {
+      "sha256": "d56eb8b00e61e2fe4bf6b8e9f2c2dd71bbfd5e17c0354969e5ca3405e66217f2",
+      "bytes": 532
+    },
+    "DEPENDENCIES.json": {
+      "sha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37",
+      "bytes": 1277501
+    },
+    "DESIGN-MEMBER-INDEX-307-416.json": {
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855",
+      "bytes": 24196
+    },
+    "DESIGN-ROLES.json": {
+      "sha256": "779d9de6325b43af1f4d418128e54d82de22a456a92ff347f24dde12aba007a3",
+      "bytes": 13974
+    },
+    "PLAN.md": {
+      "sha256": "37b306232b83299d458e74b5c6f8437bd7194c29078e6b6a88e5a5ea90a6eb6d",
+      "bytes": 6648
+    },
+    "continuation.test.ts": {
+      "sha256": "5d1c2f1b6b0086bcec8681924975ac2224655922c09d6b92a0e101688836fde2",
+      "bytes": 15627
+    },
+    "hollywoodTick.r04-release-off.ts": {
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73",
+      "bytes": 40732
+    },
+    "retention.d.mts": {
+      "sha256": "8433e8d649c54a4918bbdd4cf630e2ed73155555052af67dbd147cb18191cc99",
+      "bytes": 215
+    },
+    "retention.mjs": {
+      "sha256": "b4eca17f4dfd93dd5c22c3ec94751d0cdf2838b946b08cf819390d1b28b0e593",
+      "bytes": 584
+    },
+    "run.py": {
+      "sha256": "f370bfe54b45f760d05e57f587f9fea582319acfc081644c55f5d5a4f3a12e15",
+      "bytes": 27944
+    },
+    "streaming.d.mts": {
+      "sha256": "c31099fc655091c1a7af3e609de08e43e264d71d716c8bdb1f13921238a83540",
+      "bytes": 1036
+    },
+    "streaming.mjs": {
+      "sha256": "8f3c0f73e33c9a5fe4b4672f3e931290756dc1b9f628289135e14f4f01d7f5ae",
+      "bytes": 10790
+    },
+    "test-continuation-recorder-red.py": {
+      "sha256": "f55c3888c8d373be451e2157a0e5d84ec78af922743c134ad55fddbb3c0840c6",
+      "bytes": 2215
+    },
+    "test-json-cap-red.py": {
+      "sha256": "25b91703640b8f1353d7dd886e2abd40965b674c50d6a867a3bfa6b61d4e791b",
+      "bytes": 2514
+    },
+    "test-recorder-red.py": {
+      "sha256": "6e44f5810b94d605b03446832dbd14f491ca73583ed32fa28ce861f731185b55",
+      "bytes": 9329
+    },
+    "test-retention-red.mjs": {
+      "sha256": "e60457c2c427fb58ac7a4f305e743deb1b19285d16991a82480689cee8ff507b",
+      "bytes": 899
+    },
+    "test-streaming-red.mjs": {
+      "sha256": "9f9f509ae67c8addbd84001051c583359103ce30fbdcdcadf567201876c4fc81",
+      "bytes": 6916
+    },
+    "vitest.continuation.config.ts": {
+      "sha256": "a602cbdb77ddde81acd30798f3ec0e193d12a1d4c94f7dafef32a23d0aac7998",
+      "bytes": 279
+    }
+  }
+}

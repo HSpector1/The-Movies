@@ -1,0 +1,3 @@
+{"status": "STOP_SUPERVISOR_EXIT_2"}
+{"status": "STOP_FRAME_SHAPE"}
+{"status":"PIPELINE_EXITS_CANDIDATE","outerExit":2,"sinkExit":2}

@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r8-exact-preparation-20261008-r1/fill_actual_candidate.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r8/RECEIPT.json",
+    "0df56d411ea22b65e3407b27abe161481acaa06ca4cc7dede11656faa41e8da0"
+  ],
+  "claimLimit": "Actual fill only after independent parent procedure review. No launch/adoption/game; root reviews resulting exact bytes.",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "requiredEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "status": "PREPARED_UNRUN_REQUIRES_INDEPENDENT_PROCEDURE_REVIEW"
+}

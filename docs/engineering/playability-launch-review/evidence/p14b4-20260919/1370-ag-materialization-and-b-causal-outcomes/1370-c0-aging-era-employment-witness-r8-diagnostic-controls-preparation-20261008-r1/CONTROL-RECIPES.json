@@ -1,0 +1,55 @@
+{
+  "actualWitnessAuthorization": false,
+  "bounds": "Each Python-only synthetic child has <=2-second outer test deadline; suite has no game/fixture/Node/sandbox invocation. Parent must use exclusive heavy lane and external finite wall-clock supervision.",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "r7StopReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-observed-stop-independent-review-20261008-r1/RECEIPT.json",
+  "r7StopReceiptSha256": "2fa2f8c709ab0438312867c04f2221bb2423dd822bcd3a9c380dc605dfd6e753",
+  "recordedControls": [
+    {
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/red-r7.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py",
+        "--source",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r7"
+      ],
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "expectedRole": "RED old source should fail diagnostic-specific assertions; GREEN repaired source should pass all11. Outcomes not observed.",
+      "label": "red-r7"
+    },
+    {
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/green-r8.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py",
+        "--source",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1"
+      ],
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "expectedRole": "RED old source should fail diagnostic-specific assertions; GREEN repaired source should pass all11. Outcomes not observed.",
+      "label": "green-r8"
+    }
+  ],
+  "requiredEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1",
+  "sourcePinsSha256": "0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715",
+  "sourceReviewSchemaRequired": "1370-c0-aging-era-employment-witness-independent-static-review-r8",
+  "status": "UNREVIEWED_UNRUN_CONTROL_RECIPES_ONLY",
+  "unrunWiring": {
+    "adapterPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/launch-pipeline-r8-proposed.sh",
+    "adapterSha256": "38afc47e8bcb834df333f2834fdf4a6f5bd3f3826d96c8fce02a9c72d164a16f",
+    "sinkPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/bounded-sink-r8-proposed.py",
+    "sinkSha256": "0d9a5bf7e187e141bccc20a1b65740bedd3a67a926b6c7eb873f3df74c78982a"
+  }
+}

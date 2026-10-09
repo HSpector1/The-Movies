@@ -1,0 +1,24 @@
+{
+  "adoptedLaunchSpecSha256": "4ea5ef752f9f378ff5c157da547b5ee37eb658d90aa2e962396c1700d121a596",
+  "adoptedPreflightReceiptSha256": "57dfdee94ab5f8c3ff36f03324fb77f5d564e81d82c28b8ef367190624c1930b",
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-lane-20261008-r1/witness-r8.lane.log",
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/launch-pipeline-r8-proposed.sh",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-exact-draft-20261008-r1/BINDING-DRAFT.json",
+    "1ee08ede7b250087cde4dbd64ad88dd9513b4e1a150a993ae341bad6a1d16dac"
+  ],
+  "bindingSha256": "1ee08ede7b250087cde4dbd64ad88dd9513b4e1a150a993ae341bad6a1d16dac",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "freeBytes": 8578588672,
+  "parentAdoption": "Exact reviewed launch authorized under frozen4812 no-detach/no-external-protected-renamer scope. Full postflight6a1d reused. Additional three pure Node20 controls completed0 before this launch, scratch fixtures only; fresh standalone process view is clear. No other heavy lane.",
+  "schema": "parent-r8-launch-record-r1",
+  "utc": "2026-10-08T23:50:17.416389+00:00"
+}

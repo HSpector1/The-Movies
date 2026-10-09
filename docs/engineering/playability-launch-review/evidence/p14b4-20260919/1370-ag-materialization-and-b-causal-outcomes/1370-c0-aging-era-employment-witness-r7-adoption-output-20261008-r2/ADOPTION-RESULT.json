@@ -1,0 +1,35 @@
+{
+  "adoptedLaunchSpecSha256": "699c1be5454d65b2ee960fcac01611b44d1db5610967f4b5bd308fad2c9aeb82",
+  "archiveManifestSha256": "089d40177dcd888806746f83b9eecbb97927e32101fac058f94425ccdbcafd58",
+  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-pre-adoption-archive-20261008-r2",
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-exact-draft-20261008-r2/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "172b8405bceda94e539619fdf53cfb0f3ea9cfc09042c4a32cbf95a7210102c6",
+  "changedFields": [
+    "exactReview",
+    "executionAuthorization",
+    "status"
+  ],
+  "claimLimit": "Adoption only; fresh independent adopted preflight including full protected bytes/dependency/root/FD/disk/no-detach/argv review required before one witness lane.",
+  "fieldDiff": {
+    "exactReview": {
+      "after": {
+        "decision": "ACCEPT_EXACT_FILLED_UNRUN",
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-exact-independent-review-20261008-r2/RECEIPT.json",
+        "sha256": "562215cc2003b871147f111a1b33c75005512c1abd2fbc9d3cd0424390a0bc77"
+      },
+      "before": null
+    },
+    "executionAuthorization": {
+      "after": true,
+      "before": false
+    },
+    "status": {
+      "after": "REVIEWED_FILLED_UNRUN",
+      "before": "DRAFT_FILLED_UNREVIEWED_UNRUN"
+    }
+  },
+  "newBindingSha256": "31eed0401487d0be2849c11dcb8e73c8ca6a3a636ec3a755085981ddd9bb4817",
+  "oldBindingSha256": "7c08b0c8911f1a75b9a4e6158eb6c8e26ffdd2c3f7de7c6bdbdfbbb4454e751e",
+  "schema": "1370-witness-r7-adoption-result-r2",
+  "status": "ADOPTED_UNRUN_PREFLIGHT_REQUIRED"
+}

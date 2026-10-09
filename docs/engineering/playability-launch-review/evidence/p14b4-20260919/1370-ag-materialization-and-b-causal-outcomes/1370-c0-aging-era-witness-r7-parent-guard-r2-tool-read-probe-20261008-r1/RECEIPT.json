@@ -1,0 +1,41 @@
+{
+  "allPassed": true,
+  "claimLimit": "Observed exact reader portability repair only. Full root/protected/dependency/FD baseline still requires parent-authorized r2 guard after accepted materialization; old refusal remains STOP.",
+  "configSha256": "7232a61e4115f774d2e21ffd99aea707993de434fd575cc5cf8793d119610e62",
+  "copiedRootRead": false,
+  "decision": "ACCEPT_OBSERVED_PINNED_TOOL_READS_ONLY",
+  "expectedAndObservedLinks": {
+    "du": {
+      "expected": 1,
+      "observed": 1
+    },
+    "git": {
+      "expected": 76,
+      "observed": 76
+    },
+    "ls": {
+      "expected": 1,
+      "observed": 1
+    },
+    "lsof": {
+      "expected": 1,
+      "observed": 1
+    },
+    "xattr": {
+      "expected": 1,
+      "observed": 1
+    }
+  },
+  "gameRun": false,
+  "observedReads": 5,
+  "probeActualProcessExitObserved": 0,
+  "probePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-r2-tool-read-probe-20261008-r1/PROBE.json",
+  "probeSha256": "42136e2cb32141035e11f6a66148b9e68acf5283226a21640c0a73183462da5b",
+  "productionWrites": false,
+  "schema": "1370-witness-r7-parent-guard-r2-tool-reader-observed-review-r1",
+  "snapshotProcedureSha256": "ed43cd95fbbc13a2194338a8fe8dd48e05a56b1b77a4cdcb377f60ea17429740",
+  "sourcePinsUnchanged": true,
+  "sourceReviewSha256": "2c7acfc9f585a67962949f2f6a4ad2769110f78f03afb97547249f34c808747d",
+  "toolsExecuted": false,
+  "wholeGuardExecuted": false
+}

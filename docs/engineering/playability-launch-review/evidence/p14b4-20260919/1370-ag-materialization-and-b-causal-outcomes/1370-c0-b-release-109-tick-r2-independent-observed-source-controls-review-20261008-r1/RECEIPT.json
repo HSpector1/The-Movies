@@ -1,0 +1,66 @@
+{
+  "actual109Game": "UNRUN",
+  "actualAndMetaExits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "decision": "ACCEPT_OBSERVED_53_CONTROLS_RECORDED_RUNTIME_ONLY_PENDING_NODE20_29",
+  "evidence": {
+    "AUDIT.json": {
+      "bytes": 13079,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-independent-observed-source-controls-review-20261008-r1/AUDIT.json",
+      "sha256": "bfc0d282c7559ccfaecc2b02c5416486b61982bf32e4c1d82d225bc80c71aa9f"
+    },
+    "REPORT.md": {
+      "bytes": 3468,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-independent-observed-source-controls-review-20261008-r1/REPORT.md",
+      "sha256": "655fafe407cf431f3392b43100f7867b71c0e69e442f75d8a7204cde63f59769"
+    },
+    "audit-recorded-controls.py": {
+      "bytes": 6137,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-independent-observed-source-controls-review-20261008-r1/audit-recorded-controls.py",
+      "sha256": "8b75eda06aa217143f08baa809c58384a6f4fc5fa5173a0c1d8b22bcc613cfb4"
+    }
+  },
+  "exactOrLaunchAuthorized": false,
+  "fixtureCleanupObserved": true,
+  "freshHelperGroupsAbsent": [
+    89089,
+    89175,
+    89377,
+    89398,
+    89419,
+    89441
+  ],
+  "independentStaticSourceReviewSha256": "36b8fb13854b10a17159d2f5bd59d80fbd3eff7c5184c7444ecd21917d641a9f",
+  "observedCounts": [
+    15,
+    4,
+    4,
+    21,
+    5,
+    4
+  ],
+  "observedPasses": 53,
+  "parentToolOutcomeSha256": "f338304cdf88ef7b6cbedb2621654c5b6f191db6e6fc5a35f69d0428729e21d1",
+  "recordedNodePath": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+  "remainingQualification": "Parent-granted29 pure Node controls on pinned actual Node20; do not repeat Python24.",
+  "requiredNode20Path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+  "requiredNode20Sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+  "reviewActions": {
+    "gameRun": false,
+    "gitCommands": false,
+    "gzipDecoded": false,
+    "productionOrCopiedRootReads": false,
+    "productionWrites": false,
+    "repeatControlsRun": false
+  },
+  "schema": "1370-b109-r2-independent-observed-source-controls-review-r1",
+  "sourceManifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+  "sourceReadyForExactPreparation": false,
+  "utc": "2026-10-08T23:50:42.972240+00:00"
+}

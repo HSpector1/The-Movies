@@ -1,0 +1,25 @@
+{
+  "bindingSemanticSha256": "18900da834bda366b2177c8ff8ee9a87b97374c02366b97d1c6b06cb4c23f309",
+  "candidatePinsSha256": "19a2b91cde3b786aaac79cbeb2fabd965b9020fad8010c65fc1112675cbff2e8",
+  "claimLimit": "Prepared read-only exact draft and adoption/launch proposals. No adoption, materialization, witness, fixture or game execution.",
+  "draftBindingSha256": "6b0407707c4dfc67dc3b268859042dc38b216c3da41eccf4c08a6dfa68aa4dad",
+  "draftPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1",
+  "files": {
+    "DEPENDENCY-INVENTORY.json": "b80a018c3f2b3dbca31a71a6b3866b447c194dd5e46a164586c96086d89f3a17",
+    "DRAFT-IDENTITY.json": "a1d3cd613ddce69e3852f595c4452a16229ecacc929756b2b31cce6af2db8af2",
+    "LAUNCH-SPEC.json": "179c58e140b77213cf60042f0c8e62c44f9aa0b2aba0e50bf4e8fc08aa92c50c",
+    "LSOF.bin": "7580dc509bd15b0af31b4f6651b5e9172a519f3aa8d26699a4466a9ad6668141",
+    "LSOF.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "OBSERVATIONS.json": "b766318c05b0175fe3ce762bcd18c3713367b666fd510267ad65d861f5b931c4",
+    "PLAN.md": "42dc7477c04f2e142a678ef0db262c33b548258dd24f20d9aef9d0ca862e00c8",
+    "PS.txt": "ac6158bd46fb617c742a0bb26a6ef3c1a119b737cdd15eac232629a91016a696",
+    "adopt_reviewed_binding.py": "644fcd5a61b4cbb689f31caa8bf4ea2ecdd60f4a31f7b57c51de5a419db7cf5f",
+    "build_draft.py": "93407cb56349aeb0babc04ddc99a2fa87bdd9a442de888691ead9d5ba8d14a44"
+  },
+  "launchAuthorized": false,
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "schema": "1370-r6-r1-exact-preparation-pins-r1",
+  "sourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+  "sourceReviewSha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794",
+  "status": "DRAFT_UNREVIEWED_UNRUN"
+}

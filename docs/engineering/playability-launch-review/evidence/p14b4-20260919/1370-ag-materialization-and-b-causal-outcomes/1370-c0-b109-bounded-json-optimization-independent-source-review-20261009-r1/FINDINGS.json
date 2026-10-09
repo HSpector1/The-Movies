@@ -1,0 +1,35 @@
+[
+  {
+    "evidence": "Whole90 only tested once at line62; no timer covers authentication/Popen/writes/fsync. Child60 begins after Popen returns, ownership/try begins after startup and pipe registration. Loop guard is before select: EOF+exit at/after60 can make next while condition false before a new deadline check. No active75 check precedes final positive decision; writes/final result occur after last whole check.",
+    "file": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r1/record-pure-node.py",
+    "finding": "Declared finite60/75/90 recorder is not hard bounded through startup/finalization and can accept an exit observed after its deadline.",
+    "finiteRepair": "Arm hard whole90 before config/source reads and wrap startup/monitor/cleanup/finalization. Reuse authenticated accepted fork/owned-PID READY/GO and cleanup primitives (or equivalently close ownership/exec window), establish child60 bound before execution, recheck child/active deadline immediately when final exit/output drainage is observed and active75 immediately before positive decision; check whole90 after final output/receipt write, with failure/nonzero/override precedence. Do not change bounds.",
+    "focusedControls": "Tiny source-only late-exit clock case, preflight/startup/finalization deadline cases, and startup PID-registration/cleanup case; no game/capture needed.",
+    "id": "F1",
+    "lines": [
+      33,
+      36,
+      39,
+      40,
+      43,
+      44,
+      52,
+      62,
+      65,
+      74
+    ],
+    "severity": "high"
+  },
+  {
+    "evidence": "env=dict(os.environ,...) copies NODE_OPTIONS; version/execPath/SHA checks still pass with --require/--import or --jitless options. Accepted B109 recorder already removes NODE_OPTIONS.",
+    "file": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r1/record-pure-node.py",
+    "finding": "Child inherits NODE_OPTIONS, allowing preload code or benchmark-affecting flags outside the promised pure exact runtime.",
+    "finiteRepair": "Remove NODE_OPTIONS from child environment (and NODE_PATH if preserving a narrowly fixed module-resolution environment), retain pinned absolute Node argv/version/hash. Record sanitized relevant environment or assert it in pure child.",
+    "focusedControls": "Tiny pure child proves injected NODE_OPTIONS preload is absent and no unexpected exec options; no fixture/game needed.",
+    "id": "F2",
+    "lines": [
+      39
+    ],
+    "severity": "medium"
+  }
+]

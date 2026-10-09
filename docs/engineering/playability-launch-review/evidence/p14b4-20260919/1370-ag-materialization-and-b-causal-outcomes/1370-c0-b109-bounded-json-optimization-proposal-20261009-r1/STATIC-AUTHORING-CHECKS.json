@@ -1,0 +1,17 @@
+{
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "baselineSourceUnchanged": true,
+  "game": false,
+  "gzipDecode": false,
+  "nodeScriptImportsOrExecution": false,
+  "recorderPythonAstParsed": true,
+  "schema": "1370-b109-encoder-static-authoring-checks-r1",
+  "singlePerCallKeyCachePresent": true,
+  "status": "PYTHON_AST_AND_PINS_ONLY",
+  "testsOrBenchmarkRun": false,
+  "wholeCaptureBytesRead": 0
+}

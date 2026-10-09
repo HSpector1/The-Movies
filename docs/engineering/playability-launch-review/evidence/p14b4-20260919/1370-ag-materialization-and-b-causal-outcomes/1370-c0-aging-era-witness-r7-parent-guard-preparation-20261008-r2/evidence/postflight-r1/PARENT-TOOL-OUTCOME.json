@@ -1,0 +1,11 @@
+{
+  "actualExit": 0,
+  "elapsedSeconds": 471.46032936700067,
+  "fullBaselineEqual": true,
+  "ownedGroupClearanceClaim": false,
+  "pinsSha256": "22e30b0a6fbeb00c7bd1882cb37b5567a8fe422e411d6f7ea8a26192c60a3847",
+  "schema": "parent-actual-full-postflight-tool-outcome-r1",
+  "snapshotSha256": "6a1d17ea0ff855fe66fba0f6ce73eb3b2b51730b8ad97c10b8e3d335b167bc69",
+  "toolSessionId": 15444,
+  "utc": "2026-10-08T23:31:38.762575+00:00"
+}

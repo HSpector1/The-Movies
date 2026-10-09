@@ -1,0 +1,14 @@
+{
+  "adoptionProcedureSha256": "84c78ff72c3b9277578c73c8867ed5b47a9a5bc15af6b75480967b833d05e1fb",
+  "decision": "ACCEPT_PROCEDURES_ONLY_UNRUN",
+  "fillProcedureSha256": "9bb509cc2657037fbb9237214e7ac4f5549177756dc53e7177680cf7ee0d4a89",
+  "findings": [],
+  "gameRun": false,
+  "launchAuthorized": false,
+  "preparationPinsSha256": "077ef3087757fde8db18777347a611a81f5454f95dfc654d866a00a5bcad65e9",
+  "priorRefineSha256": "ff069e1d319e3377df36af10bbdc0a53ff504e0295866c0a013926601ed608fd",
+  "review": "R2 one-line SOURCE fix matches actual source/config/receipt; inherited fill and six-file archive/three-field adoption reviewed. Full postflight6a1d reuse adopted under unchanged4812 protected roots and no-detach/no-external-renamer scope, with fresh strict roots/worktree/runtime/FD/ref/AC/disk checks. All witnesses/source roles exact. No copied root writes. Root authorizes actual fill only; separate exact/adoption/preflight before launch.",
+  "schema": "1370-witness-r8-exact-procedure-independent-review-r2",
+  "sourceReceiptSha256": "0df56d411ea22b65e3407b27abe161481acaa06ca4cc7dede11656faa41e8da0",
+  "utc": "2026-10-08T23:43:17.620247+00:00"
+}

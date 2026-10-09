@@ -1,0 +1,130 @@
+{
+  "acceptedFrozenPostflight": {
+    "baselinePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/before-fill-r1/SNAPSHOT.json",
+    "baselineSha256": "b087ec768c52328d142433555d8549e4d9e365fe4293810fe4fac5c042281a12",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/SNAPSHOT.json",
+    "sha256": "07b785480707a2c972dbdba4b0865461507939c1891f8b5386c40a375dab105e"
+  },
+  "adoptionOutputPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-adoption-output-20261008-r1",
+  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-pre-adoption-archive-20261008-r1",
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "bindingTemplateSha256": "f9ea1aaf8adfd4febcfbebb37e615bac7807a7d709c1458d69dcb8d99556474a",
+  "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-exact-draft-20261008-r1",
+  "laneLog": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-lane-20261008-r1/witness-r9.lane.log",
+  "laneParent": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-lane-20261008-r1",
+  "launchAuthorized": false,
+  "launchTemplateSha256": "98aaaee41edf18bc39870760bf5476ed023eb3fa32d9bc59eeaaf1a57df431d8",
+  "materializedRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+  "materializerBindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "materializerSemanticSha256": "18900da834bda366b2177c8ff8ee9a87b97374c02366b97d1c6b06cb4c23f309",
+  "materializerSourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "roles": {
+    "acceptedFrozenPostflightReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-observed-stop-full-postflight-independent-review-20261008-r1/RECEIPT.json",
+      "sha256": "9bc5f3d9ccff1625c3af8532a9153e3385933cc7848bde0f9eb17be97af3e0e5"
+    },
+    "acceptedLaneHelper": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "acceptedLaneSourcePins": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/SOURCE-PINS.json",
+      "sha256": "9e11563756fb516cfa92591492a1de6fe8d0d0ccfdb93c34bc9b9feffbb94003"
+    },
+    "acceptedLaneSourceReview": {
+      "mode": "0444",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-r8-lane-source-independent-review-r1-rwa7o4oe/RECEIPT.json",
+      "sha256": "e03a740c5d9fcc704a105adb977759e6393d279c929c166fd35812946c3c7475"
+    },
+    "adapterSourceControlsReceipt": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/RECEIPT.json",
+      "sha256": "0a3a1a8318a7eaf215ce73f45fec5c6a9c0c6cbd53f034047cb50057592c40c3"
+    },
+    "bash": {
+      "mode": "0555",
+      "path": "/bin/bash",
+      "sha256": "89ae3c42471a171967cc239564e95870f6da9e0952e74e27ccd28283b0ad0cfa"
+    },
+    "boundedSink": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/bounded-sink-r9-proposed.py",
+      "sha256": "9bd9fa9f1bc00712d000bd73097de8db930bfcab87c47dbefee2017725aaa8ef"
+    },
+    "boundsAmendment": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r6/AMENDMENT-BOUNDS-PROPOSED.md",
+      "sha256": "3e705b81cd4991b628eff0a084e8088f53005be49098ee449b025c1d8606f0d4"
+    },
+    "boundsIndependentReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-independent-design-review-r1/RECEIPT.json",
+      "sha256": "8dc9c50b2ba7edf3702b42fd3dbeefb2e26e4089891af32127fa816c1704df3d"
+    },
+    "materializerBootIdentityAmendment": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/BOOT-IDENTITY-AMENDMENT.json",
+      "sha256": "b1d1697b8429425766156b4f8f04f129a3c8ca8666935af7e84fc49f68ce3936"
+    },
+    "materializerSourcePins": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/SOURCE-PINS.json",
+      "sha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d"
+    },
+    "materializerSourceReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r6/RECEIPT.json",
+      "sha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794"
+    },
+    "parentBoundsAdoption": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-parent-adoption-r1/ADOPTION.json",
+      "sha256": "6b4b83cd3470a9a882d8045ae6300bca0a39635c793c4a3b312c8d0fed94dc46"
+    },
+    "parentDevNullOperationalDesign": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-null-device-parent-design-adoption-20261008-r1/ADOPTION.json",
+      "sha256": "b0983e174b93ee8ebc6964c83517e46a0cd43bdc40ff5c822ec0c551ed8d705d"
+    },
+    "parentR6SourceAdoption": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AF-post-restart-materializer-repairs-and-diagnostics.md",
+      "sha256": "429a7d2d43580221f000879ca5c9dda07b011eb66dcc22dd8ccae3343f1ffc3c"
+    },
+    "pipeAdapter": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/launch-pipeline-r9-proposed.sh",
+      "sha256": "0ebc508d9a181b1071769399c62baa86fbe2d2c20678c8590c79e969b68d5bd4"
+    },
+    "pythonResolved": {
+      "mode": "0755",
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "witnessSourcePins": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/SOURCE-PINS.json",
+      "sha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759"
+    },
+    "witnessSourceReview": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r9/RECEIPT.json",
+      "sha256": "9652d41c68cf1adcbc6614702226a49ed5c49b4cbabd3857f96baa9134c1c75f"
+    }
+  },
+  "schema": "1370-witness-r9-exact-preparation-config-r1",
+  "scope": {
+    "declaredScratchOnlySinceFullPostflight": true,
+    "fullInventoryReuse": "Parent authorized accepted r8 full postflight immutable baseline reuse while HEAD4812/copied source stay frozen; no actual procedure while another game lane is active. Fresh exact files/roles/current strict roots/FD/worker/ref/AC/disk gates remain required.",
+    "noDetach": true,
+    "noExternalProtectedRenamer": true,
+    "productionFrozen": true
+  },
+  "status": "ACCEPTED_SOURCE_PENDING_EXACT_FILL_UNRUN"
+}

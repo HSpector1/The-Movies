@@ -1,0 +1,22 @@
+{
+  "causeAttribution": "UNPROVEN; OPEN_MAX1048575 and postGOcloserange source order suggest a measurable candidate, not verified overhead.",
+  "changes": [
+    "Preserve this observed RED/GREEN STOP and pins; fresh test/recipe namespace and independent review before any actual repeat. No implementation in this review.",
+    "In ONLY test_actual_tiny_node_preload_settings_are_absent_and_group_clear, replace the two-second completion assumption with a fixed10-second test deadline beginning before start_owned, bounded below unchangedCHILD60/ACTIVE75/WHOLE90. ready_go and completion use the same deadline, then existing exact-owned cleanup. No launcher FD-close change is justified by current evidence.",
+    "Collect bounded diagnostics from parent registration, ready_go return/GO sent, wait deadline, observed exit before cleanup, cleanup end/actual exit, confirmedPGID and fresh groupclear. Record SC_OPEN_MAX as context, not cause.",
+    "Before TemporaryDirectory removal, emit <=32KiB diagnostic JSON into accepted helper log, always including bounded stdout/stderr actual sizes/hash/content (truncate with explicit overflow/STOP), stage timestamps, exception and cleanup result. Retain on both success/failure.",
+    "Preserve exact pinned Node20/version/execArgv, sanitized environment, expectedchild0, expectedoutput and emptystderr assertions. If timeout, still STOP; unknown exec/Node-entry stage remains unproven unless retained output actually establishes it.",
+    "Root separately reviews fresh test source and grants actual lane later; no retry, encoder qualification, benchmark or game follows automatically."
+  ],
+  "keptBounds": {
+    "B109": [
+      300,
+      375,
+      390
+    ],
+    "active": 75,
+    "pureRecorderChild": 60,
+    "whole": 90
+  },
+  "scope": "PROPOSAL_ONLY_TEST_DIAGNOSTICS_AND_BOUNDED_WAIT_NO_RECORDER_ENCODER_BENCHMARK_CHANGE"
+}

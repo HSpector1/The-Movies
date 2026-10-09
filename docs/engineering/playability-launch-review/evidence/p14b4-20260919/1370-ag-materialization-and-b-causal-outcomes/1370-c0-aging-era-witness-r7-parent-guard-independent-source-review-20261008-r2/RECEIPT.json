@@ -1,0 +1,19 @@
+{
+  "configSha256": "7232a61e4115f774d2e21ffd99aea707993de434fd575cc5cf8793d119610e62",
+  "copiedRootRead": false,
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN",
+  "diff": "Exactly three line substitutions; expected_links default1, only git role exact/usr/bin/git passes76.",
+  "executionAuthorization": false,
+  "gameRun": false,
+  "guardExecuted": false,
+  "nextRequiredObservation": "Parent-authorized exact pinned reader probe of all five tools only before full r2 guard.",
+  "preparationPinsSha256": "df54fe761ce18f5b8937ab87ca623db9599fdbdfd8c18cec88d94e373b9aeba2",
+  "priorSourceReviewSha256": "61cc10e01cbad252b80afe9f1fa1b2e42d362406bead0034ca6a224f778954f6",
+  "productionWrites": false,
+  "reportSha256": "00811a3ca43dd878dba501240ee21a3b3d14d3b686e56eec0c3a8a217ac7751a",
+  "schema": "1370-witness-r7-parent-guard-independent-source-review-r2",
+  "snapshotProcedureSha256": "ed43cd95fbbc13a2194338a8fe8dd48e05a56b1b77a4cdcb377f60ea17429740",
+  "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2",
+  "testsRun": false,
+  "toolProbeExecuted": false
+}

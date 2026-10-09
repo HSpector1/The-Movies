@@ -1,0 +1,20 @@
+{
+  "acceptedGuardSourceSha256": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896",
+  "claimLimit": "Independent source/CLI/provenance review only. Future observed receipt gate, authorized full guards, exact/adopted/launch and actual witness observed acceptance remain mandatory.",
+  "concreteBlockers": [],
+  "configSha256": "7232a61e4115f774d2e21ffd99aea707993de434fd575cc5cf8793d119610e62",
+  "copiedRootRead": false,
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN",
+  "executionAuthorization": false,
+  "gameRun": false,
+  "gitCommands": false,
+  "guardExecuted": false,
+  "parentScratchPolicy": "scratchParent dev/inode/mode strict; mtime/ctime/child deltas informational only; protected root metadata strict",
+  "preparationPinsSha256": "8860e1915c741fbf0f4490b12cad5da07d9481fb4b10c4238203bb5a766113a2",
+  "productionWrites": false,
+  "reportSha256": "75be017230f7a89dd0cc19798e4ad11cf922a36ec0c5b070e8ce96e4085fd3a7",
+  "schema": "1370-witness-r7-parent-guard-independent-source-review-r1",
+  "snapshotProcedureSha256": "a13ac4fba6cde62d018308914a31007754faf1ff6b22d4e5902dc788f041b85f",
+  "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r1",
+  "testsRun": false
+}

@@ -1,0 +1,135 @@
+{
+  "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ab-c0-digest-and-aging-binding-checkpoint/digest-design/MEMO.md": {
+    "bytes": 9753,
+    "dev": 16777220,
+    "ino": 166508856,
+    "mode": "0o644",
+    "sha256": "f8f5c471e0ab99691e6b53bcfa5c1c7d9f314d87fdd301a1fb020b7d8940b2ce"
+  },
+  "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ab-c0-digest-and-aging-binding-checkpoint/digest-review/REVIEW.md": {
+    "bytes": 2585,
+    "dev": 16777220,
+    "ino": 166508857,
+    "mode": "0o644",
+    "sha256": "a19f170a4b26769d73c395301b5e49eef01445c5eacddfe9c287eeb24499e913"
+  },
+  "/Users/zacheryspector/studio-scratch/1369-c0-preimage-r7-historical-clean-independent-review-r1/RECEIPT.json": {
+    "bytes": 545,
+    "dev": 16777220,
+    "ino": 166167524,
+    "mode": "0o644",
+    "sha256": "b5d06db3828c4f481375802a53384cc3b0bb9a937c4783fe960cc4b5dd88c2f9"
+  },
+  "/Users/zacheryspector/studio-scratch/1369-c0-preimage-r7-modern-clean-independent-review-r1/RECEIPT.json": {
+    "bytes": 719,
+    "dev": 16777220,
+    "ino": 166189594,
+    "mode": "0o644",
+    "sha256": "676bdd2c18655526a9cffdf18cb6a0b63e7bdd4b1d4ee05e47478706db85d3d7"
+  },
+  "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/RESULT.json": {
+    "bytes": 9842,
+    "dev": 16777220,
+    "ino": 166159422,
+    "mode": "0o644",
+    "sha256": "5235b18b83c8e70dd12b36a7bda932e78cb5b55ef344419a92e4e370f540c5cc"
+  },
+  "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/preimages/employment.json": {
+    "bytes": 13113,
+    "dev": 16777220,
+    "ino": 166157408,
+    "mode": "0o644",
+    "sha256": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750"
+  },
+  "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/modern-clean-clean-r1/RESULT.json": {
+    "bytes": 9751,
+    "dev": 16777220,
+    "ino": 166186143,
+    "mode": "0o644",
+    "sha256": "4c3fe1aab82df9cf924f6a5c380e27a9999f5c7e3fa3a4acbfc3854156743207"
+  },
+  "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/modern-clean-clean-r1/preimages/employment.json": {
+    "bytes": 13113,
+    "dev": 16777220,
+    "ino": 166183480,
+    "mode": "0o644",
+    "sha256": "7e64d2fbfd525edf40daa4fb952fe08ac68d4a877b4d212afd7adcfdca25237d"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-adoption-output-20261008-r1/CANDIDATE-FRAME.ndjson": {
+    "bytes": 29410,
+    "dev": 16777220,
+    "ino": 166694513,
+    "mode": "0o600",
+    "sha256": "8b0b70f110c37199dc320045b2fec0ac384c323fddfba88bbae620bf34766c50"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-observed-independent-review-20261009-r1/RECEIPT.json": {
+    "bytes": 3032,
+    "dev": 16777220,
+    "ino": 166695012,
+    "mode": "0o600",
+    "sha256": "d681f73e3613248c7ccd0be7736e46bd1fe424dd62ea099a60e031e774238f64"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/SNAPSHOT.json": {
+    "bytes": 7760463,
+    "dev": 16777220,
+    "ino": 166694772,
+    "mode": "0o600",
+    "sha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-four-digest-comparator-proposal-r2/comparator.py": {
+    "bytes": 25572,
+    "dev": 16777220,
+    "ino": 166405116,
+    "mode": "0o644",
+    "sha256": "dbd9823d80a8a63d6851b27cbfcd7f2e21e555171864ae0974c4704bee6e0786"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-filled-roles-20261009-r1/FILLED-ROLES.json": {
+    "bytes": 3530,
+    "dev": 16777220,
+    "ino": 166695046,
+    "mode": "0o600",
+    "sha256": "f476dbb531c0a41237b5be789f9c74b3b2c4998662d2bc728490be51df6ef6c9"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-filled-roles-20261009-r1/LAUNCH.json": {
+    "bytes": 1093,
+    "dev": 16777220,
+    "ino": 166695047,
+    "mode": "0o600",
+    "sha256": "f5ec83c65641a8112121c0dd62d48bd4aa5cb35431e3c32657fa4d00904daae7"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-filled-roles-20261009-r1/PARENT-OBSERVED-ADOPTION.json": {
+    "bytes": 769,
+    "dev": 16777220,
+    "ino": 166695048,
+    "mode": "0o600",
+    "sha256": "6a33202f4770e9f7e8ad47404510746e767e2406b5ef22f414fe0f489e520e03"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-independent-static-review-20261008-r2/RECEIPT.json": {
+    "bytes": 831,
+    "dev": 16777220,
+    "ino": 166602240,
+    "mode": "0o600",
+    "sha256": "9741999688b1dee88bf6f04400b7ca231c94f7faf994d5edf0dcf73cdaf9dea1"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-preparation-20261008-r2/INPUTS-PENDING.json": {
+    "bytes": 3047,
+    "dev": 16777220,
+    "ino": 166602127,
+    "mode": "0o644",
+    "sha256": "482fb581236b276c4aff7c15bb43a7323e13d236126ccb8fcb3006f74340faa8"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-preparation-20261008-r2/compare_employment.py": {
+    "bytes": 9730,
+    "dev": 16777220,
+    "ino": 166602126,
+    "mode": "0o644",
+    "sha256": "8711b25431eea588780ab5e7aca649fac111f828515d52cc4ce477d0ec570408"
+  },
+  "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14": {
+    "bytes": 50472,
+    "dev": 16777220,
+    "ino": 72062271,
+    "mode": "0o755",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  }
+}

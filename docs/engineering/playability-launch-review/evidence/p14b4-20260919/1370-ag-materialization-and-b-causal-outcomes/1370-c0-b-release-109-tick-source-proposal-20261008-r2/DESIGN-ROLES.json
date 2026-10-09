@@ -1,0 +1,323 @@
+{
+  "armSources": {
+    "intervention": "Same EBG plus only exact ccfc12 r04 cutting release gate; all other production bytes identical",
+    "ordinary": "Accepted assembled EBG (188 production roles; inherited180/changed8 from E0G)"
+  },
+  "capture": {
+    "bytes": 141237093,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/boundaries.ndjson.gz",
+    "sha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e"
+  },
+  "memberIndex": {
+    "bytes": 24196,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-design-20261008-r1/MEMBER-INDEX-307-416.json",
+    "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+  },
+  "oneTickMeasuredDifferences": {
+    "additionalOverhead": -9000,
+    "additionalPayroll": -47094,
+    "baselineTerminationDelta": -1224444,
+    "count": 32,
+    "internalReleasePredicates": "UNOBSERVED",
+    "interventionTerminationDelta": 0,
+    "netCashDifference": 1168350.0,
+    "paths": [
+      "$.hollywood.businesses[3].account.cash",
+      "$.hollywood.businesses[3].account.periods[5].closing",
+      "$.hollywood.businesses[3].account.periods[5].movements.payroll",
+      "$.hollywood.businesses[3].account.periods[5].movements.overhead",
+      "$.hollywood.businesses[3].account.periods[5].movements.termination",
+      "$.hollywood.businesses[3].screenplayShelving.rejections[0].count",
+      "$.hollywood.businesses[3].screenplayShelving.shelved[4].retryWeek",
+      "$.hollywood.employment[42].endedWeek",
+      "$.hollywood.employment[43].endedWeek",
+      "$.hollywood.employment[44].endedWeek",
+      "$.hollywood.employment[45].endedWeek",
+      "$.hollywood.employment[46].endedWeek",
+      "$.hollywood.employment[47].endedWeek",
+      "$.hollywood.activeEmploymentOrdinals[18]",
+      "$.hollywood.activeEmploymentOrdinals[19]",
+      "$.hollywood.activeEmploymentOrdinals[20]",
+      "$.hollywood.activeEmploymentOrdinals[21]",
+      "$.hollywood.activeEmploymentOrdinals[22]",
+      "$.hollywood.activeEmploymentOrdinals[23]",
+      "$.hollywood.activeEmploymentOrdinals[24]",
+      "$.hollywood.activeEmploymentOrdinals[25]",
+      "$.hollywood.activeEmploymentOrdinals[26]",
+      "$.hollywood.activeEmploymentOrdinals[27]",
+      "$.hollywood.activeEmploymentOrdinals.length",
+      "$.hollywood.receipts[419]",
+      "$.hollywood.receipts[420]",
+      "$.hollywood.receipts[421]",
+      "$.hollywood.receipts[422]",
+      "$.hollywood.receipts[423]",
+      "$.hollywood.receipts[424]",
+      "$.hollywood.receipts.length",
+      "$.hollywood.nextReceipt"
+    ],
+    "selectedContracts": [
+      {
+        "identity": [
+          "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-0:208",
+          0
+        ],
+        "ordinal": 42,
+        "row": {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-0:208",
+          "endedWeek": null,
+          "reason": "replacement",
+          "studioId": "studio-5a47d054-r04",
+          "terms": {
+            "annualSalary": 419400,
+            "endWeekExclusive": 416,
+            "signingBonus": 75492,
+            "startWeek": 208,
+            "talentId": "person-studio-5a47d054-r04-0",
+            "termWeeks": 208
+          }
+        }
+      },
+      {
+        "identity": [
+          "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-1:208",
+          0
+        ],
+        "ordinal": 43,
+        "row": {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-1:208",
+          "endedWeek": null,
+          "reason": "replacement",
+          "studioId": "studio-5a47d054-r04",
+          "terms": {
+            "annualSalary": 774142,
+            "endWeekExclusive": 416,
+            "signingBonus": 139346,
+            "startWeek": 208,
+            "talentId": "person-studio-5a47d054-r04-1",
+            "termWeeks": 208
+          }
+        }
+      },
+      {
+        "identity": [
+          "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-2:208",
+          0
+        ],
+        "ordinal": 44,
+        "row": {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-2:208",
+          "endedWeek": null,
+          "reason": "replacement",
+          "studioId": "studio-5a47d054-r04",
+          "terms": {
+            "annualSalary": 268712,
+            "endWeekExclusive": 416,
+            "signingBonus": 48368,
+            "startWeek": 208,
+            "talentId": "person-studio-5a47d054-r04-2",
+            "termWeeks": 208
+          }
+        }
+      },
+      {
+        "identity": [
+          "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-3:208",
+          0
+        ],
+        "ordinal": 45,
+        "row": {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-3:208",
+          "endedWeek": null,
+          "reason": "replacement",
+          "studioId": "studio-5a47d054-r04",
+          "terms": {
+            "annualSalary": 124428,
+            "endWeekExclusive": 416,
+            "signingBonus": 22397,
+            "startWeek": 208,
+            "talentId": "person-studio-5a47d054-r04-3",
+            "termWeeks": 208
+          }
+        }
+      },
+      {
+        "identity": [
+          "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-4:208",
+          0
+        ],
+        "ordinal": 46,
+        "row": {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-4:208",
+          "endedWeek": null,
+          "reason": "replacement",
+          "studioId": "studio-5a47d054-r04",
+          "terms": {
+            "annualSalary": 437194,
+            "endWeekExclusive": 416,
+            "signingBonus": 78695,
+            "startWeek": 208,
+            "talentId": "person-studio-5a47d054-r04-4",
+            "termWeeks": 208
+          }
+        }
+      },
+      {
+        "identity": [
+          "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-5:208",
+          0
+        ],
+        "ordinal": 47,
+        "row": {
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-5:208",
+          "endedWeek": null,
+          "reason": "replacement",
+          "studioId": "studio-5a47d054-r04",
+          "terms": {
+            "annualSalary": 424980,
+            "endWeekExclusive": 416,
+            "signingBonus": 76496,
+            "startWeek": 208,
+            "talentId": "person-studio-5a47d054-r04-5",
+            "termWeeks": 208
+          }
+        }
+      }
+    ]
+  },
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "roles": {
+    "acceptedLaneHelper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "acceptedOriginalObserver": {
+      "bytes": 12115,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/observer-ebg.test.ts",
+      "sha256": "e9d476e3b44dcd2ff4be890da127d811da8b5c45ad9664d443bc54ce143cb7fe"
+    },
+    "inherited_assembler": {
+      "bytes": 27004,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/runner.py",
+      "sha256": "6f7b72d0abbfb9cd381dbd59ad6a6568ec2b0394354ee799c93a6f936663d631"
+    },
+    "inherited_comparatorResult": {
+      "bytes": 4274864,
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-runs-r2/20261008-bonly-adoption-r1/RESULT.json",
+      "sha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa"
+    },
+    "inherited_observedEbg": {
+      "bytes": 1179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    "inherited_outerResult": {
+      "bytes": 1693,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "9489d8959d558b08b02b4df6324ff75f78fa6ba1c45be9afcef3fa6c0467fdb7"
+    },
+    "inherited_recipeManifest": {
+      "bytes": 813,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/MANIFEST.json",
+      "sha256": "2376eb41b65c7d486a278d12574961cb085db91a1c12a212b973511898bb5c0c"
+    },
+    "inherited_routeManifest": {
+      "bytes": 26472,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/MANIFEST.json",
+      "sha256": "b8a115a2cec4c8dfb91742767362e493768c7ec992908c1aa4c3c05a92618374"
+    },
+    "inherited_runtimeGuard": {
+      "bytes": 2817,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/runtime_guard.py",
+      "sha256": "a147d694a0d810a5baa227e6da011031252fd58e67f2b2fc6990881c0bcc7bd7"
+    },
+    "inherited_sourceReview": {
+      "bytes": 404,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-independent-review-r3/RECEIPT.json",
+      "sha256": "3f3bb2b8279b9d8931eff58156a5c36b320a0f394b744f9dd826272357c04cdc"
+    },
+    "inherited_targetResult": {
+      "bytes": 3074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    },
+    "interventionWholeFile": {
+      "bytes": 40732,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/hollywoodTick.r04-release-off.ts",
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73"
+    },
+    "observedOneTick": {
+      "bytes": 5318,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/RECEIPT.json",
+      "sha256": "98adcb7132bf1a3eb877f2acac02c056ce4eb65142e708cc2365d929059d8918"
+    },
+    "oneTickComparison": {
+      "bytes": 45023,
+      "path": "/Users/zacheryspector/studio-scratch/1370-b-release-one-tick-run-20261008-4812-r1/COMPARISON.json",
+      "sha256": "27b876198ca705008c275a6e2a2f2434bbadb9c8f7e6b7e28048acbc3fe12ba9"
+    },
+    "oneTickFacts": {
+      "bytes": 22770,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/FACTS.json",
+      "sha256": "d59ee958db7996635cb2f7699adfb007e3d160319528fbfaccef763e5b2b4cd4"
+    },
+    "oneTickObserver": {
+      "bytes": 10370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/one-tick.test.ts",
+      "sha256": "58f584748ac9bd843be5450f5edf15862839d7858d1d11db837a36045c24f97f"
+    },
+    "oneTickRecorder": {
+      "bytes": 26594,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/run.py",
+      "sha256": "9dd6b54c75b6bc7401f9f56ca89a882846185450cf5a8a51744d98da013544e0"
+    },
+    "oneTickSourceControlsReview": {
+      "bytes": 1166,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-r3-independent-observed-source-controls-review-20261008-r1/RECEIPT.json",
+      "sha256": "536154e67531678260eb75e89f024c595ca0e2545d20907e57023b8e9b013773"
+    },
+    "oneTickSourceManifest": {
+      "bytes": 5828,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/MANIFEST.json",
+      "sha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5"
+    },
+    "oneTickSourceReview": {
+      "bytes": 1036,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r3/RECEIPT.json",
+      "sha256": "42210aa6552b585bbdd37270999eaac4bebeb9ae7441f537ce8d29e0c921c308"
+    },
+    "parentOneTickAdoption": {
+      "bytes": 834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/PARENT-ADOPTION.json",
+      "sha256": "1b667564420555240d806c15717466faf8f18637225d8f13a1cb5197234ee779"
+    },
+    "patchManifest": {
+      "bytes": 813,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/MANIFEST.json",
+      "sha256": "2376eb41b65c7d486a278d12574961cb085db91a1c12a212b973511898bb5c0c"
+    },
+    "patchRecipe": {
+      "bytes": 5954,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/RECIPE.md",
+      "sha256": "abc05a8e75da2ef0668a5bf1886901c9d7eb5bad95b6be6201453eed11dc0606"
+    },
+    "publishedBoundaryComparator": {
+      "bytes": 4274864,
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-runs-r2/20261008-bonly-adoption-r1/RESULT.json",
+      "sha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa"
+    },
+    "publishedBoundaryComparatorObserved": {
+      "bytes": 1406,
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-independent-observed-review-r1/RECEIPT.json",
+      "sha256": "3a57d7b0cafcfb9f694de5866ef3cda0bdb0ee9f9f5166d844f9b88dfbfe544a"
+    },
+    "retentionIdentityHelper": {
+      "bytes": 584,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/retention.mjs",
+      "sha256": "b4eca17f4dfd93dd5c22c3ec94751d0cdf2838b946b08cf819390d1b28b0e593"
+    }
+  },
+  "sourceControlsRole": "Existing23 source checks qualify original r3 mechanisms only; later adapted source needs targeted independent source/control review, not transferred old execution authority.",
+  "status": "DESIGN_ONLY_UNADOPTED_UNRUN"
+}

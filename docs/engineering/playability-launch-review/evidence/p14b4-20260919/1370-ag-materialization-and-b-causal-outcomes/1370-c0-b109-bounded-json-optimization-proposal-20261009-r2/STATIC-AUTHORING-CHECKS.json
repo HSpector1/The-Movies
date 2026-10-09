@@ -1,0 +1,26 @@
+{
+  "acceptedOwnershipSpanExactlyUnchanged": true,
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "configRolesAuthenticate": true,
+  "freshOutputsAbsent": true,
+  "pureRecorderBoundsUnchanged": [
+    60,
+    75,
+    90
+  ],
+  "recorderAndFocusedPythonAstParsed": true,
+  "schema": "1370-b109-recorder-r2-static-authoring-checks",
+  "sourceConfigurationHashConstantMatches": true,
+  "sourceImportsControlsBenchmarkGameDecodeExecuted": false,
+  "status": "AST_PINS_AND_BYTE_EQUIVALENCE_ONLY",
+  "unchangedR1Files": {
+    "benchmark-308.mjs": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2",
+    "bounded-json-candidate.mjs": "ac7ed0d6ad1b2d47e0e12de6e9ec738129049806aa7d5ac0b7cfd3a60452de7c",
+    "bounded-json.diff": "9fcf418066562702e0e0d20ad28501d23fd939b823798ce7f7a2e41d4de1a9e2",
+    "test-encoder.mjs": "1694d6a4cfec1b9ec9bf2db4ef4078d0fbe104291549c0a0c37e0a25ba6b5b50"
+  }
+}

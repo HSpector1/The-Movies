@@ -1,0 +1,18 @@
+{
+  "actualOwnedGroupsChecked": [
+    66578,
+    64755,
+    94462
+  ],
+  "actualToolExit": 0,
+  "actualToolSession": 27840,
+  "baselineSha256": "b087ec768c52328d142433555d8549e4d9e365fe4293810fe4fac5c042281a12",
+  "elapsedSeconds": 430.985074850003,
+  "fullImmutableBaselineEqual": true,
+  "gameRun": false,
+  "pinsSha256": "8202128decb2d11d7bcdf823b223e8035ab32fa8eb55a00b6a86c0cecdc49725",
+  "purpose": "New full physical/dependency/protected inventory after overnight scope gap, before prospective R9 launch; no continuous overnight freeze inferred.",
+  "schema": "1370-parent-full-guard-actual-tool-outcome-r1",
+  "snapshotSha256": "9462f60eaa9a6563b90c4e0cfe126d9d5d4dd427b8cf7b1a10eb601562fce5af",
+  "utc": "2026-10-09T14:29:28.680829+00:00"
+}

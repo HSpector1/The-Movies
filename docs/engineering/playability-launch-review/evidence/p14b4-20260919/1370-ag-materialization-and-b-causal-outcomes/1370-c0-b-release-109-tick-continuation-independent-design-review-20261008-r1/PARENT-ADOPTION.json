@@ -1,0 +1,26 @@
+{
+  "adoptedCaps": {
+    "activeSeconds": 375,
+    "childCombinedLogBytes": 1048576,
+    "countedOutputBytes": 268435456,
+    "finalReserveInsideTotalBytes": 131072,
+    "preflightFreeBytes": 3657433088,
+    "runningFloorWithReserveBytes": 3355443200,
+    "sharedNodeSeconds": 300,
+    "singleJsonDecodedMemberBytes": 16777216,
+    "wholeSeconds": 390
+  },
+  "decision": "ADOPT_DESIGN_AND_PROSPECTIVE_OPERATIONAL_BOUNDS_SOURCE_PREPARATION_ONLY",
+  "designManifestSha256": "964cc771f30ec1c6f587b4d1d514c21037ca7086c0d02d25d0920f013c075972",
+  "independentReviewSha256": "718e79a8653e3f575252dfe466d2072ed816dc5444aebd5fca477ce4be524b46",
+  "nextGates": [
+    "changed-source focused controls in granted single lane",
+    "independent source/control review",
+    "fresh actual HEAD exact binding and review",
+    "parent adoption and independent preflight",
+    "recorded actual run and independent observed review"
+  ],
+  "schema": "1370-b109-parent-design-and-operational-bounds-adoption-r1",
+  "scope": "Exactly 109 ordinary continuous ticks per arm, 110 full authenticated boundaries; NONE/PARTIAL/ALL are equally valid diagnostic outcomes. Existing one-tick limits unchanged. No horizon extension, production source amendment, ledger admission or earlier outcome relabel. Authorize dependent scratch source preparation only, not tests/game.",
+  "utc": "2026-10-08T23:19:39.327109+00:00"
+}

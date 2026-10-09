@@ -1,0 +1,35 @@
+{
+  "actualToolExit": 0,
+  "actualToolSession": 4997,
+  "allThreeSourceFlightsEqual": true,
+  "candidateStatus": "MATCHED_AGING_ERA_PREIMAGE_CANDIDATE",
+  "digests": {
+    "employment": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58",
+    "receipts": "af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766",
+    "rng": "2598418427,508725886,1318803286,3129010527",
+    "settlement": "706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77",
+    "takes": "8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694"
+  },
+  "employmentBytes": 13113,
+  "employmentRows": 44,
+  "employmentSha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58",
+  "externalNumericOwnedPgid": null,
+  "externalNumericOwnedPgidNote": "Standalone post-launch process selection returned no matching lines; no numeric owned identity captured or inferred. Successful pinned inner/outer paths enforce owned-group clearance; independent source/actual-exit interpretation and fresh full postguard remain required.",
+  "frameBytes": 29410,
+  "framePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-adoption-output-20261008-r1/CANDIDATE-FRAME.ndjson",
+  "frameSha256": "8b0b70f110c37199dc320045b2fec0ac384c323fddfba88bbae620bf34766c50",
+  "helperMetaExit": 0,
+  "laneBytes": 29475,
+  "laneSha256": "831a178e4335b9218341df5d7b44908c5567e1805aaae51d470ae617af927d6b",
+  "metaSha256": "0033edcffe90a4dc0eeeedf432f195ae9a2709d565158d8377987a6b92ddc5ec",
+  "observerElapsedMs": 4797,
+  "pipeline": {
+    "outerExit": 0,
+    "sinkExit": 0,
+    "status": "PIPELINE_EXITS_CANDIDATE"
+  },
+  "schema": "1370-witness-r9-parent-actual-tool-outcome-r1",
+  "status": "CANDIDATE_OBSERVED_FULL_POSTFLIGHT_AND_INDEPENDENT_REVIEW_PENDING",
+  "utc": "2026-10-09T14:33:59.129134+00:00",
+  "weeks": 416
+}

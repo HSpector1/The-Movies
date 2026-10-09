@@ -1,0 +1,196 @@
+{
+  "classification": "READ_ONLY_EXISTING_ARTIFACT_DIAGNOSTIC_NOT_LEDGER_ADMISSION",
+  "compressedHashOnlyCapBytes": 167772160,
+  "jsonCapBytes": 33554432,
+  "pins": {
+    "acceptanceDesign": {
+      "bytes": 11550,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/next-route-plans/OBSERVED-ACCEPTANCE-DESIGN.md",
+      "sha256": "1bd9cc2b187bee1e9f2c6fd719a6274ebd9c62ea70151f7cfc0177d201534d86"
+    },
+    "adoption.abgData": {
+      "bytes": 8897113,
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-adoption-exploratory-recorded-runs-r5/ABG-clean-adoption-clean-r1/data.json",
+      "sha256": "8ea4834976cdd1a2375ced652ae8d48ce0ce75e675c47ae866238b2131bde27a"
+    },
+    "adoption.abgInstrument": {
+      "bytes": 93057,
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-adoption-exploratory-proposal-r5/kit/tests/1368-ledger-attribution.test.ts",
+      "sha256": "03462658e291c5916447fa9b904519b884fbdc4c1009e478de33f888a725998a"
+    },
+    "adoption.abgObserved": {
+      "bytes": 1175,
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-adoption-r5-abg-clean-independent-review-r1/RECEIPT.json",
+      "sha256": "0f07050b074724fef34bf9ba61e56caf2ba800b91f1fbe8b6ac3c77ce0e8419d"
+    },
+    "adoption.abgResult": {
+      "bytes": 6837,
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-adoption-exploratory-recorded-runs-r5/ABG-clean-adoption-clean-r1/RESULT.json",
+      "sha256": "54ecc5efeb77f8e4007b977f809fe109fe2416678d74527b628b5fd943623d2d"
+    },
+    "adoption.capture": {
+      "bytes": 141237093,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/boundaries.ndjson.gz",
+      "sha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e"
+    },
+    "adoption.comparator": {
+      "bytes": 4274864,
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-runs-r2/20261008-bonly-adoption-r1/RESULT.json",
+      "sha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa"
+    },
+    "adoption.comparatorObserved": {
+      "bytes": 1406,
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-independent-observed-review-r1/RECEIPT.json",
+      "sha256": "3a57d7b0cafcfb9f694de5866ef3cda0bdb0ee9f9f5166d844f9b88dfbfe544a"
+    },
+    "adoption.ebgManifest": {
+      "bytes": 26472,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/MANIFEST.json",
+      "sha256": "b8a115a2cec4c8dfb91742767362e493768c7ec992908c1aa4c3c05a92618374"
+    },
+    "adoption.ebgObserved": {
+      "bytes": 1179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    "adoption.ebgObserver": {
+      "bytes": 12115,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/observer-ebg.test.ts",
+      "sha256": "e9d476e3b44dcd2ff4be890da127d811da8b5c45ad9664d443bc54ce143cb7fe"
+    },
+    "adoption.ebgResult": {
+      "bytes": 3074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    },
+    "adoption.readback": {
+      "bytes": 311,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/readback-audit.json",
+      "sha256": "396b38701f3ee168635abddc2208049b896d16330447a9e2764a453146fa253c"
+    },
+    "adoption.summary": {
+      "bytes": 1123,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/summary.json",
+      "sha256": "04ce6caf2bde6cf5e1f78ce7de9c7ccb617712b11572928ef3fcb1b0398b68a0"
+    },
+    "adoptionInputs": {
+      "bytes": 5278,
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-proposal-r2/INPUTS.json",
+      "sha256": "f767f13f3212776f0b857b2ad146ca571b6a5c4813a8bcb2585f4536df01a93c"
+    },
+    "ebgSourceMap": {
+      "bytes": 19349,
+      "path": "/Users/zacheryspector/studio-scratch/1369-save46-b-only-green-source-proposal-r3/SOURCE-PRODUCTION-SHA256.json",
+      "sha256": "eeca1d827204230ce195387a780e04fab005f8d9d878b62190290b0a9dbcc1c9"
+    },
+    "ledgerClassifier": {
+      "bytes": 15098,
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-adoption-exploratory-proposal-r5/kit/tests/1368-ledger-original.ts",
+      "sha256": "e76148d283054a864176dfaa247447169edba449f0bfdb5dbb92e8736733b618"
+    },
+    "p13a.abgData": {
+      "bytes": 8310581,
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-original-recorded-runs-r3/ABG-clean-p13a-q1/data.json",
+      "sha256": "d4f397b51bf4722c30cd4b98d5c2e5b49477f07c6200406b74b830a50092e3ad"
+    },
+    "p13a.abgInstrument": {
+      "bytes": 93034,
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-original-proposal-r3/kit/tests/1368-ledger-attribution.test.ts",
+      "sha256": "9d60760377c322f4c7af5515f296a7da7b3164e6621af456c98417bf7d9174a4"
+    },
+    "p13a.abgObserved": {
+      "bytes": 6386,
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-abg-clean-independent-review-r1/RECEIPT.json",
+      "sha256": "204ad0ed75f29a1ba5722b21abd6595c3adbef6514665944299b33a0dda000a7"
+    },
+    "p13a.abgResult": {
+      "bytes": 6522,
+      "path": "/Users/zacheryspector/studio-scratch/1369-causal-p13a-original-recorded-runs-r3/ABG-clean-p13a-q1/RESULT.json",
+      "sha256": "0892ad98459d216075d7035c0bd4d662192cc2ccad86d372856759876d17fa3f"
+    },
+    "p13a.capture": {
+      "bytes": 107055550,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/boundaries.ndjson.gz",
+      "sha256": "50947d8de349ff891a9b44fd3eda72801b912b5b6e6e6bc6c4b7c25739b697b1"
+    },
+    "p13a.comparator": {
+      "bytes": 20634133,
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-p13a-comparator-runs-r4/20261008-bonly-p13a-r2/RESULT.json",
+      "sha256": "c8ddc0c3f6d814d67a7e643dadba9d993ba99807ad22249a81dfaea20bc4a61c"
+    },
+    "p13a.comparatorObserved": {
+      "bytes": 1231,
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-p13a-r4-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "3b35042d40b14a6da67589667ff57df75f5af3b953cb496e4331de703ee41ec5"
+    },
+    "p13a.ebgManifest": {
+      "bytes": 26530,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-route-proposal-r4/MANIFEST.json",
+      "sha256": "1b875ba4a98208cc0d36091ccd7076fd9666c56c69004cf6421fe3e5187ad83f"
+    },
+    "p13a.ebgObserved": {
+      "bytes": 1090,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-r4-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "34070dfba64e7f5e4c937d4a62e32a215a2f67076dc2fb8a7e1889b07d187908"
+    },
+    "p13a.ebgObserver": {
+      "bytes": 12115,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-route-proposal-r4/observer-ebg.test.ts",
+      "sha256": "e9d476e3b44dcd2ff4be890da127d811da8b5c45ad9664d443bc54ce143cb7fe"
+    },
+    "p13a.ebgResult": {
+      "bytes": 3049,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/RESULT.json",
+      "sha256": "7361b1bcde0d4b0c531db73816a8337eb3a56041d1ec9f53137dc747d32b6eb1"
+    },
+    "p13a.readback": {
+      "bytes": 299,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/readback-audit.json",
+      "sha256": "b4effe687ea67127eda435d31f407be33a452d65d233d8f6126b90e85bcdcaed"
+    },
+    "p13a.summary": {
+      "bytes": 1109,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/summary.json",
+      "sha256": "950d7bab82c9614c2950dc87b4e47ea152285cceda36b0142491a19d4ba3d620"
+    },
+    "p13aComparatorManifest": {
+      "bytes": 1864,
+      "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-p13a-comparator-proposal-r4/MANIFEST.json",
+      "sha256": "9ec5d27abad73f3c62ebe3a0e5677171ac3e618825046c016e3a21c16d6074fa"
+    }
+  },
+  "seeds": {
+    "adoption": {
+      "abgData": "adoption.abgData",
+      "abgObserved": "adoption.abgObserved",
+      "abgResult": "adoption.abgResult",
+      "capture": "adoption.capture",
+      "comparator": "adoption.comparator",
+      "comparatorObserved": "adoption.comparatorObserved",
+      "ebgManifest": "adoption.ebgManifest",
+      "ebgObserved": "adoption.ebgObserved",
+      "ebgResult": "adoption.ebgResult",
+      "readback": "adoption.readback",
+      "seed": "p13-public-commercial-adoption",
+      "summary": "adoption.summary"
+    },
+    "p13a": {
+      "abgData": "p13a.abgData",
+      "abgObserved": "p13a.abgObserved",
+      "abgResult": "p13a.abgResult",
+      "capture": "p13a.capture",
+      "comparator": "p13a.comparator",
+      "comparatorObserved": "p13a.comparatorObserved",
+      "ebgManifest": "p13a.ebgManifest",
+      "ebgObserved": "p13a.ebgObserved",
+      "ebgResult": "p13a.ebgResult",
+      "readback": "p13a.readback",
+      "seed": "p13a-core-causal-01",
+      "summary": "p13a.summary"
+    }
+  },
+  "sourceRoots": {
+    "ABG": "/Users/zacheryspector/studio-scratch/1369-guarded-a-ab-proposal-r1/AB+G",
+    "EBG": "/Users/zacheryspector/studio-scratch/1369-save46-b-only-green-source-proposal-r3/tree"
+  }
+}

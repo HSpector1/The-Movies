@@ -1,0 +1,20 @@
+{
+  "actualExit": 0,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-controls-lane-20261008-r1/policy-controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/policy_controls.py"
+  ],
+  "elapsedSeconds": 0.9930135549984698,
+  "gameRun": false,
+  "helperGroupClear": true,
+  "helperPgid": 58141,
+  "schema": "parent-r9-policy-controls-actual-tool-outcome-r1",
+  "sourcePinsSha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759",
+  "timedOut": false,
+  "utc": "2026-10-09T00:04:07.735766+00:00"
+}

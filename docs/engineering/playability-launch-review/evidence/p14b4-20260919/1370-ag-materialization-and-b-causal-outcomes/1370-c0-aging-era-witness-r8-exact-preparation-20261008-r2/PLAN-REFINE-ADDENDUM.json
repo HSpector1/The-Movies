@@ -1,0 +1,13 @@
+{
+  "executionAuthorization": false,
+  "frozenPlanSha256": "e0573f9266c871755b17c7d6e0b7a75a2a5e5ce98503b84e6f0e84cd452170b5",
+  "frozenR2PreparationPinsSha256": "077ef3087757fde8db18777347a611a81f5454f95dfc654d866a00a5bcad65e9",
+  "originalR1AndFrozenR2FilesPreserved": true,
+  "preservedParentR1RefineReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r8-exact-procedure-independent-review-20261008-r1/RECEIPT.json",
+    "sha256": "ff069e1d319e3377df36af10bbdc0a53ff504e0295866c0a013926601ed608fd"
+  },
+  "reason": "R1 filler SOURCE selected r7 although configured accepted source is r8; never run r1. R2 fixes only SOURCE and builder substitution, updates fill recipe, and retains unchanged config/adopter/output paths.",
+  "schema": "1370-witness-r8-preparation-r2-plan-refine-addendum-r1",
+  "staticControlsScope": "Trivial AST constant parsing only; no new controls runner framework, no procedure or game execution."
+}

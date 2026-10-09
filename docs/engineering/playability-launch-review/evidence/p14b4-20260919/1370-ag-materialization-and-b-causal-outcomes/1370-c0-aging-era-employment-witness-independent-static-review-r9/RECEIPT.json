@@ -1,0 +1,74 @@
+{
+  "actualControls": {
+    "allGroupsClearedFresh": true,
+    "fullFixtureUnchanged": true,
+    "newPolicyDeniedRegularMutations": 5,
+    "newPolicyReadonlyGreen": 5,
+    "noSandboxedPython": true,
+    "originalPolicyRed": 2,
+    "ownedFixtureSetup": 5
+  },
+  "actualControlsOutcomeSha256": "9fbdfac8fc0a6e8b081d075564911a886c81d9c95274ce8a2d2baab30ce64eeb",
+  "actualControlsResult": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-controls-output-20261008-r1/RESULT.json",
+    "sha256": "b3124183608cb5cd1e758f719d8a633659b46809593e6eeb3d0dbb445a7e8561"
+  },
+  "actualControlsToolSession": 71024,
+  "actualSourceNullGuardResult": {
+    "device": 1124724989,
+    "gid": 0,
+    "inode": 317,
+    "links": 1,
+    "mode": "0666",
+    "path": "/dev/null",
+    "rdev": 50331650,
+    "type": "character",
+    "uid": 0
+  },
+  "actualToolExit": 0,
+  "adapterSha256": "0ebc508d9a181b1071769399c62baa86fbe2d2c20678c8590c79e969b68d5bd4",
+  "boundsUnchanged": {
+    "activeSeconds": 742,
+    "innerSeconds": 720,
+    "wholeSeconds": 750
+  },
+  "changedSourceFiles": [
+    "POLICY.sb",
+    "supervise.py",
+    "test-supervisor.py"
+  ],
+  "claimLimit": "Source and tiny policy controls accepted; original r7/r8 STOPs preserved. Exact review/adoption/preflight and actual r9 historical game/frame acceptance remain required. No C0/1363/ledger or phase completion.",
+  "decision": {
+    "launch": "STOP_UNFILLED_UNRUN",
+    "witnessSource": "ACCEPT_SOURCE_ONLY_UNRUN"
+  },
+  "executionAuthorization": false,
+  "findings": [],
+  "frozenHashes": {
+    "BINDING-UNFILLED.json": "adee3d1fb706125535ecadd03e8ec84ddecfb563c19da03b64bedfbb1419f89a",
+    "PLAN.md": "e6b6b582f0720f6f996b537fefbff7d4c94638423a40ba74379a801e8544b351",
+    "POLICY.sb": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5",
+    "bounds-guard.mjs": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f",
+    "outer-recorder.py": "e0b03fbb96cff3dfa3e4dbbedaaaf59525810ce2ebe2dd4a631a4432833c85a6",
+    "supervise.py": "0ee1071d6a78fc944fbbe0aba5fb2a823572b6684f5d13261831233610d93c32",
+    "test-outer.py": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab",
+    "test-supervisor.py": "7254470727b12ba38fc35e39f6c6db12d81281f066112eec29cb80c8578cc410",
+    "test-synthetic.mjs": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60",
+    "witness-core.mjs": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d",
+    "witness.mts": "afce97a16063085964c4a92d49c0495312452b7eec8d6b9b6bcc9edbc01cc736",
+    "worktree-guard.mjs": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+  },
+  "gameRun": false,
+  "parentOperationalDesignAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-null-device-parent-design-adoption-20261008-r1/ADOPTION.json",
+    "sha256": "b0983e174b93ee8ebc6964c83517e46a0cd43bdc40ff5c822ec0c551ed8d705d"
+  },
+  "reviewer": "Root independent of Sol source author, reviewed actual17-child controls and unmodified source/wiring",
+  "schema": "1370-c0-aging-era-employment-witness-independent-static-review-r9",
+  "sinkSha256": "9bd9fa9f1bc00712d000bd73097de8db930bfcab87c47dbefee2017725aaa8ef",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1",
+  "sourcePinsSha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759",
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "status": "FROZEN_SOURCE_ONLY_UNRUN",
+  "utc": "2026-10-09T00:06:14.846822+00:00"
+}

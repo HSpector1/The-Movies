@@ -1,0 +1,16 @@
+{
+  "acceptedFullPostflightSha256": "07b785480707a2c972dbdba4b0865461507939c1891f8b5386c40a375dab105e",
+  "adoptionProcedureSha256": "9941da0801f2b0db3cd0fee68582c6e2151bee45efc83a59f9e944b38a7b210d",
+  "currentExecution": "Parent may invoke fill only in free lane after any active B guard/game finishes and frozen identity remains qualified. No execution performed in this review.",
+  "decision": "ACCEPT_PROCEDURES_ONLY_UNRUN",
+  "fillProcedureSha256": "11688fd48afcd2d8b66363ad132e0707571c3ba3aa17616ba21685f2028f4ebc",
+  "findings": [],
+  "gameRun": false,
+  "launchAuthorized": false,
+  "parentOperationalDesignAdoptionSha256": "b0983e174b93ee8ebc6964c83517e46a0cd43bdc40ff5c822ec0c551ed8d705d",
+  "preparationPinsSha256": "f1ff248f06536603f3d7ba29f93a68f0bf9a9b15df71e4ca13ce22b4cf2b259f",
+  "review": "Compared full procedure deltas to reviewed r8r2. Correct actual SOURCE/config/schema/receipt/wiring/version paths; root-owned null-device operational design and all17 observed tiny-control acceptance fields bound. Full07b785 receipt literals match actual9bc5. Original archive6/three-field semantics/fsync/nofollow and fixed refs/root/runtime/FD gates retained. No existing output paths reused.",
+  "schema": "1370-witness-r9-exact-procedure-independent-review-r1",
+  "sourceAcceptanceSha256": "9652d41c68cf1adcbc6614702226a49ed5c49b4cbabd3857f96baa9134c1c75f",
+  "utc": "2026-10-09T00:13:14.446054+00:00"
+}

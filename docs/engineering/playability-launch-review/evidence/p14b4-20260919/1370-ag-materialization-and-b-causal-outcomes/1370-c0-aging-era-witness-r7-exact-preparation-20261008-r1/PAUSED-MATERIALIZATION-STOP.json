@@ -1,0 +1,10 @@
+{
+  "claimLimit": "Preparation inspected no copied root; actual r7 fill must rebind to independently observed successful new materialization root/receipt and finalize machinery before review.",
+  "configPin": "UNRESOLVED_PLACEHOLDER",
+  "fillScriptExecuted": false,
+  "launchTemplateAuthorized": false,
+  "r5MaterializerStatus": "STOP_PHYSICAL_MODE_MISMATCH_SCRATCH_CLEARED",
+  "sourceVersionAwaited": "r6",
+  "status": "UNRUN_PREPARATION_PAUSED_R5_MATERIALIZATION_STOP",
+  "witnessCandidateCreated": false
+}

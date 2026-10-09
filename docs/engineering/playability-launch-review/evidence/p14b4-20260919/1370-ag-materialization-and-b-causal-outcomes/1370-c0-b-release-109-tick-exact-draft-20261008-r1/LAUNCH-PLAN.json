@@ -1,0 +1,56 @@
+{
+  "adoption": "Archive original draft exact bytes before adoption. After independent exact review and parent authorization, change only status=REVIEWED_FILLED_UNRUN, executionAuthorization=true and exactReview={path,sha256,bytes}; sorted indent2 JSON plus newline. Semantic SHA must remain unchanged. Hash adopted actual bytes and replace final argv placeholder; independent adopted readback/argv and fresh guards precede launch.",
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/run.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/BINDING-DRAFT.json",
+    "REPLACE_WITH_ADOPTED_BINDING_BYTES_SHA_AFTER_EXACT_REVIEW"
+  ],
+  "clockCaps": {
+    "activeSeconds": 375,
+    "childCombinedLogBytes": 1048576,
+    "countedOutputBytes": 268435456,
+    "finalReserveInsideTotalBytes": 131072,
+    "preflightFreeBytes": 3657433088,
+    "runningFloorWithReserveBytes": 3355443200,
+    "sharedNodeSeconds": 300,
+    "singleJsonDecodedMemberBytes": 16777216,
+    "wholeSeconds": 390
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "freshGuardRequirements": [
+    "Root full postguard finishes and sole heavy lane is free",
+    "fresh inherited source and full dependency inventory/runtime guard checks before launch (recorder also enforces them)",
+    "independent exact review",
+    "parent archival three-field adoption",
+    "independent adopted binding/argv verification and immediate fresh live guards"
+  ],
+  "laneAvailabilityObserved": false,
+  "preflightScope": {
+    "copiedHistoricalFileContentsRead": false,
+    "fullDependencyInventoryRun": false,
+    "fullInheritedSourceInventoryRun": false,
+    "game": false,
+    "gitWrites": false,
+    "gzipDecoded": false,
+    "historicalScratchDirectoryEnumerationDuringDiscovery": true,
+    "productionWrites": false,
+    "runtimeImports": false,
+    "scratchWideArtifactPathDiscovery": true,
+    "subsequentReadsExactPinnedArtifactPathsOnly": true,
+    "tests": false
+  },
+  "recording": "Accepted r8 ordinary regular log plus meta actual exit; helper preserves child actual exit, owns lock cleanup. No witness pipe adapter. Parent observes both actual and meta exits; no unexpected lane wait.",
+  "requiredExactDecision": "ACCEPT_EXACT_B_RELEASE_109_TICK_UNRUN",
+  "requiredSemanticSha256": "88826e1b557ebe04840ff63bc0dffa74691f10986adcb982c467a63ddf2d5068",
+  "status": "INERT_UNREVIEWED_PLAN_NO_EXECUTION"
+}

@@ -1,0 +1,50 @@
+{
+  "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json": {
+    "bytes": 24196,
+    "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs": {
+    "bytes": 11414,
+    "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r1/CONFIG.json": {
+    "bytes": 3311,
+    "sha256": "7210e58edf7c1623541d940d7c552bacc1a0e0cf9fd869530f1ce72a0752e16e"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r1/CONTROL-RECIPE.json": {
+    "bytes": 3430,
+    "sha256": "0c7ff341fd89782a78bd458f05acb001d51b250573a171506232883316334bba"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r1/PLAN.md": {
+    "bytes": 3583,
+    "sha256": "a045624c4686c525f2086ea59ed66bd25158ca5ebae4c62edaadd66bad8a822a"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r1/SOURCE-PINS.json": {
+    "bytes": 1777,
+    "sha256": "7b7c5b167e7581cd395df86fe16f3ebc146bebfa58951a9aff5a64a5b929e5e5"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r1/STATIC-AUTHORING-CHECKS.json": {
+    "bytes": 414,
+    "sha256": "f697b7498e92c16653def97dc57200f8c613740388486e277ada63726a8b3251"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r1/benchmark-308.mjs": {
+    "bytes": 5253,
+    "sha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r1/bounded-json-candidate.mjs": {
+    "bytes": 2175,
+    "sha256": "ac7ed0d6ad1b2d47e0e12de6e9ec738129049806aa7d5ac0b7cfd3a60452de7c"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r1/bounded-json.diff": {
+    "bytes": 2875,
+    "sha256": "9fcf418066562702e0e0d20ad28501d23fd939b823798ce7f7a2e41d4de1a9e2"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r1/record-pure-node.py": {
+    "bytes": 5964,
+    "sha256": "7d36f62fdcf2c4a79bfb07ae6102f32b8d1ba11f1e84d4f21208117fa7c89f4f"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r1/test-encoder.mjs": {
+    "bytes": 4169,
+    "sha256": "1694d6a4cfec1b9ec9bf2db4ef4078d0fbe104291549c0a0c37e0a25ba6b5b50"
+  }
+}

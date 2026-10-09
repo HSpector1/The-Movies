@@ -1,0 +1,28 @@
+{
+  "decision": "ADOPT_NARROW_NULL_DEVICE_OPERATIONAL_DESIGN_SOURCE_PREPARATION_ONLY",
+  "nullDeviceRequired": {
+    "gid": 0,
+    "kind": "character",
+    "mode": "0666",
+    "nlink": 1,
+    "notSymlink": true,
+    "path": "/dev/null",
+    "rdev": 50331650,
+    "uid": 0
+  },
+  "observedR8StopReceiptSha256": "645fe9d9e35504b1a2b5ae2f56b0828b4cdad15049ae7e9168947965237af55e",
+  "oldPolicySha256": "733ad40abe14eb619230091b43e00e9a27c72b1367c304ee5f7b16cc9eebf833",
+  "primaryLocalSyntaxEvidence": "/System/Library/Sandbox/Profiles/system.sb lines92-95 contains file-write-data literal /dev/null. Parent read locally.",
+  "proposedPolicySha256": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5",
+  "proposedPolicyText": "(version 1)\n(allow default)\n(deny file-write*)\n(allow file-write-data (literal \"/dev/null\"))\n",
+  "requiredNext": [
+    "independent r9 implementation review",
+    "bounded recorded original-policy RED and repaired-policy GREEN Git/null tests plus regular create/overwrite/rename refusals on owned fixture",
+    "exact source/operational-role review and fresh adoption/preflight",
+    "recorded historical run and independent observed review"
+  ],
+  "requiredScope": "Permit writes only to pinned null character device; global denial remains for persistent regular files and metadata. Fresh null identity guard before sandboxed child. No game/source/horizon/bounds/frame-digest changes; r7 unknown cause stays unknown.",
+  "schema": "1370-witness-null-device-parent-operational-design-adoption-r1",
+  "testOrGameLaunchAuthorized": false,
+  "utc": "2026-10-08T23:55:41.333161+00:00"
+}

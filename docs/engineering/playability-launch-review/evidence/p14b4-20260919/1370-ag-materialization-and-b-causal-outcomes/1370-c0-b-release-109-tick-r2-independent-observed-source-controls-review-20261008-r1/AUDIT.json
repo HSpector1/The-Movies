@@ -1,0 +1,286 @@
+{
+  "actualNodeControlsPath": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+  "fixturePrefixesAbsent": [
+    "b-release-r2-red-",
+    "b-release-r3-json-red-",
+    "b109-stream-red-",
+    "b109-unfilled-"
+  ],
+  "gameRun": false,
+  "gitCommands": false,
+  "gzipDecoded": false,
+  "observedControlsPassed": 53,
+  "outcomes": [
+    {
+      "actualHelperExit": 0,
+      "file": "test-recorder-red.py",
+      "freshHelperGroupAbsent": true,
+      "metaExit": 0,
+      "passed": 15,
+      "recordedHelperPgid": 89089
+    },
+    {
+      "actualHelperExit": 0,
+      "file": "test-json-cap-red.py",
+      "freshHelperGroupAbsent": true,
+      "metaExit": 0,
+      "passed": 4,
+      "recordedHelperPgid": 89175
+    },
+    {
+      "actualHelperExit": 0,
+      "file": "test-retention-red.mjs",
+      "freshHelperGroupAbsent": true,
+      "metaExit": 0,
+      "passed": 4,
+      "recordedHelperPgid": 89377
+    },
+    {
+      "actualHelperExit": 0,
+      "file": "test-streaming-red.mjs",
+      "freshHelperGroupAbsent": true,
+      "metaExit": 0,
+      "passed": 21,
+      "recordedHelperPgid": 89398
+    },
+    {
+      "actualHelperExit": 0,
+      "file": "test-continuation-recorder-red.py",
+      "freshHelperGroupAbsent": true,
+      "metaExit": 0,
+      "passed": 5,
+      "recordedHelperPgid": 89419
+    },
+    {
+      "actualHelperExit": 0,
+      "file": "test-targeted-red.mjs",
+      "freshHelperGroupAbsent": true,
+      "metaExit": 0,
+      "passed": 4,
+      "recordedHelperPgid": 89441
+    }
+  ],
+  "parentReportedOuterTool": {
+    "actualExit": 0,
+    "basis": "Parent message; recorded six individual actual/meta exits independently corroborated.",
+    "session": 13363
+  },
+  "parentToolOutcomeSha256": "f338304cdf88ef7b6cbedb2621654c5b6f191db6e6fc5a35f69d0428729e21d1",
+  "pins": [
+    {
+      "bytes": 5527,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/PARENT-TOOL-OUTCOME.json",
+      "sha256": "f338304cdf88ef7b6cbedb2621654c5b6f191db6e6fc5a35f69d0428729e21d1"
+    },
+    {
+      "bytes": 37717,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/MANIFEST.json",
+      "sha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578"
+    },
+    {
+      "bytes": 443,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/AMENDMENT-R2.md",
+      "sha256": "0e903be8cc327e7687fb84ef570f7fb7886b4db3f076aaeb221fe09e608a8527"
+    },
+    {
+      "bytes": 532,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/BINDING-UNFILLED.json",
+      "sha256": "7a0d255122956cfcca52400aaf8bc16111a2f4077f7e9fdca33221d217bd9e82"
+    },
+    {
+      "bytes": 1277501,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DEPENDENCIES.json",
+      "sha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37"
+    },
+    {
+      "bytes": 24196,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+    },
+    {
+      "bytes": 13974,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-ROLES.json",
+      "sha256": "779d9de6325b43af1f4d418128e54d82de22a456a92ff347f24dde12aba007a3"
+    },
+    {
+      "bytes": 28356,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/E0G-TARGET-CONTEXT.json",
+      "sha256": "e1c9fc0980eb069e9ebde103c8df36edef28ec2c90f995226dfe70aeaeeed1a8"
+    },
+    {
+      "bytes": 8325,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/PLAN.md",
+      "sha256": "1a24205674792d286fd4b3a51b6ceb65e1067a51efe50cbb45e0d66fd7a01f36"
+    },
+    {
+      "bytes": 14654,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/continuation.test.ts",
+      "sha256": "56623bb24ddbd8b923187854c3518c312d6c09f7fba427162679361d58995d33"
+    },
+    {
+      "bytes": 40732,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/hollywoodTick.r04-release-off.ts",
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73"
+    },
+    {
+      "bytes": 215,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/retention.d.mts",
+      "sha256": "8433e8d649c54a4918bbdd4cf630e2ed73155555052af67dbd147cb18191cc99"
+    },
+    {
+      "bytes": 584,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/retention.mjs",
+      "sha256": "b4eca17f4dfd93dd5c22c3ec94751d0cdf2838b946b08cf819390d1b28b0e593"
+    },
+    {
+      "bytes": 28763,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/run.py",
+      "sha256": "bbffa0b6e17fbefce41e66c8ca13d4e034909f2d37e8bc2f84926846be3e2c13"
+    },
+    {
+      "bytes": 1127,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.d.mts",
+      "sha256": "3054a4f665c3dfbc5d763a40f49b015ed0b18a78c5be21a5d81231422cb63340"
+    },
+    {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    {
+      "bytes": 230,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/targeted.d.mts",
+      "sha256": "dde93254bc3e9d16c69e90c62351aea0640735daa57f9e906d9af5a7e0b251e5"
+    },
+    {
+      "bytes": 3836,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/targeted.mjs",
+      "sha256": "611ad17cc519b7cc51c2ef335a449cdca6f48df77c99809663cc8460f0f71b08"
+    },
+    {
+      "bytes": 2576,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-continuation-recorder-red.py",
+      "sha256": "14a6dcd3fb36295ffd8af836c07ccb0f09c86f274d6d540ce659294c260d1300"
+    },
+    {
+      "bytes": 2514,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-json-cap-red.py",
+      "sha256": "c6e8d2e097b06c12e827d8e3f5b6f7908f0bc93d4b867af3c5ed6a9cd46f0516"
+    },
+    {
+      "bytes": 9329,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-recorder-red.py",
+      "sha256": "e62b993b21dacabcc5a5c4d62592cf7aedbe423f92b23c0e8550b7196636decd"
+    },
+    {
+      "bytes": 899,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-retention-red.mjs",
+      "sha256": "e60457c2c427fb58ac7a4f305e743deb1b19285d16991a82480689cee8ff507b"
+    },
+    {
+      "bytes": 7955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-streaming-red.mjs",
+      "sha256": "e0caaefcc4695d9bf8db3f4fed138abfed70ee36b42a35ff680bbfb7daf90543"
+    },
+    {
+      "bytes": 2646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-targeted-red.mjs",
+      "sha256": "ae2803460ecbfe79517b2521c6e4f9366f55bedc9b6ecfe4b70bbd6fecbf0adb"
+    },
+    {
+      "bytes": 279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/vitest.continuation.config.ts",
+      "sha256": "a602cbdb77ddde81acd30798f3ec0e193d12a1d4c94f7dafef32a23d0aac7998"
+    },
+    {
+      "bytes": 3132,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-source-review-20261008-r2/RECEIPT.json",
+      "sha256": "36b8fb13854b10a17159d2f5bd59d80fbd3eff7c5184c7444ecd21917d641a9f"
+    },
+    {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    {
+      "bytes": 26472,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/MANIFEST.json",
+      "sha256": "b8a115a2cec4c8dfb91742767362e493768c7ec992908c1aa4c3c05a92618374"
+    },
+    {
+      "bytes": 114,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-recorder-red.py.lane.log",
+      "sha256": "722fcf4c2a92863262d7bccc29bab4b4442713ced55aeed898a89b2a54ce14fb"
+    },
+    {
+      "bytes": 333,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-recorder-red.py.lane.log.meta",
+      "sha256": "75640de906a555550ace4afecc3cc7971658f6b1a549d128fdc8a124ce7e74f8"
+    },
+    {
+      "bytes": 102,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-json-cap-red.py.lane.log",
+      "sha256": "71f385628efaeed61b8ca36819a695a12058846f3539952fa581e781da33250f"
+    },
+    {
+      "bytes": 333,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-json-cap-red.py.lane.log.meta",
+      "sha256": "f2bec7c646a06be61e86de0977b19293c49b85306c46560dc58635dc729fb64c"
+    },
+    {
+      "bytes": 21,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-retention-red.mjs.lane.log",
+      "sha256": "daef06e66acc3a86c794203c4e5dd23d60d19421ea4e02a55db2c12e2eed0fd4"
+    },
+    {
+      "bytes": 292,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-retention-red.mjs.lane.log.meta",
+      "sha256": "f9b3ecfb199060f805b9c2b965dd1b22d79f8692bad604ce4f256abda59c7d92"
+    },
+    {
+      "bytes": 1095,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-streaming-red.mjs.lane.log",
+      "sha256": "55055faa37ae6193377fa58546ec9a682544016f4d9df929bccf3af5ad9190ed"
+    },
+    {
+      "bytes": 292,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-streaming-red.mjs.lane.log.meta",
+      "sha256": "d0413fa3ba62f526c47f5296699307bd6db87ff8cb8ef1ac3d8f970828b911d2"
+    },
+    {
+      "bytes": 103,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-continuation-recorder-red.py.lane.log",
+      "sha256": "1ba217cf53379915310da875e646d945a20c01c77e244e4e51128487cf3b8b69"
+    },
+    {
+      "bytes": 346,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-continuation-recorder-red.py.lane.log.meta",
+      "sha256": "5bd1abad5ed4539491d769c05bf3305f96578b6de9157f7c0bc11a853f3e39cf"
+    },
+    {
+      "bytes": 310,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-targeted-red.mjs.lane.log",
+      "sha256": "1197498f726278bc846b184baf5199d03afb04c510461e807dbd1ed0d45aebb0"
+    },
+    {
+      "bytes": 291,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-targeted-red.mjs.lane.log.meta",
+      "sha256": "13e3f4de21638378f039ef86de6ad633064bff608693be7d36edeb3ccab4152c"
+    }
+  ],
+  "productionOrCopiedRootReads": false,
+  "qualificationGap": "Pure Node observations were Node22; actual continuation is pinned Node20. Parent-granted29 Node20-only controls remain pending.",
+  "repeatControlsRun": false,
+  "requiredContinuationRuntime": {
+    "dependencyManifestSha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37",
+    "nodePath": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+    "typescriptPath": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+    "typescriptSha256": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0",
+    "vitestPath": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+    "vitestSha256": "39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6"
+  },
+  "schema": "1370-b109-r2-observed-source-control-audit-r1",
+  "sourceManifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+  "sourcePackageHasNoBytecodeDirectories": true
+}

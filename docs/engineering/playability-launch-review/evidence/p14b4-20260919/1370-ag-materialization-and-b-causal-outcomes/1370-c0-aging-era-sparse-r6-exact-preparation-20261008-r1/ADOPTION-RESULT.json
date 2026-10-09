@@ -1,0 +1,44 @@
+{
+  "adoptedLaunchSpecPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/ADOPTED-LAUNCH-SPEC.json",
+  "adoptedLaunchSpecSha256": "7087159c8dbbe70bed2242aa5562806e5452c3151625c323f392fe6278adcade",
+  "archiveManifestPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/PRE-ADOPTION-ARCHIVE-MANIFEST.json",
+  "archiveManifestSha256": "54f3c0bb0f1db7028eaaf465160d615453742a3b84221ca3dc38db677f7e12a8",
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "18900da834bda366b2177c8ff8ee9a87b97374c02366b97d1c6b06cb4c23f309",
+  "changedFields": [
+    "exactBindingReviewDecision",
+    "exactBindingReviewPath",
+    "exactBindingReviewSha256",
+    "executionAuthorization",
+    "status"
+  ],
+  "claimLimit": "Adoption only; requires fresh independent adopted checksum/preflight and exact argv review before any launch.",
+  "fieldDiff": {
+    "exactBindingReviewDecision": {
+      "after": "ACCEPT_EXACT_FILLED_UNRUN",
+      "before": null
+    },
+    "exactBindingReviewPath": {
+      "after": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-independent-review-20261008-r1/RECEIPT.json",
+      "before": null
+    },
+    "exactBindingReviewSha256": {
+      "after": "0a2ca9788e50b7f66f7f35a719cb5b0fe8b7f9b14187c02d01bc7564697182fd",
+      "before": null
+    },
+    "executionAuthorization": {
+      "after": true,
+      "before": false
+    },
+    "status": {
+      "after": "REVIEWED_FILLED_UNRUN",
+      "before": "DRAFT_UNREVIEWED_UNRUN"
+    }
+  },
+  "newBindingSha256": "5f6de7413b9a28a9e30284062e99bf52a3ea83f9ba0074515b3257515c8b0c0f",
+  "oldBindingSha256": "6b0407707c4dfc67dc3b268859042dc38b216c3da41eccf4c08a6dfa68aa4dad",
+  "reviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-independent-review-20261008-r1/RECEIPT.json",
+  "reviewSha256": "0a2ca9788e50b7f66f7f35a719cb5b0fe8b7f9b14187c02d01bc7564697182fd",
+  "schema": "1370-r6-r1-adoption-result-r1",
+  "status": "ADOPTED_UNRUN_PREFLIGHT_REQUIRED"
+}

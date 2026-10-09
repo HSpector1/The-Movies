@@ -1,0 +1,31 @@
+{
+  "actualExit": 2,
+  "candidateFrameProduced": false,
+  "claimLimit": "Attempt failed; inner cause was not exposed by the unchanged outer recorder. Do not infer Node/game launch or supervisor preflight cause from five-second duration. Full protected postflight pending.",
+  "evidence": [
+    {
+      "bytes": 133,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-lane-20261008-r2/witness-r7.lane.log",
+      "sha256": "203724cecd81010f03d005b6e676e5c0f904ca678b7c9a2cc3447b73314eaf98"
+    },
+    {
+      "bytes": 420,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-lane-20261008-r2/witness-r7.lane.log.meta",
+      "sha256": "d7f9ee920742c79cfeeb75cc96b0c5375ca4cec19caa253a4b8f1ad643423897"
+    }
+  ],
+  "helperWaitSeconds": 0,
+  "metaEnd": "2026-10-08 18:19:25 CDT",
+  "metaExit": 2,
+  "metaStart": "2026-10-08 18:19:20 CDT",
+  "outerExit": 2,
+  "outerStatus": "STOP_SUPERVISOR_EXIT_2",
+  "ownedPgidsCaptured": false,
+  "processSnapshotObservation": "First post-launch standalone ps found no witness/lane/vite-node/sandbox-exec/esbuild/bounded-sink processes. Actual child PGIDs were not captured before exit. No targeted PGID clearance claim.",
+  "schema": "parent-r7-actual-tool-outcome-r1",
+  "sinkExit": 2,
+  "sinkStatus": "STOP_FRAME_SHAPE",
+  "toolSessionId": 45600,
+  "utc": "2026-10-08T23:20:55.927188+00:00",
+  "validEmploymentPreimageProduced": false
+}

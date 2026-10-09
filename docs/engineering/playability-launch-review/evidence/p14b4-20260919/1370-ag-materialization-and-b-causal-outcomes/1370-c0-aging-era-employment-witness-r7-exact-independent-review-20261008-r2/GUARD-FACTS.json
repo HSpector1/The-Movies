@@ -1,0 +1,30 @@
+{
+  "afterFillPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/after-fill-r1/SNAPSHOT.json",
+  "afterFillPinsSha256": "84eef9240af5e0d7b1a483cae24343e91a004b955760779de06d61567a6229dd",
+  "afterFillSha256": "641757b4399a0daa05354d5b1ea4586a1b59cfd17b8af2c8e88eb248dce1deae",
+  "beforeFillPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/before-fill-r1/SNAPSHOT.json",
+  "beforeFillSha256": "b087ec768c52328d142433555d8549e4d9e365fe4293810fe4fac5c042281a12",
+  "currentAfter": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralPassed": true,
+    "freeBytes": 8635719680,
+    "lsofRawSha256": "9beb9ecd302e2d6f908c9b034a03d3ac9a73e44765744b17844d95ce47120d01",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": false,
+    "ownedGroupIdsChecked": [],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawSha256": "9653f30a04e4cc9f4a370ce50f028297922670dafbaccaead01d96f572e22e68",
+    "relevantWorkersAbsent": true
+  },
+  "fullImmutableBaselineEqual": true,
+  "fullInventoryRepeated": false,
+  "immutableCanonicalSha256": "48cccd03eacda8daa1bf06c2909620c75d568b9c5b8a0bef6a1356c4d92cae1a",
+  "protectedDigests": {
+    "commonGit": "e412715eb23e48e2d14d58419cf30d5b32a1ccc548750965170cac046b7d3a70",
+    "copied": "f33f505c16fb4e60fc639f5268969e14b9187ebf1c639209eeceae584a8fc5eb",
+    "production": "3b236ee5cff80f1e98c77f4cc2d780aadfd9217b9d012fc2f97274c86165082f"
+  },
+  "schema": "1370-witness-r7-exact-independent-guard-comparison-r2",
+  "snapshotSourceReviewSha256": "2c7acfc9f585a67962949f2f6a4ad2769110f78f03afb97547249f34c808747d",
+  "status": "ACCEPTED_BASELINE_EQUAL"
+}

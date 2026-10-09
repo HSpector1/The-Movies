@@ -1,0 +1,5 @@
+PASS expected expiry identity counts; recorded locators remain descriptive
+PASS changed variant cannot masquerade as expiry; full payload remains visible
+PASS same expected identity with changed payload stays neutral and visible
+PASS source occurrence is assigned before target filtering
+targeted controls 4/4

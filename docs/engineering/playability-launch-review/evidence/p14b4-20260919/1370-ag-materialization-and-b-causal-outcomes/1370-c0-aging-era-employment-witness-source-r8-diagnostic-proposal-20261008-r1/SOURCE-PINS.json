@@ -1,0 +1,55 @@
+{
+  "status": "FROZEN_UNRUN_UNLAUNCHABLE_SOURCE_REVIEW_REQUIRED",
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "protocol": "single-bounded-stdout-frame-no-files",
+  "files": {
+    "witness-core.mjs": {
+      "sha256": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d",
+      "bytes": 3520
+    },
+    "worktree-guard.mjs": {
+      "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4",
+      "bytes": 2211
+    },
+    "bounds-guard.mjs": {
+      "sha256": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f",
+      "bytes": 4153
+    },
+    "witness.mts": {
+      "sha256": "afce97a16063085964c4a92d49c0495312452b7eec8d6b9b6bcc9edbc01cc736",
+      "bytes": 5196
+    },
+    "supervise.py": {
+      "sha256": "02c2058e8348e22e6c329de6f809096ab664a7d374c84c70b0ae5cc872966bc8",
+      "bytes": 19935
+    },
+    "outer-recorder.py": {
+      "sha256": "e0b03fbb96cff3dfa3e4dbbedaaaf59525810ce2ebe2dd4a631a4432833c85a6",
+      "bytes": 9825
+    },
+    "POLICY.sb": {
+      "sha256": "733ad40abe14eb619230091b43e00e9a27c72b1367c304ee5f7b16cc9eebf833",
+      "bytes": 47
+    },
+    "test-synthetic.mjs": {
+      "sha256": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60",
+      "bytes": 4873
+    },
+    "test-supervisor.py": {
+      "sha256": "47e0eb620760e825be0417963d8b4e759eab6998e514ad32dc34a176c60facf9",
+      "bytes": 10583
+    },
+    "test-outer.py": {
+      "sha256": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab",
+      "bytes": 3290
+    },
+    "BINDING-UNFILLED.json": {
+      "sha256": "adee3d1fb706125535ecadd03e8ec84ddecfb563c19da03b64bedfbb1419f89a",
+      "bytes": 397
+    },
+    "PLAN.md": {
+      "sha256": "e6b6b582f0720f6f996b537fefbff7d4c94638423a40ba74379a801e8544b351",
+      "bytes": 3857
+    }
+  }
+}

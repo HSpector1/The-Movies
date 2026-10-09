@@ -1,0 +1,70 @@
+{
+  "admissionAuthorized": false,
+  "analysisArtifactHashes": {
+    "INPUT-PINS.json": "6123941ac25c0709418376bba3433508bf58ea5986ace3ccc216c1025f392b29",
+    "RECEIPT.json": "625ec9168be873a56a94b86d6e204ca54eceb06ea1863d597783eab9bf9a6274",
+    "REPORT.md": "2d75fd2f808234fb0b6a72a974764796acd41d33e635217b27d777e821a519d0",
+    "RESULT.json": "8a503e5e93a0201cc50ce1acf27f2c6b70e55eee41902508f82d7e80b558f29a",
+    "compare-existing.py": "76b2666e61b6dbabc781f1f8c47fe4dbd9ca7de89e24f09f2666adddda0cb510"
+  },
+  "analysisPath": "/Users/zacheryspector/studio-scratch/1370-ebg-abg-common-terminal-residual-readonly-analysis-20261008-r1",
+  "analyzerExecution": "Authenticated in-process stdlib replay completed normally; no child/lane",
+  "claimLimit": "Exposed terminal arrays/eight receipt-derived fields/recorded four hashes/terminal RNG/B since only; weekly full-state and industry timing incomparable, rich ledger and acceptance route excluded.",
+  "copiedRootRead": false,
+  "decision": "ACCEPT_READONLY_COMMON_TERMINAL_DIAGNOSTIC_ONLY",
+  "differingSourcePaths": 6,
+  "gameImports": 0,
+  "gameRuns": 0,
+  "gitMutations": false,
+  "gzipDecoded": false,
+  "productionWrites": false,
+  "protectedRepin": false,
+  "reportSha256": "4417d9066f92e5550f6cb473531e1bfc7a8522357f56c9729cecbfb5b956fe1e",
+  "reproducedResultBytes": 2667285,
+  "reproducedResultSha256": "8a503e5e93a0201cc50ce1acf27f2c6b70e55eee41902508f82d7e80b558f29a",
+  "reproductionElapsedSeconds": 3.4646331659996576,
+  "schema": "1370-ebg-abg-common-terminal-residual-independent-readonly-review-r1",
+  "summary": {
+    "adoption": {
+      "ambiguousReceiptCaseJoins": 0,
+      "changedBSinceWeeks": 0,
+      "eightFieldValuesAndSourceOrderEqual": true,
+      "fourRecordedDigestsEqual": true,
+      "industryAppendTimingComparable": false,
+      "pairedBSinceObservations": 1664,
+      "terminalCounts": {
+        "cases": 42,
+        "employment": 64,
+        "industry": 515,
+        "market": 223,
+        "proposals": 0,
+        "takes": 121
+      },
+      "terminalRngEqual": true,
+      "uniqueReceiptCaseJoins": 42,
+      "weeklyFullStateComparable": false
+    },
+    "p13a": {
+      "ambiguousReceiptCaseJoins": 0,
+      "changedBSinceWeeks": 0,
+      "eightFieldValuesAndSourceOrderEqual": true,
+      "fourRecordedDigestsEqual": true,
+      "industryAppendTimingComparable": false,
+      "pairedBSinceObservations": 1664,
+      "terminalCounts": {
+        "cases": 18,
+        "employment": 40,
+        "industry": 273,
+        "market": 72,
+        "proposals": 0,
+        "takes": 51
+      },
+      "terminalRngEqual": true,
+      "uniqueReceiptCaseJoins": 18,
+      "weeklyFullStateComparable": false
+    }
+  },
+  "testsRun": false,
+  "uniqueCaseJoinsSha256": "8b1f34c811718bc3566cc702939797fcf98a9dfeb278c9a6ea6383a2c2bb37a0",
+  "verifiedFrozenSourceInstances": 376
+}

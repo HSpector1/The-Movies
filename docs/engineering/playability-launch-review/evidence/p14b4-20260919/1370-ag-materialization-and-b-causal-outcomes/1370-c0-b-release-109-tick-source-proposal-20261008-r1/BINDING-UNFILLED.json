@@ -1,0 +1,18 @@
+{
+  "schema": "1370-b109-binding-unfilled-r1",
+  "status": "UNFILLED",
+  "executionAuthorization": false,
+  "productionHead": null,
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "manifestSha256": null,
+  "outputRoot": null,
+  "exactReview": null,
+  "pendingRoles": [
+    "independent source acceptance",
+    "observed focused controls and independent acceptance",
+    "actual post-checkpoint HEAD",
+    "absent fresh output path",
+    "independent exact review",
+    "parent adoption and lane grant"
+  ]
+}

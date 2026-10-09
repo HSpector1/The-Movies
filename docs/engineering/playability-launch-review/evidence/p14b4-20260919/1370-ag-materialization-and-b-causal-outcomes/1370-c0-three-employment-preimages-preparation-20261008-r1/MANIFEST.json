@@ -1,0 +1,22 @@
+{
+  "schema": "1370-three-employment-preimage-comparison-preparation-r1",
+  "status": "DRAFT_FUTURE_INPUTS_PENDING_UNRUN",
+  "comparisonExecuted": false,
+  "sourceTestsAddedOrRun": false,
+  "gameOrGitCalls": false,
+  "existingComparatorPath": "/Users/zacheryspector/studio-scratch/1370-c0-four-digest-comparator-proposal-r2/comparator.py",
+  "existingComparatorSha256": "dbd9823d80a8a63d6851b27cbfcd7f2e21e555171864ae0974c4704bee6e0786",
+  "designMemoSha256": "f8f5c471e0ab99691e6b53bcfa5c1c7d9f314d87fdd301a1fb020b7d8940b2ce",
+  "files": {
+    "compare_employment.py": "a8f66b2509f70e05b2ea1a2224e8fd761b3f1bf0588f024d8be12b09a330c5a5",
+    "INPUTS-PENDING.json": "12ad76d75bd54033e3328457da2caea5443ffafa6454467b31de088bcf61ba3d",
+    "RECIPE.md": "7ccaf950a03ce59f97128b089c6a173735457050ffab4c5f2c4d62fe9b9ad93e"
+  },
+  "limit": {
+    "wallSeconds": 30,
+    "employmentBytes": 262144,
+    "frameBytes": 524288,
+    "reportBytes": 2097152
+  },
+  "claimLimit": "Static unrun narrow adapter only; independently accepted exact r7 frame/receipt and reviewed filled roles required. No missing raw data is invented and no causal/digest acceptance follows."
+}

@@ -1,0 +1,1776 @@
+{
+  "existingModeBehavior": "copytree copies source file/directory modes; accepted replace_pinned_file chmods temporary to inherited target mode and asserts final target/parent modes; root gets owner-write bit; new helper files open(xb) =>0600 under077",
+  "overlays": {
+    "src/core/employment.ts": {
+      "overlaySourceMode": "0644",
+      "targetModeRetained": "0444"
+    },
+    "src/core/hollywoodPolicy.ts": {
+      "overlaySourceMode": "0644",
+      "targetModeRetained": "0444"
+    },
+    "src/core/hollywoodTick.ts": {
+      "overlaySourceMode": "0600",
+      "targetModeRetained": "0444"
+    },
+    "src/core/hollywoodValidation.ts": {
+      "overlaySourceMode": "0644",
+      "targetModeRetained": "0444"
+    },
+    "src/core/rivalResearch.ts": {
+      "overlaySourceMode": "0644",
+      "targetModeRetained": "0444"
+    },
+    "src/core/save.ts": {
+      "overlaySourceMode": "0644",
+      "targetModeRetained": "0444"
+    },
+    "src/core/talentMarket.ts": {
+      "overlaySourceMode": "0644",
+      "targetModeRetained": "0444"
+    },
+    "src/core/technologyRival.ts": {
+      "overlaySourceMode": "0644",
+      "targetModeRetained": "0444"
+    },
+    "tests/full-state-neutrality.test.ts": {
+      "overlaySourceMode": "0600",
+      "targetModeRetained": "0644"
+    },
+    "vitest.neutrality.config.ts": {
+      "overlaySourceMode": "0600",
+      "targetModeRetained": "0444"
+    }
+  },
+  "predictedMirrorModesBothArms": {
+    ".": {
+      "kind": "directory",
+      "mode": "0755"
+    },
+    "node_modules": {
+      "kind": "symlink",
+      "mode": "0755",
+      "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    },
+    "package-lock.json": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "package.json": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/core": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/core/actions.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/agents.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/aging.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/blueprintRequirements.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/boundedStableSort.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/broadcast.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/calendar.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/campaignLegacy.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/candidates.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/careerLifecycle.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/castingPackageReadModel.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/castingReadModel.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/castingSessions.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/construction.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/corporateCondition.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/data": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/core/data/screenplay.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/data/wordlists.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/development.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/economy.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/economyView.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/employment.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/facilityEffects.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/filmPackage.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/filmParticipants.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/financeReport.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/firstFilmJourney.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/firstTakeSubjects.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/fixedCostAllocation.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/forecast.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/grid.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/hollywood.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/hollywoodPolicy.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/hollywoodStartingData.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/hollywoodTick.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/hollywoodTypes.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/hollywoodValidation.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/index.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/industryCareer.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/industryEmployment.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/installationCancellation.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/liveRetirementWriting.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/lot.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/marketIntegration.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/marketingMenu.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/math.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/newspaper.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/occupancy.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/officeConversion.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/operations.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/opportunityPromises.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/p15Phases.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/physicalPlans.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/placement.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/powerRanking.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/powerRankingArchive.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/presence.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/productionAdmission.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/productionIdentity.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/productionPeople.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/productionPhases.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/productionQueue.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/productionSetup.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/professionHistory.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/professionTransitions.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/promiseCapacityEnumerator.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/promiseCapacityKernel.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/promiseCapacityOwnerReplay.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/promiseCapacityOwners.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/promises.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/publicity.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/queueAdmission.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/reception.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/receptionVerdict.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/relationshipLabels.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/relationships.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/releaseAuthority.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/releaseCareers.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/researchPeople.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/retirementWriting.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/rivalResearch.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/rng.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/save.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/sceneryLoadIn.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/screenplay.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/scriptDevelopment.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/scriptReadModel.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/sets.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/shape.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/sharedMarket.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/standing.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/starPower.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioCalendar.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioEvents.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioHistory.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioLoan.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioQueueView.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioRunRecap.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioWeekTheater.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/talentMarket.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/talentSummary.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technology.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyAdoption.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyCatalogue.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyDisclosure.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyMilestones.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyProduction.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyRival.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyTypes.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/tick.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/tuning.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/types.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/vector.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/worldgen.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/aggregate.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/d16/compare-d17b-production.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/counterflow.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/counterflow.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/driver.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/driver.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/experiment.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/experiment.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/isolation.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/luck.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/luck.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/packages.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/packages.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/policies.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/production-agreement.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/productionIdentity.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/publicity.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/publicity.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/run-d16-corpus.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/run-d17b-continuation.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/run-d17b-week86.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/sourceProvenance.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/states.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/states.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/stats.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/stats.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/view.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/vitest.d16.config.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/facilities": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/facilities/index.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/measure.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13a": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/p13a/fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/p13b/fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v20-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v21-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v22-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v23-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v24-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v25-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v26-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v27-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/s3-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/s4-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/s6-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p14": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/p14/legacy-v28-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/roster-wall/artifacts.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/campaign.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/continuation.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/corpus.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/historical-control.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/player-policy.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/provenance.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/records.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/renewal.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/schema.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/summary.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-capital-risk-reward-audit.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-corpus.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-creator-baseline-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-creator-development-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-dev-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-driver.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-economy-balance-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-facilities-observatory.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-final-balance.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-integrated-balance.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-microbudget-dominance-audit.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-multihyphenate-stats.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-owner-calibration-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-roster-balance-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-roster-wall-observatory.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-selection-stats.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-shape-sensitivity.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-star-power-calibration.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-writer-bottleneck-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "tests": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "tests/1368-ledger-attribution.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "tests/1368-ledger-original.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "tests/bridge-p14b5-relationships.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "tests/contracts": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "tests/contracts/_contractFixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "tests/full-state-neutrality.test.ts": {
+      "kind": "regular",
+      "mode": "0644"
+    },
+    "tests/retention.d.mts": {
+      "kind": "regular",
+      "mode": "0600"
+    },
+    "tests/retention.mjs": {
+      "kind": "regular",
+      "mode": "0600"
+    },
+    "tsconfig.1368-ledger.json": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "tsconfig.json": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "vitest.1368-ledger.config.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "vitest.1368-ledger.workspace.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "vitest.neutrality.config.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    }
+  },
+  "requiredHelperUmask": "0077",
+  "runtimeLimit": "Source inventory and verify_mirror authenticate bytes/directories/link targets, not whole mode maps. No mirrors assembled or runtime-wide mode comparison performed.",
+  "schema": "1370-c0-b-release-one-tick-exact-mode-proof-r1",
+  "sourceModes": {
+    ".": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "node_modules": {
+      "kind": "symlink",
+      "mode": "0755",
+      "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    },
+    "package-lock.json": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "package.json": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/core": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/core/actions.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/agents.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/aging.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/blueprintRequirements.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/boundedStableSort.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/broadcast.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/calendar.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/campaignLegacy.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/candidates.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/careerLifecycle.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/castingPackageReadModel.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/castingReadModel.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/castingSessions.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/construction.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/corporateCondition.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/data": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/core/data/screenplay.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/data/wordlists.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/development.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/economy.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/economyView.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/employment.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/facilityEffects.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/filmPackage.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/filmParticipants.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/financeReport.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/firstFilmJourney.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/firstTakeSubjects.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/fixedCostAllocation.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/forecast.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/grid.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/hollywood.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/hollywoodPolicy.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/hollywoodStartingData.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/hollywoodTick.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/hollywoodTypes.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/hollywoodValidation.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/index.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/industryCareer.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/industryEmployment.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/installationCancellation.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/liveRetirementWriting.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/lot.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/marketIntegration.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/marketingMenu.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/math.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/newspaper.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/occupancy.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/officeConversion.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/operations.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/opportunityPromises.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/p15Phases.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/physicalPlans.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/placement.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/powerRanking.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/powerRankingArchive.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/presence.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/productionAdmission.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/productionIdentity.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/productionPeople.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/productionPhases.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/productionQueue.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/productionSetup.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/professionHistory.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/professionTransitions.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/promiseCapacityEnumerator.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/promiseCapacityKernel.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/promiseCapacityOwnerReplay.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/promiseCapacityOwners.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/promises.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/publicity.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/queueAdmission.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/reception.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/receptionVerdict.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/relationshipLabels.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/relationships.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/releaseAuthority.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/releaseCareers.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/researchPeople.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/retirementWriting.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/rivalResearch.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/rng.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/save.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/sceneryLoadIn.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/screenplay.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/scriptDevelopment.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/scriptReadModel.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/sets.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/shape.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/sharedMarket.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/standing.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/starPower.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioCalendar.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioEvents.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioHistory.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioLoan.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioQueueView.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioRunRecap.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/studioWeekTheater.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/talentMarket.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/talentSummary.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technology.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyAdoption.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyCatalogue.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyDisclosure.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyMilestones.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyProduction.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyRival.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/technologyTypes.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/tick.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/tuning.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/types.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/vector.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/core/worldgen.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/aggregate.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/d16/compare-d17b-production.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/counterflow.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/counterflow.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/driver.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/driver.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/experiment.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/experiment.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/isolation.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/luck.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/luck.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/packages.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/packages.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/policies.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/production-agreement.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/productionIdentity.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/publicity.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/publicity.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/run-d16-corpus.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/run-d17b-continuation.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/run-d17b-week86.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/sourceProvenance.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/states.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/states.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/stats.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/stats.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/view.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/d16/vitest.d16.config.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/facilities": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/facilities/index.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/measure.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13a": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/p13a/fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/p13b/fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v20-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v21-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v22-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v23-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v24-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v25-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v26-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/legacy-v27-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/s3-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/s4-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p13b/s6-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/p14": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/p14/legacy-v28-fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "src/harness/roster-wall/artifacts.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/campaign.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/continuation.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/corpus.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/fixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/historical-control.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/player-policy.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/provenance.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/records.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/renewal.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/schema.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/roster-wall/summary.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-capital-risk-reward-audit.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-corpus.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-creator-baseline-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-creator-development-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-dev-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-driver.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-economy-balance-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-facilities-observatory.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-final-balance.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-integrated-balance.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-microbudget-dominance-audit.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-multihyphenate-stats.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-owner-calibration-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-roster-balance-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-roster-wall-observatory.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-selection-stats.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-shape-sensitivity.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-star-power-calibration.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "src/harness/run-writer-bottleneck-study.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "tests": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "tests/1368-ledger-attribution.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "tests/1368-ledger-original.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "tests/bridge-p14b5-relationships.test.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "tests/contracts": {
+      "kind": "directory",
+      "mode": "0555"
+    },
+    "tests/contracts/_contractFixtures.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "tests/full-state-neutrality.test.ts": {
+      "kind": "regular",
+      "mode": "0644"
+    },
+    "tsconfig.1368-ledger.json": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "tsconfig.json": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "vitest.1368-ledger.config.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "vitest.1368-ledger.workspace.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    },
+    "vitest.neutrality.config.ts": {
+      "kind": "regular",
+      "mode": "0444"
+    }
+  },
+  "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-ag-e0g-full-state-clean-proposal-r12/arms/E0G/tree",
+  "status": "READ_ONLY_SOURCE_MODE_PROOF_NOT_OBSERVED_MIRRORS"
+}

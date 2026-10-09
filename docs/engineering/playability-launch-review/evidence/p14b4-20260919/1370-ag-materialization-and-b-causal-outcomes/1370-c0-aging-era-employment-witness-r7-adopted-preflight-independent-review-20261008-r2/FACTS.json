@@ -1,0 +1,61 @@
+{
+  "adoptedBindingSha256": "31eed0401487d0be2849c11dcb8e73c8ca6a3a636ec3a755085981ddd9bb4817",
+  "adoptedLaunchSpecSha256": "699c1be5454d65b2ee960fcac01611b44d1db5610967f4b5bd308fad2c9aeb82",
+  "archiveFilesVerified": 6,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-lane-20261008-r2/witness-r7.lane.log",
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/launch-pipeline.sh",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-exact-draft-20261008-r2/BINDING-DRAFT.json",
+    "31eed0401487d0be2849c11dcb8e73c8ca6a3a636ec3a755085981ddd9bb4817"
+  ],
+  "bindingSemanticSha256": "172b8405bceda94e539619fdf53cfb0f3ea9cfc09042c4a32cbf95a7210102c6",
+  "changedFields": [
+    "exactReview",
+    "executionAuthorization",
+    "status"
+  ],
+  "currentAfter": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralPassed": true,
+    "freeBytes": 8423346176,
+    "lsofRawSha256": "6702f2731de8d363c5ae2d4eaa373ce4cbb8f3bffe6556b22ea66ad07789b607",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": false,
+    "ownedGroupIdsChecked": [],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawSha256": "7ed89c15e6d709a25278ddadf09f04fd0e645d4f7bfb9b9aa6b4f4541193d5b7",
+    "relevantWorkersAbsent": true
+  },
+  "currentBefore": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralPassed": true,
+    "freeBytes": 8423923712,
+    "lsofRawSha256": "202af7aa2883079bedcb274bae86f876a234dfceeff6a737ff9cf07d7a584ef3",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": false,
+    "ownedGroupIdsChecked": [],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawSha256": "cc74d73582fb0836470f91e1bcdc455691243339b1cc26ce7e057c8b8086f0f1",
+    "relevantWorkersAbsent": true
+  },
+  "freshProtectedAndCopiedFdChecksPassed": true,
+  "freshStrictRootMetadataEqual": true,
+  "fullBaselineSha256": "641757b4399a0daa05354d5b1ea4586a1b59cfd17b8af2c8e88eb248dce1deae",
+  "fullInventoryRepeated": false,
+  "localHeadsCommand": "git -c gc.auto=0 -c maintenance.auto=0 for-each-ref --format=%(objectname) %(refname) refs/heads/evidence refs/heads/main refs/heads/wip/headless-program-20260916-ts",
+  "localHeadsStdout": "eb58bc0042ebf0c02a16d0bdaa1f5734e1f5f9eb refs/heads/evidence/1370-r10-clean-captures\n4812bb123781632dd39e44f918eb85a6a2c12623 refs/heads/wip/headless-program-20260916-ts\n",
+  "remoteHeadsCommand": "git -c gc.auto=0 -c maintenance.auto=0 ls-remote origin refs/heads/evidence refs/heads/main refs/heads/wip/headless-program-20260916-ts",
+  "remoteHeadsStdout": "c902a704eb948cc576083d0973c8c23e59937dc1\trefs/heads/main\n4812bb123781632dd39e44f918eb85a6a2c12623\trefs/heads/wip/headless-program-20260916-ts\n",
+  "requiredEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "schema": "1370-witness-r7-adopted-preflight-facts-r2",
+  "scope": "Parent-adopted no-detach and no external protected renamer; only declared scratch adoption outputs since authenticated full baseline. Protected full bytes/dependency inventories reused; fresh roles/files/root metadata/FD/worker/local-remote/AC/disk checks performed.",
+  "utc": "2026-10-08T23:15:28.579233+00:00"
+}

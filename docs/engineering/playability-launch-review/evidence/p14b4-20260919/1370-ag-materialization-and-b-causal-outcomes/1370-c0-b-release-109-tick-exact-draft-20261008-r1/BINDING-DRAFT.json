@@ -1,0 +1,141 @@
+{
+  "acceptedLaneHelper": {
+    "bytes": 3361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "adoptedCaps": {
+    "activeSeconds": 375,
+    "childCombinedLogBytes": 1048576,
+    "countedOutputBytes": 268435456,
+    "finalReserveInsideTotalBytes": 131072,
+    "preflightFreeBytes": 3657433088,
+    "runningFloorWithReserveBytes": 3355443200,
+    "sharedNodeSeconds": 300,
+    "singleJsonDecodedMemberBytes": 16777216,
+    "wholeSeconds": 390
+  },
+  "assumptions": [
+    "No source/output renamer during owned run; retained reader FD/path identity refuses detected change.",
+    "Vitest descendants stay in owned child session; actual exits and group clearance mandatory.",
+    "Sole parent-authorized free heavy lane, absent output/log/meta immediately before launch; unexpected wait STOP.",
+    "Helper077; copied/replaced modes preserved, newly created helpers explicitly0600."
+  ],
+  "boundariesPerArm": 110,
+  "claimLimit": "NONE/PARTIAL/ALL neutral diagnostic; full baseline identity and admission mandatory; no production fix, ledger/C0/1363 admission or protected repin.",
+  "classification": "109_TICK_CONTINUATION_DIAGNOSTIC_ONLY",
+  "continuousTicksPerArm": 109,
+  "designReview": {
+    "bytes": 3072,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-independent-design-review-20261008-r1/RECEIPT.json",
+    "sha256": "718e79a8653e3f575252dfe466d2072ed816dc5444aebd5fca477ce4be524b46"
+  },
+  "exactReview": {
+    "bytes": 2942,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-exact-review-20261008-r1/RECEIPT.json",
+    "sha256": "f4e88885067ffa7d8149a50d3c4ffb99c6193827f1819da7c6fe737b54daa3c6"
+  },
+  "executionAuthorization": true,
+  "firstBoundary": 307,
+  "independentObservedSourceControlsReview": {
+    "bytes": 2920,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-node20-independent-observed-source-controls-review-20261008-r1/RECEIPT.json",
+    "sha256": "ca5f4f769a2589e2e80b102f3e3d301cade08a9c8da3bfdca7438eaa93ca72d1"
+  },
+  "inputRoles": {
+    "index": {
+      "bytes": 24196,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+    },
+    "oneTickFacts": {
+      "bytes": 22770,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/FACTS.json",
+      "sha256": "d59ee958db7996635cb2f7699adfb007e3d160319528fbfaccef763e5b2b4cd4"
+    },
+    "oneTickObservedReview": {
+      "bytes": 5318,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/RECEIPT.json",
+      "sha256": "98adcb7132bf1a3eb877f2acac02c056ce4eb65142e708cc2365d929059d8918"
+    },
+    "oneTickParentAdoption": {
+      "bytes": 834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/PARENT-ADOPTION.json",
+      "sha256": "1b667564420555240d806c15717466faf8f18637225d8f13a1cb5197234ee779"
+    },
+    "originalCapture": {
+      "bytes": 141237093,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/boundaries.ndjson.gz",
+      "sha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e"
+    },
+    "recordedE0GContext": {
+      "bytes": 28356,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/E0G-TARGET-CONTEXT.json",
+      "sha256": "e1c9fc0980eb069e9ebde103c8df36edef28ec2c90f995226dfe70aeaeeed1a8"
+    },
+    "releaseOffWholeFile": {
+      "bytes": 40732,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/hollywoodTick.r04-release-off.ts",
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73"
+    }
+  },
+  "lastBoundary": 416,
+  "manifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+  "modeProof": {
+    "bytes": 1666,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/MODE-PROOF.json",
+    "sha256": "03aff37934f6054b5559c5a01f04600ab59a4dd706b81f4d6dda9f5999176b28"
+  },
+  "ordinaryRuntimeRole": {
+    "routeManifest": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/MANIFEST.json",
+      "sha256": "b8a115a2cec4c8dfb91742767362e493768c7ec992908c1aa4c3c05a92618374"
+    },
+    "runtime": {
+      "dependencyManifestSha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37",
+      "nodePath": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+      "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+      "typescriptPath": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+      "typescriptSha256": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0",
+      "vitestPath": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+      "vitestSha256": "39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6"
+    },
+    "witnessNode22Role": "not used"
+  },
+  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-b-release-109-tick-run-20261008-4812-r1",
+  "parentBoundsAdoption": {
+    "bytes": 1392,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-independent-design-review-20261008-r1/PARENT-ADOPTION.json",
+    "sha256": "0d89f7203d35e93f410ba87a757e5b626cda2a23e5af19274ad31880b3c6dc70"
+  },
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "qualifiedControls": {
+    "Node22InterimRole": "historical interim preserved, excluded from actual-runtime qualification",
+    "Python": 24,
+    "actualNode20": 29,
+    "totalDistinct": 53
+  },
+  "readonlyPreparation": {
+    "bytes": 28498,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/READONLY-PREFLIGHT.json",
+    "sha256": "e8115231f94017d4873ed3ae2f0e4d22328235d4ec9d5e5cb1a8b2da496dc849"
+  },
+  "recorderPython": {
+    "bytes": 50472,
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "recorderSource": {
+    "bytes": 28763,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/run.py",
+    "sha256": "bbffa0b6e17fbefce41e66c8ca13d4e034909f2d37e8bc2f84926846be3e2c13"
+  },
+  "schema": "1370-c0-b-release-109-tick-exact-binding-r1",
+  "sourceOnlyReview": {
+    "bytes": 3132,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-source-review-20261008-r2/RECEIPT.json",
+    "sha256": "36b8fb13854b10a17159d2f5bd59d80fbd3eff7c5184c7444ecd21917d641a9f"
+  },
+  "status": "REVIEWED_FILLED_UNRUN"
+}

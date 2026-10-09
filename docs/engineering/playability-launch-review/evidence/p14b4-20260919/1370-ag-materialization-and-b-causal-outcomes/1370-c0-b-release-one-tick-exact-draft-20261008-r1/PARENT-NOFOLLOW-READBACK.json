@@ -1,0 +1,20 @@
+{
+  "BINDING-DRAFT.json": {
+    "sha256": "1d961e6badb90588e304938b75d6b488a2e35188992e30232426f823b23f12d2",
+    "bytes": 2691,
+    "device": 16777220,
+    "inode": 166584416,
+    "mode": 384,
+    "nlink": 1,
+    "nofollowReadStable": true
+  },
+  "BINDING-ORIGINAL-e0a31a76.json": {
+    "sha256": "e0a31a76c19a5c8f18a3f690cba4984f38c5a263920f5d8a573ea8858dda0003",
+    "bytes": 2463,
+    "device": 16777220,
+    "inode": 166584415,
+    "mode": 384,
+    "nlink": 1,
+    "nofollowReadStable": true
+  }
+}

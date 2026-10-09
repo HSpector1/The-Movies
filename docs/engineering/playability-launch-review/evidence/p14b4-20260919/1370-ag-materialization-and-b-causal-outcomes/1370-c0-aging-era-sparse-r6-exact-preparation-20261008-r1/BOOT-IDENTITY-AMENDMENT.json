@@ -1,0 +1,61 @@
+{
+  "afterLine": " require(command(['/usr/sbin/sysctl','-n','kern.bootsessionuuid']).stdout.decode().strip()=='452DE205-E1D6-462E-8673-553462BB0166','boot session identity drift')",
+  "beforeLine": " require('sec = 1791493855,' in command(['/usr/sbin/sysctl','kern.boottime']).stdout.decode(),'reboot drift')",
+  "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+  "changedLines": [
+    79
+  ],
+  "claimLimit": "UUID first observed now; not claimed captured in earlier snapshot. Darwin boottime wall-time adjustment does not itself prove restart. Exact UUID plus fresh clearance binds this proposed future adoption. No source/candidate/binding semantics changed.",
+  "freshBootSnapshot": "kern.boottime: { sec = 1791493856, usec = 29095 } Thu Oct  8 16:10:56 2026\n",
+  "freshClearance": {
+    "fixtureOrHeavyMatches": [],
+    "freeBytes": 8819855360,
+    "noGlobalLock": true,
+    "oldPidAbsent": true,
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "protectedFdGuardSourceSha256": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896",
+    "protectedWritableFdGuardPassed": true,
+    "psRawSha256": "d75598a0ea5ee71e322fb341f9fe5e5038c4bf1c0477eef836f9c0d96d13a3da",
+    "reservedR6ChildrenAbsent": true
+  },
+  "launchAuthorized": false,
+  "oldBootSnapshot": {
+    "argv": [
+      "/usr/sbin/sysctl",
+      "kern.boottime"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "kern.boottime: { sec = 1791493855, usec = 965854 } Thu Oct  8 16:10:55 2026\n"
+  },
+  "reviewerReadbackBootSnapshot": "kern.boottime: { sec = 1791493856, usec = 29095 }",
+  "roles": {
+    "candidatePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/CANDIDATE-PINS.json",
+      "sha256": "19a2b91cde3b786aaac79cbeb2fabd965b9020fad8010c65fc1112675cbff2e8"
+    },
+    "draftBinding": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+      "sha256": "6b0407707c4dfc67dc3b268859042dc38b216c3da41eccf4c08a6dfa68aa4dad"
+    },
+    "draftIdentity": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/DRAFT-IDENTITY.json",
+      "sha256": "a1d3cd613ddce69e3852f595c4452a16229ecacc929756b2b31cce6af2db8af2"
+    },
+    "newAdoptionProcedure": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/adopt_reviewed_binding_r2.py",
+      "sha256": "aaee44c435f5e6945457e8178530898e3ae2e76a097a05d5bbf54776460e46ec"
+    },
+    "originalAdoptionProcedure": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/adopt_reviewed_binding.py",
+      "sha256": "644fcd5a61b4cbb689f31caa8bf4ea2ecdd60f4a31f7b57c51de5a419db7cf5f"
+    },
+    "originalPreparationPins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/PREPARATION-PINS.json",
+      "sha256": "9bdcc7456dbca6c4c0420672205ecffe1f6c0f704e9563f68411eb4a207ed281"
+    }
+  },
+  "schema": "1370-r6-r1-boot-identity-amendment-r2",
+  "status": "PROPOSAL_UNREVIEWED_UNRUN",
+  "utc": "2026-10-08T22:18:17.152586+00:00"
+}

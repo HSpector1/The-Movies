@@ -1,0 +1,57 @@
+{
+  "gameRun": false,
+  "nodePath": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+  "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+  "nodeVersion": "v20.20.2",
+  "qualification": "Actual pinned game runtime. Prior29Node22 controls remain observational only; prior24Python controls not repeated. No game/dependency/production work.",
+  "records": [
+    {
+      "actualExit": 0,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-node20-controls-recorded-20261008-r1/test-retention-red.mjs.lane.log",
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-retention-red.mjs"
+      ],
+      "elapsedSeconds": 0.6476214439990144,
+      "file": "test-retention-red.mjs",
+      "helperGroupClear": true,
+      "helperPgid": 93195
+    },
+    {
+      "actualExit": 0,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-node20-controls-recorded-20261008-r1/test-streaming-red.mjs.lane.log",
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-streaming-red.mjs"
+      ],
+      "elapsedSeconds": 0.9906661590011936,
+      "file": "test-streaming-red.mjs",
+      "helperGroupClear": true,
+      "helperPgid": 93426
+    },
+    {
+      "actualExit": 0,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-node20-controls-recorded-20261008-r1/test-targeted-red.mjs.lane.log",
+        "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-targeted-red.mjs"
+      ],
+      "elapsedSeconds": 0.29200630500054103,
+      "file": "test-targeted-red.mjs",
+      "helperGroupClear": true,
+      "helperPgid": 93448
+    }
+  ],
+  "schema": "parent-b109-r2-actual-runtime-node-controls-r1",
+  "sourceManifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+  "utc": "2026-10-08T23:49:55.738574+00:00"
+}

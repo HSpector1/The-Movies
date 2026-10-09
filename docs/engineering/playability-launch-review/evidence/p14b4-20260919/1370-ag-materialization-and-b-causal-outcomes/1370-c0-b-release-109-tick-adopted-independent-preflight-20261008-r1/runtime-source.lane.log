@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r1/audit-adopted.py", line 136, in <module>
+    worker() if len(sys.argv)==2 and sys.argv[1]=='--runtime-worker' else main()
+    ~~~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r1/audit-adopted.py", line 43, in worker
+    dep=load(S/'DEPENDENCIES.json');assert (len(dep['files']),len(dep['directories']),len(dep['links']))==(11060,1401,24)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

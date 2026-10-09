@@ -1,0 +1,12 @@
+{
+  "actualToolExit": 2,
+  "actualToolSession": 29121,
+  "gameOrPolicyProbeRunByPreparation": false,
+  "laneLogBytes": 4055,
+  "laneLogPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-lane-20261008-r1/witness-r8.lane.log",
+  "laneLogSha256": "c1e14e2d10ac05ca3c18804ca6628dcfe181a638f7cbdec745bf43c4925d63d3",
+  "originalPolicySha256": "733ad40abe14eb619230091b43e00e9a27c72b1367c304ee5f7b16cc9eebf833",
+  "provenCause": "Node/Vite started; git rev-parse HEAD failed in sourceGuard before fixture/engine dynamic imports: fatal could not open /dev/null for reading and writing: Operation not permitted.",
+  "r7Cause": "UNKNOWN; discarded original child stderr prevents attribution.",
+  "status": "OBSERVED_STOP_NO_FRAME"
+}

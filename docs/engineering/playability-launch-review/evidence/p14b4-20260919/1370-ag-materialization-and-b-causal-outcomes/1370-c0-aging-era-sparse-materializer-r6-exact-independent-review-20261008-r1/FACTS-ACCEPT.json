@@ -1,0 +1,48 @@
+{
+  "schema": "1370-r6-exact-independent-facts-r1",
+  "decision": "PASS_EXACT_READONLY_WITH_R2_ADOPTION",
+  "bindingSha256": "6b0407707c4dfc67dc3b268859042dc38b216c3da41eccf4c08a6dfa68aa4dad",
+  "bindingSemanticSha256": "18900da834bda366b2177c8ff8ee9a87b97374c02366b97d1c6b06cb4c23f309",
+  "candidatePinsSha256": "19a2b91cde3b786aaac79cbeb2fabd965b9020fad8010c65fc1112675cbff2e8",
+  "preparationPinsSha256": "9bdcc7456dbca6c4c0420672205ecffe1f6c0f704e9563f68411eb4a207ed281",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "remoteRefs": {
+    "refs/heads/evidence/1370-r10-clean-captures": "edcdf4c641952f2d20263766993901c59158f5c2",
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "4812bb123781632dd39e44f918eb85a6a2c12623"
+  },
+  "localRefs": "39cdef7b14044b11d7f0561b01c27638712e18da refs/heads/docs/p03a3-ux-north-star\neb58bc0042ebf0c02a16d0bdaa1f5734e1f5f9eb refs/heads/evidence/1370-r10-clean-captures\n4812bb123781632dd39e44f918eb85a6a2c12623 refs/heads/wip/headless-program-20260916-ts\nb18a8f7100dfc00b2e97b61c1d7086f192238c12 refs/heads/wip/p04a2-final-convergence-ts-secondary-20260828\n",
+  "historicalSourceVerified": {
+    "files": 176,
+    "bytes": 4803106,
+    "method": "All176Gitcatfile/OID/mode/bytes/SHA verified before dependency root-key audit correction."
+  },
+  "currentDependencyVerified": {
+    "files": 11060,
+    "directories": 1401,
+    "symlinks": 24,
+    "bytes": 348223802,
+    "sourceAllocated": 250314752,
+    "method": "All current bytes/modes/inodes/sizes/singlelinks/pathsets/relativecontainedlinks verified. Authenticated fresh full ACL/xattr inventoryb80a reused; no redundantCLI metadata inventory."
+  },
+  "candidateSourceReceiptRolesRootsToolsRuntime": "PASS",
+  "adoptionArchiveFiveFieldsAndExactArgvReview": "PASS_EXCEPT_BOOT_LITERAL",
+  "absentReservedRunAdoptionPaths": "PASS",
+  "oldFixtureHeavyWorkersAbsent": "PASS",
+  "freshProtectedWritableFdGuard": "PASS",
+  "freshFreeBytes": 8818794496,
+  "priorBootRaw": "kern.boottime: { sec = 1791493855, usec = 965854 } Thu Oct  8 16:10:55 2026\n",
+  "freshBootRaw": "kern.boottime: { sec = 1791493856, usec = 29095 } Thu Oct  8 16:10:56 2026\n",
+  "freshBootSessionUuidRaw": "kern.bootsessionuuid: 452DE205-E1D6-462E-8673-553462BB0166\n",
+  "defect": "Accepted immutable adopter requires literal sec1791493855; current sysctl reports1791493856 with ~63ms difference from prior full timestamp, so adoption wouldSTOP. Reviewer did not infer reboot or waive guard. Versioned preparation/policy correction is required; source/candidate need no semantic change for this named defect.",
+  "claimLimit": "Read-only review and narrow concrete REFINE; no adoption/launch/test rerun/copy; no production/Git mutation.",
+  "bootCorrection": "Literal integer wall-time guard replaced only at line79 with exact newly captured boot-session UUID; original r1 preserved. No prior UUID capture inferred.",
+  "bootIdentityAmendmentPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/BOOT-IDENTITY-AMENDMENT.json",
+  "bootIdentityAmendmentSha256": "b1d1697b8429425766156b4f8f04f129a3c8ca8666935af7e84fc49f68ce3936",
+  "bootIdentityUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+  "adoptionProcedurePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/adopt_reviewed_binding_r2.py",
+  "adoptionProcedureSha256": "aaee44c435f5e6945457e8178530898e3ae2e76a097a05d5bbf54776460e46ec",
+  "allOriginalPackagesUnchanged": true,
+  "acceptedProcedureAndLaunchOnlyUnrun": true
+}

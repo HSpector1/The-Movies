@@ -1,0 +1,22 @@
+{
+  "BSourceMirrors": {
+    "baseline-tree": {
+      "bytes": 5405523,
+      "files": 202,
+      "identitySha256": "77bd6638954576fd3144a211b55422bc5c1d6e241c9552283610eb4095b346e9"
+    },
+    "intervention-tree": {
+      "bytes": 5405672,
+      "files": 202,
+      "identitySha256": "d6303ae7700f50d6ef94c20c7ee58a366c76eb55b38fdc81a955193816ffd0d9"
+    }
+  },
+  "archiveBytes": 64199174,
+  "archiveFiles": 623,
+  "excludedEntries": 6,
+  "localOnlyFiles": 25,
+  "pendingRoles": 4,
+  "postflight": "ACTUAL0_FULL_BASELINE_EQUAL_INDEPENDENT_STOP_ADDENDUM_PENDING",
+  "priorCheckpointReferences": 97,
+  "roots": 56
+}

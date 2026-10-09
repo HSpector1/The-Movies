@@ -1,0 +1,31 @@
+{
+  "count": 6,
+  "draftPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-exact-draft-20261008-r1",
+  "files": {
+    "BINDING-DRAFT.json": {
+      "bytes": 3438,
+      "sha256": "854991c8f0ad245d6d8a4f8bd20bf5e4200542f0992bd2a181e5b60f04d69de6"
+    },
+    "BINDING-SEMANTIC.json": {
+      "bytes": 3335,
+      "sha256": "6d2f08a22ed2f694698dafcb430407b722fc9201a40201bf94a2dad41467c278"
+    },
+    "CANDIDATE-PINS.json": {
+      "bytes": 1013,
+      "sha256": "1e7b944771c699d05274fac24d11bafdedffe5c57956092d02ed3f14b393a875"
+    },
+    "DRAFT-IDENTITY.json": {
+      "bytes": 1320,
+      "sha256": "a35c7d74a0011dcfa588ca89b012bab6cc5dc785cfc0b6ffb2365b11eb15f44b"
+    },
+    "DRAFT-REPORT.json": {
+      "bytes": 13206,
+      "sha256": "7792bce1c53d906c43c91b855374d0fa1af82c2570d922bf484a8dba8b8a3c44"
+    },
+    "LAUNCH-SPEC-DRAFT.json": {
+      "bytes": 9275,
+      "sha256": "9ed590ed3098ebc160210aee3d7ac11c385d03fb2e06cdccfa5e2cb2303ad196"
+    }
+  },
+  "schema": "1370-witness-r9-pre-adoption-archive-r2"
+}

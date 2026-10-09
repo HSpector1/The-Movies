@@ -1,0 +1,56 @@
+{
+  "actualUnsandboxedOrdinaryLaunchArgvVerified": true,
+  "adoptionFieldsExactly": [
+    "status",
+    "executionAuthorization",
+    "exactReview"
+  ],
+  "adoptionPerformed": false,
+  "bindingSemanticSha256": "88826e1b557ebe04840ff63bc0dffa74691f10986adcb982c467a63ddf2d5068",
+  "candidatePinsSha256": "371cf07d885e383ac80003f7e03fd3de6238484a59fe98b4c153cf555ad946d1",
+  "claimLimit": "Exact inert candidate/source geometry only. No adoption, game outcome, product fix, ledger/C0/1363 admission or protected repin.",
+  "decision": "ACCEPT_EXACT_B_RELEASE_109_TICK_UNRUN",
+  "draftBindingSha256": "b1d0189450efb4753c074295c1256daf930c13ddd1171bf7ef288482ac93ed40",
+  "evidence": {
+    "AUDIT.json": {
+      "bytes": 18843,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-exact-review-20261008-r1/AUDIT.json",
+      "sha256": "2d7d4ef83520cbfd8d1f88cc5b16cd94e8845e403e4600b3457e13cfdad72f6d"
+    },
+    "CURRENT-CHECKS.json": {
+      "bytes": 812,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-exact-review-20261008-r1/CURRENT-CHECKS.json",
+      "sha256": "8fc1d6f8a7bd7d48d28bfdad0249dbdf1d342348d265798d040685927549cf3b"
+    },
+    "REPORT.md": {
+      "bytes": 6287,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-exact-review-20261008-r1/REPORT.md",
+      "sha256": "9be23995936e96975cf32d84037b7f3de50b509dfa0bcc334d8248ac5302735e"
+    },
+    "audit-exact.py": {
+      "bytes": 9917,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-exact-review-20261008-r1/audit-exact.py",
+      "sha256": "ad68cd9524e9dfb94416957c6c48c67c674bc33504fd05705f35b1213567e366"
+    }
+  },
+  "findings": [],
+  "freshBoundedHeadSourceRemoteCleanPowerDiskAbsenceAccepted": true,
+  "fullInventoryOrLaneQualificationPerformed": false,
+  "gameRun": false,
+  "launchAuthorized": false,
+  "manifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+  "observedSourceControlsReviewSha256": "ca5f4f769a2589e2e80b102f3e3d301cade08a9c8da3bfdca7438eaa93ca72d1",
+  "pending": [
+    "Parent archival atomic three-field adoption",
+    "Independent adopted binding/archive/semantic/argv review",
+    "Parent postguard finish and fresh full source/dependency/runtime/protected/FD/boot/ref/power/disk/absence/free-lane preflight",
+    "Explicit parent actual lane authorization",
+    "Recorded actual109 run and independent observed review"
+  ],
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "readonlyPreflightSha256": "e8115231f94017d4873ed3ae2f0e4d22328235d4ec9d5e5cb1a8b2da496dc849",
+  "schema": "1370-b109-independent-exact-review-r1",
+  "staticSourceReviewSha256": "36b8fb13854b10a17159d2f5bd59d80fbd3eff7c5184c7444ecd21917d641a9f",
+  "utc": "2026-10-09T00:04:36.389267+00:00"
+}

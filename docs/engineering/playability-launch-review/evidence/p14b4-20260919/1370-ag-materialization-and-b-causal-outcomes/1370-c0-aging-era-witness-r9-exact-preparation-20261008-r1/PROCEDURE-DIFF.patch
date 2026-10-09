@@ -1,0 +1,378 @@
+--- accepted-r8-r2/fill_actual_candidate.py
++++ prepared-r9-r1/fill_actual_candidate.py
+@@ -1,15 +1,15 @@
+ #!/usr/bin/env python3
+ """UNRUN preparation. Only call after parent reports observed copy acceptance.
+ Args: accepted observed receipt absolute path, approved SHA256, exact decision.
+-Creates an unauthorized exact r7 candidate; never launches/adopts the witness.
++Creates an unauthorized exact r9 candidate; never launches/adopts the witness.
+ """
+ import datetime, hashlib, json, os, shutil, stat, subprocess, sys
+ from pathlib import Path
+ HERE=Path(__file__).resolve().parent
+ REPO=Path('/Users/zacheryspector/The-Movies-headless-program')
+ SCRATCH=Path('/Users/zacheryspector/studio-scratch')
+-SOURCE=SCRATCH/'1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1'
+-CONFIG_SHA='0c481e8f81375e306ccbe44fd96c4695df3b2f952a1a3fec47f967dbe550e922'
++SOURCE=SCRATCH/'1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1'
++CONFIG_SHA='57201bded59869a7ff4af8c747ddb3798be98e9f53f92067997bc8030306999b'
+ EXCLUDED={'status','executionAuthorization','exactReview'}
+ BLOBS={'src/core/aging.ts':'e1b88562ded631e0142b2783555e866d4a884d04','src/core/employment.ts':'e8e5acaa1e6a94ac1de7db13eb46840efb55616f','src/core/hollywood.ts':'377da502bcfa55afe31c243ab0909b2c0012d269','src/core/worldgen.ts':'94f83a85e1e59532013ab4735f73a67a916a5332','src/core/tick.ts':'328c2e28f7e209b4ab6b96c6e59f1d1739ad0db5','src/harness/p13a/fixtures.ts':'9ab3eee75b0b2b2733f350bbc3964aa5ba176de8','tests/bridge-p14b5-relationships.test.ts':'0815114340a983348eae6e98c33843c32c297228','tests/fixtures/p13a/accepted-v19.json.gz':'a987ecc4411c48fc8f256e81c93e9abf1fd61d6c'}
+ RUNTIME=('package.json','package-lock.json','node_modules/vite/package.json','node_modules/vite-node/package.json','node_modules/vite-node/vite-node.mjs')
+@@ -42,16 +42,24 @@
+  role_path=Path(path);require(role_path.is_absolute() and not str(role_path).startswith(config['materializedRoot']+os.sep),'new source review must be outside copied root')
+  require(str(role_path)==config['roles']['witnessSourceReview']['path'] and approved_sha==config['roles']['witnessSourceReview']['sha256'],'configured accepted new source review role')
+  raw,_=read(role_path);require(sha(raw)==approved_sha,'parent-approved new source review bytes');r=json.loads(raw)
+- pinsraw,_=read(SOURCE/'SOURCE-PINS.json');require(sha(pinsraw)=='0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715','new source pins');pins=json.loads(pinsraw)
+- require(r.get('schema')=='1370-c0-aging-era-employment-witness-independent-static-review-r8' and r.get('status')=='FROZEN_SOURCE_ONLY_UNRUN' and r.get('sourceDirectory')==str(SOURCE) and r.get('sourcePinsSha256')==sha(pinsraw) and r.get('sourceSha')=='3aaf55e0c06c4b745b0b722cc56913050b1ee229','new source review exact role')
++ pinsraw,_=read(SOURCE/'SOURCE-PINS.json');require(sha(pinsraw)=='584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759','new source pins');pins=json.loads(pinsraw)
++ require(r.get('schema')=='1370-c0-aging-era-employment-witness-independent-static-review-r9' and r.get('status')=='FROZEN_SOURCE_ONLY_UNRUN' and r.get('sourceDirectory')==str(SOURCE) and r.get('sourcePinsSha256')==sha(pinsraw) and r.get('sourceSha')=='3aaf55e0c06c4b745b0b722cc56913050b1ee229','new source review exact role')
+  require(r.get('decision',{}).get('witnessSource')=='ACCEPT_SOURCE_ONLY_UNRUN' and r.get('decision',{}).get('launch')=='STOP_UNFILLED_UNRUN' and r.get('frozenHashes')=={n:p['sha256'] for n,p in pins['files'].items()},'new source-only acceptance and frozen hashes')
+  require(r.get('adapterSha256')==config['roles']['pipeAdapter']['sha256'] and r.get('sinkSha256')==config['roles']['boundedSink']['sha256'],'new exact source-version adapter/sink wiring review')
++
++ operational=config['roles']['parentDevNullOperationalDesign'];design_raw,_=read(operational['path']);require(sha(design_raw)==operational['sha256'],'parent null-device design bytes');design=json.loads(design_raw)
++ require(r.get('parentOperationalDesignAdoption')=={k:operational[k] for k in ('path','sha256')},'source acceptance parent operational role')
++ require(design.get('decision')=='ADOPT_NARROW_NULL_DEVICE_OPERATIONAL_DESIGN_SOURCE_PREPARATION_ONLY' and design.get('proposedPolicySha256')==pins['files']['POLICY.sb']['sha256']=='8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5','narrow accepted null-device policy role')
++ require(r.get('actualToolExit')==0 and r.get('actualControls')=={'allGroupsClearedFresh':True,'fullFixtureUnchanged':True,'newPolicyDeniedRegularMutations':5,'newPolicyReadonlyGreen':5,'noSandboxedPython':True,'originalPolicyRed':2,'ownedFixtureSetup':5},'actual null-device policy RED/GREEN/regular denial control acceptance')
+  return {'path':str(role_path),'sha256':approved_sha,'mode':config['roles']['witnessSourceReview']['mode']}
+ 
+ def frozen_postflight_gate(config):
+  p=config['acceptedFrozenPostflight'];raw,_=read(p['path']);require(sha(raw)==p['sha256'],'frozen full postflight bytes');snap=json.loads(raw)
+  base_raw,_=read(p['baselinePath']);require(sha(base_raw)==p['baselineSha256'],'full baseline bytes');base=json.loads(base_raw)
+  require(snap['status']=='GUARDS_ACCEPTED_READONLY' and snap['phase']=='postflight' and snap['immutable']==base['immutable'],'accepted full postflight immutable equality')
++
++ review_role=config['roles']['acceptedFrozenPostflightReview'];review_raw,_=read(review_role['path']);require(sha(review_raw)==review_role['sha256'],'accepted full postflight review bytes');review=json.loads(review_raw)
++ require(review.get('decision')=='STOP_OBSERVED_NO_FRAME_FULL_POSTFLIGHT_ACCEPTED' and review.get('fullPostflightSnapshotSha256')==p['sha256'] and review.get('fullBaselineSha256')==p['baselineSha256'] and review.get('productionHead')==config['productionHead'] and review.get('fullImmutableBaselineEqual') is True and review.get('productionSourceCopyAndDependencyProofAccepted') is True,'accepted frozen r8 postflight review role')
+  require(all(config['scope'][k] is True for k in ('productionFrozen','noDetach','noExternalProtectedRenamer','declaredScratchOnlySinceFullPostflight')),'parent frozen reuse scope')
+  for r in snap['immutable']['strictRoots'].values():
+   path=Path(r['path']);require(path.resolve(strict=True)==path and path.is_dir() and not path.is_symlink(),'current physical root');st=path.lstat()
+@@ -92,9 +100,9 @@
+   p=Path(role['path']); require(p.is_file() and not p.is_symlink() and sha(p.read_bytes())==role['sha256'] and format(stat.S_IMODE(p.lstat().st_mode),'04o')==role['mode'],'source/adapter/tool role drift '+name)
+  profile_raw,_=read(HERE/'BINDING-TEMPLATE-PENDING.json'); require(sha(profile_raw)==config['bindingTemplateSha256'],'binding template drift'); profile=json.loads(profile_raw); profile.update(status='DRAFT_FILLED_UNREVIEWED_UNRUN',executionAuthorization=False,exactReview=None,repoRoot=str(root),independentSourceReviewReceipt={k:config['roles']['witnessSourceReview'][k] for k in ('path','sha256')})
+  sourceraw,_=read(SOURCE/'SOURCE-PINS.json'); sourcepins=json.loads(sourceraw)
+- require(sha(sourceraw)=='0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715','r7 source pins')
++ require(sha(sourceraw)=='584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759','r9 source pins')
+  for name,pin in sourcepins['files'].items():
+-  raw,_=read(SOURCE/name); require(pin=={'sha256':sha(raw),'bytes':len(raw)},'r7 source file '+name)
++  raw,_=read(SOURCE/name); require(pin=={'sha256':sha(raw),'bytes':len(raw)},'r9 source file '+name)
+  worktree={}; files={}
+  for rel,oid in BLOBS.items():
+   raw,rec=read(root/rel); require(rec['mode']=='0644','physical historical source mode '+rel); require(hashlib.sha1(('blob '+str(len(raw))+'\0').encode()+raw).hexdigest()==oid,'actual historical blob '+rel); worktree[rel]=sha(raw);files[rel]=rec
+@@ -134,13 +142,13 @@
+  require(not os.path.lexists(config['archivePath']) and not os.path.lexists(config['adoptionOutputPath']),'archive/adoption one-shot paths used')
+  candidate.mkdir(mode=0o700);lane.mkdir(mode=0o700)
+  binding_sha=dump(candidate/'BINDING-DRAFT.json',profile);semantic={k:v for k,v in profile.items() if k not in EXCLUDED}; semantic_sha=sha(json.dumps(semantic,sort_keys=True,separators=(',',':')).encode());dump(candidate/'BINDING-SEMANTIC.json',semantic)
+- report={'schema':'1370-r8-exact-draft-report-r1','status':'DRAFT_FILLED_UNREVIEWED_UNRUN','launchAuthorized':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'productionHead':config['productionHead'],'productionSourceTree':config['productionSourceTree'],'historicalRoot':str(root),'rootIdentity':root_identity,'materializationReceipt':{'path':str(receiptpath),'sha256':approvedsha,'decision':approveddecision},'materializerBindingSha256':sha(mraw),'materializerActualSupervisorSha256':sha(read(observed_output/'SUPERVISOR.json')[0]),'materializerActualResultSha256':sha(read(observed_output/'RESULT.json')[0]),'bootSessionUuid':config['bootSessionUuid'],'sourcePinsSha256':sha(sourceraw),'sourceReviewReceipt':profile['independentSourceReviewReceipt'],'adapterControlsReceipt':config['roles']['adapterSourceControlsReceipt'],'roles':config['roles'],'actualFiles':files,'actualNode':node_role,'runner':{'path':str(runner),'target':os.readlink(runner),'resolved':str(runner_resolved),'sha256':runtime['node_modules/vite-node/vite-node.mjs']},'launchEnvironment':{'PATH':selected_path,'PYTHONDONTWRITEBYTECODE':'1','GIT_OPTIONAL_LOCKS':'0'},'freeBytesAtFill':shutil.disk_usage(SCRATCH).free,'claimLimit':'Exact unlaunchable fill only. Parent must fresh-check full physical/dependency/protected roots/FDs/old workers/no-detach/disk/lane guards and independently review exact binding/adoption/argv. No fixture/witness/sandbox/game test ran.'}
++ report={'schema':'1370-r9-exact-draft-report-r1','status':'DRAFT_FILLED_UNREVIEWED_UNRUN','launchAuthorized':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'productionHead':config['productionHead'],'productionSourceTree':config['productionSourceTree'],'historicalRoot':str(root),'rootIdentity':root_identity,'materializationReceipt':{'path':str(receiptpath),'sha256':approvedsha,'decision':approveddecision},'materializerBindingSha256':sha(mraw),'materializerActualSupervisorSha256':sha(read(observed_output/'SUPERVISOR.json')[0]),'materializerActualResultSha256':sha(read(observed_output/'RESULT.json')[0]),'bootSessionUuid':config['bootSessionUuid'],'sourcePinsSha256':sha(sourceraw),'sourceReviewReceipt':profile['independentSourceReviewReceipt'],'adapterControlsReceipt':config['roles']['adapterSourceControlsReceipt'],'roles':config['roles'],'actualFiles':files,'actualNode':node_role,'runner':{'path':str(runner),'target':os.readlink(runner),'resolved':str(runner_resolved),'sha256':runtime['node_modules/vite-node/vite-node.mjs']},'launchEnvironment':{'PATH':selected_path,'PYTHONDONTWRITEBYTECODE':'1','GIT_OPTIONAL_LOCKS':'0'},'freeBytesAtFill':shutil.disk_usage(SCRATCH).free,'claimLimit':'Exact unlaunchable fill only. Parent must fresh-check full physical/dependency/protected roots/FDs/old workers/no-detach/disk/lane guards and independently review exact binding/adoption/argv. No fixture/witness/sandbox/game test ran.'}
+  dump(candidate/'DRAFT-REPORT.json',report)
+- pins={'schema':'1370-r8-exact-candidate-pins-r1','status':'DRAFT_FILLED_UNREVIEWED_UNRUN','executionAuthorization':False,'bindingSemanticSha256':semantic_sha,'draftBindingSha256':binding_sha,'files':{p.name:sha(p.read_bytes()) for p in sorted(candidate.iterdir())},'materializationReceipt':report['materializationReceipt'],'sourcePinsSha256':sha(sourceraw)}
++ pins={'schema':'1370-r9-exact-candidate-pins-r1','status':'DRAFT_FILLED_UNREVIEWED_UNRUN','executionAuthorization':False,'bindingSemanticSha256':semantic_sha,'draftBindingSha256':binding_sha,'files':{p.name:sha(p.read_bytes()) for p in sorted(candidate.iterdir())},'materializationReceipt':report['materializationReceipt'],'sourcePinsSha256':sha(sourceraw)}
+  candidate_sha=dump(candidate/'CANDIDATE-PINS.json',pins)
+  launch_raw,_=read(HERE/'LAUNCH-SPEC-TEMPLATE.json');require(sha(launch_raw)==config['launchTemplateSha256'],'launch template drift');launch=json.loads(launch_raw);launch.update(status='DRAFT_EXACT_REVIEW_PENDING_UNRUN',bindingSha256=binding_sha,bindingSemanticSha256=semantic_sha,candidatePinsSha256=candidate_sha,observedMaterializationReceipt=report['materializationReceipt'],requiredEnvironment=report['launchEnvironment'],roles=config['roles'])
+  launch['argv'][-1]=binding_sha;dump(candidate/'LAUNCH-SPEC-DRAFT.json',launch)
+- identity={'schema':'1370-witness-r8-filled-draft-identity-r2','status':'DRAFT_FILLED_UNREVIEWED_UNRUN','launchAuthorized':False,'draftPath':str(candidate),'bindingPath':str(candidate/'BINDING-DRAFT.json'),'draftBindingSha256':binding_sha,'bindingSemanticSha256':semantic_sha,'candidatePinsSha256':candidate_sha,'productionHead':config['productionHead'],'sourcePinsSha256':sha(sourceraw),'files':{p.name:sha(p.read_bytes()) for p in sorted(candidate.iterdir())}}
++ identity={'schema':'1370-witness-r9-filled-draft-identity-r2','status':'DRAFT_FILLED_UNREVIEWED_UNRUN','launchAuthorized':False,'draftPath':str(candidate),'bindingPath':str(candidate/'BINDING-DRAFT.json'),'draftBindingSha256':binding_sha,'bindingSemanticSha256':semantic_sha,'candidatePinsSha256':candidate_sha,'productionHead':config['productionHead'],'sourcePinsSha256':sha(sourceraw),'files':{p.name:sha(p.read_bytes()) for p in sorted(candidate.iterdir())}}
+  identity_sha=dump(candidate/'DRAFT-IDENTITY.json',identity)
+  directory_fd=os.open(candidate,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW)
+  try:os.fsync(directory_fd)
+--- accepted-r8-r2/adopt_reviewed_candidate.py
++++ prepared-r9-r1/adopt_reviewed_candidate.py
+@@ -8,8 +8,8 @@
+ HERE=Path(__file__).resolve().parent
+ REPO=Path('/Users/zacheryspector/The-Movies-headless-program')
+ SCRATCH=Path('/Users/zacheryspector/studio-scratch')
+-SOURCE=Path('/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1')
+-CONFIG_SHA='0c481e8f81375e306ccbe44fd96c4695df3b2f952a1a3fec47f967dbe550e922'
++SOURCE=Path('/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1')
++CONFIG_SHA='57201bded59869a7ff4af8c747ddb3798be98e9f53f92067997bc8030306999b'
+ EXCLUDED={'status','executionAuthorization','exactReview'}
+ def require(ok,msg):
+  if not ok:raise RuntimeError('STOP: '+msg)
+@@ -41,16 +41,24 @@
+  role_path=Path(path);require(role_path.is_absolute() and not str(role_path).startswith(config['materializedRoot']+os.sep),'new source review must be outside copied root')
+  require(str(role_path)==config['roles']['witnessSourceReview']['path'] and approved_sha==config['roles']['witnessSourceReview']['sha256'],'configured accepted new source review role')
+  raw,_=read(role_path);require(sha(raw)==approved_sha,'parent-approved new source review bytes');r=json.loads(raw)
+- pinsraw,_=read(SOURCE/'SOURCE-PINS.json');require(sha(pinsraw)=='0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715','new source pins');pins=json.loads(pinsraw)
+- require(r.get('schema')=='1370-c0-aging-era-employment-witness-independent-static-review-r8' and r.get('status')=='FROZEN_SOURCE_ONLY_UNRUN' and r.get('sourceDirectory')==str(SOURCE) and r.get('sourcePinsSha256')==sha(pinsraw) and r.get('sourceSha')=='3aaf55e0c06c4b745b0b722cc56913050b1ee229','new source review exact role')
++ pinsraw,_=read(SOURCE/'SOURCE-PINS.json');require(sha(pinsraw)=='584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759','new source pins');pins=json.loads(pinsraw)
++ require(r.get('schema')=='1370-c0-aging-era-employment-witness-independent-static-review-r9' and r.get('status')=='FROZEN_SOURCE_ONLY_UNRUN' and r.get('sourceDirectory')==str(SOURCE) and r.get('sourcePinsSha256')==sha(pinsraw) and r.get('sourceSha')=='3aaf55e0c06c4b745b0b722cc56913050b1ee229','new source review exact role')
+  require(r.get('decision',{}).get('witnessSource')=='ACCEPT_SOURCE_ONLY_UNRUN' and r.get('decision',{}).get('launch')=='STOP_UNFILLED_UNRUN' and r.get('frozenHashes')=={n:p['sha256'] for n,p in pins['files'].items()},'new source-only acceptance and frozen hashes')
+  require(r.get('adapterSha256')==config['roles']['pipeAdapter']['sha256'] and r.get('sinkSha256')==config['roles']['boundedSink']['sha256'],'new exact source-version adapter/sink wiring review')
++
++ operational=config['roles']['parentDevNullOperationalDesign'];design_raw,_=read(operational['path']);require(sha(design_raw)==operational['sha256'],'parent null-device design bytes');design=json.loads(design_raw)
++ require(r.get('parentOperationalDesignAdoption')=={k:operational[k] for k in ('path','sha256')},'source acceptance parent operational role')
++ require(design.get('decision')=='ADOPT_NARROW_NULL_DEVICE_OPERATIONAL_DESIGN_SOURCE_PREPARATION_ONLY' and design.get('proposedPolicySha256')==pins['files']['POLICY.sb']['sha256']=='8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5','narrow accepted null-device policy role')
++ require(r.get('actualToolExit')==0 and r.get('actualControls')=={'allGroupsClearedFresh':True,'fullFixtureUnchanged':True,'newPolicyDeniedRegularMutations':5,'newPolicyReadonlyGreen':5,'noSandboxedPython':True,'originalPolicyRed':2,'ownedFixtureSetup':5},'actual null-device policy RED/GREEN/regular denial control acceptance')
+  return {'path':str(role_path),'sha256':approved_sha,'mode':config['roles']['witnessSourceReview']['mode']}
+ 
+ def frozen_postflight_gate(config):
+  p=config['acceptedFrozenPostflight'];raw,_=read(p['path']);require(sha(raw)==p['sha256'],'frozen full postflight bytes');snap=json.loads(raw)
+  base_raw,_=read(p['baselinePath']);require(sha(base_raw)==p['baselineSha256'],'full baseline bytes');base=json.loads(base_raw)
+  require(snap['status']=='GUARDS_ACCEPTED_READONLY' and snap['phase']=='postflight' and snap['immutable']==base['immutable'],'accepted full postflight immutable equality')
++
++ review_role=config['roles']['acceptedFrozenPostflightReview'];review_raw,_=read(review_role['path']);require(sha(review_raw)==review_role['sha256'],'accepted full postflight review bytes');review=json.loads(review_raw)
++ require(review.get('decision')=='STOP_OBSERVED_NO_FRAME_FULL_POSTFLIGHT_ACCEPTED' and review.get('fullPostflightSnapshotSha256')==p['sha256'] and review.get('fullBaselineSha256')==p['baselineSha256'] and review.get('productionHead')==config['productionHead'] and review.get('fullImmutableBaselineEqual') is True and review.get('productionSourceCopyAndDependencyProofAccepted') is True,'accepted frozen r8 postflight review role')
+  require(all(config['scope'][k] is True for k in ('productionFrozen','noDetach','noExternalProtectedRenamer','declaredScratchOnlySinceFullPostflight')),'parent frozen reuse scope')
+  for r in snap['immutable']['strictRoots'].values():
+   path=Path(r['path']);require(path.resolve(strict=True)==path and path.is_dir() and not path.is_symlink(),'current physical root');st=path.lstat()
+@@ -112,7 +120,7 @@
+  lane=Path(config['laneParent']);require(lane.resolve(strict=True)==lane and stat.S_IMODE(lane.lstat().st_mode)==0o700,'lane parent drift')
+  for p in (Path(config['laneLog']),Path(config['laneLog']+'.meta')):require(not os.path.lexists(p),'lane path used')
+  archive.mkdir(mode=0o700)
+- manifest={'schema':'1370-witness-r8-pre-adoption-archive-r2','draftPath':str(draft),'count':len(originals),'files':{}}
++ manifest={'schema':'1370-witness-r9-pre-adoption-archive-r2','draftPath':str(draft),'count':len(originals),'files':{}}
+  for name,raw in originals.items():durable(archive/name,raw);require(read(archive/name)[0]==raw,'archive verification '+name);manifest['files'][name]={'sha256':sha(raw),'bytes':len(raw)}
+  sync(archive);sync(SCRATCH);output.mkdir(mode=0o700);durable(output/'ARCHIVE-MANIFEST.json',encoded(manifest));sync(output);sync(SCRATCH)
+  for name,raw in originals.items():require(read(draft/name)[0]==raw,'original changed after archive '+name)
+@@ -123,6 +131,6 @@
+  for name,raw in originals.items():
+   if name!='BINDING-DRAFT.json':require(read(draft/name)[0]==raw,'other artifact changed '+name)
+  launch=json.loads(originals['LAUNCH-SPEC-DRAFT.json']);launch.update(status='ADOPTED_UNRUN_PREFLIGHT_REQUIRED',launchAuthorized=False,bindingSha256=newsha,exactReview=adopted['exactReview']);launch['argv'][-1]=newsha;durable(output/'ADOPTED-LAUNCH-SPEC.json',encoded(launch))
+- result={'schema':'1370-witness-r8-adoption-result-r2','status':'ADOPTED_UNRUN_PREFLIGHT_REQUIRED','bindingPath':str(binding),'oldBindingSha256':sha(old),'newBindingSha256':newsha,'bindingSemanticSha256':identity['bindingSemanticSha256'],'changedFields':sorted(EXCLUDED),'fieldDiff':{k:{'before':profile[k],'after':adopted[k]} for k in sorted(EXCLUDED)},'archivePath':str(archive),'archiveManifestSha256':sha(read(output/'ARCHIVE-MANIFEST.json')[0]),'adoptedLaunchSpecSha256':sha(read(output/'ADOPTED-LAUNCH-SPEC.json')[0]),'claimLimit':'Adoption only; fresh independent adopted preflight including full protected bytes/dependency/root/FD/disk/no-detach/argv review required before one witness lane.'}
++ result={'schema':'1370-witness-r9-adoption-result-r2','status':'ADOPTED_UNRUN_PREFLIGHT_REQUIRED','bindingPath':str(binding),'oldBindingSha256':sha(old),'newBindingSha256':newsha,'bindingSemanticSha256':identity['bindingSemanticSha256'],'changedFields':sorted(EXCLUDED),'fieldDiff':{k:{'before':profile[k],'after':adopted[k]} for k in sorted(EXCLUDED)},'archivePath':str(archive),'archiveManifestSha256':sha(read(output/'ARCHIVE-MANIFEST.json')[0]),'adoptedLaunchSpecSha256':sha(read(output/'ADOPTED-LAUNCH-SPEC.json')[0]),'claimLimit':'Adoption only; fresh independent adopted preflight including full protected bytes/dependency/root/FD/disk/no-detach/argv review required before one witness lane.'}
+  durable(output/'ADOPTION-RESULT.json',encoded(result));sync(output);print(json.dumps(result,sort_keys=True))
+ if __name__=='__main__':main()
+--- accepted-r8-r2/CONFIG-PENDING.json
++++ prepared-r9-r1/CONFIG-PENDING.json
+@@ -2,19 +2,19 @@
+   "acceptedFrozenPostflight": {
+     "baselinePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/before-fill-r1/SNAPSHOT.json",
+     "baselineSha256": "b087ec768c52328d142433555d8549e4d9e365fe4293810fe4fac5c042281a12",
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r1/SNAPSHOT.json",
+-    "sha256": "6a1d17ea0ff855fe66fba0f6ce73eb3b2b51730b8ad97c10b8e3d335b167bc69"
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/SNAPSHOT.json",
++    "sha256": "07b785480707a2c972dbdba4b0865461507939c1891f8b5386c40a375dab105e"
+   },
+-  "adoptionOutputPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-adoption-output-20261008-r1",
+-  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-pre-adoption-archive-20261008-r1",
+-  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-exact-draft-20261008-r1/BINDING-DRAFT.json",
+-  "bindingTemplateSha256": "95358a77a09a03ca04c25ad84abf6eb070338f26110b2f99975731514f03408c",
++  "adoptionOutputPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-adoption-output-20261008-r1",
++  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-pre-adoption-archive-20261008-r1",
++  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-exact-draft-20261008-r1/BINDING-DRAFT.json",
++  "bindingTemplateSha256": "f9ea1aaf8adfd4febcfbebb37e615bac7807a7d709c1458d69dcb8d99556474a",
+   "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+-  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-exact-draft-20261008-r1",
+-  "laneLog": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-lane-20261008-r1/witness-r8.lane.log",
+-  "laneParent": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-lane-20261008-r1",
++  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-exact-draft-20261008-r1",
++  "laneLog": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-lane-20261008-r1/witness-r9.lane.log",
++  "laneParent": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-lane-20261008-r1",
+   "launchAuthorized": false,
+-  "launchTemplateSha256": "8fb108f8e784da0d7edaa86629056bb03e105facf0fea1a566336b3d68a59288",
++  "launchTemplateSha256": "98aaaee41edf18bc39870760bf5476ed023eb3fa32d9bc59eeaaf1a57df431d8",
+   "materializedRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+   "materializerBindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+   "materializerSemanticSha256": "18900da834bda366b2177c8ff8ee9a87b97374c02366b97d1c6b06cb4c23f309",
+@@ -22,6 +22,11 @@
+   "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+   "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+   "roles": {
++    "acceptedFrozenPostflightReview": {
++      "mode": "0644",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-observed-stop-full-postflight-independent-review-20261008-r1/RECEIPT.json",
++      "sha256": "9bc5f3d9ccff1625c3af8532a9153e3385933cc7848bde0f9eb17be97af3e0e5"
++    },
+     "acceptedLaneHelper": {
+       "mode": "0644",
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+@@ -49,8 +54,8 @@
+     },
+     "boundedSink": {
+       "mode": "0644",
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/bounded-sink-r8-proposed.py",
+-      "sha256": "0d9a5bf7e187e141bccc20a1b65740bedd3a67a926b6c7eb873f3df74c78982a"
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/bounded-sink-r9-proposed.py",
++      "sha256": "9bd9fa9f1bc00712d000bd73097de8db930bfcab87c47dbefee2017725aaa8ef"
+     },
+     "boundsAmendment": {
+       "mode": "0644",
+@@ -82,6 +87,11 @@
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-parent-adoption-r1/ADOPTION.json",
+       "sha256": "6b4b83cd3470a9a882d8045ae6300bca0a39635c793c4a3b312c8d0fed94dc46"
+     },
++    "parentDevNullOperationalDesign": {
++      "mode": "0600",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-null-device-parent-design-adoption-20261008-r1/ADOPTION.json",
++      "sha256": "b0983e174b93ee8ebc6964c83517e46a0cd43bdc40ff5c822ec0c551ed8d705d"
++    },
+     "parentR6SourceAdoption": {
+       "mode": "0644",
+       "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AF-post-restart-materializer-repairs-and-diagnostics.md",
+@@ -89,8 +99,8 @@
+     },
+     "pipeAdapter": {
+       "mode": "0644",
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/launch-pipeline-r8-proposed.sh",
+-      "sha256": "38afc47e8bcb834df333f2834fdf4a6f5bd3f3826d96c8fce02a9c72d164a16f"
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/launch-pipeline-r9-proposed.sh",
++      "sha256": "0ebc508d9a181b1071769399c62baa86fbe2d2c20678c8590c79e969b68d5bd4"
+     },
+     "pythonResolved": {
+       "mode": "0755",
+@@ -99,19 +109,19 @@
+     },
+     "witnessSourcePins": {
+       "mode": "0644",
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/SOURCE-PINS.json",
+-      "sha256": "0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715"
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/SOURCE-PINS.json",
++      "sha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759"
+     },
+     "witnessSourceReview": {
+       "mode": "0600",
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r8/RECEIPT.json",
+-      "sha256": "0df56d411ea22b65e3407b27abe161481acaa06ca4cc7dede11656faa41e8da0"
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r9/RECEIPT.json",
++      "sha256": "9652d41c68cf1adcbc6614702226a49ed5c49b4cbabd3857f96baa9134c1c75f"
+     }
+   },
+-  "schema": "1370-witness-r8-exact-preparation-config-r1",
++  "schema": "1370-witness-r9-exact-preparation-config-r1",
+   "scope": {
+     "declaredScratchOnlySinceFullPostflight": true,
+-    "fullInventoryReuse": "Parent authorized frozen postflight reuse; fresh exact files/roles/current roots/FD/worker/ref/AC/disk gates remain required.",
++    "fullInventoryReuse": "Parent authorized accepted r8 full postflight immutable baseline reuse while HEAD4812/copied source stay frozen; no actual procedure while another game lane is active. Fresh exact files/roles/current strict roots/FD/worker/ref/AC/disk gates remain required.",
+     "noDetach": true,
+     "noExternalProtectedRenamer": true,
+     "productionFrozen": true
+--- accepted-r8-r2/BINDING-TEMPLATE-PENDING.json
++++ prepared-r9-r1/BINDING-TEMPLATE-PENDING.json
+@@ -8,16 +8,16 @@
+   "exactReview": null,
+   "executionAuthorization": false,
+   "independentSourceReviewReceipt": {
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r8/RECEIPT.json",
+-    "sha256": "0df56d411ea22b65e3407b27abe161481acaa06ca4cc7dede11656faa41e8da0"
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r9/RECEIPT.json",
++    "sha256": "9652d41c68cf1adcbc6614702226a49ed5c49b4cbabd3857f96baa9134c1c75f"
+   },
+   "nodeExecPath": null,
+   "nodeVersion": null,
+   "observerSha256": {
+-    "POLICY.sb": "733ad40abe14eb619230091b43e00e9a27c72b1367c304ee5f7b16cc9eebf833",
++    "POLICY.sb": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5",
+     "bounds-guard.mjs": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f",
+     "outer-recorder.py": "e0b03fbb96cff3dfa3e4dbbedaaaf59525810ce2ebe2dd4a631a4432833c85a6",
+-    "supervise.py": "02c2058e8348e22e6c329de6f809096ab664a7d374c84c70b0ae5cc872966bc8",
++    "supervise.py": "0ee1071d6a78fc944fbbe0aba5fb2a823572b6684f5d13261831233610d93c32",
+     "witness-core.mjs": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d",
+     "witness.mts": "afce97a16063085964c4a92d49c0495312452b7eec8d6b9b6bcc9edbc01cc736",
+     "worktree-guard.mjs": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+--- accepted-r8-r2/LAUNCH-SPEC-TEMPLATE.json
++++ prepared-r9-r1/LAUNCH-SPEC-TEMPLATE.json
+@@ -3,13 +3,13 @@
+     "/bin/bash",
+     "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+     "0",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-lane-20261008-r1/witness-r8.lane.log",
++    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-lane-20261008-r1/witness-r9.lane.log",
+     "/bin/bash",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/launch-pipeline-r8-proposed.sh",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-exact-draft-20261008-r1/BINDING-DRAFT.json",
++    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/launch-pipeline-r9-proposed.sh",
++    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-exact-draft-20261008-r1/BINDING-DRAFT.json",
+     "__ADOPTED_BINDING_BYTE_SHA256_PENDING__"
+   ],
+-  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-exact-draft-20261008-r1/BINDING-DRAFT.json",
++  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-exact-draft-20261008-r1/BINDING-DRAFT.json",
+   "bindingSemanticSha256": null,
+   "bindingSha256": null,
+   "bounds": {
+@@ -23,7 +23,7 @@
+     "wholeRecorderSeconds": 750
+   },
+   "candidatePinsSha256": null,
+-  "claimLimit": "Unrun r8 diagnostic template only. No copied-root read or fill. Original bounds and success protocol remain; bounded failure diagnostics only. Source/wiring review and independent exact review/adoption/preflight remain required.",
++  "claimLimit": "Unrun r9 operational exact template. Narrow literal /dev/null data exception under unchanged global regular-file write/metadata denial; fresh character-device identity guard before Popen. Game/fixture/frame/digests/bounds/cleanup unchanged. Source accepted; independent exact review, three-field adoption and fresh adopted preflight required.",
+   "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+   "exactReview": null,
+   "launchAuthorized": false,
+@@ -51,6 +51,11 @@
+     "Exact current kern.bootsessionuuid452DE205-E1D6-462E-8673-553462BB0166; preserve prior adjusted boottime snapshots, no retroactive UUID claim"
+   ],
+   "roles": {
++    "acceptedFrozenPostflightReview": {
++      "mode": "0644",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-observed-stop-full-postflight-independent-review-20261008-r1/RECEIPT.json",
++      "sha256": "9bc5f3d9ccff1625c3af8532a9153e3385933cc7848bde0f9eb17be97af3e0e5"
++    },
+     "acceptedLaneHelper": {
+       "mode": "0644",
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+@@ -78,8 +83,8 @@
+     },
+     "boundedSink": {
+       "mode": "0644",
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/bounded-sink-r8-proposed.py",
+-      "sha256": "0d9a5bf7e187e141bccc20a1b65740bedd3a67a926b6c7eb873f3df74c78982a"
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/bounded-sink-r9-proposed.py",
++      "sha256": "9bd9fa9f1bc00712d000bd73097de8db930bfcab87c47dbefee2017725aaa8ef"
+     },
+     "boundsAmendment": {
+       "mode": "0644",
+@@ -111,6 +116,11 @@
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-parent-adoption-r1/ADOPTION.json",
+       "sha256": "6b4b83cd3470a9a882d8045ae6300bca0a39635c793c4a3b312c8d0fed94dc46"
+     },
++    "parentDevNullOperationalDesign": {
++      "mode": "0600",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-null-device-parent-design-adoption-20261008-r1/ADOPTION.json",
++      "sha256": "b0983e174b93ee8ebc6964c83517e46a0cd43bdc40ff5c822ec0c551ed8d705d"
++    },
+     "parentR6SourceAdoption": {
+       "mode": "0644",
+       "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AF-post-restart-materializer-repairs-and-diagnostics.md",
+@@ -118,8 +128,8 @@
+     },
+     "pipeAdapter": {
+       "mode": "0644",
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/launch-pipeline-r8-proposed.sh",
+-      "sha256": "38afc47e8bcb834df333f2834fdf4a6f5bd3f3826d96c8fce02a9c72d164a16f"
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/launch-pipeline-r9-proposed.sh",
++      "sha256": "0ebc508d9a181b1071769399c62baa86fbe2d2c20678c8590c79e969b68d5bd4"
+     },
+     "pythonResolved": {
+       "mode": "0755",
+@@ -128,15 +138,15 @@
+     },
+     "witnessSourcePins": {
+       "mode": "0644",
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/SOURCE-PINS.json",
+-      "sha256": "0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715"
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/SOURCE-PINS.json",
++      "sha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759"
+     },
+     "witnessSourceReview": {
+       "mode": "0600",
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r8/RECEIPT.json",
+-      "sha256": "0df56d411ea22b65e3407b27abe161481acaa06ca4cc7dede11656faa41e8da0"
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r9/RECEIPT.json",
++      "sha256": "9652d41c68cf1adcbc6614702226a49ed5c49b4cbabd3857f96baa9134c1c75f"
+     }
+   },
+-  "schema": "1370-witness-r8-launch-template-r2",
++  "schema": "1370-witness-r9-launch-template-r2",
+   "status": "MATERIALIZATION_AND_EXACT_REVIEW_PENDING_UNRUN"
+ }
+--- accepted-r8-r2/FILL-RECIPE.json
++++ prepared-r9-r1/FILL-RECIPE.json
+@@ -2,14 +2,14 @@
+   "argv": [
+     "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+     "-B",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r8-exact-preparation-20261008-r2/fill_actual_candidate.py",
++    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r9-exact-preparation-20261008-r1/fill_actual_candidate.py",
+     "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+     "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+     "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r8/RECEIPT.json",
+-    "0df56d411ea22b65e3407b27abe161481acaa06ca4cc7dede11656faa41e8da0"
++    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r9/RECEIPT.json",
++    "9652d41c68cf1adcbc6614702226a49ed5c49b4cbabd3857f96baa9134c1c75f"
+   ],
+-  "claimLimit": "Actual fill only after independent parent procedure review. No launch/adoption/game; root reviews resulting exact bytes.",
++  "claimLimit": "Fill only after independent procedure acceptance and parent lane grant. Do not execute fill/guards while any other game lane is active. No launch/adoption/game; root reviews resulting exact bytes.",
+   "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+   "requiredEnvironment": {
+     "GIT_OPTIONAL_LOCKS": "0",

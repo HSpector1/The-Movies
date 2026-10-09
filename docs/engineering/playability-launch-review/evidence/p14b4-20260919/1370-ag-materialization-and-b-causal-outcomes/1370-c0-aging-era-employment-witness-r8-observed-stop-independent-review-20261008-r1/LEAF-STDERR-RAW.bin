@@ -1,0 +1,14 @@
+fatal: could not open '/dev/null' for reading and writing: Operation not permitted
+Error: Command failed: git rev-parse HEAD
+fatal: could not open '/dev/null' for reading and writing: Operation not permitted
+
+    at genericNodeError (node:internal/errors:983:15)
+    at wrappedFn (node:internal/errors:537:14)
+    at checkExecSyncError (node:child_process:916:11)
+    at Proxy.execFileSync (node:child_process:952:15)
+    at git (/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/witness.mts:13:50)
+    at sourceGuard (/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/witness.mts:34:7)
+    at main (/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/witness.mts:61:21)
+    at /Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/witness.mts:83:1
+    at ViteNodeRunner.runModule (file:///Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules/vite-node/dist/client.mjs:399:5)
+    at ViteNodeRunner.directRequest (file:///Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules/vite-node/dist/client.mjs:381:5)

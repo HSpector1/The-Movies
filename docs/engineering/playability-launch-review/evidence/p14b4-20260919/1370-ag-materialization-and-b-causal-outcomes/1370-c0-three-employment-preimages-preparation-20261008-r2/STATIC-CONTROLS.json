@@ -1,0 +1,22 @@
+{
+  "allNumericSourceDigestSeedBoundsAndFirstQuoteControlsUnchanged": true,
+  "comparisonImportedOrExecuted": false,
+  "existingInputsExactlyEqualR1": true,
+  "futureFrameRead": false,
+  "gameGitOrProtectedScansRun": false,
+  "identityAndOccurrenceAndOrderCodeUnchanged": true,
+  "newComparatorSha256": "8711b25431eea588780ab5e7aca649fac111f828515d52cc4ce477d0ec570408",
+  "normalizations": {
+    "1370-three-employment-preimages-descriptive-comparison-r1": "1370-three-employment-preimages-descriptive-comparison-r2",
+    "accepted r7 frame": "accepted witness frame",
+    "accepted-r7-frame.ndjson": "accepted-witness-frame.ndjson",
+    "acceptedR7": "acceptedWitness",
+    "r7HashControlsOnly": "witnessHashControlsOnly"
+  },
+  "normalizedAstExactlyEqualsR1": true,
+  "oldComparatorSha256": "a8f66b2509f70e05b2ea1a2224e8fd761b3f1bf0588f024d8be12b09a330c5a5",
+  "pendingWitnessAllFiveFieldsNull": true,
+  "preparationInputsSha256StillNull": true,
+  "schema": "1370-three-employment-comparator-static-controls-r2",
+  "status": "STATIC_ONLY_VERSION_LABEL_ADAPTATION_CHECKED"
+}

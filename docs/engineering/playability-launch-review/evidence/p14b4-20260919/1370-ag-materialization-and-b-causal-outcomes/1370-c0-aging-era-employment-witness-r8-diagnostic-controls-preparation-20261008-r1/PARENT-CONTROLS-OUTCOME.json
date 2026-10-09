@@ -1,0 +1,47 @@
+{
+  "cases": [
+    {
+      "actualExit": 1,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/red-r7.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py",
+        "--source",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r7"
+      ],
+      "elapsedSeconds": 2.1688674569995783,
+      "helperGroupClear": true,
+      "helperPgid": 71113,
+      "label": "red-r7",
+      "timedOut": false
+    },
+    {
+      "actualExit": 0,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/green-r8.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/test_failure_diagnostics.py",
+        "--source",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1"
+      ],
+      "elapsedSeconds": 1.9220219459984946,
+      "helperGroupClear": true,
+      "helperPgid": 71146,
+      "label": "green-r8",
+      "timedOut": false
+    }
+  ],
+  "gameRun": false,
+  "schema": "parent-r8-diagnostic-controls-actual-r1",
+  "scope": "Parent static-reviewed bounded error preservation. Only synthetic Python children; no Node/sandbox/game. Independent source/actual review remains.",
+  "sourcePinsSha256": "0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715",
+  "utc": "2026-10-08T23:31:44.042681+00:00"
+}

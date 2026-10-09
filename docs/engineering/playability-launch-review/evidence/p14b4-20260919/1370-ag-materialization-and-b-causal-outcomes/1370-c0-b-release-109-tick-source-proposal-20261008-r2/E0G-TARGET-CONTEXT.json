@@ -1,0 +1,948 @@
+{
+  "schema": "1370-b109-recorded-e0g-target-context-r1",
+  "sourceComparator": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-runs-r2/20261008-bonly-adoption-r1/RESULT.json",
+    "sha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa"
+  },
+  "contextRole": "Recorded E0G terminal416 rows; comparison context only, never tick input or expected output reloading. Historical old join keys are retained as contents; canonical occurrence is recomputed from full source order.",
+  "cases": [
+    {
+      "identity": [
+        "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-0:208",
+        "expiry",
+        0
+      ],
+      "sourceOrdinal": 42,
+      "sourceRecordIndex": 42,
+      "row": {
+        "closedWeek": 416,
+        "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-0:208",
+        "openedWeek": 404,
+        "outcome": "declined",
+        "reason": "all proposals dropped",
+        "subjectStudioId": "studio-5a47d054-r04",
+        "talentId": "person-studio-5a47d054-r04-0",
+        "variant": "expiry"
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          "person-studio-5a47d054-r04-0",
+          "studio-5a47d054-r04",
+          1
+        ],
+        "left": {
+          "closedWeek": 416,
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-0:208",
+          "openedWeek": 404,
+          "outcome": "declined",
+          "reason": "all proposals dropped",
+          "subjectStudioId": "studio-5a47d054-r04",
+          "talentId": "person-studio-5a47d054-r04-0",
+          "variant": "expiry"
+        },
+        "leftOrder": 42,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": null,
+      "openedWeek": 404,
+      "closedWeek": 416,
+      "eventId": null
+    },
+    {
+      "identity": [
+        "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-1:208",
+        "expiry",
+        0
+      ],
+      "sourceOrdinal": 43,
+      "sourceRecordIndex": 43,
+      "row": {
+        "closedWeek": 416,
+        "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-1:208",
+        "openedWeek": 404,
+        "outcome": "declined",
+        "reason": "all proposals dropped",
+        "subjectStudioId": "studio-5a47d054-r04",
+        "talentId": "person-studio-5a47d054-r04-1",
+        "variant": "expiry"
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          "person-studio-5a47d054-r04-1",
+          "studio-5a47d054-r04",
+          1
+        ],
+        "left": {
+          "closedWeek": 416,
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-1:208",
+          "openedWeek": 404,
+          "outcome": "declined",
+          "reason": "all proposals dropped",
+          "subjectStudioId": "studio-5a47d054-r04",
+          "talentId": "person-studio-5a47d054-r04-1",
+          "variant": "expiry"
+        },
+        "leftOrder": 43,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": null,
+      "openedWeek": 404,
+      "closedWeek": 416,
+      "eventId": null
+    },
+    {
+      "identity": [
+        "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-2:208",
+        "expiry",
+        0
+      ],
+      "sourceOrdinal": 44,
+      "sourceRecordIndex": 44,
+      "row": {
+        "closedWeek": 416,
+        "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-2:208",
+        "openedWeek": 404,
+        "outcome": "declined",
+        "reason": "all proposals dropped",
+        "subjectStudioId": "studio-5a47d054-r04",
+        "talentId": "person-studio-5a47d054-r04-2",
+        "variant": "expiry"
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          "person-studio-5a47d054-r04-2",
+          "studio-5a47d054-r04",
+          1
+        ],
+        "left": {
+          "closedWeek": 416,
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-2:208",
+          "openedWeek": 404,
+          "outcome": "declined",
+          "reason": "all proposals dropped",
+          "subjectStudioId": "studio-5a47d054-r04",
+          "talentId": "person-studio-5a47d054-r04-2",
+          "variant": "expiry"
+        },
+        "leftOrder": 44,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": null,
+      "openedWeek": 404,
+      "closedWeek": 416,
+      "eventId": null
+    },
+    {
+      "identity": [
+        "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-3:208",
+        "expiry",
+        0
+      ],
+      "sourceOrdinal": 45,
+      "sourceRecordIndex": 45,
+      "row": {
+        "closedWeek": 416,
+        "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-3:208",
+        "openedWeek": 404,
+        "outcome": "declined",
+        "reason": "all proposals dropped",
+        "subjectStudioId": "studio-5a47d054-r04",
+        "talentId": "person-studio-5a47d054-r04-3",
+        "variant": "expiry"
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          "person-studio-5a47d054-r04-3",
+          "studio-5a47d054-r04",
+          1
+        ],
+        "left": {
+          "closedWeek": 416,
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-3:208",
+          "openedWeek": 404,
+          "outcome": "declined",
+          "reason": "all proposals dropped",
+          "subjectStudioId": "studio-5a47d054-r04",
+          "talentId": "person-studio-5a47d054-r04-3",
+          "variant": "expiry"
+        },
+        "leftOrder": 45,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": null,
+      "openedWeek": 404,
+      "closedWeek": 416,
+      "eventId": null
+    },
+    {
+      "identity": [
+        "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-4:208",
+        "expiry",
+        0
+      ],
+      "sourceOrdinal": 46,
+      "sourceRecordIndex": 46,
+      "row": {
+        "closedWeek": 416,
+        "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-4:208",
+        "openedWeek": 404,
+        "outcome": "declined",
+        "reason": "all proposals dropped",
+        "subjectStudioId": "studio-5a47d054-r04",
+        "talentId": "person-studio-5a47d054-r04-4",
+        "variant": "expiry"
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          "person-studio-5a47d054-r04-4",
+          "studio-5a47d054-r04",
+          1
+        ],
+        "left": {
+          "closedWeek": 416,
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-4:208",
+          "openedWeek": 404,
+          "outcome": "declined",
+          "reason": "all proposals dropped",
+          "subjectStudioId": "studio-5a47d054-r04",
+          "talentId": "person-studio-5a47d054-r04-4",
+          "variant": "expiry"
+        },
+        "leftOrder": 46,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": null,
+      "openedWeek": 404,
+      "closedWeek": 416,
+      "eventId": null
+    },
+    {
+      "identity": [
+        "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-5:208",
+        "expiry",
+        0
+      ],
+      "sourceOrdinal": 47,
+      "sourceRecordIndex": 47,
+      "row": {
+        "closedWeek": 416,
+        "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-5:208",
+        "openedWeek": 404,
+        "outcome": "declined",
+        "reason": "all proposals dropped",
+        "subjectStudioId": "studio-5a47d054-r04",
+        "talentId": "person-studio-5a47d054-r04-5",
+        "variant": "expiry"
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          "person-studio-5a47d054-r04-5",
+          "studio-5a47d054-r04",
+          1
+        ],
+        "left": {
+          "closedWeek": 416,
+          "contractId": "studio-5a47d054-r04:contract:person-studio-5a47d054-r04-5:208",
+          "openedWeek": 404,
+          "outcome": "declined",
+          "reason": "all proposals dropped",
+          "subjectStudioId": "studio-5a47d054-r04",
+          "talentId": "person-studio-5a47d054-r04-5",
+          "variant": "expiry"
+        },
+        "leftOrder": 47,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": null,
+      "openedWeek": 404,
+      "closedWeek": 416,
+      "eventId": null
+    }
+  ],
+  "market": [
+    {
+      "identity": [
+        404,
+        "discovered",
+        "person-studio-5a47d054-r04-0",
+        [
+          "VALUE",
+          "studio-5a47d054-r04"
+        ],
+        0
+      ],
+      "sourceOrdinal": 167,
+      "sourceRecordIndex": 167,
+      "row": {
+        "dropped": [],
+        "eventId": "talent-market-event-167",
+        "kind": "discovered",
+        "reasons": [],
+        "studioId": "studio-5a47d054-r04",
+        "talentId": "person-studio-5a47d054-r04-0",
+        "week": 404
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          404,
+          "person-studio-5a47d054-r04-0",
+          0
+        ],
+        "left": {
+          "dropped": [],
+          "eventId": "talent-market-event-167",
+          "kind": "discovered",
+          "reasons": [],
+          "studioId": "studio-5a47d054-r04",
+          "talentId": "person-studio-5a47d054-r04-0",
+          "week": 404
+        },
+        "leftOrder": 167,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": 404,
+      "openedWeek": null,
+      "closedWeek": null,
+      "eventId": "talent-market-event-167"
+    },
+    {
+      "identity": [
+        404,
+        "discovered",
+        "person-studio-5a47d054-r04-1",
+        [
+          "VALUE",
+          "studio-5a47d054-r04"
+        ],
+        0
+      ],
+      "sourceOrdinal": 168,
+      "sourceRecordIndex": 168,
+      "row": {
+        "dropped": [],
+        "eventId": "talent-market-event-168",
+        "kind": "discovered",
+        "reasons": [],
+        "studioId": "studio-5a47d054-r04",
+        "talentId": "person-studio-5a47d054-r04-1",
+        "week": 404
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          404,
+          "person-studio-5a47d054-r04-1",
+          0
+        ],
+        "left": {
+          "dropped": [],
+          "eventId": "talent-market-event-168",
+          "kind": "discovered",
+          "reasons": [],
+          "studioId": "studio-5a47d054-r04",
+          "talentId": "person-studio-5a47d054-r04-1",
+          "week": 404
+        },
+        "leftOrder": 168,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": 404,
+      "openedWeek": null,
+      "closedWeek": null,
+      "eventId": "talent-market-event-168"
+    },
+    {
+      "identity": [
+        404,
+        "discovered",
+        "person-studio-5a47d054-r04-2",
+        [
+          "VALUE",
+          "studio-5a47d054-r04"
+        ],
+        0
+      ],
+      "sourceOrdinal": 169,
+      "sourceRecordIndex": 169,
+      "row": {
+        "dropped": [],
+        "eventId": "talent-market-event-169",
+        "kind": "discovered",
+        "reasons": [],
+        "studioId": "studio-5a47d054-r04",
+        "talentId": "person-studio-5a47d054-r04-2",
+        "week": 404
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          404,
+          "person-studio-5a47d054-r04-2",
+          0
+        ],
+        "left": {
+          "dropped": [],
+          "eventId": "talent-market-event-169",
+          "kind": "discovered",
+          "reasons": [],
+          "studioId": "studio-5a47d054-r04",
+          "talentId": "person-studio-5a47d054-r04-2",
+          "week": 404
+        },
+        "leftOrder": 169,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": 404,
+      "openedWeek": null,
+      "closedWeek": null,
+      "eventId": "talent-market-event-169"
+    },
+    {
+      "identity": [
+        404,
+        "discovered",
+        "person-studio-5a47d054-r04-3",
+        [
+          "VALUE",
+          "studio-5a47d054-r04"
+        ],
+        0
+      ],
+      "sourceOrdinal": 170,
+      "sourceRecordIndex": 170,
+      "row": {
+        "dropped": [],
+        "eventId": "talent-market-event-170",
+        "kind": "discovered",
+        "reasons": [],
+        "studioId": "studio-5a47d054-r04",
+        "talentId": "person-studio-5a47d054-r04-3",
+        "week": 404
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          404,
+          "person-studio-5a47d054-r04-3",
+          0
+        ],
+        "left": {
+          "dropped": [],
+          "eventId": "talent-market-event-170",
+          "kind": "discovered",
+          "reasons": [],
+          "studioId": "studio-5a47d054-r04",
+          "talentId": "person-studio-5a47d054-r04-3",
+          "week": 404
+        },
+        "leftOrder": 170,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": 404,
+      "openedWeek": null,
+      "closedWeek": null,
+      "eventId": "talent-market-event-170"
+    },
+    {
+      "identity": [
+        404,
+        "discovered",
+        "person-studio-5a47d054-r04-4",
+        [
+          "VALUE",
+          "studio-5a47d054-r04"
+        ],
+        0
+      ],
+      "sourceOrdinal": 171,
+      "sourceRecordIndex": 171,
+      "row": {
+        "dropped": [],
+        "eventId": "talent-market-event-171",
+        "kind": "discovered",
+        "reasons": [],
+        "studioId": "studio-5a47d054-r04",
+        "talentId": "person-studio-5a47d054-r04-4",
+        "week": 404
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          404,
+          "person-studio-5a47d054-r04-4",
+          0
+        ],
+        "left": {
+          "dropped": [],
+          "eventId": "talent-market-event-171",
+          "kind": "discovered",
+          "reasons": [],
+          "studioId": "studio-5a47d054-r04",
+          "talentId": "person-studio-5a47d054-r04-4",
+          "week": 404
+        },
+        "leftOrder": 171,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": 404,
+      "openedWeek": null,
+      "closedWeek": null,
+      "eventId": "talent-market-event-171"
+    },
+    {
+      "identity": [
+        404,
+        "discovered",
+        "person-studio-5a47d054-r04-5",
+        [
+          "VALUE",
+          "studio-5a47d054-r04"
+        ],
+        0
+      ],
+      "sourceOrdinal": 172,
+      "sourceRecordIndex": 172,
+      "row": {
+        "dropped": [],
+        "eventId": "talent-market-event-172",
+        "kind": "discovered",
+        "reasons": [],
+        "studioId": "studio-5a47d054-r04",
+        "talentId": "person-studio-5a47d054-r04-5",
+        "week": 404
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          404,
+          "person-studio-5a47d054-r04-5",
+          0
+        ],
+        "left": {
+          "dropped": [],
+          "eventId": "talent-market-event-172",
+          "kind": "discovered",
+          "reasons": [],
+          "studioId": "studio-5a47d054-r04",
+          "talentId": "person-studio-5a47d054-r04-5",
+          "week": 404
+        },
+        "leftOrder": 172,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": 404,
+      "openedWeek": null,
+      "closedWeek": null,
+      "eventId": "talent-market-event-172"
+    },
+    {
+      "identity": [
+        416,
+        "declined",
+        "person-studio-5a47d054-r04-0",
+        [
+          "VALUE",
+          null
+        ],
+        0
+      ],
+      "sourceOrdinal": 241,
+      "sourceRecordIndex": 241,
+      "row": {
+        "dropped": [
+          "Bellwether Pictures had no seat open for this person's role at the decision week.",
+          "Rose Lantern Films had no seat open for this person's role at the decision week."
+        ],
+        "eventId": "talent-market-event-241",
+        "kind": "declined",
+        "reasons": [
+          "Bellwether Pictures had no seat open for this person's role at the decision week.",
+          "Rose Lantern Films had no seat open for this person's role at the decision week."
+        ],
+        "studioId": null,
+        "talentId": "person-studio-5a47d054-r04-0",
+        "week": 416
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          416,
+          "person-studio-5a47d054-r04-0",
+          0
+        ],
+        "left": {
+          "dropped": [
+            "Bellwether Pictures had no seat open for this person's role at the decision week.",
+            "Rose Lantern Films had no seat open for this person's role at the decision week."
+          ],
+          "eventId": "talent-market-event-241",
+          "kind": "declined",
+          "reasons": [
+            "Bellwether Pictures had no seat open for this person's role at the decision week.",
+            "Rose Lantern Films had no seat open for this person's role at the decision week."
+          ],
+          "studioId": null,
+          "talentId": "person-studio-5a47d054-r04-0",
+          "week": 416
+        },
+        "leftOrder": 241,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": 416,
+      "openedWeek": null,
+      "closedWeek": null,
+      "eventId": "talent-market-event-241"
+    },
+    {
+      "identity": [
+        416,
+        "declined",
+        "person-studio-5a47d054-r04-1",
+        [
+          "VALUE",
+          null
+        ],
+        0
+      ],
+      "sourceOrdinal": 242,
+      "sourceRecordIndex": 242,
+      "row": {
+        "dropped": [
+          "Bellwether Pictures had no seat open for this person's role at the decision week.",
+          "Rose Lantern Films had no seat open for this person's role at the decision week."
+        ],
+        "eventId": "talent-market-event-242",
+        "kind": "declined",
+        "reasons": [
+          "Bellwether Pictures had no seat open for this person's role at the decision week.",
+          "Rose Lantern Films had no seat open for this person's role at the decision week."
+        ],
+        "studioId": null,
+        "talentId": "person-studio-5a47d054-r04-1",
+        "week": 416
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          416,
+          "person-studio-5a47d054-r04-1",
+          0
+        ],
+        "left": {
+          "dropped": [
+            "Bellwether Pictures had no seat open for this person's role at the decision week.",
+            "Rose Lantern Films had no seat open for this person's role at the decision week."
+          ],
+          "eventId": "talent-market-event-242",
+          "kind": "declined",
+          "reasons": [
+            "Bellwether Pictures had no seat open for this person's role at the decision week.",
+            "Rose Lantern Films had no seat open for this person's role at the decision week."
+          ],
+          "studioId": null,
+          "talentId": "person-studio-5a47d054-r04-1",
+          "week": 416
+        },
+        "leftOrder": 242,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": 416,
+      "openedWeek": null,
+      "closedWeek": null,
+      "eventId": "talent-market-event-242"
+    },
+    {
+      "identity": [
+        416,
+        "declined",
+        "person-studio-5a47d054-r04-2",
+        [
+          "VALUE",
+          null
+        ],
+        0
+      ],
+      "sourceOrdinal": 243,
+      "sourceRecordIndex": 243,
+      "row": {
+        "dropped": [
+          "Bellwether Pictures had no seat open for this person's role at the decision week.",
+          "Rose Lantern Films had no seat open for this person's role at the decision week."
+        ],
+        "eventId": "talent-market-event-243",
+        "kind": "declined",
+        "reasons": [
+          "Bellwether Pictures had no seat open for this person's role at the decision week.",
+          "Rose Lantern Films had no seat open for this person's role at the decision week."
+        ],
+        "studioId": null,
+        "talentId": "person-studio-5a47d054-r04-2",
+        "week": 416
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          416,
+          "person-studio-5a47d054-r04-2",
+          0
+        ],
+        "left": {
+          "dropped": [
+            "Bellwether Pictures had no seat open for this person's role at the decision week.",
+            "Rose Lantern Films had no seat open for this person's role at the decision week."
+          ],
+          "eventId": "talent-market-event-243",
+          "kind": "declined",
+          "reasons": [
+            "Bellwether Pictures had no seat open for this person's role at the decision week.",
+            "Rose Lantern Films had no seat open for this person's role at the decision week."
+          ],
+          "studioId": null,
+          "talentId": "person-studio-5a47d054-r04-2",
+          "week": 416
+        },
+        "leftOrder": 243,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": 416,
+      "openedWeek": null,
+      "closedWeek": null,
+      "eventId": "talent-market-event-243"
+    },
+    {
+      "identity": [
+        416,
+        "declined",
+        "person-studio-5a47d054-r04-3",
+        [
+          "VALUE",
+          null
+        ],
+        0
+      ],
+      "sourceOrdinal": 244,
+      "sourceRecordIndex": 244,
+      "row": {
+        "dropped": [
+          "Bellwether Pictures had no seat open for this person's role at the decision week.",
+          "Rose Lantern Films had no seat open for this person's role at the decision week."
+        ],
+        "eventId": "talent-market-event-244",
+        "kind": "declined",
+        "reasons": [
+          "Bellwether Pictures had no seat open for this person's role at the decision week.",
+          "Rose Lantern Films had no seat open for this person's role at the decision week."
+        ],
+        "studioId": null,
+        "talentId": "person-studio-5a47d054-r04-3",
+        "week": 416
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          416,
+          "person-studio-5a47d054-r04-3",
+          0
+        ],
+        "left": {
+          "dropped": [
+            "Bellwether Pictures had no seat open for this person's role at the decision week.",
+            "Rose Lantern Films had no seat open for this person's role at the decision week."
+          ],
+          "eventId": "talent-market-event-244",
+          "kind": "declined",
+          "reasons": [
+            "Bellwether Pictures had no seat open for this person's role at the decision week.",
+            "Rose Lantern Films had no seat open for this person's role at the decision week."
+          ],
+          "studioId": null,
+          "talentId": "person-studio-5a47d054-r04-3",
+          "week": 416
+        },
+        "leftOrder": 244,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": 416,
+      "openedWeek": null,
+      "closedWeek": null,
+      "eventId": "talent-market-event-244"
+    },
+    {
+      "identity": [
+        416,
+        "declined",
+        "person-studio-5a47d054-r04-4",
+        [
+          "VALUE",
+          null
+        ],
+        0
+      ],
+      "sourceOrdinal": 245,
+      "sourceRecordIndex": 245,
+      "row": {
+        "dropped": [
+          "Bellwether Pictures had no seat open for this person's role at the decision week.",
+          "Rose Lantern Films had no seat open for this person's role at the decision week."
+        ],
+        "eventId": "talent-market-event-245",
+        "kind": "declined",
+        "reasons": [
+          "Bellwether Pictures had no seat open for this person's role at the decision week.",
+          "Rose Lantern Films had no seat open for this person's role at the decision week."
+        ],
+        "studioId": null,
+        "talentId": "person-studio-5a47d054-r04-4",
+        "week": 416
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          416,
+          "person-studio-5a47d054-r04-4",
+          0
+        ],
+        "left": {
+          "dropped": [
+            "Bellwether Pictures had no seat open for this person's role at the decision week.",
+            "Rose Lantern Films had no seat open for this person's role at the decision week."
+          ],
+          "eventId": "talent-market-event-245",
+          "kind": "declined",
+          "reasons": [
+            "Bellwether Pictures had no seat open for this person's role at the decision week.",
+            "Rose Lantern Films had no seat open for this person's role at the decision week."
+          ],
+          "studioId": null,
+          "talentId": "person-studio-5a47d054-r04-4",
+          "week": 416
+        },
+        "leftOrder": 245,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": 416,
+      "openedWeek": null,
+      "closedWeek": null,
+      "eventId": "talent-market-event-245"
+    },
+    {
+      "identity": [
+        416,
+        "declined",
+        "person-studio-5a47d054-r04-5",
+        [
+          "VALUE",
+          null
+        ],
+        0
+      ],
+      "sourceOrdinal": 246,
+      "sourceRecordIndex": 246,
+      "row": {
+        "dropped": [
+          "Bellwether Pictures had no seat open for this person's role at the decision week.",
+          "Rose Lantern Films had no seat open for this person's role at the decision week."
+        ],
+        "eventId": "talent-market-event-246",
+        "kind": "declined",
+        "reasons": [
+          "Bellwether Pictures had no seat open for this person's role at the decision week.",
+          "Rose Lantern Films had no seat open for this person's role at the decision week."
+        ],
+        "studioId": null,
+        "talentId": "person-studio-5a47d054-r04-5",
+        "week": 416
+      },
+      "comparatorRecord": {
+        "eventIdShift": false,
+        "identity": [
+          416,
+          "person-studio-5a47d054-r04-5",
+          0
+        ],
+        "left": {
+          "dropped": [
+            "Bellwether Pictures had no seat open for this person's role at the decision week.",
+            "Rose Lantern Films had no seat open for this person's role at the decision week."
+          ],
+          "eventId": "talent-market-event-246",
+          "kind": "declined",
+          "reasons": [
+            "Bellwether Pictures had no seat open for this person's role at the decision week.",
+            "Rose Lantern Films had no seat open for this person's role at the decision week."
+          ],
+          "studioId": null,
+          "talentId": "person-studio-5a47d054-r04-5",
+          "week": 416
+        },
+        "leftOrder": 246,
+        "right": null,
+        "rightOrder": null,
+        "status": "MISSING_RIGHT"
+      },
+      "recordedAtTerminalBoundary": 416,
+      "reportedWeek": 416,
+      "openedWeek": null,
+      "closedWeek": null,
+      "eventId": "talent-market-event-246"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "acceptedWitnessReceiptSha256": "d681f73e3613248c7ccd0be7736e46bd1fe424dd62ea099a60e031e774238f64",
+  "allFrameDigestSourceFirstQuoteAndFlightChecksPassed": true,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-preparation-20261008-r2/compare_employment.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-filled-roles-20261009-r1/FILLED-ROLES.json",
+    "f476dbb531c0a41237b5be789f9c74b3b2c4998662d2bc728490be51df6ef6c9",
+    "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1"
+  ],
+  "changedRoleFields": [
+    "acceptedWitness",
+    "preparationInputsSha256",
+    "status"
+  ],
+  "claimLimit": "Artifact-only descriptive comparison; no causal acceptance or ledger closure. Existing 30-second alarm remains armed throughout artifact writes. Current Python byte pin captured here; launch must retain this exact path and hash.",
+  "comparatorSha256": "8711b25431eea588780ab5e7aca649fac111f828515d52cc4ce477d0ec570408",
+  "comparatorSourcePreviouslyIndependentlyAccepted": true,
+  "comparisonExecuted": false,
+  "decision": "ACCEPT_EXACT_FILLED_EMPLOYMENT_COMPARISON_UNRUN",
+  "employmentBytes": 13113,
+  "employmentPreimageSha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58",
+  "employmentRows": 44,
+  "filledRolesSha256": "f476dbb531c0a41237b5be789f9c74b3b2c4998662d2bc728490be51df6ef6c9",
+  "frameBytes": 29410,
+  "frameSha256": "8b0b70f110c37199dc320045b2fec0ac384c323fddfba88bbae620bf34766c50",
+  "launchSha256": "f5ec83c65641a8112121c0dd62d48bd4aa5cb35431e3c32657fa4d00904daae7",
+  "limits": {
+    "employmentBytes": 262144,
+    "frameBytes": 524288,
+    "processSeconds": 30,
+    "reportBytes": 2097152
+  },
+  "originalRolesExactlyUnchanged": true,
+  "outputAbsent": true,
+  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1",
+  "parentObservedAdoptionSha256": "6a33202f4770e9f7e8ad47404510746e767e2406b5ef22f414fe0f489e520e03",
+  "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+  "reviewer": "c0_causal_next_slice, independent of root-authored fill",
+  "schema": "1370-three-employment-filled-roles-independent-exact-review-r1",
+  "testsGameFullScanProductionGitMutation": false,
+  "utc": "2026-10-09T14:51:55.490012+00:00"
+}

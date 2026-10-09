@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r8-exact-preparation-20261008-r2/check_source_constants.py", line 26, in <module>
+    assert values['SOURCE']==source, name+' SOURCE disagrees with config/accepted receipt: '+str(values['SOURCE'])
+AssertionError: fill_actual_candidate.py SOURCE disagrees with config/accepted receipt: /Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r7

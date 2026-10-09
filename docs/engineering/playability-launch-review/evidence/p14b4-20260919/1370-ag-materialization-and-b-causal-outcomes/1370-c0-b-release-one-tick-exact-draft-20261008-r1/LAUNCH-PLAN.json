@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/one-tick.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/run.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/BINDING-DRAFT.json",
+    "REPLACE_WITH_ADOPTED_BINDING_BYTES_SHA_AFTER_EXACT_REVIEW"
+  ],
+  "clock": "Recorder90/sharedNode60/active75 unchanged. Helper lane waiting is outside recorder90 and unexpected waits must STOP rather than expand these clocks.",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "notAuthorized": "Draft status, false authorization, null exactReview, placeholder SHA each prevent this plan from running successfully.",
+  "recording": "Accepted helper writes stdout/stderr regular one-shot log and exact child exit to .meta, preserves child actual exit, owns lock cleanup. B recorder accepts regular stdout; no employment witness pipe adapter here.",
+  "status": "PLAN_ONLY_NOT_EXECUTABLE_BINDING"
+}

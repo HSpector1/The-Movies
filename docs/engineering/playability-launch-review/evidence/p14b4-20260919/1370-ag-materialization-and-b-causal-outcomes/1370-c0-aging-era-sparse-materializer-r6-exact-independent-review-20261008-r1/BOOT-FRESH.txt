@@ -1,0 +1,2 @@
+kern.boottime: { sec = 1791493856, usec = 29095 } Thu Oct  8 16:10:56 2026
+kern.bootsessionuuid: 452DE205-E1D6-462E-8673-553462BB0166

@@ -1,0 +1,5 @@
+# R6 adoption boot identity amendment — unreviewed and unrun
+
+The original adopter would STOP after macOS adjusted kern.boottime from sec1791493855/usec965854 to sec1791493856/usec29095, about63ms across the second boundary. Preserve that ordinary snapshot and the original immutable package. The additive adopt_reviewed_binding_r2.py differs on exactly line79: it requires exact stable kern.bootsessionuuid452DE205-E1D6-462E-8673-553462BB0166 instead of literal wall-time seconds. HERE, identity pin, archive path, all five-field/source/HEAD/FD/root/power/disk/process guards and candidate semantics remain unchanged.
+
+Fresh readback pins the current UUID; it does not claim this UUID existed in the old snapshot. Current old PIDs/fixture/heavy workers/global lock are absent, reserved r6 children remain absent, pinned r6 protected-FD guard passes and AC power is present. Amendment JSON records the current readback and all old/new artifact hashes. Independent reviewer must accept this additive procedure and amendment before parent adoption. No original file was changed, inventory replayed, binding adopted or copy launched.

@@ -1,0 +1,119 @@
+{
+  "actual109Run": false,
+  "gameRun": false,
+  "independentSourceReviewSha256": "36b8fb13854b10a17159d2f5bd59d80fbd3eff7c5184c7444ecd21917d641a9f",
+  "parentAdoption": "Authorize bounded53 no-game focused controls only; actual109 exact/adoption/launch gates remain.",
+  "records": [
+    {
+      "actualExit": 0,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-recorder-red.py.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-I",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-recorder-red.py"
+      ],
+      "elapsedSeconds": 0.7975512649991288,
+      "file": "test-recorder-red.py",
+      "helperGroupClear": true,
+      "helperPgid": 89089,
+      "sourceSha256": "e62b993b21dacabcc5a5c4d62592cf7aedbe423f92b23c0e8550b7196636decd",
+      "timedOut": false
+    },
+    {
+      "actualExit": 0,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-json-cap-red.py.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-I",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-json-cap-red.py"
+      ],
+      "elapsedSeconds": 0.76866256699941,
+      "file": "test-json-cap-red.py",
+      "helperGroupClear": true,
+      "helperPgid": 89175,
+      "sourceSha256": "c6e8d2e097b06c12e827d8e3f5b6f7908f0bc93d4b867af3c5ed6a9cd46f0516",
+      "timedOut": false
+    },
+    {
+      "actualExit": 0,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-retention-red.mjs.lane.log",
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-retention-red.mjs"
+      ],
+      "elapsedSeconds": 0.3642988170013268,
+      "file": "test-retention-red.mjs",
+      "helperGroupClear": true,
+      "helperPgid": 89377,
+      "sourceSha256": "e60457c2c427fb58ac7a4f305e743deb1b19285d16991a82480689cee8ff507b",
+      "timedOut": false
+    },
+    {
+      "actualExit": 0,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-streaming-red.mjs.lane.log",
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-streaming-red.mjs"
+      ],
+      "elapsedSeconds": 0.847246253000776,
+      "file": "test-streaming-red.mjs",
+      "helperGroupClear": true,
+      "helperPgid": 89398,
+      "sourceSha256": "e0caaefcc4695d9bf8db3f4fed138abfed70ee36b42a35ff680bbfb7daf90543",
+      "timedOut": false
+    },
+    {
+      "actualExit": 0,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-continuation-recorder-red.py.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-I",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-continuation-recorder-red.py"
+      ],
+      "elapsedSeconds": 0.5232925509990309,
+      "file": "test-continuation-recorder-red.py",
+      "helperGroupClear": true,
+      "helperPgid": 89419,
+      "sourceSha256": "14a6dcd3fb36295ffd8af836c07ccb0f09c86f274d6d540ce659294c260d1300",
+      "timedOut": false
+    },
+    {
+      "actualExit": 0,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-source-controls-recorded-20261008-r1/test-targeted-red.mjs.lane.log",
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-targeted-red.mjs"
+      ],
+      "elapsedSeconds": 0.2611830350015225,
+      "file": "test-targeted-red.mjs",
+      "helperGroupClear": true,
+      "helperPgid": 89441,
+      "sourceSha256": "ae2803460ecbfe79517b2521c6e4f9366f55bedc9b6ecfe4b70bbd6fecbf0adb",
+      "timedOut": false
+    }
+  ],
+  "schema": "parent-b109-r2-recorded-source-controls-r1",
+  "sourceManifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+  "utc": "2026-10-08T23:47:10.760370+00:00"
+}

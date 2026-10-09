@@ -1,0 +1,35 @@
+{
+  "boundsAmendment": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r6/AMENDMENT-BOUNDS-PROPOSED.md",
+    "reviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-independent-design-review-r1/RECEIPT.json",
+    "reviewSha256": "8dc9c50b2ba7edf3702b42fd3dbeefb2e26e4089891af32127fa816c1704df3d",
+    "sha256": "3e705b81cd4991b628eff0a084e8088f53005be49098ee449b025c1d8606f0d4"
+  },
+  "exactReview": null,
+  "executionAuthorization": false,
+  "independentSourceReviewReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r7/RECEIPT.json",
+    "sha256": "4f873fc7b0d0d24d0d339d1893f523a717da6bd00942a5920bc67ee659d317ff"
+  },
+  "nodeExecPath": null,
+  "nodeVersion": null,
+  "observerSha256": {
+    "POLICY.sb": "733ad40abe14eb619230091b43e00e9a27c72b1367c304ee5f7b16cc9eebf833",
+    "bounds-guard.mjs": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f",
+    "outer-recorder.py": "78d8a62f172c42bb135e2fe2981e096fdf03648a1e7bf7103457ff727af77f76",
+    "supervise.py": "b9c85abe795502852f4fe4350121f3e6b639884b97ebc419da46b95d7ce2276f",
+    "witness-core.mjs": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d",
+    "witness.mts": "afce97a16063085964c4a92d49c0495312452b7eec8d6b9b6bcc9edbc01cc736",
+    "worktree-guard.mjs": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+  },
+  "outputProtocol": "single-bounded-stdout-frame-no-files",
+  "parentBoundsAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-parent-adoption-r1/ADOPTION.json",
+    "sha256": "6b4b83cd3470a9a882d8045ae6300bca0a39635c793c4a3b312c8d0fed94dc46"
+  },
+  "repoRoot": null,
+  "runtimeSha256": null,
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "status": "DRAFT_PENDING_MATERIALIZATION_UNRUN",
+  "worktreeSha256": null
+}

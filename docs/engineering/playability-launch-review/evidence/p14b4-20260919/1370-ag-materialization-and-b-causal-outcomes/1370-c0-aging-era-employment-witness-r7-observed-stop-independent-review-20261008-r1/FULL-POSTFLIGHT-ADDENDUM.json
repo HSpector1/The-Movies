@@ -1,0 +1,46 @@
+{
+  "actualChildCause": "Unknown: r7 wrappers discarded buffered failure stderr. No Node/sandbox start inferred.",
+  "actualTestsRunByReviewer": false,
+  "copiedDependencyCounts": {
+    "directory": 1401,
+    "regular": 11060,
+    "symlink": 24
+  },
+  "currentAfter": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralPassed": true,
+    "freeBytes": 8611438592,
+    "lsofRawSha256": "fa71e87dcd8a8cbb9ee95094e7c432a3f715ef62f133b6f5dc480db7334a657a",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": false,
+    "ownedGroupIdsChecked": [],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawSha256": "25f7b58dd8124c384eb14456637c5a264fdb080366e8faadc7f1d289541a0ffd",
+    "relevantWorkersAbsent": true
+  },
+  "decision": "STOP_OBSERVED_NO_FRAME_GUARDS_CLEAR",
+  "executionAuthorization": false,
+  "frameCaptured": false,
+  "fullImmutableBaselineEqual": true,
+  "gameRerun": false,
+  "inventoryRepeated": false,
+  "observedLaneLogBytes": 133,
+  "originalPreserved": true,
+  "originalStopReceiptSha256": "2fa2f8c709ab0438312867c04f2221bb2423dd822bcd3a9c380dc605dfd6e753",
+  "ownedGroupClearanceClaim": false,
+  "ownedPgidObserved": null,
+  "parentActualToolExitReported": 0,
+  "parentActualToolSession": 15444,
+  "physicalSourceBytes": 4803106,
+  "physicalSourceFiles": 176,
+  "postflightPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r1/SNAPSHOT.json",
+  "postflightPinsSha256": "22e30b0a6fbeb00c7bd1882cb37b5567a8fe422e411d6f7ea8a26192c60a3847",
+  "postflightSha256": "6a1d17ea0ff855fe66fba0f6ce73eb3b2b51730b8ad97c10b8e3d335b167bc69",
+  "protectedDigests": {
+    "commonGit": "e412715eb23e48e2d14d58419cf30d5b32a1ccc548750965170cac046b7d3a70",
+    "copied": "f33f505c16fb4e60fc639f5268969e14b9187ebf1c639209eeceae584a8fc5eb",
+    "production": "3b236ee5cff80f1e98c77f4cc2d780aadfd9217b9d012fc2f97274c86165082f"
+  },
+  "schema": "1370-witness-r7-observed-stop-full-postflight-addendum-r1",
+  "utc": "2026-10-08T23:31:56.948443+00:00"
+}

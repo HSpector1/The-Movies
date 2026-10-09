@@ -1,0 +1,28 @@
+{
+  "actualToolExit": 2,
+  "actualToolSession": 40421,
+  "artifacts": {
+    "/Users/zacheryspector/studio-scratch/1370-b-release-109-tick-run-20261008-4812-r1/EBG.LAUNCH.json": {
+      "bytes": 533,
+      "sha256": "c96256801a9050bec1aa1934c084f6738bf7ae0daefc94f00579c34e91f14495"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-b-release-109-tick-run-20261008-4812-r1/RESULT.json": {
+      "bytes": 1581,
+      "sha256": "4b9532372a117d238cec7725134cecd75c0d0957c9efa7fd279467bdf28f22de"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log": {
+      "bytes": 118,
+      "sha256": "c2c04bad994451ad7dd18f916a4585c062b80864276951ed132af2ca7e4a34ad"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log.meta": {
+      "bytes": 491,
+      "sha256": "269f37e64a67b039a1c1733aa40d618a3577936771ced2b3d6dae52c363be5de"
+    }
+  },
+  "claimLimit": "Baseline did not finish; intervention never ran; no continuation comparison or ledger admission. Actual recorded timeout preserved. Independent cleanup and guards review required.",
+  "helperMetaExit": 2,
+  "resultError": "AssertionError('STOP_ACTIVE_OR_COMBINED_TEST_CAP')",
+  "resultStatus": "STOP",
+  "schema": "1370-b109-parent-actual-tool-outcome-r1",
+  "utc": "2026-10-09T00:31:02.082766+00:00"
+}

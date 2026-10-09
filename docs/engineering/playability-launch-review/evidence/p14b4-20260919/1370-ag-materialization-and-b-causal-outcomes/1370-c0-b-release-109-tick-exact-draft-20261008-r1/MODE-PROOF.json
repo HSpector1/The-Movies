@@ -1,0 +1,44 @@
+{
+  "behavior": "Accepted copytree preserves inherited file/directory modes; replace_pinned_file preserves/asserts target and parent mode. New retention/streaming/targeted helpers use explicit0600 under077. Root gets owner-write bit.",
+  "freshSourceProposalModes": {
+    "AMENDMENT-R2.md": "0644",
+    "BINDING-UNFILLED.json": "0644",
+    "DEPENDENCIES.json": "0600",
+    "DESIGN-MEMBER-INDEX-307-416.json": "0600",
+    "DESIGN-ROLES.json": "0600",
+    "E0G-TARGET-CONTEXT.json": "0644",
+    "PLAN.md": "0644",
+    "continuation.test.ts": "0600",
+    "hollywoodTick.r04-release-off.ts": "0600",
+    "retention.d.mts": "0600",
+    "retention.mjs": "0600",
+    "run.py": "0600",
+    "streaming.d.mts": "0600",
+    "streaming.mjs": "0600",
+    "targeted.d.mts": "0644",
+    "targeted.mjs": "0644",
+    "test-continuation-recorder-red.py": "0644",
+    "test-json-cap-red.py": "0644",
+    "test-recorder-red.py": "0644",
+    "test-retention-red.mjs": "0644",
+    "test-streaming-red.mjs": "0644",
+    "test-targeted-red.mjs": "0644",
+    "vitest.continuation.config.ts": "0600"
+  },
+  "historicalOrCopiedSourceRootRead": false,
+  "newRuntimeHelpers": [
+    "retention.mjs",
+    "retention.d.mts",
+    "streaming.mjs",
+    "streaming.d.mts",
+    "targeted.mjs",
+    "targeted.d.mts"
+  ],
+  "priorAuthenticatedModeEvidence": {
+    "bytes": 41149,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/MODE-PROOF.json",
+    "sha256": "f26814fe3ed2857b8e4c3ddad50fa47398af456e7d2481d2b03e868cbfa0eec8"
+  },
+  "status": "IMPLEMENTED_MODE_BEHAVIOR_AND_PRIOR_SOURCE_FACTS_ONLY",
+  "wholeMirrorRuntimeModeMapCheckClaimed": false
+}

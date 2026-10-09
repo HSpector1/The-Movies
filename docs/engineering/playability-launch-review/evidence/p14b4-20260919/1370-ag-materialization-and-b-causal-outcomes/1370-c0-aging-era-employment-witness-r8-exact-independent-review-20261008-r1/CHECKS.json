@@ -1,0 +1,27 @@
+{
+  "actualRuntimeFilesChecked": 5,
+  "actualWorktreeFilesChecked": 8,
+  "bindingSemanticSha256": "e2b89c293dbe867a31c94f3669e2b9840db8603b297ce158cc26a6fed6f191d4",
+  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-exact-draft-20261008-r1",
+  "candidatePinsSha256": "2181b1b79c276ea9f21ca973c041dd68f2247fcdab87b8bffeb45aa6ddbf7684",
+  "draftIdentitySha256": "c18c090129e643ca41af30242d3afe9a1d46386706181d5b53fdacc30cee2294",
+  "freeBytes": 8581406720,
+  "fullInventoryRepeated": false,
+  "gameRun": false,
+  "launchAuthorized": false,
+  "noActualR8OwnedPgidYet": true,
+  "observerFilesChecked": 7,
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "rawProcessHashOnly": {
+    "bytes": 53073,
+    "sha256": "e73bd34ba4b82b2d66694a2d21a7a1477d1856c1fc5440f223d24c6858daf3dd"
+  },
+  "reusedFullPostflightSha256": "6a1d17ea0ff855fe66fba0f6ce73eb3b2b51730b8ad97c10b8e3d335b167bc69",
+  "reviewedDraftBindingSha256": "73b9eb634eed2fd3ef11e1c5ebebb5822f41d430a7e75b71712eb86b5e5d6488",
+  "sourceFilesChecked": 12,
+  "sourcePinsSha256": "0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715",
+  "status": "BOUNDED_EXACT_CURRENT_CHECKS_PASS",
+  "strictRootsAndAncestryCurrent": true,
+  "twoProtectedFdScopesClear": true,
+  "utc": "2026-10-08T23:46:00.880756+00:00"
+}

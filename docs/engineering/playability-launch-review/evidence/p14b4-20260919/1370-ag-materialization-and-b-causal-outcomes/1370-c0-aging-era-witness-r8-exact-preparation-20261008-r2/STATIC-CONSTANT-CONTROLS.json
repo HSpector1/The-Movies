@@ -1,0 +1,23 @@
+{
+  "controls": [
+    {
+      "actualExit": 1,
+      "label": "RED-r1",
+      "proceduresImportedOrExecuted": false,
+      "scope": "Pure AST constant parsing plus authenticated metadata reads only",
+      "stderrSha256": "60977a2691fd53b731124dd939e8efb991dcb7a6aa815c58ba7424c058499d6e",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "actualExit": 0,
+      "label": "GREEN-r2",
+      "proceduresImportedOrExecuted": false,
+      "scope": "Pure AST constant parsing plus authenticated metadata reads only",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "d9a8c8c816c02c38f85281141a7821c4f911003673f6023aba82a729281f226c"
+    }
+  ],
+  "fullInventoryRun": false,
+  "gameRun": false,
+  "status": "STATIC_CORRECTION_PROVEN"
+}

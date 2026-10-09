@@ -1,0 +1,109 @@
+{
+  "childEnvironment": "Strip all GIT_* and NODE_OPTIONS exactly like real supervisor; no optional-lock environment injected.",
+  "childSeconds": 5,
+  "executionAuthorization": false,
+  "parentDesignAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-null-device-parent-design-adoption-20261008-r1/ADOPTION.json",
+    "sha256": "b0983e174b93ee8ebc6964c83517e46a0cd43bdc40ff5c822ec0c551ed8d705d"
+  },
+  "protectedRoots": [
+    "/Users/zacheryspector/The-Movies-headless-program",
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1"
+  ],
+  "roles": {
+    "chmod": {
+      "path": "/bin/chmod",
+      "sha256": "7d0fdc0bd88ed130cea369bd82f45dc39de74df17e2695cab676a2e05136913b"
+    },
+    "git": {
+      "path": "/usr/bin/git",
+      "sha256": "fe38fea56d944c3b7e9df10617b1fa5432d7b75cc346d7eacb607d083ea11711"
+    },
+    "mv": {
+      "path": "/bin/mv",
+      "sha256": "5199ab7ac10336c3f25c019a6411c498fa213d1b8c0c90a549eb16cf9cf7b337"
+    },
+    "newPolicy": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/POLICY.sb",
+      "sha256": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5"
+    },
+    "oldPolicy": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/POLICY.sb",
+      "sha256": "733ad40abe14eb619230091b43e00e9a27c72b1367c304ee5f7b16cc9eebf833"
+    },
+    "rm": {
+      "path": "/bin/rm",
+      "sha256": "cdbafbf9c14541e7391d56d29201e0482ddb41f1158e845b8175521f37d280a1"
+    },
+    "sandboxExec": {
+      "path": "/usr/bin/sandbox-exec",
+      "sha256": "db3f21b46a19502a0d2a5e2dc2a271475394b0f7258cc4b03a5130d7101a5bc3"
+    },
+    "shell": {
+      "path": "/bin/sh",
+      "sha256": "7a81fb4400401bb70593c24b2e3cd0ad7d8c4a481eda2bd2cfa54b316acf463f"
+    }
+  },
+  "schema": "1370-witness-r9-devnull-tiny-controls-config-r1",
+  "sourcePinsSha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759",
+  "sourceProofRoles": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/SOURCE-PINS.json",
+      "sha256": "0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/SOURCE-PINS.json",
+      "sha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/witness-core.mjs",
+      "sha256": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/worktree-guard.mjs",
+      "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/bounds-guard.mjs",
+      "sha256": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/witness.mts",
+      "sha256": "afce97a16063085964c4a92d49c0495312452b7eec8d6b9b6bcc9edbc01cc736"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/supervise.py",
+      "sha256": "0ee1071d6a78fc944fbbe0aba5fb2a823572b6684f5d13261831233610d93c32"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/outer-recorder.py",
+      "sha256": "e0b03fbb96cff3dfa3e4dbbedaaaf59525810ce2ebe2dd4a631a4432833c85a6"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/POLICY.sb",
+      "sha256": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/test-synthetic.mjs",
+      "sha256": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/test-supervisor.py",
+      "sha256": "7254470727b12ba38fc35e39f6c6db12d81281f066112eec29cb80c8578cc410"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/test-outer.py",
+      "sha256": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/BINDING-UNFILLED.json",
+      "sha256": "adee3d1fb706125535ecadd03e8ec84ddecfb563c19da03b64bedfbb1419f89a"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1/PLAN.md",
+      "sha256": "e6b6b582f0720f6f996b537fefbff7d4c94638423a40ba74379a801e8544b351"
+    }
+  ],
+  "wholeSeconds": 120
+}

@@ -1,0 +1,21 @@
+{
+  "adoptedBindingBytes": 7338,
+  "adoptedBindingSha256": "2cb97371f25dcb20bf375222c59f63028d3e4b52f490d289c31a532273e3772c",
+  "adoptedLaunchSha256": "f55e114d94e0de0763e17a2e7bdcd5a2fddf0be8afae34434f1d7ef041d1ccd6",
+  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/BINDING-DRAFT.UNADOPTED-ARCHIVE.json",
+  "bindingSemanticSha256": "88826e1b557ebe04840ff63bc0dffa74691f10986adcb982c467a63ddf2d5068",
+  "changedFields": [
+    "exactReview",
+    "executionAuthorization",
+    "status"
+  ],
+  "decision": "ADOPT_EXACT_REVIEW_THREE_FIELDS_ONLY_PREFLIGHT_REQUIRED",
+  "exactReviewSha256": "f4e88885067ffa7d8149a50d3c4ffb99c6193827f1819da7c6fe737b54daa3c6",
+  "gameRun": false,
+  "launchAuthorized": false,
+  "originalBindingBytes": 7110,
+  "originalBindingSha256": "b1d0189450efb4753c074295c1256daf930c13ddd1171bf7ef288482ac93ed40",
+  "schema": "parent-b109-exact-adoption-r1",
+  "sourceManifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+  "utc": "2026-10-09T00:08:19.492367+00:00"
+}

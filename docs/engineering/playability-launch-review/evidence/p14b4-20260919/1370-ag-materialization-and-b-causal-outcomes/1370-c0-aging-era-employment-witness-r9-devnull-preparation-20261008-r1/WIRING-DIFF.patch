@@ -1,0 +1,37 @@
+--- r8/bounded-sink.py
++++ r9/bounded-sink.py
+@@ -10,9 +10,9 @@
+ import types
+ from pathlib import Path
+ 
+-SOURCE = Path('/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1')
+-SOURCE_PINS_SHA = '0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715'
+-SUPERVISOR_SHA = '02c2058e8348e22e6c329de6f809096ab664a7d374c84c70b0ae5cc872966bc8'
++SOURCE = Path('/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1')
++SOURCE_PINS_SHA = '584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759'
++SUPERVISOR_SHA = '0ee1071d6a78fc944fbbe0aba5fb2a823572b6684f5d13261831233610d93c32'
+ MAX_FRAME = 512 * 1024
+ READ_SECONDS = 760  # r7 remains 750; ten seconds is sink observation overhead only.
+ FORWARD_SECONDS = 10
+@@ -79,7 +79,7 @@
+     if sha(supervisor_bytes) != SUPERVISOR_SHA:
+         raise RuntimeError('STOP_SINK_VALIDATOR_PIN')
+     # Execute precisely the read and authenticated bytes, avoiding an import reread.
+-    validator = types.ModuleType('accepted_r8_frame_validator')
++    validator = types.ModuleType('accepted_r9_frame_validator')
+     validator.__file__ = str(SOURCE / 'supervise.py')
+     exec(compile(supervisor_bytes, validator.__file__, 'exec'), validator.__dict__)
+     validator.validate_source_review(profile, SOURCE)
+--- r8/launch-pipeline.sh
++++ r9/launch-pipeline.sh
+@@ -9,8 +9,8 @@
+ witness_binding="$1"
+ witness_binding_sha="$2"
+ readonly witness_python='/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14'
+-readonly witness_source='/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1'
+-readonly witness_sink='/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/bounded-sink-r8-proposed.py'
++readonly witness_source='/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1'
++readonly witness_sink='/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/bounded-sink-r9-proposed.py'
+ "$witness_python" -B "$witness_source/outer-recorder.py" "$witness_binding" | "$witness_python" -B "$witness_sink" "$witness_binding" "$witness_binding_sha"
+ witness_pipeline_exits=("${PIPESTATUS[@]}")
+ if [[ ${#witness_pipeline_exits[@]} -ne 2 ]]; then

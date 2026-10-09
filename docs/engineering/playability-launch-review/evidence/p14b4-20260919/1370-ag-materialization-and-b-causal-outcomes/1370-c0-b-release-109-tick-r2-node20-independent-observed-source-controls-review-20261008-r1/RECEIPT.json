@@ -1,0 +1,69 @@
+{
+  "actual109Game": "UNRUN",
+  "actualAndMetaExits": [
+    0,
+    0,
+    0
+  ],
+  "actualNodePath": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+  "actualNodeSha256FreshIndependentlyAuthenticated": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+  "actualRuntimeParentToolOutcomeSha256": "7004afcd98b81f72f5b046b5b3bc51588cc0957ff6cdb2a9b762367f656c5bc5",
+  "claimLimit": "Source/control readiness only; no game outcome/product/ledger/C0/1363 acceptance or protected repin.",
+  "decision": "ACCEPT_OBSERVED_SOURCE_CONTROLS_EXACT_PREPARATION_ONLY",
+  "evidence": {
+    "AUDIT.json": {
+      "bytes": 10671,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-node20-independent-observed-source-controls-review-20261008-r1/AUDIT.json",
+      "sha256": "8f01531106a9c731a6d21204ff55eb6b0278ad0992f5341c36d426f413adf452"
+    },
+    "REPORT.md": {
+      "bytes": 3685,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-node20-independent-observed-source-controls-review-20261008-r1/REPORT.md",
+      "sha256": "1e289b54ce997cc77cb3e33d85edc7b3a93e8a6cdcb92dfc4ecdf77b31627284"
+    },
+    "audit-node20-addendum.py": {
+      "bytes": 6195,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-r2-node20-independent-observed-source-controls-review-20261008-r1/audit-node20-addendum.py",
+      "sha256": "11b6caee155d47d27d649e14eb81bcae866e611b7bc62e28b576e99096a4bb7e"
+    }
+  },
+  "exactBindingAccepted": false,
+  "fixtureCleanupObserved": true,
+  "freshHelperGroupsAbsent": [
+    93195,
+    93426,
+    93448
+  ],
+  "independentStaticSourceReviewSha256": "36b8fb13854b10a17159d2f5bd59d80fbd3eff7c5184c7444ecd21917d641a9f",
+  "launchAuthorized": false,
+  "node20Counts": [
+    4,
+    21,
+    4
+  ],
+  "observedAdditionalNode20Passes": 29,
+  "observedControlsConditionSatisfied": true,
+  "pending": [
+    "Fresh actual-HEAD exact binding and independent exact review",
+    "Parent adoption and independent adopted preflight",
+    "Explicit parent game-lane authorization",
+    "Actual recorded109-tick run and independent observed diagnostic review"
+  ],
+  "prior53RecordedRuntimeInterimReceiptSha256": "025d761f92850a39471e5e98d45e3834f057abbc7848a5139749d7a758a3505a",
+  "priorPythonPassesReused": 24,
+  "qualifiedDistinctControls": 53,
+  "reviewActions": {
+    "fullProtectedRootsScanned": false,
+    "gameRun": false,
+    "gitCommands": false,
+    "gzipDecoded": false,
+    "productionOrCopiedRootReads": false,
+    "productionWrites": false,
+    "repeatControlsRun": false,
+    "sourceModulesExecuted": false
+  },
+  "schema": "1370-b109-r2-node20-independent-observed-source-controls-addendum-r1",
+  "sourceManifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+  "sourceReadyForParentAuthorizedExactPreparation": true,
+  "utc": "2026-10-08T23:56:08.107631+00:00"
+}

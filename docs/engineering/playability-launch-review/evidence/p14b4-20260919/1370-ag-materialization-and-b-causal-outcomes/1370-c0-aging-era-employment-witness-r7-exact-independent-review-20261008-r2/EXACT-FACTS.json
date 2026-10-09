@@ -1,0 +1,319 @@
+{
+  "actualFiles": {
+    "node_modules/vite-node/package.json": {
+      "bytes": 2357,
+      "device": 16777220,
+      "inode": 166575603,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules/vite-node/package.json",
+      "sha256": "7018dacaa212db8e05f454147ac95b817c96b5e45fe56379f8ed54e11617b138"
+    },
+    "node_modules/vite-node/vite-node.mjs": {
+      "bytes": 45,
+      "device": 16777220,
+      "inode": 166575604,
+      "links": 1,
+      "mode": "0755",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules/vite-node/vite-node.mjs",
+      "sha256": "187a031df1b2c5b9e2251d08c3ec51d0f8c790296da47eb7da8d4ab605c1a500"
+    },
+    "node_modules/vite/package.json": {
+      "bytes": 5251,
+      "device": 16777220,
+      "inode": 166574014,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules/vite/package.json",
+      "sha256": "a1d0149fd986fd34b6d35503d2c0d8d9f743c4dbaaf94fbc11812bc84b05884d"
+    },
+    "package-lock.json": {
+      "bytes": 149287,
+      "device": 16777220,
+      "inode": 166568368,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/package-lock.json",
+      "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+    },
+    "package.json": {
+      "bytes": 2726,
+      "device": 16777220,
+      "inode": 166568369,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/package.json",
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+    },
+    "src/core/aging.ts": {
+      "bytes": 13741,
+      "device": 16777220,
+      "inode": 166568374,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/aging.ts",
+      "sha256": "38fd1e6704213a5b6cca8af7ffe9fcd6562fc9c242792eb1410209a27fa6baec"
+    },
+    "src/core/employment.ts": {
+      "bytes": 26075,
+      "device": 16777220,
+      "inode": 166568390,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "src/core/hollywood.ts": {
+      "bytes": 16824,
+      "device": 16777220,
+      "inode": 166568399,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts",
+      "sha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea"
+    },
+    "src/core/tick.ts": {
+      "bytes": 60753,
+      "device": 16777220,
+      "inode": 166568466,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tick.ts",
+      "sha256": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15"
+    },
+    "src/core/worldgen.ts": {
+      "bytes": 34912,
+      "device": 16777220,
+      "inode": 166568471,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/worldgen.ts",
+      "sha256": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7"
+    },
+    "src/harness/p13a/fixtures.ts": {
+      "bytes": 2130,
+      "device": 16777220,
+      "inode": 166568508,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/harness/p13a/fixtures.ts",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+    },
+    "tests/bridge-p14b5-relationships.test.ts": {
+      "bytes": 41878,
+      "device": 16777220,
+      "inode": 166568562,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/tests/bridge-p14b5-relationships.test.ts",
+      "sha256": "39c8523cb5ebeefc6f4b90d0f878d8374a37a375963341bcc3849ce7b8844c9e"
+    },
+    "tests/fixtures/p13a/accepted-v19.json.gz": {
+      "bytes": 48345,
+      "device": 16777220,
+      "inode": 166568565,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/tests/fixtures/p13a/accepted-v19.json.gz",
+      "sha256": "8c785eae9239d968b939c5de2434ac53819a2dd70edb8bd4f4b6d4a5c5e7101e"
+    }
+  },
+  "adoptionProcedureSha256": "5361471a3eee369f2418e92353c731ca0b0120020652d678b8a846707d345eb9",
+  "beforeFillSnapshotSha256": "b087ec768c52328d142433555d8549e4d9e365fe4293810fe4fac5c042281a12",
+  "candidateIdentity": {
+    "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-exact-draft-20261008-r2/BINDING-DRAFT.json",
+    "bindingSemanticSha256": "172b8405bceda94e539619fdf53cfb0f3ea9cfc09042c4a32cbf95a7210102c6",
+    "candidatePinsSha256": "cca167a3760af2084b1b2f3fd94d3fe011a783c93ed433ec29682bdbda69cd34",
+    "draftBindingSha256": "7c08b0c8911f1a75b9a4e6158eb6c8e26ffdd2c3f7de7c6bdbdfbbb4454e751e",
+    "draftPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-exact-draft-20261008-r2",
+    "files": {
+      "BINDING-DRAFT.json": "7c08b0c8911f1a75b9a4e6158eb6c8e26ffdd2c3f7de7c6bdbdfbbb4454e751e",
+      "BINDING-SEMANTIC.json": "859e6745ccb9e1d458931cdbc853994c5bd7ab4f049d02c7ff0c34ec9853f80a",
+      "CANDIDATE-PINS.json": "cca167a3760af2084b1b2f3fd94d3fe011a783c93ed433ec29682bdbda69cd34",
+      "DRAFT-REPORT.json": "50b00d5076177d3519e56ad64c454a177426db4c6ac57c63c971dd132ed4e9f5",
+      "LAUNCH-SPEC-DRAFT.json": "25256c7569273b0c92cbfd0e867577e180e2926055a0c42baaa6c68e124c7c8d"
+    },
+    "launchAuthorized": false,
+    "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+    "schema": "1370-witness-r7-filled-draft-identity-r2",
+    "sourcePinsSha256": "69ca5043bb533908f722126fbc93fd59ce84f0d7388180f3b60c5074076aebc2",
+    "status": "DRAFT_FILLED_UNREVIEWED_UNRUN"
+  },
+  "configuredRoles": {
+    "acceptedLaneHelper": {
+      "bytes": 3361,
+      "device": 16777220,
+      "inode": 166476929,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "acceptedLaneSourcePins": {
+      "bytes": 2647,
+      "device": 16777220,
+      "inode": 166476982,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/SOURCE-PINS.json",
+      "sha256": "9e11563756fb516cfa92591492a1de6fe8d0d0ccfdb93c34bc9b9feffbb94003"
+    },
+    "acceptedLaneSourceReview": {
+      "bytes": 2156,
+      "device": 16777220,
+      "inode": 166477041,
+      "links": 1,
+      "mode": "0444",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-r8-lane-source-independent-review-r1-rwa7o4oe/RECEIPT.json",
+      "sha256": "e03a740c5d9fcc704a105adb977759e6393d279c929c166fd35812946c3c7475"
+    },
+    "adapterSourceControlsReceipt": {
+      "bytes": 1136,
+      "device": 16777220,
+      "inode": 166548803,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/RECEIPT.json",
+      "sha256": "0a3a1a8318a7eaf215ce73f45fec5c6a9c0c6cbd53f034047cb50057592c40c3"
+    },
+    "bash": {
+      "bytes": 1326576,
+      "device": 16777220,
+      "inode": 1152921500312781165,
+      "links": 1,
+      "mode": "0555",
+      "path": "/bin/bash",
+      "sha256": "89ae3c42471a171967cc239564e95870f6da9e0952e74e27ccd28283b0ad0cfa"
+    },
+    "boundedSink": {
+      "bytes": 3658,
+      "device": 16777220,
+      "inode": 166546537,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/bounded-sink.py",
+      "sha256": "6a7a91d482ddaf80c8ecb6fd0d1912da7add50917102178845a6fa37db675b9e"
+    },
+    "boundsAmendment": {
+      "bytes": 974,
+      "device": 16777220,
+      "inode": 166469949,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r6/AMENDMENT-BOUNDS-PROPOSED.md",
+      "sha256": "3e705b81cd4991b628eff0a084e8088f53005be49098ee449b025c1d8606f0d4"
+    },
+    "boundsIndependentReview": {
+      "bytes": 3162,
+      "device": 16777220,
+      "inode": 166472956,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-independent-design-review-r1/RECEIPT.json",
+      "sha256": "8dc9c50b2ba7edf3702b42fd3dbeefb2e26e4089891af32127fa816c1704df3d"
+    },
+    "materializerBootIdentityAmendment": {
+      "bytes": 3340,
+      "device": 16777220,
+      "inode": 166567861,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/BOOT-IDENTITY-AMENDMENT.json",
+      "sha256": "b1d1697b8429425766156b4f8f04f129a3c8ca8666935af7e84fc49f68ce3936"
+    },
+    "materializerSourcePins": {
+      "bytes": 2075,
+      "device": 16777220,
+      "inode": 166558823,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/SOURCE-PINS.json",
+      "sha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d"
+    },
+    "materializerSourceReview": {
+      "bytes": 2012,
+      "device": 16777220,
+      "inode": 166562343,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r6/RECEIPT.json",
+      "sha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794"
+    },
+    "parentBoundsAdoption": {
+      "bytes": 1170,
+      "device": 16777220,
+      "inode": 166473206,
+      "links": 1,
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-parent-adoption-r1/ADOPTION.json",
+      "sha256": "6b4b83cd3470a9a882d8045ae6300bca0a39635c793c4a3b312c8d0fed94dc46"
+    },
+    "parentR6SourceAdoption": {
+      "bytes": 8064,
+      "device": 16777220,
+      "inode": 166562682,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AF-post-restart-materializer-repairs-and-diagnostics.md",
+      "sha256": "429a7d2d43580221f000879ca5c9dda07b011eb66dcc22dd8ccae3343f1ffc3c"
+    },
+    "pipeAdapter": {
+      "bytes": 1190,
+      "device": 16777220,
+      "inode": 166546539,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/launch-pipeline.sh",
+      "sha256": "38f8bddc4aef317b4e83fe6e19e547b338bd3cd4fe0d86856f6a11e2b03fda50"
+    },
+    "pythonResolved": {
+      "bytes": 50472,
+      "device": 16777220,
+      "inode": 72062271,
+      "links": 1,
+      "mode": "0755",
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "witnessSourcePins": {
+      "bytes": 1824,
+      "device": 16777220,
+      "inode": 166474692,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r7/SOURCE-PINS.json",
+      "sha256": "69ca5043bb533908f722126fbc93fd59ce84f0d7388180f3b60c5074076aebc2"
+    },
+    "witnessSourceReview": {
+      "bytes": 5544,
+      "device": 16777220,
+      "inode": 166474933,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r7/RECEIPT.json",
+      "sha256": "4f873fc7b0d0d24d0d339d1893f523a717da6bd00942a5920bc67ee659d317ff"
+    }
+  },
+  "executionAuthorization": false,
+  "fillProcedureSha256": "e89850aeea8dbf8dfd57b7efbeea33977028d1fd4fe6f5497cc6bc3cb76a3516",
+  "fullInventoryRepeated": false,
+  "gameRun": false,
+  "guardSourceReviewSha256": "2c7acfc9f585a67962949f2f6a4ad2769110f78f03afb97547249f34c808747d",
+  "nodeIdentity": {
+    "bytes": 115440320,
+    "device": 16777220,
+    "inode": 158092549,
+    "links": 1,
+    "mode": "0755",
+    "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+    "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+  },
+  "semanticExcludedOnly": [
+    "status",
+    "executionAuthorization",
+    "exactReview"
+  ],
+  "sourceTestsRun": false,
+  "status": "EXACT_STATIC_CHECKS_PASSED_FINAL_GUARD_PENDING",
+  "utc": "2026-10-08T23:08:35.707234+00:00"
+}

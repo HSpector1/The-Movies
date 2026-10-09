@@ -1,0 +1,14 @@
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 0.149s
+
+OK
+{"status":"SOURCE_CONTROL_EXIT","suite":"recorder15","actualExit":0}
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.011s
+
+OK
+{"status":"SOURCE_CONTROL_EXIT","suite":"json4","actualExit":0}
+retention helper 4/4
+{"status":"SOURCE_CONTROL_EXIT","suite":"retention4","actualExit":0}

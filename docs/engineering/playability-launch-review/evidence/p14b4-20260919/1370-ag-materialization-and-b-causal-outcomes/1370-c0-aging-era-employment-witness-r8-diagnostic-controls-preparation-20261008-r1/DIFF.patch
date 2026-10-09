@@ -1,0 +1,217 @@
+--- r7/supervise.py
++++ r8/supervise.py
+@@ -42,6 +42,45 @@
+     'rng': '2598418427,508725886,1318803286,3129010527',
+ }
+ PROTOCOL = 'single-bounded-stdout-frame-no-files'
++MAX_FAILURE_BYTES = 8 * 1024
++STDERR_PREFIX_BYTES = 4 * 1024
++
++
++class FailureStop(RuntimeError):
++    def __init__(self, status, diagnostic):
++        super().__init__(status)
++        self.diagnostic = diagnostic
++
++
++def failure_record(buffers, child, stage='supervisor-child'):
++    err = bytes(buffers['stderr'])
++    out = bytes(buffers['stdout'])
++    prefix = err[:STDERR_PREFIX_BYTES]
++    return {'stage': stage, 'childPid': child.pid, 'ownedPgid': os.getpgrp(),
++            'childExit': child.poll(), 'directChildReaped': child.poll() is not None,
++            'stdoutBytes': len(out), 'stdoutSha256': hashlib.sha256(out).hexdigest(),
++            'stderrBytes': len(err), 'stderrSha256': hashlib.sha256(err).hexdigest(),
++            'stderrPrefixBase64': base64.b64encode(prefix).decode('ascii'),
++            'stderrPrefixBytes': len(prefix), 'stderrTruncated': len(prefix) != len(err),
++            'byteCountsScope': 'Already captured bytes; cap-crossing read is excluded.'}
++
++
++def failure_line(exc):
++    status = str(exc).encode('utf8', errors='replace')
++    record = {'status': status[:256].decode('utf8', errors='replace'),
++              'statusBytes': len(status), 'statusSha256': hashlib.sha256(status).hexdigest(),
++              'statusTruncated': len(status) > 256,
++              'reporterPid': os.getpid(), 'reporterPgid': os.getpgrp()}
++    if isinstance(exc, FailureStop):
++        record['failure'] = exc.diagnostic
++    raw = (json.dumps(record, sort_keys=True, separators=(',', ':')) + '\n').encode('ascii')
++    if len(raw) > MAX_FAILURE_BYTES:
++        record.pop('failure', None)
++        record['failureMetadataOmittedForCap'] = True
++        raw = (json.dumps(record, sort_keys=True, separators=(',', ':')) + '\n').encode('ascii')
++    if len(raw) > MAX_FAILURE_BYTES:
++        raise RuntimeError('STOP_DIAGNOSTIC_CAP')
++    return raw
+ BOUNDS = {
+     'path': '/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r6/AMENDMENT-BOUNDS-PROPOSED.md',
+     'sha256': '3e705b81cd4991b628eff0a084e8088f53005be49098ee449b025c1d8606f0d4',
+@@ -158,7 +197,7 @@
+     if sha(receipt_bytes) != review_binding['sha256']:
+         raise RuntimeError('STOP_SOURCE_REVIEW_PIN')
+     receipt = json.loads(receipt_bytes)
+-    if (receipt.get('schema') != '1370-c0-aging-era-employment-witness-independent-static-review-r7' or
++    if (receipt.get('schema') != '1370-c0-aging-era-employment-witness-independent-static-review-r8' or
+             receipt.get('status') != 'FROZEN_SOURCE_ONLY_UNRUN' or
+             receipt.get('sourceDirectory') != str(source_dir) or
+             receipt.get('sourcePinsSha256') != sha(manifest_bytes) or
+@@ -262,9 +301,13 @@
+                                   if not k.startswith(('GIT_', 'NODE_OPTIONS'))})
+     try:
+         require_launch_window(started)
+-    except RuntimeError:
+-        stop_child(child, end)
+-        raise
++    except RuntimeError as exc:
++        empty_buffers = {'stdout': b'', 'stderr': b''}
++        try:
++            stop_child(child, end)
++        except Exception as cleanup_exc:
++            raise FailureStop(str(cleanup_exc), failure_record(empty_buffers, child, 'supervisor-cleanup')) from cleanup_exc
++        raise FailureStop(str(exc), failure_record(empty_buffers, child, 'supervisor-before-pipe-read')) from exc
+     selector = selectors.DefaultSelector()
+     buffers = {'stdout': bytearray(), 'stderr': bytearray()}
+     for name, pipe in [('stdout', child.stdout), ('stderr', child.stderr)]:
+@@ -294,16 +337,22 @@
+             failure = f'STOP_CHILD_EXIT_{child.poll()}'
+     finally:
+         selector.close()
+-        stop_child(child, end)
++        try:
++            stop_child(child, end)
++        except Exception as exc:
++            raise FailureStop(str(exc), failure_record(buffers, child, 'supervisor-cleanup')) from exc
+     if time.monotonic() >= end:
+         failure = 'STOP_OUTER_DEADLINE'
+     if failure:
+-        raise RuntimeError(failure)
+-    validate_frame(bytes(buffers['stdout']), profile)
++        raise FailureStop(failure, failure_record(buffers, child))
++    try:
++        validate_frame(bytes(buffers['stdout']), profile)
++    except Exception as exc:
++        raise FailureStop(str(exc), failure_record(buffers, child, 'supervisor-frame')) from exc
+     if buffers['stderr']:
+-        raise RuntimeError('STOP_CHILD_STDERR')
++        raise FailureStop('STOP_CHILD_STDERR', failure_record(buffers, child))
+     if time.monotonic() >= end:
+-        raise RuntimeError('STOP_OUTER_DEADLINE')
++        raise FailureStop('STOP_OUTER_DEADLINE', failure_record(buffers, child))
+     # One exact pipe frame. No regular output file is opened by either process.
+     raw = bytes(buffers['stdout'])
+     os.set_blocking(sys.stdout.fileno(), False)
+@@ -327,5 +376,5 @@
+     try:
+         main()
+     except Exception as exc:
+-        print(json.dumps({'status': str(exc)}), file=sys.stderr)
++        sys.stderr.write(failure_line(exc).decode('ascii'))
+         raise SystemExit(2)
+--- r7/outer-recorder.py
++++ r8/outer-recorder.py
+@@ -19,6 +19,45 @@
+ SOURCE = '3aaf55e0c06c4b745b0b722cc56913050b1ee229'
+ PROTOCOL = 'single-bounded-stdout-frame-no-files'
+ EMPLOYMENT = '4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58'
++MAX_FAILURE_BYTES = 16 * 1024
++STDERR_PREFIX_BYTES = 8 * 1024
++
++
++class FailureStop(RuntimeError):
++    def __init__(self, status, diagnostic):
++        super().__init__(status)
++        self.diagnostic = diagnostic
++
++
++def failure_record(streams, pid, child_exit, cleared):
++    err = bytes(streams['stderr'])
++    out = bytes(streams['stdout'])
++    prefix = err[:STDERR_PREFIX_BYTES]
++    return {'stage': 'outer', 'supervisorPid': pid, 'ownedPgid': pid,
++            'supervisorExit': child_exit, 'ownedGroupCleared': cleared,
++            'stdoutBytes': len(out), 'stdoutSha256': hashlib.sha256(out).hexdigest(),
++            'stderrBytes': len(err), 'stderrSha256': hashlib.sha256(err).hexdigest(),
++            'stderrPrefixBase64': base64.b64encode(prefix).decode('ascii'),
++            'stderrPrefixBytes': len(prefix), 'stderrTruncated': len(prefix) != len(err),
++            'byteCountsScope': 'Already captured bytes; cap-crossing read is excluded.'}
++
++
++def failure_line(exc):
++    status = str(exc).encode('utf8', errors='replace')
++    record = {'status': status[:256].decode('utf8', errors='replace'),
++              'statusBytes': len(status), 'statusSha256': hashlib.sha256(status).hexdigest(),
++              'statusTruncated': len(status) > 256,
++              'reporterPid': os.getpid(), 'reporterPgid': os.getpgrp()}
++    if isinstance(exc, FailureStop):
++        record['failure'] = exc.diagnostic
++    raw = (json.dumps(record, sort_keys=True, separators=(',', ':')) + '\n').encode('ascii')
++    if len(raw) > MAX_FAILURE_BYTES:
++        record.pop('failure', None)
++        record['failureMetadataOmittedForCap'] = True
++        raw = (json.dumps(record, sort_keys=True, separators=(',', ':')) + '\n').encode('ascii')
++    if len(raw) > MAX_FAILURE_BYTES:
++        raise RuntimeError('STOP_DIAGNOSTIC_CAP')
++    return raw
+ 
+ 
+ def group_alive(pgid):
+@@ -127,6 +166,7 @@
+         selector.register(fd, selectors.EVENT_READ, name)
+     child_exit = None
+     failure = None
++    pending_stop = None
+     try:
+         while selector.get_map() or child_exit is None:
+             now = time.monotonic()
+@@ -157,21 +197,29 @@
+             failure = 'STOP_GROUP_SURVIVOR'
+         if failure is None:
+             validate_outer_frame(bytes(streams['stdout']))
++    except Exception as exc:
++        pending_stop = FailureStop(str(exc), failure_record(streams, pid, child_exit, None))
++        raise pending_stop from exc
+     finally:
+         for key in list(selector.get_map().values()):
+             selector.unregister(key.fd)
+             os.close(key.fd)
+         selector.close()
+         if failure is not None or child_exit is None or group_alive(pid):
+-            child_exit, cleared = clear_group(pid, child_exit, end)
++            try:
++                child_exit, cleared = clear_group(pid, child_exit, end)
++            except Exception as exc:
++                raise FailureStop(str(exc), failure_record(streams, pid, child_exit, None)) from exc
+         else:
+             cleared = True
++        if pending_stop is not None:
++            pending_stop.diagnostic.update(supervisorExit=child_exit, ownedGroupCleared=cleared)
+     if not cleared:
+-        raise RuntimeError('STOP_SURVIVOR')
++        raise FailureStop('STOP_SURVIVOR', failure_record(streams, pid, child_exit, cleared))
+     if time.monotonic() >= end:
+-        raise RuntimeError('STOP_OUTER_DEADLINE')
++        raise FailureStop('STOP_OUTER_DEADLINE', failure_record(streams, pid, child_exit, cleared))
+     if failure:
+-        raise RuntimeError(failure)
++        raise FailureStop(failure, failure_record(streams, pid, child_exit, cleared))
+     return bytes(streams['stdout']), end
+ 
+ 
+@@ -210,5 +258,5 @@
+     try:
+         main()
+     except Exception as exc:
+-        print(json.dumps({'status': str(exc)}), file=sys.stderr)
++        sys.stderr.write(failure_line(exc).decode('ascii'))
+         raise SystemExit(2)
+--- r7/test-supervisor.py
++++ r8/test-supervisor.py
+@@ -88,7 +88,7 @@
+                         'files': files}
+             manifest_bytes = (json.dumps(manifest, indent=2) + '\n').encode()
+             (root / 'SOURCE-PINS.json').write_bytes(manifest_bytes)
+-            receipt = {'schema': '1370-c0-aging-era-employment-witness-independent-static-review-r7',
++            receipt = {'schema': '1370-c0-aging-era-employment-witness-independent-static-review-r8',
+                        'status': 'FROZEN_SOURCE_ONLY_UNRUN', 'sourceDirectory': str(root),
+                        'sourcePinsSha256': supervisor.sha(manifest_bytes),
+                        'sourceSha': supervisor.SOURCE,

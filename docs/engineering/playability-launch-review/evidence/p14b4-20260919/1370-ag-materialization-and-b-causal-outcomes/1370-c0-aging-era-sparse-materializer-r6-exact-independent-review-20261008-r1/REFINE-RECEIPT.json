@@ -1,0 +1,15 @@
+{
+  "schema": "1370-c0-aging-era-sparse-materializer-r6-exact-review-refine-r1",
+  "decision": "REFINE",
+  "defect": "ADOPTION_LITERAL_BOOT_SECOND_BOUNDARY",
+  "reviewedDraftPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1",
+  "reviewedDraftBindingSha256": "6b0407707c4dfc67dc3b268859042dc38b216c3da41eccf4c08a6dfa68aa4dad",
+  "candidatePinsSha256": "19a2b91cde3b786aaac79cbeb2fabd965b9020fad8010c65fc1112675cbff2e8",
+  "sourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+  "executionAuthorization": false,
+  "factsPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-independent-review-20261008-r1/FACTS.json",
+  "factsSha256": "831968c3ff4de5af2fbf1691e5ab9f0163a5da279ef8a66bce5ec339b8032855",
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-independent-review-20261008-r1/REFINE-REPORT.md",
+  "reportSha256": "d05603cea13d4cc9466ed2a1ba99e3c55596736fbd5fd46415f9c4f8049eacb2",
+  "candidateBindingSourceSemanticsAcceptedPendingNamedCorrection": true
+}

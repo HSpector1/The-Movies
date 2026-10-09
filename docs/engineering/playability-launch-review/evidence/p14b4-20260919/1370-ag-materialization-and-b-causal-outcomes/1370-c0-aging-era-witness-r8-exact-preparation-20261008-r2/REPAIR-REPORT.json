@@ -1,0 +1,16 @@
+{
+  "adoptionProcedureSha256": "84c78ff72c3b9277578c73c8867ed5b47a9a5bc15af6b75480967b833d05e1fb",
+  "copiedRootRead": false,
+  "executionAuthorization": false,
+  "fillProcedureSha256": "9bb509cc2657037fbb9237214e7ac4f5549177756dc53e7177680cf7ee0d4a89",
+  "fullInventoryRun": false,
+  "gameRun": false,
+  "namedDefect": "R1 fill SOURCE remained a relative r7 literal although configuration/gate/receipt require accepted r8 source. It would refuse before copied-root reads/fill.",
+  "preservedPreparationPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r8-exact-preparation-20261008-r1",
+  "preservedPreparationPinsSha256": "9480ef0df9180fd11cd5f586c356e8bda597325b5c563165b64250476283ae6b",
+  "proposedProceduresRun": false,
+  "repair": "R2 filler SOURCE selects accepted r8; builder substitutes relative directory names too. FILL-RECIPE selects r2 filler. Existing config, template bytes, adopter and unused output paths remain unchanged.",
+  "schema": "1370-witness-r8-exact-preparation-r1-source-constant-repair-r2",
+  "staticControlsSha256": "51a6f687432f3acc5f659ce6629f68ee8ddd13e9f900db7427f2fc2172ab9b8d",
+  "status": "CORRECTED_UNRUN_PARENT_REVIEW_REQUIRED"
+}

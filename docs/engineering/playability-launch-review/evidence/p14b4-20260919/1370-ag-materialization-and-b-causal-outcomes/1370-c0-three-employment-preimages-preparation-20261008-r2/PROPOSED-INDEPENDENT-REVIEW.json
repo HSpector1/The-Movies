@@ -1,0 +1,24 @@
+{
+  "authorDecision": "NO_INDEPENDENT_ACCEPTANCE_CLAIMED",
+  "comparisonRun": false,
+  "executionAuthorization": false,
+  "futureDecisionIfReviewerSatisfied": "ACCEPT_VERSION_NEUTRAL_COMPARATOR_SOURCE_ONLY_UNRUN",
+  "requiredFindings": [
+    "Authenticated preserved r1 source/inputs/manifest remain unchanged.",
+    "R2-to-r1 label normalization produces identical AST; contractId+source-order occurrence and all fields/original-order/nested-talent views remain unchanged.",
+    "All source/provenance/seed/weeks44rows/digest/RNG/firstQuote/size/time controls unchanged.",
+    "Future acceptedWitness receipt authenticates actual frame path/hash and qualified3aaf tested source; no source-only/copy acceptance substitutes.",
+    "Five actual witness input fields and preparationInputsSha256 remain null; no raw arrays or changed lifecycle fields are invented."
+  ],
+  "reviewInputs": [
+    "MANIFEST.json",
+    "SOURCE-DIFF.patch",
+    "STATIC-CONTROLS.json",
+    "compare_employment.py",
+    "INPUTS-PENDING.json",
+    "RECIPE.md"
+  ],
+  "schema": "1370-three-employment-comparator-proposed-independent-review-r2",
+  "scope": "Version-neutral label/schema adaptation only; future actual witness inputs remain unfilled.",
+  "status": "PENDING_INDEPENDENT_REVIEW_UNRUN"
+}

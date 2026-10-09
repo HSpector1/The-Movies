@@ -1,0 +1,11 @@
+{
+  "claimLimit": "Source authoring/static compile only. No guard invocation, copied-root access or execution.",
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": "7232a61e4115f774d2e21ffd99aea707993de434fd575cc5cf8793d119610e62",
+    "PLAN.md": "3074d0ceb9b52992a9ad6f28d908c581f803b3fdd83647ba583d8db8298b9427",
+    "snapshot.py": "a13ac4fba6cde62d018308914a31007754faf1ff6b22d4e5902dc788f041b85f"
+  },
+  "schema": "1370-witness-r7-parent-guard-preparation-pins-r1",
+  "status": "PROPOSAL_UNREVIEWED_UNRUN"
+}

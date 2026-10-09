@@ -1,0 +1,25 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r1/snapshot.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/snapshot.py
+@@ -15,11 +15,11 @@
+  if not ok:raise RuntimeError('STOP: '+msg)
+ def sha(raw):return hashlib.sha256(raw).hexdigest()
+ def canonical(v):return json.dumps(v,sort_keys=True,separators=(',',':')).encode()
+-def read(path):
++def read(path,expected_links=1):
+  p=Path(path);require(p.is_absolute() and p.resolve(strict=True)==p,'physical input '+str(p))
+  fd=os.open(p,os.O_RDONLY|os.O_NOFOLLOW)
+  try:
+-  a=os.fstat(fd);require(stat.S_ISREG(a.st_mode) and a.st_nlink==1,'regular single-link input '+str(p))
++  a=os.fstat(fd);require(stat.S_ISREG(a.st_mode) and a.st_nlink==expected_links,'regular input with expected link count '+str(p))
+   with os.fdopen(os.dup(fd),'rb') as f:raw=f.read()
+   b=os.fstat(fd);require((a.st_dev,a.st_ino,a.st_size,a.st_mtime_ns,a.st_ctime_ns)==(b.st_dev,b.st_ino,b.st_size,b.st_mtime_ns,b.st_ctime_ns),'input changed '+str(p));return raw
+  finally:os.close(fd)
+@@ -90,7 +90,7 @@
+  require(sha(read(binding['sourceReviewPath']))==config['sourceReviewSha256'],'r6 source review drift')
+  for name,h in sourcepins['files'].items():require(sha(read(Path(binding['sourcePinsPath']).parent/name))==h,'r6 source file drift '+name)
+  source=Path(binding['materializerPath']);require(sha(read(source))==config['materializerSha256']==binding['materializerSha256'],'read-only import bytes')
+- for tool in ('git','ls','lsof','xattr','du'):require(sha(read(binding[tool+'Path']))==binding[tool+'Sha256'],'tool drift '+tool)
++ for tool in ('git','ls','lsof','xattr','du'):require(sha(read(binding[tool+'Path'],expected_links=76 if tool=='git' and binding['gitPath']=='/usr/bin/git' else 1))==binding[tool+'Sha256'],'tool drift '+tool)
+  spec=importlib.util.spec_from_file_location('accepted_r6_readonly_parent_guard',source);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+  resultroot=Path(binding['outputRoot']);require(not os.path.lexists(resultroot/'SUPERVISOR-OVERRIDE-STOP.json'),'authoritative copy override STOP')
+  supervisorraw=read(resultroot/'SUPERVISOR.json');workerraw=read(resultroot/'RESULT.json');supervisor=json.loads(supervisorraw);worker=json.loads(workerraw)

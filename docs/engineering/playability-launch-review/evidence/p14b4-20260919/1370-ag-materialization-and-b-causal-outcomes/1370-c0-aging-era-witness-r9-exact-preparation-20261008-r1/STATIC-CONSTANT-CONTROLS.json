@@ -1,0 +1,11 @@
+{
+  "actualExit": 0,
+  "copiedRootRead": false,
+  "gameOrSourceTestsRun": false,
+  "proceduresImportedOrExecuted": false,
+  "schema": "1370-witness-r9-static-version-constant-control-r1",
+  "status": "STATIC_SOURCE_CONSTANTS_MATCH",
+  "stderrBytes": 0,
+  "stdout": "{\"configAndReceiptMatch\": true, \"proceduresImportedOrExecuted\": false, \"sourceDirectory\": \"/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1\", \"sourcePinsSha256\": \"584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759\", \"status\": \"STATIC_SOURCE_CONSTANTS_MATCH\", \"target\": \"/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r9-exact-preparation-20261008-r1\"}\n",
+  "stdoutSha256": "13891aefbf2a54d47ffa1ced3ac8da1cdc5feba9ebc1a7c787c6a887130c47a4"
+}

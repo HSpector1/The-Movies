@@ -1,0 +1,51 @@
+{
+  "actualFileReadbackCount": 13,
+  "actualSuccessPathCleanupWarrant": "Actual pinned inner/outer source success path: child exit0/reap and cleanup; outer checks owned group absence and clear completion before exact frame forward. Both pipeline0/meta0. No detached children assumption retained. Fresh fullcurrent global absence still required; no external numeric R9group is invented.",
+  "current": {
+    "actualR9Pgid": null,
+    "additionalProcessBytes": 63286,
+    "additionalProcessSha256": "4fbce949c2f02464cf8d96a1b5e5d3f05226db3b54be768f777a81e14929d513",
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "exactR9ProcessMarkersAbsent": true,
+    "externalNumericR9GroupProbeClaim": false,
+    "fdOriginalAndEphemeralPassed": true,
+    "freeBytes": 6298206208,
+    "lsofRawSha256": "e1f1363d95a8f8d5aae4a2bf62870a85af6fa164c99f885c77f96994d42238f6",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": true,
+    "ownedGroupIdsChecked": [
+      66578,
+      64755,
+      94462
+    ],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawSha256": "936cccb2d699aceb3393669a4f82da053671dc6853a25ddcff6df383bdf74e41",
+    "relevantWorkersAbsent": true
+  },
+  "externalNumericOwnedGroupCheckClaimed": false,
+  "externalNumericOwnedPgid": null,
+  "fullDependencyTypes": {
+    "directory": 1401,
+    "regular": 11060,
+    "symlink": 24
+  },
+  "fullInventoryRepeated": false,
+  "fullPostflightImmutableEqualsOriginalAndImmediatePreRun": true,
+  "fullPostflightSha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347",
+  "nullDevice": {
+    "device": 1124724989,
+    "gid": 0,
+    "inode": 317,
+    "links": 1,
+    "mode": "0666",
+    "path": "/dev/null",
+    "rdev": 50331650,
+    "type": "character",
+    "uid": 0
+  },
+  "physicalBytes": 4803106,
+  "physicalFiles": 176,
+  "sourceFilePinsChecked": 12,
+  "status": "OBSERVED_FRAME_AND_FULL_POSTFLIGHT_ACCEPTED",
+  "utc": "2026-10-09T14:46:46.211741+00:00"
+}

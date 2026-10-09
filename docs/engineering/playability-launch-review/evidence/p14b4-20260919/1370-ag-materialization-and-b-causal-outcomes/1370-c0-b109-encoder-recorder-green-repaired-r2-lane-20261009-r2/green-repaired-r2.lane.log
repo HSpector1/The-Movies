@@ -1,0 +1,17 @@
+/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/record-pure-node.py:236: SyntaxWarning: 'return' in a 'finally' block
+  return code
+F.............
+======================================================================
+FAIL: test_actual_tiny_node_preload_settings_are_absent_and_group_clear (__main__.TinyRecorderControls.test_actual_tiny_node_preload_settings_are_absent_and_group_clear)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 113, in test_actual_tiny_node_preload_settings_are_absent_and_group_clear
+    self.assertEqual(owned['child'].poll(),0)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != 0
+
+----------------------------------------------------------------------
+Ran 14 tests in 2.196s
+
+FAILED (failures=1)
+{"status": "STOP_WHOLE_90_SECONDS", "output": null, "actualChildExit": null, "groupClear": true}

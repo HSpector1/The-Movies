@@ -1,0 +1,10 @@
+{
+  "files": {
+    "AFTER-LSOF.bin": "9beb9ecd302e2d6f908c9b034a03d3ac9a73e44765744b17844d95ce47120d01",
+    "AFTER-PS.txt": "9653f30a04e4cc9f4a370ce50f028297922670dafbaccaead01d96f572e22e68",
+    "BEFORE-LSOF.bin": "daf8a25ac8096ce6afe9c6354bada103137694df9caaa8de9c1346ea73c354fb",
+    "BEFORE-PS.txt": "c2214ebdede1e31b9207aaf007c63ec9002bcc376312360284d6facf3ede2ff8",
+    "SNAPSHOT.json": "641757b4399a0daa05354d5b1ea4586a1b59cfd17b8af2c8e88eb248dce1deae"
+  },
+  "status": "GUARDS_ACCEPTED_READONLY"
+}

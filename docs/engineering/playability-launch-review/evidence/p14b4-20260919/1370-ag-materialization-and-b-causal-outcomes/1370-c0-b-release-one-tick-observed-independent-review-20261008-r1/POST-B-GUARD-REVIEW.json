@@ -1,0 +1,99 @@
+{
+  "BGroupsAbsentInBothSavedPsViews": true,
+  "BGroupsSeparatelyCheckedByObservedArtifactAudit": true,
+  "FDsIndependentlyParsedBeforeAfter": true,
+  "actualToolProbeReceiptSha256": "69b33e024542c35c9577634cc837f6c6e1a03b1c4eceaccde8be86c64169d90d",
+  "claimLimit": "Post-B surrounding guard record at before-fill timestamp only. Parent began separate r7 filling after this snapshot; no after-fill/witness/game acceptance inferred.",
+  "copiedProductionDependencyMetadataAndIndependentInodesChecked": true,
+  "decision": "ACCEPT_POST_B_PARENT_FULL_READONLY_GUARD_RECORD",
+  "freshProductionCommonEqualityToBPreflight": true,
+  "fullProtectedDigests": {
+    "commonGit": "e412715eb23e48e2d14d58419cf30d5b32a1ccc548750965170cac046b7d3a70",
+    "copied": "f33f505c16fb4e60fc639f5268969e14b9187ebf1c639209eeceae584a8fc5eb",
+    "production": "3b236ee5cff80f1e98c77f4cc2d780aadfd9217b9d012fc2f97274c86165082f"
+  },
+  "guardActualExitBasis": "Parent reports root toolsession48594 complete0; source/config/PINS/snapshot and every saved raw guard artifact independently authenticated.",
+  "guardElapsedSeconds": 453.4697447130002,
+  "liveRefsAndCleanBasis": "Authenticated executed guard checks local/copied HEAD, live HEAD:src, local/origin refs and clean status before/after.",
+  "ownedGroupGuardClaim": false,
+  "phase": "before-fill",
+  "pins": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json": {
+      "bytes": 3717,
+      "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-independent-source-review-20261008-r2/RECEIPT.json": {
+      "bytes": 1124,
+      "sha256": "2c7acfc9f585a67962949f2f6a4ad2769110f78f03afb97547249f34c808747d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/CONFIG.json": {
+      "bytes": 1882,
+      "sha256": "7232a61e4115f774d2e21ffd99aea707993de434fd575cc5cf8793d119610e62"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/DIFF.patch": {
+      "bytes": 2360,
+      "sha256": "fb10f05fe73b4ae012430609434dee0e2b472efb76555c7ccaa815101df12e55"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/PLAN.md": {
+      "bytes": 5164,
+      "sha256": "acd0e3cb6ae3138f531cddba326bced7252c6f74fc13353b9ac728f68375413b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/PREPARATION-PINS.json": {
+      "bytes": 707,
+      "sha256": "df54fe761ce18f5b8937ab87ca623db9599fdbdfd8c18cec88d94e373b9aeba2"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/REPAIR-REPORT.json": {
+      "bytes": 1819,
+      "sha256": "903ca711fce944a2248b8e07e72998b64e93cd2a7ec0506390f3649dceda2bb0"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/before-fill-r1/AFTER-LSOF.bin": {
+      "bytes": 486833,
+      "sha256": "3714f105f2fce1897632e1aa0123db04045d8ac3f66740f8072f2b18ea8a7950"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/before-fill-r1/AFTER-PS.txt": {
+      "bytes": 75169,
+      "sha256": "d3f34446f30aa12597bc7dfb57c13e26fadcdd9025f05e73d80e8c2457bc88ea"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/before-fill-r1/BEFORE-LSOF.bin": {
+      "bytes": 487857,
+      "sha256": "af3a7ad4b378ff8a6498d5cfaba577cfedb7a916fbb5fff7181412b5096df7b7"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/before-fill-r1/BEFORE-PS.txt": {
+      "bytes": 75169,
+      "sha256": "23cfe0d07be8755dc90dc51b687b09ef32804574defd762bc6d85657f6f38765"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/before-fill-r1/PINS.json": {
+      "bytes": 507,
+      "sha256": "1bac0edf4e5aa5b52d37021770ab50ab69419d5d2e07fadfcd48e3606987c8e1"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/before-fill-r1/SNAPSHOT.json": {
+      "bytes": 7750603,
+      "sha256": "b087ec768c52328d142433555d8549e4d9e365fe4293810fe4fac5c042281a12"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/snapshot.py": {
+      "bytes": 15996,
+      "sha256": "ed43cd95fbbc13a2194338a8fe8dd48e05a56b1b77a4cdcb377f60ea17429740"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-r2-tool-read-probe-20261008-r1/PROBE.json": {
+      "bytes": 2783,
+      "sha256": "42136e2cb32141035e11f6a66148b9e68acf5283226a21640c0a73183462da5b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-r2-tool-read-probe-20261008-r1/RECEIPT.json": {
+      "bytes": 1435,
+      "sha256": "69b33e024542c35c9577634cc837f6c6e1a03b1c4eceaccde8be86c64169d90d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-adopted-independent-preflight-20261008-r1/RECEIPT.json": {
+      "bytes": 3517,
+      "sha256": "d11ca0ac29e13ff1d03cc3c16c7b44edd603cbab3e0fa5673d06e4d38d90ffa8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/PARENT-TOOL-OUTCOME.json": {
+      "bytes": 760,
+      "sha256": "5c7573c5289b28e57d1997b1e9cb8bdad6bf619f9f8d7c7ebf143abbf88fd492"
+    }
+  },
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "snapshotSha256": "b087ec768c52328d142433555d8549e4d9e365fe4293810fe4fac5c042281a12",
+  "snapshotUtc": "2026-10-08T23:02:39.776632+00:00",
+  "sourceGuardReviewSha256": "2c7acfc9f585a67962949f2f6a4ad2769110f78f03afb97547249f34c808747d"
+}

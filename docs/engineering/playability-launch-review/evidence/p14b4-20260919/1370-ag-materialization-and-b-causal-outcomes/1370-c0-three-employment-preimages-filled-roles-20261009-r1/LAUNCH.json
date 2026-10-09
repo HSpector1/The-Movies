@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-preparation-20261008-r2/compare_employment.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-filled-roles-20261009-r1/FILLED-ROLES.json",
+    "f476dbb531c0a41237b5be789f9c74b3b2c4998662d2bc728490be51df6ef6c9",
+    "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-comparison-20261009-r1"
+  ],
+  "claimLimit": "Artifact-only descriptive H-original to post-aging and post-aging to M0 comparison, no game or ledger admission.",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "limits": {
+    "employmentBytes": 262144,
+    "frameBytes": 524288,
+    "processSeconds": 30,
+    "reportBytes": 2097152
+  },
+  "sourceSha256": "8711b25431eea588780ab5e7aca649fac111f828515d52cc4ce477d0ec570408",
+  "status": "FILLED_UNRUN_INDEPENDENT_EXACT_REVIEW_REQUIRED"
+}

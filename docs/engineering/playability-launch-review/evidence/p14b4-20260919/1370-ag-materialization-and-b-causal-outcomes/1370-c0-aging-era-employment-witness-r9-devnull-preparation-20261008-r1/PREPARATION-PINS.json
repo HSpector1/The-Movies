@@ -1,0 +1,54 @@
+{
+  "actualTestsOrProbesRun": false,
+  "executionAuthorization": false,
+  "files": {
+    "CONTROL-RECIPE.json": {
+      "bytes": 3186,
+      "sha256": "43ddc237bec6a796917ac96c4c8cba060399b236ef1019203c6b55393bf48531"
+    },
+    "CONTROLS-CONFIG.json": {
+      "bytes": 5621,
+      "sha256": "cbb93fffa31ddb403d26b40e91421603abe13c3d98b13a82ba3b131da37b0f54"
+    },
+    "DEVICE-AND-PRIMARY-FACTS.json": {
+      "bytes": 1061,
+      "sha256": "b2c2209dd5b40ef6ff378f4c87211c8493711af78d1478b3eb904930828cd57f"
+    },
+    "DIFF.patch": {
+      "bytes": 3823,
+      "sha256": "dbc24d90b4b7d7b8bfcb8d422f96237e936a10ae18c8b13293159b5ea6fad70e"
+    },
+    "PLAN.md": {
+      "bytes": 2656,
+      "sha256": "de9de5741a6166a0c8e9c97eee50009df51f02dfa584618a10cbd0a342669681"
+    },
+    "R8-CAUSE-FACTS.json": {
+      "bytes": 758,
+      "sha256": "9a046aa9408fec1becab4af79c3bce5dd213be4869bc347ba47c5db5f37e4494"
+    },
+    "WIRING-DIFF.patch": {
+      "bytes": 2491,
+      "sha256": "848ad9ba6f23c5ce9fa89065117c27ea48e1b6ccf86ca1fc10c36f36141ccc0e"
+    },
+    "bounded-sink-r9-proposed.py": {
+      "bytes": 3687,
+      "sha256": "9bd9fa9f1bc00712d000bd73097de8db930bfcab87c47dbefee2017725aaa8ef"
+    },
+    "launch-pipeline-r9-proposed.sh": {
+      "bytes": 1252,
+      "sha256": "0ebc508d9a181b1071769399c62baa86fbe2d2c20678c8590c79e969b68d5bd4"
+    },
+    "policy_controls.py": {
+      "bytes": 8605,
+      "sha256": "5fcf3bcfff847e5abe0efd793a1797a34b5983f9deae3301d10d5f1bf96aea16"
+    }
+  },
+  "gameRun": false,
+  "parentDesignAdoptionSha256": "b0983e174b93ee8ebc6964c83517e46a0cd43bdc40ff5c822ec0c551ed8d705d",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSource": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "1370-witness-r9-devnull-preparation-pins-r1",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r9-devnull-proposal-20261008-r1",
+  "sourcePinsSha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759",
+  "status": "FROZEN_UNREVIEWED_UNRUN_SOURCE_AND_CONTROL_PREPARATION_ONLY"
+}

@@ -1,0 +1,16 @@
+{
+  "helperCommand": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r2/runtime-source.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r2/audit-adopted.py",
+    "--runtime-worker"
+  ],
+  "ownedBeforeExec": true,
+  "pgid": 64755,
+  "pid": 64755
+}

@@ -1,0 +1,158 @@
+FFFF.FFFFFFFFF
+======================================================================
+FAIL: test_actual_tiny_node_preload_settings_are_absent_and_group_clear (__main__.TinyRecorderControls.test_actual_tiny_node_preload_settings_are_absent_and_group_clear)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 105, in test_actual_tiny_node_preload_settings_are_absent_and_group_clear
+    self.need('child_environment','start_owned','ready_go','clear','process_alive');config=json.loads((path.parent/'CONFIG.json').read_bytes());owned={}
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 11, in need
+    for name in names:self.assertTrue(hasattr(recorder,name),'missing repaired recorder mechanism '+name)
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : missing repaired recorder mechanism child_environment
+
+======================================================================
+FAIL: test_alarm_after_candidate_write_has_override (__main__.TinyRecorderControls.test_alarm_after_candidate_write_has_override)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 96, in test_alarm_after_candidate_write_has_override
+    self.need('finalize_result')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 11, in need
+    for name in names:self.assertTrue(hasattr(recorder,name),'missing repaired recorder mechanism '+name)
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : missing repaired recorder mechanism finalize_result
+
+======================================================================
+FAIL: test_alarm_before_candidate_write_has_override (__main__.TinyRecorderControls.test_alarm_before_candidate_write_has_override)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 87, in test_alarm_before_candidate_write_has_override
+    self.need('finalize_result')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 11, in need
+    for name in names:self.assertTrue(hasattr(recorder,name),'missing repaired recorder mechanism '+name)
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : missing repaired recorder mechanism finalize_result
+
+======================================================================
+FAIL: test_blocked_startup_is_owned_before_exec_and_cleared (__main__.TinyRecorderControls.test_blocked_startup_is_owned_before_exec_and_cleared)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 38, in test_blocked_startup_is_owned_before_exec_and_cleared
+    self.need('start_owned','ready_go','close_startup_fds','clear','process_alive')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 11, in need
+    for name in names:self.assertTrue(hasattr(recorder,name),'missing repaired recorder mechanism '+name)
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : missing repaired recorder mechanism start_owned
+
+======================================================================
+FAIL: test_hard_alarm_names_actual_bound (__main__.TinyRecorderControls.test_hard_alarm_names_actual_bound)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 22, in test_hard_alarm_names_actual_bound
+    self.need('alarm')
+    ~~~~~~~~~^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 11, in need
+    for name in names:self.assertTrue(hasattr(recorder,name),'missing repaired recorder mechanism '+name)
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : missing repaired recorder mechanism alarm
+
+======================================================================
+FAIL: test_late_exit_exact_child_and_active_deadlines (__main__.TinyRecorderControls.test_late_exit_exact_child_and_active_deadlines)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 14, in test_late_exit_exact_child_and_active_deadlines
+    self.need('observed_exit_guard');recorder.observed_exit_guard(0,0,0,0,clock=lambda:59.999)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 11, in need
+    for name in names:self.assertTrue(hasattr(recorder,name),'missing repaired recorder mechanism '+name)
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : missing repaired recorder mechanism observed_exit_guard
+
+======================================================================
+FAIL: test_late_postwrite_is_stop_without_blocking_after_deadline (__main__.TinyRecorderControls.test_late_postwrite_is_stop_without_blocking_after_deadline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 80, in test_late_postwrite_is_stop_without_blocking_after_deadline
+    self.need('finalize_result');now=[0]
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 11, in need
+    for name in names:self.assertTrue(hasattr(recorder,name),'missing repaired recorder mechanism '+name)
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : missing repaired recorder mechanism finalize_result
+
+======================================================================
+FAIL: test_owned_survivor_cannot_be_clear (__main__.TinyRecorderControls.test_owned_survivor_cannot_be_clear)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 67, in test_owned_survivor_cannot_be_clear
+    self.need('clear','process_alive')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 11, in need
+    for name in names:self.assertTrue(hasattr(recorder,name),'missing repaired recorder mechanism '+name)
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : missing repaired recorder mechanism clear
+
+======================================================================
+FAIL: test_pending_alarm_at_fork_return_keeps_owned_pid (__main__.TinyRecorderControls.test_pending_alarm_at_fork_return_keeps_owned_pid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 51, in test_pending_alarm_at_fork_return_keeps_owned_pid
+    self.need('start_owned','close_startup_fds','clear');owned={'info':{}};original_fork=os.fork;handler=signal.getsignal(signal.SIGALRM)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 11, in need
+    for name in names:self.assertTrue(hasattr(recorder,name),'missing repaired recorder mechanism '+name)
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : missing repaired recorder mechanism start_owned
+
+======================================================================
+FAIL: test_positive_active_guard (__main__.TinyRecorderControls.test_positive_active_guard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 18, in test_positive_active_guard
+    self.need('active_guard');recorder.active_guard(0,clock=lambda:74.999)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 11, in need
+    for name in names:self.assertTrue(hasattr(recorder,name),'missing repaired recorder mechanism '+name)
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : missing repaired recorder mechanism active_guard
+
+======================================================================
+FAIL: test_real_preflight_alarm_interrupts_authentication (__main__.TinyRecorderControls.test_real_preflight_alarm_interrupts_authentication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 35, in test_real_preflight_alarm_interrupts_authentication
+    self.assertEqual(code,2);self.assertLess(time.monotonic()-begin,.15);self.assertFalse(output.exists())
+                             ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0.4337597409976297 not less than 0.15
+
+======================================================================
+FAIL: test_sanitized_environment_copy (__main__.TinyRecorderControls.test_sanitized_environment_copy)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 25, in test_sanitized_environment_copy
+    self.need('child_environment');source={'NODE_OPTIONS':'--require /does/not/exist','NODE_PATH':'/unexpected','KEEP':'value'};env=recorder.child_environment(source)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 11, in need
+    for name in names:self.assertTrue(hasattr(recorder,name),'missing repaired recorder mechanism '+name)
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : missing repaired recorder mechanism child_environment
+
+======================================================================
+FAIL: test_timely_finalization (__main__.TinyRecorderControls.test_timely_finalization)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 75, in test_timely_finalization
+    self.need('finalize_result')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-proposal-20261009-r2/test-recorder-repair.py", line 11, in need
+    for name in names:self.assertTrue(hasattr(recorder,name),'missing repaired recorder mechanism '+name)
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : missing repaired recorder mechanism finalize_result
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.446s
+
+FAILED (failures=13)

@@ -1,0 +1,146 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-lane-20261008-r1/witness-r8.lane.log",
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/launch-pipeline-r8-proposed.sh",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-exact-draft-20261008-r1/BINDING-DRAFT.json",
+    "73b9eb634eed2fd3ef11e1c5ebebb5822f41d430a7e75b71712eb86b5e5d6488"
+  ],
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "e2b89c293dbe867a31c94f3669e2b9840db8603b297ce158cc26a6fed6f191d4",
+  "bindingSha256": "73b9eb634eed2fd3ef11e1c5ebebb5822f41d430a7e75b71712eb86b5e5d6488",
+  "bounds": {
+    "activeStopSeconds": 742,
+    "innerSeconds": 720,
+    "preimageBytes": 262144,
+    "sinkForwardSeconds": 10,
+    "sinkReadSeconds": 760,
+    "stderrBytes": 65536,
+    "stdoutFrameBytes": 524288,
+    "wholeRecorderSeconds": 750
+  },
+  "candidatePinsSha256": "2181b1b79c276ea9f21ca973c041dd68f2247fcdab87b8bffeb45aa6ddbf7684",
+  "claimLimit": "Unrun r8 diagnostic template only. No copied-root read or fill. Original bounds and success protocol remain; bounded failure diagnostics only. Source/wiring review and independent exact review/adoption/preflight remain required.",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "exactReview": null,
+  "launchAuthorized": false,
+  "observedMaterializationReceipt": {
+    "decision": "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+  },
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "requiredEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "requiredObservedAcceptance": [
+    "Exactly one bounded candidate frame and one pipeline exit marker with outerExit0/sinkExit0; actual helper exit0 and exactly one final meta child exit0",
+    "Authenticate full44-row4cff preimage bytes plus otherthree historic digests/RNG and three equal source flights",
+    "Node/sandbox-exec/supervisor owned groups cleared, no internal stderr, no unauthorized regular writes",
+    "Independent source/worktree/runtime/production/protected-root/FD/disk postflight; no C0/1363/H or109-week continuation admission"
+  ],
+  "requiredPreflight": [
+    "Observed independent r6 materialization acceptance bound to expected root, plus actual supervisor/worker success and no override",
+    "Fresh r7 actual node/runtime/8worktree/7observer/bounds/source review identity; no H root-metadata waiver",
+    "Fresh independent exact binding+pipe adapter/sink+actual argv review then original-path adoption and adopted raw byte SHA",
+    "Production local/remote/head/src clean and frozen; physical roots/protected bytes/FDs, workers and copied dependency identities",
+    "Exclusive absent lane log/meta and global HEAVY-LANE-LOCK idle; no other heavy lane; unexpected helper wait STOP",
+    "Exact PATH selects bound node for vite-node shebang; child no-detach assumption; AC and fresh disk floor",
+    "Original source/adapter bytes and observed admission roles unchanged; all past STOPs preserved",
+    "Exact current kern.bootsessionuuid452DE205-E1D6-462E-8673-553462BB0166; preserve prior adjusted boottime snapshots, no retroactive UUID claim"
+  ],
+  "roles": {
+    "acceptedLaneHelper": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "acceptedLaneSourcePins": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/SOURCE-PINS.json",
+      "sha256": "9e11563756fb516cfa92591492a1de6fe8d0d0ccfdb93c34bc9b9feffbb94003"
+    },
+    "acceptedLaneSourceReview": {
+      "mode": "0444",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-r8-lane-source-independent-review-r1-rwa7o4oe/RECEIPT.json",
+      "sha256": "e03a740c5d9fcc704a105adb977759e6393d279c929c166fd35812946c3c7475"
+    },
+    "adapterSourceControlsReceipt": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/RECEIPT.json",
+      "sha256": "0a3a1a8318a7eaf215ce73f45fec5c6a9c0c6cbd53f034047cb50057592c40c3"
+    },
+    "bash": {
+      "mode": "0555",
+      "path": "/bin/bash",
+      "sha256": "89ae3c42471a171967cc239564e95870f6da9e0952e74e27ccd28283b0ad0cfa"
+    },
+    "boundedSink": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/bounded-sink-r8-proposed.py",
+      "sha256": "0d9a5bf7e187e141bccc20a1b65740bedd3a67a926b6c7eb873f3df74c78982a"
+    },
+    "boundsAmendment": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r6/AMENDMENT-BOUNDS-PROPOSED.md",
+      "sha256": "3e705b81cd4991b628eff0a084e8088f53005be49098ee449b025c1d8606f0d4"
+    },
+    "boundsIndependentReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-independent-design-review-r1/RECEIPT.json",
+      "sha256": "8dc9c50b2ba7edf3702b42fd3dbeefb2e26e4089891af32127fa816c1704df3d"
+    },
+    "materializerBootIdentityAmendment": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/BOOT-IDENTITY-AMENDMENT.json",
+      "sha256": "b1d1697b8429425766156b4f8f04f129a3c8ca8666935af7e84fc49f68ce3936"
+    },
+    "materializerSourcePins": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/SOURCE-PINS.json",
+      "sha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d"
+    },
+    "materializerSourceReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r6/RECEIPT.json",
+      "sha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794"
+    },
+    "parentBoundsAdoption": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-parent-adoption-r1/ADOPTION.json",
+      "sha256": "6b4b83cd3470a9a882d8045ae6300bca0a39635c793c4a3b312c8d0fed94dc46"
+    },
+    "parentR6SourceAdoption": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AF-post-restart-materializer-repairs-and-diagnostics.md",
+      "sha256": "429a7d2d43580221f000879ca5c9dda07b011eb66dcc22dd8ccae3343f1ffc3c"
+    },
+    "pipeAdapter": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/launch-pipeline-r8-proposed.sh",
+      "sha256": "38afc47e8bcb834df333f2834fdf4a6f5bd3f3826d96c8fce02a9c72d164a16f"
+    },
+    "pythonResolved": {
+      "mode": "0755",
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "witnessSourcePins": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/SOURCE-PINS.json",
+      "sha256": "0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715"
+    },
+    "witnessSourceReview": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r8/RECEIPT.json",
+      "sha256": "0df56d411ea22b65e3407b27abe161481acaa06ca4cc7dede11656faa41e8da0"
+    }
+  },
+  "schema": "1370-witness-r8-launch-template-r2",
+  "status": "DRAFT_EXACT_REVIEW_PENDING_UNRUN"
+}

@@ -1,0 +1,53 @@
+{
+  "arms": [
+    "EBG",
+    "EBG_R04_RELEASE_OFF"
+  ],
+  "boundariesPerArm": 110,
+  "candidateWholeFileSha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73",
+  "endBoundary": 416,
+  "executionAuthorization": false,
+  "files": {
+    "MEMBER-INDEX-307-416.json": {
+      "bytes": 24196,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-design-20261008-r1/MEMBER-INDEX-307-416.json",
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+    },
+    "RECIPE.md": {
+      "bytes": 11547,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-design-20261008-r1/RECIPE.md",
+      "sha256": "7cddcd9540c8c066416de874eebbe06f6c2d4fba9d853e5326c63c9d54cd20e3"
+    },
+    "ROLES.json": {
+      "bytes": 13974,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-design-20261008-r1/ROLES.json",
+      "sha256": "779d9de6325b43af1f4d418128e54d82de22a456a92ff347f24dde12aba007a3"
+    }
+  },
+  "gitCommands": false,
+  "gzipDecoded": false,
+  "nextGate": "Independent design review followed by explicit parent operational-bounds adoption before dependent source code.",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "productionWrites": false,
+  "proposedCaps": {
+    "activeSeconds": 375,
+    "childCombinedLogBytes": 1048576,
+    "combinedNodeSeconds": 300,
+    "finalReserveInsideTotalBytes": 131072,
+    "preflightFreeBytes": 3657433088,
+    "runningFloorWithReserveBytes": 3355443200,
+    "singleJsonReportDecodedMemberBytes": 16777216,
+    "totalCountedOutputBytes": 268435456,
+    "wholeRecorderSeconds": 390
+  },
+  "publicTicksPerArm": 109,
+  "schema": "1370-c0-b-release-109-tick-continuation-design-r1",
+  "seed": "p13-public-commercial-adoption",
+  "simulationRun": false,
+  "sourceAuthoringAuthorized": false,
+  "sourceCodeAuthored": false,
+  "startBoundary": 307,
+  "status": "DESIGN_ONLY_UNREVIEWED_UNADOPTED_UNRUN",
+  "testsRun": false
+}

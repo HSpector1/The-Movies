@@ -1,0 +1,38 @@
+{
+  "acceptedOwnershipComponentsVerbatim": true,
+  "actualZeroExitAndNoOverrideRequired": true,
+  "artifacts": {
+    "INPUTS.json": "d701c274b5c5f378ba676eb70f335a4d6bf453ef9bc0ea3dfa21e329a62d9efa",
+    "REPORT.md": "8c886e5d478fbbdb0cf68a90ed266503330e4ff4f39fd35a31ebbf83475664ee",
+    "STATIC-FACTS.json": "8a35e555e92258792427c5bf08454a06d1afcf53a9c16279cfc08f91469943a9"
+  },
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "benchmarkUnrun": true,
+  "boundsUnchanged": [
+    60,
+    75,
+    90
+  ],
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_CONTINGENT_OBSERVED_RECORDER14_AND_ENCODER11_CONTROLS",
+  "executionAuthorization": false,
+  "expectedEncoderGroups": 11,
+  "expectedRecorderCases": 14,
+  "fixedFindings": [
+    "F1",
+    "F2"
+  ],
+  "furtherConcreteFindings": [],
+  "limits": "Static source acceptance only; conditional observed RED/GREEN repair controls and encoder parity/refusal controls, then separate parent benchmark grant. No gameplay adoption or runtime feasibility claim.",
+  "observedControls": 0,
+  "recipeSha256": "e58ae3a9d744aa1211d5d88b05bec1b8cdee066e4f2c1baf973831af35422051",
+  "recorderControlsSha256": "1da16a7d5624f41fcc98a5586fb71ce3f303e5c41f1d59dc3b5c7053e8d82e56",
+  "recorderSha256": "5647ba67e1f96fa4a8f0894c7bd95055a820e63e5412aceb03cf7de25b9d13ec",
+  "schema": "1370-b109-pure-encoder-r2-independent-static-review",
+  "sourcePinsSha256": "6c152d4681c2e772f7e155a904047bd5f56da8eb297d8291354dc44f60587557",
+  "unchangedEncoderControlsBenchmark": true,
+  "utc": "2026-10-09T14:51:18.046319+00:00"
+}

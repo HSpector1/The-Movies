@@ -1,0 +1,107 @@
+{
+  "RngMarketFirstTakesAndCostCuttingEqual": true,
+  "actualChildExits": [
+    0,
+    0
+  ],
+  "actualHelperExit": 0,
+  "actualParentToolRecordSha256": "5c7573c5289b28e57d1997b1e9cb8bdad6bf619f9f8d7c7ebf143abbf88fd492",
+  "additionalOverhead": -9000,
+  "additionalPayroll": -47094,
+  "adoptedBindingSha256": "1d961e6badb90588e304938b75d6b488a2e35188992e30232426f823b23f12d2",
+  "adoptedPreflightReceiptSha256": "d11ca0ac29e13ff1d03cc3c16c7b44edd603cbab3e0fa5673d06e4d38d90ffa8",
+  "allArtifactBudgetsPass": true,
+  "artifacts": {
+    "FACTS.json": {
+      "bytes": 22770,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/FACTS.json",
+      "sha256": "d59ee958db7996635cb2f7699adfb007e3d160319528fbfaccef763e5b2b4cd4"
+    },
+    "PARENT-TOOL-REVIEW.json": {
+      "bytes": 693,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/PARENT-TOOL-REVIEW.json",
+      "sha256": "6d01635776fbb44cf73dd0ecc3d983295fa76dbd8948b9e4e39ae546f82f2afe"
+    },
+    "POST-B-GUARD-REVIEW.json": {
+      "bytes": 6158,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/POST-B-GUARD-REVIEW.json",
+      "sha256": "87ab78e31269fa5002b225bd48a27c77c7aa62c4f90ca678514410f1445edd68"
+    },
+    "REPORT.md": {
+      "bytes": 7371,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/REPORT.md",
+      "sha256": "9cdb1ef6b165c33bbeb78b9ee32e6ed54d4a46720902dfd3ad7fee2cfaf65385"
+    },
+    "audit-observed.py": {
+      "bytes": 16739,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/audit-observed.py",
+      "sha256": "eb4fca2ac4d86dd9b8e6f34577bfe851656ce97dcc645bb45907c09ef7a8ca21"
+    },
+    "audit.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/audit.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "guard-review.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/guard-review.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "review-post-guard.py": {
+      "bytes": 6557,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/review-post-guard.py",
+      "sha256": "06b6d12d151ab438a21faa2c58b021eee62a729b8748d53ebc33e59eebe43d2a"
+    }
+  },
+  "baselineCompleteStateSaveObjectExact308": true,
+  "baselineTerminationDelta": -1224444,
+  "claimLimit": "One seed, two source-bound arms, genuine captured307 to308, one public tick per arm only. No internal predicate trace,109-week outcome, rich final ledger resolution, protected repin, 1363 acceptance or product change.",
+  "clockCaps": {
+    "activeSeconds": 75,
+    "combinedNodeSeconds": 60,
+    "wholeRecorderSeconds": 90
+  },
+  "comparisonSha256": "27b876198ca705008c275a6e2a2f2434bbadb9c8f7e6b7e28048acbc3fe12ba9",
+  "completeFieldDifferenceCount": 32,
+  "countedOutputBytesIncludingFinalResultAndCaches": 16960041,
+  "decision": "ACCEPT_OBSERVED_ONE_TICK_DIAGNOSTIC_ONLY",
+  "employmentChangedOrdinalsAsLocators": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47
+  ],
+  "employmentIdentitiesPaired": 52,
+  "followOn109Weeks": "NOT_IMPLEMENTED_NOT_RUN_SEPARATE_AUTHORITY_REQUIRED",
+  "freshProtectedDigests": {
+    "commonGit": "e412715eb23e48e2d14d58419cf30d5b32a1ccc548750965170cac046b7d3a70",
+    "copied": "f33f505c16fb4e60fc639f5268969e14b9187ebf1c639209eeceae584a8fc5eb",
+    "production": "3b236ee5cff80f1e98c77f4cc2d780aadfd9217b9d012fc2f97274c86165082f"
+  },
+  "groupsFreshAbsent": [
+    76882,
+    76904
+  ],
+  "internalReleasePredicates": "UNOBSERVED",
+  "interventionTerminationDelta": 0,
+  "netCashDifference": 1168350,
+  "ordinaryInputOutputSave46AdmissionObserved": true,
+  "postBFDAndPsArtifactsIndependentlyParsed": true,
+  "postBFullGuardPinsSha256": "1bac0edf4e5aa5b52d37021770ab50ab69419d5d2e07fadfcd48e3606987c8e1",
+  "postBFullGuardSnapshotSha256": "b087ec768c52328d142433555d8549e4d9e365fe4293810fe4fac5c042281a12",
+  "postBGuardActualExitBasis": "Parent toolsession48594 reported complete0; source and all actual saved snapshot/raw artifacts independently reviewed.",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionOrGitWrites": false,
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "recorderElapsedSeconds": 60.95466997299991,
+  "resultPath": "/Users/zacheryspector/studio-scratch/1370-b-release-one-tick-run-20261008-4812-r1/RESULT.json",
+  "resultSha256": "eac07318cf3dc9149865b35660a78b22ada54866c0013240a0bc972f8ae07e11",
+  "reviewerGameRuns": 0,
+  "runtimePrePost": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+  "schema": "1370-c0-b-release-one-tick-independent-observed-review-r1",
+  "selectedRetainedContractCount": 6,
+  "sourceControlTestsRepeated": false,
+  "sourceManifestSha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5"
+}

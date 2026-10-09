@@ -1,0 +1,51 @@
+{
+  "actualChildPidOrPgid": "NOT_RECORDED",
+  "artifacts": {
+    "CONTROL-REPAIR-PROPOSAL.json": "4e3b2e04b0329021cf8ec1edf1772916bbbdfb43f4824482667afe68dfc0b30c",
+    "INPUTS.json": "cc72464ccc1fd696e7ec293ae528342b509ebc4de029a2e3bb047602bc3b9651",
+    "REPORT.md": "eb6fc9940701ee541b024051c96ccf2492904f3efb471ab3ccb11c162a0a706d"
+  },
+  "benchmarkExecuted": false,
+  "checkpointNotBlockedByRepair": true,
+  "cleanupEvidence": "Existing accepted clear() finally assertion did not add/replace a failure; requires reapedchild/group absent. No persisted numeric PGID; fresh numeric clearance unclaimed.",
+  "decision": "ACCEPT_OBSERVED_RECORDER_CONTROL_STOP_ONLY_NOT_QUALIFIED",
+  "encoder11Executed": false,
+  "freshNumericChildClearanceClaimed": false,
+  "gameExecuted": false,
+  "green": {
+    "actualHelperMetaExit": 1,
+    "cases": 14,
+    "failures": 1,
+    "observedFailure": "Actual tinyNode poll None after test-specific2-second wait; expected0",
+    "passed": 13,
+    "qualified": false,
+    "toolSession": 58867
+  },
+  "openMax1048575Attribution": "Recorded parent observation only; overhead hypothesis unmeasured",
+  "parentToolOutcomeSha256": "9b722312e2b5b3b25bffd0580136d47ebb64c2aee32fb5d048f5559acaf6bc51",
+  "red": {
+    "actualHelperMetaExit": 1,
+    "cases": 14,
+    "expectedNegative": true,
+    "failures": 13,
+    "toolSession": 67858
+  },
+  "repairOnlyProposed": true,
+  "retryAuthorized": false,
+  "schema": "1370-b109-encoder-recorder-controls-observed-stop-independent-review-r1",
+  "sourcePinsSha256": "6c152d4681c2e772f7e155a904047bd5f56da8eb297d8291354dc44f60587557",
+  "stage": "READYGO returned; closerange/exec/Node-entry timing unknown",
+  "unchangedBounds": {
+    "B109": [
+      300,
+      375,
+      390
+    ],
+    "pure": [
+      60,
+      75,
+      90
+    ]
+  },
+  "utc": "2026-10-09T15:02:45.035518+00:00"
+}

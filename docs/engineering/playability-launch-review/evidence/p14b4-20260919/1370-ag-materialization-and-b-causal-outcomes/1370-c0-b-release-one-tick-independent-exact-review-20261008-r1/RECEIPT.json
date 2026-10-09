@@ -1,0 +1,25 @@
+{
+  "adoptedBindingWritten": false,
+  "adoptionScope": [
+    "status",
+    "executionAuthorization",
+    "exactReview"
+  ],
+  "bindingSemanticSha256": "d652663a8eae344d5442306d135892aab73ac1596e7f24db92a9c1a9184952e2",
+  "candidatePinsSha256": "818cfc1a29af0869c0372397151d4de7cdd52a6f620f88506fa0eb939e851766",
+  "classification": "ONE_TICK_DIAGNOSTIC_ONLY",
+  "decision": "ACCEPT_EXACT_B_RELEASE_ONE_TICK_UNRUN",
+  "draftBindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "draftBindingSha256": "e0a31a76c19a5c8f18a3f690cba4984f38c5a263920f5d8a573ea8858dda0003",
+  "gameRun": false,
+  "launchOrder": "r6 accepted copy first; separately parent-granted B lane thereafter; HEAD/source remain frozen",
+  "launchRequires": "fresh exact parent adoption/readback and source/runtime/HEAD/remote/clean/AC/disk/protected-process-FD-root/absentpaths/free-lane guards",
+  "manifestSha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "productionWrites": false,
+  "reportSha256": "d49a3b5499248e22bdf8ddecf194d884293ae0bc220aceb770c7ef3fd0e83b24",
+  "schema": "1370-c0-b-release-one-tick-independent-exact-review-r1",
+  "sourceControlsIndependentReviewSha256": "536154e67531678260eb75e89f024c595ca0e2545d20907e57023b8e9b013773",
+  "sourceControlsMeasured": 23
+}

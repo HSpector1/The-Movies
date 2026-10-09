@@ -1,0 +1,38 @@
+{
+  "authenticatedRuntimeManifestSha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37",
+  "claim": "Derived solely from authenticated runtime manifest and accepted full inventory JSON; no new tree inventory.",
+  "dotViteAdditionalCounts": {
+    "directory": 7,
+    "regular": 6,
+    "symlink": 0
+  },
+  "exactAdditionalFullInventoryRows": {
+    ".": "directory",
+    ".vite": "directory",
+    ".vite/vitest": "directory",
+    ".vite/vitest/8da843ff65205a61374b09b81ed0fa35": "directory",
+    ".vite/vitest/8da843ff65205a61374b09b81ed0fa35/results.json": "regular",
+    ".vite/vitest/a74ad8dfacd4f985eb3977517615ce25": "directory",
+    ".vite/vitest/a74ad8dfacd4f985eb3977517615ce25/results.json": "regular",
+    ".vite/vitest/aefd9f2a1b735579d78ce9ba719579b4": "directory",
+    ".vite/vitest/aefd9f2a1b735579d78ce9ba719579b4/results.json": "regular",
+    ".vite/vitest/da8367e5cc343aea75fa52969e9da8f0": "directory",
+    ".vite/vitest/da8367e5cc343aea75fa52969e9da8f0/results.json": "regular",
+    ".vite/vitest/df39febe69f24fc3d5682849e90f2350": "directory",
+    ".vite/vitest/df39febe69f24fc3d5682849e90f2350/results.json": "regular",
+    ".vite/vitest/results.json": "regular"
+  },
+  "fullInventoryIncludesRootDirectoryRow": ".",
+  "fullProtectedCounts": {
+    "directory": 1401,
+    "regular": 11060,
+    "symlink": 24
+  },
+  "runtimeCountsFromAuthenticatedManifest": {
+    "directory": 1393,
+    "regular": 11054,
+    "symlink": 24
+  },
+  "runtimeExcludesRootDotVite": ".vite",
+  "runtimeRowsMissingFromFullInventory": []
+}

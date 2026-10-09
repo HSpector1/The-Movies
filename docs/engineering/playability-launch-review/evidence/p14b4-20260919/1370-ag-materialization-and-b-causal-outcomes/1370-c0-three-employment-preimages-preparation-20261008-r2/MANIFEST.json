@@ -1,0 +1,28 @@
+{
+  "claimLimit": "Version-neutral unrun adapter only. Parent independent source review and later independently accepted actual witness frame/receipt plus reviewed filled roles required. No raw data invented and no causal/digest acceptance follows.",
+  "comparisonExecuted": false,
+  "designMemoSha256": "f8f5c471e0ab99691e6b53bcfa5c1c7d9f314d87fdd301a1fb020b7d8940b2ce",
+  "existingComparatorPath": "/Users/zacheryspector/studio-scratch/1370-c0-four-digest-comparator-proposal-r2/comparator.py",
+  "existingComparatorSha256": "dbd9823d80a8a63d6851b27cbfcd7f2e21e555171864ae0974c4704bee6e0786",
+  "files": {
+    "INPUTS-PENDING.json": "482fb581236b276c4aff7c15bb43a7323e13d236126ccb8fcb3006f74340faa8",
+    "PROPOSED-INDEPENDENT-REVIEW.json": "4af3ba3062c4a98eaafd6938c2738f248c39c33042c80e4d10440d72dc3a4f6e",
+    "RECIPE.md": "e1397c96caac67a2cdf4a2238cc83422eac3d08b7d8f8735ad1f3690a0899c8b",
+    "SOURCE-DIFF.patch": "8c8629341cdf33a30e5b3ec637d5461e4a80da281f0ddfc8c9cc716b90cb180d",
+    "STATIC-CONTROLS.json": "0c2c7d32850bb5ea36ff471ed3bc8b75e49ba4a9f460764e9beb23ba45f9b6de",
+    "compare_employment.py": "8711b25431eea588780ab5e7aca649fac111f828515d52cc4ce477d0ec570408"
+  },
+  "gameOrGitCalls": false,
+  "limit": {
+    "employmentBytes": 262144,
+    "frameBytes": 524288,
+    "reportBytes": 2097152,
+    "wallSeconds": 30
+  },
+  "preservedR1ManifestSha256": "ab40501501bb942646f5b7da5fcea1add7fe7ea85cf4b45163cdec5b48a86435",
+  "protectedScansRun": false,
+  "pureStaticControlsExecuted": true,
+  "schema": "1370-three-employment-preimage-comparison-preparation-r2",
+  "sourceTestsAddedOrRun": false,
+  "status": "DRAFT_FUTURE_INPUTS_PENDING_UNRUN"
+}

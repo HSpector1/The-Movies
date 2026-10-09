@@ -1,0 +1,32 @@
+{
+  "actualExecutionAuthorized": false,
+  "artifacts": {
+    "FINDINGS.json": "be10e083df908b6a65d4d204f3b36066e5755318d93d5ed3271f11cdcffa4b0b",
+    "INPUTS.json": "4ae92430ad9470b6aafc6d8865c5d0e2c01f94fc8c21f5a3b56ff83ab2baa7a0",
+    "REPORT.md": "c4e1a1fb8432779a499a332fd240787ffdb2ef6b49274a2144075dbb65b160d7"
+  },
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "benchmarkSha256": "f06904b1a00d51c9e4ad888abd2a6b8dd00a378bb32496df3b591898b5035ba2",
+  "benchmarkStaticReview": "NO_CONCRETE_DEFECT_FOUND_UNRUN",
+  "candidateSha256": "ac7ed0d6ad1b2d47e0e12de6e9ec738129049806aa7d5ac0b7cfd3a60452de7c",
+  "controlsExpected": 11,
+  "controlsObserved": 0,
+  "decision": "REFINE_RECORDER_CLOCK_OWNERSHIP_AND_NODE_ENVIRONMENT_ONLY",
+  "encoderStaticReview": "NO_CONCRETE_DEFECT_FOUND_UNRUN",
+  "findings": [
+    "F1",
+    "F2"
+  ],
+  "fixedB109SourceUntouched": true,
+  "fullScanOrHeavy": false,
+  "gzipDecode": false,
+  "proposalExecutionOrImports": false,
+  "recorderSha256": "7d36f62fdcf2c4a79bfb07ae6102f32b8d1ba11f1e84d4f21208117fa7c89f4f",
+  "schema": "1370-b109-bounded-json-optimization-independent-static-review-r1",
+  "sourcePinsSha256": "7b7c5b167e7581cd395df86fe16f3ebc146bebfa58951a9aff5a64a5b929e5e5",
+  "utc": "2026-10-09T14:32:41.916800+00:00"
+}

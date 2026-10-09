@@ -1,0 +1,18 @@
+{
+  "actualFillRun": false,
+  "decision": "REFINE_UNRUN",
+  "fillProcedureSha256": "8c123766a9d3a3aed0d15c9685749af604cf8f4f7aeca4771cc0c60e746ad145",
+  "findings": [
+    {
+      "fact": "SOURCE still names unchangedr7 while source_review_gate requires r8 sourcepins0d8e9. Static guaranteed refusal before actualfill.",
+      "id": "F1",
+      "path": "fill_actual_candidate.py:11",
+      "requiredChange": "Versioned repair of SOURCE and builder; independently compare parsed actual constant to configuration/source review. Preserve r1 unrun bytes."
+    }
+  ],
+  "gameRun": false,
+  "launchAuthorized": false,
+  "preparationPinsSha256": "9480ef0df9180fd11cd5f586c356e8bda597325b5c563165b64250476283ae6b",
+  "schema": "1370-witness-r8-exact-procedure-independent-review-r1",
+  "utc": "2026-10-08T23:41:17.478215+00:00"
+}

@@ -1,0 +1,9 @@
+{
+  "status": "PARENT_ADOPT_OBSERVED_ONE_TICK_DIAGNOSTIC_ONLY",
+  "utc": "2026-10-08T23:10:04.935536+00:00",
+  "receiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/RECEIPT.json",
+  "receiptSha256": "98adcb7132bf1a3eb877f2acac02c056ce4eb65142e708cc2365d929059d8918",
+  "finding": "Exact baseline307to308 reproduced. Sole r04 cutting-release suppression retains six exact contracts; all32 changed paths accounted for, net cash1168350 explained.",
+  "nextAuthorizedScope": "Prepare separately reviewed109tick continuation307to416 under existing recipe; no actual continuation before independent design/source/exact approval.",
+  "claimLimit": "No production rule change, internal predicate observation, restoration of later cases, C0 digest admission or1363 closure."
+}

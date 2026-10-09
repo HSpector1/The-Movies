@@ -1,0 +1,24 @@
+{
+  "schema": "1370-c0-b-release-one-tick-r3-observed-source-controls-independent-review-r1",
+  "decision": "ACCEPT_OBSERVED_SOURCE_CONTROLS_ONLY",
+  "observedControlsPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-r3-source-controls-recorded-20261008-r1/OBSERVED-CONTROLS.json",
+  "observedControlsSha256": "2ce7dd7861f46f89291589395c0e02499b091e31eb42bf18d4d786a5a8d4585a",
+  "sourceManifestSha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5",
+  "sourceReviewSha256": "42210aa6552b585bbdd37270999eaac4bebeb9ae7441f537ce8d29e0c921c308",
+  "reportSha256": "7e2f7a7d621e90759dc76f4322d5839d13aa6e2b16e2d7203f0215bc904df0f2",
+  "measuredChecks": 23,
+  "suiteActualExits": {
+    "recorder15": 0,
+    "json4": 0,
+    "retention4": 0
+  },
+  "helperActualExitRecorded": 0,
+  "laneMetadataActualExitVerified": 0,
+  "focusedCheckContingency": "SATISFIED_OBSERVED",
+  "recordedProductionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "fixedProductionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "testsRepeated": false,
+  "gameAccepted": false,
+  "exactBindingAccepted": false,
+  "productionWrites": false
+}

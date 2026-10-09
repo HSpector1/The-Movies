@@ -1,0 +1,21 @@
+{
+  "decision": "ADOPT_SOURCE_AND_GRANT_SERIAL_RECORDER_RED_GREEN_AND_ENCODER_CONTROLS_ONLY",
+  "freshCurrent": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralPassed": true,
+    "freeBytes": 6294261760,
+    "lsofRawSha256": "e2b7af4d972e6d484ed16afb85ce4efc5b757bba5f48313bcca7ff744dbc19e7",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": false,
+    "ownedGroupIdsChecked": [],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawSha256": "45d95e0c651c65aba8872b90a84956a71e002438158af7033ef1a24d49b9ba5e",
+    "relevantWorkersAbsent": true
+  },
+  "frozenFullPostflightSha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347",
+  "scope": "Continuous scratch-only scope since fresh R9 full postflight; original source and completed historical copy remain frozen. Benchmark and any game require separate grant.",
+  "sourcePinsSha256": "6c152d4681c2e772f7e155a904047bd5f56da8eb297d8291354dc44f60587557",
+  "sourceReviewSha256": "20163ef5aee5683bf31c8446887545922e4d0517773dae4d86f59831c85f176a",
+  "sourceUnchanged": true,
+  "utc": "2026-10-09T14:54:26.025235+00:00"
+}

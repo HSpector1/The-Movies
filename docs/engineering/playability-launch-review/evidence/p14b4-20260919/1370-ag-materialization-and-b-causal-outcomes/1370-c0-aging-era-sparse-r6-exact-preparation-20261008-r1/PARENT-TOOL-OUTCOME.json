@@ -1,0 +1,13 @@
+{
+  "schema": "1370-r6-parent-tool-outcome-r1",
+  "utc": "2026-10-08T22:37:25.958083+00:00",
+  "toolSessionId": 13463,
+  "actualHelperExit": 0,
+  "meta": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-20261008-r1-lane/materialize-r6-r1.lane.log.meta",
+  "supervisorSha256": "2e3f9e5c548ce9a1fc5573989d40f1e5a55123803de9365e469aa16f0a35fba5",
+  "resultSha256": "c4d3a403d2630f978d3d176662f5adda19fae00f321ecc168d1ec373eb47c091",
+  "elapsedSeconds": 710.038247554,
+  "authoritativeOverrideAbsent": true,
+  "globalLockAbsent": true,
+  "claimLimit": "Actual tool/helper result only; independent observed physical/materialization review pending."
+}

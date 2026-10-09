@@ -1,0 +1,32 @@
+--- preserved-r8-r1/fill_actual_candidate.py
++++ corrected-r8-r2/fill_actual_candidate.py
+@@ -8,7 +8,7 @@
+ HERE=Path(__file__).resolve().parent
+ REPO=Path('/Users/zacheryspector/The-Movies-headless-program')
+ SCRATCH=Path('/Users/zacheryspector/studio-scratch')
+-SOURCE=SCRATCH/'1370-c0-aging-era-employment-witness-source-r7'
++SOURCE=SCRATCH/'1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1'
+ CONFIG_SHA='0c481e8f81375e306ccbe44fd96c4695df3b2f952a1a3fec47f967dbe550e922'
+ EXCLUDED={'status','executionAuthorization','exactReview'}
+ BLOBS={'src/core/aging.ts':'e1b88562ded631e0142b2783555e866d4a884d04','src/core/employment.ts':'e8e5acaa1e6a94ac1de7db13eb46840efb55616f','src/core/hollywood.ts':'377da502bcfa55afe31c243ab0909b2c0012d269','src/core/worldgen.ts':'94f83a85e1e59532013ab4735f73a67a916a5332','src/core/tick.ts':'328c2e28f7e209b4ab6b96c6e59f1d1739ad0db5','src/harness/p13a/fixtures.ts':'9ab3eee75b0b2b2733f350bbc3964aa5ba176de8','tests/bridge-p14b5-relationships.test.ts':'0815114340a983348eae6e98c33843c32c297228','tests/fixtures/p13a/accepted-v19.json.gz':'a987ecc4411c48fc8f256e81c93e9abf1fd61d6c'}
+--- preserved-r8-r1/build_preparation.py
++++ corrected-r8-r2/build_preparation.py
+@@ -15,6 +15,7 @@
+ newdraft=S/'1370-c0-aging-era-employment-witness-r8-exact-draft-20261008-r1'
+ replacements={
+  str(old_source):str(SRC),
++ '1370-c0-aging-era-employment-witness-source-r7':'1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1',
+  str(S/'1370-c0-aging-era-employment-witness-r7-exact-draft-20261008-r2'):str(newdraft),
+  str(S/'1370-c0-aging-era-employment-witness-r7-pre-adoption-archive-20261008-r2'):str(S/'1370-c0-aging-era-employment-witness-r8-pre-adoption-archive-20261008-r1'),
+  str(S/'1370-c0-aging-era-employment-witness-r7-adoption-output-20261008-r2'):str(S/'1370-c0-aging-era-employment-witness-r8-adoption-output-20261008-r1'),
+--- preserved-r8-r1/FILL-RECIPE.json
++++ corrected-r8-r2/FILL-RECIPE.json
+@@ -2,7 +2,7 @@
+   "argv": [
+     "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+     "-B",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r8-exact-preparation-20261008-r1/fill_actual_candidate.py",
++    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r8-exact-preparation-20261008-r2/fill_actual_candidate.py",
+     "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+     "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+     "ACCEPT_OBSERVED_MATERIALIZATION_COPY",

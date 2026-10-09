@@ -1,0 +1,26 @@
+{
+  "H_to_aging": {
+    "leftOnly": 0,
+    "rightOnly": 0,
+    "sharedChanged": 39,
+    "sharedUnchanged": 5
+  },
+  "aging_to_M0": {
+    "leftOnly": 5,
+    "rightOnly": 5,
+    "sharedChanged": 8,
+    "sharedUnchanged": 31
+  },
+  "claimLimit": "Shared-row lifecycle result does not describe unmatched placements. No causal attribution, protected repin, ledger closure or game phase completion. Earliest unmatched placement at source24 precedes earliest shared salary difference at26.",
+  "decision": "ADOPT_DESCRIPTIVE_THREE_EMPLOYMENT_COMPARISON_ONLY",
+  "matchedLifecycleChanges": false,
+  "observedReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-three-employment-preimages-observed-independent-review-20261009-r1/RECEIPT.json",
+  "observedReceiptSha256": "faf6df1cb38011ff74b7fbbca9c712da242d13cc6b15f8581dc1f1019202cb3d",
+  "reportSha256": "b419fd0eea96ce9f646842fefeb7b1cc028a0dd07ee1146aca4892e36a47be1c",
+  "schema": "1370-parent-employment-comparison-observed-adoption-r1",
+  "sharedChangedFieldsOnly": [
+    "terms.annualSalary",
+    "terms.signingBonus"
+  ],
+  "utc": "2026-10-09T14:59:58.088485+00:00"
+}

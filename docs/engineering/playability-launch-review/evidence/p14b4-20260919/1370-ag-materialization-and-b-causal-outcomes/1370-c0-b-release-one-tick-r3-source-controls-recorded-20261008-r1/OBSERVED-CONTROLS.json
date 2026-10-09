@@ -1,0 +1,50 @@
+{
+  "schema": "1370-c0-b-release-one-tick-r3-observed-source-controls-r1",
+  "status": "OBSERVED_SOURCE_CONTROLS_PASS_REQUIRES_INDEPENDENT_REVIEW",
+  "sourceManifestPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/MANIFEST.json",
+  "sourceManifestSha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5",
+  "sourceReviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r3/RECEIPT.json",
+  "sourceReviewSha256": "42210aa6552b585bbdd37270999eaac4bebeb9ae7441f537ce8d29e0c921c308",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "helperActualExit": 0,
+  "laneChildActualExit": 0,
+  "finalMetaExit": 0,
+  "suiteExits": [
+    {
+      "status": "SOURCE_CONTROL_EXIT",
+      "suite": "recorder15",
+      "actualExit": 0
+    },
+    {
+      "status": "SOURCE_CONTROL_EXIT",
+      "suite": "json4",
+      "actualExit": 0
+    },
+    {
+      "status": "SOURCE_CONTROL_EXIT",
+      "suite": "retention4",
+      "actualExit": 0
+    }
+  ],
+  "measuredChecks": 23,
+  "allPassed": true,
+  "sourcePinsUnchanged": true,
+  "laneLockAbsent": true,
+  "fixtureTemporaryChildrenAbsent": true,
+  "testProcessesAbsent": true,
+  "survivors": [],
+  "temps": [],
+  "recordedHashes": {
+    "PREFLIGHT.json": "8dab6e2309dffe07f28f47a28baf82217f9e076301b75a8f36b0dae71e3cbe80",
+    "run-focused.sh": "601214db27967c46e49ffe2a97468ba6dc382fcc2990ed74b5e168e52fe774c2",
+    "source-controls.lane.log": "18edd14ccec28cf891ae3d6c25739126d536173679a74d5bf263ef590c781245",
+    "source-controls.lane.log.meta": "257c15df742472725750090e7dffda8f94cd4069f3c60f6266443f34fe42ad2f"
+  },
+  "gameTicks": 0,
+  "gameImports": 0,
+  "sandboxRuns": 0,
+  "productionWrites": false,
+  "gitMutations": false,
+  "claimLimit": "Observed tiny unsandboxed source controls only. No one-tick gameplay, exact launch acceptance, ledger/1363 admission or protected digest repin."
+}

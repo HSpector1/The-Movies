@@ -1,0 +1,32 @@
+{
+  "schema": "1370-b109-source-preparation-receipt-r2",
+  "status": "READY_FOR_INDEPENDENT_TARGETED_SOURCE_REVIEW_UNRUN",
+  "manifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/MANIFEST.json",
+    "sha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+    "bytes": 37717
+  },
+  "sourceOnly": true,
+  "testsRun": false,
+  "gameRun": false,
+  "gitCommands": false,
+  "productionWrites": false,
+  "copiedRootReads": false,
+  "gzipDecoded": false,
+  "exactBindingFilled": false,
+  "executionAuthorization": false,
+  "sourceRefineReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-source-review-20261008-r1/RECEIPT.json",
+    "sha256": "b7c622cf9f3e0ac442d050a855edb95af4783bd14a92d022be5605194c98a03e",
+    "bytes": 3276
+  },
+  "preparedControls": 53,
+  "pending": [
+    "independent source recheck",
+    "parent source-check lane",
+    "observed controls acceptance",
+    "fresh actual HEAD exact binding/review",
+    "parent adoption/preflight/launch",
+    "independent observed review"
+  ]
+}

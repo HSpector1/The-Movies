@@ -1,0 +1,52 @@
+{
+  "acceptedWitness": {
+    "framePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-adoption-output-20261008-r1/CANDIDATE-FRAME.ndjson",
+    "frameSha256": "8b0b70f110c37199dc320045b2fec0ac384c323fddfba88bbae620bf34766c50",
+    "receiptDecision": "ACCEPT_OBSERVED_AGING_ERA_EMPLOYMENT_PREIMAGE",
+    "receiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-observed-independent-review-20261009-r1/RECEIPT.json",
+    "receiptSha256": "d681f73e3613248c7ccd0be7736e46bd1fe424dd62ea099a60e031e774238f64"
+  },
+  "claimLimit": "Future role schema only; no post-aging raw input yet. Parent-approved filled role file must change status and pin preparationInputsSha256 plus acceptedWitness fields. Do not synthesize44rows or other families.",
+  "designRoles": {
+    "memo": {
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ab-c0-digest-and-aging-binding-checkpoint/digest-design/MEMO.md",
+      "sha256": "f8f5c471e0ab99691e6b53bcfa5c1c7d9f314d87fdd301a1fb020b7d8940b2ce"
+    },
+    "review": {
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ab-c0-digest-and-aging-binding-checkpoint/digest-review/REVIEW.md",
+      "sha256": "a19f170a4b26769d73c395301b5e49eef01445c5eacddfe9c287eeb24499e913"
+    }
+  },
+  "existingInputs": {
+    "H-original": {
+      "preimageBytes": 13113,
+      "preimagePath": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/preimages/employment.json",
+      "preimageSha256": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750",
+      "receiptDecision": "ACCEPT_HISTORICAL_CLEAN_EXPLORATORY",
+      "receiptPath": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-r7-historical-clean-independent-review-r1/RECEIPT.json",
+      "receiptSha256": "b5d06db3828c4f481375802a53384cc3b0bb9a937c4783fe960cc4b5dd88c2f9",
+      "resultPath": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/historical-clean-clean-r1/RESULT.json",
+      "resultSha256": "5235b18b83c8e70dd12b36a7bda932e78cb5b55ef344419a92e4e370f540c5cc",
+      "rows": 44
+    },
+    "M0": {
+      "preimageBytes": 13113,
+      "preimagePath": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/modern-clean-clean-r1/preimages/employment.json",
+      "preimageSha256": "7e64d2fbfd525edf40daa4fb952fe08ac68d4a877b4d212afd7adcfdca25237d",
+      "receiptDecision": "ACCEPT_MODERN_CLEAN_EXPLORATORY",
+      "receiptPath": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-r7-modern-clean-independent-review-r1/RECEIPT.json",
+      "receiptSha256": "676bdd2c18655526a9cffdf18cb6a0b63e7bdd4b1d4ee05e47478706db85d3d7",
+      "resultPath": "/Users/zacheryspector/studio-scratch/1369-c0-preimage-recorded-runs-r7/modern-clean-clean-r1/RESULT.json",
+      "resultSha256": "4c3fe1aab82df9cf924f6a5c380e27a9999f5c7e3fa3a4acbfc3854156743207",
+      "rows": 44
+    }
+  },
+  "preparationInputsSha256": "482fb581236b276c4aff7c15bb43a7323e13d236126ccb8fcb3006f74340faa8",
+  "schema": "1370-three-employment-comparison-input-roles-pending-r2",
+  "sourceRoles": {
+    "771Measured": "2d3a00fd01a4e950f97474fe74cc5adfd4cea241",
+    "772Tested": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "documentationCarrier": "1d2359d7d99444c0e6a438ac0d90e75f2361e083"
+  },
+  "status": "APPROVED_FUTURE_INPUTS_FILLED"
+}

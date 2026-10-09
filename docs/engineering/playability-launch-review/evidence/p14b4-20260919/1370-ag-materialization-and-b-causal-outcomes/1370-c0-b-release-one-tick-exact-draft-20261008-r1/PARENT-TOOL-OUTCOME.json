@@ -1,0 +1,16 @@
+{
+  "status": "PARENT_OBSERVED_TOOL_COMPLETION_INDEPENDENT_REVIEW_PENDING",
+  "utc": "2026-10-08T22:53:55.280212+00:00",
+  "toolSessionId": 52003,
+  "actualHelperExit": 0,
+  "metaPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/one-tick.lane.log.meta",
+  "metaSha256": "b4711a61e75ae114b0da19f9e509e6720c9e42079c24d3a638b416005d9c4029",
+  "resultSha256": "eac07318cf3dc9149865b35660a78b22ada54866c0013240a0bc972f8ae07e11",
+  "elapsedSeconds": 60.95466997299991,
+  "globalLockAbsent": true,
+  "childGroupsReported": [
+    76882,
+    76904
+  ],
+  "claimLimit": "Actual helper exit and recorded result only. Independent observed baseline/intervention/protected postflight review pending; no109week authority yet."
+}

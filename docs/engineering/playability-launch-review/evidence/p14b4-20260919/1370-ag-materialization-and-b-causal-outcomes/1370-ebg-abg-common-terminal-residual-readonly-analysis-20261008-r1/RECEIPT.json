@@ -1,0 +1,50 @@
+{
+  "analyzerExecution": "exit 0; stdlib artifact comparison only",
+  "artifacts": {
+    "INPUT-PINS.json": {
+      "bytes": 9899,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-abg-common-terminal-residual-readonly-analysis-20261008-r1/INPUT-PINS.json",
+      "sha256": "6123941ac25c0709418376bba3433508bf58ea5986ace3ccc216c1025f392b29"
+    },
+    "REPORT.md": {
+      "bytes": 8023,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-abg-common-terminal-residual-readonly-analysis-20261008-r1/REPORT.md",
+      "sha256": "2d75fd2f808234fb0b6a72a974764796acd41d33e635217b27d777e821a519d0"
+    },
+    "RESULT.json": {
+      "bytes": 2667285,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-abg-common-terminal-residual-readonly-analysis-20261008-r1/RESULT.json",
+      "sha256": "8a503e5e93a0201cc50ce1acf27f2c6b70e55eee41902508f82d7e80b558f29a"
+    },
+    "compare-existing.py": {
+      "bytes": 13023,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-abg-common-terminal-residual-readonly-analysis-20261008-r1/compare-existing.py",
+      "sha256": "76b2666e61b6dbabc781f1f8c47fe4dbd9ca7de89e24f09f2666adddda0cb510"
+    }
+  },
+  "claimLimit": "Complete exposed terminal families and eight receipt-derived decision fields, recorded four source-JS digests, terminal RNG and 416 B since profiles only. No 417-full-state-boundary equality, rich ledger row equality, protected repin, game/capture rerun or 1363 admission.",
+  "classification": "NOT_LEDGER_ADMISSION_NOT_WHOLE_STATE_NEUTRALITY",
+  "decision": "DIAGNOSTIC_COMMON_ENDPOINT_RESIDUAL_ZERO_PENDING_PARENT_REVIEW",
+  "exactSeeds": [
+    "p13a-core-causal-01",
+    "p13-public-commercial-adoption"
+  ],
+  "fourRecordedSourceJsDigestsEqual": true,
+  "fullTerminalFamiliesEqual": true,
+  "ledgerReceiptProjectionEqualRows": {
+    "adoption": 42,
+    "p13a": 18
+  },
+  "pairedBSinceObservationsPerSeed": 1664,
+  "schema": "1370-ebg-abg-common-terminal-residual-readonly-analysis-receipt-r1",
+  "sourceDifferenceCount": 6,
+  "sourceInstancesAuthenticated": 376,
+  "sourcePathsPerRole": 188,
+  "terminalRngEqual": true,
+  "uncomparedLedgerFields": [
+    "survivors",
+    "churn",
+    "exposed",
+    "newSentences"
+  ]
+}

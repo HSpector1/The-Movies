@@ -1,0 +1,56 @@
+{
+  "adoptedBindingWritten": false,
+  "adoptionValues": {
+    "exactReview": {
+      "bytes": 1485,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-exact-review-20261008-r1/RECEIPT.json",
+      "sha256": "2db74a9c3f61b3e16d338baa9feb101346607367e8852557f05ccbb2ed1c4e18"
+    },
+    "executionAuthorization": true,
+    "status": "REVIEWED_FILLED_UNRUN"
+  },
+  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/BINDING-ORIGINAL-e0a31a76.json",
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/one-tick.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/run.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/BINDING-DRAFT.json",
+    "1d961e6badb90588e304938b75d6b488a2e35188992e30232426f823b23f12d2"
+  ],
+  "bindingSemanticSha256": "d652663a8eae344d5442306d135892aab73ac1596e7f24db92a9c1a9184952e2",
+  "clockCaps": {
+    "activeSeconds": 75,
+    "combinedNodeSeconds": 60,
+    "wholeRecorderSeconds": 90
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "draftBytes": 2463,
+  "draftPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "draftSha256": "e0a31a76c19a5c8f18a3f690cba4984f38c5a263920f5d8a573ea8858dda0003",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactReview": {
+    "bytes": 1485,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-exact-review-20261008-r1/RECEIPT.json",
+    "sha256": "2db74a9c3f61b3e16d338baa9feb101346607367e8852557f05ccbb2ed1c4e18"
+  },
+  "expectedAdoptedBytes": 2691,
+  "expectedAdoptedSha256": "1d961e6badb90588e304938b75d6b488a2e35188992e30232426f823b23f12d2",
+  "gameRun": false,
+  "launchOrder": "r6 accepted copy first; B parent-adopted only at its later granted free lane turn",
+  "onlyChangedFields": [
+    "status",
+    "executionAuthorization",
+    "exactReview"
+  ],
+  "prerequisite": "parent observed atomic adoption/readback and independent actual-argv byte check; fresh all guards; no unexpected waits",
+  "serialization": "json.dumps(adopted,sort_keys=True,indent=2) + newline",
+  "status": "REVIEWED_INERT_ADOPTION_AND_LAUNCH_PLAN_NO_BINDING_WRITTEN",
+  "umask": "0077 from accepted helper"
+}

@@ -1,0 +1,8 @@
+{
+  "archiveCandidateFilesScanned": 623,
+  "claimLimit": "No raw process/FD contents copied or printed. Facts/reports with machine path or raw enumeration contents are local-only; hash/length metadata retained.",
+  "completedPostflightRawFilesLocalOnly": 4,
+  "localOnlyFiles": 25,
+  "newlyReclassifiedLocalOnly": [],
+  "status": "READONLY_CONTENT_CLASSIFICATION"
+}

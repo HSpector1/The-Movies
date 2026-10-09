@@ -1,0 +1,22 @@
+PASS single-member actual bytes
+PASS decoded17MiB refusal
+PASS member tail refusal
+PASS additional gzip member refusal
+PASS truncated gzip refusal
+PASS CRC corruption refusal
+PASS multiple JSON lines refusal
+PASS indexed locator and hash refusals
+PASS bounded serialization preserves captured key order and JSON undefined law
+PASS bounded serialization refuses oversized member
+PASS stream110 metadata-only capture readback and boundary failures
+PASS stream refuses wrong role or out-of-order boundary before append
+PASS staged input cache diff and final receipt count; only exact top mirrors excluded
+PASS aggregate reserve refusal before another write
+PASS 17MiB JSON under total refuses before read/parse
+PASS exact mirror symlink refuses
+PASS full field differences retain missing versus null and array length
+PASS duplicate identities retain occurrences and both orders; missing is distinct
+PASS NONE PARTIAL ALL are neutral bounded classifications
+PASS byte-identical pathname replacement refuses retained reader
+PASS same-FD metadata change between reads refuses
+streaming controls 21/21

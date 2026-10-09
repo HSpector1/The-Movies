@@ -1,0 +1,8 @@
+{
+  "status": "PARENT_ADOPT_NARROW_EXISTING_ARTIFACT_DIAGNOSTIC_ONLY",
+  "utc": "2026-10-08T22:44:31.029534+00:00",
+  "independentReceiptPath": "/Users/zacheryspector/studio-scratch/1370-ebg-abg-common-terminal-residual-independent-readonly-review-20261008-r1/RECEIPT.json",
+  "independentReceiptSha256": "3cc0f55e19893e9867fae806d373567f6490dd5341f9f3b5701c89de128c7b98",
+  "finding": "Both seeds have zero residual differences in full exposed terminal arrays/source order, eight receipt-derived ledger fields, four recorded JS digests, terminal RNG and 416 B since profiles. All 60 receipt-to-case joins are unique on the pinned data.",
+  "claimLimit": "No complete rich-ledger admission, whole-state or save-boundary neutrality, industry append timing, 1363 closure or protected digest repin. Actual baseline/game/source controls remain separate."
+}

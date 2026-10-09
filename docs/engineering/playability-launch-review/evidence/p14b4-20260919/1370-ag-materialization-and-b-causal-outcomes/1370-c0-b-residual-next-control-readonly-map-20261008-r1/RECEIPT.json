@@ -1,0 +1,17 @@
+{
+  "schema": "1370-c0-b-residual-next-control-readonly-map-r1",
+  "classification": "DESIGN_REUSE_ONLY_NO_EXECUTION_AUTHORITY",
+  "reportSha256": "7d0ae123ca5b2704bb75cf2fe2acf225dbc74e32ffd413059990922064f08b54",
+  "observedNewGameFacts": false,
+  "newSourceAuthored": false,
+  "testsRun": false,
+  "gitCommands": false,
+  "productionWrites": false,
+  "sourceMapObservation": "Both recorded ABG seeds have188paths; six differ versus frozen EBG production map",
+  "referenceChecks": {
+    "scratch/1370-c0-four-digest-attribution-design-20261008-r2/MEMO.md": "f8f5c471e0ab99691e6b53bcfa5c1c7d9f314d87fdd301a1fb020b7d8940b2ce",
+    "scratch/1370-c0-next-b-release-control-design-20261008-r1/MANIFEST.json": "2376eb41b65c7d486a278d12574961cb085db91a1c12a212b973511898bb5c0c",
+    "scratch/1370-c0-aging-era-employment-witness-source-r7/SOURCE-PINS.json": "69ca5043bb533908f722126fbc93fd59ce84f0d7388180f3b60c5074076aebc2",
+    "scratch/1369-save46-b-only-green-source-proposal-r3/SOURCE-PRODUCTION-SHA256.json": "eeca1d827204230ce195387a780e04fab005f8d9d878b62190290b0a9dbcc1c9"
+  }
+}

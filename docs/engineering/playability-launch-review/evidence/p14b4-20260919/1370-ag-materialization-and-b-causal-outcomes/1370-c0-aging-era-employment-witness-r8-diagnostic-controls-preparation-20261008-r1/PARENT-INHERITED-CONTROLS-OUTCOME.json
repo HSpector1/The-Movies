@@ -1,0 +1,44 @@
+{
+  "cases": [
+    {
+      "actualExit": 0,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/inherited-outer.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/test-outer.py"
+      ],
+      "elapsedSeconds": 2.6301869950002583,
+      "helperGroupClear": true,
+      "helperPgid": 72893,
+      "label": "inherited-outer"
+    },
+    {
+      "actualExit": 0,
+      "argv": [
+        "/bin/bash",
+        "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "0",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-diagnostic-controls-preparation-20261008-r1/inherited-supervisor.lane.log",
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/test-supervisor.py",
+        "SyntheticRouteTests.test_frame_validation_and_digest_stop",
+        "SyntheticRouteTests.test_source_review_required_and_exact",
+        "SyntheticRouteTests.test_preflight_is_within_whole_recorder_clock",
+        "SyntheticRouteTests.test_exact_external_bounds_roles_and_path_substitution"
+      ],
+      "elapsedSeconds": 0.5437109899994539,
+      "helperGroupClear": true,
+      "helperPgid": 73413,
+      "label": "inherited-supervisor"
+    }
+  ],
+  "gameRun": false,
+  "sandboxPythonProbeRun": false,
+  "schema": "parent-r8-inherited-synthetic-controls-r1",
+  "selection": "All7 outer controls plus4 pure supervisor controls; unchanged sandbox-python probe deliberately not invoked."
+}

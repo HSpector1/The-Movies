@@ -1,0 +1,55 @@
+{
+  "benchmarkRun": false,
+  "claimLimit": "Original RED13 failures and repaired GREEN1 failure preserved; controls not qualified, benchmark not authorized. No runtime-limit increase or repeat implied.",
+  "currentReadOnlyOpenMax": 1048575,
+  "encoderControlsRun": false,
+  "gameRun": false,
+  "greenFailure": "Actual tiny Node child still running at the test-specific two-second wait; poll() returned None, expected0. Cleanup finally completed without an additional failure. stdout/stderr temporary fixture removed by existing test, so pre-exec versus Node-stage cause is unproven.",
+  "openMaxClaim": "Read-only getconf OPEN_MAX after failure. Accepted child launcher calls closerange to SC_OPEN_MAX; possible startup overhead is a hypothesis, not measured attribution.",
+  "parentGrantSha256": "dbe72e87f7a014794217a30436f5dd906bb1a5fe4662b951a977fd324f02ebaf",
+  "records": [
+    {
+      "actualToolExit": 1,
+      "actualToolSession": 67858,
+      "expectedActualExit": 1,
+      "failures": 13,
+      "helperMetaExit": 1,
+      "label": "red-original-r1",
+      "log": {
+        "bytes": 13555,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-red-original-r1-lane-20261009-r2/red-original-r1.lane.log",
+        "sha256": "561cea590286152e1cb4d863a8640931b9393cfb9df899c30025c56e601bb7ae"
+      },
+      "meta": {
+        "bytes": 469,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-red-original-r1-lane-20261009-r2/red-original-r1.lane.log.meta",
+        "sha256": "97693579d7686493d94528f6da555371c6b6bb695f56144a22cbfbf9eb0cbee7"
+      },
+      "testsRun": 14
+    },
+    {
+      "actualToolExit": 1,
+      "actualToolSession": 58867,
+      "expectedActualExit": 0,
+      "failures": 1,
+      "helperMetaExit": 1,
+      "label": "green-repaired-r2",
+      "log": {
+        "bytes": 1084,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-green-repaired-r2-lane-20261009-r2/green-repaired-r2.lane.log",
+        "sha256": "2c563adc0c296a81ea314714eef31f0d34b881a40e42f45da683d912fcc87117"
+      },
+      "meta": {
+        "bytes": 469,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-encoder-recorder-green-repaired-r2-lane-20261009-r2/green-repaired-r2.lane.log.meta",
+        "sha256": "6a6179c1bffb8a4bc1c31a97b69fb7eb6489d904c5717c2b5b4735f8b45ef21d"
+      },
+      "testsRun": 14
+    }
+  ],
+  "schema": "1370-pure-encoder-parent-observed-recorder-controls-r1",
+  "sourcePinsSha256": "6c152d4681c2e772f7e155a904047bd5f56da8eb297d8291354dc44f60587557",
+  "sourceReviewSha256": "20163ef5aee5683bf31c8446887545922e4d0517773dae4d86f59831c85f176a",
+  "status": "STOP_REPAIRED_CONTROL_FAILED",
+  "utc": "2026-10-09T14:58:39.037584+00:00"
+}

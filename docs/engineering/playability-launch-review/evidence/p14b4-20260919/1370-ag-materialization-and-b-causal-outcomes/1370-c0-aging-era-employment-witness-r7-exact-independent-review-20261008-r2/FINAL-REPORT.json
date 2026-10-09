@@ -1,0 +1,8 @@
+{
+  "afterFillSnapshotSha256": "641757b4399a0daa05354d5b1ea4586a1b59cfd17b8af2c8e88eb248dce1deae",
+  "guardFactsSha256": "e5eb46d989e7d5b6209431a0ccca88e77bb470596a46bf7f3754cb05fc4f3ff4",
+  "limits": "No witness/game/frame or source tests ran in this review. Original r7 source and bounds are unchanged. No-detach scope and separate sink allowances remain as reviewed.",
+  "outcome": "The exact filled candidate, original-path adoption procedure and bounded pipeline argv are accepted unrun. The authenticated completed after-fill full snapshot matches the before-fill baseline exactly.",
+  "preparedStaticReportSha256": "56be1782908f42d5abdc15314dd08bcf8a0b91696249fdbf5ce20aea7e84da5f",
+  "remainingAction": "Parent three-field adoption, then independent adopted preflight before parent launches one witness lane."
+}

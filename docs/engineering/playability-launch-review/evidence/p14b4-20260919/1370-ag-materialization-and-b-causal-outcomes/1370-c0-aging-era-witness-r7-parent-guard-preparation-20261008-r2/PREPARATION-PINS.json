@@ -1,0 +1,13 @@
+{
+  "claimLimit": "Versioned source authoring/static compile only. No guard/full snapshot/copied-root access.",
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": "7232a61e4115f774d2e21ffd99aea707993de434fd575cc5cf8793d119610e62",
+    "DIFF.patch": "fb10f05fe73b4ae012430609434dee0e2b472efb76555c7ccaa815101df12e55",
+    "PLAN.md": "acd0e3cb6ae3138f531cddba326bced7252c6f74fc13353b9ac728f68375413b",
+    "REPAIR-REPORT.json": "903ca711fce944a2248b8e07e72998b64e93cd2a7ec0506390f3649dceda2bb0",
+    "snapshot.py": "ed43cd95fbbc13a2194338a8fe8dd48e05a56b1b77a4cdcb377f60ea17429740"
+  },
+  "schema": "1370-witness-r7-parent-guard-preparation-pins-r2",
+  "status": "PROPOSAL_UNREVIEWED_UNRUN"
+}

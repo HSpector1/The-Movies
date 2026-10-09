@@ -1,0 +1,29 @@
+{
+  "status": "PARENT_AUTHORIZED_ONE_TICK_LAUNCH_OUTCOME_PENDING",
+  "utc": "2026-10-08T22:47:56.210446+00:00",
+  "bindingSha256": "1d961e6badb90588e304938b75d6b488a2e35188992e30232426f823b23f12d2",
+  "adoptedPreflightReceipt": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-adopted-independent-preflight-20261008-r1/RECEIPT.json",
+  "adoptedPreflightSha256": "d11ca0ac29e13ff1d03cc3c16c7b44edd603cbab3e0fa5673d06e4d38d90ffa8",
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/one-tick.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/run.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/BINDING-DRAFT.json",
+    "1d961e6badb90588e304938b75d6b488a2e35188992e30232426f823b23f12d2"
+  ],
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "GIT_OPTIONAL_LOCKS": "0"
+  },
+  "clockCaps": {
+    "activeSeconds": 75,
+    "combinedNodeSeconds": 60,
+    "wholeRecorderSeconds": 90
+  },
+  "claimLimit": "One tick per arm only. No109week continuation or gameplay acceptance."
+}

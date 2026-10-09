@@ -1,0 +1,232 @@
+{
+  "authoritativeApplication": "Parent applies metadata patches to the published authoritative archive manifest/privacy view; preserve all r3 companions and this overlay as original evidence. No payload pins, source bytes, exclusions, inventory, prior references or counts change.",
+  "inventoryRowsAndCountsChanged": false,
+  "manifestJsonPatch": [
+    {
+      "op": "test",
+      "path": "/claimLimit",
+      "value": "Scratch-only finite archive proposal. Accepted copy/B1, R7 unknown STOP, R8 observed first-Git null denial+accepted full postflight, R9 accepted source/controls/procedure and qualified B109 accepted source/exact/preflight; B109 actual outcome RUNNING. No production/Git writes, no current copied-root reads/fullscan, no active B109 output traversal."
+    },
+    {
+      "op": "replace",
+      "path": "/claimLimit",
+      "value": "Finite checkpoint archive proposal at completed outcomes: accepted r6 COPY-only materialization/B1 attribution, R7 unknown-cause STOP with accepted full-postflight addendum, R8 first-Git null-device STOP with accepted full postflight, R9 accepted historical employment frame/full postflight and artifact-only three-employment descriptive comparison, B109 baseline timeout STOP, and repaired recorder-control GREEN STOP. Encoder11 and benchmark are unrun; no speedup, rich-ledger/P17/P18 closure, protected repin, production mutation or future launch authorization is claimed. This packaging reread finite completed evidence only; no game, full inventory repeat or copied-runtime traversal occurred."
+    },
+    {
+      "op": "test",
+      "path": "/labelNeutralThreeEmploymentR2/acceptedHistoricalFrameAbsent",
+      "value": true
+    },
+    {
+      "op": "replace",
+      "path": "/labelNeutralThreeEmploymentR2/acceptedHistoricalFrameAbsent",
+      "value": false
+    },
+    {
+      "op": "test",
+      "path": "/labelNeutralThreeEmploymentR2/actualComparisonRun",
+      "value": false
+    },
+    {
+      "op": "replace",
+      "path": "/labelNeutralThreeEmploymentR2/actualComparisonRun",
+      "value": true
+    },
+    {
+      "op": "add",
+      "path": "/labelNeutralThreeEmploymentR2/acceptedFrameReceiptSha256",
+      "value": "d681f73e3613248c7ccd0be7736e46bd1fe424dd62ea099a60e031e774238f64"
+    },
+    {
+      "op": "add",
+      "path": "/labelNeutralThreeEmploymentR2/observedComparisonReceiptSha256",
+      "value": "faf6df1cb38011ff74b7fbbca9c712da242d13cc6b15f8581dc1f1019202cb3d"
+    },
+    {
+      "op": "add",
+      "path": "/labelNeutralThreeEmploymentR2/role",
+      "value": "Final source-only acceptance provenance plus completed artifact-only descriptive comparison; current result details are EmploymentComparisonObserved, not causal closure."
+    },
+    {
+      "op": "test",
+      "path": "/actualFullPostflight/claimLimit",
+      "value": "Full byte/inode/metadata/root/protected/FD/current worker postflight passes. R7 remains STOP/no frame; no direct actual owned-PGID record. Independent STOP postflight addendum still pending."
+    },
+    {
+      "op": "replace",
+      "path": "/actualFullPostflight/claimLimit",
+      "value": "Historical R7 full postflight actual15444exit0, snapshot6a1d17... equals before-fillb087. Independent FULL-POSTFLIGHT-ADDENDUM4d83 is accepted and no longer pending. R7 remains STOP/no frame, unknown cause, external numeric owned PGID unavailable. This historical role is not the later R9 postflight; current R9 proof is R9ObservedAcceptance."
+    },
+    {
+      "op": "add",
+      "path": "/actualFullPostflight/historicalAttempt",
+      "value": "R7"
+    },
+    {
+      "op": "add",
+      "path": "/actualFullPostflight/independentAddendum",
+      "value": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-observed-stop-independent-review-20261008-r1/FULL-POSTFLIGHT-ADDENDUM.json",
+        "sha256": "4d83ba40b11f165d244ec1ffd1325d988204a7d92147633633a65d6c65505cc5"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/observedR7StopReceipt/role",
+      "value": "Immutable original R7 STOP receipt; its literal pending decision is historical and superseded only for full-guard completeness by the separately pinned addendum. R7 outcome remains STOP/no frame/unknown cause."
+    },
+    {
+      "op": "add",
+      "path": "/observedR7StopReceipt/fullPostflightAddendum",
+      "value": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-observed-stop-independent-review-20261008-r1/FULL-POSTFLIGHT-ADDENDUM.json",
+        "sha256": "4d83ba40b11f165d244ec1ffd1325d988204a7d92147633633a65d6c65505cc5"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/actualFilledR7Candidate/role",
+      "value": "Historical filled R7 draft identity before three-field adoption and failed actual attempt; launchAuthorized=false is the original draft flag, not current outcome authority."
+    },
+    {
+      "op": "add",
+      "path": "/baseCheckpointHeadRole",
+      "value": "Pre-commit working/evidence source guard HEAD for recorded lanes; the new documentation checkpoint gets a different HEAD and requires explicit predecessor transition for any later lane."
+    },
+    {
+      "op": "test",
+      "path": "/excludedRuntimeOrPending/0/reason",
+      "value": "Runtime/cache/private Git excluded. Guard evidence is selected only by completed named snapshot roots; unfinished postflight not traversed."
+    },
+    {
+      "op": "replace",
+      "path": "/excludedRuntimeOrPending/0/reason",
+      "value": "Runtime/cache/private Git excluded. Only explicitly selected completed evidence files are archived; this historical exclusion record makes no current unfinished-postflight claim."
+    },
+    {
+      "op": "test",
+      "path": "/excludedRuntimeOrPending/1/reason",
+      "value": "Runtime/cache/private Git excluded. Guard evidence is selected only by completed named snapshot roots; unfinished postflight not traversed."
+    },
+    {
+      "op": "replace",
+      "path": "/excludedRuntimeOrPending/1/reason",
+      "value": "Runtime/cache/private Git excluded. Only explicitly selected completed evidence files are archived; this historical exclusion record makes no current unfinished-postflight claim."
+    },
+    {
+      "op": "test",
+      "path": "/excludedRuntimeOrPending/2/reason",
+      "value": "Runtime/cache/private Git excluded. Guard evidence is selected only by completed named snapshot roots; unfinished postflight not traversed."
+    },
+    {
+      "op": "replace",
+      "path": "/excludedRuntimeOrPending/2/reason",
+      "value": "Runtime/cache/private Git excluded. Only explicitly selected completed evidence files are archived; this historical exclusion record makes no current unfinished-postflight claim."
+    },
+    {
+      "op": "test",
+      "path": "/excludedRuntimeOrPending/3/reason",
+      "value": "Runtime/cache/private Git excluded. Guard evidence is selected only by completed named snapshot roots; unfinished postflight not traversed."
+    },
+    {
+      "op": "replace",
+      "path": "/excludedRuntimeOrPending/3/reason",
+      "value": "Runtime/cache/private Git excluded. Only explicitly selected completed evidence files are archived; this historical exclusion record makes no current unfinished-postflight claim."
+    },
+    {
+      "op": "test",
+      "path": "/excludedRuntimeOrPending/4/reason",
+      "value": "Runtime/cache/private Git excluded. Guard evidence is selected only by completed named snapshot roots; unfinished postflight not traversed."
+    },
+    {
+      "op": "replace",
+      "path": "/excludedRuntimeOrPending/4/reason",
+      "value": "Runtime/cache/private Git excluded. Only explicitly selected completed evidence files are archived; this historical exclusion record makes no current unfinished-postflight claim."
+    },
+    {
+      "op": "test",
+      "path": "/excludedRuntimeOrPending/5/reason",
+      "value": "Runtime/cache/private Git excluded. Guard evidence is selected only by completed named snapshot roots; unfinished postflight not traversed."
+    },
+    {
+      "op": "replace",
+      "path": "/excludedRuntimeOrPending/5/reason",
+      "value": "Runtime/cache/private Git excluded. Only explicitly selected completed evidence files are archived; this historical exclusion record makes no current unfinished-postflight claim."
+    }
+  ],
+  "originalManifestSha256": "1cac13df0c5bee7b9a0b4b4091e3e210267aadd96d7f3556ce578842f81d1b0d",
+  "originalPinsSha256": "9aa0c9063aef626c28bc2fa781392d106ff84adc1cdc20014f3840624f0a15ae",
+  "preserveR3OriginalsVerbatim": true,
+  "privacyJsonPatch": [
+    {
+      "op": "test",
+      "path": "/activeB109PathsNotRead",
+      "value": [
+        {
+          "reason": "Active B109 lane file; no read/hash before actual completion.",
+          "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log"
+        },
+        {
+          "reason": "Active B109 lane file; no read/hash before actual completion.",
+          "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log.meta"
+        }
+      ]
+    },
+    {
+      "op": "remove",
+      "path": "/activeB109PathsNotRead"
+    },
+    {
+      "op": "add",
+      "path": "/historicalInitialDraftActiveB109PathsNotRead",
+      "value": {
+        "entries": [
+          {
+            "reason": "Active B109 lane file; no read/hash before actual completion.",
+            "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log"
+          },
+          {
+            "reason": "Active B109 lane file; no read/hash before actual completion.",
+            "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log.meta"
+          }
+        ],
+        "role": "Initial-draft read deferral preserved as provenance, not current unread/active output. After actual completion, final lane/meta were inventoried and archived with the B109 timeout outcome."
+      }
+    },
+    {
+      "op": "add",
+      "path": "/noRawContentCopiedOrPrintedScope",
+      "value": "This backup packaging review only: raw machine-wide process/FD contents were not copied into proposed archive payloads or printed by this packaging review. This does not describe every root/session tool output; any earlier accidental raw PS output is not included in backed evidence."
+    }
+  ],
+  "schema": "1370-ag-final-authoritative-metadata-overlay-r1",
+  "status": "PROPOSED_NARROW_METADATA_CORRECTION_NO_REINVENTORY",
+  "unchangedAssertions": {
+    "B109ActualStop.independentObservedReviewPending": false,
+    "R9ActualCandidateWin.finalFullPostAndObservedAcceptancePending": false,
+    "activeB109UninventoriedPaths": [],
+    "pending": [],
+    "proposalCompanionFiles": [
+      "1370-AG-OUTCOME-PROPOSED.md",
+      "HANDOFF-PROPOSED.md",
+      "BACKUP-PLAN.md",
+      "BACKUP-MANIFEST-PROPOSED.json",
+      "INVENTORY-SUMMARY.json",
+      "PRIVACY-CONTENT-REVIEW.json",
+      "LESSONS.md",
+      "1370-AG-OUTCOME-DRAFT.md",
+      "BACKUP-ACTIONS-DRAFT.md",
+      "BACKUP-MANIFEST-DRAFT.json",
+      "HANDOFF-DRAFT.md",
+      "INVENTORY-SUMMARY-DRAFT.json",
+      "LESSONS-DRAFT.md",
+      "PRIVACY-CONTENT-REVIEW-DRAFT.json",
+      "finalize_actual_stop.py",
+      "refresh_completed_r9.py",
+      "refresh_employment_comparison.py",
+      "PREPARATION-PINS.json"
+    ],
+    "proposalCompanionPolicy": "Archive the listed final r3 proposal companions and preserved r3 drafts/scripts separately alongside candidate files; PREPARATION-PINS binds exact companion bytes/modes/blob identities, excluding its own self-hash. No r2 filenames are implied present in r3."
+  },
+  "utc": "2026-10-09T15:07:24.442146+00:00"
+}

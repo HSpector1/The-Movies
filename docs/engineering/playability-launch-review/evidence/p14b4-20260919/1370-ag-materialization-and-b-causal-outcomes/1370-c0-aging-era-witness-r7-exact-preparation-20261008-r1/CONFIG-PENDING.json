@@ -1,0 +1,80 @@
+{
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-exact-draft-20261008-r1",
+  "laneLog": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-lane-20261008-r1/witness-r7.lane.log",
+  "laneParent": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-lane-20261008-r1",
+  "launchAuthorized": false,
+  "materializedRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r5-20261008-r1",
+  "materializerBindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r5-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "productionHead": "c56e885aa3409f2b4f306238257b038a0f3a0b54",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "roles": {
+    "acceptedLaneHelper": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "acceptedLaneSourcePins": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/SOURCE-PINS.json",
+      "sha256": "9e11563756fb516cfa92591492a1de6fe8d0d0ccfdb93c34bc9b9feffbb94003"
+    },
+    "acceptedLaneSourceReview": {
+      "mode": "0444",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-r8-lane-source-independent-review-r1-rwa7o4oe/RECEIPT.json",
+      "sha256": "e03a740c5d9fcc704a105adb977759e6393d279c929c166fd35812946c3c7475"
+    },
+    "adapterSourceControlsReceipt": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/RECEIPT.json",
+      "sha256": "0a3a1a8318a7eaf215ce73f45fec5c6a9c0c6cbd53f034047cb50057592c40c3"
+    },
+    "bash": {
+      "mode": "0555",
+      "path": "/bin/bash",
+      "sha256": "89ae3c42471a171967cc239564e95870f6da9e0952e74e27ccd28283b0ad0cfa"
+    },
+    "boundedSink": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/bounded-sink.py",
+      "sha256": "6a7a91d482ddaf80c8ecb6fd0d1912da7add50917102178845a6fa37db675b9e"
+    },
+    "boundsAmendment": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r6/AMENDMENT-BOUNDS-PROPOSED.md",
+      "sha256": "3e705b81cd4991b628eff0a084e8088f53005be49098ee449b025c1d8606f0d4"
+    },
+    "boundsIndependentReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-independent-design-review-r1/RECEIPT.json",
+      "sha256": "8dc9c50b2ba7edf3702b42fd3dbeefb2e26e4089891af32127fa816c1704df3d"
+    },
+    "parentBoundsAdoption": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-parent-adoption-r1/ADOPTION.json",
+      "sha256": "6b4b83cd3470a9a882d8045ae6300bca0a39635c793c4a3b312c8d0fed94dc46"
+    },
+    "pipeAdapter": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-readiness-20261008-r1/launch-pipeline.sh",
+      "sha256": "38f8bddc4aef317b4e83fe6e19e547b338bd3cd4fe0d86856f6a11e2b03fda50"
+    },
+    "pythonResolved": {
+      "mode": "0755",
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "witnessSourcePins": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r7/SOURCE-PINS.json",
+      "sha256": "69ca5043bb533908f722126fbc93fd59ce84f0d7388180f3b60c5074076aebc2"
+    },
+    "witnessSourceReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-independent-static-review-r7/RECEIPT.json",
+      "sha256": "4f873fc7b0d0d24d0d339d1893f523a717da6bd00942a5920bc67ee659d317ff"
+    }
+  },
+  "schema": "1370-witness-r7-exact-preparation-config-r1",
+  "status": "MATERIALIZATION_ACCEPTANCE_PENDING_UNRUN"
+}

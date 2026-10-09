@@ -1,0 +1,19 @@
+{
+  "allActualExits": 0,
+  "basis": "Literal successful exec tool observations in this independent review; no full inventory.",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "fullInventory": false,
+  "gitGlobalOptions": [
+    "--no-optional-locks",
+    "-c",
+    "gc.auto=0",
+    "-c",
+    "maintenance.auto=0"
+  ],
+  "gitLiveRemoteOutput": "4812bb123781632dd39e44f918eb85a6a2c12623\trefs/heads/wip/headless-program-20260916-ts\n",
+  "gitMutations": false,
+  "gitPorcelainOutput": "",
+  "gitRevParseHeadSourceOutput": "4812bb123781632dd39e44f918eb85a6a2c12623\n13880d9b0ba72aff5d4c5bcf5d12fe682c5de554\n",
+  "pmsetOutput": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+  "schema": "1370-b109-exact-current-readonly-checks-r1"
+}

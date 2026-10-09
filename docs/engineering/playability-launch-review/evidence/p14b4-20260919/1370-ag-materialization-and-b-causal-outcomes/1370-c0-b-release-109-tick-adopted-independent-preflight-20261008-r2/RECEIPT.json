@@ -1,0 +1,63 @@
+{
+  "actual": {
+    "actualHelperExit": 0,
+    "actualToolExit": 0,
+    "actualToolSession": 84675,
+    "assembly": false,
+    "game": false,
+    "helperPgid": 64755,
+    "helperPid": 64755,
+    "metaExit": 0,
+    "ownedGroupClear": true,
+    "runtimeSourceGuardElapsedSeconds": 20.99753302299905,
+    "tests": false,
+    "wholePreflightElapsedSeconds": 25.842847507001352
+  },
+  "adoptedLaunchSha256": "f55e114d94e0de0763e17a2e7bdcd5a2fddf0be8afae34434f1d7ef041d1ccd6",
+  "archiveSha256": "b1d0189450efb4753c074295c1256daf930c13ddd1171bf7ef288482ac93ed40",
+  "artifacts": {
+    "ACTUAL-TOOL-OUTCOME.json": "bb82f4debe0a2a5ca0b83a4a101abfee8cb3fdca2f39a2ad144ba1896fd0b873",
+    "AFTER-CURRENT.json": "01730b91c1501707dd1118710db038883855f6572e1b565c3b7080bf914daf20",
+    "AFTER-LSOF.bin": "d78766be3f90a3fb1ec91a1b26c273fb5a51a5e97ccff0cdd85db07c29469d5a",
+    "AFTER-PS.txt": "6c097d69f51df3a88330c41259bea65becf7a7ce62f6420eeb2676737d653ddb",
+    "BEFORE-CURRENT.json": "c8a79e8ab52505182469bf3493fcfe798ec09b717d8ebe4d17adebc947edc0a3",
+    "BEFORE-LSOF.bin": "c0d1743ceb3ce67553bbc97573650dd3a5a5055e53b125726a41529251717d72",
+    "BEFORE-PS.txt": "90246c5090c5129305afff060f45241bd89735a4c4204fdb94a65485b0bd35aa",
+    "FACTS.json": "0af5f83881c43790250c1616567f972931f0a639de14302db649a9da9d838224",
+    "INVENTORY-SCOPE.json": "6a09df2991227c3e843d903046b1039ea71569c0f7ba6d4542abe3c7b79f98e4",
+    "OWNED-STARTUP.json": "0b86aa417e8da5fd1ed22a3ca46f9d7405f81e89bd61e8337ba9367e4e25f64b",
+    "REPORT.md": "0921f2acf666c3587c494934b2ffdc1e94a26bc17fe513ba62e59b5ff0ac729b",
+    "RUNTIME-SOURCE-GUARD.json": "a39ad878b5dcc3d168435ea5b886439993d85e0510bb9a7aafb317c42f1d7851",
+    "audit-adopted.py": "15e7cb7f92037818ab6cfade5c50bc9e0f2780a82e8b599cb7c937d010000c19",
+    "driver.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "driver.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime-source.lane.log": "c72ff4ff35e47db310dac8432dda4b6c269384f67048f4b3072f7291d2d065ff",
+    "runtime-source.lane.log.meta": "c69e434abb5f97b12a14efec1926ad29a7d71cc9d780675d479dbf8bd16967b9"
+  },
+  "bindingSemanticSha256": "88826e1b557ebe04840ff63bc0dffa74691f10986adcb982c467a63ddf2d5068",
+  "bindingSha256": "2cb97371f25dcb20bf375222c59f63028d3e4b52f490d289c31a532273e3772c",
+  "changedFields": [
+    "exactReview",
+    "executionAuthorization",
+    "status"
+  ],
+  "decision": "ACCEPT_ADOPTED_EXACT_B_RELEASE_109_TICK_PREFLIGHT_UNRUN",
+  "freshCurrentRootsRefsFDACDiskBootAndFreeLanePassed": true,
+  "fullProtectedInventoryRepeated": false,
+  "gameUnrun": true,
+  "limits": "Point-in-time readiness plus accepted full protected baseline under maintained freeze; no game, assembly, tests, gzip decode, Git/source changes or ledger admission. Parent launch and actual bounded diagnostic outcome remain separate.",
+  "manifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+  "oldAndCurrentOwnedGroupIdsAbsent": [
+    94462,
+    64755
+  ],
+  "outputAndActualLaunchLogsAbsent": true,
+  "parentAdoptionSha256": "43514e3f212fc60fb800412431d360835c62a0975673d479af6cd62d32698152",
+  "parentOwnsLaunch": true,
+  "preservedFirstAttemptStopSha256": "03b931fa0f79a2379792c4e069330b11e31b2f6e4147bc3f199d4acaeb833dff",
+  "protectedFullSnapshotIndependentReviewSha256": "9bc5f3d9ccff1625c3af8532a9153e3385933cc7848bde0f9eb17be97af3e0e5",
+  "protectedFullSnapshotSha256": "07b785480707a2c972dbdba4b0865461507939c1891f8b5386c40a375dab105e",
+  "runtimeGuardSha256": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+  "schema": "1370-b109-adopted-independent-preflight-r2",
+  "utc": "2026-10-09T00:17:11.536279+00:00"
+}

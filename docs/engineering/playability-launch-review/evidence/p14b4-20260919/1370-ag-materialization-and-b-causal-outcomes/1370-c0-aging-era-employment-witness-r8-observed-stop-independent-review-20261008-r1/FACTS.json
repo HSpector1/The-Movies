@@ -1,0 +1,111 @@
+{
+  "actualParentToolSession": 29121,
+  "binding": {
+    "bytes": 3698,
+    "device": 16777220,
+    "inode": 166589248,
+    "mode": "0600",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-exact-draft-20261008-r1/BINDING-DRAFT.json",
+    "sha256": "1ee08ede7b250087cde4dbd64ad88dd9513b4e1a150a993ae341bad6a1d16dac"
+  },
+  "claimLimit": "Observed r8 Node/vite-node witness guard failed Git on /dev/null under authenticated deny file-write* policy. No game module load through main64/65 or observeLedger call reached. No valid frame. Full protected/dependency postflight pending. R7 cause stays unknown.",
+  "devNullMetadata": {
+    "characterDevice": true,
+    "device": 1124724989,
+    "inode": 317,
+    "mode": "0666",
+    "path": "/dev/null",
+    "rdev": 50331650
+  },
+  "directInnerChildReapedRecorded": true,
+  "endCDT": "2026-10-08 18:50:19",
+  "fullPostflightPending": true,
+  "gameExecutedThroughWitnessMain": false,
+  "gitMetadata": {
+    "device": 16777220,
+    "inode": 1152921500312781356,
+    "links": 76,
+    "mode": "0755",
+    "path": "/usr/bin/git",
+    "regular": true,
+    "sha256": "fe38fea56d944c3b7e9df10617b1fa5432d7b75cc346d7eacb607d083ea11711"
+  },
+  "helperMetaExit": 2,
+  "innerChildPid": 94463,
+  "innerStatus": "STOP_CHILD_EXIT_2",
+  "innerStderr": {
+    "bytes": 2475,
+    "sha256": "43e58f3aa42cfb56df27f02fd7b6e9484b6c9034845482667265b5f38905de45",
+    "truncated": false
+  },
+  "innerStdoutBytes": 0,
+  "knownChildPidsCurrentlyAbsent": true,
+  "knownOwnedGroupCurrentlyAbsent": true,
+  "knownOwnedPgid": 94462,
+  "lane": {
+    "bytes": 4055,
+    "device": 16777220,
+    "inode": 166589400,
+    "mode": "0600",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-lane-20261008-r1/witness-r8.lane.log",
+    "sha256": "c1e14e2d10ac05ca3c18804ca6628dcfe181a638f7cbdec745bf43c4925d63d3"
+  },
+  "leafStderr": {
+    "bytes": 1363,
+    "sha256": "796b7cda5e2746020578f2e9c565e190b65bd57afb905ce8e438bab1d058c4f5",
+    "truncated": false
+  },
+  "meta": {
+    "bytes": 465,
+    "device": 16777220,
+    "inode": 166589398,
+    "mode": "0600",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-lane-20261008-r1/witness-r8.lane.log.meta",
+    "sha256": "e760ff167d8d3096ae8826e73aa733e908dd25b800222b157ce14139ef51419d"
+  },
+  "noHelperWaitObserved": true,
+  "noRetroactiveR7CauseInference": true,
+  "outerExit": 2,
+  "outerStatus": "STOP_SUPERVISOR_EXIT_2",
+  "outerStdoutBytes": 0,
+  "ownedGroupClearRecorded": true,
+  "parentReportedToolExit": 2,
+  "policy": {
+    "bytes": 47,
+    "device": 16777220,
+    "inode": 166587532,
+    "mode": "0644",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/POLICY.sb",
+    "sha256": "733ad40abe14eb619230091b43e00e9a27c72b1367c304ee5f7b16cc9eebf833"
+  },
+  "schema": "1370-r8-observed-stop-facts-r1",
+  "sinkExit": 2,
+  "sourcePhase": "first sourceGuard git rev-parse HEAD at witness.mts34, called main61 before fixture/engine dynamic imports64/65",
+  "sourcePins": {
+    "bytes": 1824,
+    "device": 16777220,
+    "inode": 166587788,
+    "mode": "0644",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/SOURCE-PINS.json",
+    "sha256": "0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715"
+  },
+  "startCDT": "2026-10-08 18:50:17",
+  "status": "STOP_NO_FRAME_KNOWN_FIRST_GIT_DENIAL_FULL_POSTFLIGHT_PENDING",
+  "supervisor": {
+    "bytes": 19935,
+    "device": 16777220,
+    "inode": 166587530,
+    "mode": "0644",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/supervise.py",
+    "sha256": "02c2058e8348e22e6c329de6f809096ab664a7d374c84c70b0ae5cc872966bc8"
+  },
+  "utc": "2026-10-08T23:52:43.650260+00:00",
+  "witness": {
+    "bytes": 5196,
+    "device": 16777220,
+    "inode": 166587529,
+    "mode": "0644",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1/witness.mts",
+    "sha256": "afce97a16063085964c4a92d49c0495312452b7eec8d6b9b6bcc9edbc01cc736"
+  }
+}

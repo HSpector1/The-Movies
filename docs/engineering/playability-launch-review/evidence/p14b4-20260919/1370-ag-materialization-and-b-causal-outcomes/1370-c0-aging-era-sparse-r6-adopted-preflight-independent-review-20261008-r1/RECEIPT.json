@@ -1,0 +1,33 @@
+{
+  "schema": "1370-c0-aging-era-sparse-r6-adopted-preflight-independent-review-r1",
+  "decision": "ACCEPT_ADOPTED_PREFLIGHT_AND_EXACT_LAUNCH_UNRUN",
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "bindingSha256": "5f6de7413b9a28a9e30284062e99bf52a3ea83f9ba0074515b3257515c8b0c0f",
+  "bindingSemanticSha256": "18900da834bda366b2177c8ff8ee9a87b97374c02366b97d1c6b06cb4c23f309",
+  "adoptionResultSha256": "604efb4d145ab2f2280715b397231170d5d56554cd714a37db988eed8c3d1497",
+  "adoptedLaunchSpecSha256": "7087159c8dbbe70bed2242aa5562806e5452c3151625c323f392fe6278adcade",
+  "exactBindingReviewSha256": "0a2ca9788e50b7f66f7f35a719cb5b0fe8b7f9b14187c02d01bc7564697182fd",
+  "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "archiveFilesVerified": 7,
+  "exactChangedFields": [
+    "exactBindingReviewDecision",
+    "exactBindingReviewPath",
+    "exactBindingReviewSha256",
+    "executionAuthorization",
+    "status"
+  ],
+  "requiredLaunchEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "freeBytes": 8801316864,
+  "launchRunByReviewer": false,
+  "copyOnly": true,
+  "factsPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-adopted-preflight-independent-review-20261008-r1/FACTS.json",
+  "factsSha256": "85f3687fc6a2bf146b3d70e51c210f57f7c35bfe58f88e77f34ef821bba48a2c",
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-adopted-preflight-independent-review-20261008-r1/REPORT.md",
+  "reportSha256": "eb10a3b836b0d61524bbb225776594e2aa00a594a09f384fd97abd488af491d0",
+  "claimLimit": "No reviewer launch; sole parent copy lane under same-UID no-renamer scope. Helper waits remain outside930/unexpected waitsSTOP; fresh actual physical/protected observed copy proof still required."
+}

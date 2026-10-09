@@ -1,0 +1,13 @@
+{
+  "actualExit": 0,
+  "adoptedLaunchSpecSha256": "4ea5ef752f9f378ff5c157da547b5ee37eb658d90aa2e962396c1700d121a596",
+  "archiveManifestSha256": "f012f879d0a84c1e4e432c8785f3bd92c3810c605bea257c32765ff8faa1eefd",
+  "bindingSemanticSha256": "e2b89c293dbe867a31c94f3669e2b9840db8603b297ce158cc26a6fed6f191d4",
+  "exactReviewAdoptedSha256": "dc04b2825346faa467610ed5770c160d94740e5780f9f84aba1e256d244c88ad",
+  "gameRun": false,
+  "launchAuthorized": false,
+  "newBindingSha256": "1ee08ede7b250087cde4dbd64ad88dd9513b4e1a150a993ae341bad6a1d16dac",
+  "schema": "parent-r8-adoption-actual-tool-outcome-r1",
+  "toolSessionId": 83892,
+  "utc": "2026-10-08T23:48:32.602139+00:00"
+}

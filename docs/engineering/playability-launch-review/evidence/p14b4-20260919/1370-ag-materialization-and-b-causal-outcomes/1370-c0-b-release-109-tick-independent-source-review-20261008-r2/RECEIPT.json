@@ -1,0 +1,77 @@
+{
+  "authoredControls": 53,
+  "controlExecutionAuthorizedByReceipt": false,
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_CONTINGENT_OBSERVED_53_CONTROLS",
+  "designReviewSha256": "718e79a8653e3f575252dfe466d2072ed816dc5444aebd5fca477ce4be524b46",
+  "evidence": {
+    "AUDIT.json": {
+      "bytes": 17341,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-source-review-20261008-r2/AUDIT.json",
+      "sha256": "ea1ebf3e5edbf1ee88ac77a66c82f2c9309083b570b2e9023f1a6b3763cf7538"
+    },
+    "REPORT.md": {
+      "bytes": 5813,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-source-review-20261008-r2/REPORT.md",
+      "sha256": "ff28595149cdad608b2eb7fd38e9f24ba0fe9678787f9e080d35a56b10b49a3c"
+    },
+    "audit-static-r2.py": {
+      "bytes": 4906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-source-review-20261008-r2/audit-static-r2.py",
+      "sha256": "b853c603f8692d18514cd03fe262d736c88adef572e9025e6b4cd971a94e2a0f"
+    }
+  },
+  "exactBindingFilled": false,
+  "findings": [],
+  "gameOutcome": "UNRUN",
+  "launchAuthorized": false,
+  "manifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+  "neutralOutcomeClasses": [
+    "NONE",
+    "PARTIAL",
+    "ALL"
+  ],
+  "nextGate": "Parent separately grants bounded recorded53 no-game source controls; independent observed-controls acceptance precedes fresh actual-HEAD exact binding/review/adoption/preflight/launch/observed109 review.",
+  "observedControls": false,
+  "parentBoundsAdoptionSha256": "0d89f7203d35e93f410ba87a757e5b626cda2a23e5af19274ad31880b3c6dc70",
+  "preparationReceiptSha256": "059440ce88b5a02f5604bd979a439fd7a6d1a9a8512f3f334d38e5a850e9e82c",
+  "priorSourceRefineReceiptSha256": "b7c622cf9f3e0ac442d050a855edb95af4783bd14a92d022be5605194c98a03e",
+  "resolvedFindings": [
+    "F1_ACTIVE_375_POSTFLIGHT_CANDIDATE",
+    "F2_RECORDED_CONTEXT_CANONICAL_IDENTITY_OCCURRENCE",
+    "F3_OPENING_FD_PATH_LIFETIME_METADATA"
+  ],
+  "reviewActions": {
+    "controlsRun": false,
+    "fullProtectedRootsScanned": false,
+    "gameRun": false,
+    "gitCommands": false,
+    "gzipDecoded": false,
+    "productionOrCopiedRootReads": false,
+    "productionWrites": false,
+    "sourceModulesExecuted": false
+  },
+  "schema": "1370-b109-independent-static-source-review-r2",
+  "sourcePins": {
+    "E0G-TARGET-CONTEXT.json": {
+      "bytes": 28356,
+      "sha256": "e1c9fc0980eb069e9ebde103c8df36edef28ec2c90f995226dfe70aeaeeed1a8"
+    },
+    "continuation.test.ts": {
+      "bytes": 14654,
+      "sha256": "56623bb24ddbd8b923187854c3518c312d6c09f7fba427162679361d58995d33"
+    },
+    "run.py": {
+      "bytes": 28763,
+      "sha256": "bbffa0b6e17fbefce41e66c8ca13d4e034909f2d37e8bc2f84926846be3e2c13"
+    },
+    "streaming.mjs": {
+      "bytes": 11414,
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    "targeted.mjs": {
+      "bytes": 3836,
+      "sha256": "611ad17cc519b7cc51c2ef335a449cdca6f48df77c99809663cc8460f0f71b08"
+    }
+  },
+  "utc": "2026-10-08T23:46:13.831335+00:00"
+}

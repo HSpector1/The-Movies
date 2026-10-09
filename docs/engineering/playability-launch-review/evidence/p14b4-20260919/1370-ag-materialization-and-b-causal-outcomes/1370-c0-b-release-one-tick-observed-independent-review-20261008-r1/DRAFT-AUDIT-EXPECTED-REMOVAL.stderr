@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/audit-observed.py", line 108, in <module>
+    base=read(O/'baseline-tree/src/core/hollywoodTick.ts');inter=read(O/'intervention-tree/src/core/hollywoodTick.ts');assert sha(inter)==manifest['candidateWholeFileSha256'];patch=list(difflib.unified_diff(base.decode().splitlines(),inter.decode().splitlines(),fromfile='EBG',tofile='EBG_R04_RELEASE_OFF',lineterm=''));assert sum(x.startswith('+') and not x.startswith('+++') for x in patch)==2 and sum(x.startswith('-') and not x.startswith('---') for x in patch)==1
+                                                                                                                                                                                                                                                                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

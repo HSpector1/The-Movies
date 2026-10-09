@@ -1,0 +1,133 @@
+{
+  "absentPaths": [
+    "/Users/zacheryspector/studio-scratch/1370-b-release-one-tick-run-20261008-4812-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/one-tick.lane.log",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/one-tick.lane.log.meta",
+    "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-20261008-r1.lock"
+  ],
+  "caps": {
+    "activeSeconds": 75,
+    "childLogBytes": 1048576,
+    "combinedTestSeconds": 60,
+    "singleJsonBytes": 16777216,
+    "totalOutputBytes": 67108864,
+    "wholeRecorderSeconds": 90
+  },
+  "claimLimit": "Adoption and point-in-time preflight only. Parent grants lane and launches exact argv; recorder independently rechecks guards. No game outcome or acceptance.",
+  "clean": true,
+  "copyObservedReceiptSha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "decision": "ACCEPT_ADOPTED_EXACT_PREFLIGHT_UNRUN",
+  "diskFreeBytes": 8692690944,
+  "diskMinimumBytes": 3456106496,
+  "elapsedSeconds": 95.51004727600048,
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactArgv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/one-tick.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/run.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-exact-draft-20261008-r1/BINDING-DRAFT.json",
+    "1d961e6badb90588e304938b75d6b488a2e35188992e30232426f823b23f12d2"
+  ],
+  "freshInheritedFiles": 200,
+  "freshInheritedInventorySha256": "b02deb1de37e7db14ce59070234b023bcdbb5299a1b0fbc15dd3b980577e5f48",
+  "head": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "heavyNodeConsumers": [],
+  "launchPerformed": false,
+  "onlyChangedFields": [
+    "exactReview",
+    "executionAuthorization",
+    "status"
+  ],
+  "originalArchiveSha256": "e0a31a76c19a5c8f18a3f690cba4984f38c5a263920f5d8a573ea8858dda0003",
+  "parentAdoptionSha256": "6c346519876d1496cba0dcb3c620e715d48bf2a979cde214ba0755b98b11df41",
+  "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+  "protectedCommonSha256": "e412715eb23e48e2d14d58419cf30d5b32a1ccc548750965170cac046b7d3a70",
+  "protectedProductionSha256": "3b236ee5cff80f1e98c77f4cc2d780aadfd9217b9d012fc2f97274c86165082f",
+  "protectedRoots": {
+    "commonGitRoot": {
+      "device": 16777220,
+      "inode": 157454052,
+      "mode": 493,
+      "path": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git"
+    },
+    "productionRoot": {
+      "device": 16777220,
+      "inode": 158484765,
+      "mode": 493,
+      "path": "/Users/zacheryspector/The-Movies-headless-program"
+    }
+  },
+  "protectedWritableFdGuardFresh": true,
+  "rawBindingSha256": "1d961e6badb90588e304938b75d6b488a2e35188992e30232426f823b23f12d2",
+  "remote": "4812bb123781632dd39e44f918eb85a6a2c12623\trefs/heads/wip/headless-program-20260916-ts",
+  "runtime": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+  "schema": "1370-b-one-tick-adopted-independent-preflight-r1",
+  "semanticSha256": "d652663a8eae344d5442306d135892aab73ac1596e7f24db92a9c1a9184952e2",
+  "source": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "sourceFilesVerified": [
+    {
+      "name": "AMENDMENT-R3.md",
+      "sha256": "19cf4a9ddf69c1bcada9cb1db746919595eb102ce3efeba740dbdeb6ca22be19"
+    },
+    {
+      "name": "AMENDMENT.md",
+      "sha256": "c160452067b456fa5656f02061ffb7337ba57749181d12a2859cd1507fb1bc75"
+    },
+    {
+      "name": "DEPENDENCIES.json",
+      "sha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37"
+    },
+    {
+      "name": "PLAN.md",
+      "sha256": "e3622bbe372c3c0d7a0ebff65195901bd41a86869c39bab1e0dc3f06ea87d2fa"
+    },
+    {
+      "name": "hollywoodTick.r04-release-off.ts",
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73"
+    },
+    {
+      "name": "one-tick.test.ts",
+      "sha256": "58f584748ac9bd843be5450f5edf15862839d7858d1d11db837a36045c24f97f"
+    },
+    {
+      "name": "retention.d.mts",
+      "sha256": "8433e8d649c54a4918bbdd4cf630e2ed73155555052af67dbd147cb18191cc99"
+    },
+    {
+      "name": "retention.mjs",
+      "sha256": "b4eca17f4dfd93dd5c22c3ec94751d0cdf2838b946b08cf819390d1b28b0e593"
+    },
+    {
+      "name": "run.py",
+      "sha256": "9dd6b54c75b6bc7401f9f56ca89a882846185450cf5a8a51744d98da013544e0"
+    },
+    {
+      "name": "test-json-cap-red.py",
+      "sha256": "1ff37a7c2bcf8a9c93fa14ffa52eb894512785e8abb2a800fc6478bd77ed15db"
+    },
+    {
+      "name": "test-recorder-red.py",
+      "sha256": "13ce28593be4352c98cded739b4ae42edd99f35f587eb6e249b2c9920aaccf51"
+    },
+    {
+      "name": "test-retention-red.mjs",
+      "sha256": "e60457c2c427fb58ac7a4f305e743deb1b19285d16991a82480689cee8ff507b"
+    },
+    {
+      "name": "vitest.one-tick.config.ts",
+      "sha256": "a65a80ba5899b533ebd62a30c0665105d21f1fc7b44e4af34cdf0c32126b4640"
+    }
+  ],
+  "sourceManifestSha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5",
+  "testsRepeated": false,
+  "utc": "2026-10-08T22:46:09.732015+00:00"
+}

@@ -1,0 +1,23 @@
+{
+  "actualWitnessLaunchAuthorized": false,
+  "decision": "ACCEPT_NARROW_SOURCE_AND_CONTROL_IMPLEMENTATION_FOR_RECORDED_CONTROLS_ONLY",
+  "freshCurrent": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralPassed": true,
+    "freeBytes": 8345624576,
+    "lsofRawSha256": "1095cb00a599311dd0c9fd7c9b42487f25e5bb0455366006d5dfb12fe04b50ca",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": true,
+    "ownedGroupIdsChecked": [
+      94462
+    ],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawSha256": "e11c7a11a9f7215eadcccd15c516809f5a9d22389d141aad37d12ff89b46ca98",
+    "relevantWorkersAbsent": true
+  },
+  "parentOperationalDesignSha256": "b0983e174b93ee8ebc6964c83517e46a0cd43bdc40ff5c822ec0c551ed8d705d",
+  "review": "Exactly policy/supervisor/schema fixture change; fresh null physical identity beforePopen, unchanged9source files, inherited clocks/protocol/recorder. Fixed tiny-ownedfixture17 child controls reviewed, no sandboxPython, whole120/child5, groupclearance, source and completefixture checks. Actualcontrols prerequisite to source acceptance for witness.",
+  "schema": "parent-r9-source-controls-grant-r1",
+  "sourcePinsSha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759",
+  "utc": "2026-10-09T00:04:06.740779+00:00"
+}

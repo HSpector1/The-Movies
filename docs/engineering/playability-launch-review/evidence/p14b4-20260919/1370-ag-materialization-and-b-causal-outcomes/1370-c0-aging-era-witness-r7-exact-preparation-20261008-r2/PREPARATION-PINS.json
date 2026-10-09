@@ -1,0 +1,17 @@
+{
+  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r7-exact-draft-20261008-r2",
+  "claimLimit": "Scratch-only unexecuted fill/adoption/launch preparation. No copied-root read or actual fill. Original source and adapter unchanged.",
+  "files": {
+    "BINDING-TEMPLATE-PENDING.json": "cd9d743f05dcf18f3b0f051d99bc51b6e40143c42e805ed54fb18b8b6c3dd33f",
+    "CONFIG-PENDING.json": "4b6bf16518e9ab7c472c9147376a9a9ed5ca15f79f0dc656af8175abd85a6bf5",
+    "LAUNCH-SPEC-TEMPLATE.json": "a28b6a7e9390533f1955ac5cd661a487552c75864f6ba9af3caf59af606a87a2",
+    "PLAN.md": "f4e270d3724755305d51d1c8b7681530d89f61531138f7a7959e51039be49f94",
+    "adopt_reviewed_candidate.py": "5361471a3eee369f2418e92353c731ca0b0120020652d678b8a846707d345eb9",
+    "fill_actual_candidate.py": "e89850aeea8dbf8dfd57b7efbeea33977028d1fd4fe6f5497cc6bc3cb76a3516"
+  },
+  "launchAuthorized": false,
+  "materializedRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "schema": "1370-witness-r7-exact-preparation-pins-r2",
+  "status": "MATERIALIZATION_ACCEPTANCE_PENDING_UNRUN"
+}

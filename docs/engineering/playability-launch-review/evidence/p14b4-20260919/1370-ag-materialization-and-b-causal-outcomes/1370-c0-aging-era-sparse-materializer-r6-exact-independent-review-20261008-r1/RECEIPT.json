@@ -1,0 +1,43 @@
+{
+  "schema": "1370-c0-aging-era-sparse-materializer-r6-exact-independent-review-r1",
+  "decision": "ACCEPT_EXACT_FILLED_UNRUN",
+  "draftDecision": "ACCEPT_DRAFT_ONLY",
+  "executionAuthorization": false,
+  "reviewedDraftPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1",
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "reviewedDraftBindingSha256": "6b0407707c4dfc67dc3b268859042dc38b216c3da41eccf4c08a6dfa68aa4dad",
+  "bindingSemanticSha256": "18900da834bda366b2177c8ff8ee9a87b97374c02366b97d1c6b06cb4c23f309",
+  "candidatePinsSha256": "19a2b91cde3b786aaac79cbeb2fabd965b9020fad8010c65fc1112675cbff2e8",
+  "preparationPinsSha256": "9bdcc7456dbca6c4c0420672205ecffe1f6c0f704e9563f68411eb4a207ed281",
+  "sourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+  "sourceReviewSha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "adoptionProcedureDecision": "ACCEPT_EXACT_PROCEDURE_R2_UNRUN",
+  "adoptionProcedurePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/adopt_reviewed_binding_r2.py",
+  "adoptionProcedureSha256": "aaee44c435f5e6945457e8178530898e3ae2e76a097a05d5bbf54776460e46ec",
+  "bootIdentityAmendmentPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/BOOT-IDENTITY-AMENDMENT.json",
+  "bootIdentityAmendmentSha256": "b1d1697b8429425766156b4f8f04f129a3c8ca8666935af7e84fc49f68ce3936",
+  "bootIdentityUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+  "supersedesOnlyNamedRefineSha256": "fe45cd0559ed4e942f3110b2d3d674b396fdcc886beeca5896d342ce0279003f",
+  "launchProposalDecision": "ACCEPT_EXACT_ARGV_UNRUN_AFTER_R2_ADOPTION_PREFLIGHT",
+  "launchSpecPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/LAUNCH-SPEC.json",
+  "launchSpecSha256": "179c58e140b77213cf60042f0c8e62c44f9aa0b2aba0e50bf4e8fc08aa92c50c",
+  "requiredLaunchEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "parentR6SourceAdoptionPath": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AF-post-restart-materializer-repairs-and-diagnostics.md",
+  "parentR6SourceAdoptionSha256": "429a7d2d43580221f000879ca5c9dda07b011eb66dcc22dd8ccae3343f1ffc3c",
+  "materializationRun": false,
+  "factsPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-independent-review-20261008-r1/FACTS-ACCEPT.json",
+  "factsSha256": "4c7121aa1f0841ae532a47f6a60e1489765e11345bbd08fb4506a1d37d2f38b6",
+  "reportPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-independent-review-20261008-r1/REPORT.md",
+  "reportSha256": "7376b5d4fd4c553e749d62c5201971f3e5e5dbad673d93e32215da0d43a979bb",
+  "requiredNext": [
+    "parent archive/original-path five-field adoption using reviewed r2 procedure",
+    "independent adopted raw checksum, same semantic and fresh boot UUID/preflight/argv review",
+    "one parent-owned guarded recorded copy-only lane",
+    "independent observed physical/allocation/protected/process/FD/override-STOP review"
+  ]
+}

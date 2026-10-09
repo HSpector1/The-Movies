@@ -1,0 +1,23 @@
+{
+  "authoritativeOverride": true,
+  "candidateAndProvisionalReviewFilesPreserved": true,
+  "currentBoundedChecksPassed": true,
+  "currentGuardFinishedUtc": "2026-10-09T14:19:39.482429+00:00",
+  "currentReadOnlyActualExit": 0,
+  "decision": "REFINE_ADOPTED_PREFLIGHT_FRESH_FULL_GUARD_REQUIRED",
+  "executionAuthorization": false,
+  "full07bReuseAcceptedForLaunch": false,
+  "gameLaunched": false,
+  "launchAuthorized": false,
+  "noCurrentChildGuardActive": true,
+  "overridesProvisionalReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-adopted-preflight-independent-review-20261008-r1/RECEIPT.json",
+    "provisionalNotDeliveredAsFinalApproval": true,
+    "sha256": "e04a83b947150c3aee9141abb7c3198ce1723dcca9058f3d12ceee68b7cf8bfd"
+  },
+  "parentAnnouncedFreshSnapshot": true,
+  "reason": "Exact review occurred00:37UTC and current adopted bounded review14:19UTC after overnight context gap. Continuous external protected freeze/no protected renamer scope is not established across gap; current13-file/root/FD/ref checks do not replace full protected/dependency inventory.",
+  "requiredNext": "Parent alone runs alreadyaccepted full snapshot against07b/b087 now, labelpostflight-pre-r9-20261009-r1 and actual priorgroups66578/64755/94462; independently authenticate completed result before finalpositive adopted launch preflight. No new framework/fullscan by child.",
+  "schema": "1370-r9-adopted-preflight-overnight-scope-refine-r1",
+  "utc": "2026-10-09T14:21:15.525645+00:00"
+}

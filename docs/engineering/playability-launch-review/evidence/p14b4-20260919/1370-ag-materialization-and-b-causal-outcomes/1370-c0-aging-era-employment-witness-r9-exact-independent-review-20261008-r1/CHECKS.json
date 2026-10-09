@@ -1,0 +1,40 @@
+{
+  "actualRuntimeFilesChecked": 5,
+  "actualWorktreeFilesChecked": 8,
+  "b109StopGuardReviewSha256": "7f3cc51cb452009d7fff1790b3db49ce639a001d04130d54e93c8abdfbee67f8",
+  "bindingSemanticSha256": "760b7a45d6a2df8e3fbc45e2362128d8dcda3ba2ae6d7d59a300c62dc7e9f5c3",
+  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-exact-draft-20261008-r1",
+  "candidatePinsSha256": "1e7b944771c699d05274fac24d11bafdedffe5c57956092d02ed3f14b393a875",
+  "draftIdentitySha256": "a35c7d74a0011dcfa588ca89b012bab6cc5dc785cfc0b6ffb2365b11eb15f44b",
+  "freeBytes": 8496762880,
+  "fullInventoryRepeated": false,
+  "gameRun": false,
+  "launchAuthorized": false,
+  "noActualR9OwnedPgidYet": true,
+  "nullDevice": {
+    "device": 1124724989,
+    "gid": 0,
+    "inode": 317,
+    "links": 1,
+    "mode": "0666",
+    "path": "/dev/null",
+    "rdev": 50331650,
+    "type": "character",
+    "uid": 0
+  },
+  "observerFilesChecked": 7,
+  "policyControlsAccepted": 17,
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "rawProcessHashOnly": {
+    "bytes": 52228,
+    "sha256": "5f9c20c48c46551c864fc38caa02bf40b8031d5f65f33c5c7ac0a84f14991c49"
+  },
+  "reusedFullPostflightSha256": "07b785480707a2c972dbdba4b0865461507939c1891f8b5386c40a375dab105e",
+  "reviewedDraftBindingSha256": "854991c8f0ad245d6d8a4f8bd20bf5e4200542f0992bd2a181e5b60f04d69de6",
+  "sourceFilesChecked": 12,
+  "sourcePinsSha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759",
+  "status": "BOUNDED_EXACT_CURRENT_CHECKS_PASS",
+  "strictRootsAndAncestryCurrent": true,
+  "twoProtectedFdScopesClear": true,
+  "utc": "2026-10-09T00:36:20.356231+00:00"
+}

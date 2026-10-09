@@ -1,0 +1,88 @@
+{
+  "absentPaths": {
+    "/Users/zacheryspector/studio-scratch/1370-b-release-109-tick-run-20261008-4812-r1": true,
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log": true,
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log.meta": true
+  },
+  "ancestryMatchesAcceptedFullSnapshot": true,
+  "facts": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralPassed": true,
+    "freeBytes": 8552493056,
+    "lsofRawSha256": "fae1c367bd26073df7b10dd547b1d1c964c5dc7d384138642654ba2669a1d355",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": true,
+    "ownedGroupIdsChecked": [
+      94462
+    ],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawSha256": "40afaefe0343e3efb5d9167564a69d24847cd0da2d9a0bbf5d2921eb0c0154e9",
+    "relevantWorkersAbsent": true
+  },
+  "roots": {
+    "commonGitRoot": {
+      "ctimeNs": 1791475054920875233,
+      "device": 16777220,
+      "inode": 157454052,
+      "mode": 493,
+      "mtimeNs": 1791475054920875233,
+      "path": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git"
+    },
+    "commonObjects": {
+      "ctimeNs": 1791493320461260435,
+      "device": 16777220,
+      "inode": 157454083,
+      "mode": 493,
+      "mtimeNs": 1791493320461260435,
+      "path": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects"
+    },
+    "copiedDependencies": {
+      "ctimeNs": 1791498512390967424,
+      "device": 16777220,
+      "inode": 166568569,
+      "mode": 493,
+      "mtimeNs": 1790738039503311431,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules"
+    },
+    "copiedGit": {
+      "ctimeNs": 1791498505730619861,
+      "device": 16777220,
+      "inode": 166568331,
+      "mode": 448,
+      "mtimeNs": 1791498505730619861,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git"
+    },
+    "copiedRoot": {
+      "ctimeNs": 1791498505800985629,
+      "device": 16777220,
+      "inode": 166568330,
+      "mode": 448,
+      "mtimeNs": 1791498505800985629,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1"
+    },
+    "productionDependencyRoot": {
+      "ctimeNs": 1790738039503311431,
+      "device": 16777220,
+      "inode": 158487026,
+      "mode": 493,
+      "mtimeNs": 1790738039503311431,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    },
+    "productionRoot": {
+      "ctimeNs": 1791471316296107826,
+      "device": 16777220,
+      "inode": 158484765,
+      "mode": 493,
+      "mtimeNs": 1791471316296107826,
+      "path": "/Users/zacheryspector/The-Movies-headless-program"
+    },
+    "scratchParent": {
+      "ctimeNs": 1791504839030417277,
+      "device": 16777220,
+      "inode": 164902343,
+      "mode": 493,
+      "mtimeNs": 1791504839030417277,
+      "path": "/Users/zacheryspector/studio-scratch"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "historicalInitialDraftActiveB109PathsNotRead": {
+    "entries": [
+      {
+        "reason": "Active B109 lane file; no read/hash before actual completion.",
+        "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log"
+      },
+      {
+        "reason": "Active B109 lane file; no read/hash before actual completion.",
+        "source": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log.meta"
+      }
+    ],
+    "role": "Initial-draft read deferral preserved as provenance, not current unread/active output. After actual completion, final lane/meta were inventoried and archived with the B109 timeout outcome."
+  },
+  "localOnlyTotal": 47,
+  "newLocalOnlyPaths": [
+    "1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r1/BEFORE-LSOF.bin",
+    "1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r1/BEFORE-PS.txt",
+    "1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r2/AFTER-LSOF.bin",
+    "1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r2/AFTER-PS.txt",
+    "1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r2/BEFORE-LSOF.bin",
+    "1370-c0-b-release-109-tick-adopted-independent-preflight-20261008-r2/BEFORE-PS.txt",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/AFTER-LSOF.bin",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/AFTER-PS.txt",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/BEFORE-LSOF.bin",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/BEFORE-PS.txt",
+    "1370-c0-b-release-109-tick-observed-stop-independent-review-20261008-r1/AFTER-LSOF.bin",
+    "1370-c0-b-release-109-tick-observed-stop-independent-review-20261008-r1/AFTER-PS.txt",
+    "1370-c0-b-release-109-tick-observed-stop-independent-review-20261008-r1/BEFORE-LSOF.bin",
+    "1370-c0-b-release-109-tick-observed-stop-independent-review-20261008-r1/BEFORE-PS.txt",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-pre-r9-20261009-r1/AFTER-LSOF.bin",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-pre-r9-20261009-r1/AFTER-PS.txt",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-pre-r9-20261009-r1/BEFORE-LSOF.bin",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-pre-r9-20261009-r1/BEFORE-PS.txt",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/AFTER-LSOF.bin",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/AFTER-PS.txt",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/BEFORE-LSOF.bin",
+    "1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/BEFORE-PS.txt"
+  ],
+  "noRawContentCopiedOrPrinted": true,
+  "noRawContentCopiedOrPrintedScope": "This backup packaging review only: raw machine-wide process/FD contents were not copied into proposed archive payloads or printed by this packaging review. This does not describe every root/session tool output; any earlier accidental raw PS output is not included in backed evidence.",
+  "primaryEvidenceReason": "Small authenticated system sandbox-policy references/snippets and null-device identity; no unrelated machine-wide process/FD enumeration or private app paths.",
+  "reviewedNonPrivatePrimaryEvidenceExceptions": [
+    "1370-c0-aging-era-employment-witness-null-device-parent-design-adoption-20261008-r1/ADOPTION.json",
+    "1370-c0-aging-era-employment-witness-r9-devnull-preparation-20261008-r1/DEVICE-AND-PRIMARY-FACTS.json"
+  ],
+  "status": "FINAL_CONTENT_CLASSIFIED_LOCAL_RAW_HASH_ONLY"
+}

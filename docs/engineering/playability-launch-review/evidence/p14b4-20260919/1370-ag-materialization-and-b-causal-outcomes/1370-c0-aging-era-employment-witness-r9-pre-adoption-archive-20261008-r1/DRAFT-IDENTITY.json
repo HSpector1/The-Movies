@@ -1,0 +1,19 @@
+{
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-exact-draft-20261008-r1/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "760b7a45d6a2df8e3fbc45e2362128d8dcda3ba2ae6d7d59a300c62dc7e9f5c3",
+  "candidatePinsSha256": "1e7b944771c699d05274fac24d11bafdedffe5c57956092d02ed3f14b393a875",
+  "draftBindingSha256": "854991c8f0ad245d6d8a4f8bd20bf5e4200542f0992bd2a181e5b60f04d69de6",
+  "draftPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r9-exact-draft-20261008-r1",
+  "files": {
+    "BINDING-DRAFT.json": "854991c8f0ad245d6d8a4f8bd20bf5e4200542f0992bd2a181e5b60f04d69de6",
+    "BINDING-SEMANTIC.json": "6d2f08a22ed2f694698dafcb430407b722fc9201a40201bf94a2dad41467c278",
+    "CANDIDATE-PINS.json": "1e7b944771c699d05274fac24d11bafdedffe5c57956092d02ed3f14b393a875",
+    "DRAFT-REPORT.json": "7792bce1c53d906c43c91b855374d0fa1af82c2570d922bf484a8dba8b8a3c44",
+    "LAUNCH-SPEC-DRAFT.json": "9ed590ed3098ebc160210aee3d7ac11c385d03fb2e06cdccfa5e2cb2303ad196"
+  },
+  "launchAuthorized": false,
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "schema": "1370-witness-r9-filled-draft-identity-r2",
+  "sourcePinsSha256": "584e5cc9ba3c0bd4f7a82e7bf0ddae60f74b45e757e93c50ee4c1fb5a5453759",
+  "status": "DRAFT_FILLED_UNREVIEWED_UNRUN"
+}

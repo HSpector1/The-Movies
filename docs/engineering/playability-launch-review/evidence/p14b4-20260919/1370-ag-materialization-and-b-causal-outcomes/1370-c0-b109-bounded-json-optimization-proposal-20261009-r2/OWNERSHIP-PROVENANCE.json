@@ -1,0 +1,11 @@
+{
+  "acceptedSourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/run.py",
+  "acceptedSourceSha256": "bbffa0b6e17fbefce41e66c8ca13d4e034909f2d37e8bc2f84926846be3e2c13",
+  "copiedFunctions": "process_alive,OwnedChild,start_owned,ready_go,close_startup_fds,clear",
+  "copiedSpanSha256": "bb196e0ed530341bffa1637e97354a6003c2d30cb79d1c23de264674420b5f48",
+  "encoderControlsBenchmarkByteIdenticalR1": true,
+  "execution": false,
+  "ownershipSpanCopiedByteIdentical": true,
+  "refineReceiptPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-json-optimization-independent-source-review-20261009-r1/RECEIPT.json",
+  "refineReceiptSha256": "d145a18330ee7997c34c2786fb8c658dea04daeadea43a4912828a7959d71caf"
+}

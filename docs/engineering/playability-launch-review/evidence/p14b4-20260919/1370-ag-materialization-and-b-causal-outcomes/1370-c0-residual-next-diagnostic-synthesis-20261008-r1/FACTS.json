@@ -1,0 +1,67 @@
+{
+  "actualEmploymentStillPending": true,
+  "b109OutcomeAssigned": false,
+  "comparisonExecuted": false,
+  "descriptiveFourDigestResult": {
+    "authority": "DIAGNOSTIC_COMPLETE_NO_ACCEPTANCE",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-four-digest-comparator-recorded-r2/20261008-c0-four-digest-r1/RESULT.json",
+    "sha256": "f1b2089e7d9c52961dd2b3a4ef463516837dde8e84a05aae094cae29429c28b0"
+  },
+  "executionAuthorization": false,
+  "gameGitDecodeOrProtectedScansRun": false,
+  "newCapturesOrScaffolding": false,
+  "noteSha256": "de1e37df54a0e0820160ccff2f17c89601eee09463ac37192f50898d7529a6d6",
+  "recommendation": "Actual missing employment comparison, then existing M0 neutral market hook observation; paired H required for era divergence. Separate neutral H film internal witness resolves first unobserved film predicate.",
+  "references": [
+    {
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ab-c0-digest-and-aging-binding-checkpoint/digest-design/MEMO.md",
+      "sha256": "f8f5c471e0ab99691e6b53bcfa5c1c7d9f314d87fdd301a1fb020b7d8940b2ce"
+    },
+    {
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-D-c0-observer-comparison-independent-review.md",
+      "sha256": "4bb1a73a772828e053529e0fa5ac7be5d28f9622c88c2e6ca5515d29aa89f829"
+    },
+    {
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-Q-comparator-neutrality-and-f1-checkpoint.md",
+      "sha256": "1c40aa234cc53c289795db412e08c4e91813e042b081b6536c670a59c00cad6b"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f0-r3-observed-independent-review-r1/RECEIPT.json",
+      "sha256": "5fd43314a1d1487237c1f17930210a65f774c6cec49976e6039434055ed2366c"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-observed-audit-result-independent-review-r2/RECEIPT.json",
+      "sha256": "b496f7f176d80a651d8170ed7fefc9828fb43ee64709026ce3f8d39256d8855a"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-observed-audit-result-independent-review-r2/REPORT.md",
+      "sha256": "7b095ac54298fe5bc15ae9940033b93ca1dbf57c645f977f7735fe05137ab4ee"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-market-observer-current-binding-audit-r1/REPORT.md",
+      "sha256": "6343b94a5c29117ffd4d51310cc24f8c465912bc7bce0be6baa806766adcddaa"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-r2/H-SOURCE-MANIFEST.json",
+      "sha256": "e2f92aa60063b754f110ec31f08080bfd461f6a150f74394464739c2d4cab7ff"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-r2/M0-SOURCE-MANIFEST.json",
+      "sha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-independent-review-r2/H-RECEIPT.json",
+      "sha256": "5e6f23884af9527f991665020414404455f182cc3a62abe5a5602bb019804dbf"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-independent-review-r2/M0-RECEIPT.json",
+      "sha256": "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-four-digest-comparator-recorded-r2/20261008-c0-four-digest-r1/SUMMARY.json",
+      "sha256": "d4845d8e80acfc5a2722c5a6da093e5f9564b02aebec86caa430d0cd3a4aa3cb"
+    }
+  ],
+  "schema": "1370-c0-residual-next-diagnostic-synthesis-r1",
+  "status": "READONLY_EXISTING_EVIDENCE_SYNTHESIS_ONLY"
+}

@@ -1,0 +1,18 @@
+{
+  "bindingSemanticSha256": "172b8405bceda94e539619fdf53cfb0f3ea9cfc09042c4a32cbf95a7210102c6",
+  "draftBindingSha256": "7c08b0c8911f1a75b9a4e6158eb6c8e26ffdd2c3f7de7c6bdbdfbbb4454e751e",
+  "executionAuthorization": false,
+  "files": {
+    "BINDING-DRAFT.json": "7c08b0c8911f1a75b9a4e6158eb6c8e26ffdd2c3f7de7c6bdbdfbbb4454e751e",
+    "BINDING-SEMANTIC.json": "859e6745ccb9e1d458931cdbc853994c5bd7ab4f049d02c7ff0c34ec9853f80a",
+    "DRAFT-REPORT.json": "50b00d5076177d3519e56ad64c454a177426db4c6ac57c63c971dd132ed4e9f5"
+  },
+  "materializationReceipt": {
+    "decision": "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+  },
+  "schema": "1370-r7-exact-candidate-pins-r1",
+  "sourcePinsSha256": "69ca5043bb533908f722126fbc93fd59ce84f0d7388180f3b60c5074076aebc2",
+  "status": "DRAFT_FILLED_UNREVIEWED_UNRUN"
+}

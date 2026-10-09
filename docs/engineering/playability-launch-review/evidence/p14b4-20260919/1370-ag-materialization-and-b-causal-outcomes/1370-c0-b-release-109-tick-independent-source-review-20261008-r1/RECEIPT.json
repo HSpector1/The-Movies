@@ -1,0 +1,73 @@
+{
+  "authorPreparationReceiptSha256": "1e55ef1b78b5d2a8ea92bab2ec3648c234c33fa23cfadf78fd9d0ddf2f46ae57",
+  "authoredControlsUnrun": 46,
+  "decision": "REFINE_SOURCE_ONLY_UNRUN",
+  "designReviewSha256": "718e79a8653e3f575252dfe466d2072ed816dc5444aebd5fca477ce4be524b46",
+  "documentationCorrection": "46 authored controls; PLAN says47/streaming20 but actual streaming19.",
+  "evidence": {
+    "inputs": {
+      "bytes": 25652,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-source-review-20261008-r1/INPUTS.json",
+      "sha256": "debfbbbfc1a6f7037d296b14ed605ffd5839c10b0bdd40efa7bd42962c93f8a6"
+    },
+    "report": {
+      "bytes": 7148,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-source-review-20261008-r1/REPORT.md",
+      "sha256": "184d78cca9dca77014ff789cef90fe3b856fed0c59d7839a75f80be47c43f88a"
+    }
+  },
+  "findings": [
+    {
+      "file": "run.py",
+      "id": "F1",
+      "line": 498,
+      "required": "Check active deadline before candidate and add tiny late-active injected-clock control; retain whole390 for cleanup/finalization.",
+      "summary": "Active375 is not enforced through postflight/candidate decision."
+    },
+    {
+      "file": "continuation.test.ts",
+      "id": "F2",
+      "line": 85,
+      "required": "Reuse pinned six-case/twelve-receipt comparator context, preserve identity/occurrence/locators and expose variant/content mismatches without forced restoration; add pure changed-variant control.",
+      "summary": "Six-case return classification lacks recorded E0G expiry context and canonical identity/occurrence matching."
+    },
+    {
+      "file": "streaming.mjs",
+      "id": "F3",
+      "line": 67,
+      "required": "Retain opening path/metadata and compare both FD/path around ranges/end; miniature byte-identical replacement and between-read metadata-change controls.",
+      "summary": "Capture opening FD/path metadata is not retained across indexed reads."
+    }
+  ],
+  "gameOutcome": "UNRUN",
+  "launchAuthorized": false,
+  "manifestSha256": "2ad354ad59fdc0330c25238d484a46e9769d8f517d73a1ae42964ec22db8d5db",
+  "nextGate": "Fresh immutable source revision for bounded independent static recheck, then separately parent-granted recorded focused controls. Exact binding/adoption/preflight/launch/observed review remain.",
+  "parentDesignBoundsAdoptionSha256": "0d89f7203d35e93f410ba87a757e5b626cda2a23e5af19274ad31880b3c6dc70",
+  "reviewActions": {
+    "gameRun": false,
+    "gitCommands": false,
+    "gzipDecoded": false,
+    "productionOrCopiedRootReads": false,
+    "productionWrites": false,
+    "sourceModulesExecuted": false,
+    "testsRun": false
+  },
+  "schema": "1370-c0-b-release-109-tick-independent-source-review-r1",
+  "sourceAcceptance": false,
+  "sourcePins": {
+    "continuation.test.ts": {
+      "bytes": 15627,
+      "sha256": "5d1c2f1b6b0086bcec8681924975ac2224655922c09d6b92a0e101688836fde2"
+    },
+    "run.py": {
+      "bytes": 27944,
+      "sha256": "f370bfe54b45f760d05e57f587f9fea582319acfc081644c55f5d5a4f3a12e15"
+    },
+    "streaming.mjs": {
+      "bytes": 10790,
+      "sha256": "8f3c0f73e33c9a5fe4b4672f3e931290756dc1b9f628289135e14f4f01d7f5ae"
+    }
+  },
+  "utc": "2026-10-08T23:38:34.748947+00:00"
+}

@@ -1,0 +1,67 @@
+{
+  "adoptedBindingSha256": "1d961e6badb90588e304938b75d6b488a2e35188992e30232426f823b23f12d2",
+  "artifacts": {
+    "FACTS.json": {
+      "bytes": 5594,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-adopted-independent-preflight-20261008-r1/FACTS.json",
+      "sha256": "03223212dbfe4bcc0b1b855f940ef0cf314925bce2fe218bb4d7557158e9d66a"
+    },
+    "NOFOLLOW-READBACK.json": {
+      "bytes": 907,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-adopted-independent-preflight-20261008-r1/NOFOLLOW-READBACK.json",
+      "sha256": "75e9a232239dd6d059938d9f8d802d30b8f50cfe68eadb38e965462c9a3ebc1d"
+    },
+    "REPORT.md": {
+      "bytes": 3802,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-adopted-independent-preflight-20261008-r1/REPORT.md",
+      "sha256": "ac42909e80157e9514b76effd1fd4a4cabe7f3fbf403ca72eb0fd05e53eff160"
+    },
+    "audit-adopted.py": {
+      "bytes": 8223,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-adopted-independent-preflight-20261008-r1/audit-adopted.py",
+      "sha256": "9c3d68bba1ead93adc51725a62517a3e15fbd144138338201d74193a95a21a8d"
+    },
+    "audit.stderr": {
+      "bytes": 97,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-adopted-independent-preflight-20261008-r1/audit.stderr",
+      "sha256": "502985e3663ca518fa1e2cbb1ed4a6b8cac895de695a90b3102b71ecce6aa0d1"
+    },
+    "readback-nofollow.py": {
+      "bytes": 1855,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-adopted-independent-preflight-20261008-r1/readback-nofollow.py",
+      "sha256": "d71f28c37355de731d353d3de88233a1db4ccfacc06f1e689e697390abe2eaab"
+    }
+  },
+  "bindingSemanticSha256": "d652663a8eae344d5442306d135892aab73ac1596e7f24db92a9c1a9184952e2",
+  "claimLimit": "Actual adopted bytes, exact argv and point-in-time preflight only. Parent retains lane grant and launch ownership; no game result/ledger acceptance.",
+  "clockCaps": {
+    "activeSeconds": 75,
+    "combinedNodeSeconds": 60,
+    "wholeRecorderSeconds": 90
+  },
+  "copyObservedReceiptSha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+  "decision": "ACCEPT_ADOPTED_EXACT_PREFLIGHT_UNRUN",
+  "diskFreeBytes": 8692690944,
+  "diskMinimumBytes": 3456106496,
+  "exactArgvVerified": true,
+  "freshFreeLane": true,
+  "freshProtectedCommonSha256": "e412715eb23e48e2d14d58419cf30d5b32a1ccc548750965170cac046b7d3a70",
+  "freshProtectedProductionSha256": "3b236ee5cff80f1e98c77f4cc2d780aadfd9217b9d012fc2f97274c86165082f",
+  "freshWritableFdGuard": true,
+  "independentNoFollowMetadataStable": true,
+  "launchPerformed": false,
+  "onlyChangedFields": [
+    "exactReview",
+    "executionAuthorization",
+    "status"
+  ],
+  "originalArchiveSha256": "e0a31a76c19a5c8f18a3f690cba4984f38c5a263920f5d8a573ea8858dda0003",
+  "parentAdoptionSha256": "6c346519876d1496cba0dcb3c620e715d48bf2a979cde214ba0755b98b11df41",
+  "parentNoFollowReadbackSha256": "6d0ca9dfc823d465ebcfe0aacda89af19fcab5124547110383434589e48283c1",
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "runtime": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+  "schema": "1370-c0-b-release-one-tick-adopted-independent-preflight-receipt-r1",
+  "sourceManifestSha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5",
+  "testsRepeated": false
+}

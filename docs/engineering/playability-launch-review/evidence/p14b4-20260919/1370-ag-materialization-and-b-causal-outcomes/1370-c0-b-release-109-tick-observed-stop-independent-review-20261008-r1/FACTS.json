@@ -1,0 +1,1081 @@
+{
+  "actualChildExit": -15,
+  "actualChildPidPgid": 66578,
+  "actualHelperMetaExit": 2,
+  "actualToolExit": 2,
+  "actualToolSession": 40421,
+  "capAttribution": "Shared300-second Node activity bound fired; elapsed324.414479<active375/whole390. Exact child launch monotonic timestamp is not recorded, so its exact elapsed time is not claimed.",
+  "comparisonProduced": false,
+  "current": [
+    {
+      "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+      "fdOriginalAndEphemeralPassed": true,
+      "freeBytes": 8503021568,
+      "lsofRawSha256": "c20171da26cc556c4d89881a5c494f26ed070a1f935037059694809322729e0b",
+      "oldNumericPidsAbsent": true,
+      "ownedGroupClearanceClaim": true,
+      "ownedGroupIdsChecked": [
+        66578,
+        64755,
+        94462
+      ],
+      "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+      "psRawSha256": "7ce2015020d22e85da3179ac76044e5e5a6515c6268088d252a3b16a79e3fee9",
+      "relevantWorkersAbsent": true
+    },
+    {
+      "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+      "fdOriginalAndEphemeralPassed": true,
+      "freeBytes": 8502439936,
+      "lsofRawSha256": "c2ea4cd4f3ae914343d76639fcaadb275883d1c1fff4f5429a626287f6cce73f",
+      "oldNumericPidsAbsent": true,
+      "ownedGroupClearanceClaim": true,
+      "ownedGroupIdsChecked": [
+        66578,
+        64755,
+        94462
+      ],
+      "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+      "psRawSha256": "64139ed5d7977ed9fd1c9bb50112373713175a370a245da33f6db7799d0c8aa2",
+      "relevantWorkersAbsent": true
+    }
+  ],
+  "freshRuntimeEntrypointHashesVerified": true,
+  "fullProtectedInventoryRepeated": false,
+  "fullProtectedInventoryReusedSha256": "07b785480707a2c972dbdba4b0865461507939c1891f8b5386c40a375dab105e",
+  "interventionExecuted": false,
+  "newGameOrTestsOrAssembly": false,
+  "outputCountedBytes": 15301159,
+  "outputMetadata": {
+    "EBG.LAUNCH.json": {
+      "bytes": 533,
+      "ctimeNs": 1791505212615323505,
+      "device": 16777220,
+      "inode": 166601589,
+      "mode": 384,
+      "mtimeNs": 1791505212615323505,
+      "nlink": 1
+    },
+    "EBG.ndjson.gz": {
+      "bytes": 15299045,
+      "ctimeNs": 1791505504196922286,
+      "device": 16777220,
+      "inode": 166601825,
+      "mode": 384,
+      "mtimeNs": 1791505504196922286,
+      "nlink": 1
+    },
+    "EBG.stderr.log": {
+      "bytes": 0,
+      "ctimeNs": 1791505212611387308,
+      "device": 16777220,
+      "inode": 166601588,
+      "mode": 384,
+      "mtimeNs": 1791505212611387308,
+      "nlink": 1
+    },
+    "EBG.stdout.log": {
+      "bytes": 0,
+      "ctimeNs": 1791505212611152183,
+      "device": 16777220,
+      "inode": 166601587,
+      "mode": 384,
+      "mtimeNs": 1791505212611152183,
+      "nlink": 1
+    },
+    "RESULT.json": {
+      "bytes": 1581,
+      "ctimeNs": 1791505512902134178,
+      "device": 16777220,
+      "inode": 166602343,
+      "mode": 384,
+      "mtimeNs": 1791505512902134178,
+      "nlink": 1
+    },
+    "baseline-tree": {
+      "bytes": 384,
+      "ctimeNs": 1791505214174977482,
+      "device": 16777220,
+      "inode": 166601352,
+      "mode": 493,
+      "mtimeNs": 1791505214174977482,
+      "nlink": 12
+    }
+  },
+  "ownedGroupsCheckedAbsent": [
+    66578,
+    64755,
+    94462
+  ],
+  "partialCaptureBoundaryCount": "UNCLAIMED_NOT_DECODED",
+  "recordedAndFreshGroupClear": true,
+  "recorderPostflightCompleted": false,
+  "records": {
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node": {
+      "bytes": 92324688,
+      "ctimeNs": 1778867821830229020,
+      "device": 16777220,
+      "inode": 150764171,
+      "mode": 493,
+      "mtimeNs": 1774317775000000000,
+      "nlink": 1,
+      "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc": {
+      "bytes": 45,
+      "ctimeNs": 1789555159177520893,
+      "device": 16777220,
+      "inode": 158489546,
+      "mode": 493,
+      "mtimeNs": 1787926685138142005,
+      "nlink": 1,
+      "sha256": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs": {
+      "bytes": 43,
+      "ctimeNs": 1789555159073684523,
+      "device": 16777220,
+      "inode": 158489480,
+      "mode": 493,
+      "mtimeNs": 1787926687525091514,
+      "nlink": 1,
+      "sha256": "39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-b-release-109-tick-run-20261008-4812-r1/EBG.LAUNCH.json": {
+      "bytes": 533,
+      "ctimeNs": 1791505212615323505,
+      "device": 16777220,
+      "inode": 166601589,
+      "mode": 384,
+      "mtimeNs": 1791505212615323505,
+      "nlink": 1,
+      "sha256": "c96256801a9050bec1aa1934c084f6738bf7ae0daefc94f00579c34e91f14495"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-b-release-109-tick-run-20261008-4812-r1/EBG.ndjson.gz": {
+      "bytes": 15299045,
+      "ctimeNs": 1791505504196922286,
+      "device": 16777220,
+      "inode": 166601825,
+      "mode": 384,
+      "mtimeNs": 1791505504196922286,
+      "nlink": 1,
+      "sha256": "6d486a2dbbcefb5868fb9c758d3fb72fa5f79147a77dea0d56dbfbe9a096513b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-b-release-109-tick-run-20261008-4812-r1/EBG.stderr.log": {
+      "bytes": 0,
+      "ctimeNs": 1791505212611387308,
+      "device": 16777220,
+      "inode": 166601588,
+      "mode": 384,
+      "mtimeNs": 1791505212611387308,
+      "nlink": 1,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-b-release-109-tick-run-20261008-4812-r1/EBG.stdout.log": {
+      "bytes": 0,
+      "ctimeNs": 1791505212611152183,
+      "device": 16777220,
+      "inode": 166601587,
+      "mode": 384,
+      "mtimeNs": 1791505212611152183,
+      "nlink": 1,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-b-release-109-tick-run-20261008-4812-r1/RESULT.json": {
+      "bytes": 1581,
+      "ctimeNs": 1791505512902134178,
+      "device": 16777220,
+      "inode": 166602343,
+      "mode": 384,
+      "mtimeNs": 1791505512902134178,
+      "nlink": 1,
+      "sha256": "4b9532372a117d238cec7725134cecd75c0d0957c9efa7fd279467bdf28f22de"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-b-release-one-tick-run-20261008-4812-r1/COMPARISON.json": {
+      "bytes": 45023,
+      "ctimeNs": 1791499715260972189,
+      "device": 16777220,
+      "inode": 166585821,
+      "mode": 384,
+      "mtimeNs": 1791499715260972189,
+      "nlink": 1,
+      "sha256": "27b876198ca705008c275a6e2a2f2434bbadb9c8f7e6b7e28048acbc3fe12ba9"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-r8-observed-stop-full-postflight-independent-review-20261008-r1/RECEIPT.json": {
+      "bytes": 2214,
+      "ctimeNs": 1791504142634539299,
+      "device": 16777220,
+      "inode": 166600657,
+      "mode": 420,
+      "mtimeNs": 1791504142634539299,
+      "nlink": 1,
+      "sha256": "9bc5f3d9ccff1625c3af8532a9153e3385933cc7848bde0f9eb17be97af3e0e5"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json": {
+      "bytes": 4295,
+      "ctimeNs": 1791498057308617582,
+      "device": 16777220,
+      "inode": 166567953,
+      "mode": 384,
+      "mtimeNs": 1791498057305171841,
+      "nlink": 1,
+      "sha256": "5f6de7413b9a28a9e30284062e99bf52a3ea83f9ba0074515b3257515c8b0c0f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/BINDING-UNFILLED.json": {
+      "bytes": 1917,
+      "ctimeNs": 1791496305439908950,
+      "device": 16777220,
+      "inode": 166558821,
+      "mode": 420,
+      "mtimeNs": 1791496305439908950,
+      "nlink": 1,
+      "sha256": "1e78ac65e4ac8e4814f948b76300c8e6bd3ab4823fd965c434c2874c799d159e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/PLAN.md": {
+      "bytes": 2743,
+      "ctimeNs": 1791496305440492301,
+      "device": 16777220,
+      "inode": 166558822,
+      "mode": 420,
+      "mtimeNs": 1791496305440492301,
+      "nlink": 1,
+      "sha256": "3cbfd95424ffffb3fc603afb1eca8a7717823bac7b22ff75d396e99814d4334d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/SOURCE-PINS.json": {
+      "bytes": 2075,
+      "ctimeNs": 1791496305442262622,
+      "device": 16777220,
+      "inode": 166558823,
+      "mode": 420,
+      "mtimeNs": 1791496305442262622,
+      "nlink": 1,
+      "sha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/materialize.py": {
+      "bytes": 30502,
+      "ctimeNs": 1791496305438062287,
+      "device": 16777220,
+      "inode": 166558815,
+      "mode": 420,
+      "mtimeNs": 1791496305438062287,
+      "nlink": 1,
+      "sha256": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/record.py": {
+      "bytes": 11113,
+      "ctimeNs": 1791496305430925748,
+      "device": 16777220,
+      "inode": 166558816,
+      "mode": 420,
+      "mtimeNs": 1791496305430861525,
+      "nlink": 1,
+      "sha256": "0313af5827859ea7fad9132b0f3f6de81867b4155bcf5c7c8531220b7d2d5802"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/supervise.py": {
+      "bytes": 14317,
+      "ctimeNs": 1791496305431902621,
+      "device": 16777220,
+      "inode": 166558817,
+      "mode": 420,
+      "mtimeNs": 1791496305431876101,
+      "nlink": 1,
+      "sha256": "789619893b7a531a240f2422845e7909babf73fd7eacb364ca91fcb2d2f72202"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/test_synthetic.py": {
+      "bytes": 10726,
+      "ctimeNs": 1791496305434841453,
+      "device": 16777220,
+      "inode": 166558818,
+      "mode": 420,
+      "mtimeNs": 1791496305434785724,
+      "nlink": 1,
+      "sha256": "292543fd1d0d2f8bb5be3ef184272bf997e0e8bca155bfc52c1e70b2e3b63e6b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/test_write_modes.py": {
+      "bytes": 4584,
+      "ctimeNs": 1791496305438786515,
+      "device": 16777220,
+      "inode": 166558820,
+      "mode": 420,
+      "mtimeNs": 1791496305438759665,
+      "nlink": 1,
+      "sha256": "ad8f368a4ed3318f67606508517770a5be8aeba2e7eabe18e025e66d144ef02a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/test_xattr_fd.py": {
+      "bytes": 4504,
+      "ctimeNs": 1791496305437106193,
+      "device": 16777220,
+      "inode": 166558819,
+      "mode": 420,
+      "mtimeNs": 1791496305437036549,
+      "nlink": 1,
+      "sha256": "917aa7cfbd3d6ceb7db7e7d0dd142809647b832b0223c7d6288b93fe07f23ddf"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r6/RECEIPT.json": {
+      "bytes": 2012,
+      "ctimeNs": 1791496559258325278,
+      "device": 16777220,
+      "inode": 166562343,
+      "mode": 420,
+      "mtimeNs": 1791496559258325278,
+      "nlink": 1,
+      "sha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/CONFIG.json": {
+      "bytes": 1882,
+      "ctimeNs": 1791499960286224919,
+      "device": 16777220,
+      "inode": 166586148,
+      "mode": 420,
+      "mtimeNs": 1791499960286224919,
+      "nlink": 1,
+      "sha256": "7232a61e4115f774d2e21ffd99aea707993de434fd575cc5cf8793d119610e62"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/PINS.json": {
+      "bytes": 507,
+      "ctimeNs": 1791504001838981942,
+      "device": 16777220,
+      "inode": 166589964,
+      "mode": 384,
+      "mtimeNs": 1791504001838981942,
+      "nlink": 1,
+      "sha256": "c7aadd41903e6e6ba67312eaeefb61fca5cdb00341c5b37a8c397c3463e1e7a4"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r8-r1/SNAPSHOT.json": {
+      "bytes": 7756028,
+      "ctimeNs": 1791504001789297344,
+      "device": 16777220,
+      "inode": 166589963,
+      "mode": 384,
+      "mtimeNs": 1791504001789297344,
+      "nlink": 1,
+      "sha256": "07b785480707a2c972dbdba4b0865461507939c1891f8b5386c40a375dab105e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/snapshot.py": {
+      "bytes": 15996,
+      "ctimeNs": 1791499960274307764,
+      "device": 16777220,
+      "inode": 166586147,
+      "mode": 420,
+      "mtimeNs": 1791499960274307764,
+      "nlink": 1,
+      "sha256": "ed43cd95fbbc13a2194338a8fe8dd48e05a56b1b77a4cdcb377f60ea17429740"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-design-20261008-r1/MANIFEST.json": {
+      "bytes": 2100,
+      "ctimeNs": 1791501234998932405,
+      "device": 16777220,
+      "inode": 166586980,
+      "mode": 384,
+      "mtimeNs": 1791501234998932405,
+      "nlink": 1,
+      "sha256": "964cc771f30ec1c6f587b4d1d514c21037ca7086c0d02d25d0920f013c075972"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-design-20261008-r1/RECIPE.md": {
+      "bytes": 11547,
+      "ctimeNs": 1791501234997486792,
+      "device": 16777220,
+      "inode": 166586979,
+      "mode": 384,
+      "mtimeNs": 1791501234997486792,
+      "nlink": 1,
+      "sha256": "7cddcd9540c8c066416de874eebbe06f6c2d4fba9d853e5326c63c9d54cd20e3"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-independent-design-review-20261008-r1/PARENT-ADOPTION.json": {
+      "bytes": 1392,
+      "ctimeNs": 1791501579327990316,
+      "device": 16777220,
+      "inode": 166587306,
+      "mode": 384,
+      "mtimeNs": 1791501579327990316,
+      "nlink": 1,
+      "sha256": "0d89f7203d35e93f410ba87a757e5b626cda2a23e5af19274ad31880b3c6dc70"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-continuation-independent-design-review-20261008-r1/RECEIPT.json": {
+      "bytes": 3072,
+      "ctimeNs": 1791501512703221718,
+      "device": 16777220,
+      "inode": 166587264,
+      "mode": 384,
+      "mtimeNs": 1791501512703221718,
+      "nlink": 1,
+      "sha256": "718e79a8653e3f575252dfe466d2072ed816dc5444aebd5fca477ce4be524b46"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/ADOPTED-LAUNCH.json": {
+      "bytes": 2936,
+      "ctimeNs": 1791504499490696743,
+      "device": 16777220,
+      "inode": 166600937,
+      "mode": 384,
+      "mtimeNs": 1791504499490696743,
+      "nlink": 1,
+      "sha256": "f55e114d94e0de0763e17a2e7bdcd5a2fddf0be8afae34434f1d7ef041d1ccd6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/BINDING-DRAFT.UNADOPTED-ARCHIVE.json": {
+      "bytes": 7110,
+      "ctimeNs": 1791504499485057861,
+      "device": 16777220,
+      "inode": 166600935,
+      "mode": 384,
+      "mtimeNs": 1791504499485057861,
+      "nlink": 1,
+      "sha256": "b1d0189450efb4753c074295c1256daf930c13ddd1171bf7ef288482ac93ed40"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/BINDING-DRAFT.json": {
+      "bytes": 7338,
+      "ctimeNs": 1791504499489311305,
+      "device": 16777220,
+      "inode": 166600936,
+      "mode": 384,
+      "mtimeNs": 1791504499487400447,
+      "nlink": 1,
+      "sha256": "2cb97371f25dcb20bf375222c59f63028d3e4b52f490d289c31a532273e3772c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/PARENT-TOOL-OUTCOME.json": {
+      "bytes": 1390,
+      "ctimeNs": 1791505862085407631,
+      "device": 16777220,
+      "inode": 166602480,
+      "mode": 384,
+      "mtimeNs": 1791505862085407631,
+      "nlink": 1,
+      "sha256": "0c09a2287f26ebacc5e89939bace8ae099f296634edc48da53465f3171387785"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log": {
+      "bytes": 118,
+      "ctimeNs": 1791505512904278241,
+      "device": 16777220,
+      "inode": 166601346,
+      "mode": 384,
+      "mtimeNs": 1791505512904278241,
+      "nlink": 1,
+      "sha256": "c2c04bad994451ad7dd18f916a4585c062b80864276951ed132af2ca7e4a34ad"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-exact-draft-20261008-r1/continuation.lane.log.meta": {
+      "bytes": 491,
+      "ctimeNs": 1791505512994292481,
+      "device": 16777220,
+      "inode": 166601344,
+      "mode": 384,
+      "mtimeNs": 1791505512994292481,
+      "nlink": 1,
+      "sha256": "269f37e64a67b039a1c1733aa40d618a3577936771ced2b3d6dae52c363be5de"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-exact-review-20261008-r1/RECEIPT.json": {
+      "bytes": 2942,
+      "ctimeNs": 1791504276392030944,
+      "device": 16777220,
+      "inode": 166600815,
+      "mode": 384,
+      "mtimeNs": 1791504276392030944,
+      "nlink": 1,
+      "sha256": "f4e88885067ffa7d8149a50d3c4ffb99c6193827f1819da7c6fe737b54daa3c6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-source-review-20261008-r1/INPUTS.json": {
+      "bytes": 25652,
+      "ctimeNs": 1791502714746129126,
+      "device": 16777220,
+      "inode": 166588693,
+      "mode": 384,
+      "mtimeNs": 1791502714746129126,
+      "nlink": 1,
+      "sha256": "debfbbbfc1a6f7037d296b14ed605ffd5839c10b0bdd40efa7bd42962c93f8a6"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-independent-source-review-20261008-r1/RECEIPT.json": {
+      "bytes": 3276,
+      "ctimeNs": 1791502714749864661,
+      "device": 16777220,
+      "inode": 166588694,
+      "mode": 384,
+      "mtimeNs": 1791502714749864661,
+      "nlink": 1,
+      "sha256": "b7c622cf9f3e0ac442d050a855edb95af4783bd14a92d022be5605194c98a03e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-observed-stop-independent-review-20261008-r1/audit-stop.py": {
+      "bytes": 10209,
+      "ctimeNs": 1791505962059802813,
+      "device": 16777220,
+      "inode": 166602505,
+      "mode": 420,
+      "mtimeNs": 1791505962059802813,
+      "nlink": 1,
+      "sha256": "7dfc398e3f8211850b5de29863316e141418f6cb59ad894a765093cc1c71d2fc"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/AMENDMENT-R2.md": {
+      "bytes": 443,
+      "ctimeNs": 1791502994283456592,
+      "device": 16777220,
+      "inode": 166588925,
+      "mode": 420,
+      "mtimeNs": 1791502994283456592,
+      "nlink": 1,
+      "sha256": "0e903be8cc327e7687fb84ef570f7fb7886b4db3f076aaeb221fe09e608a8527"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/BINDING-UNFILLED.json": {
+      "bytes": 532,
+      "ctimeNs": 1791502994289060725,
+      "device": 16777220,
+      "inode": 166588851,
+      "mode": 420,
+      "mtimeNs": 1791502994289060725,
+      "nlink": 1,
+      "sha256": "7a0d255122956cfcca52400aaf8bc16111a2f4077f7e9fdca33221d217bd9e82"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DEPENDENCIES.json": {
+      "bytes": 1277501,
+      "ctimeNs": 1791502902789431839,
+      "device": 16777220,
+      "inode": 166588842,
+      "mode": 384,
+      "mtimeNs": 1791501738269719245,
+      "nlink": 1,
+      "sha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json": {
+      "bytes": 24196,
+      "ctimeNs": 1791502902794650014,
+      "device": 16777220,
+      "inode": 166588850,
+      "mode": 384,
+      "mtimeNs": 1791501738275862876,
+      "nlink": 1,
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-ROLES.json": {
+      "bytes": 13974,
+      "ctimeNs": 1791502902800839858,
+      "device": 16777220,
+      "inode": 166588859,
+      "mode": 384,
+      "mtimeNs": 1791501738277090492,
+      "nlink": 1,
+      "sha256": "779d9de6325b43af1f4d418128e54d82de22a456a92ff347f24dde12aba007a3"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/E0G-TARGET-CONTEXT.json": {
+      "bytes": 28356,
+      "ctimeNs": 1791502902909436429,
+      "device": 16777220,
+      "inode": 166588862,
+      "mode": 420,
+      "mtimeNs": 1791502902909436429,
+      "nlink": 1,
+      "sha256": "e1c9fc0980eb069e9ebde103c8df36edef28ec2c90f995226dfe70aeaeeed1a8"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/MANIFEST.json": {
+      "bytes": 37717,
+      "ctimeNs": 1791502994303409466,
+      "device": 16777220,
+      "inode": 166588854,
+      "mode": 420,
+      "mtimeNs": 1791502994303409466,
+      "nlink": 1,
+      "sha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/PLAN.md": {
+      "bytes": 8325,
+      "ctimeNs": 1791502994283020624,
+      "device": 16777220,
+      "inode": 166588855,
+      "mode": 420,
+      "mtimeNs": 1791502994283020624,
+      "nlink": 1,
+      "sha256": "1a24205674792d286fd4b3a51b6ceb65e1067a51efe50cbb45e0d66fd7a01f36"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/continuation.test.ts": {
+      "bytes": 14654,
+      "ctimeNs": 1791502954124883546,
+      "device": 16777220,
+      "inode": 166588841,
+      "mode": 384,
+      "mtimeNs": 1791502954124883546,
+      "nlink": 1,
+      "sha256": "56623bb24ddbd8b923187854c3518c312d6c09f7fba427162679361d58995d33"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/hollywoodTick.r04-release-off.ts": {
+      "bytes": 40732,
+      "ctimeNs": 1791502902798296632,
+      "device": 16777220,
+      "inode": 166588856,
+      "mode": 384,
+      "mtimeNs": 1791501738271809568,
+      "nlink": 1,
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/retention.d.mts": {
+      "bytes": 215,
+      "ctimeNs": 1791502902795859892,
+      "device": 16777220,
+      "inode": 166588852,
+      "mode": 384,
+      "mtimeNs": 1791501738274432687,
+      "nlink": 1,
+      "sha256": "8433e8d649c54a4918bbdd4cf630e2ed73155555052af67dbd147cb18191cc99"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/retention.mjs": {
+      "bytes": 584,
+      "ctimeNs": 1791502902798899240,
+      "device": 16777220,
+      "inode": 166588857,
+      "mode": 384,
+      "mtimeNs": 1791501738273218460,
+      "nlink": 1,
+      "sha256": "b4eca17f4dfd93dd5c22c3ec94751d0cdf2838b946b08cf819390d1b28b0e593"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/run.py": {
+      "bytes": 28763,
+      "ctimeNs": 1791502902805627151,
+      "device": 16777220,
+      "inode": 166588843,
+      "mode": 384,
+      "mtimeNs": 1791502902805627151,
+      "nlink": 1,
+      "sha256": "bbffa0b6e17fbefce41e66c8ca13d4e034909f2d37e8bc2f84926846be3e2c13"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.d.mts": {
+      "bytes": 1127,
+      "ctimeNs": 1791502902806858393,
+      "device": 16777220,
+      "inode": 166588848,
+      "mode": 384,
+      "mtimeNs": 1791502902806858393,
+      "nlink": 1,
+      "sha256": "3054a4f665c3dfbc5d763a40f49b015ed0b18a78c5be21a5d81231422cb63340"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs": {
+      "bytes": 11414,
+      "ctimeNs": 1791502954123762851,
+      "device": 16777220,
+      "inode": 166588858,
+      "mode": 384,
+      "mtimeNs": 1791502954123762851,
+      "nlink": 1,
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/targeted.d.mts": {
+      "bytes": 230,
+      "ctimeNs": 1791502954050036841,
+      "device": 16777220,
+      "inode": 166588900,
+      "mode": 420,
+      "mtimeNs": 1791502954050036841,
+      "nlink": 1,
+      "sha256": "dde93254bc3e9d16c69e90c62351aea0640735daa57f9e906d9af5a7e0b251e5"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/targeted.mjs": {
+      "bytes": 3836,
+      "ctimeNs": 1791502954045693417,
+      "device": 16777220,
+      "inode": 166588898,
+      "mode": 420,
+      "mtimeNs": 1791502954045693417,
+      "nlink": 1,
+      "sha256": "611ad17cc519b7cc51c2ef335a449cdca6f48df77c99809663cc8460f0f71b08"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-continuation-recorder-red.py": {
+      "bytes": 2576,
+      "ctimeNs": 1791502954125723012,
+      "device": 16777220,
+      "inode": 166588844,
+      "mode": 420,
+      "mtimeNs": 1791502954125723012,
+      "nlink": 1,
+      "sha256": "14a6dcd3fb36295ffd8af836c07ccb0f09c86f274d6d540ce659294c260d1300"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-json-cap-red.py": {
+      "bytes": 2514,
+      "ctimeNs": 1791502902804227848,
+      "device": 16777220,
+      "inode": 166588847,
+      "mode": 420,
+      "mtimeNs": 1791502902804227848,
+      "nlink": 1,
+      "sha256": "c6e8d2e097b06c12e827d8e3f5b6f7908f0bc93d4b867af3c5ed6a9cd46f0516"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-recorder-red.py": {
+      "bytes": 9329,
+      "ctimeNs": 1791502902803608095,
+      "device": 16777220,
+      "inode": 166588849,
+      "mode": 420,
+      "mtimeNs": 1791502902803608095,
+      "nlink": 1,
+      "sha256": "e62b993b21dacabcc5a5c4d62592cf7aedbe423f92b23c0e8550b7196636decd"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-retention-red.mjs": {
+      "bytes": 899,
+      "ctimeNs": 1791502902791806107,
+      "device": 16777220,
+      "inode": 166588845,
+      "mode": 420,
+      "mtimeNs": 1791502250613303652,
+      "nlink": 1,
+      "sha256": "e60457c2c427fb58ac7a4f305e743deb1b19285d16991a82480689cee8ff507b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-streaming-red.mjs": {
+      "bytes": 7955,
+      "ctimeNs": 1791502954125360837,
+      "device": 16777220,
+      "inode": 166588846,
+      "mode": 420,
+      "mtimeNs": 1791502954125360837,
+      "nlink": 1,
+      "sha256": "e0caaefcc4695d9bf8db3f4fed138abfed70ee36b42a35ff680bbfb7daf90543"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/test-targeted-red.mjs": {
+      "bytes": 2646,
+      "ctimeNs": 1791502954053538526,
+      "device": 16777220,
+      "inode": 166588902,
+      "mode": 420,
+      "mtimeNs": 1791502954053538526,
+      "nlink": 1,
+      "sha256": "ae2803460ecbfe79517b2521c6e4f9366f55bedc9b6ecfe4b70bbd6fecbf0adb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/vitest.continuation.config.ts": {
+      "bytes": 279,
+      "ctimeNs": 1791502902796591289,
+      "device": 16777220,
+      "inode": 166588853,
+      "mode": 384,
+      "mtimeNs": 1791502065306195039,
+      "nlink": 1,
+      "sha256": "a602cbdb77ddde81acd30798f3ec0e193d12a1d4c94f7dafef32a23d0aac7998"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r3/RECEIPT.json": {
+      "bytes": 1036,
+      "ctimeNs": 1791496702195695177,
+      "device": 16777220,
+      "inode": 166562446,
+      "mode": 420,
+      "mtimeNs": 1791496702195695177,
+      "nlink": 1,
+      "sha256": "42210aa6552b585bbdd37270999eaac4bebeb9ae7441f537ce8d29e0c921c308"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/FACTS.json": {
+      "bytes": 22770,
+      "ctimeNs": 1791500041506487007,
+      "device": 16777220,
+      "inode": 166586282,
+      "mode": 420,
+      "mtimeNs": 1791500041506487007,
+      "nlink": 1,
+      "sha256": "d59ee958db7996635cb2f7699adfb007e3d160319528fbfaccef763e5b2b4cd4"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/PARENT-ADOPTION.json": {
+      "bytes": 834,
+      "ctimeNs": 1791501004937791849,
+      "device": 16777220,
+      "inode": 166586771,
+      "mode": 420,
+      "mtimeNs": 1791501004937791849,
+      "nlink": 1,
+      "sha256": "1b667564420555240d806c15717466faf8f18637225d8f13a1cb5197234ee779"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-observed-independent-review-20261008-r1/RECEIPT.json": {
+      "bytes": 5318,
+      "ctimeNs": 1791500767212596414,
+      "device": 16777220,
+      "inode": 166586667,
+      "mode": 420,
+      "mtimeNs": 1791500767212596414,
+      "nlink": 1,
+      "sha256": "98adcb7132bf1a3eb877f2acac02c056ce4eb65142e708cc2365d929059d8918"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-r3-independent-observed-source-controls-review-20261008-r1/RECEIPT.json": {
+      "bytes": 1166,
+      "ctimeNs": 1791497333912982107,
+      "device": 16777220,
+      "inode": 166563607,
+      "mode": 420,
+      "mtimeNs": 1791497333912982107,
+      "nlink": 1,
+      "sha256": "536154e67531678260eb75e89f024c595ca0e2545d20907e57023b8e9b013773"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/MANIFEST.json": {
+      "bytes": 5828,
+      "ctimeNs": 1791496542111329795,
+      "device": 16777220,
+      "inode": 166562285,
+      "mode": 384,
+      "mtimeNs": 1791496542111329795,
+      "nlink": 1,
+      "sha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/hollywoodTick.r04-release-off.ts": {
+      "bytes": 40732,
+      "ctimeNs": 1791496438301713784,
+      "device": 16777220,
+      "inode": 166562249,
+      "mode": 384,
+      "mtimeNs": 1791496438301713784,
+      "nlink": 1,
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/one-tick.test.ts": {
+      "bytes": 10370,
+      "ctimeNs": 1791496438302154300,
+      "device": 16777220,
+      "inode": 166562250,
+      "mode": 384,
+      "mtimeNs": 1791496438302154300,
+      "nlink": 1,
+      "sha256": "58f584748ac9bd843be5450f5edf15862839d7858d1d11db837a36045c24f97f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/retention.mjs": {
+      "bytes": 584,
+      "ctimeNs": 1791496438303212662,
+      "device": 16777220,
+      "inode": 166562252,
+      "mode": 384,
+      "mtimeNs": 1791496438303212662,
+      "nlink": 1,
+      "sha256": "b4eca17f4dfd93dd5c22c3ec94751d0cdf2838b946b08cf819390d1b28b0e593"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-source-proposal-20261008-r3/run.py": {
+      "bytes": 26594,
+      "ctimeNs": 1791496541373843307,
+      "device": 16777220,
+      "inode": 166562253,
+      "mode": 384,
+      "mtimeNs": 1791496541373843307,
+      "nlink": 1,
+      "sha256": "9dd6b54c75b6bc7401f9f56ca89a882846185450cf5a8a51744d98da013544e0"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/MANIFEST.json": {
+      "bytes": 813,
+      "ctimeNs": 1791494536843324640,
+      "device": 16777220,
+      "inode": 166546493,
+      "mode": 420,
+      "mtimeNs": 1791494536843324640,
+      "nlink": 1,
+      "sha256": "2376eb41b65c7d486a278d12574961cb085db91a1c12a212b973511898bb5c0c"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-next-b-release-control-design-20261008-r1/RECIPE.md": {
+      "bytes": 5954,
+      "ctimeNs": 1791494536839997592,
+      "device": 16777220,
+      "inode": 166546492,
+      "mode": 420,
+      "mtimeNs": 1791494536839997592,
+      "nlink": 1,
+      "sha256": "abc05a8e75da2ef0668a5bf1886901c9d7eb5bad95b6be6201453eed11dc0606"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": {
+      "bytes": 3361,
+      "ctimeNs": 1791474364204870184,
+      "device": 16777220,
+      "inode": 166476929,
+      "mode": 420,
+      "mtimeNs": 1791474364204870184,
+      "nlink": 1,
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-comparator-runs-r2/20261008-bonly-adoption-r1/RESULT.json": {
+      "bytes": 4274864,
+      "ctimeNs": 1791445211032137440,
+      "device": 16777220,
+      "inode": 166411591,
+      "mode": 384,
+      "mtimeNs": 1791445211027829296,
+      "nlink": 1,
+      "sha256": "2e909fd66897f142e11830b92d51ec10d2a7b26cec3aa23f626b42a781ead8fa"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-e0g-ebg-b-only-adoption-r2-postreadback-independent-observed-review-r1/RECEIPT.json": {
+      "bytes": 1406,
+      "ctimeNs": 1791447113491688831,
+      "device": 16777220,
+      "inode": 166412801,
+      "mode": 420,
+      "mtimeNs": 1791447113491688831,
+      "nlink": 1,
+      "sha256": "3a57d7b0cafcfb9f694de5866ef3cda0bdb0ee9f9f5166d844f9b88dfbfe544a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-outer-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json": {
+      "bytes": 1693,
+      "ctimeNs": 1791440050679370107,
+      "device": 16777220,
+      "inode": 166406748,
+      "mode": 420,
+      "mtimeNs": 1791440050679370107,
+      "nlink": 1,
+      "sha256": "9489d8959d558b08b02b4df6324ff75f78fa6ba1c45be9afcef3fa6c0467fdb7"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json": {
+      "bytes": 3074,
+      "ctimeNs": 1791440050487878587,
+      "device": 16777220,
+      "inode": 166406746,
+      "mode": 420,
+      "mtimeNs": 1791440050487878587,
+      "nlink": 1,
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-independent-review-r3/RECEIPT.json": {
+      "bytes": 404,
+      "ctimeNs": 1791438278500406236,
+      "device": 16777220,
+      "inode": 166403575,
+      "mode": 420,
+      "mtimeNs": 1791438278500406236,
+      "nlink": 1,
+      "sha256": "3f3bb2b8279b9d8931eff58156a5c36b320a0f394b744f9dd826272357c04cdc"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/MANIFEST.json": {
+      "bytes": 26472,
+      "ctimeNs": 1791438144170052448,
+      "device": 16777220,
+      "inode": 166402187,
+      "mode": 420,
+      "mtimeNs": 1791438144170052448,
+      "nlink": 1,
+      "sha256": "b8a115a2cec4c8dfb91742767362e493768c7ec992908c1aa4c3c05a92618374"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/observer-ebg.test.ts": {
+      "bytes": 12115,
+      "ctimeNs": 1791438127014443440,
+      "device": 16777220,
+      "inode": 166402184,
+      "mode": 420,
+      "mtimeNs": 1791435421638800612,
+      "nlink": 1,
+      "sha256": "e9d476e3b44dcd2ff4be890da127d811da8b5c45ad9664d443bc54ce143cb7fe"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/runner.py": {
+      "bytes": 27004,
+      "ctimeNs": 1791438127041998100,
+      "device": 16777220,
+      "inode": 166402179,
+      "mode": 420,
+      "mtimeNs": 1791438127041998100,
+      "nlink": 1,
+      "sha256": "6f7b72d0abbfb9cd381dbd59ad6a6568ec2b0394354ee799c93a6f936663d631"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-route-proposal-r3/runtime_guard.py": {
+      "bytes": 2817,
+      "ctimeNs": 1791438127023555451,
+      "device": 16777220,
+      "inode": 166402181,
+      "mode": 420,
+      "mtimeNs": 1791438127023555451,
+      "nlink": 1,
+      "sha256": "a147d694a0d810a5baa227e6da011031252fd58e67f2b2fc6990881c0bcc7bd7"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json": {
+      "bytes": 1179,
+      "ctimeNs": 1791440199389307884,
+      "device": 16777220,
+      "inode": 166406934,
+      "mode": 420,
+      "mtimeNs": 1791440199389307884,
+      "nlink": 1,
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    "/bin/ls": {
+      "bytes": 187040,
+      "ctimeNs": 1721213367000000000,
+      "device": 16777220,
+      "inode": 1152921500312781201,
+      "mode": 493,
+      "mtimeNs": 1721213367000000000,
+      "nlink": 1,
+      "sha256": "c59cdd9ce1764f1d5d1565ff7232f6293916aabeab7c792c38aa4d1b87543756"
+    },
+    "/usr/bin/du": {
+      "bytes": 151520,
+      "ctimeNs": 1721213367000000000,
+      "device": 16777220,
+      "inode": 1152921500312781741,
+      "mode": 493,
+      "mtimeNs": 1721213367000000000,
+      "nlink": 1,
+      "sha256": "4a40ef052c0344bfb566b26e9013c988a86e34a0ce3148c857475f30c529473d"
+    },
+    "/usr/bin/git": {
+      "bytes": 167120,
+      "ctimeNs": 1721213367000000000,
+      "device": 16777220,
+      "inode": 1152921500312781356,
+      "mode": 493,
+      "mtimeNs": 1721213367000000000,
+      "nlink": 76,
+      "sha256": "fe38fea56d944c3b7e9df10617b1fa5432d7b75cc346d7eacb607d083ea11711"
+    },
+    "/usr/bin/xattr": {
+      "bytes": 135216,
+      "ctimeNs": 1721213367000000000,
+      "device": 16777220,
+      "inode": 1152921500312782999,
+      "mode": 493,
+      "mtimeNs": 1721213367000000000,
+      "nlink": 1,
+      "sha256": "95f0f1b985717026d8032d42f75aea3fed3e0283a4629537aa32ae4b5b6bbbb5"
+    },
+    "/usr/sbin/lsof": {
+      "bytes": 340288,
+      "ctimeNs": 1721213367000000000,
+      "device": 16777220,
+      "inode": 1152921500312789974,
+      "mode": 493,
+      "mtimeNs": 1721213367000000000,
+      "nlink": 1,
+      "sha256": "40659ac68e85f56955736c06eadbd8864a65da3bf4827029fc845129b5165258"
+    }
+  },
+  "remaining": "Recorder source/runtime inventory postflight was not reached; complete110 boundary admission/baseline/readback, intervention and comparison remain absent. Full protected baseline reused under maintained freeze; fresh current root/FD/ref/boot/AC/disk/free-lane guards pass, no repeated full inventory.",
+  "result": {
+    "bindingSha256": "2cb97371f25dcb20bf375222c59f63028d3e4b52f490d289c31a532273e3772c",
+    "boundariesPerArm": 110,
+    "children": [
+      {
+        "actualExit": -15,
+        "arm": "EBG",
+        "command": [
+          "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+          "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+          "run",
+          "--config",
+          "vitest.neutrality.config.ts",
+          "--reporter=json",
+          "--outputFile",
+          "/Users/zacheryspector/studio-scratch/1370-b-release-109-tick-run-20261008-4812-r1/EBG.vitest.json"
+        ],
+        "groupClear": true,
+        "pgid": 66578,
+        "pgidConfirmed": true,
+        "pid": 66578,
+        "sourceInventorySha256": "e969478685c261e06a2a49c08a55d1950c8fd7956d311556ef8ac6479fb54e70",
+        "startupOwnedBeforeExec": true
+      }
+    ],
+    "classification": "109_TICK_CONTINUATION_DIAGNOSTIC_ONLY",
+    "continuationTicks": 109,
+    "elapsedSeconds": 324.41447901800166,
+    "error": "AssertionError('STOP_ACTIVE_OR_COMBINED_TEST_CAP')",
+    "groupClear": true,
+    "inputs": {
+      "boundaries": 110,
+      "capture": {
+        "bytes": 141237093,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/boundaries.ndjson.gz",
+        "sha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e"
+      },
+      "end": 416,
+      "memberIndexSha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855",
+      "start": 307
+    },
+    "manifestSha256": "67945d92e6a330f98482a893cb9a39005e7eed9fcc428b5c1d3a339cca116578",
+    "preflight": {
+      "freeBytes": 8547733504,
+      "head": "4812bb123781632dd39e44f918eb85a6a2c12623",
+      "runtime": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+      "source": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+    },
+    "status": "STOP"
+  },
+  "resultTickBoundaryDeclarations": "Requested contract counts109/110, not actual completion evidence.",
+  "reviewElapsedSeconds": 4.862042112999916,
+  "runtimeFullInventoryObservedPreflight": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+  "status": "OBSERVED_STOP_WITH_FRESH_GUARDS_ACCEPTED",
+  "utc": "2026-10-09T00:32:46.990211+00:00"
+}

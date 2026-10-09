@@ -1,0 +1,30 @@
+{
+  "authenticatedInheritedFiles": 200,
+  "changedEbgProductionPaths": [
+    "src/core/employment.ts",
+    "src/core/hollywoodPolicy.ts",
+    "src/core/hollywoodTick.ts",
+    "src/core/hollywoodValidation.ts",
+    "src/core/rivalResearch.ts",
+    "src/core/save.ts",
+    "src/core/talentMarket.ts",
+    "src/core/technologyRival.ts"
+  ],
+  "clean": true,
+  "head": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "inheritedInventorySha256": "b02deb1de37e7db14ce59070234b023bcdbb5299a1b0fbc15dd3b980577e5f48",
+  "launchLaneState": "Not claimed here; root must grant a free lane immediately before launch.",
+  "logAndMetaAbsent": true,
+  "observedAtUtc": "2026-10-08T22:15:00.132006+00:00",
+  "outputAbsent": true,
+  "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+  "productionRoles": 188,
+  "remote": "4812bb123781632dd39e44f918eb85a6a2c12623\trefs/heads/wip/headless-program-20260916-ts",
+  "runtime": "377f5d06726f292eb4b6bf80c288e84eb48716906a5ec331d36928ea46124356",
+  "runtimeFreeBytes": 8825651200,
+  "simulationTicks": 0,
+  "source": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "sourceAssemblyExecuted": false,
+  "status": "READ_ONLY_EXACT_PREPARATION_UNRUN",
+  "testsRepeated": false
+}

@@ -1,0 +1,14 @@
+{
+  "actualFrameOrComparisonRun": false,
+  "allNonlabelInputRolesExactlyEqual": true,
+  "claimLimit": "Parent adopts only reviewed version-neutral labels/schema; actual accepted witness, filled roles and bounded comparison remain required.",
+  "comparatorSha256": "8711b25431eea588780ab5e7aca649fac111f828515d52cc4ce477d0ec570408",
+  "decision": "ACCEPT_VERSION_NEUTRAL_COMPARATOR_SOURCE_ONLY_UNRUN",
+  "fiveFutureFieldsNull": true,
+  "inputsPendingSha256": "482fb581236b276c4aff7c15bb43a7323e13d236126ccb8fcb3006f74340faa8",
+  "manifestSha256": "c9e95626afaf7571164415e891779dd28336728f1c54802aac61af372188f69d",
+  "normalizedFullSourceExactlyEqual": true,
+  "reviewer": "root, independent of source author",
+  "schema": "1370-three-employment-version-neutral-independent-review-r2",
+  "utc": "2026-10-09T00:22:30.084109+00:00"
+}

@@ -1,0 +1,23 @@
+{
+  "actualControlsRun": false,
+  "executionAuthorization": false,
+  "files": {
+    "CONTROL-RECIPES.json": "58cde83917ee060574fee447396d83c154ea0906e5875a6d325f9700edd457e8",
+    "DIFF.patch": "410cce235631464dcaac933b08b5b16c1104586cd31a8490c54f8b60c22577bf",
+    "PLAN.md": "b41c9d8444cdea427907fdc1539d55dffbfa753507fa52e6fd2e569fda1dd09e",
+    "WIRING-DIFF.patch": "b58a013059f6fb69f77c34951759b65c1b15b9215fe3de3be04f1dbb7f5f6263",
+    "bounded-sink-r8-proposed.py": "0d9a5bf7e187e141bccc20a1b65740bedd3a67a926b6c7eb873f3df74c78982a",
+    "launch-pipeline-r8-proposed.sh": "38afc47e8bcb834df333f2834fdf4a6f5bd3f3826d96c8fce02a9c72d164a16f",
+    "test_failure_diagnostics.py": "0f8af4b5ea87a8667f8d03787549f73cb047dbe7223c91150584a7ffd713fed9"
+  },
+  "focusedControlsPrepared": 11,
+  "gameRun": false,
+  "originalSourcePinsSha256": "69ca5043bb533908f722126fbc93fd59ce84f0d7388180f3b60c5074076aebc2",
+  "originalStopReceiptSha256": "2fa2f8c709ab0438312867c04f2221bb2423dd822bcd3a9c380dc605dfd6e753",
+  "schema": "1370-witness-r8-diagnostic-preparation-pins-r1",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r8-diagnostic-proposal-20261008-r1",
+  "sourcePinsSha256": "0d8e9d26fecfdf4765267b9e4a2708418870551a0a80b96abfaadc5290375715",
+  "status": "FROZEN_SOURCE_PROPOSAL_AND_CONTROLS_UNRUN",
+  "syntaxCheckOnly": "ast.parse Python source; no imports/code execution of proposed modules",
+  "testsRun": false
+}

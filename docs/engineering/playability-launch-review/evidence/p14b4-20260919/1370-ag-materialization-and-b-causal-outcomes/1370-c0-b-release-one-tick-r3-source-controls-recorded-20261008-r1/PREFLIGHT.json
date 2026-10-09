@@ -1,0 +1,77 @@
+{
+  "manifestSha256": "36dcb154af74caad0803f9ae175a75693e13001fa9183efb7c70d8fdd4d8bab5",
+  "sourceReviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-one-tick-independent-source-review-20261008-r3/RECEIPT.json",
+  "sourceReviewSha256": "42210aa6552b585bbdd37270999eaac4bebeb9ae7441f537ce8d29e0c921c308",
+  "helperSha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+  "sourceFacts": [
+    {
+      "name": "AMENDMENT-R3.md",
+      "sha256": "19cf4a9ddf69c1bcada9cb1db746919595eb102ce3efeba740dbdeb6ca22be19",
+      "bytes": 2548
+    },
+    {
+      "name": "AMENDMENT.md",
+      "sha256": "c160452067b456fa5656f02061ffb7337ba57749181d12a2859cd1507fb1bc75",
+      "bytes": 2915
+    },
+    {
+      "name": "DEPENDENCIES.json",
+      "sha256": "db6b52e625de4a4a8ca2d7626dd3d1bddd09ff5166aae17b5fcbb893a4557a37",
+      "bytes": 1277501
+    },
+    {
+      "name": "PLAN.md",
+      "sha256": "e3622bbe372c3c0d7a0ebff65195901bd41a86869c39bab1e0dc3f06ea87d2fa",
+      "bytes": 11133
+    },
+    {
+      "name": "hollywoodTick.r04-release-off.ts",
+      "sha256": "ccfc12fe21c8e79fd8e453f4ed15ad22c75f73da7c59eeaffc5764e3d8c49c73",
+      "bytes": 40732
+    },
+    {
+      "name": "one-tick.test.ts",
+      "sha256": "58f584748ac9bd843be5450f5edf15862839d7858d1d11db837a36045c24f97f",
+      "bytes": 10370
+    },
+    {
+      "name": "retention.d.mts",
+      "sha256": "8433e8d649c54a4918bbdd4cf630e2ed73155555052af67dbd147cb18191cc99",
+      "bytes": 215
+    },
+    {
+      "name": "retention.mjs",
+      "sha256": "b4eca17f4dfd93dd5c22c3ec94751d0cdf2838b946b08cf819390d1b28b0e593",
+      "bytes": 584
+    },
+    {
+      "name": "run.py",
+      "sha256": "9dd6b54c75b6bc7401f9f56ca89a882846185450cf5a8a51744d98da013544e0",
+      "bytes": 26594
+    },
+    {
+      "name": "test-json-cap-red.py",
+      "sha256": "1ff37a7c2bcf8a9c93fa14ffa52eb894512785e8abb2a800fc6478bd77ed15db",
+      "bytes": 2512
+    },
+    {
+      "name": "test-recorder-red.py",
+      "sha256": "13ce28593be4352c98cded739b4ae42edd99f35f587eb6e249b2c9920aaccf51",
+      "bytes": 9308
+    },
+    {
+      "name": "test-retention-red.mjs",
+      "sha256": "e60457c2c427fb58ac7a4f305e743deb1b19285d16991a82480689cee8ff507b",
+      "bytes": 899
+    },
+    {
+      "name": "vitest.one-tick.config.ts",
+      "sha256": "a65a80ba5899b533ebd62a30c0665105d21f1fc7b44e4af34cdf0c32126b4640",
+      "bytes": 278
+    }
+  ],
+  "productionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "expectedChecks": 23,
+  "noGameRun": true
+}

@@ -1,0 +1,16 @@
+{
+  "actualToolExit": 0,
+  "actualToolSession": 80695,
+  "baselineSha256": "b087ec768c52328d142433555d8549e4d9e365fe4293810fe4fac5c042281a12",
+  "elapsedSeconds": 438.80604265999864,
+  "explicitActualOwnedPgid": null,
+  "explicitNumericOwnedGroupClearanceClaim": false,
+  "fullImmutableBaselineAndImmediatePreRunEqual": true,
+  "gameRun": false,
+  "immediatePreRunSnapshotSha256": "9462f60eaa9a6563b90c4e0cfe126d9d5d4dd427b8cf7b1a10eb601562fce5af",
+  "pinsSha256": "3952c8f763bbe30b0cde00123bc89103516157fc4bea30208561c9273bf6a715",
+  "purpose": "Full source/dependency/physical/protected postflight after actual R9 frame success.",
+  "schema": "1370-parent-full-guard-actual-tool-outcome-r1",
+  "snapshotSha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347",
+  "utc": "2026-10-09T14:41:49.628978+00:00"
+}
