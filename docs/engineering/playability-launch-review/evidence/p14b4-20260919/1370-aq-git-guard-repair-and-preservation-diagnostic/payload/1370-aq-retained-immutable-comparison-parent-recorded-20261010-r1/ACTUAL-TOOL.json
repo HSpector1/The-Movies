@@ -1,0 +1,13 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "838a8c",
+      "exit_code": 0,
+      "original_token_count": 87,
+      "output": "{\"archiveDisposition\": \"LOCAL_HASH_SIZE_ONLY\", \"output\": {\"bytes\": 1533, \"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-parent-recorded-20261010-r1/COMPARISON-LOCAL.json\", \"sha256\": \"3625225eb8b9dbf7d47c4a8e96725b410da48242b28560e67b3e162d0dfb3082\"}, \"status\": \"COMPLETE_TYPED_RETAINED_MAP_COMPARISON_ONLY\"}\n",
+      "wall_time_seconds": 1.17194526
+    }
+  ],
+  "finalExit": 0,
+  "sessionId": null
+}

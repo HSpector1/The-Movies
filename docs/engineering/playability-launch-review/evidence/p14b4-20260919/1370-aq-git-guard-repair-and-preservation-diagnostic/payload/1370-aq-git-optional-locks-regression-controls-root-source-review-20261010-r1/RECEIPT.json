@@ -1,0 +1,72 @@
+{
+  "ambientGitRoutingRemovedAndExplicitDisposablePaths": true,
+  "bounds": {
+    "aggregateControlsSeconds": 60,
+    "cleanupSecondsAfterCommandFailure": 4,
+    "perCommandStreamBytes": 65536,
+    "perGitCommandSeconds": 15,
+    "resultBytes": 131072,
+    "retainedInputOrToolBytes": 16777216
+  },
+  "candidateFunctionExtractedFromAuthenticatedActualSource": true,
+  "caseCount": 8,
+  "claimLimit": "Source review only; synthetic mechanism cannot identify original actual commonGit changed leaf",
+  "concreteFindings": [],
+  "correctedGreenRequiresFullIndexRoleAndMetadataEquality": true,
+  "decision": "ACCEPT_STATIC_GIT_OPTIONAL_LOCKS_REGRESSION_CONTROLS_SOURCE_ONLY",
+  "emptyHooksAndTemplateAndDisabledMaintenance": true,
+  "executionAuthorization": false,
+  "originalRedRequiresActualIndexShaChange": true,
+  "protectedProjectGitExecuted": false,
+  "reviewer": "root, independent of implementation author cleanup and test author B109",
+  "routeSourcePins": {
+    "CONFIG.json": {
+      "bytes": 1643,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/CONFIG.json",
+      "sha256": "7f72f1a3990a3646e3bf783e0ebe817b95683a16598f8e1dc9595fa51b82ed36"
+    },
+    "CONTRACT.json": {
+      "bytes": 6711,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "2e61b1ad3b02a359ed70ffa8e755c198457af183be8c58e7a48a16e2e81d4cf5"
+    },
+    "MATRIX.json": {
+      "bytes": 1998,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "ad782aece9a20b411646cbae6b2523c8016e17c43a895a58aac997675bf6782d"
+    },
+    "run_git_env_controls.py": {
+      "bytes": 16635,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/run_git_env_controls.py",
+      "sha256": "a8a0b5d7204bdbcb00b85b5ad5223c34805d1467994f7a3808065ad450b0328d"
+    }
+  },
+  "schema": "1370-git-optional-locks-regression-controls-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 1814,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "902fb0f11c7e345eb6f77dc0df60155bd1a0bc0bde9e348c9b6111f2187a6bfa"
+  },
+  "sourcePins": {
+    "CONFIG.json": {
+      "bytes": 1643,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/CONFIG.json",
+      "sha256": "7f72f1a3990a3646e3bf783e0ebe817b95683a16598f8e1dc9595fa51b82ed36"
+    },
+    "CONTRACT.json": {
+      "bytes": 6711,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "2e61b1ad3b02a359ed70ffa8e755c198457af183be8c58e7a48a16e2e81d4cf5"
+    },
+    "MATRIX.json": {
+      "bytes": 1998,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "ad782aece9a20b411646cbae6b2523c8016e17c43a895a58aac997675bf6782d"
+    },
+    "run_git_env_controls.py": {
+      "bytes": 16635,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/run_git_env_controls.py",
+      "sha256": "a8a0b5d7204bdbcb00b85b5ad5223c34805d1467994f7a3808065ad450b0328d"
+    }
+  }
+}

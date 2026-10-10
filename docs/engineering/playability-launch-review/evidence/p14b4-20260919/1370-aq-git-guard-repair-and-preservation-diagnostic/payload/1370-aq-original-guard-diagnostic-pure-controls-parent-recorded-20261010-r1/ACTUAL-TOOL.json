@@ -1,0 +1,21 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "b6ac30",
+      "original_token_count": 125,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 2635, \"sha256\": \"8c06b657efe0562f6f7bd1ea20e906357a807db009726ddaacb32d33e2b95025\"}, \"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-parent-recorded-20261010-r1/ROOT-LAUNCH-CLAIM.json\", \"bytes\": 1461, \"sha256\": \"ce69886f4d1497f49fb2bf7c6da72312b8cf265eb7ce8c7e834b5984f93a68b1\"}}\n",
+      "session_id": 93221,
+      "wall_time_seconds": 1.002180288
+    },
+    {
+      "chunk_id": "8b45b1",
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": "",
+      "wall_time_seconds": 1.5295e-05
+    }
+  ],
+  "finalExit": 0,
+  "schema": "1370-root-original-guard-pure32-actual-tool/v1",
+  "sessionId": 93221
+}

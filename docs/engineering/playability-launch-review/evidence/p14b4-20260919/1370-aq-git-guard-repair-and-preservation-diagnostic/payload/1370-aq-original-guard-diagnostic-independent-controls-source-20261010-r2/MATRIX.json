@@ -1,0 +1,168 @@
+{
+  "schema": "1370-original-shared-postflight-diagnostic-control-matrix/v1",
+  "cases": [
+    {
+      "id": "complete_typed_changed_paths",
+      "expected": "GREEN",
+      "predicate": "Exact changed-path order, missing distinction and bool/int type identity."
+    },
+    {
+      "id": "literal_string_key_identity",
+      "expected": "GREEN",
+      "predicate": "Keys including slash, tilde, empty and numeric strings remain exact path components."
+    },
+    {
+      "id": "unchanged_map_empty_summary",
+      "expected": "GREEN",
+      "predicate": "Identical complete maps produce no differences."
+    },
+    {
+      "id": "long_scalar_bounded_summary",
+      "expected": "GREEN",
+      "predicate": "Large scalar uses exact UTF8 length/hash, never raw oversized text."
+    },
+    {
+      "id": "exact_32_difference_boundary",
+      "expected": "GREEN",
+      "predicate": "All32 changed paths retained with complete=true."
+    },
+    {
+      "id": "difference_33_explicitly_partial",
+      "expected": "RED",
+      "predicate": "33rd difference cannot be labelled a complete comparison."
+    },
+    {
+      "id": "exact_65536_visit_boundary",
+      "expected": "GREEN",
+      "predicate": "65536-node traversal remains complete."
+    },
+    {
+      "id": "visit_65537_explicitly_partial",
+      "expected": "RED",
+      "predicate": "Traversal beyond65536 cannot be labelled complete."
+    },
+    {
+      "id": "target_stop_exact_exception_and_argv",
+      "expected": "RED",
+      "predicate": "Actual exact target frame emits full map/summary and rethrows the identical original exception; runpy argv unchanged."
+    },
+    {
+      "id": "wrong_message_no_false_attribution",
+      "expected": "RED",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives."
+    },
+    {
+      "id": "wrong_type_no_false_attribution",
+      "expected": "RED",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives."
+    },
+    {
+      "id": "wrong_filename_no_false_attribution",
+      "expected": "RED",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives."
+    },
+    {
+      "id": "wrong_function_no_false_attribution",
+      "expected": "RED",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives."
+    },
+    {
+      "id": "wrong_line_no_false_attribution",
+      "expected": "RED",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives."
+    },
+    {
+      "id": "wrong_file_global_no_false_attribution",
+      "expected": "RED",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives."
+    },
+    {
+      "id": "wrong_name_global_no_false_attribution",
+      "expected": "RED",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives."
+    },
+    {
+      "id": "duplicate_target_frames_no_false_attribution",
+      "expected": "RED",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives."
+    },
+    {
+      "id": "impostor_main_code_no_false_attribution",
+      "expected": "RED",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives."
+    },
+    {
+      "id": "bad_locals_original_exception_preserved",
+      "expected": "RED",
+      "predicate": "Invalid frame premise/source role cannot create mismatch evidence or replace original exception."
+    },
+    {
+      "id": "bad_baseline_immutable_original_exception_preserved",
+      "expected": "RED",
+      "predicate": "Invalid frame premise/source role cannot create mismatch evidence or replace original exception."
+    },
+    {
+      "id": "equal_maps_original_exception_preserved",
+      "expected": "RED",
+      "predicate": "Invalid frame premise/source role cannot create mismatch evidence or replace original exception."
+    },
+    {
+      "id": "wrong_source_role_original_exception_preserved",
+      "expected": "RED",
+      "predicate": "Invalid frame premise/source role cannot create mismatch evidence or replace original exception."
+    },
+    {
+      "id": "map_write_failure_original_wins",
+      "expected": "RED",
+      "predicate": "Explicit diagnostic writer failure cannot replace exact original target exception."
+    },
+    {
+      "id": "summary_write_failure_original_wins",
+      "expected": "RED",
+      "predicate": "Explicit diagnostic writer failure cannot replace exact original target exception."
+    },
+    {
+      "id": "later_return_not_retrospective_acceptance",
+      "expected": "GREEN",
+      "predicate": "Later original return is distinct and cannot repair54871."
+    },
+    {
+      "id": "immutable_exact_byte_boundary",
+      "expected": "GREEN",
+      "predicate": "Actual streaming emitter includes newline in exact budget."
+    },
+    {
+      "id": "immutable_one_byte_over_refuses",
+      "expected": "RED",
+      "predicate": "Actual emitter refuses cap+1 and never publishes complete output."
+    },
+    {
+      "id": "summary_exact_byte_boundary",
+      "expected": "GREEN",
+      "predicate": "Actual streaming emitter includes newline in exact budget."
+    },
+    {
+      "id": "summary_one_byte_over_refuses",
+      "expected": "RED",
+      "predicate": "Actual emitter refuses cap+1 and never publishes complete output."
+    },
+    {
+      "id": "actual_encoding_failure_original_wins",
+      "expected": "RED",
+      "predicate": "Real JSON encoding failure leaves no complete map and cannot replace original target exception."
+    },
+    {
+      "id": "actual_emit_never_overwrites_complete_output",
+      "expected": "RED",
+      "predicate": "Existing complete output stays byteexact; exclusive partial publication refuses replacement."
+    },
+    {
+      "id": "nonstring_metadata_keys_refuse_before_write",
+      "expected": "RED",
+      "predicate": "Actual emitter rejects bool/int/None/tuple keys before JSON coercion and before creating output."
+    }
+  ],
+  "caseCount": 32,
+  "positiveCount": 9,
+  "specificNegativeCount": 23
+}

@@ -1,0 +1,55 @@
+{
+  "schema": "1370-aq-fullfunction-diagnostic-v2-source-preparation-seal/v1",
+  "executionAuthorization": false,
+  "candidateExecuted": false,
+  "privateTreesRead": false,
+  "routeSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 6366,
+    "sha256": "401c974ba549321782ff5eaee1fd9261edc03a24c5dbd09417a2d0c33a687c43"
+  },
+  "parentSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 1364,
+    "sha256": "09ab4622f89e3f285c876dbb54fe619028d639e5fad06f196b95142dfc2d6130"
+  },
+  "wrapperSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 1418,
+    "sha256": "30e41a5438eba35dc1a1851062099a2376a0667af5c8266bac3273919dbea559"
+  },
+  "sourceAudit": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/STATIC-AUDIT.json",
+    "bytes": 5673,
+    "sha256": "5904131f14d31636260902266891c3da65256c806e0ab5e326de7137b37c7f91"
+  },
+  "wrapperAudit": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/WRAPPER-STATIC-AUDIT.json",
+    "bytes": 2872,
+    "sha256": "297a0e70f5014e6d64764ba76f52032dad61c2715fd23bea6b57ab497ec13144"
+  },
+  "draftPreservation": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/PRESERVED-ROLES.json",
+    "bytes": 15382,
+    "sha256": "61efbe28628529dd18dec04e7f493abbc7a893e57ccb8b877869de3bef65c63d"
+  },
+  "draftToFinalInverse": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-TO-FINAL-INVERSES.json",
+    "bytes": 396300,
+    "sha256": "fc093a5916d5c63fdafcee186cd2704f3fa4a18215c4a297364737055e5b5a16"
+  },
+  "currentProtection": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/M0-NATIVE-REFUSAL-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "bytes": 4963,
+    "sha256": "de46fee24cdce4a3610192a1b7ef20347529107e4f6b15072201a3c173f7e5b5"
+  },
+  "pendingExternalAuthority": [
+    "independent source reviews",
+    "root once grant"
+  ],
+  "routeReviewSchema": "1370-fullfunction-qualification-independent-source-review/v1",
+  "routeReviewDecision": "ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY",
+  "combinedReviewSchema": "1370-aq-fullfunction-parent-readback-wrappers-independent-source-review/v1",
+  "combinedReviewDecision": "ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY",
+  "rootReadbackDecision": "ACCEPT_STATIC_FULLFUNCTION_ROOT_READBACK_SOURCE_ONLY"
+}

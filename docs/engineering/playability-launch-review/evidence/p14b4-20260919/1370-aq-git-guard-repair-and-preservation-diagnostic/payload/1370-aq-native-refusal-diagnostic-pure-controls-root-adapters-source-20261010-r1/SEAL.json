@@ -1,0 +1,11 @@
+{
+  "actualGrant": null,
+  "actualOutcome": null,
+  "executionAuthorization": false,
+  "schema": "1370-source-only-seal/v1",
+  "sourceManifest": {
+    "bytes": 6203,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "1eb55b3e8ac401c16337b96f09c1181e2ea80ea5a336949153dc2656d1ba0c68"
+  }
+}

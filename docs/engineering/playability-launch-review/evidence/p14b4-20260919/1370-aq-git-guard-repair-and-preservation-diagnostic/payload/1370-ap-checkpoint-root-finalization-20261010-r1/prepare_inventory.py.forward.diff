@@ -1,0 +1,11 @@
+--- BASELINE-prepare_inventory.py
++++ prepare_inventory.py
+@@ -34,7 +34,7 @@
+   rows.append({'sourcePath':str(path),'package':package,'relativePath':str(rel),'bytes':st.st_size,'sha256':h.hexdigest(),'mode':format(stat.S_IMODE(st.st_mode),'04o'),'nlink':st.st_nlink,'preservationAction':'LOCAL_HASH_SIZE_ONLY' if local else 'COPY_FINITE_PAYLOAD','priorGitBlob':None})
+ assert rows and len(rows)<10000
+ assert seen_local==local_raw, "unmatched raw classification"
+-result={'schema':'1370-ao-finite-checkpoint-inventory/v1','files':rows,'pendingAdditions':[],'semanticRoleWarnings':['Recorded cap-padding and raw whole-machine PS/FD are local hash/size only; no payload or Git reuse claim for these roles.','Held source proposals and original STOP evidence do not constitute accepted runtime.','Actual source-role identity and historical operational HEAD remain distinct; publication ends prior production/common metadata continuity.'],'summary':{'completeInventory':True,'roles':len(rows),'bytes':sum(r['bytes'] for r in rows),'localOnlyRoles':sum(r['preservationAction']=='LOCAL_HASH_SIZE_ONLY' for r in rows)}}
++result={'schema':'1370-ap-finite-checkpoint-inventory/v1','files':rows,'pendingAdditions':[],'semanticRoleWarnings':['Recorded cap-padding and raw whole-machine PS/FD are local hash/size only; no payload or Git reuse claim for these roles.','Held source proposals and original STOP evidence do not constitute accepted runtime.','Actual source-role identity and historical operational HEAD remain distinct; publication ends prior production/common metadata continuity.'],'summary':{'completeInventory':True,'roles':len(rows),'bytes':sum(r['bytes'] for r in rows),'localOnlyRoles':sum(r['preservationAction']=='LOCAL_HASH_SIZE_ONLY' for r in rows)}}
+ OUT.write_text(json.dumps(result,sort_keys=True,indent=2)+'\n')
+ OUT.chmod(0o444);data=OUT.read_bytes()
+ print(json.dumps({'inventory':str(OUT),'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'summary':result['summary']},sort_keys=True))

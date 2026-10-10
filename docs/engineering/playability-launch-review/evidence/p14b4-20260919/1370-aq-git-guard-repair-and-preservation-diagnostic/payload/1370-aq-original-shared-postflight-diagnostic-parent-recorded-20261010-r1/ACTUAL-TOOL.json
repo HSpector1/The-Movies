@@ -1,0 +1,83 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "1708e9",
+      "original_token_count": 70,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 5076, \"sha256\": \"48a071573215e192af5f930be5136c31b953489904bde2baae7a72c74b4a99a3\"}, \"ownedPid\": 31271, \"ownedPgid\": 31271}\n",
+      "session_id": 96592,
+      "wall_time_seconds": 1.000633442
+    },
+    {
+      "chunk_id": "58164c",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 96592,
+      "wall_time_seconds": 5.001126885
+    },
+    {
+      "chunk_id": "156bc3",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 96592,
+      "wall_time_seconds": 5.003191619
+    },
+    {
+      "chunk_id": "28d11b",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 96592,
+      "wall_time_seconds": 5.003509211
+    },
+    {
+      "chunk_id": "b64699",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 96592,
+      "wall_time_seconds": 5.002136421
+    },
+    {
+      "chunk_id": "16581a",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 96592,
+      "wall_time_seconds": 5.001740084
+    },
+    {
+      "chunk_id": "f493bb",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 96592,
+      "wall_time_seconds": 5.00134314
+    },
+    {
+      "chunk_id": "6b514d",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 96592,
+      "wall_time_seconds": 5.0016131
+    },
+    {
+      "chunk_id": "5966aa",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 96592,
+      "wall_time_seconds": 5.003511359
+    },
+    {
+      "chunk_id": "51d780",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 96592,
+      "wall_time_seconds": 5.000593097
+    },
+    {
+      "chunk_id": "93e3ae",
+      "exit_code": 1,
+      "original_token_count": 0,
+      "output": "",
+      "wall_time_seconds": 1.5533e-05
+    }
+  ],
+  "finalExit": 1,
+  "sessionId": 96592
+}

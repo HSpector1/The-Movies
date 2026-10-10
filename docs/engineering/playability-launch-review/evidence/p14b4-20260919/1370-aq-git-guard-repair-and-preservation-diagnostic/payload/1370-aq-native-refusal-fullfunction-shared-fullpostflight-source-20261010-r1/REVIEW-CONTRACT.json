@@ -1,0 +1,15 @@
+{
+  "actualRouteReadback": {
+    "bytes": 7986,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "0c4deb56e920fc2d8a5915701fdb3fca5d94cd4044cde11dfb6fe6826463e8c4"
+  },
+  "executionAuthorization": false,
+  "requiredDecision": "ACCEPT_STATIC_ORIGINAL_SHARED_FULL_POSTFLIGHT_SOURCE_ONLY",
+  "requiredReviewSchema": "1370-aq-native-refusal-fullfunction-shared-fullpostflight-independent-source-review/v1",
+  "schema": "1370-aq-shared-fullpostflight-review-contract/v1",
+  "sourceReviewAliases": [
+    "launch-fullpostflight.py",
+    "read-fullpostflight.py"
+  ]
+}

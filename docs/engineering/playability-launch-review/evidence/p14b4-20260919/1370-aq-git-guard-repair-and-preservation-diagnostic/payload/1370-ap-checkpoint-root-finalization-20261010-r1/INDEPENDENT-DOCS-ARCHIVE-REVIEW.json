@@ -1,0 +1,125 @@
+{
+  "aqControlsSourceReview": {
+    "bytes": 8094,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "4c699c9e2b17c2c71c525dde8c553d34519b64809f4eb32b94fa165dc7764f8d"
+  },
+  "archiveConclusions": {
+    "actualPriorHeadMappingsAuthenticated": true,
+    "aqSourcePackagesExcluded": true,
+    "copiedBytes": 25937042,
+    "copiedPayloadSetAndBytesExact": true,
+    "copiedPayloads": 760,
+    "localHashSizeOnlyRoles": 12,
+    "noRawLocalOrDependencyPayloadExport": true,
+    "priorHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+    "priorHeadRoles": 143,
+    "roles": 915,
+    "wholeLateAOFiles": 43,
+    "wholeLateAOFinalizationCarried": true
+  },
+  "claimConclusions": {
+    "actualNative72PureControlsAdmitted": true,
+    "actualNaturalGenerationAdmitted": true,
+    "aqImplementationAnd86ControlsSourceOnly": true,
+    "aqOriginalSourceReviewWithdrawalAndControlsWriterGapPreserved": true,
+    "aqRuntimeUnrun": true,
+    "currentUnavailableDiagnosticNotAttributedToOldAORowOrCanonicalOverflow": true,
+    "fullQualificationAccepted": false,
+    "fullfunctionBaselineRemainsStop": true,
+    "futureRuntimeNeedsPublishedHeadProtection": true,
+    "governingOrderAndNoOwnerDecisionPreserved": true,
+    "historicalAMTypesDistinctFromCurrentAOProtection": true,
+    "mandatorySharedProtectionAdmittedSeparately": true,
+    "missingM0AfterProofsNotInvented": true,
+    "mutantUnrun": true,
+    "p16p17p18RuntimeAccepted": false
+  },
+  "completeIndexVerification": {
+    "bytes": 31304,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/INDEX-VERIFICATION-COMPLETE.json",
+    "sha256": "2e073772b8d9c1acb5a5c0578d0b6ec2addfc39a57f9aca8b9c301d59081e425"
+  },
+  "concreteFindings": [],
+  "correctedIndexReader": {
+    "bytes": 4405,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/verify_index_complete_r2.py",
+    "sha256": "29a4174453e4c88d26ec1cbaa61f550f1ed776b33260a60df343a1dcb37398a7"
+  },
+  "decision": "ACCEPT_AP_CHECKPOINT_DOCS_AND_ARCHIVE_ONLY",
+  "executionAuthorization": false,
+  "finalIndexVerification": {
+    "bytes": 33283,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/INDEX-VERIFICATION-FINAL.json",
+    "sha256": "d89951a8e770d32ac1eb6b811e60850b9ab207cf92b165ecfeb38d55e3b6c92a"
+  },
+  "fullfunctionObservedReview": {
+    "bytes": 12497,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "1e2c8137518aa49aa62d85eaf01805924bf8cb50b5585244bf70179189624c7b"
+  },
+  "handoff": {
+    "bytes": 10417,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+    "sha256": "695f8a4c3a081ec9083045a4f616cd7eaf8559e8ab9d6d3bf2ff99fc44196203"
+  },
+  "independentArchiveAudit": {
+    "bytes": 2449,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/INDEPENDENT-ARCHIVE-AUDIT.json",
+    "sha256": "b4e690f2671a35e9f06967cd85f8a3941cfa0e41b3f51943468bd49562750d8a"
+  },
+  "independentFinalIndexAudit": {
+    "bytes": 489,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/INDEPENDENT-FINAL-INDEX-AUDIT.json",
+    "sha256": "b3b1484849a0cc7c7e6f354e7d61cec27f1d7b1795880fe8b9b31965d24457bf"
+  },
+  "indexConclusions": {
+    "allFinalTreeAndIndexBlobsByteExact": true,
+    "authenticatedUnifiedDiffBlankContextWarnings": 19,
+    "autoBlockByteExact": true,
+    "autoBlockSha256": "39c20c726e9779c2f8ba73dd37ba55476302ac7b17040bf3d5e487f5c7268a4d",
+    "currentDocsWhitespaceClean": true,
+    "evidenceWhitespaceNotNormalized": true,
+    "exactTwoCarriedAOLogWarnings": 52,
+    "expectedPaths": 765,
+    "finalTree": "4373ba4feb212f12e17d63904ed8d01991257711",
+    "manifestExpectedSetEqualsWholeIndex": true,
+    "onlyTwoDocsChangedSinceCompleteVerification": true,
+    "originalFailedReaderAndEvidencePreserved": true,
+    "preservedWarningCount": 71,
+    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "wholeDiffCheckExit": 2
+  },
+  "indexReaderCorrection": {
+    "bytes": 850,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/INDEX-READER-CORRECTION.json",
+    "sha256": "5c10566a2705591768ef951e75f37d888464de538873f8f6e1c9971f6e2f175d"
+  },
+  "inventory": {
+    "bytes": 470653,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/INVENTORY-FINAL.json",
+    "sha256": "1ae9f5669760e64e9dc1aa23d5109bee4263f10f051c7b359344d363e9d6ffed"
+  },
+  "manifest": {
+    "bytes": 2354591,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/ARCHIVE-MANIFEST.json",
+    "sha256": "342fd8b811c8f73ffb3442d4d90d2a51c60e1a4065dbb7d878f753d8c8b694ea"
+  },
+  "preservedDiffCheckStdout": {
+    "bytes": 16623,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+    "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+  },
+  "report": {
+    "bytes": 7428,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AP-native-observer-controls-and-protected-stop.md",
+    "sha256": "927448ab88981abde351b5cf7906785ee7b0c2f4f9edd4cdf858b705a2e7fe29"
+  },
+  "reviewLimits": "Finite public source, authenticated actual evidence, archive files, exact prior-HEAD mappings and read-only current index/tree checks. No runtime, candidate imports, private/dependency traversal, Git mutation, source edits or publishing. This receipt approves checkpoint documentation/archive only.",
+  "rootClaim": {
+    "bytes": 1112,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/ROOT-FINAL-CLAIM.txt",
+    "sha256": "4e839829bf7b966f1d6f71bc83f791aea33f7f8bc5e32f7558ee9e7295956b81"
+  },
+  "schema": "1370-ap-independent-docs-archive-review/v1"
+}

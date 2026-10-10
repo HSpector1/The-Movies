@@ -1,0 +1,20 @@
+{
+  "change": "Explicit LOCAL paths bypass JSON producer interpretation; hashing and classification remain unchanged",
+  "concreteFindings": [],
+  "decision": "ACCEPT_FINITE_INVENTORY_BUILDER_R3_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "inventoryExecuted": false,
+  "priorIndependentR2Review": {
+    "bytes": 5283,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "b670efa79ba004600c50d12dc5c294187b4acc94ab9083588bc6c0021825c906"
+  },
+  "priorR1AndR2Preserved": true,
+  "schema": "1370-root-aq-archive-builder-r3-source-review/v1",
+  "sourceManifest": {
+    "bytes": 2112,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "d7add3c7597b379e0d96f573484c7b0ca9e1b10aa52d4ca6ff93e9f38563750d"
+  },
+  "wholeScriptSinglePredicateChangeVerified": true
+}

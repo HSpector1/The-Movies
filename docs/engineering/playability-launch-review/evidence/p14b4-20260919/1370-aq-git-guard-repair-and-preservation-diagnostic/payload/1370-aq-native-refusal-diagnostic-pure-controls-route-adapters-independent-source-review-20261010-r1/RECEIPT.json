@@ -1,0 +1,281 @@
+{
+  "adapterRouteSourcePins": {
+    "read_native_observer_controls.py": {
+      "bytes": 6884,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/read_native_observer_controls.py",
+      "sha256": "239e5e427e49a7c4a978dcf8f8a3955ed36cbb8e36e43cace0b475b2165fc98a"
+    },
+    "run_native_observer_controls_once.py": {
+      "bytes": 5391,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/run_native_observer_controls_once.py",
+      "sha256": "41c24b9fb8cd69ef1a4c42186556c60f9a24bbf2f43c0e7a910e6233f785d1ba"
+    }
+  },
+  "adapterSourceManifest": {
+    "bytes": 7359,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "86112147c4caebfb7b7c8707d00e3ef452a140a8a56178029fa2e534d66dfd21"
+  },
+  "adapterSourcePins": {
+    "read_native_observer_controls.py": {
+      "bytes": 6884,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/read_native_observer_controls.py",
+      "sha256": "239e5e427e49a7c4a978dcf8f8a3955ed36cbb8e36e43cace0b475b2165fc98a"
+    },
+    "run_native_observer_controls_once.py": {
+      "bytes": 5391,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/run_native_observer_controls_once.py",
+      "sha256": "41c24b9fb8cd69ef1a4c42186556c60f9a24bbf2f43c0e7a910e6233f785d1ba"
+    }
+  },
+  "candidateExecuted": false,
+  "caseCount": 86,
+  "concreteFindings": [],
+  "controlsExecuted": false,
+  "decision": "ACCEPT_STATIC_NATIVE_OBSERVER_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "fullQualificationAccepted": false,
+  "game": false,
+  "implementationControlsSourceAdoption": {
+    "bytes": 5332,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "83b4a28dae66ff3dfdd600cf19fce4c2024ab996afc1551a9dd3a293e947c98d"
+  },
+  "originalOrderingCases": 18,
+  "originalParserCasesReplayed": 0,
+  "positiveCount": 13,
+  "preservedHelpers": {
+    "recorderFunctionsAndOwnedChild": 17,
+    "rootOnce": 3,
+    "rootReader": 2,
+    "routeParent": 10
+  },
+  "prospectiveObservedContract": {
+    "bytes": 1664,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-CONTROLS-PROSPECTIVE-CONTRACT.json",
+    "sha256": "5d3f10303a11927b108e61ebe9cf0fc02ecc0a09b652df187816d88e83caf6b3"
+  },
+  "reviewScope": "Independent complete finite operative source/recipe/config/root-adapter review, manifest/named public role authentication, whole source inverse applications and original helper-byte comparisons. No imports, compiler/tests, private traversal, process probes or repo/Git mutation.",
+  "routeSourcePins": {
+    "CONFIG.json": {
+      "bytes": 12384,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json",
+      "sha256": "5a5c267d6a561277cfe1f738e6400f08896d4b36ddd0a67f3b88f86c5473adec"
+    },
+    "CONTRACT.json": {
+      "bytes": 7055,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONTRACT.json",
+      "sha256": "204b3430ee9365f58fc610fa96e5e68397b889b948882bd842299353da217660"
+    },
+    "CONTROLS-CONTRACT.json": {
+      "bytes": 11016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "c915be086c16ba5ee9d814038e19d0306d22efb9c7f5ca2ff8856c0d5240e548"
+    },
+    "HISTORICAL-RUNTIME-TOOLS.json": {
+      "bytes": 1478,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RUNTIME-TOOLS.json",
+      "sha256": "e7d0f540655698dac3c15f4210307bef0112abe9316283d6c68a8245dd9eca9e"
+    },
+    "MATRIX.json": {
+      "bytes": 15144,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "3dc6e11a350fb9dc7365f9738c2aad60d06cbae098efeb4ef9ac5f4ec6532edc"
+    },
+    "ORDERING-SOURCE-CASES.json": {
+      "bytes": 27476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    },
+    "PROSPECTIVE-OBSERVED-CONTRACT.json": {
+      "bytes": 1664,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-CONTROLS-PROSPECTIVE-CONTRACT.json",
+      "sha256": "5d3f10303a11927b108e61ebe9cf0fc02ecc0a09b652df187816d88e83caf6b3"
+    },
+    "PURE-PUBLIC-RUNTIME-TOOLS.json": {
+      "bytes": 1691,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-RUNTIME-TOOLS.json",
+      "sha256": "12d11061dd21827447ef0563d9ab4c5bec0c636986e8690ed067eb0be37dfa0c"
+    },
+    "launch-native-observer-controls.py": {
+      "bytes": 12344,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/launch-native-observer-controls.py",
+      "sha256": "d69f31fa8890fa7d7145efc930f3482df00094241b9f4af36c9d75b0b20d3347"
+    },
+    "m0FeasibilityWitness-native.ts": {
+      "bytes": 5868,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+    },
+    "m0NativeObserverRows.mjs": {
+      "bytes": 10267,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 13288,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
+      "sha256": "db78301bf62d52b574ed8df272d0fe3d7b10c2568f930d10eb359092725bbba6"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "ordering-source-controls.ts": {
+      "bytes": 3407,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering-source-controls.ts",
+      "sha256": "d485414f997bcf606a416160d9ec212e621b59cfd29a49e0f359b84ba06556f4"
+    },
+    "ordering.ts": {
+      "bytes": 12555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+      "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+    },
+    "original-m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/BASELINE-m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "record-native-observer-controls.py": {
+      "bytes": 17461,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-native-observer-controls.py",
+      "sha256": "8c06fa0f334d785f0d0424f5220439d4b4d3f0efd8d468deb909e574ea0f156b"
+    },
+    "run-native-observer-controls.mjs": {
+      "bytes": 46107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+      "sha256": "9aac8333c7e51364ef136e7e28c4e51c97832c8492b927842c63e50c96e318f3"
+    },
+    "run-native-observer-recorded-controls.mjs": {
+      "bytes": 18927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/run-native-observer-recorded-controls.mjs",
+      "sha256": "17cbe23eb50c7a07cd86a7ac3f7c882544b0bba0565a743bee0404a13ec0ff55"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "schema": "1370-native-observer-pure-controls-recorded-route-independent-source-review/v1",
+  "scopeFindings": {
+    "actualGraph": "Five copied MJS and four public TS modules; only exact ordering.js\u2192ordering.mjs rebase. Public pinned TS5.9.3 erasure/compiler errors fatal; generated imports checked and each module read back/hash-capped131072. Actual reviewed codec/native sink/diagnostic/shared arm/native matcher/ordering18 feed injected controls; no game graph or private M0.",
+    "authoritySplit": "AP R5 four operative native roles and original oracle remain fixed provenance; AQ diagnosticR2 and controlsR2 have separate genuine manifests/reviews and root83b4 adoption. Diagnostic db783 is not falsely authenticated as old AP module. Historical observations are identified accurately; all five named physical tool roles rehashed by launch and worker.",
+    "evaluatedPaths": "AdapterR1 stale evaluated Q basename retained as unrunSTOP. R2 Q evaluates to exact AQ routeR1 with pinned manifest/config; direct argv/script indices, worker/recorder output and reader parent agree. Six route+three originaladapter inversepairs and one R1selector correction applied fully;17/10/3/2 helper bodies unchanged.",
+    "ownershipAndClocks": "Original READY/GO owned child cleanup byte exact; helper ownPID=PGID/SID integer>1 without invented SID equality. Reader requires actual recorded helper/child IDs separately absent as PID+PGID and lock absent. Preparation60 cancelled before directexec; recorder300/320/330 runtime and8MiB streams/128KiB results unchanged; no new outer timer.",
+    "priorStop": "Root b163 protected original ROW STOP is authenticated and retains null M0 AFTER. This public source-only route does not repair or qualify fixture/game. Genuine external root grant and observed outcome remain future.",
+    "protocol": "86 exact ordered MATRIX rows,13positive73specificrefusals; original ordering18 included, parser32/helper49 not replayed. Worker/recorder result paths distinct; reader checks complete JSON equality, strict schema/counts/labels/grant/input roles, nine generated role paths/copied-byte equality, actual exit0 and no override."
+  },
+  "sourceAuthenticationRoleCount": 73,
+  "sourceManifest": {
+    "bytes": 16451,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "6db3ef0be87cb3bd4afc24ad2b1d78669df9821a3a82ccaf532fb7e25a6de55f"
+  },
+  "sourcePins": {
+    "CONFIG.json": {
+      "bytes": 12384,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json",
+      "sha256": "5a5c267d6a561277cfe1f738e6400f08896d4b36ddd0a67f3b88f86c5473adec"
+    },
+    "CONTRACT.json": {
+      "bytes": 7055,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONTRACT.json",
+      "sha256": "204b3430ee9365f58fc610fa96e5e68397b889b948882bd842299353da217660"
+    },
+    "CONTROLS-CONTRACT.json": {
+      "bytes": 11016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "c915be086c16ba5ee9d814038e19d0306d22efb9c7f5ca2ff8856c0d5240e548"
+    },
+    "HISTORICAL-RUNTIME-TOOLS.json": {
+      "bytes": 1478,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RUNTIME-TOOLS.json",
+      "sha256": "e7d0f540655698dac3c15f4210307bef0112abe9316283d6c68a8245dd9eca9e"
+    },
+    "MATRIX.json": {
+      "bytes": 15144,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "3dc6e11a350fb9dc7365f9738c2aad60d06cbae098efeb4ef9ac5f4ec6532edc"
+    },
+    "ORDERING-SOURCE-CASES.json": {
+      "bytes": 27476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    },
+    "PROSPECTIVE-OBSERVED-CONTRACT.json": {
+      "bytes": 1664,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-CONTROLS-PROSPECTIVE-CONTRACT.json",
+      "sha256": "5d3f10303a11927b108e61ebe9cf0fc02ecc0a09b652df187816d88e83caf6b3"
+    },
+    "PURE-PUBLIC-RUNTIME-TOOLS.json": {
+      "bytes": 1691,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-RUNTIME-TOOLS.json",
+      "sha256": "12d11061dd21827447ef0563d9ab4c5bec0c636986e8690ed067eb0be37dfa0c"
+    },
+    "launch-native-observer-controls.py": {
+      "bytes": 12344,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/launch-native-observer-controls.py",
+      "sha256": "d69f31fa8890fa7d7145efc930f3482df00094241b9f4af36c9d75b0b20d3347"
+    },
+    "m0FeasibilityWitness-native.ts": {
+      "bytes": 5868,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+    },
+    "m0NativeObserverRows.mjs": {
+      "bytes": 10267,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 13288,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
+      "sha256": "db78301bf62d52b574ed8df272d0fe3d7b10c2568f930d10eb359092725bbba6"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "ordering-source-controls.ts": {
+      "bytes": 3407,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering-source-controls.ts",
+      "sha256": "d485414f997bcf606a416160d9ec212e621b59cfd29a49e0f359b84ba06556f4"
+    },
+    "ordering.ts": {
+      "bytes": 12555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+      "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+    },
+    "original-m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/BASELINE-m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "record-native-observer-controls.py": {
+      "bytes": 17461,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-native-observer-controls.py",
+      "sha256": "8c06fa0f334d785f0d0424f5220439d4b4d3f0efd8d468deb909e574ea0f156b"
+    },
+    "run-native-observer-controls.mjs": {
+      "bytes": 46107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+      "sha256": "9aac8333c7e51364ef136e7e28c4e51c97832c8492b927842c63e50c96e318f3"
+    },
+    "run-native-observer-recorded-controls.mjs": {
+      "bytes": 18927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/run-native-observer-recorded-controls.mjs",
+      "sha256": "17cbe23eb50c7a07cd86a7ac3f7c882544b0bba0565a743bee0404a13ec0ff55"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "specificNegativeCount": 73,
+  "wholeApplications": 20,
+  "wholeForwardInversePairs": 10
+}

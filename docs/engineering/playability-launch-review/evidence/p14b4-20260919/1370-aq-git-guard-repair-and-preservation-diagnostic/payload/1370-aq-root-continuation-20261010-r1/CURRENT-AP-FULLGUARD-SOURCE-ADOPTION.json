@@ -1,0 +1,22 @@
+{
+  "actualGuardsAccepted": false,
+  "executionAuthorization": false,
+  "operationalScope": {
+    "bytes": 2942,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "b0e268df5d8e7cd749286c5b91c09a2b8d88926697413bd5313f46854e2cc126"
+  },
+  "originalProcedureLogicUnchanged": true,
+  "schema": "1370-ap-root-current-ap-fullguard-source-adoption/v1",
+  "sourcePins": {
+    "bytes": 5379,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "1c00f8f4e42402a972182ed643369c279149d74cb6a5cdb9208aa15269118c69"
+  },
+  "sourceReview": {
+    "bytes": 6096,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "084aa42ad2d334b35eb27928cd99f5470a97e7fc2db1bad3c0ce8d8b93938b79"
+  },
+  "status": "ROOT_ADOPTED_CURRENT_AP_FULLGUARD_BINDINGS_SOURCE_ONLY"
+}

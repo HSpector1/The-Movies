@@ -1,0 +1,187 @@
+{
+  "actualExit": 0,
+  "actualHelperSid": 49978,
+  "actualNativeCanonicalNoFitInGameClaimed": false,
+  "actualOwnedIds": [
+    49978,
+    50286
+  ],
+  "actualTool": {
+    "bytes": 1309,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "dcd5e2ab943c2ae609d93ab550e8222fd60acd6e585edfd4742bb6f0a0cb3af8"
+  },
+  "addedDiagnosticV2Cases": 14,
+  "caseCount": 86,
+  "compiledModuleCount": 9,
+  "concreteFindings": [],
+  "controlsSourcePins": {
+    "bytes": 4694,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "ea534a97a8001f5037e8c053e0a8a30ff839907913d60189705bb7f9739b016a"
+  },
+  "controlsSourceReview": {
+    "bytes": 8094,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "4c699c9e2b17c2c71c525dde8c553d34519b64809f4eb32b94fa165dc7764f8d"
+  },
+  "copiedMjsCount": 5,
+  "decision": "ACCEPT_ACTUAL_PURE_NATIVE_REFUSAL_DIAGNOSTIC_86_CONTROLS_ONLY",
+  "diagnosticSourceManifest": {
+    "bytes": 3301,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "2135c9485b6bc09f0f2a78740f4bdbdb9b7a910a8503a317bd9cfa8e29f0f818"
+  },
+  "diagnosticSourceReview": {
+    "bytes": 5406,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "e0417bd0bfa6e6cc487c2f6ee92d83a0f17b1fb3c38efa38c7b3ba1439b5ce30"
+  },
+  "exactOrderedMatrixVerdictsAccepted": true,
+  "executionAuthorization": false,
+  "fullQualificationAccepted": false,
+  "game": false,
+  "generatedModulesAuthenticated": true,
+  "grant": {
+    "bytes": 10101,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "398d0cca8352466716656bfec0c09167d0f067a13afdbfcee56ab7c02e9d24a8"
+  },
+  "helperLog": {
+    "bytes": 450,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "sha256": "71beaa3470681af3047b29255081879a9ad80a3e0d129204acf9e94fc1d5a4f1"
+  },
+  "helperMetadata": {
+    "bytes": 576,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log.meta",
+    "sha256": "1ae025a70e2818e8f42427f41b61cf530f621f42ccfa933b29dfb04af175c2aa"
+  },
+  "historicalProtectedFullfunctionStopPreserved": {
+    "bytes": 13645,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-FULLFUNCTION-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "b163345cae6eddad877aca5cae37d588ef007240fb56ea68a34575c305f6fcbf"
+  },
+  "implementationControlsSourceAdoption": {
+    "bytes": 5332,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "83b4a28dae66ff3dfdd600cf19fce4c2024ab996afc1551a9dd3a293e947c98d"
+  },
+  "implementationSourcePins": {
+    "bytes": 12245,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+    "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+  },
+  "implementationSourceReview": {
+    "bytes": 10219,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+    "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+  },
+  "original72CasesPreserved": true,
+  "originalInputsAndToolsRehashedAfterActualControlsByQualifiedWorker": true,
+  "originalOrderingCases": 18,
+  "originalParserCasesReplayed": 0,
+  "parentClaim": {
+    "bytes": 3692,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json",
+    "sha256": "43beec31371fb35ecdbe12413d0c117459f81cc59c76499831804371a1cccf78"
+  },
+  "positiveCount": 13,
+  "preparationSeconds": 0.5644039890030399,
+  "privateM0ReadOrWritten": false,
+  "producerStderrBytes": 0,
+  "prospectiveObservedContract": {
+    "bytes": 1664,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-CONTROLS-PROSPECTIVE-CONTRACT.json",
+    "sha256": "5d3f10303a11927b108e61ebe9cf0fc02ecc0a09b652df187816d88e83caf6b3"
+  },
+  "qualifiedHelperWarningRetained": {
+    "line": 259,
+    "message": "SyntaxWarning: 'return' in a 'finally' block",
+    "scope": "Qualified original recorder main finally; helper combined log only, distinct from producer stderr. No all-streams-quiet claim."
+  },
+  "readback": {
+    "bytes": 14904,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "8f1047183010b60b4d9f00b6388f04011fee3839e31e5d3adb319bfb72a4d686"
+  },
+  "readerActualTool": {
+    "bytes": 644,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/READER-ACTUAL-TOOL.json",
+    "sha256": "8862935637b661502d86cd1c2345760c37bcce5d049b790782875e43117a684e"
+  },
+  "recorderResult": {
+    "bytes": 1109,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorder-results-20261010-r1/RESULT.json",
+    "sha256": "fcd8775877d665e3ad4f6d2e0b45c6edb442c22d976eeede9188412114d62afb"
+  },
+  "recorderSeconds": 3.432947114983108,
+  "result": {
+    "bytes": 24722,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorder-results-20261010-r1/CONTROLS-RESULT.json",
+    "sha256": "e66234604f5d326ded9f759e7cae09af3eb9adfc62b451f07a445569cfa2be1a"
+  },
+  "reviewScope": "Independent retained actual evidence audit; this reviewer authored the controls source, which was independently approved by cleanup review4c699, and did not author/run the diagnostic implementation, recorded route, adapters, grant or actual outcomes. Exact rows, original72 projection, nine emitted module identities, accepted source/authority chain, worker after-controls input/tool checks, streams, clocks and retained fresh owned PID/PGID absence records authenticated. No rerun, candidate import, runtime/process probe, private traversal or Git mutation.",
+  "runtimeBounds": {
+    "active": 320,
+    "node": 300,
+    "whole": 330
+  },
+  "schema": "1370-native-refusal-diagnostic-controls-independent-observed-review/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 49978,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 49978,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 50286,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 50286,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "separatePreparation60CancelledBeforeDirectExec": true,
+  "soleLaneReleased": true,
+  "sourceAdoption": {
+    "bytes": 1384,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-ROUTE-SOURCE-ADOPTION.json",
+    "sha256": "729dfabf7eb6a23131350a4b4173e6973a46014834aab23ce60dff0c2ce396d0"
+  },
+  "sourceManifest": {
+    "bytes": 16451,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "6db3ef0be87cb3bd4afc24ad2b1d78669df9821a3a82ccaf532fb7e25a6de55f"
+  },
+  "sourceReview": {
+    "bytes": 17194,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-route-adapters-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "35cca3ee3b9b2e270353a75db74b061f032154336d6b36ff886ac6a6b611061b"
+  },
+  "specificNegativeCount": 73,
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorder-results-20261010-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 24722,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorder-results-20261010-r1/stdout.bin",
+    "sha256": "ecd526ece47367e76c52ba2362907270e462fe87de1d6d3e7435d5c961c4fc83"
+  },
+  "transpiledTsCount": 4,
+  "workerResult": {
+    "bytes": 29629,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-results-20261010-r1/CONTROLS-RESULT.json",
+    "sha256": "0551cda47032ae49f0308b4f1da96d02309978ca66fd7e7fd38d0a5ecc22a98c"
+  }
+}

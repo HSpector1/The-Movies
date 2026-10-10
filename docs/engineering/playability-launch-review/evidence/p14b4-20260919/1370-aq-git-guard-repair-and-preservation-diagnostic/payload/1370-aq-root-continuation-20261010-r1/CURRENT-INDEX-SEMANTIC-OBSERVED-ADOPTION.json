@@ -1,0 +1,35 @@
+{
+  "actualTool": {
+    "bytes": 666,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "095701e6d521c447c181a973f98144677968269ca679fdecd9befbf4766f06a3"
+  },
+  "commit": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "commonGitAggregateCauseProved": false,
+  "currentIndexBytesAndMetadataUnchangedDuringProof": true,
+  "currentRawIndexRetainedLocalOnly": true,
+  "entryCount": 20920,
+  "exactPathsModesAndBlobIdsEqual": true,
+  "executionAuthorization": false,
+  "game": false,
+  "independentObservedReview": {
+    "bytes": 5319,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "fe263829fa591ec0659dd8873036681bee1854ea398697af6d02adc0692bb0c6"
+  },
+  "indexFlagsProved": false,
+  "oldRawIndexEqualityProved": false,
+  "preservationContinuityRestored": false,
+  "readback": {
+    "bytes": 1692,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "f5687bfbc98f73fc6382f15acac7a5934d652930ad73d36a7b19bcb76cf3b01d"
+  },
+  "result": {
+    "bytes": 6371,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/RESULT.json",
+    "sha256": "a11edeb2c083cb50002143efca61aa1e827f1ffcab9b6b6a05377a38397c0d0d"
+  },
+  "schema": "1370-root-current-index-semantic-proof-observed-adoption/v1",
+  "status": "ROOT_ADOPTED_ACTUAL_CURRENT_INDEX_STAGE0_CONTENT_EQUALITY_ONLY"
+}

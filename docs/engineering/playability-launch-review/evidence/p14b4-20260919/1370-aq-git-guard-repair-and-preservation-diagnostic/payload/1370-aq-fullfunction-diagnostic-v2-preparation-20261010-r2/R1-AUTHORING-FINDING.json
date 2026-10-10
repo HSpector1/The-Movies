@@ -1,0 +1,14 @@
+{
+  "schema": "1370-aq-unrun-draft-authoring-finding/v1",
+  "executionAuthorization": false,
+  "stage": "Unsealed source preparation; corrected before final R1 audit",
+  "finding": "New authority loop initially looked up the source adoption own role within its content. An acyclic adoption does not contain its own hash role. The self-role is authenticated externally; descendant authority fields still compare exactly.",
+  "correctedBeforeCandidateExecution": true,
+  "candidateExecuted": false,
+  "historicalDraftAudit": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r1/STATIC-AUDIT.json",
+    "bytes": 5743,
+    "sha256": "d81e7c11c8f16023f637333644b263ea85d0e13d640fbe2e027cf04722b3f5ef"
+  },
+  "R1DraftPreserved": true
+}

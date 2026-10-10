@@ -1,0 +1,56 @@
+{
+  "actualFullGuardGrant": {
+    "bytes": 2366,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "d821cdaf8bbcd092c859601e9a79b9d423a7ab61862d925d0753a4347cccc7a0"
+  },
+  "actualGrant": null,
+  "actualNativeRefusalControlsAdoption": {
+    "bytes": 16532,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "385249f0239d6999318b62c6781c0f24c97e10600aa47dba6b51ddf6c4693ed4"
+  },
+  "actualOwnedGroups": null,
+  "actualReadback": null,
+  "actualTool": null,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directScannerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ap-root-prelaunch.py",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-parent-recorded-20261010-r1/CONFIG.json",
+    null
+  ],
+  "executionAuthorization": false,
+  "knownPriorFullguardOwnedGroup": 59317,
+  "launcherArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/run_current_ap_prelaunch_once.py",
+    null,
+    null,
+    "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "385249f0239d6999318b62c6781c0f24c97e10600aa47dba6b51ddf6c4693ed4"
+  ],
+  "launcherFutureOperands": [
+    "independentSourceReviewPath",
+    "independentSourceReviewSha256"
+  ],
+  "output": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-output-20261010-r1",
+  "parent": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-parent-recorded-20261010-r1",
+  "readerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/read_current_ap_prelaunch.py",
+    null,
+    null
+  ],
+  "readerFutureOperands": [
+    "actualToolSessionId",
+    "actualScannerPidPgidSid"
+  ],
+  "schema": "1370-ap-current-ap-prelaunch-argv/v2"
+}

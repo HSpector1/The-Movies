@@ -1,0 +1,103 @@
+{
+  "executionAuthorization": false,
+  "externalInputs": {
+    "prospectiveObservedContract": {
+      "bytes": 1664,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-CONTROLS-PROSPECTIVE-CONTRACT.json",
+      "sha256": "5d3f10303a11927b108e61ebe9cf0fc02ecc0a09b652df187816d88e83caf6b3"
+    },
+    "routeSourceManifest": {
+      "bytes": 16451,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+      "sha256": "6db3ef0be87cb3bd4afc24ad2b1d78669df9821a3a82ccaf532fb7e25a6de55f"
+    }
+  },
+  "files": {
+    "BASELINE-CONTRACT.json": {
+      "bytes": 2116,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/BASELINE-CONTRACT.json",
+      "sha256": "4ddeebdbc3f9035c2d7629154ce37f0f2ebb81a05a0b59969ac6129ac63822ab"
+    },
+    "BASELINE-read_native_observer_controls.py": {
+      "bytes": 6351,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/BASELINE-read_native_observer_controls.py",
+      "sha256": "d0c379255584dd36718b4cfa4af5f3e0de8d9c932fe73bd83eabe0b0027349c8"
+    },
+    "BASELINE-run_native_observer_controls_once.py": {
+      "bytes": 5017,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/BASELINE-run_native_observer_controls_once.py",
+      "sha256": "5a64a66f7f98498c316ad330d078caebc0214c50699fc3c2228e097a74c12470"
+    },
+    "CONTRACT.json": {
+      "bytes": 2477,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/CONTRACT.json",
+      "sha256": "a490d4eee128bb716e6bd4c2a580837a59cb31e42fa5734f825775b8a5479b79"
+    },
+    "CONTRACT.json.diff": {
+      "bytes": 4646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/CONTRACT.json.diff",
+      "sha256": "af5cdf18ec3f752cdff0e53ca2f08a027c7637ae2ca4d4662480847746adf651"
+    },
+    "FORWARD-CONTRACT.json.json": {
+      "bytes": 4923,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/FORWARD-CONTRACT.json.json",
+      "sha256": "9b015e2fbb84b3a6e0aebb17985f8fa9493b6f1febeb54c115811de29a5e14d7"
+    },
+    "FORWARD-read_native_observer_controls.py.json": {
+      "bytes": 13386,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/FORWARD-read_native_observer_controls.py.json",
+      "sha256": "5bca374e5109c9a2a17a9d2c5eef02af305924696e03afdf2dcf37b5dea3c8be"
+    },
+    "FORWARD-run_native_observer_controls_once.py.json": {
+      "bytes": 10517,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/FORWARD-run_native_observer_controls_once.py.json",
+      "sha256": "13611d70623d40501dd6ad72a290a3607717a385ecea5ac23e6f0fe716931ff8"
+    },
+    "INVERSE-CONTRACT.json.json": {
+      "bytes": 4923,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/INVERSE-CONTRACT.json.json",
+      "sha256": "e2f640617c75b751aa57f413943178261b0b8d436dbae82113935b7f4a645956"
+    },
+    "INVERSE-read_native_observer_controls.py.json": {
+      "bytes": 13386,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/INVERSE-read_native_observer_controls.py.json",
+      "sha256": "9c6d05da145bc72c9b5fd4d2c2dc75cfc584ec0c3921f69047c58d01518675cd"
+    },
+    "INVERSE-run_native_observer_controls_once.py.json": {
+      "bytes": 10517,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/INVERSE-run_native_observer_controls_once.py.json",
+      "sha256": "46e5e9e3ec651310a03b098d8733cc660bc18c8d26385179e894a849ee5852c4"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 6850,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/SOURCE-PROOF.json",
+      "sha256": "3e3f3ad59d648be561a9ff66e445efcb3a60dc1a226dc4e3ff0a2494b892e49a"
+    },
+    "read_native_observer_controls.py": {
+      "bytes": 6884,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/read_native_observer_controls.py",
+      "sha256": "239e5e427e49a7c4a978dcf8f8a3955ed36cbb8e36e43cace0b475b2165fc98a"
+    },
+    "read_native_observer_controls.py.diff": {
+      "bytes": 7929,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/read_native_observer_controls.py.diff",
+      "sha256": "472fe202eb98245708e6b0ac033a5d3ea63aeb38b5e81d6cc706b9c7d7388ebf"
+    },
+    "run_native_observer_controls_once.py": {
+      "bytes": 5381,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/run_native_observer_controls_once.py",
+      "sha256": "fd7333e855318c8560860bb2b243282f85ebaff6da85d92309b24c272f3eff11"
+    },
+    "run_native_observer_controls_once.py.diff": {
+      "bytes": 7066,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/run_native_observer_controls_once.py.diff",
+      "sha256": "cbe9f71e989a072d54e66ccc58760cc0ba11d1af4eb90d1b9fbcdf6a18f796aa"
+    }
+  },
+  "predecessor": {
+    "bytes": 2931,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "aaa7fc7aa6b4f8bb75f19a4096d4408c8d1e7a0d7b98bd8abdf94d6e0a276e92"
+  },
+  "schema": "1370-native-observer-controls-root-adapters-source-pins/v1"
+}

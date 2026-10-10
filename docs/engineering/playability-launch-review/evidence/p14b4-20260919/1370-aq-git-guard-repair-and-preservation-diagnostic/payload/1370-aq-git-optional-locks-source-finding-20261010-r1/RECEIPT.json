@@ -1,0 +1,136 @@
+{
+  "actualExecutionGrant": {
+    "bytes": 5057,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r1/EXECUTION-GRANT.json",
+    "sha256": "27cd285e48531675e851b7dfb6d15ac5b2b836b512374a4a803554a70f44eabf"
+  },
+  "actualFirstProof": {
+    "bytes": 2007,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-results-20261010-r1/FIRST-PROOF.json",
+    "sha256": "9a2d299d01ac1cb2cae09333eab6491c7e1a4f10cba58ce6d87f8daacf810878"
+  },
+  "actualReadback": {
+    "bytes": 7986,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "0c4deb56e920fc2d8a5915701fdb3fca5d94cd4044cde11dfb6fe6826463e8c4"
+  },
+  "chronology": {
+    "actualLaneEndUtcSecondPrecision": "2026-10-10T12:11:44Z",
+    "actualLaneStartUtcSecondPrecision": "2026-10-10T12:10:59Z",
+    "indexCtimeUtcAsRootRecorded": "2026-10-10T12:11:03.029451Z",
+    "indexMtimeUtcAsRootRecorded": "2026-10-10T12:11:03.024858Z",
+    "indexTimeWithinRecordedLaneWindow": true,
+    "individualGitStatusStartUtcRetained": null,
+    "originalFullguardBaselineUtc": "2026-10-10T11:49:54.987Z",
+    "recorderElapsedSeconds": 43.80935085899546,
+    "recorderResultUtc": "2026-10-10T12:11:44.158671+00:00"
+  },
+  "claimLimits": [
+    "No current index content read or Git command performed.",
+    "No timestamp restoration, baseline repin or retrospective54871 acceptance.",
+    "Individual command timing absent; timestamps alone do not prove byte drift or attribution."
+  ],
+  "conclusion": "A real source defect enables index refresh in status despite parent locks=0; changed index metadata falls within the recorded route window. No raw index byte change or exact commonGit aggregate cause is established. Preserve historical source; repair only reviewed current adapter sanitizer before reuse.",
+  "currentGitReadOrMutated": false,
+  "executionAuthorization": false,
+  "fullfunctionController": {
+    "bytes": 35650,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/run-fullfunction.py",
+    "sha256": "3537585b7f587f614b25d513fa29e0892f6008a0c5df8f5df695c559450d9192"
+  },
+  "fullfunctionImportBinding": {
+    "bytes": 31835,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/CONFIG.json",
+    "sha256": "7b3965a4afe3b4e64b4b85f826ca53f58f841b03b16032de4ecdf838def0bfc3"
+  },
+  "historicalProofLibrary": {
+    "bytes": 44067,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+    "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+  },
+  "historicalRawIndexSearch": {
+    "authenticRawIndexShaOrCopyFound": false,
+    "indexedTreeIsNotRawIndexProof": true,
+    "namedScope": [
+      "AP finalization JSON metadata",
+      "AQ fullfunction parent JSON metadata",
+      "AQ current-prelaunch JSON metadata"
+    ]
+  },
+  "laneMetadata": {
+    "bytes": 548,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-lane-20261010-r1.meta",
+    "sha256": "91212859aed3f8b90b2ec1ae43f27af5571e2521b68fb2bcb4ff329f0fef9d1c"
+  },
+  "recorderResult": {
+    "bytes": 975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-recorder-results-20261010-r1/RESULT.json",
+    "sha256": "eb4ade56eacb597f0a3743e7e053a0cd403ba54a2ed0bf697463454d9b153aff"
+  },
+  "rootMetadataEvidence": [
+    {
+      "bytes": 2890,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-common-git-attribution-root-20261010-r1/TOP-LEVEL-METADATA-LOCAL.json",
+      "sha256": "4c773b0d358ee079f6ed28cc6bb5d3ed18109f2d553466b2f488dea761ee11b5"
+    },
+    {
+      "bytes": 4577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-common-git-attribution-root-20261010-r1/WORKTREE-METADATA-LOCAL.json",
+      "sha256": "cd21b1f42523898e2167a4aa54659a50ced5cd6a5a132f151747b9cdd6ddcdef"
+    }
+  ],
+  "schema": "1370-aq-git-optional-locks-source-finding/v1",
+  "sourceChain": [
+    {
+      "lines": [
+        116,
+        117
+      ],
+      "meaning": "clean_git_env removes every inherited key beginning GIT_, including GIT_OPTIONAL_LOCKS=0.",
+      "source": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py"
+    },
+    {
+      "lines": [
+        224,
+        227
+      ],
+      "meaning": "cmd selects that sanitized environment for argv[0]==git and launches process.",
+      "source": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py"
+    },
+    {
+      "lines": [
+        539,
+        540
+      ],
+      "meaning": "guard executes git status --porcelain=v1 without explicit --no-optional-locks.",
+      "source": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py"
+    },
+    {
+      "lines": [
+        179,
+        186
+      ],
+      "meaning": "Actual controller authenticates and executes pinned historical proof methods, invokes proofs and records its source/dependency results in FIRST-PROOF.",
+      "source": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/run-fullfunction.py"
+    }
+  ],
+  "sourceControlsContrast": [
+    {
+      "lines": [
+        195,
+        208
+      ],
+      "meaning": "Original shortguard helper explicitly inserts GIT_OPTIONAL_LOCKS=0 after environment allowlist.",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/materialize.py"
+    },
+    {
+      "lines": [
+        11,
+        12
+      ],
+      "meaning": "AP index verification uses --no-optional-locks.",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/verify_index_complete_r2.py"
+    }
+  ],
+  "status": "CONFIRMED_SOURCE_ENVIRONMENT_STRIPPING_WITH_CORRELATED_RECORDING_WINDOW_NOT_AGGREGATE_CAUSE_PROOF"
+}

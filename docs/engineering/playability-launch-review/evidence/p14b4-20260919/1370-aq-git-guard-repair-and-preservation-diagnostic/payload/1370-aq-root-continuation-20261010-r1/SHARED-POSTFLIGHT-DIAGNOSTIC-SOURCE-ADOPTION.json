@@ -1,0 +1,42 @@
+{
+  "baselineRepinned": false,
+  "boundsChangeScope": "New operational diagnostic metadata outputs only; no gameplay/trace/test/guard clock bound changed.",
+  "controlsIndependentSourceReview": {
+    "bytes": 4859,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-controls-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "9f3ea1ec5dd4d50b0e8b23be7cf426b20a1a0ea5733626b78485c1c7d650c6e5"
+  },
+  "controlsSourceManifest": {
+    "bytes": 1352,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "efebc32ff67ef0268f088b34bbeeb2b1aec05ad486f1b8bc4f4ab87075aed8ba"
+  },
+  "executionAuthorization": false,
+  "fullProtectedPostflightAccepted": false,
+  "game": false,
+  "immutableOutputCapBytes": 16777216,
+  "implementationScope": "Authenticated original scanner via runpy; bounded in-memory immutable map and mismatch summary only; exact original code frame and exception identity retained.",
+  "independentSourceReview": {
+    "bytes": 8723,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "308265fec2849b24846ab49613328f1687032d1cf371c460e69739608ce35289"
+  },
+  "originalFailurePreserved": true,
+  "originalScannerChanged": false,
+  "priorFailureAdoption": {
+    "bytes": 4175,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/SHARED-POSTFLIGHT-FAILURE-OBSERVED-ADOPTION.json",
+    "sha256": "1de73d51dd02efad1f9d09202de35a90a7c8aaa76b683275a8179d4333052f88"
+  },
+  "pure32ActualAccepted": false,
+  "requiredOrder": "Actual focused pure32 must be reviewed and root adopted before root once invocation of the original-guard diagnostic.",
+  "runtimeQualificationPending": true,
+  "schema": "1370-root-original-shared-postflight-diagnostic-source-adoption/v1",
+  "sourceManifest": {
+    "bytes": 2251,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "b07864936097acd4b33d325e1d20764a0ec84d4c700fbf1174a1707e2ac99191"
+  },
+  "status": "ROOT_ADOPTED_ORIGINAL_GUARD_EXCEPTION_DIAGNOSTIC_SOURCE_ONLY",
+  "summaryOutputCapBytes": 32768
+}

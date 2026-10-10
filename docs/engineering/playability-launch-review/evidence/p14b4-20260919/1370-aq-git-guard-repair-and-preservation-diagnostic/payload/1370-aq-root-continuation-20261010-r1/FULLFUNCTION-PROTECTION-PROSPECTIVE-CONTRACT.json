@@ -1,0 +1,37 @@
+{
+  "actualProtection": null,
+  "currentFullPreflightAdoptionKey": "currentAPFullPreflightAdoption",
+  "currentFullPreflightSnapshotKey": "currentAPFullPreflightSnapshot",
+  "currentOperationalTransition": {
+    "bytes": 1029,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-OPERATIONAL-TRANSITION.json",
+    "sha256": "8a7d765bbc472ccf5717fd2b3e68a362eac5db63f76b5fb523bd6fe3de1ed753"
+  },
+  "currentOperationalTransitionSchema": "1370-aq-current-ap-operational-transition/v1",
+  "currentProtectionRequiresActualFullGuardAndShortPrelaunch": true,
+  "executionAuthorization": false,
+  "historicalTypesRemainHistorical": true,
+  "m0BeforeAfterProofsRemainSeparate": true,
+  "mandatoryOriginalFullPostflightAfterGame": true,
+  "nativeControlsObservedAdoptionKey": "nativeControlsObservedAdoption",
+  "nativeControlsRemainHistorical72": true,
+  "nativeRefusalControlsObservedAdoption": {
+    "bytes": 16532,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "385249f0239d6999318b62c6781c0f24c97e10600aa47dba6b51ddf6c4693ed4"
+  },
+  "nativeRefusalControlsObservedAdoptionKey": "nativeRefusalControlsObservedAdoption",
+  "newKeysPreserveHistoricalAuthoritiesSeparately": true,
+  "noScientificCapsOrClocksChanged": true,
+  "priorProtectedStopAdoption": {
+    "bytes": 13645,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-FULLFUNCTION-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "b163345cae6eddad877aca5cae37d588ef007240fb56ea68a34575c305f6fcbf"
+  },
+  "productionHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "protectionPath": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/M0-NATIVE-REFUSAL-FULLFUNCTION-CURRENT-PROTECTION.json",
+  "protectionSchema": "1370-root-fullfunction-current-protection/v4",
+  "protectionStatus": "ROOT_ADOPTED_CURRENT_FULLFUNCTION_PREFLIGHT_UNDER_CONTINUOUS_FREEZE",
+  "schema": "1370-aq-fullfunction-protection-prospective-contract/v1"
+}

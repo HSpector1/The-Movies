@@ -1,0 +1,4 @@
+{"launchClaim": {"path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r1/RECORDER-LAUNCH-CLAIM.json", "bytes": 1732, "sha256": "3be3de9f564da3750bf9c2a0e6357aaa8beab1e73791c48ab3b8f4a2d627d907"}, "mode": "inner", "actualOwned": {"pid": 38267, "pgid": 38267, "sid": 38267}}
+/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/record-fullfunction.py:249: SyntaxWarning: 'return' in a 'finally' block
+  return code
+{"status": "STOP_CHILD_EXIT_1", "output": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-recorder-results-20261010-r1", "actualChildExit": 1, "groupClear": true}

@@ -1,0 +1,14 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "ce660d",
+      "exit_code": 0,
+      "original_token_count": 82,
+      "output": "{\"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r1/READBACK.json\", \"bytes\": 7986, \"sha256\": \"0c4deb56e920fc2d8a5915701fdb3fca5d94cd4044cde11dfb6fe6826463e8c4\"}, \"status\": \"ACTUAL_FULLFUNCTION_STOP_PRESERVED_PENDING_SHARED_FULL_POSTFLIGHT\"}\n",
+      "wall_time_seconds": 0.890216032
+    }
+  ],
+  "finalExit": 0,
+  "schema": "1370-root-native-refusal-fullfunction-reader-actual-tool/v1",
+  "sessionId": null
+}

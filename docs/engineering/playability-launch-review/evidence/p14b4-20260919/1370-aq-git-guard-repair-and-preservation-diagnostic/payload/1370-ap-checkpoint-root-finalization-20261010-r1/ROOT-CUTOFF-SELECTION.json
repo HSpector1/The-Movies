@@ -1,0 +1,113 @@
+{
+  "catalogIsFinal": true,
+  "excludedNextSlice": "All AQ source preparation remains outside AP immutable cutoff; names/status captured separately in HANDOFF.",
+  "executionAuthorization": true,
+  "expectedHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "finalLessons": {
+    "bytes": 6424,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/LESSONS-r9.md",
+    "sha256": "708ac2f60f9cd4c699b558dfdef70324c2d6edc53d9c19e54fcced5b0cd36e19"
+  },
+  "fullfunctionObservedReview": {
+    "bytes": 12497,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "1e2c8137518aa49aa62d85eaf01805924bf8cb50b5585244bf70179189624c7b"
+  },
+  "fullfunctionReadback": {
+    "bytes": 7552,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "fc9b38f9530bb565b4204f82452cc2d6245c2947508cf24ed35683177f4bd352"
+  },
+  "laneRoles": [
+    {
+      "bytes": 707,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-lane-20261010-r1",
+      "sha256": "44243d0d5b501c8339d916001aa499d3e5646c96e9db89efcc86fba57f752954"
+    },
+    {
+      "bytes": 530,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-lane-20261010-r1.meta",
+      "sha256": "9cab30d6ff064efa792b46e7708c1fdfaa8a71984501b4109acf59fb442b5c1f"
+    }
+  ],
+  "lateAODirectory": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1",
+  "mandatoryPostflightObservedReview": {
+    "bytes": 12497,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "1e2c8137518aa49aa62d85eaf01805924bf8cb50b5585244bf70179189624c7b"
+  },
+  "packagePaths": [
+    "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-independent-partial-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-independent-source-review-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-independent-source-review-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-recorder-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-parent-readback-wrappers-independent-source-review-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-output-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-independent-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r4",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r5",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-diagnostic-codec-supplement-independent-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorder-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-refusal-diagnostic-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-refusal-diagnostic-proposal-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r4",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5",
+    "/Users/zacheryspector/studio-scratch/1370-ap-public-checkpoint-inventory-plan-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1"
+  ],
+  "rootCutoff": "2026-10-10T11:18:01.491372+00:00",
+  "rootObservedAdoption": {
+    "bytes": 13645,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-FULLFUNCTION-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "b163345cae6eddad877aca5cae37d588ef007240fb56ea68a34575c305f6fcbf"
+  },
+  "rule": "Root reconcile later named AP evidence at cutoff; fill genuine completed roles and retain STOPs. This file is not the operative ROOT-CUTOFF-SELECTION.json.",
+  "status": "ROOT_DECLARED_AP_FINAL_CUTOFF"
+}

@@ -1,0 +1,13 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "a22912",
+      "exit_code": 0,
+      "original_token_count": 167,
+      "output": "{\"actualTool\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1/ACTUAL-TOOL.json\", \"bytes\": 678, \"sha256\": \"2a0a7299f93e26e495ab6130d64c39e118b076fa24288eaa22c070414016792c\"}, \"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1/READBACK.json\", \"bytes\": 2339, \"sha256\": \"a35487ac7a471739472c355d10ee59aedc71fe7bb192aefeedbae059fa76adf8\"}, \"elapsedSeconds\": 0.4843068230256904, \"caseCount\": 8, \"workerPid\": 15190, \"ownedIds\": [15176, 15190, 15191, 15192, 15193, 15194, 15195, 15196, 15198, 15199, 15200, 15201]}\n",
+      "wall_time_seconds": 0.385650276
+    }
+  ],
+  "finalExit": 0,
+  "sessionId": null
+}

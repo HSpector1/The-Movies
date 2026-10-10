@@ -1,0 +1,23 @@
+{
+  "actualHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "docsOnlyPathCount": 765,
+  "docsOnlyPathsNulSha256": "5cf3c0a34d837aff7118de64cf213e180c48c310c0877bb0c2c1b6ba5d76cab1",
+  "docsOnlyVerified": true,
+  "executionAuthorization": false,
+  "fullGuardsYetRun": false,
+  "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "predecessor": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "publishedReadback": {
+    "bytes": 2519,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/PUSH-READBACK.json",
+    "sha256": "6545dea2ceaa3cb52d8799fe9ef0aede1b58bd34e42268307b27208c9050e27f"
+  },
+  "remoteRefsVerified": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8"
+  },
+  "schema": "1370-aq-current-ap-operational-transition/v1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "utc": "2026-10-10T11:38:32.314251+00:00",
+  "workingTreeClean": true
+}

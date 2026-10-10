@@ -1,0 +1,77 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "2df719",
+      "original_token_count": 74,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 5330, \"sha256\": \"30abe1497f4509d0d65c3b2eeea91602f13293d4145db314d13e036ec3b27e5c\"}, \"scannerPid\": 42178, \"scannerPgid\": 42178}\n",
+      "session_id": 54871,
+      "wall_time_seconds": 1.000570452
+    },
+    {
+      "chunk_id": "836874",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 54871,
+      "wall_time_seconds": 5.00223031
+    },
+    {
+      "chunk_id": "cbfded",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 54871,
+      "wall_time_seconds": 5.002588696
+    },
+    {
+      "chunk_id": "f25137",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 54871,
+      "wall_time_seconds": 5.000777728
+    },
+    {
+      "chunk_id": "d52166",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 54871,
+      "wall_time_seconds": 50.002200707
+    },
+    {
+      "chunk_id": "23c596",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 54871,
+      "wall_time_seconds": 50.000447837
+    },
+    {
+      "chunk_id": "851f58",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 54871,
+      "wall_time_seconds": 50.003067267
+    },
+    {
+      "chunk_id": "a040da",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 54871,
+      "wall_time_seconds": 50.002451638
+    },
+    {
+      "chunk_id": "b5bdba",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 54871,
+      "wall_time_seconds": 50.002752174
+    },
+    {
+      "chunk_id": "808595",
+      "exit_code": 1,
+      "original_token_count": 0,
+      "output": "",
+      "wall_time_seconds": 2.357e-05
+    }
+  ],
+  "finalExit": 1,
+  "schema": "1370-root-native-refusal-fullfunction-shared-fullpostflight-actual-tool/v1",
+  "sessionId": 54871
+}

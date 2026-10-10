@@ -1,0 +1,28 @@
+{
+  "actualReadOrGitCommandExecuted": false,
+  "candidateExecuted": false,
+  "executionAuthorization": false,
+  "files": {
+    "R1-TO-R2-WHOLE-INVERSE.json": {
+      "bytes": 11239,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-source-20261010-r2/R1-TO-R2-WHOLE-INVERSE.json",
+      "sha256": "ae5b1860c905a3408c090f2d1b0caa0566c3e4bd6a6858ec31c72b670e6f1b70"
+    },
+    "README.md": {
+      "bytes": 2163,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-source-20261010-r2/README.md",
+      "sha256": "d9ed84af94cd8908318c651b5cc34a8cc9b8e2e6070ccca26451d34ba1079966"
+    },
+    "prove_current_index.py": {
+      "bytes": 7942,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-source-20261010-r2/prove_current_index.py",
+      "sha256": "4d41aee0d8d2de2b833223ffe136fbce238ac7bb92e2acc808c3ac3d167629c4"
+    }
+  },
+  "historicalSourceManifest": {
+    "bytes": 1232,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "c43725870d2547133a40381e960a792d3de9e2da5c8f11a0d43100dc9599c8f3"
+  },
+  "schema": "1370-aq-current-index-semantic-proof-source-pins/v1"
+}

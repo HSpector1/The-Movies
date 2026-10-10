@@ -1,0 +1,27 @@
+{
+  "schema": "1370-original-shared-postflight-diagnostic-independent-controls-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "run_guard_diagnostic_controls.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r2/run_guard_diagnostic_controls.py",
+      "bytes": 12419,
+      "sha256": "77a0b1a287a13a894e890a45a7b6d56cee3255b7ae31a23a000523f60e9d38ac"
+    },
+    "MATRIX.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "bytes": 6494,
+      "sha256": "5cd279919fa0a8562caced75c0ffaf84bd1251ca50c0c33af59b37bcaed1cee1"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "bytes": 2927,
+      "sha256": "6e067fa6e012c2f41913e13239d6393ced0a58d851998eb9a838100b419e3bbc"
+    },
+    "R1-TO-R2-WHOLE-INVERSE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r2/R1-TO-R2-WHOLE-INVERSE.json",
+      "bytes": 16933,
+      "sha256": "744a7fc6fec61f753b4ba1f53b5c2d535884c78235596c5b6e2e116c7c180687"
+    }
+  },
+  "actualControlsExecuted": false
+}

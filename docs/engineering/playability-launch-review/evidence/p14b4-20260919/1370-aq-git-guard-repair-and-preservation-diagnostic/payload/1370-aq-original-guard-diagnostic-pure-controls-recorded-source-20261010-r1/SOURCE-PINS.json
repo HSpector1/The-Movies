@@ -1,0 +1,32 @@
+{
+  "schema": "1370-original-guard-diagnostic-pure-recorded-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "run_pure_controls.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/run_pure_controls.py",
+      "bytes": 5692,
+      "sha256": "8db5085c274999cf009b9fb6fcb1f8ceffe1d26f3d83937729afa5c4abb18eb1"
+    },
+    "record_pure_controls.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/record_pure_controls.py",
+      "bytes": 15577,
+      "sha256": "6afb01cf7da52e9309e0fa2f0fd26bae9b38c582dd514568bf7ae51139e84dda"
+    },
+    "CONFIG.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/CONFIG.json",
+      "bytes": 2298,
+      "sha256": "dd50bff928b1fae52e7af862a1ccf1634166ab00e199fcaf9776b205adae9e4a"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/RECIPE.json",
+      "bytes": 3844,
+      "sha256": "5ef8638b9d2ec9e50ab122b16b9df2c19bb54cb9f98e89bd5b9fdf145c933a45"
+    },
+    "RECORDER-WHOLE-INVERSE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/RECORDER-WHOLE-INVERSE.json",
+      "bytes": 26059,
+      "sha256": "2b530bfc4042e5ab5ebdb7a10e2a5d1a1b5047baaba5ce6a1aabbd634ed770ee"
+    }
+  },
+  "actualRun": null
+}

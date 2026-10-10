@@ -1,0 +1,51 @@
+{
+  "schema": "1370-original-guard-diagnostic-pure-config/v1",
+  "executionAuthorization": false,
+  "diagnosticSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 2251,
+    "sha256": "b07864936097acd4b33d325e1d20764a0ec84d4c700fbf1174a1707e2ac99191"
+  },
+  "diagnosticSourceReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+    "bytes": 8723,
+    "sha256": "308265fec2849b24846ab49613328f1687032d1cf371c460e69739608ce35289"
+  },
+  "diagnosticAliases": [
+    "diagnose_shared_post.py",
+    "launch_shared_post_diagnostic.py",
+    "read_shared_post_diagnostic.py"
+  ],
+  "controlsSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 1352,
+    "sha256": "efebc32ff67ef0268f088b34bbeeb2b1aec05ad486f1b8bc4f4ab87075aed8ba"
+  },
+  "controlsSourceReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-controls-independent-source-review-20261010-r2/RECEIPT.json",
+    "bytes": 4859,
+    "sha256": "9f3ea1ec5dd4d50b0e8b23be7cf426b20a1a0ea5733626b78485c1c7d650c6e5"
+  },
+  "controlsAliases": [
+    "run_guard_diagnostic_controls.py",
+    "MATRIX.json",
+    "CONTRACT.json",
+    "R1-TO-R2-WHOLE-INVERSE.json"
+  ],
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1",
+  "recorderOutputPath": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorder-results-20261010-r1",
+  "laneLog": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-lane-20261010-r1",
+  "bounds": {
+    "aggregateChild": 300,
+    "activeRecorder": 320,
+    "wholeRecorder": 330,
+    "streamBytes": 8388608,
+    "resultBytes": 131072,
+    "syntheticArtifactBytes": 67108864
+  },
+  "python": {
+    "bytes": 50472,
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  }
+}

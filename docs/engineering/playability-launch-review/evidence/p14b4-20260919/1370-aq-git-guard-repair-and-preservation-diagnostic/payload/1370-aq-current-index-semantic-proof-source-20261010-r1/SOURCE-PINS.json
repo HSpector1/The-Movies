@@ -1,0 +1,28 @@
+{
+  "actualReadOrGitCommandExecuted": false,
+  "candidateExecuted": false,
+  "executionAuthorization": false,
+  "files": {
+    "README.md": {
+      "bytes": 1845,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-source-20261010-r1/README.md",
+      "sha256": "458407f76129603ee216ce92ed2165d1ab38a6c598561ebddb67ac9a8dc8af7c"
+    },
+    "prove_current_index.py": {
+      "bytes": 7814,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-source-20261010-r1/prove_current_index.py",
+      "sha256": "c90d2548860ecd9ca6709ed91a18298b91c3caca9813e53e4612eead66b0ba25"
+    }
+  },
+  "originalGitBinding": {
+    "bytes": 4295,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+    "sha256": "5f6de7413b9a28a9e30284062e99bf52a3ea83f9ba0074515b3257515c8b0c0f"
+  },
+  "publication": {
+    "bytes": 2519,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/PUSH-READBACK.json",
+    "sha256": "6545dea2ceaa3cb52d8799fe9ef0aede1b58bd34e42268307b27208c9050e27f"
+  },
+  "schema": "1370-aq-current-index-semantic-proof-source-pins/v1"
+}

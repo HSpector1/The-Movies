@@ -1,0 +1,91 @@
+{
+  "acceptedStaticProperties": [
+    "Finite explicit selection plus root-approved late paths; no scratch-wide recursive discovery.",
+    "Whole late AP finalization explicitly included.",
+    "Forbidden dependency/cache directories and symlink directories excluded without following; ordinary file symlinks refuse.",
+    "Semantic LOCAL producer keys plus defensive names classify PS/FD, actual diagnostic map/summary/partials and synthetic padding; unmatched AQ LOCAL producer references refuse.",
+    "Source bounds, root cutoff, unresolved-input refusal and immutable role hashing remain inherited from reviewed R1.",
+    "Original AP finalizer remains separate, with LOCAL rows excluded from copy and prior-Git reuse."
+  ],
+  "completeInverseApplications": 2,
+  "concreteFindings": [],
+  "correction": "All four producer packet names, including actual fixtures.json, are refused during direct-file/directory selected-root enumeration before the inventory payload hash/parse passes. The old late refusal is removed. Fixtures.receipt.json metadata remains selectable.",
+  "decision": "ACCEPT_STATIC_FINITE_AQ_CHECKPOINT_INVENTORY_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "inventoryExecuted": false,
+  "limitations": [
+    "Actual final cutoff, producer-role completeness, classified inventory and concrete archive still require root review. This receipt executes no inventory/copy/candidate/Git.",
+    "R1 STOP receipt f0dc1f3f remains historical; no actual packet leak was established."
+  ],
+  "protectedOrPrivateTreesRead": false,
+  "routeSourcePins": {
+    "CONTRACT.json": {
+      "bytes": 3751,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/CONTRACT.json",
+      "sha256": "f03565925434b304e61d2baf56d18b37f7273b46a6bac4a5bfc77643ee804f1e"
+    },
+    "R1-SOURCE-FINDING-PRESERVED.json": {
+      "bytes": 738,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/R1-SOURCE-FINDING-PRESERVED.json",
+      "sha256": "4d809805efd5fb5e1e481eff660fc41c4bbfaa12074925e95c1e543b36f64dfe"
+    },
+    "R1-TO-R2-WHOLE-INVERSE.json": {
+      "bytes": 11354,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/R1-TO-R2-WHOLE-INVERSE.json",
+      "sha256": "e13c93369d26c957431c269d7825f8f4a1e9efd66df4001a8d57da002da3682e"
+    },
+    "README.md": {
+      "bytes": 2452,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/README.md",
+      "sha256": "83670d841ed719a729e58428e101cc5459115df657f9399ade6170f3cd64b0ef"
+    },
+    "ROOT-CUTOFF-TEMPLATE-UNFILLED.json": {
+      "bytes": 1156,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/ROOT-CUTOFF-TEMPLATE-UNFILLED.json",
+      "sha256": "ec85ab9dcdacba37fd13d43ec0ee356af5b91bfe3606d1a410ec218c8e1fd0fb"
+    },
+    "prepare_aq_inventory.py": {
+      "bytes": 8939,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/prepare_aq_inventory.py",
+      "sha256": "67dd1ec3eba9026b7bca338b8210fa143bf60ba75ca4d9d0a6d2d32b8033587e"
+    }
+  },
+  "schema": "1370-aq-finite-finalization-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 1823,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "4718536dd21adf5db5556f1725deaa716ea9931c075851dd6cdfd46556ad6542"
+  },
+  "sourcePins": {
+    "CONTRACT.json": {
+      "bytes": 3751,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/CONTRACT.json",
+      "sha256": "f03565925434b304e61d2baf56d18b37f7273b46a6bac4a5bfc77643ee804f1e"
+    },
+    "R1-SOURCE-FINDING-PRESERVED.json": {
+      "bytes": 738,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/R1-SOURCE-FINDING-PRESERVED.json",
+      "sha256": "4d809805efd5fb5e1e481eff660fc41c4bbfaa12074925e95c1e543b36f64dfe"
+    },
+    "R1-TO-R2-WHOLE-INVERSE.json": {
+      "bytes": 11354,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/R1-TO-R2-WHOLE-INVERSE.json",
+      "sha256": "e13c93369d26c957431c269d7825f8f4a1e9efd66df4001a8d57da002da3682e"
+    },
+    "README.md": {
+      "bytes": 2452,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/README.md",
+      "sha256": "83670d841ed719a729e58428e101cc5459115df657f9399ade6170f3cd64b0ef"
+    },
+    "ROOT-CUTOFF-TEMPLATE-UNFILLED.json": {
+      "bytes": 1156,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/ROOT-CUTOFF-TEMPLATE-UNFILLED.json",
+      "sha256": "ec85ab9dcdacba37fd13d43ec0ee356af5b91bfe3606d1a410ec218c8e1fd0fb"
+    },
+    "prepare_aq_inventory.py": {
+      "bytes": 8939,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/prepare_aq_inventory.py",
+      "sha256": "67dd1ec3eba9026b7bca338b8210fa143bf60ba75ca4d9d0a6d2d32b8033587e"
+    }
+  }
+}

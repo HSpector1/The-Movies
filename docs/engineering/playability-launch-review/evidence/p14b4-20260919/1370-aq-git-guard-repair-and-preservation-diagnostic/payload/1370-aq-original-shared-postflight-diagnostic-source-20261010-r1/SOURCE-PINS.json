@@ -1,0 +1,46 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "CONTRACT.json": {
+      "bytes": 2369,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/CONTRACT.json",
+      "sha256": "06e5598f231869dbff54ff8cc6c11cc3101d8595a5711c46a73dd83be561c3f0"
+    },
+    "PREPARATION-AUDIT.json": {
+      "bytes": 1340,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/PREPARATION-AUDIT.json",
+      "sha256": "d3a409e088d77ab3338bf8a15b93e7d557d25783869464cb2bed97852ea1b043"
+    },
+    "RECIPE.json": {
+      "bytes": 2908,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/RECIPE.json",
+      "sha256": "928b58c0a68239b2bbc0b970177608e4b9628ca4f01e5b124d1f21d45e7937c0"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 2002,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/SOURCE-PROOF.json",
+      "sha256": "a65bf8272a82abcfab72bfd72544e5209eeda14cb0f88c045b6296f23dc3788a"
+    },
+    "diagnose_shared_post.py": {
+      "bytes": 8803,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/diagnose_shared_post.py",
+      "sha256": "09c837aa56cb3b1482ca8acee030b643b5fdfdef825a3619c337f9f5c1971c0e"
+    },
+    "launch_shared_post_diagnostic.py": {
+      "bytes": 4798,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/launch_shared_post_diagnostic.py",
+      "sha256": "37a9ed701ecf4ceb7a10e9a105e7ba84be640e0ed33a89a427a324a29dd044d0"
+    },
+    "read_shared_post_diagnostic.py": {
+      "bytes": 3305,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/read_shared_post_diagnostic.py",
+      "sha256": "c9a79d90bc9b072179ba02f74dd86270a8ca7e5e1ce9a79a1735baaa6f66f8b2"
+    }
+  },
+  "schema": "1370-original-shared-postflight-diagnostic-source-pins/v1",
+  "sourceReviewAliases": [
+    "diagnose_shared_post.py",
+    "launch_shared_post_diagnostic.py",
+    "read_shared_post_diagnostic.py"
+  ]
+}

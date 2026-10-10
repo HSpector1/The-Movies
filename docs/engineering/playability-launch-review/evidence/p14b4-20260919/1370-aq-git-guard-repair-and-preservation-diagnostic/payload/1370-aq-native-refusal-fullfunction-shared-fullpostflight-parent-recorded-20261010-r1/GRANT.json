@@ -1,0 +1,134 @@
+{
+  "actualPriorOwnedIds": [
+    38012,
+    38267,
+    38268
+  ],
+  "actualPriorOwnedPids": [
+    38012,
+    38267,
+    38268,
+    38393
+  ],
+  "actualRouteReadback": {
+    "bytes": 7986,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "0c4deb56e920fc2d8a5915701fdb3fca5d94cd4044cde11dfb6fe6826463e8c4"
+  },
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "postflight",
+    "postflight-fullfunction-native-refusal-diagnostic-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec",
+    "38012,38267,38268"
+  ],
+  "automaticRetry": false,
+  "baseline": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "guardConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "sha256": "a058c0d63bd0f0432f26d4ebcae62a80977eaccfd7e2406cf7a7e6f221b23fec"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "51f11d5f9bc55d77ed9e1b7d0bce4d36d1c9af865835617d585629fa8f694f85"
+  },
+  "guardSourcePins": {
+    "bytes": 5379,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "1c00f8f4e42402a972182ed643369c279149d74cb6a5cdb9208aa15269118c69"
+  },
+  "guardSourceReview": {
+    "bytes": 6096,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "084aa42ad2d334b35eb27928cd99f5470a97e7fc2db1bad3c0ce8d8b93938b79"
+  },
+  "mode": "fullfunction-qualification",
+  "noHelperOriginalLockAbsentRequired": true,
+  "outputDirectory": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/postflight-fullfunction-native-refusal-diagnostic-r1",
+  "ownedScannerPgid": 42178,
+  "ownedScannerPid": 42178,
+  "ownedScannerSid": 42178,
+  "perCommandTimeoutSeconds": 180,
+  "priorOwnedIdentityPostChecks": [
+    {
+      "id": 38012,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 38267,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 38268,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 38393,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 38012,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 38267,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 38268,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "priorRouteExits": {
+    "helperExit": 2,
+    "recorderExit": 2,
+    "runnerExit": 1,
+    "toolExit": 2
+  },
+  "priorRouteStatus": "ACTUAL_FULLFUNCTION_STOP_PRESERVED_PENDING_SHARED_FULL_POSTFLIGHT",
+  "priorStopPreserved": true,
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 5301,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+    "sha256": "9878a994f41d5b5914dc43621da0fdb61b87a0625eed110aec5fecacb084f9e7"
+  },
+  "schema": "1370-root-m0-direct-original-shared-full-postflight-grant/v1",
+  "scope": "Original shared nine-root/R9/dependency/full protected maps under current AP. Actual fullfunction qualification result, including any STOP, remains pending separate independent observed review; this shared postflight does not establish gameplay acceptance. Original R6 STOP remains preserved.",
+  "startMonotonic": 140830.017669752,
+  "status": "GRANTED_ONCE_ORIGINAL_SHARED_FULL_POSTFLIGHT",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/postflight.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/postflight.stdout",
+  "utc": "2026-10-10T12:18:10.686043+00:00",
+  "wholeScanDeadline": null
+}

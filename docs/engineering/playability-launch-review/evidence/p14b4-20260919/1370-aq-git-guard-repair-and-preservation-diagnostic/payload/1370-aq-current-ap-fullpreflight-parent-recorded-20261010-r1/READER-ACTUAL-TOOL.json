@@ -1,0 +1,14 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "f853e0",
+      "exit_code": 0,
+      "original_token_count": 77,
+      "output": "{\"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/READBACK.json\", \"bytes\": 3900, \"sha256\": \"5b5d8a3c40c457be95d8b99e9a7a7eb02b1513a75e91fb7304bd2dbeca2ec66b\"}, \"elapsedSeconds\": 459.9390340069949, \"inventorySeconds\": 343.83853859000374}\n",
+      "wall_time_seconds": 0.616578815
+    }
+  ],
+  "finalExit": 0,
+  "schema": "1370-root-current-ap-fullpreflight-reader-actual-tool/v1",
+  "sessionId": null
+}

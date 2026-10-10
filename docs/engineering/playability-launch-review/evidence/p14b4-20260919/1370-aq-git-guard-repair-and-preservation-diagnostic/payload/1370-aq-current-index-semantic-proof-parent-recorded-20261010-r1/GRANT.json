@@ -1,0 +1,32 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-lane-20261010-r1",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-source-20261010-r2/prove_current_index.py",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1"
+  ],
+  "executionAuthorization": true,
+  "helper": {
+    "bytes": 3361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "originalSourceR1Finding": "Git exact link count76; bounded streaming strengthened in R2",
+  "ownedPgid": 11456,
+  "ownedPid": 11456,
+  "rootSourceReview": "R2 reviewed against R1 and exact narrow corrections; all protected writes forbidden",
+  "schema": "1370-root-current-index-semantic-proof-grant/v1",
+  "scope": "Current named index bytes and stage0 map versus authenticated AP commit; no original commonGit cause or historical continuity claim",
+  "sourceManifest": {
+    "bytes": 1270,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "cb28f7007b70591bbcb53dcb0bdc96c02152353ee42d7781626605c5625fb43a"
+  },
+  "status": "GRANTED_ONCE_CURRENT_INDEX_READONLY_PROOF",
+  "utc": "2026-10-10T13:18:52.963887+00:00"
+}

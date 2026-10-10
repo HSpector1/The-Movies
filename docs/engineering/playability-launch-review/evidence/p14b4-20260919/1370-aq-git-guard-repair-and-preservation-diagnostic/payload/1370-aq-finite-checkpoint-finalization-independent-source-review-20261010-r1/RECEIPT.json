@@ -1,0 +1,63 @@
+{
+  "acceptedStaticProperties": [
+    "Finite explicit package roots only; no scratch-wide recursive selection.",
+    "Whole late AP finalization included.",
+    "Directory caches/dependency links excluded without traversal; unclassified file symlinks refuse.",
+    "LOCAL semantic producer keys, raw names, diagnostic map/summary/partials and synthetic artifact roles seed exact classifications; AQ dangling LOCAL roles refuse.",
+    "Original AP archive copier remains separate; no Git/copy performed by this source."
+  ],
+  "claimLimits": [
+    "This is source-only review, not actual inventory or classification completeness proof.",
+    "Current AQ generation STOP may have produced no fixture packet; no actual leak is claimed."
+  ],
+  "concreteFindings": [
+    {
+      "actualPayloadDisclosureClaim": false,
+      "finding": "Authenticated fullfunction producer writes results/fixtures.json; the three-name exclusion omits it and would classify it as COPY_FINITE_PAYLOAD if selected. Existing exclusion occurs after inspect/hash and JSON classification, allowing reads of explicitly prohibited fixture payloads before refusal.",
+      "id": "F1",
+      "minimalRepair": "Reject source-bound fixture packet paths including fixtures.json before any inspect/read/hash or metadata JSON parse. Preserve fixtures.receipt.json ordinary metadata.",
+      "producerLines": [
+        170,
+        184
+      ],
+      "producerRole": {
+        "bytes": 38940,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/run-fullfunction.mjs",
+        "sha256": "1355943e61a16316ffc31848155b19f81dfcd8f62f88557dbf0e97489a5f6549"
+      },
+      "source": "prepare_aq_inventory.py"
+    }
+  ],
+  "decision": "STOP_SOURCE_PROTECTED_FIXTURE_PAYLOAD_EXCLUSION",
+  "executionAuthorization": false,
+  "inventoryExecuted": false,
+  "protectedOrPrivateTreesRead": false,
+  "schema": "1370-aq-finite-finalization-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 1237,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "eddf2ba3dc702b83afb83bbe5a76f6741271775de2682e2052af20b1ed1e5750"
+  },
+  "sourcePins": {
+    "CONTRACT.json": {
+      "bytes": 3318,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r1/CONTRACT.json",
+      "sha256": "d05341d2116002c46a820a70de85d251eb261b9df745cd18ac06fe96c8e9d78b"
+    },
+    "README.md": {
+      "bytes": 2452,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r1/README.md",
+      "sha256": "83670d841ed719a729e58428e101cc5459115df657f9399ade6170f3cd64b0ef"
+    },
+    "ROOT-CUTOFF-TEMPLATE-UNFILLED.json": {
+      "bytes": 1156,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r1/ROOT-CUTOFF-TEMPLATE-UNFILLED.json",
+      "sha256": "ec85ab9dcdacba37fd13d43ec0ee356af5b91bfe3606d1a410ec218c8e1fd0fb"
+    },
+    "prepare_aq_inventory.py": {
+      "bytes": 8794,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r1/prepare_aq_inventory.py",
+      "sha256": "511c3779e68f6ef445c717c3658ab25a708d4f0b102a0a0d825b617d574bc733"
+    }
+  }
+}

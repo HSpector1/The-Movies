@@ -1,0 +1,44 @@
+{
+  "candidateExecuted": false,
+  "extraProtectedTreeTraversal": false,
+  "newSourceFiles": [
+    "diagnose_shared_post.py",
+    "launch_shared_post_diagnostic.py",
+    "read_shared_post_diagnostic.py"
+  ],
+  "originalArgvChangesOnly": [
+    "fresh output label",
+    "CSV actual recorded prior process-group IDs"
+  ],
+  "originalBaselineUnmodifiedRole": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "originalBodyModification": false,
+  "originalConfigUnmodifiedRole": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "sha256": "a058c0d63bd0f0432f26d4ebcae62a80977eaccfd7e2406cf7a7e6f221b23fec"
+  },
+  "originalErrorBareRethrownAfterAnyDiagnosticFailure": true,
+  "originalGrant": {
+    "bytes": 5330,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "30abe1497f4509d0d65c3b2eeea91602f13293d4145db314d13e036ec3b27e5c"
+  },
+  "originalScannerUnmodifiedRole": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "51f11d5f9bc55d77ed9e1b7d0bce4d36d1c9af865835617d585629fa8f694f85"
+  },
+  "preparationAudit": {
+    "bytes": 1340,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/PREPARATION-AUDIT.json",
+    "sha256": "d3a409e088d77ab3338bf8a15b93e7d557d25783869464cb2bed97852ea1b043"
+  },
+  "pureControlsPendingGenuineRecordedQualification": true,
+  "rawPsFdRetainedInDiagnostic": false,
+  "schema": "1370-original-shared-postflight-diagnostic-source-proof/v1",
+  "sourceHashBeforeAndAfter": true
+}

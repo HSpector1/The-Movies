@@ -1,0 +1,62 @@
+{
+  "actualGrant": null,
+  "actualReadback": null,
+  "actualSourceReview": null,
+  "actualToolEnvelope": {
+    "allToolChunks": "all genuine chunks ending in exact final exit_code",
+    "finalExit": "actual integer including STOP",
+    "sessionId": "actual integer"
+  },
+  "baseline": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "claimLimit": "Separately recorded later diagnostic run only; original54871 STOP not cured and no protection/game acceptance from diagnostic metadata.",
+  "executionAuthorization": false,
+  "guardConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "sha256": "a058c0d63bd0f0432f26d4ebcae62a80977eaccfd7e2406cf7a7e6f221b23fec"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "51f11d5f9bc55d77ed9e1b7d0bce4d36d1c9af865835617d585629fa8f694f85"
+  },
+  "launcher": {
+    "bytes": 4798,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/launch_shared_post_diagnostic.py",
+    "sha256": "37a9ed701ecf4ceb7a10e9a105e7ba84be640e0ed33a89a427a324a29dd044d0"
+  },
+  "launcherOperands": [
+    "genuine independent source review absolute path",
+    "genuine review SHA256"
+  ],
+  "metadataCapBytes": 16777216,
+  "originalOutputLabel": "diagnostic-shared-postflight-final-equality-r1",
+  "parentPath": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1",
+  "perCommandTimeoutSeconds": 180,
+  "priorFailureAdoption": {
+    "bytes": 4175,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/SHARED-POSTFLIGHT-FAILURE-OBSERVED-ADOPTION.json",
+    "sha256": "1de73d51dd02efad1f9d09202de35a90a7c8aaa76b683275a8179d4333052f88"
+  },
+  "reader": {
+    "bytes": 3305,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/read_shared_post_diagnostic.py",
+    "sha256": "c9a79d90bc9b072179ba02f74dd86270a8ca7e5e1ce9a79a1735baaa6f66f8b2"
+  },
+  "readerOperands": [
+    "actual diagnostic tool sessionId",
+    "actual GRANT SHA256"
+  ],
+  "schema": "1370-original-shared-postflight-diagnostic-recipe/v1",
+  "summaryCapBytes": 32768,
+  "wholeScanDeadline": null,
+  "wrapper": {
+    "bytes": 8803,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/diagnose_shared_post.py",
+    "sha256": "09c837aa56cb3b1482ca8acee030b643b5fdfdef825a3619c337f9f5c1971c0e"
+  }
+}

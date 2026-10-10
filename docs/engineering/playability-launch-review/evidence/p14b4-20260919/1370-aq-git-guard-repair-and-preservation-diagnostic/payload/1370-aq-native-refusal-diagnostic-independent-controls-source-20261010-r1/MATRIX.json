@@ -1,0 +1,443 @@
+{
+  "caseCount": 86,
+  "cases": [
+    {
+      "expected": "GREEN",
+      "id": "rich_canonical_unicode_exact_projection",
+      "predicate": "complete canonical UTF8 and original UTF16 digest survive native roundtrip"
+    },
+    {
+      "expected": "GREEN",
+      "id": "native_projection_matches_original_witness",
+      "predicate": "all original logical values/context/identity/order/multiplicity retained"
+    },
+    {
+      "expected": "GREEN",
+      "id": "legacy_over_16384_native_fits",
+      "predicate": "explicit accounting amendment; complete expanded projection and L<=2P+2"
+    },
+    {
+      "expected": "GREEN",
+      "id": "native_row_16384_inclusive",
+      "predicate": "actual native physical JSON plus newline equals16384"
+    },
+    {
+      "expected": "GREEN",
+      "id": "native_count_512_inclusive",
+      "predicate": "all512 logical rows retained"
+    },
+    {
+      "expected": "GREEN",
+      "id": "native_total_2097152_inclusive",
+      "predicate": "128 exact16384 physical rows charge exact2MiB"
+    },
+    {
+      "expected": "GREEN",
+      "id": "immutable_snapshot_fresh_arm_isolation",
+      "predicate": "immutable owned row references; old snapshot/failure does not mutate new arm"
+    },
+    {
+      "expected": "GREEN",
+      "id": "actual_binding_consumer_valid_tuple",
+      "predicate": "actual shared consumer accepts canonical/inputBytes/digest/context relation"
+    },
+    {
+      "expected": "GREEN",
+      "id": "canonical_depth_64_projection_and_binding",
+      "predicate": "canonical depth64 survives physical wrapper, legacy view and actual binding"
+    },
+    {
+      "expected": "GREEN",
+      "id": "actual_arm_success_cleanup_order",
+      "predicate": "actual shared helper returns body value and attempts end then reset"
+    },
+    {
+      "expected": "RED",
+      "id": "codec_original_unknown_key",
+      "predicate": "FORMAT_INVALID; exact original keys"
+    },
+    {
+      "expected": "RED",
+      "id": "codec_accessor_not_invoked",
+      "predicate": "FORMAT_INVALID without getter invocation"
+    },
+    {
+      "expected": "RED",
+      "id": "codec_nonarray_canonical",
+      "predicate": "FORMAT_INVALID; canonical tuple is array"
+    },
+    {
+      "expected": "RED",
+      "id": "codec_malformed_canonical",
+      "predicate": "actual native SyntaxError; malformed JSON, no remapping"
+    },
+    {
+      "expected": "RED",
+      "id": "codec_declared_byte_mismatch",
+      "predicate": "FORMAT_INVALID; exact UTF8 inputBytes"
+    },
+    {
+      "expected": "RED",
+      "id": "codec_negative_zero_spelling",
+      "predicate": "CANONICAL_ROUNDTRIP; no lexical normalization"
+    },
+    {
+      "expected": "RED",
+      "id": "codec_unsafe_integer_spelling",
+      "predicate": "CANONICAL_ROUNDTRIP; no changed number preimage"
+    },
+    {
+      "expected": "RED",
+      "id": "codec_unnecessary_escape_spelling",
+      "predicate": "CANONICAL_ROUNDTRIP; original canonical spelling exact"
+    },
+    {
+      "expected": "RED",
+      "id": "direct_codec_canonical_16385",
+      "predicate": "CANONICAL_OVER_BOUND; operational direct codec bound"
+    },
+    {
+      "expected": "RED",
+      "id": "codec_depth_65",
+      "predicate": "STRUCTURE_OVER_BOUND before stringify"
+    },
+    {
+      "expected": "RED",
+      "id": "decoder_wrong_encoding_tag",
+      "predicate": "FORMAT_INVALID; exact native encoding"
+    },
+    {
+      "expected": "RED",
+      "id": "decoder_unknown_key",
+      "predicate": "FORMAT_INVALID; exact native detail keys"
+    },
+    {
+      "expected": "GREEN",
+      "id": "decoder_plain_bounded_tuple",
+      "predicate": "validated plain parsed helper row has exact canonical projection"
+    },
+    {
+      "expected": "RED",
+      "id": "decoder_declared_byte_mismatch",
+      "predicate": "FORMAT_INVALID; decoded canonical bytes"
+    },
+    {
+      "expected": "RED",
+      "id": "decoder_nodes_properties_over_bound",
+      "predicate": "STRUCTURE_OVER_BOUND before canonical serialization for oversized owned tuple"
+    },
+    {
+      "expected": "RED",
+      "id": "legacy_historical_schema_not_native",
+      "predicate": "FORMAT_INVALID; old schema never relabeled"
+    },
+    {
+      "expected": "RED",
+      "id": "legacy_over_physical_row_limit",
+      "predicate": "FORMAT_INVALID; decoder validates physical boundary"
+    },
+    {
+      "expected": "RED",
+      "id": "sink_row_16385",
+      "predicate": "same original row-byte Error; no partial row commit"
+    },
+    {
+      "expected": "RED",
+      "id": "sink_canonical_known_no_fit",
+      "predicate": "same original row-byte Error before codec/parse"
+    },
+    {
+      "expected": "RED",
+      "id": "count_513_preempts_malformed_conversion",
+      "predicate": "same original count Error; no encoder call"
+    },
+    {
+      "expected": "RED",
+      "id": "total_2097152_then_more",
+      "predicate": "same original total Error; charged rows unchanged"
+    },
+    {
+      "expected": "RED",
+      "id": "consumer_changed_tuple_digest_bytes",
+      "predicate": "actual shared evaluation-match assertion rejects altered tuple/digest/bytes"
+    },
+    {
+      "expected": "RED",
+      "id": "consumer_order_duplicate_omission",
+      "predicate": "actual shared evaluation-match assertion rejects changed full tuple"
+    },
+    {
+      "expected": "RED",
+      "id": "consumer_context_and_source_index",
+      "predicate": "actual shared evaluation-match assertion rejects altered exact context"
+    },
+    {
+      "expected": "RED",
+      "id": "consumer_envelope_version_and_extra_key",
+      "predicate": "actual matcher rejects unknown physical schema/extra envelope via FORMAT_INVALID"
+    },
+    {
+      "expected": "RED",
+      "id": "latch_falsy_first_values",
+      "predicate": "undefined/null/false/0/empty first value survives later failure"
+    },
+    {
+      "expected": "RED",
+      "id": "native_E_swallowed_body_paths",
+      "predicate": "actual helper rethrows original native E after return or later F; no row metadata"
+    },
+    {
+      "expected": "RED",
+      "id": "row_E_swallowed_body_paths",
+      "predicate": "actual helper rethrows same original row E after return or later F"
+    },
+    {
+      "expected": "RED",
+      "id": "first_E_survives_end_reset_writer",
+      "predicate": "first native E preserved; both cleanup callbacks attempted"
+    },
+    {
+      "expected": "RED",
+      "id": "cleanup_new_E_swallowed",
+      "predicate": "new shared E during end/reset forbids successful return"
+    },
+    {
+      "expected": "RED",
+      "id": "ordinary_empty_latch_cleanup_precedence",
+      "predicate": "original reset>end>body fatal precedence, including undefined"
+    },
+    {
+      "expected": "RED",
+      "id": "sticky_rows_and_later_record",
+      "predicate": "strict public access and records rethrow first E; no later encoding"
+    },
+    {
+      "expected": "RED",
+      "id": "snapshot_failure_no_record",
+      "predicate": "actual wrapper records snapshot E; authoritative record not invoked"
+    },
+    {
+      "expected": "RED",
+      "id": "native_row_diagnostic_available_physical",
+      "predicate": "same row E; exact new physical bytes and canonical metadata"
+    },
+    {
+      "expected": "RED",
+      "id": "assessment_diagnostic_native_predecessor",
+      "predicate": "same row E; exact same-context native predecessor decoded after latch"
+    },
+    {
+      "expected": "RED",
+      "id": "native_first_no_row_emission",
+      "predicate": "writer zero calls; later resource error cannot become first cause"
+    },
+    {
+      "expected": "RED",
+      "id": "diagnostic_output_4096_bound",
+      "predicate": "same row E; unavailable scalar metadata under output cap"
+    },
+    {
+      "expected": "RED",
+      "id": "diagnostic_writer_failure_consumes",
+      "predicate": "same row E; first emission consumed despite writer failure"
+    },
+    {
+      "expected": "RED",
+      "id": "diagnostic_healthy_bypass_refused",
+      "predicate": "FORMAT_INVALID is sticky; metadata method has no healthy authority"
+    },
+    {
+      "expected": "RED",
+      "id": "diagnostic_eligible_core_same_E",
+      "predicate": "metadata-only encoder/decoder work after original row E; normal APIs remain fatal"
+    },
+    {
+      "expected": "RED",
+      "id": "diagnostic_native_first_bypass_refused",
+      "predicate": "FORMAT_INVALID cannot replace first native E"
+    },
+    {
+      "expected": "RED",
+      "id": "capture_invalid_context_sticky",
+      "predicate": "same original invalid-context Error retained before throw"
+    },
+    {
+      "expected": "RED",
+      "id": "capture_native_serialization_identity",
+      "predicate": "actual native context serialization TypeError retained by identity"
+    },
+    {
+      "expected": "RED",
+      "id": "capture_after_sticky_before_getter",
+      "predicate": "first E precedes any later capture getter or serialization work"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_canonical_no_fit_lower_bound_only",
+      "predicate": "same original row Error; capped16385 lower bound only for16385 and262144 UTF8 inputs; zero encoder/parse calls; exact stable context/sequence/occurrence"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_multibyte_capped_counter_not_exact",
+      "predicate": "same row Error;3/4-byte crossing reports lowerbound16385, never actual full byte length"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_known_no_fit_ignores_other_getters",
+      "predicate": "same row Error; known canonical no-fit invokes zero declared-byte/digest getters and zero diagnostic encoding"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_exact_physical_cap_classification",
+      "predicate": "physical16384 accepted; physical16385 exact refusalClass and complete detail/canonical/context metrics"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_input_encoder_four_typed_codes",
+      "predicate": "actual AP native codec raises each precise authenticated four-code refusal at INPUT_DETAIL_ENCODE; original sink E remains first"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_predecessor_decode_precise_stage",
+      "predicate": "actual predecessor diagnostic decoder FORMAT_INVALID classified PREDECESSOR_INPUT_DECODE; original sink E remains first"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_spoofed_or_unknown_code_refused",
+      "predicate": "both codec stages reject plain/Error/SyntaxError spoof, actual typed unknown code and typed code getter as DIAGNOSTIC_UNAVAILABLE; getter0"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_arbitrary_code_getter_not_invoked",
+      "predicate": "both codec stages never read arbitrary code getter; DIAGNOSTIC_UNAVAILABLE and same first E"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_unknown_codec_diagnostic_code_spoof_refused",
+      "predicate": "both codec stages refuse diagnosticCode data spoof and invoke zero diagnosticCode getters; DIAGNOSTIC_UNAVAILABLE and same first E"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_unsafe_canonical_descriptor_no_getter",
+      "predicate": "actual row E plus diagnostic canonical accessor yields FAILED_ROW_UNSUPPORTED without invoking getter or inventing lowerbound"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_unsafe_context_no_getter",
+      "predicate": "actual row E plus unsupported diagnostic context accessor yields CONTEXT_UNSUPPORTED getter0 with explicit omitted context"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_lower_bound_output_cap_explicit_fallback",
+      "predicate": "same row E; lowerbound metadata exceeding4096 yields explicit DIAGNOSTIC_OUTPUT_OVER_BOUND with no context/raw fragment"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_lower_bound_E_survives_body_cleanup_writer",
+      "predicate": "actual first lowerbound row E wins normal/later-failing body, falsy cleanup errors and writer failure; both cleanups and one consumed emission"
+    },
+    {
+      "expected": "RED",
+      "id": "v2_falsy_first_preempts_no_fit_work",
+      "predicate": "undefined/null/false/0/empty first failure prevents snapshot/record/diagnostic writer and survives actual shared arm"
+    },
+    {
+      "expected": "GREEN",
+      "id": "author-two-issuers-schema-GREEN",
+      "predicate": "original synthetic source schema GREEN"
+    },
+    {
+      "expected": "GREEN",
+      "id": "freeze-complete-prefix-failure-suffix-GREEN",
+      "predicate": "original synthetic source schema GREEN"
+    },
+    {
+      "expected": "RED",
+      "id": "candidate-other-issuer-grouping-RED",
+      "predicate": "evaluated and skipped candidates preserve full order"
+    },
+    {
+      "expected": "RED",
+      "id": "candidate-context-issuer-correlation-RED",
+      "predicate": "every actual evaluation binds an authenticated source-array projection"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-missing-slot-RED",
+      "predicate": "complete identity-bound freeze predicate order"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-swapped-slots-RED",
+      "predicate": "complete identity-bound freeze predicate order"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-wrong-name-RED",
+      "predicate": "complete identity-bound freeze predicate order"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-wrong-ordinal-RED",
+      "predicate": "complete identity-bound freeze predicate order"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-wrong-occurrence-RED",
+      "predicate": "complete identity-bound freeze predicate order"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-wrong-issuer-RED",
+      "predicate": "complete identity-bound freeze predicate order"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-failure-slot-missing-RED",
+      "predicate": "freeze predicate FAILED slot agrees with drop"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-drop-disagrees-RED",
+      "predicate": "freeze predicate FAILED slot agrees with drop"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-early-unreached-RED",
+      "predicate": "freeze predicate prefix status"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-suffix-resumes-RED",
+      "predicate": "freeze predicate suffix is NOT_REACHED"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-suffix-values-forged-RED",
+      "predicate": "unreached predicate has no evaluated values"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-second-failure-RED",
+      "predicate": "freeze predicate FAILED slot agrees with drop"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-illegal-not-evaluated-prefix-RED",
+      "predicate": "freeze predicate prefix status"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-unknown-drop-RED",
+      "predicate": "freeze drop names an existing predicate"
+    }
+  ],
+  "executionAuthorization": false,
+  "nativeCases": 68,
+  "nativeRefusalDiagnosticCases": 14,
+  "originalNativeObserverCases": 72,
+  "originalOrderingCases": 18,
+  "positiveCount": 13,
+  "schema": "1370-native-observer-independent-controls-matrix/v1",
+  "specificNegativeCount": 73
+}

@@ -1,0 +1,33 @@
+--- /Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/launch-native-observer-controls.py
++++ /Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/launch-native-observer-controls.py
+@@ -48,7 +48,7 @@
+  return role(path)
+ def main():
+  require(sys.flags.isolated and sys.dont_write_bytecode and not sys.flags.optimize and len(sys.argv)==3,'EXACT_PYTHON_I_B_GRANT_ARGS')
+- gp=Path(sys.argv[1]);require(gp.is_absolute() and gp.name=='GRANT.json' and gp.parent==S/'1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1' and gp.parent.resolve(strict=True)==gp.parent,'ROOT_GRANT_LOCATION')
++ gp=Path(sys.argv[1]);require(gp.is_absolute() and gp.name=='GRANT.json' and gp.parent==S/'1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1' and gp.parent.resolve(strict=True)==gp.parent,'ROOT_GRANT_LOCATION')
+  gr=role(gp);require(gr['sha256']==sys.argv[2],'ROOT_GRANT_HASH');g=load(gp)
+  require(g['schema']=='1370-root-native-observer-pure-controls-once-grant/v1' and g['executionAuthorization'] is True and g['scope']=='PURE_PUBLIC_NATIVE_OBSERVER_CONTROLS_ONLY' and g['oneAggregateRun'] is True and g['automaticRetry'] is False,'EXTERNAL_ROOT_ONCE_GRANT')
+  ap=authenticate(g['parentAdapterSourcePins']);require(ap==P/'SOURCE-PINS.json','PARENT_PINS_PATH');pins=load(ap)
+@@ -70,16 +70,18 @@
+  require(config['syntheticOnly'] is True and config['actualFixtureQualification'] is False and config['candidateChanged'] is False and exact(g['bounds'],contract['bounds']) and exact(config['bounds'],contract['bounds']) and exact(recipe['bounds'],contract['bounds']),'PURE_SCOPE_BOUNDS')
+  require(g['clockEnforcedByOriginalRecordedRoute'] is True and g['configSha256']==g['config']['sha256'] and g['outputPath']==config['outputPath']==contract['outputPath'],'RECORDED_ROUTE_BINDINGS')
+  require(exact(config['inputs'],contract['inputs']) and type(config['caseCount']) is int and config['caseCount']>0 and config['positiveCount']>0 and config['specificNegativeCount']>0,'PURE_PUBLIC_SOURCE_BINDINGS')
+- for key in ('implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api','apiAdoption','supplementAdoption'):require(exact(g[key],config[key]),'ACTUAL_'+key.upper());authenticate(config[key])
++ for key in ('implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api','apiAdoption','supplementAdoption','diagnosticSourceManifest','diagnosticSourceReview','diagnosticInterface','diagnosticDesignAdoption','compilerToolsObservation','prospectiveObservedContract','reviewedPriorStopAdoption'):require(exact(g[key],config[key]),'ACTUAL_'+key.upper());authenticate(config[key])
+  design=load(authenticate(config['rootDesignAdoption']));require(design['schema']=='1370-root-native-canonical-observer-design-adoption/v1' and design['status']=='ROOT_ADOPTED_EXPLICIT_NATIVE_CANONICAL_REPRESENTATION_AND_ACCOUNTING_AMENDMENT_SOURCE_ONLY' and design['executionAuthorization'] is False and design['publicSourcePreparationAuthorized'] is True,'GENUINE_DESIGN_ADOPTION')
+  adoption=load(authenticate(g['sourceAdoption']))
+  require(adoption['schema']=='1370-root-native-observer-pure-controls-source-adoption/v1' and adoption['status']=='ROOT_ADOPTED_PURE_NATIVE_OBSERVER_CONTROLS_SOURCE_ONLY' and adoption['executionAuthorization'] is False and exact(adoption['sourcePins'],g['sourcePins']) and exact(adoption['sourceReview'],g['sourceReview']) and exact(adoption['parentAdapterSourcePins'],g['parentAdapterSourcePins']) and exact(adoption['parentAdapterSourceReview'],g['parentAdapterSourceReview']),'ROOT_SOURCE_ADOPTION')
+  require(exact(g['runtimeToolsObservation'],contract['runtimeToolsObservation']),'PINNED_TOOLS_OBSERVATION')
+- observation=load(authenticate(g['runtimeToolsObservation']));require(observation['schema']=='1370-ao-observer-diagnostic-controls-runtime-tools/v1' and observation['executionAuthorization'] is False and observation['allFivePhysicalFilesRehashedNow'] is True and observation['sourceImportsOrExecution'] is False,'GENUINE_TOOLS_OBSERVATION')
++ observation=load(authenticate(g['runtimeToolsObservation']));require(observation['schema']=='1370-root-fullfunction-runtime-tools-observation/v1' and observation['executionAuthorization'] is False and observation['compilerOrGameExecuted'] is False and observation['privateM0Read'] is False,'HISTORICAL_NODE_PYTHON_OBSERVATION')
++ compilerObservation=load(authenticate(g['compilerToolsObservation']));require(compilerObservation['schema']=='1370-ao-observer-diagnostic-controls-runtime-tools/v1' and compilerObservation['executionAuthorization'] is False and compilerObservation['allFivePhysicalFilesRehashedNow'] is True and compilerObservation['sourceImportsOrExecution'] is False,'HISTORICAL_FIVE_PUBLIC_TOOL_OBSERVATION')
++ require(exact(g['compilerToolsObservation'],config['compilerToolsObservation']),'COMPILER_OBSERVATION_ROLE')
+  for key in ('python','node'):
+   row=observation['runtimeTools'][key];wanted=contract['tools'][key]
+   require(exact(row,wanted),'OBSERVED_'+key.upper());authenticate(wanted);require(os.access(wanted['path'],os.X_OK),'EXECUTABLE_'+key.upper())
+- for key in ('typescript','typescriptPackage'):require(exact(observation['runtimeTools'][key],contract['tools'][key]),'OBSERVED_'+key.upper());authenticate(contract['tools'][key])
++ for key in ('typescript','typescriptPackage'):require(exact(compilerObservation['runtimeTools'][key],contract['tools'][key]),'OBSERVED_'+key.upper());authenticate(contract['tools'][key])
+  require(exact(g['runtimeTools'],{key:contract['tools'][key] for key in ('node','python','helper','typescript','typescriptPackage')}),'ACTUAL_NODE_COMPILER_BINDING')
+  for wanted in contract['inputs'].values():authenticate(wanted)
+  authenticate(contract['tools']['helper'])

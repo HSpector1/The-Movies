@@ -1,0 +1,11 @@
+{
+  "controlsExecuted": false,
+  "executionAuthorization": false,
+  "payloadRolesReadbackVerified": 15,
+  "schema": "1370-native-refusal-controls-source-seal/v1",
+  "sourceManifest": {
+    "bytes": 4694,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "ea534a97a8001f5037e8c053e0a8a30ff839907913d60189705bb7f9739b016a"
+  }
+}

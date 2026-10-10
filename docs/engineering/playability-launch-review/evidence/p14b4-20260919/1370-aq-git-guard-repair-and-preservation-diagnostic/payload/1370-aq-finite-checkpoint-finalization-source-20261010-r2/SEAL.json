@@ -1,0 +1,10 @@
+{
+  "candidateExecuted": false,
+  "executionAuthorization": false,
+  "sourceManifest": {
+    "bytes": 1823,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "4718536dd21adf5db5556f1725deaa716ea9931c075851dd6cdfd46556ad6542"
+  },
+  "staticSyntax": "AST parse and compile only, no candidate imports or inventory execution"
+}

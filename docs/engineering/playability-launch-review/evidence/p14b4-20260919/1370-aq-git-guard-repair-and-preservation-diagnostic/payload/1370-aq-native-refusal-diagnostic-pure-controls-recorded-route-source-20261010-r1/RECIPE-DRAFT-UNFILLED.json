@@ -1,0 +1,254 @@
+{
+  "actualGrant": null,
+  "actualObservedReview": null,
+  "actualObservedReviewDecision": null,
+  "actualObservedReviewSchema": null,
+  "actualResult": null,
+  "actualRootObservedAdoption": null,
+  "api": {
+    "bytes": 8118,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/API.md",
+    "sha256": "3da98803fc94b4beeb4e37d6aa01a4ccd266a12ac123df9746cc21d12b1fc9fa"
+  },
+  "apiAdoption": {
+    "bytes": 3933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-API-ADOPTION.json",
+    "sha256": "9300b1167ee0b481757023e9a93306432c115c3e6f554733aff42e6c95565c7f"
+  },
+  "bounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "compiledModuleBytes": 131072,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "caseCount": 86,
+  "claimLimits": [
+    "Pure public native codec, feasibility sink, diagnostic/shared arm, actual evaluation binding and affected ordering controls only. No private M0 reads, game or full qualification acceptance.",
+    "Original ordering18 are affected regressions within86; original AP72 predicates retained and14 diagnostic-v2 cases added. Parser32 is not replayed.",
+    "Four public TS modules transpiled ES2022; five exact public MJS modules copied. One validated ordering.js to ordering.mjs rebase before transpilation. No game graph imports."
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "config": null,
+  "contract": null,
+  "controlsSourcePins": {
+    "bytes": 4694,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "ea534a97a8001f5037e8c053e0a8a30ff839907913d60189705bb7f9739b016a"
+  },
+  "controlsSourceReview": {
+    "bytes": 8094,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "4c699c9e2b17c2c71c525dde8c553d34519b64809f4eb32b94fa165dc7764f8d"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "diagnosticDesignAdoption": {
+    "bytes": 2382,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "sha256": "e1547ab7446749afd375ec235503da7eb81ac9955b598fd1bc01304ddbe59054"
+  },
+  "diagnosticInterface": {
+    "bytes": 2006,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/INTERFACE.json",
+    "sha256": "7aaf37cad26fe693b2b8ad205270531260a7f4fe3afab4f82fb60e4b8ade911a"
+  },
+  "diagnosticSourceManifest": {
+    "bytes": 3301,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "2135c9485b6bc09f0f2a78740f4bdbdb9b7a910a8503a317bd9cfa8e29f0f818"
+  },
+  "diagnosticSourceReview": {
+    "bytes": 5406,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "e0417bd0bfa6e6cc487c2f6ee92d83a0f17b1fb3c38efa38c7b3ba1439b5ce30"
+  },
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "helperArgvTemplate": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-native-observer-controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "EXTERNAL_GRANT_SHA256"
+  ],
+  "implementationControlsSourceAdoption": null,
+  "implementationSourcePins": {
+    "bytes": 12245,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+    "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+  },
+  "implementationSourceReview": {
+    "bytes": 10219,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+    "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+  },
+  "maxOutputs": {
+    "childStderr": 8388608,
+    "childStdout": 8388608,
+    "compiledModuleBytesEach": 131072,
+    "outerMergedHelperLog": "Original r8 log no extra live limiter; no allstreamsquiet claim.",
+    "resultBytes": 131072
+  },
+  "moduleGraph": {
+    "copiedMjs": 5,
+    "dependencyRebase": "Exactly one './ordering.js' to './ordering.mjs' before transpilation",
+    "gameModules": 0,
+    "transpiledTs": 4
+  },
+  "outputs": {
+    "lane": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "parentClaim": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json",
+    "pureEmittedModules": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-results-20261010-r1",
+    "recorder": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorder-results-20261010-r1",
+    "recorderControlResult": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorder-results-20261010-r1/CONTROLS-RESULT.json",
+    "workerControlResult": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-results-20261010-r1/CONTROLS-RESULT.json"
+  },
+  "parentArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/launch-native-observer-controls.py",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "EXTERNAL_GRANT_SHA256"
+  ],
+  "positiveCount": 13,
+  "preparationCancelledBeforeExec": true,
+  "preparationClockSeconds": 60,
+  "reviewAliases": [
+    "CONFIG.json",
+    "CONTRACT.json",
+    "record-native-observer-controls.py",
+    "launch-native-observer-controls.py",
+    "run-native-observer-recorded-controls.mjs",
+    "m0NativeObserverRows.mjs",
+    "m0FeasibilityWitness-native.ts",
+    "m0ObserverRowDiagnostic.mjs",
+    "ordering.ts",
+    "ordering-source-controls.ts",
+    "original-m0FeasibilityWitness.ts",
+    "m0TraceCodec.mjs",
+    "traceSequences.mjs",
+    "ORDERING-SOURCE-CASES.json",
+    "run-native-observer-controls.mjs",
+    "MATRIX.json",
+    "CONTROLS-CONTRACT.json"
+  ],
+  "rootDesignAdoption": {
+    "bytes": 3376,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+    "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+  },
+  "rootOnceGrantContract": {
+    "automaticRetry": false,
+    "clockEnforcedByOriginalRecordedRoute": true,
+    "configSha256": null,
+    "executionAuthorization": true,
+    "fields": [
+      "parentAdapterSourcePins",
+      "parentAdapterSourceReview",
+      "sourcePins",
+      "sourceReview",
+      "config",
+      "recipe",
+      "bounds",
+      "outputPath",
+      "sourceAdoption",
+      "runtimeToolsObservation",
+      "runtimeTools",
+      "argvTemplate",
+      "cwd",
+      "environment",
+      "laneLog",
+      "implementationSourcePins",
+      "implementationSourceReview",
+      "controlsSourcePins",
+      "controlsSourceReview",
+      "rootDesignAdoption",
+      "implementationControlsSourceAdoption",
+      "api",
+      "apiAdoption",
+      "supplementAdoption",
+      "diagnosticSourceManifest",
+      "diagnosticSourceReview",
+      "diagnosticInterface",
+      "diagnosticDesignAdoption"
+    ],
+    "oneAggregateRun": true,
+    "runtimeTools": {
+      "helper": {
+        "bytes": 3361,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+      },
+      "node": {
+        "bytes": 115440320,
+        "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+      },
+      "python": {
+        "bytes": 50472,
+        "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+      },
+      "typescript": {
+        "bytes": 9112572,
+        "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+        "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+      },
+      "typescriptPackage": {
+        "bytes": 3620,
+        "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+        "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+      }
+    },
+    "schema": "1370-root-native-observer-pure-controls-once-grant/v1",
+    "scope": "PURE_PUBLIC_NATIVE_OBSERVER_CONTROLS_ONLY"
+  },
+  "rootSourceAdoptionContract": {
+    "executionAuthorization": false,
+    "fields": [
+      "sourcePins",
+      "sourceReview",
+      "parentAdapterSourcePins",
+      "parentAdapterSourceReview"
+    ],
+    "parentAndControlsReviewAreSameRole": true,
+    "parentAndControlsSourcePinsAreSameRole": true,
+    "schema": "1370-root-native-observer-pure-controls-source-adoption/v1",
+    "status": "ROOT_ADOPTED_PURE_NATIVE_OBSERVER_CONTROLS_SOURCE_ONLY"
+  },
+  "routeSourcePins": null,
+  "runtimeClockOwnedByOriginalRecorder": true,
+  "runtimeToolsObservation": {
+    "bytes": 1691,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-RUNTIME-TOOLS.json",
+    "sha256": "12d11061dd21827447ef0563d9ab4c5bec0c636986e8690ed067eb0be37dfa0c"
+  },
+  "schema": "1370-native-observer-pure-controls-recorded-route-recipe/v1",
+  "scope": "PURE_PUBLIC_NATIVE_OBSERVER_CONTROLS_ONLY",
+  "sourceReviewContract": {
+    "concreteFindings": [],
+    "decision": "ACCEPT_STATIC_NATIVE_OBSERVER_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY",
+    "executionAuthorization": false,
+    "routeSourcePins": "same exact aliases",
+    "schema": "1370-native-observer-pure-controls-recorded-route-independent-source-review/v1",
+    "sourceManifest": "exact retained SOURCE-PINS.json role",
+    "sourcePins": "exact filename-role map for reviewAliases"
+  },
+  "specificNegativeCount": 73,
+  "supplementAdoption": {
+    "bytes": 1768,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/DIAGNOSTIC-CODEC-SUPPLEMENT-ADOPTION.json",
+    "sha256": "0e19294627060a4bc2b77d4172dce7d3b33af97ac91f4e263372cc3ba525842d"
+  }
+}

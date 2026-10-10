@@ -1,0 +1,42 @@
+{
+  "candidateExecuted": false,
+  "executionAuthorization": false,
+  "files": {
+    "CONTRACT.json": {
+      "bytes": 3751,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/CONTRACT.json",
+      "sha256": "1b551d2d9689dbab684d119e6b3e0aba42e31c1b80391c02822930ad421b1d64"
+    },
+    "R1-SOURCE-FINDING-PRESERVED.json": {
+      "bytes": 738,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/R1-SOURCE-FINDING-PRESERVED.json",
+      "sha256": "4d809805efd5fb5e1e481eff660fc41c4bbfaa12074925e95c1e543b36f64dfe"
+    },
+    "R1-TO-R2-WHOLE-INVERSE.json": {
+      "bytes": 11354,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/R1-TO-R2-WHOLE-INVERSE.json",
+      "sha256": "e13c93369d26c957431c269d7825f8f4a1e9efd66df4001a8d57da002da3682e"
+    },
+    "R2-TO-R3-WHOLE-INVERSE.json": {
+      "bytes": 11567,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/R2-TO-R3-WHOLE-INVERSE.json",
+      "sha256": "00ae26a5ba4b1f994a6e96ebbe3cab66ba1151124d8cbc089c92d2ba2c808955"
+    },
+    "README.md": {
+      "bytes": 2452,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/README.md",
+      "sha256": "83670d841ed719a729e58428e101cc5459115df657f9399ade6170f3cd64b0ef"
+    },
+    "ROOT-CUTOFF-TEMPLATE-UNFILLED.json": {
+      "bytes": 1156,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/ROOT-CUTOFF-TEMPLATE-UNFILLED.json",
+      "sha256": "ec85ab9dcdacba37fd13d43ec0ee356af5b91bfe3606d1a410ec218c8e1fd0fb"
+    },
+    "prepare_aq_inventory.py": {
+      "bytes": 8958,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/prepare_aq_inventory.py",
+      "sha256": "fd734573cecbb84a88ca41f5be7a6249dbcbdcb156594146910416abe1e58a8c"
+    }
+  },
+  "schema": "1370-aq-finite-finalization-source-pins/v1"
+}

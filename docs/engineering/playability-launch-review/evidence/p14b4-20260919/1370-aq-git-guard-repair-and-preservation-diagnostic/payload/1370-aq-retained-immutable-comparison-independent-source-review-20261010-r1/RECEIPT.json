@@ -1,0 +1,86 @@
+{
+  "actualComparisonResult": null,
+  "actualImmutableRole": null,
+  "baseline": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "checks": {
+    "actualBaselineRoleAuthenticated": true,
+    "allThreeManifestRolesAuthenticated": true,
+    "changedPathsCap": 512,
+    "completeDifferingTopLevelKeysComputedBeforeDetailedOutput": true,
+    "filesystemScope": "Only explicit retained role files and own source; no tree traversal, private source, original scanner or process probes.",
+    "firstTypeBoundaryIsCompleteReplacement": true,
+    "inputBytesEach": 16777216,
+    "output": "Fresh exclusive no-follow output under scratch, fsynced and readonly; stdout only output role/status, comparison payload remains LOCAL_HASH_SIZE_ONLY.",
+    "outputBytesIncludingNewline": 131072,
+    "overBound": "Withhold the entire delta list, retain complete top-level differing keys, mark coverage false, and exit 2; refusal itself must fit output cap. No truncated complete claim.",
+    "provenanceScope": "External actual immutable role is root-supplied and hash authenticated; real guard provenance must be established by its separate retained diagnostic evidence, not inferred from this generic map comparison.",
+    "strictJSONDuplicateAndNonfiniteRefusal": true,
+    "topLevelKeysCap": 256,
+    "typedEqualityDistinguishesBooleanFromInteger": true,
+    "typedPathsDistinguishStringKeysAndListIndices": true,
+    "unsafeTimestampIntegersPreservedByPythonIntegerParsing": true
+  },
+  "claimLimits": [
+    "No actual immutable map exists or is compared in this source review.",
+    "Aggregate protected digest differences identify aggregate roots only; no leaf or causal inference from those hashes.",
+    "A later unchanged comparison cannot retroactively accept failed54871 or renew protection.",
+    "Full exact delta output is admitted only when both path and complete encoded output caps pass; otherwise explicit incomplete refusal."
+  ],
+  "cli": [
+    "pinned-physical-python",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/compare_retained_immutable.py",
+    "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/BASELINE-ROLE.json",
+    "genuine-actual-immutable-role-json",
+    "fresh-scratch-local-comparison-json"
+  ],
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_RETAINED_IMMUTABLE_COMPARISON_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "reviewScope": "Complete source and contract review of the retained JSON comparison consumer; no comparison execution or candidate imports.",
+  "routeSourcePins": {
+    "BASELINE-ROLE.json": {
+      "bytes": 259,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/BASELINE-ROLE.json",
+      "sha256": "48b943d5f14d0d4adf9152ce7ba43b9ad84bc7a30ac7e4ee4f11d99fc0054439"
+    },
+    "CONTRACT.json": {
+      "bytes": 2476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/CONTRACT.json",
+      "sha256": "da30f18d0baead44d73c5fb277ddd2f6e7b809d6484ea0c5ce282e5c45e761be"
+    },
+    "compare_retained_immutable.py": {
+      "bytes": 7099,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/compare_retained_immutable.py",
+      "sha256": "873d987d60b4a47f1a91d906269f871da5dc2bf487df68bff5834ed60d88538e"
+    }
+  },
+  "schema": "1370-retained-immutable-comparison-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 968,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "c4783405ccbb392333b159f2a833404890af074c003469954d9d9f0b0a30fd7b"
+  },
+  "sourcePins": {
+    "BASELINE-ROLE.json": {
+      "bytes": 259,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/BASELINE-ROLE.json",
+      "sha256": "48b943d5f14d0d4adf9152ce7ba43b9ad84bc7a30ac7e4ee4f11d99fc0054439"
+    },
+    "CONTRACT.json": {
+      "bytes": 2476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/CONTRACT.json",
+      "sha256": "da30f18d0baead44d73c5fb277ddd2f6e7b809d6484ea0c5ce282e5c45e761be"
+    },
+    "compare_retained_immutable.py": {
+      "bytes": 7099,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/compare_retained_immutable.py",
+      "sha256": "873d987d60b4a47f1a91d906269f871da5dc2bf487df68bff5834ed60d88538e"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "new": "under current AO",
+    "old": "under current AP"
+  },
+  {
+    "new": "postflight-fullfunction-native-observer-r1",
+    "old": "postflight-fullfunction-native-refusal-diagnostic-r1"
+  },
+  {
+    "new": "5ede60a6f02c405aea31dd7fa981d871de6b5af8c594cf103ad9c66076f9834a",
+    "old": "1c00f8f4e42402a972182ed643369c279149d74cb6a5cdb9208aa15269118c69"
+  },
+  {
+    "new": "ROOT_ADOPTED_CURRENT_AO_FULL_PREFLIGHT",
+    "old": "ROOT_ADOPTED_CURRENT_AP_FULL_PREFLIGHT"
+  },
+  {
+    "new": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552",
+    "old": "4bd6fe3766e73cd621f939b124d0da27e09fa4d097b64ae58041ee6955358cf1"
+  },
+  {
+    "new": "CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "old": "CURRENT-AP-FULL-PREFLIGHT-OBSERVED-ADOPTION.json"
+  },
+  {
+    "new": "1370-ap-native-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1",
+    "old": "1370-aq-native-refusal-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1"
+  },
+  {
+    "new": "1370-ap-current-operational-fullguard-source-20261010-r1",
+    "old": "1370-aq-current-operational-fullguard-source-20261010-r1"
+  },
+  {
+    "new": "1370-ap-root-continuation-20261010-r1",
+    "old": "1370-aq-root-continuation-20261010-r1"
+  }
+]

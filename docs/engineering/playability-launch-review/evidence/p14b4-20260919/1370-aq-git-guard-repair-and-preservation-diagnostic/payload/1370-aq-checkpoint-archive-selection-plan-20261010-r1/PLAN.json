@@ -1,0 +1,213 @@
+{
+  "archiveCopied": false,
+  "candidateLoosePackageRoles": [
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-lane-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-lane-20261010-r1.meta",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-lane-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-lane-20261010-r1.meta"
+  ],
+  "candidatePackagePaths": [
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-generated-authority-repair-preparation-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-independent-partial-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-independent-source-review-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-recorder-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-parent-readback-wrappers-independent-source-review-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-independent-source-review-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-review-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorder-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-route-adapters-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-output-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-independent-failure-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-independent-failure-review-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-controls-independent-source-review-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-launcher-static-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-launcher-static-review-preparation-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorder-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-runner-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-output-classification-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-shared-fullpostflight-equality-diagnostic-design-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-shared-fullpostflight-equality-diagnostic-design-20261010-r2"
+  ],
+  "claimLimits": [
+    "No complete inventory/byte count or archive coverage claim.",
+    "No later equality can retrospectively pass failed54871 or establish transient cause.",
+    "Pure controls and source review do not admit gameplay/full qualification or protected baseline equality."
+  ],
+  "conditionalLoosePreparationScripts": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/aq_review_compact_pure.py",
+      "selection": "HELD_NOT_SELECTED_UNTIL_RETAINED_AQ_ROLE_REFERENCE_AUTHENTICATED"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/aq_check_generated_authority.py",
+      "selection": "HELD_NOT_SELECTED_UNTIL_RETAINED_AQ_ROLE_REFERENCE_AUTHENTICATED"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/aq_prepare_recent_prelaunch.py",
+      "selection": "HELD_NOT_SELECTED_UNTIL_RETAINED_AQ_ROLE_REFERENCE_AUTHENTICATED"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/aq_audit_diagnostic_preparation.py",
+      "selection": "HELD_NOT_SELECTED_UNTIL_RETAINED_AQ_ROLE_REFERENCE_AUTHENTICATED"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/aq_seal_original_diagnostic.py",
+      "selection": "HELD_NOT_SELECTED_UNTIL_RETAINED_AQ_ROLE_REFERENCE_AUTHENTICATED"
+    }
+  ],
+  "excludedTraversalAndPayloads": [
+    "Any private M0 mirror or authentic fixture/game-state packet payload",
+    "Original or copied runtime dependencies and dependency symlinks",
+    "node_modules",
+    ".git",
+    "__pycache__",
+    "Rebuildable Node transformed-module caches",
+    "Protected production/common/source trees outside explicitly selected public evidence packages"
+  ],
+  "executionAuthorization": false,
+  "finitePublicSelectionRequirements": [
+    "Use only listed package paths and root-approved late additions; no scratch-wide recursive discovery.",
+    "Before inventory, turn LOCAL producer rules into exact localRawPaths using retained public producer manifests/readbacks and explicit public package filename enumeration. No raw payload inspection needed.",
+    "Do not feed raw candidate directories to unchanged AP prepare_inventory.py until cache links/protected payload paths are excluded; it rejects symlinks and cache segments rather than skipping them. If a selected package mixes runtime cache and evidence, select exact ordinary files and mark/exclude cache roles.",
+    "Preserve source1/source2/source3 drafts and DRAFT-FIRST/held inverse/proof/STOPs as source history, not runtime qualification.",
+    "Carry whole late AP finalization including PUSH-READBACK and post-publication reader/index corrections; classify any inherited LOCAL producer payloads consistently.",
+    "Loose aq_ preparation scripts outside packages require a concrete path/role reference in a retained AQ receipt/source proof before addition; no automatic all-script collection.",
+    "Root chooses snapshot cutoff after actual diagnostic and readback; no future grant/outcome is filled by this plan.",
+    "Final selection must have no duplicate paths, explicit all LOCAL roles, immutable authentic input roles, and fail closed for missing/unknown classification."
+  ],
+  "inventoryExecuted": false,
+  "localOnlyProducerRules": [
+    {
+      "action": "LOCAL_HASH_SIZE_ONLY",
+      "names": [
+        "BEFORE-PS.txt",
+        "AFTER-PS.txt",
+        "BEFORE-LSOF.bin",
+        "AFTER-LSOF.bin",
+        "CURRENT-PS*",
+        "CURRENT-LSOF*",
+        "ACTIVE-PS*"
+      ],
+      "producer": "Original fullguard and short-prelaunch/fullpost snapshot sources",
+      "reason": "Whole-machine process/file-descriptor payloads never copied or reused as Git payloads."
+    },
+    {
+      "action": "LOCAL_HASH_SIZE_ONLY",
+      "names": [
+        "ACTUAL-IMMUTABLE-LOCAL.json",
+        "DIAGNOSTIC-SUMMARY-LOCAL.json",
+        "*.partial"
+      ],
+      "producer": "Original shared-postflight exception diagnostic",
+      "reason": "Actual metadata maps, summaries and partial writer artifacts are local comparison evidence, not archive payload. Same rule applies if a later original success produces raw PS/FD."
+    },
+    {
+      "action": "LOCAL_HASH_SIZE_ONLY",
+      "producer": "Original-guard diagnostic pure32 controls emitter",
+      "reason": "Rebuildable synthetic metadata/padding artifacts; enumerate exact actual roles before final inventory, never copy contents.",
+      "selection": "All producer synthetic artifact roles named syntheticArtifactsLocalOnly in actual worker RESULT, including exact cap-padding and failed .partial artifacts; RESULT and recorder streams are ordinary finite evidence unless they embed raw producer payload."
+    },
+    {
+      "action": "LOCAL_HASH_SIZE_ONLY",
+      "producer": "Other retained pure-control/resource fixtures",
+      "reason": "Producer semantics outrank names; fail final selection on unclassified raw/cache role.",
+      "selection": "Any source-bound rebuildable padding/cache role and semantic machine PS/FD role regardless filename."
+    }
+  ],
+  "methodRoles": [
+    {
+      "bytes": 3147,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_inventory.py",
+      "sha256": "f0760129efda1d61defe17559a396b38c73842bd34e0e21e489677156a5178b9"
+    },
+    {
+      "bytes": 4649,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py",
+      "sha256": "44f14cedf747f9ffda7c5e076042440d56b70c3d05d35c9a9d5883787cea3769"
+    },
+    {
+      "bytes": 6520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/finalize_archive.py",
+      "sha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b"
+    },
+    {
+      "bytes": 4405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/verify_index_complete_r2.py",
+      "sha256": "29a4174453e4c88d26ec1cbaa61f550f1ed776b33260a60df343a1dcb37398a7"
+    }
+  ],
+  "pendingActualEvidence": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1",
+      "role": null,
+      "status": "FUTURE_ROOT_RECORDED_DIAGNOSTIC_NOT_ASSUMED"
+    },
+    {
+      "path": "Root-selected later original guard output label and actual diagnostic maps/summaries/partials",
+      "role": null,
+      "status": "FUTURE_LOCAL_ONLY_CLASSIFICATION"
+    },
+    {
+      "path": "Pure32 actual observed review/adoption and any root late correction/lessons",
+      "role": null,
+      "status": "ROOT_TO_SUPPLY_GENUINE_FINAL_ROLES"
+    }
+  ],
+  "repositoryWritten": false,
+  "rootContinuationSelection": {
+    "cutoffPending": true,
+    "include": "All versioned lessons/live notes, historical corrections, prospective interfaces, genuine adoptions and referenced root builders through root-selected cutoff. Preserve superseded/failed author preparation and review records.",
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1"
+  },
+  "rootCutoff": null,
+  "schema": "1370-aq-finite-checkpoint-selection-plan/v1",
+  "selectionBasis": "One nonrecursive top-level public AQ filename catalog and named AP method/root directory reads. Directory presence does not establish source acceptance, runtime outcome or complete evidence.",
+  "status": "SOURCE_ONLY_EXPLICIT_CANDIDATE_SELECTION_CUTOFF_NOT_FROZEN",
+  "wholeLateAPFinalization": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1"
+}

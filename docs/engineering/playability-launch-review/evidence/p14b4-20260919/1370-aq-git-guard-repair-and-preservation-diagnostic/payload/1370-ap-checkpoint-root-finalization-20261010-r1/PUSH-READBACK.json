@@ -1,0 +1,48 @@
+{
+  "advertisedRemoteRefs": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8"
+  },
+  "branch": "wip/headless-program-20260916-ts",
+  "completeIndexedTreeEqualsCommitTree": true,
+  "correction": "Push succeeded and advertised remote matched. Plain fetch origin did not update this branch tracking ref; explicit source:destination branch refspec fetch fcbd80 updated it. No second push.",
+  "currentAOFreezeEnded": true,
+  "docsOnlyPathCount": 765,
+  "finalIndexVerification": {
+    "bytes": 33283,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/INDEX-VERIFICATION-FINAL.json",
+    "sha256": "d89951a8e770d32ac1eb6b811e60850b9ab207cf92b165ecfeb38d55e3b6c92a"
+  },
+  "fullfunctionQualificationAccepted": false,
+  "head": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "independentReview": {
+    "bytes": 6453,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/INDEPENDENT-DOCS-ARCHIVE-REVIEW.json",
+    "sha256": "7b770112da978edef8a976ee33a3fb680752610255a41913f1e40af6a6125a37"
+  },
+  "initialPublicationReaderFailurePreserved": {
+    "bytes": 948,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/PUBLISH-ACTUAL-TOOL.json",
+    "sha256": "02ad3017eedf9f8198c61cf9e302ddacb29f4d1da287117c10547abdb7953e40"
+  },
+  "lateFinalizationCarryRequired": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1",
+  "mainMerged": false,
+  "nextRuntimeRequiresNewAPOperationalProtection": true,
+  "parent": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "pushStderr": {
+    "bytes": 111,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/PUSH.stderr",
+    "sha256": "82a5e48bccdb9dc4d7267ec2842cf4f85c30b7c39e5dbf330783365fa054ffae"
+  },
+  "pushStdout": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/PUSH.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "schema": "1370-ap-publication-readback/v1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "PUBLISHED_REMOTE_ANCESTRY_SOURCE_AND_COMPLETE_INDEX_VERIFIED",
+  "trackedMain": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "utc": "2026-10-10T11:30:40.911433+00:00",
+  "workingTreeClean": true
+}

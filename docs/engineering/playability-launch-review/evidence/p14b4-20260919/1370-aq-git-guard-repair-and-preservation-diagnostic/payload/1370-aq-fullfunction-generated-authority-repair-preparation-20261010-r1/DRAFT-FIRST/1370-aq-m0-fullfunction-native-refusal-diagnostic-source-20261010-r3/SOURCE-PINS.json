@@ -1,0 +1,120 @@
+{
+  "schema": "1370-fullfunction-qualification-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG-TEMPLATE.mts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/CONFIG-TEMPLATE.mts",
+      "bytes": 1154,
+      "sha256": "28b1a544b14a27856d29ba8506da8d4577c38b969ca0c89f4c84f4fef70a86d7"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/CORE-TEST-TEMPLATE.ts",
+      "bytes": 3955,
+      "sha256": "1507350f14c0d69d71c32cd253202bfc5c0865b6eb62ebe0f8dfbeadeab4e9eb"
+    },
+    "canonical-typescript-transform.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/canonical-typescript-transform.mjs",
+      "bytes": 1906,
+      "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+    },
+    "record-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/record-fullfunction.py",
+      "bytes": 16762,
+      "sha256": "a67030b2cd0b6deef9a39e6210e3b34d8edd9ca10e788799ef4cad41829366a1"
+    },
+    "run-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/run-fullfunction.py",
+      "bytes": 36699,
+      "sha256": "d1e6b52a4536c1f8f7fb5148b5355e755dd9ff048a43cc61fb46a9c93f553749"
+    },
+    "run-fullfunction.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/run-fullfunction.mjs",
+      "bytes": 39926,
+      "sha256": "2402d84f05bb82784001b8d9fff165fd6f6ae9e6a7831bb2440bba0aae33c7f1"
+    },
+    "RESOLUTION-SOURCE-BINDING.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/RESOLUTION-SOURCE-BINDING.json",
+      "bytes": 78208,
+      "sha256": "5f00139d2e30e94a5b5cea6db164f8786fd65ee4fc89c24d52b0f75f945ae373"
+    },
+    "CONFIG.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/CONFIG.json",
+      "bytes": 31407,
+      "sha256": "734378eccb25131f1a3bdaaa22df8504175ea019b95a9cfbc2b0572bc9d91db0"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "m0WiringProbe.ts": {
+      "bytes": 1800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+      "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    },
+    "m0NativeObserverRows.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+      "bytes": 10267,
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "m0FeasibilityWitness-native.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+      "bytes": 5868,
+      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 13288,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
+      "sha256": "db78301bf62d52b574ed8df272d0fe3d7b10c2568f930d10eb359092725bbba6"
+    },
+    "ordering.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+      "bytes": 12555,
+      "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+    },
+    "talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+      "bytes": 120462,
+      "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+    },
+    "typed-propagation-removed-talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+      "bytes": 120492,
+      "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "bytes": 9756,
+      "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/RECIPE.json",
+      "bytes": 39462,
+      "sha256": "01bc546629c79b9a2605c203cf8749b6090494be9d5e5035dbf091327f31bbed"
+    },
+    "WHOLE-FORWARD-INVERSE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/WHOLE-FORWARD-INVERSE.json",
+      "bytes": 402822,
+      "sha256": "ea30dc0395396727e91479bd395b0720d6466a9634795b5fc80d5ecd29b6684d"
+    }
+  },
+  "actualSourceReview": null,
+  "actualGrant": null,
+  "actualResult": null,
+  "sourceOnlyUnfilled": true
+}

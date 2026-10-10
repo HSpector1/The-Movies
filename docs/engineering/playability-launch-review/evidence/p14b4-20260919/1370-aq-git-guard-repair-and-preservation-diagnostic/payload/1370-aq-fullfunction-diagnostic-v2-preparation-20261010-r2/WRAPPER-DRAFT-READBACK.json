@@ -1,0 +1,42 @@
+{
+  "schema": "1370-aq-fullfunction-root-wrapper-held-preparation/v1",
+  "executionAuthorization": false,
+  "sourceSealed": true,
+  "wrapperSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 1418,
+    "sha256": "30e41a5438eba35dc1a1851062099a2376a0667af5c8266bac3273919dbea559"
+  },
+  "routeSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 6366,
+    "sha256": "401c974ba549321782ff5eaee1fd9261edc03a24c5dbd09417a2d0c33a687c43"
+  },
+  "parentSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 1364,
+    "sha256": "09ab4622f89e3f285c876dbb54fe619028d639e5fad06f196b95142dfc2d6130"
+  },
+  "originalWrapperHelpersByteExact": {
+    "run_observer_fullfunction_once.py": [
+      "role",
+      "read",
+      "checked",
+      "put"
+    ],
+    "run_observer_reader_once.py": [
+      "role"
+    ]
+  },
+  "wrapperInverseApplications": 4,
+  "priorDraftInverseApplications": 22,
+  "combinedReviewSchema": "1370-aq-fullfunction-parent-readback-wrappers-independent-source-review/v1",
+  "decision": "ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY",
+  "rootReadbackDecision": "ACCEPT_STATIC_FULLFUNCTION_ROOT_READBACK_SOURCE_ONLY",
+  "pendingActualFields": [
+    "actualSourceReview",
+    "actualGrant"
+  ],
+  "actualCandidateExecuted": false,
+  "privateTreeRead": false
+}

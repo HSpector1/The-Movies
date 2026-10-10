@@ -1,0 +1,14 @@
+{
+  "schema": "1370-original-shared-postflight-diagnostic-output-classification-plan/v1",
+  "executionAuthorization": false,
+  "actualOutputs": null,
+  "parentPath": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1",
+  "originalScannerOutputPath": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/diagnostic-shared-postflight-final-equality-r1",
+  "localHashSizeOnlyParentFiles": ["ACTUAL-IMMUTABLE-LOCAL.json", "ACTUAL-IMMUTABLE-LOCAL.json.partial", "DIAGNOSTIC-SUMMARY-LOCAL.json", "DIAGNOSTIC-SUMMARY-LOCAL.json.partial"],
+  "localHashSizeOnlyOriginalScannerFilesIfLaterRunReturns": ["BEFORE-PS.txt", "BEFORE-LSOF.bin", "AFTER-PS.txt", "AFTER-LSOF.bin"],
+  "classification": "LOCAL_HASH_SIZE_ONLY",
+  "rawBytesMustNotBeExportedOrArchived": true,
+  "completeMetadataMayBeReadLocallyForIndependentComparison": true,
+  "originalPassingSnapshotRequiresSeparateActualReview": true,
+  "prior54871FailureRemainsUnaccepted": true
+}

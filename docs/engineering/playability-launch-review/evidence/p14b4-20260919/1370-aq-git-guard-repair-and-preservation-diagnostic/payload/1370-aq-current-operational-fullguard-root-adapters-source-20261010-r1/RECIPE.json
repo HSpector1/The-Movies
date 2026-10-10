@@ -1,0 +1,66 @@
+{
+  "actualScanGrant": null,
+  "actualSnapshot": null,
+  "actualSourceReview": null,
+  "currentFullGuardActuallyExecuted": false,
+  "currentPublishedAPHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "executionAuthorization": false,
+  "genuineRootFacts": {
+    "bytes": 1029,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-OPERATIONAL-TRANSITION.json",
+    "sha256": "8a7d765bbc472ccf5717fd2b3e68a362eac5db63f76b5fb523bd6fe3de1ed753"
+  },
+  "genuineRootScope": {
+    "bytes": 2942,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "b0e268df5d8e7cd749286c5b91c09a2b8d88926697413bd5313f46854e2cc126"
+  },
+  "guardConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "sha256": "a058c0d63bd0f0432f26d4ebcae62a80977eaccfd7e2406cf7a7e6f221b23fec"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "51f11d5f9bc55d77ed9e1b7d0bce4d36d1c9af865835617d585629fa8f694f85"
+  },
+  "guardSourcePins": {
+    "bytes": 5379,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "1c00f8f4e42402a972182ed643369c279149d74cb6a5cdb9208aa15269118c69"
+  },
+  "historicalAOHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "launchArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py",
+    null,
+    null
+  ],
+  "originalSourceGuardFunctionsUnchanged": true,
+  "parentPath": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1",
+  "perCommandSeconds": 180,
+  "prepareScriptRole": "HISTORICAL-prepare_current_fullguard.py.txt retains authenticated AP documentary predecessor only; not an executable adapter. Genuine AQ facts/scope already exist. Never recreate sealed source or duplicate facts.",
+  "privateM0ProofsAndHistoricalTypesSeparate": true,
+  "publishedReadback": {
+    "bytes": 2519,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/PUSH-READBACK.json",
+    "sha256": "6545dea2ceaa3cb52d8799fe9ef0aede1b58bd34e42268307b27208c9050e27f"
+  },
+  "readerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/read_current_fullpreflight.py"
+  ],
+  "requiredIndependentDecision": "ACCEPT_CURRENT_AP_FULLGUARD_BINDINGS_SOURCE_ONLY",
+  "reviewSourcePinsKey": "Exact physical guard SOURCE-PINS role",
+  "rootArtifacts": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1",
+  "schema": "1370-aq-current-ap-fullguard-root-adapters-source-recipe/v1",
+  "snapshotOutput": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "FILLED_SOURCE_ONLY_UNRUN_ROOT_REVIEW_AND_SEPARATE_SCAN_GRANT_REQUIRED",
+  "wholeScanDeadline": null
+}

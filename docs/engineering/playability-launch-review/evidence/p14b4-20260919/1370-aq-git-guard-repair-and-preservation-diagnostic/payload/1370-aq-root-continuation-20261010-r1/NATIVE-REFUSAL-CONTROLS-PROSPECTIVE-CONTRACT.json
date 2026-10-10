@@ -1,0 +1,36 @@
+{
+  "actualOutcome": null,
+  "caseCount": 86,
+  "executionAuthorization": false,
+  "observedReviewDecision": "ACCEPT_ACTUAL_PURE_NATIVE_REFUSAL_DIAGNOSTIC_86_CONTROLS_ONLY",
+  "observedReviewSchema": "1370-native-refusal-diagnostic-controls-independent-observed-review/v1",
+  "originalOrderingCases": 18,
+  "positiveCount": 13,
+  "readbackSchema": "1370-root-native-refusal-diagnostic-controls-actual-readback/v1",
+  "readbackStatus": "ACTUAL_PURE_86_NATIVE_REFUSAL_DIAGNOSTIC_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW",
+  "rootObservedAdoptionSchema": "1370-root-native-refusal-diagnostic-controls-observed-adoption/v1",
+  "rootObservedAdoptionStatus": "ROOT_ADOPTED_ACTUAL_NATIVE_REFUSAL_DIAGNOSTIC_86_CONTROLS_ONLY",
+  "schema": "1370-native-refusal-controls-prospective-protocol/v1",
+  "sourceAdoptionRoleKeys": [
+    "api",
+    "apiAdoption",
+    "controlsSourcePins",
+    "controlsSourceReview",
+    "diagnosticDesignAdoption",
+    "diagnosticInterface",
+    "diagnosticSourceManifest",
+    "diagnosticSourceReview",
+    "implementationSourcePins",
+    "implementationSourceReview",
+    "rootDesignAdoption",
+    "supplementAdoption"
+  ],
+  "sourceAdoptionSchema": "1370-root-native-refusal-diagnostic-implementation-controls-source-adoption/v1",
+  "sourceAdoptionStatus": "ROOT_ADOPTED_NATIVE_REFUSAL_DIAGNOSTIC_AND_AFFECTED_CONTROLS_SOURCE_ONLY",
+  "specificNegativeCount": 73,
+  "workerResultContract": {
+    "bytes": 11016,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+    "sha256": "c915be086c16ba5ee9d814038e19d0306d22efb9c7f5ca2ff8856c0d5240e548"
+  }
+}

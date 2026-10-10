@@ -1,0 +1,57 @@
+{
+  "actualIds": {
+    "pgids": [
+      38012,
+      38267,
+      38268
+    ],
+    "pids": [
+      38012,
+      38267,
+      38268,
+      38393
+    ]
+  },
+  "actualRouteReadback": {
+    "bytes": 7986,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "0c4deb56e920fc2d8a5915701fdb3fca5d94cd4044cde11dfb6fe6826463e8c4"
+  },
+  "baselineSnapshotContentsRead": false,
+  "claims": "Source review only. Genuine prior STOP/success and recorded IDs are retained; original shared postflight remains unrun and cannot admit game or original M0 AFTER proofs.",
+  "originalPerCommandTimeoutSeconds": 180,
+  "pairs": [
+    {
+      "candidate": {
+        "bytes": 5301,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+        "sha256": "9878a994f41d5b5914dc43621da0fdb61b87a0625eed110aec5fecacb084f9e7"
+      },
+      "originalHelperBodiesByteExact": 3,
+      "source": {
+        "bytes": 5283,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+        "sha256": "0003d2c01f91ba5d480ec32cea74af77358d82199a668644a5ee6009fd780785"
+      },
+      "wholeForwardInverseExact": true
+    },
+    {
+      "candidate": {
+        "bytes": 5439,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py",
+        "sha256": "549958b04cd815140da8e00dccb46c8c8061a169b0efd8763c47232674bff6ad"
+      },
+      "originalHelperBodiesByteExact": 3,
+      "source": {
+        "bytes": 5421,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py",
+        "sha256": "0c4047136b4c872b8e65ac5d868788f79c9004af9372e2c1a9bab5d24077b12c"
+      },
+      "wholeForwardInverseExact": true
+    }
+  ],
+  "runtimeExecuted": false,
+  "schema": "1370-aq-shared-fullpostflight-source-proof/v1",
+  "sealed": true,
+  "wholeScanDeadline": null
+}

@@ -1,0 +1,36 @@
+{
+  "authorityLimits": [
+    "Fresh proof-library source only; historical source immutable",
+    "No route bindings, new runtime acceptance, baseline repin or private tree access",
+    "Known code mechanism can explain a write capability; no claim it identifies which protected commonGit leaf changed in actual54871 or96592",
+    "Top-level original remaining() requires bootstrap; controls may extract authenticated actual function only, excluding other module/startup side effects"
+  ],
+  "callerSourceAttribution": {
+    "cmd": "guard_command_bytes",
+    "guard": "git status --porcelain=v1 via cmd()",
+    "guard_command_bytes": "Uses clean_git_env() only for argv[0] == git; caller and original argv unchanged"
+  },
+  "candidateExecuted": false,
+  "controlsRequired": [
+    "Actual authenticated function extraction/import, not a handwritten copy",
+    "Original sanitizer specific RED strips root GIT_OPTIONAL_LOCKS=0 and permits disposable stale statcache refresh",
+    "Corrected actual function GREEN preserves disposable index full bytes/hash and metadata under otherwise same git status",
+    "Absent/conflicting inherited OPTIONAL_LOCKS both become exact string0",
+    "Other inherited GIT config/index/object/hooks variables still removed; ordinary environment preserved; input environment unchanged"
+  ],
+  "correctedSource": {
+    "bytes": 44107,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/runner.py",
+    "sha256": "6d83467284f7ecdf34c2d20c0aeab648819539406768beda0c3370d2651000fa"
+  },
+  "exactChange": "Continue dropping every inherited GIT_ variable, then force GIT_OPTIONAL_LOCKS='0' even when absent or conflicting.",
+  "executionAuthorization": false,
+  "explicitGitArgvChange": false,
+  "historicalSource": {
+    "bytes": 44067,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+    "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+  },
+  "interface": "clean_git_env() -> fresh dictionary; reads os.environ, does not mutate it",
+  "schema": "1370-proof-git-optional-locks-sanitizer-source-contract/v1"
+}

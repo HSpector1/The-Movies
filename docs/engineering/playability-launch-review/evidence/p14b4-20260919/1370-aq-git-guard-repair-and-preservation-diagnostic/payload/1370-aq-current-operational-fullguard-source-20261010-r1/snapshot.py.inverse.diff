@@ -1,0 +1,11 @@
+--- /Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py
++++ /Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/snapshot.py
+@@ -11,7 +11,7 @@
+ HERE=Path(__file__).resolve().parent
+ REPO=Path('/Users/zacheryspector/The-Movies-headless-program')
+ SCRATCH=Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='a058c0d63bd0f0432f26d4ebcae62a80977eaccfd7e2406cf7a7e6f221b23fec'
++CONFIG_SHA='2bc496099b22f228ba671a57aec531f4eb11fc5f7c3d2cc8c21b7608331f7814'
+ EXCLUDED={'status','executionAuthorization','exactBindingReviewPath','exactBindingReviewSha256','exactBindingReviewDecision'}
+ def require(ok,msg):
+  if not ok:raise RuntimeError('STOP: '+msg)

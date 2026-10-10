@@ -1,0 +1,80 @@
+{
+  "actualOwnGroupConfirmed": true,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-native-observer-controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "398d0cca8352466716656bfec0c09167d0f067a13afdbfcee56ab7c02e9d24a8"
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesOuterIdentity": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "fixtureQualification": false,
+  "game": false,
+  "grant": {
+    "bytes": 10101,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "398d0cca8352466716656bfec0c09167d0f067a13afdbfcee56ab7c02e9d24a8"
+  },
+  "helperPgid": 49978,
+  "helperPid": 49978,
+  "helperSid": 49978,
+  "meaningfulCatchMutantRed": false,
+  "originalM0ReadOrWritten": false,
+  "parentAdapterSourcePins": {
+    "bytes": 16451,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "6db3ef0be87cb3bd4afc24ad2b1d78669df9821a3a82ccaf532fb7e25a6de55f"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 17194,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-route-adapters-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "35cca3ee3b9b2e270353a75db74b061f032154336d6b36ff886ac6a6b611061b"
+  },
+  "preparationDeadlineSeconds": 60,
+  "preparationElapsedSeconds": 0.5644039890030399,
+  "runtimeBounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "compiledModuleBytes": 131072,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "runtimeClockOwnedByRecorder": true,
+  "runtimeToolsObservation": {
+    "bytes": 1478,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RUNTIME-TOOLS.json",
+    "sha256": "e7d0f540655698dac3c15f4210307bef0112abe9316283d6c68a8245dd9eca9e"
+  },
+  "schema": "1370-native-observer-pure-controls-parent-launch-claim/v1",
+  "sourceAdoption": {
+    "bytes": 1384,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-ROUTE-SOURCE-ADOPTION.json",
+    "sha256": "729dfabf7eb6a23131350a4b4173e6973a46014834aab23ce60dff0c2ce396d0"
+  },
+  "sourcePins": {
+    "bytes": 16451,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "6db3ef0be87cb3bd4afc24ad2b1d78669df9821a3a82ccaf532fb7e25a6de55f"
+  },
+  "sourceReview": {
+    "bytes": 17194,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-route-adapters-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "35cca3ee3b9b2e270353a75db74b061f032154336d6b36ff886ac6a6b611061b"
+  },
+  "syntheticOnly": true,
+  "unexpectedHelperWaitIsStop": true
+}

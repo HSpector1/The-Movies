@@ -1,0 +1,37 @@
+{
+  "actualShortPrelaunch": null,
+  "capsHorizonsSourceIdentityProtectedRootsAcceptanceUnchanged": true,
+  "currentFullPreflightAdoption": {
+    "bytes": 5252,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "4bd6fe3766e73cd621f939b124d0da27e09fa4d097b64ae58041ee6955358cf1"
+  },
+  "executionAuthorization": false,
+  "freshOriginalCurrentChecksBeforeGameRequired": true,
+  "game": false,
+  "independentSourceReview": {
+    "bytes": 8254,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "ae2840d36228de5ee9b93707f090e901da03fffb7e596f406f846cc953422950"
+  },
+  "mandatoryOriginalFullPostflightAfterGame": true,
+  "nativeRefusalControlsObservedAdoption": {
+    "bytes": 16532,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "385249f0239d6999318b62c6781c0f24c97e10600aa47dba6b51ddf6c4693ed4"
+  },
+  "operationalScopeAmendment": {
+    "bytes": 3248,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/OPERATIONAL-SCOPE-AMENDMENT.json",
+    "sha256": "d355a20a51b2b0a5a6f925d3e3b0e4ab447a27a3beb237def49af5457160f545"
+  },
+  "originalM0BeforeAfterAndHistoricalTypesRemainSeparate": true,
+  "protectedFreezeContinues": true,
+  "schema": "1370-aq-root-current-ap-native-refusal-prelaunch-source-and-amendment-adoption/v1",
+  "sourceManifest": {
+    "bytes": 16628,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "035ac9dcdbd73073c0c0cec5c1fc66e449840485ba13b77366c319d5593db18f"
+  },
+  "status": "ROOT_ADOPTED_CURRENT_AP_NATIVE_REFUSAL_PRELAUNCH_SOURCE_AND_BEFORE_FILL_REUSE_AMENDMENT"
+}

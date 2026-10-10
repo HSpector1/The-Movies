@@ -1,0 +1,20 @@
+{
+  "baselineReplacementAuthorized": false,
+  "executionAuthorization": false,
+  "independentReview": {
+    "bytes": 4929,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-operational-recovery-proposal-independent-review-20261010-r1/RECEIPT.json",
+    "sha256": "b8df3ed14ca9860c309128fe8eb0e06265faf0b638620a56886e7c6b8db42809"
+  },
+  "originalFailuresRemainFailures": true,
+  "ownerApprovalReceived": false,
+  "ownerQuestionAsked": true,
+  "proposal": {
+    "bytes": 3103,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/OPERATIONAL-RECOVERY-PROPOSAL.md",
+    "sha256": "51551f0190830b08ea9c79e674e7b32754f99f13f46cbb78e240f54e92503807"
+  },
+  "schema": "1370-root-operational-recovery-proposal-adoption/v1",
+  "status": "ROOT_ADOPTED_REVIEWED_RECOVERY_PROPOSAL_PENDING_OWNER_DECISION",
+  "userConstraint": "Preserve failures and do not repin unexplained results."
+}

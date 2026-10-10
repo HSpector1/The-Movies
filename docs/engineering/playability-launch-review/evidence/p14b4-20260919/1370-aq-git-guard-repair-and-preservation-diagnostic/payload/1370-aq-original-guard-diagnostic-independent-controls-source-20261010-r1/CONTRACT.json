@@ -1,0 +1,51 @@
+{
+  "schema": "1370-original-shared-postflight-diagnostic-independent-controls-source-contract/v1",
+  "executionAuthorization": false,
+  "entryPoint": "runGuardDiagnosticControls(api, outputRoot)",
+  "library": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r1/run_guard_diagnostic_controls.py",
+    "bytes": 11293,
+    "sha256": "309fb839892b4e39382204749cdfa43e23c1c05c835d21c0154b70a3ead82296"
+  },
+  "actualInjectedExports": [
+    "differences",
+    "run_original",
+    "emit",
+    "MAP_CAP",
+    "SUMMARY_CAP"
+  ],
+  "implementationSourceManifest": null,
+  "implementationSourceReview": null,
+  "sourceOperandsRemainFutureUntilGenuine": true,
+  "outputRoot": "Fresh physical disposable scratch directory supplied by the recorded control worker; no protected paths.",
+  "resultSchema": "1370-original-shared-postflight-diagnostic-independent-controls-result/v1",
+  "resultStatus": "PURE_SHARED_POSTFLIGHT_EXCEPTION_DIAGNOSTIC_CONTROLS_COMPLETE_UNADOPTED",
+  "matrix": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r1/MATRIX.json",
+    "bytes": 5593,
+    "sha256": "6284c2b6fb86b73898f216607948844d6f7d7e7a30320616beb18083e8e72ee7"
+  },
+  "caseCount": 28,
+  "positiveCount": 9,
+  "specificNegativeCount": 19,
+  "originalGuardExecuted": false,
+  "protectedTreesReadOrWritten": false,
+  "game": false,
+  "refusalPolicy": "Each negative requires an exact original exception identity, exact declared partial-coverage predicate, or an actual streaming budget/exclusive-publication predicate. Setup/compiler/authentication failures outside those specific cases are fatal, never accepted refusal.",
+  "syntheticFrameContract": "Tiny source functions compiled only under eventual recorded grant. Exact original filename/main/line154/__file__ combinations establish controlled target frames. No original scanner function is loaded or run.",
+  "bounds": {
+    "immutableOutputBytes": 16777216,
+    "summaryOutputBytes": 32768,
+    "traversalVisits": 65536,
+    "summaryChanges": 32,
+    "newlineIncluded": true,
+    "expandedViewsOrWholeTreeReads": false
+  },
+  "aggregateControlClock": "No invented timer. Root recorded worker must use its separately reviewed original bounded route; this library does not execute now.",
+  "claimLimits": [
+    "Synthetic diagnostic mechanism and public emitter only; no protected preservation/fullscan acceptance.",
+    "Later original return cannot retroactively admit failed54871.",
+    "Incomplete diff coverage stays explicit; aggregate digests cannot identify individual protected leaves.",
+    "Static source checks will separately authenticate unchanged guard/body/argv and launcher JSON role types."
+  ]
+}

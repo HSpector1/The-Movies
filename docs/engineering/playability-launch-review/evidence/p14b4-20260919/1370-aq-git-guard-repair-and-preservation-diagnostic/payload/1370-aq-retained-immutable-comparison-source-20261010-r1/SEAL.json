@@ -1,0 +1,11 @@
+{
+  "actualImmutableRole": null,
+  "candidateExecuted": false,
+  "executionAuthorization": false,
+  "schema": "1370-retained-immutable-comparison-source-seal/v1",
+  "sourceManifest": {
+    "bytes": 968,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "c4783405ccbb392333b159f2a833404890af074c003469954d9d9f0b0a30fd7b"
+  }
+}

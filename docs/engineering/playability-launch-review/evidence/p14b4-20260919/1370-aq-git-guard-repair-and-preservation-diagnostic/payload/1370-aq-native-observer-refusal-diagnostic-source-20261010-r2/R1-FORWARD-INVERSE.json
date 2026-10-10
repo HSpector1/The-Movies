@@ -1,0 +1,22 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/R1-BASELINE-m0ObserverRowDiagnostic.mjs",
+    "bytes": 13129,
+    "sha256": "7b16ee7e9105c38e00acd976e26c55382cf11f5923a8d95a310ba6ca8ef56160"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
+    "bytes": 13288,
+    "sha256": "db78301bf62d52b574ed8df272d0fe3d7b10c2568f930d10eb359092725bbba6"
+  },
+  "literalForward": {
+    "old": "      const codes = ['CONTEXT_UNSUPPORTED','CONTEXT_OVER_BOUND','FAILED_ROW_UNSUPPORTED',",
+    "new": "      if (operation === 'INPUT_DETAIL_ENCODE' || operation === 'PREDECESSOR_INPUT_DECODE') {\n        line = fallback('DIAGNOSTIC_UNAVAILABLE'); return\n      }\n      const codes = ['CONTEXT_UNSUPPORTED','CONTEXT_OVER_BOUND','FAILED_ROW_UNSUPPORTED',"
+  },
+  "literalInverse": {
+    "old": "      if (operation === 'INPUT_DETAIL_ENCODE' || operation === 'PREDECESSOR_INPUT_DECODE') {\n        line = fallback('DIAGNOSTIC_UNAVAILABLE'); return\n      }\n      const codes = ['CONTEXT_UNSUPPORTED','CONTEXT_OVER_BOUND','FAILED_ROW_UNSUPPORTED',",
+    "new": "      const codes = ['CONTEXT_UNSUPPORTED','CONTEXT_OVER_BOUND','FAILED_ROW_UNSUPPORTED',"
+  },
+  "forwardExact": true,
+  "inverseExact": true
+}

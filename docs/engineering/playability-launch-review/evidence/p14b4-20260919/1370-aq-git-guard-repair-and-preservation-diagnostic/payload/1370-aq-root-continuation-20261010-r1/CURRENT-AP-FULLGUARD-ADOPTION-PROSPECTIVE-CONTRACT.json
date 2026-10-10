@@ -1,0 +1,27 @@
+{
+  "actualObservedReviewRequired": true,
+  "actualOutcome": null,
+  "adapterSourcePins": {
+    "bytes": 8034,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "9ab3c274c71d997e08a49af2e1ef477d251b4abe8d6d765049d9add3b6510909"
+  },
+  "adoptionPath": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+  "adoptionSchema": "1370-aq-root-current-ap-fullpreflight-adoption/v1",
+  "adoptionStatus": "ROOT_ADOPTED_CURRENT_AP_FULL_PREFLIGHT",
+  "executionAuthorization": false,
+  "noM0GameProofAccepted": true,
+  "originalFullGuardPredicatesUnchanged": true,
+  "protectedFreezeMustContinue": true,
+  "schema": "1370-aq-current-ap-fullguard-adoption-prospective-contract/v1",
+  "sourcePins": {
+    "bytes": 5379,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "1c00f8f4e42402a972182ed643369c279149d74cb6a5cdb9208aa15269118c69"
+  },
+  "sourceReview": {
+    "bytes": 6096,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "084aa42ad2d334b35eb27928cd99f5470a97e7fc2db1bad3c0ce8d8b93938b79"
+  }
+}

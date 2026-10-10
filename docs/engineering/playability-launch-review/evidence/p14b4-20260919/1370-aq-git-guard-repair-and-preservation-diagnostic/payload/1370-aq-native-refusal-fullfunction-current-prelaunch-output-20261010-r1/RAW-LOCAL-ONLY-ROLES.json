@@ -1,0 +1,28 @@
+{
+  "roles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 81127,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-output-20261010-r1/BEFORE-PS.LOCAL",
+      "sha256": "8c6373126f01b47acdcd0a1a4cea78282213d966edb2be743945308614345136"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 584636,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-output-20261010-r1/BEFORE-LSOF.LOCAL",
+      "sha256": "1826c75df56d9208cfaf40b0a598bd2805628f4730438accf50685014afa2b88"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 81127,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-output-20261010-r1/AFTER-PS.LOCAL",
+      "sha256": "6444a77e98612d010e04023bd811b62088236d7543c1475b9116b54db349ce64"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 584636,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-output-20261010-r1/AFTER-LSOF.LOCAL",
+      "sha256": "8bb70c372ac90d9bd1b59b7f42afa4bed74ec8257b81b322de5bb2664b418aa7"
+    }
+  ]
+}

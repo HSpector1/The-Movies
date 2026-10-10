@@ -1,0 +1,95 @@
+{
+  "authorAuditAttempts": [
+    "Initial read command lacked existing workdir and failed without reading source; corrected explicit scratch workdir.",
+    "Requested guessed proof filename was absent; actual manifest supplied RECORDER-WHOLE-INVERSE.json.",
+    "First audit authenticated physical Python bytes then accidentally attempted UTF8 decode of the executable; UnicodeDecodeError preserved in tool output, corrected to byte-only authentication. No candidate execution occurred."
+  ],
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_ORIGINAL_GUARD_DIAGNOSTIC_PURE_RECORDED_RUNNER_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "findingsRationale": [
+    "Both complete recorder inverse applications reproduce authenticated original and final bytes; all definitions except main are byte exact.",
+    "Worker authenticates source and control review schemas, decisions, aliases and all payload roles before the two non-main imports; controls use synthetic injected runners and authenticated expected-code seams, never the original scanner default.",
+    "Actual matrix order and specific predicates are compared exactly; unknown control errors fail the worker rather than becoming RED.",
+    "Recorder preserves pre-exec owned process-group handshake, aggregate clocks, streams, reaping and group cleanup; nonzero, timeout and override take precedence.",
+    "Root caller authenticates exact receipt and self role, evaluated fresh paths, physical Python and helper, then records genuine PID/PGID/SID and direct-execs original lane helper with operand0.",
+    "Synthetic emitter files are explicitly LOCAL_HASH_SIZE_ONLY; no current protection, retroactive failed-postflight acceptance or original-scan claim is made."
+  ],
+  "limitations": [
+    "Pure controls remain unrun. Actual helper/worker exits, groups, result and fresh absence checks require root recording and observed review.",
+    "Inherited recorder return-in-finally warning is qualified separately from the required empty worker stderr."
+  ],
+  "reviewScope": {
+    "candidateModulesImported": false,
+    "completeInverseApplications": 2,
+    "controlsExecuted": false,
+    "game": false,
+    "helperHasNoOverallWatchdog": true,
+    "helperSecondsOperand": 0,
+    "manifestPayloadRolesAuthenticated": 5,
+    "matrixCaseCount": 32,
+    "nonMainImports": [
+      "authenticated_pure_diagnostic_module",
+      "authenticated_pure_diagnostic_controls"
+    ],
+    "originalBoundsSeconds": {
+      "activeRecorder": 320,
+      "aggregateChild": 300,
+      "wholeRecorder": 330
+    },
+    "originalHelperAndClassDefinitionsByteExact": 17,
+    "originalScannerExecuted": false,
+    "positiveCount": 9,
+    "protectedTreesReadOrWritten": false,
+    "reportBytes": 131072,
+    "sourceOnly": true,
+    "specificNegativeCount": 23,
+    "streamBytes": 8388608,
+    "syntheticArtifactBytes": 67108864
+  },
+  "rootLauncherRole": {
+    "bytes": 2969,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/launch_guard_diagnostic_pure32.py",
+    "sha256": "76ab1dd36e8ef00161f0e841a25f5f0d981399586e9cf0ef893c72b149f80e8d"
+  },
+  "routeSourcePins": {
+    "CONFIG.json": {
+      "bytes": 2298,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/CONFIG.json",
+      "sha256": "dd50bff928b1fae52e7af862a1ccf1634166ab00e199fcaf9776b205adae9e4a"
+    },
+    "record_pure_controls.py": {
+      "bytes": 15577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/record_pure_controls.py",
+      "sha256": "6afb01cf7da52e9309e0fa2f0fd26bae9b38c582dd514568bf7ae51139e84dda"
+    },
+    "run_pure_controls.py": {
+      "bytes": 5692,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/run_pure_controls.py",
+      "sha256": "8db5085c274999cf009b9fb6fcb1f8ceffe1d26f3d83937729afa5c4abb18eb1"
+    }
+  },
+  "schema": "1370-original-guard-diagnostic-pure-runner-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 1597,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "b14d5419b3bc38723d621bece5776673dbba3ab706d34e917eae5485bc216214"
+  },
+  "sourcePins": {
+    "CONFIG.json": {
+      "bytes": 2298,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/CONFIG.json",
+      "sha256": "dd50bff928b1fae52e7af862a1ccf1634166ab00e199fcaf9776b205adae9e4a"
+    },
+    "record_pure_controls.py": {
+      "bytes": 15577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/record_pure_controls.py",
+      "sha256": "6afb01cf7da52e9309e0fa2f0fd26bae9b38c582dd514568bf7ae51139e84dda"
+    },
+    "run_pure_controls.py": {
+      "bytes": 5692,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/run_pure_controls.py",
+      "sha256": "8db5085c274999cf009b9fb6fcb1f8ceffe1d26f3d83937729afa5c4abb18eb1"
+    }
+  }
+}

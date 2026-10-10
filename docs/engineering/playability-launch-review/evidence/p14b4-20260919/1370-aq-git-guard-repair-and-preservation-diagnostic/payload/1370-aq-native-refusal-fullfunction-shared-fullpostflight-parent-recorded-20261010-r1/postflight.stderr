@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py", line 161, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py", line 154, in main
+    if baseline is not None:require(immutable==baseline['immutable'],'full baseline byte/metadata/inode/root equality failed')
+                            ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py", line 17, in require
+    if not ok:raise RuntimeError('STOP: '+msg)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: STOP: full baseline byte/metadata/inode/root equality failed

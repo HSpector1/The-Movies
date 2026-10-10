@@ -1,0 +1,32 @@
+{
+  "actualChildExit": 0,
+  "boundsSeconds": {
+    "active": 320,
+    "node": 300,
+    "whole": 330
+  },
+  "childPid": 50286,
+  "configSha256": "5a5c267d6a561277cfe1f738e6400f08896d4b36ddd0a67f3b88f86c5473adec",
+  "controlsResultPath": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorder-results-20261010-r1/CONTROLS-RESULT.json",
+  "elapsedSeconds": 3.432947114983108,
+  "executionAuthorization": false,
+  "game": false,
+  "groupClear": true,
+  "mode": "verification",
+  "ownedPgid": 50286,
+  "pgidConfirmed": true,
+  "sanitizedEnvironment": [
+    "NODE_OPTIONS",
+    "NODE_PATH"
+  ],
+  "schema": "1370-native-observer-pure-controls-recorder/v1",
+  "sourceOrGameplayAdoption": false,
+  "startupOwnedBeforeExec": true,
+  "status": "NATIVE_OBSERVER_PURE_CONTROLS_COMPLETE_UNADOPTED",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutBytes": 24722,
+  "stdoutSha256": "ecd526ece47367e76c52ba2362907270e462fe87de1d6d3e7435d5c961c4fc83",
+  "timedOut": false,
+  "utc": "2026-10-10T11:37:28.149020+00:00"
+}

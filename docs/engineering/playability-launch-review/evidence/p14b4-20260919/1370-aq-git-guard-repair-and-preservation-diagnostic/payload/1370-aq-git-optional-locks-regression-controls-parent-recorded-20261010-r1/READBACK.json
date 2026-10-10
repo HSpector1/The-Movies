@@ -1,0 +1,97 @@
+{
+  "actualTool": {
+    "bytes": 678,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "2a0a7299f93e26e495ab6130d64c39e118b076fa24288eaa22c070414016792c"
+  },
+  "caseCount": 8,
+  "correctedFullIndexRoleAndMetadataUnchanged": true,
+  "elapsedSeconds": 0.4843068230256904,
+  "executionAuthorization": false,
+  "game": false,
+  "grant": {
+    "bytes": 2183,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "f4992f279d1f8658b186318da470e430566bbef1ef24c634612ab773d022673d"
+  },
+  "laneReleased": true,
+  "originalActualIndexRefreshObserved": true,
+  "originalCommonGitCauseIdentified": false,
+  "positiveCount": 7,
+  "protectionAccepted": false,
+  "result": {
+    "bytes": 23665,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1/RESULT.json",
+    "sha256": "e688b7321761327ebe9623f36e2950c58fdca47e2d853a1d7cd5901e644259b5"
+  },
+  "schema": "1370-root-git-optional-locks-regression-controls-actual-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 15176,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 15190,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 15191,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 15192,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 15193,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 15194,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 15195,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 15196,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 15198,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 15199,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 15200,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 15201,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 15176,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "specificNegativeCount": 1,
+  "status": "ACTUAL_EIGHT_GIT_OPTIONAL_LOCKS_CONTROLS_PENDING_INDEPENDENT_REVIEW"
+}

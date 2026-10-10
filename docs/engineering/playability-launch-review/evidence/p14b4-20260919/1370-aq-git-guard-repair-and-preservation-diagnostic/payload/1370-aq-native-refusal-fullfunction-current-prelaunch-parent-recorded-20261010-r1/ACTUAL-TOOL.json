@@ -1,0 +1,21 @@
+{
+  "chunks": [
+    {
+      "chunk_id": "855ca1",
+      "original_token_count": 71,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 4492, \"sha256\": \"c95004c948be846c2c2c999c0924457bea555f794c0f94e8774714cf6b53e7f6\"}, \"ownPid\": 25630, \"ownPgid\": 25630}\n",
+      "session_id": 33751,
+      "wall_time_seconds": 1.00300793
+    },
+    {
+      "chunk_id": "6a74d8",
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": "",
+      "wall_time_seconds": 2.3283e-05
+    }
+  ],
+  "finalExit": 0,
+  "schema": "1370-root-current-ap-prelaunch-actual-tool/v1",
+  "toolSessionId": 33751
+}

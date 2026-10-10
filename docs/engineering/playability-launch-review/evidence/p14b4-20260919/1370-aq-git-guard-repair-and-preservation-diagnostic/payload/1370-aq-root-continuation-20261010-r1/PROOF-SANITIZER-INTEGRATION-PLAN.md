@@ -1,0 +1,11 @@
+# Held integration after operational recovery approval
+
+Source analysis only, not filled execution authority. Actual regression8 has independently passed and root adoption is GIT-OPTIONAL-LOCKS-CONTROLS-OBSERVED-ADOPTION.json20dae623.
+
+CONFIG.proofMethods already names the current execution library. run-fullfunction.py authenticates/imports it with bootstrap context, then replaces runtime runId/lane/CURRENT_HEAD and executes its unchanged guard/full-source/package/dependency methods. FIRST-PROOF records that actual current role; the Node gate compares it to CONFIG.proofMethods. Historical types adoption, historical head, original proofConfig c40c0a34, prior root adoption and historical results are separately bound. There is no need to rewrite those historical roles.
+
+After the explicit recovery decision and new actual-HEAD protection, create a fresh route derivative: set current CONFIG.proofMethods to corrected runner6d83467284f7ecdf34c2d20c0aeab648819539406768beda0c3370d2651000fa. Add one proofMethodsDerivativeAuthority binding original b9ff56da, corrected6d834, complete inverse proof, independent implementation review11e1d503 and actual controls/root adoption20dae623. Authenticate it before the Python import and Node FIRST-PROOF acceptance. Preserve exact original plain source/dependency comparisons and all historical type roles.
+
+Update the generated CORE current-HEAD literal and every evaluated current binding to the actual published successor of AP; retain historical scientific heads. The held R3 literald203 is correct only while AP is current. Re-run the generated-authority static audit on the final source before sealing. Update dependent CONFIG hashes, recipe, manifests and exact parent/reader mappings from actual files, not guessed future hashes.
+
+Obtain independent final source/RED review, then fresh complete original-scope protections and the specifically approved new operational commonGit baseline, retaining the prior gap explicitly. No candidate runtime before those gates. Fullfunction generation, baseline, typed-catch mutant and AFTER proofs remain unqualified. Original300/320/330 clocks, fixtures, observer caps, cleanup and admission remain unchanged.

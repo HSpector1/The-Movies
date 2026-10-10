@@ -1,0 +1,11 @@
+--- R1-run-native-observer-controls.mjs
++++ R2-run-native-observer-controls.mjs
+@@ -269,7 +269,7 @@
+   })
+   put('v2_lower_bound_E_survives_body_cleanup_writer',()=>{
+     for(const laterFailure of [false,true]){
+-      const p=setup(),calls=[];let E;const actual=thrown(()=>runObserverArm(p.diagnostic,()=>{E=originalError(()=>wrap(p).record('inputTuple',canonicalAt(16385)),ROW);if(laterFailure)throw new Error('later body');return 17},()=>{calls.push('end');throw undefined},()=>{calls.push('reset');throw false},line=>{calls.push('write');assert.ok(bytes(line)<=4096);assert.equal(JSON.parse(line).reason,'NATIVE_CANONICAL_NO_FIT');throw new Error('writer')}));assert.equal(actual,E);assert.equal(p.latch.first().error,E);assert.deepEqual(calls,['write','end','reset']);let repeat=0;p.diagnostic.emitFirst(()=>repeat++);assert.equal(repeat,0)
++      const p=setup(),calls=[],lines=[],writerF=new Error('writer');let E,writerThrown=false;const actual=thrown(()=>runObserverArm(p.diagnostic,()=>{E=originalError(()=>wrap(p).record('inputTuple',canonicalAt(16385)),ROW);if(laterFailure)throw new Error('later body');return 17},()=>{calls.push('end');throw undefined},()=>{calls.push('reset');throw false},line=>{calls.push('write');lines.push(line);writerThrown=true;throw writerF}));assert.equal(actual,E);assert.equal(p.latch.first().error,E);assert.deepEqual(calls,['write','end','reset']);assert.equal(writerThrown,true);assert.equal(lines.length,1);assert.ok(bytes(lines[0])<=4096);assert.ok(lines[0].endsWith('\n'));const metadata=JSON.parse(lines[0]);assert.equal(metadata.schema,'1370-m0-native-observer-row-diagnostic/v2');assert.equal(metadata.availability,'unavailable');assert.equal(metadata.reason,'NATIVE_CANONICAL_NO_FIT');assert.equal(metadata.canonicalInputBytesLowerBound,16385);assert.equal(metadata.canonicalInputBytes,null);let repeat=0;p.diagnostic.emitFirst(()=>repeat++);assert.equal(repeat,0)
+     }
+   })
+   put('v2_falsy_first_preempts_no_fit_work',()=>{

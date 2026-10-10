@@ -1,0 +1,48 @@
+{
+  "caseCount": 8,
+  "cases": [
+    {
+      "expected": "RED",
+      "id": "original_sanitizer_stale_index_refresh",
+      "predicate": "Actual original function removes inherited GIT_OPTIONAL_LOCKS=0; clean status after bytes-preserving worktree mtime change rewrites the disposable index hash."
+    },
+    {
+      "expected": "GREEN",
+      "id": "corrected_sanitizer_preserves_full_index",
+      "predicate": "Actual corrected function forces string0; same disposable status scenario preserves complete index bytes/hash and dev/inode/mode/nlink/size/mtime_ns/ctime_ns."
+    },
+    {
+      "expected": "GREEN",
+      "id": "absent_optional_locks_forced_zero",
+      "predicate": "Absent inherited optional-lock key becomes exact string0."
+    },
+    {
+      "expected": "GREEN",
+      "id": "conflicting_optional_locks_forced_zero",
+      "predicate": "Inherited 1, empty and false values each become exact string0."
+    },
+    {
+      "expected": "GREEN",
+      "id": "other_inherited_git_variables_removed",
+      "predicate": "Only GIT_OPTIONAL_LOCKS remains among inherited GIT_ keys, including index/config/config-count/object/alternate/GIT_DIR/worktree overrides."
+    },
+    {
+      "expected": "GREEN",
+      "id": "ordinary_environment_including_home_preserved",
+      "predicate": "All ordinary variables including inherited HOME are preserved; no HOME/home/CODEX_HOME reassignment."
+    },
+    {
+      "expected": "GREEN",
+      "id": "input_environment_unchanged_and_fresh_copies",
+      "predicate": "Input dictionary unchanged, separate fresh result dictionaries, result edits do not alias other results or input."
+    },
+    {
+      "expected": "GREEN",
+      "id": "original_other_git_variables_still_removed",
+      "predicate": "Original sanitizer still removes other inherited Git variables; the RED is specific to the optional-lock omission."
+    }
+  ],
+  "positiveCount": 7,
+  "schema": "1370-git-optional-locks-regression-control-matrix/v1",
+  "specificNegativeCount": 1
+}

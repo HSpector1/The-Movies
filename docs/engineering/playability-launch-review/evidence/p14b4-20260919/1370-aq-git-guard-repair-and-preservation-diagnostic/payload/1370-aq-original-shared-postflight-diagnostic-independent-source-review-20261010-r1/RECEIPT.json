@@ -1,0 +1,144 @@
+{
+  "actualDiagnostic": null,
+  "allSevenManifestPayloadRolesAuthenticated": true,
+  "cli": {
+    "launcher": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/launch_shared_post_diagnostic.py",
+      "independentSourceReviewPath",
+      "independentSourceReviewSHA256"
+    ],
+    "reader": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/read_shared_post_diagnostic.py",
+      "actualDiagnosticToolSessionId",
+      "actualGrantSHA256"
+    ]
+  },
+  "concreteFindings": [],
+  "contract": {
+    "bytes": 2369,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/CONTRACT.json",
+    "sha256": "06e5598f231869dbff54ff8cc6c11cc3101d8595a5711c46a73dd83be561c3f0"
+  },
+  "decision": "ACCEPT_STATIC_ORIGINAL_SHARED_POSTFLIGHT_EXCEPTION_DIAGNOSTIC_SOURCE_ONLY",
+  "earlyDraftFindingsResolved": [
+    {
+      "finding": "Python guard source was erroneously JSON-loaded by launcher.",
+      "resolution": "Role-only authentication for mixed source operands; JSON parsing only actual JSON roles."
+    },
+    {
+      "finding": "Frame coordinate matching could attribute same-coordinate impostor main.",
+      "resolution": "Exact authenticated compiled original main CodeType and main namespace added."
+    }
+  ],
+  "executionAuthorization": false,
+  "fullProtectedPostflightAccepted": false,
+  "game": false,
+  "originalBaseline": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "originalFailedGrant": {
+    "bytes": 5330,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "30abe1497f4509d0d65c3b2eeea91602f13293d4145db314d13e036ec3b27e5c"
+  },
+  "originalGuardConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "sha256": "a058c0d63bd0f0432f26d4ebcae62a80977eaccfd7e2406cf7a7e6f221b23fec"
+  },
+  "originalGuardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "51f11d5f9bc55d77ed9e1b7d0bce4d36d1c9af865835617d585629fa8f694f85"
+  },
+  "priorFailureAdoption": {
+    "bytes": 4175,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/SHARED-POSTFLIGHT-FAILURE-OBSERVED-ADOPTION.json",
+    "sha256": "1de73d51dd02efad1f9d09202de35a90a7c8aaa76b683275a8179d4333052f88"
+  },
+  "protectedTreesReadOrWritten": false,
+  "recipe": {
+    "bytes": 2908,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/RECIPE.json",
+    "sha256": "928b58c0a68239b2bbc0b970177608e4b9628ca4f01e5b124d1f21d45e7937c0"
+  },
+  "reviewScope": "Independent finite source/role/producer-consumer review only. No source imports, tests, scanner execution, private inventories, process probes, or baseline repin. Reviewer did not author wrapper, launcher, reader, or pure32 controls.",
+  "rootPlannedPureControlsQualificationSeparate": {
+    "actualPureControls": null,
+    "caseCount": 32,
+    "notClaimedAsAutomaticLauncherGate": true,
+    "positiveCount": 9,
+    "sourceReview": {
+      "bytes": 4859,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-controls-independent-source-review-20261010-r2/RECEIPT.json",
+      "sha256": "9f3ea1ec5dd4d50b0e8b23be7cf426b20a1a0ea5733626b78485c1c7d650c6e5"
+    },
+    "specificNegativeCount": 23
+  },
+  "routeSourcePins": {
+    "diagnose_shared_post.py": {
+      "bytes": 8803,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/diagnose_shared_post.py",
+      "sha256": "09c837aa56cb3b1482ca8acee030b643b5fdfdef825a3619c337f9f5c1971c0e"
+    },
+    "launch_shared_post_diagnostic.py": {
+      "bytes": 4798,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/launch_shared_post_diagnostic.py",
+      "sha256": "37a9ed701ecf4ceb7a10e9a105e7ba84be640e0ed33a89a427a324a29dd044d0"
+    },
+    "read_shared_post_diagnostic.py": {
+      "bytes": 3305,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/read_shared_post_diagnostic.py",
+      "sha256": "c9a79d90bc9b072179ba02f74dd86270a8ca7e5e1ce9a79a1735baaa6f66f8b2"
+    }
+  },
+  "runtimeOccurredInReview": false,
+  "schema": "1370-original-shared-postflight-diagnostic-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 2251,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "b07864936097acd4b33d325e1d20764a0ec84d4c700fbf1174a1707e2ac99191"
+  },
+  "sourcePins": {
+    "diagnose_shared_post.py": {
+      "bytes": 8803,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/diagnose_shared_post.py",
+      "sha256": "09c837aa56cb3b1482ca8acee030b643b5fdfdef825a3619c337f9f5c1971c0e"
+    },
+    "launch_shared_post_diagnostic.py": {
+      "bytes": 4798,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/launch_shared_post_diagnostic.py",
+      "sha256": "37a9ed701ecf4ceb7a10e9a105e7ba84be640e0ed33a89a427a324a29dd044d0"
+    },
+    "read_shared_post_diagnostic.py": {
+      "bytes": 3305,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/read_shared_post_diagnostic.py",
+      "sha256": "c9a79d90bc9b072179ba02f74dd86270a8ca7e5e1ce9a79a1735baaa6f66f8b2"
+    }
+  },
+  "sourceProof": {
+    "bytes": 2002,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/SOURCE-PROOF.json",
+    "sha256": "a65bf8272a82abcfab72bfd72544e5209eeda14cb0f88c045b6296f23dc3788a"
+  },
+  "sourceReviewConclusions": {
+    "actualMainCodeBinding": "Default helper compiles byte-authenticated original source without execution and compares exact main CodeType, original path/line154/function/__file__/__name__, exact RuntimeError/message, and typed differing immutable/baseline dictionaries. Injected expected_main_code is used only by pure synthetic controls; actual main never supplies it.",
+    "boundedMetadataOnly": "Existing original main-frame immutable object retained\u226416MiB, summary\u226432KiB, string keys validated before JSON coercion. No extra protected reads or rawPSFD capture. Complete map retention remains discoverable even if summary emission fails.",
+    "laterReturn": "A later original scan returning is explicitly a separate observation; no retrospective54871 acceptance, no automatic protection/game adoption.",
+    "onlyOriginalArgvChanges": "Exact fresh diagnostic output label and actual failure-readback group CSV; all other original grant argv operands compared byte/JSON-exactly.",
+    "originalBodyAndBaselineUnmodified": true,
+    "originalErrorWins": "Bare re-raise original exception after every diagnostic encoding/writer/authentication failure; no finally return or replacement with writer error.",
+    "ownership": "Original direct-exec PID/PGID/SID recorded, fresh actual prior PID and group absences checked separately; NodePID never inferred as PGID. Reader accepts actual integer final exit and preserves failures; no overall deadline or new helper.",
+    "roleAndAuthorityFlow": "Launcher and runtime gate authenticate genuine1de failure-only adoption/source/config/baseline/failed readback/original grant/physicalPython, external genuine source review and exact three alias maps before running scanner. Original code hash authenticated before/after run.",
+    "sameOriginalFileNamespaceArgvAndProcedureIdentity": true,
+    "summaryCoverage": "At most32 changes/65536 visited nodes; incomplete coverage explicit. Summary cannot identify leaf cause from aggregate digest alone. Full metadata artifact is independently classified LOCAL_HASH_SIZE_ONLY."
+  }
+}

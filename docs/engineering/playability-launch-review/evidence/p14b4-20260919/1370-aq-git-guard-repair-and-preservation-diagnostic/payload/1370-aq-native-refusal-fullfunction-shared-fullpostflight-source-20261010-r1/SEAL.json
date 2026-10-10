@@ -1,0 +1,10 @@
+{
+  "payloadCount": 13,
+  "runtimeExecuted": false,
+  "schema": "1370-aq-shared-fullpostflight-source-seal/v1",
+  "sourceManifest": {
+    "bytes": 4280,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "c8bc4d9f66181d399cfedeeee19b58ed9cd89dd3d1012859d5094248ba2a58bc"
+  }
+}

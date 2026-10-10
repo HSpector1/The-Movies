@@ -1,0 +1,14 @@
+[
+  {
+    "new": "postflight-fullfunction-native-observer-r1",
+    "old": "postflight-fullfunction-native-refusal-diagnostic-r1"
+  },
+  {
+    "new": "1370-ap-native-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1",
+    "old": "1370-aq-native-refusal-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1"
+  },
+  {
+    "new": "1370-ap-current-operational-fullguard-source-20261010-r1",
+    "old": "1370-aq-current-operational-fullguard-source-20261010-r1"
+  }
+]

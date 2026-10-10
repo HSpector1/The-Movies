@@ -1,0 +1,11 @@
+{
+  "executionAuthorization": false,
+  "futureCutoff": null,
+  "inventoryExecuted": false,
+  "plan": {
+    "bytes": 16042,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-archive-selection-plan-20261010-r1/PLAN.json",
+    "sha256": "6ae2ccbfbcf3443ce60a81384a6155a2fc4b1528b1cd9891699c20eca4a1407d"
+  },
+  "schema": "1370-aq-checkpoint-selection-plan-seal/v1"
+}

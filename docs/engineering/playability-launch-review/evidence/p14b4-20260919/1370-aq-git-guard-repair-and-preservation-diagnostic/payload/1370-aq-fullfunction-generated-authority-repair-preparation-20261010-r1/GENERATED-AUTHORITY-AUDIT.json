@@ -1,0 +1,95 @@
+{
+  "schema": "1370-aq-generated-authority-static-audit/v1",
+  "executionAuthorization": false,
+  "candidateExecuted": false,
+  "failedSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 6366,
+    "sha256": "401c974ba549321782ff5eaee1fd9261edc03a24c5dbd09417a2d0c33a687c43"
+  },
+  "correctedSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 6365,
+    "sha256": "86d6cc43c35e182c25d42ed4cdf9042e0da700e916d35037490c3dd80d530973"
+  },
+  "coreTemplateSingleHeadLiteralCorrection": true,
+  "operationalHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "generatedSourceChecks": [
+    {
+      "name": "CORE-TEST-TEMPLATE.ts",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/CORE-TEST-TEMPLATE.ts",
+        "bytes": 3955,
+        "sha256": "1507350f14c0d69d71c32cd253202bfc5c0865b6eb62ebe0f8dfbeadeab4e9eb"
+      },
+      "oldAOHeadAbsent": true,
+      "headAssertions": [
+        " assert.equal(binding.operationalHead,'d20347b83ea7497ed17c48ec14d8f64a3ce69cc8')",
+        " assert.equal(binding.productionSourceTree,'13880d9b0ba72aff5d4c5bcf5d12fe682c5de554')"
+      ]
+    },
+    {
+      "name": "CONFIG-TEMPLATE.mts",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/CONFIG-TEMPLATE.mts",
+        "bytes": 1154,
+        "sha256": "28b1a544b14a27856d29ba8506da8d4577c38b969ca0c89f4c84f4fef70a86d7"
+      },
+      "oldAOHeadAbsent": true,
+      "headAssertions": []
+    },
+    {
+      "name": "FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "bytes": 9756,
+        "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+      },
+      "oldAOHeadAbsent": true,
+      "headAssertions": []
+    },
+    {
+      "name": "fixtures.ts",
+      "role": {
+        "bytes": 6863,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/fixtures.ts",
+        "sha256": "5ff38007b8126571e9fa84a9efe94f35866be409d3c35b22f9c90b5ce3e0315d"
+      },
+      "oldAOHeadAbsent": true,
+      "headAssertions": []
+    },
+    {
+      "name": "ordering.ts",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+        "bytes": 12555,
+        "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+      },
+      "oldAOHeadAbsent": true,
+      "headAssertions": []
+    },
+    {
+      "name": "traceSequences.mjs",
+      "role": {
+        "bytes": 1286,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+        "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+      },
+      "oldAOHeadAbsent": true,
+      "headAssertions": []
+    },
+    {
+      "name": "RESOLUTION-SOURCE-BINDING.json",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/RESOLUTION-SOURCE-BINDING.json",
+        "bytes": 78208,
+        "sha256": "5f00139d2e30e94a5b5cea6db164f8786fd65ee4fc89c24d52b0f75f945ae373"
+      },
+      "oldAOHeadAbsent": true,
+      "headAssertions": []
+    }
+  ],
+  "actualFailureBeforeGeneration": true,
+  "lesson": "Whole generated runtime source must be checked against current authority. Hash and inverse consistency alone did not establish semantic binding correctness."
+}

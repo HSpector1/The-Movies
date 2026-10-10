@@ -1,0 +1,20 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "4115e9",
+      "original_token_count": 67,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 1673, \"sha256\": \"80702eba6f172a27b09a0e5df10fefafe51f9368a820a6c016a71172b8bc5e30\"}, \"ownedPid\": 11456, \"ownedPgid\": 11456}\n",
+      "session_id": 5264,
+      "wall_time_seconds": 1.001058539
+    },
+    {
+      "chunk_id": "0e8f18",
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": "",
+      "wall_time_seconds": 2.4462e-05
+    }
+  ],
+  "finalExit": 0,
+  "sessionId": 5264
+}

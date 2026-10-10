@@ -1,0 +1,20 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "cb1ef1",
+      "original_token_count": 70,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 2183, \"sha256\": \"f4992f279d1f8658b186318da470e430566bbef1ef24c634612ab773d022673d\"}, \"ownedPid\": 15176, \"ownedPgid\": 15176}\n",
+      "session_id": 13417,
+      "wall_time_seconds": 1.002715569
+    },
+    {
+      "chunk_id": "616f7a",
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": "",
+      "wall_time_seconds": 1.9512e-05
+    }
+  ],
+  "finalExit": 0,
+  "sessionId": 13417
+}

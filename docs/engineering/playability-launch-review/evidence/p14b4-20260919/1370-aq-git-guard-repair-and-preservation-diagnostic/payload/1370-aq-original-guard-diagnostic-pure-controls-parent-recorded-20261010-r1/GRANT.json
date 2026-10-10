@@ -1,0 +1,55 @@
+{
+  "automaticRetry": false,
+  "bounds": {
+    "activeRecorder": 320,
+    "aggregateChild": 300,
+    "resultBytes": 131072,
+    "streamBytes": 8388608,
+    "syntheticArtifactBytes": 67108864,
+    "wholeRecorder": 330
+  },
+  "config": {
+    "bytes": 2298,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/CONFIG.json",
+    "sha256": "dd50bff928b1fae52e7af862a1ccf1634166ab00e199fcaf9776b205adae9e4a"
+  },
+  "controlsSourceManifest": {
+    "bytes": 1352,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "efebc32ff67ef0268f088b34bbeeb2b1aec05ad486f1b8bc4f4ab87075aed8ba"
+  },
+  "controlsSourceReview": {
+    "bytes": 4859,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-controls-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "9f3ea1ec5dd4d50b0e8b23be7cf426b20a1a0ea5733626b78485c1c7d650c6e5"
+  },
+  "diagnosticSourceManifest": {
+    "bytes": 2251,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "b07864936097acd4b33d325e1d20764a0ec84d4c700fbf1174a1707e2ac99191"
+  },
+  "diagnosticSourceReview": {
+    "bytes": 8723,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "308265fec2849b24846ab49613328f1687032d1cf371c460e69739608ce35289"
+  },
+  "executionAuthorization": true,
+  "oneAggregateRun": true,
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1",
+  "python": {
+    "bytes": 50472,
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "schema": "1370-root-original-guard-diagnostic-pure-controls-once-grant/v1",
+  "sourceManifest": {
+    "bytes": 1597,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "b14d5419b3bc38723d621bece5776673dbba3ab706d34e917eae5485bc216214"
+  },
+  "sourceReview": {
+    "bytes": 5265,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-runner-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "d70e96eb68d694a9a0dd818af876738374a05a19d67cafbf1a7a878cf60b308a"
+  }
+}

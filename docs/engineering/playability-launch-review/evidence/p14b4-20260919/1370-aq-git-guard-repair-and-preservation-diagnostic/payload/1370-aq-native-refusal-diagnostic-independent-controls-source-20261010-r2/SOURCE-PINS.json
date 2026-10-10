@@ -1,0 +1,81 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-R1-CONTRACT.json": {
+      "bytes": 11016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/BASELINE-R1-CONTRACT.json",
+      "sha256": "cf6d04b7a7ce3591c74b714147074c949612a6647d4e91211a1fc74dcedf224c"
+    },
+    "BASELINE-R1-run-native-observer-controls.mjs": {
+      "bytes": 45669,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/BASELINE-R1-run-native-observer-controls.mjs",
+      "sha256": "28f1685e96f423de12aa3dea89087737858e179b3ca419dbe92f43379298c886"
+    },
+    "CONTRACT.json": {
+      "bytes": 11016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "c915be086c16ba5ee9d814038e19d0306d22efb9c7f5ca2ff8856c0d5240e548"
+    },
+    "CONTRACT.json.forward.diff": {
+      "bytes": 1102,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json.forward.diff",
+      "sha256": "28fc035c2831f3d7153ae9c9cc6d6ea3e77dfd909ff8b19629a07c1b880d3e24"
+    },
+    "CONTRACT.json.inverse.diff": {
+      "bytes": 1102,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json.inverse.diff",
+      "sha256": "4759df49af2e0fadd3f30ea1d7e1c3b7d083a786db07cb95e5ef180c46a37e23"
+    },
+    "CONTRACT.json.lossless.ndiff": {
+      "bytes": 12368,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json.lossless.ndiff",
+      "sha256": "64ce95bd5b03a8b6d9e8d6d64eae29262f44b00776fa3bdc7695ea7f9c2b8d3e"
+    },
+    "LESSONS.md": {
+      "bytes": 289,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/LESSONS.md",
+      "sha256": "0addfcb4d934cbd39253b3dc30cee1c2d807a6f2a6c31f6051d8aea2db552a49"
+    },
+    "MATRIX.json": {
+      "bytes": 15144,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "3dc6e11a350fb9dc7365f9738c2aad60d06cbae098efeb4ef9ac5f4ec6532edc"
+    },
+    "R1-SOURCE-STOP.json": {
+      "bytes": 753,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/R1-SOURCE-STOP.json",
+      "sha256": "190f85fbdce18cc26f0d6dfe066ca4dc69130e57af551c0f34a0cfd7b2954143"
+    },
+    "SOURCE-CORRECTION.json": {
+      "bytes": 1052,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/SOURCE-CORRECTION.json",
+      "sha256": "15a1274b39206a3b1c7238a8ac8bce059a7535bd1b23de95413d651145d88593"
+    },
+    "prepare_r2.py": {
+      "bytes": 5772,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/prepare_r2.py",
+      "sha256": "22f03046d17a8e2f2fc7642664b100f1ee3313e536ab5a6d03084949b14cabe5"
+    },
+    "run-native-observer-controls.mjs": {
+      "bytes": 46107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+      "sha256": "9aac8333c7e51364ef136e7e28c4e51c97832c8492b927842c63e50c96e318f3"
+    },
+    "run-native-observer-controls.mjs.forward.diff": {
+      "bytes": 1983,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.forward.diff",
+      "sha256": "0b98e11d563efe750451f1f1d8e1cd44d3082decb4dc7ea3cde3ef00e68081be"
+    },
+    "run-native-observer-controls.mjs.inverse.diff": {
+      "bytes": 1983,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.inverse.diff",
+      "sha256": "6c8e1b879054651cc2bf3675b1d22ecf05f6c1a43a81e3f04b534a4e6f50b196"
+    },
+    "run-native-observer-controls.mjs.lossless.ndiff": {
+      "bytes": 47318,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+      "sha256": "4308cd893d58e46a3edd472d6f7c91db2dbf20605d6ada1a0fee6b3c2216fcc4"
+    }
+  },
+  "schema": "1370-native-observer-independent-controls-source-pins/v1"
+}

@@ -1,0 +1,1 @@
+Assertions inside deliberately swallowed callback failures cannot prove the output contract. Retain evidence and assert after original E is observed, while the callback throws only the explicit injected F. Preserve frozen R1 unrun; roster86 and all other affected predicates remain exact.

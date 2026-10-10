@@ -1,0 +1,282 @@
+{
+  "caseCount": 32,
+  "controlsSourceManifest": {
+    "bytes": 1352,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "efebc32ff67ef0268f088b34bbeeb2b1aec05ad486f1b8bc4f4ab87075aed8ba"
+  },
+  "controlsSourceReview": {
+    "bytes": 4859,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-controls-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "9f3ea1ec5dd4d50b0e8b23be7cf426b20a1a0ea5733626b78485c1c7d650c6e5"
+  },
+  "diagnosticSourceManifest": {
+    "bytes": 2251,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "b07864936097acd4b33d325e1d20764a0ec84d4c700fbf1174a1707e2ac99191"
+  },
+  "diagnosticSourceReview": {
+    "bytes": 8723,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "308265fec2849b24846ab49613328f1687032d1cf371c460e69739608ce35289"
+  },
+  "elapsedSeconds": 0.6610652309900615,
+  "executionAuthorization": false,
+  "game": false,
+  "grant": {
+    "bytes": 2635,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "8c06b657efe0562f6f7bd1ea20e906357a807db009726ddaacb32d33e2b95025"
+  },
+  "originalGuardExecuted": false,
+  "positiveCount": 9,
+  "protectedTreesReadOrWritten": false,
+  "results": [
+    {
+      "expected": "GREEN",
+      "id": "complete_typed_changed_paths",
+      "predicate": "Exact changed-path order, missing distinction and bool/int type identity.",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "GREEN",
+      "id": "literal_string_key_identity",
+      "predicate": "Keys including slash, tilde, empty and numeric strings remain exact path components.",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "GREEN",
+      "id": "unchanged_map_empty_summary",
+      "predicate": "Identical complete maps produce no differences.",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "GREEN",
+      "id": "long_scalar_bounded_summary",
+      "predicate": "Large scalar uses exact UTF8 length/hash, never raw oversized text.",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "GREEN",
+      "id": "exact_32_difference_boundary",
+      "predicate": "All32 changed paths retained with complete=true.",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "RED",
+      "id": "difference_33_explicitly_partial",
+      "predicate": "33rd difference cannot be labelled a complete comparison.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "GREEN",
+      "id": "exact_65536_visit_boundary",
+      "predicate": "65536-node traversal remains complete.",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "RED",
+      "id": "visit_65537_explicitly_partial",
+      "predicate": "Traversal beyond65536 cannot be labelled complete.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "target_stop_exact_exception_and_argv",
+      "predicate": "Actual exact target frame emits full map/summary and rethrows the identical original exception; runpy argv unchanged.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "wrong_message_no_false_attribution",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "wrong_type_no_false_attribution",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "wrong_filename_no_false_attribution",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "wrong_function_no_false_attribution",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "wrong_line_no_false_attribution",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "wrong_file_global_no_false_attribution",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "wrong_name_global_no_false_attribution",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "duplicate_target_frames_no_false_attribution",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "impostor_main_code_no_false_attribution",
+      "predicate": "Unrelated exception/frame gets unavailable metadata and no actual-map attribution; exact original exception survives.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "bad_locals_original_exception_preserved",
+      "predicate": "Invalid frame premise/source role cannot create mismatch evidence or replace original exception.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "bad_baseline_immutable_original_exception_preserved",
+      "predicate": "Invalid frame premise/source role cannot create mismatch evidence or replace original exception.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "equal_maps_original_exception_preserved",
+      "predicate": "Invalid frame premise/source role cannot create mismatch evidence or replace original exception.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "wrong_source_role_original_exception_preserved",
+      "predicate": "Invalid frame premise/source role cannot create mismatch evidence or replace original exception.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "map_write_failure_original_wins",
+      "predicate": "Explicit diagnostic writer failure cannot replace exact original target exception.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "summary_write_failure_original_wins",
+      "predicate": "Explicit diagnostic writer failure cannot replace exact original target exception.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "GREEN",
+      "id": "later_return_not_retrospective_acceptance",
+      "predicate": "Later original return is distinct and cannot repair54871.",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "GREEN",
+      "id": "immutable_exact_byte_boundary",
+      "predicate": "Actual streaming emitter includes newline in exact budget.",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "RED",
+      "id": "immutable_one_byte_over_refuses",
+      "predicate": "Actual emitter refuses cap+1 and never publishes complete output.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "GREEN",
+      "id": "summary_exact_byte_boundary",
+      "predicate": "Actual streaming emitter includes newline in exact budget.",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "RED",
+      "id": "summary_one_byte_over_refuses",
+      "predicate": "Actual emitter refuses cap+1 and never publishes complete output.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "actual_encoding_failure_original_wins",
+      "predicate": "Real JSON encoding failure leaves no complete map and cannot replace original target exception.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "actual_emit_never_overwrites_complete_output",
+      "predicate": "Existing complete output stays byteexact; exclusive partial publication refuses replacement.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "nonstring_metadata_keys_refuse_before_write",
+      "predicate": "Actual emitter rejects bool/int/None/tuple keys before JSON coercion and before creating output.",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    }
+  ],
+  "schema": "1370-original-shared-postflight-diagnostic-independent-controls-result/v1",
+  "sourceManifest": {
+    "bytes": 1597,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "b14d5419b3bc38723d621bece5776673dbba3ab706d34e917eae5485bc216214"
+  },
+  "sourceReview": {
+    "bytes": 5265,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-runner-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "d70e96eb68d694a9a0dd818af876738374a05a19d67cafbf1a7a878cf60b308a"
+  },
+  "specificNegativeCount": 23,
+  "status": "PURE_SHARED_POSTFLIGHT_EXCEPTION_DIAGNOSTIC_CONTROLS_COMPLETE_UNADOPTED",
+  "syntheticArtifactDisposition": "LOCAL_HASH_SIZE_ONLY_REBUILDABLE_SYNTHETIC_EMITTER_EVIDENCE",
+  "syntheticArtifactsLocalOnly": [
+    {
+      "bytes": 7,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/ACTUAL-IMMUTABLE-LOCAL.json.partial",
+      "sha256": "80216967918172c414065ee096341fad4d00bcb845dd1aec3488920a24fe3c16"
+    },
+    {
+      "bytes": 8,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/exclusive.json",
+      "sha256": "bb157861a164e35cdde9d726b0af9ce2765a8f530c35d9e45732b94ee65e9557"
+    },
+    {
+      "bytes": 8,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/exclusive.json.partial",
+      "sha256": "feb939020e9d63a4e5671c2fee3621703f45dcd172d5ab9380cec70a163dea5d"
+    },
+    {
+      "bytes": 16777216,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/immutable_exact.json",
+      "sha256": "2a76d40158add43ca4d97d940a8f9962f2eaf8bd3885a7f3d8eb6bc5e96b40fd"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/immutable_over.json.partial",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 32768,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/summary_exact.json",
+      "sha256": "81ecb5f9cc39bb6fbfadc628448a31ea84162786095ca081b8e582c3a239b488"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/summary_over.json.partial",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "workerPgid": 24059,
+  "workerPid": 24059,
+  "workerSid": 24059
+}

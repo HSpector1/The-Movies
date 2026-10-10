@@ -1,0 +1,127 @@
+{
+  "actualGuardsAccepted": false,
+  "adapterProof": {
+    "bytes": 7665,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/SOURCE-PROOF.json",
+    "sha256": "027f9121254bb32fd054fe518f3e744954b0f5046d456d56149fd2ccd5176daa"
+  },
+  "adapterSourceManifest": {
+    "bytes": 8034,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "9ab3c274c71d997e08a49af2e1ef477d251b4abe8d6d765049d9add3b6510909"
+  },
+  "adapterSourcePins": {
+    "bytes": 8034,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "9ab3c274c71d997e08a49af2e1ef477d251b4abe8d6d765049d9add3b6510909"
+  },
+  "allFunctionBodiesByteExact": {
+    "read_current_fullpreflight.py": [
+      "role",
+      "read",
+      "put"
+    ],
+    "run_current_fullguard_once.py": [
+      "role",
+      "put"
+    ],
+    "snapshot.py": [
+      "require",
+      "sha",
+      "canonical",
+      "read",
+      "write",
+      "dump",
+      "command",
+      "directory_identity",
+      "ancestry",
+      "current",
+      "main"
+    ]
+  },
+  "concreteFindings": [],
+  "configChangedKeys": [
+    "operationalRemoteRefs",
+    "parentScopeAdoption",
+    "productionHead",
+    "status"
+  ],
+  "currentProductionHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "decision": "ACCEPT_CURRENT_AP_FULLGUARD_BINDINGS_SOURCE_ONLY",
+  "evaluatedGuardPath": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1",
+  "evaluatedParentPath": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1",
+  "evaluatedSnapshotOutput": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1",
+  "executionAuthorization": false,
+  "game": false,
+  "guardConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "sha256": "a058c0d63bd0f0432f26d4ebcae62a80977eaccfd7e2406cf7a7e6f221b23fec"
+  },
+  "guardProof": {
+    "bytes": 4361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/PROOF.json",
+    "sha256": "99a8011eaf359c5916aaedd602b1e092abf69cba5214debc9a0b613601e497db"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "51f11d5f9bc55d77ed9e1b7d0bce4d36d1c9af865835617d585629fa8f694f85"
+  },
+  "historicalAOHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "historicalPrepareDocumentaryOnly": true,
+  "operationalFacts": {
+    "bytes": 1029,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-OPERATIONAL-TRANSITION.json",
+    "sha256": "8a7d765bbc472ccf5717fd2b3e68a362eac5db63f76b5fb523bd6fe3de1ed753"
+  },
+  "operationalScope": {
+    "bytes": 2942,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "b0e268df5d8e7cd749286c5b91c09a2b8d88926697413bd5313f46854e2cc126"
+  },
+  "originalCopyAndM0AuthoritiesUnchanged": true,
+  "originalNineStrictRootsFullInventoryFdProcessAncestryPowerReserveAndRefsPredicatesUnchanged": true,
+  "originalPerCommandSeconds": 180,
+  "originalPrivateR9BaselineSha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347",
+  "privateM0ProofsAndHistoricalTypesSeparate": true,
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "publishedReadback": {
+    "bytes": 2519,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/PUSH-READBACK.json",
+    "sha256": "6545dea2ceaa3cb52d8799fe9ef0aede1b58bd34e42268307b27208c9050e27f"
+  },
+  "rawProcessFdLocalOnly": true,
+  "recipe": {
+    "bytes": 3564,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/RECIPE.json",
+    "sha256": "86af3061f823e272fd686f8e29874a5eadf768b9dd93c386db416bbf6b7740b9"
+  },
+  "reviewScope": "Independent finite source, manifest, genuine published-AP facts/scope/publication, original predecessor equality, all five complete forward/inverse applications, AST function byte comparisons and restricted literal path evaluation. No candidate/source imports, tests, runtime scan/probes, private traversal, Git mutation or source changes. Separate root once-grant and genuine actual guard evidence remain required by the existing route.",
+  "rootLauncher": {
+    "bytes": 3864,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py",
+    "sha256": "bb793bc87fbdefa5670ae0bb10ddc155a9bd2796fc2e2016f960038a1ee297da"
+  },
+  "rootReader": {
+    "bytes": 5421,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/read_current_fullpreflight.py",
+    "sha256": "a890b9570777770a39115b47264015def49a7b35f4ca7ac18360823adeb0dc48"
+  },
+  "runtimeOccurred": false,
+  "scannerOnlyConfigShaChanged": true,
+  "schema": "1370-aq-current-ap-fullguard-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 5379,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "1c00f8f4e42402a972182ed643369c279149d74cb6a5cdb9208aa15269118c69"
+  },
+  "sourcePins": {
+    "bytes": 5379,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "1c00f8f4e42402a972182ed643369c279149d74cb6a5cdb9208aa15269118c69"
+  },
+  "wholeForwardInverseApplications": 10,
+  "wholeInversePairsIndependentlyApplied": 5,
+  "wholeScanDeadline": null
+}

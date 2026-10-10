@@ -1,0 +1,38 @@
+{
+  "schema": "1370-native-refusal-diagnostic-source-proof/v1",
+  "executionAuthorization": false,
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+    "bytes": 12245,
+    "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+  },
+  "originalDiagnostic": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs",
+    "bytes": 10954,
+    "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+  },
+  "dependency": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+    "bytes": 10267,
+    "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+  },
+  "rootDesignAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "bytes": 2382,
+    "sha256": "e1547ab7446749afd375ec235503da7eb81ac9955b598fd1bc01304ddbe59054"
+  },
+  "wholeForwardExact": true,
+  "wholeInverseExact": true,
+  "runObserverArmByteExact": true,
+  "originalSink": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+    "bytes": 5868,
+    "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+  },
+  "fullBodyTemplate": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+    "bytes": 9756,
+    "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+  },
+  "candidateExecuted": false
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "1370-original-shared-postflight-diagnostic-independent-controls-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "run_guard_diagnostic_controls.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r1/run_guard_diagnostic_controls.py",
+      "bytes": 11293,
+      "sha256": "309fb839892b4e39382204749cdfa43e23c1c05c835d21c0154b70a3ead82296"
+    },
+    "MATRIX.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r1/MATRIX.json",
+      "bytes": 5593,
+      "sha256": "6284c2b6fb86b73898f216607948844d6f7d7e7a30320616beb18083e8e72ee7"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r1/CONTRACT.json",
+      "bytes": 2795,
+      "sha256": "ce30c8b9a6c3ae8fe798aa59ad37da00fdd96d581708559adc7583d0ad2a47ce"
+    }
+  },
+  "actualControlsExecuted": false
+}

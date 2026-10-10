@@ -1,0 +1,71 @@
+{
+  "baselineReplacementAuthorized": false,
+  "concreteFindings": [],
+  "currentIndexAdoption": {
+    "bytes": 1613,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-INDEX-SEMANTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5fa1ab742700533cc0654449176e4bec9ac3c64d34060f4d8ae251cb2831975a"
+  },
+  "currentIndexObservedReview": {
+    "bytes": 5319,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "fe263829fa591ec0659dd8873036681bee1854ea398697af6d02adc0692bb0c6"
+  },
+  "currentIndexResult": {
+    "bytes": 6371,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/RESULT.json",
+    "sha256": "a11edeb2c083cb50002143efca61aa1e827f1ffcab9b6b6a05377a38397c0d0d"
+  },
+  "decision": "ACCEPT_STATIC_LIMITED_OPERATIONAL_RECOVERY_PROPOSAL_PENDING_OWNER_DECISION",
+  "diagnostic96592AcceptedAsProtection": false,
+  "diagnosticAdoption": {
+    "bytes": 3322,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/SHARED-GUARD-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "140174256d040f89e44de6e476990e543f950eae4be129ba3667449cb87e4037"
+  },
+  "diagnosticObservedReview": {
+    "bytes": 11645,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "65315920057b3b6eecded8a34c335841bad5414b44b818b09929bd423887f925"
+  },
+  "executionAuthorization": false,
+  "failedRouteRecorderResult": {
+    "bytes": 975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-recorder-results-20261010-r1/RESULT.json",
+    "sha256": "eb4ade56eacb597f0a3743e7e053a0cd403ba54a2ed0bf697463454d9b153aff"
+  },
+  "futureOperationalBaseline": null,
+  "gameAccepted": false,
+  "original54871Accepted": false,
+  "ownerApprovalStillRequired": true,
+  "ownerDecision": null,
+  "preservationContinuityRestored": false,
+  "proposal": {
+    "bytes": 3103,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/OPERATIONAL-RECOVERY-PROPOSAL.md",
+    "sha256": "51551f0190830b08ea9c79e674e7b32754f99f13f46cbb78e240f54e92503807"
+  },
+  "reviewConclusions": [
+    "The proposed exception is limited to starting a new complete operational checkpoint with explicitly lost commonGit byte continuity; it does not restore or admit the failed AQ interval.",
+    "Actual sanitizer regression and current stage0 index semantics justify considering recovery, while neither proves historical raw index equality, flags, specific commonGit leaf or original aggregate cause.",
+    "The exact single commonGit digest difference and all other typed-equal immutable fields concern diagnostic96592 versus bc21. This must not be generalized to uninterrupted preservation during original54871. The proposal preserves that limit.",
+    "The retained index mtime lies within the recorded failed fullfunction interval; this is chronology only, not writer or causal attribution.",
+    "Historical bc21, failures, original proof/type/config/results remain immutable evidence. The fresh complete commonGit role must be versioned as operational and kept separate from them.",
+    "Full original source/dependency/private identity checks, current HEAD/generated authority assertions, original300/320/330 limits, observer/fixture caps, cleanup and rejection semantics remain required before/after a separately qualified one-shot attempt.",
+    "Docs-only publication is an explicit operational transition, not a substitute for new complete guards or an excuse to omit the index.",
+    "The source fix and generated-HEAD correction still need genuine future route bindings/source review; this proposal does not authorize their execution or admit native/game/downstream work.",
+    "Declining the exception leaves dependent gameplay held; no checksum-fishing scan or manufactured restoration is permitted."
+  ],
+  "reviewMethod": "Named proposal and previously independently reviewed retained adoptions/results only; no real Git, guard, private tree access, source modification, baseline repin or runtime.",
+  "sanitizerControlsAdoption": {
+    "bytes": 2932,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/GIT-OPTIONAL-LOCKS-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "20dae623e4e36f3384d78494eddf753f4e7096b81ff6f6a8ee8ab81e685372f4"
+  },
+  "sanitizerControlsObservedReview": {
+    "bytes": 4056,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "6401e029d70b0f71ba497db09f035fe68036be3352fc6341ac1ab4c511f0b7b2"
+  },
+  "schema": "1370-limited-operational-recovery-proposal-independent-review/v1"
+}

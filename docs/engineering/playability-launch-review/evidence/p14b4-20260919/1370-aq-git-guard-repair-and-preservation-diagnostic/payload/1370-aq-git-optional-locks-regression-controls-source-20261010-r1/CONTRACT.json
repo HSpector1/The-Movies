@@ -1,0 +1,105 @@
+{
+  "bounds": {
+    "aggregateControlsSeconds": 60,
+    "cleanupSecondsAfterCommandFailure": 4,
+    "perCommandStreamBytes": 65536,
+    "perGitCommandSeconds": 15,
+    "resultBytes": 131072,
+    "retainedInputOrToolBytes": 16777216
+  },
+  "candidateExecuted": false,
+  "caseCount": 8,
+  "claimLimits": [
+    "Synthetic index-write capability demonstration is not historical exact leaf attribution for54871 or96592.",
+    "No real project Git write, network command, protected tree traversal, baseline replacement or protection acceptance.",
+    "Original and corrected fixture index bytes need not equal each other; their setup/path/inode differ. Each status before/after comparison is within its own fixture.",
+    "No candidate imports/runtime occurred while preparing this source."
+  ],
+  "cli": [
+    "genuine-pinned-physical-python",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r1/run_git_env_controls.py",
+    "genuine-once-grant-path",
+    "genuine-once-grant-sha256"
+  ],
+  "executionAuthorization": false,
+  "failure": "Setup/tool/loader/unknown/assertion/timeout errors fail the worker; never count as expected RED. Missing result remains STOP. Original RED passes only the exact index-refresh predicate.",
+  "fixture": "Two fresh owned repositories; explicit --git-dir/--work-tree, empty template/hooks, fsmonitor/untracked-cache off, no signing, fixed command-line disposable user. Tracked bytes unchanged; past mtime changed after clean committed baseline. Original requires actual index SHA change; corrected requires full index role and strict metadata equality.",
+  "grantSchema": "1370-root-git-optional-locks-regression-once-grant/v1",
+  "inputs": {
+    "correctedRunner": {
+      "bytes": 44107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/runner.py",
+      "sha256": "6d83467284f7ecdf34c2d20c0aeab648819539406768beda0c3370d2651000fa"
+    },
+    "implementationManifest": {
+      "bytes": 1226,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE-PINS.json",
+      "sha256": "162098174210e249daafd838b7dbaf5814a492f06c977abdf0ae9dd4261b6fba"
+    },
+    "implementationReview": {
+      "bytes": 4057,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-independent-source-review-20261010-r1/RECEIPT.json",
+      "sha256": "11e1d503a6644375b5bfd4b554f30879e768e33de5a99bda060f5a9a49c865ed"
+    },
+    "originalRunner": {
+      "bytes": 44067,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+      "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+    }
+  },
+  "mechanism": "Authenticated original/corrected actual clean_git_env AST compiled alone with os.environ input seam. No module imports, top-level bootstrap/main or protected repository commands. Git status consumes the exact function result.",
+  "observedDecision": "ACCEPT_ACTUAL_DISPOSABLE_GIT_OPTIONAL_LOCKS_REGRESSION_CONTROLS_ONLY",
+  "observedSchema": "1370-git-optional-locks-regression-controls-independent-observed-review/v1",
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1",
+  "positiveCount": 7,
+  "processOwnership": "Git commands inherit recorder-owned worker group; no detached session. Child exits are reaped; failure terminates then kills/reaps only that child. Recorder remains final group-cleanup owner.",
+  "recordedRoute": "Root reuses separately authenticated established recorder/helper; outer recorder bounds remain its original values. This worker implements a 60-second controls-body budget and 15-second command budgets, with up to4-second child cleanup. No combined parent/preparation/runtime deadline is claimed.",
+  "requiredFutureGrantValues": {
+    "automaticRetry": false,
+    "bounds": {
+      "aggregateControlsSeconds": 60,
+      "cleanupSecondsAfterCommandFailure": 4,
+      "perCommandStreamBytes": 65536,
+      "perGitCommandSeconds": 15,
+      "resultBytes": 131072,
+      "retainedInputOrToolBytes": 16777216
+    },
+    "config": "exact retained CONFIG role",
+    "executionAuthorization": true,
+    "git": "genuine root-authenticated physical tool role, rehashed before and after controls",
+    "oneAggregateRun": true,
+    "outputPath": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1",
+    "python": "genuine root-authenticated physical interpreter role, rehashed before and after controls",
+    "sourceManifest": "exact retained final SOURCE-PINS role",
+    "sourceReview": "genuine independently authored review with exact sourceManifest and four filename aliases"
+  },
+  "requiredGrantFields": [
+    "schema",
+    "executionAuthorization",
+    "oneAggregateRun",
+    "automaticRetry",
+    "config",
+    "bounds",
+    "outputPath",
+    "sourceManifest",
+    "sourceReview",
+    "git",
+    "python"
+  ],
+  "resultSchema": "1370-git-optional-locks-regression-controls-result/v1",
+  "reviewAliases": [
+    "run_git_env_controls.py",
+    "CONFIG.json",
+    "MATRIX.json",
+    "CONTRACT.json"
+  ],
+  "reviewDecision": "ACCEPT_STATIC_GIT_OPTIONAL_LOCKS_REGRESSION_CONTROLS_SOURCE_ONLY",
+  "reviewSchema": "1370-git-optional-locks-regression-controls-independent-source-review/v1",
+  "schema": "1370-git-optional-locks-regression-controls-source-contract/v1",
+  "sourceOnly": true,
+  "specificNegativeCount": 1,
+  "stdout": "Only final result role/status/count; command stdout/stderr retained as byte counts/hashes in report, never printed raw.",
+  "syntheticFixtureDisposition": "LOCAL_HASH_SIZE_ONLY_REBUILDABLE_GIT_FIXTURES except RESULT.json; no recursive export."
+}

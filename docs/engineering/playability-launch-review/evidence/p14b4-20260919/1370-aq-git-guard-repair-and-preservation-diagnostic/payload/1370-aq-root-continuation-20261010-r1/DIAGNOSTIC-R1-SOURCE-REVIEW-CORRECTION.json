@@ -1,0 +1,15 @@
+{
+  "candidateExecuted": false,
+  "concreteFinding": "Unknown codec-stage errors fell through to error.diagnosticCode, allowing spoofed classification or a getter invocation. Stage-aware unknown fallback must precede internal diagnostic-code handling.",
+  "executionAuthorization": false,
+  "foundBy": "Independent affected-controls author b109",
+  "priorReview": {
+    "bytes": 3308,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "46b922219824c925bc064150fa84096685cdb1a47843739dd6b0c07fbd83a8ee"
+  },
+  "requiredNext": "Fresh R2 implementation, independent controls and fresh source review; retain original R1 and its overbroad acceptance.",
+  "schema": "1370-root-source-review-correction/v1",
+  "sourceOnly": true,
+  "status": "PRIOR_R1_SOURCE_ACCEPTANCE_WITHDRAWN_BEFORE_RUNTIME"
+}

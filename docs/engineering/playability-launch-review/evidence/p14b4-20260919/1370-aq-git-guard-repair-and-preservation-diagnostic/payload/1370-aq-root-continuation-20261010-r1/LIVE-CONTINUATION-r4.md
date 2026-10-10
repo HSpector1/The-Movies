@@ -1,0 +1,11 @@
+# AQ live continuation — 2026-10-10
+
+Published AP HEADd20347b83ea7497ed17c48ec14d8f64a3ce69cc8/src13880d9b0ba72aff5d4c5bcf5d12fe682c5de554 unchanged. Repository/Git protection freeze remains active. Published HANDOFF still AP; preserve previous live notes.
+
+AQ pure86/root385249f0 accepted. Current fullguard88384/bc21 and short33751/rootde46 preceded fullfunction42397. That run failed before fixture generation at a stale AO HEAD assertion in the generated test (actual AP d203, expected f2f). Reader0c4deb56 records STOP, all M0 AFTER/node result/boundary claims null. Source-review correction36ac9673 withdraws this route as authority for another attempt. R3 one-line current-head correction passes static generated-source check but remains held/unrun and protection slots null.
+
+Mandatory shared postflight54871 (scanner42178) TERMINATED1. Exact error: STOP: full baseline byte/metadata/inode/root equality failed at original snapshot.py154. No SNAPSHOT/PINS/raw PSFD were written; stdout0, stderr936 bytes. ACTUAL-TOOLdb021ff7. Root FAILURE-READBACK6a32717a records nine scoped PID/PGID absences, empty output directory, lane absent; qualified success reader NOT run. No full protection acceptance exists. Exact mismatching field is UNKNOWN because original scanner discards its in-memory comparison map on this failure. Do not repin baselinebc21 or infer the cause from plausible background activity.
+
+Next: m0 authors separately reviewed runpy diagnostic wrapper around byteexact original snapshot.py. Preserve original argv/__file__/config/baseline/checks/180-second command clocks/no overall clock. Capture only exact final-equality traceback frame, retain bounded actual immutable metadata (16MiB maximum) and changed-field summary (32KiB), exclude raw PS/FD, rethrow original exception even if diagnostics fail. B109 independent source/observed review; cleanup independent pure control preparation. Root owns one recorded diagnostic execution after review. A later comparison pass is a separate observation, never retroactive acceptance or proof of a transient cause. No active heavy job.
+
+Latest lessons LESSONS-r6.md. Owner action: none. P16 remains incomplete; P17/P18 runtime unimplemented. Carry late AP finalization into next published archive.

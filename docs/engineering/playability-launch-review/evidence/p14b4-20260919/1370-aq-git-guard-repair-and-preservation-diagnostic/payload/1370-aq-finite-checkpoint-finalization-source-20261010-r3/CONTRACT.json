@@ -1,0 +1,67 @@
+{
+  "archiveCopied": false,
+  "bounds": {
+    "aggregateInputBytes": 268435456,
+    "files": 9999,
+    "individualInputBytes": 33554432,
+    "inventoryOutputBytes": 8388608
+  },
+  "candidateExecuted": false,
+  "copyMethod": "Authenticated original AP finalize_archive.py; only after root reviews generated inventory and approves concrete claim/target. LOCAL rows have no bytes or prior Git reuse.",
+  "estimate": "Unmeasured planning range approximately 20\u201350 MiB ordinary selected payload before prior-HEAD reuse; exact inventory/copy size deferred. Known bc21 snapshot9,737,682 B; synthetic cap-padding and future map<=16 MiB stay LOCAL. Prior AP whole inventory was45,157,644 B with41,214,613 nonlocal bytes, not the size of its late finalization directory.",
+  "exclusions": "No dependency/private/cache directory traversal or symlinks. Whole late AP finalization included; historical LOCAL references outside selection recorded without following. AQ LOCAL references outside selected roots refuse. Semantic producer keys seed classifications; names provide defense.",
+  "executionAuthorization": false,
+  "gitMutated": false,
+  "inventoryOnly": true,
+  "originalMethods": [
+    {
+      "bytes": 3147,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_inventory.py",
+      "sha256": "f0760129efda1d61defe17559a396b38c73842bd34e0e21e489677156a5178b9"
+    },
+    {
+      "bytes": 4649,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py",
+      "sha256": "44f14cedf747f9ffda7c5e076042440d56b70c3d05d35c9a9d5883787cea3769"
+    },
+    {
+      "bytes": 6520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/finalize_archive.py",
+      "sha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b"
+    },
+    {
+      "bytes": 4405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/verify_index_complete_r2.py",
+      "sha256": "29a4174453e4c88d26ec1cbaa61f550f1ed776b33260a60df343a1dcb37398a7"
+    }
+  ],
+  "predecessorSourceManifest": {
+    "bytes": 1237,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "eddf2ba3dc702b83afb83bbe5a76f6741271775de2682e2052af20b1ed1e5750"
+  },
+  "protectedPacketNamesRefusedBeforeReadHashParse": [
+    "employment208.json",
+    "fixtures.json",
+    "natural-boundary-fixture.json",
+    "settlement208.json"
+  ],
+  "requiredLateInputs": [
+    "terminal diagnostic readback and independent observed review",
+    "comparison result as LOCAL or actual-map-not-produced/complete-comparison-refused disposition",
+    "root cutoff and any lessons/adoption/late package additions",
+    "genuine loose preparation script roles if selected"
+  ],
+  "runtimeInputs": "Root supplies genuine immutable cutoff JSON role SHA, terminal diagnostic readback/review, comparison LOCAL role or explicit unavailable disposition, root-approved late packages and additional LOCAL roles. No future values are filled by this source.",
+  "schema": "1370-aq-finite-finalization-source-contract/v1",
+  "script": {
+    "bytes": 8958,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/prepare_aq_inventory.py",
+    "sha256": "fd734573cecbb84a88ca41f5be7a6249dbcbdcb156594146910416abe1e58a8c"
+  },
+  "selectionPlan": {
+    "bytes": 16042,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-archive-selection-plan-20261010-r1/PLAN.json",
+    "sha256": "6ae2ccbfbcf3443ce60a81384a6155a2fc4b1528b1cd9891699c20eca4a1407d"
+  }
+}

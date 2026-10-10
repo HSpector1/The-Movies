@@ -1,0 +1,50 @@
+{
+  "actualRuntimeOrPrivateTraversal": false,
+  "aqPayloadsExcluded": true,
+  "copiedBytes": 25937042,
+  "copiedCount": 760,
+  "copiedPayloadSetExact": true,
+  "currentIndexReviewPending": true,
+  "fullfunctionObservedReview": {
+    "bytes": 12497,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "1e2c8137518aa49aa62d85eaf01805924bf8cb50b5585244bf70179189624c7b"
+  },
+  "gitMutation": false,
+  "handoff": {
+    "bytes": 10417,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+    "sha256": "695f8a4c3a081ec9083045a4f616cd7eaf8559e8ab9d6d3bf2ff99fc44196203"
+  },
+  "inventory": {
+    "bytes": 470653,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/INVENTORY-FINAL.json",
+    "sha256": "1ae9f5669760e64e9dc1aa23d5109bee4263f10f051c7b359344d363e9d6ffed"
+  },
+  "localCount": 12,
+  "localPriorReuseExcluded": true,
+  "manifest": {
+    "bytes": 2354591,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/ARCHIVE-MANIFEST.json",
+    "sha256": "342fd8b811c8f73ffb3442d4d90d2a51c60e1a4065dbb7d878f753d8c8b694ea"
+  },
+  "originalAutoBlockByteExact": true,
+  "originalAutoBlockSha256": "39c20c726e9779c2f8ba73dd37ba55476302ac7b17040bf3d5e487f5c7268a4d",
+  "priorCount": 143,
+  "priorHeadMappingsVerified": 647,
+  "rawLocalPayloadExcluded": true,
+  "report": {
+    "bytes": 7428,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AP-native-observer-controls-and-protected-stop.md",
+    "sha256": "927448ab88981abde351b5cf7906785ee7b0c2f4f9edd4cdf858b705a2e7fe29"
+  },
+  "rootClaim": {
+    "bytes": 1112,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/ROOT-FINAL-CLAIM.txt",
+    "sha256": "4e839829bf7b966f1d6f71bc83f791aea33f7f8bc5e32f7558ee9e7295956b81"
+  },
+  "schema": "1370-ap-independent-actual-archive-audit/v1",
+  "sourcePackagesMutated": false,
+  "wholeLateAODirectoryCoverageExact": true,
+  "wholeLateAODirectoryFiles": 43
+}

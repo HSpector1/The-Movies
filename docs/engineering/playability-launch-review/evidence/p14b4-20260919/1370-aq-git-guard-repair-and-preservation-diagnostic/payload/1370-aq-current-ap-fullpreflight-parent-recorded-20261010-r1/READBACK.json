@@ -1,0 +1,80 @@
+{
+  "actualTool": {
+    "bytes": 1531,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "b633580f5e11e5c34bb50690ae7b93da98f547bd5f489dbac8ac8cd601c3e033"
+  },
+  "config": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "sha256": "a058c0d63bd0f0432f26d4ebcae62a80977eaccfd7e2406cf7a7e6f221b23fec"
+  },
+  "dependencyEntriesPerCopy": 12485,
+  "executionAuthorization": false,
+  "freshFullInventory": true,
+  "game": false,
+  "grant": {
+    "bytes": 2366,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "d821cdaf8bbcd092c859601e9a79b9d423a7ab61862d925d0753a4347cccc7a0"
+  },
+  "guardSeconds": 459.9390340069949,
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "51f11d5f9bc55d77ed9e1b7d0bce4d36d1c9af865835617d585629fa8f694f85"
+  },
+  "inventorySeconds": 343.83853859000374,
+  "originalM0ContentProof": false,
+  "postOwnership": {
+    "bytes": 339,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/POST-OWNERSHIP.json",
+    "sha256": "e9904c90ea3f9e414dce2d9bacbb915a19f87098532ec36e75a0dbd9a0d5abf6"
+  },
+  "privateSourceEntries": 176,
+  "productionHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "rawLocalOnlyClassification": {
+    "bytes": 1472,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/RAW-LOCAL-ONLY-CLASSIFICATION.json",
+    "sha256": "f935119a64c1393c76ff233de9a85f39b4078f71f7211e67f27c20a7cdf7547f"
+  },
+  "scanStderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/scan.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scanStdout": {
+    "bytes": 453,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/scan.stdout",
+    "sha256": "340e4d30524b1a7230858d5e70ad7bc5eac9904069dbc1c28b82159ca64fd10a"
+  },
+  "schema": "1370-ap-current-ap-fullpreflight-readback/v1",
+  "snapshot": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "snapshotPins": {
+    "bytes": 507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/PINS.json",
+    "sha256": "9dc4efe07f060344e4b95e3c0a13f09422a5ea65a524225b8477e74c18102301"
+  },
+  "sourceAdoption": {
+    "bytes": 1039,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULLGUARD-SOURCE-ADOPTION.json",
+    "sha256": "bcfa7e4a839be9d6c02b2cc258392a2c06b0f4559afdddf476a4d478359dd4ac"
+  },
+  "sourcePins": {
+    "bytes": 5379,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "1c00f8f4e42402a972182ed643369c279149d74cb6a5cdb9208aa15269118c69"
+  },
+  "sourceReview": {
+    "bytes": 6096,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "084aa42ad2d334b35eb27928cd99f5470a97e7fc2db1bad3c0ce8d8b93938b79"
+  },
+  "status": "ACTUAL_CURRENT_AP_FULL_PREFLIGHT_COMPLETE_UNADOPTED",
+  "strictRoots": 9
+}

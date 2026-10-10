@@ -1,0 +1,22 @@
+{
+  "candidateExecuted": false,
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-ROLE.json": {
+      "bytes": 259,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/BASELINE-ROLE.json",
+      "sha256": "48b943d5f14d0d4adf9152ce7ba43b9ad84bc7a30ac7e4ee4f11d99fc0054439"
+    },
+    "CONTRACT.json": {
+      "bytes": 2476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/CONTRACT.json",
+      "sha256": "da30f18d0baead44d73c5fb277ddd2f6e7b809d6484ea0c5ce282e5c45e761be"
+    },
+    "compare_retained_immutable.py": {
+      "bytes": 7099,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/compare_retained_immutable.py",
+      "sha256": "873d987d60b4a47f1a91d906269f871da5dc2bf487df68bff5834ed60d88538e"
+    }
+  },
+  "schema": "1370-retained-immutable-comparison-source-pins/v1"
+}

@@ -1,0 +1,300 @@
+--- /Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/CONFIG.json
++++ /Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json
+@@ -4,9 +4,14 @@
+   "actualObservedReview": null,
+   "actualResult": null,
+   "api": {
++    "bytes": 8118,
+     "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/API.md",
+-    "bytes": 8118,
+     "sha256": "3da98803fc94b4beeb4e37d6aa01a4ccd266a12ac123df9746cc21d12b1fc9fa"
++  },
++  "apiAdoption": {
++    "bytes": 3933,
++    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-API-ADOPTION.json",
++    "sha256": "9300b1167ee0b481757023e9a93306432c115c3e6f554733aff42e6c95565c7f"
+   },
+   "bounds": {
+     "active": 320,
+@@ -17,7 +22,12 @@
+     "whole": 330
+   },
+   "candidateChanged": false,
+-  "caseCount": 72,
++  "caseCount": 86,
++  "compilerToolsObservation": {
++    "bytes": 1691,
++    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-RUNTIME-TOOLS.json",
++    "sha256": "12d11061dd21827447ef0563d9ab4c5bec0c636986e8690ed067eb0be37dfa0c"
++  },
+   "controlsInputNames": [
+     "run-native-observer-controls.mjs",
+     "MATRIX.json",
+@@ -25,104 +35,140 @@
+   ],
+   "controlsReviewDecision": "ACCEPT_STATIC_PURE_NATIVE_OBSERVER_CONTROLS_SOURCE_ONLY",
+   "controlsSourcePins": {
+-    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+-    "bytes": 2042,
+-    "sha256": "be758595a589a51f559fe6933c8b6a68b23e16691ab32ee87aebf8d7b2dd64f9"
++    "bytes": 4694,
++    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
++    "sha256": "ea534a97a8001f5037e8c053e0a8a30ff839907913d60189705bb7f9739b016a"
+   },
+   "controlsSourceReview": {
+-    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r3/RECEIPT.json",
+-    "bytes": 11102,
+-    "sha256": "a3315ae0ab0ea6be8839db4e4e7e501e072ade628cc50047abb93c944e689dd4"
++    "bytes": 8094,
++    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-review-20261010-r2/RECEIPT.json",
++    "sha256": "4c699c9e2b17c2c71c525dde8c553d34519b64809f4eb32b94fa165dc7764f8d"
++  },
++  "diagnosticDesignAdoption": {
++    "bytes": 2382,
++    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-DESIGN-ADOPTION.json",
++    "sha256": "e1547ab7446749afd375ec235503da7eb81ac9955b598fd1bc01304ddbe59054"
++  },
++  "diagnosticInterface": {
++    "bytes": 2006,
++    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/INTERFACE.json",
++    "sha256": "7aaf37cad26fe693b2b8ad205270531260a7f4fe3afab4f82fb60e4b8ade911a"
++  },
++  "diagnosticReviewDecision": "ACCEPT_STATIC_NATIVE_REFUSAL_DIAGNOSTIC_IMPLEMENTATION_SOURCE_ONLY",
++  "diagnosticSourceManifest": {
++    "bytes": 3301,
++    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
++    "sha256": "2135c9485b6bc09f0f2a78740f4bdbdb9b7a910a8503a317bd9cfa8e29f0f818"
++  },
++  "diagnosticSourceReview": {
++    "bytes": 5406,
++    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-independent-source-review-20261010-r2/RECEIPT.json",
++    "sha256": "e0417bd0bfa6e6cc487c2f6ee92d83a0f17b1fb3c38efa38c7b3ba1439b5ce30"
+   },
+   "executionAuthorization": false,
++  "heldUnfilledInputsOnly": [],
+   "implementationControlsSourceAdoption": {
+-    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION-r2.json",
+-    "bytes": 4060,
+-    "sha256": "e30f2625a6eac0a994bf8a5026ef9b550304f3243e3e0ce72e5b6fd418ce06a8"
++    "bytes": 5332,
++    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION.json",
++    "sha256": "83b4a28dae66ff3dfdd600cf19fce4c2024ab996afc1551a9dd3a293e947c98d"
+   },
+   "implementationInputNames": [
+     "m0NativeObserverRows.mjs",
+     "m0FeasibilityWitness-native.ts",
+-    "m0ObserverRowDiagnostic.mjs",
+     "ordering.ts",
+     "ordering-source-controls.ts"
+   ],
++  "implementationInterface": {
++    "bytes": 1652,
++    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/INTERFACE.json",
++    "sha256": "074f05314b9165ae7f99f0d83536e646b19e0074a334cbeeb55a79bed239b57d"
++  },
+   "implementationReviewDecision": "ACCEPT_STATIC_NATIVE_CANONICAL_OBSERVER_IMPLEMENTATION_SOURCE_ONLY",
+   "implementationSourcePins": {
++    "bytes": 12245,
+     "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+-    "bytes": 12245,
+     "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+   },
+   "implementationSourceReview": {
++    "bytes": 10219,
+     "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+-    "bytes": 10219,
+     "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+   },
+   "inputs": {
++    "CONTROLS-CONTRACT.json": {
++      "bytes": 11016,
++      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
++      "sha256": "c915be086c16ba5ee9d814038e19d0306d22efb9c7f5ca2ff8856c0d5240e548"
++    },
++    "MATRIX.json": {
++      "bytes": 15144,
++      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
++      "sha256": "3dc6e11a350fb9dc7365f9738c2aad60d06cbae098efeb4ef9ac5f4ec6532edc"
++    },
++    "ORDERING-SOURCE-CASES.json": {
++      "bytes": 27476,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
++      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
++    },
++    "m0FeasibilityWitness-native.ts": {
++      "bytes": 5868,
++      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
++      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
++    },
+     "m0NativeObserverRows.mjs": {
++      "bytes": 10267,
+       "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+-      "bytes": 10267,
+       "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+     },
+-    "m0FeasibilityWitness-native.ts": {
+-      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+-      "bytes": 5868,
+-      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+-    },
+     "m0ObserverRowDiagnostic.mjs": {
+-      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs",
+-      "bytes": 10954,
+-      "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
++      "bytes": 13288,
++      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
++      "sha256": "db78301bf62d52b574ed8df272d0fe3d7b10c2568f930d10eb359092725bbba6"
++    },
++    "m0TraceCodec.mjs": {
++      "bytes": 7882,
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
++      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
++    },
++    "ordering-source-controls.ts": {
++      "bytes": 3407,
++      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering-source-controls.ts",
++      "sha256": "d485414f997bcf606a416160d9ec212e621b59cfd29a49e0f359b84ba06556f4"
+     },
+     "ordering.ts": {
++      "bytes": 12555,
+       "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+-      "bytes": 12555,
+       "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+     },
+-    "ordering-source-controls.ts": {
+-      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering-source-controls.ts",
+-      "bytes": 3407,
+-      "sha256": "d485414f997bcf606a416160d9ec212e621b59cfd29a49e0f359b84ba06556f4"
+-    },
+     "original-m0FeasibilityWitness.ts": {
++      "bytes": 4729,
+       "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/BASELINE-m0FeasibilityWitness.ts",
+-      "bytes": 4729,
+       "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+     },
+-    "m0TraceCodec.mjs": {
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+-      "bytes": 7882,
+-      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
++    "run-native-observer-controls.mjs": {
++      "bytes": 46107,
++      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
++      "sha256": "9aac8333c7e51364ef136e7e28c4e51c97832c8492b927842c63e50c96e318f3"
+     },
+     "traceSequences.mjs": {
++      "bytes": 1286,
+       "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+-      "bytes": 1286,
+       "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+-    },
+-    "ORDERING-SOURCE-CASES.json": {
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+-      "bytes": 27476,
+-      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+-    },
+-    "run-native-observer-controls.mjs": {
+-      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+-      "bytes": 30858,
+-      "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+-    },
+-    "MATRIX.json": {
+-      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/MATRIX.json",
+-      "bytes": 11805,
+-      "sha256": "e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39"
+-    },
+-    "CONTROLS-CONTRACT.json": {
+-      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/CONTRACT.json",
+-      "bytes": 8241,
+-      "sha256": "1303c82c407869b2be88a59e2fd03050a0a2caf5d7456dcedd557b9a15b473a0"
+     }
+   },
+-  "outputPath": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1",
++  "originalWitnessSourcePins": {
++    "bytes": 6892,
++    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
++    "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
++  },
++  "outputPath": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-results-20261010-r1",
+   "positiveCount": 13,
+-  "recorderOutputPath": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorder-results-20261010-r1",
++  "prospectiveObservedContract": {
++    "bytes": 1664,
++    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-CONTROLS-PROSPECTIVE-CONTRACT.json",
++    "sha256": "5d3f10303a11927b108e61ebe9cf0fc02ecc0a09b652df187816d88e83caf6b3"
++  },
++  "recorderOutputPath": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorder-results-20261010-r1",
+   "reviewAliases": [
+     "CONFIG.json",
+     "CONTRACT.json",
+@@ -140,11 +186,19 @@
+     "ORDERING-SOURCE-CASES.json",
+     "run-native-observer-controls.mjs",
+     "MATRIX.json",
+-    "CONTROLS-CONTRACT.json"
++    "CONTROLS-CONTRACT.json",
++    "HISTORICAL-RUNTIME-TOOLS.json",
++    "PURE-PUBLIC-RUNTIME-TOOLS.json",
++    "PROSPECTIVE-OBSERVED-CONTRACT.json"
+   ],
++  "reviewedPriorStopAdoption": {
++    "bytes": 13645,
++    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-FULLFUNCTION-STOP-OBSERVED-ADOPTION.json",
++    "sha256": "b163345cae6eddad877aca5cae37d588ef007240fb56ea68a34575c305f6fcbf"
++  },
+   "rootDesignAdoption": {
++    "bytes": 3376,
+     "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+-    "bytes": 3376,
+     "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+   },
+   "runtimeTools": {
+@@ -175,12 +229,17 @@
+     }
+   },
+   "runtimeToolsObservation": {
+-    "bytes": 1691,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-RUNTIME-TOOLS.json",
+-    "sha256": "12d11061dd21827447ef0563d9ab4c5bec0c636986e8690ed067eb0be37dfa0c"
++    "bytes": 1478,
++    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RUNTIME-TOOLS.json",
++    "sha256": "e7d0f540655698dac3c15f4210307bef0112abe9316283d6c68a8245dd9eca9e"
+   },
+   "schema": "1370-native-observer-pure-controls-recorded-config/v1",
+-  "specificNegativeCount": 59,
++  "specificNegativeCount": 73,
++  "supplementAdoption": {
++    "bytes": 1768,
++    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/DIAGNOSTIC-CODEC-SUPPLEMENT-ADOPTION.json",
++    "sha256": "0e19294627060a4bc2b77d4172dce7d3b33af97ac91f4e263372cc3ba525842d"
++  },
+   "syntheticOnly": true,
+   "typescriptCompiler": {
+     "bytes": 9112572,
+@@ -193,26 +252,5 @@
+     "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+   },
+   "typescriptVersion": "5.9.3",
+-  "workerPath": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/run-native-observer-recorded-controls.mjs",
+-  "apiAdoption": {
+-    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-API-ADOPTION.json",
+-    "bytes": 3933,
+-    "sha256": "9300b1167ee0b481757023e9a93306432c115c3e6f554733aff42e6c95565c7f"
+-  },
+-  "supplementAdoption": {
+-    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/DIAGNOSTIC-CODEC-SUPPLEMENT-ADOPTION.json",
+-    "bytes": 1768,
+-    "sha256": "0e19294627060a4bc2b77d4172dce7d3b33af97ac91f4e263372cc3ba525842d"
+-  },
+-  "implementationInterface": {
+-    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/INTERFACE.json",
+-    "bytes": 1652,
+-    "sha256": "074f05314b9165ae7f99f0d83536e646b19e0074a334cbeeb55a79bed239b57d"
+-  },
+-  "originalWitnessSourcePins": {
+-    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+-    "bytes": 6892,
+-    "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
+-  },
+-  "heldUnfilledInputsOnly": []
++  "workerPath": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/run-native-observer-recorded-controls.mjs"
+ }

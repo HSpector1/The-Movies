@@ -1,0 +1,70 @@
+{
+  "schema": "1370-original-guard-diagnostic-launcher-operand-static-review/v1",
+  "executionAuthorization": false,
+  "launcherExecuted": false,
+  "originalScannerExecuted": false,
+  "protectedTreesOrProcessesRead": false,
+  "launcherSource": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/launch_shared_post_diagnostic.py",
+    "bytes": 4798,
+    "sha256": "37a9ed701ecf4ceb7a10e9a105e7ba84be640e0ed33a89a427a324a29dd044d0"
+  },
+  "loadOperandExpressions": [
+    "reviewRole",
+    "sp",
+    "ar",
+    "a['failureReadback']",
+    "a['grant']",
+    "a['guardConfig']"
+  ],
+  "actualJsonOperands": [
+    {
+      "name": "failureReadback",
+      "role": {
+        "bytes": 3879,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/FAILURE-READBACK.json",
+        "sha256": "6a32717ad157b19aeffec46083fe13f9f151bd7abdd78422edea5cbc9fd82b31"
+      },
+      "jsonObject": true
+    },
+    {
+      "name": "grant",
+      "role": {
+        "bytes": 5330,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/GRANT.json",
+        "sha256": "30abe1497f4509d0d65c3b2eeea91602f13293d4145db314d13e036ec3b27e5c"
+      },
+      "jsonObject": true
+    },
+    {
+      "name": "guardConfig",
+      "role": {
+        "bytes": 3928,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+        "sha256": "a058c0d63bd0f0432f26d4ebcae62a80977eaccfd7e2406cf7a7e6f221b23fec"
+      },
+      "jsonObject": true
+    }
+  ],
+  "sourceRoleAuthenticatedWithoutJsonParsing": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "51f11d5f9bc55d77ed9e1b7d0bce4d36d1c9af865835617d585629fa8f694f85"
+  },
+  "failureAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/SHARED-POSTFLIGHT-FAILURE-OBSERVED-ADOPTION.json",
+    "bytes": 4175,
+    "sha256": "1de73d51dd02efad1f9d09202de35a90a7c8aaa76b683275a8179d4333052f88"
+  },
+  "originalArgvLength": 13,
+  "literalBindingIndicesVerified": true,
+  "baselineConfigAndProcedureExact": true,
+  "prospectiveJsonOperands": [
+    "External genuine independent review",
+    "Final source manifest"
+  ],
+  "claimLimits": [
+    "No current process/FD/disk/Git predicate was invoked.",
+    "This finite check supplements the full independent wrapper source review; it is not runtime authority."
+  ]
+}

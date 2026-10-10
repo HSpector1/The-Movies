@@ -1,0 +1,14 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "b28572",
+      "exit_code": 0,
+      "original_token_count": 61,
+      "output": "{\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/M0-NATIVE-REFUSAL-FULLFUNCTION-CURRENT-PREFLIGHT-READBACK.json\", \"bytes\": 5780, \"sha256\": \"1dfd228db41cc38cca2f7a0c56fafb5d5e2a864ae2c9ac82df3b83fba7857ce1\"}\n",
+      "wall_time_seconds": 0.574790275
+    }
+  ],
+  "finalExit": 0,
+  "schema": "1370-root-current-ap-prelaunch-reader-actual-tool/v1",
+  "sessionId": null
+}

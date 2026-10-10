@@ -1,0 +1,62 @@
+{
+  "claimsLimits": [
+    "Source-only implementation acceptance. Independent affected controls and recorded runtime remain required.",
+    "Actual AP failure branch remains unknown; no new fit or gameplay claim."
+  ],
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_NATIVE_REFUSAL_DIAGNOSTIC_IMPLEMENTATION_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "interface": {
+    "bytes": 2006,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r1/INTERFACE.json",
+    "sha256": "7aaf37cad26fe693b2b8ad205270531260a7f4fe3afab4f82fb60e4b8ade911a"
+  },
+  "moduleImportedOrExecuted": false,
+  "originalHelperByteExact": true,
+  "originalSinkCodecTemplateUnchanged": true,
+  "reviewedPredicates": [
+    "Descriptor-only canonical field access; no parse/encode/tuple retention in capped no-fit branch.",
+    "Lower bound16385 remains separate from nullable exact bytes/family; stable context and identity follow original bounded preflight.",
+    "Actual NativeObserverFormatError class and own data code; only four allowlisted codes at exact encode/decode operations.",
+    "Complete diagnostic JSON including newline remains<=4096 with bounded fallback.",
+    "First Error retained before all diagnostic operations; original wrapper and runObserverArm cleanup precedence byte-exact.",
+    "Exact physical measurements only after successful bounded reconstruction; explicit physical refusal class only above16384."
+  ],
+  "rootDesignAdoption": {
+    "bytes": 2382,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "sha256": "e1547ab7446749afd375ec235503da7eb81ac9955b598fd1bc01304ddbe59054"
+  },
+  "routeSourcePins": {
+    "m0NativeObserverRows.mjs": {
+      "bytes": 10267,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 13129,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r1/m0ObserverRowDiagnostic.mjs",
+      "sha256": "7b16ee7e9105c38e00acd976e26c55382cf11f5923a8d95a310ba6ca8ef56160"
+    }
+  },
+  "schema": "1370-native-refusal-diagnostic-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 2133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "81a60f55f0c739e9b1bdf79858390263ba4fdc792a82c6a86ce3f49b20ef84f7"
+  },
+  "sourcePins": {
+    "m0NativeObserverRows.mjs": {
+      "bytes": 10267,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 13129,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r1/m0ObserverRowDiagnostic.mjs",
+      "sha256": "7b16ee7e9105c38e00acd976e26c55382cf11f5923a8d95a310ba6ca8ef56160"
+    }
+  },
+  "syntaxOnlyExit": 0,
+  "wholeInverseApplications": 2
+}

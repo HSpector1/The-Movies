@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-lane-20261010-r1",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/record_pure_controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "8c06b657efe0562f6f7bd1ea20e906357a807db009726ddaacb32d33e2b95025"
+  ],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "grant": {
+    "bytes": 2635,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "8c06b657efe0562f6f7bd1ea20e906357a807db009726ddaacb32d33e2b95025"
+  },
+  "launcher": {
+    "bytes": 2969,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/launch_guard_diagnostic_pure32.py",
+    "sha256": "76ab1dd36e8ef00161f0e841a25f5f0d981399586e9cf0ef893c72b149f80e8d"
+  },
+  "ownedPgid": 23803,
+  "ownedPid": 23803,
+  "ownedSid": 23803,
+  "schema": "1370-root-pure32-launch-claim/v1"
+}

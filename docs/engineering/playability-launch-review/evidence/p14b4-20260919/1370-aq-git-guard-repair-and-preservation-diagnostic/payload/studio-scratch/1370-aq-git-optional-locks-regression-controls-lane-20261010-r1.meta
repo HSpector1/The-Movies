@@ -1,0 +1,3 @@
+waiting for pid 0; then: /usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B /Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/run_git_env_controls.py /Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1/GRANT.json f4992f279d1f8658b186318da470e430566bbef1ef24c634612ab773d022673d; 2026-10-10 08:22:55 CDT
+start; 2026-10-10 08:22:55 CDT
+end, exit 0; 2026-10-10 08:22:56 CDT

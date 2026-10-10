@@ -1,0 +1,22 @@
+{
+  "schema": "1370-native-refusal-diagnostic-source-proof/v1",
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 2133,
+    "sha256": "81a60f55f0c739e9b1bdf79858390263ba4fdc792a82c6a86ce3f49b20ef84f7"
+  },
+  "originalForwardInverseRetained": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/FORWARD-INVERSE.json",
+    "bytes": 5866,
+    "sha256": "b5fd7075eb080a49759ea52d7ebe525eef64e46464a6396cc3bc335a83917ecd"
+  },
+  "r1ForwardInverse": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/R1-FORWARD-INVERSE.json",
+    "bytes": 1380,
+    "sha256": "dfadff43f7a74e97b30cbe213a0829b2906c26f9ab32597f571204af72d8419f"
+  },
+  "runObserverArmByteExact": true,
+  "typedNativeCodeBranchByteExact": true,
+  "executionAuthorization": false,
+  "candidateExecuted": false
+}

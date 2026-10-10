@@ -1,0 +1,71 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "ADDED-CONTROLS-SNIPPET.mjs": {
+      "bytes": 12351,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/ADDED-CONTROLS-SNIPPET.mjs",
+      "sha256": "0a5e333cfe7528794551cad54baa3a3da4b45398ef3442abe9830b5832b6d9a3"
+    },
+    "BASELINE-CONTRACT.json": {
+      "bytes": 8241,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/BASELINE-CONTRACT.json",
+      "sha256": "1303c82c407869b2be88a59e2fd03050a0a2caf5d7456dcedd557b9a15b473a0"
+    },
+    "BASELINE-MATRIX.json": {
+      "bytes": 11805,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/BASELINE-MATRIX.json",
+      "sha256": "e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39"
+    },
+    "BASELINE-run-native-observer-controls.mjs": {
+      "bytes": 30858,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/BASELINE-run-native-observer-controls.mjs",
+      "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+    },
+    "CONTRACT.json": {
+      "bytes": 11016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/CONTRACT.json",
+      "sha256": "cf6d04b7a7ce3591c74b714147074c949612a6647d4e91211a1fc74dcedf224c"
+    },
+    "LESSONS.md": {
+      "bytes": 772,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/LESSONS.md",
+      "sha256": "60d4f69ee8de91066c902ad8291c1b6b2ba80e3853bb5b6905d9becaf4e5234b"
+    },
+    "MATRIX.json": {
+      "bytes": 15144,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/MATRIX.json",
+      "sha256": "3dc6e11a350fb9dc7365f9738c2aad60d06cbae098efeb4ef9ac5f4ec6532edc"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 3336,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/SOURCE-PROOF.json",
+      "sha256": "7b88e43a4eaa53d7c475a3c73dca9f229f985819ba5848000a541328a9973f17"
+    },
+    "run-native-observer-controls.forward.diff": {
+      "bytes": 18257,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.forward.diff",
+      "sha256": "908cfe200483c1157f982b843941af6543618d8e6b6b6d2ffca686ef26723b12"
+    },
+    "run-native-observer-controls.inverse.diff": {
+      "bytes": 18257,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.inverse.diff",
+      "sha256": "25802cf090ccf10925080912ded6db47be843a70bc223646f5873168a21926de"
+    },
+    "run-native-observer-controls.lossless.ndiff": {
+      "bytes": 47180,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+      "sha256": "fbb9915f10a7317d877bac2d435563272a99b9046a9c22af5246eb7b273a5ead"
+    },
+    "run-native-observer-controls.mjs": {
+      "bytes": 45669,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.mjs",
+      "sha256": "28f1685e96f423de12aa3dea89087737858e179b3ca419dbe92f43379298c886"
+    },
+    "seal_controls.py": {
+      "bytes": 11849,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/seal_controls.py",
+      "sha256": "c903d9c2cc27057a2ef7251e77f7a2ac2ccfdffcc9583600344a4eb0b5611e4d"
+    }
+  },
+  "schema": "1370-native-observer-independent-controls-source-pins/v1"
+}

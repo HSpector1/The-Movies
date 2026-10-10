@@ -1,0 +1,11 @@
+{
+  "actualExit": 1,
+  "actualToolChunk": "af3a2a",
+  "finding": "Original reader recognized only forward/inverse.diff blank context. Whole late AO carry adds two authenticated diff-check stdout logs quoting that whitespace; AP source also has complete plain .diff artifacts.",
+  "initialReaderSha256": "502e22ac5a96efdeb9ad4897cbcf64219d3e2c6baf4ae9ea94c07c1f9781b92b",
+  "initialStdoutSha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140",
+  "newReaderSha256": "29a4174453e4c88d26ec1cbaa61f550f1ed776b33260a60df343a1dcb37398a7",
+  "newScope": "Only manifest-authenticated source-byte-equal exact two AO logs with literal plus-space or actual unified .diff context-only space. Expected set/index/source tree/current docs checks unchanged.",
+  "noEvidenceBytesChanged": true,
+  "status": "INITIAL_INDEX_READER_STOP_PRESERVED"
+}

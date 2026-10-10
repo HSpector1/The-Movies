@@ -1,0 +1,26 @@
+{
+  "caseCount": 86,
+  "config": {
+    "bytes": 12384,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json",
+    "sha256": "5a5c267d6a561277cfe1f738e6400f08896d4b36ddd0a67f3b88f86c5473adec"
+  },
+  "contract": {
+    "bytes": 7055,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONTRACT.json",
+    "sha256": "204b3430ee9365f58fc610fa96e5e68397b889b948882bd842299353da217660"
+  },
+  "executionAuthorization": false,
+  "outputSelector": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorder-results-20261010-r1",
+  "pendingActualGrant": null,
+  "pendingActualResult": null,
+  "positiveCount": 13,
+  "recipeMapsExact": true,
+  "reviewAliasCount": 20,
+  "specificNegativeCount": 73,
+  "worker": {
+    "bytes": 18927,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/run-native-observer-recorded-controls.mjs",
+    "sha256": "17cbe23eb50c7a07cd86a7ac3f7c882544b0bba0565a743bee0404a13ec0ff55"
+  }
+}

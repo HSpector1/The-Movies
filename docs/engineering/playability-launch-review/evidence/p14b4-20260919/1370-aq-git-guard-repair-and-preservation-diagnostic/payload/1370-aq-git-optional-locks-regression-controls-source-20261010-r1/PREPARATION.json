@@ -1,0 +1,21 @@
+{
+  "candidateExecuted": false,
+  "functions": [
+    "require",
+    "role",
+    "unique_pairs",
+    "load",
+    "authenticate",
+    "actual_function",
+    "remaining",
+    "git_command",
+    "index_identity",
+    "fixture",
+    "main"
+  ],
+  "gitProcessesExecuted": false,
+  "manifestMethod": "All finalized UTF-8 files written once, roles derived from actual retained read_bytes, then all roles read back before seal.",
+  "schema": "1370-git-optional-locks-controls-source-preparation/v1",
+  "sourceASTParsed": true,
+  "sourceCompiledWithoutExecution": true
+}

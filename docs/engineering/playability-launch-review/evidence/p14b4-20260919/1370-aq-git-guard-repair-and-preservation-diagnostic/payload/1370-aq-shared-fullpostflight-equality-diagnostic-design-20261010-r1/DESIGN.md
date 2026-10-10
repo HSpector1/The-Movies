@@ -1,0 +1,17 @@
+# Held final immutable equality diagnostic
+
+Actual shared postflight 54871 failed at snapshot.py line 154, before writing any snapshot or raw PS/FD files. The actual changed immutable field is unknown. Prior generation HEAD guard STOP remains unchanged; this postflight does not admit protection or a retry.
+
+The authenticated bc21 baseline retains nineteen immutable keys. Protected source trees are represented by five aggregate digest strings; dependency inventories, physical checkout identities, strict roots and ancestry chains retain structured metadata. Consequently a changed protected digest can identify its root and old/new digest, but cannot identify a particular leaf from this baseline. Do not invent a leaf or classify the difference as harmless.
+
+Proposed source-only delta: immediately before the existing final immutable equality requirement, when equality is false, compare the already computed in-memory immutable object with the authenticated baseline. Emit one new bounded diagnostic file, then execute the unchanged failing requirement. No extra protected-tree traversal, subprocess, private bytes export, baseline replacement, timestamp repair, deadline or cap change.
+
+Record source/config/baseline roles; the exact failing predicate; differing top-level keys; at most 32 first differing scalar key paths in deterministic traversal order; total visited difference count when completely counted; and an explicit truncation flag otherwise. Each difference records old/new types and bounded scalar identities. Strings longer than 256 UTF-8 bytes are represented by exact UTF-8 length and SHA256, never truncated values passed off as exact. Cap output at 16 KiB including newline. Any diagnostic error or excess output must preserve the original equality failure; no success snapshot is written.
+
+Structured private inventory key paths and metadata belong in a LOCAL_HASH_SIZE_ONLY diagnostic artifact. A separate public summary may name only top-level categories, counts and artifact hash/size. No raw PS/FD or private file contents are copied. Scalar protected-root digests can be public with their root category. Bounded work must stop after 65536 visited nodes; record incomplete diagnostic coverage explicitly. This is diagnostic work inside the existing comparison, not an alternate acceptance predicate.
+
+Meaningful pure controls before recorded use: identical objects produce no diagnostic; changed root inode/mtime identifies the exact field; added/removed metadata entry distinguishes missing versus null; changed aggregate digest identifies root only; long or Unicode values retain exact hash/size; difference and traversal limits set explicit incomplete flags; output/write failure preserves the original error; equality still fails with every diagnosed difference. Controls must not treat arbitrary errors as intended refusal.
+
+Failed-post readback must bind genuine actual tool/GRANT/stdout/stderr, retain toolExit=1, failed comparison status, scanner recorded identity and prior route readback/exits, fullPostflightSnapshot=null, fullImmutableEqual=false, protectionAccepted=false. Fresh scoped absence and lane state are root observations; use null until genuinely recorded. Do not invoke the existing success-only reader or manufacture a snapshot.
+
+This proposal is held for independent/root review. No implementation or runtime has occurred. Recent-postflight protection, protected STOP adoption and retry preparation remain unfilled because mandatory protection failed.

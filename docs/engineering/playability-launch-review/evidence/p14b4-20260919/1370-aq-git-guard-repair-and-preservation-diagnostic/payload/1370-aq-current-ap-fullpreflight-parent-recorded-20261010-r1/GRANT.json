@@ -1,0 +1,52 @@
+{
+  "actualFullInventoryRun": true,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "before-fill",
+    "before-fill-current-ap-r1"
+  ],
+  "automaticRetry": false,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "executionAuthorization": true,
+  "game": false,
+  "noHelperOriginalLockAbsentRequired": true,
+  "originalM0ContentProof": false,
+  "ownedPgid": 59317,
+  "ownedPid": 59317,
+  "ownedSid": 59317,
+  "perCommandTimeoutSeconds": 180,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 3864,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py",
+    "sha256": "bb793bc87fbdefa5670ae0bb10ddc155a9bd2796fc2e2016f960038a1ee297da"
+  },
+  "schema": "1370-ap-root-direct-current-ap-fullpreflight-grant/v1",
+  "sourceAdoption": {
+    "bytes": 1039,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULLGUARD-SOURCE-ADOPTION.json",
+    "sha256": "bcfa7e4a839be9d6c02b2cc258392a2c06b0f4559afdddf476a4d478359dd4ac"
+  },
+  "sourcePins": {
+    "bytes": 5379,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "1c00f8f4e42402a972182ed643369c279149d74cb6a5cdb9208aa15269118c69"
+  },
+  "sourceReview": {
+    "bytes": 6096,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "084aa42ad2d334b35eb27928cd99f5470a97e7fc2db1bad3c0ce8d8b93938b79"
+  },
+  "startMonotonic": 138673.809676677,
+  "status": "GRANTED_ONCE_ORIGINAL_COMPLETE_CURRENT_AP_FULL_PREFLIGHT",
+  "utc": "2026-10-10T11:42:14.347064+00:00",
+  "wholeScanDeadline": null
+}

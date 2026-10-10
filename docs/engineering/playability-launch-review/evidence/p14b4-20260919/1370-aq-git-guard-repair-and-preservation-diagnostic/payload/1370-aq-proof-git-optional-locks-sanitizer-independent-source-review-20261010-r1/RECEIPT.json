@@ -1,0 +1,78 @@
+{
+  "checks": [
+    "Exact full-source replacement only: drop inherited GIT_ keys then force fresh dictionary GIT_OPTIONAL_LOCKS string0.",
+    "Original guard_command_bytes git selection, cmd caller, command argv, clocks and all other definitions byte exact.",
+    "Historical original runner unchanged and no route/proof/current identity rebound.",
+    "No import of whole runner or candidate execution; actual function regression remains unrun pending root grant."
+  ],
+  "concreteFindings": [],
+  "correctedSource": {
+    "bytes": 44107,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/runner.py",
+    "sha256": "6d83467284f7ecdf34c2d20c0aeab648819539406768beda0c3370d2651000fa"
+  },
+  "decision": "ACCEPT_STATIC_PROOF_GIT_OPTIONAL_LOCKS_SANITIZER_SOURCE_ONLY",
+  "exactWholeForwardInverseApplications": 2,
+  "executionAuthorization": false,
+  "limits": [
+    "Fix removes an index-write capability from status; it does not identify any leaf or cause for original54871 or diagnostic96592 commonGit aggregate mismatch.",
+    "No protected preservation, baseline replacement, types/game admission or execution authorization."
+  ],
+  "originalSource": {
+    "bytes": 44067,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+    "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+  },
+  "routeSourcePins": {
+    "CONTRACT.json": {
+      "bytes": 2198,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/CONTRACT.json",
+      "sha256": "a02303920aad61d9d450711d36b5755820eb71c6266958ea3eee7f1ad8dc8cff"
+    },
+    "SOURCE.forward.diff": {
+      "bytes": 501,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE.forward.diff",
+      "sha256": "6745ad64ae00d48af69087c7e20f4e5bf6e60b7edd6270dc3cf10d0a97a6babd"
+    },
+    "WHOLE-INVERSE.json": {
+      "bytes": 53321,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/WHOLE-INVERSE.json",
+      "sha256": "419cf7449c82416876ec311cd29bd038c8fa7337ce4fd3741e85468713662ea2"
+    },
+    "runner.py": {
+      "bytes": 44107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/runner.py",
+      "sha256": "6d83467284f7ecdf34c2d20c0aeab648819539406768beda0c3370d2651000fa"
+    }
+  },
+  "schema": "1370-proof-git-optional-locks-sanitizer-independent-source-review/v1",
+  "soleChangedDefinition": "clean_git_env",
+  "sourceManifest": {
+    "bytes": 1226,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "162098174210e249daafd838b7dbaf5814a492f06c977abdf0ae9dd4261b6fba"
+  },
+  "sourcePins": {
+    "CONTRACT.json": {
+      "bytes": 2198,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/CONTRACT.json",
+      "sha256": "a02303920aad61d9d450711d36b5755820eb71c6266958ea3eee7f1ad8dc8cff"
+    },
+    "SOURCE.forward.diff": {
+      "bytes": 501,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE.forward.diff",
+      "sha256": "6745ad64ae00d48af69087c7e20f4e5bf6e60b7edd6270dc3cf10d0a97a6babd"
+    },
+    "WHOLE-INVERSE.json": {
+      "bytes": 53321,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/WHOLE-INVERSE.json",
+      "sha256": "419cf7449c82416876ec311cd29bd038c8fa7337ce4fd3741e85468713662ea2"
+    },
+    "runner.py": {
+      "bytes": 44107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/runner.py",
+      "sha256": "6d83467284f7ecdf34c2d20c0aeab648819539406768beda0c3370d2651000fa"
+    }
+  },
+  "unchangedDefinitions": 35
+}

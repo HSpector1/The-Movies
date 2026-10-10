@@ -1,0 +1,13 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "a7b4b0",
+      "exit_code": 0,
+      "original_token_count": 77,
+      "output": "{\"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1/READBACK.json\", \"bytes\": 4227, \"sha256\": \"1d643b28204af9a79801f5e465db9a40eeec66343fe37efe44fbaf13d6d5a4f9\"}, \"status\": \"ACTUAL_ORIGINAL_SCANNER_DIAGNOSTIC_STOP_RETAINED\"}\n",
+      "wall_time_seconds": 0.385881462
+    }
+  ],
+  "finalExit": 0,
+  "sessionId": null
+}

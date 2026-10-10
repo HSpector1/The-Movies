@@ -1,0 +1,62 @@
+{
+  "actualResult": null,
+  "candidateImported": false,
+  "caseCount": 86,
+  "changedSourceDiffs": {
+    "run-native-observer-controls.forward.diff": {
+      "bytes": 18257,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.forward.diff",
+      "sha256": "908cfe200483c1157f982b843941af6543618d8e6b6b6d2ffca686ef26723b12"
+    },
+    "run-native-observer-controls.inverse.diff": {
+      "bytes": 18257,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.inverse.diff",
+      "sha256": "25802cf090ccf10925080912ded6db47be843a70bc223646f5873168a21926de"
+    },
+    "run-native-observer-controls.lossless.ndiff": {
+      "bytes": 47180,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+      "sha256": "fbb9915f10a7317d877bac2d435563272a99b9046a9c22af5246eb7b273a5ead"
+    }
+  },
+  "completeInverseRestoredOriginalLibrary": true,
+  "completeLosslessForwardInverseApplied": true,
+  "controlsExecuted": false,
+  "currentDiagnosticModule": {
+    "bytes": 13288,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
+    "sha256": "db78301bf62d52b574ed8df272d0fe3d7b10c2568f930d10eb359092725bbba6"
+  },
+  "currentDiagnosticSourceManifest": {
+    "bytes": 3301,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "2135c9485b6bc09f0f2a78740f4bdbdb9b7a910a8503a317bd9cfa8e29f0f818"
+  },
+  "executionAuthorization": false,
+  "onlyInheritedExecutableChange": "One exact diagnostic-schema expectation v1 to native diagnostic v2; original72 test registration bodies unchanged. Fourteen appended native case registrations and source roster rows.",
+  "original18PacketExactRole": {
+    "bytes": 27476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+    "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+  },
+  "original72ProjectionExact": true,
+  "positiveCount": 13,
+  "predecessorLibrary": {
+    "bytes": 30858,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+    "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+  },
+  "predecessorMatrix": {
+    "bytes": 11805,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/MATRIX.json",
+    "sha256": "e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39"
+  },
+  "predecessorSourceManifest": {
+    "bytes": 2042,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "be758595a589a51f559fe6933c8b6a68b23e16691ab32ee87aebf8d7b2dd64f9"
+  },
+  "schema": "1370-native-refusal-diagnostic-controls-source-proof/v1",
+  "specificNegativeCount": 73,
+  "syntaxCheckExecuted": false
+}

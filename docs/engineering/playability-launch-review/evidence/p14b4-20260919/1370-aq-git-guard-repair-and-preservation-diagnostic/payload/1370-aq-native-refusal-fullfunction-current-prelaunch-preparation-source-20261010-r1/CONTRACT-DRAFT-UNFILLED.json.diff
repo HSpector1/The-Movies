@@ -1,0 +1,143 @@
+--- 
++++ 
+@@ -1,6 +1,78 @@
+ {
+-  "schema": "1370-ap-current-ao-prelaunch-source-contract/v2",
+-  "requiredSourceReviewDecision": "ACCEPT_STATIC_CURRENT_AO_FULLFUNCTION_PRELAUNCH_SOURCE_ONLY",
++  "actualMetadataContract": {
++    "prelaunchActualTool": [
++      "toolSessionId",
++      "finalExit",
++      "chunks"
++    ],
++    "preservedOriginalKeys": true,
++    "rootReaderActualTool": [
++      "sessionId",
++      "finalExit",
++      "allToolChunks"
++    ]
++  },
++  "actualOwnedGroupSource": "Authenticated future actual fullguard grant.ownedPgid plus actual pure86 adoption/readback actualOwnedIds; none guessed or hardcoded.",
++  "executionAuthorization": false,
++  "freshFullInventory": false,
++  "fullGuardAdoptionProspectiveContract": {
++    "bytes": 1365,
++    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULLGUARD-ADOPTION-PROSPECTIVE-CONTRACT.json",
++    "sha256": "998f932cb9ded3667f702bde23fd1c7d4baceb06349f4dbb99759ad1411d39bd"
++  },
++  "fullfunctionProtectionProspectiveContract": {
++    "bytes": 2178,
++    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/FULLFUNCTION-PROTECTION-PROSPECTIVE-CONTRACT.json",
++    "sha256": "6be893244e2b268983325c78fa117645ca8ae7afa24983161ee789e330f6b9a3"
++  },
++  "game": false,
++  "historicalTypesRemainHistorical": true,
++  "nativeControlsProspectiveContract": {
++    "actualRole": {
++      "bytes": 16532,
++      "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
++      "sha256": "385249f0239d6999318b62c6781c0f24c97e10600aa47dba6b51ddf6c4693ed4"
++    },
++    "caseCount": 86,
++    "independentDecision": "ACCEPT_ACTUAL_PURE_NATIVE_REFUSAL_DIAGNOSTIC_86_CONTROLS_ONLY",
++    "independentSchema": "1370-native-refusal-diagnostic-controls-independent-observed-review/v1",
++    "positiveCount": 13,
++    "readbackSchema": "1370-root-native-refusal-diagnostic-controls-actual-readback/v1",
++    "readbackStatus": "ACTUAL_PURE_86_NATIVE_REFUSAL_DIAGNOSTIC_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW",
++    "rootSchema": "1370-root-native-refusal-diagnostic-controls-observed-adoption/v1",
++    "rootStatus": "ROOT_ADOPTED_ACTUAL_NATIVE_REFUSAL_DIAGNOSTIC_86_CONTROLS_ONLY",
++    "specificNegativeCount": 73
++  },
++  "originalConfigFillsOnly": [
++    "protectedSnapshot",
++    "ownedPgids",
++    "outputPath"
++  ],
++  "originalScannerHelpersUnchanged": true,
++  "overallTimeoutAdded": false,
++  "perCommandTimeoutSeconds": 180,
++  "protectionContract": {
++    "actualShortIndependentReview": null,
++    "actualShortPreflight": null,
++    "actualShortReadback": null,
++    "currentAPFullPreflightAdoption": null,
++    "currentAPFullPreflightSnapshot": null,
++    "historicalTypesHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
++    "nativeControlsObservedAdoption": {
++      "bytes": 13238,
++      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-CONTROLS-OBSERVED-ADOPTION.json",
++      "sha256": "401e54ce61697d70e1fbbf2d10a7d263a2ff7afa465ab58f00faa9a5002431c4"
++    },
++    "nativeRefusalControlsObservedAdoption": {
++      "bytes": 16532,
++      "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
++      "sha256": "385249f0239d6999318b62c6781c0f24c97e10600aa47dba6b51ddf6c4693ed4"
++    },
++    "schema": "1370-root-fullfunction-current-protection/v4",
++    "status": "ROOT_ADOPTED_CURRENT_FULLFUNCTION_PREFLIGHT_UNDER_CONTINUOUS_FREEZE"
++  },
++  "rawPsFdLocalHashSizeOnly": true,
++  "requiredSourceReviewDecision": "ACCEPT_STATIC_CURRENT_AP_FULLFUNCTION_PRELAUNCH_SOURCE_ONLY",
+   "requiredSourceReviewFields": [
+     "sourceManifest",
+     "sourcePins",
+@@ -8,53 +80,13 @@
+     "concreteFindings",
+     "executionAuthorization"
+   ],
++  "requiredSourceReviewSchema": "1370-aq-current-ap-fullfunction-prelaunch-independent-source-review/v1",
+   "reviewAliasNames": [
+-    "current-ao-root-prelaunch.py",
++    "current-ap-root-prelaunch.py",
+     "PRELAUNCH-CONFIG-UNFILLED.json",
+-    "run_current_ao_prelaunch_once.py",
+-    "read_current_ao_prelaunch.py"
++    "run_current_ap_prelaunch_once.py",
++    "read_current_ap_prelaunch.py"
+   ],
+-  "nativeControlsProspectiveContract": {
+-    "rootSchema": "1370-root-native-observer-controls-observed-adoption/v1",
+-    "rootStatus": "ROOT_ADOPTED_ACTUAL_NATIVE_OBSERVER_72_CONTROLS_ONLY",
+-    "readbackSchema": "1370-root-native-observer-controls-actual-readback/v1",
+-    "readbackStatus": "ACTUAL_PURE_72_NATIVE_OBSERVER_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW",
+-    "independentDecision": "ACCEPT_ACTUAL_PURE_NATIVE_OBSERVER_72_CONTROLS_ONLY",
+-    "actualRole": null,
+-    "caseCount": 72,
+-    "positiveCount": 13,
+-    "specificNegativeCount": 59
+-  },
+-  "protectionContract": {
+-    "schema": "1370-root-fullfunction-current-protection/v3",
+-    "status": "ROOT_ADOPTED_CURRENT_FULLFUNCTION_PREFLIGHT_UNDER_CONTINUOUS_FREEZE",
+-    "currentAOFullPreflightAdoption": {
+-      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+-      "bytes": 4729,
+-      "sha256": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552"
+-    },
+-    "currentAOFullPreflightSnapshot": {
+-      "bytes": 9552315,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/SNAPSHOT.json",
+-      "sha256": "ed62b148395ad06a7e06ce68b2581097517a2483fa91c3baa4818513f358aad4"
+-    },
+-    "actualShortPreflight": null,
+-    "actualShortReadback": null,
+-    "actualShortIndependentReview": null,
+-    "historicalTypesHead": "7087f116cf998fd86e33fb8e004df628e0686dbd"
+-  },
+-  "originalScannerHelpersUnchanged": true,
+-  "originalConfigFillsOnly": [
+-    "protectedSnapshot",
+-    "ownedPgids",
+-    "outputPath"
+-  ],
+-  "freshFullInventory": false,
+-  "perCommandTimeoutSeconds": 180,
+-  "overallTimeoutAdded": false,
+-  "rawPsFdLocalHashSizeOnly": true,
+-  "historicalTypesRemainHistorical": true,
+-  "scopeAmendmentNeedsExternalParentReview": true,
+-  "game": false,
+-  "executionAuthorization": false
++  "schema": "1370-aq-current-ap-native-refusal-prelaunch-source-contract/v2",
++  "scopeAmendmentNeedsExternalParentReview": true
+ }

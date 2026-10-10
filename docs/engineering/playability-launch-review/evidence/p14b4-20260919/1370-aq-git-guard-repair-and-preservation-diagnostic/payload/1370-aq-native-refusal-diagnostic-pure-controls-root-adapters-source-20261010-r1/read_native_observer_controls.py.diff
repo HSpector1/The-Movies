@@ -1,0 +1,50 @@
+--- /Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3/read_native_observer_controls.py
++++ /Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/read_native_observer_controls.py
+@@ -1,7 +1,7 @@
+ import hashlib,json,os,stat,sys
+ from pathlib import Path
+ S=Path('/Users/zacheryspector/studio-scratch')
+-P=S/'1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1'
++P=S/'1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1'
+ def role(p):
+  p=Path(p);s=p.lstat();assert p.resolve(strict=True)==p and stat.S_ISREG(s.st_mode) and s.st_nlink==1
+  b=p.read_bytes();return {'path':str(p),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
+@@ -10,7 +10,7 @@
+ a=read(P/'ACTUAL-TOOL.json');assert a['sessionId']==int(sys.argv[1]) and type(a['finalExit']) is int and a['finalExit']==a['allToolChunks'][-1]['exit_code']==0
+ g=read(P/'GRANT.json');claim=read(P/'LAUNCH-CLAIM.json')
+ assert claim['grant']==role(P/'GRANT.json') and claim['actualOwnGroupConfirmed'] and claim['directExecPreservesOuterIdentity']
+-for key in ('sourcePins','sourceReview','config','recipe','sourceAdoption','runtimeToolsObservation','implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api','apiAdoption','supplementAdoption'):assert role(g[key]['path'])==g[key]
++for key in ('sourcePins','sourceReview','config','recipe','sourceAdoption','runtimeToolsObservation','implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api','apiAdoption','supplementAdoption','diagnosticSourceManifest','diagnosticSourceReview','diagnosticInterface','diagnosticDesignAdoption','compilerToolsObservation','prospectiveObservedContract','reviewedPriorStopAdoption'):assert role(g[key]['path'])==g[key]
+ c=read(g['config']['path']);O=Path(c['recorderOutputPath']);W=Path(c['outputPath']);assert O!=W
+ r=read(O/'RESULT.json');v=read(O/'CONTROLS-RESULT.json');wv=read(W/'CONTROLS-RESULT.json')
+ assert r['status']=='NATIVE_OBSERVER_PURE_CONTROLS_COMPLETE_UNADOPTED' and r['actualChildExit']==0 and r['groupClear'] is True and r['timedOut'] is False and r['childPid']==r['ownedPgid'] and r['startupOwnedBeforeExec'] and r['pgidConfirmed']
+@@ -19,15 +19,15 @@
+  x=role(O/(name+'.bin'));assert x['bytes']==r[name+'Bytes'] and x['sha256']==r[name+'Sha256'] and x['bytes']<=8388608
+ assert (O/'stderr.bin').stat().st_size==0 and json.loads((O/'stdout.bin').read_bytes())==v==wv
+ assert v['schema']=='1370-native-observer-independent-controls-result/v1' and v['status']=='PURE_NATIVE_OBSERVER_CODEC_SINK_AND_AFFECTED_CONSUMERS_COMPLETED_UNADOPTED'
+-assert v['positiveCount']==c['positiveCount']==13 and v['specificNegativeCount']==c['specificNegativeCount']==59
+-assert v['caseCount']==len(v['results'])==c['caseCount']==72
++assert v['positiveCount']==c['positiveCount']==13 and v['specificNegativeCount']==c['specificNegativeCount']==73
++assert v['caseCount']==len(v['results'])==c['caseCount']==86
+ assert v['originalOrderingCases']==18 and v['originalParserCasesReplayed']==0 and v['historicalObserverControlsReplayed']==0
+ assert v['inputRoles']==c['inputs']
+ for x in v['inputRoles'].values():assert role(x['path'])==x
+ matrix=read(c['inputs']['MATRIX.json']['path'])
+ assert v['results']==[{**x,'verdict':'ACCEPT_POSITIVE' if x['expected']=='GREEN' else 'ACCEPT_SPECIFIC_REFUSAL'} for x in matrix['cases']]
+-assert len(set(x['id'] for x in v['results']))==72
+-for k in ('implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption'):assert v[k]==g[k]
++assert len(set(x['id'] for x in v['results']))==86
++for k in ('implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','diagnosticSourceManifest','diagnosticSourceReview','diagnosticInterface','diagnosticDesignAdoption','prospectiveObservedContract'):assert v[k]==g[k]
+ assert v['sourceReview']==g['sourceReview'] and v['sourceManifest']==g['sourcePins']
+ assert v['grantSha256']==role(P/'GRANT.json')['sha256'] and v['runtimeTools']==g['runtimeTools']
+ for x in v['runtimeTools'].values():assert role(x['path'])==x
+@@ -48,7 +48,7 @@
+   except ProcessLookupError:checks.append({'kind':label,'id':n,'result':'ESRCH'})
+   else:raise RuntimeError('Actual owned identity still present')
+ assert not os.path.lexists(S/'HEAVY-LANE-LOCK')
+-out={'schema':'1370-root-native-observer-controls-actual-readback/v1','status':'ACTUAL_PURE_72_NATIVE_OBSERVER_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW','actualTool':role(P/'ACTUAL-TOOL.json'),'toolSessionId':a['sessionId'],'toolExit':0,'grant':role(P/'GRANT.json'),'parentClaim':role(P/'LAUNCH-CLAIM.json'),'result':role(O/'CONTROLS-RESULT.json'),'workerResult':role(W/'CONTROLS-RESULT.json'),'recorderResult':role(O/'RESULT.json'),'stdout':role(O/'stdout.bin'),'stderr':role(O/'stderr.bin'),'laneLog':role(lane),'laneMetadata':role(meta),'caseCount':72,'positiveCount':13,'specificNegativeCount':59,'historicalControlSetsReplayed':False,'originalOrderingCases':18,'originalParserCasesReplayed':0,'fullQualificationAccepted':False,'allSpecificControlsPassed':True,'actualOwnedIds':owned,'scopedOwnershipChecks':checks,'laneReleased':True,'recorderSeconds':r['elapsedSeconds'],'preparationSeconds':claim['preparationElapsedSeconds'],'inputRoles':v['inputRoles'],'generatedModules':v['generatedModules'],'privateM0ReadOrWritten':False,'game':False,'executionAuthorization':False,**{k:g[k] for k in ('sourceAdoption','sourcePins','sourceReview','implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api','apiAdoption','supplementAdoption')}}
++out={'schema':'1370-root-native-refusal-diagnostic-controls-actual-readback/v1','status':'ACTUAL_PURE_86_NATIVE_REFUSAL_DIAGNOSTIC_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW','actualTool':role(P/'ACTUAL-TOOL.json'),'toolSessionId':a['sessionId'],'toolExit':0,'grant':role(P/'GRANT.json'),'parentClaim':role(P/'LAUNCH-CLAIM.json'),'result':role(O/'CONTROLS-RESULT.json'),'workerResult':role(W/'CONTROLS-RESULT.json'),'recorderResult':role(O/'RESULT.json'),'stdout':role(O/'stdout.bin'),'stderr':role(O/'stderr.bin'),'laneLog':role(lane),'laneMetadata':role(meta),'caseCount':86,'positiveCount':13,'specificNegativeCount':73,'historicalControlSetsReplayed':False,'originalOrderingCases':18,'originalParserCasesReplayed':0,'fullQualificationAccepted':False,'allSpecificControlsPassed':True,'actualOwnedIds':owned,'scopedOwnershipChecks':checks,'laneReleased':True,'recorderSeconds':r['elapsedSeconds'],'preparationSeconds':claim['preparationElapsedSeconds'],'inputRoles':v['inputRoles'],'generatedModules':v['generatedModules'],'privateM0ReadOrWritten':False,'game':False,'executionAuthorization':False,**{k:g[k] for k in ('sourceAdoption','sourcePins','sourceReview','implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api','apiAdoption','supplementAdoption','diagnosticSourceManifest','diagnosticSourceReview','diagnosticInterface','diagnosticDesignAdoption','compilerToolsObservation','prospectiveObservedContract','reviewedPriorStopAdoption')}}
+ p=P/'READBACK.json'
+ with p.open('x') as f:json.dump(out,f,sort_keys=True,indent=2);f.write('\n');f.flush();os.fsync(f.fileno())
+-p.chmod(0o444);print(json.dumps({'readback':role(p),'recorderSeconds':r['elapsedSeconds'],'actualOwnedIds':owned,'caseCount':72}))
++p.chmod(0o444);print(json.dumps({'readback':role(p),'recorderSeconds':r['elapsedSeconds'],'actualOwnedIds':owned,'caseCount':86}))

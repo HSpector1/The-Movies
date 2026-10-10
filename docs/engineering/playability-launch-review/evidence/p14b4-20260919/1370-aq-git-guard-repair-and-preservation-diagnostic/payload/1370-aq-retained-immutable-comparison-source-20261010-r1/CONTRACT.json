@@ -1,0 +1,53 @@
+{
+  "actualImmutableRole": null,
+  "actualResult": null,
+  "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+  "baseline": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "bounds": {
+    "changedPaths": 512,
+    "inputBytesEach": 16777216,
+    "outputIncludingNewline": 131072,
+    "topLevelKeys": 256
+  },
+  "candidateExecuted": false,
+  "claimLimits": [
+    "aggregate protectedDigest difference identifies its root only, not a leaf",
+    "does not run or admit original guard",
+    "does not retrospectively accept failure54871",
+    "no filesystem tree traversal or private source reads",
+    "does not replace any original fullguard predicate"
+  ],
+  "cli": [
+    "pinned-physical-python",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/compare_retained_immutable.py",
+    "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/BASELINE-ROLE.json",
+    "genuine-actual-immutable-role-json",
+    "fresh-scratch-local-comparison-json"
+  ],
+  "executionAuthorization": false,
+  "schema": "1370-retained-immutable-comparison-source-contract/v1",
+  "semantics": {
+    "actualProjection": "direct map",
+    "baselineProjection": "immutable",
+    "differingTopLevelKeys": "complete, independently traversed before detailed result construction",
+    "duplicateKeys": "fatal refusal",
+    "overBound": "explicit STOP, complete top keys retained, all delta rows withheld, coverage false and exit 2",
+    "scalarValues": "exact parsed values, including integers and strings; no coercion or hash-only substitution",
+    "typeReplacement": "one complete node replacement at first type boundary; matching containers recurse",
+    "typedPath": "string dict keys and integer list indices, never dotted keys",
+    "unchanged": "complete empty delta, not a preservation acceptance"
+  },
+  "source": {
+    "bytes": 7099,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-source-20261010-r1/compare_retained_immutable.py",
+    "sha256": "873d987d60b4a47f1a91d906269f871da5dc2bf487df68bff5834ed60d88538e"
+  },
+  "sourceOnly": true,
+  "staticSyntax": "AST parse and compile only; no module imports or comparison execution"
+}

@@ -1,0 +1,307 @@
+{
+  "schema": "1370-aq-unsealed-r2-draft-preservation/v1",
+  "executionAuthorization": false,
+  "description": "Exact provisional drafts before genuine current-protection data fill. Copies retain provisional hashes; this is not runtime acceptance.",
+  "roles": [
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+        "bytes": 6365,
+        "sha256": "963093714938b1d2d8063e8a9bddcab81e8d1f7bcb346c08a94ce7222709fa2c"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/route/SOURCE-PINS.json",
+        "bytes": 6365,
+        "sha256": "963093714938b1d2d8063e8a9bddcab81e8d1f7bcb346c08a94ce7222709fa2c"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/CONFIG-TEMPLATE.mts",
+        "bytes": 1154,
+        "sha256": "7b9678dd47865c97bd25919918e17e6d0ad0b35a973615fda857d2be383e2005"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/route/CONFIG-TEMPLATE.mts",
+        "bytes": 1154,
+        "sha256": "7b9678dd47865c97bd25919918e17e6d0ad0b35a973615fda857d2be383e2005"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/CORE-TEST-TEMPLATE.ts",
+        "bytes": 3955,
+        "sha256": "aa8af512e76af8fecef51f6c8f118d71b0c6c05dcf43c6e434148a6ce89ce00a"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/route/CORE-TEST-TEMPLATE.ts",
+        "bytes": 3955,
+        "sha256": "aa8af512e76af8fecef51f6c8f118d71b0c6c05dcf43c6e434148a6ce89ce00a"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/canonical-typescript-transform.mjs",
+        "bytes": 1906,
+        "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/route/canonical-typescript-transform.mjs",
+        "bytes": 1906,
+        "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/record-fullfunction.py",
+        "bytes": 16762,
+        "sha256": "77277fd5814ef9aaf834ec690c54bcf8adbc5a72eea531177f9f8b425935b52e"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/route/record-fullfunction.py",
+        "bytes": 16762,
+        "sha256": "77277fd5814ef9aaf834ec690c54bcf8adbc5a72eea531177f9f8b425935b52e"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/run-fullfunction.py",
+        "bytes": 35650,
+        "sha256": "ea15060063f55059b17e09e25526a220f5c86b1d65cf4f9839d2740337bc9035"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/route/run-fullfunction.py",
+        "bytes": 35650,
+        "sha256": "ea15060063f55059b17e09e25526a220f5c86b1d65cf4f9839d2740337bc9035"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/run-fullfunction.mjs",
+        "bytes": 38940,
+        "sha256": "ebc90ada317e8b72625f00c6a22713e054f04050c51bb05c75e6fb1ce1b671c9"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/route/run-fullfunction.mjs",
+        "bytes": 38940,
+        "sha256": "ebc90ada317e8b72625f00c6a22713e054f04050c51bb05c75e6fb1ce1b671c9"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/RESOLUTION-SOURCE-BINDING.json",
+        "bytes": 78208,
+        "sha256": "5f00139d2e30e94a5b5cea6db164f8786fd65ee4fc89c24d52b0f75f945ae373"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/route/RESOLUTION-SOURCE-BINDING.json",
+        "bytes": 78208,
+        "sha256": "5f00139d2e30e94a5b5cea6db164f8786fd65ee4fc89c24d52b0f75f945ae373"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/CONFIG.json",
+        "bytes": 31614,
+        "sha256": "10053fcc5f8554a5f7bf2cbaed1d2821ff18f15acf29a19529cbcc8e449bd73f"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/route/CONFIG.json",
+        "bytes": 31614,
+        "sha256": "10053fcc5f8554a5f7bf2cbaed1d2821ff18f15acf29a19529cbcc8e449bd73f"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/RECIPE.json",
+        "bytes": 41137,
+        "sha256": "7bccd0e6bf7cbdc1f6003e772c572e5e613c8eebc98b2b9ada3c1f55014841d1"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/route/RECIPE.json",
+        "bytes": 41137,
+        "sha256": "7bccd0e6bf7cbdc1f6003e772c572e5e613c8eebc98b2b9ada3c1f55014841d1"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/WHOLE-FORWARD-INVERSE.json",
+        "bytes": 521105,
+        "sha256": "8e1a2270539aa44fdfa9b15ccbbbe9ed8387a8426e25860a24707fe458612056"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/route/WHOLE-FORWARD-INVERSE.json",
+        "bytes": 521105,
+        "sha256": "8e1a2270539aa44fdfa9b15ccbbbe9ed8387a8426e25860a24707fe458612056"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r2/SOURCE-PINS.json",
+        "bytes": 1363,
+        "sha256": "fa74b754d5ead7cb441e63ddb4a25fcbb8c1bf0c7cf72dd3ab05d76d164b192f"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/parent/SOURCE-PINS.json",
+        "bytes": 1363,
+        "sha256": "fa74b754d5ead7cb441e63ddb4a25fcbb8c1bf0c7cf72dd3ab05d76d164b192f"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r2/launch-fullfunction.py",
+        "bytes": 21423,
+        "sha256": "28f09a271ed5d76c1c4804257651a030896efafc1313d136e91fe10606dc638c"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/parent/launch-fullfunction.py",
+        "bytes": 21423,
+        "sha256": "28f09a271ed5d76c1c4804257651a030896efafc1313d136e91fe10606dc638c"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r2/read-fullfunction.py",
+        "bytes": 15592,
+        "sha256": "dc78bd567acdda01b40a7c20d697568f02ae734d821b6fdc632c7df9d196a6fa"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/parent/read-fullfunction.py",
+        "bytes": 15592,
+        "sha256": "dc78bd567acdda01b40a7c20d697568f02ae734d821b6fdc632c7df9d196a6fa"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r2/RECIPE.json",
+        "bytes": 2344,
+        "sha256": "4447fe9b5afd033cd41ed5ab8b9960a6cbab6c737ab86ce547597c7179dda2dd"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/parent/RECIPE.json",
+        "bytes": 2344,
+        "sha256": "4447fe9b5afd033cd41ed5ab8b9960a6cbab6c737ab86ce547597c7179dda2dd"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r2/WHOLE-FORWARD-INVERSE.json",
+        "bytes": 132833,
+        "sha256": "1c2701fe0049ba97507975e49b99e1a2a894164ce02ceec4baa9176fc6894fbb"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/parent/WHOLE-FORWARD-INVERSE.json",
+        "bytes": 132833,
+        "sha256": "1c2701fe0049ba97507975e49b99e1a2a894164ce02ceec4baa9176fc6894fbb"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r2/SOURCE-PINS.json",
+        "bytes": 1417,
+        "sha256": "464f3d6b3e194f667cd5e7f7aaf4f75724b60b66a19598fa3cd81eee60de5034"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/wrappers/SOURCE-PINS.json",
+        "bytes": 1417,
+        "sha256": "464f3d6b3e194f667cd5e7f7aaf4f75724b60b66a19598fa3cd81eee60de5034"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r2/run_observer_fullfunction_once.py",
+        "bytes": 12459,
+        "sha256": "62a290baebff47e6e4b9597fe7461ff81c63b326abc56984f4564a2dc424f9bf"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/wrappers/run_observer_fullfunction_once.py",
+        "bytes": 12459,
+        "sha256": "62a290baebff47e6e4b9597fe7461ff81c63b326abc56984f4564a2dc424f9bf"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r2/run_observer_reader_once.py",
+        "bytes": 2608,
+        "sha256": "f24cea588267f4e722358e2585c56b58a62d54fd903b0e701e0d8b65a55084a8"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/wrappers/run_observer_reader_once.py",
+        "bytes": 2608,
+        "sha256": "f24cea588267f4e722358e2585c56b58a62d54fd903b0e701e0d8b65a55084a8"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r2/RECIPE.json",
+        "bytes": 3009,
+        "sha256": "23ddfa05a3409db5f2d8b67f791696378fa1ce6580b3e616a023f923fec0f549"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/wrappers/RECIPE.json",
+        "bytes": 3009,
+        "sha256": "23ddfa05a3409db5f2d8b67f791696378fa1ce6580b3e616a023f923fec0f549"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r2/WHOLE-FORWARD-INVERSE.json",
+        "bytes": 66491,
+        "sha256": "0814d3427915087dad6fc1546d2aad3cc3d9d390770d2eef0427af0b3178a106"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/wrappers/WHOLE-FORWARD-INVERSE.json",
+        "bytes": 66491,
+        "sha256": "0814d3427915087dad6fc1546d2aad3cc3d9d390770d2eef0427af0b3178a106"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-READBACK.json",
+        "bytes": 4049,
+        "sha256": "03185e61dd8a2c8b109aebb85f1b03b0f5285940b8e1065022c274987c560357"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/DRAFT-READBACK.json",
+        "bytes": 4049,
+        "sha256": "03185e61dd8a2c8b109aebb85f1b03b0f5285940b8e1065022c274987c560357"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/STATIC-AUDIT.json",
+        "bytes": 5699,
+        "sha256": "bc2aeaa65c21c2409fad46f61c543f727785dcf473c00114f202948418fde954"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/STATIC-AUDIT.json",
+        "bytes": 5699,
+        "sha256": "bc2aeaa65c21c2409fad46f61c543f727785dcf473c00114f202948418fde954"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/WRAPPER-DRAFT-READBACK.json",
+        "bytes": 1666,
+        "sha256": "e0fd70b644b8a39269745816850e96fb15a4f2f96d586ef894f8c36d4a384f23"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/WRAPPER-DRAFT-READBACK.json",
+        "bytes": 1666,
+        "sha256": "e0fd70b644b8a39269745816850e96fb15a4f2f96d586ef894f8c36d4a384f23"
+      }
+    },
+    {
+      "originalRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/WRAPPER-STATIC-AUDIT.json",
+        "bytes": 2898,
+        "sha256": "9f8a1cc9df4502b51bb5add1621b3e7726f620e3d7b675128a9325019a7c460b"
+      },
+      "preservedRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-fullfunction-diagnostic-v2-preparation-20261010-r2/DRAFT-BASELINES/WRAPPER-STATIC-AUDIT.json",
+        "bytes": 2898,
+        "sha256": "9f8a1cc9df4502b51bb5add1621b3e7726f620e3d7b675128a9325019a7c460b"
+      }
+    }
+  ]
+}

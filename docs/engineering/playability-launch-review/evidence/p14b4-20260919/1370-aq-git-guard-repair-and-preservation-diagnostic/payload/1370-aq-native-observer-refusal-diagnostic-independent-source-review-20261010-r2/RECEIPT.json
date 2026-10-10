@@ -1,0 +1,73 @@
+{
+  "authenticatedManifestPayloadRoles": 10,
+  "candidateExecuted": false,
+  "concreteFindings": [],
+  "controlsExecuted": false,
+  "decision": "ACCEPT_STATIC_NATIVE_REFUSAL_DIAGNOSTIC_IMPLEMENTATION_SOURCE_ONLY",
+  "dependency": {
+    "bytes": 10267,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+    "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+  },
+  "executionAuthorization": false,
+  "findings": {
+    "authority": "R1 acceptance was explicitly withdrawn before runtime. R2 is source-only metadata v2 successor, not an actual fit, game, baseline or diagnostic measurement admission.",
+    "canonicalNoFit": "Own-data canonical string undergoes incremental bounded UTF8 check after prior/context/kind/identity preflight and first original resource Error. Above16384 emits only lower bound16385; row/detail/canonical exact byte metrics are null. No parsing/codec call or raw tuple retention on this branch.",
+    "caps": "Acceptance sink, native codec, fixture and fullbody template remain exact AP R5 dependencies. Diagnostic-only prior512/16384streamrows/2097152aggregate, context65536, reconstruction524288/depth64/nodes16384, complete output4096 including newline remain bounded.",
+    "nativeClassification": "Requires authenticated NativeObserverFormatError instance plus own code data descriptor, one of four exact string codes, stable preflight fields and exact active operation. Descriptor inspection does not invoke a code getter; inherited/accessor/unknown codes receive generic fallback.",
+    "originalError": "First original row Error is retained before metadata operations. Normal first native operational failure emits no row line. Shared arm remains byte exact, preserving chronological identity and cleanup behavior; emission is one-shot and writer failures do not replace Error.",
+    "physicalEvidence": "Available metrics require completed bounded native detail/row reconstruction. PHYSICAL_ROW_BYTE_CAP is attached only when measured rowBytes exceeds16384. Assessment predecessor lookup requires exact context and records PREDECESSOR_INPUT_DECODE on codec failure.",
+    "unknownCodecStages": "Both INPUT_DETAIL_ENCODE and PREDECESSOR_INPUT_DECODE remain marked until their codec returns successfully. Unknown exceptions at either stage take DIAGNOSTIC_UNAVAILABLE before internal diagnosticCode handling. A spoofed data diagnosticCode or accessor therefore cannot provide codec-stage classification or be read on these paths."
+  },
+  "fullQualificationAccepted": false,
+  "game": false,
+  "independentDesignReview": {
+    "bytes": 8151,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-refusal-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "8741e314d0d07a7cc1bb512cd890f90059dc5aff11687db077769dbd2a43cd46"
+  },
+  "priorReviewCorrection": {
+    "bytes": 901,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/DIAGNOSTIC-R1-SOURCE-REVIEW-CORRECTION.json",
+    "sha256": "18da1712e127593dbf36fb86a59a2994bdb089e4a1cde42457ec31acac819827"
+  },
+  "reviewScope": "Complete finite source and dependency/design/correction authentication, two whole forward/inverse pairs and exact shared helper comparison. No implementation import, execution, private traversal, process probes, fixture payload or repository mutation. Existing reviewed generic diagnostic preflight behavior is retained; actual controls remain required.",
+  "rootDesignAdoption": {
+    "bytes": 2382,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "sha256": "e1547ab7446749afd375ec235503da7eb81ac9955b598fd1bc01304ddbe59054"
+  },
+  "routeSourcePins": {
+    "INTERFACE.json": {
+      "bytes": 2006,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/INTERFACE.json",
+      "sha256": "7aaf37cad26fe693b2b8ad205270531260a7f4fe3afab4f82fb60e4b8ade911a"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 13288,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
+      "sha256": "db78301bf62d52b574ed8df272d0fe3d7b10c2568f930d10eb359092725bbba6"
+    }
+  },
+  "schema": "1370-native-refusal-diagnostic-independent-source-review/v1",
+  "sharedArmHelperByteExact": true,
+  "sourceManifest": {
+    "bytes": 3301,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "2135c9485b6bc09f0f2a78740f4bdbdb9b7a910a8503a317bd9cfa8e29f0f818"
+  },
+  "sourcePins": {
+    "INTERFACE.json": {
+      "bytes": 2006,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/INTERFACE.json",
+      "sha256": "7aaf37cad26fe693b2b8ad205270531260a7f4fe3afab4f82fb60e4b8ade911a"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 13288,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
+      "sha256": "db78301bf62d52b574ed8df272d0fe3d7b10c2568f930d10eb359092725bbba6"
+    }
+  },
+  "wholeApplications": 4,
+  "wholeForwardInversePairs": 2
+}

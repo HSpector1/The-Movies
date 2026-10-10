@@ -1,0 +1,21 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "45c21f",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 95058,
+      "wall_time_seconds": 1.000750456
+    },
+    {
+      "chunk_id": "b8522c",
+      "exit_code": 1,
+      "original_token_count": 124,
+      "output": "Traceback (most recent call last):\n  File \"/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/publish_checkpoint.py\", line 27, in <module>\n    assert get('rev-parse','refs/remotes/origin/'+BRANCH).decode().strip()==head and get('rev-parse','refs/remotes/origin/main').decode().strip()==MAIN\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "wall_time_seconds": 0.624844686
+    }
+  ],
+  "finalExit": 1,
+  "schema": "1370-root-checkpoint-publication-actual-tool/v1",
+  "sessionId": 95058
+}

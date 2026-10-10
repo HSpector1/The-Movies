@@ -1,0 +1,73 @@
+{
+  "schema": "1370-aq-shared-postflight-static-scope-diagnosis/v1",
+  "executionAuthorization": false,
+  "candidateOrGuardExecuted": false,
+  "privateTreesRead": false,
+  "config": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "bytes": 3928,
+    "sha256": "a058c0d63bd0f0432f26d4ebcae62a80977eaccfd7e2406cf7a7e6f221b23fec"
+  },
+  "guardSource": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "bytes": 21984,
+    "sha256": "51f11d5f9bc55d77ed9e1b7d0bce4d36d1c9af865835617d585629fa8f694f85"
+  },
+  "originalAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "bytes": 5252,
+    "sha256": "4bd6fe3766e73cd621f939b124d0da27e09fa4d097b64ae58041ee6955358cf1"
+  },
+  "originalSnapshot": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "immutableFieldExpressions": {
+    "bindingSha256": "sha(bindingraw)",
+    "actualCopySupervisorSha256": "sha(supervisorraw)",
+    "actualCopyResultSha256": "sha(workerraw)",
+    "actualCopyPayloadSha256": "sha(payloadraw)",
+    "protectedDigests": "protected",
+    "physicalCheckout": "physical",
+    "productionDependencies": "production_deps",
+    "copiedDependencies": "copied_deps",
+    "allocatedBytes": "allocated",
+    "strictRoots": "{k:v for k,v in roots_after.items() if k!='scratchParent'}",
+    "ancestry": "ancestry_records",
+    "scratchParentIdentity": "{k:roots_after['scratchParent'][k] for k in parent_keys}",
+    "operationalProductionHead": "config['productionHead']",
+    "operationalSourceTree": "config['productionSourceTree']",
+    "originalCopyProductionHead": "config['originalCopyProductionHead']",
+    "docsOnlyChangedPaths": "changed_paths",
+    "retainedHLeaf": "str(hleaf)",
+    "privateAcceptedFullProof": "private_role",
+    "parentScopeAdoption": "config['parentScopeAdoption']"
+  },
+  "baselineKeySetMatchesProducer": true,
+  "originalConfigAndProcedurePinsMatch": true,
+  "fixedOperationalMetadataMatchesConfig": true,
+  "phaseAndOwnedIdsNotImmutable": true,
+  "scratchParentMtimeCtimeNotImmutable": true,
+  "baselineComparisonBeforeOutputWrite": true,
+  "failureScope": "Original full immutable equality STOP, with exact differing key/value not retained. No current private state measured by this source-only review.",
+  "factsImpliedByControlFlow": [
+    "Copied protected digest matched original accepted private proof.",
+    "Fresh copied/production dependency inventories and allocation matched original accepted proof.",
+    "Copied root/Git/dependency strict roots and ancestry matched original accepted proof.",
+    "Nine strict roots stayed stable during this scan.",
+    "Scratch parent device/inode/mode stayed stable during this scan."
+  ],
+  "possibleUnattributedComparisonFields": [
+    "protectedDigests.production/commonGit/retainedHParent/retainedHLeaf",
+    "non-copy strictRoots",
+    "ancestry",
+    "scratchParentIdentity",
+    "other fixed documentary fields"
+  ],
+  "claimLimits": [
+    "No exact drift attribution, no repin and no postflight acceptance.",
+    "No deterministic phase/owned/rawPSFD/disk/scratch-child timestamp mismatch is supported by these unchanged source expressions.",
+    "A retained bounded mismatch report is required to distinguish real protected drift from any producer logic defect."
+  ]
+}

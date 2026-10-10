@@ -1,0 +1,13 @@
+--- /Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py
++++ /Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/runner.py
+@@ -114,7 +114,9 @@
+ 
+ 
+ def clean_git_env():
+- return {k:v for k,v in os.environ.items() if not k.startswith('GIT_')}
++ env={k:v for k,v in os.environ.items() if not k.startswith('GIT_')}
++ env['GIT_OPTIONAL_LOCKS']='0'
++ return env
+ 
+ 
+ def bounded_ps_snapshot(argv=None):

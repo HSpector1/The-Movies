@@ -1,0 +1,155 @@
+{
+  "completeForwardInversePairs": [
+    {
+      "baseline": {
+        "bytes": 3864,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/BASELINE-run_current_fullguard_once.py.txt",
+        "sha256": "4beca7a0eb719f123ac26a67c2b0315e5d32e531acf286a313dd5b2022fb1cdc"
+      },
+      "forward": {
+        "bytes": 7833,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py.forward.json",
+        "sha256": "dfae88b088f5d8dfa52795b4d8d1484ef24a97472d1d2439b2bccdec12e68d3f"
+      },
+      "forwardApplied": true,
+      "inverse": {
+        "bytes": 7833,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py.inverse.json",
+        "sha256": "a9f2590d9e74bf62882caeb44be825e72c6f6dc86201c279ff599db9d5d34994"
+      },
+      "inverseApplied": true,
+      "predecessor": {
+        "bytes": 3864,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py",
+        "sha256": "4beca7a0eb719f123ac26a67c2b0315e5d32e531acf286a313dd5b2022fb1cdc"
+      },
+      "result": {
+        "bytes": 3864,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py",
+        "sha256": "bb793bc87fbdefa5670ae0bb10ddc155a9bd2796fc2e2016f960038a1ee297da"
+      }
+    },
+    {
+      "baseline": {
+        "bytes": 5421,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/BASELINE-read_current_fullpreflight.py.txt",
+        "sha256": "069018265554b60c71d2f47aa712e450d333a3eeb78b9ef6599f6f06dae1cd10"
+      },
+      "forward": {
+        "bytes": 10979,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/read_current_fullpreflight.py.forward.json",
+        "sha256": "be8524d88bab9fb2c308e518b17ca67b329cb6d46657fb410cca504a0bfc60af"
+      },
+      "forwardApplied": true,
+      "inverse": {
+        "bytes": 10979,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/read_current_fullpreflight.py.inverse.json",
+        "sha256": "733cfc4b945ad5a3e5c1e4a40f6c2559d3874c806eed7902cd9bf9ccace2de2d"
+      },
+      "inverseApplied": true,
+      "predecessor": {
+        "bytes": 5421,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/read_current_fullpreflight.py",
+        "sha256": "069018265554b60c71d2f47aa712e450d333a3eeb78b9ef6599f6f06dae1cd10"
+      },
+      "result": {
+        "bytes": 5421,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/read_current_fullpreflight.py",
+        "sha256": "a890b9570777770a39115b47264015def49a7b35f4ca7ac18360823adeb0dc48"
+      }
+    },
+    {
+      "baseline": {
+        "bytes": 3278,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/BASELINE-RECIPE.json.txt",
+        "sha256": "37eac4b265582be2f0b24649fa61719c730cfb5a6681ba5b9aeded77ef8e5d5f"
+      },
+      "forward": {
+        "bytes": 7306,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/RECIPE.json.forward.json",
+        "sha256": "507d4bc0f9e02e098723fe791c0a9d9cb8a321d894a47a319f5b0550d5571210"
+      },
+      "forwardApplied": true,
+      "inverse": {
+        "bytes": 7306,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/RECIPE.json.inverse.json",
+        "sha256": "4d4bb9ca1ab320866ce026de7a5de8a2c3ea1a294a419989f232137b7894f65e"
+      },
+      "inverseApplied": true,
+      "predecessor": {
+        "bytes": 3278,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/RECIPE.json",
+        "sha256": "37eac4b265582be2f0b24649fa61719c730cfb5a6681ba5b9aeded77ef8e5d5f"
+      },
+      "result": {
+        "bytes": 3564,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/RECIPE.json",
+        "sha256": "86af3061f823e272fd686f8e29874a5eadf768b9dd93c386db416bbf6b7740b9"
+      }
+    }
+  ],
+  "currentAPHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "evaluatedGuardDirectory": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1",
+  "evaluatedParentDirectory": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1",
+  "executionAuthorization": false,
+  "helperBodies": [
+    {
+      "allByteExact": true,
+      "names": [
+        "role",
+        "put"
+      ],
+      "predecessor": {
+        "bytes": 3864,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py",
+        "sha256": "4beca7a0eb719f123ac26a67c2b0315e5d32e531acf286a313dd5b2022fb1cdc"
+      },
+      "result": {
+        "bytes": 3864,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py",
+        "sha256": "bb793bc87fbdefa5670ae0bb10ddc155a9bd2796fc2e2016f960038a1ee297da"
+      }
+    },
+    {
+      "allByteExact": true,
+      "names": [
+        "role",
+        "read",
+        "put"
+      ],
+      "predecessor": {
+        "bytes": 5421,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/read_current_fullpreflight.py",
+        "sha256": "069018265554b60c71d2f47aa712e450d333a3eeb78b9ef6599f6f06dae1cd10"
+      },
+      "result": {
+        "bytes": 5421,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/read_current_fullpreflight.py",
+        "sha256": "a890b9570777770a39115b47264015def49a7b35f4ca7ac18360823adeb0dc48"
+      }
+    }
+  ],
+  "historicalDocumentaryPrepare": {
+    "byteExact": true,
+    "executionProhibited": true,
+    "predecessor": {
+      "bytes": 6552,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/prepare_current_fullguard.py",
+      "sha256": "2522d388301f8da256555e24bed49775d1f94b6a85e3cddabed049b8b64b86ac"
+    },
+    "retained": {
+      "bytes": 6552,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/HISTORICAL-prepare_current_fullguard.py.txt",
+      "sha256": "2522d388301f8da256555e24bed49775d1f94b6a85e3cddabed049b8b64b86ac"
+    }
+  },
+  "publishedReadback": {
+    "bytes": 2519,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/PUSH-READBACK.json",
+    "sha256": "6545dea2ceaa3cb52d8799fe9ef0aede1b58bd34e42268307b27208c9050e27f"
+  },
+  "runtimeOccurred": false,
+  "schema": "1370-aq-current-ap-fullguard-root-adapters-source-proof/v1",
+  "snapshotOutput": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1",
+  "sourceOnly": true
+}

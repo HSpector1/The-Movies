@@ -1,0 +1,224 @@
+{
+  "schema": "1370-aq-corrected-fullfunction-author-static-audit/v1",
+  "executionAuthorization": false,
+  "candidateExecuted": false,
+  "privateTreesRead": false,
+  "route": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 6365,
+    "sha256": "86d6cc43c35e182c25d42ed4cdf9042e0da700e916d35037490c3dd80d530973"
+  },
+  "parent": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 1362,
+    "sha256": "eb6fc4b5a48f7b842f9620e81ce99ac7ab5b9baff4c5ffd966ff2acadcc9fbf3"
+  },
+  "wrappers": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 1417,
+    "sha256": "1354d05a7bcca9306589dfaa0018ce4159f8a8726ca73d7daf6b80bb5149b267"
+  },
+  "checks": [
+    {
+      "file": "CONFIG-TEMPLATE.mts",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/CONFIG-TEMPLATE.mts",
+        "bytes": 1154,
+        "sha256": "28b1a544b14a27856d29ba8506da8d4577c38b969ca0c89f4c84f4fef70a86d7"
+      },
+      "noStaleEvaluatedSourceSelector": true
+    },
+    {
+      "file": "CORE-TEST-TEMPLATE.ts",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/CORE-TEST-TEMPLATE.ts",
+        "bytes": 3955,
+        "sha256": "1507350f14c0d69d71c32cd253202bfc5c0865b6eb62ebe0f8dfbeadeab4e9eb"
+      },
+      "noStaleEvaluatedSourceSelector": true
+    },
+    {
+      "file": "canonical-typescript-transform.mjs",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/canonical-typescript-transform.mjs",
+        "bytes": 1906,
+        "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+      },
+      "noStaleEvaluatedSourceSelector": true
+    },
+    {
+      "file": "record-fullfunction.py",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/record-fullfunction.py",
+        "bytes": 16762,
+        "sha256": "2f8523d4032f4040f45c9b484d73abe04e0bef665ee5122534e2db715d6a3b66"
+      },
+      "noStaleEvaluatedSourceSelector": true
+    },
+    {
+      "file": "run-fullfunction.py",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/run-fullfunction.py",
+        "bytes": 36742,
+        "sha256": "de776901d14168dba72ae95a6c8f4fc6e37aedd3926683c45ae61d8e5527b305"
+      },
+      "noStaleEvaluatedSourceSelector": true
+    },
+    {
+      "file": "run-fullfunction.mjs",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/run-fullfunction.mjs",
+        "bytes": 39962,
+        "sha256": "2ae6f6fbfd655bcfc0e2790f2a910414cd0a3b537c539746ad057ec474fb9f96"
+      },
+      "noStaleEvaluatedSourceSelector": true
+    },
+    {
+      "package": "1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3",
+      "unchangedDefinitions": {
+        "record-fullfunction.py": [
+          "require",
+          "sha",
+          "write",
+          "metadata",
+          "authenticate",
+          "process_alive",
+          "OwnedChild",
+          "start_owned",
+          "ready_go",
+          "close_startup_fds",
+          "clear",
+          "alarm",
+          "whole_guard",
+          "active_guard",
+          "observed_exit_guard",
+          "child_environment",
+          "finalize_result",
+          "main"
+        ],
+        "run-fullfunction.py": [
+          "need",
+          "timeout",
+          "remaining",
+          "meta",
+          "read",
+          "role",
+          "pairs",
+          "load",
+          "write",
+          "authenticate_types",
+          "authenticate_observer_diagnostic",
+          "authenticate_refusal_diagnostic",
+          "main"
+        ]
+      },
+      "changedDefinitions": {
+        "record-fullfunction.py": [],
+        "run-fullfunction.py": [
+          "authenticate_current_protection"
+        ]
+      },
+      "wholeInverseApplications": 18
+    },
+    {
+      "file": "launch-fullfunction.py",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r3/launch-fullfunction.py",
+        "bytes": 21882,
+        "sha256": "9ac456741630343fa73e8dadf00486e85ecbe4c11cba131de682e21994ee7035"
+      },
+      "noStaleEvaluatedSourceSelector": true
+    },
+    {
+      "file": "read-fullfunction.py",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r3/read-fullfunction.py",
+        "bytes": 15664,
+        "sha256": "28f2ee0e271bace1b78820eda1f8c35c7cf9759e16893f0c0be997452410d07c"
+      },
+      "noStaleEvaluatedSourceSelector": true
+    },
+    {
+      "package": "1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r3",
+      "unchangedDefinitions": {
+        "launch-fullfunction.py": [
+          "require",
+          "prep_timeout",
+          "remaining",
+          "metadata",
+          "role",
+          "authenticate",
+          "pairs",
+          "load",
+          "exact",
+          "write"
+        ],
+        "read-fullfunction.py": [
+          "need",
+          "meta",
+          "role",
+          "pairs",
+          "load",
+          "put",
+          "identity",
+          "output_role"
+        ]
+      },
+      "changedDefinitions": {
+        "launch-fullfunction.py": [
+          "main"
+        ],
+        "read-fullfunction.py": [
+          "main"
+        ]
+      },
+      "wholeInverseApplications": 4
+    },
+    {
+      "file": "run_observer_fullfunction_once.py",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r3/run_observer_fullfunction_once.py",
+        "bytes": 12537,
+        "sha256": "e840568d66e3ae6c83132f89e75e3f687fe2a86a023ca6fd66fcc661bf19c49b"
+      },
+      "noStaleEvaluatedSourceSelector": true
+    },
+    {
+      "file": "run_observer_reader_once.py",
+      "role": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r3/run_observer_reader_once.py",
+        "bytes": 2608,
+        "sha256": "ba87ccb5729be9f9aa1bac9a98a1dcd2d381a9099b94b13c81c41761282e88ff"
+      },
+      "noStaleEvaluatedSourceSelector": true
+    },
+    {
+      "package": "1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r3",
+      "unchangedDefinitions": {
+        "run_observer_fullfunction_once.py": [
+          "role",
+          "read",
+          "checked",
+          "put"
+        ],
+        "run_observer_reader_once.py": [
+          "role"
+        ]
+      },
+      "changedDefinitions": {
+        "run_observer_fullfunction_once.py": [],
+        "run_observer_reader_once.py": []
+      },
+      "wholeInverseApplications": 4
+    }
+  ],
+  "exactTwentyAliases": true,
+  "currentTemplateHeadAndTreeChecked": true,
+  "boundsAndTypesContractUnchanged": true,
+  "pendingActualFields": [
+    "currentProtection",
+    "reviewedPriorStopAdoption",
+    "actualSourceReview",
+    "actualGrant"
+  ]
+}

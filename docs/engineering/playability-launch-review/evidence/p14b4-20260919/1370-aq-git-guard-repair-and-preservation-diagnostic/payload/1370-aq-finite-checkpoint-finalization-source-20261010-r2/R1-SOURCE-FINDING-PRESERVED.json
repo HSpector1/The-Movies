@@ -1,0 +1,12 @@
+{
+  "actualLeakClaimed": false,
+  "correction": "All four producer packet filenames now refuse at direct-file selection or directory enumeration before selected-file hashing/parsing. Metadata receipt files remain eligible.",
+  "executionAuthorization": false,
+  "finding": "R1 refused three named packets only after reading and missed actual producer fixtures.json; no inventory execution or actual leak claimed.",
+  "predecessorSourceManifest": {
+    "bytes": 1237,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "eddf2ba3dc702b83afb83bbe5a76f6741271775de2682e2052af20b1ed1e5750"
+  },
+  "schema": "1370-aq-finalization-r1-source-finding/v1"
+}

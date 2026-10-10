@@ -1,0 +1,21 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "39527a",
+      "original_token_count": 123,
+      "output": "{\"rootBinding\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-FULLFUNCTION-ROOT-BINDING.json\", \"bytes\": 5492, \"sha256\": \"604bcfe8bc44e4950420205a6e12e057f95b6ae4ad901dc765cf9bc581c49370\"}, \"sourceAdoption\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-FULLFUNCTION-SOURCE-ADOPTION.json\", \"bytes\": 3663, \"sha256\": \"80906104f282320cf7d6ca5c08bbd96a4baf5f98ba0f7026f29666b3d49eb83f\"}}\n",
+      "session_id": 42397,
+      "wall_time_seconds": 1.001543632
+    },
+    {
+      "chunk_id": "358261",
+      "exit_code": 2,
+      "original_token_count": 85,
+      "output": "{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r1/ROOT-LAUNCH-CLAIM.json\", \"bytes\": 1882, \"sha256\": \"1aca4472a6e4a358a28d163328b74849b42ac93bac838517a9bb1fe074087df6\"}, \"mode\": \"outer\", \"actualOwned\": {\"pid\": 38012, \"pgid\": 38012, \"sid\": 38012}}\n",
+      "wall_time_seconds": 14.738237671
+    }
+  ],
+  "finalExit": 2,
+  "schema": "1370-root-native-refusal-fullfunction-actual-tool/v1",
+  "sessionId": 42397
+}

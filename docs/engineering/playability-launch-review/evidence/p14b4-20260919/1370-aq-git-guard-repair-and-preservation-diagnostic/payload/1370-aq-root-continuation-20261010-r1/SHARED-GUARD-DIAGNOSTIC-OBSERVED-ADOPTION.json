@@ -1,0 +1,67 @@
+{
+  "actualImmutable": {
+    "bytes": 6698608,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1/ACTUAL-IMMUTABLE-LOCAL.json",
+    "sha256": "6b294ab11e340c6944019af5f2fb5641c12bfdc5228e44b3a643b1752fc30ec1"
+  },
+  "actualReadback": {
+    "bytes": 4227,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "1d643b28204af9a79801f5e465db9a40eeec66343fe37efe44fbaf13d6d5a4f9"
+  },
+  "actualTool": {
+    "bytes": 2114,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "955bf2e73df5b63f70600a567f9bcdec59eec3e108313ca0f35a7a2567a302a1"
+  },
+  "allOtherImmutableFieldsEqual": true,
+  "changedPaths": [
+    [
+      "protectedDigests",
+      "commonGit"
+    ]
+  ],
+  "comparison": {
+    "bytes": 1533,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-parent-recorded-20261010-r1/COMPARISON-LOCAL.json",
+    "sha256": "3625225eb8b9dbf7d47c4a8e96725b410da48242b28560e67b3e162d0dfb3082"
+  },
+  "comparisonActualTool": {
+    "bytes": 588,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "7696bcf89ee415c424c2346fbf9f879681e1fbb1fecc2ebdd5835806943d85dc"
+  },
+  "comparisonSummaryBoundedCoverage": false,
+  "completeComparison": true,
+  "diagnostic96592Exit": 1,
+  "diagnosticSummary": {
+    "bytes": 2020,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1/DIAGNOSTIC-SUMMARY-LOCAL.json",
+    "sha256": "46c1df1797c4cebb59052553be29b876b4a0efc5e453e7284f436c04695afdf3"
+  },
+  "executionAuthorization": false,
+  "fullProtectedPostflightAccepted": false,
+  "game": false,
+  "independentObservedReview": {
+    "bytes": 11645,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "65315920057b3b6eecded8a34c335841bad5414b44b818b09929bd423887f925"
+  },
+  "localRawPaths": [
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1/ACTUAL-IMMUTABLE-LOCAL.json",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1/DIAGNOSTIC-SUMMARY-LOCAL.json",
+    "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-parent-recorded-20261010-r1/COMPARISON-LOCAL.json"
+  ],
+  "original54871DifferingFieldsKnown": false,
+  "prior54871FailurePreserved": true,
+  "readerActualTool": {
+    "bytes": 546,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1/READER-ACTUAL-TOOL.json",
+    "sha256": "32adbd2438fccc12b849b120ebe818e291867655fd8bb9f58a88bb597b0cb7a2"
+  },
+  "schema": "1370-root-original-shared-postflight-diagnostic-observed-adoption/v1",
+  "separateComparatorComplete": true,
+  "sourceOnlyR3Held": true,
+  "specificChangedLeafKnown": false,
+  "status": "ROOT_ADOPTED_ACTUAL_COMMON_GIT_DOMAIN_DRIFT_DIAGNOSTIC_ONLY"
+}

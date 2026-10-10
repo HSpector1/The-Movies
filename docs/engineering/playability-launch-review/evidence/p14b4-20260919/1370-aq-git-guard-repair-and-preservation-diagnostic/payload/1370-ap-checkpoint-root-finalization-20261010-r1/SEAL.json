@@ -1,0 +1,12 @@
+{
+  "actualArchiveCopied": false,
+  "actualInventoryExecuted": false,
+  "executionAuthorization": false,
+  "payloadReadbackVerified": 22,
+  "schema": "1370-ap-checkpoint-builder-source-seal/v1",
+  "sourcePins": {
+    "bytes": 6470,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/SOURCE-PINS.json",
+    "sha256": "c11a49a5ab5a4359ea6c3ef5b04c1067c7e23038e0762dc923b3ffd1d5e70fc3"
+  }
+}

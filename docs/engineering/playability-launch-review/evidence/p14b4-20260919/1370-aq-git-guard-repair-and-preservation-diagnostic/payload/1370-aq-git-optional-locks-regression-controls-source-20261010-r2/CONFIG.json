@@ -1,0 +1,38 @@
+{
+  "actualGrant": null,
+  "actualResult": null,
+  "actualTools": null,
+  "bounds": {
+    "aggregateControlsSeconds": 60,
+    "cleanupSecondsAfterCommandFailure": 4,
+    "perCommandStreamBytes": 65536,
+    "perGitCommandSeconds": 15,
+    "resultBytes": 131072,
+    "retainedInputOrToolBytes": 16777216
+  },
+  "executionAuthorization": false,
+  "inputs": {
+    "correctedRunner": {
+      "bytes": 44107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/runner.py",
+      "sha256": "6d83467284f7ecdf34c2d20c0aeab648819539406768beda0c3370d2651000fa"
+    },
+    "implementationManifest": {
+      "bytes": 1226,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE-PINS.json",
+      "sha256": "162098174210e249daafd838b7dbaf5814a492f06c977abdf0ae9dd4261b6fba"
+    },
+    "implementationReview": {
+      "bytes": 4057,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-independent-source-review-20261010-r1/RECEIPT.json",
+      "sha256": "11e1d503a6644375b5bfd4b554f30879e768e33de5a99bda060f5a9a49c865ed"
+    },
+    "originalRunner": {
+      "bytes": 44067,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+      "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+    }
+  },
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1",
+  "schema": "1370-git-optional-locks-regression-controls-config/v1"
+}

@@ -1,0 +1,90 @@
+{
+  "actualFullInventoryRun": false,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ap-root-prelaunch.py",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-parent-recorded-20261010-r1/CONFIG.json",
+    "9efa813ac47f719405f8144de81534d4785f1bc59230759e71f165e33090fe73"
+  ],
+  "automaticRetry": false,
+  "config": {
+    "bytes": 2957,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-parent-recorded-20261010-r1/CONFIG.json",
+    "sha256": "9efa813ac47f719405f8144de81534d4785f1bc59230759e71f165e33090fe73"
+  },
+  "currentFullGuardGrant": {
+    "bytes": 2366,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "d821cdaf8bbcd092c859601e9a79b9d423a7ab61862d925d0753a4347cccc7a0"
+  },
+  "currentFullPreflightAdoption": {
+    "bytes": 5252,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "4bd6fe3766e73cd621f939b124d0da27e09fa4d097b64ae58041ee6955358cf1"
+  },
+  "currentFullPreflightSnapshot": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "executionAuthorization": true,
+  "game": false,
+  "historicalTypesFullPostflightSnapshot": {
+    "bytes": 8847484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/SNAPSHOT.json",
+    "sha256": "0700ce99c57f33956c3fb1b5f26d3c6e28e6e323551fb1f6f084db2f9c370dff"
+  },
+  "historicalTypesObservedAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "historicalTypesRemainHistorical": true,
+  "mode": "fullfunction-current-ap-protection",
+  "nativeRefusalControlsObservedAdoption": {
+    "bytes": 16532,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "385249f0239d6999318b62c6781c0f24c97e10600aa47dba6b51ddf6c4693ed4"
+  },
+  "nativeRefusalControlsReadback": {
+    "bytes": 14904,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "8f1047183010b60b4d9f00b6388f04011fee3839e31e5d3adb319bfb72a4d686"
+  },
+  "originalFullObservationsReusedUnderContinuousFreeze": true,
+  "overallTimeoutAdded": false,
+  "ownedPgid": 25630,
+  "ownedPgidsPassedToOriginalCurrent": [
+    49978,
+    50286,
+    59317
+  ],
+  "ownedPid": 25630,
+  "ownedSid": 25630,
+  "perCommandTimeoutSeconds": 180,
+  "protectedFreezeContinues": true,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 10223,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/run_current_ap_prelaunch_once.py",
+    "sha256": "e597bc24b7a641f2392cb15da1ea05c101def60582bf4458129e808775a3784d"
+  },
+  "schema": "1370-ap-current-ap-root-prelaunch-grant/v2",
+  "sourcePins": {
+    "bytes": 16628,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "035ac9dcdbd73073c0c0cec5c1fc66e449840485ba13b77366c319d5593db18f"
+  },
+  "sourceReview": {
+    "bytes": 8254,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "ae2840d36228de5ee9b93707f090e901da03fffb7e596f406f846cc953422950"
+  },
+  "startMonotonic": 139452.405761222,
+  "status": "GRANTED_ONCE_CURRENT_AP_ROOT_PREFLIGHT",
+  "utc": "2026-10-10T11:55:13.019031+00:00"
+}

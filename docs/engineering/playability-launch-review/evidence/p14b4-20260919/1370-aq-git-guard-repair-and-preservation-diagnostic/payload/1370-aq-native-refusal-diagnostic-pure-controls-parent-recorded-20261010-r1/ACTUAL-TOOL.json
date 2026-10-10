@@ -1,0 +1,21 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "39b2b9",
+      "original_token_count": 126,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 10101, \"sha256\": \"398d0cca8352466716656bfec0c09167d0f067a13afdbfcee56ab7c02e9d24a8\"}, \"sourceAdoption\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-ROUTE-SOURCE-ADOPTION.json\", \"bytes\": 1384, \"sha256\": \"729dfabf7eb6a23131350a4b4173e6973a46014834aab23ce60dff0c2ce396d0\"}}\n",
+      "session_id": 58815,
+      "wall_time_seconds": 1.002538604
+    },
+    {
+      "chunk_id": "556dc4",
+      "exit_code": 0,
+      "original_token_count": 79,
+      "output": "{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json\", \"bytes\": 3692, \"sha256\": \"43beec31371fb35ecdbe12413d0c117459f81cc59c76499831804371a1cccf78\"}, \"helperPid\": 49978, \"helperPgid\": 49978, \"helperSid\": 49978}\n",
+      "wall_time_seconds": 1.6639e-05
+    }
+  ],
+  "finalExit": 0,
+  "schema": "1370-root-native-refusal-controls-actual-tool/v1",
+  "sessionId": 58815
+}

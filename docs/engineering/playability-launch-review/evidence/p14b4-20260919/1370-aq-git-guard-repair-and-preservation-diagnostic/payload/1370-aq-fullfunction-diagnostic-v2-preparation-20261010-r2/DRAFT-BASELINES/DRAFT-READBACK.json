@@ -1,0 +1,133 @@
+{
+  "schema": "1370-aq-fullfunction-diagnostic-v2-held-preparation/v1",
+  "executionAuthorization": false,
+  "sourceSealed": false,
+  "route": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 6365,
+    "sha256": "963093714938b1d2d8063e8a9bddcab81e8d1f7bcb346c08a94ce7222709fa2c"
+  },
+  "parent": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 1363,
+    "sha256": "fa74b754d5ead7cb441e63ddb4a25fcbb8c1bf0c7cf72dd3ab05d76d164b192f"
+  },
+  "baselineRoute": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 25246,
+    "sha256": "88b8d5b06a3e4fc0f37fe0b0f7054ef0572effceac839a4078f416e4fd946055"
+  },
+  "baselineParent": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 3625,
+    "sha256": "c2eb3c2cf3454022bd3df01d0559e4a0f1ffa43bb024f6d7b4b4f77732a10f23"
+  },
+  "genuine86Adoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "bytes": 16532,
+    "sha256": "385249f0239d6999318b62c6781c0f24c97e10600aa47dba6b51ddf6c4693ed4"
+  },
+  "prospectiveProtectionContract": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/FULLFUNCTION-PROTECTION-PROSPECTIVE-CONTRACT.json",
+    "bytes": 2178,
+    "sha256": "6be893244e2b268983325c78fa117645ca8ae7afa24983161ee789e330f6b9a3"
+  },
+  "pendingActualFields": [
+    "currentProtection",
+    "actualSourceReview",
+    "actualGrant"
+  ],
+  "originalBoundsAndTypesContractExact": true,
+  "originalCoreTemplateByteExact": true,
+  "configTemplateOnlyOwnTransformPathRebased": true,
+  "onlyOperativePublicModuleOverride": {
+    "bytes": 13288,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
+    "sha256": "db78301bf62d52b574ed8df272d0fe3d7b10c2568f930d10eb359092725bbba6"
+  },
+  "definitionChecks": {
+    "run-fullfunction.py": {
+      "unchangedDefinitions": [
+        "need",
+        "timeout",
+        "remaining",
+        "meta",
+        "read",
+        "role",
+        "pairs",
+        "load",
+        "write",
+        "authenticate_types"
+      ],
+      "changedDefinitions": [
+        "authenticate_observer_diagnostic",
+        "authenticate_current_protection",
+        "main"
+      ],
+      "newDefinitions": [
+        "authenticate_refusal_diagnostic"
+      ]
+    },
+    "record-fullfunction.py": {
+      "unchangedDefinitions": [
+        "require",
+        "sha",
+        "write",
+        "metadata",
+        "authenticate",
+        "process_alive",
+        "OwnedChild",
+        "start_owned",
+        "ready_go",
+        "close_startup_fds",
+        "clear",
+        "alarm",
+        "whole_guard",
+        "active_guard",
+        "observed_exit_guard",
+        "child_environment",
+        "finalize_result",
+        "main"
+      ],
+      "changedDefinitions": [],
+      "newDefinitions": []
+    },
+    "launch-fullfunction.py": {
+      "unchangedDefinitions": [
+        "require",
+        "prep_timeout",
+        "remaining",
+        "metadata",
+        "role",
+        "authenticate",
+        "pairs",
+        "load",
+        "exact",
+        "write"
+      ],
+      "changedDefinitions": [
+        "main"
+      ],
+      "newDefinitions": []
+    },
+    "read-fullfunction.py": {
+      "unchangedDefinitions": [
+        "need",
+        "meta",
+        "role",
+        "pairs",
+        "load",
+        "put",
+        "identity",
+        "output_role"
+      ],
+      "changedDefinitions": [
+        "main"
+      ],
+      "newDefinitions": []
+    }
+  },
+  "wholeInverseApplications": 22,
+  "actualRuntimePerformed": false,
+  "privateTreesRead": false
+}

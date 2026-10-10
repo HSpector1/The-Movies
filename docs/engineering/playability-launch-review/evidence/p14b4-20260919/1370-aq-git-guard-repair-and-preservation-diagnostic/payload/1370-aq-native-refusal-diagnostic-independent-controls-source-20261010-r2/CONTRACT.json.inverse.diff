@@ -1,0 +1,20 @@
+--- R1-CONTRACT.json
++++ R2-CONTRACT.json
+@@ -47,13 +47,13 @@
+   },
+   "executionAuthorization": false,
+   "library": {
+-    "bytes": 46107,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+-    "sha256": "9aac8333c7e51364ef136e7e28c4e51c97832c8492b927842c63e50c96e318f3"
++    "bytes": 45669,
++    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.mjs",
++    "sha256": "28f1685e96f423de12aa3dea89087737858e179b3ca419dbe92f43379298c886"
+   },
+   "matrix": {
+     "bytes": 15144,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
++    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/MATRIX.json",
+     "sha256": "3dc6e11a350fb9dc7365f9738c2aad60d06cbae098efeb4ef9ac5f4ec6532edc"
+   },
+   "originalNativeImplementationAuthorities": {

@@ -1,0 +1,108 @@
+{
+  "archiveCopied": false,
+  "candidatePackagesOrPayloadsTraversed": false,
+  "candidateRuntimeExecuted": false,
+  "changes": [
+    {
+      "derivativeRole": {
+        "bytes": 3147,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_inventory.py",
+        "sha256": "f0760129efda1d61defe17559a396b38c73842bd34e0e21e489677156a5178b9"
+      },
+      "description": "Only AO to AP inventory schema binding; original finite enumeration, metadata, raw-local guards and hash/size mechanics unchanged.",
+      "file": "prepare_inventory.py",
+      "forwardDiff": {
+        "bytes": 2012,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_inventory.py.forward.diff",
+        "sha256": "23eb149a34f08b7046627d17f05da984cb1b6c9a24e17693540d6b6ad8641c3a"
+      },
+      "inverseDiff": {
+        "bytes": 2012,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_inventory.py.inverse.diff",
+        "sha256": "fd49f9dfbd7dd0ca17c8de8eff37ab146d1b552aa91d6223e7eb0e46ce84a037"
+      },
+      "losslessBothDirectionsApplied": true,
+      "losslessDiff": {
+        "bytes": 3933,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_inventory.py.lossless.ndiff",
+        "sha256": "92f4a0315aaae3975e52ec94b708aea5b6802ab56f9cd4df9c1d98fb7170459f"
+      },
+      "originalBytes": 3147,
+      "originalRole": {
+        "bytes": 3147,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_inventory.py",
+        "sha256": "41f65de76277cd521556ed4656a4f76ef92cb35ac5f8e56787b5b73120a2a30b"
+      }
+    },
+    {
+      "derivativeRole": {
+        "bytes": 4649,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py",
+        "sha256": "44f14cedf747f9ffda7c5e076042440d56b70c3d05d35c9a9d5883787cea3769"
+      },
+      "description": "Root cutoff supplies finite explicit AP package list and genuine completed readback/observed-review lane roles; whole late AO directory carried without exclusion. Original selection/classification loops unchanged. No broad scratch directory discovery.",
+      "file": "prepare_final_packages.py",
+      "forwardDiff": {
+        "bytes": 5447,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py.forward.diff",
+        "sha256": "14715ce1dc07e1fb1c647ed7589051d2768345d0019f058a71b9d956fbe9c172"
+      },
+      "inverseDiff": {
+        "bytes": 5447,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py.inverse.diff",
+        "sha256": "b18f36db8bd36d5afec00723bb961d6f898e960f0764d8fa96067498437327bf"
+      },
+      "losslessBothDirectionsApplied": true,
+      "losslessDiff": {
+        "bytes": 7752,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py.lossless.ndiff",
+        "sha256": "99f22f09e912c5813223bb3496a02c4749d53b0345c948272da0b731ea9a5488"
+      },
+      "originalBytes": 3636,
+      "originalRole": {
+        "bytes": 3636,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py",
+        "sha256": "73fe10265249491b1bde71dc3976bb13ff743bc1a996e01b0d4650c76699e7e1"
+      }
+    },
+    {
+      "derivativeRole": {
+        "bytes": 3458,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/verify_index_complete.py",
+        "sha256": "502e22ac5a96efdeb9ad4897cbcf64219d3e2c6baf4ae9ea94c07c1f9781b92b"
+      },
+      "description": "Root finalized archive/doc path bindings; complete expected-set equality without hardcoded historical463; accepts clean diff or only original literal unified-diff context warnings. Original blob/src checks retained. Root-only future Git execution.",
+      "file": "verify_index_complete.py",
+      "forwardDiff": {
+        "bytes": 4411,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/verify_index_complete.py.forward.diff",
+        "sha256": "009ccb7738592bc0fce14da2242e2a08ed0daf7ad016310d08d3e2f1e4a137a7"
+      },
+      "inverseDiff": {
+        "bytes": 4411,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/verify_index_complete.py.inverse.diff",
+        "sha256": "6c149fe72eb29f48f56f118da839a8153971c4585d5530d7bfcfabff15f4ad33"
+      },
+      "losslessBothDirectionsApplied": true,
+      "losslessDiff": {
+        "bytes": 5262,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/verify_index_complete.py.lossless.ndiff",
+        "sha256": "d404930308d99028676198b183d40e47383c952b2f070dd7a13e694e3ccdb372"
+      },
+      "originalBytes": 3115,
+      "originalRole": {
+        "bytes": 3115,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/verify_index_complete.py",
+        "sha256": "9210504d687871c2ffd216a63a7979dd144849d6ed873f735d99151f27f3b54f"
+      }
+    }
+  ],
+  "executionAuthorization": false,
+  "futureRootAuthorityUnfilled": true,
+  "gitExecuted": false,
+  "inventoryExecuted": false,
+  "operations": "Only named retained baseline/plan reads, data-only diffs/restoration/AST parsing, and fresh own source writes. Baseline programs were not imported or executed.",
+  "originalFinalizerByteExact": true,
+  "originalFinalizerSha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b",
+  "schema": "1370-ap-checkpoint-builder-source-proof/v1"
+}

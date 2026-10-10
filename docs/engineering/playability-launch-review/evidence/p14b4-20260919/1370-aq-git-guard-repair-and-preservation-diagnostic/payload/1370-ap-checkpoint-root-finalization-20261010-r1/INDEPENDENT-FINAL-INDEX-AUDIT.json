@@ -1,0 +1,16 @@
+{
+  "allCurrentIndexAndFinalTreeBlobsEqualActualFiles": true,
+  "autoByteExact": true,
+  "changedPathsExactlyTwoDocs": true,
+  "expectedPaths": 765,
+  "finalTree": "4373ba4feb212f12e17d63904ed8d01991257711",
+  "manifestExpectedSetEqualsWholeCurrentIndex": true,
+  "noGitMutation": true,
+  "preservedWarningCount": 71,
+  "preservedWarnings": {
+    "carriedAOLog": 52,
+    "unifiedDiffContext": 19
+  },
+  "schema": "1370-ap-independent-final-index-audit/v1",
+  "sourceTreeUnchanged": true
+}

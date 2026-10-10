@@ -1,0 +1,78 @@
+{
+  "actualExit": 0,
+  "actualSessionId": 13417,
+  "actualTool": {
+    "bytes": 678,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "2a0a7299f93e26e495ab6130d64c39e118b076fa24288eaa22c070414016792c"
+  },
+  "caseCount": 8,
+  "claimLimits": [
+    "Real disposable original index SHA changed while tracked bytes/status stayed clean; corrected actual sanitizer retained full raw index role+seven-field metadata within its separate fixture.",
+    "This proves the optional-lock sanitizer capability/regression, not exact historical commonGit/index drift attribution.",
+    "Rebuildable fixture payloads remain LOCAL_HASH_SIZE_ONLY; observed metadata is not current protection admission."
+  ],
+  "concreteFindings": [],
+  "correctedFullIndexRoleAndMetadataUnchanged": true,
+  "decision": "ACCEPT_ACTUAL_DISPOSABLE_GIT_OPTIONAL_LOCKS_REGRESSION_CONTROLS_ONLY",
+  "elapsedSeconds": 0.4843068230256904,
+  "executionAuthorization": false,
+  "game": false,
+  "grant": {
+    "bytes": 2183,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "f4992f279d1f8658b186318da470e430566bbef1ef24c634612ab773d022673d"
+  },
+  "historicalCommonGitCauseIdentified": false,
+  "inputRoles": {
+    "correctedRunner": {
+      "bytes": 44107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/runner.py",
+      "sha256": "6d83467284f7ecdf34c2d20c0aeab648819539406768beda0c3370d2651000fa"
+    },
+    "implementationManifest": {
+      "bytes": 1226,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE-PINS.json",
+      "sha256": "162098174210e249daafd838b7dbaf5814a492f06c977abdf0ae9dd4261b6fba"
+    },
+    "implementationReview": {
+      "bytes": 4057,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-independent-source-review-20261010-r1/RECEIPT.json",
+      "sha256": "11e1d503a6644375b5bfd4b554f30879e768e33de5a99bda060f5a9a49c865ed"
+    },
+    "originalRunner": {
+      "bytes": 44067,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+      "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+    }
+  },
+  "originalActualIndexRefreshObserved": true,
+  "positiveCount": 7,
+  "preservationContinuityRestored": false,
+  "protectedProjectGitReadOrWritten": false,
+  "readback": {
+    "bytes": 2339,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "a35487ac7a471739472c355d10ee59aedc71fe7bb192aefeedbae059fa76adf8"
+  },
+  "result": {
+    "bytes": 23665,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1/RESULT.json",
+    "sha256": "e688b7321761327ebe9623f36e2950c58fdca47e2d853a1d7cd5901e644259b5"
+  },
+  "reviewScope": "Retained actual source/roster/grant/tool/recorded per-case predicates and root scoped cleanup only; no rerun, candidate imports, fixture Git reads or real Git commands.",
+  "schema": "1370-git-optional-locks-regression-controls-independent-observed-review/v1",
+  "soleLaneReleased": true,
+  "sourceManifest": {
+    "bytes": 1814,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "902fb0f11c7e345eb6f77dc0df60155bd1a0bc0bde9e348c9b6111f2187a6bfa"
+  },
+  "sourceReview": {
+    "bytes": 3512,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-root-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "f34594c91a55f01a5ff5401bd6c99e5e23e0daf8ae0542e88af0c4bb5edc5d17"
+  },
+  "specificNegativeCount": 1,
+  "tenGitChildrenReapedAndScopedAbsent": true
+}

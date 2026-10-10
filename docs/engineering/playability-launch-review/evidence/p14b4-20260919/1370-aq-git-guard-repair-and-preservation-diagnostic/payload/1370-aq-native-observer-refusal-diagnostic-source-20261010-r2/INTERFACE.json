@@ -1,0 +1,64 @@
+{
+  "schema": "1370-native-refusal-diagnostic-source-interface/v1",
+  "executionAuthorization": false,
+  "exports": [
+    "createObserverRowDiagnostic",
+    "runObserverArm"
+  ],
+  "factoryDependencies": [
+    "codec",
+    "latch"
+  ],
+  "dependency": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+    "bytes": 10267,
+    "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+  },
+  "diagnosticSchema": "1370-m0-native-observer-row-diagnostic/v2",
+  "availablePhysical": "original exact measurements plus refusalClass PHYSICAL_ROW_BYTE_CAP only if actual reconstructed rowBytes>16384",
+  "canonicalNoFit": {
+    "availability": "unavailable",
+    "reason": "NATIVE_CANONICAL_NO_FIT",
+    "canonicalInputBytesLowerBound": 16385,
+    "canonicalInputBytes": null,
+    "rowBytes": null,
+    "detailBytes": null,
+    "canonicalInputUnavailableReason": "CANONICAL_INPUT_OVER_BOUND",
+    "family": null,
+    "familyUnavailableReason": "CANONICAL_INPUT_OVER_BOUND"
+  },
+  "nativeFormatRefusal": {
+    "availability": "unavailable",
+    "reason": "NATIVE_DETAIL_FORMAT_REFUSAL",
+    "nativeCodecErrorCode": [
+      "FORMAT_INVALID",
+      "CANONICAL_OVER_BOUND",
+      "STRUCTURE_OVER_BOUND",
+      "CANONICAL_ROUNDTRIP"
+    ],
+    "operation": [
+      "INPUT_DETAIL_ENCODE",
+      "PREDECESSOR_INPUT_DECODE"
+    ]
+  },
+  "stableFields": [
+    "schema",
+    "predicate",
+    "rowLimit",
+    "sequence",
+    "occurrence",
+    "priorRowCount",
+    "kind",
+    "context",
+    "contextBytes",
+    "error"
+  ],
+  "stableFieldsEligibility": "Existing bounded prior/context/kind/occurrence preflight completed; output fallback if complete line cannot fit4096",
+  "sinkCodecFixturesUnchanged": true,
+  "firstErrorIdentityUnchanged": true,
+  "helperByteExact": true,
+  "unknownException": "DIAGNOSTIC_UNAVAILABLE",
+  "actualNativeErrorClassRequired": true,
+  "codeOwnDataDescriptorOnly": true,
+  "candidateExecuted": false
+}

@@ -1,0 +1,32 @@
+{
+  "candidateExecuted": false,
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 1643,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r1/CONFIG.json",
+      "sha256": "7f72f1a3990a3646e3bf783e0ebe817b95683a16598f8e1dc9595fa51b82ed36"
+    },
+    "CONTRACT.json": {
+      "bytes": 5883,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r1/CONTRACT.json",
+      "sha256": "71756297c504341b976966aab603ba6b61bb71090a5028d9520293c973114088"
+    },
+    "MATRIX.json": {
+      "bytes": 1998,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r1/MATRIX.json",
+      "sha256": "ad782aece9a20b411646cbae6b2523c8016e17c43a895a58aac997675bf6782d"
+    },
+    "PREPARATION.json": {
+      "bytes": 561,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r1/PREPARATION.json",
+      "sha256": "7c40525ab5d573c8b36659d0fa90a9c32ec2287a6ae2b7e2a23b3d132607cf73"
+    },
+    "run_git_env_controls.py": {
+      "bytes": 16580,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r1/run_git_env_controls.py",
+      "sha256": "4dc52ab6bf7150b498a8e31c4580e65792441c9af753f2853971c9596ee56686"
+    }
+  },
+  "schema": "1370-git-optional-locks-regression-controls-source-pins/v1"
+}

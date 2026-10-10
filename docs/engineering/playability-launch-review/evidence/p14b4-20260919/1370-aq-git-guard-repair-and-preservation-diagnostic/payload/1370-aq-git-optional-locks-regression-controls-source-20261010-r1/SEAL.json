@@ -1,0 +1,10 @@
+{
+  "allPayloadRolesReadbackExact": true,
+  "candidateExecuted": false,
+  "schema": "1370-git-optional-locks-regression-controls-source-seal/v1",
+  "sourcePins": {
+    "bytes": 1517,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "5b9c22b24e0e79021ea7f776b1e6476e4b6a464c3df5681ccb78967acc7dab71"
+  }
+}

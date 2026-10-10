@@ -1,0 +1,47 @@
+{
+  "actualGrant": null,
+  "actualReadback": null,
+  "actualSessionId": null,
+  "claimLimits": "Pure public86 only; neither game nor private M0 nor full qualification. Genuine terminal0 and exact ordered matrix verdicts required. Failure evidence remains retained, no success report on STOP.",
+  "executionAuthorization": false,
+  "observedReviewDecision": "ACCEPT_ACTUAL_PURE_NATIVE_REFUSAL_DIAGNOSTIC_86_CONTROLS_ONLY",
+  "observedReviewSchema": "1370-native-refusal-diagnostic-controls-independent-observed-review/v1",
+  "onceArgv": [
+    "EXACT_PHYSICAL_PYTHON",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/run_native_observer_controls_once.py",
+    "EXTERNAL_ROUTE_SOURCE_REVIEW_PATH",
+    "EXTERNAL_ROUTE_SOURCE_REVIEW_SHA256"
+  ],
+  "prospectiveObservedContract": {
+    "bytes": 1664,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-CONTROLS-PROSPECTIVE-CONTRACT.json",
+    "sha256": "5d3f10303a11927b108e61ebe9cf0fc02ecc0a09b652df187816d88e83caf6b3"
+  },
+  "readbackArgv": [
+    "EXACT_PHYSICAL_PYTHON",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/read_native_observer_controls.py",
+    "ACTUAL_COMPLETED_SESSION_ID"
+  ],
+  "readbackSchema": "1370-root-native-refusal-diagnostic-controls-actual-readback/v1",
+  "readbackStatus": "ACTUAL_PURE_86_NATIVE_REFUSAL_DIAGNOSTIC_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW",
+  "routeConfig": {
+    "bytes": 12384,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json",
+    "sha256": "5a5c267d6a561277cfe1f738e6400f08896d4b36ddd0a67f3b88f86c5473adec"
+  },
+  "routeRecipe": {
+    "bytes": 19547,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/RECIPE.json",
+    "sha256": "62de41391e50e4f0f4d3c4ae4e85cf78ccdd6b9bb5a37902813f8c70334c59c3"
+  },
+  "routeSourceManifest": {
+    "bytes": 16451,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "6db3ef0be87cb3bd4afc24ad2b1d78669df9821a3a82ccaf532fb7e25a6de55f"
+  },
+  "schema": "1370-native-observer-controls-root-adapters-contract/v1"
+}

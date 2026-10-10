@@ -1,0 +1,177 @@
+{
+  "actualTool": {
+    "bytes": 968,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "076f4626d4d26e4de023b80b7e4c15075de564c27ef502986da85ac91d12a3cd"
+  },
+  "caseCount": 32,
+  "childExit": 0,
+  "controlsSourceManifest": {
+    "bytes": 1352,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "efebc32ff67ef0268f088b34bbeeb2b1aec05ad486f1b8bc4f4ab87075aed8ba"
+  },
+  "controlsSourceReview": {
+    "bytes": 4859,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-controls-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "9f3ea1ec5dd4d50b0e8b23be7cf426b20a1a0ea5733626b78485c1c7d650c6e5"
+  },
+  "diagnosticSourceManifest": {
+    "bytes": 2251,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "b07864936097acd4b33d325e1d20764a0ec84d4c700fbf1174a1707e2ac99191"
+  },
+  "diagnosticSourceReview": {
+    "bytes": 8723,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "308265fec2849b24846ab49613328f1687032d1cf371c460e69739608ce35289"
+  },
+  "elapsedRecorderSeconds": 1.1601861900126096,
+  "elapsedWorkerSeconds": 0.6610652309900615,
+  "executionAuthorization": false,
+  "fullProtectedPostflightAccepted": false,
+  "game": false,
+  "grant": {
+    "bytes": 2635,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "8c06b657efe0562f6f7bd1ea20e906357a807db009726ddaacb32d33e2b95025"
+  },
+  "independentObservedReview": {
+    "bytes": 8550,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "2086deb4675fe6916d9ea6a3663ec5fb223e7474f9264373ab5a95ae661196f4"
+  },
+  "laneLog": {
+    "bytes": 428,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-lane-20261010-r1",
+    "sha256": "f31852c07f3b9bcb5018a87803f04434a5a707f5f26f7a8c69366c384b616ab4"
+  },
+  "laneMetadata": {
+    "bytes": 559,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-lane-20261010-r1.meta",
+    "sha256": "cfd6f56c1c26faf57f59136eb430a4c04c19156eeb7f3e705dd8755f6065d7a9"
+  },
+  "launchClaim": {
+    "bytes": 1461,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-parent-recorded-20261010-r1/ROOT-LAUNCH-CLAIM.json",
+    "sha256": "ce69886f4d1497f49fb2bf7c6da72312b8cf265eb7ce8c7e834b5984f93a68b1"
+  },
+  "nextScope": "One separately reviewed original-guard diagnostic invocation; no game or protection acceptance inferred from pure controls.",
+  "originalGuardExecuted": false,
+  "positiveCount": 9,
+  "priorFailurePreserved": true,
+  "protectedTreesReadOrWritten": false,
+  "readback": {
+    "bytes": 7007,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "725822e85a77bea139db0131b61d10c2d4cf259094d8fe2cc7d1f8496edc0c4b"
+  },
+  "readerActualTool": {
+    "bytes": 801,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-parent-recorded-20261010-r1/READER-ACTUAL-TOOL.json",
+    "sha256": "b1028fed91e8f105c6854874f1e2557887638c37963023efe72fb58755b30b26"
+  },
+  "recorderResult": {
+    "bytes": 1039,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorder-results-20261010-r1/RESULT.json",
+    "sha256": "56fa39a882c7f817827572ce7ee8d40bf2bec991b4170b3c2c45446bfbb3a79c"
+  },
+  "result": {
+    "bytes": 12047,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/RESULT.json",
+    "sha256": "b5a828c8cb5fa876f34e4f67b989133557f9d5c00db316d09cec91566159dde7"
+  },
+  "rootSourceAdoption": {
+    "bytes": 2342,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/SHARED-POSTFLIGHT-DIAGNOSTIC-SOURCE-ADOPTION.json",
+    "sha256": "9f3bec422dadc12dc4930c0323d19ec9890c542ac7b98cff3b37ae8a193418ae"
+  },
+  "schema": "1370-root-original-guard-diagnostic-controls-observed-adoption/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 23803,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 24059,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 23803,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 24059,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "soleLaneReleased": true,
+  "sourceManifest": {
+    "bytes": 1597,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "b14d5419b3bc38723d621bece5776673dbba3ab706d34e917eae5485bc216214"
+  },
+  "sourceReview": {
+    "bytes": 5265,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-runner-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "d70e96eb68d694a9a0dd818af876738374a05a19d67cafbf1a7a878cf60b308a"
+  },
+  "specificNegativeCount": 23,
+  "status": "ROOT_ADOPTED_ACTUAL_PURE_ORIGINAL_GUARD_DIAGNOSTIC_32_CONTROLS_ONLY",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorder-results-20261010-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 327,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorder-results-20261010-r1/stdout.bin",
+    "sha256": "cbf8c255e3b97115ccff67b2526b4185966af4d6c3a3d77065ade3dece4f527b"
+  },
+  "syntheticArtifactsLocalOnly": [
+    {
+      "bytes": 7,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/ACTUAL-IMMUTABLE-LOCAL.json.partial",
+      "sha256": "80216967918172c414065ee096341fad4d00bcb845dd1aec3488920a24fe3c16"
+    },
+    {
+      "bytes": 8,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/exclusive.json",
+      "sha256": "bb157861a164e35cdde9d726b0af9ce2765a8f530c35d9e45732b94ee65e9557"
+    },
+    {
+      "bytes": 8,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/exclusive.json.partial",
+      "sha256": "feb939020e9d63a4e5671c2fee3621703f45dcd172d5ab9380cec70a163dea5d"
+    },
+    {
+      "bytes": 16777216,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/immutable_exact.json",
+      "sha256": "2a76d40158add43ca4d97d940a8f9962f2eaf8bd3885a7f3d8eb6bc5e96b40fd"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/immutable_over.json.partial",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 32768,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/summary_exact.json",
+      "sha256": "81ecb5f9cc39bb6fbfadc628448a31ea84162786095ca081b8e582c3a239b488"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1/summary_over.json.partial",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "toolExit": 0,
+  "toolSessionId": 93221,
+  "warnings": [
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/record_pure_controls.py:245: SyntaxWarning: 'return' in a 'finally' block"
+  ]
+}

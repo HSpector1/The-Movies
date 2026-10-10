@@ -1,0 +1,41 @@
+{
+  "actualGeneratedTest": {
+    "bytes": 3955,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-results-20261010-r1/runtime/core.test.ts",
+    "sha256": "aa8af512e76af8fecef51f6c8f118d71b0c6c05dcf43c6e434148a6ce89ce00a"
+  },
+  "actualGenerationReport": {
+    "bytes": 2354,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-results-20261010-r1/generate.report.json",
+    "sha256": "d71bfbbb321712f39160681bec77c7314c2dc9434bfb523631d6fb5c9977f91c"
+  },
+  "actualOperationalHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "actualReadback": {
+    "bytes": 7986,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "0c4deb56e920fc2d8a5915701fdb3fca5d94cd4044cde11dfb6fe6826463e8c4"
+  },
+  "attribution": "Exact generated core.test.ts line11 assert.equal(binding.operationalHead, historicalAO) executes before generation or controls. Current authenticated phase binding supplies actual AP. Original fullfunction source review missed the evaluated template literal.",
+  "baselineExecuted": false,
+  "diagnosticExecuted": false,
+  "executionAuthorization": false,
+  "failedSourceManifest": {
+    "bytes": 6366,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "401c974ba549321782ff5eaee1fd9261edc03a24c5dbd09417a2d0c33a687c43"
+  },
+  "game": false,
+  "mandatoryFullPostflightStatus": "ACTUAL_RUNNING_54871",
+  "mutantExecuted": false,
+  "preservedFailure": true,
+  "reviewQualifiesAnotherAttempt": false,
+  "schema": "1370-root-fullfunction-generated-head-review-correction/v1",
+  "sourceCorrectionScope": "Fresh route with exact current template HEAD plus necessary fresh output and authority bindings. Historical HEADs remain historical. Independent finite evaluation of every generated template required.",
+  "sourceReview": {
+    "bytes": 13625,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "2e7f9992fc2cb142b151448b23c335485f21dc0873e265773769d8935374b330"
+  },
+  "staleExpectedHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "status": "PRESERVED_ACTUAL_GENERATION_HEAD_GUARD_STOP_REQUIRES_CORRECTED_SOURCE_REVIEW"
+}

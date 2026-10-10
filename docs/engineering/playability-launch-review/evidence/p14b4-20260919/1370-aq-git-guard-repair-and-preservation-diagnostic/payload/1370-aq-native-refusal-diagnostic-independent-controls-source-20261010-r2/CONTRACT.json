@@ -1,0 +1,200 @@
+{
+  "actualExecution": null,
+  "authorities": {
+    "diagnosticDesignAdoption": {
+      "bytes": 2382,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-DESIGN-ADOPTION.json",
+      "sha256": "e1547ab7446749afd375ec235503da7eb81ac9955b598fd1bc01304ddbe59054"
+    },
+    "diagnosticIndependentSourceReview": null,
+    "diagnosticInterface": {
+      "bytes": 2006,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/INTERFACE.json",
+      "sha256": "7aaf37cad26fe693b2b8ad205270531260a7f4fe3afab4f82fb60e4b8ade911a"
+    },
+    "diagnosticSourceManifest": {
+      "bytes": 3301,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+      "sha256": "2135c9485b6bc09f0f2a78740f4bdbdb9b7a910a8503a317bd9cfa8e29f0f818"
+    },
+    "nativeImplementationIndependentReview": {
+      "bytes": 10219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+      "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+    },
+    "nativeImplementationSourceManifest": {
+      "bytes": 12245,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+      "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+    }
+  },
+  "entry": {
+    "dependencies": [
+      "createObserverFailureLatch",
+      "createNativeRowCodec",
+      "NativeObserverFormatError",
+      "createM0FeasibilitySink",
+      "originalCreateM0FeasibilitySink",
+      "createObserverRowDiagnostic",
+      "runObserverArm",
+      "assertNativeEvaluationBinding",
+      "runOrderingSourceControls",
+      "orderingPacket"
+    ],
+    "dependencyBindings": "Actual authenticated modules, not test-side replicas. Both sink factory exports share the original name; the worker renames only the original oracle dependency.",
+    "export": "runNativeObserverControls",
+    "sourceExport": "NATIVE_CASES"
+  },
+  "executionAuthorization": false,
+  "library": {
+    "bytes": 46107,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+    "sha256": "9aac8333c7e51364ef136e7e28c4e51c97832c8492b927842c63e50c96e318f3"
+  },
+  "matrix": {
+    "bytes": 15144,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+    "sha256": "3dc6e11a350fb9dc7365f9738c2aad60d06cbae098efeb4ef9ac5f4ec6532edc"
+  },
+  "originalNativeImplementationAuthorities": {
+    "api": {
+      "bytes": 8118,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/API.md",
+      "sha256": "3da98803fc94b4beeb4e37d6aa01a4ccd266a12ac123df9746cc21d12b1fc9fa"
+    },
+    "apiAdoption": {
+      "bytes": 3933,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-API-ADOPTION.json",
+      "sha256": "9300b1167ee0b481757023e9a93306432c115c3e6f554733aff42e6c95565c7f"
+    },
+    "diagnosticSupplementAdoption": {
+      "bytes": 1768,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/DIAGNOSTIC-CODEC-SUPPLEMENT-ADOPTION.json",
+      "sha256": "0e19294627060a4bc2b77d4172dce7d3b33af97ac91f4e263372cc3ba525842d"
+    },
+    "digestOracleSource": {
+      "bytes": 3704,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/src/core/math.ts",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670"
+    },
+    "implementationIndependentReview": {
+      "bytes": 10219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+      "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+    },
+    "implementationInterface": {
+      "bytes": 1652,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/INTERFACE.json",
+      "sha256": "074f05314b9165ae7f99f0d83536e646b19e0074a334cbeeb55a79bed239b57d"
+    },
+    "implementationSourceManifest": {
+      "bytes": 12245,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+      "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+    },
+    "nativeDesignAdoption": {
+      "bytes": 3376,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+      "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+    }
+  },
+  "requiredInputs": {
+    "ORDERING-SOURCE-CASES.json": {
+      "bytes": 27476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    },
+    "m0FeasibilityWitness-native.ts": {
+      "bytes": 5868,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+    },
+    "m0NativeObserverRows.mjs": {
+      "bytes": 10267,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 13288,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
+      "sha256": "db78301bf62d52b574ed8df272d0fe3d7b10c2568f930d10eb359092725bbba6"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "ordering-source-controls.ts": {
+      "bytes": 3407,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering-source-controls.ts",
+      "sha256": "d485414f997bcf606a416160d9ec212e621b59cfd29a49e0f359b84ba06556f4"
+    },
+    "ordering.ts": {
+      "bytes": 12555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+      "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+    },
+    "original-m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/BASELINE-m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "result": {
+    "caseCount": 86,
+    "exactRows": "MATRIX.cases in order plus verdict ACCEPT_POSITIVE for GREEN or ACCEPT_SPECIFIC_REFUSAL for RED; any failed premise, unexpected error type/code/assertion, compiler/import failure is fatal, never expected RED",
+    "executionAuthorization": false,
+    "game": false,
+    "historicalObserverControlsReplayed": 0,
+    "originalM0ReadOrWritten": false,
+    "originalOrderingCases": 18,
+    "originalParserCasesReplayed": 0,
+    "positiveCount": 13,
+    "schema": "1370-native-observer-independent-controls-result/v1",
+    "specificNegativeCount": 73,
+    "status": "PURE_NATIVE_OBSERVER_CODEC_SINK_AND_AFFECTED_CONSUMERS_COMPLETED_UNADOPTED"
+  },
+  "runtimeGrant": null,
+  "schema": "1370-native-observer-independent-controls-contract/v1",
+  "semantics": {
+    "canonicalDepth": 64,
+    "canonicalNodesAndProperties": 16384,
+    "diagnosticSchema": "1370-m0-native-observer-row-diagnostic/v2",
+    "digestOracle": "Fixture-only FNV64 fold over original UTF16 charCodeAt; byte equality checked separately; does not claim real gameplay invocation.",
+    "firstError": "Shared actual arm-local latch retains presence and exact thrown value, including falsy values; ordinary no-latch reset>end>body precedence distinct.",
+    "knownNoFit": "Lowerbound16385 only; canonical bytes/row/detail null, bounded own canonical descriptor, no encoder/parse/getter; no raw string retained.",
+    "legacyViewBound": "L <= 2P+2; one complete projected row at a time. Expanded v1 accounting explicitly amended.",
+    "newCases": "Fourteen diagnostic-v2 refusal controls; no codec/sink implementation clones. forcedRow uses an actual AP sink assessment-row refusal to select original E, with a public diagnostic wrapper fixture for stage/accessor refusal. Monitored codec methods call the authentic codec to obtain its four typed failures; spoof/control injections test only diagnostic attribution. No market fault or game premise is altered.",
+    "original18": "Original packet unchanged, migrated actual helper edits before codec wrapping and specific AssertionError checks; no arbitrary error is counted RED.",
+    "original72": "All AP72 IDs, expected verdicts, predicates and relative order remain exact. Only original diagnostic-schema expectation updates v1 to v2. Original18 packet and original registration bodies remain unchanged.",
+    "physicalAggregateBytesIncludingNewlines": 2097152,
+    "physicalCount": 512,
+    "physicalRowBytesIncludingNewline": 16384,
+    "snapshot": "Actual healthy prior physical reference snapshot before failed record; public rows refuse sticky failure; no expanded trace cache.",
+    "unknownCodecStage": "Only actual NativeObserverFormatError and own-data reviewed code may classify either stage; unknown diagnosticCode spoof/accessor remains generic unavailable."
+  },
+  "status": "SOURCE_ONLY_UNRUN_PENDING_INDEPENDENT_REVIEW_AND_RECORDED_ROOT_GRANT",
+  "syntaxCheck": "UNRUN: source was authored and inspected only; no Node/TypeScript imports, parser/compiler, tests or candidate execution by this author.",
+  "workerGraph": {
+    "allowedImportRebase": "ordering-source-controls.ts: ./ordering.js -> ./ordering.mjs after authenticated public TypeScript erasure",
+    "copiedJavascriptSources": [
+      "m0NativeObserverRows.mjs",
+      "m0ObserverRowDiagnostic.mjs",
+      "m0TraceCodec.mjs",
+      "traceSequences.mjs",
+      "run-native-observer-controls.mjs"
+    ],
+    "gameImports": false,
+    "typescriptSources": [
+      "m0FeasibilityWitness-native.ts",
+      "original-m0FeasibilityWitness.ts",
+      "ordering.ts",
+      "ordering-source-controls.ts"
+    ]
+  }
+}

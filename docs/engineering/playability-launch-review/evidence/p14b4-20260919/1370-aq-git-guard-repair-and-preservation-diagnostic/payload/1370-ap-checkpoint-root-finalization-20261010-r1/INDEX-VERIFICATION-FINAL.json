@@ -1,0 +1,475 @@
+{
+  "allIndexedBytesEqualWorkingFiles": true,
+  "allOtherIndexedBytesUnchanged": true,
+  "autoPreservedSha256": "39c20c726e9779c2f8ba73dd37ba55476302ac7b17040bf3d5e487f5c7268a4d",
+  "beforeDocs": {
+    "HANDOFF.md": {
+      "bytes": 10050,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+      "sha256": "c9de579a841ce760e968d0e4855b18536dd21c9fef1d9a1ca391cb9731101eb5"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AP-native-observer-controls-and-protected-stop.md": {
+      "bytes": 6684,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AP-native-observer-controls-and-protected-stop.md",
+      "sha256": "3cf8d9fdce507fef9a15d07a3e31ce466a50fdc7f8649c19c6cc637276c39760"
+    }
+  },
+  "changedDocs": {
+    "HANDOFF.md": {
+      "bytes": 10417,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+      "sha256": "695f8a4c3a081ec9083045a4f616cd7eaf8559e8ab9d6d3bf2ff99fc44196203"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AP-native-observer-controls-and-protected-stop.md": {
+      "bytes": 7428,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AP-native-observer-controls-and-protected-stop.md",
+      "sha256": "927448ab88981abde351b5cf7906785ee7b0c2f4f9edd4cdf858b705a2e7fe29"
+    }
+  },
+  "changedPathsSinceCompleteVerification": [
+    "HANDOFF.md",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AP-native-observer-controls-and-protected-stop.md"
+  ],
+  "currentDocsWhitespaceCheck": 0,
+  "expectedStagedFiles": 765,
+  "indexedSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "indexedTree": "4373ba4feb212f12e17d63904ed8d01991257711",
+  "manifestCoverageComplete": true,
+  "preservedDiffContextWarnings": [
+    {
+      "line": 2,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 4,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 6,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 8,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 10,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 12,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 14,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 16,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 18,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 20,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 22,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 24,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 26,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 28,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 30,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 34,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 38,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 40,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 42,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 44,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 46,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 48,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 50,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 52,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 2,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 4,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 6,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 8,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 10,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 12,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 14,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 16,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 18,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 20,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 22,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 24,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 26,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 28,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 30,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 34,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 38,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 40,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 42,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 44,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 46,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 48,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 50,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 52,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ao-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-ORIGINAL.stdout",
+      "preservedSha256": "001f6cfc1678daa86809cd7db512c70c2db2b5f05cf8a07ae0dcbc3fe8e11335",
+      "reason": "Immutable authenticated AO diff-check stdout quoting original blank context"
+    },
+    {
+      "line": 4,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2/current-ao-root-prelaunch.py.forward.diff",
+      "preservedSha256": "87181c00c91e4560e8af53217ea3695d5ab608889095e080ade49de1378f8832",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 4,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2/current-ao-root-prelaunch.py.inverse.diff",
+      "preservedSha256": "d8c12502d4d0493abe2a57cb17944bdc0754e064e09895d8659947c90004ac0f",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 4,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/current-ao-root-prelaunch.py.forward.diff",
+      "preservedSha256": "87181c00c91e4560e8af53217ea3695d5ab608889095e080ade49de1378f8832",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 4,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/current-ao-root-prelaunch.py.inverse.diff",
+      "preservedSha256": "d8c12502d4d0493abe2a57cb17944bdc0754e064e09895d8659947c90004ac0f",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 82,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r1/m0ObserverRowDiagnostic-mjs.diff",
+      "preservedSha256": "4adde112250ca72740c967b75e541e7b97a442e4efc134d951277c708ef9693a",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 44,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r1/talentMarket-ts.diff",
+      "preservedSha256": "32ebf81bb4d8a22272afe3a395613aad7a929fda817f3ba7e4b253af241c3e2e",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 44,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r1/typed-propagation-removed-talentMarket-ts.diff",
+      "preservedSha256": "465dc38c960c9c6654ee80d9bd75995830d3b6f9cf69afcea813829db231c595",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 82,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r2/m0ObserverRowDiagnostic-mjs.diff",
+      "preservedSha256": "4adde112250ca72740c967b75e541e7b97a442e4efc134d951277c708ef9693a",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 44,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r2/talentMarket-ts.diff",
+      "preservedSha256": "32ebf81bb4d8a22272afe3a395613aad7a929fda817f3ba7e4b253af241c3e2e",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 44,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r2/typed-propagation-removed-talentMarket-ts.diff",
+      "preservedSha256": "465dc38c960c9c6654ee80d9bd75995830d3b6f9cf69afcea813829db231c595",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 82,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r3/m0ObserverRowDiagnostic-mjs.diff",
+      "preservedSha256": "4adde112250ca72740c967b75e541e7b97a442e4efc134d951277c708ef9693a",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 44,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r3/talentMarket-ts.diff",
+      "preservedSha256": "32ebf81bb4d8a22272afe3a395613aad7a929fda817f3ba7e4b253af241c3e2e",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 44,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r3/typed-propagation-removed-talentMarket-ts.diff",
+      "preservedSha256": "465dc38c960c9c6654ee80d9bd75995830d3b6f9cf69afcea813829db231c595",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 82,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r4/m0ObserverRowDiagnostic-mjs.diff",
+      "preservedSha256": "4adde112250ca72740c967b75e541e7b97a442e4efc134d951277c708ef9693a",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 44,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r4/talentMarket-ts.diff",
+      "preservedSha256": "32ebf81bb4d8a22272afe3a395613aad7a929fda817f3ba7e4b253af241c3e2e",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 44,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r4/typed-propagation-removed-talentMarket-ts.diff",
+      "preservedSha256": "465dc38c960c9c6654ee80d9bd75995830d3b6f9cf69afcea813829db231c595",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 82,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic-mjs.diff",
+      "preservedSha256": "4adde112250ca72740c967b75e541e7b97a442e4efc134d951277c708ef9693a",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 44,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r5/talentMarket-ts.diff",
+      "preservedSha256": "32ebf81bb4d8a22272afe3a395613aad7a929fda817f3ba7e4b253af241c3e2e",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 44,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ap-native-observer-controls-and-protected-stop/payload/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket-ts.diff",
+      "preservedSha256": "465dc38c960c9c6654ee80d9bd75995830d3b6f9cf69afcea813829db231c595",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    }
+  ],
+  "priorCompleteIndexVerification": {
+    "bytes": 31304,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/INDEX-VERIFICATION-COMPLETE.json",
+    "sha256": "2e073772b8d9c1acb5a5c0578d0b6ec2addfc39a57f9aca8b9c301d59081e425"
+  },
+  "schema": "1370-ap-final-index-verification/v1",
+  "stagedFiles": 765,
+  "wholeDiffWarningsUnchanged": true,
+  "wholeDiffWhitespaceCheck": 2
+}

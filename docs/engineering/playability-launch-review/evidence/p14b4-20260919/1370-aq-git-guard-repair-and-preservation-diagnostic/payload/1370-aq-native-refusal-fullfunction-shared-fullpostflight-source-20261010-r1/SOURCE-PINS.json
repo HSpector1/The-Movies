@@ -1,0 +1,77 @@
+{
+  "actualPostflight": null,
+  "actualSourceReview": null,
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-launch-fullpostflight.py.txt": {
+      "bytes": 5283,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/BASELINE-launch-fullpostflight.py.txt",
+      "sha256": "0003d2c01f91ba5d480ec32cea74af77358d82199a668644a5ee6009fd780785"
+    },
+    "BASELINE-read-fullpostflight.py.txt": {
+      "bytes": 5421,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/BASELINE-read-fullpostflight.py.txt",
+      "sha256": "0c4047136b4c872b8e65ac5d868788f79c9004af9372e2c1a9bab5d24077b12c"
+    },
+    "RECIPE-DRAFT.json": {
+      "bytes": 2873,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/RECIPE-DRAFT.json",
+      "sha256": "14dc326a76e8af51d41586a464ab29a3cb4614b59261b94eab890a1125fd47a5"
+    },
+    "RECIPE.json": {
+      "bytes": 3465,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/RECIPE.json",
+      "sha256": "e8ad40da8467a44efbf48e2e19a432cb6f42b0251a3833ce2a78a4dfd9c90b94"
+    },
+    "REVIEW-CONTRACT.json": {
+      "bytes": 670,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/REVIEW-CONTRACT.json",
+      "sha256": "037b1e3829be5a427254a86e1ff903f1b83d6d9120972ff2b75164d1a9704daf"
+    },
+    "SOURCE-PROOF-DRAFT.json": {
+      "bytes": 1645,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/SOURCE-PROOF-DRAFT.json",
+      "sha256": "fdc67ae50f8ada9d22d60968988d638ff18b78d8b15d533eacfa82eec7162d22"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 2200,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/SOURCE-PROOF.json",
+      "sha256": "c8bd97f2a5a8a62322cc45abbd0aff37c4893b5e865a54d8a68d1602d906d264"
+    },
+    "launch-fullpostflight.py": {
+      "bytes": 5301,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+      "sha256": "9878a994f41d5b5914dc43621da0fdb61b87a0625eed110aec5fecacb084f9e7"
+    },
+    "launch-fullpostflight.py.forward.json": {
+      "bytes": 1247,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py.forward.json",
+      "sha256": "0a006d215f27b69c7cef6cea215f0709e4005286f5d96cae2b95b2886bdbfe03"
+    },
+    "launch-fullpostflight.py.inverse.json": {
+      "bytes": 1247,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py.inverse.json",
+      "sha256": "308d520a7230e1d45189fbc4bc64b7ae23cbb2d5ff7578275445da89c3ec2e2f"
+    },
+    "read-fullpostflight.py": {
+      "bytes": 5439,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py",
+      "sha256": "549958b04cd815140da8e00dccb46c8c8061a169b0efd8763c47232674bff6ad"
+    },
+    "read-fullpostflight.py.forward.json": {
+      "bytes": 485,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py.forward.json",
+      "sha256": "3f0d4465a7a79f7f0b0ec2e1806b5446f19f9bd4f99ed49d687e5b991b53fb45"
+    },
+    "read-fullpostflight.py.inverse.json": {
+      "bytes": 485,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py.inverse.json",
+      "sha256": "20085c9275f2f9f2970c97ad35a3c968083faa7299572de46f7b02c51459da03"
+    }
+  },
+  "schema": "1370-aq-native-refusal-fullfunction-shared-fullpostflight-source-pins/v1",
+  "sourceReviewAliases": [
+    "launch-fullpostflight.py",
+    "read-fullpostflight.py"
+  ]
+}

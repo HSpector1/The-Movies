@@ -1,0 +1,156 @@
+{
+  "actualSidRule": "helperPID==helperPGID; SID typed integer>1",
+  "candidateExecuted": false,
+  "completeForwardInversePairs": [
+    {
+      "baseline": {
+        "bytes": 5017,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/BASELINE-run_native_observer_controls_once.py",
+        "sha256": "5a64a66f7f98498c316ad330d078caebc0214c50699fc3c2228e097a74c12470"
+      },
+      "forward": {
+        "bytes": 10527,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/FORWARD-run_native_observer_controls_once.py.json",
+        "sha256": "5a6960785e8326783963736b8d99e6ce31509b4d6745dd30c0f68e2be96c8e6e"
+      },
+      "forwardApplied": true,
+      "inverse": {
+        "bytes": 10527,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/INVERSE-run_native_observer_controls_once.py.json",
+        "sha256": "d9ea9e51dcf338268b3cd1f25219a2da1a0581394849262d6057352ca1a44f4c"
+      },
+      "inverseApplied": true,
+      "predecessor": {
+        "bytes": 5017,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3/run_native_observer_controls_once.py",
+        "sha256": "5a64a66f7f98498c316ad330d078caebc0214c50699fc3c2228e097a74c12470"
+      },
+      "result": {
+        "bytes": 5391,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/run_native_observer_controls_once.py",
+        "sha256": "41c24b9fb8cd69ef1a4c42186556c60f9a24bbf2f43c0e7a910e6233f785d1ba"
+      }
+    },
+    {
+      "baseline": {
+        "bytes": 6351,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/BASELINE-read_native_observer_controls.py",
+        "sha256": "d0c379255584dd36718b4cfa4af5f3e0de8d9c932fe73bd83eabe0b0027349c8"
+      },
+      "forward": {
+        "bytes": 13386,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/FORWARD-read_native_observer_controls.py.json",
+        "sha256": "5bca374e5109c9a2a17a9d2c5eef02af305924696e03afdf2dcf37b5dea3c8be"
+      },
+      "forwardApplied": true,
+      "inverse": {
+        "bytes": 13386,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/INVERSE-read_native_observer_controls.py.json",
+        "sha256": "9c6d05da145bc72c9b5fd4d2c2dc75cfc584ec0c3921f69047c58d01518675cd"
+      },
+      "inverseApplied": true,
+      "predecessor": {
+        "bytes": 6351,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3/read_native_observer_controls.py",
+        "sha256": "d0c379255584dd36718b4cfa4af5f3e0de8d9c932fe73bd83eabe0b0027349c8"
+      },
+      "result": {
+        "bytes": 6884,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/read_native_observer_controls.py",
+        "sha256": "239e5e427e49a7c4a978dcf8f8a3955ed36cbb8e36e43cace0b475b2165fc98a"
+      }
+    },
+    {
+      "baseline": {
+        "bytes": 2116,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/BASELINE-CONTRACT.json",
+        "sha256": "4ddeebdbc3f9035c2d7629154ce37f0f2ebb81a05a0b59969ac6129ac63822ab"
+      },
+      "forward": {
+        "bytes": 4923,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/FORWARD-CONTRACT.json.json",
+        "sha256": "1129ed1b4450774924d6c3a2802c0a8e711773ccd1179032bd33c4b0f92cdebb"
+      },
+      "forwardApplied": true,
+      "inverse": {
+        "bytes": 4923,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/INVERSE-CONTRACT.json.json",
+        "sha256": "3d0a167d06016bea84d7669584664e6176e0347e67e6761451766d1303646b0e"
+      },
+      "inverseApplied": true,
+      "predecessor": {
+        "bytes": 2116,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3/CONTRACT.json",
+        "sha256": "4ddeebdbc3f9035c2d7629154ce37f0f2ebb81a05a0b59969ac6129ac63822ab"
+      },
+      "result": {
+        "bytes": 2477,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/CONTRACT.json",
+        "sha256": "338da4a86fb8066b780cf46d7c7d8fc71a4fbe265a5ef8e639e1e1f943ea354d"
+      }
+    }
+  ],
+  "evaluatedParentDirectory": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1",
+  "evaluatedSourceDirectory": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1",
+  "executionAuthorization": false,
+  "minimalR1Correction": {
+    "after": {
+      "bytes": 5391,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/run_native_observer_controls_once.py",
+      "sha256": "41c24b9fb8cd69ef1a4c42186556c60f9a24bbf2f43c0e7a910e6233f785d1ba"
+    },
+    "before": {
+      "bytes": 5381,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/run_native_observer_controls_once.py",
+      "sha256": "fd7333e855318c8560860bb2b243282f85ebaff6da85d92309b24c272f3eff11"
+    },
+    "forward": {
+      "bytes": 10891,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/R1-FORWARD.json",
+      "sha256": "39e6c2a91143c6708edf157ef9d58a5a4886b91bf81e7f955a03eb121bc687e2"
+    },
+    "inverse": {
+      "bytes": 10891,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/R1-INVERSE.json",
+      "sha256": "efe018647ffe775f4baade9d0b88953bc49bc662becfba774826de91cb246793"
+    }
+  },
+  "pythonHelpers": [
+    {
+      "allByteExact": true,
+      "derivative": {
+        "bytes": 5391,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/run_native_observer_controls_once.py",
+        "sha256": "41c24b9fb8cd69ef1a4c42186556c60f9a24bbf2f43c0e7a910e6233f785d1ba"
+      },
+      "names": [
+        "role",
+        "read",
+        "put"
+      ],
+      "predecessor": {
+        "bytes": 5017,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3/run_native_observer_controls_once.py",
+        "sha256": "5a64a66f7f98498c316ad330d078caebc0214c50699fc3c2228e097a74c12470"
+      }
+    },
+    {
+      "allByteExact": true,
+      "derivative": {
+        "bytes": 6884,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/read_native_observer_controls.py",
+        "sha256": "239e5e427e49a7c4a978dcf8f8a3955ed36cbb8e36e43cace0b475b2165fc98a"
+      },
+      "names": [
+        "role",
+        "read"
+      ],
+      "predecessor": {
+        "bytes": 6351,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3/read_native_observer_controls.py",
+        "sha256": "d0c379255584dd36718b4cfa4af5f3e0de8d9c932fe73bd83eabe0b0027349c8"
+      }
+    }
+  ],
+  "schema": "1370-native-refusal-controls-root-adapters-source-proof/v1"
+}

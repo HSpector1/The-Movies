@@ -1,0 +1,53 @@
+--- 
++++ 
+@@ -1,15 +1,12 @@
+ {
+   "actualLaunch": null,
+   "actualPostflight": null,
+-  "amendment": "Reuse genuinely accepted fresh currentAO before-fill complete fullguard snapshot for immediately refreshed original current/root/ancestry/FD/process/disk checks under continuous freeze. Explicit scope extension, not a claim original after-fill wording directly covers before-fill.",
++  "amendment": "Reuse genuinely accepted fresh currentAP before-fill complete fullguard snapshot only for immediately refreshed original current/root/ancestry/FD/process/disk/AC/refs checks under continuous freeze. Explicit scope extension, not a claim original after-fill wording covers before-fill.",
+   "capsHorizonsSourceIdentityProtectedRootsAcceptanceUnchanged": true,
+-  "currentFullPreflightAdoption": {
+-    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+-    "bytes": 4729,
+-    "sha256": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552"
+-  },
++  "currentFullPreflightAdoption": null,
+   "executionAuthorization": false,
+   "freshFullInventoryAdded": false,
++  "historicalTypesPostflightDoesNotEqualCurrentAPBaselineByAssumption": true,
+   "historicalTypesRemainHistorical": true,
+   "lessons": [
+     "Authenticate actual producer keys before sealing consumers: pure48 root adoption uses readback, not actualReadback.",
+@@ -17,7 +14,11 @@
+     "Preserve historical types authority as historical while requiring current operational protection independently."
+   ],
+   "mandatoryFullPostflightAfterGameAgainstThisBaseline": true,
+-  "observerControlsAdoption": null,
++  "nativeRefusalControlsObservedAdoption": {
++    "bytes": 16532,
++    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
++    "sha256": "385249f0239d6999318b62c6781c0f24c97e10600aa47dba6b51ddf6c4693ed4"
++  },
+   "originalExactClause": "Between after-fill and actual launch, reuse the immutable full observations only while those protected roots remain frozen; parent repeats fresh current FD/process/UUID/refs/clean/AC/disk and physical root metadata immediately before lane and pins that actual observation in adopted preflight.",
+   "originalM0BeforeAfterProofsRemainSeparate": true,
+   "originalReusePlan": {
+@@ -26,14 +27,9 @@
+     "sha256": "acd0e3cb6ae3138f531cddba326bced7252c6f74fc13353b9ac728f68375413b"
+   },
+   "originalScannerHelpersUnchanged": true,
+-  "rationale": "AO published documentation transition ended the older AN Git freeze. Original fullguard3186 genuinely established currentAO full maps and nine strict roots/current-before-after; no new candidate fill/protected writes. Only scratch source preparation has followed so far; native public72 controls must finish and be independently/root-adopted before this shortprelaunch launcher can run.",
+-  "schema": "1370-ap-current-ao-prelaunch-reuse-scope-amendment/v2",
+-  "snapshot": {
+-    "bytes": 9552315,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/SNAPSHOT.json",
+-    "sha256": "ed62b148395ad06a7e06ce68b2581097517a2483fa91c3baa4818513f358aad4"
+-  },
++  "rationale": "AP published documentation transition ended older AO operational freeze. New original fullguard must genuinely establish current AP full maps/nine strict roots/current checks; only then can same before-fill reuse amendment apply. Actual pure86 is independently/root adopted. No private M0 scientific AFTER proof or historical types authority is repinned.",
++  "schema": "1370-aq-current-ap-prelaunch-reuse-scope-amendment/v2",
++  "snapshot": null,
+   "snapshotPhase": "before-fill",
+-  "status": "SOURCE_ONLY_PENDING_INDEPENDENT_REVIEW_AND_PARENT_ADOPTION",
+-  "historicalTypesPostflightDoesNotEqualCurrentAOBaselineByAssumption": true
++  "status": "SOURCE_ONLY_PENDING_INDEPENDENT_REVIEW_AND_PARENT_ADOPTION"
+ }

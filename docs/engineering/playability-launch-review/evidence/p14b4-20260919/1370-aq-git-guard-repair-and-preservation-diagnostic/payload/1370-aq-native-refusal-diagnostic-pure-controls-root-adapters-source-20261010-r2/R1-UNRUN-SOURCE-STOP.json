@@ -1,0 +1,11 @@
+{
+  "correction": "Only evaluated Q literal changed to actual AQ route; parent/output identities remain fresh unrun r1.",
+  "executionAuthorization": false,
+  "finding": "Evaluated Q remained AP predecessor while expected manifest SHA bound AQ; deterministic pre-grant source failure. No runtime occurred.",
+  "priorAcceptance": null,
+  "priorManifest": {
+    "bytes": 6203,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "1eb55b3e8ac401c16337b96f09c1181e2ea80ea5a336949153dc2656d1ba0c68"
+  }
+}

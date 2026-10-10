@@ -1,0 +1,154 @@
+{
+  "additionalLocalRoles": [
+    {
+      "bytes": 2890,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-common-git-attribution-root-20261010-r1/TOP-LEVEL-METADATA-LOCAL.json",
+      "sha256": "4c773b0d358ee079f6ed28cc6bb5d3ed18109f2d553466b2f488dea761ee11b5"
+    },
+    {
+      "bytes": 4577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-common-git-attribution-root-20261010-r1/WORKTREE-METADATA-LOCAL.json",
+      "sha256": "cd21b1f42523898e2167a4aa54659a50ced5cd6a5a132f151747b9cdd6ddcdef"
+    },
+    {
+      "bytes": 1533,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-parent-recorded-20261010-r1/COMPARISON-LOCAL.json",
+      "sha256": "3625225eb8b9dbf7d47c4a8e96725b410da48242b28560e67b3e162d0dfb3082"
+    },
+    {
+      "bytes": 4478980,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/INDEX-LOCAL.bin",
+      "sha256": "cdcc57cf0379003dcce3f6c6e99f8f56f5905cec037b6e9dac8afdc48a62df8c"
+    },
+    {
+      "bytes": 4017209,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/index-stage.stdout.LOCAL",
+      "sha256": "b8884f716b5d96c04f40cf88899f3efdec5d142ae6bc55d773fc0b6f2f80f4c4"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/index-stage.stderr.LOCAL",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4079969,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/commit-tree.stdout.LOCAL",
+      "sha256": "33c539b830ead342f70291a3dc973b7973fcf9f68073945afc1e8017b4b67209"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/commit-tree.stderr.LOCAL",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 35,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1/original/tracked.txt",
+      "sha256": "c8da61d765fe5f418137294c2d44fdb3c671330f46055fadcabe1259108552c4"
+    },
+    {
+      "bytes": 35,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1/corrected/tracked.txt",
+      "sha256": "c8da61d765fe5f418137294c2d44fdb3c671330f46055fadcabe1259108552c4"
+    }
+  ],
+  "approvedLooseRoles": [],
+  "archiveCopied": false,
+  "automaticInputsDoNotDuplicate": [
+    "whole late D_AP",
+    "1370-aq-checkpoint-archive-selection-plan-20261010-r1",
+    "chosen1370-aq-finite-checkpoint-finalization-source-20261010-r3"
+  ],
+  "conditionalLooseScriptDispositions": [
+    {
+      "disposition": "HELD_UNARCHIVED_NO_AUTHENTICATED_RETAINED_ROLE_REFERENCE_FOUND",
+      "path": "/Users/zacheryspector/studio-scratch/aq_review_compact_pure.py",
+      "searchedScope": "Named AQ root/adoptions, source/proof/review and preparation packages; selection-plan conditional reference alone is not authority."
+    },
+    {
+      "disposition": "HELD_UNARCHIVED_NO_AUTHENTICATED_RETAINED_ROLE_REFERENCE_FOUND",
+      "path": "/Users/zacheryspector/studio-scratch/aq_check_generated_authority.py",
+      "searchedScope": "Named AQ root/adoptions, source/proof/review and preparation packages; selection-plan conditional reference alone is not authority."
+    },
+    {
+      "disposition": "HELD_UNARCHIVED_NO_AUTHENTICATED_RETAINED_ROLE_REFERENCE_FOUND",
+      "path": "/Users/zacheryspector/studio-scratch/aq_prepare_recent_prelaunch.py",
+      "searchedScope": "Named AQ root/adoptions, source/proof/review and preparation packages; selection-plan conditional reference alone is not authority."
+    },
+    {
+      "disposition": "HELD_UNARCHIVED_NO_AUTHENTICATED_RETAINED_ROLE_REFERENCE_FOUND",
+      "path": "/Users/zacheryspector/studio-scratch/aq_audit_diagnostic_preparation.py",
+      "searchedScope": "Named AQ root/adoptions, source/proof/review and preparation packages; selection-plan conditional reference alone is not authority."
+    },
+    {
+      "disposition": "HELD_UNARCHIVED_NO_AUTHENTICATED_RETAINED_ROLE_REFERENCE_FOUND",
+      "path": "/Users/zacheryspector/studio-scratch/aq_seal_original_diagnostic.py",
+      "searchedScope": "Named AQ root/adoptions, source/proof/review and preparation packages; selection-plan conditional reference alone is not authority."
+    }
+  ],
+  "executionAuthorization": false,
+  "inventoryExecuted": false,
+  "laneFileRoles": [
+    {
+      "bytes": 297,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-lane-20261010-r1",
+      "sha256": "2d585ee7cee38bfd6dffcb6f183b42e8a34debd378ccd2b8a5f6528d67e01a15"
+    },
+    {
+      "bytes": 430,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-lane-20261010-r1.meta",
+      "sha256": "e9ba1d0f05618f3663726d03509c91dcb9a95953aed38976e70cf52723e6db29"
+    },
+    {
+      "bytes": 321,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-lane-20261010-r1",
+      "sha256": "7c4ce844dd8fc19053aaefe58afe7a26290c0c193284e6dd21f47020c657ea56"
+    },
+    {
+      "bytes": 535,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-lane-20261010-r1.meta",
+      "sha256": "ecc8a394cedb202193734a62f32f332c4c7a434c7cb7c2599ca10d3ea03dc82b"
+    }
+  ],
+  "latePackagePaths": [
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-common-git-attribution-root-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-source-finding-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-root-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-lane-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-lane-20261010-r1.meta",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-lane-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-lane-20261010-r1.meta"
+  ],
+  "notes": [
+    "All10 explicit additionalLocalRoles must be supplied before producer parsing; chosen R3 skips explicit LOCAL JSON.",
+    "Both disposable .git directories excluded without traversal; tracked.txt payloads LOCAL, RESULT/receipt metadata preserved.",
+    "Existing plan covers original diagnostic source and comparison source; late list contains only missing known packages and exact two lanes+metas.",
+    "This suggestion package may be added as one root-approved late package after seal; it is not an automatic input.",
+    "No scratch-wide package inventory or original/protected dependency/Git traversal performed."
+  ],
+  "pendingRootAdditions": [
+    "M0 archive-builder independent R1STOP/R2 review package paths if separate; awaiting exact author role",
+    "operational-recovery proposal review after genuine",
+    "root cutoff/final lessons/current decision before final inventory"
+  ],
+  "schema": "1370-aq-checkpoint-late-input-suggestions/v1",
+  "sourceOnly": true
+}

@@ -1,0 +1,60 @@
+{
+  "actualTool": {
+    "bytes": 678,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "2a0a7299f93e26e495ab6130d64c39e118b076fa24288eaa22c070414016792c"
+  },
+  "caseCount": 8,
+  "correctedFullIndexRoleAndMetadataUnchanged": true,
+  "correctedRunner": {
+    "bytes": 44107,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/runner.py",
+    "sha256": "6d83467284f7ecdf34c2d20c0aeab648819539406768beda0c3370d2651000fa"
+  },
+  "elapsedSeconds": 0.4843068230256904,
+  "executionAuthorization": false,
+  "game": false,
+  "grant": {
+    "bytes": 2183,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "f4992f279d1f8658b186318da470e430566bbef1ef24c634612ab773d022673d"
+  },
+  "historicalCommonGitCauseIdentified": false,
+  "implementationManifest": {
+    "bytes": 1226,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "162098174210e249daafd838b7dbaf5814a492f06c977abdf0ae9dd4261b6fba"
+  },
+  "independentObservedReview": {
+    "bytes": 4056,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "6401e029d70b0f71ba497db09f035fe68036be3352fc6341ac1ab4c511f0b7b2"
+  },
+  "originalActualIndexRefreshObserved": true,
+  "positiveCount": 7,
+  "preservationContinuityRestored": false,
+  "readback": {
+    "bytes": 2339,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "a35487ac7a471739472c355d10ee59aedc71fe7bb192aefeedbae059fa76adf8"
+  },
+  "result": {
+    "bytes": 23665,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1/RESULT.json",
+    "sha256": "e688b7321761327ebe9623f36e2950c58fdca47e2d853a1d7cd5901e644259b5"
+  },
+  "schema": "1370-root-git-optional-locks-regression-controls-observed-adoption/v1",
+  "soleLaneReleased": true,
+  "sourceManifest": {
+    "bytes": 1814,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "902fb0f11c7e345eb6f77dc0df60155bd1a0bc0bde9e348c9b6111f2187a6bfa"
+  },
+  "sourceReview": {
+    "bytes": 3512,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-root-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "f34594c91a55f01a5ff5401bd6c99e5e23e0daf8ae0542e88af0c4bb5edc5d17"
+  },
+  "specificNegativeCount": 1,
+  "status": "ROOT_ADOPTED_ACTUAL_DISPOSABLE_GIT_OPTIONAL_LOCKS_REGRESSION_CONTROLS_ONLY"
+}

@@ -1,0 +1,33 @@
+{
+  "actualChildExit": 0,
+  "boundsSeconds": {
+    "active": 320,
+    "aggregateChild": 300,
+    "whole": 330
+  },
+  "childPid": 24059,
+  "configSha256": "dd50bff928b1fae52e7af862a1ccf1634166ab00e199fcaf9776b205adae9e4a",
+  "elapsedSeconds": 1.1601861900126096,
+  "executionAuthorization": false,
+  "groupClear": true,
+  "mode": "verification",
+  "neutralityAccepted": false,
+  "ownedPgid": 24059,
+  "pgidConfirmed": true,
+  "pureMechanismControlsOnly": true,
+  "realGameplayPrefixScope": false,
+  "sanitizedEnvironment": [
+    "NODE_OPTIONS",
+    "NODE_PATH"
+  ],
+  "schema": "1370-original-guard-diagnostic-pure-recorder/v1",
+  "sourceOrGameplayAdoption": false,
+  "startupOwnedBeforeExec": true,
+  "status": "PURE_DIAGNOSTIC_CONTROLS_COMPLETE_UNADOPTED",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutBytes": 327,
+  "stdoutSha256": "cbf8c255e3b97115ccff67b2526b4185966af4d6c3a3d77065ade3dece4f527b",
+  "timedOut": false,
+  "utc": "2026-10-10T12:48:20.475591+00:00"
+}

@@ -1,0 +1,24 @@
+{
+  "additionalLocalRoles": [],
+  "approvedLooseRoles": [],
+  "comparisonResult": null,
+  "comparisonUnavailableReason": null,
+  "diagnosticObservedReview": null,
+  "diagnosticReadback": null,
+  "executionAuthorization": false,
+  "latePackagePaths": [
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1"
+  ],
+  "pendingAdditions": [
+    "Root-selected terminal diagnostic review and any map-comparison package; actual result roles; root cutoff and exact loose-script role approvals"
+  ],
+  "schema": "1370-aq-root-finite-archive-cutoff/v1",
+  "selectionPlan": {
+    "bytes": 16042,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-archive-selection-plan-20261010-r1/PLAN.json",
+    "sha256": "6ae2ccbfbcf3443ce60a81384a6155a2fc4b1528b1cd9891699c20eca4a1407d"
+  },
+  "status": "UNFILLED_SOURCE_ONLY_NOT_A_ROOT_CUTOFF"
+}

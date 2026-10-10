@@ -1,0 +1,170 @@
+{
+  "acPowerBeforeAfter": true,
+  "actualExit": 0,
+  "actualOwnedScannerPgid": 59317,
+  "actualOwnedScannerPid": 59317,
+  "actualOwnedScannerSid": 59317,
+  "actualTool": {
+    "bytes": 1531,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "b633580f5e11e5c34bb50690ae7b93da98f547bd5f489dbac8ac8cd601c3e033"
+  },
+  "concreteFindings": [],
+  "config": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "sha256": "a058c0d63bd0f0432f26d4ebcae62a80977eaccfd7e2406cf7a7e6f221b23fec"
+  },
+  "currentChecksBeforeAndAfterAccepted": true,
+  "currentFacts": {
+    "currentAfter": {
+      "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+      "fdOriginalAndEphemeralAndRetainedHPassed": true,
+      "fdOriginalM0ParentPassed": true,
+      "freeBytes": 4637437952,
+      "oldNumericPidsAbsent": true,
+      "relevantWorkersAbsent": true
+    },
+    "currentBefore": {
+      "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+      "fdOriginalAndEphemeralAndRetainedHPassed": true,
+      "fdOriginalM0ParentPassed": true,
+      "freeBytes": 4648763392,
+      "oldNumericPidsAbsent": true,
+      "relevantWorkersAbsent": true
+    }
+  },
+  "currentProductionAndCommonProtectedDigestsEstablishFreshAPBaseline": true,
+  "decision": "ACCEPT_ACTUAL_CURRENT_AP_FULL_PREFLIGHT_ONLY",
+  "dependencyEntriesPerCopy": 12485,
+  "dependencyShape": {
+    "directory": 1401,
+    "regular": 11060,
+    "symlink": 24
+  },
+  "docsOnlyTransitionIndependentlyEstablishedByQualifiedScanner": true,
+  "executionAuthorization": false,
+  "freshFullInventory": true,
+  "fullQualificationAccepted": false,
+  "game": false,
+  "grant": {
+    "bytes": 2366,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "d821cdaf8bbcd092c859601e9a79b9d423a7ab61862d925d0753a4347cccc7a0"
+  },
+  "guardSeconds": 459.9390340069949,
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "51f11d5f9bc55d77ed9e1b7d0bce4d36d1c9af865835617d585629fa8f694f85"
+  },
+  "historicalTypesAndM0ProofAuthoritySeparate": true,
+  "inventorySeconds": 343.83853859000374,
+  "nineStrictRootsBeforeAfterExact": true,
+  "noHelperDirectExec": true,
+  "operationalFacts": {
+    "bytes": 1029,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-OPERATIONAL-TRANSITION.json",
+    "sha256": "8a7d765bbc472ccf5717fd2b3e68a362eac5db63f76b5fb523bd6fe3de1ed753"
+  },
+  "operationalScope": {
+    "bytes": 2942,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "b0e268df5d8e7cd749286c5b91c09a2b8d88926697413bd5313f46854e2cc126"
+  },
+  "originalM0ContentProof": false,
+  "originalPrivateSourceDependencyMapsAndCopiedProtectedDigestExact": true,
+  "perCommandSeconds": 180,
+  "postOwnership": {
+    "bytes": 339,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/POST-OWNERSHIP.json",
+    "sha256": "e9904c90ea3f9e414dce2d9bacbb915a19f87098532ec36e75a0dbd9a0d5abf6"
+  },
+  "privateBaseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/SNAPSHOT.json",
+    "sha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347"
+  },
+  "productionHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "prospectiveAdoptionContract": {
+    "bytes": 1365,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULLGUARD-ADOPTION-PROSPECTIVE-CONTRACT.json",
+    "sha256": "998f932cb9ded3667f702bde23fd1c7d4baceb06349f4dbb99759ad1411d39bd"
+  },
+  "publishedReadback": {
+    "bytes": 2519,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/PUSH-READBACK.json",
+    "sha256": "6545dea2ceaa3cb52d8799fe9ef0aede1b58bd34e42268307b27208c9050e27f"
+  },
+  "rawLocalBytes": 1322999,
+  "rawLocalOnlyClassification": {
+    "bytes": 1472,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/RAW-LOCAL-ONLY-CLASSIFICATION.json",
+    "sha256": "f935119a64c1393c76ff233de9a85f39b4078f71f7211e67f27c20a7cdf7547f"
+  },
+  "rawLocalRoleCount": 4,
+  "rawPayloadsNotExported": true,
+  "readback": {
+    "bytes": 3900,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "5b5d8a3c40c457be95d8b99e9a7a7eb02b1513a75e91fb7304bd2dbeca2ec66b"
+  },
+  "readerActualTool": {
+    "bytes": 620,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/READER-ACTUAL-TOOL.json",
+    "sha256": "d79e896d968c7c106e3735c9dbbe11d2ef1d1ee41f1d3765a0314239a84bffe6"
+  },
+  "reviewScope": "Independent finite retained actual tool/reader/source/adoption/grant/snapshot/pins audit, lossless Python integer comparisons of original admitted private evidence maps and scoped root/ancestry identity, current facts and recorded fresh owned absence checks. No candidate imports, runtime replay/process probes, private/dependency traversals, Git mutation or protected writes. This is a before-fill current-AP operational baseline, not a game or M0 proof acceptance; continuous freeze and existing mandatory postflight requirements remain.",
+  "scanStderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/scan.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scanStdout": {
+    "bytes": 453,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/scan.stdout",
+    "sha256": "340e4d30524b1a7230858d5e70ad7bc5eac9904069dbc1c28b82159ca64fd10a"
+  },
+  "schema": "1370-current-ap-fullpreflight-independent-observed-review/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 59317,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 59317,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "snapshot": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "snapshotPins": {
+    "bytes": 507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/PINS.json",
+    "sha256": "9dc4efe07f060344e4b95e3c0a13f09422a5ea65a524225b8477e74c18102301"
+  },
+  "soleLaneReleased": true,
+  "sourceAdoption": {
+    "bytes": 1039,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULLGUARD-SOURCE-ADOPTION.json",
+    "sha256": "bcfa7e4a839be9d6c02b2cc258392a2c06b0f4559afdddf476a4d478359dd4ac"
+  },
+  "sourcePins": {
+    "bytes": 5379,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "1c00f8f4e42402a972182ed643369c279149d74cb6a5cdb9208aa15269118c69"
+  },
+  "sourceReview": {
+    "bytes": 6096,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "084aa42ad2d334b35eb27928cd99f5470a97e7fc2db1bad3c0ce8d8b93938b79"
+  },
+  "strictRoots": 9,
+  "wholeOriginalPrivatePhysicalMapEntries": 176,
+  "wholeScanDeadline": null
+}

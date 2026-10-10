@@ -1,0 +1,146 @@
+{
+  "additionalLocalRoles": [
+    {
+      "bytes": 2890,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-common-git-attribution-root-20261010-r1/TOP-LEVEL-METADATA-LOCAL.json",
+      "sha256": "4c773b0d358ee079f6ed28cc6bb5d3ed18109f2d553466b2f488dea761ee11b5"
+    },
+    {
+      "bytes": 4577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-common-git-attribution-root-20261010-r1/WORKTREE-METADATA-LOCAL.json",
+      "sha256": "cd21b1f42523898e2167a4aa54659a50ced5cd6a5a132f151747b9cdd6ddcdef"
+    },
+    {
+      "bytes": 1533,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-parent-recorded-20261010-r1/COMPARISON-LOCAL.json",
+      "sha256": "3625225eb8b9dbf7d47c4a8e96725b410da48242b28560e67b3e162d0dfb3082"
+    },
+    {
+      "bytes": 4478980,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/INDEX-LOCAL.bin",
+      "sha256": "cdcc57cf0379003dcce3f6c6e99f8f56f5905cec037b6e9dac8afdc48a62df8c"
+    },
+    {
+      "bytes": 4017209,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/index-stage.stdout.LOCAL",
+      "sha256": "b8884f716b5d96c04f40cf88899f3efdec5d142ae6bc55d773fc0b6f2f80f4c4"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/index-stage.stderr.LOCAL",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4079969,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/commit-tree.stdout.LOCAL",
+      "sha256": "33c539b830ead342f70291a3dc973b7973fcf9f68073945afc1e8017b4b67209"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/commit-tree.stderr.LOCAL",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 35,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1/original/tracked.txt",
+      "sha256": "c8da61d765fe5f418137294c2d44fdb3c671330f46055fadcabe1259108552c4"
+    },
+    {
+      "bytes": 35,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1/corrected/tracked.txt",
+      "sha256": "c8da61d765fe5f418137294c2d44fdb3c671330f46055fadcabe1259108552c4"
+    }
+  ],
+  "approvedLooseRoles": [
+    {
+      "bytes": 5306,
+      "path": "/Users/zacheryspector/studio-scratch/aq_review_compact_pure.py",
+      "sha256": "bff7118dc415bddff766292c4a164bdcd438e16be152461eb5490c5fb83fe2df"
+    },
+    {
+      "bytes": 932,
+      "path": "/Users/zacheryspector/studio-scratch/aq_check_generated_authority.py",
+      "sha256": "80357abbc8c586cdfb691b8e41d539724a7e8d6ae3a4423ec8d4d024504e8dba"
+    },
+    {
+      "bytes": 8499,
+      "path": "/Users/zacheryspector/studio-scratch/aq_prepare_recent_prelaunch.py",
+      "sha256": "4d6255052db68c230883b4dd087bdd7e3212cc724d3bfbc89870cc7440f6a6a8"
+    },
+    {
+      "bytes": 1869,
+      "path": "/Users/zacheryspector/studio-scratch/aq_audit_diagnostic_preparation.py",
+      "sha256": "94944e19fb3a0b3cc135d6cf55ff7e160965e5c1c3e9f10fc99b9df460acfb09"
+    },
+    {
+      "bytes": 4623,
+      "path": "/Users/zacheryspector/studio-scratch/aq_seal_original_diagnostic.py",
+      "sha256": "a6bfb18a32944e686a42d0c39bbad470733e4a35b5a38493fa9e738aa72a6ac8"
+    }
+  ],
+  "archiveOnlyAuthority": true,
+  "comparisonResult": {
+    "bytes": 1533,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-parent-recorded-20261010-r1/COMPARISON-LOCAL.json",
+    "sha256": "3625225eb8b9dbf7d47c4a8e96725b410da48242b28560e67b3e162d0dfb3082"
+  },
+  "comparisonUnavailableReason": null,
+  "diagnosticObservedReview": {
+    "bytes": 11645,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "65315920057b3b6eecded8a34c335841bad5414b44b818b09929bd423887f925"
+  },
+  "diagnosticReadback": {
+    "bytes": 4227,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "1d643b28204af9a79801f5e465db9a40eeec66343fe37efe44fbaf13d6d5a4f9"
+  },
+  "executionAuthorization": true,
+  "gameExecutionAuthorization": false,
+  "latePackagePaths": [
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-shared-postflight-diagnostic-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-retained-immutable-comparison-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-common-git-attribution-root-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-source-finding-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-root-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-parent-recorded-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-independent-observed-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-lane-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-lane-20261010-r1.meta",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-lane-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-lane-20261010-r1.meta",
+    "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-independent-source-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-independent-source-review-20261010-r2",
+    "/Users/zacheryspector/studio-scratch/1370-aq-operational-recovery-proposal-independent-review-20261010-r1",
+    "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-late-input-suggestions-20261010-r1"
+  ],
+  "ownerRecoveryDecision": "PENDING_NO_APPROVAL_ASSUMED",
+  "pendingAdditions": [],
+  "schema": "1370-aq-root-finite-archive-cutoff/v1",
+  "selectionPlan": {
+    "bytes": 16042,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-archive-selection-plan-20261010-r1/PLAN.json",
+    "sha256": "6ae2ccbfbcf3443ce60a81384a6155a2fc4b1528b1cd9891699c20eca4a1407d"
+  },
+  "sourceBuilderReview": {
+    "bytes": 957,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/ARCHIVE-BUILDER-R3-SOURCE-ADOPTION.json",
+    "sha256": "5cf0fec8ac3db6f18f03720a9c6cd6c9439f832a9d28cbfcefd17b5e66531563"
+  },
+  "status": "ROOT_DECLARED_AQ_FINAL_CUTOFF"
+}

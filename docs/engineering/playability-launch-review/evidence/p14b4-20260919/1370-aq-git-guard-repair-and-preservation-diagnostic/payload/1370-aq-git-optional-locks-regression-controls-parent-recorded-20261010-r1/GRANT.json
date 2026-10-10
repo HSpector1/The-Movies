@@ -1,0 +1,51 @@
+{
+  "automaticRetry": false,
+  "bounds": {
+    "aggregateControlsSeconds": 60,
+    "cleanupSecondsAfterCommandFailure": 4,
+    "perCommandStreamBytes": 65536,
+    "perGitCommandSeconds": 15,
+    "resultBytes": 131072,
+    "retainedInputOrToolBytes": 16777216
+  },
+  "config": {
+    "bytes": 1643,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/CONFIG.json",
+    "sha256": "7f72f1a3990a3646e3bf783e0ebe817b95683a16598f8e1dc9595fa51b82ed36"
+  },
+  "executionAuthorization": true,
+  "git": {
+    "bytes": 167120,
+    "path": "/usr/bin/git",
+    "sha256": "fe38fea56d944c3b7e9df10617b1fa5432d7b75cc346d7eacb607d083ea11711"
+  },
+  "helper": {
+    "bytes": 3361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "oneAggregateRun": true,
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1",
+  "ownedPgid": 15176,
+  "ownedPid": 15176,
+  "ownedSid": 15176,
+  "python": {
+    "bytes": 50472,
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "recordedLane": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-lane-20261010-r1",
+  "schema": "1370-root-git-optional-locks-regression-once-grant/v1",
+  "sourceManifest": {
+    "bytes": 1814,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "902fb0f11c7e345eb6f77dc0df60155bd1a0bc0bde9e348c9b6111f2187a6bfa"
+  },
+  "sourceReview": {
+    "bytes": 3512,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-root-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "f34594c91a55f01a5ff5401bd6c99e5e23e0daf8ae0542e88af0c4bb5edc5d17"
+  },
+  "utc": "2026-10-10T13:22:55.724052+00:00",
+  "wholePreparationDeadlineClaimed": false
+}

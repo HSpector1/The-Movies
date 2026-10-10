@@ -1,0 +1,34 @@
+{
+  "claim": "Current finite named source snapshots at AQ cutoff. Earlier suggestions held these for lack of a role reference; this record supplies actual checkpoint roles only. It does not prove historical executed-byte identity or qualify these utilities for future runtime.",
+  "executionAuthorization": false,
+  "historicalExecutionIdentityProved": false,
+  "roles": [
+    {
+      "bytes": 5306,
+      "path": "/Users/zacheryspector/studio-scratch/aq_review_compact_pure.py",
+      "sha256": "bff7118dc415bddff766292c4a164bdcd438e16be152461eb5490c5fb83fe2df"
+    },
+    {
+      "bytes": 932,
+      "path": "/Users/zacheryspector/studio-scratch/aq_check_generated_authority.py",
+      "sha256": "80357abbc8c586cdfb691b8e41d539724a7e8d6ae3a4423ec8d4d024504e8dba"
+    },
+    {
+      "bytes": 8499,
+      "path": "/Users/zacheryspector/studio-scratch/aq_prepare_recent_prelaunch.py",
+      "sha256": "4d6255052db68c230883b4dd087bdd7e3212cc724d3bfbc89870cc7440f6a6a8"
+    },
+    {
+      "bytes": 1869,
+      "path": "/Users/zacheryspector/studio-scratch/aq_audit_diagnostic_preparation.py",
+      "sha256": "94944e19fb3a0b3cc135d6cf55ff7e160965e5c1c3e9f10fc99b9df460acfb09"
+    },
+    {
+      "bytes": 4623,
+      "path": "/Users/zacheryspector/studio-scratch/aq_seal_original_diagnostic.py",
+      "sha256": "a6bfb18a32944e686a42d0c39bbad470733e4a35b5a38493fa9e738aa72a6ac8"
+    }
+  ],
+  "schema": "1370-root-auxiliary-source-snapshot-selection/v1",
+  "status": "ROOT_SELECTED_CURRENT_AUXILIARY_SOURCE_BYTES_FOR_BACKUP_ONLY"
+}

@@ -1,0 +1,27 @@
+{
+  "actualOutcome": null,
+  "executionAuthorization": false,
+  "game": false,
+  "parentAdapterSourcePins": {
+    "bytes": 16451,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "6db3ef0be87cb3bd4afc24ad2b1d78669df9821a3a82ccaf532fb7e25a6de55f"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 17194,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-route-adapters-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "35cca3ee3b9b2e270353a75db74b061f032154336d6b36ff886ac6a6b611061b"
+  },
+  "schema": "1370-root-native-observer-pure-controls-source-adoption/v1",
+  "sourcePins": {
+    "bytes": 16451,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "6db3ef0be87cb3bd4afc24ad2b1d78669df9821a3a82ccaf532fb7e25a6de55f"
+  },
+  "sourceReview": {
+    "bytes": 17194,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-route-adapters-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "35cca3ee3b9b2e270353a75db74b061f032154336d6b36ff886ac6a6b611061b"
+  },
+  "status": "ROOT_ADOPTED_PURE_NATIVE_OBSERVER_CONTROLS_SOURCE_ONLY"
+}

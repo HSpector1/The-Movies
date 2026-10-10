@@ -1,0 +1,179 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/git",
+        "--no-optional-locks",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "ls-files",
+        "--stage",
+        "-z"
+      ],
+      "elapsedSeconds": 0.07876747101545334,
+      "exit": 0,
+      "pgid": 11472,
+      "pid": 11472,
+      "rawLocalOnly": [
+        {
+          "bytes": 4017209,
+          "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/index-stage.stdout.LOCAL",
+          "sha256": "b8884f716b5d96c04f40cf88899f3efdec5d142ae6bc55d773fc0b6f2f80f4c4"
+        },
+        {
+          "bytes": 0,
+          "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/index-stage.stderr.LOCAL",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "--no-optional-locks",
+        "-c",
+        "gc.auto=0",
+        "-c",
+        "maintenance.auto=0",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "ls-tree",
+        "-r",
+        "-z",
+        "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8"
+      ],
+      "elapsedSeconds": 0.5945426200050861,
+      "exit": 0,
+      "pgid": 11474,
+      "pid": 11474,
+      "rawLocalOnly": [
+        {
+          "bytes": 4079969,
+          "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/commit-tree.stdout.LOCAL",
+          "sha256": "33c539b830ead342f70291a3dc973b7973fcf9f68073945afc1e8017b4b67209"
+        },
+        {
+          "bytes": 0,
+          "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/commit-tree.stderr.LOCAL",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ],
+  "commonGitAggregateCauseProved": false,
+  "currentIndexRawLocalOnly": {
+    "bytes": 4478980,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/INDEX-LOCAL.bin",
+    "sha256": "cdcc57cf0379003dcce3f6c6e99f8f56f5905cec037b6e9dac8afdc48a62df8c"
+  },
+  "currentIndexSemanticEquality": true,
+  "entryCount": 20920,
+  "executionAuthorization": false,
+  "gitTool": {
+    "bytes": 167120,
+    "metadata": [
+      16777220,
+      1152921500312781356,
+      33261,
+      76,
+      167120,
+      1721213367000000000,
+      1721213367000000000
+    ],
+    "path": "/usr/bin/git",
+    "sha256": "fe38fea56d944c3b7e9df10617b1fa5432d7b75cc346d7eacb607d083ea11711"
+  },
+  "indexAfter": {
+    "bytes": 4478980,
+    "metadata": [
+      16777220,
+      166925876,
+      33152,
+      1,
+      4478980,
+      1791634263024857517,
+      1791634263029450718
+    ],
+    "path": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/worktrees/The-Movies-headless-program/index",
+    "sha256": "cdcc57cf0379003dcce3f6c6e99f8f56f5905cec037b6e9dac8afdc48a62df8c"
+  },
+  "indexBefore": {
+    "bytes": 4478980,
+    "metadata": [
+      16777220,
+      166925876,
+      33152,
+      1,
+      4478980,
+      1791634263024857517,
+      1791634263029450718
+    ],
+    "path": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/worktrees/The-Movies-headless-program/index",
+    "sha256": "cdcc57cf0379003dcce3f6c6e99f8f56f5905cec037b6e9dac8afdc48a62df8c"
+  },
+  "indexFlagsProved": false,
+  "indexUnchangedDuringProof": true,
+  "localRawPaths": [
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/INDEX-LOCAL.bin",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/index-stage.stdout.LOCAL",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/index-stage.stderr.LOCAL",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/commit-tree.stdout.LOCAL",
+    "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/commit-tree.stderr.LOCAL"
+  ],
+  "oldRawIndexEqualityProved": false,
+  "original54871Accepted": false,
+  "preservationContinuityRestored": false,
+  "publication": {
+    "bytes": 2519,
+    "metadata": [
+      16777220,
+      166924282,
+      33060,
+      1,
+      2519,
+      1791631840912808550,
+      1791631840914045428
+    ],
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/PUSH-READBACK.json",
+    "sha256": "6545dea2ceaa3cb52d8799fe9ef0aede1b58bd34e42268307b27208c9050e27f"
+  },
+  "rawDisposition": "LOCAL_HASH_SIZE_ONLY",
+  "rawLocalOnly": [
+    {
+      "bytes": 4478980,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/INDEX-LOCAL.bin",
+      "sha256": "cdcc57cf0379003dcce3f6c6e99f8f56f5905cec037b6e9dac8afdc48a62df8c"
+    },
+    {
+      "bytes": 4017209,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/index-stage.stdout.LOCAL",
+      "sha256": "b8884f716b5d96c04f40cf88899f3efdec5d142ae6bc55d773fc0b6f2f80f4c4"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/index-stage.stderr.LOCAL",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4079969,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/commit-tree.stdout.LOCAL",
+      "sha256": "33c539b830ead342f70291a3dc973b7973fcf9f68073945afc1e8017b4b67209"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/commit-tree.stderr.LOCAL",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "schema": "1370-aq-current-index-semantic-proof/v1",
+  "status": "CURRENT_INDEX_STAGE0_CONTENT_EQUALS_AUTHENTIC_AP_COMMIT_ONLY",
+  "utc": "2026-10-10T13:18:54.245236+00:00"
+}

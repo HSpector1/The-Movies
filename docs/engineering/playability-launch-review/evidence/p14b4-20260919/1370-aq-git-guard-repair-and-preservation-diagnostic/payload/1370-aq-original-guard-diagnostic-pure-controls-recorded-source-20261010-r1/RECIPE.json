@@ -1,0 +1,88 @@
+{
+  "schema": "1370-original-guard-diagnostic-pure-recorded-recipe/v1",
+  "executionAuthorization": false,
+  "config": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/CONFIG.json",
+    "bytes": 2298,
+    "sha256": "dd50bff928b1fae52e7af862a1ccf1634166ab00e199fcaf9776b205adae9e4a"
+  },
+  "bounds": {
+    "aggregateChild": 300,
+    "activeRecorder": 320,
+    "wholeRecorder": 330,
+    "streamBytes": 8388608,
+    "resultBytes": 131072,
+    "syntheticArtifactBytes": 67108864
+  },
+  "python": {
+    "bytes": 50472,
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "helper": {
+    "bytes": 3361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "helperSecondsOperand": 0,
+  "helperHasNoOverallWatchdog": true,
+  "runtimeClockOwnedByOriginalRecorder": true,
+  "recorderArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/record_pure_controls.py",
+    "verification",
+    "GENUINE_GRANT_PATH",
+    "GENUINE_GRANT_SHA"
+  ],
+  "laneArgv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-lane-20261010-r1",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/record_pure_controls.py",
+    "verification",
+    "GENUINE_GRANT_PATH",
+    "GENUINE_GRANT_SHA"
+  ],
+  "grantSchema": "1370-root-original-guard-diagnostic-pure-controls-once-grant/v1",
+  "requiredGrantFields": [
+    "executionAuthorization",
+    "oneAggregateRun",
+    "automaticRetry",
+    "config",
+    "bounds",
+    "outputPath",
+    "python",
+    "sourceManifest",
+    "sourceReview",
+    "diagnosticSourceManifest",
+    "diagnosticSourceReview",
+    "controlsSourceManifest",
+    "controlsSourceReview"
+  ],
+  "sourceReviewSchema": "1370-original-guard-diagnostic-pure-runner-independent-source-review/v1",
+  "sourceReviewDecision": "ACCEPT_STATIC_ORIGINAL_GUARD_DIAGNOSTIC_PURE_RECORDED_RUNNER_SOURCE_ONLY",
+  "sourceReviewAliasNames": [
+    "run_pure_controls.py",
+    "record_pure_controls.py",
+    "CONFIG.json"
+  ],
+  "observedDecision": "ACCEPT_ACTUAL_PURE_ORIGINAL_GUARD_DIAGNOSTIC_CONTROLS_ONLY",
+  "actualCaseCount": 32,
+  "positiveCount": 9,
+  "specificNegativeCount": 23,
+  "resultRoot": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-results-20261010-r1",
+  "recorderResultRoot": "/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorder-results-20261010-r1",
+  "localOnlySyntheticEvidence": "Every synthetic emitter output/partial in resultRoot except RESULT.json is hash/size-only rebuildable padding; no raw machine PS/FD or protected map.",
+  "scopedCleanup": "Original recorder reports childPID==PGID/reap/groupclear; root separately records actual helper PID/PGID from genuine launch and postabsence. No guessed IDs.",
+  "futureGrantAndToolRoles": null,
+  "claimLimits": [
+    "No actual guard/fullscan/game/private-tree execution or protection acceptance.",
+    "Later-run behavior and synthetic evidence cannot retroactively admit54871."
+  ]
+}

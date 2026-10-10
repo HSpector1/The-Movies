@@ -1,0 +1,39 @@
+--- /Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py
++++ /Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py
+@@ -1,6 +1,6 @@
+ import datetime,hashlib,json,os,stat,sys,time
+ from pathlib import Path
+-S=Path('/Users/zacheryspector/studio-scratch');A=Path('/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1');G=S/'1370-aq-current-operational-fullguard-source-20261010-r1';P=S/'1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1'
++S=Path('/Users/zacheryspector/studio-scratch');A=Path('/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1');G=S/'1370-ap-current-operational-fullguard-source-20261010-r1';P=S/'1370-ap-current-ao-fullpreflight-parent-recorded-20261010-r1'
+ PY='/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14'
+ def role(p):
+  p=Path(p);st=p.lstat();assert p.is_absolute() and p.resolve(strict=True)==p and stat.S_ISREG(st.st_mode) and st.st_nlink==1
+@@ -10,21 +10,21 @@
+  p.chmod(0o444);return role(p)
+ assert sys.flags.isolated and sys.dont_write_bytecode and not sys.flags.optimize and len(sys.argv)==3
+ rr=role(sys.argv[1]);assert rr['sha256']==sys.argv[2];review=json.loads(Path(sys.argv[1]).read_bytes())
+-sp=role(G/'SOURCE-PINS.json');assert sp['sha256']=='1c00f8f4e42402a972182ed643369c279149d74cb6a5cdb9208aa15269118c69'
+-assert review['decision']=='ACCEPT_CURRENT_AP_FULLGUARD_BINDINGS_SOURCE_ONLY' and review['sourcePins']==sp and review['concreteFindings']==[] and review['executionAuthorization'] is False
++sp=role(G/'SOURCE-PINS.json');assert sp['sha256']=='5ede60a6f02c405aea31dd7fa981d871de6b5af8c594cf103ad9c66076f9834a'
++assert review['decision']=='ACCEPT_CURRENT_AO_FULLGUARD_BINDINGS_SOURCE_ONLY' and review['sourcePins']==sp and review['concreteFindings']==[] and review['executionAuthorization'] is False
+ pins=json.loads((G/'SOURCE-PINS.json').read_bytes())
+ for r in pins['files'].values():assert role(r['path'])==r
+ assert role(PY)['sha256']=='7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835'
+ assert role(pins['operationalScope']['path'])==pins['operationalScope']
+ config=json.loads((G/'CONFIG.json').read_bytes());ad=json.loads(Path(pins['operationalScope']['path']).read_bytes())
+-assert config['productionHead']==ad['productionGuardHead']=='d20347b83ea7497ed17c48ec14d8f64a3ce69cc8'
+-assert not os.path.lexists(S/'HEAVY-LANE-LOCK') and not os.path.lexists(P) and not os.path.lexists(G/'evidence/before-fill-current-ap-r1')
+-sourceadoption=put(A/'CURRENT-AP-FULLGUARD-SOURCE-ADOPTION.json',{'schema':'1370-ap-root-current-ap-fullguard-source-adoption/v1','status':'ROOT_ADOPTED_CURRENT_AP_FULLGUARD_BINDINGS_SOURCE_ONLY','sourcePins':sp,'sourceReview':rr,'operationalScope':pins['operationalScope'],'actualGuardsAccepted':False,'executionAuthorization':False,'originalProcedureLogicUnchanged':True})
++assert config['productionHead']==ad['productionGuardHead']=='f2f97c622db7f5332164b790d1646355e89c00f4'
++assert not os.path.lexists(S/'HEAVY-LANE-LOCK') and not os.path.lexists(P) and not os.path.lexists(G/'evidence/before-fill-current-ao-r1')
++sourceadoption=put(A/'CURRENT-AO-FULLGUARD-SOURCE-ADOPTION.json',{'schema':'1370-ap-root-current-ao-fullguard-source-adoption/v1','status':'ROOT_ADOPTED_CURRENT_AO_FULLGUARD_BINDINGS_SOURCE_ONLY','sourcePins':sp,'sourceReview':rr,'operationalScope':pins['operationalScope'],'actualGuardsAccepted':False,'executionAuthorization':False,'originalProcedureLogicUnchanged':True})
+ if os.getpgrp()!=os.getpid():os.setsid()
+ assert os.getpid()==os.getpgrp()
+ P.mkdir(mode=0o700)
+-argv=[PY,'-I','-B',str(G/'snapshot.py'),config['observedCopyReceipt']['path'],config['observedCopyReceipt']['sha256'],config['observedDecision'],str(S/'1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1'),'before-fill','before-fill-current-ap-r1']
+-grant={'schema':'1370-ap-root-direct-current-ap-fullpreflight-grant/v1','status':'GRANTED_ONCE_ORIGINAL_COMPLETE_CURRENT_AP_FULL_PREFLIGHT','utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'startMonotonic':time.monotonic(),'executionAuthorization':True,'sourcePins':sp,'sourceReview':rr,'sourceAdoption':sourceadoption,'rootLauncher':role(__file__),'argv':argv,'cwd':'/Users/zacheryspector/The-Movies-headless-program','ownedPid':os.getpid(),'ownedPgid':os.getpgrp(),'ownedSid':os.getsid(0),'directExecPreservesPid':True,'perCommandTimeoutSeconds':180,'wholeScanDeadline':None,'actualFullInventoryRun':True,'noHelperOriginalLockAbsentRequired':True,'rawPsFdLocalOnly':True,'originalM0ContentProof':False,'game':False,'automaticRetry':False}
++argv=[PY,'-I','-B',str(G/'snapshot.py'),config['observedCopyReceipt']['path'],config['observedCopyReceipt']['sha256'],config['observedDecision'],str(S/'1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1'),'before-fill','before-fill-current-ao-r1']
++grant={'schema':'1370-ap-root-direct-current-ao-fullpreflight-grant/v1','status':'GRANTED_ONCE_ORIGINAL_COMPLETE_CURRENT_AO_FULL_PREFLIGHT','utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'startMonotonic':time.monotonic(),'executionAuthorization':True,'sourcePins':sp,'sourceReview':rr,'sourceAdoption':sourceadoption,'rootLauncher':role(__file__),'argv':argv,'cwd':'/Users/zacheryspector/The-Movies-headless-program','ownedPid':os.getpid(),'ownedPgid':os.getpgrp(),'ownedSid':os.getsid(0),'directExecPreservesPid':True,'perCommandTimeoutSeconds':180,'wholeScanDeadline':None,'actualFullInventoryRun':True,'noHelperOriginalLockAbsentRequired':True,'rawPsFdLocalOnly':True,'originalM0ContentProof':False,'game':False,'automaticRetry':False}
+ gr=put(P/'GRANT.json',grant);print(json.dumps({'grant':gr,'ownedPid':os.getpid(),'ownedPgid':os.getpgrp()}),flush=True)
+ fo=os.open(P/'scan.stdout',os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600);fe=os.open(P/'scan.stderr',os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+ os.dup2(fo,1);os.dup2(fe,2);os.close(fo);os.close(fe);os.chdir(grant['cwd'])

@@ -1,0 +1,14 @@
+{
+  "candidateExecuted": false,
+  "changedDefinitions": [
+    "clean_git_env"
+  ],
+  "definitionCount": 36,
+  "executionAuthorization": false,
+  "sourceManifest": {
+    "bytes": 1226,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "162098174210e249daafd838b7dbaf5814a492f06c977abdf0ae9dd4261b6fba"
+  },
+  "staticSyntax": "AST/compile only, no imports or execution"
+}

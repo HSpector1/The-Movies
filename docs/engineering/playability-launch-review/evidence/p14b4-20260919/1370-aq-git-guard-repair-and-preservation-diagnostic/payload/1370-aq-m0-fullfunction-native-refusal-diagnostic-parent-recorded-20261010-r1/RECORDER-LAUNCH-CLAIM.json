@@ -1,0 +1,44 @@
+{
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/record-fullfunction.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r1/EXECUTION-GRANT.json",
+    "27cd285e48531675e851b7dfb6d15ac5b2b836b512374a4a803554a70f44eabf"
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "directExecPreservesIdentity": true,
+  "executionAuthorization": false,
+  "gameExecutedByPreparation": false,
+  "grant": {
+    "bytes": 5057,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r1/EXECUTION-GRANT.json",
+    "sha256": "27cd285e48531675e851b7dfb6d15ac5b2b836b512374a4a803554a70f44eabf"
+  },
+  "ownedRecorder": {
+    "pgid": 38267,
+    "pid": 38267,
+    "sid": 38267
+  },
+  "preparationDeadlineSeconds": 60,
+  "preparationElapsedSeconds": 0.48716288298601285,
+  "rootBinding": {
+    "bytes": 5492,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-FULLFUNCTION-ROOT-BINDING.json",
+    "sha256": "604bcfe8bc44e4950420205a6e12e057f95b6ae4ad901dc765cf9bc581c49370"
+  },
+  "runtimeBounds": {
+    "activeRecorder": 320,
+    "aggregateChild": 300,
+    "aggregateOutputTreeBytes": 268435456,
+    "fixturePacketBytes": 67108864,
+    "outputTreeEntryCap": 10000,
+    "resultBytes": 131072,
+    "streamBytes": 8388608,
+    "vitestReportBytes": 1048576,
+    "wholeRecorder": 330
+  },
+  "schema": "1370-fullfunction-recorder-launch-claim/v1"
+}

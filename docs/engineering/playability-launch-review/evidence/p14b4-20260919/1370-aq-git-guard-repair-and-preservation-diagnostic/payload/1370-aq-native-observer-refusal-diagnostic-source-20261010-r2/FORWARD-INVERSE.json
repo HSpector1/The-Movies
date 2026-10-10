@@ -1,0 +1,68 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r1/BASELINE-m0ObserverRowDiagnostic.mjs",
+    "bytes": 10954,
+    "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r1/m0ObserverRowDiagnostic.mjs",
+    "bytes": 13129,
+    "sha256": "7b16ee7e9105c38e00acd976e26c55382cf11f5923a8d95a310ba6ca8ef56160"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 0,
+      "old": "import {NATIVE_ROW_SCHEMA} from './m0NativeObserverRows.mjs'\n",
+      "newStart": 0,
+      "new": "import {NATIVE_ROW_SCHEMA,NativeObserverFormatError} from './m0NativeObserverRows.mjs'\n"
+    },
+    {
+      "oldStart": 139,
+      "old": "const SCHEMA = '1370-m0-observer-row-diagnostic/v1'\n",
+      "newStart": 165,
+      "new": "const SCHEMA = '1370-m0-native-observer-row-diagnostic/v2'\n"
+    },
+    {
+      "oldStart": 4857,
+      "old": "function familyEvidence(kind, detail, context, rows, codec) {\n",
+      "newStart": 4890,
+      "new": "function familyEvidence(kind, detail, context, rows, codec, beforeCodec) {\n"
+    },
+    {
+      "oldStart": 5135,
+      "old": "        input = codec.decodeInputDetailForDiagnostic(rows[i].detail); break\n",
+      "newStart": 5181,
+      "new": "        beforeCodec('PREDECESSOR_INPUT_DECODE')\n        input = codec.decodeInputDetailForDiagnostic(rows[i].detail); beforeCodec(null); break\n"
+    },
+    {
+      "oldStart": 6727,
+      "old": "",
+      "newStart": 6840,
+      "new": "    let operation = null, stable = null\n    const metadataLine = metadata => {\n      safeJSONBytes(metadata, 4095, 'DIAGNOSTIC_UNAVAILABLE', 'DIAGNOSTIC_OUTPUT_OVER_BOUND')\n      const candidate = JSON.stringify(metadata) + '\\n'\n      return bytes(candidate) <= 4096 ? candidate : fallback('DIAGNOSTIC_OUTPUT_OVER_BOUND')\n    }\n"
+    },
+    {
+      "oldStart": 7468,
+      "old": "      preflightCanonical(detail)\n      const physicalDetail = kind === 'inputTuple' ? codec.encodeInputDetailForDiagnostic(detail) : detail\n      const detailBytes = safeJSONBytes(physicalDetail, 524288)\n",
+      "newStart": 7909,
+      "new": ""
+    },
+    {
+      "oldStart": 7849,
+      "old": "",
+      "newStart": 8086,
+      "new": "      stable = {schema: SCHEMA, predicate: 'ROW_BYTE_CAP', rowLimit: 16384,\n        sequence: rows.length, occurrence, priorRowCount: rows.length, kind, context, contextBytes,\n        error: {name: error.name, message: error.message}}\n      if (kind === 'inputTuple' && detail && typeof detail === 'object') {\n        const canonical = Object.getOwnPropertyDescriptor(detail, 'canonicalInputs')\n        if (canonical && !Object.hasOwn(canonical, 'value')) fail('FAILED_ROW_UNSUPPORTED')\n        if (canonical && typeof canonical.value === 'string' && utf8LengthBounded(canonical.value, 16384) === null) {\n          line = metadataLine({...stable, availability: 'unavailable', reason: 'NATIVE_CANONICAL_NO_FIT',\n            rowBytes: null, detailBytes: null, canonicalInputBytes: null, canonicalInputBytesLowerBound: 16385,\n            canonicalInputUnavailableReason: 'CANONICAL_INPUT_OVER_BOUND', family: null,\n            familyUnavailableReason: 'CANONICAL_INPUT_OVER_BOUND'})\n          return\n        }\n      }\n      preflightCanonical(detail)\n      operation = kind === 'inputTuple' ? 'INPUT_DETAIL_ENCODE' : null\n      const physicalDetail = kind === 'inputTuple' ? codec.encodeInputDetailForDiagnostic(detail) : detail\n      operation = null\n      const detailBytes = safeJSONBytes(physicalDetail, 524288)\n"
+    },
+    {
+      "oldStart": 8049,
+      "old": "      const metadata = {schema: SCHEMA, predicate: 'ROW_BYTE_CAP', availability: 'available',\n        rowBytes: bytes(JSON.stringify(row) + '\\n'), rowLimit: 16384,\n        sequence: rows.length, occurrence, priorRowCount: rows.length, kind,\n        context, ...familyEvidence(kind, detail, context, rows, codec),\n        detailBytes, contextBytes,\n        error: {name: error.name, message: error.message}}\n      safeJSONBytes(metadata, 4095, 'DIAGNOSTIC_UNAVAILABLE', 'DIAGNOSTIC_OUTPUT_OVER_BOUND')\n      const candidate = JSON.stringify(metadata) + '\\n'\n      line = bytes(candidate) <= 4096 ? candidate : fallback('DIAGNOSTIC_OUTPUT_OVER_BOUND')\n",
+      "newStart": 9599,
+      "new": "      const rowBytes = bytes(JSON.stringify(row) + '\\n')\n      const metadata = {...stable, availability: 'available', rowBytes, detailBytes,\n        ...familyEvidence(kind, detail, context, rows, codec, value => {operation = value})}\n      if (rowBytes > 16384) metadata.refusalClass = 'PHYSICAL_ROW_BYTE_CAP'\n      line = metadataLine(metadata)\n"
+    },
+    {
+      "oldStart": 8721,
+      "old": "",
+      "newStart": 9968,
+      "new": "      // Only the authenticated native error class and an own data code are evidence.\n      // Do not invoke code getters or treat arbitrary errors as format refusals.\n      const nativeCode = error instanceof NativeObserverFormatError ? Object.getOwnPropertyDescriptor(error, 'code') : null\n      const nativeCodes = ['FORMAT_INVALID','CANONICAL_OVER_BOUND','STRUCTURE_OVER_BOUND','CANONICAL_ROUNDTRIP']\n      if (stable && operation && nativeCode && Object.hasOwn(nativeCode, 'value') && nativeCodes.includes(nativeCode.value)) {\n        try {\n          line = metadataLine({...stable, availability: 'unavailable', reason: 'NATIVE_DETAIL_FORMAT_REFUSAL',\n            nativeCodecErrorCode: nativeCode.value, operation})\n        } catch (failure) {\n          line = fallback(failure?.diagnosticCode === 'DIAGNOSTIC_OUTPUT_OVER_BOUND' ? 'DIAGNOSTIC_OUTPUT_OVER_BOUND' : 'DIAGNOSTIC_UNAVAILABLE')\n        }\n        return\n      }\n"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+--- /Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json
++++ /Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/CONFIG.json
+@@ -31,12 +31,12 @@
+   "observedDecision": "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+   "operationalRemoteRefs": {
+     "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+-    "refs/heads/wip/headless-program-20260916-ts": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8"
++    "refs/heads/wip/headless-program-20260916-ts": "f2f97c622db7f5332164b790d1646355e89c00f4"
+   },
+   "originalCopyProductionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+   "parentScopeAdoption": {
+-    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+-    "sha256": "b0e268df5d8e7cd749286c5b91c09a2b8d88926697413bd5313f46854e2cc126"
++    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
++    "sha256": "7dee435f6d0ac86e41d590aa08ef81b87caaa8f3e7692a097301a94eeb7bbc6b"
+   },
+   "privateBaseline": {
+     "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/SNAPSHOT.json",
+@@ -46,7 +46,7 @@
+     "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+     "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+   },
+-  "productionHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
++  "productionHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+   "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+   "requiredFreeBytes": 3758096384,
+   "requiredPythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+@@ -56,5 +56,5 @@
+   "scratchParentPolicy": "Device/inode/mode strict. Parent mtime/ctime and child deltas informational; parallel authorized scratch-only preparations/reviews may create siblings. This exception never applies to production/common/copied roots or copied .git/node_modules.",
+   "sourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+   "sourceReviewSha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794",
+-  "status": "FILLED_SOURCE_ONLY_AP_PROTECTION_SCOPE_SEPARATE_SCAN_GRANT_REQUIRED"
++  "status": "FILLED_SOURCE_ONLY_AO_PROTECTION_SCOPE_SEPARATE_SCAN_GRANT_REQUIRED"
+ }

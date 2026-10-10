@@ -1,0 +1,60 @@
+{
+  "actualTool": {
+    "bytes": 666,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "095701e6d521c447c181a973f98144677968269ca679fdecd9befbf4766f06a3"
+  },
+  "commonGitAggregateCauseProved": false,
+  "currentIndexSemanticEquality": true,
+  "entryCount": 20920,
+  "executionAuthorization": false,
+  "game": false,
+  "grant": {
+    "bytes": 1673,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "80702eba6f172a27b09a0e5df10fefafe51f9368a820a6c016a71172b8bc5e30"
+  },
+  "indexUnchangedDuringProof": true,
+  "laneReleased": true,
+  "oldRawIndexEqualityProved": false,
+  "preservationContinuityRestored": false,
+  "result": {
+    "bytes": 6371,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-index-semantic-proof-results-20261010-r1/RESULT.json",
+    "sha256": "a11edeb2c083cb50002143efca61aa1e827f1ffcab9b6b6a05377a38397c0d0d"
+  },
+  "schema": "1370-root-current-index-semantic-proof-actual-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 11456,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 11472,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 11474,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 11456,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 11472,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 11474,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "status": "ACTUAL_CURRENT_INDEX_CONTENT_PROOF_PENDING_INDEPENDENT_REVIEW"
+}

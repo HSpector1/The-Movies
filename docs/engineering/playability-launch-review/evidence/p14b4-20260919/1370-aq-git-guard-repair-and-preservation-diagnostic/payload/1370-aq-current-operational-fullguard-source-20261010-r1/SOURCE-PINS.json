@@ -1,0 +1,104 @@
+{
+  "actualGrant": null,
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-CONFIG.json.txt": {
+      "bytes": 3928,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/BASELINE-CONFIG.json.txt",
+      "sha256": "2bc496099b22f228ba671a57aec531f4eb11fc5f7c3d2cc8c21b7608331f7814"
+    },
+    "BASELINE-snapshot.py.txt": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/BASELINE-snapshot.py.txt",
+      "sha256": "8e27bb8f5ba9ee51223da4db7fb521eac035a79b714a756b11e9d37949c9bf0f"
+    },
+    "CONFIG-DRAFT-UNFILLED.json": {
+      "bytes": 3708,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG-DRAFT-UNFILLED.json",
+      "sha256": "516d9c51d58a38527d1307ca9b97b406c59a6e4d5f4ac8dc7fcc223e8581dcfd"
+    },
+    "CONFIG.json": {
+      "bytes": 3928,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+      "sha256": "a058c0d63bd0f0432f26d4ebcae62a80977eaccfd7e2406cf7a7e6f221b23fec"
+    },
+    "CONFIG.json.forward.diff": {
+      "bytes": 2617,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json.forward.diff",
+      "sha256": "f6e58967083f285d2bbad99b302feeb4fb6f5ce662450250ba4b690878a4071c"
+    },
+    "CONFIG.json.forward.json": {
+      "bytes": 8337,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json.forward.json",
+      "sha256": "7cf21ef35c2bb9197fe514b4fa7f27ddd72e17ff8c9bbf908e4b370263274632"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 2617,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json.inverse.diff",
+      "sha256": "21e87bf67e01d2f9d3ec2ecfd92498cf8af93a03a5da7277102a1c3d2666479d"
+    },
+    "CONFIG.json.inverse.json": {
+      "bytes": 8337,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/CONFIG.json.inverse.json",
+      "sha256": "38b397781c81da13ebb18217572b226e092f8f23169ee33dca7193584e4bc300"
+    },
+    "PROOF.json": {
+      "bytes": 4361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/PROOF.json",
+      "sha256": "99a8011eaf359c5916aaedd602b1e092abf69cba5214debc9a0b613601e497db"
+    },
+    "READY-FOR-AUTHENTIC-FILL.json": {
+      "bytes": 189,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/READY-FOR-AUTHENTIC-FILL.json",
+      "sha256": "4087a28edb4fc877cc50f7c47bd51f76fbb7ff97d57d0a25e868126d600b0009"
+    },
+    "snapshot.py": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py",
+      "sha256": "51f11d5f9bc55d77ed9e1b7d0bce4d36d1c9af865835617d585629fa8f694f85"
+    },
+    "snapshot.py.forward.diff": {
+      "bytes": 746,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py.forward.diff",
+      "sha256": "95ca2c8201d94970c7e3abe7accebf59923eee9eef0fe6bd092577578023a42b"
+    },
+    "snapshot.py.forward.json": {
+      "bytes": 44351,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py.forward.json",
+      "sha256": "4eb1f5278a2055c2aa454385a7f087555ff1026083dcb8520976160b11c791f4"
+    },
+    "snapshot.py.inverse.diff": {
+      "bytes": 746,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py.inverse.diff",
+      "sha256": "af88911bc907eb5f1f970208363e4190bc8c632bc189e90b98cf6a5f3a07af53"
+    },
+    "snapshot.py.inverse.json": {
+      "bytes": 44351,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/snapshot.py.inverse.json",
+      "sha256": "fcac65daf2e4b91fec7c64c109df497b0e73d227d56579d38324d7c9118a7ecc"
+    }
+  },
+  "independentReview": null,
+  "operationalFacts": {
+    "bytes": 1029,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-OPERATIONAL-TRANSITION.json",
+    "sha256": "8a7d765bbc472ccf5717fd2b3e68a362eac5db63f76b5fb523bd6fe3de1ed753"
+  },
+  "operationalScope": {
+    "bytes": 2942,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "b0e268df5d8e7cd749286c5b91c09a2b8d88926697413bd5313f46854e2cc126"
+  },
+  "predecessor": {
+    "bytes": 2920,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "5ede60a6f02c405aea31dd7fa981d871de6b5af8c594cf103ad9c66076f9834a"
+  },
+  "publishedReadback": {
+    "bytes": 2519,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/PUSH-READBACK.json",
+    "sha256": "6545dea2ceaa3cb52d8799fe9ef0aede1b58bd34e42268307b27208c9050e27f"
+  },
+  "schema": "1370-aq-fullguard-ap-binding-source-pins/v1",
+  "status": "SOURCE_ONLY_UNRUN"
+}

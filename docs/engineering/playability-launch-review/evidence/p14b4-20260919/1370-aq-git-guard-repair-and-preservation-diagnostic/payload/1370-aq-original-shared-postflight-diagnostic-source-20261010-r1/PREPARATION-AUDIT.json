@@ -1,0 +1,46 @@
+{
+  "actualOriginalArgvPositionsVerified": true,
+  "candidateNeverImported": true,
+  "completeMapSurvivesSummaryFailureInReadback": true,
+  "finiteRoleKinds": {
+    "baseline": {
+      "parsedAsJSON": true,
+      "roleAuthenticated": true
+    },
+    "failureReadback": {
+      "parsedAsJSON": true,
+      "roleAuthenticated": true
+    },
+    "grant": {
+      "parsedAsJSON": true,
+      "roleAuthenticated": true
+    },
+    "guardConfig": {
+      "parsedAsJSON": true,
+      "roleAuthenticated": true
+    },
+    "guardSource": {
+      "parsedAsJSON": false,
+      "roleAuthenticated": true
+    },
+    "independentObservedReview": {
+      "parsedAsJSON": true,
+      "roleAuthenticated": true
+    }
+  },
+  "originalScannerNeverExecuted": true,
+  "preparationFindingsCorrected": [
+    {
+      "correction": "Authenticate mixed role bytes only; parse JSON only at actual JSON consumers",
+      "finding": "Unsealed initial launcher loop parsed Python guard source as JSON",
+      "runtimeOccurred": false
+    },
+    {
+      "correction": "Compare stable dev/inode/mode/nlink/size/mtime/ctime fields only",
+      "finding": "Draft role comparison included atime via stat_result equality",
+      "runtimeOccurred": false
+    }
+  ],
+  "privateTreeTraversal": false,
+  "schema": "1370-original-shared-postflight-diagnostic-preparation-audit/v1"
+}

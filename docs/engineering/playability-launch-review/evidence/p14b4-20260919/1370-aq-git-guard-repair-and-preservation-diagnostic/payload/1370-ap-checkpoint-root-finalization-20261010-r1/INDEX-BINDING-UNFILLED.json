@@ -1,0 +1,8 @@
+{
+  "archiveRelativeDirectory": null,
+  "executionAuthorization": false,
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "reportRelativePath": null,
+  "rule": "Root fills operative INDEX-BINDING.json only after actual archive/docs. All manifest copied filenames plus three archive roots and two docs must equal complete staged set.",
+  "status": "HELD_FINAL_ARCHIVE_AND_DOC_PATHS_PENDING"
+}

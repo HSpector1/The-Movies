@@ -1,0 +1,14 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "f585b3",
+      "exit_code": 0,
+      "original_token_count": 123,
+      "output": "{\"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-parent-recorded-20261010-r1/READBACK.json\", \"bytes\": 7007, \"sha256\": \"725822e85a77bea139db0131b61d10c2d4cf259094d8fe2cc7d1f8496edc0c4b\"}, \"warnings\": [\"/Users/zacheryspector/studio-scratch/1370-aq-original-guard-diagnostic-pure-controls-recorded-source-20261010-r1/record_pure_controls.py:245: SyntaxWarning: 'return' in a 'finally' block\"], \"recorderSeconds\": 1.1601861900126096}\n",
+      "wall_time_seconds": 0.374916487
+    }
+  ],
+  "finalExit": 0,
+  "schema": "1370-root-original-guard-pure32-reader-actual-tool/v1",
+  "sessionId": null
+}

@@ -1,0 +1,123 @@
+{
+  "addedDiagnosticCases": 14,
+  "authenticatedManifestPayloadRoles": 15,
+  "candidateExecuted": false,
+  "caseCount": 86,
+  "concreteFindings": [],
+  "controlsExecuted": false,
+  "decision": "ACCEPT_STATIC_PURE_NATIVE_OBSERVER_CONTROLS_SOURCE_ONLY",
+  "diagnosticImplementation": {
+    "bytes": 13288,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
+    "sha256": "db78301bf62d52b574ed8df272d0fe3d7b10c2568f930d10eb359092725bbba6"
+  },
+  "diagnosticImplementationIndependentReview": {
+    "bytes": 5406,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "e0417bd0bfa6e6cc487c2f6ee92d83a0f17b1fb3c38efa38c7b3ba1439b5ce30"
+  },
+  "diagnosticImplementationSourceManifest": {
+    "bytes": 3301,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-observer-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "2135c9485b6bc09f0f2a78740f4bdbdb9b7a910a8503a317bd9cfa8e29f0f818"
+  },
+  "entry": {
+    "dependencies": [
+      "createObserverFailureLatch",
+      "createNativeRowCodec",
+      "NativeObserverFormatError",
+      "createM0FeasibilitySink",
+      "originalCreateM0FeasibilitySink",
+      "createObserverRowDiagnostic",
+      "runObserverArm",
+      "assertNativeEvaluationBinding",
+      "runOrderingSourceControls",
+      "orderingPacket"
+    ],
+    "dependencyBindings": "Actual authenticated modules, not test-side replicas. Both sink factory exports share the original name; the worker renames only the original oracle dependency.",
+    "export": "runNativeObserverControls",
+    "sourceExport": "NATIVE_CASES"
+  },
+  "executionAuthorization": false,
+  "findings": {
+    "caseBinding": "All ten dependencies are actual pinned codec/latch/native sink/original oracle/diagnostic/shared arm/native matcher/original ordering helper/packet. forcedRow creates actual original assessment-row16385 refusalE; only diagnostic fault stages use controlled wrapper/codec seams. Typed format failures invoke actual AP native codec; no diagnostic implementation replica.",
+    "correction": "The only R2 executable edit retains emitted line and explicit writer-failure marker, throws writerF directly, and validates bytes/newline/schema/reason/lowerbound outside the exception-containing callback. Both swallowed-return and later-body-failure paths still assert exact originalE, end/reset attempts and one consumed emission. R1 remains source-only coverage STOP.",
+    "failureSemantics": "Unsafe canonical/context descriptors require specific unsupported fallbacks without getter work; output-overbudget requires bounded explicit fallback without rawcontext. Actual shared arm handles writer/body/falsy cleanup failures; earlier falsy latch prevents snapshot/record/emission and successful return.",
+    "lowerbound": "16385/262144 and3/4-byte crossings preserve originalE, prove no parse/encoding or byte/digest getter work, lowerbound16385 only and null exact metrics with safe stable metadata. Physical16384 acceptance and16385 exact metrics/refusalClass are separately exercised.",
+    "originalCases": "Original72 matrix projection, relative order, IDs, verdicts and predicates remain exact; inherited registration bodies unchanged. Sole inherited assertion change is diagnostic schema v1\u2192v2. Original18 packet/helper semantics remain included; parser32 and helper49 are not replayed.",
+    "protocol": "Exact finite roster86=13GREEN73specificRED; full result rows equal MATRIX cases with explicit verdict. Setup/import/compiler/assertion failures cannot count as expected refusals. Existing native result schema/status is retained; runtime grant, execution and actual observations remain unfilled.",
+    "stagesAndPurity": "Both encode and predecessor-decode operations test arbitrary Error/SyntaxError/plain spoof, unknown typed code, typed code accessor, arbitrary code accessor and diagnosticCode data/accessor spoof; require generic unavailable, zero getters and originalE. Four precise typed code cases require authenticated NativeObserverFormatError/code and exact stage."
+  },
+  "fullQualificationAccepted": false,
+  "game": false,
+  "matrixByteExactAgainstR1": true,
+  "original18PacketExact": true,
+  "original72ProjectionAndPredicatesExact": true,
+  "originalNativeObserverCases": 72,
+  "originalOrderingCases": 18,
+  "originalParserCasesReplayed": 0,
+  "positiveCount": 13,
+  "priorControlsSourceStop": {
+    "bytes": 4229,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "e75bd822b794f847c83f1c730e22c8cb8a9acb0019c987e65ee64f5a8080541f"
+  },
+  "prospectiveResultContract": {
+    "caseCount": 86,
+    "exactRows": "MATRIX.cases in order plus verdict ACCEPT_POSITIVE for GREEN or ACCEPT_SPECIFIC_REFUSAL for RED; any failed premise, unexpected error type/code/assertion, compiler/import failure is fatal, never expected RED",
+    "executionAuthorization": false,
+    "game": false,
+    "historicalObserverControlsReplayed": 0,
+    "originalM0ReadOrWritten": false,
+    "originalOrderingCases": 18,
+    "originalParserCasesReplayed": 0,
+    "positiveCount": 13,
+    "schema": "1370-native-observer-independent-controls-result/v1",
+    "specificNegativeCount": 73,
+    "status": "PURE_NATIVE_OBSERVER_CODEC_SINK_AND_AFFECTED_CONSUMERS_COMPLETED_UNADOPTED"
+  },
+  "reviewScope": "Independent finite complete source/data and contract binding review with actual roster extraction, original72 comparison, two complete R1 inverse pairs and carried original AP inverse authentication. No imports, parser/compiler/test execution, private traversal, fixture payload, process probes, Git or repository mutation.",
+  "routeSourcePins": {
+    "CONTRACT.json": {
+      "bytes": 11016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "c915be086c16ba5ee9d814038e19d0306d22efb9c7f5ca2ff8856c0d5240e548"
+    },
+    "MATRIX.json": {
+      "bytes": 15144,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "3dc6e11a350fb9dc7365f9738c2aad60d06cbae098efeb4ef9ac5f4ec6532edc"
+    },
+    "run-native-observer-controls.mjs": {
+      "bytes": 46107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+      "sha256": "9aac8333c7e51364ef136e7e28c4e51c97832c8492b927842c63e50c96e318f3"
+    }
+  },
+  "schema": "1370-native-observer-independent-controls-source-review/v1",
+  "sourceManifest": {
+    "bytes": 4694,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "ea534a97a8001f5037e8c053e0a8a30ff839907913d60189705bb7f9739b016a"
+  },
+  "sourcePins": {
+    "CONTRACT.json": {
+      "bytes": 11016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "c915be086c16ba5ee9d814038e19d0306d22efb9c7f5ca2ff8856c0d5240e548"
+    },
+    "MATRIX.json": {
+      "bytes": 15144,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "3dc6e11a350fb9dc7365f9738c2aad60d06cbae098efeb4ef9ac5f4ec6532edc"
+    },
+    "run-native-observer-controls.mjs": {
+      "bytes": 46107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+      "sha256": "9aac8333c7e51364ef136e7e28c4e51c97832c8492b927842c63e50c96e318f3"
+    }
+  },
+  "specificNegativeCount": 73,
+  "wholeApplicationsAgainstR1": 4,
+  "wholeInversePairsAgainstR1": 2
+}

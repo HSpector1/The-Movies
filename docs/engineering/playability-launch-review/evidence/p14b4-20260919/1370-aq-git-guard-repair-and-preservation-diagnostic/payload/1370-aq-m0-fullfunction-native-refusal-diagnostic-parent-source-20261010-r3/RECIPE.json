@@ -1,0 +1,65 @@
+{
+  "schema": "1370-fullfunction-parent-recipe/v1",
+  "executionAuthorization": false,
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 6365,
+    "sha256": "86d6cc43c35e182c25d42ed4cdf9042e0da700e916d35037490c3dd80d530973"
+  },
+  "config": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r3/CONFIG.json",
+    "bytes": 31407,
+    "sha256": "734378eccb25131f1a3bdaaa22df8504175ea019b95a9cfbc2b0572bc9d91db0"
+  },
+  "currentProtection": null,
+  "aliases": [
+    "CONFIG.json",
+    "run-fullfunction.py",
+    "run-fullfunction.mjs",
+    "record-fullfunction.py",
+    "CORE-TEST-TEMPLATE.ts",
+    "CONFIG-TEMPLATE.mts",
+    "FULL-BODY-CONTROLS-TEMPLATE.ts",
+    "exact-json.mjs",
+    "run-parser-controls.mjs",
+    "canonical-typescript-transform.mjs",
+    "m0WiringProbe.ts",
+    "RESOLUTION-SOURCE-BINDING.json",
+    "m0TraceCodec.mjs",
+    "traceSequences.mjs",
+    "ordering.ts",
+    "talentMarket.ts",
+    "typed-propagation-removed-talentMarket.ts",
+    "m0ObserverRowDiagnostic.mjs",
+    "m0NativeObserverRows.mjs",
+    "m0FeasibilityWitness-native.ts"
+  ],
+  "rootBinding": null,
+  "parentRecordedPath": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-recorded-20261010-r2",
+  "reviewDecision": "ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY",
+  "rootReadbackDecision": "ACCEPT_STATIC_FULLFUNCTION_ROOT_READBACK_SOURCE_ONLY",
+  "preparationSeconds": 60,
+  "runtimeBounds": {
+    "activeRecorder": 320,
+    "aggregateChild": 300,
+    "aggregateOutputTreeBytes": 268435456,
+    "fixturePacketBytes": 67108864,
+    "outputTreeEntryCap": 10000,
+    "resultBytes": 131072,
+    "streamBytes": 8388608,
+    "vitestReportBytes": 1048576,
+    "wholeRecorder": 330
+  },
+  "nativeRefusalControlsObservedAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "bytes": 16532,
+    "sha256": "385249f0239d6999318b62c6781c0f24c97e10600aa47dba6b51ddf6c4693ed4"
+  },
+  "sourceOnlyUnfilled": true,
+  "heldUnfilledActualRoles": [
+    "currentProtection",
+    "reviewedPriorStopAdoption",
+    "actualSourceReview",
+    "actualGrant"
+  ]
+}

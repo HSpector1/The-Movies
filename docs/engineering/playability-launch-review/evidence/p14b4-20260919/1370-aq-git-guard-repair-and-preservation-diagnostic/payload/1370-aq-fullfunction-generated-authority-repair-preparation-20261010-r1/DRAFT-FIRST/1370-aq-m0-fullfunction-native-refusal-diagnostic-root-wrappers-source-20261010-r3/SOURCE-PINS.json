@@ -1,0 +1,28 @@
+{
+  "schema": "1370-native-fullfunction-root-wrapper-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "run_observer_fullfunction_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r3/run_observer_fullfunction_once.py",
+      "bytes": 12537,
+      "sha256": "450e179515c13835793a8314c0469c3ebcc822097ca0b466dd9b7861b94cf543"
+    },
+    "run_observer_reader_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r3/run_observer_reader_once.py",
+      "bytes": 2608,
+      "sha256": "ba87ccb5729be9f9aa1bac9a98a1dcd2d381a9099b94b13c81c41761282e88ff"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r3/RECIPE.json",
+      "bytes": 3009,
+      "sha256": "6dd432912f72061ad70e4bf217b66363294e63765c4d5f7d42da0f585636b082"
+    },
+    "WHOLE-FORWARD-INVERSE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r3/WHOLE-FORWARD-INVERSE.json",
+      "bytes": 45145,
+      "sha256": "1bc2f80cbc7d2ab3f7f60e6950d88a2363c9cd268fde995a56fb6403b47b6ab3"
+    }
+  },
+  "sourceOnlyUnfilled": true,
+  "actualCombinedReview": null
+}

@@ -1,0 +1,18 @@
+{
+  "checks": [
+    {
+      "id": 59317,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 59317,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "heavyLaneLockAbsent": true,
+  "noInventedInternalIds": true,
+  "schema": "1370-ap-fullpreflight-owned-absence/v1",
+  "utc": "2026-10-10T11:50:06.154881+00:00"
+}

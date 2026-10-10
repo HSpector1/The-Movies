@@ -1,0 +1,73 @@
+{
+  "schema": "1370-aq-held-fullfunction-wrappers-static-audit/v1",
+  "executionAuthorization": false,
+  "sourceSealed": false,
+  "route": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 6365,
+    "sha256": "963093714938b1d2d8063e8a9bddcab81e8d1f7bcb346c08a94ce7222709fa2c"
+  },
+  "parent": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-parent-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 1363,
+    "sha256": "fa74b754d5ead7cb441e63ddb4a25fcbb8c1bf0c7cf72dd3ab05d76d164b192f"
+  },
+  "wrappers": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-root-wrappers-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 1417,
+    "sha256": "464f3d6b3e194f667cd5e7f7aaf4f75724b60b66a19598fa3cd81eee60de5034"
+  },
+  "currentAPFullGuardAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "bytes": 5252,
+    "sha256": "4bd6fe3766e73cd621f939b124d0da27e09fa4d097b64ae58041ee6955358cf1"
+  },
+  "snapshotFromGenuineFullGuard": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "wrapperChecks": [
+    {
+      "file": "run_observer_fullfunction_once.py",
+      "configurationKeys": [
+        "actualCurrentAPFullPreflightAdoption",
+        "actualCurrentOperationalTransition",
+        "actualLosslessControlsObservedAdoption",
+        "actualNativeObserverControlsObservedAdoption",
+        "actualNativeRefusalControlsObservedAdoption",
+        "currentProtection",
+        "historicalAMToANTransition",
+        "historicalANToAOTransition",
+        "historicalAOHead",
+        "historicalNativeObserverInputs",
+        "historicalTypesAdoption",
+        "historicalTypesHead",
+        "nativeObserverAuthorities",
+        "nativeRefusalDiagnosticAuthorities",
+        "operationalHead",
+        "productionSourceTree",
+        "reviewedPriorStopAdoption"
+      ],
+      "evaluatedPackageOperandsAudited": true,
+      "astParsedOnly": true
+    },
+    {
+      "file": "run_observer_reader_once.py",
+      "configurationKeys": [],
+      "evaluatedPackageOperandsAudited": true,
+      "astParsedOnly": true
+    }
+  ],
+  "ownSourcePinsAndConfigLiteralHashesExact": true,
+  "new86GrantKeyPreservedThroughRootBindingAndInnerGrant": true,
+  "wholeWrapperInverseApplications": 4,
+  "priorDraftInverseApplications": 22,
+  "pendingActualFields": [
+    "currentProtection",
+    "actualSourceReview",
+    "actualGrant"
+  ],
+  "candidateExecuted": false,
+  "privateTreesRead": false
+}

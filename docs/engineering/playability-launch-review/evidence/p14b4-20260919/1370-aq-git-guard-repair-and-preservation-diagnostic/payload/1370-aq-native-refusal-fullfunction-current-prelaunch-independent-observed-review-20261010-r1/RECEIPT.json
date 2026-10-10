@@ -1,0 +1,196 @@
+{
+  "actualReaderExit": 0,
+  "actualTool": {
+    "bytes": 738,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "948a9974a6b9744937b8320a79143e4d9ab3eadb6d1011036508cb7d103e906b"
+  },
+  "actualToolExit": 0,
+  "actualToolSessionId": 33751,
+  "baseline": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "clockContract": {
+    "automaticRetry": false,
+    "directExecPreservesPid": true,
+    "helperAdded": false,
+    "overallTimeoutAdded": false,
+    "perCommandSeconds": 180
+  },
+  "concreteFindings": [],
+  "config": {
+    "bytes": 2957,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-parent-recorded-20261010-r1/CONFIG.json",
+    "sha256": "9efa813ac47f719405f8144de81534d4785f1bc59230759e71f165e33090fe73"
+  },
+  "currentFullGuardGrant": {
+    "bytes": 2366,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-ap-fullpreflight-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "d821cdaf8bbcd092c859601e9a79b9d423a7ab61862d925d0753a4347cccc7a0"
+  },
+  "currentFullPreflightAdoption": {
+    "bytes": 5252,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "4bd6fe3766e73cd621f939b124d0da27e09fa4d097b64ae58041ee6955358cf1"
+  },
+  "decision": "ACCEPT_ACTUAL_CURRENT_AP_FULLFUNCTION_PRELAUNCH_ONLY",
+  "executionAuthorization": false,
+  "externalConfigChangedOnlyOriginalThreeFillFields": [
+    "outputPath",
+    "ownedPgids",
+    "protectedSnapshot"
+  ],
+  "freshCurrentChecksAccepted": {
+    "ACPowerUnchanged": true,
+    "bootSessionUnchanged": true,
+    "freeBytesAfter": 4617474048,
+    "freeBytesBefore": 4617482240,
+    "originalFDChecks": true,
+    "originalReserveSatisfied": true,
+    "refsCleanSourceHeadAndAncestry": "Accepted through unchanged independently reviewed original source checks, authenticated completed PREFLIGHT and exact nine-root comparisons; no new repository queries.",
+    "relevantWorkersAndOldNumericPidsAbsent": true
+  },
+  "fullQualificationAccepted": false,
+  "game": false,
+  "grant": {
+    "bytes": 4492,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "c95004c948be846c2c2c999c0924457bea555f794c0f94e8774714cf6b53e7f6"
+  },
+  "historicalTypesFullPostflightSnapshot": {
+    "bytes": 8847484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/SNAPSHOT.json",
+    "sha256": "0700ce99c57f33956c3fb1b5f26d3c6e28e6e323551fb1f6f084db2f9c370dff"
+  },
+  "historicalTypesObservedAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "nanosecondIdentitiesComparedAsExactIntegers": true,
+  "nativeRefusalControlsObservedAdoption": {
+    "bytes": 16532,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/NATIVE-REFUSAL-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "385249f0239d6999318b62c6781c0f24c97e10600aa47dba6b51ddf6c4693ed4"
+  },
+  "nativeRefusalControlsReadback": {
+    "bytes": 14904,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "8f1047183010b60b4d9f00b6388f04011fee3839e31e5d3adb319bfb72a4d686"
+  },
+  "newRuntimeAuthorization": false,
+  "nineStrictRootsBeforeAfterExactlyEqualAdoptedFullSnapshot": true,
+  "operationalScopeAmendment": {
+    "bytes": 3248,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/OPERATIONAL-SCOPE-AMENDMENT.json",
+    "sha256": "d355a20a51b2b0a5a6f925d3e3b0e4ab447a27a3beb237def49af5457160f545"
+  },
+  "originalFullSnapshot": {
+    "bytes": 9737682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ap-r1/SNAPSHOT.json",
+    "sha256": "bc21a3dfd61812205d4499d4d0ba7cc04c868a1aa69216d3353bb4b6e278e0ec"
+  },
+  "ownership": {
+    "freshCurrentBeforeAfterGroupClearanceAccepted": true,
+    "laneOrLaunchLocksAbsent": "Authenticated qualified-reader completion; no local process or lock probe.",
+    "postOwnScannerChecks": [
+      {
+        "id": 25630,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 25630,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "priorOwnedGroupsDerivedFromActualGuardAndPure86": [
+      49978,
+      50286,
+      59317
+    ],
+    "recordedScannerSid": 25630,
+    "scannerAbsent": true,
+    "scannerPgid": 25630,
+    "scannerPid": 25630
+  },
+  "preflight": {
+    "bytes": 9845,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-output-20261010-r1/PREFLIGHT.json",
+    "sha256": "947133a1b356efb72e3a8910db2c993f7ca264911b5d367b49279947a18420b3"
+  },
+  "productionHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "protectedFreezeContinues": true,
+  "rawLocalEvidence": {
+    "bytes": 1331526,
+    "classification": {
+      "bytes": 1276,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-output-20261010-r1/RAW-LOCAL-ONLY-ROLES.json",
+      "sha256": "c4376102856ffc3349cba9c939cf8ff6d8183fddc4f3ccfc63c4b79274152988"
+    },
+    "count": 4,
+    "disposition": "LOCAL_HASH_SIZE_ONLY",
+    "hashAndSizeAuthenticated": true,
+    "rawPayloadNotExported": true
+  },
+  "readback": {
+    "bytes": 5780,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/M0-NATIVE-REFUSAL-FULLFUNCTION-CURRENT-PREFLIGHT-READBACK.json",
+    "sha256": "1dfd228db41cc38cca2f7a0c56fafb5d5e2a864ae2c9ac82df3b83fba7857ce1"
+  },
+  "readerActualTool": {
+    "bytes": 545,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-parent-recorded-20261010-r1/READER-ACTUAL-TOOL.json",
+    "sha256": "c47fec1427b3be4d3e7d43c6f720300ea376a2247bad41db86b93ecbdadb9563"
+  },
+  "reuseScope": {
+    "baselinePhase": "before-fill",
+    "continuousProtectedFreezeRequired": true,
+    "currentM0BeforeAfterSourceAndDependencyProofsRemainSeparate": true,
+    "freshFullInventoryRun": false,
+    "fullMapReuseUnderExplicitRootAdoptedAmendment": true,
+    "historicalTypesRemainHistorical": true,
+    "mandatoryOriginalFullPostflightAgainstCurrentSnapshotAfterGame": true
+  },
+  "reviewScope": "Finite retained actual short-prelaunch evidence only; independently authenticated source roles and original current-check observations. No rerun, imports, new probes, private traversal, or protected writes. Reviewer did not author or execute the scanner, launcher, reader, grant, or observations.",
+  "schema": "1370-aq-current-ap-fullfunction-prelaunch-independent-observed-review/v1",
+  "sourceAndScopeAmendmentAdoption": {
+    "bytes": 2029,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/CURRENT-AP-NATIVE-REFUSAL-PRELAUNCH-SOURCE-AND-AMENDMENT-ADOPTION.json",
+    "sha256": "7c3fa529665cbdddc22e803bdeec1b3c19ebd95840ab4b99d5b934846f0a6eb7"
+  },
+  "sourceBindingsUnchanged": true,
+  "sourceManifest": {
+    "bytes": 16628,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "035ac9dcdbd73073c0c0cec5c1fc66e449840485ba13b77366c319d5593db18f"
+  },
+  "sourcePins": {
+    "bytes": 16628,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "035ac9dcdbd73073c0c0cec5c1fc66e449840485ba13b77366c319d5593db18f"
+  },
+  "sourceReview": {
+    "bytes": 8254,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "ae2840d36228de5ee9b93707f090e901da03fffb7e596f406f846cc953422950"
+  },
+  "streams": {
+    "singleExactPreflightSummary": true,
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-parent-recorded-20261010-r1/prelaunch.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderrEmpty": true,
+    "stdout": {
+      "bytes": 275,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-parent-recorded-20261010-r1/prelaunch.stdout",
+      "sha256": "d0cea2c49b66f2cbca54a289deb4e2ef6127ef87130837b6bddcc069090fce29"
+    }
+  },
+  "typesOrM0ProofAccepted": false
+}
