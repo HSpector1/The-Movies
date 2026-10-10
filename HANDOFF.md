@@ -1,6 +1,15 @@
 # HANDOFF
 
-Last writer: Codex, with GPT-6.1 Sol specialists, 2026-10-10 (America/Chicago). Prepared expressly for a cold takeover by Claude. The Owner requested a detailed account of attempts, results, failures, remaining work, locations, and lessons. **Preparing this handoff is not approval of the pending operational recovery exception.**
+Last writer: Claude (Fable 5.1), 2026-10-10 (America/Chicago), resuming cold from the Codex/GPT-6.1 Sol handoff below. The detailed account that follows is preserved; Claude's takeover reconciliation and the Owner's recorded answer are inserted where they apply.
+
+## Claude takeover reconciliation, 2026-10-10
+
+- Verified at takeover: local and remote `wip/headless-program-20260916-ts` both at `9b67d768cb38245ac2dcc72ae17bba261005ce59` (the handoff's own containing commit, docs-only successor to d3072005); `HEAD:src` still `13880d9b0ba72aff5d4c5bcf5d12fe682c5de554`; remote main `c902a704…` unmerged; working tree clean; `S/HEAVY-LANE-LOCK` absent; no project Python/Node/test workers; 4,398,744 KiB free.
+- **Owner answer received 2026-10-10 (Claude session, AskUserQuestion): "Approve fresh baseline."** The Owner approved starting fullfunction verification from a fresh, separately identified operational commonGit baseline on current HEAD, preserving the unexplained historical Git-metadata interval (12:10:59–12:11:44Z) and every failed result (42397, 54871, 96592) as failed. This is the narrow recovery in `Q/OPERATIONAL-RECOVERY-PROPOSAL.md`. It is not permission to claim any old attempt passed. Do not ask again.
+- Owner standing orders in the same session: "see how far you can get in game development using as many sub agents and resources you need"; "You may use as many subagents as you need." GPT-6.1 Sol is not available to Claude, so Claude subagents are used under this later explicit authorization. Cache clearing was authorized if storage runs short (caches only; never source, saves, evidence, or user files).
+- Further Owner orders, same session, verbatim: "Use any Skills you need to make as much progress as you possibly can, update the handoff file when you make progress. Ensure lessons learned are captured as well as you get hard fought wins" and "Owner approval not needed for anything, just go make it happen." Claude therefore proceeds without further Owner gates, records each decision it would previously have escalated in this document, updates this handoff at every checkpoint, and appends lessons to the "Major lessons" list.
+- A `HANDOFF TRIGGER` (Claude weekly usage 97%) fired at session start; this checkpoint records the approval before any runtime work so Codex can resume cold.
+- No lean-ctx MCP tools exist in this Claude session; native Read/Bash were used.
 
 ## Read this first
 
@@ -8,7 +17,7 @@ The game is **not finished through P18**. P16 is incomplete; P17 and P18 runtime
 
 The concrete win is a reproduced Git verification defect and a tested narrow fix: an inherited Python helper removed `GIT_OPTIONAL_LOCKS=0` from child environments, allowing an intended read-only `git status` to rewrite its index. Eight focused controls demonstrate the original defect and corrected behavior. However, the old full Git-metadata checksum cannot be reconstructed from the evidence originally retained. That historical interval remains unqualified, and the Owner has not yet answered the explicit request to start a new verification baseline with that gap preserved.
 
-**The next blocking action is the Owner's recovery decision, followed, if approved, by current-HEAD source binding, independent review, fresh full protection, and one properly recorded qualification attempt.** Do not rerun a stale launcher, replay closed diagnostics, reset the old checksum, or merge this branch to main.
+**The Owner's recovery decision has been received (approved; see the Claude takeover reconciliation above). The next blocking actions are current-HEAD source binding, independent review, fresh full protection, and one properly recorded qualification attempt.** Do not rerun a stale launcher, replay closed diagnostics, reset the old checksum, or merge this branch to main.
 
 ## Where the work is
 
@@ -19,6 +28,7 @@ The concrete win is a reproduced Git verification defect and a tested narrow fix
 | Live repository | `/Users/zacheryspector/The-Movies-headless-program` |
 | Branch | `wip/headless-program-20260916-ts` |
 | Remote | `https://github.com/HSpector1/The-Movies` |
+| Codex detailed-handoff commit (docs-only; Claude took over here) | `9b67d768cb38245ac2dcc72ae17bba261005ce59` |
 | Published AQ implementation/evidence checkpoint | `d30720052633dbdf092c27f2f12415c5cb1a06cc` |
 | Its AP parent | `d20347b83ea7497ed17c48ec14d8f64a3ce69cc8` |
 | Earlier AO checkpoint | `f2f97c622db7f5332164b790d1646355e89c00f4` |
@@ -232,9 +242,11 @@ Find all of this in `L/payload/`: `INDEX-FIRST-ACTUAL-TOOL.json`, both verifier/
 
 The old publisher scripts are **historical**, bound to AP and one-shot outputs that already exist. Do not rerun them for Claude's next checkpoint. Preserve useful checks, but bind a new publication to its actual predecessor and exact changed files.
 
-## Current blockers and the outstanding Owner decision
+## Current blockers and the Owner decision (answered 2026-10-10)
 
-The unanswered question asked the Owner whether to begin fresh verification now that the Git-helper bug is fixed and tested, despite being unable to reconstruct the old Git-metadata checksum. It explicitly said all earlier failed checks would remain failed and preserved, and game checks/limits would remain unchanged. No answer has arrived. The request to prepare a Claude handoff is not an answer to that question.
+**Answered: approved.** The Owner (Claude session, 2026-10-10) chose "Approve fresh baseline": begin fresh verification now that the Git-helper bug is fixed and tested, despite being unable to reconstruct the old Git-metadata checksum; all earlier failed checks remain failed and preserved; game checks/limits remain unchanged. The paragraphs below describe the question as it was asked and the recovery design that now governs execution.
+
+The question asked the Owner whether to begin fresh verification now that the Git-helper bug is fixed and tested, despite being unable to reconstruct the old Git-metadata checksum. It explicitly said all earlier failed checks would remain failed and preserved, and game checks/limits would remain unchanged.
 
 The recommendation is the narrow recovery described in `Q/OPERATIONAL-RECOVERY-PROPOSAL.md`: preserve the old baseline, failures and unqualified interval; establish a separately identified new operational commonGit baseline on the actual published candidate; preserve all unaffected private/source/dependency identities; integrate the tested sanitizer; run the corrected qualification route under its original rules.
 
