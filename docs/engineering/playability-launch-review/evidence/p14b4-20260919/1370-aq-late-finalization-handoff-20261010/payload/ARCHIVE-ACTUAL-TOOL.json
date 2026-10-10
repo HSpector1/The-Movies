@@ -1,0 +1,20 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "48170f",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 38561,
+      "wall_time_seconds": 1.002481455
+    },
+    {
+      "chunk_id": "33538a",
+      "exit_code": 0,
+      "original_token_count": 26,
+      "output": "{\"copiedPayloadBytes\": 19263510, \"localHashSizeOnlyRoles\": 27, \"priorGitBlobRoles\": 81, \"roles\": 732}\n",
+      "wall_time_seconds": 1.8617e-05
+    }
+  ],
+  "finalExit": 0,
+  "sessionId": 38561
+}

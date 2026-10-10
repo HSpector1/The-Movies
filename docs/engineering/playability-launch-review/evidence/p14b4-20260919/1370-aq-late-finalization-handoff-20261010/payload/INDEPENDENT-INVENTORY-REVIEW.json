@@ -1,0 +1,112 @@
+{
+  "auxiliarySourceSelection": {
+    "bytes": 1527,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/AUXILIARY-SOURCE-SNAPSHOT-SELECTION.json",
+    "sha256": "a7535a53cf672e873cb3d7f195310808e3f47c603b43f06152ba58a8409f8b10"
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_FINITE_AQ_CHECKPOINT_INVENTORY_AND_LOCAL_CLASSIFICATION_ONLY",
+  "executionAuthorization": false,
+  "independentChecks": {
+    "all705NonLocalPayloadHashesAndSizesReadbackExact": true,
+    "all732FileMetadataRegularSingleLinkModeSizeChecked": true,
+    "allFiveAuxiliaryCurrentByteSnapshotsIncluded": true,
+    "auxiliaryHistoricalExecutionIdentityNotProved": true,
+    "duplicatePathsAbsent": true,
+    "exact27LocalSetMatchesProducerRolesAndCutoff": true,
+    "excludedWithoutTraversal": [
+      {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-m0-fullfunction-native-refusal-diagnostic-results-20261010-r1/runtime/node_modules",
+        "reason": "DEPENDENCY_PRIVATE_OR_REBUILDABLE_CACHE_NO_TRAVERSAL"
+      },
+      {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1/original/.git",
+        "reason": "DEPENDENCY_PRIVATE_OR_REBUILDABLE_CACHE_NO_TRAVERSAL"
+      },
+      {
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-git-optional-locks-regression-controls-results-20261010-r1/corrected/.git",
+        "reason": "DEPENDENCY_PRIVATE_OR_REBUILDABLE_CACHE_NO_TRAVERSAL"
+      }
+    ],
+    "externalHistoricalManifestReferencesNotTraversed": 55,
+    "fullInventoryPathSetEqualsExplicitInputList": true,
+    "historicalDraftReferences": {
+      "allAdjacentArchivedDraftPayloadsMatchHistoricalPins": true,
+      "count": 24,
+      "interpretation": "Preserved historical draft source pins reference later-revised operative paths; all original referenced bytes are retained in adjacent draft snapshots. This is history, not runtime qualification.",
+      "locations": [
+        "DRAFT-BASELINES",
+        "DRAFT-FIRST"
+      ],
+      "manifestCount": 6
+    },
+    "historicalLocalReferencesNotSelectedOrRead": 12,
+    "localCategories": {
+      "currentIndexRawAndNulStreams": 5,
+      "diagnosticImmutableMapAndSummary": 2,
+      "disposableGitTrackedFiles": 2,
+      "focusedAttributionMetadata": 2,
+      "machinePSFD": 8,
+      "pure32SyntheticEmitterPadding": 7,
+      "retainedCompleteComparisonValues": 1
+    },
+    "localPayloadBodiesNotOpenedOrCopied": true,
+    "noLocalPriorGitReuse": true,
+    "noSelectedPathsInsideGitNodeModulesOrPythonCache": true,
+    "rootAndLateSelectionsExactlyAuthorized": true,
+    "sealedManifestSelectedRoleMatches": 362,
+    "wholeNamedLateAPDirectoryFileSetMatchesInventory": true
+  },
+  "inputPackages": {
+    "bytes": 120962,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INPUT-PACKAGES-FINAL.json",
+    "sha256": "308805264049b054201d4ad89220d201ac61107312090d41d07110dc72c8a2c0"
+  },
+  "inventory": {
+    "bytes": 390239,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INVENTORY-FINAL.json",
+    "sha256": "39cc2696a950eb821e142fd2407648365870c16eab06bd33378de27b88c7f7b3"
+  },
+  "limits": [
+    "This receipt admits finite inventory selection and classification only; it does not authorize archive copying, Git mutation, runtime or protection recovery.",
+    "All LOCAL roles stay hash-size-only; source manifests, producer outcomes and metadata establish classification without exporting raw bodies.",
+    "Selected current auxiliary source backups do not establish their historical executed-byte identity.",
+    "Archive payload copying, prior-HEAD blob mapping and staged expected-set equality still require final resulting archive/index review.",
+    "The first erroneous PLACEHOLDER cutoff invocation remains preserved in excluded late finalization evidence, outside this already frozen inventory.",
+    "Owner recovery decision remains pending. Original54871 and96592 remain equality failures, with no interval restoration or game acceptance."
+  ],
+  "priorBuilderIndependentReview": {
+    "bytes": 5283,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "b670efa79ba004600c50d12dc5c294187b4acc94ab9083588bc6c0021825c906"
+  },
+  "reviewMethod": "Explicit retained inventory/input/cutoff and named producer roles only; nonlocal file hashes and named late AP filename coverage checked, without inventory rerun, private/dependency traversal, raw export, scanner, Git or archive copy.",
+  "rootCutoff": {
+    "bytes": 8635,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/ARCHIVE-FINAL-CUTOFF.json",
+    "sha256": "651c5dc7f22b59db7bc1f307667874063b6f8f5d8f07ab8be4acc9bf7524001e"
+  },
+  "schema": "1370-aq-finite-checkpoint-inventory-independent-review/v1",
+  "sourceBuilderAdoption": {
+    "bytes": 957,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-root-continuation-20261010-r1/ARCHIVE-BUILDER-R3-SOURCE-ADOPTION.json",
+    "sha256": "5cf0fec8ac3db6f18f03720a9c6cd6c9439f832a9d28cbfcefd17b5e66531563"
+  },
+  "sourceBuilderManifest": {
+    "bytes": 2112,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "d7add3c7597b379e0d96f573484c7b0ca9e1b10aa52d4ca6ff93e9f38563750d"
+  },
+  "summary": {
+    "latestNumberedLessons": 15,
+    "lessonHistoryRevisions": 9,
+    "localHashSizeOnlyBytes": 38750388,
+    "localHashSizeOnlyRoles": 27,
+    "nonLocalBytesBeforePriorHEADReuse": 20160789,
+    "nonLocalPayloadRoles": 705,
+    "roles": 732,
+    "selectedRoots": 108,
+    "totalRetainedRoleBytes": 58911177,
+    "wholeLateAPFinalizationFiles": 54
+  }
+}

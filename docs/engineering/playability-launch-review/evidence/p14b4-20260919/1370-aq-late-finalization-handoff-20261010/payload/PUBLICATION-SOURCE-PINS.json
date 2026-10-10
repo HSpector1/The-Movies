@@ -1,0 +1,38 @@
+{
+  "actualIndexBinding": null,
+  "actualPublicationReview": null,
+  "candidateExecuted": false,
+  "executionAuthorization": false,
+  "expectedParent": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "files": {
+    "PUBLICATION-SOURCE-README.md": {
+      "bytes": 2424,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUBLICATION-SOURCE-README.md",
+      "sha256": "c9438449465667cd61b081763208dead4020f0c8ee32b3ece4981c9a72255ed2"
+    },
+    "publish_checkpoint.py": {
+      "bytes": 5949,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/publish_checkpoint.py",
+      "sha256": "42b22392d987675646310e9c9ab637f2b003644dabb6737823b19aee282861cc"
+    },
+    "verify_index_complete.py": {
+      "bytes": 5217,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/verify_index_complete.py",
+      "sha256": "0401ea8c10e5260377a2da4fb2a9f5be0cf2fe73818c1cedd72a49eabe3f6eed"
+    }
+  },
+  "retainedMethodPatterns": [
+    {
+      "bytes": 4405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/verify_index_complete_r2.py",
+      "sha256": "29a4174453e4c88d26ec1cbaa61f550f1ed776b33260a60df343a1dcb37398a7"
+    },
+    {
+      "bytes": 3999,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/publish_checkpoint.py",
+      "sha256": "a8b5346c690450ee7b22f2e61681006e836fd1a523ac768aec62a83ab5a7e5e7"
+    }
+  ],
+  "schema": "1370-aq-checkpoint-publication-source-pins/v1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+}

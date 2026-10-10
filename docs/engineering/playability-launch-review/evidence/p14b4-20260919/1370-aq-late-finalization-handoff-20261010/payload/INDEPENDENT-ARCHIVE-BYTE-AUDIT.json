@@ -1,0 +1,35 @@
+{
+  "allCopiedBytesExact": true,
+  "allInventoryRolesPreserved": true,
+  "allPriorModesObjectsBytesExact": true,
+  "archiveManifest": {
+    "bytes": 3172616,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/ARCHIVE-MANIFEST.json",
+    "sha256": "173646636bd8a672e123d38dc7b3496bff3117cdae75caef8fb9d69f2bc95cb5"
+  },
+  "copiedPayloadBytes": 19263510,
+  "counts": {
+    "AUTHENTICATED_PRIOR_HEAD_BLOB": 81,
+    "COPIED_FINITE_PAYLOAD": 624,
+    "LOCAL_HASH_SIZE_ONLY": 27
+  },
+  "exactArchiveFileSetCount": 627,
+  "extraArchiveFiles": [],
+  "gitMutation": false,
+  "inventory": {
+    "bytes": 390239,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/INVENTORY-FINAL.json",
+    "sha256": "39cc2696a950eb821e142fd2407648365870c16eab06bd33378de27b88c7f7b3"
+  },
+  "localBodiesOpened": false,
+  "priorHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "priorMappingRecords": 10235,
+  "rootClaim": {
+    "bytes": 1152,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/ROOT-FINAL-CLAIM.txt",
+    "sha256": "fdb6579f78da6b51494d272736e6c8d784564e01f18f3b626c541d12ead91a66"
+  },
+  "schema": "1370-aq-archive-independent-byte-audit/v1",
+  "uniquePriorBlobsAuthenticated": 51,
+  "uniquePriorPathsAuthenticated": 654
+}

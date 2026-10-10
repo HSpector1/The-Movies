@@ -1,0 +1,20 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "40837b",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 76820,
+      "wall_time_seconds": 1.003728465
+    },
+    {
+      "chunk_id": "b6b855",
+      "exit_code": 0,
+      "original_token_count": 165,
+      "output": "{\"archiveCopied\": false, \"gitMutated\": false, \"inputPlan\": {\"bytes\": 120962, \"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INPUT-PACKAGES-FINAL.json\", \"sha256\": \"308805264049b054201d4ad89220d201ac61107312090d41d07110dc72c8a2c0\"}, \"inventory\": {\"bytes\": 390239, \"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INVENTORY-FINAL.json\", \"sha256\": \"39cc2696a950eb821e142fd2407648365870c16eab06bd33378de27b88c7f7b3\"}, \"summary\": {\"bytes\": 58911177, \"completeInventory\": true, \"localOnlyRoles\": 27, \"roles\": 732, \"selectedNonLocalBytesBeforePriorHEADReuse\": 20160789}}\n",
+      "wall_time_seconds": 1.6033e-05
+    }
+  ],
+  "finalExit": 0,
+  "sessionId": 76820
+}

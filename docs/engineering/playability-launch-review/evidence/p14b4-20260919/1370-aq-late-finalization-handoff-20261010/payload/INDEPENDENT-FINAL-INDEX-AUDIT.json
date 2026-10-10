@@ -1,0 +1,25 @@
+{
+  "actualVerifierTool": {
+    "bytes": 827,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEX-R2-ACTUAL-TOOL.json",
+    "sha256": "c25b827384d883de124cff251e8e0ab0d1b918bc5c8ae40afcbc4b5146cc492d"
+  },
+  "currentDocsWhitespaceCheck": 0,
+  "docsRolesEqualIndependentDocsReview": true,
+  "everyStagedBlobMatchesReviewedPhysicalRole": true,
+  "exactExpectedAndActualStagedPaths": 629,
+  "gitMutation": false,
+  "indexVerification": {
+    "bytes": 663831,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEX-VERIFICATION-COMPLETE.json",
+    "sha256": "7716ed51aa187c1bc1506c024921a056709e1746706b77d70dd3086ecba97c6f"
+  },
+  "indexedSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "indexedTree": "0dd3fd5b9995b31a5ae38389d5bee8b5df25468f",
+  "schema": "1370-aq-index-independent-byte-audit/v1",
+  "unchangedParent": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "unstagedTrackedChangesAbsent": true,
+  "warningCount": 187,
+  "warningOutputByteEqualToDemonstratedFirstOutput": true,
+  "wholeDiffWhitespaceCheck": 2
+}

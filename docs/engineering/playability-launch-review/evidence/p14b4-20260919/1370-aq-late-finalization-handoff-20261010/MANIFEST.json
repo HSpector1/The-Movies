@@ -1,0 +1,293 @@
+{
+  "createdUTC": "2026-10-10T15:23:43.276282+00:00",
+  "files": [
+    {
+      "archiveRelativePath": "payload/ARCHIVE-ACTUAL-TOOL.json",
+      "bytes": 494,
+      "sha256": "ae172c59d234aafa023f537c6db9d2f075e93d9f63357747ef283109d373d701",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/ARCHIVE-ACTUAL-TOOL.json"
+    },
+    {
+      "archiveRelativePath": "payload/COMMIT-RESULT.json",
+      "bytes": 144,
+      "sha256": "9f0c478bc82fcf58eb37415e69e761e982581088e5aa8918a3aa29017242e2d2",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/COMMIT-RESULT.json"
+    },
+    {
+      "archiveRelativePath": "payload/COMMIT.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/COMMIT.stderr"
+    },
+    {
+      "archiveRelativePath": "payload/COMMIT.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/COMMIT.stdout"
+    },
+    {
+      "archiveRelativePath": "payload/DIFF-CHECK-COMPLETE.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stderr"
+    },
+    {
+      "archiveRelativePath": "payload/DIFF-CHECK-COMPLETE.stdout",
+      "bytes": 45469,
+      "sha256": "53bea478da7221a78958b21e136a746ca68dc0840d1554dd382fb6a692fa9b44",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout"
+    },
+    {
+      "archiveRelativePath": "payload/DIFF-CHECK-VERIFIED.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stderr"
+    },
+    {
+      "archiveRelativePath": "payload/DIFF-CHECK-VERIFIED.stdout",
+      "bytes": 45469,
+      "sha256": "53bea478da7221a78958b21e136a746ca68dc0840d1554dd382fb6a692fa9b44",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout"
+    },
+    {
+      "archiveRelativePath": "payload/FETCH-RESULT.json",
+      "bytes": 169,
+      "sha256": "1e64457b831ab47e3566051b63a2c2e3be3d14507e6bd00245ad52ea7045fdeb",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/FETCH-RESULT.json"
+    },
+    {
+      "archiveRelativePath": "payload/FETCH.stderr",
+      "bytes": 144,
+      "sha256": "932eed7f4d13d40a5281a60fb83fb2c7e8d2bf025537e3ba81806c9468570919",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/FETCH.stderr"
+    },
+    {
+      "archiveRelativePath": "payload/FETCH.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/FETCH.stdout"
+    },
+    {
+      "archiveRelativePath": "payload/HANDOFF-PROPOSED-FIRST-OVERBOUND.md",
+      "bytes": 11833,
+      "sha256": "739436bb2ec5405bedcc2866a8dddd0665b3e13e9ef13086ed5c3bf18bd4f84f",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/HANDOFF-PROPOSED-FIRST-OVERBOUND.md"
+    },
+    {
+      "archiveRelativePath": "payload/HANDOFF-PROPOSED-SECOND-OVERBOUND.md",
+      "bytes": 9524,
+      "sha256": "b5391bd6dbfc6a05417bb528b2784800a8adf01ea22746b89a4a82952f8026b6",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/HANDOFF-PROPOSED-SECOND-OVERBOUND.md"
+    },
+    {
+      "archiveRelativePath": "payload/HANDOFF-PROPOSED.md",
+      "bytes": 9193,
+      "sha256": "9fd9627d921c6d8d283acc555e713575d56b1b5b1c7151c9f90724be855c1795",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/HANDOFF-PROPOSED.md"
+    },
+    {
+      "archiveRelativePath": "payload/INDEPENDENT-ARCHIVE-BYTE-AUDIT.json",
+      "bytes": 1612,
+      "sha256": "e6e02cbf1bb7c94a9499be8c2d53ddfd8221bb5337b0c3bb20620faf2e9181bd",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-ARCHIVE-BYTE-AUDIT.json"
+    },
+    {
+      "archiveRelativePath": "payload/INDEPENDENT-ARCHIVE-REVIEW.json",
+      "bytes": 4375,
+      "sha256": "9d02fd0b5820a437205c389540f931d38dc6570ea5adf66c825f0f1ac7a4e0df",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-ARCHIVE-REVIEW.json"
+    },
+    {
+      "archiveRelativePath": "payload/INDEPENDENT-FINAL-DOCS-REVIEW.json",
+      "bytes": 5516,
+      "sha256": "42c20c491645839a487e3cd54bde97278c2dfd23747d9aee27daf9645c37a0e2",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-FINAL-DOCS-REVIEW.json"
+    },
+    {
+      "archiveRelativePath": "payload/INDEPENDENT-FINAL-INDEX-AUDIT.json",
+      "bytes": 1133,
+      "sha256": "15b23733eaa621d79466f081515fd64eba09992c54c898c6cba4a7baf353bf9c",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-FINAL-INDEX-AUDIT.json"
+    },
+    {
+      "archiveRelativePath": "payload/INDEPENDENT-FINAL-PUBLICATION-REVIEW.json",
+      "bytes": 5593,
+      "sha256": "cb2d9ca43ab92f219e0f1f6393d6cb72b0b03ef0c19c6d7e036fbe131c3185f0",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-FINAL-PUBLICATION-REVIEW.json"
+    },
+    {
+      "archiveRelativePath": "payload/INDEPENDENT-HANDOFF-AUTO-AUDIT.json",
+      "bytes": 407,
+      "sha256": "be71d6f3e073625dca3aa57968ad7386199c92489d29e368fb12eeeca25852c9",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-HANDOFF-AUTO-AUDIT.json"
+    },
+    {
+      "archiveRelativePath": "payload/INDEPENDENT-INVENTORY-REVIEW.json",
+      "bytes": 5871,
+      "sha256": "886a63026d9ca49d2a7cf0d8e58e6f8fa2a2261283a4693b3c770d22a1b4cf03",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-INVENTORY-REVIEW.json"
+    },
+    {
+      "archiveRelativePath": "payload/INDEX-BINDING.json",
+      "bytes": 799,
+      "sha256": "f5ae30e8cfce9bc17e864565768e65e5c145d4da7c0923a8e6cd98122bd9c1a6",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEX-BINDING.json"
+    },
+    {
+      "archiveRelativePath": "payload/INDEX-FIRST-ACTUAL-TOOL.json",
+      "bytes": 1206,
+      "sha256": "1adad374d38b84f3e7db633c0afe65c4d05d949dda3d73568a403d9140539e8c",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEX-FIRST-ACTUAL-TOOL.json"
+    },
+    {
+      "archiveRelativePath": "payload/INDEX-R2-ACTUAL-TOOL.json",
+      "bytes": 827,
+      "sha256": "c25b827384d883de124cff251e8e0ab0d1b918bc5c8ae40afcbc4b5146cc492d",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEX-R2-ACTUAL-TOOL.json"
+    },
+    {
+      "archiveRelativePath": "payload/INDEX-VERIFICATION-COMPLETE.json",
+      "bytes": 663831,
+      "sha256": "7716ed51aa187c1bc1506c024921a056709e1746706b77d70dd3086ecba97c6f",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEX-VERIFICATION-COMPLETE.json"
+    },
+    {
+      "archiveRelativePath": "payload/INITIAL-INVENTORY-INVOCATION-STOP.json",
+      "bytes": 1390,
+      "sha256": "45ee4254c1b9d907fcccdcc36c20164b97e1854f594c7d8c53c235abed50cf08",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INITIAL-INVENTORY-INVOCATION-STOP.json"
+    },
+    {
+      "archiveRelativePath": "payload/INPUT-PACKAGES-FINAL.json",
+      "bytes": 120962,
+      "sha256": "308805264049b054201d4ad89220d201ac61107312090d41d07110dc72c8a2c0",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INPUT-PACKAGES-FINAL.json"
+    },
+    {
+      "archiveRelativePath": "payload/INVENTORY-ACTUAL-TOOL.json",
+      "bytes": 1082,
+      "sha256": "4bb6402911295fd7f2a0677e1c29fa9bf03747d6fa30a9d1315beca4c520aa3f",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INVENTORY-ACTUAL-TOOL.json"
+    },
+    {
+      "archiveRelativePath": "payload/INVENTORY-FINAL.json",
+      "bytes": 390239,
+      "sha256": "39cc2696a950eb821e142fd2407648365870c16eab06bd33378de27b88c7f7b3",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INVENTORY-FINAL.json"
+    },
+    {
+      "archiveRelativePath": "payload/LESSONS-LATE.md",
+      "bytes": 1248,
+      "sha256": "cf140056260413358c40dbd4040ad28d055f9d18161c5997e7d563f649cde082",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/LESSONS-LATE.md"
+    },
+    {
+      "archiveRelativePath": "payload/PRESERVED-WHITESPACE-AUTHORITY.json",
+      "bytes": 120128,
+      "sha256": "c904e5e30af2c27dc2e4b2194b06a7e50fbe3e93a584ab88d85ef443a949fd25",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PRESERVED-WHITESPACE-AUTHORITY.json"
+    },
+    {
+      "archiveRelativePath": "payload/PUBLICATION-R1-TO-R2-WHOLE-INVERSES.json",
+      "bytes": 18595,
+      "sha256": "72861b502ebce3cbf8e798cbb083acea4f96e0858cb465348bde57d273da8843",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUBLICATION-R1-TO-R2-WHOLE-INVERSES.json"
+    },
+    {
+      "archiveRelativePath": "payload/PUBLICATION-R2-INDEPENDENT-SOURCE-REVIEW.json",
+      "bytes": 3042,
+      "sha256": "2b6ad55f6d35c9e412508017e5acce5454c448ebcb4e5cfc50b5de98b42ea13d",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUBLICATION-R2-INDEPENDENT-SOURCE-REVIEW.json"
+    },
+    {
+      "archiveRelativePath": "payload/PUBLICATION-SOURCE-PINS-r2.json",
+      "bytes": 2184,
+      "sha256": "44b5b1726962a295e8cc4988220b7832ea8fb013761adae26d4965bf0157b2be",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUBLICATION-SOURCE-PINS-r2.json"
+    },
+    {
+      "archiveRelativePath": "payload/PUBLICATION-SOURCE-PINS.json",
+      "bytes": 1680,
+      "sha256": "bc3a7816630f1adff79f1ce7dc2b3eadf0dcd92ab9d5fc26fa84bdce83fc86d2",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUBLICATION-SOURCE-PINS.json"
+    },
+    {
+      "archiveRelativePath": "payload/PUBLICATION-SOURCE-README.md",
+      "bytes": 2424,
+      "sha256": "c9438449465667cd61b081763208dead4020f0c8ee32b3ece4981c9a72255ed2",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUBLICATION-SOURCE-README.md"
+    },
+    {
+      "archiveRelativePath": "payload/PUBLISH-ACTUAL-TOOL.json",
+      "bytes": 996,
+      "sha256": "fddd817f7dd27ef77397a1587375295777616cb1dc243de16f941b823590fed7",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUBLISH-ACTUAL-TOOL.json"
+    },
+    {
+      "archiveRelativePath": "payload/PUSH-READBACK.json",
+      "bytes": 1723,
+      "sha256": "ccdd5613d9e3f3dbf104192ff75e65f8b97f65a451d26b314ce8a450ea84d18d",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUSH-READBACK.json"
+    },
+    {
+      "archiveRelativePath": "payload/PUSH-RESULT.json",
+      "bytes": 120,
+      "sha256": "31ee94f402c8ea78b10595079c4f017c36b8295c70ef2d25fb87b6f14cfb84e9",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUSH-RESULT.json"
+    },
+    {
+      "archiveRelativePath": "payload/PUSH.stderr",
+      "bytes": 111,
+      "sha256": "97b9b041d994143c688a939b1afba632e4d16b3dccb14fe0777d6fe8495a2e34",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUSH.stderr"
+    },
+    {
+      "archiveRelativePath": "payload/PUSH.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUSH.stdout"
+    },
+    {
+      "archiveRelativePath": "payload/ROOT-FINAL-CLAIM.txt",
+      "bytes": 1152,
+      "sha256": "fdb6579f78da6b51494d272736e6c8d784564e01f18f3b626c541d12ead91a66",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/ROOT-FINAL-CLAIM.txt"
+    },
+    {
+      "archiveRelativePath": "payload/STAGE-PATHS.nul",
+      "bytes": 140081,
+      "sha256": "4822ea6723d8dd1cb4a4f688af4d00d7417795369a3f39fca66291b34605ff97",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/STAGE-PATHS.nul"
+    },
+    {
+      "archiveRelativePath": "payload/publish_checkpoint.py",
+      "bytes": 5949,
+      "sha256": "42b22392d987675646310e9c9ab637f2b003644dabb6737823b19aee282861cc",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/publish_checkpoint.py"
+    },
+    {
+      "archiveRelativePath": "payload/publish_checkpoint_r2.py",
+      "bytes": 6247,
+      "sha256": "38574cd59c115e728870a274e0cdb7ede2265123b6361ed75ca6ed339c12348b",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/publish_checkpoint_r2.py"
+    },
+    {
+      "archiveRelativePath": "payload/verify_index_complete.py",
+      "bytes": 5217,
+      "sha256": "0401ea8c10e5260377a2da4fb2a9f5be0cf2fe73818c1cedd72a49eabe3f6eed",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/verify_index_complete.py"
+    },
+    {
+      "archiveRelativePath": "payload/verify_index_complete_r2.py",
+      "bytes": 6445,
+      "sha256": "87e0d2152bf83580c60246f9ea4ad6735bb2a296f25159cea50b07c9a557b29c",
+      "sourcePath": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/verify_index_complete_r2.py"
+    }
+  ],
+  "payloadBytes": 1644624,
+  "payloadFiles": 47,
+  "publishedPredecessor": "d30720052633dbdf092c27f2f12415c5cb1a06cc",
+  "schema": "1370-aq-late-finalization-handoff-archive/v1",
+  "scope": "Whole finite AQ late-finalization directory after publication; no LOCAL raw bodies copied. Historical records remain historical. This carry authorizes no new verification baseline or game run.",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1"
+}

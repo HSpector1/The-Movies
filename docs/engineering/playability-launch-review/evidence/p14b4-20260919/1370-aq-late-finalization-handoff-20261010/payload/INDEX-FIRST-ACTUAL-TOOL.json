@@ -1,0 +1,27 @@
+{
+  "sessionId": 10745,
+  "finalExit": 1,
+  "allToolChunks": [
+    {
+      "chunk_id": "cee942",
+      "wall_time_seconds": 1.000824456,
+      "session_id": 10745,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "6d9b7a",
+      "wall_time_seconds": 5.00256217,
+      "session_id": 10745,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "1be09f",
+      "wall_time_seconds": 0.000020364,
+      "exit_code": 1,
+      "original_token_count": 163,
+      "output": "Traceback (most recent call last):\n  File \"/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/verify_index_complete.py\", line 49, in <module>\n    if __name__=='__main__':main()\n                            ~~~~^^\n  File \"/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/verify_index_complete.py\", line 42, in main\n    assert source.name.startswith('DIFF-CHECK-') and source.name.endswith('.stdout') and literal=='+ ' and lines[i+1]=='++ '\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    }
+  ]
+}

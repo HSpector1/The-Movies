@@ -1,0 +1,79 @@
+{
+  "concreteFindings": [],
+  "decision": "ACCEPT_FINAL_AQ_REPORT_AND_HANDOFF_WITH_PENDING_OWNER_RECOVERY_DECISION",
+  "executionAuthorization": false,
+  "gameAccepted": false,
+  "newOperationalBaselineAccepted": false,
+  "optionalWordingSuggestions": [
+    {
+      "location": "Report final link text for reviewed recovery proposal",
+      "severity": "nonblocking",
+      "suggestion": "Optionally also link the archived proposal adoption or independent review, which clarifies that the preserved proposal text still says awaiting independent review while its genuine adoption remains pending Owner decision."
+    }
+  ],
+  "publicationAccepted": false,
+  "reviewConclusions": [
+    "Finite86/32/8 controls and current20,920 stage0 semantic comparison are separated from whole-game and preservation acceptance.",
+    "Actual42397 generated-head STOP and54871/96592 original equality failures remain failed; R3/generated-head/sanitizer integration remains unrun.",
+    "Complete later comparison proves only one diagnostic protectedDigests/commonGit scalar difference; no old raw index, flags, exact historical leaf or aggregate cause is inferred.",
+    "Owner recovery decision is expressly pending; explicit recovery/amendment, independently reviewed current bindings and fresh full protection precede a new attempt.",
+    "Historical proof/type/config/result roles remain unchanged; current derivative authority is required in both gates.",
+    "Archive counts,15 cumulative lessons, whole late AP preservation and LOCAL/excluded scope match independently accepted archived evidence.",
+    "Next steps preserve1363/1367 order, main unmerged and P16/P17/P18/fullfunction open; publication requires genuine later readback.",
+    "Four report archive links resolve to exact named existing files. AUTO remains visibly historical; this review neither stamps nor modifies it."
+  ],
+  "schema": "1370-aq-final-documents-independent-review/v1",
+  "scopeLimits": [
+    "Read-only named published document/archive/source evidence; no Git, current-index, process or private/protected tree probes.",
+    "No shared document or archive edits.",
+    "Final staged-index/commit/push verification is outside this review and remains root-owned.",
+    "AUTO byte equality against prior HEAD is not newly checked here; no Git read was performed."
+  ],
+  "sourceRoles": {
+    "LESSONS-r9.md": {
+      "bytes": 8564,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-root-continuation-20261010-r1/LESSONS-r9.md",
+      "sha256": "97ffe8aefd267ec88d62561df60dd0d62c6bee216bbc0218cee694cfa2324057"
+    },
+    "OPERATIONAL-RECOVERY-PROPOSAL-ADOPTION.json": {
+      "bytes": 918,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-root-continuation-20261010-r1/OPERATIONAL-RECOVERY-PROPOSAL-ADOPTION.json",
+      "sha256": "32f9fb569b9cf9ff0968e3d77ca40e9ead9109a2d90d590db4bf61414e7697f2"
+    },
+    "OPERATIONAL-RECOVERY-PROPOSAL.md": {
+      "bytes": 3103,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-root-continuation-20261010-r1/OPERATIONAL-RECOVERY-PROPOSAL.md",
+      "sha256": "51551f0190830b08ea9c79e674e7b32754f99f13f46cbb78e240f54e92503807"
+    },
+    "PROOF-SANITIZER-INTEGRATION-PLAN.md": {
+      "bytes": 2204,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-root-continuation-20261010-r1/PROOF-SANITIZER-INTEGRATION-PLAN.md",
+      "sha256": "83d3a089898f3f74b1e01131e02bd935b278afb57dc6261dd78c3dd8168e021a"
+    },
+    "archiveManifest": {
+      "bytes": 3172616,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/ARCHIVE-MANIFEST.json",
+      "sha256": "173646636bd8a672e123d38dc7b3496bff3117cdae75caef8fb9d69f2bc95cb5"
+    },
+    "handoff": {
+      "bytes": 9444,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+      "sha256": "8169272c86e3f2ea02aa81c1fd5383973839b813973c3729dc0438aaf0d63238"
+    },
+    "independentArchiveReview": {
+      "bytes": 4375,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-ARCHIVE-REVIEW.json",
+      "sha256": "9d02fd0b5820a437205c389540f931d38dc6570ea5adf66c825f0f1ac7a4e0df"
+    },
+    "inventory": {
+      "bytes": 390239,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/INVENTORY-FINAL.json",
+      "sha256": "39cc2696a950eb821e142fd2407648365870c16eab06bd33378de27b88c7f7b3"
+    },
+    "report": {
+      "bytes": 6612,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AQ-git-guard-repair-and-preservation-diagnostic.md",
+      "sha256": "246cd9de500d753837a606fce3bbe027a4df3f34dbc55da2a62b11e997883e8f"
+    }
+  }
+}

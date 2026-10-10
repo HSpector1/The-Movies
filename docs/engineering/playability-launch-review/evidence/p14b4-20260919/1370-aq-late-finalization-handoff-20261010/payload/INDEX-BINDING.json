@@ -1,0 +1,12 @@
+{
+  "archiveManifest": {
+    "bytes": 3172616,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/ARCHIVE-MANIFEST.json",
+    "sha256": "173646636bd8a672e123d38dc7b3496bff3117cdae75caef8fb9d69f2bc95cb5"
+  },
+  "archiveRelativeDirectory": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/",
+  "executionAuthorization": true,
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "reportRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AQ-git-guard-repair-and-preservation-diagnostic.md",
+  "status": "ROOT_FINALIZED_AQ_ARCHIVE_AND_DOCS"
+}

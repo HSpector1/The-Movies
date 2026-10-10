@@ -1,0 +1,27 @@
+{
+  "sessionId": 86730,
+  "finalExit": 0,
+  "allToolChunks": [
+    {
+      "chunk_id": "e4c768",
+      "wall_time_seconds": 1.001728331,
+      "session_id": 86730,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "e63761",
+      "wall_time_seconds": 5.001773848,
+      "session_id": 86730,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "598270",
+      "wall_time_seconds": 3.19977849,
+      "exit_code": 0,
+      "original_token_count": 68,
+      "output": "{\"indexVerification\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEX-VERIFICATION-COMPLETE.json\", \"bytes\": 663831, \"sha256\": \"7716ed51aa187c1bc1506c024921a056709e1746706b77d70dd3086ecba97c6f\"}, \"stagedFiles\": 629}\n"
+    }
+  ]
+}

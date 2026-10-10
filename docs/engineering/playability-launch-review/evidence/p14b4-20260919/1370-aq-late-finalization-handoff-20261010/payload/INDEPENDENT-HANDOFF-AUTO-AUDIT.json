@@ -1,0 +1,10 @@
+{
+  "autoBlockBytes": 796,
+  "autoBlockSha256": "39c20c726e9779c2f8ba73dd37ba55476302ac7b17040bf3d5e487f5c7268a4d",
+  "autoByteEqualToPriorHead": true,
+  "gitMutation": false,
+  "handoffBytes": 9444,
+  "handoffSha256": "8169272c86e3f2ea02aa81c1fd5383973839b813973c3729dc0438aaf0d63238",
+  "priorHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "schema": "1370-aq-handoff-auto-independent-readback/v1"
+}

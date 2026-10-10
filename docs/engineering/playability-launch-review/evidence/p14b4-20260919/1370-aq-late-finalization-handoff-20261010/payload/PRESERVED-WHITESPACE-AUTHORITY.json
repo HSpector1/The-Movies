@@ -1,0 +1,2271 @@
+{
+  "archiveManifest": {
+    "bytes": 3172616,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/ARCHIVE-MANIFEST.json",
+    "sha256": "173646636bd8a672e123d38dc7b3496bff3117cdae75caef8fb9d69f2bc95cb5"
+  },
+  "categorizedCounts": {
+    "preserved-context-1": 9,
+    "preserved-ndiff-added-blank": 1,
+    "preserved-ndiff-blank-context": 11,
+    "prior-quoted-context-1": 38,
+    "prior-quoted-context-2": 104,
+    "unnamed-header-1": 12,
+    "unnamed-header-2": 12
+  },
+  "currentDocsWarningsAllowed": false,
+  "executionAuthorization": false,
+  "observedDiffCheck": {
+    "bytes": 45469,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+    "sha256": "53bea478da7221a78958b21e136a746ca68dc0840d1554dd382fb6a692fa9b44"
+  },
+  "onlyAuthenticatedHistoricalArchiveWarnings": true,
+  "schema": "1370-aq-exact-preserved-whitespace-warning-authority/v1",
+  "warnings": [
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 2,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 4,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 6,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 8,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 10,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 12,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 14,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 16,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 18,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 20,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 22,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 24,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 26,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 28,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 30,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 32,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 34,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 36,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 38,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 40,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 42,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 44,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 46,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 48,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 50,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 52,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 54,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 56,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 58,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 60,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 62,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 64,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 66,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 68,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 70,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 72,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 74,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 76,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 78,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 80,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 82,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 84,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 86,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 88,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 90,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 92,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 94,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 96,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 98,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 100,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 102,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 104,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 106,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 108,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 110,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 112,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 114,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 116,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 118,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 120,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 122,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 124,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 126,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 128,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 130,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 132,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 134,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 136,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 138,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 140,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 142,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-COMPLETE.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 2,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 4,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 6,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 8,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 10,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 12,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 14,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 16,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 18,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 20,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 22,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 24,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 26,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 28,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 30,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 32,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 34,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 36,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 38,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 40,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 42,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 44,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 46,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 48,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 50,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 52,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 54,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 56,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 58,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 60,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 62,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 64,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 66,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 68,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 70,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 72,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 74,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 76,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 78,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 80,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 82,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 84,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 86,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 88,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 90,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 92,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 94,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 96,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 98,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 100,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 102,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-2",
+      "display": "+++ ",
+      "line": 104,
+      "literal": "++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 106,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 108,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 110,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 112,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 114,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 116,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 118,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 120,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 122,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 124,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 126,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 128,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 130,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 132,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 134,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 136,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 138,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 140,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "prior-quoted-context-1",
+      "display": "++ ",
+      "line": 142,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+      "preservedRole": {
+        "bytes": 16623,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/DIFF-CHECK-VERIFIED.stdout",
+        "sha256": "20d6589eb3bdcd714e70c42ec3742c42418096db3780d14dd940aaac3ab13140"
+      }
+    },
+    {
+      "category": "preserved-context-1",
+      "display": "+ ",
+      "line": 22,
+      "literal": " ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.forward.diff",
+      "preservedRole": {
+        "bytes": 18257,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.forward.diff",
+        "sha256": "908cfe200483c1157f982b843941af6543618d8e6b6b6d2ffca686ef26723b12"
+      }
+    },
+    {
+      "category": "preserved-context-1",
+      "display": "+ ",
+      "line": 36,
+      "literal": " ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.forward.diff",
+      "preservedRole": {
+        "bytes": 18257,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.forward.diff",
+        "sha256": "908cfe200483c1157f982b843941af6543618d8e6b6b6d2ffca686ef26723b12"
+      }
+    },
+    {
+      "category": "preserved-context-1",
+      "display": "+ ",
+      "line": 22,
+      "literal": " ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.inverse.diff",
+      "preservedRole": {
+        "bytes": 18257,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.inverse.diff",
+        "sha256": "25802cf090ccf10925080912ded6db47be843a70bc223646f5873168a21926de"
+      }
+    },
+    {
+      "category": "preserved-context-1",
+      "display": "+ ",
+      "line": 36,
+      "literal": " ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.inverse.diff",
+      "preservedRole": {
+        "bytes": 18257,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.inverse.diff",
+        "sha256": "25802cf090ccf10925080912ded6db47be843a70bc223646f5873168a21926de"
+      }
+    },
+    {
+      "category": "preserved-ndiff-blank-context",
+      "display": "+  ",
+      "line": 3,
+      "literal": "  ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+      "preservedRole": {
+        "bytes": 47180,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+        "sha256": "fbb9915f10a7317d877bac2d435563272a99b9046a9c22af5246eb7b273a5ead"
+      }
+    },
+    {
+      "category": "preserved-ndiff-blank-context",
+      "display": "+  ",
+      "line": 28,
+      "literal": "  ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+      "preservedRole": {
+        "bytes": 47180,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+        "sha256": "fbb9915f10a7317d877bac2d435563272a99b9046a9c22af5246eb7b273a5ead"
+      }
+    },
+    {
+      "category": "preserved-ndiff-blank-context",
+      "display": "+  ",
+      "line": 99,
+      "literal": "  ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+      "preservedRole": {
+        "bytes": 47180,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+        "sha256": "fbb9915f10a7317d877bac2d435563272a99b9046a9c22af5246eb7b273a5ead"
+      }
+    },
+    {
+      "category": "preserved-ndiff-blank-context",
+      "display": "+  ",
+      "line": 120,
+      "literal": "  ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+      "preservedRole": {
+        "bytes": 47180,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+        "sha256": "fbb9915f10a7317d877bac2d435563272a99b9046a9c22af5246eb7b273a5ead"
+      }
+    },
+    {
+      "category": "preserved-ndiff-blank-context",
+      "display": "+  ",
+      "line": 174,
+      "literal": "  ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+      "preservedRole": {
+        "bytes": 47180,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+        "sha256": "fbb9915f10a7317d877bac2d435563272a99b9046a9c22af5246eb7b273a5ead"
+      }
+    },
+    {
+      "category": "preserved-ndiff-added-blank",
+      "display": "++ ",
+      "line": 283,
+      "literal": "+ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+      "preservedRole": {
+        "bytes": 47180,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r1/run-native-observer-controls.lossless.ndiff",
+        "sha256": "fbb9915f10a7317d877bac2d435563272a99b9046a9c22af5246eb7b273a5ead"
+      }
+    },
+    {
+      "category": "preserved-ndiff-blank-context",
+      "display": "+  ",
+      "line": 3,
+      "literal": "  ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+      "preservedRole": {
+        "bytes": 47318,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+        "sha256": "4308cd893d58e46a3edd472d6f7c91db2dbf20605d6ada1a0fee6b3c2216fcc4"
+      }
+    },
+    {
+      "category": "preserved-ndiff-blank-context",
+      "display": "+  ",
+      "line": 28,
+      "literal": "  ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+      "preservedRole": {
+        "bytes": 47318,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+        "sha256": "4308cd893d58e46a3edd472d6f7c91db2dbf20605d6ada1a0fee6b3c2216fcc4"
+      }
+    },
+    {
+      "category": "preserved-ndiff-blank-context",
+      "display": "+  ",
+      "line": 99,
+      "literal": "  ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+      "preservedRole": {
+        "bytes": 47318,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+        "sha256": "4308cd893d58e46a3edd472d6f7c91db2dbf20605d6ada1a0fee6b3c2216fcc4"
+      }
+    },
+    {
+      "category": "preserved-ndiff-blank-context",
+      "display": "+  ",
+      "line": 117,
+      "literal": "  ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+      "preservedRole": {
+        "bytes": 47318,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+        "sha256": "4308cd893d58e46a3edd472d6f7c91db2dbf20605d6ada1a0fee6b3c2216fcc4"
+      }
+    },
+    {
+      "category": "preserved-ndiff-blank-context",
+      "display": "+  ",
+      "line": 171,
+      "literal": "  ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+      "preservedRole": {
+        "bytes": 47318,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+        "sha256": "4308cd893d58e46a3edd472d6f7c91db2dbf20605d6ada1a0fee6b3c2216fcc4"
+      }
+    },
+    {
+      "category": "preserved-ndiff-blank-context",
+      "display": "+  ",
+      "line": 281,
+      "literal": "  ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+      "preservedRole": {
+        "bytes": 47318,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-independent-controls-source-20261010-r2/run-native-observer-controls.mjs.lossless.ndiff",
+        "sha256": "4308cd893d58e46a3edd472d6f7c91db2dbf20605d6ada1a0fee6b3c2216fcc4"
+      }
+    },
+    {
+      "category": "unnamed-header-1",
+      "display": "+--- ",
+      "line": 1,
+      "literal": "--- ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/CONTRACT.json.diff",
+      "preservedRole": {
+        "bytes": 4394,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/CONTRACT.json.diff",
+        "sha256": "a35407e10fb9a6187ac3e94963103eddc0576c81f725b7f208c9399e6cf803ca"
+      }
+    },
+    {
+      "category": "unnamed-header-2",
+      "display": "++++ ",
+      "line": 2,
+      "literal": "+++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/CONTRACT.json.diff",
+      "preservedRole": {
+        "bytes": 4394,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/CONTRACT.json.diff",
+        "sha256": "a35407e10fb9a6187ac3e94963103eddc0576c81f725b7f208c9399e6cf803ca"
+      }
+    },
+    {
+      "category": "unnamed-header-1",
+      "display": "+--- ",
+      "line": 1,
+      "literal": "--- ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/read_native_observer_controls.py.diff",
+      "preservedRole": {
+        "bytes": 7639,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/read_native_observer_controls.py.diff",
+        "sha256": "95abba63c7dbe51cd7ffb8fc5e305f0eee3cae65227710dfa5e266f9f967eb3f"
+      }
+    },
+    {
+      "category": "unnamed-header-2",
+      "display": "++++ ",
+      "line": 2,
+      "literal": "+++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/read_native_observer_controls.py.diff",
+      "preservedRole": {
+        "bytes": 7639,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/read_native_observer_controls.py.diff",
+        "sha256": "95abba63c7dbe51cd7ffb8fc5e305f0eee3cae65227710dfa5e266f9f967eb3f"
+      }
+    },
+    {
+      "category": "unnamed-header-1",
+      "display": "+--- ",
+      "line": 1,
+      "literal": "--- ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/run_native_observer_controls_once.py.diff",
+      "preservedRole": {
+        "bytes": 6778,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/run_native_observer_controls_once.py.diff",
+        "sha256": "f8ba05050095566452c3e23c65d698b2b0aa5e482b54663a5642bac2e9297a75"
+      }
+    },
+    {
+      "category": "unnamed-header-2",
+      "display": "++++ ",
+      "line": 2,
+      "literal": "+++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/run_native_observer_controls_once.py.diff",
+      "preservedRole": {
+        "bytes": 6778,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-diagnostic-pure-controls-root-adapters-source-20261010-r2/run_native_observer_controls_once.py.diff",
+        "sha256": "f8ba05050095566452c3e23c65d698b2b0aa5e482b54663a5642bac2e9297a75"
+      }
+    },
+    {
+      "category": "unnamed-header-1",
+      "display": "+--- ",
+      "line": 1,
+      "literal": "--- ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/CONTRACT-DRAFT-UNFILLED.json.diff",
+      "preservedRole": {
+        "bytes": 6438,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/CONTRACT-DRAFT-UNFILLED.json.diff",
+        "sha256": "077a796e8dc01a8bb250914c4853f60616539bf3b3b8c8179e5348b1e687f252"
+      }
+    },
+    {
+      "category": "unnamed-header-2",
+      "display": "++++ ",
+      "line": 2,
+      "literal": "+++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/CONTRACT-DRAFT-UNFILLED.json.diff",
+      "preservedRole": {
+        "bytes": 6438,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/CONTRACT-DRAFT-UNFILLED.json.diff",
+        "sha256": "077a796e8dc01a8bb250914c4853f60616539bf3b3b8c8179e5348b1e687f252"
+      }
+    },
+    {
+      "category": "unnamed-header-1",
+      "display": "+--- ",
+      "line": 1,
+      "literal": "--- ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/CONTRACT.json.diff",
+      "preservedRole": {
+        "bytes": 6964,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/CONTRACT.json.diff",
+        "sha256": "6d9f2cccf42951de30462f5a7a05497de6a6fad8502b382bcd200b250f3a5c56"
+      }
+    },
+    {
+      "category": "unnamed-header-2",
+      "display": "++++ ",
+      "line": 2,
+      "literal": "+++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/CONTRACT.json.diff",
+      "preservedRole": {
+        "bytes": 6964,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/CONTRACT.json.diff",
+        "sha256": "6d9f2cccf42951de30462f5a7a05497de6a6fad8502b382bcd200b250f3a5c56"
+      }
+    },
+    {
+      "category": "unnamed-header-1",
+      "display": "+--- ",
+      "line": 1,
+      "literal": "--- ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/EXACT-ARGV.json.diff",
+      "preservedRole": {
+        "bytes": 4118,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/EXACT-ARGV.json.diff",
+        "sha256": "aec71e14812d7b83e6aa2541c38d2619a51cac8307192fcc589e982d4ceb7e99"
+      }
+    },
+    {
+      "category": "unnamed-header-2",
+      "display": "++++ ",
+      "line": 2,
+      "literal": "+++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/EXACT-ARGV.json.diff",
+      "preservedRole": {
+        "bytes": 4118,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/EXACT-ARGV.json.diff",
+        "sha256": "aec71e14812d7b83e6aa2541c38d2619a51cac8307192fcc589e982d4ceb7e99"
+      }
+    },
+    {
+      "category": "unnamed-header-1",
+      "display": "+--- ",
+      "line": 1,
+      "literal": "--- ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/OPERATIONAL-SCOPE-AMENDMENT-DRAFT.json.diff",
+      "preservedRole": {
+        "bytes": 4019,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/OPERATIONAL-SCOPE-AMENDMENT-DRAFT.json.diff",
+        "sha256": "49f15824f6ede3e67a1c5b23f3267796cea07f3e707555d04b3c459a7f6001a2"
+      }
+    },
+    {
+      "category": "unnamed-header-2",
+      "display": "++++ ",
+      "line": 2,
+      "literal": "+++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/OPERATIONAL-SCOPE-AMENDMENT-DRAFT.json.diff",
+      "preservedRole": {
+        "bytes": 4019,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/OPERATIONAL-SCOPE-AMENDMENT-DRAFT.json.diff",
+        "sha256": "49f15824f6ede3e67a1c5b23f3267796cea07f3e707555d04b3c459a7f6001a2"
+      }
+    },
+    {
+      "category": "unnamed-header-1",
+      "display": "+--- ",
+      "line": 1,
+      "literal": "--- ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/OPERATIONAL-SCOPE-AMENDMENT.json.diff",
+      "preservedRole": {
+        "bytes": 4540,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/OPERATIONAL-SCOPE-AMENDMENT.json.diff",
+        "sha256": "c041c6cb4964c495d1a8cb8ab733280f3a3a6051655ee3bf277d115398236880"
+      }
+    },
+    {
+      "category": "unnamed-header-2",
+      "display": "++++ ",
+      "line": 2,
+      "literal": "+++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/OPERATIONAL-SCOPE-AMENDMENT.json.diff",
+      "preservedRole": {
+        "bytes": 4540,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/OPERATIONAL-SCOPE-AMENDMENT.json.diff",
+        "sha256": "c041c6cb4964c495d1a8cb8ab733280f3a3a6051655ee3bf277d115398236880"
+      }
+    },
+    {
+      "category": "unnamed-header-1",
+      "display": "+--- ",
+      "line": 1,
+      "literal": "--- ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/PRELAUNCH-CONFIG-UNFILLED.json.diff",
+      "preservedRole": {
+        "bytes": 2489,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/PRELAUNCH-CONFIG-UNFILLED.json.diff",
+        "sha256": "b85fa6e0b88043f7da33f7355b2d5bf5f5fa58451a7e6680f272ebcf7bd5d81d"
+      }
+    },
+    {
+      "category": "unnamed-header-2",
+      "display": "++++ ",
+      "line": 2,
+      "literal": "+++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/PRELAUNCH-CONFIG-UNFILLED.json.diff",
+      "preservedRole": {
+        "bytes": 2489,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/PRELAUNCH-CONFIG-UNFILLED.json.diff",
+        "sha256": "b85fa6e0b88043f7da33f7355b2d5bf5f5fa58451a7e6680f272ebcf7bd5d81d"
+      }
+    },
+    {
+      "category": "unnamed-header-1",
+      "display": "+--- ",
+      "line": 1,
+      "literal": "--- ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ap-root-prelaunch.py.diff",
+      "preservedRole": {
+        "bytes": 13833,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ap-root-prelaunch.py.diff",
+        "sha256": "7cec8ee2950f138d039475c9bedb288d4650fca1471e67ca2699060bc0590e96"
+      }
+    },
+    {
+      "category": "unnamed-header-2",
+      "display": "++++ ",
+      "line": 2,
+      "literal": "+++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ap-root-prelaunch.py.diff",
+      "preservedRole": {
+        "bytes": 13833,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ap-root-prelaunch.py.diff",
+        "sha256": "7cec8ee2950f138d039475c9bedb288d4650fca1471e67ca2699060bc0590e96"
+      }
+    },
+    {
+      "category": "preserved-context-1",
+      "display": "+ ",
+      "line": 13,
+      "literal": " ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ap-root-prelaunch.py.diff",
+      "preservedRole": {
+        "bytes": 13833,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ap-root-prelaunch.py.diff",
+        "sha256": "7cec8ee2950f138d039475c9bedb288d4650fca1471e67ca2699060bc0590e96"
+      }
+    },
+    {
+      "category": "unnamed-header-1",
+      "display": "+--- ",
+      "line": 1,
+      "literal": "--- ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/read_current_ap_prelaunch.py.diff",
+      "preservedRole": {
+        "bytes": 16129,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/read_current_ap_prelaunch.py.diff",
+        "sha256": "f9648545b9b71bcaf2989a9ac723764e2642246b324d90a3d5252721bed38424"
+      }
+    },
+    {
+      "category": "unnamed-header-2",
+      "display": "++++ ",
+      "line": 2,
+      "literal": "+++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/read_current_ap_prelaunch.py.diff",
+      "preservedRole": {
+        "bytes": 16129,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/read_current_ap_prelaunch.py.diff",
+        "sha256": "f9648545b9b71bcaf2989a9ac723764e2642246b324d90a3d5252721bed38424"
+      }
+    },
+    {
+      "category": "unnamed-header-1",
+      "display": "+--- ",
+      "line": 1,
+      "literal": "--- ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/run_current_ap_prelaunch_once.py.diff",
+      "preservedRole": {
+        "bytes": 14018,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/run_current_ap_prelaunch_once.py.diff",
+        "sha256": "2a86bb57d78991659a69c2b78218c199cbfaadd7497d40339e8d3377c593df0e"
+      }
+    },
+    {
+      "category": "unnamed-header-2",
+      "display": "++++ ",
+      "line": 2,
+      "literal": "+++ ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/run_current_ap_prelaunch_once.py.diff",
+      "preservedRole": {
+        "bytes": 14018,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-native-refusal-fullfunction-current-prelaunch-preparation-source-20261010-r1/run_current_ap_prelaunch_once.py.diff",
+        "sha256": "2a86bb57d78991659a69c2b78218c199cbfaadd7497d40339e8d3377c593df0e"
+      }
+    },
+    {
+      "category": "preserved-context-1",
+      "display": "+ ",
+      "line": 4,
+      "literal": " ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE.forward.diff",
+      "preservedRole": {
+        "bytes": 501,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE.forward.diff",
+        "sha256": "6745ad64ae00d48af69087c7e20f4e5bf6e60b7edd6270dc3cf10d0a97a6babd"
+      }
+    },
+    {
+      "category": "preserved-context-1",
+      "display": "+ ",
+      "line": 5,
+      "literal": " ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE.forward.diff",
+      "preservedRole": {
+        "bytes": 501,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE.forward.diff",
+        "sha256": "6745ad64ae00d48af69087c7e20f4e5bf6e60b7edd6270dc3cf10d0a97a6babd"
+      }
+    },
+    {
+      "category": "preserved-context-1",
+      "display": "+ ",
+      "line": 11,
+      "literal": " ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE.forward.diff",
+      "preservedRole": {
+        "bytes": 501,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE.forward.diff",
+        "sha256": "6745ad64ae00d48af69087c7e20f4e5bf6e60b7edd6270dc3cf10d0a97a6babd"
+      }
+    },
+    {
+      "category": "preserved-context-1",
+      "display": "+ ",
+      "line": 12,
+      "literal": " ",
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/payload/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE.forward.diff",
+      "preservedRole": {
+        "bytes": 501,
+        "path": "/Users/zacheryspector/studio-scratch/1370-aq-proof-git-optional-locks-sanitizer-source-20261010-r1/SOURCE.forward.diff",
+        "sha256": "6745ad64ae00d48af69087c7e20f4e5bf6e60b7edd6270dc3cf10d0a97a6babd"
+      }
+    }
+  ]
+}

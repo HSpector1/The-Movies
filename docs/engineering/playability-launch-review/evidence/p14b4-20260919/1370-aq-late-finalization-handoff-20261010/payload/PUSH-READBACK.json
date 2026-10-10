@@ -1,0 +1,33 @@
+{
+  "advertisedRemoteRefs": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "d30720052633dbdf092c27f2f12415c5cb1a06cc"
+  },
+  "branch": "wip/headless-program-20260916-ts",
+  "completeIndexedTreeEqualsCommitTree": true,
+  "docsOnlyPathCount": 629,
+  "explicitFetchRefspec": "refs/heads/wip/headless-program-20260916-ts:refs/remotes/origin/wip/headless-program-20260916-ts",
+  "finalIndexVerification": {
+    "bytes": 663831,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEX-VERIFICATION-COMPLETE.json",
+    "sha256": "7716ed51aa187c1bc1506c024921a056709e1746706b77d70dd3086ecba97c6f"
+  },
+  "fullfunctionQualificationAccepted": false,
+  "head": "d30720052633dbdf092c27f2f12415c5cb1a06cc",
+  "independentReview": {
+    "bytes": 5593,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-FINAL-PUBLICATION-REVIEW.json",
+    "sha256": "cb2d9ca43ab92f219e0f1f6393d6cb72b0b03ef0c19c6d7e036fbe131c3185f0"
+  },
+  "lateFinalizationCarryRequired": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1",
+  "mainMerged": false,
+  "nextRuntimeRequiresNewOperationalProtection": true,
+  "parent": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "priorFreezeEndedByAuthorizedArchivePublication": true,
+  "schema": "1370-aq-publication-readback/v1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "PUBLISHED_REMOTE_ANCESTRY_SOURCE_AND_COMPLETE_INDEX_VERIFIED",
+  "trackedMain": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "utc": "2026-10-10T13:51:16.146253+00:00",
+  "workingTreeClean": true
+}

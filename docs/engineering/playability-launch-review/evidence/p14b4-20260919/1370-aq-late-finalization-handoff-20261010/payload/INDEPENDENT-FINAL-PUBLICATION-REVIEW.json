@@ -1,0 +1,102 @@
+{
+  "actualIndexVerifierTool": {
+    "bytes": 827,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEX-R2-ACTUAL-TOOL.json",
+    "sha256": "c25b827384d883de124cff251e8e0ab0d1b918bc5c8ae40afcbc4b5146cc492d"
+  },
+  "archiveManifest": {
+    "bytes": 3172616,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/ARCHIVE-MANIFEST.json",
+    "sha256": "173646636bd8a672e123d38dc7b3496bff3117cdae75caef8fb9d69f2bc95cb5"
+  },
+  "changedDocs": {
+    "HANDOFF.md": {
+      "bytes": 9444,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+      "sha256": "8169272c86e3f2ea02aa81c1fd5383973839b813973c3729dc0438aaf0d63238"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AQ-git-guard-repair-and-preservation-diagnostic.md": {
+      "bytes": 6612,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AQ-git-guard-repair-and-preservation-diagnostic.md",
+      "sha256": "246cd9de500d753837a606fce3bbe027a4df3f34dbc55da2a62b11e997883e8f"
+    }
+  },
+  "conclusions": {
+    "all629StagedBlobsIndependentlyMatchReviewedPhysicalBytes": true,
+    "archiveCounts": {
+      "authenticatedPriorHeadRoles": 81,
+      "copiedPayloadBytes": 19263510,
+      "copiedPayloads": 624,
+      "localHashSizeOnlyRoles": 27,
+      "roles": 732
+    },
+    "currentDocsWhitespaceCheck": 0,
+    "exactManifestDerivedStagedPathCount": 629,
+    "exactWarningRosterAndOutputUnchanged": true,
+    "expectedParent": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+    "gameOrFullfunctionQualificationAccepted": false,
+    "handoffAutoBlockByteEqualToAPParent": true,
+    "historicalFailuresAndLostCommonGitIntervalPreserved": true,
+    "indexedTree": "0dd3fd5b9995b31a5ae38389d5bee8b5df25468f",
+    "newOperationalBaselineAccepted": false,
+    "normalPublicationSourceRequiresExactThisReviewScopeAndIndexRoles": true,
+    "ownerRecoveryDecisionStillPending": true,
+    "preservedAuthenticatedWhitespaceWarnings": 187,
+    "preservedWarningCategorizedCounts": {
+      "preserved-context-1": 9,
+      "preserved-ndiff-added-blank": 1,
+      "preserved-ndiff-blank-context": 11,
+      "prior-quoted-context-1": 38,
+      "prior-quoted-context-2": 104,
+      "unnamed-header-1": 12,
+      "unnamed-header-2": 12
+    },
+    "unchangedProductionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "wholeDiffWhitespaceCheck": 2
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_EXACT_AQ_DOCS_ARCHIVE_AND_STAGED_INDEX_FOR_NORMAL_PUBLICATION",
+  "executionAuthorization": false,
+  "independentArchiveReview": {
+    "bytes": 4375,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-ARCHIVE-REVIEW.json",
+    "sha256": "9d02fd0b5820a437205c389540f931d38dc6570ea5adf66c825f0f1ac7a4e0df"
+  },
+  "independentFinalDocsReview": {
+    "bytes": 5516,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-FINAL-DOCS-REVIEW.json",
+    "sha256": "42c20c491645839a487e3cd54bde97278c2dfd23747d9aee27daf9645c37a0e2"
+  },
+  "independentHandoffAutoAudit": {
+    "bytes": 407,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-HANDOFF-AUTO-AUDIT.json",
+    "sha256": "be71d6f3e073625dca3aa57968ad7386199c92489d29e368fb12eeeca25852c9"
+  },
+  "independentIndexByteAudit": {
+    "bytes": 1133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-FINAL-INDEX-AUDIT.json",
+    "sha256": "15b23733eaa621d79466f081515fd64eba09992c54c898c6cba4a7baf353bf9c"
+  },
+  "independentPublicationSourceReview": {
+    "bytes": 3042,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUBLICATION-R2-INDEPENDENT-SOURCE-REVIEW.json",
+    "sha256": "2b6ad55f6d35c9e412508017e5acce5454c448ebcb4e5cfc50b5de98b42ea13d"
+  },
+  "indexVerification": {
+    "bytes": 663831,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEX-VERIFICATION-COMPLETE.json",
+    "sha256": "7716ed51aa187c1bc1506c024921a056709e1746706b77d70dd3086ecba97c6f"
+  },
+  "limits": [
+    "Acceptance concerns the exact reviewed docs, archive and staged tree for normal branch commit/push plus explicit tracking-ref fetch. Commit/push outcome is future until retained publication readback exists.",
+    "No raw LOCAL bodies were exported or opened for this archive/index review; no private/cache traversal or protected-tree scan occurred.",
+    "Git use was read-only with optional locks disabled and auto gc/maintenance off. No Git mutation, staging, commit, push, candidate import or test was performed by this reviewer.",
+    "First verifier failure, original publisher review-scope gap, corrected source and precise preserved-evidence whitespace exceptions remain in late D_AQ for next whole-directory carry. No archived evidence normalization and no claim the whole diff whitespace check was clean."
+  ],
+  "publicationSourcePins": {
+    "bytes": 2184,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUBLICATION-SOURCE-PINS-r2.json",
+    "sha256": "44b5b1726962a295e8cc4988220b7832ea8fb013761adae26d4965bf0157b2be"
+  },
+  "schema": "1370-aq-final-publication-independent-review/v1"
+}

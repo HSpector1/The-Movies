@@ -1,0 +1,63 @@
+{
+  "concreteFindings": [],
+  "currentDocsWarningsAllowed": false,
+  "decision": "ACCEPT_STATIC_AQ_EXACT_INDEX_AND_NORMAL_PUBLICATION_R2_SOURCE_ONLY",
+  "exactWarningRosterRequired": true,
+  "executionAuthorization": false,
+  "originalNonmainHelpersUnchanged": true,
+  "publicationSourcePins": {
+    "bytes": 2184,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUBLICATION-SOURCE-PINS-r2.json",
+    "sha256": "44b5b1726962a295e8cc4988220b7832ea8fb013761adae26d4965bf0157b2be"
+  },
+  "publisherReviewGate": {
+    "decision": "ACCEPT_EXACT_AQ_DOCS_ARCHIVE_AND_STAGED_INDEX_FOR_NORMAL_PUBLICATION",
+    "exactRoleBindings": [
+      "indexVerification",
+      "archiveManifest",
+      "changedDocs"
+    ],
+    "schema": "1370-aq-final-publication-independent-review/v1"
+  },
+  "schema": "1370-aq-publication-r2-independent-source-review/v1",
+  "scope": [
+    "Exact manifest-derived staged set and every physical/indexed byte retained. Source tree13880 and AP parentd203 assertions retained.",
+    "Only authentic preserved evidence whitespace admitted; prior first-verifier failure and source-review scope defect preserved.",
+    "Normal commit/push and explicit tracking-ref fetch unchanged, no force/reset/merge; GIT_OPTIONAL_LOCKS=0, gc.auto=0, maintenance.auto=0 preserved.",
+    "This source-only review excludes future actual index success and publication outcome; no source imports or Git commands performed."
+  ],
+  "sourcePins": {
+    "PRESERVED-WHITESPACE-AUTHORITY.json": {
+      "bytes": 120128,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PRESERVED-WHITESPACE-AUTHORITY.json",
+      "sha256": "c904e5e30af2c27dc2e4b2194b06a7e50fbe3e93a584ab88d85ef443a949fd25"
+    },
+    "PUBLICATION-R1-TO-R2-WHOLE-INVERSES.json": {
+      "bytes": 18595,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/PUBLICATION-R1-TO-R2-WHOLE-INVERSES.json",
+      "sha256": "72861b502ebce3cbf8e798cbb083acea4f96e0858cb465348bde57d273da8843"
+    },
+    "publish_checkpoint_r2.py": {
+      "bytes": 6247,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/publish_checkpoint_r2.py",
+      "sha256": "38574cd59c115e728870a274e0cdb7ede2265123b6361ed75ca6ed339c12348b"
+    },
+    "verify_index_complete_r2.py": {
+      "bytes": 6445,
+      "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/verify_index_complete_r2.py",
+      "sha256": "87e0d2152bf83580c60246f9ea4ad6735bb2a296f25159cea50b07c9a557b29c"
+    }
+  },
+  "warningAuthorityEveryRowAuthenticated": true,
+  "warningCategoryCounts": {
+    "preserved-context-1": 9,
+    "preserved-ndiff-added-blank": 1,
+    "preserved-ndiff-blank-context": 11,
+    "prior-quoted-context-1": 38,
+    "prior-quoted-context-2": 104,
+    "unnamed-header-1": 12,
+    "unnamed-header-2": 12
+  },
+  "warningCount": 187,
+  "wholeInverseApplicationsIndependentlyApplied": 4
+}

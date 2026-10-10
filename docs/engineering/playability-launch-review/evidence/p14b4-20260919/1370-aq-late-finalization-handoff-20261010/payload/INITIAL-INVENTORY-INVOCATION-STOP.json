@@ -1,0 +1,12 @@
+{
+  "actual": {
+    "chunk_id": "de64ed",
+    "exit_code": 1,
+    "original_token_count": 220,
+    "output": "Traceback (most recent call last):\n  File \"/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/prepare_aq_inventory.py\", line 138, in <module>\n    if __name__=='__main__':main()\n                            ~~~~^^\n  File \"/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/prepare_aq_inventory.py\", line 84, in main\n    cutoff_role,_,cutoff_bytes=inspect(sys.argv[1],True);need(cutoff_role['sha256']==sys.argv[2],'CUTOFF_SHA')\n                                                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/zacheryspector/studio-scratch/1370-aq-finite-checkpoint-finalization-source-20261010-r3/prepare_aq_inventory.py\", line 16, in need\n    if not ok:raise RuntimeError(message)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: CUTOFF_SHA\n",
+    "wall_time_seconds": 0.438413223
+  },
+  "archiveMutation": false,
+  "reason": "Root invocation mistakenly supplied literal PLACEHOLDER instead of actual newly emitted cutoff SHA. Source refused CUTOFF_SHA before inventory or output creation; corrected command used the actual role without any source or baseline change.",
+  "schema": "1370-root-inventory-invocation-stop/v1"
+}

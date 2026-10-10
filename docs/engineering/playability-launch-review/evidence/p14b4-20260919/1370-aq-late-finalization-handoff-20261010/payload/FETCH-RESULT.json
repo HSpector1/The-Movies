@@ -1,0 +1,8 @@
+{
+  "actualExit": 0,
+  "argv": [
+    "fetch",
+    "origin",
+    "refs/heads/wip/headless-program-20260916-ts:refs/remotes/origin/wip/headless-program-20260916-ts"
+  ]
+}

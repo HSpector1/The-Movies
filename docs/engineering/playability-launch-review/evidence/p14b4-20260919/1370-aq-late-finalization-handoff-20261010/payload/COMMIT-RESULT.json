@@ -1,0 +1,9 @@
+{
+  "actualExit": 0,
+  "argv": [
+    "commit",
+    "--quiet",
+    "-m",
+    "docs: preserve Git guard repair and preservation diagnostic"
+  ]
+}

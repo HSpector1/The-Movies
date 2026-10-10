@@ -1,0 +1,73 @@
+{
+  "archiveManifest": {
+    "bytes": 3172616,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/ARCHIVE-MANIFEST.json",
+    "sha256": "173646636bd8a672e123d38dc7b3496bff3117cdae75caef8fb9d69f2bc95cb5"
+  },
+  "authenticatedPriorHead": "d20347b83ea7497ed17c48ec14d8f64a3ce69cc8",
+  "claimScope": {
+    "correctedGeneratedHeadAndSanitizerRemainSourceOnlyForFutureIntegration": true,
+    "gitIndexOrPublicationReviewIncluded": false,
+    "lostIntervalContinuityNotAccepted": true,
+    "newBaselineOrGameAcceptance": false,
+    "original42397_54871_96592FailuresPreserved": true,
+    "ownerRecoveryDecisionStillPending": true,
+    "productionMutationPerformed": false,
+    "reportAndHandoffReviewIncluded": false,
+    "singleCommonGitAggregateDeltaDoesNotIdentifyHistoricalLeafOrCause": true
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_ACTUAL_FINITE_AQ_ARCHIVE_COVERAGE_AND_BYTE_IDENTITY_ONLY",
+  "executionAuthorization": false,
+  "independentByteAudit": {
+    "bytes": 1612,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-ARCHIVE-BYTE-AUDIT.json",
+    "sha256": "e6e02cbf1bb7c94a9499be8c2d53ddfd8221bb5337b0c3bb20620faf2e9181bd"
+  },
+  "independentInventoryReview": {
+    "bytes": 5871,
+    "path": "/Users/zacheryspector/studio-scratch/1370-aq-checkpoint-root-finalization-20261010-r1/INDEPENDENT-INVENTORY-REVIEW.json",
+    "sha256": "886a63026d9ca49d2a7cf0d8e58e6f8fa2a2261283a4693b3c770d22a1b4cf03"
+  },
+  "inventory": {
+    "bytes": 390239,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/INVENTORY-FINAL.json",
+    "sha256": "39cc2696a950eb821e142fd2407648365870c16eab06bd33378de27b88c7f7b3"
+  },
+  "method": {
+    "copiedPayloads": "Read every named archived copied payload; compare exact size and SHA256 to reviewed inventory. Compare complete finite archive file set with copied destinations plus manifest, inventory and claim.",
+    "localEvidence": "No LOCAL bodies opened. Reviewed inventory classification carries raw PS/FD, retained maps/summaries/index/pathstreams and synthetic padding as hash-size-only. No private/cache traversal.",
+    "priorMappings": "Read-only git --no-optional-locks -c gc.auto=0 -c maintenance.auto=0 ls-tree for exact fixed AP paths; cat-file --batch for exact referenced objects. Sanitized inherited GIT variables and forced GIT_OPTIONAL_LOCKS=0. No status, working-tree traversal, Git mutation or network."
+  },
+  "notes": [
+    "Archive claim accurately distinguishes independently admitted pure controls/current-index semantic proof from failed fullfunction/preservation attempts.",
+    "Preserved draft manifest references and original evidence bytes retain the qualifications recorded in the independent inventory review.",
+    "This acceptance covers actual resulting archive coverage and bytes. It does not authorize recovery, guards, gameplay or publication."
+  ],
+  "rootClaim": {
+    "bytes": 1152,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-aq-git-guard-repair-and-preservation-diagnostic/ROOT-FINAL-CLAIM.txt",
+    "sha256": "fdb6579f78da6b51494d272736e6c8d784564e01f18f3b626c541d12ead91a66"
+  },
+  "schema": "1370-aq-finite-archive-independent-review/v1",
+  "verification": {
+    "allCopiedPayloadBytesAndHashesMatchReviewedInventory": true,
+    "allInventoryRolesPreserved": true,
+    "allPriorMappingsModesBlobIdsSizesAndSha256MatchFixedAPHead": true,
+    "authenticatedPriorHeadRoles": 81,
+    "copiedPayloadBytes": 19263510,
+    "copiedPayloadRoles": 624,
+    "exactArchiveFilesIncludingThreeRoots": 627,
+    "fiveLooseUtilitiesQualifiedAsCurrentByteBackupsOnly": true,
+    "inventoryRoles": 732,
+    "latestLessonsContainsAllFifteenNumberedLessons": true,
+    "lessonRevisionsPreserved": 9,
+    "localHashSizeOnlyRoles": 27,
+    "noExtraArchiveFiles": true,
+    "noLocalPayloadCopyOrPriorBlobReuse": true,
+    "priorMappingRecords": 10235,
+    "uniquePriorBlobObjectsAuthenticated": 51,
+    "uniquePriorPathsAuthenticated": 654,
+    "wholeLateAPFinalizationRolesPreserved": 54
+  }
+}

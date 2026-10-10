@@ -1,0 +1,8 @@
+{
+  "actualExit": 0,
+  "argv": [
+    "push",
+    "origin",
+    "HEAD:refs/heads/wip/headless-program-20260916-ts"
+  ]
+}
