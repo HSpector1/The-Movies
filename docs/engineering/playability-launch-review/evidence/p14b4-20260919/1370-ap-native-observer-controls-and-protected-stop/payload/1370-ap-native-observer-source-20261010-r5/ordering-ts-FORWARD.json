@@ -1,0 +1,8 @@
+[
+  {
+    "start": 11927,
+    "end": 11927,
+    "expected": "",
+    "replacement": "\n// Same actual fullbody witness/evaluation predicate, shared with pure controls.\nexport function assertNativeEvaluationBinding(codec:any, physicalRow:any, evaluations:Iterable<any>):void {\n const detail=codec.legacyRow(physicalRow).detail\n let matched=false\n for(const e of evaluations){\n  if(JSON.stringify(e.context)===JSON.stringify(physicalRow.context)\n   &&e.canonicalInputs===detail.canonicalInputs\n   &&e.result.inputsDigest===detail.inputsDigest\n   &&new TextEncoder().encode(e.canonicalInputs).length===detail.inputBytes){matched=true;break}\n }\n assert.ok(matched,'witness is the actual full-body evaluation tuple')\n}\n"
+  }
+]

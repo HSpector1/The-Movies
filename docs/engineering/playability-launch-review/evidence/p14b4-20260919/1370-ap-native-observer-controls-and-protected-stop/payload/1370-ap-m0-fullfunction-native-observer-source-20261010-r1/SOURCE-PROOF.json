@@ -1,0 +1,164 @@
+{
+  "schema": "1370-native-fullfunction-source-proof/v1",
+  "executionAuthorization": false,
+  "candidateExecutedByAuthor": false,
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 23375,
+    "sha256": "9a2d56c0b7263792b3e67f29d1cb40349ddc52593fe2ec9a80ff5463b0e99aef"
+  },
+  "pairs": [
+    {
+      "diff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/DIFF-run-fullfunction.py.json",
+        "bytes": 13320,
+        "sha256": "e1f8789ad23050bc68fe6c67e685d3d1053834b0ae3e003277544274e1e5e1d0"
+      },
+      "forwardExact": true,
+      "inverseExact": true
+    },
+    {
+      "diff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/DIFF-run-fullfunction.mjs.json",
+        "bytes": 12890,
+        "sha256": "f9a1b198209e37085e3649fcc4a8f75dffbb1fb3b0e622be7a7834eda08f3b29"
+      },
+      "forwardExact": true,
+      "inverseExact": true
+    },
+    {
+      "diff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/DIFF-record-fullfunction.py.json",
+        "bytes": 1273,
+        "sha256": "68c0d08f7590da3244a695a7e56337069b0f80dfb28ffeb89a90a648af04b10e"
+      },
+      "forwardExact": true,
+      "inverseExact": true
+    },
+    {
+      "diff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/DIFF-CORE-TEST-TEMPLATE.ts.json",
+        "bytes": 813,
+        "sha256": "36950d45e544c9e0c03e6979569acca7efeb51f83de95bd99dc3dd278d34453c"
+      },
+      "forwardExact": true,
+      "inverseExact": true
+    },
+    {
+      "diff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/DIFF-CONFIG-TEMPLATE.mts.json",
+        "bytes": 1005,
+        "sha256": "5836d43df1f184e32d6a825490fe34a7ff190412ea617beab113923c7a74cfc2"
+      },
+      "forwardExact": true,
+      "inverseExact": true
+    },
+    {
+      "diff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/DIFF-CONFIG.json.json",
+        "bytes": 25383,
+        "sha256": "5cf87eb2f4a0cae9f4338bdbede7b15102bdbae247b78cbccb3a6656d562306e"
+      },
+      "forwardExact": true,
+      "inverseExact": true
+    },
+    {
+      "diff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/DIFF-RECIPE.json.json",
+        "bytes": 37484,
+        "sha256": "143950e6023d6ae41730fef7766efc42ee953604b79addb4d1723a3036367e5f"
+      },
+      "forwardExact": true,
+      "inverseExact": true
+    },
+    {
+      "diff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/DIFF-RESOLUTION-SOURCE-BINDING.json.json",
+        "bytes": 2934,
+        "sha256": "195c963e80337809d88f069140ca89d2e5722c03d32b28a20a2533cd7aa9737c"
+      },
+      "forwardExact": true,
+      "inverseExact": true
+    },
+    {
+      "diff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/DIFF-canonical-typescript-transform.mjs.json",
+        "bytes": 579,
+        "sha256": "ffb30472c9cd0b4c3588b60c26ea861eb8f6ac5af62352dfd854d8e2dba65956"
+      },
+      "forwardExact": true,
+      "inverseExact": true
+    }
+  ],
+  "byteExactMethods": {
+    "run-fullfunction.py": {
+      "same": [
+        "need",
+        "timeout",
+        "remaining",
+        "meta",
+        "read",
+        "role",
+        "pairs",
+        "load",
+        "write"
+      ],
+      "changed": [
+        "authenticate_types",
+        "authenticate_observer_diagnostic",
+        "authenticate_current_protection",
+        "main"
+      ]
+    },
+    "record-fullfunction.py": {
+      "same": [
+        "require",
+        "sha",
+        "write",
+        "metadata",
+        "authenticate",
+        "process_alive",
+        "OwnedChild",
+        "start_owned",
+        "ready_go",
+        "close_startup_fds",
+        "clear",
+        "alarm",
+        "whole_guard",
+        "active_guard",
+        "observed_exit_guard",
+        "child_environment",
+        "finalize_result",
+        "main"
+      ],
+      "changed": []
+    }
+  },
+  "historicalContinuity": [
+    {
+      "bytes": 1030,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/CURRENT-AN-OPERATIONAL-TRANSITION.json",
+      "sha256": "d92458f0d1af8249280ae2298c3d2eff4e62d53b271814dd8d745c3d9f073ccd"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-OPERATIONAL-TRANSITION.json",
+      "bytes": 1029,
+      "sha256": "8ed8eab0ba445edbd2b93f0f87e932e9c3f902d42fe56cf14e6c7d7166b8976c"
+    }
+  ],
+  "actualNative72": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-CONTROLS-OBSERVED-ADOPTION.json",
+    "bytes": 13238,
+    "sha256": "401e54ce61697d70e1fbbf2d10a7d263a2ff7afa465ab58f00faa9a5002431c4"
+  },
+  "currentProtection": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/M0-NATIVE-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "bytes": 4345,
+    "sha256": "c4918e6adf12a77c3697adb64b632ec1cfeaebac2cb71caedfe687d48dfe92cb"
+  },
+  "logicalGraph": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/FINITE-CHANGED-IMPORT-GRAPH.json",
+    "bytes": 44793,
+    "sha256": "9f2ad0d5487519e86cd96905063e1d2eb82abb86c7aaf92f1547bd2ab3ea48af"
+  }
+}

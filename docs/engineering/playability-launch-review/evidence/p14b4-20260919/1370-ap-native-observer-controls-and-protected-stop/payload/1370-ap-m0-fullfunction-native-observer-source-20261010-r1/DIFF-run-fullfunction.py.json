@@ -1,0 +1,98 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/BASELINE-run-fullfunction.py",
+    "bytes": 28847,
+    "sha256": "72b3e941c9f941785233367565badc0a2dc674e056878e8d1b008c80ac54e346"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/run-fullfunction.py",
+    "bytes": 30017,
+    "sha256": "c499b09d706f1954d9645943aaa8ce09f8d61b7286c1a6133cd3513ffbcb5412"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 229,
+      "old": "CONFIG_SHA='596a893e476e77b8d87c1704b90ac5048b1f66611f61cdf3154ab6072ff27f5b'\n",
+      "newStart": 229,
+      "new": "CONFIG_SHA='ffd5d7e59fd222f01dc3002cdac9065fd66557dcf9cd75d190db3b6ac0bdf717'\n"
+    },
+    {
+      "oldStart": 3759,
+      "old": " review=load(t['independentObservedReview']);need(review['decision']==contract['reviewDecision'] and review['concreteFindings']==[] and review['executionAuthorization'] is False,'OBSERVED_TYPES_REVIEW')\n",
+      "newStart": 3759,
+      "new": " review=load(t['independentObservedReview']);need(review['schema']==contract['reviewSchema'] and review['decision']==contract['reviewDecision'] and review['concreteFindings']==[] and review['executionAuthorization'] is False,'OBSERVED_TYPES_REVIEW')\n"
+    },
+    {
+      "oldStart": 5353,
+      "old": " authorities=c['observerDiagnosticControlsAuthorities']\n",
+      "newStart": 5400,
+      "new": " authorities=c['nativeObserverAuthorities']\n"
+    },
+    {
+      "oldStart": 5541,
+      "old": " need(implementation_review['decision']=='ACCEPT_STATIC_BOUNDED_OBSERVER_ROW_DIAGNOSTIC_IMPLEMENTATION_SOURCE_ONLY' and implementation_review['sourceManifest']==authorities['implementationSourcePins'] and implementation_review['concreteFindings']==[] and implementation_review['executionAuthorization'] is False,'DIAGNOSTIC_IMPLEMENTATION_REVIEW')\n for name,r in c['diagnosticInputs'].items():\n",
+      "newStart": 5576,
+      "new": " need(implementation_review['decision']=='ACCEPT_STATIC_NATIVE_CANONICAL_OBSERVER_IMPLEMENTATION_SOURCE_ONLY' and implementation_review['sourceManifest']==authorities['implementationSourcePins'] and implementation_review['concreteFindings']==[] and implementation_review['executionAuthorization'] is False,'DIAGNOSTIC_IMPLEMENTATION_REVIEW')\n for name,r in c['nativeObserverInputs'].items():\n"
+    },
+    {
+      "oldStart": 6237,
+      "old": " need(controls_review['decision']=='ACCEPT_STATIC_PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_SOURCE_ONLY' and controls_review['sourceManifest']==authorities['controlsSourcePins'] and controls_review['concreteFindings']==[] and controls_review['executionAuthorization'] is False,'DIAGNOSTIC_CONTROLS_REVIEW')\n for k in ['implementationControlsSourceAdoption','rootDesignAdoption','api']:read(authorities[k])\n",
+      "newStart": 6270,
+      "new": " need(controls_review['decision']=='ACCEPT_STATIC_PURE_NATIVE_OBSERVER_CONTROLS_SOURCE_ONLY' and controls_review['sourceManifest']==authorities['controlsSourcePins'] and controls_review['concreteFindings']==[] and controls_review['executionAuthorization'] is False,'DIAGNOSTIC_CONTROLS_REVIEW')\n for k in ['implementationControlsSourceAdoption','rootDesignAdoption','api','apiAdoption','supplementAdoption']:read(authorities[k])\n"
+    },
+    {
+      "oldStart": 6714,
+      "old": " need(source_adoption['status']=='ROOT_ADOPTED_OBSERVER_ROW_DIAGNOSTIC_IMPLEMENTATION_AND_CONTROLS_SOURCE_ONLY' and source_adoption['executionAuthorization'] is False,'DIAGNOSTIC_SOURCE_ADOPTION')\n for a,b in [('implementationSourcePins','implementationSourcePins'),('implementationReview','implementationSourceReview'),('controlsSourcePins','controlsSourcePins'),('controlsReview','controlsSourceReview'),('rootDesignAdoption','rootDesignAdoption'),('api','api')]:need(source_adoption[a]==authorities[b],'DIAGNOSTIC_SOURCE_ADOPTION_ROLES')\n need(g['observerDiagnosticControlsObservedAdoption']==c['actualObserverDiagnosticControlsObservedAdoption'],'EXACT_DIAGNOSTIC_OBSERVED_ROLE')\n observed=load(g['observerDiagnosticControlsObservedAdoption']);contract=c['observerDiagnosticControlsObservedAdoptionContract']\n",
+      "newStart": 6774,
+      "new": " need(source_adoption['status']=='ROOT_ADOPTED_NATIVE_OBSERVER_IMPLEMENTATION_AND_CONTROLS_SOURCE_ONLY' and source_adoption['executionAuthorization'] is False,'DIAGNOSTIC_SOURCE_ADOPTION')\n for a,b in [('implementationSourcePins','implementationSourcePins'),('implementationReview','implementationSourceReview'),('controlsSourcePins','controlsSourcePins'),('controlsReview','controlsSourceReview'),('rootDesignAdoption','rootDesignAdoption'),('api','api'),('apiAdoption','apiAdoption'),('supplementAdoption','supplementAdoption')]:need(source_adoption[a]==authorities[b],'DIAGNOSTIC_SOURCE_ADOPTION_ROLES')\n need(g['nativeObserverControlsObservedAdoption']==c['actualNativeObserverControlsObservedAdoption'],'EXACT_DIAGNOSTIC_OBSERVED_ROLE')\n observed=load(g['nativeObserverControlsObservedAdoption']);contract=c['nativeObserverObservedAdoptionContract']\n"
+    },
+    {
+      "oldStart": 8213,
+      "old": " need(observed['sourceReviewedFullBodyTemplate']==c['diagnosticInputs']['FULL-BODY-CONTROLS-TEMPLATE.ts'] and observed['inputRoles']['m0ObserverRowDiagnostic.mjs']==c['diagnosticInputs']['m0ObserverRowDiagnostic.mjs'] and observed['inputRoles']['m0FeasibilityWitness.ts']==implementation['files']['m0FeasibilityWitness.ts'],'DIAGNOSTIC_ACTUAL_TESTED_INPUTS')\n review=load(observed['independentObservedReview']);need(review['decision']==contract['reviewDecision'] and review['concreteFindings']==[] and review['executionAuthorization'] is False,'DIAGNOSTIC_OBSERVED_REVIEW')\n",
+      "newStart": 8315,
+      "new": " need(observed['sourceReviewedFullBodyTemplate']==c['nativeObserverInputs']['FULL-BODY-CONTROLS-TEMPLATE.ts'] and observed['inputRoles']['m0ObserverRowDiagnostic.mjs']==c['nativeObserverInputs']['m0ObserverRowDiagnostic.mjs'] and observed['inputRoles']['m0FeasibilityWitness-native.ts']==implementation['files']['m0FeasibilityWitness-native.ts'],'DIAGNOSTIC_ACTUAL_TESTED_INPUTS')\n review=load(observed['independentObservedReview']);need(review['schema']==contract['reviewSchema'] and review['decision']==contract['reviewDecision'] and review['concreteFindings']==[] and review['executionAuthorization'] is False,'DIAGNOSTIC_OBSERVED_REVIEW')\n"
+    },
+    {
+      "oldStart": 8866,
+      "old": " need(result['schema']=='1370-observer-row-independent-controls-result/v1' and result['status']=='PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_COMPLETED_UNADOPTED' and result['caseCount']==48 and result['positiveCount']==6 and result['specificNegativeCount']==42 and result['results']==[{**row,'verdict':'ACCEPT_POSITIVE' if row['expected']=='GREEN' else 'ACCEPT_SPECIFIC_REFUSAL'} for row in matrix['cases']],'DIAGNOSTIC_EXACT_ACTUAL_ROSTER')\n",
+      "newStart": 9037,
+      "new": " need(result['schema']=='1370-native-observer-independent-controls-result/v1' and result['status']=='PURE_NATIVE_OBSERVER_CODEC_SINK_AND_AFFECTED_CONSUMERS_COMPLETED_UNADOPTED' and result['caseCount']==72 and result['positiveCount']==13 and result['specificNegativeCount']==59 and result['originalOrderingCases']==18 and result['results']==[{**row,'verdict':'ACCEPT_POSITIVE' if row['expected']=='GREEN' else 'ACCEPT_SPECIFIC_REFUSAL'} for row in matrix['cases']],'DIAGNOSTIC_EXACT_ACTUAL_ROSTER')\n"
+    },
+    {
+      "oldStart": 9932,
+      "old": " p=load(g['currentProtection']);need(g['currentProtection']==c['currentProtection'],'EXACT_CURRENT_PROTECTION_ROLE')\n need(p['schema']=='1370-root-fullfunction-current-protection/v2' and p['status']=='ROOT_ADOPTED_CURRENT_FULLFUNCTION_PREFLIGHT_UNDER_CONTINUOUS_FREEZE' and p['productionHead']==c['operationalHead'] and p['productionSourceTree']==c['productionSourceTree'] and p['historicalTypesAdoption']==g['typesAdoption']==c['historicalTypesAdoption'] and p['historicalTypesHead']==c['historicalTypesHead'] and p['protectedFreezeContinues'] is True and p['executionAuthorization'] is False and p['game'] is False,'CURRENT_FULLFUNCTION_PROTECTION_V2')\n need(p['currentANFullPreflightAdoption']==c['actualCurrentANFullPreflightAdoption'] and p['currentOperationalTransition']==c['actualCurrentOperationalTransition'] and p['reviewedPriorStopAdoption']==c['reviewedPriorStopAdoption'],'CURRENT_AN_AUTHORITY_ROLES')\n a=load(p['currentANFullPreflightAdoption']);need(a['schema']=='1370-ao-root-current-an-fullpreflight-adoption/v1' and a['status']=='ROOT_ADOPTED_CURRENT_AN_FULL_PREFLIGHT' and a['productionHead']==c['operationalHead'] and a['productionSourceTree']==c['productionSourceTree'] and a['protectedFreezeContinues'] is True and a['executionAuthorization'] is False and p['currentANFullPreflightSnapshot']==a['snapshot'],'CURRENT_AN_FULL_PREFLIGHT')\n",
+      "newStart": 10164,
+      "new": " p=load(g['currentProtection']);need(p['nativeControlsObservedAdoption']==c['actualNativeObserverControlsObservedAdoption']==g['nativeObserverControlsObservedAdoption'],'CURRENT_NATIVE_72_ROLE');need(g['currentProtection']==c['currentProtection'],'EXACT_CURRENT_PROTECTION_ROLE')\n need(p['schema']=='1370-root-fullfunction-current-protection/v3' and p['status']=='ROOT_ADOPTED_CURRENT_FULLFUNCTION_PREFLIGHT_UNDER_CONTINUOUS_FREEZE' and p['productionHead']==c['operationalHead'] and p['productionSourceTree']==c['productionSourceTree'] and p['historicalTypesAdoption']==g['typesAdoption']==c['historicalTypesAdoption'] and p['historicalTypesHead']==c['historicalTypesHead'] and p['protectedFreezeContinues'] is True and p['executionAuthorization'] is False and p['game'] is False,'CURRENT_FULLFUNCTION_PROTECTION_V2')\n need(p['currentAOFullPreflightAdoption']==c['actualCurrentAOFullPreflightAdoption'] and p['currentOperationalTransition']==c['actualCurrentOperationalTransition'] and p['reviewedPriorStopAdoption']==c['reviewedPriorStopAdoption'],'CURRENT_AN_AUTHORITY_ROLES')\n a=load(p['currentAOFullPreflightAdoption']);need(a['schema']=='1370-ap-root-current-ao-fullpreflight-adoption/v1' and a['status']=='ROOT_ADOPTED_CURRENT_AO_FULL_PREFLIGHT' and a['productionHead']==c['operationalHead'] and a['productionSourceTree']==c['productionSourceTree'] and a['protectedFreezeContinues'] is True and a['executionAuthorization'] is False and p['currentAOFullPreflightSnapshot']==a['snapshot'],'CURRENT_AN_FULL_PREFLIGHT')\n"
+    },
+    {
+      "oldStart": 11490,
+      "old": " transition=load(p['currentOperationalTransition']);need(transition['schema']=='1370-ao-current-an-operational-transition/v1' and transition['actualHead']==c['operationalHead'] and transition['predecessor']==c['historicalTypesHead'] and transition['sourceTree']==c['productionSourceTree'] and transition['docsOnlyVerified'] is True and transition['workingTreeClean'] is True and transition['executionAuthorization'] is False,'HISTORICAL_TYPES_CURRENT_AN_CONTINUITY');read(transition['publishedReadback'])\n",
+      "newStart": 11885,
+      "new": " historical=load(c['historicalAMToANTransition']);need(historical['schema']=='1370-ao-current-an-operational-transition/v1' and historical['actualHead']==c['historicalANHead'] and historical['predecessor']==c['historicalTypesHead'] and historical['sourceTree']==c['productionSourceTree'] and historical['docsOnlyVerified'] is True and historical['workingTreeClean'] is True and historical['executionAuthorization'] is False,'HISTORICAL_AM_TO_AN_CONTINUITY');read(historical['publishedReadback'])\n transition=load(p['currentOperationalTransition']);need(transition['schema']=='1370-ap-current-ao-operational-transition/v1' and transition['actualHead']==c['operationalHead'] and transition['predecessor']==c['historicalANHead'] and transition['sourceTree']==c['productionSourceTree'] and transition['docsOnlyVerified'] is True and transition['workingTreeClean'] is True and transition['executionAuthorization'] is False,'HISTORICAL_TYPES_CURRENT_AN_CONTINUITY');read(transition['publishedReadback'])\n"
+    },
+    {
+      "oldStart": 13215,
+      "old": "",
+      "newStart": 14103,
+      "new": "  elif name in c['nativeObserverInputs']:need(r==c['nativeObserverInputs'][name],'EXACT_FIXED_NATIVE_OBSERVER_ROLE')\n"
+    },
+    {
+      "oldStart": 13331,
+      "old": "  elif name in c['diagnosticInputs']:need(r==c['diagnosticInputs'][name],'EXACT_FIXED_DIAGNOSTIC_ROLE')\n",
+      "newStart": 14336,
+      "new": ""
+    },
+    {
+      "oldStart": 20791,
+      "old": " for name in ['m0TraceCodec.mjs','traceSequences.mjs','m0WiringProbe.ts','ordering.ts']:need(observed['inputRoles'][name]==c['representationInputs'][name],'ACTUAL_TESTED_FIXED_INPUT_ROLE')\n",
+      "newStart": 21692,
+      "new": " for name in ['m0TraceCodec.mjs','traceSequences.mjs','m0WiringProbe.ts','ordering.ts']:need(observed['inputRoles'][name]==c['historicalRepresentationInputs'][name],'ACTUAL_TESTED_FIXED_INPUT_ROLE')\n"
+    },
+    {
+      "oldStart": 21250,
+      "old": "",
+      "newStart": 22161,
+      "new": " historical_ordering=c['historicalRepresentationInputs']['ordering.ts'];need(historical_ordering==lm['files']['ordering.ts']==lr['sourcePins']['ordering.ts']==lr['routeSourcePins']['ordering.ts'],'HISTORICAL_49_ORDERING_PROVENANCE');read(historical_ordering)\n"
+    }
+  ]
+}

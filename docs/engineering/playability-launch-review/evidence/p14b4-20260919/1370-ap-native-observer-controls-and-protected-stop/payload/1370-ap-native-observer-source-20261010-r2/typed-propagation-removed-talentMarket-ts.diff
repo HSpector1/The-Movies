@@ -1,0 +1,52 @@
+--- BASELINE-typed-propagation-removed-talentMarket.ts
++++ typed-propagation-removed-talentMarket.ts
+@@ -1,3 +1,4 @@
++import {createObserverFailureLatch,createNativeRowCodec} from './m0NativeObserverRows.mjs'
+ import {createObserverRowDiagnostic} from './m0ObserverRowDiagnostic.mjs'
+ import { m0WiringProbe as __m0WiringProbe } from './m0WiringProbe.js'
+ // ── P14A.1 — One Contested Expiry Core ───────────────────────────────────────
+@@ -39,8 +40,8 @@
+ import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindowOpen, terminationCost } from './employment.js'
+ import type { ContractOffer, TerminationLaw } from './employment.js'
+ import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
+-import { createM0FeasibilitySink } from './m0FeasibilityWitness.js'
+-import type { M0FeasibilityCapture } from './m0FeasibilityWitness.js'
++import { createM0FeasibilitySink } from './m0FeasibilityWitness-native.js'
++import type { M0FeasibilityCapture } from './m0FeasibilityWitness-native.js'
+ import { isOpportunityPredicate } from './opportunityPromises.js'
+ import { takeSubjectOwner } from './firstTakeSubjects.js'
+ import { relationshipsReasonSentence, rosterTies, tiersOnRoster } from './relationships.js'
+@@ -1544,11 +1545,19 @@
+   const proposalOccurrence = source.slice(0, proposalSourceIndex).filter(row => key(row) === proposalKey).length
+   return { proposalKey, proposalOccurrence, proposalSourceIndex }
+ }
+-const observerRowDiagnostic = createObserverRowDiagnostic()
+-let m0FeasibilitySink = createM0FeasibilitySink()
++let observerLatch = createObserverFailureLatch()
++let nativeRowCodec = createNativeRowCodec({latch:observerLatch})
++let observerRowDiagnostic = createObserverRowDiagnostic({codec:nativeRowCodec,latch:observerLatch})
++let m0FeasibilitySink = createM0FeasibilitySink({codec:nativeRowCodec,latch:observerLatch})
++function resetNativeObserverArm():void {
++  observerLatch=createObserverFailureLatch()
++  nativeRowCodec=createNativeRowCodec({latch:observerLatch})
++  observerRowDiagnostic=createObserverRowDiagnostic({codec:nativeRowCodec,latch:observerLatch})
++  m0FeasibilitySink=createM0FeasibilitySink({codec:nativeRowCodec,latch:observerLatch})
++}
+ export function drainM0FeasibilityRows(): readonly unknown[] {
+   const rows = m0FeasibilitySink.rows()
+-  m0FeasibilitySink = createM0FeasibilitySink()
++  m0FeasibilitySink = createM0FeasibilitySink({codec:nativeRowCodec,latch:observerLatch})
+   return rows
+ }
+ function m0Capture(state: GameState, kaseIdentity: M0CaseIdentity, proposal: TalentMarketProposal,
+@@ -2170,6 +2179,8 @@
+ }
+ 
+ // Test-only access to existing complete implementations; no replacements.
+-export const m0WiringTestApi = Object.freeze({M0ObserverError,authorRivalPromise,settleCase,observerRowDiagnostic,
+-  reset: (): void => {try{drainM0MarketDecisionRows();drainM0FeasibilityRows()}finally{observerRowDiagnostic.reset()}},
++export const m0WiringTestApi = Object.freeze({M0ObserverError,authorRivalPromise,settleCase,
++  get observerRowDiagnostic(){return observerRowDiagnostic},
++  get nativeRowCodec(){return nativeRowCodec},
++  reset: (): void => {try{drainM0MarketDecisionRows()}finally{observerRowDiagnostic.reset();resetNativeObserverArm()}},
+ })

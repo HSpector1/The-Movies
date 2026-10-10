@@ -1,0 +1,14 @@
+[
+  {
+    "start": 412,
+    "end": 472,
+    "expected": "import {assertFullProjectionOrdering} from '../ordering.js'\n",
+    "replacement": "import {assertFullProjectionOrdering,assertNativeEvaluationBinding} from '../ordering.js'\n"
+  },
+  {
+    "start": 2741,
+    "end": 3066,
+    "expected": "   const evaluations=traceSequence(()=>probe.evaluations()).filter(e=>encode(e.context)===encode(row.context))\n   assert.ok(evaluations.some(e=>e.canonicalInputs===row.detail.canonicalInputs&&\n    (e.result as {inputsDigest:string}).inputsDigest===row.detail.inputsDigest),'witness is the actual full-body evaluation tuple')\n",
+    "replacement": "   assertNativeEvaluationBinding(m0WiringTestApi.nativeRowCodec,row,probe.evaluations())\n"
+  }
+]

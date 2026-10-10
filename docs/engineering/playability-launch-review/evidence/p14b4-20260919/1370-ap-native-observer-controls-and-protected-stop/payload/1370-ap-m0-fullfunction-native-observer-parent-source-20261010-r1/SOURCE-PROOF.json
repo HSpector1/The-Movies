@@ -1,0 +1,51 @@
+{
+  "schema": "1370-fullfunction-native-parent-source-proof/v1",
+  "executionAuthorization": false,
+  "candidateExecuted": false,
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 4852,
+    "sha256": "0742ed9f3e4d89b285c31bec1a8210b43942fa88de70b22d9d5150c72e5715db"
+  },
+  "routeSource": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 25246,
+    "sha256": "88b8d5b06a3e4fc0f37fe0b0f7054ef0572effceac839a4078f416e4fd946055"
+  },
+  "pairs": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1/DIFF-launch-fullfunction.py.json",
+      "bytes": 18129,
+      "sha256": "3c1045d72e48823cec907bfa2aeed7ef2b88e6d4f9d277f337cad3e863ba425e"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1/DIFF-read-fullfunction.py.json",
+      "bytes": 11532,
+      "sha256": "e5f30a7d7a448492125030fa430c2e98dc08225d05c8aa707e94b3b5ef6f74f3"
+    }
+  ],
+  "sameHelpers": {
+    "launch-fullfunction.py": [
+      "require",
+      "prep_timeout",
+      "remaining",
+      "metadata",
+      "role",
+      "authenticate",
+      "pairs",
+      "load",
+      "exact",
+      "write"
+    ],
+    "read-fullfunction.py": [
+      "need",
+      "meta",
+      "role",
+      "pairs",
+      "load",
+      "put",
+      "identity",
+      "output_role"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/R2-BASELINE-CORE-TEST-TEMPLATE.ts",
+    "bytes": 3955,
+    "sha256": "aa8af512e76af8fecef51f6c8f118d71b0c6c05dcf43c6e434148a6ce89ce00a"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/CORE-TEST-TEMPLATE.ts",
+    "bytes": 3955,
+    "sha256": "aa8af512e76af8fecef51f6c8f118d71b0c6c05dcf43c6e434148a6ce89ce00a"
+  },
+  "indexedWholeForwardInverse": []
+}

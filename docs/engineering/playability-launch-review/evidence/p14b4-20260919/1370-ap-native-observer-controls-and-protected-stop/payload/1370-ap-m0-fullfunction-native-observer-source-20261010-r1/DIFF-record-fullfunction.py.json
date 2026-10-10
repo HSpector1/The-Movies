@@ -1,0 +1,20 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/BASELINE-record-fullfunction.py",
+    "bytes": 16760,
+    "sha256": "c6e16e50f2f7eeca54c3275086774396d3d6ca7bd85ccf74d989408e19850cbb"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/record-fullfunction.py",
+    "bytes": 16752,
+    "sha256": "0a8a59d8b8ff65c305bf1a16bafa94dea67547db094f62c9eda8192124241579"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 333,
+      "old": "CONFIG_SHA='596a893e476e77b8d87c1704b90ac5048b1f66611f61cdf3154ab6072ff27f5b';WORKER_SHA='72b3e941c9f941785233367565badc0a2dc674e056878e8d1b008c80ac54e346';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330\nOUTPUTS={'verification':SCRATCH/'1370-ao-m0-fullfunction-observer-row-diagnostic-recorder-results-20261010-r1'}\n",
+      "newStart": 333,
+      "new": "CONFIG_SHA='ffd5d7e59fd222f01dc3002cdac9065fd66557dcf9cd75d190db3b6ac0bdf717';WORKER_SHA='c499b09d706f1954d9645943aaa8ce09f8d61b7286c1a6133cd3513ffbcb5412';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330\nOUTPUTS={'verification':SCRATCH/'1370-ap-m0-fullfunction-native-observer-recorder-results-20261010-r1'}\n"
+    }
+  ]
+}

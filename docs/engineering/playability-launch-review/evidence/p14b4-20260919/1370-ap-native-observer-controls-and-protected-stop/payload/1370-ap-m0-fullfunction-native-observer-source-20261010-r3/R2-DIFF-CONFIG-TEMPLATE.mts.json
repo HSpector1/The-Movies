@@ -1,0 +1,20 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/R2-BASELINE-CONFIG-TEMPLATE.mts",
+    "bytes": 1144,
+    "sha256": "d5441dd9caa89530c41cdd8716573f33fc1d5356571fa7b2e78b2b762d6b9da3"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/CONFIG-TEMPLATE.mts",
+    "bytes": 1144,
+    "sha256": "5f4ae2753a32df1aa87dbeac892f0b29c3ad7b3232d846a11bc9adb73dff42c4"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 272,
+      "old": "import {canonicalTypeScriptTransform} from '/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/canonical-typescript-transform.mjs'\n",
+      "newStart": 272,
+      "new": "import {canonicalTypeScriptTransform} from '/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/canonical-typescript-transform.mjs'\n"
+    }
+  ]
+}

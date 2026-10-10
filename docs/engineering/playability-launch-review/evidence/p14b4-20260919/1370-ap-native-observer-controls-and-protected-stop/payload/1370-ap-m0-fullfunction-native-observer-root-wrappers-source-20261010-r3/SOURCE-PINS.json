@@ -1,0 +1,86 @@
+{
+  "schema": "1370-fullfunction-root-wrappers-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-run_observer_fullfunction_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/BASELINE-run_observer_fullfunction_once.py",
+      "bytes": 9863,
+      "sha256": "aa731bd4edf1a8509af559cb8ca0261cda655e87e4e86a013ad9f5be2dddff1b"
+    },
+    "BASELINE-run_observer_reader_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/BASELINE-run_observer_reader_once.py",
+      "bytes": 2604,
+      "sha256": "80e0ae126fdbf54f95d709552c9e9263223dd89b19e85c551a840a2027bffb68"
+    },
+    "DIFF-run_observer_fullfunction_once.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/DIFF-run_observer_fullfunction_once.py.json",
+      "bytes": 12202,
+      "sha256": "db56e9a4d526fc181632fb7209cde1259d17d5217560189b9b4a229f9ced6320"
+    },
+    "DIFF-run_observer_reader_once.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/DIFF-run_observer_reader_once.py.json",
+      "bytes": 2681,
+      "sha256": "4edf673dbcff770c6fc713cd18182e568feb25ea5f174cbf71ac5a4c76d85350"
+    },
+    "FINAL-SELECTOR-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/FINAL-SELECTOR-PROOF.json",
+      "bytes": 1195,
+      "sha256": "4dd2d9418040625a149efd90106429d89f12cdf4eb7a21e90a9100fc85f40399"
+    },
+    "R2-BASELINE-RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/R2-BASELINE-RECIPE.json",
+      "bytes": 2036,
+      "sha256": "6fc9cf4a94dac21940539cc5e72898b1042c26b19f3719163a4254691b80629b"
+    },
+    "R2-BASELINE-run_observer_fullfunction_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/R2-BASELINE-run_observer_fullfunction_once.py",
+      "bytes": 10508,
+      "sha256": "480e4825e5afa6c0d7fd246cb470eb7b005734cbfc1d875b69ee95360f82ed61"
+    },
+    "R2-BASELINE-run_observer_reader_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/R2-BASELINE-run_observer_reader_once.py",
+      "bytes": 2588,
+      "sha256": "e26f6ca4a18b013f08c6d467b4f2b46cd0a7957dc71a8af82a979818e7828d18"
+    },
+    "R2-DIFF-RECIPE.json.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/R2-DIFF-RECIPE.json.json",
+      "bytes": 1154,
+      "sha256": "e536622bf21c0bb973d120ba5dfcdca1687ff205440a0f008e5b72689ae683bc"
+    },
+    "R2-DIFF-run_observer_fullfunction_once.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/R2-DIFF-run_observer_fullfunction_once.py.json",
+      "bytes": 1576,
+      "sha256": "6bf2edb6f1b78a1c04c8ae6bfdba1a9c0540af4821fee27926c5120aa9f1a315"
+    },
+    "R2-DIFF-run_observer_reader_once.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/R2-DIFF-run_observer_reader_once.py.json",
+      "bytes": 918,
+      "sha256": "a04e48596e3b3a8666ee18ef9c332136ad5148285c80a00cb8e69a3677c210de"
+    },
+    "R2-SELECTOR-STOP.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/R2-SELECTOR-STOP.json",
+      "bytes": 498,
+      "sha256": "330d5af0760544f629f1562a8b6506ce693d89cb885e547fc93d941b2638f3c9"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/RECIPE.json",
+      "bytes": 2036,
+      "sha256": "8e4337f24735fde1e85b8ce8576dcd3d13421a52374943501eb74695d10befe4"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/SOURCE-PROOF.json",
+      "bytes": 1692,
+      "sha256": "a7a83b85083df006c69f0444d660201277762fbcde998d262af6d1b414c28867"
+    },
+    "run_observer_fullfunction_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/run_observer_fullfunction_once.py",
+      "bytes": 10508,
+      "sha256": "954ade6e0afa18bf789d2dcfc41b58bc1220661af0ac3d081fa15cc93906187c"
+    },
+    "run_observer_reader_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/run_observer_reader_once.py",
+      "bytes": 2588,
+      "sha256": "a7ee9d00a9c191cc39b20b9e2b630d17e1f4817b3ead646f7927c7739053e73a"
+    }
+  }
+}

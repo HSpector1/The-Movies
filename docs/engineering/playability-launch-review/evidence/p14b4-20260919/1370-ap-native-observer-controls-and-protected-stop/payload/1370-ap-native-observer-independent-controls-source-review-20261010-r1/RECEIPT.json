@@ -1,0 +1,25 @@
+{
+  "actualControlsExecuted": false,
+  "byteAuthentication": {
+    "bytes": 1549,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r1/BYTE-AND-ROSTER-AUTHENTICATION.json",
+    "sha256": "7bb50fccee42e003b82670bf37185c13efd5b73e71587581daf8233a0e14a14d"
+  },
+  "concreteFindings": [
+    {
+      "case": "immutable_snapshot_fresh_arm_isolation",
+      "finding": "The old arm never failed before the fresh arm was constructed, so the claimed old-failure isolation predicate was not exercised.",
+      "id": "F1",
+      "repair": "Retain old snapshot, cause actual original row refusal in old arm, prove old rows refuse same E, then prove fresh arm succeeds and retained snapshot is unchanged."
+    }
+  ],
+  "decision": "STOP_STATIC_PURE_NATIVE_OBSERVER_CONTROLS_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "originalSourcePreserved": true,
+  "schema": "1370-native-observer-independent-controls-source-review/v1",
+  "sourceManifest": {
+    "bytes": 1492,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "4d7273a77ef9d7783c66b1b8e26840f9197968866c2fdf6a98cc7f4f0cfae0ad"
+  }
+}

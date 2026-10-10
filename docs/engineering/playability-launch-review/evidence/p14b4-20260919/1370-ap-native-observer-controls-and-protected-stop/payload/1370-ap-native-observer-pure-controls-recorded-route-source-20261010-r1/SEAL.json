@@ -1,0 +1,10 @@
+{
+  "schema": "1370-source-only-seal/v1",
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 10202,
+    "sha256": "a013ef847cbe5cdac726ec5a63b1b0f5be160949ceea40b6d081383a563b7617"
+  },
+  "payloadCount": 22,
+  "executionAuthorization": false
+}

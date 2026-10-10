@@ -1,0 +1,16 @@
+{
+  "schema": "1370-source-only-native-refusal-diagnostic-proposal-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "DESIGN.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-refusal-diagnostic-proposal-20261010-r1/DESIGN.md",
+      "bytes": 5659,
+      "sha256": "e3763ab041847b4e56e914428377a6ebca67f4e1673a79d1d2c9c338a0908cc5"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-refusal-diagnostic-proposal-20261010-r1/CONTRACT.json",
+      "bytes": 3762,
+      "sha256": "874793784bf9754dc58856f7abe399e6ffa18d7da6a415d4870b9b31b9043025"
+    }
+  }
+}

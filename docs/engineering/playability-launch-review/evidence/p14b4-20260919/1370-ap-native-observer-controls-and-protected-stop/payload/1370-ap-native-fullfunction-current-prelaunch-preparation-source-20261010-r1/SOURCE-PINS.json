@@ -1,0 +1,97 @@
+{
+  "schema": "1370-ap-current-ao-prelaunch-source-pins/v2",
+  "files": {
+    "read_current_ao_prelaunch.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/read_current_ao_prelaunch.py.inverse.diff",
+      "bytes": 14589,
+      "sha256": "e6ee7bfdaca39a13a3949411565de45e5d24d3337475c147554308b9fde2b154"
+    },
+    "run_current_ao_prelaunch_once.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/run_current_ao_prelaunch_once.py.inverse.diff",
+      "bytes": 13265,
+      "sha256": "70cd8e599ec78bd372e1ac6f7d4a3e3998699128ef4a44ddabe9fb577801b6a7"
+    },
+    "OPERATIONAL-SCOPE-AMENDMENT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/OPERATIONAL-SCOPE-AMENDMENT.json",
+      "bytes": 2937,
+      "sha256": "8b8f0ca13b0f27411fa30118afd3ecd3e40f185a5851150678f9c280ca7783fa"
+    },
+    "BASELINE-run_current_an_prelaunch_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/BASELINE-run_current_an_prelaunch_once.py",
+      "bytes": 7903,
+      "sha256": "60d43b96420f30974d5364a91863de27951deef37a489335a7522a2b40c6784c"
+    },
+    "EXACT-ARGV.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/EXACT-ARGV.json",
+      "bytes": 1953,
+      "sha256": "b85ceece9f559a268bdc57dc2a2cd4c004c133dcb40fbc43244b3a8e2cd6e129"
+    },
+    "prepare_source.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/prepare_source.py",
+      "bytes": 14655,
+      "sha256": "4847615c5b70c5b28750facb08a43a6c224878d874ec899449266d1b9008483e"
+    },
+    "run_current_ao_prelaunch_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/run_current_ao_prelaunch_once.py",
+      "bytes": 8965,
+      "sha256": "b1459054abb5fd559a28db321b953519cab7580a0e0f753777b1bac8ea647237"
+    },
+    "BASELINE-read_current_an_prelaunch.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/BASELINE-read_current_an_prelaunch.py",
+      "bytes": 7766,
+      "sha256": "b63ba971e52091aaa345590101be85c76e395edd6f92843330415dea658df23e"
+    },
+    "BASELINE-current-an-root-prelaunch.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/BASELINE-current-an-root-prelaunch.py",
+      "bytes": 15211,
+      "sha256": "dcc91aead0412c545c275e009ad298260dd64df6d6240e2d3253bb529d7ae914"
+    },
+    "current-ao-root-prelaunch.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ao-root-prelaunch.py.inverse.diff",
+      "bytes": 12758,
+      "sha256": "621ad6e30f8086aa0104decbc526821c0d94f7a0ab66b53468bf0d6ae41b1135"
+    },
+    "current-ao-root-prelaunch.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ao-root-prelaunch.py.forward.diff",
+      "bytes": 12758,
+      "sha256": "4f3edec3b73feab222c01728fdfb508bebedfe60c0f78e203fba545e2a772320"
+    },
+    "read_current_ao_prelaunch.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/read_current_ao_prelaunch.py",
+      "bytes": 9680,
+      "sha256": "b87992488f005d84106a0f032ea4d547cd34ee8d10cc9987c2adae5ffef3938a"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/SOURCE-PROOF.json",
+      "bytes": 22236,
+      "sha256": "e32e3cce63f96f0c26ff055f87e97ac6fad4d77d337b3e36d509e3112730a8ab"
+    },
+    "current-ao-root-prelaunch.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ao-root-prelaunch.py",
+      "bytes": 15211,
+      "sha256": "e2f7013b4de2df465497f7a2dcb3b79abd12edabf6095e1e229b9abdaeff5db6"
+    },
+    "PRELAUNCH-CONFIG-UNFILLED.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/PRELAUNCH-CONFIG-UNFILLED.json",
+      "bytes": 2555,
+      "sha256": "ca248cab9e68a8624047d41388441f5226bc0e439ea82cbb718efab9e9ab51db"
+    },
+    "read_current_ao_prelaunch.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/read_current_ao_prelaunch.py.forward.diff",
+      "bytes": 14589,
+      "sha256": "d3caa0f3e680bf4f13b063fd8feb76c323ebfbc1201defbfa124480c1a6c7338"
+    },
+    "run_current_ao_prelaunch_once.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/run_current_ao_prelaunch_once.py.forward.diff",
+      "bytes": 13265,
+      "sha256": "d2ccf84fd3ffc09a910f4daa40a0f8ebd9fa5c1fa3fab2ea6d7312f48f229e8b"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/CONTRACT.json",
+      "bytes": 2436,
+      "sha256": "96ad63c2bc33df10480741b200f01176804fe87b755a0458cd89e395ea044d6e"
+    }
+  },
+  "status": "SOURCE_ONLY_UNRUN_PENDING_INDEPENDENT_REVIEW",
+  "executionAuthorization": false
+}

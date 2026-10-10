@@ -1,0 +1,37 @@
+{
+  "schema": "1370-ap-native-observer-logical-source-aliases/v1",
+  "aliases": {
+    "src/core/m0NativeObserverRows.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+      "bytes": 10267,
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "src/core/m0FeasibilityWitness-native.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+      "bytes": 5868,
+      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+    },
+    "src/core/m0ObserverRowDiagnostic.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs",
+      "bytes": 10954,
+      "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+    },
+    "src/core/talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+      "bytes": 120462,
+      "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+    },
+    "ordering.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+      "bytes": 12555,
+      "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+    }
+  },
+  "mutant": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+    "bytes": 120492,
+    "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+  },
+  "actualResolverRuntimeExecuted": false,
+  "futureRouteBindingRequired": true
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "1370-ap-source-seal/v1",
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 5900,
+    "sha256": "3629af8eac9c9c4dc30f2935132b3f7e07133bd0a35b5c38e9e122bdb8178e94"
+  },
+  "payloadFiles": 18,
+  "actualExecution": false,
+  "executionAuthorization": false
+}

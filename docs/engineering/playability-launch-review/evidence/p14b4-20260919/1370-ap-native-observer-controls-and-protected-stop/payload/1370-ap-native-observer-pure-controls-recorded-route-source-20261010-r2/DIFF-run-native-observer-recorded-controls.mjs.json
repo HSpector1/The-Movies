@@ -1,0 +1,110 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/BASELINE-run-observer-row-recorded-controls.mjs",
+    "bytes": 13541,
+    "sha256": "c819ea3777bfbc073a9b6795794e00dad8b2942106e13b2295b55e860cf492f6"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/run-native-observer-recorded-controls.mjs",
+    "bytes": 15924,
+    "sha256": "8b83d33cc3bd822a166694b09c5da1d2efe04d4a34bde03688a5fc3ea36b0ad4"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 500,
+      "old": "const CONFIG_SHA='ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa'\n",
+      "newStart": 500,
+      "new": "const CONFIG_SHA='8a14c244e10da3a7a9994ca4e3707a74f9e6ecf1b374aa9763cdf54fcfd8ca42'\n"
+    },
+    {
+      "oldStart": 2399,
+      "old": "assert.equal(grant.schema,'1370-root-observer-row-diagnostic-pure-controls-once-grant/v1')\n",
+      "newStart": 2399,
+      "new": "assert.equal(grant.schema,'1370-root-native-observer-pure-controls-once-grant/v1')\n"
+    },
+    {
+      "oldStart": 2620,
+      "old": "assert.equal(grant.scope,'PURE_PUBLIC_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_ONLY')\n",
+      "newStart": 2612,
+      "new": "assert.equal(grant.scope,'PURE_PUBLIC_NATIVE_OBSERVER_CONTROLS_ONLY')\n"
+    },
+    {
+      "oldStart": 2819,
+      "old": "assert.equal(config.schema,'1370-observer-row-diagnostic-pure-controls-recorded-config/v1');assert.equal(config.executionAuthorization,false)\n",
+      "newStart": 2803,
+      "new": "assert.equal(config.schema,'1370-native-observer-pure-controls-recorded-config/v1');assert.equal(config.executionAuthorization,false)\n"
+    },
+    {
+      "oldStart": 3199,
+      "old": "assert.equal(review.schema,'1370-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review/v1')\nassert.equal(review.decision,'ACCEPT_STATIC_OBSERVER_ROW_DIAGNOSTIC_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY')\n",
+      "newStart": 3175,
+      "new": "assert.equal(review.schema,'1370-native-observer-pure-controls-recorded-route-independent-source-review/v1')\nassert.equal(review.decision,'ACCEPT_STATIC_NATIVE_OBSERVER_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY')\n"
+    },
+    {
+      "oldStart": 3617,
+      "old": "assert.equal(manifest.schema,'1370-observer-row-diagnostic-pure-controls-recorded-route-source-pins/v1');assert.equal(manifest.executionAuthorization,false)\n",
+      "newStart": 3577,
+      "new": "assert.equal(manifest.schema,'1370-native-observer-pure-controls-recorded-route-source-pins/v1');assert.equal(manifest.executionAuthorization,false)\n"
+    },
+    {
+      "oldStart": 3916,
+      "old": "const selfrole=manifest.files['run-observer-row-recorded-controls.mjs'];assert.equal(selfrole.path,fileURLToPath(import.meta.url))\n",
+      "newStart": 3868,
+      "new": "const selfrole=manifest.files['run-native-observer-recorded-controls.mjs'];assert.equal(selfrole.path,fileURLToPath(import.meta.url))\n"
+    },
+    {
+      "oldStart": 4542,
+      "old": "assert.equal(implementationReview.schema,'1370-observer-row-diagnostic-independent-source-review/v1')\n",
+      "newStart": 4497,
+      "new": "assert.equal(implementationReview.schema,'1370-native-observer-implementation-independent-source-review/v1')\n"
+    },
+    {
+      "oldStart": 5037,
+      "old": "assert.equal(controlsReview.schema,'1370-observer-row-diagnostic-independent-controls-source-review/v1')\n",
+      "newStart": 4999,
+      "new": "assert.equal(controlsReview.schema,'1370-native-observer-independent-controls-source-review/v1')\n"
+    },
+    {
+      "oldStart": 5988,
+      "old": "assert.equal(design.schema,'1370-root-observer-row-diagnostic-design-adoption/v1')\nassert.equal(design.status,'ROOT_ADOPTED_BOUNDED_FIRST_REFUSED_OBSERVER_ROW_DIAGNOSTIC_DESIGN_ONLY')\nassert.equal(design.executionAuthorization,false);assert.equal(design.sourcePreparationAuthorized,true)\n",
+      "newStart": 5942,
+      "new": "assert.equal(design.schema,'1370-root-native-canonical-observer-design-adoption/v1')\nassert.equal(design.status,'ROOT_ADOPTED_EXPLICIT_NATIVE_CANONICAL_REPRESENTATION_AND_ACCOUNTING_AMENDMENT_SOURCE_ONLY')\nassert.equal(design.executionAuthorization,false);assert.equal(design.publicSourcePreparationAuthorized,true)\n"
+    },
+    {
+      "oldStart": 6504,
+      "old": "assert.equal(adoption.schema,'1370-root-observer-row-diagnostic-implementation-controls-source-adoption/v1')\nassert.equal(adoption.status,'ROOT_ADOPTED_OBSERVER_ROW_DIAGNOSTIC_IMPLEMENTATION_AND_CONTROLS_SOURCE_ONLY')\n",
+      "newStart": 6486,
+      "new": "assert.equal(adoption.schema,'1370-root-native-observer-implementation-controls-source-adoption/v1')\nassert.equal(adoption.status,'ROOT_ADOPTED_NATIVE_OBSERVER_IMPLEMENTATION_AND_CONTROLS_SOURCE_ONLY')\n"
+    },
+    {
+      "oldStart": 7082,
+      "old": "assert.deepEqual(adoption.rootDesignAdoption,config.rootDesignAdoption);assert.deepEqual(adoption.api,config.api)\n",
+      "newStart": 7048,
+      "new": "assert.deepEqual(adoption.rootDesignAdoption,config.rootDesignAdoption);assert.deepEqual(adoption.api,config.api);assert.deepEqual(adoption.apiAdoption,config.apiAdoption);assert.deepEqual(adoption.supplementAdoption,config.supplementAdoption)\n"
+    },
+    {
+      "oldStart": 7887,
+      "old": "assert.deepEqual(contract.api,config.api);assert.deepEqual(contract.implementationSourcePins,config.implementationSourcePins)\nassert.deepEqual(contract.dependencyRoles['m0ObserverRowDiagnostic.mjs'],config.inputs['m0ObserverRowDiagnostic.mjs'])\nassert.deepEqual(contract.dependencyRoles['m0FeasibilityWitness.ts'],config.inputs['m0FeasibilityWitness.ts'])\nassert.deepEqual(contract.dependencyRoles['CONTRACT.json'],implementationManifest.files['CONTRACT.json'])\nconst implementationContract=json(contract.dependencyRoles['CONTRACT.json'])\nassert.deepEqual(contract.diagnosticOnlyBounds,implementationContract.diagnosticOnlyBounds)\nassert.equal(contract.caseCount,config.caseCount);assert.equal(contract.positiveCount,config.positiveCount);assert.equal(contract.specificNegativeCount,config.specificNegativeCount)\n",
+      "newStart": 7983,
+      "new": "assert.deepEqual(contract.authorities.api,config.api);assert.deepEqual(contract.authorities.implementationSourceManifest,config.implementationSourcePins)\nfor(const [name,r] of Object.entries(contract.requiredInputs)){\n if(config.inputs[name])assert.deepEqual(r,config.inputs[name]);pinned(r)\n}\nconst ii=json(config.implementationInterface);assert.deepEqual(ii.physicalCaps,{count:512,rowIncludingNewline:16384,totalIncludingNewlines:2097152})\nconst apiAdoption=json(config.apiAdoption),supplement=json(config.supplementAdoption)\nassert.deepEqual(config.apiAdoption,grant.apiAdoption);assert.deepEqual(config.supplementAdoption,grant.supplementAdoption)\nassert.equal(apiAdoption.schema,'1370-root-native-observer-api-adoption/v1');assert.equal(apiAdoption.executionAuthorization,false)\nassert.deepEqual(apiAdoption.api,config.api);assert.deepEqual(apiAdoption.rootDesignAdoption,config.rootDesignAdoption)\nassert.equal(supplement.executionAuthorization,false);assert.equal(supplement.schema,'1370-root-diagnostic-codec-supplement-adoption/v1');assert.equal(supplement.status,'ROOT_ADOPTED_BOUNDED_DIAGNOSTIC_CODEC_SUPPLEMENT_FOR_PUBLIC_IMPLEMENTATION');assert.deepEqual(supplement.apiAdoption,config.apiAdoption)\nconst originalPins=json(config.originalWitnessSourcePins),originalRole=config.inputs['original-m0FeasibilityWitness.ts'];assert.deepEqual(implementationManifest.files['BASELINE-m0FeasibilityWitness.ts'],originalRole);assert.equal(originalPins.files['m0FeasibilityWitness.ts'].bytes,originalRole.bytes);assert.equal(originalPins.files['m0FeasibilityWitness.ts'].sha256,originalRole.sha256);pinned(originalPins.files['m0FeasibilityWitness.ts'])\nassert.equal(contract.result.caseCount,config.caseCount);assert.equal(contract.result.positiveCount,config.positiveCount);assert.equal(contract.result.specificNegativeCount,config.specificNegativeCount)\n"
+    },
+    {
+      "oldStart": 9815,
+      "old": "for(const name of ['m0ObserverRowDiagnostic.mjs','run-observer-row-controls.mjs']){\n const code=utf8(inputs[name])\n const specs=[...code.matchAll(/(?:\\bfrom\\s*|\\bimport\\s*)(['\"])([^'\"]+)\\1/g)].map(m=>m[2])\n assert.deepEqual(specs,name==='m0ObserverRowDiagnostic.mjs'?[]:['node:assert/strict'],'exact copied pure graph')\n assert.ok(!/\\bimport\\s*\\(/.test(code),'no dynamic copied dependency')\n",
+      "newStart": 10956,
+      "new": "const graph={\n 'm0NativeObserverRows.mjs':[], 'm0ObserverRowDiagnostic.mjs':['./m0NativeObserverRows.mjs'],\n 'run-native-observer-controls.mjs':['node:assert/strict'],\n 'm0TraceCodec.mjs':['node:zlib','node:assert/strict'], 'traceSequences.mjs':[]\n}\nfor(const name of Object.keys(graph)){\n const code=utf8(inputs[name]),specs=[...code.matchAll(/(?:\\bfrom\\s*|\\bimport\\s*)(['\"])([^'\"]+)\\1/g)].map(m=>m[2])\n assert.deepEqual(specs,graph[name],'exact copied pure graph');assert.ok(!/\\bimport\\s*\\(/.test(code))\n"
+    },
+    {
+      "oldStart": 10313,
+      "old": "const transformed=ts.transpileModule(utf8(inputs['m0FeasibilityWitness.ts']),{fileName:'m0FeasibilityWitness.ts',reportDiagnostics:true,compilerOptions:{module:ts.ModuleKind.ES2022,target:ts.ScriptTarget.ES2022,sourceMap:false,inlineSourceMap:false}})\nassert.deepEqual((transformed.diagnostics??[]).filter(d=>d.category===ts.DiagnosticCategory.Error),[],'compiler transform errors never expected RED')\nconst code=transformed.outputText\nassert.deepEqual([...code.matchAll(/(?:\\bfrom\\s*|\\bimport\\s*)(['\"])([^'\"]+)\\1/g)].map(m=>m[2]),[],'witness has no runtime dependencies')\nassert.ok(!/\\bimport\\s*\\(/.test(code),'no dynamic emitted dependency')\ngenerated['m0FeasibilityWitness.ts']=write(path.join(config.outputPath,'m0FeasibilityWitness.mjs'),Buffer.from(code,'utf8'),config.bounds.compiledModuleBytes)\nconst diagnostic=await import(pathToFileURL(path.join(config.outputPath,'m0ObserverRowDiagnostic.mjs')).href)\nconst witness=await import(pathToFileURL(path.join(config.outputPath,'m0FeasibilityWitness.mjs')).href)\nconst controls=await import(pathToFileURL(path.join(config.outputPath,'run-observer-row-controls.mjs')).href)\nconst report=controls.runObserverRowDiagnosticControls({createObserverRowDiagnostic:diagnostic.createObserverRowDiagnostic,createM0FeasibilitySink:witness.createM0FeasibilitySink,runObserverArm:diagnostic.runObserverArm})\nassert.equal(report.schema,contract.output.schema);assert.equal(report.status,contract.output.status)\nassert.equal(report.executionAuthorization,false);assert.equal(report.game,false);assert.equal(report.privateM0ReadOrWritten,false);assert.equal(report.fullQualificationAccepted,false)\nassert.equal(report.caseCount,config.caseCount);assert.equal(report.positiveCount,config.positiveCount);assert.equal(report.specificNegativeCount,config.specificNegativeCount)\n",
+      "newStart": 11569,
+      "new": "const compiledGraph={\n 'original-m0FeasibilityWitness.ts':[], 'm0FeasibilityWitness-native.ts':['./m0NativeObserverRows.mjs'],\n 'ordering.ts':['node:assert/strict','./traceSequences.mjs'],\n 'ordering-source-controls.ts':['./m0NativeObserverRows.mjs','node:assert/strict','./m0TraceCodec.mjs','./ordering.mjs']\n}\nfor(const [name,specs]of Object.entries(compiledGraph)){\n let source=utf8(inputs[name]);if(name==='ordering-source-controls.ts'){\n  assert.equal(source.split(\"'./ordering.js'\").length-1,1);source=source.replace(\"'./ordering.js'\",\"'./ordering.mjs'\")\n }\n const transformed=ts.transpileModule(source,{fileName:name,reportDiagnostics:true,compilerOptions:{module:ts.ModuleKind.ES2022,target:ts.ScriptTarget.ES2022,sourceMap:false,inlineSourceMap:false}})\n assert.deepEqual((transformed.diagnostics??[]).filter(d=>d.category===ts.DiagnosticCategory.Error),[],'compiler errors never RED')\n const code=transformed.outputText;assert.deepEqual([...code.matchAll(/(?:\\bfrom\\s*|\\bimport\\s*)(['\"])([^'\"]+)\\1/g)].map(m=>m[2]),specs);assert.ok(!/\\bimport\\s*\\(/.test(code))\n generated[name]=write(path.join(config.outputPath,name.replace(/\\.ts$/,'.mjs')),Buffer.from(code,'utf8'),config.bounds.compiledModuleBytes)\n}\nconst module=async n=>await import(pathToFileURL(path.join(config.outputPath,n)).href)\nconst codec=await module('m0NativeObserverRows.mjs'),diagnostic=await module('m0ObserverRowDiagnostic.mjs'),witness=await module('m0FeasibilityWitness-native.mjs'),original=await module('original-m0FeasibilityWitness.mjs'),ordering=await module('ordering.mjs'),orderingControls=await module('ordering-source-controls.mjs'),controls=await module('run-native-observer-controls.mjs')\nconst report=controls.runNativeObserverControls({createObserverFailureLatch:codec.createObserverFailureLatch,createNativeRowCodec:codec.createNativeRowCodec,NativeObserverFormatError:codec.NativeObserverFormatError,createM0FeasibilitySink:witness.createM0FeasibilitySink,originalCreateM0FeasibilitySink:original.createM0FeasibilitySink,createObserverRowDiagnostic:diagnostic.createObserverRowDiagnostic,runObserverArm:diagnostic.runObserverArm,assertNativeEvaluationBinding:ordering.assertNativeEvaluationBinding,runOrderingSourceControls:orderingControls.runOrderingSourceControls,orderingPacket:JSON.parse(utf8(inputs['ORDERING-SOURCE-CASES.json']))})\nassert.equal(report.schema,contract.result.schema);assert.equal(report.status,contract.result.status)\nassert.equal(report.executionAuthorization,false);assert.equal(report.game,false);assert.equal(report.originalM0ReadOrWritten,false)\nassert.equal(report.caseCount,config.caseCount);assert.equal(report.originalOrderingCases,18);assert.equal(report.results.length,config.caseCount);assert.equal(report.positiveCount,config.positiveCount);assert.equal(report.specificNegativeCount,config.specificNegativeCount)\n"
+    },
+    {
+      "oldStart": 12909,
+      "old": "const final={...report,sourceReview:grant.sourceReview,sourceManifest:grant.sourcePins,implementationSourcePins:config.implementationSourcePins,implementationSourceReview:config.implementationSourceReview,controlsSourcePins:config.controlsSourcePins,controlsSourceReview:config.controlsSourceReview,rootDesignAdoption:config.rootDesignAdoption,inputRoles:config.inputs,runtimeTools:grant.runtimeTools,generatedModules:generated,grantSha256:sha(gb)}\n",
+      "newStart": 15199,
+      "new": "const final={...report,caseCount:report.results.length,privateM0ReadOrWritten:false,fullQualificationAccepted:false,sourceReview:grant.sourceReview,sourceManifest:grant.sourcePins,implementationSourcePins:config.implementationSourcePins,implementationSourceReview:config.implementationSourceReview,controlsSourcePins:config.controlsSourcePins,controlsSourceReview:config.controlsSourceReview,rootDesignAdoption:config.rootDesignAdoption,inputRoles:config.inputs,runtimeTools:grant.runtimeTools,generatedModules:generated,grantSha256:sha(gb)}\n"
+    }
+  ]
+}

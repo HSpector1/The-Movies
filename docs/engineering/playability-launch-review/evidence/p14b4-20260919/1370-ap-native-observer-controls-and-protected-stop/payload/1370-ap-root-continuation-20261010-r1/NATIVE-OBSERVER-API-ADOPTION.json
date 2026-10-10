@@ -1,0 +1,51 @@
+{
+  "api": {
+    "bytes": 8118,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/API.md",
+    "sha256": "3da98803fc94b4beeb4e37d6aa01a4ccd266a12ac123df9746cc21d12b1fc9fa"
+  },
+  "contract": {
+    "bytes": 896,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/CONTRACT.json",
+    "sha256": "67d656c86a453c81447d45565ca1fca3c0fc7b13457afcaa98316a1965aab047"
+  },
+  "decisions": [
+    "Use one shared chronological first-error latch with explicit presence and immutable bounded physical prior snapshots; ordinary empty-latch cleanup precedence unchanged.",
+    "Original known-no-fit native sink row refusal and COUNT/ROW/TOTAL order remain distinct from direct codec work-bound failure.",
+    "First native operational error emits no row diagnostic even if later row refusal occurs.",
+    "Original independent market recorder, single-use fault restoration and exact30-byte typed-catch mutant remain unchanged."
+  ],
+  "executionAuthorization": false,
+  "fullQualificationAccepted": false,
+  "game": false,
+  "implementationAuthorized": true,
+  "implementationReviewer": "/root/b109_focused_route_review",
+  "independentReview": {
+    "bytes": 9336,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-independent-review-20261010-r1/RECEIPT.json",
+    "sha256": "329452f774cd32baf5e0d760dc85c0b3f8653fa95a90f5fc724f0a7b8e048e88"
+  },
+  "independentSpecificControlWriter": "/root/cleanup_independent_red",
+  "independentSpecificControlsAuthorized": true,
+  "limits": "Source work only. Exact source/control reviews and root adoption precede actual recorded controls. Actual native fit and fullfunction qualification remain unmeasured.",
+  "productionHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "productionMutationAuthorized": false,
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "publicImplementationWriter": "/root/m0_types_source_review",
+  "requiredControlCriteria": [
+    "Use implemented latch/codec/native witness/diagnostic/shared helper and original public67ff oracle; no fullgame/private import or handwritten arm-copy proof.",
+    "Positive full rich canonical roundtrip including Unicode/escapes/native numeric/omission semantics and exact digest/evaluation projection; one meaningful native-fit/legacy-over16KiB GREEN with derived-view inequality.",
+    "Specific malformed/key/tag/lexical-roundtrip/inputBytes/digest/context/source/order/multiplicity refusals; no arbitrary exception accepted as expected RED.",
+    "Exact physical count512/513, row16384/16385 and aggregate2097152 accounting including newline/new tag/framing; count preempts malformed/overbound input, original row preempts native parse for known no-fit, refused append state unchanged.",
+    "Shared first E swallowed-return or E then F, newly swallowed cleanup E, failing end/reset/write and explicit falsy throws; both cleanup attempts and original empty-latch precedence; fresh-arm isolation.",
+    "Snapshot failure exact operational E/no-record; immutable physical prior snapshot produces available native ROW metadata despite sticky rows refusal, while first native operational failure produces zero row emissions.",
+    "Original18 affected ordering predicates on actual migrated consumer, all affected diagnostic predicates under new physical encoder, exact30-byte market mutant preserved; unchanged parser/helper codec tests need no automatic replay."
+  ],
+  "rootDesignAdoption": {
+    "bytes": 3376,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+    "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+  },
+  "schema": "1370-root-native-observer-api-adoption/v1",
+  "status": "ROOT_ADOPTED_FINAL_NATIVE_OBSERVER_API_FOR_PUBLIC_IMPLEMENTATION_AND_INDEPENDENT_CONTROLS"
+}

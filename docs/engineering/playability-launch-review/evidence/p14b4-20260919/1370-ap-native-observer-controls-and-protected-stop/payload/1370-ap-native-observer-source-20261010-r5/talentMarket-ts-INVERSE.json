@@ -1,0 +1,32 @@
+[
+  {
+    "start": 0,
+    "end": 91,
+    "expected": "import {createObserverFailureLatch,createNativeRowCodec} from './m0NativeObserverRows.mjs'\n",
+    "replacement": ""
+  },
+  {
+    "start": 2722,
+    "end": 2874,
+    "expected": "import { createM0FeasibilitySink } from './m0FeasibilityWitness-native.js'\nimport type { M0FeasibilityCapture } from './m0FeasibilityWitness-native.js'\n",
+    "replacement": "import { createM0FeasibilitySink } from './m0FeasibilityWitness.js'\nimport type { M0FeasibilityCapture } from './m0FeasibilityWitness.js'\n"
+  },
+  {
+    "start": 82359,
+    "end": 82998,
+    "expected": "let observerLatch = createObserverFailureLatch()\nlet nativeRowCodec = createNativeRowCodec({latch:observerLatch})\nlet observerRowDiagnostic = createObserverRowDiagnostic({codec:nativeRowCodec,latch:observerLatch})\nlet m0FeasibilitySink = createM0FeasibilitySink({codec:nativeRowCodec,latch:observerLatch})\nfunction resetNativeObserverArm():void {\n  observerLatch=createObserverFailureLatch()\n  nativeRowCodec=createNativeRowCodec({latch:observerLatch})\n  observerRowDiagnostic=createObserverRowDiagnostic({codec:nativeRowCodec,latch:observerLatch})\n  m0FeasibilitySink=createM0FeasibilitySink({codec:nativeRowCodec,latch:observerLatch})\n}\n",
+    "replacement": "const observerRowDiagnostic = createObserverRowDiagnostic()\nlet m0FeasibilitySink = createM0FeasibilitySink()\n"
+  },
+  {
+    "start": 83101,
+    "end": 83191,
+    "expected": "  m0FeasibilitySink = createM0FeasibilitySink({codec:nativeRowCodec,latch:observerLatch})\n",
+    "replacement": "  m0FeasibilitySink = createM0FeasibilitySink()\n"
+  },
+  {
+    "start": 119014,
+    "end": 119335,
+    "expected": "export const m0WiringTestApi = Object.freeze({M0ObserverError,authorRivalPromise,settleCase,\n  get observerRowDiagnostic(){return observerRowDiagnostic},\n  get nativeRowCodec(){return nativeRowCodec},\n  reset: (): void => {try{drainM0MarketDecisionRows()}finally{observerRowDiagnostic.reset();resetNativeObserverArm()}},\n",
+    "replacement": "export const m0WiringTestApi = Object.freeze({M0ObserverError,authorRivalPromise,settleCase,observerRowDiagnostic,\n  reset: (): void => {try{drainM0MarketDecisionRows();drainM0FeasibilityRows()}finally{observerRowDiagnostic.reset()}},\n"
+  }
+]

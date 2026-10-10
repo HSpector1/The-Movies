@@ -1,0 +1,3 @@
+/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/record-native-observer-controls.py:259: SyntaxWarning: 'return' in a 'finally' block
+  return code
+{"status": "NATIVE_OBSERVER_PURE_CONTROLS_COMPLETE_UNADOPTED", "output": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorder-results-20261010-r1", "actualChildExit": 0, "groupClear": true}

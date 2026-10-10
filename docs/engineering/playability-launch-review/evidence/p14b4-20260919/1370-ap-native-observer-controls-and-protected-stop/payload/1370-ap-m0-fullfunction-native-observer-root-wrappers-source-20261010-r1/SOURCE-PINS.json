@@ -1,0 +1,46 @@
+{
+  "schema": "1370-fullfunction-root-wrappers-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-run_observer_fullfunction_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r1/BASELINE-run_observer_fullfunction_once.py",
+      "bytes": 9863,
+      "sha256": "aa731bd4edf1a8509af559cb8ca0261cda655e87e4e86a013ad9f5be2dddff1b"
+    },
+    "BASELINE-run_observer_reader_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r1/BASELINE-run_observer_reader_once.py",
+      "bytes": 2604,
+      "sha256": "80e0ae126fdbf54f95d709552c9e9263223dd89b19e85c551a840a2027bffb68"
+    },
+    "DIFF-run_observer_fullfunction_once.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r1/DIFF-run_observer_fullfunction_once.py.json",
+      "bytes": 12230,
+      "sha256": "4224a7cb1dce678766cc420e147e5a9623d87661080740ba790baa9c19d2fb70"
+    },
+    "DIFF-run_observer_reader_once.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r1/DIFF-run_observer_reader_once.py.json",
+      "bytes": 2681,
+      "sha256": "d13a8e89c6360759042bd2f7aa703ed7624da0da3e2ffcdfbd9b7cd1fd875189"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r1/RECIPE.json",
+      "bytes": 2036,
+      "sha256": "5140d8b2db0180d23ef910763fc72a012bd3361d29ce4eaedb33609762912528"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r1/SOURCE-PROOF.json",
+      "bytes": 1692,
+      "sha256": "4d35a7d8d1530c964273c019b0f80fc7dd1a9161a60c47cd6b47a5b99d30e34b"
+    },
+    "run_observer_fullfunction_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py",
+      "bytes": 10536,
+      "sha256": "ca18d0fbf36688eb5a02ec2bb0dfead3826f8de2cde4c92597b09b44166b7984"
+    },
+    "run_observer_reader_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r1/run_observer_reader_once.py",
+      "bytes": 2588,
+      "sha256": "ef7b4920278e8c497dc0bb23df8184ef0371c3ad72388b4c5f76903b60d2d81c"
+    }
+  }
+}

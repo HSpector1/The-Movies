@@ -1,0 +1,344 @@
+{
+  "schema": "1370-fullfunction-qualification-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "AUTHOR-PREPARATION-NOTES.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/AUTHOR-PREPARATION-NOTES.md",
+      "bytes": 635,
+      "sha256": "a06d07f48c3ad70e58745390d8d15245e69976eb7cfd7c1fac1c65fef3f5d7d4"
+    },
+    "BASELINE-CONFIG-TEMPLATE.mts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/BASELINE-CONFIG-TEMPLATE.mts",
+      "bytes": 1152,
+      "sha256": "e6f924fc6ebc039591d618283c2f131510c17aad4d9c8fd8e82ebb8f71893392"
+    },
+    "BASELINE-CONFIG.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/BASELINE-CONFIG.json",
+      "bytes": 20709,
+      "sha256": "596a893e476e77b8d87c1704b90ac5048b1f66611f61cdf3154ab6072ff27f5b"
+    },
+    "BASELINE-CORE-TEST-TEMPLATE.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/BASELINE-CORE-TEST-TEMPLATE.ts",
+      "bytes": 3955,
+      "sha256": "9edd558ed1f0e60e3f9459490485bf7a8ecf3ef46c0401bd2c26c54e64f7cf0e"
+    },
+    "BASELINE-RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/BASELINE-RECIPE.json",
+      "bytes": 30766,
+      "sha256": "f658029723f414c99bbda746b83a832237cbc77fa981fb20ba1952954afdb1d6"
+    },
+    "BASELINE-RESOLUTION-SOURCE-BINDING.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/BASELINE-RESOLUTION-SOURCE-BINDING.json",
+      "bytes": 77648,
+      "sha256": "a3aad69f006122b9dc4043ec673928cfcaf5ed186f5281820f2a72d1162d94f2"
+    },
+    "BASELINE-canonical-typescript-transform.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/BASELINE-canonical-typescript-transform.mjs",
+      "bytes": 1906,
+      "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+    },
+    "BASELINE-record-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/BASELINE-record-fullfunction.py",
+      "bytes": 16760,
+      "sha256": "c6e16e50f2f7eeca54c3275086774396d3d6ca7bd85ccf74d989408e19850cbb"
+    },
+    "BASELINE-run-fullfunction.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/BASELINE-run-fullfunction.mjs",
+      "bytes": 32174,
+      "sha256": "61d33f3de4e6734bd706b5f60d79dfa287c24f3db089d2e1c4326df8dd771c5e"
+    },
+    "BASELINE-run-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/BASELINE-run-fullfunction.py",
+      "bytes": 28847,
+      "sha256": "72b3e941c9f941785233367565badc0a2dc674e056878e8d1b008c80ac54e346"
+    },
+    "CONFIG-DRAFT-UNFILLED.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CONFIG-DRAFT-UNFILLED.json",
+      "bytes": 25469,
+      "sha256": "8c9a79c9472697e151fcde9c8d82c314ea292a49fed037adfc537e8cdfcaac21"
+    },
+    "CONFIG-TEMPLATE.mts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CONFIG-TEMPLATE.mts",
+      "bytes": 1144,
+      "sha256": "d5441dd9caa89530c41cdd8716573f33fc1d5356571fa7b2e78b2b762d6b9da3"
+    },
+    "CONFIG.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CONFIG.json",
+      "bytes": 25680,
+      "sha256": "c47ad11df9021afd55694994ca7a116ee12cedac5fd781d364947929b168ad9e"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CORE-TEST-TEMPLATE.ts",
+      "bytes": 3955,
+      "sha256": "aa8af512e76af8fecef51f6c8f118d71b0c6c05dcf43c6e434148a6ce89ce00a"
+    },
+    "DIFF-CONFIG-TEMPLATE.mts.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/DIFF-CONFIG-TEMPLATE.mts.json",
+      "bytes": 1005,
+      "sha256": "5836d43df1f184e32d6a825490fe34a7ff190412ea617beab113923c7a74cfc2"
+    },
+    "DIFF-CONFIG.json.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/DIFF-CONFIG.json.json",
+      "bytes": 25383,
+      "sha256": "5cf87eb2f4a0cae9f4338bdbede7b15102bdbae247b78cbccb3a6656d562306e"
+    },
+    "DIFF-CORE-TEST-TEMPLATE.ts.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/DIFF-CORE-TEST-TEMPLATE.ts.json",
+      "bytes": 813,
+      "sha256": "36950d45e544c9e0c03e6979569acca7efeb51f83de95bd99dc3dd278d34453c"
+    },
+    "DIFF-RECIPE.json.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/DIFF-RECIPE.json.json",
+      "bytes": 37484,
+      "sha256": "143950e6023d6ae41730fef7766efc42ee953604b79addb4d1723a3036367e5f"
+    },
+    "DIFF-RESOLUTION-SOURCE-BINDING.json.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/DIFF-RESOLUTION-SOURCE-BINDING.json.json",
+      "bytes": 2934,
+      "sha256": "195c963e80337809d88f069140ca89d2e5722c03d32b28a20a2533cd7aa9737c"
+    },
+    "DIFF-canonical-typescript-transform.mjs.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/DIFF-canonical-typescript-transform.mjs.json",
+      "bytes": 579,
+      "sha256": "ffb30472c9cd0b4c3588b60c26ea861eb8f6ac5af62352dfd854d8e2dba65956"
+    },
+    "DIFF-record-fullfunction.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/DIFF-record-fullfunction.py.json",
+      "bytes": 1273,
+      "sha256": "68c0d08f7590da3244a695a7e56337069b0f80dfb28ffeb89a90a648af04b10e"
+    },
+    "DIFF-run-fullfunction.mjs.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/DIFF-run-fullfunction.mjs.json",
+      "bytes": 12890,
+      "sha256": "f9a1b198209e37085e3649fcc4a8f75dffbb1fb3b0e622be7a7834eda08f3b29"
+    },
+    "DIFF-run-fullfunction.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/DIFF-run-fullfunction.py.json",
+      "bytes": 13320,
+      "sha256": "e1f8789ad23050bc68fe6c67e685d3d1053834b0ae3e003277544274e1e5e1d0"
+    },
+    "FINAL-OPERATIVE-BINDING-AUDIT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/FINAL-OPERATIVE-BINDING-AUDIT.json",
+      "bytes": 3637,
+      "sha256": "ad6c375b9b0b6a2763e3b56d410ceff4a63461248479156bf3e85f8e54ca5963"
+    },
+    "FINITE-CHANGED-IMPORT-GRAPH.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/FINITE-CHANGED-IMPORT-GRAPH.json",
+      "bytes": 44793,
+      "sha256": "9f2ad0d5487519e86cd96905063e1d2eb82abb86c7aaf92f1547bd2ab3ea48af"
+    },
+    "LESSONS.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/LESSONS.md",
+      "bytes": 1233,
+      "sha256": "eb75286e90004f54fc27976194ce30518170ac0acad67f4894b198c452199bda"
+    },
+    "PREPARATION.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/PREPARATION.md",
+      "bytes": 1186,
+      "sha256": "323c155e060719d6b5fa4a8e266dae0a8a0c5b2bb123fd245f6227b9c2757c4f"
+    },
+    "R1-BASELINE-CONFIG-TEMPLATE.mts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-BASELINE-CONFIG-TEMPLATE.mts",
+      "bytes": 1144,
+      "sha256": "cec263a2941b55eafca3e2f656bea2266c23ca5a7948235333024f2a4333e59d"
+    },
+    "R1-BASELINE-CONFIG.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-BASELINE-CONFIG.json",
+      "bytes": 25680,
+      "sha256": "ffd5d7e59fd222f01dc3002cdac9065fd66557dcf9cd75d190db3b6ac0bdf717"
+    },
+    "R1-BASELINE-CORE-TEST-TEMPLATE.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-BASELINE-CORE-TEST-TEMPLATE.ts",
+      "bytes": 3955,
+      "sha256": "aa8af512e76af8fecef51f6c8f118d71b0c6c05dcf43c6e434148a6ce89ce00a"
+    },
+    "R1-BASELINE-RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-BASELINE-RECIPE.json",
+      "bytes": 37775,
+      "sha256": "dce007a66d4aa91007466ff4efb7108d3151cf258bb821fcf6b27bcd7e0259b9"
+    },
+    "R1-BASELINE-RESOLUTION-SOURCE-BINDING.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-BASELINE-RESOLUTION-SOURCE-BINDING.json",
+      "bytes": 78189,
+      "sha256": "f611b2042a7cb86bc4f473b05c8a05149839eb020e8c043b1d9039830ff99a74"
+    },
+    "R1-BASELINE-canonical-typescript-transform.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-BASELINE-canonical-typescript-transform.mjs",
+      "bytes": 1906,
+      "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+    },
+    "R1-BASELINE-record-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-BASELINE-record-fullfunction.py",
+      "bytes": 16752,
+      "sha256": "0a8a59d8b8ff65c305bf1a16bafa94dea67547db094f62c9eda8192124241579"
+    },
+    "R1-BASELINE-run-fullfunction.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-BASELINE-run-fullfunction.mjs",
+      "bytes": 33325,
+      "sha256": "d593f75957ac998e5058af57a2c857312c829e40d56772b89f90b005ae70bbfb"
+    },
+    "R1-BASELINE-run-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-BASELINE-run-fullfunction.py",
+      "bytes": 30017,
+      "sha256": "c499b09d706f1954d9645943aaa8ce09f8d61b7286c1a6133cd3513ffbcb5412"
+    },
+    "R1-DIFF-CONFIG-TEMPLATE.mts.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-DIFF-CONFIG-TEMPLATE.mts.json",
+      "bytes": 1000,
+      "sha256": "d743c095521a5c22874835bf5816ad3a5749aa1b9aee25429e9846ed64b56eef"
+    },
+    "R1-DIFF-CONFIG.json.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-DIFF-CONFIG.json.json",
+      "bytes": 2352,
+      "sha256": "9c840ad09c8cd178b9bb75236351723b7551baca55efbc2c3a6d806890990aa4"
+    },
+    "R1-DIFF-CORE-TEST-TEMPLATE.ts.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-DIFF-CORE-TEST-TEMPLATE.ts.json",
+      "bytes": 556,
+      "sha256": "629668310e97ff8af0c9b50e501b2886460f3618b27d6f72b273c2741e58a3ec"
+    },
+    "R1-DIFF-RECIPE.json.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-DIFF-RECIPE.json.json",
+      "bytes": 18991,
+      "sha256": "2457c02db102dc557c16350a3cf797fae7d824b5866cadc3bc67b0ecd1e33fdc"
+    },
+    "R1-DIFF-RESOLUTION-SOURCE-BINDING.json.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-DIFF-RESOLUTION-SOURCE-BINDING.json.json",
+      "bytes": 576,
+      "sha256": "c0181cb6ca20b8351fd0623b4f7e4686e691c5238381359e279f52f44837b263"
+    },
+    "R1-DIFF-canonical-typescript-transform.mjs.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-DIFF-canonical-typescript-transform.mjs.json",
+      "bytes": 582,
+      "sha256": "23a96477454f6b0b09aeda7d17320618db8c98b7c894a067adaee7c71e21498a"
+    },
+    "R1-DIFF-record-fullfunction.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-DIFF-record-fullfunction.py.json",
+      "bytes": 1058,
+      "sha256": "ca6d8108ef736e48f2aea6feff3e3065202b9ea5d8236b9c5f144ee922767a74"
+    },
+    "R1-DIFF-run-fullfunction.mjs.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-DIFF-run-fullfunction.mjs.json",
+      "bytes": 822,
+      "sha256": "0bb88b653ba723c1c49ca4a0994da30209a34524e0955b7134ad11bc60709a25"
+    },
+    "R1-DIFF-run-fullfunction.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-DIFF-run-fullfunction.py.json",
+      "bytes": 806,
+      "sha256": "c4fda0fba3ea27d6e75c4daefe619556993331373bcaef655a644fca14933e1c"
+    },
+    "R1-RECIPE-STOP.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-RECIPE-STOP.json",
+      "bytes": 459,
+      "sha256": "3ceb9208fac599f7e66cfe5ff236b4dbb989fb775c25bc078d05e2fdcb011ac3"
+    },
+    "READY-FOR-ACTUAL-ROLE-FILL.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/READY-FOR-ACTUAL-ROLE-FILL.json",
+      "bytes": 1036,
+      "sha256": "1fc670ef82b49199a12abb20d90644dfa1c12abcc2636f7c9aaae9fd3f78e3d4"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/RECIPE.json",
+      "bytes": 37643,
+      "sha256": "5039a6ba2d502744029d00013374a6f1791280cad8849177bd850b73f1c15838"
+    },
+    "RESOLUTION-SOURCE-BINDING-DRAFT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/RESOLUTION-SOURCE-BINDING-DRAFT.json",
+      "bytes": 78189,
+      "sha256": "f611b2042a7cb86bc4f473b05c8a05149839eb020e8c043b1d9039830ff99a74"
+    },
+    "RESOLUTION-SOURCE-BINDING.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/RESOLUTION-SOURCE-BINDING.json",
+      "bytes": 78189,
+      "sha256": "f611b2042a7cb86bc4f473b05c8a05149839eb020e8c043b1d9039830ff99a74"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/SOURCE-PROOF.json",
+      "bytes": 5755,
+      "sha256": "e5044b722466231bba6d4ac9f13a00ab20ef79b711850aafb6aaaa377bfdfa28"
+    },
+    "canonical-typescript-transform.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/canonical-typescript-transform.mjs",
+      "bytes": 1906,
+      "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+    },
+    "record-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/record-fullfunction.py",
+      "bytes": 16752,
+      "sha256": "b3d963b40362cd9be26c808b0ce08a2a10bcd42974e6f727fc70cfe33d530bb3"
+    },
+    "run-fullfunction.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/run-fullfunction.mjs",
+      "bytes": 33325,
+      "sha256": "02abf0062ef6a59a1c4a642dcac5feeba3b72a06e9c805330a0be67419a07917"
+    },
+    "run-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/run-fullfunction.py",
+      "bytes": 30017,
+      "sha256": "548b3e3dad52b6ffb936ed0907d52942efa76895753909dc37410165d2948c93"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "m0WiringProbe.ts": {
+      "bytes": 1800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+      "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    },
+    "m0NativeObserverRows.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+      "bytes": 10267,
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "m0FeasibilityWitness-native.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+      "bytes": 5868,
+      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs",
+      "bytes": 10954,
+      "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+    },
+    "ordering.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+      "bytes": 12555,
+      "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+    },
+    "talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+      "bytes": 120462,
+      "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+    },
+    "typed-propagation-removed-talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+      "bytes": 120492,
+      "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "bytes": 9756,
+      "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+    }
+  },
+  "actualSourceReview": null,
+  "actualGrant": null,
+  "actualResult": null
+}

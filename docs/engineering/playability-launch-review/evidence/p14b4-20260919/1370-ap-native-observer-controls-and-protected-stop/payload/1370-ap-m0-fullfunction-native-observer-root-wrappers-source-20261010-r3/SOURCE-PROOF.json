@@ -1,0 +1,43 @@
+{
+  "schema": "1370-native-fullfunction-root-wrapper-proof/v1",
+  "executionAuthorization": false,
+  "candidateExecuted": false,
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 5407,
+    "sha256": "83adcaf98af650e96e5644081877ab14b2d83bd6842dd62c4c8ddfbc9c85a288"
+  },
+  "routeSource": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 25246,
+    "sha256": "88b8d5b06a3e4fc0f37fe0b0f7054ef0572effceac839a4078f416e4fd946055"
+  },
+  "parentSource": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 2436,
+    "sha256": "7f4714be331850a07263481f60d8bffd628cb6e9b6abc13d9f9c5f9178e37f3e"
+  },
+  "pairs": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r2/DIFF-run_observer_fullfunction_once.py.json",
+      "bytes": 12202,
+      "sha256": "db56e9a4d526fc181632fb7209cde1259d17d5217560189b9b4a229f9ced6320"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r2/DIFF-run_observer_reader_once.py.json",
+      "bytes": 2681,
+      "sha256": "4edf673dbcff770c6fc713cd18182e568feb25ea5f174cbf71ac5a4c76d85350"
+    }
+  ],
+  "sameHelpers": {
+    "run_observer_fullfunction_once.py": [
+      "role",
+      "read",
+      "checked",
+      "put"
+    ],
+    "run_observer_reader_once.py": [
+      "role"
+    ]
+  }
+}

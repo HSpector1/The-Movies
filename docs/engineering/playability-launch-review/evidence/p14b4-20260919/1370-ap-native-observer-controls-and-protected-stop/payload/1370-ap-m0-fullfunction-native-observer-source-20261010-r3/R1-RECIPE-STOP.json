@@ -1,0 +1,9 @@
+{
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 13522,
+    "sha256": "d3355b2ac4751ed92eb5c6d90766f4cac9b96c29d4844f0f154ccd89eccc5086"
+  },
+  "finding": "Recipe secondary sourcePins, operationalHead, diagnosticInputs and nested grant keys remained historical despite correct routeSourcePins. No execution.",
+  "executionAuthorization": false
+}

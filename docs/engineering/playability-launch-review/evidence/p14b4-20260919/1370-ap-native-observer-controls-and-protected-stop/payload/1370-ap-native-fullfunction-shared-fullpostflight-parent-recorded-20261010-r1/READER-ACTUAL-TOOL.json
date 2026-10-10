@@ -1,0 +1,15 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "469e79",
+      "exit_code": 0,
+      "original_token_count": 159,
+      "output": "{\"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/READBACK.json\", \"bytes\": 5248, \"sha256\": \"f5f6fdfe3caa836a8229ccfa090f392e080730018acea4adad03370f9471c195\"}, \"guardSeconds\": 463.825130082987, \"inventorySeconds\": 343.5372353630082, \"actualOwnedGroupIds\": [56234, 56489, 56492, 58171], \"actualOwnedPids\": [56234, 56489, 56492, 56869, 58171], \"priorRouteStatus\": \"ACTUAL_FULLFUNCTION_STOP_PRESERVED_PENDING_SHARED_FULL_POSTFLIGHT\", \"priorRouteExits\": {\"helperExit\": 2, \"recorderExit\": 2, \"runnerExit\": 1, \"toolExit\": 2}, \"priorStopPreserved\": true}\n",
+      "wall_time_seconds": 0.788476967
+    }
+  ],
+  "executionAuthorization": false,
+  "finalExit": 0,
+  "schema": "1370-root-actual-tool-readback/v1",
+  "sessionId": null
+}

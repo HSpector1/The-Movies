@@ -1,0 +1,56 @@
+{
+  "actualPostflightExecuted": false,
+  "allHelperBytesEqual": [
+    3,
+    3
+  ],
+  "concreteFindings": [],
+  "currentPreflightAdoption": {
+    "bytes": 4729,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552"
+  },
+  "decision": "ACCEPT_STATIC_ORIGINAL_FULLPOSTFLIGHT_CURRENT_AO_BINDINGS_ONLY",
+  "executionAuthorization": false,
+  "game": false,
+  "independentAllowedChanges": "Explicit current AO authority bindings, fresh parent/label and AP schema names only; whole files independently reconstructed from original source.",
+  "originalPerCommandTimeoutSeconds": 180,
+  "reviewer": "/root",
+  "rootReviewSource": {
+    "bytes": 5081,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/review_native_fullpost_source.py",
+    "sha256": "abf67fe07aa5f58fefeab9f07ebc0b0aa5e8627f9f249a6e36b761b69e5451e8"
+  },
+  "schema": "1370-native-fullfunction-fullpostflight-independent-source-review/v1",
+  "sourceAuthor": "/root/cleanup_independent_red",
+  "sourceManifest": {
+    "bytes": 3417,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "b8748925da99da45b51f2f1f2a70603576c2c5745fb559d94f5e6d3df70f5dcf"
+  },
+  "sourcePins": {
+    "RECIPE.json": {
+      "bytes": 2518,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/RECIPE.json",
+      "sha256": "caca5a4d3856e04d45d83d60bbf78b30d52c167eb09d5643aa88a907d3c19bec"
+    },
+    "launch-fullpostflight.py": {
+      "bytes": 5283,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+      "sha256": "0003d2c01f91ba5d480ec32cea74af77358d82199a668644a5ee6009fd780785"
+    },
+    "read-fullpostflight.py": {
+      "bytes": 5421,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py",
+      "sha256": "0c4047136b4c872b8e65ac5d868788f79c9004af9372e2c1a9bab5d24077b12c"
+    }
+  },
+  "sourceProof": {
+    "bytes": 5819,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/SOURCE-PROOF.json",
+    "sha256": "eed000d6aa0315bf4b9efd005d925650a14dab1abf0f618dab08220537ee63df"
+  },
+  "sourceScopeRead": "Reviewed completion/exit and exact actual PID/PGID gates; direct scanner identity, original guard argv, complete immutable and9 strict roots equality, bounded original current checks, mandatory postflight including STOP and LOCAL-only raw roles.",
+  "wholeIndependentForwardInverseApplications": 4,
+  "wholeScanDeadline": null
+}

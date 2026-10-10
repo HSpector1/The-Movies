@@ -1,0 +1,143 @@
+{
+  "allIndexedBytesEqualWorkingFiles": true,
+  "currentDocsWhitespaceCheck": 0,
+  "indexedSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "indexedTree": "64d24400a3acdb81a38c9d24e88b297add091739",
+  "manifestCoverageComplete": true,
+  "preservedDiffContextWarnings": [
+    {
+      "line": 4,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-m0-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-an-root-prelaunch.py.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 4,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-m0-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-an-root-prelaunch.py.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r1/talentMarket.ts.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r1/talentMarket.ts.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r1/talentMarket.ts.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r1/talentMarket.ts.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r1/typed-propagation-removed-talentMarket.ts.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r1/typed-propagation-removed-talentMarket.ts.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r1/typed-propagation-removed-talentMarket.ts.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r1/typed-propagation-removed-talentMarket.ts.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r2/talentMarket.ts.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r2/talentMarket.ts.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r2/talentMarket.ts.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r2/talentMarket.ts.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r2/typed-propagation-removed-talentMarket.ts.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r2/typed-propagation-removed-talentMarket.ts.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r2/typed-propagation-removed-talentMarket.ts.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r2/typed-propagation-removed-talentMarket.ts.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r3/talentMarket.ts.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r3/talentMarket.ts.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r3/talentMarket.ts.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r3/talentMarket.ts.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r3/typed-propagation-removed-talentMarket.ts.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r3/typed-propagation-removed-talentMarket.ts.forward.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 32,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r3/typed-propagation-removed-talentMarket.ts.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    },
+    {
+      "line": 36,
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/payload/1370-ao-observer-row-diagnostic-source-20261010-r3/typed-propagation-removed-talentMarket.ts.inverse.diff",
+      "reason": "Immutable authenticated unified-diff blank context line"
+    }
+  ],
+  "schema": "1370-ao-index-verification/v2",
+  "stagedFiles": 463,
+  "supersedesIncompleteIndexVerification": "51fff22f4053ab4ca0585b0e5838c97841161d513fc06605f23be0252c3fffd3",
+  "wholeDiffWhitespaceCheck": 2
+}

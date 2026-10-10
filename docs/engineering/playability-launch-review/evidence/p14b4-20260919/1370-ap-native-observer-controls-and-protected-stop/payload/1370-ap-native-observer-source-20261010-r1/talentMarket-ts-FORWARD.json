@@ -1,0 +1,32 @@
+[
+  {
+    "start": 0,
+    "end": 0,
+    "expected": "",
+    "replacement": "import {createObserverFailureLatch,createNativeRowCodec} from './m0NativeObserverRows.mjs'\n"
+  },
+  {
+    "start": 2631,
+    "end": 2769,
+    "expected": "import { createM0FeasibilitySink } from './m0FeasibilityWitness.js'\nimport type { M0FeasibilityCapture } from './m0FeasibilityWitness.js'\n",
+    "replacement": "import { createM0FeasibilitySink } from './m0FeasibilityWitness-native.js'\nimport type { M0FeasibilityCapture } from './m0FeasibilityWitness-native.js'\n"
+  },
+  {
+    "start": 82254,
+    "end": 82364,
+    "expected": "const observerRowDiagnostic = createObserverRowDiagnostic()\nlet m0FeasibilitySink = createM0FeasibilitySink()\n",
+    "replacement": "let observerLatch = createObserverFailureLatch()\nlet nativeRowCodec = createNativeRowCodec({latch:observerLatch})\nlet observerRowDiagnostic = createObserverRowDiagnostic({codec:nativeRowCodec,latch:observerLatch})\nlet m0FeasibilitySink = createM0FeasibilitySink({codec:nativeRowCodec,latch:observerLatch})\nfunction resetNativeObserverArm():void {\n  observerLatch=createObserverFailureLatch()\n  nativeRowCodec=createNativeRowCodec({latch:observerLatch})\n  observerRowDiagnostic=createObserverRowDiagnostic({codec:nativeRowCodec,latch:observerLatch})\n  m0FeasibilitySink=createM0FeasibilitySink({codec:nativeRowCodec,latch:observerLatch})\n}\n"
+  },
+  {
+    "start": 82467,
+    "end": 82515,
+    "expected": "  m0FeasibilitySink = createM0FeasibilitySink()\n",
+    "replacement": "  m0FeasibilitySink = createM0FeasibilitySink({codec:nativeRowCodec,latch:observerLatch})\n"
+  },
+  {
+    "start": 118338,
+    "end": 118573,
+    "expected": "export const m0WiringTestApi = Object.freeze({M0ObserverError,authorRivalPromise,settleCase,observerRowDiagnostic,\n  reset: (): void => {try{drainM0MarketDecisionRows();drainM0FeasibilityRows()}finally{observerRowDiagnostic.reset()}},\n",
+    "replacement": "export const m0WiringTestApi = Object.freeze({M0ObserverError,authorRivalPromise,settleCase,\n  get observerRowDiagnostic(){return observerRowDiagnostic},\n  get nativeRowCodec(){return nativeRowCodec},\n  reset: (): void => {try{drainM0MarketDecisionRows()}finally{observerRowDiagnostic.reset();resetNativeObserverArm()}},\n"
+  }
+]

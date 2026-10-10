@@ -1,0 +1,29 @@
+{
+  "schema": "1370-ap-short-prelaunch-unrun-binding-correction/v1",
+  "preservedPredecessorSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 5900,
+    "sha256": "3629af8eac9c9c4dc30f2935132b3f7e07133bd0a35b5c38e9e122bdb8178e94"
+  },
+  "findings": [
+    {
+      "source": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ao-root-prelaunch.py",
+        "bytes": 15211,
+        "sha256": "e2f7013b4de2df465497f7a2dcb3b79abd12edabf6095e1e229b9abdaeff5db6"
+      },
+      "defect": "Split SCRATCH/old-AO-parent config allowlist was not covered by full absolute-path rebasing."
+    },
+    {
+      "source": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-ao-root-prelaunch.py",
+        "bytes": 15211,
+        "sha256": "e2f7013b4de2df465497f7a2dcb3b79abd12edabf6095e1e229b9abdaeff5db6"
+      },
+      "defect": "Exact current fullpreflight adoption dictionary retained AO-root path, contradicting genuine AP-root e380/config role."
+    }
+  ],
+  "effect": "Early original input-role refusal; no runtime, grant or acceptance occurred.",
+  "repair": "Two literal substitutions only, plus explicit pre-seal consistency checks; original AO whole inverses and unchanged helpers independently recomputed.",
+  "executionAuthorization": false
+}

@@ -1,0 +1,11 @@
+# AP major lessons — update 3
+
+Diagnostic reconstruction must be designed for the failed state. Preserving a strict sticky error in the normal codec correctly blocks later access, but it also blocked reconstruction of the refused row and decoding of an assessment's preceding input. Pre-converting before the sink would change count-first refusal precedence; retaining a full failed candidate could retain oversized payloads. The independently reviewed solution adds exactly two bounded diagnostic-only encode/decode methods sharing the same private cores. They are allowed only after the first original row-byte error, cannot clear or replace that error, and cannot append or establish accepted output. Normal codec access stays strict. Controls must demonstrate available physical metadata, not merely an unavailable fallback.
+
+Extract a real comparison predicate when independent controls need to mutate its inputs. Canonical tuple/digest/context corruption tests must invoke the same pure evaluation-matching consumer used by the actual fullbody route, with its original existential matching semantics. A test-side copy of equality would only prove the copy. Keep the original market fault and mutation meaningful, and preserve original assertion labels.
+
+Native exceptions and named validation failures are different evidence. The first codec draft replaced a native JSON parse exception with a generic format error; early source review corrected it before sealing or execution. Preserve the actual thrown value where the API promises identity, and assert the specific error category in negative controls. Do not make arbitrary exceptions count as successful refusals.
+
+Validate own data properties before reading caller-provided fields. A known-no-fit preflight must not invoke an accessor before proving the count predicate. Exact-key checks must account for symbol and nonenumerable keys. At the same time, do not promise impossible fixed JavaScript heap bounds for arbitrary hostile reflection inputs; distinguish bounded canonical text and source-owned records from engine-dependent object overhead. Test the supported interface and state its scope.
+
+This is source-review progress. The native repair has not yet passed actual controls or fullfunction qualification; fit and downstream gates remain open.

@@ -1,0 +1,49 @@
+{
+  "schema": "1370-ap-current-ao-prelaunch-argv/v2",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "launcherArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2/run_current_ao_prelaunch_once.py",
+    null,
+    null,
+    null,
+    null
+  ],
+  "launcherFutureOperands": [
+    "independentSourceReviewPath",
+    "independentSourceReviewSha256",
+    "actualNativeControlsAdoptionPath",
+    "actualNativeControlsAdoptionSha256"
+  ],
+  "directScannerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2/current-ao-root-prelaunch.py",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1/CONFIG.json",
+    null
+  ],
+  "readerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2/read_current_ao_prelaunch.py",
+    null,
+    null
+  ],
+  "readerFutureOperands": [
+    "actualToolSessionId",
+    "actualScannerPidPgidSid"
+  ],
+  "parent": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1",
+  "output": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-output-20261010-r1",
+  "actualOwnedGroups": null,
+  "knownPriorFullguardOwnedGroup": 18361,
+  "actualNativeControlsAdoption": null,
+  "actualGrant": null,
+  "actualTool": null,
+  "actualReadback": null,
+  "executionAuthorization": false
+}

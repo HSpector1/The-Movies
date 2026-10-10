@@ -1,0 +1,55 @@
+{
+  "H8708Waived": false,
+  "actualControlsAdoption": {
+    "bytes": 8775,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+    "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+  },
+  "actualScanGrant": null,
+  "combinedHFirstRouteUnchanged": true,
+  "currentFullGuardsYetRun": false,
+  "executionAuthorization": false,
+  "gameGrant": null,
+  "historicalM0Completion": {
+    "bytes": 6133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+  },
+  "m0RematerializationAuthorized": false,
+  "operationalTransition": {
+    "actualHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+    "docsOnlyVerified": true,
+    "docsTransitionFactsRole": {
+      "bytes": 1029,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-OPERATIONAL-TRANSITION.json",
+      "sha256": "8ed8eab0ba445edbd2b93f0f87e932e9c3f902d42fe56cf14e6c7d7166b8976c"
+    },
+    "predecessor": "0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4",
+    "wholeProductionCommonGuardMustRefresh": true
+  },
+  "previousScopeAdoption": {
+    "bytes": 2923,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/CURRENT-AN-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "74855dea68b2e9a9c8ac4c40c949042cb5f097eff5ed7ff80d37b922e76d743a"
+  },
+  "productionGuardHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "productionSourceChangesAuthorized": false,
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "publishedReadback": {
+    "bytes": 1973,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/PUSH-READBACK.json",
+    "sha256": "cf85cbd810e72613609e0cf3c33f42e84724d282da2c4e383ee8452643e5a74c"
+  },
+  "remoteRefsVerified": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "f2f97c622db7f5332164b790d1646355e89c00f4"
+  },
+  "schema": "1370-a208-current-operational-guard-scope-adoption/v1",
+  "scope": "Unchanged original A208 protection procedure rebound to actual published AO solely for current native observer repair qualification protection. Current full production/common baseline must be reread. Private R9 original proof and historical M0 authority remain distinct and unchanged. No M0 root metadata adoption, scientific waiver or runtime grant.",
+  "sourceAmendmentAdoption": {
+    "bytes": 1554,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/HELD-SCOPE-SOURCE-ADOPTION.json",
+    "sha256": "fefd5bef762b4bce0b34c21e29d4a653afb42bae8756b29ba0eee02b42a357b8"
+  },
+  "status": "PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY"
+}

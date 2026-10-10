@@ -1,0 +1,85 @@
+{
+  "actualFullInventoryRun": false,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/current-ao-root-prelaunch.py",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1/CONFIG.json",
+    "581d83a25bb01ca8d5efedf137e10e11db167b632eaff4fbc5beeec9689e5b0d"
+  ],
+  "automaticRetry": false,
+  "config": {
+    "bytes": 2949,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1/CONFIG.json",
+    "sha256": "581d83a25bb01ca8d5efedf137e10e11db167b632eaff4fbc5beeec9689e5b0d"
+  },
+  "currentFullPreflightAdoption": {
+    "bytes": 4729,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552"
+  },
+  "currentFullPreflightSnapshot": {
+    "bytes": 9552315,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/SNAPSHOT.json",
+    "sha256": "ed62b148395ad06a7e06ce68b2581097517a2483fa91c3baa4818513f358aad4"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "executionAuthorization": true,
+  "game": false,
+  "historicalTypesFullPostflightSnapshot": {
+    "bytes": 8847484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/SNAPSHOT.json",
+    "sha256": "0700ce99c57f33956c3fb1b5f26d3c6e28e6e323551fb1f6f084db2f9c370dff"
+  },
+  "historicalTypesObservedAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "historicalTypesRemainHistorical": true,
+  "mode": "fullfunction-current-ao-protection",
+  "observerControlsAdoption": {
+    "bytes": 13238,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "401e54ce61697d70e1fbbf2d10a7d263a2ff7afa465ab58f00faa9a5002431c4"
+  },
+  "observerControlsReadback": {
+    "bytes": 12683,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "3d3e3c57f17c0010e37f39445895134ee06eda6b4920f415a4c33d580511b215"
+  },
+  "originalFullObservationsReusedUnderContinuousFreeze": true,
+  "overallTimeoutAdded": false,
+  "ownedPgid": 31376,
+  "ownedPgidsPassedToOriginalCurrent": [
+    18361,
+    26665,
+    26921
+  ],
+  "ownedPid": 31376,
+  "ownedSid": 31376,
+  "perCommandTimeoutSeconds": 180,
+  "protectedFreezeContinues": true,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 9050,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/run_current_ao_prelaunch_once.py",
+    "sha256": "219e65f3f3cef8d8615862c17934964b29f58715d0d569da8f7a08a192a7d6a8"
+  },
+  "schema": "1370-ap-current-ao-root-prelaunch-grant/v2",
+  "sourcePins": {
+    "bytes": 6520,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "82ec92a7bf9dd772b4b406760a1a3ff5e4a79bcf4c6ccda20e982750f036a8d1"
+  },
+  "sourceReview": {
+    "bytes": 5693,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-PRELAUNCH-INDEPENDENT-SOURCE-REVIEW.json",
+    "sha256": "4967791f30d2b791f5bee67c66a4dd512a70f99312e23a2309d049dd89eb7015"
+  },
+  "startMonotonic": 134909.6966845,
+  "status": "GRANTED_ONCE_CURRENT_AO_ROOT_PREFLIGHT",
+  "utc": "2026-10-10T10:39:30.123411+00:00"
+}

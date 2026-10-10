@@ -1,0 +1,38 @@
+{
+  "acceptedMethods": [
+    "encodeInputDetailForDiagnostic",
+    "decodeInputDetailForDiagnostic"
+  ],
+  "actualFitMeasured": false,
+  "concreteFindings": [],
+  "decision": "ACCEPT_SOURCE_ONLY_BOUNDED_DIAGNOSTIC_CODEC_SUPPLEMENT",
+  "executionAuthorization": false,
+  "game": false,
+  "governingApiReview": {
+    "bytes": 9336,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-independent-review-20261010-r1/RECEIPT.json",
+    "sha256": "329452f774cd32baf5e0d760dc85c0b3f8653fa95a90f5fc724f0a7b8e048e88"
+  },
+  "implementationAuthorized": false,
+  "requiredSpecificControls": [
+    "Eligible original row E permits bounded input encode and native predecessor decode; normal methods still rethrow exact E.",
+    "Healthy or first native operational calls reject specifically and cannot heal/replace first error.",
+    "Malformed eligible reconstruction preserves exact original row E and yields explicit unavailable diagnostic.",
+    "Actual native input row and assessment predecessor produce available exact physical metadata using shared methods."
+  ],
+  "requirements": [
+    "Both share exact bounded normal encoder/decoder cores, without cache, tuple exclusion, append or acceptance authority.",
+    "Health bypass only for first actual Error/name Error/exact original row-byte message; eligible reconstruction cannot replace first E.",
+    "Normal encode/decode/legacyRow remains strictly health-guarded. There is no legacyRow diagnostic bypass.",
+    "An invalid call on empty latch records FORMAT_INVALID E before throw. Without replacing latch means existing first E is never overwritten, not a new API error left unlatched.",
+    "Existing first native X remains shared first cause after invalid diagnostic call; first native operational emits no row diagnostic.",
+    "Actual producer resource E can emit exact bounded available input/assessment-family metadata despite health-strict rows/codec, using saved physical prior snapshot.",
+    "Direct methods return internal bounded detail only; writer emits<=4096 metadata and no raw tuple."
+  ],
+  "schema": "1370-native-observer-diagnostic-codec-supplement-independent-review/v1",
+  "supplement": {
+    "bytes": 1253,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r1/DIAGNOSTIC-CODEC-SUPPLEMENT-FINAL.md",
+    "sha256": "696c55e3ea5251da8f522d15495d6438f0b502cf6ca9507141e17ef901d1874e"
+  }
+}

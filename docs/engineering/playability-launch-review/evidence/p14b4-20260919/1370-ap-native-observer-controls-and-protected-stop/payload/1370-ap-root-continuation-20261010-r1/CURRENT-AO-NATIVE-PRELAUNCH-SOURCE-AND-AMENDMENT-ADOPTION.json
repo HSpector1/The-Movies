@@ -1,0 +1,42 @@
+{
+  "actualPrelaunch": null,
+  "capsHorizonsSourceIdentityProtectedRootsAcceptanceUnchanged": true,
+  "currentAOFullPreflightAdoption": {
+    "bytes": 4729,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552"
+  },
+  "currentAOFullPreflightSnapshot": {
+    "bytes": 9552315,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/SNAPSHOT.json",
+    "sha256": "ed62b148395ad06a7e06ce68b2581097517a2483fa91c3baa4818513f358aad4"
+  },
+  "executionAuthorization": false,
+  "explicitBeforeFillReuseAmendmentAdopted": true,
+  "fullfunctionExecutionAuthorization": false,
+  "game": false,
+  "historicalTypesRemainHistorical": true,
+  "independentSourceReview": {
+    "bytes": 5693,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-PRELAUNCH-INDEPENDENT-SOURCE-REVIEW.json",
+    "sha256": "4967791f30d2b791f5bee67c66a4dd512a70f99312e23a2309d049dd89eb7015"
+  },
+  "mandatoryOriginalFullPostflightAfterGame": true,
+  "observerControlsAdoption": null,
+  "originalM0BeforeAfterProofsRemainSeparate": true,
+  "protectedFreezeContinues": true,
+  "rootAuthorizesOneReviewedShortPrelaunchAfterActualNativeControlsAdoption": true,
+  "schema": "1370-root-current-ao-native-prelaunch-source-and-operational-amendment-adoption/v1",
+  "scopeAmendment": {
+    "bytes": 2937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/OPERATIONAL-SCOPE-AMENDMENT.json",
+    "sha256": "8b8f0ca13b0f27411fa30118afd3ecd3e40f185a5851150678f9c280ca7783fa"
+  },
+  "snapshotNotRelabeledPostflight": true,
+  "sourceManifest": {
+    "bytes": 6520,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "82ec92a7bf9dd772b4b406760a1a3ff5e4a79bcf4c6ccda20e982750f036a8d1"
+  },
+  "status": "ROOT_ADOPTED_CURRENT_AO_NATIVE_PRELAUNCH_SOURCE_AND_EXPLICIT_BEFORE_FILL_REUSE_AMENDMENT"
+}

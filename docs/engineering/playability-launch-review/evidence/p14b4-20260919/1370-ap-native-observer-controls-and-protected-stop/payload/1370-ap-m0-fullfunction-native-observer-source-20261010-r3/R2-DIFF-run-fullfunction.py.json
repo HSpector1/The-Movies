@@ -1,0 +1,20 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/R2-BASELINE-run-fullfunction.py",
+    "bytes": 30017,
+    "sha256": "548b3e3dad52b6ffb936ed0907d52942efa76895753909dc37410165d2948c93"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/run-fullfunction.py",
+    "bytes": 30017,
+    "sha256": "ad65020fcd047537ff7cdcb9b6afe4f6ddab89c8bd6141752376a982983e7c06"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 229,
+      "old": "CONFIG_SHA='c47ad11df9021afd55694994ca7a116ee12cedac5fd781d364947929b168ad9e'\n",
+      "newStart": 229,
+      "new": "CONFIG_SHA='3437424ca4bad911777e496b3c1cc702ee9be56b662b370c81d6f69872f4e90d'\n"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "RECEIPT.json": {
+      "bytes": 13469,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r1/RECEIPT.json",
+      "sha256": "b3f52aa1ded2cdd8cac4507e2b974d066d46f9fff8222d21b2bba03b2fb1b448"
+    },
+    "REPORT.md": {
+      "bytes": 1447,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r1/REPORT.md",
+      "sha256": "769f0daadf38bd730a08bb7980c4ae213079b5085921d361d5020be1a8200f94"
+    }
+  },
+  "schema": "1370-independent-review-seal/v1"
+}

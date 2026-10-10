@@ -1,0 +1,13 @@
+{
+  "actualToolSession": 13527,
+  "advertisedRemoteMatchedBeforeFailure": true,
+  "chunks": [
+    "4ebf0f",
+    "8c7b2e"
+  ],
+  "correction": "Explicit fetch of the two authorized refs, then read-only publication checks; do not repeat successful push.",
+  "failure": "Local remote-tracking ref remained old after explicit push; assertion stopped readback.",
+  "finalExit": 1,
+  "pushSucceededBeforeFailure": true,
+  "schema": "1370-ao-publication-initial-readback-failure/v1"
+}

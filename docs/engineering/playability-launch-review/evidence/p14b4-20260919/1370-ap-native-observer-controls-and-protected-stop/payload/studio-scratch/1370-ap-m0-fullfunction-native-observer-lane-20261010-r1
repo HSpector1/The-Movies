@@ -1,0 +1,4 @@
+{"launchClaim": {"path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/RECORDER-LAUNCH-CLAIM.json", "bytes": 1694, "sha256": "7f7169528a68fad32fa5a9d775562bacdb8ebea705143726c5023d0dcb07011d"}, "mode": "inner", "actualOwned": {"pid": 56489, "pgid": 56489, "sid": 56489}}
+/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/record-fullfunction.py:249: SyntaxWarning: 'return' in a 'finally' block
+  return code
+{"status": "STOP_CHILD_EXIT_1", "output": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-recorder-results-20261010-r1", "actualChildExit": 1, "groupClear": true}

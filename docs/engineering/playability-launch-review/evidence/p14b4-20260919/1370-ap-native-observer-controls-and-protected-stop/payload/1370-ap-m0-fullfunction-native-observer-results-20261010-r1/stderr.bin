@@ -1,0 +1,10 @@
+file:///Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/run-fullfunction.mjs:9
+const need=(v,m)=>{if(!v)throw Error('STOP_'+m)};
+                               ^
+
+Error: STOP_PHASE_EXIT_baseline
+    at need (file:///Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/run-fullfunction.mjs:9:32)
+    at phase (file:///Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/run-fullfunction.mjs:152:27)
+    at async file:///Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/run-fullfunction.mjs:160:13
+
+Node.js v22.23.2

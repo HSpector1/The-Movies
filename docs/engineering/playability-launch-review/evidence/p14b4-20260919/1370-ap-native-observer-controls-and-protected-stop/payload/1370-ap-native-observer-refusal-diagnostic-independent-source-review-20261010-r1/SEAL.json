@@ -1,0 +1,10 @@
+{
+  "allNamedProposalAndInputRolesAuthenticated": true,
+  "executionAuthorization": false,
+  "receipt": {
+    "bytes": 8151,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-refusal-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "8741e314d0d07a7cc1bb512cd890f90059dc5aff11687db077769dbd2a43cd46"
+  },
+  "schema": "1370-independent-source-review-seal/v1"
+}

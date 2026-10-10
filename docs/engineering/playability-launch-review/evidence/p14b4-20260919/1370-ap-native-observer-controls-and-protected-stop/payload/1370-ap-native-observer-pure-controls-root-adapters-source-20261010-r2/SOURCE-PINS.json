@@ -1,0 +1,53 @@
+{
+  "schema": "1370-native-observer-controls-root-adapters-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-read_observer_controls.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r2/BASELINE-read_observer_controls.py",
+      "bytes": 5895,
+      "sha256": "a4fd0a7351ada45383f6b8801a109781aa38235c98f1231cc0dad1d3e05f9494"
+    },
+    "BASELINE-run_observer_controls_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r2/BASELINE-run_observer_controls_once.py",
+      "bytes": 4980,
+      "sha256": "02ea48f37155065714252a3330191673147ef3897874def1fe856b374f6ec90d"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r2/CONTRACT.json",
+      "bytes": 2116,
+      "sha256": "063206edc738339519bfab74aa98accc82a5ebba7456c798606f4638b8e73001"
+    },
+    "DIFF-read_native_observer_controls.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r2/DIFF-read_native_observer_controls.py.json",
+      "bytes": 7277,
+      "sha256": "2b938addb76d7d03f5afb3d8fc63c4c6c617e9a59d25461d2bba5b4446692ed6"
+    },
+    "DIFF-run_native_observer_controls_once.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r2/DIFF-run_native_observer_controls_once.py.json",
+      "bytes": 4499,
+      "sha256": "48e86784c9f1dfda2924b3153ad4e93046b1bdf8b8f940a942e988be3bb15697"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r2/SOURCE-PROOF.json",
+      "bytes": 2903,
+      "sha256": "de22ab87857354ed3b3bac781157104220fd2655049dc248c79ef38eb1b290e9"
+    },
+    "read_native_observer_controls.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r2/read_native_observer_controls.py",
+      "bytes": 6351,
+      "sha256": "d0c379255584dd36718b4cfa4af5f3e0de8d9c932fe73bd83eabe0b0027349c8"
+    },
+    "run_native_observer_controls_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r2/run_native_observer_controls_once.py",
+      "bytes": 5017,
+      "sha256": "c5e81028677672256171ec3299b72b77cc89b30b6a281634bc2b2d5547e2f41b"
+    }
+  },
+  "externalInputs": {
+    "routeSourceManifest": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+      "bytes": 10202,
+      "sha256": "df5f42b9c1761bcb274b511eb6cc2fd2ff22895d1e0dd89044be226272039ef7"
+    }
+  }
+}

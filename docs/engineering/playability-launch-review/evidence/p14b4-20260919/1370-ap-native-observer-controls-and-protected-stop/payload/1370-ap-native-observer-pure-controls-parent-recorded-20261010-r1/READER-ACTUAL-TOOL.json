@@ -1,0 +1,14 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "70c155",
+      "exit_code": 0,
+      "original_token_count": 82,
+      "output": "{\"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/READBACK.json\", \"bytes\": 12683, \"sha256\": \"3d3e3c57f17c0010e37f39445895134ee06eda6b4920f415a4c33d580511b215\"}, \"recorderSeconds\": 3.2204292549868114, \"actualOwnedIds\": [26665, 26921], \"caseCount\": 72}\n",
+      "wall_time_seconds": 0.776906057
+    }
+  ],
+  "finalExit": 0,
+  "schema": "1370-root-actual-tool-readback/v1",
+  "sessionId": null
+}

@@ -1,0 +1,15 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "0004df",
+      "exit_code": 0,
+      "original_token_count": 80,
+      "output": "{\"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/READBACK.json\", \"bytes\": 7552, \"sha256\": \"fc9b38f9530bb565b4204f82452cc2d6245c2947508cf24ed35683177f4bd352\"}, \"status\": \"ACTUAL_FULLFUNCTION_STOP_PRESERVED_PENDING_SHARED_FULL_POSTFLIGHT\"}\n",
+      "wall_time_seconds": 0.849603319
+    }
+  ],
+  "executionAuthorization": false,
+  "finalExit": 0,
+  "schema": "1370-root-actual-tool-readback/v1",
+  "sessionId": null
+}

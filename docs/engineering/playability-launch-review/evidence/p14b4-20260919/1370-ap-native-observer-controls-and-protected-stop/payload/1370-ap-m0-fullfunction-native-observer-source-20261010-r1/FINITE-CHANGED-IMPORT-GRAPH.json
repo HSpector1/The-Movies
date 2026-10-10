@@ -1,0 +1,964 @@
+{
+  "schema": "1370-native-fullfunction-static-import-role-check/v1",
+  "executionAuthorization": false,
+  "candidateImported": false,
+  "changedSourceRoleCount": 7,
+  "edges": [
+    {
+      "importer": "src/core/m0ObserverRowDiagnostic.mjs",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs",
+        "bytes": 10954,
+        "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+      },
+      "specifier": "./m0NativeObserverRows.mjs",
+      "target": "src/core/m0NativeObserverRows.mjs",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+        "bytes": 10267,
+        "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./m0NativeObserverRows.mjs",
+      "target": "src/core/m0NativeObserverRows.mjs",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+        "bytes": 10267,
+        "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./m0ObserverRowDiagnostic.mjs",
+      "target": "src/core/m0ObserverRowDiagnostic.mjs",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs",
+        "bytes": 10954,
+        "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./m0WiringProbe.js",
+      "target": "src/core/m0WiringProbe.ts",
+      "targetRole": {
+        "bytes": 1800,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+        "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./hollywood.js",
+      "target": "src/core/hollywood.ts",
+      "targetRole": {
+        "bytes": 17327,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/hollywood.ts",
+        "sha256": "c9281b85fab7fe6ce72568f318a545fce01343da86c8fd9c7db8ee5e3bd17f1f"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./hollywoodStartingData.js",
+      "target": "src/core/hollywoodStartingData.ts",
+      "targetRole": {
+        "bytes": 4152,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/hollywoodStartingData.ts",
+        "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./industryEmployment.js",
+      "target": "src/core/industryEmployment.ts",
+      "targetRole": {
+        "bytes": 2560,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/industryEmployment.ts",
+        "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./careerLifecycle.js",
+      "target": "src/core/careerLifecycle.ts",
+      "targetRole": {
+        "bytes": 24706,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/careerLifecycle.ts",
+        "sha256": "338510e570d2ace8bdeaa24b989fe7783c2d4e4250e1929eb56fc8f149c5d1f6"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./employment.js",
+      "target": "src/core/employment.ts",
+      "targetRole": {
+        "bytes": 28353,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/employment.ts",
+        "sha256": "07262d62f6c6de0a849e5bfea124d01be2dbcbbb7edb7b3b6ead32025318b75a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./employment.js",
+      "target": "src/core/employment.ts",
+      "targetRole": {
+        "bytes": 28353,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/employment.ts",
+        "sha256": "07262d62f6c6de0a849e5bfea124d01be2dbcbbb7edb7b3b6ead32025318b75a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./promises.js",
+      "target": "src/core/promises.ts",
+      "targetRole": {
+        "bytes": 113287,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/promises.ts",
+        "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./m0FeasibilityWitness-native.js",
+      "target": "src/core/m0FeasibilityWitness-native.ts",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+        "bytes": 5868,
+        "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./m0FeasibilityWitness-native.js",
+      "target": "src/core/m0FeasibilityWitness-native.ts",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+        "bytes": 5868,
+        "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./opportunityPromises.js",
+      "target": "src/core/opportunityPromises.ts",
+      "targetRole": {
+        "bytes": 25031,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/opportunityPromises.ts",
+        "sha256": "90d49b0c76553a06d9c0bbabe568b8624270fe939b8e502a26fac9adc99065ee"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./firstTakeSubjects.js",
+      "target": "src/core/firstTakeSubjects.ts",
+      "targetRole": {
+        "bytes": 6350,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/firstTakeSubjects.ts",
+        "sha256": "2525b7e04a2449fbb91f8fb73765448eacf791f1854f5c054c093641f388993a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./relationships.js",
+      "target": "src/core/relationships.ts",
+      "targetRole": {
+        "bytes": 49637,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/relationships.ts",
+        "sha256": "27026dd3020190762aa6a95da5ce3012f79face854045b06cf968d5d9b129265"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./promises.js",
+      "target": "src/core/promises.ts",
+      "targetRole": {
+        "bytes": 113287,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/promises.ts",
+        "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./talentSummary.js",
+      "target": "src/core/talentSummary.ts",
+      "targetRole": {
+        "bytes": 25267,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/talentSummary.ts",
+        "sha256": "ef4ff968b8348bab6b31fdc9f1fed0d5293c1da13dd9c0a755da64beafd1cce1"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./tuning.js",
+      "target": "src/core/tuning.ts",
+      "targetRole": {
+        "bytes": 143696,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/tuning.ts",
+        "sha256": "dbc81b7b2c1e3b160266a792c2485506db906858dcc6a34bcc7a62e9a2072125"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./types.js",
+      "target": "src/core/types.ts",
+      "targetRole": {
+        "bytes": 127306,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/types.ts",
+        "sha256": "d0d5c51ea08c8bec71d78f32b653f835d1d32c73c3f7d0d46aa3f9c541fa0dc2"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./hollywoodTypes.js",
+      "target": "src/core/hollywoodTypes.ts",
+      "targetRole": {
+        "bytes": 7072,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/hollywoodTypes.ts",
+        "sha256": "09606801a73c8c675737f972dae5b78ef41deef375aad0c9732286d13a08b68a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "specifier": "./hollywoodTypes.js",
+      "target": "src/core/hollywoodTypes.ts",
+      "targetRole": {
+        "bytes": 7072,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/hollywoodTypes.ts",
+        "sha256": "09606801a73c8c675737f972dae5b78ef41deef375aad0c9732286d13a08b68a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/m0FeasibilityWitness-native.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+        "bytes": 5868,
+        "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+      },
+      "specifier": "./m0NativeObserverRows.mjs",
+      "target": "src/core/m0NativeObserverRows.mjs",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+        "bytes": 10267,
+        "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "runtime/ordering.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+        "bytes": 12555,
+        "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+      },
+      "specifier": "node:assert/strict",
+      "target": "node:assert/strict",
+      "targetRole": null,
+      "resolution": "PLATFORM_BUILTIN",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "runtime/ordering.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+        "bytes": 12555,
+        "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+      },
+      "specifier": "./traceSequences.mjs",
+      "target": "runtime/traceSequences.mjs",
+      "targetRole": {
+        "bytes": 1286,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+        "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+      },
+      "resolution": "RUNTIME_COPY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "runtime/controls/full-body-controls.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "bytes": 9756,
+        "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+      },
+      "specifier": "m0:src/core/m0ObserverRowDiagnostic.mjs",
+      "target": "src/core/m0ObserverRowDiagnostic.mjs",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs",
+        "bytes": 10954,
+        "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "runtime/controls/full-body-controls.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "bytes": 9756,
+        "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+      },
+      "specifier": "node:assert/strict",
+      "target": "node:assert/strict",
+      "targetRole": null,
+      "resolution": "PLATFORM_BUILTIN",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "runtime/controls/full-body-controls.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "bytes": 9756,
+        "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+      },
+      "specifier": "m0:src/core/m0TraceCodec.mjs",
+      "target": "src/core/m0TraceCodec.mjs",
+      "targetRole": {
+        "bytes": 7882,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+        "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "runtime/controls/full-body-controls.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "bytes": 9756,
+        "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+      },
+      "specifier": "../traceSequences.mjs",
+      "target": "runtime/traceSequences.mjs",
+      "targetRole": {
+        "bytes": 1286,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+        "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+      },
+      "resolution": "RUNTIME_COPY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "runtime/controls/full-body-controls.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "bytes": 9756,
+        "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+      },
+      "specifier": "../ordering.js",
+      "target": "runtime/ordering.ts",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+        "bytes": 12555,
+        "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+      },
+      "resolution": "RUNTIME_COPY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "runtime/controls/full-body-controls.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "bytes": 9756,
+        "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+      },
+      "specifier": "m0:src/core/talentMarket.js",
+      "target": "src/core/talentMarket.ts",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "runtime/controls/full-body-controls.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "bytes": 9756,
+        "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+      },
+      "specifier": "m0:src/core/m0WiringProbe.js",
+      "target": "src/core/m0WiringProbe.ts",
+      "targetRole": {
+        "bytes": 1800,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+        "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "runtime/controls/full-body-controls.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "bytes": 9756,
+        "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+      },
+      "specifier": "m0:src/core/types.js",
+      "target": "src/core/types.ts",
+      "targetRole": {
+        "bytes": 127306,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/types.ts",
+        "sha256": "d0d5c51ea08c8bec71d78f32b653f835d1d32c73c3f7d0d46aa3f9c541fa0dc2"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "runtime/controls/full-body-controls.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "bytes": 9756,
+        "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+      },
+      "specifier": "m0:src/core/talentMarket.js",
+      "target": "src/core/talentMarket.ts",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts",
+        "bytes": 120462,
+        "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "runtime/controls/full-body-controls.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "bytes": 9756,
+        "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+      },
+      "specifier": "m0:src/core/hollywoodTypes.js",
+      "target": "src/core/hollywoodTypes.ts",
+      "targetRole": {
+        "bytes": 7072,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/hollywoodTypes.ts",
+        "sha256": "09606801a73c8c675737f972dae5b78ef41deef375aad0c9732286d13a08b68a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./m0NativeObserverRows.mjs",
+      "target": "src/core/m0NativeObserverRows.mjs",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+        "bytes": 10267,
+        "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./m0ObserverRowDiagnostic.mjs",
+      "target": "src/core/m0ObserverRowDiagnostic.mjs",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs",
+        "bytes": 10954,
+        "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./m0WiringProbe.js",
+      "target": "src/core/m0WiringProbe.ts",
+      "targetRole": {
+        "bytes": 1800,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+        "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./hollywood.js",
+      "target": "src/core/hollywood.ts",
+      "targetRole": {
+        "bytes": 17327,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/hollywood.ts",
+        "sha256": "c9281b85fab7fe6ce72568f318a545fce01343da86c8fd9c7db8ee5e3bd17f1f"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./hollywoodStartingData.js",
+      "target": "src/core/hollywoodStartingData.ts",
+      "targetRole": {
+        "bytes": 4152,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/hollywoodStartingData.ts",
+        "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./industryEmployment.js",
+      "target": "src/core/industryEmployment.ts",
+      "targetRole": {
+        "bytes": 2560,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/industryEmployment.ts",
+        "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./careerLifecycle.js",
+      "target": "src/core/careerLifecycle.ts",
+      "targetRole": {
+        "bytes": 24706,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/careerLifecycle.ts",
+        "sha256": "338510e570d2ace8bdeaa24b989fe7783c2d4e4250e1929eb56fc8f149c5d1f6"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./employment.js",
+      "target": "src/core/employment.ts",
+      "targetRole": {
+        "bytes": 28353,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/employment.ts",
+        "sha256": "07262d62f6c6de0a849e5bfea124d01be2dbcbbb7edb7b3b6ead32025318b75a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./employment.js",
+      "target": "src/core/employment.ts",
+      "targetRole": {
+        "bytes": 28353,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/employment.ts",
+        "sha256": "07262d62f6c6de0a849e5bfea124d01be2dbcbbb7edb7b3b6ead32025318b75a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./promises.js",
+      "target": "src/core/promises.ts",
+      "targetRole": {
+        "bytes": 113287,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/promises.ts",
+        "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./m0FeasibilityWitness-native.js",
+      "target": "src/core/m0FeasibilityWitness-native.ts",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+        "bytes": 5868,
+        "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./m0FeasibilityWitness-native.js",
+      "target": "src/core/m0FeasibilityWitness-native.ts",
+      "targetRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+        "bytes": 5868,
+        "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./opportunityPromises.js",
+      "target": "src/core/opportunityPromises.ts",
+      "targetRole": {
+        "bytes": 25031,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/opportunityPromises.ts",
+        "sha256": "90d49b0c76553a06d9c0bbabe568b8624270fe939b8e502a26fac9adc99065ee"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./firstTakeSubjects.js",
+      "target": "src/core/firstTakeSubjects.ts",
+      "targetRole": {
+        "bytes": 6350,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/firstTakeSubjects.ts",
+        "sha256": "2525b7e04a2449fbb91f8fb73765448eacf791f1854f5c054c093641f388993a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./relationships.js",
+      "target": "src/core/relationships.ts",
+      "targetRole": {
+        "bytes": 49637,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/relationships.ts",
+        "sha256": "27026dd3020190762aa6a95da5ce3012f79face854045b06cf968d5d9b129265"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./promises.js",
+      "target": "src/core/promises.ts",
+      "targetRole": {
+        "bytes": 113287,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/promises.ts",
+        "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./talentSummary.js",
+      "target": "src/core/talentSummary.ts",
+      "targetRole": {
+        "bytes": 25267,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/talentSummary.ts",
+        "sha256": "ef4ff968b8348bab6b31fdc9f1fed0d5293c1da13dd9c0a755da64beafd1cce1"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./tuning.js",
+      "target": "src/core/tuning.ts",
+      "targetRole": {
+        "bytes": 143696,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/tuning.ts",
+        "sha256": "dbc81b7b2c1e3b160266a792c2485506db906858dcc6a34bcc7a62e9a2072125"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./types.js",
+      "target": "src/core/types.ts",
+      "targetRole": {
+        "bytes": 127306,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/types.ts",
+        "sha256": "d0d5c51ea08c8bec71d78f32b653f835d1d32c73c3f7d0d46aa3f9c541fa0dc2"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./hollywoodTypes.js",
+      "target": "src/core/hollywoodTypes.ts",
+      "targetRole": {
+        "bytes": 7072,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/hollywoodTypes.ts",
+        "sha256": "09606801a73c8c675737f972dae5b78ef41deef375aad0c9732286d13a08b68a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    },
+    {
+      "importer": "src/core/talentMarket-mutant.ts",
+      "sourceRole": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts",
+        "bytes": 120492,
+        "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+      },
+      "specifier": "./hollywoodTypes.js",
+      "target": "src/core/hollywoodTypes.ts",
+      "targetRole": {
+        "bytes": 7072,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/hollywoodTypes.ts",
+        "sha256": "09606801a73c8c675737f972dae5b78ef41deef375aad0c9732286d13a08b68a"
+      },
+      "resolution": "CANONICAL_NAMED_ROLE_ONLY",
+      "targetPrivateContentRead": false
+    }
+  ],
+  "sourceRole": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/RESOLUTION-SOURCE-BINDING.json",
+    "bytes": 78189,
+    "sha256": "f611b2042a7cb86bc4f473b05c8a05149839eb020e8c043b1d9039830ff99a74"
+  },
+  "scope": "Finite changed public source static declarations only; unchanged canonical module target contents never read. Type-only declarations are conservatively included; no runtime-transpile/import claim.",
+  "nativeWitnessSingleLogicalDerivative": "src/core/m0FeasibilityWitness-native.ts",
+  "originalOldWitnessSourceRoleUnchanged": {
+    "bytes": 4729,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/m0FeasibilityWitness.ts",
+    "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+  }
+}

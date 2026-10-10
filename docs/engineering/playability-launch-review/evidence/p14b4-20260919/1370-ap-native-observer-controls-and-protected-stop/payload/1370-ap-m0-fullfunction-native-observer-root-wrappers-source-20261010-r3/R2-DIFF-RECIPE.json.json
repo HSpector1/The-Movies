@@ -1,0 +1,20 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/R2-BASELINE-RECIPE.json",
+    "bytes": 2036,
+    "sha256": "6fc9cf4a94dac21940539cc5e72898b1042c26b19f3719163a4254691b80629b"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/RECIPE.json",
+    "bytes": 2036,
+    "sha256": "8e4337f24735fde1e85b8ce8576dcd3d13421a52374943501eb74695d10befe4"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 384,
+      "old": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r2/SOURCE-PINS.json\",\n    \"bytes\": 2436,\n    \"sha256\": \"7f4714be331850a07263481f60d8bffd628cb6e9b6abc13d9f9c5f9178e37f3e\"\n",
+      "newStart": 384,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/SOURCE-PINS.json\",\n    \"bytes\": 3625,\n    \"sha256\": \"c2eb3c2cf3454022bd3df01d0559e4a0f1ffa43bb024f6d7b4b4f77732a10f23\"\n"
+    }
+  ]
+}

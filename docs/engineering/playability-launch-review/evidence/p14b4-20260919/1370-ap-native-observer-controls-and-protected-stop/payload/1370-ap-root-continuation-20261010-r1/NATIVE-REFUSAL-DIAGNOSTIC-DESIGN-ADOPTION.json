@@ -1,0 +1,41 @@
+{
+  "actualDiagnosticV2Outcome": null,
+  "actualFailedRouteReadback": {
+    "bytes": 7552,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "fc9b38f9530bb565b4204f82452cc2d6245c2947508cf24ed35683177f4bd352"
+  },
+  "contract": {
+    "bytes": 3762,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-refusal-diagnostic-proposal-20261010-r1/CONTRACT.json",
+    "sha256": "874793784bf9754dc58856f7abe399e6ffa18d7da6a415d4870b9b31b9043025"
+  },
+  "design": {
+    "bytes": 5659,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-refusal-diagnostic-proposal-20261010-r1/DESIGN.md",
+    "sha256": "e3763ab041847b4e56e914428377a6ebca67f4e1673a79d1d2c9c338a0908cc5"
+  },
+  "executionAuthorization": false,
+  "implementationAccepted": false,
+  "independentReview": {
+    "bytes": 8151,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-refusal-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "8741e314d0d07a7cc1bb512cd890f90059dc5aff11687db077769dbd2a43cd46"
+  },
+  "knownActualCause": "ORIGINAL_ROW_BYTE_REFUSAL_ONLY",
+  "schema": "1370-root-native-refusal-diagnostic-design-adoption/v1",
+  "scope": "Fresh AQ public diagnostic-only implementation and independent affected controls. Versioned diagnostic metadata only; no cap, fixture, producer, sink, canonical codec, game behavior, first-error identity or timeout change. Full scenario remains STOP; no branch attribution from the unavailable diagnostic.",
+  "sourcePins": {
+    "bytes": 654,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-refusal-diagnostic-proposal-20261010-r1/SOURCE-PINS.json",
+    "sha256": "3ae9ed35481ec08acbea03f17a923bdd7f0385d6d214f80f011885d479ec7f2a"
+  },
+  "sourcePreparationAuthorized": true,
+  "sourceRules": [
+    "Bounded own-data canonical inspection only; lower bound16385 never exact length.",
+    "Native codec codes require typed error, safe own-code descriptor and exact stage.",
+    "Retain original first Error and one bounded output; no raw tuple cache, truncation or accepting failed output.",
+    "Independent RED/source review and actual original recorded route remain required."
+  ],
+  "status": "ROOT_ADOPTED_BOUNDED_DIAGNOSTIC_V2_DESIGN_SOURCE_PREPARATION_ONLY"
+}

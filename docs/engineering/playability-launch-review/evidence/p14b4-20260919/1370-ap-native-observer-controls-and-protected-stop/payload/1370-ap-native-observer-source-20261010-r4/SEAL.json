@@ -1,0 +1,10 @@
+{
+  "schema": "1370-ap-native-observer-source-seal/v1",
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r4/SOURCE-PINS.json",
+    "bytes": 12245,
+    "sha256": "a40adcaa8cc6b720176a52dba337259a351399a08b73ede1d87120bce4e410b1"
+  },
+  "payloadCount": 43,
+  "sourceOnly": true
+}

@@ -1,0 +1,9 @@
+{
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 2436,
+    "sha256": "7f4714be331850a07263481f60d8bffd628cb6e9b6abc13d9f9c5f9178e37f3e"
+  },
+  "finding": "Parent reader F used stale AO basename while actual config/manifest hashes bound AP R3. Root caught before execution. R1 separately retained actual transition-key author defect.",
+  "executionAuthorization": false
+}

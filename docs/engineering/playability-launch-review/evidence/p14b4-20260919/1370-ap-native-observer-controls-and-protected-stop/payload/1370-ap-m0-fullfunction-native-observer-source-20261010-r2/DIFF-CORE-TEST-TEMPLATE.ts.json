@@ -1,0 +1,20 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/BASELINE-CORE-TEST-TEMPLATE.ts",
+    "bytes": 3955,
+    "sha256": "9edd558ed1f0e60e3f9459490485bf7a8ecf3ef46c0401bd2c26c54e64f7cf0e"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/CORE-TEST-TEMPLATE.ts",
+    "bytes": 3955,
+    "sha256": "aa8af512e76af8fecef51f6c8f118d71b0c6c05dcf43c6e434148a6ce89ce00a"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 611,
+      "old": " assert.equal(binding.operationalHead,'0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4')\n",
+      "newStart": 611,
+      "new": " assert.equal(binding.operationalHead,'f2f97c622db7f5332164b790d1646355e89c00f4')\n"
+    }
+  ]
+}

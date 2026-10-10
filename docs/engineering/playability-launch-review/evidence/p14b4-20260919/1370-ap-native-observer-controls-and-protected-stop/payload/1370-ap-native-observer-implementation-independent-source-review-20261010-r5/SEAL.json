@@ -1,0 +1,9 @@
+{
+  "executionAuthorization": false,
+  "receipt": {
+    "bytes": 10219,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+    "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+  },
+  "schema": "1370-independent-native-observer-implementation-review-seal/v1"
+}

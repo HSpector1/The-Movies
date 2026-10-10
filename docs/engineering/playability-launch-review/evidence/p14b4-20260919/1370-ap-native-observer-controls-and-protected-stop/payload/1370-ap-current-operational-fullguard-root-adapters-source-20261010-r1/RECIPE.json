@@ -1,0 +1,61 @@
+{
+  "actualScanGrant": null,
+  "actualSnapshot": null,
+  "actualSourceReview": null,
+  "currentFullGuardActuallyExecuted": false,
+  "currentPublishedAOHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "executionAuthorization": false,
+  "genuineRootFacts": {
+    "bytes": 1029,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-OPERATIONAL-TRANSITION.json",
+    "sha256": "8ed8eab0ba445edbd2b93f0f87e932e9c3f902d42fe56cf14e6c7d7166b8976c"
+  },
+  "genuineRootScope": {
+    "bytes": 2935,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "7dee435f6d0ac86e41d590aa08ef81b87caaa8f3e7692a097301a94eeb7bbc6b"
+  },
+  "guardConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "sha256": "2bc496099b22f228ba671a57aec531f4eb11fc5f7c3d2cc8c21b7608331f7814"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "8e27bb8f5ba9ee51223da4db7fb521eac035a79b714a756b11e9d37949c9bf0f"
+  },
+  "guardSourcePins": {
+    "bytes": 2920,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "5ede60a6f02c405aea31dd7fa981d871de6b5af8c594cf103ad9c66076f9834a"
+  },
+  "historicalANHead": "0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4",
+  "launchArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py",
+    null,
+    null
+  ],
+  "originalSourceGuardFunctionsUnchanged": true,
+  "parentPath": "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-parent-recorded-20261010-r1",
+  "perCommandSeconds": 180,
+  "prepareScriptRole": "Mechanical documentary predecessor adaptation only; genuine root facts/scope already supplied, so do not execute it again against existing final source or duplicate root facts.",
+  "privateM0ProofsAndHistoricalTypesSeparate": true,
+  "readerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/read_current_fullpreflight.py"
+  ],
+  "requiredIndependentDecision": "ACCEPT_CURRENT_AO_FULLGUARD_BINDINGS_SOURCE_ONLY",
+  "reviewSourcePinsKey": "Exact physical guard SOURCE-PINS role",
+  "rootArtifacts": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1",
+  "schema": "1370-ap-current-ao-fullguard-root-adapters-source-recipe/v1",
+  "snapshotOutput": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "FILLED_SOURCE_ONLY_UNRUN_ROOT_REVIEW_AND_SEPARATE_SCAN_GRANT_REQUIRED",
+  "wholeScanDeadline": null
+}

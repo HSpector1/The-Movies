@@ -1,0 +1,56 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/BASELINE-record-observer-row-controls.py",
+    "bytes": 17408,
+    "sha256": "0eaf949c201047e861483cdc175375be8a0e2049d726427d041bf15872ebdf26"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/record-native-observer-controls.py",
+    "bytes": 17451,
+    "sha256": "1a4b4d2deba04c6267c573b79d0d5cd765f7eb5ea1af9738170185faf282074f"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 335,
+      "old": "CONFIG_SHA='ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa';WORKER_SHA='c819ea3777bfbc073a9b6795794e00dad8b2942106e13b2295b55e860cf492f6';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330\nOUTPUTS={'verification':SCRATCH/'1370-ao-observer-row-diagnostic-pure-controls-recorder-results-20261010-r1'}\n",
+      "newStart": 335,
+      "new": "CONFIG_SHA='8a14c244e10da3a7a9994ca4e3707a74f9e6ecf1b374aa9763cdf54fcfd8ca42';WORKER_SHA='8b83d33cc3bd822a166694b09c5da1d2efe04d4a34bde03688a5fc3ea36b0ad4';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330\nOUTPUTS={'verification':SCRATCH/'1370-ap-native-observer-pure-controls-recorder-results-20261010-r1'}\n"
+    },
+    {
+      "oldStart": 8570,
+      "old": "  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(config.get('schema')=='1370-observer-row-diagnostic-pure-controls-recorded-config/v1' and config.get('executionAuthorization') is False and config.get('syntheticOnly') is True,'PURE_PARSER_CONFIG')\n",
+      "newStart": 8562,
+      "new": "  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(config.get('schema')=='1370-native-observer-pure-controls-recorded-config/v1' and config.get('executionAuthorization') is False and config.get('syntheticOnly') is True,'PURE_PARSER_CONFIG')\n"
+    },
+    {
+      "oldStart": 9025,
+      "old": "  require(grant['schema']=='1370-root-observer-row-diagnostic-pure-controls-once-grant/v1' and grant['executionAuthorization'] is True and grant['scope']=='PURE_PUBLIC_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_ONLY' and grant['oneAggregateRun'] is True and grant['automaticRetry'] is False,'ROOT_ONCE_GRANT')\n",
+      "newStart": 9009,
+      "new": "  require(grant['schema']=='1370-root-native-observer-pure-controls-once-grant/v1' and grant['executionAuthorization'] is True and grant['scope']=='PURE_PUBLIC_NATIVE_OBSERVER_CONTROLS_ONLY' and grant['oneAggregateRun'] is True and grant['automaticRetry'] is False,'ROOT_ONCE_GRANT')\n"
+    },
+    {
+      "oldStart": 9599,
+      "old": "  script=HERE/'run-observer-row-recorded-controls.mjs';require(str(script)==config['workerPath'],'EXACT_WORKER_PATH');authenticate(script,WORKER_SHA,128*1024)\n",
+      "newStart": 9567,
+      "new": "  script=HERE/'run-native-observer-recorded-controls.mjs';require(str(script)==config['workerPath'],'EXACT_WORKER_PATH');authenticate(script,WORKER_SHA,128*1024)\n"
+    },
+    {
+      "oldStart": 13753,
+      "old": "     require(report['schema']=='1370-observer-row-independent-controls-result/v1' and report['status']=='PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_COMPLETED_UNADOPTED' and report['privateM0ReadOrWritten'] is False and report['game'] is False and report['executionAuthorization'] is False and not buffers['stderr'],'EXACT_PUBLIC_LOSSLESS_REPORT')\n",
+      "newStart": 13724,
+      "new": "     require(report['schema']=='1370-native-observer-independent-controls-result/v1' and report['status']=='PURE_NATIVE_OBSERVER_CODEC_SINK_AND_AFFECTED_CONSUMERS_COMPLETED_UNADOPTED' and report['privateM0ReadOrWritten'] is False and report['game'] is False and report['executionAuthorization'] is False and not buffers['stderr'],'EXACT_PUBLIC_LOSSLESS_REPORT')\n"
+    },
+    {
+      "oldStart": 14412,
+      "old": "     require(typed_equal(report['results'],expected) and type(report['caseCount']) is int and report['caseCount']==48 and type(report['positiveCount']) is int and report['positiveCount']==6 and type(report['specificNegativeCount']) is int and report['specificNegativeCount']==42 and report['fullQualificationAccepted'] is False,'EXACT_SOURCE_MATRIX_ROWS_COUNTS')\n",
+      "newStart": 14403,
+      "new": "     require(typed_equal(report['results'],expected) and type(report['caseCount']) is int and report['caseCount']==config['caseCount'] and type(report['positiveCount']) is int and report['positiveCount']==config['positiveCount'] and type(report['specificNegativeCount']) is int and report['specificNegativeCount']==config['specificNegativeCount'] and report['fullQualificationAccepted'] is False,'EXACT_SOURCE_MATRIX_ROWS_COUNTS')\n"
+    },
+    {
+      "oldStart": 15371,
+      "old": "   result={'schema':'1370-observer-row-diagnostic-pure-controls-recorder/v1','status':failure or 'OBSERVER_ROW_DIAGNOSTIC_PURE_CONTROLS_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'node':CHILD,'active':ACTIVE,'whole':WHOLE},'controlsResultPath':None if failure or output is None else str(output/'CONTROLS-RESULT.json'),'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}\n",
+      "newStart": 15430,
+      "new": "   result={'schema':'1370-native-observer-pure-controls-recorder/v1','status':failure or 'NATIVE_OBSERVER_PURE_CONTROLS_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'node':CHILD,'active':ACTIVE,'whole':WHOLE},'controlsResultPath':None if failure or output is None else str(output/'CONTROLS-RESULT.json'),'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}\n"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "start": 0,
+    "end": 110,
+    "expected": "import { boundedCanonicalBytes, freezeOwnedPhysicalRow, NATIVE_ROW_SCHEMA } from './m0NativeObserverRows.mjs'\n",
+    "replacement": ""
+  },
+  {
+    "start": 1150,
+    "end": 1178,
+    "expected": "  throwIfFailed: () => void\n",
+    "replacement": ""
+  },
+  {
+    "start": 2789,
+    "end": 2896,
+    "expected": "export function createM0FeasibilitySink({ codec, latch }: { codec: any; latch: any }): M0FeasibilitySink {\n",
+    "replacement": "export function createM0FeasibilitySink(): M0FeasibilitySink {\n"
+  },
+  {
+    "start": 3109,
+    "end": 3149,
+    "expected": "      latch.throwIfFailed()\n      try {\n",
+    "replacement": ""
+  },
+  {
+    "start": 3398,
+    "end": 3553,
+    "expected": "          latch.throwIfFailed()\n          if (recording) { const error = new Error('M0 feasibility reentrant capture'); latch.record(error); throw error }\n",
+    "replacement": "          if (recording) throw new Error('M0 feasibility reentrant capture')\n"
+  },
+  {
+    "start": 3690,
+    "end": 4229,
+    "expected": "            if (kind === 'inputTuple' && detail && typeof detail === 'object') {\n              const canonical = Object.getOwnPropertyDescriptor(detail, 'canonicalInputs')\n              if (canonical && Object.hasOwn(canonical, 'value') && typeof canonical.value === 'string'\n                && boundedCanonicalBytes(canonical.value) > MAX_ROW_BYTES)\n                throw new Error('M0 feasibility row byte bound exceeded')\n            }\n            const physicalDetail = kind === 'inputTuple' ? codec.encodeInputDetail(detail) : detail\n",
+    "replacement": ""
+  },
+  {
+    "start": 4651,
+    "end": 4813,
+    "expected": "            const row = { schema: NATIVE_ROW_SCHEMA, sequence: rows.length, occurrence: nth,\n              context: frozenContext, kind, detail: physicalDetail }\n",
+    "replacement": "            const row = { schema: 'c0-m0-feasibility/v1', sequence: rows.length, occurrence: nth,\n              context: frozenContext, kind, detail }\n"
+  },
+  {
+    "start": 5283,
+    "end": 5335,
+    "expected": "            rows.push(freezeOwnedPhysicalRow(copy))\n",
+    "replacement": "            rows.push(copy)\n"
+  },
+  {
+    "start": 5413,
+    "end": 5486,
+    "expected": "          } catch (error) {\n            latch.record(error); throw error\n",
+    "replacement": ""
+  },
+  {
+    "start": 5570,
+    "end": 5628,
+    "expected": "      } catch(error) { latch.record(error); throw error }\n",
+    "replacement": ""
+  },
+  {
+    "start": 5635,
+    "end": 5861,
+    "expected": "    rows: (): readonly unknown[] => {\n      latch.throwIfFailed()\n      try { return Object.freeze(rows.slice()) } catch(error) { latch.record(error); throw error }\n    },\n    throwIfFailed: (): void => latch.throwIfFailed(),\n",
+    "replacement": "    rows: (): readonly unknown[] => JSON.parse(JSON.stringify(rows)) as readonly unknown[],\n"
+  }
+]

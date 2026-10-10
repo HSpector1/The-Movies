@@ -1,0 +1,43 @@
+{
+  "schema": "1370-ap-native-observer-implementation-interface/v1",
+  "factoryModule": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r4/m0NativeObserverRows.mjs",
+    "bytes": 10244,
+    "sha256": "f80ca88e5440811e645c5e9f1e8a22eaf566dde556f7fb7e995ebffd92af502e"
+  },
+  "formatError": {
+    "export": "NativeObserverFormatError",
+    "name": "NativeObserverFormatError",
+    "codeProperty": "code",
+    "codes": [
+      "FORMAT_INVALID",
+      "CANONICAL_OVER_BOUND",
+      "STRUCTURE_OVER_BOUND",
+      "CANONICAL_ROUNDTRIP"
+    ]
+  },
+  "nativeExceptions": "actual thrown value retained by identity; no generic exception-as-RED",
+  "latch": [
+    "record",
+    "throwIfFailed",
+    "first"
+  ],
+  "codec": [
+    "encodeInputDetail",
+    "decodeInputDetail",
+    "legacyRow",
+    "encodeInputDetailForDiagnostic",
+    "decodeInputDetailForDiagnostic"
+  ],
+  "sink": "createM0FeasibilitySink({codec,latch}) => capture(context), rows(), throwIfFailed()",
+  "diagnostic": "createObserverRowDiagnostic({codec,latch}); runObserverArm(diagnostic,body,end,reset,writeLine)",
+  "evaluationBinding": "assertNativeEvaluationBinding(codec,physicalRow,evaluationsIterable)",
+  "orderingCases": "runOrderingSourceControls(originalPacket) unchanged original18 IDs/labels, native envelope after edits",
+  "snapshot": "frozen array of references to deeply frozen sink-owned JSON-parsed physical rows; no whole-trace serialize/decode; no mutation by subsequent captures",
+  "physicalCaps": {
+    "count": 512,
+    "rowIncludingNewline": 16384,
+    "totalIncludingNewlines": 2097152
+  },
+  "actualTestsExecuted": false
+}

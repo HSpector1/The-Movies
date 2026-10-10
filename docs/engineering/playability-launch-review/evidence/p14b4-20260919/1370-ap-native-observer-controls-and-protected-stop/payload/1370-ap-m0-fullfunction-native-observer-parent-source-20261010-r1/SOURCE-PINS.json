@@ -1,0 +1,46 @@
+{
+  "schema": "1370-fullfunction-parent-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-launch-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1/BASELINE-launch-fullfunction.py",
+      "bytes": 18392,
+      "sha256": "8d16d458499a6753fba86f041f2dfcd287e3250065bf5b4c0e7ca81bee1df831"
+    },
+    "BASELINE-read-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1/BASELINE-read-fullfunction.py",
+      "bytes": 14392,
+      "sha256": "f933f5136f9014751b1b3b7af20fc37bddf0e32be5ad178647b37fd816ebed8d"
+    },
+    "DIFF-launch-fullfunction.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1/DIFF-launch-fullfunction.py.json",
+      "bytes": 18129,
+      "sha256": "3c1045d72e48823cec907bfa2aeed7ef2b88e6d4f9d277f337cad3e863ba425e"
+    },
+    "DIFF-read-fullfunction.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1/DIFF-read-fullfunction.py.json",
+      "bytes": 11532,
+      "sha256": "e5f30a7d7a448492125030fa430c2e98dc08225d05c8aa707e94b3b5ef6f74f3"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1/RECIPE.json",
+      "bytes": 2119,
+      "sha256": "ac9d5ba80312f8713561e40c37383dbfe19d3f4de01d969c60d6fe5f6670b653"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1/SOURCE-PROOF.json",
+      "bytes": 1599,
+      "sha256": "4827108aeb3b5ebabeb195d2bdcf9ec53f0f2a8fc40adb636dca0ad0a881b584"
+    },
+    "launch-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1/launch-fullfunction.py",
+      "bytes": 20028,
+      "sha256": "23783e6c40999bd4727c100fbe4a4e1fd622a2a7ea1ef9b69bb2613d7abece92"
+    },
+    "read-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1/read-fullfunction.py",
+      "bytes": 14575,
+      "sha256": "8cdb67fb9a6d2d9daf5baa33a5a37b31e6269c904c20e784ab00ec4952fea376"
+    }
+  }
+}

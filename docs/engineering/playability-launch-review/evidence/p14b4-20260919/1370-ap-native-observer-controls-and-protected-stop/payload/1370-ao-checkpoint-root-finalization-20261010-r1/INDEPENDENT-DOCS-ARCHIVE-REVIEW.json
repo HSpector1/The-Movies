@@ -1,0 +1,99 @@
+{
+  "AUTOByteExactToRetainedANHandoff": true,
+  "allActualSelectedAOPackagesCovered": true,
+  "allExpectedPayloadAndDocumentIndexBlobsByteExact": true,
+  "archiveRootReadback": {
+    "bytes": 1576,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/ARCHIVE-ROOT-READBACK.json",
+    "sha256": "863ee257b0fca278454367ff419d55dc85cabc870f785e311f40f13bd97777b9"
+  },
+  "archiveSummary": {
+    "copiedPayloadBytes": 22706854,
+    "localHashSizeOnlyRoles": 12,
+    "priorGitBlobRoles": 61,
+    "roles": 531
+  },
+  "authorshipBoundary": "Builder literal adaptation self-audited separately; this root claim/docs/actual archive/index review is independent.",
+  "candidateOrGameRuntimeExecuted": false,
+  "completeSourceAndArchiveCoverage": true,
+  "concreteFindings": [],
+  "copiedPayloadBytes": 22706854,
+  "copiedPayloadRoles": 458,
+  "decision": "ACCEPT_INDEPENDENT_AO_CHECKPOINT_DOCUMENTS_AND_FINITE_ARCHIVE_ONLY",
+  "documentsNativeDesignOnlyNoFitOrImplementationOrRuntimeClaim": true,
+  "documentsPreserveActual945aAndSupplementalE957Distinction": true,
+  "documentsPreserveCorrectedCaptureEnabledFixtureUnknownScope": true,
+  "documentsPreserveStopNullAfterProofsAndUnrunMutant": true,
+  "executionAuthorization": false,
+  "findings": [],
+  "fullFunctionQualificationAccepted": false,
+  "handoff": {
+    "bytes": 12167,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+    "sha256": "7d6215a18eddf00b197569939002fe99cbb1cc1e38662d9cb35803c481af8ef2"
+  },
+  "independentReviewer": "/root/b109_focused_route_review",
+  "indexVerificationComplete": {
+    "bytes": 9119,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/INDEX-VERIFICATION-COMPLETE.json",
+    "sha256": "03a25fe210d8209a0c5b1b1926efb3b8f89933c2dce71995bb2b8452ddc0f730"
+  },
+  "indexedAndExpectedFiles": 463,
+  "initialStagingCoverageFinding": {
+    "bytes": 1082,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/ARCHIVE-STAGING-COVERAGE-INITIAL-FINDING.json",
+    "sha256": "6770423df83db0809b60dddbc1194b06a1861e540b4e05ca5a31591985c2bb60"
+  },
+  "inventory": {
+    "bytes": 278619,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/INVENTORY-FINAL.json",
+    "sha256": "f5071b6c1ca7341f0f735deb9840696b667eb0e071c7ed8330dfa194771b321b"
+  },
+  "lateExcludedFinalizationEvidenceMustCarryNextCheckpoint": true,
+  "lessons": {
+    "bytes": 3710,
+    "sha256": "122c03160371c683af4b5bc323edeb9c894d9f09baf0c499bbfccc92b96c281f",
+    "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/LESSONS-r11.md"
+  },
+  "localHashSizeOnlyRoles": 12,
+  "manifest": {
+    "bytes": 2158182,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/ARCHIVE-MANIFEST.json",
+    "sha256": "3208fd967a68bcc32a879252d95af1a3d16b45361c45da5a87c15aad3c6516d8"
+  },
+  "nativeDesignAdoption": {
+    "bytes": 3376,
+    "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229",
+    "sourcePath": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json"
+  },
+  "nodeCompileCachePayloadExcluded": true,
+  "priorHeadBlobRoles": 61,
+  "priorHeadBlobsAndTreeMappingsIndependentlyAuthenticated": true,
+  "producerSemanticRawLocalCoverageExact": true,
+  "publicationEndsPriorFreezeAndFutureRuntimeNeedsFreshAPIdentityAndProtection": true,
+  "rawPSFDBytesNeverExported": true,
+  "report": {
+    "bytes": 6177,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AO-observer-row-diagnostic-closure.md",
+    "sha256": "cc6c1c15ec5818f7fb153454f3a5c7979962426533a93fc78b78d25186e4c868"
+  },
+  "reviewerRepoGitOrSourceMutation": false,
+  "rootClaim": {
+    "bytes": 5573,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/ROOT-FINAL-CLAIM.txt",
+    "sha256": "211890077744d460d0fcf88fbee3e66500ade8399d4d94aa1721a14a2d24a677"
+  },
+  "rootDocumentAndArchiveAuthor": "/root",
+  "schema": "1370-ao-checkpoint-documents-and-finite-archive-independent-review/v1",
+  "unchangedGoverningOrderP17P18PendingNoOwnerDecision": true,
+  "whitespaceException": {
+    "allDiffChecksCleanClaim": false,
+    "currentDocsCheckExit": 0,
+    "files": 14,
+    "onlyImmutableUnifiedDiffSingleSpaceContextLines": true,
+    "originalPayloadsPreserved": true,
+    "warnings": 26,
+    "wholeDiffCheckExit": 2
+  },
+  "wholeLateANFinalizationCovered": true
+}

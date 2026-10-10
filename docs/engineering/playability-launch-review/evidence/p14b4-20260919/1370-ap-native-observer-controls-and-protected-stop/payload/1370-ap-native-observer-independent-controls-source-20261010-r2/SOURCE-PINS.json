@@ -1,0 +1,41 @@
+{
+  "schema": "1370-native-observer-independent-controls-source-pins/v1",
+  "files": {
+    "run-native-observer-controls.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+      "bytes": 30858,
+      "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+    },
+    "MATRIX.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/MATRIX.json",
+      "bytes": 11805,
+      "sha256": "e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/CONTRACT.json",
+      "bytes": 8241,
+      "sha256": "1303c82c407869b2be88a59e2fd03050a0a2caf5d7456dcedd557b9a15b473a0"
+    },
+    "LESSONS.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/LESSONS.md",
+      "bytes": 996,
+      "sha256": "efb223c04d14e4f44fd107f3b12af33a2a91679c672d1794fba8ab6ed8130bae"
+    },
+    "seal_controls.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/seal_controls.py",
+      "bytes": 7860,
+      "sha256": "0c73d7cb7cd01eead09fd06f218b5bb5ef03b73fe93028174835d09ae0196060"
+    },
+    "SOURCE-CORRECTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-CORRECTION.json",
+      "bytes": 1681,
+      "sha256": "1d1dee06aa88d10631318fec09376f76e3e63419f56484bda4a353322201de15"
+    },
+    "prepare_r2.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/prepare_r2.py",
+      "bytes": 1983,
+      "sha256": "77d836de5aa4bc99396a7130413b40121761cf240e0e9957dca93999df7f49cc"
+    }
+  },
+  "executionAuthorization": false
+}

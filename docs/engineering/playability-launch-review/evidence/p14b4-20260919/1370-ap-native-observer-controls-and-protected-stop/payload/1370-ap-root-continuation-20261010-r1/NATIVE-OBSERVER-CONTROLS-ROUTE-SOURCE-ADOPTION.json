@@ -1,0 +1,27 @@
+{
+  "actualOutcome": null,
+  "executionAuthorization": false,
+  "game": false,
+  "parentAdapterSourcePins": {
+    "bytes": 10202,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "df5f42b9c1761bcb274b511eb6cc2fd2ff22895d1e0dd89044be226272039ef7"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 13582,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "4e954629eae5f415b4a603b721838f95f1cade240d4ea0a3e0c8c767a352f5d5"
+  },
+  "schema": "1370-root-native-observer-pure-controls-source-adoption/v1",
+  "sourcePins": {
+    "bytes": 10202,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "df5f42b9c1761bcb274b511eb6cc2fd2ff22895d1e0dd89044be226272039ef7"
+  },
+  "sourceReview": {
+    "bytes": 13582,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "4e954629eae5f415b4a603b721838f95f1cade240d4ea0a3e0c8c767a352f5d5"
+  },
+  "status": "ROOT_ADOPTED_PURE_NATIVE_OBSERVER_CONTROLS_SOURCE_ONLY"
+}

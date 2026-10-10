@@ -1,0 +1,33 @@
+{
+  "claim": {
+    "bytes": 5573,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/ROOT-FINAL-CLAIM.txt",
+    "sha256": "211890077744d460d0fcf88fbee3e66500ade8399d4d94aa1721a14a2d24a677"
+  },
+  "handoff": {
+    "bytes": 12167,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+    "sha256": "7d6215a18eddf00b197569939002fe99cbb1cc1e38662d9cb35803c481af8ef2"
+  },
+  "inventory": {
+    "bytes": 278619,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/INVENTORY-FINAL.json",
+    "sha256": "f5071b6c1ca7341f0f735deb9840696b667eb0e071c7ed8330dfa194771b321b"
+  },
+  "manifest": {
+    "bytes": 2158182,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ao-observer-row-diagnostic-closure/ARCHIVE-MANIFEST.json",
+    "sha256": "3208fd967a68bcc32a879252d95af1a3d16b45361c45da5a87c15aad3c6516d8"
+  },
+  "report": {
+    "bytes": 6177,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AO-observer-row-diagnostic-closure.md",
+    "sha256": "cc6c1c15ec5818f7fb153454f3a5c7979962426533a93fc78b78d25186e4c868"
+  },
+  "summary": {
+    "copiedPayloadBytes": 22706854,
+    "localHashSizeOnlyRoles": 12,
+    "priorGitBlobRoles": 61,
+    "roles": 531
+  }
+}

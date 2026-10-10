@@ -1,0 +1,15 @@
+{
+  "schema": "1370-ap-native-observer-author-preparation-stop/v1",
+  "source": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 11971,
+    "sha256": "afb6cd5bcf5bdc6a15e8446d9728c42db7b62474635a87adf7cebe50b00b2e8b"
+  },
+  "findings": [
+    "R2 broad replacement referenced wrapper parameters in separate decode scope",
+    "R2 builder variable shadowing mislabeled predecessor manifest"
+  ],
+  "detectedBy": "finite author source reconciliation before any review/adoption/runtime",
+  "actualCandidateExecuted": false,
+  "preserved": true
+}

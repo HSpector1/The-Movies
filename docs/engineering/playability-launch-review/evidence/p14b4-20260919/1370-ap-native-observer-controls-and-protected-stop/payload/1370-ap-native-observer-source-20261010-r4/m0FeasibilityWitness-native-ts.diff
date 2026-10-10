@@ -1,0 +1,83 @@
+--- BASELINE-m0FeasibilityWitness.ts
++++ m0FeasibilityWitness-native.ts
+@@ -1,3 +1,4 @@
++import { boundedCanonicalBytes, freezeOwnedPhysicalRow, NATIVE_ROW_SCHEMA } from './m0NativeObserverRows.mjs'
+ // Scratch-only, outside GameState/save/RNG. A caller passes capture explicitly.
+ type M0FeasibilityContextBase = Readonly<{
+   era: 'H' | 'M0'
+@@ -23,6 +24,7 @@
+ export type M0FeasibilitySink = Readonly<{
+   capture: (context: M0FeasibilityContext) => M0FeasibilityCapture
+   rows: () => readonly unknown[]
++  throwIfFailed: () => void
+ }>
+ const MAX_ROWS = 512
+ const MAX_ROW_BYTES = 16 * 1024
+@@ -51,44 +53,61 @@
+     throw new Error('M0 feasibility invalid context')
+   }
+ }
+-export function createM0FeasibilitySink(): M0FeasibilitySink {
++export function createM0FeasibilitySink({ codec, latch }: { codec: any; latch: any }): M0FeasibilitySink {
+   const rows: unknown[] = []
+   let totalBytes = 0
+   let recording = false
+   const occurrence = new Map<string, number>()
+   return Object.freeze({
+     capture(context: M0FeasibilityContext): M0FeasibilityCapture {
++      latch.throwIfFailed()
++      try {
+       validateContext(context)
+       const frozenContext = Object.freeze(JSON.parse(JSON.stringify(context)) as M0FeasibilityContext)
+       return Object.freeze({
+         context: frozenContext,
+         record(kind: string, detail: unknown): void {
+-          if (recording) throw new Error('M0 feasibility reentrant capture')
++          latch.throwIfFailed()
++          if (recording) { const error = new Error('M0 feasibility reentrant capture'); latch.record(error); throw error }
+           recording = true
+           try {
+             if (rows.length >= MAX_ROWS) throw new Error('M0 feasibility row bound exceeded')
++            if (kind === 'inputTuple' && detail && typeof detail === 'object') {
++              const canonical = Object.getOwnPropertyDescriptor(detail, 'canonicalInputs')
++              if (canonical && Object.hasOwn(canonical, 'value') && typeof canonical.value === 'string'
++                && boundedCanonicalBytes(canonical.value) > MAX_ROW_BYTES)
++                throw new Error('M0 feasibility row byte bound exceeded')
++            }
++            const physicalDetail = kind === 'inputTuple' ? codec.encodeInputDetail(detail) : detail
+             const identity = JSON.stringify([frozenContext.week, frozenContext.caseKey,
+               frozenContext.caseOccurrence, frozenContext.proposalKey, frozenContext.proposalOccurrence,
+               frozenContext.phase, frozenContext.candidateOrdinal ?? null,
+               frozenContext.submittedOrdinal ?? null, frozenContext.survivorOrdinal ?? null, kind])
+             const nth = occurrence.get(identity) ?? 0
+-            const row = { schema: 'c0-m0-feasibility/v1', sequence: rows.length, occurrence: nth,
+-              context: frozenContext, kind, detail }
++            const row = { schema: NATIVE_ROW_SCHEMA, sequence: rows.length, occurrence: nth,
++              context: frozenContext, kind, detail: physicalDetail }
+             const encoded = JSON.stringify(row)
+             if (encoded === undefined) throw new Error('M0 feasibility unserializable row')
+             const bytes = new TextEncoder().encode(encoded + '\n').length
+             if (bytes > MAX_ROW_BYTES) throw new Error('M0 feasibility row byte bound exceeded')
+             if (totalBytes + bytes > MAX_TOTAL_BYTES) throw new Error('M0 feasibility total byte bound exceeded')
+             const copy = JSON.parse(encoded)
+-            rows.push(copy)
++            rows.push(freezeOwnedPhysicalRow(copy))
+             totalBytes += bytes
+             occurrence.set(identity, nth + 1)
++          } catch (error) {
++            latch.record(error); throw error
+           } finally {
+             recording = false
+           }
+         },
+       })
++      } catch(error) { latch.record(error); throw error }
+     },
+-    rows: (): readonly unknown[] => JSON.parse(JSON.stringify(rows)) as readonly unknown[],
++    rows: (): readonly unknown[] => {
++      latch.throwIfFailed()
++      try { return Object.freeze(rows.slice()) } catch(error) { latch.record(error); throw error }
++    },
++    throwIfFailed: (): void => latch.throwIfFailed(),
+   })
+ }

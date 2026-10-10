@@ -1,0 +1,31 @@
+{
+  "schema": "1370-native-observer-controls-r2-source-correction/v1",
+  "predecessorSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 1492,
+    "sha256": "4d7273a77ef9d7783c66b1b8e26840f9197968866c2fdf6a98cc7f4f0cfae0ad"
+  },
+  "predecessorLibrary": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r1/run-native-observer-controls.mjs",
+    "bytes": 30765,
+    "sha256": "36c1d6b2096b7ac0fdac1bcfe605de11b482e4cfc86684ac04843056d7eaea76"
+  },
+  "successorLibrary": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+    "bytes": 30858,
+    "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+  },
+  "change": "The retained old snapshot arm now actually suffers original row-byte refusal before the fresh new arm is created; public old rows must refuse same E while new arm succeeds and old retained snapshot stays unchanged.",
+  "wholeForward": {
+    "before": "const q=setup();capture(q).record('inputTuple',ordinary());assert.equal(json(rows),old);",
+    "after": "const E=rowRefusal(p);assert.equal(p.latch.first().error,E);exactThrown(()=>p.sink.rows(),E);const q=setup();capture(q).record('inputTuple',ordinary());assert.equal(json(rows),old);",
+    "count": 1
+  },
+  "wholeInverseActuallyEqual": true,
+  "caseRosterUnchanged": true,
+  "caseCount": 72,
+  "positiveCount": 13,
+  "specificNegativeCount": 59,
+  "runtimeExecuted": false,
+  "executionAuthorization": false
+}

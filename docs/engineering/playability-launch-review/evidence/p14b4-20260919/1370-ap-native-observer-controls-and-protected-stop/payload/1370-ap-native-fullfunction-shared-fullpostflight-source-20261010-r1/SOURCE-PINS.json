@@ -1,0 +1,61 @@
+{
+  "schema": "1370-ap-native-fullfunction-postflight-source-pins/v1",
+  "files": {
+    "read-fullpostflight.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py.inverse.diff",
+      "bytes": 5477,
+      "sha256": "87f1668b8432c879379a3c93ab4841fd6c15cc47c95b972a3eff219efbe01bad"
+    },
+    "launch-fullpostflight.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py.forward.diff",
+      "bytes": 7309,
+      "sha256": "ed1e363178cc94e9d439d8eb9da8aae5e51fa2e24635ebb3c918e4c4ab572d58"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/RECIPE.json",
+      "bytes": 2518,
+      "sha256": "caca5a4d3856e04d45d83d60bbf78b30d52c167eb09d5643aa88a907d3c19bec"
+    },
+    "prepare_source.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/prepare_source.py",
+      "bytes": 5499,
+      "sha256": "0f455c5c3c769be48ce6796d3c919cdd162ed276b1178898fd9515109bbef815"
+    },
+    "read-fullpostflight.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py",
+      "bytes": 5421,
+      "sha256": "0c4047136b4c872b8e65ac5d868788f79c9004af9372e2c1a9bab5d24077b12c"
+    },
+    "launch-fullpostflight.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+      "bytes": 5283,
+      "sha256": "0003d2c01f91ba5d480ec32cea74af77358d82199a668644a5ee6009fd780785"
+    },
+    "launch-fullpostflight.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py.inverse.diff",
+      "bytes": 7309,
+      "sha256": "0d3b976fbd84c6420094f8d609175d743c9d3b73552ea5c2eb225c69c1a2937c"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/SOURCE-PROOF.json",
+      "bytes": 5819,
+      "sha256": "eed000d6aa0315bf4b9efd005d925650a14dab1abf0f618dab08220537ee63df"
+    },
+    "BASELINE-read-fullpostflight.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/BASELINE-read-fullpostflight.py",
+      "bytes": 5439,
+      "sha256": "484acc12c4ef79ccdcc0aa928e495fce793f27f4c76373d5c0ea88058711a84f"
+    },
+    "BASELINE-launch-fullpostflight.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/BASELINE-launch-fullpostflight.py",
+      "bytes": 5308,
+      "sha256": "448b2f60846d4d28eb972ea07ef3cb89c7e3f3d540332809271f987117266d6f"
+    },
+    "read-fullpostflight.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py.forward.diff",
+      "bytes": 5477,
+      "sha256": "2c8edc7c0f2c986f8557d393b06324257b477d05b4ae76a94fe9072e3d922830"
+    }
+  },
+  "executionAuthorization": false
+}

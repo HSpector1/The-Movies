@@ -1,0 +1,23 @@
+{
+  "schema": "1370-held-native-fullfunction-preparation/v1",
+  "executionAuthorization": false,
+  "candidateCodeExecuted": false,
+  "currentProtection": null,
+  "native72ObservedAdoption": null,
+  "sourceReview": null,
+  "pendingIndependentSourceReconciliation": true,
+  "recordedMechanismsByteExact": true,
+  "recorderOutputSelectorMatchesDraft": true,
+  "expectedRemainingWork": [
+    "Actual native72/v3 role fill after genuine receipts",
+    "Exact Node/Python observed-contract comparison against genuine root producer",
+    "Final local resolution-role hash and complete inputs/templates/config hash rebinding",
+    "Complete operative RECIPE and18+2 aliases from final actual roles",
+    "Original complete inverse applications and independent source review"
+  ],
+  "draftConfig": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/CONFIG-DRAFT-UNFILLED.json",
+    "bytes": 25052,
+    "sha256": "3d858955557d8bbb418f424ff721b40aa9779073bc7a40ccde9b125324e579a3"
+  }
+}

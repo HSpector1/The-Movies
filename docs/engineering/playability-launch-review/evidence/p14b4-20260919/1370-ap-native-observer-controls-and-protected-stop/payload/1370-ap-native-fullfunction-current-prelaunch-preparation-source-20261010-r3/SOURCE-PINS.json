@@ -1,0 +1,107 @@
+{
+  "schema": "1370-ap-current-ao-prelaunch-source-pins/v2",
+  "files": {
+    "prepare_correction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/prepare_correction.py",
+      "bytes": 1865,
+      "sha256": "ee41dec814f4c57134f79722bfb1dd28b1e4fd13653a05cc8a383b9da0976c94"
+    },
+    "read_current_ao_prelaunch.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/read_current_ao_prelaunch.py.inverse.diff",
+      "bytes": 14674,
+      "sha256": "22cce14c6bbda3e58f2910b20924e9d1a19644956dbf6d6b9da84b71b56e12cd"
+    },
+    "run_current_ao_prelaunch_once.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/run_current_ao_prelaunch_once.py.inverse.diff",
+      "bytes": 13350,
+      "sha256": "e62ef076ed22a454370a9057875ef58b8e0b092ad7cac464a2752d65863b343e"
+    },
+    "OPERATIONAL-SCOPE-AMENDMENT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/OPERATIONAL-SCOPE-AMENDMENT.json",
+      "bytes": 2937,
+      "sha256": "8b8f0ca13b0f27411fa30118afd3ecd3e40f185a5851150678f9c280ca7783fa"
+    },
+    "BASELINE-run_current_an_prelaunch_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/BASELINE-run_current_an_prelaunch_once.py",
+      "bytes": 7903,
+      "sha256": "60d43b96420f30974d5364a91863de27951deef37a489335a7522a2b40c6784c"
+    },
+    "EXACT-ARGV.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/EXACT-ARGV.json",
+      "bytes": 1953,
+      "sha256": "038a3749be564e9a66c13c0c4a0b0125716d3d1d98a4629d0dd0bf691b9e1de5"
+    },
+    "prepare_source.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/prepare_source.py",
+      "bytes": 15184,
+      "sha256": "95874b7ff4c66ae90c99c5a6fb481d53f7d46f0e443f411e4ef1ef90ae0e6b62"
+    },
+    "run_current_ao_prelaunch_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/run_current_ao_prelaunch_once.py",
+      "bytes": 9050,
+      "sha256": "219e65f3f3cef8d8615862c17934964b29f58715d0d569da8f7a08a192a7d6a8"
+    },
+    "BASELINE-read_current_an_prelaunch.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/BASELINE-read_current_an_prelaunch.py",
+      "bytes": 7766,
+      "sha256": "b63ba971e52091aaa345590101be85c76e395edd6f92843330415dea658df23e"
+    },
+    "BASELINE-current-an-root-prelaunch.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/BASELINE-current-an-root-prelaunch.py",
+      "bytes": 15211,
+      "sha256": "dcc91aead0412c545c275e009ad298260dd64df6d6240e2d3253bb529d7ae914"
+    },
+    "current-ao-root-prelaunch.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/current-ao-root-prelaunch.py.inverse.diff",
+      "bytes": 13146,
+      "sha256": "d8c12502d4d0493abe2a57cb17944bdc0754e064e09895d8659947c90004ac0f"
+    },
+    "current-ao-root-prelaunch.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/current-ao-root-prelaunch.py.forward.diff",
+      "bytes": 13146,
+      "sha256": "87181c00c91e4560e8af53217ea3695d5ab608889095e080ade49de1378f8832"
+    },
+    "PREDECESSOR-CONTRACT-CORRECTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/PREDECESSOR-CONTRACT-CORRECTION.json",
+      "bytes": 1094,
+      "sha256": "81ec334da434e09ba4fd63a822b153d5760e9d9a427afff22d9a3e88e03a7aca"
+    },
+    "read_current_ao_prelaunch.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/read_current_ao_prelaunch.py",
+      "bytes": 9765,
+      "sha256": "08182736b6c37654b50a79dbe24082324e8af4d28804c792b5a603c0690695bf"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/SOURCE-PROOF.json",
+      "bytes": 22721,
+      "sha256": "10f6310f3994c893f472274da5f6714eeb20a12ac021fc6ec88d89efcc297499"
+    },
+    "current-ao-root-prelaunch.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/current-ao-root-prelaunch.py",
+      "bytes": 15215,
+      "sha256": "4e48892972d1f0a6b98cf3ef4e286af74eb7b95c763f9f43a2d21c1292ee1dee"
+    },
+    "PRELAUNCH-CONFIG-UNFILLED.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/PRELAUNCH-CONFIG-UNFILLED.json",
+      "bytes": 2555,
+      "sha256": "ca248cab9e68a8624047d41388441f5226bc0e439ea82cbb718efab9e9ab51db"
+    },
+    "read_current_ao_prelaunch.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/read_current_ao_prelaunch.py.forward.diff",
+      "bytes": 14674,
+      "sha256": "d91494ca9ad00f81a28b1d6d163d0517c3e96104a254078a1960ec8018f6e0de"
+    },
+    "run_current_ao_prelaunch_once.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/run_current_ao_prelaunch_once.py.forward.diff",
+      "bytes": 13350,
+      "sha256": "a731cc4c459e07a19a201d9b487b3b20f513e741310ee7df3aede95ba5d44692"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/CONTRACT.json",
+      "bytes": 2439,
+      "sha256": "6b9b27f892cea3f6af662b276cd88f28599ee8003d2de5500bce7e1994217c3e"
+    }
+  },
+  "status": "SOURCE_ONLY_UNRUN_PENDING_INDEPENDENT_REVIEW",
+  "executionAuthorization": false
+}

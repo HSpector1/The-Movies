@@ -1,0 +1,32 @@
+{
+  "actualChildExit": 0,
+  "boundsSeconds": {
+    "active": 320,
+    "node": 300,
+    "whole": 330
+  },
+  "childPid": 26921,
+  "configSha256": "8a14c244e10da3a7a9994ca4e3707a74f9e6ecf1b374aa9763cdf54fcfd8ca42",
+  "controlsResultPath": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorder-results-20261010-r1/CONTROLS-RESULT.json",
+  "elapsedSeconds": 3.2204292549868114,
+  "executionAuthorization": false,
+  "game": false,
+  "groupClear": true,
+  "mode": "verification",
+  "ownedPgid": 26921,
+  "pgidConfirmed": true,
+  "sanitizedEnvironment": [
+    "NODE_OPTIONS",
+    "NODE_PATH"
+  ],
+  "schema": "1370-native-observer-pure-controls-recorder/v1",
+  "sourceOrGameplayAdoption": false,
+  "startupOwnedBeforeExec": true,
+  "status": "NATIVE_OBSERVER_PURE_CONTROLS_COMPLETE_UNADOPTED",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutBytes": 20012,
+  "stdoutSha256": "ca8421b31fcf158b934b5b1ef9a779a689c7b327d565b9cb1ad815eade167bf3",
+  "timedOut": false,
+  "utc": "2026-10-10T10:35:04.378615+00:00"
+}

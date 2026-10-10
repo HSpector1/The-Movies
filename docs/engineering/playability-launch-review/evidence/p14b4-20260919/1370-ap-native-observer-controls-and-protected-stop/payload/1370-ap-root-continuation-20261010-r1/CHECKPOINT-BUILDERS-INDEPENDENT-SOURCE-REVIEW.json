@@ -1,0 +1,22 @@
+{
+  "archiveCopied": false,
+  "completeIndexSetEqualityRequired": true,
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_AP_CHECKPOINT_BUILDERS_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "gitMutation": false,
+  "independentRestorations": 6,
+  "inventoryOnlySchemaBindingChanged": true,
+  "inventoryRun": false,
+  "manifestRoles": 22,
+  "originalFinalizerUnchanged": true,
+  "rawLocalPolicyPreserved": true,
+  "rootActualCutoffRequired": true,
+  "schema": "1370-root-checkpoint-builders-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 6470,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/SOURCE-PINS.json",
+    "sha256": "c11a49a5ab5a4359ea6c3ef5b04c1067c7e23038e0762dc923b3ffd1d5e70fc3"
+  },
+  "wholeLateAOCarried": true
+}

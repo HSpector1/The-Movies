@@ -1,0 +1,75 @@
+{
+  "actualControlsExecuted": false,
+  "actualFullfunctionExecuted": false,
+  "api": {
+    "bytes": 8118,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/API.md",
+    "sha256": "3da98803fc94b4beeb4e37d6aa01a4ccd266a12ac123df9746cc21d12b1fc9fa"
+  },
+  "apiAdoption": {
+    "bytes": 3933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-API-ADOPTION.json",
+    "sha256": "9300b1167ee0b481757023e9a93306432c115c3e6f554733aff42e6c95565c7f"
+  },
+  "canonicalDepth": 64,
+  "canonicalNodesAndProperties": 16384,
+  "caseCount": 72,
+  "controlsReview": {
+    "bytes": 10172,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "2808db9a422d29808bbcb301dd048c1a12922384c5e0f9c25303f449e9940766"
+  },
+  "controlsSourcePins": {
+    "bytes": 2042,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "be758595a589a51f559fe6933c8b6a68b23e16691ab32ee87aebf8d7b2dd64f9"
+  },
+  "executionAuthorization": false,
+  "fullQualificationAccepted": false,
+  "game": false,
+  "implementationReview": {
+    "bytes": 10219,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+    "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+  },
+  "implementationSourcePins": {
+    "bytes": 12245,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+    "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+  },
+  "nativeFitMeasured": false,
+  "originalOrderingCases": 18,
+  "physicalCaps": {
+    "count": 512,
+    "rowIncludingNewline": 16384,
+    "totalIncludingNewlines": 2097152
+  },
+  "positiveCount": 13,
+  "productionMutation": false,
+  "reviewIndependence": "Implementation, independent controls author and source reviewer remain distinct. Root adopts; no source acceptance is a runtime result.",
+  "rootAdopterSource": {
+    "bytes": 4472,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/adopt_native_sources.py",
+    "sha256": "1f8f7dda0c89fd9af22f0742a19c528be157f1976084e56b9dd7acf00c8c2242"
+  },
+  "rootChecks": [
+    "Authenticated actual implementation source and independent acceptance",
+    "Authenticated actual independent controls source and independent acceptance",
+    "All control required-input and authority roles authenticated",
+    "Unique exact roster counts derived from sealed matrix",
+    "Root reviewed physical envelope consumer, count-first preflight, chronological latch and cleanup semantics"
+  ],
+  "rootDesignAdoption": {
+    "bytes": 3376,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+    "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+  },
+  "schema": "1370-root-native-observer-implementation-controls-source-adoption/v1",
+  "specificNegativeCount": 59,
+  "status": "ROOT_ADOPTED_NATIVE_OBSERVER_IMPLEMENTATION_AND_CONTROLS_SOURCE_ONLY",
+  "supplementAdoption": {
+    "bytes": 1768,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/DIAGNOSTIC-CODEC-SUPPLEMENT-ADOPTION.json",
+    "sha256": "0e19294627060a4bc2b77d4172dce7d3b33af97ac91f4e263372cc3ba525842d"
+  }
+}

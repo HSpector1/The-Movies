@@ -1,0 +1,66 @@
+{
+  "schema": "1370-fullfunction-parent-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-launch-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/BASELINE-launch-fullfunction.py",
+      "bytes": 18392,
+      "sha256": "8d16d458499a6753fba86f041f2dfcd287e3250065bf5b4c0e7ca81bee1df831"
+    },
+    "BASELINE-read-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/BASELINE-read-fullfunction.py",
+      "bytes": 14392,
+      "sha256": "f933f5136f9014751b1b3b7af20fc37bddf0e32be5ad178647b37fd816ebed8d"
+    },
+    "DIFF-launch-fullfunction.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/DIFF-launch-fullfunction.py.json",
+      "bytes": 18101,
+      "sha256": "bc3f4a016ccb10f794fe3b637d4b5508b8576230abf0838798beb7fbda0de3c0"
+    },
+    "DIFF-read-fullfunction.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/DIFF-read-fullfunction.py.json",
+      "bytes": 11532,
+      "sha256": "6f9fd7e84ed73ed62a17ed44d21b1a402cbce5dbaf919862f6021082a87d3599"
+    },
+    "FINAL-SELECTOR-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/FINAL-SELECTOR-PROOF.json",
+      "bytes": 615,
+      "sha256": "5a0eddc9ce61134df56ffa5cfd510c369216a139b0025bff984fa9eedb30ba30"
+    },
+    "R2-BASELINE-read-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/R2-BASELINE-read-fullfunction.py",
+      "bytes": 14575,
+      "sha256": "8cdb67fb9a6d2d9daf5baa33a5a37b31e6269c904c20e784ab00ec4952fea376"
+    },
+    "R2-DIFF-read-fullfunction.py.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/R2-DIFF-read-fullfunction.py.json",
+      "bytes": 1046,
+      "sha256": "c37961eeda7412893036ff13b56297f06fb90294b211404c8a2dfb14a315f39e"
+    },
+    "R2-SELECTOR-STOP.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/R2-SELECTOR-STOP.json",
+      "bytes": 491,
+      "sha256": "784d5832d351d8f54686ba7d2973360b3a0a78e393a89a76afbde1dab72c063e"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/RECIPE.json",
+      "bytes": 2119,
+      "sha256": "ac9d5ba80312f8713561e40c37383dbfe19d3f4de01d969c60d6fe5f6670b653"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/SOURCE-PROOF.json",
+      "bytes": 1599,
+      "sha256": "2efb3ddd8c8184b48ccc285500bf5090d5e8d1edf2402a4000e781e6ece236f7"
+    },
+    "launch-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/launch-fullfunction.py",
+      "bytes": 20000,
+      "sha256": "4971a91bf71c22c5f08be0df2504bdcd28a51fb7628e7bc7375f36ac3ff4d99a"
+    },
+    "read-fullfunction.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/read-fullfunction.py",
+      "bytes": 14567,
+      "sha256": "d67c015a7599ed1e8089631223d5c2d9f34ace57bd7b5298d1b5057884bcf3f3"
+    }
+  }
+}

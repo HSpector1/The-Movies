@@ -1,0 +1,49 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-lane-20261010-r1",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/launch-fullfunction.py",
+    "inner",
+    "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-FULLFUNCTION-ROOT-BINDING.json",
+    "7a7b01bdf0b1a524dd6d8842b6a64ee547be36d3eaa89e749f29279424084e10"
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesIdentity": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "gameExecutedByPreparation": false,
+  "ownedHelper": {
+    "pgid": 56234,
+    "pid": 56234,
+    "sid": 56234
+  },
+  "preparationDeadlineSeconds": 60,
+  "preparationElapsedSeconds": 0.581534714990994,
+  "rootBinding": {
+    "bytes": 5128,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-FULLFUNCTION-ROOT-BINDING.json",
+    "sha256": "7a7b01bdf0b1a524dd6d8842b6a64ee547be36d3eaa89e749f29279424084e10"
+  },
+  "runtimeBounds": {
+    "activeRecorder": 320,
+    "aggregateChild": 300,
+    "aggregateOutputTreeBytes": 268435456,
+    "fixturePacketBytes": 67108864,
+    "outputTreeEntryCap": 10000,
+    "resultBytes": 131072,
+    "streamBytes": 8388608,
+    "vitestReportBytes": 1048576,
+    "wholeRecorder": 330
+  },
+  "schema": "1370-fullfunction-root-helper-launch-claim/v1",
+  "unexpectedHelperWaitIsStop": true
+}

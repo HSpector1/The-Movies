@@ -1,0 +1,32 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/BASELINE-RESOLUTION-SOURCE-BINDING.json",
+    "bytes": 77648,
+    "sha256": "a3aad69f006122b9dc4043ec673928cfcaf5ed186f5281820f2a72d1162d94f2"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/RESOLUTION-SOURCE-BINDING.json",
+    "bytes": 78189,
+    "sha256": "f611b2042a7cb86bc4f473b05c8a05149839eb020e8c043b1d9039830ff99a74"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 646,
+      "old": "      \"bytes\": 10646,\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs\",\n      \"sha256\": \"facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124\"\n",
+      "newStart": 646,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs\",\n      \"bytes\": 10954,\n      \"sha256\": \"be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397\"\n"
+    },
+    {
+      "oldStart": 2369,
+      "old": "      \"bytes\": 119700,\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/talentMarket.ts\",\n      \"sha256\": \"fe9bea844bf41c3ad7e57924a6822f3a48b695b75880477281889a250a7c500a\"\n",
+      "newStart": 2361,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/talentMarket.ts\",\n      \"bytes\": 120462,\n      \"sha256\": \"584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb\"\n    },\n    \"src/core/m0NativeObserverRows.mjs\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs\",\n      \"bytes\": 10267,\n      \"sha256\": \"b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a\"\n    },\n    \"src/core/m0FeasibilityWitness-native.ts\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts\",\n      \"bytes\": 5868,\n      \"sha256\": \"53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b\"\n"
+    },
+    {
+      "oldStart": 77395,
+      "old": "    \"bytes\": 119730,\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/typed-propagation-removed-talentMarket.ts\",\n    \"sha256\": \"425922b5f9b3c1c9c27d91b45214b76b217345b63890887ba870494b9ac91479\"\n",
+      "newStart": 77944,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/typed-propagation-removed-talentMarket.ts\",\n    \"bytes\": 120492,\n    \"sha256\": \"2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25\"\n"
+    }
+  ]
+}

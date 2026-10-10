@@ -1,0 +1,22 @@
+--- BASELINE-FULL-BODY-CONTROLS-TEMPLATE.ts
++++ FULL-BODY-CONTROLS-TEMPLATE.ts
+@@ -4,7 +4,7 @@
+ import assert from 'node:assert/strict'
+ import {assertTracePairEqual,assertCallTraceEqual} from 'm0:src/core/m0TraceCodec.mjs'
+ import {traceSequence} from '../traceSequences.mjs'
+-import {assertFullProjectionOrdering} from '../ordering.js'
++import {assertFullProjectionOrdering,assertNativeEvaluationBinding} from '../ordering.js'
+ import {advanceTalentMarketWeek,drainM0MarketDecisionRows,drainM0FeasibilityRows,
+   rivalProposalTrigger,m0WiringTestApi} from 'm0:src/core/talentMarket.js'
+ import {m0WiringProbe} from 'm0:src/core/m0WiringProbe.js'
+@@ -36,9 +36,7 @@
+   for(const value of feasibility){
+    const row=value as {kind:string;context:unknown;detail:{canonicalInputs?:string;inputsDigest?:string}}
+    if(row.kind!=='inputTuple')continue
+-   const evaluations=traceSequence(()=>probe.evaluations()).filter(e=>encode(e.context)===encode(row.context))
+-   assert.ok(evaluations.some(e=>e.canonicalInputs===row.detail.canonicalInputs&&
+-    (e.result as {inputsDigest:string}).inputsDigest===row.detail.inputsDigest),'witness is the actual full-body evaluation tuple')
++   assertNativeEvaluationBinding(m0WiringTestApi.nativeRowCodec,row,probe.evaluations())
+   }
+   if(capture)assertFullProjectionOrdering(probe,market,feasibility)
+   return{after,probe,market,feasibility}

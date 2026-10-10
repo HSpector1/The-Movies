@@ -1,0 +1,14 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "e58a19",
+      "exit_code": 0,
+      "original_token_count": 59,
+      "output": "{\"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/M0-NATIVE-FULLFUNCTION-CURRENT-PREFLIGHT-READBACK.json\", \"bytes\": 5400, \"sha256\": \"2a1739b6af6d91f67b7f1382af64ccd9cb44bb122c3a0bf373851d6a66383ee0\"}\n",
+      "wall_time_seconds": 0.572278383
+    }
+  ],
+  "finalExit": 0,
+  "schema": "1370-root-actual-tool-readback/v1",
+  "sessionId": null
+}

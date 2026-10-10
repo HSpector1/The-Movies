@@ -1,0 +1,40 @@
+{
+  "advertisedRemoteRefs": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "f2f97c622db7f5332164b790d1646355e89c00f4"
+  },
+  "branch": "wip/headless-program-20260916-ts",
+  "completeIndexedTreeEqualsCommitTree": true,
+  "currentANFreezeEnded": true,
+  "docsOnlyPathCount": 463,
+  "fullfunctionQualificationAccepted": false,
+  "head": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "independentReview": {
+    "bytes": 4889,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/INDEPENDENT-DOCS-ARCHIVE-REVIEW.json",
+    "sha256": "7beb6295bb480a92d750d6d3713f594ddf6dbf5a177cd90eadc433382b1bc757"
+  },
+  "initialFailuresPreserved": [
+    "Successful push did not refresh local tracking ref; explicit fetch corrected local reference, with no repeated push.",
+    "First readback adaptation selected the wrong subprocess occurrence and returned None; no repository mutation. Original script and traceback retained by tool record."
+  ],
+  "mainMerged": false,
+  "nextRuntimeRequiresNewAOOperationalProtection": true,
+  "parent": "0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4",
+  "pushStderr": {
+    "bytes": 111,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/PUSH.stderr",
+    "sha256": "de8f9794c98f074e691ad371e2dbbb0b16d4428f91ecdd29a735a6d49d4d065b"
+  },
+  "pushStdout": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/PUSH.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "schema": "1370-ao-publication-readback/v1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "PUBLISHED_REMOTE_ANCESTRY_SOURCE_AND_COMPLETE_INDEX_VERIFIED",
+  "trackedMain": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "utc": "2026-10-10T09:51:33.120993+00:00",
+  "workingTreeClean": true
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "1370-ap-native-prelaunch-observed-contract-correction/v1",
+  "predecessorSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 6504,
+    "sha256": "f322b95d400749fa648aca10086b7e863d2213d9d2134ebfa855011d14f9256c"
+  },
+  "finding": "Final agreed observed decision includes explicit72; predecessor provisional label omitted72. Root supplied the exact final observed schema too.",
+  "oldDecision": "ACCEPT_ACTUAL_PURE_NATIVE_OBSERVER_CONTROLS_ONLY",
+  "newDecision": "ACCEPT_ACTUAL_PURE_NATIVE_OBSERVER_72_CONTROLS_ONLY",
+  "observedReviewSchema": "1370-native-observer-controls-independent-observed-review/v1",
+  "sourceCorrection": "Exact label correction in launcher/reader/CONTRACT and explicit observed schema validation; fresh source-package bindings only. Root adoption and actual readback schema/status remain unchanged.",
+  "originalSourceBuilderInverseActuallyEqual": true,
+  "predecessorPreservedUnrun": true,
+  "executionAuthorization": false
+}

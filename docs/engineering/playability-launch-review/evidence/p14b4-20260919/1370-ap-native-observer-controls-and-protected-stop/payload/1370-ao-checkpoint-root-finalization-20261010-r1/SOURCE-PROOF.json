@@ -1,0 +1,64 @@
+{
+  "archiveFinalizerByteExact": true,
+  "executionAuthorization": false,
+  "pairs": {
+    "prepare_final_packages.py": {
+      "current": {
+        "bytes": 3636,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py",
+        "sha256": "73fe10265249491b1bde71dc3976bb13ff743bc1a996e01b0d4650c76699e7e1"
+      },
+      "forward": {
+        "bytes": 5592,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py.forward.diff",
+        "sha256": "0e03abb1f129eb6ce65209fb11ee13e9571ffc3f24ac0debcbde7274c1d87980"
+      },
+      "inverse": {
+        "bytes": 5592,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py.inverse.diff",
+        "sha256": "fc0c49b1487626186898038bfce542b5ab2df0bc78a342b9fde0e93b4a3e8c0c"
+      },
+      "original": {
+        "bytes": 4655,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/prepare_final_packages.py",
+        "sha256": "dcb78889ae79346d1e11c7debe89c007a2dd2346cdb1bf8fd31939ab8519328f"
+      },
+      "retainedBaseline": {
+        "bytes": 4655,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/BASELINE-prepare_final_packages.py",
+        "sha256": "dcb78889ae79346d1e11c7debe89c007a2dd2346cdb1bf8fd31939ab8519328f"
+      }
+    },
+    "prepare_inventory.py": {
+      "current": {
+        "bytes": 3147,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_inventory.py",
+        "sha256": "41f65de76277cd521556ed4656a4f76ef92cb35ac5f8e56787b5b73120a2a30b"
+      },
+      "forward": {
+        "bytes": 2015,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_inventory.py.forward.diff",
+        "sha256": "98bbaf4f32dab429e2353c117e14fa12c6ec02e9a6d6380e1208a3744dca01ac"
+      },
+      "inverse": {
+        "bytes": 2015,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_inventory.py.inverse.diff",
+        "sha256": "1d0d0d477aad60c389b50a4d7d0a923bb733911dbfb96eca3ad05728a195d879"
+      },
+      "original": {
+        "bytes": 3147,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/prepare_inventory.py",
+        "sha256": "dfdf6dcfb30c7f17b840abda82a5e36f86b1749056c52d8be8a7521ed82a0b92"
+      },
+      "retainedBaseline": {
+        "bytes": 3147,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/BASELINE-prepare_inventory.py",
+        "sha256": "dfdf6dcfb30c7f17b840abda82a5e36f86b1749056c52d8be8a7521ed82a0b92"
+      }
+    }
+  },
+  "runtimeExecuted": false,
+  "schema": "1370-ao-checkpoint-literal-source-adaptation/v1",
+  "scope": "Inventory builder changes only schema label. Selection builder changes session label/prefix and explicit extras/removes old automatic lane-prefix enumeration. Original finite role traversal/semantic classification/private exclusions/hash readback remain unchanged. All candidate packages mutable until root cutoff; no source helper execution performed.",
+  "sourcePreparationOnly": true
+}

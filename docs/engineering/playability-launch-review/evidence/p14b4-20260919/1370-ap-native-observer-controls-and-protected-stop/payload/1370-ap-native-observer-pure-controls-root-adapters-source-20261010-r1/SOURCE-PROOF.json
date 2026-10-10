@@ -1,0 +1,48 @@
+{
+  "candidateCodeExecuted": false,
+  "executionAuthorization": false,
+  "sourceRoute": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 10202,
+    "sha256": "a013ef847cbe5cdac726ec5a63b1b0f5be160949ceea40b6d081383a563b7617"
+  },
+  "pairs": [
+    {
+      "diff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r1/DIFF-run_native_observer_controls_once.py.json",
+        "bytes": 4499,
+        "sha256": "0792a9de0a926593cc5d04ba3632330c04a43c767fe027e2438efdef055fa4c0"
+      },
+      "forwardExact": true,
+      "inverseExact": true
+    },
+    {
+      "diff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r1/DIFF-read_native_observer_controls.py.json",
+        "bytes": 6856,
+        "sha256": "b18fff27d84f68af18c37560b8b0bba03b2d104561392a91e6f116ffce8cf6c1"
+      },
+      "forwardExact": true,
+      "inverseExact": true
+    }
+  ],
+  "helperBodies": {
+    "run_native_observer_controls_once.py": {
+      "count": 3,
+      "names": [
+        "role",
+        "read",
+        "put"
+      ],
+      "byteExact": true
+    },
+    "read_native_observer_controls.py": {
+      "count": 2,
+      "names": [
+        "role",
+        "read"
+      ],
+      "byteExact": true
+    }
+  }
+}

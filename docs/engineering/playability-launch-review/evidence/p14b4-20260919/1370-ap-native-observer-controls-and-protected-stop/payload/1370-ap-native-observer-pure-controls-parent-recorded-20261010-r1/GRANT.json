@@ -1,0 +1,162 @@
+{
+  "api": {
+    "bytes": 8118,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/API.md",
+    "sha256": "3da98803fc94b4beeb4e37d6aa01a4ccd266a12ac123df9746cc21d12b1fc9fa"
+  },
+  "apiAdoption": {
+    "bytes": 3933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-API-ADOPTION.json",
+    "sha256": "9300b1167ee0b481757023e9a93306432c115c3e6f554733aff42e6c95565c7f"
+  },
+  "argvTemplate": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/record-native-observer-controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "EXTERNAL_GRANT_SHA256"
+  ],
+  "automaticRetry": false,
+  "bounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "compiledModuleBytes": 131072,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "clockEnforcedByOriginalRecordedRoute": true,
+  "config": {
+    "bytes": 10207,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/CONFIG.json",
+    "sha256": "8a14c244e10da3a7a9994ca4e3707a74f9e6ecf1b374aa9763cdf54fcfd8ca42"
+  },
+  "configSha256": "8a14c244e10da3a7a9994ca4e3707a74f9e6ecf1b374aa9763cdf54fcfd8ca42",
+  "controlsSourcePins": {
+    "bytes": 2042,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "be758595a589a51f559fe6933c8b6a68b23e16691ab32ee87aebf8d7b2dd64f9"
+  },
+  "controlsSourceReview": {
+    "bytes": 11102,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "a3315ae0ab0ea6be8839db4e4e7e501e072ade628cc50047abb93c944e689dd4"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "game": false,
+  "implementationControlsSourceAdoption": {
+    "bytes": 4060,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION-r2.json",
+    "sha256": "e30f2625a6eac0a994bf8a5026ef9b550304f3243e3e0ce72e5b6fd418ce06a8"
+  },
+  "implementationSourcePins": {
+    "bytes": 12245,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+    "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+  },
+  "implementationSourceReview": {
+    "bytes": 10219,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+    "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+  },
+  "laneLog": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+  "oneAggregateRun": true,
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1",
+  "parentAdapterSourcePins": {
+    "bytes": 10202,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "df5f42b9c1761bcb274b511eb6cc2fd2ff22895d1e0dd89044be226272039ef7"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 13582,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "4e954629eae5f415b4a603b721838f95f1cade240d4ea0a3e0c8c767a352f5d5"
+  },
+  "priorProtectedStopAdoption": {
+    "bytes": 4698,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R5-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "ab5b801da2ec6408281115aa424bfafad8a8e458b96e3f068d5fecfb2346669f"
+  },
+  "privateM0ReadOrWritten": false,
+  "recipe": {
+    "bytes": 15756,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/RECIPE.json",
+    "sha256": "3fa467074b18b9dce49438d8f972c5a1edec01f2ded984fddee5cbb1170194d5"
+  },
+  "rootDesignAdoption": {
+    "bytes": 3376,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+    "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+  },
+  "rootLauncher": {
+    "bytes": 5017,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3/run_native_observer_controls_once.py",
+    "sha256": "5a64a66f7f98498c316ad330d078caebc0214c50699fc3c2228e097a74c12470"
+  },
+  "runtimeTools": {
+    "helper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "node": {
+      "bytes": 115440320,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "typescript": {
+      "bytes": 9112572,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+      "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+    },
+    "typescriptPackage": {
+      "bytes": 3620,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+      "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+    }
+  },
+  "runtimeToolsObservation": {
+    "bytes": 1691,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-RUNTIME-TOOLS.json",
+    "sha256": "12d11061dd21827447ef0563d9ab4c5bec0c636986e8690ed067eb0be37dfa0c"
+  },
+  "schema": "1370-root-native-observer-pure-controls-once-grant/v1",
+  "scope": "PURE_PUBLIC_NATIVE_OBSERVER_CONTROLS_ONLY",
+  "sourceAdoption": {
+    "bytes": 1344,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-CONTROLS-ROUTE-SOURCE-ADOPTION.json",
+    "sha256": "788e8c2bab18d9c8e9c3d7772f624bc9e235ee9514c8134821c0bd2e1d11e3c7"
+  },
+  "sourcePins": {
+    "bytes": 10202,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "df5f42b9c1761bcb274b511eb6cc2fd2ff22895d1e0dd89044be226272039ef7"
+  },
+  "sourceReview": {
+    "bytes": 13582,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "4e954629eae5f415b4a603b721838f95f1cade240d4ea0a3e0c8c767a352f5d5"
+  },
+  "supplementAdoption": {
+    "bytes": 1768,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/DIAGNOSTIC-CODEC-SUPPLEMENT-ADOPTION.json",
+    "sha256": "0e19294627060a4bc2b77d4172dce7d3b33af97ac91f4e263372cc3ba525842d"
+  },
+  "utc": "2026-10-10T10:34:59.890895+00:00"
+}

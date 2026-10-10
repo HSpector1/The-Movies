@@ -1,0 +1,221 @@
+{
+  "schema": "1370-ap-native-observer-source-pins/v1",
+  "files": {
+    "AUTHOR-PREPARATION-STOP.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/AUTHOR-PREPARATION-STOP.json",
+      "bytes": 620,
+      "sha256": "5635c6032e17ca947367c98d04d62c8f849e704b82da5cc2ea8ccddee8e055c7"
+    },
+    "BASELINE-FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/BASELINE-FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "bytes": 9962,
+      "sha256": "6057cdc52bc7db089bd701ff5578bbd4d4c574ed72b4abaa39d20a4e2c87a783"
+    },
+    "BASELINE-m0FeasibilityWitness.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/BASELINE-m0FeasibilityWitness.ts",
+      "bytes": 4729,
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "BASELINE-m0ObserverRowDiagnostic.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/BASELINE-m0ObserverRowDiagnostic.mjs",
+      "bytes": 10646,
+      "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
+    },
+    "BASELINE-ordering-source-controls.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/BASELINE-ordering-source-controls.ts",
+      "bytes": 2941,
+      "sha256": "7fd03b25ea5c258584652c051d7ffab977d5380824043be233f375f17944f0f5"
+    },
+    "BASELINE-ordering.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/BASELINE-ordering.ts",
+      "bytes": 11927,
+      "sha256": "8599945b1c3057ebb777ffcf56c55ddc30121b505f6ec29dacbc87aef216a803"
+    },
+    "BASELINE-talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/BASELINE-talentMarket.ts",
+      "bytes": 119700,
+      "sha256": "fe9bea844bf41c3ad7e57924a6822f3a48b695b75880477281889a250a7c500a"
+    },
+    "BASELINE-typed-propagation-removed-talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/BASELINE-typed-propagation-removed-talentMarket.ts",
+      "bytes": 119730,
+      "sha256": "425922b5f9b3c1c9c27d91b45214b76b217345b63890887ba870494b9ac91479"
+    },
+    "DIAGNOSTIC-CODEC-SUPPLEMENT-FINAL.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/DIAGNOSTIC-CODEC-SUPPLEMENT-FINAL.md",
+      "bytes": 1253,
+      "sha256": "696c55e3ea5251da8f522d15495d6438f0b502cf6ca9507141e17ef901d1874e"
+    },
+    "DIAGNOSTIC-CODEC-SUPPLEMENT.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/DIAGNOSTIC-CODEC-SUPPLEMENT.md",
+      "bytes": 1110,
+      "sha256": "e82be9af4a6b9bf655108a40a9405f4ed38a020a2c0f38185c31bb979ed6f2fa"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE-ts-FORWARD.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE-ts-FORWARD.json",
+      "bytes": 745,
+      "sha256": "4a16b8eaf1b008448b6a9500d2959cca1a08a71e8a5172e70d7349b4acf75e06"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE-ts-INVERSE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE-ts-INVERSE.json",
+      "bytes": 745,
+      "sha256": "7b70a864a182de67529f418ecba5b662a65d7c45ede531f2714dbe609e48a11d"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE-ts.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE-ts.diff",
+      "bytes": 1383,
+      "sha256": "4decc89070f1c889028b2018e42880127f155991e2ac1cfc4148d01f9914c9d4"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "bytes": 9756,
+      "sha256": "87bd0ec6917e178484013f337eefdeb19ce60384c60e25bfdbd9b3a83ced8777"
+    },
+    "INTERFACE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/INTERFACE.json",
+      "bytes": 1652,
+      "sha256": "5ad63a9ca22f72430339f8cb415c3fc8a82383084783176b151e268d1f4a39e6"
+    },
+    "LESSONS.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/LESSONS.md",
+      "bytes": 1182,
+      "sha256": "0ec6552bb812387267231beacee5008ac32efba061cc56b659d8ff8578b6c021"
+    },
+    "MODULE-ALIASES.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/MODULE-ALIASES.json",
+      "bytes": 1775,
+      "sha256": "ae6823a2da88dbb435361c8a7b5f1c806d4fb54e9840cf11a100bd5b64acc03c"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/SOURCE-PROOF.json",
+      "bytes": 10919,
+      "sha256": "52b783082a3f16652d5353cd92c75cffed6195516813a17c9d9ffbe814542ca6"
+    },
+    "m0FeasibilityWitness-native-ts-FORWARD.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/m0FeasibilityWitness-native-ts-FORWARD.json",
+      "bytes": 2946,
+      "sha256": "4837ed33d570593bcd0a19c24e0d974ce5a5e8a5d22f7ad02dbdc36304e62c5b"
+    },
+    "m0FeasibilityWitness-native-ts-INVERSE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/m0FeasibilityWitness-native-ts-INVERSE.json",
+      "bytes": 2948,
+      "sha256": "6aa2fb324a5331014af4bd13f1d8e9651bfffac9db08d7714025fa734e31da50"
+    },
+    "m0FeasibilityWitness-native-ts.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/m0FeasibilityWitness-native-ts.diff",
+      "bytes": 4233,
+      "sha256": "985ff87c7ad7f84e4f119350ab91ede7e1df49131cdb24c5d5eb04bfe97c52c9"
+    },
+    "m0FeasibilityWitness-native.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/m0FeasibilityWitness-native.ts",
+      "bytes": 5868,
+      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+    },
+    "m0NativeObserverRows.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/m0NativeObserverRows.mjs",
+      "bytes": 10210,
+      "sha256": "ff74ab7a548cb08bccdf75914385b574a55251caea359c93197893b42f493bad"
+    },
+    "m0ObserverRowDiagnostic-mjs-FORWARD.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/m0ObserverRowDiagnostic-mjs-FORWARD.json",
+      "bytes": 4408,
+      "sha256": "6b216e91ff6cdab1d7263c51471b4d68d4300e890cbb9cbde3c2bd9dc42b8a6f"
+    },
+    "m0ObserverRowDiagnostic-mjs-INVERSE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/m0ObserverRowDiagnostic-mjs-INVERSE.json",
+      "bytes": 4410,
+      "sha256": "67410907d59a6a27e4e7a376759b796419caf3a62b47889a2edcb41c07725a0b"
+    },
+    "m0ObserverRowDiagnostic-mjs.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/m0ObserverRowDiagnostic-mjs.diff",
+      "bytes": 6050,
+      "sha256": "4adde112250ca72740c967b75e541e7b97a442e4efc134d951277c708ef9693a"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/m0ObserverRowDiagnostic.mjs",
+      "bytes": 10954,
+      "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+    },
+    "ordering-source-controls-ts-FORWARD.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/ordering-source-controls-ts-FORWARD.json",
+      "bytes": 642,
+      "sha256": "c4e2d121cfba86ca5cd65a78d8f24eab75ee54562805366d7da5bc8d95b0cea7"
+    },
+    "ordering-source-controls-ts-INVERSE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/ordering-source-controls-ts-INVERSE.json",
+      "bytes": 644,
+      "sha256": "2cac326743e83b246b8bdc11820ba5f5fdfe3b943d6ae61e7584651ea6b85c92"
+    },
+    "ordering-source-controls-ts.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/ordering-source-controls-ts.diff",
+      "bytes": 1140,
+      "sha256": "13f1865cfeb1d141b368803a8acdea120f70086d15dfa62b11eaccbfc956b938"
+    },
+    "ordering-source-controls.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/ordering-source-controls.ts",
+      "bytes": 3407,
+      "sha256": "d485414f997bcf606a416160d9ec212e621b59cfd29a49e0f359b84ba06556f4"
+    },
+    "ordering-ts-FORWARD.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/ordering-ts-FORWARD.json",
+      "bytes": 733,
+      "sha256": "a6c12d0aa0dab39e83092b555d220e308d496840b008956cad5181f252f4c375"
+    },
+    "ordering-ts-INVERSE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/ordering-ts-INVERSE.json",
+      "bytes": 733,
+      "sha256": "e3ed50d365c76c3de5ba368d723adf5eeedd6cbb20915bc1be44b815bfb5afeb"
+    },
+    "ordering-ts.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/ordering-ts.diff",
+      "bytes": 1007,
+      "sha256": "e55ce0d8f6b699e451a93dca717c323b688d7458e49a746d507703a6a77e0c19"
+    },
+    "ordering.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/ordering.ts",
+      "bytes": 12555,
+      "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+    },
+    "talentMarket-ts-FORWARD.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/talentMarket-ts-FORWARD.json",
+      "bytes": 2289,
+      "sha256": "21eb8783a3d5b1d69f5ac53d4936c07d488b4ed83fb9837698ddc24aadfac0fe"
+    },
+    "talentMarket-ts-INVERSE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/talentMarket-ts-INVERSE.json",
+      "bytes": 2290,
+      "sha256": "0b969aebe91eb86886c285ac478ae99bc5b25f596fdce7303d95d3c112c8a80c"
+    },
+    "talentMarket-ts.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/talentMarket-ts.diff",
+      "bytes": 3322,
+      "sha256": "32ebf81bb4d8a22272afe3a395613aad7a929fda817f3ba7e4b253af241c3e2e"
+    },
+    "talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/talentMarket.ts",
+      "bytes": 120462,
+      "sha256": "584c460985f2f398e298e1e6b309d415dff038abed0254a420e40a9226d07eeb"
+    },
+    "typed-propagation-removed-talentMarket-ts-FORWARD.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/typed-propagation-removed-talentMarket-ts-FORWARD.json",
+      "bytes": 2289,
+      "sha256": "2026f9dbb7113a5123b337bf57ed7625d049d86099383dedda5e15b033d47fbe"
+    },
+    "typed-propagation-removed-talentMarket-ts-INVERSE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/typed-propagation-removed-talentMarket-ts-INVERSE.json",
+      "bytes": 2290,
+      "sha256": "af3561fcc14836f8da97571d8f040c1e114efeb4c4ce360386f50e5df01fb967"
+    },
+    "typed-propagation-removed-talentMarket-ts.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/typed-propagation-removed-talentMarket-ts.diff",
+      "bytes": 3374,
+      "sha256": "465dc38c960c9c6654ee80d9bd75995830d3b6f9cf69afcea813829db231c595"
+    },
+    "typed-propagation-removed-talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3/typed-propagation-removed-talentMarket.ts",
+      "bytes": 120492,
+      "sha256": "2d558ac138c5d8f1b98c31650c4fa9b37cfb62bd3da8058a9b12b60d8177bc25"
+    }
+  },
+  "executionAuthorization": false
+}

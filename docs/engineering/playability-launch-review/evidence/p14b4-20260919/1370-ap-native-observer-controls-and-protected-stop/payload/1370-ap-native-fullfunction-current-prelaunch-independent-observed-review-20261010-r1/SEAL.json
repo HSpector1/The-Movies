@@ -1,0 +1,21 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "EVIDENCE-AUDIT.json": {
+      "bytes": 3327,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-independent-observed-review-20261010-r1/EVIDENCE-AUDIT.json",
+      "sha256": "89ba2f1f09a34957dcbb6b6bfed8f08b0d4043dd1a76dbb0220a33a65702e338"
+    },
+    "RECEIPT.json": {
+      "bytes": 7224,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-independent-observed-review-20261010-r1/RECEIPT.json",
+      "sha256": "c371b46e9bcf1b10746f8ef4a6dc19977e18222b22ffaf4da877f939b61f4833"
+    },
+    "REPORT.md": {
+      "bytes": 1752,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-independent-observed-review-20261010-r1/REPORT.md",
+      "sha256": "cfcfe98adf602c8253d192e6dfdc1233e5ba03fa8534307a0eccec1a92eb4c4c"
+    }
+  },
+  "schema": "1370-independent-observed-review-seal/v1"
+}

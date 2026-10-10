@@ -1,0 +1,35 @@
+{
+  "authorityRolesAuthenticated": 8,
+  "candidateImportsOrRuntimeExecuted": false,
+  "caseCount": 72,
+  "contract": {
+    "bytes": 8241,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/CONTRACT.json",
+    "sha256": "1303c82c407869b2be88a59e2fd03050a0a2caf5d7456dcedd557b9a15b473a0"
+  },
+  "exactMatrixAndSourceCaseDefinitions": true,
+  "executionAuthorization": false,
+  "manifestRolesAuthenticated": 7,
+  "matrix": {
+    "bytes": 11805,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/MATRIX.json",
+    "sha256": "e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39"
+  },
+  "nativeCaseDefinitions": 54,
+  "nativeExecutableCases": 54,
+  "original18FullIdsExpectedLabelsAndOrderExact": true,
+  "originalOrderingPacket": {
+    "bytes": 27476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+    "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+  },
+  "positiveCount": 13,
+  "requiredInputsAuthenticated": 9,
+  "schema": "1370-independent-native-observer-controls-data-authentication/v1",
+  "sourceManifest": {
+    "bytes": 2042,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "be758595a589a51f559fe6933c8b6a68b23e16691ab32ee87aebf8d7b2dd64f9"
+  },
+  "specificNegativeCount": 59
+}

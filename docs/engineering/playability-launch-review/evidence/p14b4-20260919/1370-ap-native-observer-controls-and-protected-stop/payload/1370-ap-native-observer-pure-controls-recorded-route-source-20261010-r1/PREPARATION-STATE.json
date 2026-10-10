@@ -1,0 +1,20 @@
+{
+  "status": "SOURCE_ONLY_FINAL_ROLES_FILLED_PENDING_INDEPENDENT_REVIEW",
+  "candidateCodeExecuted": false,
+  "actualGrant": null,
+  "finalControlsRoster": {
+    "caseCount": 72,
+    "positiveCount": 13,
+    "specificNegativeCount": 59
+  },
+  "closedInputs": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 2042,
+    "sha256": "be758595a589a51f559fe6933c8b6a68b23e16691ab32ee87aebf8d7b2dd64f9"
+  },
+  "combinedAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION-r2.json",
+    "bytes": 4060,
+    "sha256": "e30f2625a6eac0a994bf8a5026ef9b550304f3243e3e0ce72e5b6fd418ce06a8"
+  }
+}

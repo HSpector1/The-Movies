@@ -1,0 +1,31 @@
+{
+  "classification": "LOCAL_HASH_SIZE_ONLY",
+  "rawBytesIncluded": false,
+  "roles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 78672,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/BEFORE-PS.txt",
+      "sha256": "65a9e6d3c5d4d223c6966cf102c0532ce64d4dee47299b5f18e030ee1a7b8dbe"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 576288,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/BEFORE-LSOF.bin",
+      "sha256": "51fe7267c545f54c0b40beff50bd3409d7e5a093f0c28edc8c2faf472aab2baa"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 82116,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/AFTER-PS.txt",
+      "sha256": "2d5c9493bee19150451c0b684e235751091d70d8672ea4d5f03b5c993b030634"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 580908,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/AFTER-LSOF.bin",
+      "sha256": "5f44f8869ae244893bd2cd705ee0d2fd801ca88a98e961b58dac6c1dcf163e34"
+    }
+  ],
+  "schema": "1370-ap-fullpreflight-raw-local-only/v1"
+}

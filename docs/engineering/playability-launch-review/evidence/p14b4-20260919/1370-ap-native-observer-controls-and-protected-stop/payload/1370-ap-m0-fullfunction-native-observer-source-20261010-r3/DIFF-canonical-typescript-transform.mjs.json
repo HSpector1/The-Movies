@@ -1,0 +1,13 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/BASELINE-canonical-typescript-transform.mjs",
+    "bytes": 1906,
+    "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/canonical-typescript-transform.mjs",
+    "bytes": 1906,
+    "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+  },
+  "indexedWholeForwardInverse": []
+}

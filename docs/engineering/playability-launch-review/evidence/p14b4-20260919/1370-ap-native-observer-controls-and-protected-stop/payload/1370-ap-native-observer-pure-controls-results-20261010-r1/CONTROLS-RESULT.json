@@ -1,0 +1,621 @@
+{
+  "schema": "1370-native-observer-independent-controls-result/v1",
+  "status": "PURE_NATIVE_OBSERVER_CODEC_SINK_AND_AFFECTED_CONSUMERS_COMPLETED_UNADOPTED",
+  "results": [
+    {
+      "id": "rich_canonical_unicode_exact_projection",
+      "expected": "GREEN",
+      "predicate": "complete canonical UTF8 and original UTF16 digest survive native roundtrip",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "native_projection_matches_original_witness",
+      "expected": "GREEN",
+      "predicate": "all original logical values/context/identity/order/multiplicity retained",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "legacy_over_16384_native_fits",
+      "expected": "GREEN",
+      "predicate": "explicit accounting amendment; complete expanded projection and L<=2P+2",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "native_row_16384_inclusive",
+      "expected": "GREEN",
+      "predicate": "actual native physical JSON plus newline equals16384",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "native_count_512_inclusive",
+      "expected": "GREEN",
+      "predicate": "all512 logical rows retained",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "native_total_2097152_inclusive",
+      "expected": "GREEN",
+      "predicate": "128 exact16384 physical rows charge exact2MiB",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "immutable_snapshot_fresh_arm_isolation",
+      "expected": "GREEN",
+      "predicate": "immutable owned row references; old snapshot/failure does not mutate new arm",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "actual_binding_consumer_valid_tuple",
+      "expected": "GREEN",
+      "predicate": "actual shared consumer accepts canonical/inputBytes/digest/context relation",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "canonical_depth_64_projection_and_binding",
+      "expected": "GREEN",
+      "predicate": "canonical depth64 survives physical wrapper, legacy view and actual binding",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "actual_arm_success_cleanup_order",
+      "expected": "GREEN",
+      "predicate": "actual shared helper returns body value and attempts end then reset",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "codec_original_unknown_key",
+      "expected": "RED",
+      "predicate": "FORMAT_INVALID; exact original keys",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "codec_accessor_not_invoked",
+      "expected": "RED",
+      "predicate": "FORMAT_INVALID without getter invocation",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "codec_nonarray_canonical",
+      "expected": "RED",
+      "predicate": "FORMAT_INVALID; canonical tuple is array",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "codec_malformed_canonical",
+      "expected": "RED",
+      "predicate": "actual native SyntaxError; malformed JSON, no remapping",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "codec_declared_byte_mismatch",
+      "expected": "RED",
+      "predicate": "FORMAT_INVALID; exact UTF8 inputBytes",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "codec_negative_zero_spelling",
+      "expected": "RED",
+      "predicate": "CANONICAL_ROUNDTRIP; no lexical normalization",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "codec_unsafe_integer_spelling",
+      "expected": "RED",
+      "predicate": "CANONICAL_ROUNDTRIP; no changed number preimage",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "codec_unnecessary_escape_spelling",
+      "expected": "RED",
+      "predicate": "CANONICAL_ROUNDTRIP; original canonical spelling exact",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "direct_codec_canonical_16385",
+      "expected": "RED",
+      "predicate": "CANONICAL_OVER_BOUND; operational direct codec bound",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "codec_depth_65",
+      "expected": "RED",
+      "predicate": "STRUCTURE_OVER_BOUND before stringify",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "decoder_wrong_encoding_tag",
+      "expected": "RED",
+      "predicate": "FORMAT_INVALID; exact native encoding",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "decoder_unknown_key",
+      "expected": "RED",
+      "predicate": "FORMAT_INVALID; exact native detail keys",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "decoder_plain_bounded_tuple",
+      "expected": "GREEN",
+      "predicate": "validated plain parsed helper row has exact canonical projection",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "decoder_declared_byte_mismatch",
+      "expected": "RED",
+      "predicate": "FORMAT_INVALID; decoded canonical bytes",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "decoder_nodes_properties_over_bound",
+      "expected": "RED",
+      "predicate": "STRUCTURE_OVER_BOUND before canonical serialization for oversized owned tuple",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "legacy_historical_schema_not_native",
+      "expected": "RED",
+      "predicate": "FORMAT_INVALID; old schema never relabeled",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "legacy_over_physical_row_limit",
+      "expected": "RED",
+      "predicate": "FORMAT_INVALID; decoder validates physical boundary",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "sink_row_16385",
+      "expected": "RED",
+      "predicate": "same original row-byte Error; no partial row commit",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "sink_canonical_known_no_fit",
+      "expected": "RED",
+      "predicate": "same original row-byte Error before codec/parse",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "count_513_preempts_malformed_conversion",
+      "expected": "RED",
+      "predicate": "same original count Error; no encoder call",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "total_2097152_then_more",
+      "expected": "RED",
+      "predicate": "same original total Error; charged rows unchanged",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "consumer_changed_tuple_digest_bytes",
+      "expected": "RED",
+      "predicate": "actual shared evaluation-match assertion rejects altered tuple/digest/bytes",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "consumer_order_duplicate_omission",
+      "expected": "RED",
+      "predicate": "actual shared evaluation-match assertion rejects changed full tuple",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "consumer_context_and_source_index",
+      "expected": "RED",
+      "predicate": "actual shared evaluation-match assertion rejects altered exact context",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "consumer_envelope_version_and_extra_key",
+      "expected": "RED",
+      "predicate": "actual matcher rejects unknown physical schema/extra envelope via FORMAT_INVALID",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "latch_falsy_first_values",
+      "expected": "RED",
+      "predicate": "undefined/null/false/0/empty first value survives later failure",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "native_E_swallowed_body_paths",
+      "expected": "RED",
+      "predicate": "actual helper rethrows original native E after return or later F; no row metadata",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "row_E_swallowed_body_paths",
+      "expected": "RED",
+      "predicate": "actual helper rethrows same original row E after return or later F",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "first_E_survives_end_reset_writer",
+      "expected": "RED",
+      "predicate": "first native E preserved; both cleanup callbacks attempted",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "cleanup_new_E_swallowed",
+      "expected": "RED",
+      "predicate": "new shared E during end/reset forbids successful return",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "ordinary_empty_latch_cleanup_precedence",
+      "expected": "RED",
+      "predicate": "original reset>end>body fatal precedence, including undefined",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "sticky_rows_and_later_record",
+      "expected": "RED",
+      "predicate": "strict public access and records rethrow first E; no later encoding",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "snapshot_failure_no_record",
+      "expected": "RED",
+      "predicate": "actual wrapper records snapshot E; authoritative record not invoked",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "native_row_diagnostic_available_physical",
+      "expected": "RED",
+      "predicate": "same row E; exact new physical bytes and canonical metadata",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "assessment_diagnostic_native_predecessor",
+      "expected": "RED",
+      "predicate": "same row E; exact same-context native predecessor decoded after latch",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "native_first_no_row_emission",
+      "expected": "RED",
+      "predicate": "writer zero calls; later resource error cannot become first cause",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "diagnostic_output_4096_bound",
+      "expected": "RED",
+      "predicate": "same row E; unavailable scalar metadata under output cap",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "diagnostic_writer_failure_consumes",
+      "expected": "RED",
+      "predicate": "same row E; first emission consumed despite writer failure",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "diagnostic_healthy_bypass_refused",
+      "expected": "RED",
+      "predicate": "FORMAT_INVALID is sticky; metadata method has no healthy authority",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "diagnostic_eligible_core_same_E",
+      "expected": "RED",
+      "predicate": "metadata-only encoder/decoder work after original row E; normal APIs remain fatal",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "diagnostic_native_first_bypass_refused",
+      "expected": "RED",
+      "predicate": "FORMAT_INVALID cannot replace first native E",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "capture_invalid_context_sticky",
+      "expected": "RED",
+      "predicate": "same original invalid-context Error retained before throw",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "capture_native_serialization_identity",
+      "expected": "RED",
+      "predicate": "actual native context serialization TypeError retained by identity",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "capture_after_sticky_before_getter",
+      "expected": "RED",
+      "predicate": "first E precedes any later capture getter or serialization work",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "author-two-issuers-schema-GREEN",
+      "expected": "GREEN",
+      "predicate": "original synthetic source schema GREEN",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "freeze-complete-prefix-failure-suffix-GREEN",
+      "expected": "GREEN",
+      "predicate": "original synthetic source schema GREEN",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "id": "candidate-other-issuer-grouping-RED",
+      "expected": "RED",
+      "predicate": "evaluated and skipped candidates preserve full order",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "candidate-context-issuer-correlation-RED",
+      "expected": "RED",
+      "predicate": "every actual evaluation binds an authenticated source-array projection",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-missing-slot-RED",
+      "expected": "RED",
+      "predicate": "complete identity-bound freeze predicate order",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-swapped-slots-RED",
+      "expected": "RED",
+      "predicate": "complete identity-bound freeze predicate order",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-wrong-name-RED",
+      "expected": "RED",
+      "predicate": "complete identity-bound freeze predicate order",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-wrong-ordinal-RED",
+      "expected": "RED",
+      "predicate": "complete identity-bound freeze predicate order",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-wrong-occurrence-RED",
+      "expected": "RED",
+      "predicate": "complete identity-bound freeze predicate order",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-wrong-issuer-RED",
+      "expected": "RED",
+      "predicate": "complete identity-bound freeze predicate order",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-failure-slot-missing-RED",
+      "expected": "RED",
+      "predicate": "freeze predicate FAILED slot agrees with drop",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-drop-disagrees-RED",
+      "expected": "RED",
+      "predicate": "freeze predicate FAILED slot agrees with drop",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-early-unreached-RED",
+      "expected": "RED",
+      "predicate": "freeze predicate prefix status",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-suffix-resumes-RED",
+      "expected": "RED",
+      "predicate": "freeze predicate suffix is NOT_REACHED",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-suffix-values-forged-RED",
+      "expected": "RED",
+      "predicate": "unreached predicate has no evaluated values",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-second-failure-RED",
+      "expected": "RED",
+      "predicate": "freeze predicate FAILED slot agrees with drop",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-illegal-not-evaluated-prefix-RED",
+      "expected": "RED",
+      "predicate": "freeze predicate prefix status",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "id": "freeze-unknown-drop-RED",
+      "expected": "RED",
+      "predicate": "freeze drop names an existing predicate",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    }
+  ],
+  "caseCount": 72,
+  "positiveCount": 13,
+  "specificNegativeCount": 59,
+  "originalOrderingCases": 18,
+  "originalParserCasesReplayed": 0,
+  "historicalObserverControlsReplayed": 0,
+  "game": false,
+  "originalM0ReadOrWritten": false,
+  "executionAuthorization": false,
+  "privateM0ReadOrWritten": false,
+  "fullQualificationAccepted": false,
+  "sourceReview": {
+    "bytes": 13582,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "4e954629eae5f415b4a603b721838f95f1cade240d4ea0a3e0c8c767a352f5d5"
+  },
+  "sourceManifest": {
+    "bytes": 10202,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "df5f42b9c1761bcb274b511eb6cc2fd2ff22895d1e0dd89044be226272039ef7"
+  },
+  "implementationSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+    "bytes": 12245,
+    "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+  },
+  "implementationSourceReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+    "bytes": 10219,
+    "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+  },
+  "controlsSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 2042,
+    "sha256": "be758595a589a51f559fe6933c8b6a68b23e16691ab32ee87aebf8d7b2dd64f9"
+  },
+  "controlsSourceReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r3/RECEIPT.json",
+    "bytes": 11102,
+    "sha256": "a3315ae0ab0ea6be8839db4e4e7e501e072ade628cc50047abb93c944e689dd4"
+  },
+  "rootDesignAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+    "bytes": 3376,
+    "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+  },
+  "inputRoles": {
+    "m0NativeObserverRows.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+      "bytes": 10267,
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "m0FeasibilityWitness-native.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+      "bytes": 5868,
+      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs",
+      "bytes": 10954,
+      "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+    },
+    "ordering.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+      "bytes": 12555,
+      "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+    },
+    "ordering-source-controls.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering-source-controls.ts",
+      "bytes": 3407,
+      "sha256": "d485414f997bcf606a416160d9ec212e621b59cfd29a49e0f359b84ba06556f4"
+    },
+    "original-m0FeasibilityWitness.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/BASELINE-m0FeasibilityWitness.ts",
+      "bytes": 4729,
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "m0TraceCodec.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "bytes": 7882,
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "traceSequences.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "bytes": 1286,
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    },
+    "ORDERING-SOURCE-CASES.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "bytes": 27476,
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    },
+    "run-native-observer-controls.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+      "bytes": 30858,
+      "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+    },
+    "MATRIX.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/MATRIX.json",
+      "bytes": 11805,
+      "sha256": "e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39"
+    },
+    "CONTROLS-CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/CONTRACT.json",
+      "bytes": 8241,
+      "sha256": "1303c82c407869b2be88a59e2fd03050a0a2caf5d7456dcedd557b9a15b473a0"
+    }
+  },
+  "runtimeTools": {
+    "helper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "node": {
+      "bytes": 115440320,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "typescript": {
+      "bytes": 9112572,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+      "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+    },
+    "typescriptPackage": {
+      "bytes": 3620,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+      "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+    }
+  },
+  "generatedModules": {
+    "m0NativeObserverRows.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/m0NativeObserverRows.mjs",
+      "bytes": 10267,
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/m0ObserverRowDiagnostic.mjs",
+      "bytes": 10954,
+      "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+    },
+    "run-native-observer-controls.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/run-native-observer-controls.mjs",
+      "bytes": 30858,
+      "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+    },
+    "m0TraceCodec.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/m0TraceCodec.mjs",
+      "bytes": 7882,
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "traceSequences.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/traceSequences.mjs",
+      "bytes": 1286,
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    },
+    "original-m0FeasibilityWitness.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/original-m0FeasibilityWitness.mjs",
+      "bytes": 4135,
+      "sha256": "c4f4e26ff5f17be2deadbe70032bf0abeaa55893a6684260501e41cbc91fef5c"
+    },
+    "m0FeasibilityWitness-native.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/m0FeasibilityWitness-native.mjs",
+      "bytes": 5869,
+      "sha256": "dcf04ae2d13b074a994428c776305869969f4e3a9fc71add506c828a7d76fd1d"
+    },
+    "ordering.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/ordering.mjs",
+      "bytes": 13513,
+      "sha256": "ed30efa432bb342236b4c4c6428e6f59fece22e9f2c89da42356e21165fdf656"
+    },
+    "ordering-source-controls.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/ordering-source-controls.mjs",
+      "bytes": 3310,
+      "sha256": "d399320d826520575b8b9397588322b50c4a9fc860564fbcec0d60741658af29"
+    }
+  },
+  "grantSha256": "576fb0ca7705bde86558471f7bea6117e7712ceeddf4da348e5f6b5c73f4ee7f"
+}

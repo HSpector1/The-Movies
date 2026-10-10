@@ -1,0 +1,68 @@
+{
+  "actualInventoryExecuted": false,
+  "archiveCreated": false,
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-prepare_final_packages.py": {
+      "bytes": 4655,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/BASELINE-prepare_final_packages.py",
+      "sha256": "dcb78889ae79346d1e11c7debe89c007a2dd2346cdb1bf8fd31939ab8519328f"
+    },
+    "BASELINE-prepare_inventory.py": {
+      "bytes": 3147,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/BASELINE-prepare_inventory.py",
+      "sha256": "dfdf6dcfb30c7f17b840abda82a5e36f86b1749056c52d8be8a7521ed82a0b92"
+    },
+    "CANDIDATE-PACKAGES-PREPARATORY.json": {
+      "bytes": 10761,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/CANDIDATE-PACKAGES-PREPARATORY.json",
+      "sha256": "aab9823d23456b8d2ac53d0e38266469a399f02a1f820a5a1a14491017e6b0eb"
+    },
+    "INVENTORY-SOURCE-BINDING.json": {
+      "bytes": 2162,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/INVENTORY-SOURCE-BINDING.json",
+      "sha256": "580c24bf7dae3e6770e62180fb200287247518871e621f10bc039c49ecae191d"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 3395,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/SOURCE-PROOF.json",
+      "sha256": "617fd3b6fb4e0a8121ece76d96b27e91660a579d168f1d43bbbe7f5e5746e61c"
+    },
+    "finalize_archive.py": {
+      "bytes": 6520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/finalize_archive.py",
+      "sha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b"
+    },
+    "prepare_final_packages.py": {
+      "bytes": 3636,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py",
+      "sha256": "73fe10265249491b1bde71dc3976bb13ff743bc1a996e01b0d4650c76699e7e1"
+    },
+    "prepare_final_packages.py.forward.diff": {
+      "bytes": 5592,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py.forward.diff",
+      "sha256": "0e03abb1f129eb6ce65209fb11ee13e9571ffc3f24ac0debcbde7274c1d87980"
+    },
+    "prepare_final_packages.py.inverse.diff": {
+      "bytes": 5592,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py.inverse.diff",
+      "sha256": "fc0c49b1487626186898038bfce542b5ab2df0bc78a342b9fde0e93b4a3e8c0c"
+    },
+    "prepare_inventory.py": {
+      "bytes": 3147,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_inventory.py",
+      "sha256": "41f65de76277cd521556ed4656a4f76ef92cb35ac5f8e56787b5b73120a2a30b"
+    },
+    "prepare_inventory.py.forward.diff": {
+      "bytes": 2015,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_inventory.py.forward.diff",
+      "sha256": "98bbaf4f32dab429e2353c117e14fa12c6ec02e9a6d6380e1208a3744dca01ac"
+    },
+    "prepare_inventory.py.inverse.diff": {
+      "bytes": 2015,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_inventory.py.inverse.diff",
+      "sha256": "1d0d0d477aad60c389b50a4d7d0a923bb733911dbfb96eca3ad05728a195d879"
+    }
+  },
+  "schema": "1370-ao-checkpoint-source-preparation-pins/v1"
+}

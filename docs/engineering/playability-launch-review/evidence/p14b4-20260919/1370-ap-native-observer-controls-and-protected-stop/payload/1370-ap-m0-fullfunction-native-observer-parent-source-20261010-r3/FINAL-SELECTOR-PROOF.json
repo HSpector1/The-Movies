@@ -1,0 +1,16 @@
+{
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 2436,
+    "sha256": "7f4714be331850a07263481f60d8bffd628cb6e9b6abc13d9f9c5f9178e37f3e"
+  },
+  "pairs": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/R2-DIFF-read-fullfunction.py.json",
+      "bytes": 1046,
+      "sha256": "c37961eeda7412893036ff13b56297f06fb90294b211404c8a2dfb14a315f39e"
+    }
+  ],
+  "executionAuthorization": false,
+  "candidateExecuted": false
+}

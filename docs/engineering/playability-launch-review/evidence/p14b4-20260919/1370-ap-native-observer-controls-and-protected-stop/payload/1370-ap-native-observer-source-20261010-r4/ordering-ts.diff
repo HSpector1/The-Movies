@@ -1,0 +1,19 @@
+--- BASELINE-ordering.ts
++++ ordering.ts
+@@ -145,3 +145,16 @@
+   if(tied.length===1){exactly(t.winner,tied[0],'winner is the sole final tie member');exactly(t.others,survivorRefs.filter(r=>key(r)!==key(t.winner)),'all other survivor order')}
+   else{assert.equal(t.winner,null);exactly(t.finalTie,tied,'declined tie order');assert.equal(t.tiedCount,tied.length)}
+ }
++
++// Same actual fullbody witness/evaluation predicate, shared with pure controls.
++export function assertNativeEvaluationBinding(codec:any, physicalRow:any, evaluations:Iterable<any>):void {
++ const detail=codec.legacyRow(physicalRow).detail
++ let matched=false
++ for(const e of evaluations){
++  if(JSON.stringify(e.context)===JSON.stringify(physicalRow.context)
++   &&e.canonicalInputs===detail.canonicalInputs
++   &&e.result.inputsDigest===detail.inputsDigest
++   &&new TextEncoder().encode(e.canonicalInputs).length===detail.inputBytes){matched=true;break}
++ }
++ assert.ok(matched,'witness is the actual full-body evaluation tuple')
++}

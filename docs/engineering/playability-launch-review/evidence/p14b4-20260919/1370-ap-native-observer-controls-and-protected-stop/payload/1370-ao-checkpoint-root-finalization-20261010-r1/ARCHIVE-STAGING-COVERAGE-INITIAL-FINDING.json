@@ -1,0 +1,20 @@
+{
+  "executionAuthorization": false,
+  "expectedUniqueArchiveAndDocsFiles": 463,
+  "finding": "Three authenticated copied payload files were absent from Git index before checkpoint publication.",
+  "initialIndexVerification": {
+    "bytes": 8972,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/INDEX-VERIFICATION.json",
+    "sha256": "51fff22f4053ab4ca0585b0e5838c97841161d513fc06605f23be0252c3fffd3"
+  },
+  "minimalRepair": "Root stages exact three unchanged retained payloads and preserves/refreshes index evidence; no archive normalization.",
+  "missingArchiveRelativePaths": [
+    "payload/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "payload/1370-ao-public-checkpoint-inventory-plan-20261010-r1/README.md",
+    "payload/studio-scratch/c0-m0-fullfunction-observer-row-diagnostic-20261010-r1.lane.log"
+  ],
+  "observedIndexedFiles": 460,
+  "publicationAccepted": false,
+  "reviewerGitMutation": false,
+  "schema": "1370-ao-checkpoint-archive-staging-coverage-finding/v1"
+}

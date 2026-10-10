@@ -1,0 +1,12 @@
+{
+  "schema": "1370-native-observer-independent-controls-seal/v1",
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 2042,
+    "sha256": "be758595a589a51f559fe6933c8b6a68b23e16691ab32ee87aebf8d7b2dd64f9"
+  },
+  "payloadFiles": 7,
+  "sourceOnly": true,
+  "actualExecution": false,
+  "executionAuthorization": false
+}

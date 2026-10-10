@@ -1,0 +1,50 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/BASELINE-CONTRACT.json",
+    "bytes": 4589,
+    "sha256": "ede7dd2698764a78607f9c18ec55f86ec694d4543e5a93a9acd1d2584c0d63b7"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/CONTRACT.json",
+    "bytes": 6396,
+    "sha256": "1a165815bf862fb2268ed5eafff9ba2e234fe202434182103f6ed672276f8f00"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 270,
+      "old": "    \"bytes\": 7018,\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json\",\n    \"sha256\": \"ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa\"\n",
+      "newStart": 270,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/CONFIG.json\",\n    \"bytes\": 10207,\n    \"sha256\": \"8a14c244e10da3a7a9994ca4e3707a74f9e6ecf1b374aa9763cdf54fcfd8ca42\"\n"
+    },
+    {
+      "oldStart": 720,
+      "old": "    \"CONTROLS-CONTRACT.json\": {\n      \"bytes\": 4066,\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json\",\n      \"sha256\": \"e3f811116a1e62a37b87c9c738b052ba71cbdfebe4954344506ae46b8a074fbf\"\n",
+      "newStart": 713,
+      "new": "    \"m0NativeObserverRows.mjs\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs\",\n      \"bytes\": 10267,\n      \"sha256\": \"b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a\"\n    },\n    \"m0FeasibilityWitness-native.ts\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts\",\n      \"bytes\": 5868,\n      \"sha256\": \"53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b\"\n    },\n    \"m0ObserverRowDiagnostic.mjs\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs\",\n      \"bytes\": 10954,\n      \"sha256\": \"be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397\"\n    },\n    \"ordering.ts\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts\",\n      \"bytes\": 12555,\n      \"sha256\": \"21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b\"\n    },\n    \"ordering-source-controls.ts\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering-source-controls.ts\",\n      \"bytes\": 3407,\n      \"sha256\": \"d485414f997bcf606a416160d9ec212e621b59cfd29a49e0f359b84ba06556f4\"\n    },\n    \"original-m0FeasibilityWitness.ts\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/BASELINE-m0FeasibilityWitness.ts\",\n      \"bytes\": 4729,\n      \"sha256\": \"67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3\"\n    },\n    \"m0TraceCodec.mjs\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs\",\n      \"bytes\": 7882,\n      \"sha256\": \"5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768\"\n    },\n    \"traceSequences.mjs\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs\",\n      \"bytes\": 1286,\n      \"sha256\": \"0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede\"\n    },\n    \"ORDERING-SOURCE-CASES.json\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json\",\n      \"bytes\": 27476,\n      \"sha256\": \"95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7\"\n    },\n    \"run-native-observer-controls.mjs\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/run-native-observer-controls.mjs\",\n      \"bytes\": 30858,\n      \"sha256\": \"3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8\"\n"
+    },
+    {
+      "oldStart": 1024,
+      "old": "      \"bytes\": 7474,\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/MATRIX.json\",\n      \"sha256\": \"0f2a5ed2c64d632aa269fb1c1b4cc954f2e3b33acbe9281246453f7baa80f0d0\"\n",
+      "newStart": 3489,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/MATRIX.json\",\n      \"bytes\": 11805,\n      \"sha256\": \"e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39\"\n"
+    },
+    {
+      "oldStart": 1273,
+      "old": "    \"m0FeasibilityWitness.ts\": {\n      \"bytes\": 4729,\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts\",\n      \"sha256\": \"67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3\"\n    },\n    \"m0ObserverRowDiagnostic.mjs\": {\n      \"bytes\": 10646,\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs\",\n      \"sha256\": \"facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124\"\n    },\n    \"run-observer-row-controls.mjs\": {\n      \"bytes\": 29201,\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.mjs\",\n      \"sha256\": \"227e306fa5ba41208e72a9e0148d3e6cf3d49cf5070a694f6888908c2fabf6e0\"\n",
+      "newStart": 3731,
+      "new": "    \"CONTROLS-CONTRACT.json\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/CONTRACT.json\",\n      \"bytes\": 8241,\n      \"sha256\": \"1303c82c407869b2be88a59e2fd03050a0a2caf5d7456dcedd557b9a15b473a0\"\n"
+    },
+    {
+      "oldStart": 2139,
+      "old": "  \"laneLog\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log\",\n  \"outputPath\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-results-20261010-r1\",\n  \"parentPath\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1\",\n  \"recipePath\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/RECIPE.json\",\n  \"recorderOutputPath\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorder-results-20261010-r1\",\n",
+      "newStart": 4010,
+      "new": "  \"laneLog\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/controls.lane.log\",\n  \"outputPath\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1\",\n  \"parentPath\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1\",\n  \"recipePath\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/RECIPE.json\",\n  \"recorderOutputPath\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorder-results-20261010-r1\",\n"
+    },
+    {
+      "oldStart": 3097,
+      "old": "  \"schema\": \"1370-observer-row-diagnostic-pure-controls-parent-contract/v1\",\n  \"scope\": \"PURE_PUBLIC_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_ONLY\",\n  \"sourcePinsPath\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json\",\n",
+      "newStart": 4928,
+      "new": "  \"schema\": \"1370-native-observer-pure-controls-parent-contract/v1\",\n  \"scope\": \"PURE_PUBLIC_NATIVE_OBSERVER_CONTROLS_ONLY\",\n  \"sourcePinsPath\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json\",\n"
+    }
+  ]
+}

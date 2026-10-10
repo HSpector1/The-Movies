@@ -1,0 +1,209 @@
+{
+  "actualGameplayPrefixExecuted": null,
+  "actualTool": {
+    "bytes": 1646,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "de0444e855114c1510b6c16fd8bf2d6bb66bdbc2ac851031cdd3b207877da1b4"
+  },
+  "completed": true,
+  "controllerResult": {
+    "bytes": 2227,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-results-20261010-r1/RESULT.json",
+    "sha256": "9445263e424d0f05f874c2068164cdb7899e0d30081a2d807536353272f97f8f"
+  },
+  "controllerStatus": "STOP_NODE_EXIT",
+  "currentAOFullPreflightSnapshot": {
+    "bytes": 9552315,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/SNAPSHOT.json",
+    "sha256": "ed62b148395ad06a7e06ce68b2581097517a2483fa91c3baa4818513f358aad4"
+  },
+  "currentProtection": {
+    "bytes": 4345,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/M0-NATIVE-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "sha256": "c4918e6adf12a77c3697adb64b632ec1cfeaebac2cb71caedfe687d48dfe92cb"
+  },
+  "dependencyAfter": null,
+  "dependencyBefore": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "executionAuthorization": false,
+  "fixtureQualificationAccepted": false,
+  "fullProtectedPostflightAccepted": false,
+  "grant": {
+    "bytes": 4703,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/EXECUTION-GRANT.json",
+    "sha256": "3314c55b1ef376d96e64d628e8bc72974fbc02690bb770cdde954766f423c95b"
+  },
+  "helperExit": 2,
+  "historicalTypesRemainHistorical": true,
+  "laneLog": {
+    "bytes": 707,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-lane-20261010-r1",
+    "sha256": "44243d0d5b501c8339d916001aa499d3e5646c96e9db89efcc86fba57f752954"
+  },
+  "laneMetadata": {
+    "bytes": 530,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-lane-20261010-r1.meta",
+    "sha256": "9cab30d6ff064efa792b46e7708c1fdfaa8a71984501b4109acf59fb442b5c1f"
+  },
+  "laneReleased": true,
+  "nativeObserverControlsObservedAdoption": {
+    "bytes": 13238,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "401e54ce61697d70e1fbbf2d10a7d263a2ff7afa465ab58f00faa9a5002431c4"
+  },
+  "naturalBoundaryWeeks": null,
+  "neutralityAccepted": false,
+  "nodePid": 56869,
+  "nodeResult": null,
+  "parserControlsAdoption": {
+    "bytes": 1983,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d"
+  },
+  "preflightObservedAdoption": {
+    "bytes": 5400,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/M0-NATIVE-FULLFUNCTION-CURRENT-PREFLIGHT-READBACK.json",
+    "sha256": "2a1739b6af6d91f67b7f1382af64ccd9cb44bb122c3a0bf373851d6a66383ee0"
+  },
+  "recordedOwnedGroupIds": [
+    56234,
+    56489,
+    56492
+  ],
+  "recordedOwnedPids": [
+    56234,
+    56489,
+    56492,
+    56869
+  ],
+  "recorderExit": 2,
+  "recorderLaunchClaim": {
+    "bytes": 1694,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/RECORDER-LAUNCH-CLAIM.json",
+    "sha256": "7f7169528a68fad32fa5a9d775562bacdb8ebea705143726c5023d0dcb07011d"
+  },
+  "recorderResult": {
+    "bytes": 975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-recorder-results-20261010-r1/RESULT.json",
+    "sha256": "786abd28123e9bb058d05e88cd21c5d8d816939f8d842b73875f8e24ffbfbcc4"
+  },
+  "recorderStatus": "STOP_CHILD_EXIT_1",
+  "retainedInconsistencies": [],
+  "rootLaunchClaim": {
+    "bytes": 1845,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/ROOT-LAUNCH-CLAIM.json",
+    "sha256": "cc6229bd5fa4cbb49946b1f0ce3cadeff4fd358bf6f95ecde2d918e7a4c6072a"
+  },
+  "runnerExit": 1,
+  "runnerStatus": "EXITED",
+  "runtimeOutputAbsent": false,
+  "schema": "1370-root-fullfunction-actual-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 56234,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 56489,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 56492,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 56869,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 56234,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 56489,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 56492,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "sourceAfter": null,
+  "sourceBefore": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "historicalRootSubstitutedMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "physicalMetadataSha256": "12c3dd50b99860c1c4e56ee98488d5f04613b37c93496d0257cc560a4fb83038",
+    "traversedEntries": 1853
+  },
+  "sourcePins": {
+    "bytes": 25246,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "88b8d5b06a3e4fc0f37fe0b0f7054ef0572effceac839a4078f416e4fd946055"
+  },
+  "sourceReview": {
+    "bytes": 15578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "bd8c16acd12b9fdc7eee64a25e29e6f76f5e509160fd91ce5c24ede6431f4959"
+  },
+  "status": "ACTUAL_FULLFUNCTION_STOP_PRESERVED_PENDING_SHARED_FULL_POSTFLIGHT",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-recorder-results-20261010-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 254,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-recorder-results-20261010-r1/stdout.bin",
+    "sha256": "322e5ec821bf90db1e299f7d14aac25ddd679bf76651724c44b05d74f1b14118"
+  },
+  "toolExit": 2,
+  "toolSessionId": 17063,
+  "typesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  }
+}

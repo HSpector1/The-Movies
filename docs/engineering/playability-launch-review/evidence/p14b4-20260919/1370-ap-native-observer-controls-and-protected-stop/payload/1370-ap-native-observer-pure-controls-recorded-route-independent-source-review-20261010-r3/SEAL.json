@@ -1,0 +1,21 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "BYTE-AUDIT.json": {
+      "bytes": 12333,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r3/BYTE-AUDIT.json",
+      "sha256": "eecb315ebfef51b739140aa653b8e99e8effedee4e57841b537655488ff2e93e"
+    },
+    "RECEIPT.json": {
+      "bytes": 13582,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r3/RECEIPT.json",
+      "sha256": "4e954629eae5f415b4a603b721838f95f1cade240d4ea0a3e0c8c767a352f5d5"
+    },
+    "REPORT.md": {
+      "bytes": 3349,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r3/REPORT.md",
+      "sha256": "d7928f7e346ffdfb363b002fd2f3f331ade21659787e81b92a55b5247ac611d4"
+    }
+  },
+  "schema": "1370-independent-source-review-seal/v1"
+}

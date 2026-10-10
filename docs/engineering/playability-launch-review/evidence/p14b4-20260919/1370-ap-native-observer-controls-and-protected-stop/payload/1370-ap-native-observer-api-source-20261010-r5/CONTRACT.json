@@ -1,0 +1,21 @@
+{
+  "schema": "1370-native-observer-final-api-source/v1",
+  "status": "HELD_FINAL_API_SOURCE_ONLY",
+  "api": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r5/API.md",
+    "bytes": 7379,
+    "sha256": "332286018d872d4972df3cececa6e13f2a585ed08a2582c86d0832ab425dd351"
+  },
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r4/API.md",
+    "bytes": 6673,
+    "sha256": "68ad5f97a326056c8a4f382490c79c9759ef8fc787ae825fc6926a859b3a0cc6"
+  },
+  "rootDesignAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+    "bytes": 3376,
+    "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+  },
+  "executionAuthorization": false,
+  "implementationAuthorization": false
+}

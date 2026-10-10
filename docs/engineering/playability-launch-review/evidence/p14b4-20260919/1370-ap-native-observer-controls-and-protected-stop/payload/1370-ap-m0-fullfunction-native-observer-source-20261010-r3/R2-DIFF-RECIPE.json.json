@@ -1,0 +1,170 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/R2-BASELINE-RECIPE.json",
+    "bytes": 37643,
+    "sha256": "5039a6ba2d502744029d00013374a6f1791280cad8849177bd850b73f1c15838"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/RECIPE.json",
+    "bytes": 37643,
+    "sha256": "ff6a09832e15d602b06c43863dae3044abc41a0b820f78246d28ee2869beeefb"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 1691,
+      "old": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CONFIG.json\",\n    \"bytes\": 25680,\n    \"sha256\": \"c47ad11df9021afd55694994ca7a116ee12cedac5fd781d364947929b168ad9e\"\n",
+      "newStart": 1691,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/CONFIG.json\",\n    \"bytes\": 25764,\n    \"sha256\": \"3437424ca4bad911777e496b3c1cc702ee9be56b662b370c81d6f69872f4e90d\"\n"
+    },
+    {
+      "oldStart": 7324,
+      "old": "    \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/record-fullfunction.py\",\n",
+      "newStart": 7324,
+      "new": "    \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/record-fullfunction.py\",\n"
+    },
+    {
+      "oldStart": 18411,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CONFIG.json\",\n      \"bytes\": 25680,\n      \"sha256\": \"c47ad11df9021afd55694994ca7a116ee12cedac5fd781d364947929b168ad9e\"\n",
+      "newStart": 18411,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/CONFIG.json\",\n      \"bytes\": 25764,\n      \"sha256\": \"3437424ca4bad911777e496b3c1cc702ee9be56b662b370c81d6f69872f4e90d\"\n"
+    },
+    {
+      "oldStart": 18677,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/run-fullfunction.py\",\n",
+      "newStart": 18677,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/run-fullfunction.py\",\n"
+    },
+    {
+      "oldStart": 18832,
+      "old": "      \"sha256\": \"548b3e3dad52b6ffb936ed0907d52942efa76895753909dc37410165d2948c93\"\n",
+      "newStart": 18832,
+      "new": "      \"sha256\": \"ad65020fcd047537ff7cdcb9b6afe4f6ddab89c8bd6141752376a982983e7c06\"\n"
+    },
+    {
+      "oldStart": 18952,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/run-fullfunction.mjs\",\n",
+      "newStart": 18952,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/run-fullfunction.mjs\",\n"
+    },
+    {
+      "oldStart": 19108,
+      "old": "      \"sha256\": \"02abf0062ef6a59a1c4a642dcac5feeba3b72a06e9c805330a0be67419a07917\"\n",
+      "newStart": 19108,
+      "new": "      \"sha256\": \"0360ae7b17eb203a559cad5daeeb1e9299969028f343f61bcc54fc63ac56446d\"\n"
+    },
+    {
+      "oldStart": 19230,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/record-fullfunction.py\",\n",
+      "newStart": 19230,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/record-fullfunction.py\",\n"
+    },
+    {
+      "oldStart": 19388,
+      "old": "      \"sha256\": \"b3d963b40362cd9be26c808b0ce08a2a10bcd42974e6f727fc70cfe33d530bb3\"\n",
+      "newStart": 19388,
+      "new": "      \"sha256\": \"4aa7c70f3ef093e3499a76f3bfc3288e200c767451d70c018ad0dde7540f7aa6\"\n"
+    },
+    {
+      "oldStart": 19509,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CORE-TEST-TEMPLATE.ts\",\n",
+      "newStart": 19509,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/CORE-TEST-TEMPLATE.ts\",\n"
+    },
+    {
+      "oldStart": 19784,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CONFIG-TEMPLATE.mts\",\n",
+      "newStart": 19784,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/CONFIG-TEMPLATE.mts\",\n"
+    },
+    {
+      "oldStart": 19938,
+      "old": "      \"sha256\": \"d5441dd9caa89530c41cdd8716573f33fc1d5356571fa7b2e78b2b762d6b9da3\"\n",
+      "newStart": 19938,
+      "new": "      \"sha256\": \"5f4ae2753a32df1aa87dbeac892f0b29c3ad7b3232d846a11bc9adb73dff42c4\"\n"
+    },
+    {
+      "oldStart": 20891,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/canonical-typescript-transform.mjs\",\n",
+      "newStart": 20891,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/canonical-typescript-transform.mjs\",\n"
+    },
+    {
+      "oldStart": 21456,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/RESOLUTION-SOURCE-BINDING.json\",\n",
+      "newStart": 21456,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/RESOLUTION-SOURCE-BINDING.json\",\n"
+    },
+    {
+      "oldStart": 23992,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CONFIG.json\",\n      \"bytes\": 25680,\n      \"sha256\": \"c47ad11df9021afd55694994ca7a116ee12cedac5fd781d364947929b168ad9e\"\n",
+      "newStart": 23992,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/CONFIG.json\",\n      \"bytes\": 25764,\n      \"sha256\": \"3437424ca4bad911777e496b3c1cc702ee9be56b662b370c81d6f69872f4e90d\"\n"
+    },
+    {
+      "oldStart": 24258,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/run-fullfunction.py\",\n",
+      "newStart": 24258,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/run-fullfunction.py\",\n"
+    },
+    {
+      "oldStart": 24413,
+      "old": "      \"sha256\": \"548b3e3dad52b6ffb936ed0907d52942efa76895753909dc37410165d2948c93\"\n",
+      "newStart": 24413,
+      "new": "      \"sha256\": \"ad65020fcd047537ff7cdcb9b6afe4f6ddab89c8bd6141752376a982983e7c06\"\n"
+    },
+    {
+      "oldStart": 24533,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/run-fullfunction.mjs\",\n",
+      "newStart": 24533,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/run-fullfunction.mjs\",\n"
+    },
+    {
+      "oldStart": 24689,
+      "old": "      \"sha256\": \"02abf0062ef6a59a1c4a642dcac5feeba3b72a06e9c805330a0be67419a07917\"\n",
+      "newStart": 24689,
+      "new": "      \"sha256\": \"0360ae7b17eb203a559cad5daeeb1e9299969028f343f61bcc54fc63ac56446d\"\n"
+    },
+    {
+      "oldStart": 24811,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/record-fullfunction.py\",\n",
+      "newStart": 24811,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/record-fullfunction.py\",\n"
+    },
+    {
+      "oldStart": 24969,
+      "old": "      \"sha256\": \"b3d963b40362cd9be26c808b0ce08a2a10bcd42974e6f727fc70cfe33d530bb3\"\n",
+      "newStart": 24969,
+      "new": "      \"sha256\": \"4aa7c70f3ef093e3499a76f3bfc3288e200c767451d70c018ad0dde7540f7aa6\"\n"
+    },
+    {
+      "oldStart": 25090,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CORE-TEST-TEMPLATE.ts\",\n",
+      "newStart": 25090,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/CORE-TEST-TEMPLATE.ts\",\n"
+    },
+    {
+      "oldStart": 25365,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CONFIG-TEMPLATE.mts\",\n",
+      "newStart": 25365,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/CONFIG-TEMPLATE.mts\",\n"
+    },
+    {
+      "oldStart": 25519,
+      "old": "      \"sha256\": \"d5441dd9caa89530c41cdd8716573f33fc1d5356571fa7b2e78b2b762d6b9da3\"\n",
+      "newStart": 25519,
+      "new": "      \"sha256\": \"5f4ae2753a32df1aa87dbeac892f0b29c3ad7b3232d846a11bc9adb73dff42c4\"\n"
+    },
+    {
+      "oldStart": 26472,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/canonical-typescript-transform.mjs\",\n",
+      "newStart": 26472,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/canonical-typescript-transform.mjs\",\n"
+    },
+    {
+      "oldStart": 27037,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/RESOLUTION-SOURCE-BINDING.json\",\n",
+      "newStart": 27037,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/RESOLUTION-SOURCE-BINDING.json\",\n"
+    }
+  ]
+}

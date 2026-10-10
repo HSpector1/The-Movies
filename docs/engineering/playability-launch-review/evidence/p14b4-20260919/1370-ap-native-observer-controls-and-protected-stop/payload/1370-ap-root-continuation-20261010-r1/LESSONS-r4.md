@@ -1,0 +1,9 @@
+# AP major lessons — update 4
+
+A consumer test must reach the validation used by the real route. Moving canonical comparison into a shared function was insufficient until that function actually invoked the native physical-envelope validator. Otherwise, corrupt row schemas and extra fields could bypass validation while a separate codec test passed. The repaired consumer now projects through the real bounded codec before comparing the complete evaluation tuple.
+
+Budget the payload and its wrapper separately. Canonical depth 64 remains inclusive; the physical envelope needs depth 66 so wrapping a valid tuple does not silently shrink its budget. Count each object property once in the nodes-plus-properties budget. Report physical-envelope overflow as its own format failure, rather than incorrectly attributing it to a valid canonical tuple. Independent source review caught these distinctions before any candidate run.
+
+Error-precedence tests need successful cleanup variants. If every test makes reset throw, an incorrect implementation can still pass while losing body or end failures. Cover reset over end over body with each higher-priority stage succeeding in turn, preserve exact thrown identity including undefined, and make swallowed-error bodies return normally. A typo that throws a later ReferenceError may be masked by the sticky first error and weaken the intended proof.
+
+Keep source-authoring failures distinct from execution failures. Native implementation drafts R1 through R4 were rejected or corrected before execution; R5 has source acceptance only. The slow data-only diff builder was interrupted and replaced with a line-aligned inverse builder. Neither event is a game failure or an executed behavioral pass. Actual native control and fullfunction results remain pending.

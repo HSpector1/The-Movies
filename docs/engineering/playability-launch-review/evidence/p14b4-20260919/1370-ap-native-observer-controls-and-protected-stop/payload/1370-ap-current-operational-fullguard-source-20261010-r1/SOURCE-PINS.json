@@ -1,0 +1,59 @@
+{
+  "actualGrant": null,
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-CONFIG.json.txt": {
+      "bytes": 3928,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/BASELINE-CONFIG.json.txt",
+      "sha256": "f9d2d7fda1b5df5c01176c142bd6b16c9be9cc78963fe73e7fc62640b82a9cdd"
+    },
+    "BASELINE-snapshot.py.txt": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/BASELINE-snapshot.py.txt",
+      "sha256": "2915fd60e26b894fd431e4483e23d9beed79b3332dc3c7173b0a37fd3130ef1d"
+    },
+    "CONFIG.json": {
+      "bytes": 3928,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+      "sha256": "2bc496099b22f228ba671a57aec531f4eb11fc5f7c3d2cc8c21b7608331f7814"
+    },
+    "CONFIG.json.forward.diff": {
+      "bytes": 2435,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/CONFIG.json.forward.diff",
+      "sha256": "8b2cb845b5382ab70111af8f814c9640ff14d98e7b5befc2ca46e03ad3d3cbc4"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 2435,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/CONFIG.json.inverse.diff",
+      "sha256": "379527293fcf51d93174779a543df1030189d19c75f6fd88a87ba7254e779177"
+    },
+    "PROOF.json": {
+      "bytes": 4207,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/PROOF.json",
+      "sha256": "5edcc435504cfbcd25046388467a6195b14949df46356a577a522e7da4485e06"
+    },
+    "snapshot.py": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/snapshot.py",
+      "sha256": "8e27bb8f5ba9ee51223da4db7fb521eac035a79b714a756b11e9d37949c9bf0f"
+    },
+    "snapshot.py.forward.diff": {
+      "bytes": 564,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/snapshot.py.forward.diff",
+      "sha256": "a585310dce26b84a88f029bad7f1cac62e5a8b37f96ddc704e7998c1d4402acd"
+    },
+    "snapshot.py.inverse.diff": {
+      "bytes": 564,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/snapshot.py.inverse.diff",
+      "sha256": "a486fc614fb0b5cd3a58971b8b68acef29aa0dca75760dc60810a22a6a138889"
+    }
+  },
+  "independentReview": null,
+  "operationalScope": {
+    "bytes": 2935,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "7dee435f6d0ac86e41d590aa08ef81b87caaa8f3e7692a097301a94eeb7bbc6b"
+  },
+  "schema": "1370-ap-fullguard-ao-binding-source-pins/v1",
+  "status": "SOURCE_ONLY_UNRUN"
+}

@@ -1,0 +1,21 @@
+{
+  "chunks": [
+    {
+      "chunk_id": "d5075e",
+      "original_token_count": 69,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 4133, \"sha256\": \"7c19a284cc2f7cd0e300f26e8ac70a5828bc88270e8155fc747d5dcdbd044c00\"}, \"ownPid\": 31376, \"ownPgid\": 31376}\n",
+      "session_id": 23188,
+      "wall_time_seconds": 1.002178029
+    },
+    {
+      "chunk_id": "871be6",
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": "",
+      "wall_time_seconds": 2.38e-05
+    }
+  ],
+  "finalExit": 0,
+  "schema": "1370-root-actual-native-prelaunch-tool/v1",
+  "toolSessionId": 23188
+}

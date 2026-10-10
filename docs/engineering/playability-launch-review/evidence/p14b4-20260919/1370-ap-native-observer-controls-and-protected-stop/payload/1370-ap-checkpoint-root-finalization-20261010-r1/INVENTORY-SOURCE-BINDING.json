@@ -1,0 +1,36 @@
+{
+  "actualArchive": null,
+  "actualCutoff": null,
+  "actualInventory": null,
+  "builders": {
+    "prepare_final_packages.py": {
+      "bytes": 4649,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py",
+      "sha256": "44f14cedf747f9ffda7c5e076042440d56b70c3d05d35c9a9d5883787cea3769"
+    },
+    "prepare_inventory.py": {
+      "bytes": 3147,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-checkpoint-root-finalization-20261010-r1/prepare_inventory.py",
+      "sha256": "f0760129efda1d61defe17559a396b38c73842bd34e0e21e489677156a5178b9"
+    }
+  },
+  "currentPublishedHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "executionAuthorization": false,
+  "originalFinalizer": {
+    "bytes": 6520,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ai-archive-finalization-source-20261009-r1/finalize_archive.py",
+    "sha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b"
+  },
+  "originalHeldPlan": {
+    "bytes": 25611,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-public-checkpoint-inventory-plan-20261010-r1/PLAN.json",
+    "sha256": "a12e6a20e947cafe369a259d12435ec85ea786ff38788b894abd0f9e15991258"
+  },
+  "schema": "1370-ap-inventory-source-binding/v1",
+  "wholeLateAODirectory": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1",
+    "priorBlobHandling": "Original finalizer authenticates matching blobs against the actual expected HEAD; old builders/input and late receipts remain selected.",
+    "rootFutureFiniteEnumerationOnly": true,
+    "selection": "WHOLE_DIRECTORY_WITH_NO_ROLE_EXCLUSIONS"
+  }
+}

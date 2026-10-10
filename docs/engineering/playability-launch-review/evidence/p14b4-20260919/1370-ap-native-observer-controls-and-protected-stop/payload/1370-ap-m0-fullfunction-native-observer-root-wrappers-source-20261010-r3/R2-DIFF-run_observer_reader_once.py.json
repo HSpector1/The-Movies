@@ -1,0 +1,20 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/R2-BASELINE-run_observer_reader_once.py",
+    "bytes": 2588,
+    "sha256": "e26f6ca4a18b013f08c6d467b4f2b46cd0a7957dc71a8af82a979818e7828d18"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/run_observer_reader_once.py",
+    "bytes": 2588,
+    "sha256": "a7ee9d00a9c191cc39b20b9e2b630d17e1f4817b3ead646f7927c7739053e73a"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 302,
+      "old": "Q=Path('/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r2')\n",
+      "newStart": 302,
+      "new": "Q=Path('/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3')\n"
+    }
+  ]
+}

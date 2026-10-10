@@ -1,0 +1,38 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r1/BASELINE-run_observer_reader_once.py",
+    "bytes": 2604,
+    "sha256": "80e0ae126fdbf54f95d709552c9e9263223dd89b19e85c551a840a2027bffb68"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r1/run_observer_reader_once.py",
+    "bytes": 2588,
+    "sha256": "ef7b4920278e8c497dc0bb23df8184ef0371c3ad72388b4c5f76903b60d2d81c"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 52,
+      "old": "S=Path('/Users/zacheryspector/studio-scratch');A=Path('/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1')\n",
+      "newStart": 52,
+      "new": "S=Path('/Users/zacheryspector/studio-scratch');A=Path('/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1')\n"
+    },
+    {
+      "oldStart": 302,
+      "old": "Q=Path('/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1')\n",
+      "newStart": 302,
+      "new": "Q=Path('/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1')\n"
+    },
+    {
+      "oldStart": 583,
+      "old": "v=json.loads(V.read_bytes());assert v['schema']=='1370-ao-fullfunction-parent-readback-wrappers-independent-source-review/v1' and v['decision']=='ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY' and v['rootReadbackDecision']=='ACCEPT_STATIC_FULLFUNCTION_ROOT_READBACK_SOURCE_ONLY' and v['executionAuthorization'] is False and v['concreteFindings']==[]\n",
+      "newStart": 575,
+      "new": "v=json.loads(V.read_bytes());assert v['schema']=='1370-ap-fullfunction-parent-readback-wrappers-independent-source-review/v1' and v['decision']=='ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY' and v['rootReadbackDecision']=='ACCEPT_STATIC_FULLFUNCTION_ROOT_READBACK_SOURCE_ONLY' and v['executionAuthorization'] is False and v['concreteFindings']==[]\n"
+    },
+    {
+      "oldStart": 1608,
+      "old": "P=Path('/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1');actual=json.loads((P/'ACTUAL-TOOL.json').read_bytes());assert type(actual['sessionId']) is int and type(actual['finalExit']) is int\n",
+      "newStart": 1600,
+      "new": "P=Path('/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1');actual=json.loads((P/'ACTUAL-TOOL.json').read_bytes());assert type(actual['sessionId']) is int and type(actual['finalExit']) is int\n"
+    }
+  ]
+}

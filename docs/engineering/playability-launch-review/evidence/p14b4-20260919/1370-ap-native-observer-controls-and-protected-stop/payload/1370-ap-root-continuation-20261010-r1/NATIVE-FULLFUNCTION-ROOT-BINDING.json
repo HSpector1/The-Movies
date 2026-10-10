@@ -1,0 +1,105 @@
+{
+  "artifactBoundAdoption": {
+    "bytes": 2172,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULL-STATE-FIXTURE-ARTIFACT-BOUND.json",
+    "sha256": "186c55ff7381787d3abe401e175d8c1c468be5bfb5e8ef169f89d7c94a0bc546"
+  },
+  "automaticRetry": false,
+  "currentProtection": {
+    "bytes": 4345,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/M0-NATIVE-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "sha256": "c4918e6adf12a77c3697adb64b632ec1cfeaebac2cb71caedfe687d48dfe92cb"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "helper": {
+    "bytes": 3361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "losslessControlsObservedAdoption": {
+    "bytes": 6868,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "fa668549c4526317f1c5f7f17494ae3bdaec2f6713e6b72351f30d384cfa096a"
+  },
+  "nativeObserverControlsObservedAdoption": {
+    "bytes": 13238,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "401e54ce61697d70e1fbbf2d10a7d263a2ff7afa465ab58f00faa9a5002431c4"
+  },
+  "oneAggregateRun": true,
+  "parentPath": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1",
+  "parentSourcePins": {
+    "bytes": 3625,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "c2eb3c2cf3454022bd3df01d0559e4a0f1ffa43bb024f6d7b4b4f77732a10f23"
+  },
+  "parentSourceReview": {
+    "bytes": 7779,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-parent-readback-wrappers-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "bf3de68e1faee8ea2ddba8c546f7c7bad7bfd304925422fededf2ac44c207f9d"
+  },
+  "parserControlsAdoption": {
+    "bytes": 1983,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d"
+  },
+  "rootLauncher": {
+    "bytes": 10508,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r3/run_observer_fullfunction_once.py",
+    "sha256": "954ade6e0afa18bf789d2dcfc41b58bc1220661af0ac3d081fa15cc93906187c"
+  },
+  "runtimeTools": {
+    "node": {
+      "bytes": 115440320,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "vitestEntry": {
+      "bytes": 43,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+      "sha256": "39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6"
+    },
+    "vitestPackage": {
+      "bytes": 4995,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/package.json",
+      "sha256": "6ea35e567829660d9832744086c18526b9ddebd5358c4a0cadfb0a355925f917"
+    }
+  },
+  "runtimeToolsObservation": {
+    "bytes": 1478,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RUNTIME-TOOLS.json",
+    "sha256": "e7d0f540655698dac3c15f4210307bef0112abe9316283d6c68a8245dd9eca9e"
+  },
+  "schema": "1370-root-fullfunction-parent-binding/v1",
+  "sourceAdoption": {
+    "bytes": 3327,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-FULLFUNCTION-SOURCE-ADOPTION.json",
+    "sha256": "3bddf2afb4f61bab7617035aa51bfe054d7432fdeff59b1b107c49a68a6091ef"
+  },
+  "sourcePins": {
+    "bytes": 25246,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "88b8d5b06a3e4fc0f37fe0b0f7054ef0572effceac839a4078f416e4fd946055"
+  },
+  "sourceReview": {
+    "bytes": 15578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "bd8c16acd12b9fdc7eee64a25e29e6f76f5e509160fd91ce5c24ede6431f4959"
+  },
+  "typesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "utc": "2026-10-10T11:01:25.417469+00:00"
+}

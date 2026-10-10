@@ -1,0 +1,10 @@
+{
+  "schema": "1370-root-data-only-adoption-correction/v1",
+  "originalScript": "adopt_current_fullguard.py",
+  "actualChunk": "d8edec",
+  "actualExit": 1,
+  "exception": "KeyError: actualSessionId",
+  "cause": "Copied historical adoption reader expected old field name; current authentic actual and reader receipts use sessionId.",
+  "effect": "No adoption file or runtime retry; underlying fullguard3186 and reader remain original successful executions.",
+  "correction": "R2 changes exactly two receipt field accesses after reading authentic files; preserved first failed script."
+}

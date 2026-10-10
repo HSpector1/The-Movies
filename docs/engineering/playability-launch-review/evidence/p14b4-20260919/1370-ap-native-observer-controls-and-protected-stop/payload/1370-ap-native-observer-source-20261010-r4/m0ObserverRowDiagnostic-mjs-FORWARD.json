@@ -1,0 +1,80 @@
+[
+  {
+    "start": 0,
+    "end": 0,
+    "expected": "",
+    "replacement": "import {NATIVE_ROW_SCHEMA} from './m0NativeObserverRows.mjs'\n"
+  },
+  {
+    "start": 4796,
+    "end": 4851,
+    "expected": "function familyEvidence(kind, detail, context, rows) {\n",
+    "replacement": "function familyEvidence(kind, detail, context, rows, codec) {\n"
+  },
+  {
+    "start": 5067,
+    "end": 5105,
+    "expected": "        input = rows[i].detail; break\n",
+    "replacement": "        input = codec.decodeInputDetailForDiagnostic(rows[i].detail); break\n"
+  },
+  {
+    "start": 6123,
+    "end": 6171,
+    "expected": "export function createObserverRowDiagnostic() {\n",
+    "replacement": "export function createObserverRowDiagnostic({codec,latch}) {\n"
+  },
+  {
+    "start": 7382,
+    "end": 7438,
+    "expected": "      const detailBytes = safeJSONBytes(detail, 524288)\n",
+    "replacement": "      const physicalDetail = kind === 'inputTuple' ? codec.encodeInputDetailForDiagnostic(detail) : detail\n      const detailBytes = safeJSONBytes(physicalDetail, 524288)\n"
+  },
+  {
+    "start": 7615,
+    "end": 7724,
+    "expected": "      const row = {schema: 'c0-m0-feasibility/v1', sequence: rows.length, occurrence, context, kind, detail}\n",
+    "replacement": "      const row = {schema: NATIVE_ROW_SCHEMA, sequence: rows.length, occurrence, context, kind, detail:physicalDetail}\n"
+  },
+  {
+    "start": 8046,
+    "end": 8111,
+    "expected": "        context, ...familyEvidence(kind, detail, context, rows),\n",
+    "replacement": "        context, ...familyEvidence(kind, detail, context, rows, codec),\n"
+  },
+  {
+    "start": 8969,
+    "end": 9011,
+    "expected": "        if (failed !== null) throw failed\n",
+    "replacement": "        latch.throwIfFailed()\n        let priorRows\n        try { priorRows=rowsProvider() } catch(error) { latch.record(error); throw error }\n"
+  },
+  {
+    "start": 9072,
+    "end": 9167,
+    "expected": "          if (error instanceof Error && error.name === 'Error' && error.message === MESSAGE) {\n",
+    "replacement": "          latch.record(error)\n          if (latch.first().error === error && error instanceof Error && error.name === 'Error' && error.message === MESSAGE) {\n"
+  },
+  {
+    "start": 9249,
+    "end": 9362,
+    "expected": "            try { retain(error, capture, rowsProvider, kind, detail) } catch { /* failed is already sticky. */ }\n",
+    "replacement": "            try { retain(error, capture, () => priorRows, kind, detail) } catch { /* failed is already sticky. */ }\n"
+  },
+  {
+    "start": 9423,
+    "end": 9482,
+    "expected": "    throwIfFailed() { if (failed !== null) throw failed },\n",
+    "replacement": "    throwIfFailed() { latch.throwIfFailed() },\n"
+  },
+  {
+    "start": 9509,
+    "end": 9554,
+    "expected": "      if (failed === null || emitted) return\n",
+    "replacement": "      if (failed === null || emitted || latch.first().error !== failed) return\n"
+  },
+  {
+    "start": 9913,
+    "end": 10644,
+    "expected": "  let rowFailed = false, rowError\n  try {\n    const result = body()\n    diagnostic.throwIfFailed()\n    return result\n  } catch (error) {\n    try { diagnostic.throwIfFailed() } catch (sticky) {\n      rowFailed = true; rowError = sticky\n    }\n    try { diagnostic.emitFirst(writeLine) } catch { /* Diagnostic output cannot replace the caught error. */ }\n    throw rowFailed ? rowError : error\n  } finally {\n    if (rowFailed) {\n      // Both cleanup operations still run; neither may replace the original E.\n      try { end() } catch { /* Fatal row refusal already retained locally. */ }\n      try { reset() } catch { /* Fatal row refusal already retained locally. */ }\n    } else {\n      try { end() } finally { reset() }\n    }\n  }\n",
+    "replacement": "  let result, failed=false, error, sticky=false, stickyError\n  const health=()=>{try{diagnostic.throwIfFailed()}catch(value){if(!sticky){sticky=true;stickyError=value}}}\n  const emit=()=>{try{diagnostic.emitFirst(writeLine)}catch{/* Selected actual error remains primary. */}}\n  try{result=body()}catch(value){failed=true;error=value}\n  health();if(failed||sticky)emit()\n  try{end()}catch(value){failed=true;error=value}\n  health();if(sticky)emit()\n  try{reset()}catch(value){failed=true;error=value}\n  health();if(sticky)emit()\n  if(sticky)throw stickyError\n  if(failed)throw error\n  return result\n"
+  }
+]

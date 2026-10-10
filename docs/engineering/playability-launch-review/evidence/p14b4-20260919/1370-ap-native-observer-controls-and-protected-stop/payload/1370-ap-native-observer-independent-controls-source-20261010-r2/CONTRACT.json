@@ -1,0 +1,166 @@
+{
+  "schema": "1370-native-observer-independent-controls-contract/v1",
+  "status": "SOURCE_ONLY_UNRUN_PENDING_INDEPENDENT_REVIEW_AND_RECORDED_ROOT_GRANT",
+  "library": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+    "bytes": 30858,
+    "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+  },
+  "matrix": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/MATRIX.json",
+    "bytes": 11805,
+    "sha256": "e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39"
+  },
+  "requiredInputs": {
+    "m0NativeObserverRows.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+      "bytes": 10267,
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "m0FeasibilityWitness-native.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+      "bytes": 5868,
+      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs",
+      "bytes": 10954,
+      "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+    },
+    "ordering.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+      "bytes": 12555,
+      "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+    },
+    "ordering-source-controls.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering-source-controls.ts",
+      "bytes": 3407,
+      "sha256": "d485414f997bcf606a416160d9ec212e621b59cfd29a49e0f359b84ba06556f4"
+    },
+    "original-m0FeasibilityWitness.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/BASELINE-m0FeasibilityWitness.ts",
+      "bytes": 4729,
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "m0TraceCodec.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "bytes": 7882,
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "traceSequences.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "bytes": 1286,
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    },
+    "ORDERING-SOURCE-CASES.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "bytes": 27476,
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    }
+  },
+  "authorities": {
+    "implementationSourceManifest": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+      "bytes": 12245,
+      "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+    },
+    "implementationInterface": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/INTERFACE.json",
+      "bytes": 1652,
+      "sha256": "074f05314b9165ae7f99f0d83536e646b19e0074a334cbeeb55a79bed239b57d"
+    },
+    "implementationIndependentReview": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+      "bytes": 10219,
+      "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+    },
+    "api": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/API.md",
+      "bytes": 8118,
+      "sha256": "3da98803fc94b4beeb4e37d6aa01a4ccd266a12ac123df9746cc21d12b1fc9fa"
+    },
+    "apiAdoption": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-API-ADOPTION.json",
+      "bytes": 3933,
+      "sha256": "9300b1167ee0b481757023e9a93306432c115c3e6f554733aff42e6c95565c7f"
+    },
+    "diagnosticSupplementAdoption": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/DIAGNOSTIC-CODEC-SUPPLEMENT-ADOPTION.json",
+      "bytes": 1768,
+      "sha256": "0e19294627060a4bc2b77d4172dce7d3b33af97ac91f4e263372cc3ba525842d"
+    },
+    "nativeDesignAdoption": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+      "bytes": 3376,
+      "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+    },
+    "digestOracleSource": {
+      "path": "/Users/zacheryspector/The-Movies-headless-program/src/core/math.ts",
+      "bytes": 3704,
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670"
+    }
+  },
+  "entry": {
+    "export": "runNativeObserverControls",
+    "sourceExport": "NATIVE_CASES",
+    "dependencies": [
+      "createObserverFailureLatch",
+      "createNativeRowCodec",
+      "NativeObserverFormatError",
+      "createM0FeasibilitySink",
+      "originalCreateM0FeasibilitySink",
+      "createObserverRowDiagnostic",
+      "runObserverArm",
+      "assertNativeEvaluationBinding",
+      "runOrderingSourceControls",
+      "orderingPacket"
+    ],
+    "dependencyBindings": "Actual authenticated modules, not test-side replicas. Both sink factory exports share the original name; the worker renames only the original oracle dependency."
+  },
+  "workerGraph": {
+    "typescriptSources": [
+      "m0FeasibilityWitness-native.ts",
+      "original-m0FeasibilityWitness.ts",
+      "ordering.ts",
+      "ordering-source-controls.ts"
+    ],
+    "copiedJavascriptSources": [
+      "m0NativeObserverRows.mjs",
+      "m0ObserverRowDiagnostic.mjs",
+      "m0TraceCodec.mjs",
+      "traceSequences.mjs",
+      "run-native-observer-controls.mjs"
+    ],
+    "allowedImportRebase": "ordering-source-controls.ts: ./ordering.js -> ./ordering.mjs after authenticated public TypeScript erasure",
+    "gameImports": false
+  },
+  "result": {
+    "schema": "1370-native-observer-independent-controls-result/v1",
+    "status": "PURE_NATIVE_OBSERVER_CODEC_SINK_AND_AFFECTED_CONSUMERS_COMPLETED_UNADOPTED",
+    "caseCount": 72,
+    "positiveCount": 13,
+    "specificNegativeCount": 59,
+    "exactRows": "MATRIX.cases in order plus verdict ACCEPT_POSITIVE for GREEN or ACCEPT_SPECIFIC_REFUSAL for RED; any failed premise, unexpected error type/code/assertion, compiler/import failure is fatal, never expected RED",
+    "originalOrderingCases": 18,
+    "originalParserCasesReplayed": 0,
+    "historicalObserverControlsReplayed": 0,
+    "game": false,
+    "originalM0ReadOrWritten": false,
+    "executionAuthorization": false
+  },
+  "semantics": {
+    "physicalCount": 512,
+    "physicalRowBytesIncludingNewline": 16384,
+    "physicalAggregateBytesIncludingNewlines": 2097152,
+    "canonicalDepth": 64,
+    "canonicalNodesAndProperties": 16384,
+    "legacyViewBound": "L <= 2P+2; one complete projected row at a time. Expanded v1 accounting explicitly amended.",
+    "digestOracle": "Fixture-only FNV64 fold over original UTF16 charCodeAt; byte equality checked separately; does not claim real gameplay invocation.",
+    "firstError": "Shared actual arm-local latch retains presence and exact thrown value, including falsy values; ordinary no-latch reset>end>body precedence distinct.",
+    "snapshot": "Actual healthy prior physical reference snapshot before failed record; public rows refuse sticky failure; no expanded trace cache.",
+    "original18": "Original packet unchanged, migrated actual helper edits before codec wrapping and specific AssertionError checks; no arbitrary error is counted RED."
+  },
+  "actualExecution": null,
+  "runtimeGrant": null,
+  "executionAuthorization": false
+}

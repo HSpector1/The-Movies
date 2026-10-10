@@ -1,0 +1,9 @@
+{
+  "executionAuthorization": false,
+  "receipt": {
+    "bytes": 11102,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "a3315ae0ab0ea6be8839db4e4e7e501e072ade628cc50047abb93c944e689dd4"
+  },
+  "schema": "1370-native-observer-controls-independent-review-seal/v1"
+}

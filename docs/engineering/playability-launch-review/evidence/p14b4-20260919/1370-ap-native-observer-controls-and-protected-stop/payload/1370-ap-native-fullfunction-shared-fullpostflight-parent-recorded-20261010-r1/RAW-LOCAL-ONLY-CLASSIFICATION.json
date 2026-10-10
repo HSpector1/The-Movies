@@ -1,0 +1,31 @@
+{
+  "classification": "LOCAL_HASH_SIZE_ONLY",
+  "rawBytesIncluded": false,
+  "roles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 80882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/postflight-fullfunction-native-observer-r1/BEFORE-PS.txt",
+      "sha256": "cce22b600b23bd8b5dc71d7ec7b04a5cd917e515082ffcb6f774f48366e1c0b1"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 578747,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/postflight-fullfunction-native-observer-r1/BEFORE-LSOF.bin",
+      "sha256": "77510c7c715c0754cbacd3eeb5734d55164f98795faef022c9733b3a419a13a8"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 78668,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/postflight-fullfunction-native-observer-r1/AFTER-PS.txt",
+      "sha256": "11c9eb299d78772318e1e121cd55604ba9f7276b6de8c7577763022696c46eb2"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 575484,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/postflight-fullfunction-native-observer-r1/AFTER-LSOF.bin",
+      "sha256": "0242f9cfa266bf859797e79cc2e823ed4b77f1a70694ad59ac1252938c0712d3"
+    }
+  ],
+  "schema": "1370-ap-fullpostflight-raw-local-only/v1"
+}

@@ -1,0 +1,68 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3/BASELINE-read_observer_controls.py",
+    "bytes": 5895,
+    "sha256": "a4fd0a7351ada45383f6b8801a109781aa38235c98f1231cc0dad1d3e05f9494"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3/read_native_observer_controls.py",
+    "bytes": 6351,
+    "sha256": "d0c379255584dd36718b4cfa4af5f3e0de8d9c932fe73bd83eabe0b0027349c8"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 104,
+      "old": "P=S/'1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1'\n",
+      "newStart": 104,
+      "new": "P=S/'1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1'\n"
+    },
+    {
+      "oldStart": 892,
+      "old": "for key in ('sourcePins','sourceReview','config','recipe','sourceAdoption','runtimeToolsObservation','implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api'):assert role(g[key]['path'])==g[key]\n",
+      "newStart": 884,
+      "new": "for key in ('sourcePins','sourceReview','config','recipe','sourceAdoption','runtimeToolsObservation','implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api','apiAdoption','supplementAdoption'):assert role(g[key]['path'])==g[key]\n"
+    },
+    {
+      "oldStart": 1383,
+      "old": "assert r['status']=='OBSERVER_ROW_DIAGNOSTIC_PURE_CONTROLS_COMPLETE_UNADOPTED' and r['actualChildExit']==0 and r['groupClear'] is True and r['timedOut'] is False and r['childPid']==r['ownedPgid'] and r['startupOwnedBeforeExec'] and r['pgidConfirmed']\n",
+      "newStart": 1410,
+      "new": "assert r['status']=='NATIVE_OBSERVER_PURE_CONTROLS_COMPLETE_UNADOPTED' and r['actualChildExit']==0 and r['groupClear'] is True and r['timedOut'] is False and r['childPid']==r['ownedPgid'] and r['startupOwnedBeforeExec'] and r['pgidConfirmed']\n"
+    },
+    {
+      "oldStart": 2028,
+      "old": "assert v['schema']=='1370-observer-row-independent-controls-result/v1' and v['status']=='PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_COMPLETED_UNADOPTED'\nassert v['positiveCount']==c['positiveCount']==6 and v['specificNegativeCount']==c['specificNegativeCount']==42\nassert v['caseCount']==len(v['results'])==c['caseCount']==48\n",
+      "newStart": 2047,
+      "new": "assert v['schema']=='1370-native-observer-independent-controls-result/v1' and v['status']=='PURE_NATIVE_OBSERVER_CODEC_SINK_AND_AFFECTED_CONSUMERS_COMPLETED_UNADOPTED'\nassert v['positiveCount']==c['positiveCount']==13 and v['specificNegativeCount']==c['specificNegativeCount']==59\nassert v['caseCount']==len(v['results'])==c['caseCount']==72\nassert v['originalOrderingCases']==18 and v['originalParserCasesReplayed']==0 and v['historicalObserverControlsReplayed']==0\n"
+    },
+    {
+      "oldStart": 2632,
+      "old": "assert len(set(x['id'] for x in v['results']))==48\n",
+      "newStart": 2797,
+      "new": "assert len(set(x['id'] for x in v['results']))==72\n"
+    },
+    {
+      "oldStart": 3077,
+      "old": "emitted={'m0ObserverRowDiagnostic.mjs':'m0ObserverRowDiagnostic.mjs','run-observer-row-controls.mjs':'run-observer-row-controls.mjs','m0FeasibilityWitness.ts':'m0FeasibilityWitness.mjs'}\n",
+      "newStart": 3242,
+      "new": "emitted={name:name.replace('.ts','.mjs') for name in ('m0NativeObserverRows.mjs','m0ObserverRowDiagnostic.mjs','run-native-observer-controls.mjs','m0TraceCodec.mjs','traceSequences.mjs','original-m0FeasibilityWitness.ts','m0FeasibilityWitness-native.ts','ordering.ts','ordering-source-controls.ts')}\n"
+    },
+    {
+      "oldStart": 4000,
+      "old": "owned=[claim['helperPid'],r['ownedPgid']];assert len(set(owned))==2 and claim['helperPid']==claim['helperPgid']==claim['helperSid'];checks=[]\n",
+      "newStart": 4278,
+      "new": "owned=[claim['helperPid'],r['ownedPgid']];assert len(set(owned))==2 and claim['helperPid']==claim['helperPgid'] and type(claim['helperSid']) is int and claim['helperSid']>1;checks=[]\n"
+    },
+    {
+      "oldStart": 4422,
+      "old": "out={'schema':'1370-root-observer-row-diagnostic-controls-actual-readback/v1','status':'ACTUAL_PURE_48_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW','actualTool':role(P/'ACTUAL-TOOL.json'),'toolSessionId':a['sessionId'],'toolExit':0,'grant':role(P/'GRANT.json'),'parentClaim':role(P/'LAUNCH-CLAIM.json'),'result':role(O/'CONTROLS-RESULT.json'),'workerResult':role(W/'CONTROLS-RESULT.json'),'recorderResult':role(O/'RESULT.json'),'stdout':role(O/'stdout.bin'),'stderr':role(O/'stderr.bin'),'laneLog':role(lane),'laneMetadata':role(meta),'caseCount':48,'positiveCount':6,'specificNegativeCount':42,'historicalControlSetsReplayed':False,'allSpecificControlsPassed':True,'actualOwnedIds':owned,'scopedOwnershipChecks':checks,'laneReleased':True,'recorderSeconds':r['elapsedSeconds'],'preparationSeconds':claim['preparationElapsedSeconds'],'inputRoles':v['inputRoles'],'generatedModules':v['generatedModules'],'privateM0ReadOrWritten':False,'game':False,'executionAuthorization':False,**{k:g[k] for k in ('sourceAdoption','sourcePins','sourceReview','implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api')}}\n",
+      "newStart": 4741,
+      "new": "out={'schema':'1370-root-native-observer-controls-actual-readback/v1','status':'ACTUAL_PURE_72_NATIVE_OBSERVER_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW','actualTool':role(P/'ACTUAL-TOOL.json'),'toolSessionId':a['sessionId'],'toolExit':0,'grant':role(P/'GRANT.json'),'parentClaim':role(P/'LAUNCH-CLAIM.json'),'result':role(O/'CONTROLS-RESULT.json'),'workerResult':role(W/'CONTROLS-RESULT.json'),'recorderResult':role(O/'RESULT.json'),'stdout':role(O/'stdout.bin'),'stderr':role(O/'stderr.bin'),'laneLog':role(lane),'laneMetadata':role(meta),'caseCount':72,'positiveCount':13,'specificNegativeCount':59,'historicalControlSetsReplayed':False,'originalOrderingCases':18,'originalParserCasesReplayed':0,'fullQualificationAccepted':False,'allSpecificControlsPassed':True,'actualOwnedIds':owned,'scopedOwnershipChecks':checks,'laneReleased':True,'recorderSeconds':r['elapsedSeconds'],'preparationSeconds':claim['preparationElapsedSeconds'],'inputRoles':v['inputRoles'],'generatedModules':v['generatedModules'],'privateM0ReadOrWritten':False,'game':False,'executionAuthorization':False,**{k:g[k] for k in ('sourceAdoption','sourcePins','sourceReview','implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api','apiAdoption','supplementAdoption')}}\n"
+    },
+    {
+      "oldStart": 5764,
+      "old": "p.chmod(0o444);print(json.dumps({'readback':role(p),'recorderSeconds':r['elapsedSeconds'],'actualOwnedIds':owned,'caseCount':48}))\n",
+      "newStart": 6220,
+      "new": "p.chmod(0o444);print(json.dumps({'readback':role(p),'recorderSeconds':r['elapsedSeconds'],'actualOwnedIds':owned,'caseCount':72}))\n"
+    }
+  ]
+}

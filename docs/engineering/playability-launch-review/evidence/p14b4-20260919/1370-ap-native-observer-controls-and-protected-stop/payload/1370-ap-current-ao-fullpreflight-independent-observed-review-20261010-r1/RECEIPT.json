@@ -1,0 +1,164 @@
+{
+  "schema": "1370-ap-current-ao-fullpreflight-independent-observed-review/v1",
+  "decision": "ACCEPT_ACTUAL_CURRENT_AO_FULL_PREFLIGHT_ONLY",
+  "concreteFindings": [],
+  "readback": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-parent-recorded-20261010-r1/READBACK.json",
+    "bytes": 3902,
+    "sha256": "d3b186df25cc897038ac510d893d3c853e40586a8896b8dc7115d81d927b3db2"
+  },
+  "snapshot": {
+    "bytes": 9552315,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/SNAPSHOT.json",
+    "sha256": "ed62b148395ad06a7e06ce68b2581097517a2483fa91c3baa4818513f358aad4"
+  },
+  "fullPreflightSnapshot": {
+    "bytes": 9552315,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/SNAPSHOT.json",
+    "sha256": "ed62b148395ad06a7e06ce68b2581097517a2483fa91c3baa4818513f358aad4"
+  },
+  "snapshotPins": {
+    "bytes": 507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/PINS.json",
+    "sha256": "b7b5e90b6787a2210962720be788bede5791643d46d277f75ba1f55236964144"
+  },
+  "actualTool": {
+    "bytes": 1520,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "de468ba5feb8b485493e030cc4e01bc2651b711f284f57e8fcaf19f482964532"
+  },
+  "readerActualTool": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-parent-recorded-20261010-r1/READER-ACTUAL-TOOL.json",
+    "bytes": 598,
+    "sha256": "71a52193d1ce88b0eb0500158f794f3ff3fcce1ff2adb294877b6134d55852a1"
+  },
+  "sourceReader": {
+    "bytes": 5421,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/read_current_fullpreflight.py",
+    "sha256": "069018265554b60c71d2f47aa712e450d333a3eeb78b9ef6599f6f06dae1cd10"
+  },
+  "sourceLauncher": {
+    "bytes": 3864,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py",
+    "sha256": "4beca7a0eb719f123ac26a67c2b0315e5d32e531acf286a313dd5b2022fb1cdc"
+  },
+  "sourceReview": {
+    "bytes": 2045,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULLGUARD-INDEPENDENT-SOURCE-REVIEW.json",
+    "sha256": "04db4644fe8188ab1993a5835278c54227e0aebd38508951e7388d84a5ff2588"
+  },
+  "sourcePins": {
+    "bytes": 2920,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "5ede60a6f02c405aea31dd7fa981d871de6b5af8c594cf103ad9c66076f9834a"
+  },
+  "sourceAdoption": {
+    "bytes": 1040,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULLGUARD-SOURCE-ADOPTION.json",
+    "sha256": "a50e1d03887e437209619e4baeb666cc638119043ad027d53d99480fbca3d5b2"
+  },
+  "config": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "sha256": "2bc496099b22f228ba671a57aec531f4eb11fc5f7c3d2cc8c21b7608331f7814"
+  },
+  "grant": {
+    "bytes": 2367,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "e52bba9494bfd4593b96fd491a3dbdd01f6de258bfd675bf65b8a2b032fa5572"
+  },
+  "postOwnership": {
+    "bytes": 339,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-parent-recorded-20261010-r1/POST-OWNERSHIP.json",
+    "sha256": "4dd1396cd893ed5f32e6c98e46745b3c7b1c4a24938585bac20d4a507be80ff5"
+  },
+  "rawLocalOnlyClassification": {
+    "bytes": 1472,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-parent-recorded-20261010-r1/RAW-LOCAL-ONLY-CLASSIFICATION.json",
+    "sha256": "ae2b550eea1de2cc845bbce9b9f79575115d252b7ebb6de1cd1ce379401117e6"
+  },
+  "scanStdout": {
+    "bytes": 454,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-parent-recorded-20261010-r1/scan.stdout",
+    "sha256": "8bba8bad5d095b91a7f8e62f9ae06deea8c67bd866cb4e6c997881619ee6dbf2"
+  },
+  "scanStderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-parent-recorded-20261010-r1/scan.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "productionHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "actualSessionId": 3186,
+  "scannerPidPgid": 18361,
+  "actualExit": 0,
+  "readerExit": 0,
+  "guardSeconds": 431.88712404700345,
+  "inventorySeconds": 339.12429336700006,
+  "strictRoots": 9,
+  "privateSourceEntries": 176,
+  "dependencyEntriesPerCopy": 12485,
+  "immutableObjectSha256": "2277a1e5ba9f1093095d302e3694e93b65c0b95d45fc902e61c009af90b7d3e3",
+  "comparison": {
+    "nineStrictRootsBeforeAfterAndImmutableEqual": true,
+    "scratchDeviceInodeModeEqual": true,
+    "historicalPrivateProofUnchangedFields": [
+      "physicalCheckout",
+      "productionDependencies",
+      "copiedDependencies",
+      "allocatedBytes",
+      "bindingSha256",
+      "actualCopyPayloadSha256",
+      "actualCopyResultSha256",
+      "actualCopySupervisorSha256"
+    ],
+    "privateFullProtectedDigestEqual": true,
+    "productionCommonMap": "Fresh actual AO docs-only protection baseline; deliberately distinct from original4812 and earlier operational maps. No wholesale historical immutable-map equality claim.",
+    "scratchPolicy": "Parent mtime/ctime and authorized child deltas informational under original policy; strict copied/production/common/H roots have no such exception."
+  },
+  "freeBytesBefore": 4805799936,
+  "freeBytesAfter": 4794728448,
+  "requiredFreeBytes": 3758096384,
+  "ownershipScope": "Only recorded scanner18361 PID and PGID fresh ESRCH plus lock absent; no global or invented internal-ID absence claim.",
+  "rawRoles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 78672,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/BEFORE-PS.txt",
+      "sha256": "65a9e6d3c5d4d223c6966cf102c0532ce64d4dee47299b5f18e030ee1a7b8dbe"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 576288,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/BEFORE-LSOF.bin",
+      "sha256": "51fe7267c545f54c0b40beff50bd3409d7e5a093f0c28edc8c2faf472aab2baa"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 82116,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/AFTER-PS.txt",
+      "sha256": "2d5c9493bee19150451c0b684e235751091d70d8672ea4d5f03b5c993b030634"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 580908,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/AFTER-LSOF.bin",
+      "sha256": "5f44f8869ae244893bd2cd705ee0d2fd801ca88a98e961b58dac6c1dcf163e34"
+    }
+  ],
+  "rawBytesExported": false,
+  "rawContentsInspected": false,
+  "rawHashSizeOnly": true,
+  "freshFullInventory": true,
+  "historicalM0TypesAndSourceProofRemainSeparate": true,
+  "originalM0ContentProof": false,
+  "types": false,
+  "collection": false,
+  "game": false,
+  "executionAuthorization": false,
+  "reviewScope": "Retained public source and actual evidence only. No repeat inventory, signal, current probe, candidate import, private tree traversal or Git operation.",
+  "lessons": [
+    "A current docs-only publication requires a fresh production/common protection baseline; preserved original private copy facts remain distinct.",
+    "Scratch parent metadata exceptions do not waive nine strict roots. Raw process/FD files are explicit LOCAL hash-size-only roles regardless of extension."
+  ]
+}

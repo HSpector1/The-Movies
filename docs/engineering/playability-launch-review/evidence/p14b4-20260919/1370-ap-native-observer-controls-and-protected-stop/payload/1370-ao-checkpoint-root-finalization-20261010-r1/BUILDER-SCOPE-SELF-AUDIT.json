@@ -1,0 +1,30 @@
+{
+  "actualAOFullfunctionTopLevelLaneExtrasExact": true,
+  "actualInventoryExecutedByReviewer": false,
+  "actualPure48LaneWithinSelectedParentPackage": true,
+  "archiveCopyOrGitByReviewer": false,
+  "authorship": "Builder literal adaptation and this source audit both authored by /root/b109_focused_route_review; this is not an independent builder-source receipt. Final root claim/docs/actual archive will be independently reviewed.",
+  "completeWholeForwardInverseApplicationsActuallyApplied": 4,
+  "executionAuthorization": false,
+  "filenameRawDefenseRequiresClassification": true,
+  "newFinalizationDirectoryExcludedExceptOriginalFourBuilderInputRoles": true,
+  "noOriginalM0PrivateDependenciesOrWholeScratchTraversal": true,
+  "pendingIndependentReview": [
+    "Root final claim/document roles",
+    "Genuine actual INPUT-PACKAGES-FINAL and INVENTORY-FINAL",
+    "Actual archive manifest and payload/priorHEAD/LOCAL coverage"
+  ],
+  "preparedManifestRolesReadbackAuthenticated": 12,
+  "priorHeadBlobReuseOnlyOriginalArchiveFinalizerAuthenticates": true,
+  "producerRawRoleClassificationSeedsLocalHashSizeOnly": true,
+  "rebuildableNodeCompileCacheLocalHashSizeOnly": true,
+  "rootMustDeclareActualCutoffBeforeSelectionAndInventory": true,
+  "schema": "1370-ao-checkpoint-builder-scope-self-audit/v1",
+  "selectionSource": {
+    "bytes": 3636,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py",
+    "sha256": "73fe10265249491b1bde71dc3976bb13ff743bc1a996e01b0d4650c76699e7e1"
+  },
+  "semanticLocalCoverageRequiresEveryLocalRoleSelectedExactlyOnce": true,
+  "wholeLateANFinalizationCarried": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1"
+}

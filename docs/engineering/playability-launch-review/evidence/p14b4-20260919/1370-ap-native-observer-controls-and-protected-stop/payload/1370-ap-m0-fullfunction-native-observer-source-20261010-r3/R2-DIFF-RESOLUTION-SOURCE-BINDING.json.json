@@ -1,0 +1,13 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/R2-BASELINE-RESOLUTION-SOURCE-BINDING.json",
+    "bytes": 78189,
+    "sha256": "f611b2042a7cb86bc4f473b05c8a05149839eb020e8c043b1d9039830ff99a74"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/RESOLUTION-SOURCE-BINDING.json",
+    "bytes": 78189,
+    "sha256": "f611b2042a7cb86bc4f473b05c8a05149839eb020e8c043b1d9039830ff99a74"
+  },
+  "indexedWholeForwardInverse": []
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "start": 0,
+    "end": 0,
+    "expected": "",
+    "replacement": "import {createObserverFailureLatch,createNativeRowCodec,NATIVE_ROW_SCHEMA,freezeOwnedPhysicalRow} from './m0NativeObserverRows.mjs'\n"
+  },
+  {
+    "start": 2380,
+    "end": 2380,
+    "expected": "",
+    "replacement": "    // Native physical synthetic envelope AFTER original case edits; outside RED assertion.\n    // Original ordering cases inspect contexts, not canonical receipt payloads.\n    if(args.feasibilityValues)args.feasibilityValues=args.feasibilityValues.map((value:any)=>\n      freezeOwnedPhysicalRow({...value,schema:NATIVE_ROW_SCHEMA}))\n"
+  }
+]

@@ -1,0 +1,28 @@
+--- before
++++ after
+@@ -1,6 +1,6 @@
+ import datetime,hashlib,json,os,stat,sys
+ from pathlib import Path
+-S=Path('/Users/zacheryspector/studio-scratch');P=S/'1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-parent-recorded-20261010-r1';G=S/'1370-ao-current-operational-fullguard-source-20261010-r1'
++S=Path('/Users/zacheryspector/studio-scratch');P=S/'1370-ap-native-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1';G=S/'1370-ap-current-operational-fullguard-source-20261010-r1'
+ def role(p):
+  p=Path(p);st=p.lstat();assert p.is_absolute() and p.resolve(strict=True)==p and stat.S_ISREG(st.st_mode) and st.st_nlink==1
+  b=p.read_bytes();return {'path':str(p),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
+@@ -15,7 +15,7 @@
+ for key in ('actualRouteReadback','guardSource','guardConfig','baseline','guardSourceReview','guardSourcePins'):assert role(g[key]['path'])==g[key]
+ rb=read(g['actualRouteReadback']['path']);assert rb['recordedOwnedGroupIds']==g['actualPriorOwnedIds'] and rb['recordedOwnedPids']==g['actualPriorOwnedPids'] and rb['completed'] is True and rb['laneReleased'] is True
+ assert rb['status']==g['priorRouteStatus'] and {k:rb[k] for k in g['priorRouteExits']}==g['priorRouteExits']
+-O=Path(g['outputDirectory']);assert O==G/'evidence/postflight-fullfunction-observer-row-diagnostic-r1'
++O=Path(g['outputDirectory']);assert O==G/'evidence/postflight-fullfunction-native-observer-r1'
+ summary=read(P/'postflight.stdout');assert summary['status']=='GUARDS_ACCEPTED_READONLY' and summary['snapshotPath']==str(O/'SNAPSHOT.json') and summary['snapshotSha256']==role(O/'SNAPSHOT.json')['sha256'] and summary['pinsSha256']==role(O/'PINS.json')['sha256']
+ assert (P/'postflight.stderr').read_bytes()==b''
+ for name,h in read(O/'PINS.json')['files'].items():assert '/' not in name and role(O/name)['sha256']==h
+@@ -32,6 +32,6 @@
+   try:fn(n,0)
+   except ProcessLookupError:checks.append({'kind':label,'id':n,'result':'ESRCH'})
+   else:raise RuntimeError('Recorded owned identity remains live')
+-raw=put(P/'RAW-LOCAL-ONLY-CLASSIFICATION.json',{'schema':'1370-ao-fullpostflight-raw-local-only/v1','classification':'LOCAL_HASH_SIZE_ONLY','roles':[dict(role(O/name),archiveDisposition='LOCAL_HASH_SIZE_ONLY') for name in ('BEFORE-PS.txt','BEFORE-LSOF.bin','AFTER-PS.txt','AFTER-LSOF.bin')],'rawBytesIncluded':False})
+-out={'schema':'1370-ao-fullfunction-shared-fullpostflight-readback/v1','status':'ACTUAL_FULLFUNCTION_SHARED_FULL_POSTFLIGHT_COMPLETE_PENDING_INDEPENDENT_REVIEW','actualTool':role(P/'ACTUAL-TOOL.json'),'toolSessionId':actual['sessionId'],'toolExit':0,'grant':role(P/'GRANT.json'),'actualRouteReadback':g['actualRouteReadback'],'fullPostflightSnapshot':role(O/'SNAPSHOT.json'),'snapshotPins':role(O/'PINS.json'),'baseline':g['baseline'],'guardSource':g['guardSource'],'guardConfig':g['guardConfig'],'guardSourcePins':g['guardSourcePins'],'guardSourceReview':g['guardSourceReview'],'stdout':role(P/'postflight.stdout'),'stderr':role(P/'postflight.stderr'),'fullImmutableEqual':True,'nineStrictRootsEqual':True,'scratchIdentityOnlyEqual':True,'guardSeconds':v['elapsedSeconds'],'inventorySeconds':v['inventoryElapsedSeconds'],'actualOwnedGroupIds':ids,'actualOwnedPids':pids,'priorRouteStatus':g['priorRouteStatus'],'priorRouteExits':g['priorRouteExits'],'priorStopPreserved':g['priorStopPreserved'],'scopedOwnershipChecks':checks,'laneReleased':True,'rawLocalOnlyClassification':raw,'executionAuthorization':False,'m0TypesResultAdopted':False,'collectionAccepted':False,'typesAccepted':False,'game':False,'originalR6StopPreserved':True}
++raw=put(P/'RAW-LOCAL-ONLY-CLASSIFICATION.json',{'schema':'1370-ap-fullpostflight-raw-local-only/v1','classification':'LOCAL_HASH_SIZE_ONLY','roles':[dict(role(O/name),archiveDisposition='LOCAL_HASH_SIZE_ONLY') for name in ('BEFORE-PS.txt','BEFORE-LSOF.bin','AFTER-PS.txt','AFTER-LSOF.bin')],'rawBytesIncluded':False})
++out={'schema':'1370-ap-native-fullfunction-shared-fullpostflight-readback/v1','status':'ACTUAL_FULLFUNCTION_SHARED_FULL_POSTFLIGHT_COMPLETE_PENDING_INDEPENDENT_REVIEW','actualTool':role(P/'ACTUAL-TOOL.json'),'toolSessionId':actual['sessionId'],'toolExit':0,'grant':role(P/'GRANT.json'),'actualRouteReadback':g['actualRouteReadback'],'fullPostflightSnapshot':role(O/'SNAPSHOT.json'),'snapshotPins':role(O/'PINS.json'),'baseline':g['baseline'],'guardSource':g['guardSource'],'guardConfig':g['guardConfig'],'guardSourcePins':g['guardSourcePins'],'guardSourceReview':g['guardSourceReview'],'stdout':role(P/'postflight.stdout'),'stderr':role(P/'postflight.stderr'),'fullImmutableEqual':True,'nineStrictRootsEqual':True,'scratchIdentityOnlyEqual':True,'guardSeconds':v['elapsedSeconds'],'inventorySeconds':v['inventoryElapsedSeconds'],'actualOwnedGroupIds':ids,'actualOwnedPids':pids,'priorRouteStatus':g['priorRouteStatus'],'priorRouteExits':g['priorRouteExits'],'priorStopPreserved':g['priorStopPreserved'],'scopedOwnershipChecks':checks,'laneReleased':True,'rawLocalOnlyClassification':raw,'executionAuthorization':False,'m0TypesResultAdopted':False,'collectionAccepted':False,'typesAccepted':False,'game':False,'originalR6StopPreserved':True}
+ print(json.dumps({'readback':put(P/'READBACK.json',out),'guardSeconds':v['elapsedSeconds'],'inventorySeconds':v['inventoryElapsedSeconds'],'actualOwnedGroupIds':ids,'actualOwnedPids':pids,'priorRouteStatus':g['priorRouteStatus'],'priorRouteExits':g['priorRouteExits'],'priorStopPreserved':g['priorStopPreserved']}))

@@ -1,0 +1,24 @@
+import hashlib,json,os,sys
+from pathlib import Path
+S=Path('/Users/zacheryspector/studio-scratch');A=Path('/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1')
+def role(p):
+ p=Path(p);b=p.read_bytes();return {'path':str(p),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
+Q=Path('/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r2')
+assert sys.flags.isolated and sys.dont_write_bytecode and not sys.flags.optimize and len(sys.argv)==3
+V=Path(sys.argv[1]);assert role(V)['sha256']==sys.argv[2]
+v=json.loads(V.read_bytes());assert v['schema']=='1370-ap-fullfunction-parent-readback-wrappers-independent-source-review/v1' and v['decision']=='ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY' and v['rootReadbackDecision']=='ACCEPT_STATIC_FULLFUNCTION_ROOT_READBACK_SOURCE_ONLY' and v['executionAuthorization'] is False and v['concreteFindings']==[]
+assert role(Q/'SOURCE-PINS.json')==v['sourceManifest']
+manifest=json.loads((Q/'SOURCE-PINS.json').read_bytes())
+for r in manifest['files'].values():assert role(r['path'])==r
+assert role(Q/'read-fullfunction.py')==v['sourcePins']['read-fullfunction.py']==v['routeSourcePins']['read-fullfunction.py']==manifest['files']['read-fullfunction.py']
+W=Path(__file__).parent;assert role(W/'SOURCE-PINS.json')==v['wrapperSourceManifest']
+wp=json.loads((W/'SOURCE-PINS.json').read_bytes())
+for r in wp['files'].values():assert role(r['path'])==r
+for name in ('run_observer_fullfunction_once.py','run_observer_reader_once.py'):assert v['wrapperSourcePins'][name]==wp['files'][name]
+P=Path('/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1');actual=json.loads((P/'ACTUAL-TOOL.json').read_bytes());assert type(actual['sessionId']) is int and type(actual['finalExit']) is int
+runtime=Path('/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RUNTIME-TOOLS.json');assert role(runtime)['sha256']=='e7d0f540655698dac3c15f4210307bef0112abe9316283d6c68a8245dd9eca9e'
+tools=json.loads(runtime.read_bytes())['runtimeTools']
+for r in tools.values():assert role(r['path'])==r
+assert Path(sys.executable).resolve(strict=True)==Path(tools['python']['path']) and role(tools['python']['path'])['sha256']=='7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835'
+argv=[tools['python']['path'],'-I','-B',str(Q/'read-fullfunction.py'),str(actual['sessionId']),str(actual['finalExit']),role(P/'EXECUTION-GRANT.json')['sha256'],role(P/'ACTUAL-TOOL.json')['sha256']]
+os.execv(argv[0],argv)

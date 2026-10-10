@@ -1,0 +1,223 @@
+{
+  "actualControlsExecuted": false,
+  "actualSharedConsumerAndArmDependenciesRequired": true,
+  "authorityRoles": {
+    "api": {
+      "bytes": 8118,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/API.md",
+      "sha256": "3da98803fc94b4beeb4e37d6aa01a4ccd266a12ac123df9746cc21d12b1fc9fa"
+    },
+    "apiAdoption": {
+      "bytes": 3933,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-API-ADOPTION.json",
+      "sha256": "9300b1167ee0b481757023e9a93306432c115c3e6f554733aff42e6c95565c7f"
+    },
+    "diagnosticSupplementAdoption": {
+      "bytes": 1768,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/DIAGNOSTIC-CODEC-SUPPLEMENT-ADOPTION.json",
+      "sha256": "0e19294627060a4bc2b77d4172dce7d3b33af97ac91f4e263372cc3ba525842d"
+    },
+    "digestOracleSource": {
+      "bytes": 3704,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/src/core/math.ts",
+      "sha256": "ac048a1ca635eefdafb154f54934d1cecd6ac922212b765dd283960e20a68670"
+    },
+    "implementationIndependentReview": {
+      "bytes": 10219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+      "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+    },
+    "implementationInterface": {
+      "bytes": 1652,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/INTERFACE.json",
+      "sha256": "074f05314b9165ae7f99f0d83536e646b19e0074a334cbeeb55a79bed239b57d"
+    },
+    "implementationSourceManifest": {
+      "bytes": 12245,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+      "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+    },
+    "nativeDesignAdoption": {
+      "bytes": 3376,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+      "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+    }
+  },
+  "byteAndRosterAuthentication": {
+    "bytes": 1549,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r2/BYTE-AND-ROSTER-AUTHENTICATION.json",
+    "sha256": "1e02a6261aa38a33d67a7cc0bc16384660a65bb279bc75088924418e8ce3c6f4"
+  },
+  "candidateImportsOrRuntimeExecuted": false,
+  "caseCount": 72,
+  "completeEmptyLatchCleanupPrecedenceCovered": true,
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_PURE_NATIVE_OBSERVER_CONTROLS_SOURCE_ONLY",
+  "decoderGraphCounterIndependentOfArrayLengthCovered": true,
+  "documentaryCountCorrection": {
+    "correctedCountDerivedFromActualManifestAndAuthentication": 7,
+    "finding": "Previous report prose used the predecessor count five, while its authenticated R2 data evidence correctly recorded seven.",
+    "originalReviewAndReportPreserved": true,
+    "previousReport": {
+      "bytes": 3104,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r2/REPORT.md",
+      "sha256": "cc094891a5311295c2fc1c47ca9b5dd251c7ee7ccd609442debcf584160fbf38"
+    },
+    "previousReview": {
+      "bytes": 10172,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r2/RECEIPT.json",
+      "sha256": "2808db9a422d29808bbcb301dd048c1a12922384c5e0f9c25303f449e9940766"
+    },
+    "sourceRolesDecisionsAndSemanticReviewUnchanged": true
+  },
+  "executionAuthorization": false,
+  "findings": [],
+  "fullQualificationAccepted": false,
+  "futureActualControlsAdoption": null,
+  "futureRuntimeGrant": null,
+  "game": false,
+  "historicalObserverControlsReplayed": 0,
+  "implementationIndependentReview": {
+    "bytes": 10219,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+    "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+  },
+  "implementationSourceManifest": {
+    "bytes": 12245,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+    "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+  },
+  "independence": "Reviewer did not author the controls; reviewed actual dependency-injected source and named retained public roles.",
+  "knownNoFitAndCountPrecedenceCovered": true,
+  "manifestRolesAuthenticated": 7,
+  "matrixByteExactToPredecessor": true,
+  "nativeCases": 54,
+  "naturalGameFitMeasured": false,
+  "normalSwallowedReturnAndLaterFailureCovered": true,
+  "oldFailureAndFreshArmIsolationCovered": true,
+  "original18IdsPredicatesExpectationsOrderExact": true,
+  "originalOrderingCases": 18,
+  "originalOrderingPacket": {
+    "bytes": 27476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+    "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+  },
+  "originalParserCasesReplayed": 0,
+  "originalR1SourcePreserved": true,
+  "originalR1StopReview": {
+    "bytes": 1248,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "490d099fd44924dd51679f62b8865ee112c0ceb78c444aefcc79e8b71c982c3d"
+  },
+  "physicalCaps": {
+    "count": 512,
+    "rowIncludingNewline": 16384,
+    "totalIncludingNewlines": 2097152
+  },
+  "positiveCount": 13,
+  "privateInputsOrInventories": false,
+  "productionMutation": false,
+  "report": {
+    "bytes": 3105,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r3/REPORT.md",
+    "sha256": "49abcc0dfd107a97f4451a123bb751e6954806b0200c2e1778f270a126fa0ff6"
+  },
+  "requiredInputs": {
+    "ORDERING-SOURCE-CASES.json": {
+      "bytes": 27476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    },
+    "m0FeasibilityWitness-native.ts": {
+      "bytes": 5868,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+    },
+    "m0NativeObserverRows.mjs": {
+      "bytes": 10267,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 10954,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs",
+      "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "ordering-source-controls.ts": {
+      "bytes": 3407,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering-source-controls.ts",
+      "sha256": "d485414f997bcf606a416160d9ec212e621b59cfd29a49e0f359b84ba06556f4"
+    },
+    "ordering.ts": {
+      "bytes": 12555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+      "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+    },
+    "original-m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/BASELINE-m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "reviewer": "/root/b109_focused_route_review",
+  "routeSourcePins": {
+    "CONTRACT.json": {
+      "bytes": 8241,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "1303c82c407869b2be88a59e2fd03050a0a2caf5d7456dcedd557b9a15b473a0"
+    },
+    "MATRIX.json": {
+      "bytes": 11805,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39"
+    },
+    "run-native-observer-controls.mjs": {
+      "bytes": 30858,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+      "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+    }
+  },
+  "schema": "1370-native-observer-independent-controls-source-review/v1",
+  "setupAndUnexpectedErrorsFatal": true,
+  "sourceAuthor": "/root/cleanup_independent_red",
+  "sourceCorrection": {
+    "bytes": 1681,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-CORRECTION.json",
+    "sha256": "1d1dee06aa88d10631318fec09376f76e3e63419f56484bda4a353322201de15"
+  },
+  "sourceCorrectionWholeForwardAndInverseApplied": true,
+  "sourceManifest": {
+    "bytes": 2042,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "be758595a589a51f559fe6933c8b6a68b23e16691ab32ee87aebf8d7b2dd64f9"
+  },
+  "sourcePins": {
+    "CONTRACT.json": {
+      "bytes": 8241,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "1303c82c407869b2be88a59e2fd03050a0a2caf5d7456dcedd557b9a15b473a0"
+    },
+    "MATRIX.json": {
+      "bytes": 11805,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39"
+    },
+    "run-native-observer-controls.mjs": {
+      "bytes": 30858,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+      "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+    }
+  },
+  "specificErrorPredicatesOnly": true,
+  "specificNegativeCount": 59
+}

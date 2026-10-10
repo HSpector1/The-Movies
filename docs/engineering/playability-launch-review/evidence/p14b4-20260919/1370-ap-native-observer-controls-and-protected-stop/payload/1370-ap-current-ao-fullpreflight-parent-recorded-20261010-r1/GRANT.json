@@ -1,0 +1,52 @@
+{
+  "actualFullInventoryRun": true,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "before-fill",
+    "before-fill-current-ao-r1"
+  ],
+  "automaticRetry": false,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "executionAuthorization": true,
+  "game": false,
+  "noHelperOriginalLockAbsentRequired": true,
+  "originalM0ContentProof": false,
+  "ownedPgid": 18361,
+  "ownedPid": 18361,
+  "ownedSid": 18361,
+  "perCommandTimeoutSeconds": 180,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 3864,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py",
+    "sha256": "4beca7a0eb719f123ac26a67c2b0315e5d32e531acf286a313dd5b2022fb1cdc"
+  },
+  "schema": "1370-ap-root-direct-current-ao-fullpreflight-grant/v1",
+  "sourceAdoption": {
+    "bytes": 1040,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULLGUARD-SOURCE-ADOPTION.json",
+    "sha256": "a50e1d03887e437209619e4baeb666cc638119043ad027d53d99480fbca3d5b2"
+  },
+  "sourcePins": {
+    "bytes": 2920,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "5ede60a6f02c405aea31dd7fa981d871de6b5af8c594cf103ad9c66076f9834a"
+  },
+  "sourceReview": {
+    "bytes": 2045,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULLGUARD-INDEPENDENT-SOURCE-REVIEW.json",
+    "sha256": "04db4644fe8188ab1993a5835278c54227e0aebd38508951e7388d84a5ff2588"
+  },
+  "startMonotonic": 132620.361276105,
+  "status": "GRANTED_ONCE_ORIGINAL_COMPLETE_CURRENT_AO_FULL_PREFLIGHT",
+  "utc": "2026-10-10T10:01:20.698859+00:00",
+  "wholeScanDeadline": null
+}

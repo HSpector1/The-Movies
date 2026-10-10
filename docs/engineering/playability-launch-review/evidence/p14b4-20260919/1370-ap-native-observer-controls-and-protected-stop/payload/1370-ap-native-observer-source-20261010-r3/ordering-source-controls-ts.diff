@@ -1,0 +1,18 @@
+--- BASELINE-ordering-source-controls.ts
++++ ordering-source-controls.ts
+@@ -1,3 +1,4 @@
++import {createObserverFailureLatch,createNativeRowCodec,NATIVE_ROW_SCHEMA,freezeOwnedPhysicalRow} from './m0NativeObserverRows.mjs'
+ // Finite synthetic witness-consumer inputs only. No game or fixture producer imports.
+ import assert from 'node:assert/strict'
+ import {createTraceStore} from './m0TraceCodec.mjs'
+@@ -40,6 +41,10 @@
+         assert.equal(store.appendEvaluation({inputs:[],canonicalInputs:'[]',result:null,context:row.context}),true)
+       args.probe=store.snapshot()
+     }
++    // Native physical synthetic envelope AFTER original case edits; outside RED assertion.
++    // Original ordering cases inspect contexts, not canonical receipt payloads.
++    if(args.feasibilityValues)args.feasibilityValues=args.feasibilityValues.map((value:any)=>
++      freezeOwnedPhysicalRow({...value,schema:NATIVE_ROW_SCHEMA}))
+     const run=()=>base.method==='author'
+       ?assertFullProjectionOrdering(args.probe,args.marketValues,args.feasibilityValues!)
+       :assertFreezePredicateOrdering(args.marketValues,args.freezeValues!,args.refs!)

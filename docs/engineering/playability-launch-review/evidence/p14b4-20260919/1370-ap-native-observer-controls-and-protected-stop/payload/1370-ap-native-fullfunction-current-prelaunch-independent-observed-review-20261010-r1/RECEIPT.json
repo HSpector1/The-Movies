@@ -1,0 +1,151 @@
+{
+  "actualExit": 0,
+  "actualOwnScannerPgid": 31376,
+  "actualOwnScannerPid": 31376,
+  "actualTool": {
+    "bytes": 725,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "2c8cb92b718ffc35d163d5f4c7d2aa185ba8bab51e0c6b317cd9cd93957db953"
+  },
+  "baselinePhase": "before-fill",
+  "concreteFindings": [],
+  "config": {
+    "bytes": 2949,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1/CONFIG.json",
+    "sha256": "581d83a25bb01ca8d5efedf137e10e11db167b632eaff4fbc5beeec9689e5b0d"
+  },
+  "currentAOFullPreflightAdoption": {
+    "bytes": 4729,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552"
+  },
+  "currentAOFullPreflightSnapshot": {
+    "bytes": 9552315,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-ao-r1/SNAPSHOT.json",
+    "sha256": "ed62b148395ad06a7e06ce68b2581097517a2483fa91c3baa4818513f358aad4"
+  },
+  "currentRefsCleanAncestryFDProcessBootACDiskAccepted": true,
+  "decision": "ACCEPT_ACTUAL_CURRENT_AO_NATIVE_PRELAUNCH_ONLY",
+  "diskAfterBytes": 4764155904,
+  "diskBeforeBytes": 4764176384,
+  "evidenceAudit": {
+    "bytes": 3327,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-independent-observed-review-20261010-r1/EVIDENCE-AUDIT.json",
+    "sha256": "89ba2f1f09a34957dcbb6b6bfed8f08b0d4043dd1a76dbb0220a33a65702e338"
+  },
+  "executionAuthorization": false,
+  "explicitScopeAmendmentAccepted": true,
+  "findings": [],
+  "fullQualificationAccepted": false,
+  "game": false,
+  "grant": {
+    "bytes": 4133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "7c19a284cc2f7cd0e300f26e8ac70a5828bc88270e8155fc747d5dcdbd044c00"
+  },
+  "historicalTypesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "historicalTypesFullPostflightSnapshot": {
+    "bytes": 8847484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/SNAPSHOT.json",
+    "sha256": "0700ce99c57f33956c3fb1b5f26d3c6e28e6e323551fb1f6f084db2f9c370dff"
+  },
+  "historicalTypesRemainHistorical": true,
+  "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "mandatoryOriginalFullPostflightStillRequired": true,
+  "newFullInventory": false,
+  "nineStrictRootsBeforeAfterAndBaselineExact": true,
+  "observerControlsAdoption": {
+    "bytes": 13238,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "401e54ce61697d70e1fbbf2d10a7d263a2ff7afa465ab58f00faa9a5002431c4"
+  },
+  "observerControlsReadback": {
+    "bytes": 12683,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "3d3e3c57f17c0010e37f39445895134ee06eda6b4920f415a4c33d580511b215"
+  },
+  "operationalHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "originalRequiredFreeBytes": 3758096384,
+  "preflight": {
+    "bytes": 9805,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-output-20261010-r1/PREFLIGHT.json",
+    "sha256": "84c11e4f3cfb8b9f4879763bd9f9cfc1d04edf6ba1b3e2f7f19ae623c4ea6a9c"
+  },
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawDataExported": false,
+  "rawLocalOnlyBytes": 1311266,
+  "rawLocalOnlyClassification": {
+    "bytes": 1244,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-output-20261010-r1/RAW-LOCAL-ONLY-ROLES.json",
+    "sha256": "71960ce8638505b3924213cdfb74b63094ae3105a75e150234effe78a0e3fae4"
+  },
+  "rawLocalOnlyRoles": 4,
+  "readback": {
+    "bytes": 5400,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/M0-NATIVE-FULLFUNCTION-CURRENT-PREFLIGHT-READBACK.json",
+    "sha256": "2a1739b6af6d91f67b7f1382af64ccd9cb44bb122c3a0bf373851d6a66383ee0"
+  },
+  "readerActualTool": {
+    "bytes": 518,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1/READER-ACTUAL-TOOL.json",
+    "sha256": "4d714ad80b257a876ac935ca4fd396f44428dd93e59385feae1e7366812a6ff3"
+  },
+  "recordedPostOwnScannerChecks": [
+    {
+      "id": 31376,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 31376,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "report": {
+    "bytes": 1752,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-independent-observed-review-20261010-r1/REPORT.md",
+    "sha256": "cfcfe98adf602c8253d192e6dfdc1233e5ba03fa8534307a0eccec1a92eb4c4c"
+  },
+  "reviewerRuntimeOrPrivateTraversal": false,
+  "scannerAbsent": true,
+  "schema": "1370-native-current-ao-prelaunch-independent-observed-review/v1",
+  "scopeAmendment": {
+    "bytes": 2937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/OPERATIONAL-SCOPE-AMENDMENT.json",
+    "sha256": "8b8f0ca13b0f27411fa30118afd3ecd3e40f185a5851150678f9c280ca7783fa"
+  },
+  "sourceAndAmendmentAdoption": {
+    "bytes": 2221,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-NATIVE-PRELAUNCH-SOURCE-AND-AMENDMENT-ADOPTION.json",
+    "sha256": "55be16812ba10968ac66e84bd4b9616159d594bfdd1b79501df65573f42bb61f"
+  },
+  "sourceManifest": {
+    "bytes": 6520,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "82ec92a7bf9dd772b4b406760a1a3ff5e4a79bcf4c6ccda20e982750f036a8d1"
+  },
+  "sourceReview": {
+    "bytes": 5693,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-PRELAUNCH-INDEPENDENT-SOURCE-REVIEW.json",
+    "sha256": "4967791f30d2b791f5bee67c66a4dd512a70f99312e23a2309d049dd89eb7015"
+  },
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1/prelaunch.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 267,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1/prelaunch.stdout",
+    "sha256": "c0cec602e30f25444979ca94b0ef3a2bdef7ae3f45f3bef928bd2e76fe1979c0"
+  },
+  "strictRoots": 9,
+  "toolSessionId": 23188
+}

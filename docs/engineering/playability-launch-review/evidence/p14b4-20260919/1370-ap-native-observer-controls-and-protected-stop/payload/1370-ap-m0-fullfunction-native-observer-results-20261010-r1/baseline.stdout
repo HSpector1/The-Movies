@@ -1,0 +1,2 @@
+{"schema":"1370-m0-observer-row-diagnostic/v1","predicate":"ROW_BYTE_CAP","availability":"unavailable","reason":"DIAGNOSTIC_UNAVAILABLE","rowLimit":16384,"error":{"name":"Error","message":"M0 feasibility row byte bound exceeded"}}
+JSON report written to /Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-results-20261010-r1/baseline.report.json

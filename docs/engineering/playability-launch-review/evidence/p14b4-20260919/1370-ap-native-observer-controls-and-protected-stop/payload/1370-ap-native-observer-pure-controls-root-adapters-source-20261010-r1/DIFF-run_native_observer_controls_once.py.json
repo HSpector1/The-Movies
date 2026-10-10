@@ -1,0 +1,62 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r1/BASELINE-run_observer_controls_once.py",
+    "bytes": 4980,
+    "sha256": "02ea48f37155065714252a3330191673147ef3897874def1fe856b374f6ec90d"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r1/run_native_observer_controls_once.py",
+    "bytes": 5017,
+    "sha256": "88d6782a2910801f2c049c3a582d3c9d96d61b7115c36df703232e6a3589229a"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 66,
+      "old": "S=Path('/Users/zacheryspector/studio-scratch');A=Path(__file__).parent;Q=S/'1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1'\n",
+      "newStart": 66,
+      "new": "S=Path('/Users/zacheryspector/studio-scratch');A=S/'1370-ap-root-continuation-20261010-r1';Q=S/'1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1'\n"
+    },
+    {
+      "oldStart": 759,
+      "old": "sp=role(Q/'SOURCE-PINS.json');assert sp['sha256']=='a27f8bf8756ab5804411ff1592aef49f8012c3dc65e14cbf073dcec2995a97ec';pins=read(sp['path'])\n",
+      "newStart": 771,
+      "new": "sp=role(Q/'SOURCE-PINS.json');assert sp['sha256']=='a013ef847cbe5cdac726ec5a63b1b0f5be160949ceea40b6d081383a563b7617';pins=read(sp['path'])\n"
+    },
+    {
+      "oldStart": 1067,
+      "old": "assert rv['schema']=='1370-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review/v1' and rv['decision']=='ACCEPT_STATIC_OBSERVER_ROW_DIAGNOSTIC_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY' and rv['executionAuthorization'] is False and rv['concreteFindings']==[] and rv['sourceManifest']==sp\n",
+      "newStart": 1079,
+      "new": "assert rv['schema']=='1370-native-observer-pure-controls-recorded-route-independent-source-review/v1' and rv['decision']=='ACCEPT_STATIC_NATIVE_OBSERVER_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY' and rv['executionAuthorization'] is False and rv['concreteFindings']==[] and rv['sourceManifest']==sp\n"
+    },
+    {
+      "oldStart": 1843,
+      "old": "assert config['caseCount']==48 and config['positiveCount']==6 and config['specificNegativeCount']==42\n",
+      "newStart": 1839,
+      "new": "assert config['caseCount']==72 and config['positiveCount']==13 and config['specificNegativeCount']==59\n"
+    },
+    {
+      "oldStart": 2635,
+      "old": "ar=put(A/'OBSERVER-DIAGNOSTIC-CONTROLS-SOURCE-ADOPTION.json',{'schema':recipe['rootSourceAdoptionContract']['schema'],'status':recipe['rootSourceAdoptionContract']['status'],'sourcePins':sp,'sourceReview':rr,'parentAdapterSourcePins':sp,'parentAdapterSourceReview':rr,'executionAuthorization':False,'game':False,'actualOutcome':None})\n",
+      "newStart": 2632,
+      "new": "ar=put(A/'NATIVE-OBSERVER-CONTROLS-ROUTE-SOURCE-ADOPTION.json',{'schema':recipe['rootSourceAdoptionContract']['schema'],'status':recipe['rootSourceAdoptionContract']['status'],'sourcePins':sp,'sourceReview':rr,'parentAdapterSourcePins':sp,'parentAdapterSourceReview':rr,'executionAuthorization':False,'game':False,'actualOutcome':None})\n"
+    },
+    {
+      "oldStart": 3904,
+      "old": "for key in ('implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api'):\n",
+      "newStart": 3903,
+      "new": "for key in ('implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api','apiAdoption','supplementAdoption'):\n"
+    },
+    {
+      "oldStart": 4164,
+      "old": "assert g['implementationControlsSourceAdoption']['sha256']=='1112ed2166d623284be4a1c1bd40ae455212921d16ec32da0e727f9bcca566c7'\n",
+      "newStart": 4198,
+      "new": "assert g['implementationControlsSourceAdoption']['sha256']=='e30f2625a6eac0a994bf8a5026ef9b550304f3243e3e0ce72e5b6fd418ce06a8'\n"
+    },
+    {
+      "oldStart": 4643,
+      "old": "assert len(argv)==6 and argv[-2]==gr['path'] and argv[3]==str(Q/'launch-observer-row-controls.py') and role(argv[0])['sha256']=='7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835'\n",
+      "newStart": 4677,
+      "new": "assert len(argv)==6 and argv[-2]==gr['path'] and argv[3]==str(Q/'launch-native-observer-controls.py') and role(argv[0])['sha256']=='7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835'\n"
+    }
+  ]
+}

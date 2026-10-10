@@ -1,0 +1,39 @@
+{
+  "adapterSourcePins": {
+    "bytes": 4593,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "953822aa5ae812e71dd0df59dc8c9bc597a0ea5ef6b39a2de6426599f7cceb02"
+  },
+  "allElevenGuardFunctionsByteExact": true,
+  "completeWholeDiffApplicationsActuallyVerified": 10,
+  "concreteFindings": [],
+  "decision": "ACCEPT_CURRENT_AO_FULLGUARD_BINDINGS_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "launcherSourceReviewed": {
+    "bytes": 3864,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/run_current_fullguard_once.py",
+    "sha256": "4beca7a0eb719f123ac26a67c2b0315e5d32e531acf286a313dd5b2022fb1cdc"
+  },
+  "operationalScope": {
+    "bytes": 2935,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "7dee435f6d0ac86e41d590aa08ef81b87caaa8f3e7692a097301a94eeb7bbc6b"
+  },
+  "originalPerCommand180NoWholeDeadline": true,
+  "originalR9BaselineAndM0ProofsUnchanged": true,
+  "prepareScriptNotAuthorizedForExecution": "Documentary only; genuine root scope/facts and filled source already exist.",
+  "rawPsFdLocalOnly": true,
+  "readerSourceReviewed": {
+    "bytes": 5421,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1/read_current_fullpreflight.py",
+    "sha256": "069018265554b60c71d2f47aa712e450d333a3eeb78b9ef6599f6f06dae1cd10"
+  },
+  "reviewer": "root; independent of source author b109",
+  "runtimeAdaptersWholeSourceEqualExplicitBindingTransform": true,
+  "schema": "1370-ap-current-ao-fullguard-root-independent-source-review/v1",
+  "sourcePins": {
+    "bytes": 2920,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "5ede60a6f02c405aea31dd7fa981d871de6b5af8c594cf103ad9c66076f9834a"
+  }
+}

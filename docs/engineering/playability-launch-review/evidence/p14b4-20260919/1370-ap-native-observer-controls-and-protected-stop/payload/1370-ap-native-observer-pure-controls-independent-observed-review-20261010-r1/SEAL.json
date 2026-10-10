@@ -1,0 +1,21 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "EVIDENCE-AUDIT.json": {
+      "bytes": 23285,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-independent-observed-review-20261010-r1/EVIDENCE-AUDIT.json",
+      "sha256": "cd0d1661d54a4350ebb57bdbd06825632076d5cfb0273b913f4d2db366cb4822"
+    },
+    "RECEIPT.json": {
+      "bytes": 8349,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-independent-observed-review-20261010-r1/RECEIPT.json",
+      "sha256": "93e6fcc660bf9738c7089893b797ad6a5a5bb0f9fe2c63bbedd2ceef18efb55a"
+    },
+    "REPORT.md": {
+      "bytes": 1966,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-independent-observed-review-20261010-r1/REPORT.md",
+      "sha256": "cdd0320a53dc974906f57ab7b83269dc39a6da303eebb1859f64bfb557739548"
+    }
+  },
+  "schema": "1370-independent-observed-review-seal/v1"
+}

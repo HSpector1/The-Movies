@@ -1,0 +1,185 @@
+{
+  "actualGameplayPrefixExecuted": null,
+  "actualGenerationPhaseSucceeded": true,
+  "actualTool": {
+    "bytes": 1646,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "de0444e855114c1510b6c16fd8bf2d6bb66bdbc2ac851031cdd3b207877da1b4"
+  },
+  "baselinePassed": false,
+  "baselineReport": {
+    "bytes": 2799,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-results-20261010-r1/baseline.report.json",
+    "sha256": "93cfa95df9e94ddeb45619a0884b70e6e8e3c1470c2188c9860a48d8271455b0"
+  },
+  "baselineStderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-results-20261010-r1/baseline.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "baselineStdout": {
+    "bytes": 372,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-results-20261010-r1/baseline.stdout",
+    "sha256": "b4aa578112104bb1ccc071295b6d729e7b27f0c8203b71c40238af4402f406fd"
+  },
+  "concreteFindings": [],
+  "controllerExit": 1,
+  "controllerResult": {
+    "bytes": 2227,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-results-20261010-r1/RESULT.json",
+    "sha256": "9445263e424d0f05f874c2068164cdb7899e0d30081a2d807536353272f97f8f"
+  },
+  "controllerSeconds": 57.764951345016016,
+  "decision": "OBSERVED_NATIVE_FULLFUNCTION_ORIGINAL_ROW_BYTE_CAP_STOP_PENDING_SHARED_FULL_POSTFLIGHT",
+  "dependencyAfter": null,
+  "diagnosticLine": {
+    "bytes": 231,
+    "completeJsonLinesWithDiagnosticSchema": 1,
+    "sha256": "0c72fd025fe19eb6ff3984769fe4f036094d1173b3719fc1cc87c71bb6e23587",
+    "value": {
+      "availability": "unavailable",
+      "error": {
+        "message": "M0 feasibility row byte bound exceeded",
+        "name": "Error"
+      },
+      "predicate": "ROW_BYTE_CAP",
+      "reason": "DIAGNOSTIC_UNAVAILABLE",
+      "rowLimit": 16384,
+      "schema": "1370-m0-observer-row-diagnostic/v1"
+    }
+  },
+  "executionAuthorization": false,
+  "fixturePayloadReadByReviewer": false,
+  "fixtureQualificationAccepted": false,
+  "fixtureRecordedByGenerationProducer": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-results-20261010-r1/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "fullProtectedPostflightAccepted": false,
+  "fullQualificationAccepted": false,
+  "game": false,
+  "generationControl": {
+    "bytes": 294,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-results-20261010-r1/generate.control.json",
+    "sha256": "d88c4286941a2a68cd28734f5ef23b9b2f685735cf2fa5c012198340aad885e1"
+  },
+  "generationReceipt": {
+    "bytes": 4135,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-results-20261010-r1/fixtures.receipt.json",
+    "sha256": "0561c3442d005a3edb715bd7f69a487d0372f57c3f0d0f2555bd97ffecc0488b"
+  },
+  "generationReport": {
+    "bytes": 949,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-results-20261010-r1/generate.report.json",
+    "sha256": "49605eaa96c15c0603f073bf4262611456be42e2566a66707110f6de656da23e"
+  },
+  "grant": {
+    "bytes": 4703,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/EXECUTION-GRANT.json",
+    "sha256": "3314c55b1ef376d96e64d628e8bc72974fbc02690bb770cdde954766f423c95b"
+  },
+  "historicalStopsPreserved": true,
+  "laneReleased": true,
+  "lessons": [
+    "Passing pure native72 controls does not predict actual full-function fit.",
+    "Keep generation success distinct from failed baseline and null terminal prefix/AFTER proofs.",
+    "A bounded unavailable diagnostic preserves fatal identity but cannot support missing measurements or causal repair claims."
+  ],
+  "mutantExecuted": false,
+  "nodeExit": 1,
+  "nodeResult": null,
+  "originalDependencyBeforeExact": true,
+  "originalSourceBeforeExact": true,
+  "readback": {
+    "bytes": 7552,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "fc9b38f9530bb565b4204f82452cc2d6245c2947508cf24ed35683177f4bd352"
+  },
+  "recorderExit": 2,
+  "recorderLaunchClaim": {
+    "bytes": 1694,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/RECORDER-LAUNCH-CLAIM.json",
+    "sha256": "7f7169528a68fad32fa5a9d775562bacdb8ebea705143726c5023d0dcb07011d"
+  },
+  "recorderResult": {
+    "bytes": 975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-recorder-results-20261010-r1/RESULT.json",
+    "sha256": "786abd28123e9bb058d05e88cd21c5d8d816939f8d842b73875f8e24ffbfbcc4"
+  },
+  "recorderSeconds": 58.33330797601957,
+  "reviewScope": "Retained public logs/results/grants/claims only. No candidate execution, probe, private source/dependency traversal, raw process/FD reads or fixture payload read. Final protected STOP admission awaits genuine mandatory shared fullpostflight.",
+  "rootLaunchClaim": {
+    "bytes": 1845,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/ROOT-LAUNCH-CLAIM.json",
+    "sha256": "cc6229bd5fa4cbb49946b1f0ce3cadeff4fd358bf6f95ecde2d918e7a4c6072a"
+  },
+  "rootReaderActualTool": {
+    "bytes": 641,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/READER-ACTUAL-TOOL.json",
+    "sha256": "e177da3994b3060a83adeae5100043a3cdab95963b21ab995e99221ac7948ec4"
+  },
+  "schema": "1370-native-fullfunction-partial-independent-observed-review/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 56234,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 56489,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 56492,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 56869,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 56234,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 56489,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 56492,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "sharedFullPostflight": "RUNNING_ROOT_SESSION_52145_NOT_REVIEWED",
+  "sourceAfter": null,
+  "sourcePins": {
+    "bytes": 25246,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "88b8d5b06a3e4fc0f37fe0b0f7054ef0572effceac839a4078f416e4fd946055"
+  },
+  "sourceReview": {
+    "bytes": 15578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "bd8c16acd12b9fdc7eee64a25e29e6f76f5e509160fd91ce5c24ede6431f4959"
+  },
+  "supportedFailure": "Original native feasibility sink row-byte error is retained and baseline report confirms propagated record\u2192diagnostic\u2192receipt\u2192promiseFeasibility\u2192authorRivalPromise\u2192advance\u2192shared arm stack. Missing metrics cannot prove recurrence of prior AO row17305 or canonical-overbound cause.",
+  "timedOut": false,
+  "toolExit": 2,
+  "unmeasured": [
+    "physical row bytes",
+    "canonical input bytes",
+    "detail/context bytes",
+    "sequence/occurrence/prior count",
+    "week/stage/subject/issuer",
+    "natural versus synthetic fixture iteration",
+    "which arm/pair had completed",
+    "specific reason native metadata reconstruction became unavailable"
+  ]
+}

@@ -1,0 +1,365 @@
+{
+  "schema": "1370-ap-current-ao-prelaunch-source-proof/v2",
+  "predecessorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-preparation-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 5566,
+    "sha256": "d8f3140d834d2441c69838f470a4c4cc26ee38529d597622d54ec29850817092"
+  },
+  "applications": [
+    {
+      "source": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2/current-ao-root-prelaunch.py",
+        "bytes": 15215,
+        "sha256": "4e48892972d1f0a6b98cf3ef4e286af74eb7b95c763f9f43a2d21c1292ee1dee"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-preparation-source-20261010-r1/current-an-root-prelaunch.py",
+        "bytes": 15211,
+        "sha256": "dcc91aead0412c545c275e009ad298260dd64df6d6240e2d3253bb529d7ae914"
+      },
+      "applications": [
+        {
+          "before": "1370-ao-root-continuation-20261010-r1",
+          "after": "1370-ap-root-continuation-20261010-r1",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r1",
+          "after": "1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-current-operational-fullguard-source-20261010-r1",
+          "after": "1370-ap-current-operational-fullguard-source-20261010-r1",
+          "count": 1
+        },
+        {
+          "before": "CURRENT-AN-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+          "after": "CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+          "count": 1
+        },
+        {
+          "before": "753a7597c20032c70b2a07c9001de15ba1f72b5a0a5ac7706e340228da5fef5a",
+          "after": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552",
+          "count": 1
+        },
+        {
+          "before": "'bytes': 4727",
+          "after": "'bytes': 4729",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-root-current-an-fullpreflight-adoption/v1",
+          "after": "1370-ap-root-current-ao-fullpreflight-adoption/v1",
+          "count": 1
+        },
+        {
+          "before": "ROOT_ADOPTED_CURRENT_AN_FULL_PREFLIGHT",
+          "after": "ROOT_ADOPTED_CURRENT_AO_FULL_PREFLIGHT",
+          "count": 1
+        },
+        {
+          "before": "ACCEPT_ACTUAL_CURRENT_AN_FULL_PREFLIGHT_ONLY",
+          "after": "ACCEPT_ACTUAL_CURRENT_AO_FULL_PREFLIGHT_ONLY",
+          "count": 1
+        },
+        {
+          "before": "f9d2d7fda1b5df5c01176c142bd6b16c9be9cc78963fe73e7fc62640b82a9cdd",
+          "after": "2bc496099b22f228ba671a57aec531f4eb11fc5f7c3d2cc8c21b7608331f7814",
+          "count": 1
+        },
+        {
+          "before": "2915fd60e26b894fd431e4483e23d9beed79b3332dc3c7173b0a37fd3130ef1d",
+          "after": "8e27bb8f5ba9ee51223da4db7fb521eac035a79b714a756b11e9d37949c9bf0f",
+          "count": 1
+        },
+        {
+          "before": "63fe53279f1703e9f67d587481ee741e15502fa4a167b1f33e9c7741d13389e9",
+          "after": "ed62b148395ad06a7e06ce68b2581097517a2483fa91c3baa4818513f358aad4",
+          "count": 1
+        },
+        {
+          "before": "0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4",
+          "after": "f2f97c622db7f5332164b790d1646355e89c00f4",
+          "count": 1
+        },
+        {
+          "before": "1370-root-m0-current-an-root-prelaunch-config/v2",
+          "after": "1370-root-m0-current-ao-root-prelaunch-config/v2",
+          "count": 1
+        },
+        {
+          "before": "1370-root-m0-current-an-root-prelaunch-observation/v2",
+          "after": "1370-root-m0-current-ao-root-prelaunch-observation/v2",
+          "count": 1
+        },
+        {
+          "before": "CURRENT_AN_ROOT_PREFLIGHT_COMPLETED",
+          "after": "CURRENT_AO_ROOT_PREFLIGHT_COMPLETED",
+          "count": 1
+        },
+        {
+          "before": "currentAN",
+          "after": "currentAO",
+          "count": 7
+        }
+      ],
+      "wholeInverseActuallyEqual": true,
+      "unchangedOriginalHelpers": [
+        "require",
+        "sha",
+        "canonical",
+        "read",
+        "write",
+        "dump",
+        "command",
+        "directory_identity",
+        "ancestry",
+        "current",
+        "exact_role"
+      ],
+      "staticCompileWarningErrorOnly": true
+    },
+    {
+      "source": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2/run_current_ao_prelaunch_once.py",
+        "bytes": 8965,
+        "sha256": "55cd0ca205bed5b553e29aeb4fc17d3b276449ad99e26f771615895a8ade1ff8"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-preparation-source-20261010-r1/run_current_an_prelaunch_once.py",
+        "bytes": 7903,
+        "sha256": "60d43b96420f30974d5364a91863de27951deef37a489335a7522a2b40c6784c"
+      },
+      "applications": [
+        {
+          "before": "1370-ao-root-continuation-20261010-r1",
+          "after": "1370-ap-root-continuation-20261010-r1",
+          "count": 2
+        },
+        {
+          "before": "1370-ao-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r1",
+          "after": "1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1",
+          "count": 1
+        },
+        {
+          "before": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-preparation-source-20261010-r1",
+          "after": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-m0-fullfunction-current-prelaunch-output-20261010-r1",
+          "after": "1370-ap-native-fullfunction-current-prelaunch-output-20261010-r1",
+          "count": 1
+        },
+        {
+          "before": "CURRENT-AN-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+          "after": "CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+          "count": 1
+        },
+        {
+          "before": "753a7597c20032c70b2a07c9001de15ba1f72b5a0a5ac7706e340228da5fef5a",
+          "after": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-root-current-an-fullpreflight-adoption/v1",
+          "after": "1370-ap-root-current-ao-fullpreflight-adoption/v1",
+          "count": 1
+        },
+        {
+          "before": "ROOT_ADOPTED_CURRENT_AN_FULL_PREFLIGHT",
+          "after": "ROOT_ADOPTED_CURRENT_AO_FULL_PREFLIGHT",
+          "count": 1
+        },
+        {
+          "before": "current-an-root-prelaunch.py",
+          "after": "current-ao-root-prelaunch.py",
+          "count": 2
+        },
+        {
+          "before": "run_current_an_prelaunch_once.py",
+          "after": "run_current_ao_prelaunch_once.py",
+          "count": 1
+        },
+        {
+          "before": "read_current_an_prelaunch.py",
+          "after": "read_current_ao_prelaunch.py",
+          "count": 1
+        },
+        {
+          "before": "ACCEPT_STATIC_CURRENT_AN_FULLFUNCTION_PRELAUNCH_SOURCE_ONLY",
+          "after": "ACCEPT_STATIC_CURRENT_AO_FULLFUNCTION_PRELAUNCH_SOURCE_ONLY",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-current-an-root-prelaunch-grant/v2",
+          "after": "1370-ap-current-ao-root-prelaunch-grant/v2",
+          "count": 1
+        },
+        {
+          "before": "GRANTED_ONCE_CURRENT_AN_ROOT_PREFLIGHT",
+          "after": "GRANTED_ONCE_CURRENT_AO_ROOT_PREFLIGHT",
+          "count": 1
+        },
+        {
+          "before": "fullfunction-current-an-protection",
+          "after": "fullfunction-current-ao-protection",
+          "count": 1
+        },
+        {
+          "before": "not sys.flags.optimize and len(sys.argv)==3",
+          "after": "not sys.flags.optimize and len(sys.argv)==5",
+          "count": 1
+        },
+        {
+          "before": "ar,authority=check('/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json','e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552');cr,controls=check('/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json','6de3da4778f3fa6a8901e44e473f33dd5eaea5ec174abdd54ddd1398f5f99d47')\nassert authority['schema']=='1370-ap-root-current-ao-fullpreflight-adoption/v1' and authority['status']=='ROOT_ADOPTED_CURRENT_AO_FULL_PREFLIGHT' and authority['protectedFreezeContinues'] is True and authority['executionAuthorization'] is False and authority['game'] is False\nassert controls['schema']=='1370-root-observer-row-diagnostic-controls-observed-adoption/v1' and controls['status']=='ROOT_ADOPTED_ACTUAL_OBSERVER_ROW_DIAGNOSTIC_48_CONTROLS_ONLY' and controls['executionAuthorization'] is False\nfor value in authority.values():\n if type(value) is dict and set(value)=={'path','bytes','sha256'}:assert role(value['path'])==value\nfor value in controls.values():\n if type(value) is dict and set(value)=={'path','bytes','sha256'}:assert role(value['path'])==value\nrbrole,rb=check('/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/READBACK.json','e82d8783ee95ee8dc7cdfdaee1979380c809d8d3eaa108eee8e994cb53d2fb64')\nassert controls['readback']==rbrole and controls['actualOwnedIds']==rb['actualOwnedIds']==[82947,83213] and controls['actualExit']==0 and controls['soleLaneReleased'] is True\nassert rb['toolExit']==0 and rb['laneReleased'] is True and rb['caseCount']==48 and rb['positiveCount']==6 and rb['specificNegativeCount']==42 and rb['allSpecificControlsPassed'] is True\nassert rb['scopedOwnershipChecks']==[{'id':n,'kind':kind,'result':'ESRCH'} for n in rb['actualOwnedIds'] for kind in ('pid','pgid')]\nind=json.loads(Path(controls['independentObservedReview']['path']).read_bytes());assert ind['decision']=='ACCEPT_ACTUAL_PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_ONLY' and ind['concreteFindings']==[] and ind['executionAuthorization'] is False\n",
+          "after": "ar,authority=check('/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json','e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552');cr,controls=check(sys.argv[3],sys.argv[4])\nassert authority['schema']=='1370-ap-root-current-ao-fullpreflight-adoption/v1' and authority['status']=='ROOT_ADOPTED_CURRENT_AO_FULL_PREFLIGHT' and authority['protectedFreezeContinues'] is True and authority['executionAuthorization'] is False and authority['game'] is False\nfor value in authority.values():\n if type(value) is dict and set(value)=={'path','bytes','sha256'}:assert role(value['path'])==value\nassert controls['schema']=='1370-root-native-observer-controls-observed-adoption/v1' and controls['status']=='ROOT_ADOPTED_ACTUAL_NATIVE_OBSERVER_72_CONTROLS_ONLY' and controls['executionAuthorization'] is False\nassert controls['actualExit']==0 and controls['soleLaneReleased'] is True and controls['caseCount']==72 and controls['positiveCount']==13 and controls['specificNegativeCount']==59\nfor flag in ('game','fullQualificationAccepted','fullBodyGameAssertionsExecuted','privateM0ReadOrWritten'):assert controls[flag] is False\nfor value in controls.values():\n if type(value) is dict and set(value)=={'path','bytes','sha256'}:assert role(value['path'])==value\nrbrole=controls['readback'];rb=json.loads(Path(rbrole['path']).read_bytes())\nassert rb['schema']=='1370-root-native-observer-controls-actual-readback/v1' and rb['status']=='ACTUAL_PURE_72_NATIVE_OBSERVER_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW'\nassert rb['toolExit']==0 and rb['laneReleased'] is True and rb['caseCount']==72 and rb['positiveCount']==13 and rb['specificNegativeCount']==59\nassert controls['actualOwnedIds']==rb['actualOwnedIds'] and type(rb['actualOwnedIds']) is list and rb['actualOwnedIds'] and all(type(n) is int and n>1 for n in rb['actualOwnedIds']) and rb['actualOwnedIds']==sorted(set(rb['actualOwnedIds']))\nassert rb['scopedOwnershipChecks']==controls['scopedOwnershipChecks']==[{'id':n,'kind':kind,'result':'ESRCH'} for n in rb['actualOwnedIds'] for kind in ('pid','pgid')]\nind=json.loads(Path(controls['independentObservedReview']['path']).read_bytes());assert ind['decision']=='ACCEPT_ACTUAL_PURE_NATIVE_OBSERVER_CONTROLS_ONLY' and ind['concreteFindings']==[] and ind['executionAuthorization'] is False\nassert ind['readback']==controls['readback']\nworker=json.loads(Path(controls['workerResult']['path']).read_bytes());matrix=json.loads(Path(controls['inputRoles']['MATRIX.json']['path']).read_bytes())\nassert role(controls['inputRoles']['MATRIX.json']['path'])==controls['inputRoles']['MATRIX.json']\nassert worker['schema']=='1370-native-observer-independent-controls-result/v1' and worker['status']=='PURE_NATIVE_OBSERVER_CODEC_SINK_AND_AFFECTED_CONSUMERS_COMPLETED_UNADOPTED'\nassert worker['caseCount']==72 and worker['positiveCount']==13 and worker['specificNegativeCount']==59 and worker['originalOrderingCases']==18 and worker['originalParserCasesReplayed']==0\nassert worker['results']==[dict(c,verdict='ACCEPT_POSITIVE' if c['expected']=='GREEN' else 'ACCEPT_SPECIFIC_REFUSAL') for c in matrix['cases']]\n",
+          "count": 1
+        },
+        {
+          "before": "config['ownedPgids']=[14070,82947,83213]",
+          "after": "config['ownedPgids']=sorted(set([18361]+rb['actualOwnedIds']))",
+          "count": 1
+        }
+      ],
+      "wholeInverseActuallyEqual": true,
+      "unchangedOriginalHelpers": [
+        "role",
+        "check",
+        "put"
+      ],
+      "staticCompileWarningErrorOnly": true
+    },
+    {
+      "source": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2/read_current_ao_prelaunch.py",
+        "bytes": 9680,
+        "sha256": "b1de1e74f2f912c3a5768eadb9b2396e5645c8747e0e5c15fdee2f909e51e1f6"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-preparation-source-20261010-r1/read_current_an_prelaunch.py",
+        "bytes": 7766,
+        "sha256": "b63ba971e52091aaa345590101be85c76e395edd6f92843330415dea658df23e"
+      },
+      "applications": [
+        {
+          "before": "1370-ao-root-continuation-20261010-r1",
+          "after": "1370-ap-root-continuation-20261010-r1",
+          "count": 3
+        },
+        {
+          "before": "1370-ao-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r1",
+          "after": "1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1",
+          "count": 1
+        },
+        {
+          "before": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-preparation-source-20261010-r1",
+          "after": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-m0-fullfunction-current-prelaunch-output-20261010-r1",
+          "after": "1370-ap-native-fullfunction-current-prelaunch-output-20261010-r1",
+          "count": 1
+        },
+        {
+          "before": "CURRENT-AN-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+          "after": "CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+          "count": 1
+        },
+        {
+          "before": "753a7597c20032c70b2a07c9001de15ba1f72b5a0a5ac7706e340228da5fef5a",
+          "after": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552",
+          "count": 1
+        },
+        {
+          "before": "'bytes': 4727",
+          "after": "'bytes': 4729",
+          "count": 1
+        },
+        {
+          "before": "ROOT_ADOPTED_CURRENT_AN_FULL_PREFLIGHT",
+          "after": "ROOT_ADOPTED_CURRENT_AO_FULL_PREFLIGHT",
+          "count": 1
+        },
+        {
+          "before": "0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4",
+          "after": "f2f97c622db7f5332164b790d1646355e89c00f4",
+          "count": 1
+        },
+        {
+          "before": "current-an-root-prelaunch.py",
+          "after": "current-ao-root-prelaunch.py",
+          "count": 1
+        },
+        {
+          "before": "1370-root-m0-current-an-root-prelaunch-config/v2",
+          "after": "1370-root-m0-current-ao-root-prelaunch-config/v2",
+          "count": 1
+        },
+        {
+          "before": "1370-root-m0-current-an-root-prelaunch-observation/v2",
+          "after": "1370-root-m0-current-ao-root-prelaunch-observation/v2",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-current-an-root-prelaunch-grant/v2",
+          "after": "1370-ap-current-ao-root-prelaunch-grant/v2",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-current-an-root-prelaunch-readback/v2",
+          "after": "1370-ap-current-ao-root-prelaunch-readback/v2",
+          "count": 1
+        },
+        {
+          "before": "CURRENT_AN_ROOT_PREFLIGHT_COMPLETED",
+          "after": "CURRENT_AO_ROOT_PREFLIGHT_COMPLETED",
+          "count": 2
+        },
+        {
+          "before": "fullfunction-current-an-protection",
+          "after": "fullfunction-current-ao-protection",
+          "count": 1
+        },
+        {
+          "before": "M0-FULLFUNCTION-CURRENT-PREFLIGHT-READBACK.json",
+          "after": "M0-NATIVE-FULLFUNCTION-CURRENT-PREFLIGHT-READBACK.json",
+          "count": 1
+        },
+        {
+          "before": "assert g['currentFullPreflightAdoption']=={'path': '/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json', 'bytes': 4729, 'sha256': 'e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552'} and g['observerControlsAdoption']=={'path': '/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json', 'bytes': 8912, 'sha256': '6de3da4778f3fa6a8901e44e473f33dd5eaea5ec174abdd54ddd1398f5f99d47'}\ncontrols=json.loads(Path(g['observerControlsAdoption']['path']).read_bytes());rb=json.loads(Path(g['observerControlsReadback']['path']).read_bytes());assert controls['status']=='ROOT_ADOPTED_ACTUAL_OBSERVER_ROW_DIAGNOSTIC_48_CONTROLS_ONLY' and controls['readback']==g['observerControlsReadback'] and controls['actualOwnedIds']==rb['actualOwnedIds']==[82947,83213] and controls['actualExit']==0 and controls['soleLaneReleased'] is True and rb['toolExit']==0 and rb['laneReleased'] is True\n",
+          "after": "assert g['currentFullPreflightAdoption']=={'path': '/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json', 'bytes': 4729, 'sha256': 'e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552'}\ncontrols=json.loads(Path(g['observerControlsAdoption']['path']).read_bytes())\nassert controls['schema']=='1370-root-native-observer-controls-observed-adoption/v1' and controls['status']=='ROOT_ADOPTED_ACTUAL_NATIVE_OBSERVER_72_CONTROLS_ONLY' and controls['executionAuthorization'] is False\nassert controls['actualExit']==0 and controls['soleLaneReleased'] is True and controls['caseCount']==72 and controls['positiveCount']==13 and controls['specificNegativeCount']==59\nfor flag in ('game','fullQualificationAccepted','fullBodyGameAssertionsExecuted','privateM0ReadOrWritten'):assert controls[flag] is False\nfor value in controls.values():\n if type(value) is dict and set(value)=={'path','bytes','sha256'}:assert role(value['path'])==value\nrbrole=controls['readback'];rb=json.loads(Path(rbrole['path']).read_bytes())\nassert rb['schema']=='1370-root-native-observer-controls-actual-readback/v1' and rb['status']=='ACTUAL_PURE_72_NATIVE_OBSERVER_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW'\nassert rb['toolExit']==0 and rb['laneReleased'] is True and rb['caseCount']==72 and rb['positiveCount']==13 and rb['specificNegativeCount']==59\nassert controls['actualOwnedIds']==rb['actualOwnedIds'] and type(rb['actualOwnedIds']) is list and rb['actualOwnedIds'] and all(type(n) is int and n>1 for n in rb['actualOwnedIds']) and rb['actualOwnedIds']==sorted(set(rb['actualOwnedIds']))\nassert rb['scopedOwnershipChecks']==controls['scopedOwnershipChecks']==[{'id':n,'kind':kind,'result':'ESRCH'} for n in rb['actualOwnedIds'] for kind in ('pid','pgid')]\nind=json.loads(Path(controls['independentObservedReview']['path']).read_bytes());assert ind['decision']=='ACCEPT_ACTUAL_PURE_NATIVE_OBSERVER_CONTROLS_ONLY' and ind['concreteFindings']==[] and ind['executionAuthorization'] is False\nassert ind['readback']==controls['readback']\nworker=json.loads(Path(controls['workerResult']['path']).read_bytes());matrix=json.loads(Path(controls['inputRoles']['MATRIX.json']['path']).read_bytes())\nassert role(controls['inputRoles']['MATRIX.json']['path'])==controls['inputRoles']['MATRIX.json']\nassert worker['schema']=='1370-native-observer-independent-controls-result/v1' and worker['status']=='PURE_NATIVE_OBSERVER_CODEC_SINK_AND_AFFECTED_CONSUMERS_COMPLETED_UNADOPTED'\nassert worker['caseCount']==72 and worker['positiveCount']==13 and worker['specificNegativeCount']==59 and worker['originalOrderingCases']==18 and worker['originalParserCasesReplayed']==0\nassert worker['results']==[dict(c,verdict='ACCEPT_POSITIVE' if c['expected']=='GREEN' else 'ACCEPT_SPECIFIC_REFUSAL') for c in matrix['cases']]\nassert g['observerControlsReadback']==rbrole\n",
+          "count": 1
+        },
+        {
+          "before": "==[14070,82947,83213]",
+          "after": "==sorted(set([18361]+rb['actualOwnedIds']))",
+          "count": 1
+        }
+      ],
+      "wholeInverseActuallyEqual": true,
+      "unchangedOriginalHelpers": [
+        "role",
+        "put"
+      ],
+      "staticCompileWarningErrorOnly": true
+    }
+  ],
+  "wholeInverseApplications": 3,
+  "unchangedOriginalHelperCounts": [
+    11,
+    3,
+    2
+  ],
+  "currentAOAuthority": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "bytes": 4729,
+    "sha256": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552"
+  },
+  "noRuntimeExecuted": true,
+  "runtimeDependentNativeControlsRoleAndIdsUnfilled": true,
+  "noFutureOutcomeClaim": true,
+  "executionAuthorization": false
+}

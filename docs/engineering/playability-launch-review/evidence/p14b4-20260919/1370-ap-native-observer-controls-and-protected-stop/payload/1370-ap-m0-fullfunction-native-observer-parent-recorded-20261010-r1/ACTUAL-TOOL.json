@@ -1,0 +1,36 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "236d32",
+      "original_token_count": 119,
+      "output": "{\"rootBinding\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-FULLFUNCTION-ROOT-BINDING.json\", \"bytes\": 5128, \"sha256\": \"7a7b01bdf0b1a524dd6d8842b6a64ee547be36d3eaa89e749f29279424084e10\"}, \"sourceAdoption\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-FULLFUNCTION-SOURCE-ADOPTION.json\", \"bytes\": 3327, \"sha256\": \"3bddf2afb4f61bab7617035aa51bfe054d7432fdeff59b1b107c49a68a6091ef\"}}\n",
+      "session_id": 17063,
+      "wall_time_seconds": 1.001228808
+    },
+    {
+      "chunk_id": "7b0972",
+      "original_token_count": 82,
+      "output": "{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1/ROOT-LAUNCH-CLAIM.json\", \"bytes\": 1845, \"sha256\": \"cc6229bd5fa4cbb49946b1f0ce3cadeff4fd358bf6f95ecde2d918e7a4c6072a\"}, \"mode\": \"outer\", \"actualOwned\": {\"pid\": 56234, \"pgid\": 56234, \"sid\": 56234}}\n",
+      "session_id": 17063,
+      "wall_time_seconds": 5.00340609
+    },
+    {
+      "chunk_id": "b0f2b3",
+      "original_token_count": 0,
+      "output": "",
+      "session_id": 17063,
+      "wall_time_seconds": 5.001401546
+    },
+    {
+      "chunk_id": "26975e",
+      "exit_code": 2,
+      "original_token_count": 0,
+      "output": "",
+      "wall_time_seconds": 25.723763858
+    }
+  ],
+  "executionAuthorization": false,
+  "finalExit": 2,
+  "schema": "1370-root-fullfunction-actual-tool/v1",
+  "sessionId": 17063
+}

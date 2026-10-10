@@ -1,0 +1,58 @@
+{
+  "executionAuthorization": false,
+  "externalSourceRoles": {
+    "finalize_archive.py": {
+      "bytes": 6520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/finalize_archive.py",
+      "sha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b"
+    },
+    "prepare_final_packages.py": {
+      "bytes": 3636,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py",
+      "sha256": "73fe10265249491b1bde71dc3976bb13ff743bc1a996e01b0d4650c76699e7e1"
+    },
+    "prepare_inventory.py": {
+      "bytes": 3147,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_inventory.py",
+      "sha256": "41f65de76277cd521556ed4656a4f76ef92cb35ac5f8e56787b5b73120a2a30b"
+    },
+    "verify_index_complete.py": {
+      "bytes": 3115,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/verify_index_complete.py",
+      "sha256": "9210504d687871c2ffd216a63a7979dd144849d6ed873f735d99151f27f3b54f"
+    }
+  },
+  "files": {
+    "BASELINE-finalize_archive.py": {
+      "bytes": 6520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-public-checkpoint-inventory-plan-20261010-r1/BASELINE-finalize_archive.py",
+      "sha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b"
+    },
+    "BASELINE-prepare_final_packages.py": {
+      "bytes": 3636,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-public-checkpoint-inventory-plan-20261010-r1/BASELINE-prepare_final_packages.py",
+      "sha256": "73fe10265249491b1bde71dc3976bb13ff743bc1a996e01b0d4650c76699e7e1"
+    },
+    "BASELINE-prepare_inventory.py": {
+      "bytes": 3147,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-public-checkpoint-inventory-plan-20261010-r1/BASELINE-prepare_inventory.py",
+      "sha256": "41f65de76277cd521556ed4656a4f76ef92cb35ac5f8e56787b5b73120a2a30b"
+    },
+    "BASELINE-verify_index_complete.py": {
+      "bytes": 3115,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-public-checkpoint-inventory-plan-20261010-r1/BASELINE-verify_index_complete.py",
+      "sha256": "9210504d687871c2ffd216a63a7979dd144849d6ed873f735d99151f27f3b54f"
+    },
+    "PLAN.json": {
+      "bytes": 25611,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-public-checkpoint-inventory-plan-20261010-r1/PLAN.json",
+      "sha256": "a12e6a20e947cafe369a259d12435ec85ea786ff38788b894abd0f9e15991258"
+    },
+    "README.md": {
+      "bytes": 1471,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-public-checkpoint-inventory-plan-20261010-r1/README.md",
+      "sha256": "2c85eabbe7993a557cbca0ca9a28fd3d02ddd838f81f670aae03ec5298b77900"
+    }
+  },
+  "schema": "1370-ap-checkpoint-plan-source-pins/v1"
+}

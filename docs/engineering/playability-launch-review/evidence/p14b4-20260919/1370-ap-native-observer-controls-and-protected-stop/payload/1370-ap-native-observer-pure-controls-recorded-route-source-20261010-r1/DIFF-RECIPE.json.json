@@ -1,0 +1,182 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/BASELINE-RECIPE.json",
+    "bytes": 9905,
+    "sha256": "33cf30a62abf4c4c19e146e1331b80cd549c93e36412fc8d8861dd308c592e91"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/RECIPE.json",
+    "bytes": 15657,
+    "sha256": "c82b88d7a6e3712d1e134dd52e605bbed006dfa16d54394711955fe37e057ae1"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 57,
+      "old": "  \"actualObservedReviewDecision\": \"ACCEPT_ACTUAL_PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_ONLY\",\n",
+      "newStart": 57,
+      "new": "  \"actualObservedReviewDecision\": \"ACCEPT_ACTUAL_PURE_NATIVE_OBSERVER_CONTROLS_ONLY\",\n"
+    },
+    {
+      "oldStart": 224,
+      "old": "    \"bytes\": 8460,\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md\",\n    \"sha256\": \"8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8\"\n",
+      "newStart": 216,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/API.md\",\n    \"bytes\": 8118,\n    \"sha256\": \"3da98803fc94b4beeb4e37d6aa01a4ccd266a12ac123df9746cc21d12b1fc9fa\"\n"
+    },
+    {
+      "oldStart": 605,
+      "old": "  \"caseCount\": 48,\n",
+      "newStart": 596,
+      "new": "  \"caseCount\": 72,\n"
+    },
+    {
+      "oldStart": 643,
+      "old": "    \"Pure original public witness and bounded diagnostic/helper controls only. No game, measured offending real row, baseline/mutant, fixture repair or full qualification acceptance.\",\n    \"Original parser32 and compressed trace49 are retained, not replayed.\",\n    \"Only public witness TS is transpiled inside the single owned Node aggregate. No game or private module imports.\"\n",
+      "newStart": 634,
+      "new": "    \"Pure public native codec, feasibility sink, diagnostic/shared arm, actual evaluation binding and affected ordering controls only. No private M0 reads, game or full qualification acceptance.\",\n    \"Original ordering18 are affected regressions within72; parser32 and prior helpercodec49 are not replayed as separate control sets.\",\n    \"Four public TS modules transpiled ES2022; five exact public MJS modules copied. One validated ordering.js to ordering.mjs rebase before transpilation. No game graph imports.\"\n"
+    },
+    {
+      "oldStart": 1087,
+      "old": "    \"bytes\": 7018,\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json\",\n    \"sha256\": \"ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa\"\n",
+      "newStart": 1214,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/CONFIG.json\",\n    \"bytes\": 10207,\n    \"sha256\": \"9707ca8c4cc58169d77c29c0f3a240f09e93d9dd34a4fd2f46c93eb314ed5016\"\n"
+    },
+    {
+      "oldStart": 1352,
+      "old": "    \"bytes\": 4589,\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONTRACT.json\",\n    \"sha256\": \"ede7dd2698764a78607f9c18ec55f86ec694d4543e5a93a9acd1d2584c0d63b7\"\n",
+      "newStart": 1472,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/CONTRACT.json\",\n    \"bytes\": 6396,\n    \"sha256\": \"d0aa4d687ac4785ebaa7c25fb6394236a5ab29b914bd75efea1c8b599fbc9f4c\"\n"
+    },
+    {
+      "oldStart": 1629,
+      "old": "    \"bytes\": 3328,\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json\",\n    \"sha256\": \"a427acb4c7e1c0b5d31695141600c828c9e8f64543d5b828b9c40ac678b34411\"\n",
+      "newStart": 1741,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-PINS.json\",\n    \"bytes\": 2042,\n    \"sha256\": \"be758595a589a51f559fe6933c8b6a68b23e16691ab32ee87aebf8d7b2dd64f9\"\n"
+    },
+    {
+      "oldStart": 1903,
+      "old": "    \"bytes\": 6203,\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-root-source-review-20261010-r2/RECEIPT.json\",\n    \"sha256\": \"541f976ca5e1e550dd86b0fc56ac416b0a881c6d421ae14bb2809e2eeab5cfa8\"\n",
+      "newStart": 2007,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r3/RECEIPT.json\",\n    \"bytes\": 11102,\n    \"sha256\": \"a3315ae0ab0ea6be8839db4e4e7e501e072ade628cc50047abb93c944e689dd4\"\n"
+    },
+    {
+      "oldStart": 2503,
+      "old": "    \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log\",\n",
+      "newStart": 2595,
+      "new": "    \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/controls.lane.log\",\n"
+    },
+    {
+      "oldStart": 2762,
+      "old": "    \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-observer-row-controls.py\",\n",
+      "newStart": 2846,
+      "new": "    \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/record-native-observer-controls.py\",\n"
+    },
+    {
+      "oldStart": 2938,
+      "old": "    \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json\",\n",
+      "newStart": 3017,
+      "new": "    \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/GRANT.json\",\n"
+    },
+    {
+      "oldStart": 3144,
+      "old": "    \"bytes\": 3582,\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION.json\",\n    \"sha256\": \"1112ed2166d623284be4a1c1bd40ae455212921d16ec32da0e727f9bcca566c7\"\n",
+      "newStart": 3215,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION-r2.json\",\n    \"bytes\": 4060,\n    \"sha256\": \"e30f2625a6eac0a994bf8a5026ef9b550304f3243e3e0ce72e5b6fd418ce06a8\"\n"
+    },
+    {
+      "oldStart": 3436,
+      "old": "    \"bytes\": 6892,\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json\",\n    \"sha256\": \"ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3\"\n",
+      "newStart": 3506,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json\",\n    \"bytes\": 12245,\n    \"sha256\": \"cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e\"\n"
+    },
+    {
+      "oldStart": 3695,
+      "old": "    \"bytes\": 9463,\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r3/RECEIPT.json\",\n    \"sha256\": \"ba5fe631915582f42d0b3071e545a519e69ac00f5ab51027783af79452613064\"\n",
+      "newStart": 3758,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json\",\n    \"bytes\": 10219,\n    \"sha256\": \"e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2\"\n"
+    },
+    {
+      "oldStart": 4190,
+      "old": "    \"lane\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log\",\n    \"parentClaim\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json\",\n    \"pureEmittedModules\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-results-20261010-r1\",\n    \"recorder\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorder-results-20261010-r1\",\n    \"recorderControlResult\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorder-results-20261010-r1/CONTROLS-RESULT.json\",\n    \"workerControlResult\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-results-20261010-r1/CONTROLS-RESULT.json\"\n",
+      "newStart": 4261,
+      "new": "    \"lane\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/controls.lane.log\",\n    \"parentClaim\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json\",\n    \"pureEmittedModules\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1\",\n    \"recorder\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorder-results-20261010-r1\",\n    \"recorderControlResult\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorder-results-20261010-r1/CONTROLS-RESULT.json\",\n    \"workerControlResult\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/CONTROLS-RESULT.json\"\n"
+    },
+    {
+      "oldStart": 5212,
+      "old": "    \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/launch-observer-row-controls.py\",\n    \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json\",\n",
+      "newStart": 5235,
+      "new": "    \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/launch-native-observer-controls.py\",\n    \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/GRANT.json\",\n"
+    },
+    {
+      "oldStart": 5530,
+      "old": "  \"positiveCount\": 6,\n",
+      "newStart": 5540,
+      "new": "  \"positiveCount\": 13,\n"
+    },
+    {
+      "oldStart": 5688,
+      "old": "    \"record-observer-row-controls.py\",\n    \"launch-observer-row-controls.py\",\n    \"run-observer-row-recorded-controls.mjs\",\n",
+      "newStart": 5699,
+      "new": "    \"record-native-observer-controls.py\",\n    \"launch-native-observer-controls.py\",\n    \"run-native-observer-recorded-controls.mjs\",\n    \"m0NativeObserverRows.mjs\",\n    \"m0FeasibilityWitness-native.ts\",\n"
+    },
+    {
+      "oldStart": 5847,
+      "old": "    \"m0FeasibilityWitness.ts\",\n    \"run-observer-row-controls.mjs\",\n",
+      "newStart": 5937,
+      "new": "    \"ordering.ts\",\n    \"ordering-source-controls.ts\",\n    \"original-m0FeasibilityWitness.ts\",\n    \"m0TraceCodec.mjs\",\n    \"traceSequences.mjs\",\n    \"ORDERING-SOURCE-CASES.json\",\n    \"run-native-observer-controls.mjs\",\n"
+    },
+    {
+      "oldStart": 5994,
+      "old": "    \"bytes\": 3797,\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json\",\n    \"sha256\": \"8b45e59bfbcf67e115f28065c475fc64ba353a96ee4c07e616472bf58b1eda90\"\n",
+      "newStart": 6234,
+      "new": "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json\",\n    \"bytes\": 3376,\n    \"sha256\": \"0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229\"\n"
+    },
+    {
+      "oldStart": 6342,
+      "old": "    \"configSha256\": \"ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa\",\n",
+      "newStart": 6584,
+      "new": "    \"configSha256\": \"9707ca8c4cc58169d77c29c0f3a240f09e93d9dd34a4fd2f46c93eb314ed5016\",\n"
+    },
+    {
+      "oldStart": 7014,
+      "old": "      \"api\"\n",
+      "newStart": 7256,
+      "new": "      \"api\",\n      \"apiAdoption\",\n      \"supplementAdoption\"\n"
+    },
+    {
+      "oldStart": 8316,
+      "old": "    \"schema\": \"1370-root-observer-row-diagnostic-pure-controls-once-grant/v1\",\n    \"scope\": \"PURE_PUBLIC_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_ONLY\"\n",
+      "newStart": 8607,
+      "new": "    \"schema\": \"1370-root-native-observer-pure-controls-once-grant/v1\",\n    \"scope\": \"PURE_PUBLIC_NATIVE_OBSERVER_CONTROLS_ONLY\"\n"
+    },
+    {
+      "oldStart": 8768,
+      "old": "    \"schema\": \"1370-root-observer-row-diagnostic-pure-controls-source-adoption/v1\",\n    \"status\": \"ROOT_ADOPTED_PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_SOURCE_ONLY\"\n",
+      "newStart": 9043,
+      "new": "    \"schema\": \"1370-root-native-observer-pure-controls-source-adoption/v1\",\n    \"status\": \"ROOT_ADOPTED_PURE_NATIVE_OBSERVER_CONTROLS_SOURCE_ONLY\"\n"
+    },
+    {
+      "oldStart": 9257,
+      "old": "  \"schema\": \"1370-observer-row-diagnostic-pure-controls-recorded-route-recipe/v1\",\n  \"scope\": \"PURE_PUBLIC_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_ONLY\",\n",
+      "newStart": 9516,
+      "new": "  \"schema\": \"1370-native-observer-pure-controls-recorded-route-recipe/v1\",\n  \"scope\": \"PURE_PUBLIC_NATIVE_OBSERVER_CONTROLS_ONLY\",\n"
+    },
+    {
+      "oldStart": 9460,
+      "old": "    \"decision\": \"ACCEPT_STATIC_OBSERVER_ROW_DIAGNOSTIC_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY\",\n",
+      "newStart": 9703,
+      "new": "    \"decision\": \"ACCEPT_STATIC_NATIVE_OBSERVER_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY\",\n"
+    },
+    {
+      "oldStart": 9640,
+      "old": "    \"schema\": \"1370-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review/v1\",\n",
+      "newStart": 9875,
+      "new": "    \"schema\": \"1370-native-observer-pure-controls-recorded-route-independent-source-review/v1\",\n"
+    },
+    {
+      "oldStart": 9873,
+      "old": "  \"specificNegativeCount\": 42\n",
+      "newStart": 10100,
+      "new": "  \"specificNegativeCount\": 59,\n  \"apiAdoption\": {\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-API-ADOPTION.json\",\n    \"bytes\": 3933,\n    \"sha256\": \"9300b1167ee0b481757023e9a93306432c115c3e6f554733aff42e6c95565c7f\"\n  },\n  \"supplementAdoption\": {\n    \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/DIAGNOSTIC-CODEC-SUPPLEMENT-ADOPTION.json\",\n    \"bytes\": 1768,\n    \"sha256\": \"0e19294627060a4bc2b77d4172dce7d3b33af97ac91f4e263372cc3ba525842d\"\n  },\n  \"moduleGraph\": {\n    \"copiedMjs\": 5,\n    \"transpiledTs\": 4,\n    \"gameModules\": 0,\n    \"dependencyRebase\": \"Exactly one './ordering.js' to './ordering.mjs' before transpilation\"\n  },\n  \"routeSourcePins\": {\n    \"CONFIG.json\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/CONFIG.json\",\n      \"bytes\": 10207,\n      \"sha256\": \"9707ca8c4cc58169d77c29c0f3a240f09e93d9dd34a4fd2f46c93eb314ed5016\"\n    },\n    \"CONTRACT.json\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/CONTRACT.json\",\n      \"bytes\": 6396,\n      \"sha256\": \"d0aa4d687ac4785ebaa7c25fb6394236a5ab29b914bd75efea1c8b599fbc9f4c\"\n    },\n    \"record-native-observer-controls.py\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/record-native-observer-controls.py\",\n      \"bytes\": 17451,\n      \"sha256\": \"671401d502777d229af9237f53602225b85992b532c2a2ab75ff02e52bb18e49\"\n    },\n    \"launch-native-observer-controls.py\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/launch-native-observer-controls.py\",\n      \"bytes\": 11646,\n      \"sha256\": \"a1d94123e0368cda3c117a2ba330df4b14008e34198a35a7ce8b5180709ea25a\"\n    },\n    \"run-native-observer-recorded-controls.mjs\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1/run-native-observer-recorded-controls.mjs\",\n      \"bytes\": 15924,\n      \"sha256\": \"1574af53e04c54e717f88ae625b76e1c27f024610974db927cd4597b3e748f93\"\n    },\n    \"m0NativeObserverRows.mjs\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs\",\n      \"bytes\": 10267,\n      \"sha256\": \"b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a\"\n    },\n    \"m0FeasibilityWitness-native.ts\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts\",\n      \"bytes\": 5868,\n      \"sha256\": \"53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b\"\n    },\n    \"m0ObserverRowDiagnostic.mjs\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs\",\n      \"bytes\": 10954,\n      \"sha256\": \"be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397\"\n    },\n    \"ordering.ts\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts\",\n      \"bytes\": 12555,\n      \"sha256\": \"21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b\"\n    },\n    \"ordering-source-controls.ts\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering-source-controls.ts\",\n      \"bytes\": 3407,\n      \"sha256\": \"d485414f997bcf606a416160d9ec212e621b59cfd29a49e0f359b84ba06556f4\"\n    },\n    \"original-m0FeasibilityWitness.ts\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/BASELINE-m0FeasibilityWitness.ts\",\n      \"bytes\": 4729,\n      \"sha256\": \"67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3\"\n    },\n    \"m0TraceCodec.mjs\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs\",\n      \"bytes\": 7882,\n      \"sha256\": \"5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768\"\n    },\n    \"traceSequences.mjs\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs\",\n      \"bytes\": 1286,\n      \"sha256\": \"0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede\"\n    },\n    \"ORDERING-SOURCE-CASES.json\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json\",\n      \"bytes\": 27476,\n      \"sha256\": \"95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7\"\n    },\n    \"run-native-observer-controls.mjs\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/run-native-observer-controls.mjs\",\n      \"bytes\": 30858,\n      \"sha256\": \"3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8\"\n    },\n    \"MATRIX.json\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/MATRIX.json\",\n      \"bytes\": 11805,\n      \"sha256\": \"e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39\"\n    },\n    \"CONTROLS-CONTRACT.json\": {\n      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/CONTRACT.json\",\n      \"bytes\": 8241,\n      \"sha256\": \"1303c82c407869b2be88a59e2fd03050a0a2caf5d7456dcedd557b9a15b473a0\"\n    }\n  }\n"
+    }
+  ]
+}

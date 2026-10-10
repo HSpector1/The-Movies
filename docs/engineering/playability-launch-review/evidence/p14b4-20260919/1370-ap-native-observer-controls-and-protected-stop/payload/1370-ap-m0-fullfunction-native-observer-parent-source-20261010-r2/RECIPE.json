@@ -1,0 +1,57 @@
+{
+  "schema": "1370-fullfunction-parent-recipe/v1",
+  "executionAuthorization": false,
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 25246,
+    "sha256": "88b8d5b06a3e4fc0f37fe0b0f7054ef0572effceac839a4078f416e4fd946055"
+  },
+  "config": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/CONFIG.json",
+    "bytes": 25764,
+    "sha256": "3437424ca4bad911777e496b3c1cc702ee9be56b662b370c81d6f69872f4e90d"
+  },
+  "currentProtection": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/M0-NATIVE-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "bytes": 4345,
+    "sha256": "c4918e6adf12a77c3697adb64b632ec1cfeaebac2cb71caedfe687d48dfe92cb"
+  },
+  "aliases": [
+    "CONFIG.json",
+    "run-fullfunction.py",
+    "run-fullfunction.mjs",
+    "record-fullfunction.py",
+    "CORE-TEST-TEMPLATE.ts",
+    "CONFIG-TEMPLATE.mts",
+    "FULL-BODY-CONTROLS-TEMPLATE.ts",
+    "exact-json.mjs",
+    "run-parser-controls.mjs",
+    "canonical-typescript-transform.mjs",
+    "m0WiringProbe.ts",
+    "RESOLUTION-SOURCE-BINDING.json",
+    "m0TraceCodec.mjs",
+    "traceSequences.mjs",
+    "ordering.ts",
+    "talentMarket.ts",
+    "typed-propagation-removed-talentMarket.ts",
+    "m0ObserverRowDiagnostic.mjs",
+    "m0NativeObserverRows.mjs",
+    "m0FeasibilityWitness-native.ts"
+  ],
+  "rootBinding": null,
+  "parentRecordedPath": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1",
+  "reviewDecision": "ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY",
+  "rootReadbackDecision": "ACCEPT_STATIC_FULLFUNCTION_ROOT_READBACK_SOURCE_ONLY",
+  "preparationSeconds": 60,
+  "runtimeBounds": {
+    "activeRecorder": 320,
+    "aggregateChild": 300,
+    "aggregateOutputTreeBytes": 268435456,
+    "fixturePacketBytes": 67108864,
+    "outputTreeEntryCap": 10000,
+    "resultBytes": 131072,
+    "streamBytes": 8388608,
+    "vitestReportBytes": 1048576,
+    "wholeRecorder": 330
+  }
+}

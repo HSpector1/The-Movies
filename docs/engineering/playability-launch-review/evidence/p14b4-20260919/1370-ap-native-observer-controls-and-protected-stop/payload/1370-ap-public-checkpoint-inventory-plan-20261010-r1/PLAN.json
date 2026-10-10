@@ -1,0 +1,470 @@
+{
+  "archivalPolicyEvidence": {
+    "ARCHIVE-STAGING-COVERAGE-INITIAL-FINDING.json": {
+      "bytes": 1082,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/ARCHIVE-STAGING-COVERAGE-INITIAL-FINDING.json",
+      "sha256": "6770423df83db0809b60dddbc1194b06a1861e540b4e05ca5a31591985c2bb60"
+    },
+    "INDEX-VERIFICATION-COMPLETE.json": {
+      "bytes": 9119,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/INDEX-VERIFICATION-COMPLETE.json",
+      "sha256": "03a25fe210d8209a0c5b1b1926efb3b8f89933c2dce71995bb2b8452ddc0f730"
+    },
+    "INVENTORY-SOURCE-BINDING.json": {
+      "bytes": 2162,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/INVENTORY-SOURCE-BINDING.json",
+      "sha256": "580c24bf7dae3e6770e62180fb200287247518871e621f10bc039c49ecae191d"
+    },
+    "PUSH-READBACK.json": {
+      "bytes": 1973,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/PUSH-READBACK.json",
+      "sha256": "cf85cbd810e72613609e0cf3c33f42e84724d282da2c4e383ee8452643e5a74c"
+    }
+  },
+  "candidatePackages": [
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-independent-observed-review-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-ao-fullpreflight-parent-recorded-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-root-adapters-source-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-independent-observed-review-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-output-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-parent-recorded-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r2",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-current-prelaunch-preparation-source-20261010-r3",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-independent-review-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r2",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r3",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r4",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r5",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-diagnostic-codec-supplement-independent-review-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r2",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r3",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-independent-observed-review-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r2",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r3",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorder-results-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r2",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r2",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r3",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r4",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-public-checkpoint-inventory-plan-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Finite named AP task/authority chain; package contents not enumerated or hashed.",
+      "finalCutoffSelection": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1",
+      "presentAtPreparation": true
+    }
+  ],
+  "currentPublishedHead": "f2f97c622db7f5332164b790d1646355e89c00f4",
+  "exactReusableSourceRoles": {
+    "finalize_archive.py": {
+      "bytes": 6520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/finalize_archive.py",
+      "sha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b"
+    },
+    "prepare_final_packages.py": {
+      "bytes": 3636,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py",
+      "sha256": "73fe10265249491b1bde71dc3976bb13ff743bc1a996e01b0d4650c76699e7e1"
+    },
+    "prepare_inventory.py": {
+      "bytes": 3147,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_inventory.py",
+      "sha256": "41f65de76277cd521556ed4656a4f76ef92cb35ac5f8e56787b5b73120a2a30b"
+    },
+    "verify_index_complete.py": {
+      "bytes": 3115,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/verify_index_complete.py",
+      "sha256": "9210504d687871c2ffd216a63a7979dd144849d6ed873f735d99151f27f3b54f"
+    }
+  },
+  "executionAuthorization": false,
+  "futureAuthority": {
+    "actualArchive": null,
+    "actualFullPostflight": null,
+    "actualFullfunctionOutcome": null,
+    "actualFullfunctionSourcePins": null,
+    "actualIndexVerification": null,
+    "actualInventory": null,
+    "actualRootCutoff": null,
+    "completeFinalPackageList": null,
+    "finalHandoff": null,
+    "finalLessons": null,
+    "finalReport": null,
+    "publication": null,
+    "rootFinalClaim": null
+  },
+  "laneSelection": {
+    "actualFullfunctionLaneMetadataRole": null,
+    "actualFullfunctionLaneRole": null,
+    "fullfunctionProposedSelector": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-lane-20261010-r1",
+    "pure72": "Actual controls.lane.log and metadata are already inside selected pure parent package; no guessed extra top-level lane.",
+    "rule": "Resolve exact genuine lane path/type from final sealed source and authenticated completed readback; do not guess .log or .meta names or claim files exist."
+  },
+  "lateAODirectory": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1",
+    "priorBlobHandling": "Original finalizer authenticates matching blobs against the actual expected HEAD; old builders/input and late receipts remain selected.",
+    "rootFutureFiniteEnumerationOnly": true,
+    "selection": "WHOLE_DIRECTORY_WITH_NO_ROLE_EXCLUSIONS"
+  },
+  "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "namedUnfinishedFullfunctionPackages": [
+    {
+      "basis": "Named prospective source/output/parent selectors supplied by the fullfunction author; no final source/runtime claim.",
+      "finalSourceOrActualOutcomePinned": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1",
+      "presentAtPreparation": true
+    },
+    {
+      "basis": "Named prospective source/output/parent selectors supplied by the fullfunction author; no final source/runtime claim.",
+      "finalSourceOrActualOutcomePinned": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-results-20261010-r1",
+      "presentAtPreparation": false
+    },
+    {
+      "basis": "Named prospective source/output/parent selectors supplied by the fullfunction author; no final source/runtime claim.",
+      "finalSourceOrActualOutcomePinned": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-recorder-results-20261010-r1",
+      "presentAtPreparation": false
+    },
+    {
+      "basis": "Named prospective source/output/parent selectors supplied by the fullfunction author; no final source/runtime claim.",
+      "finalSourceOrActualOutcomePinned": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-recorded-20261010-r1",
+      "presentAtPreparation": false
+    },
+    {
+      "basis": "Named prospective source/output/parent selectors supplied by the fullfunction author; no final source/runtime claim.",
+      "finalSourceOrActualOutcomePinned": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r1",
+      "presentAtPreparation": false
+    },
+    {
+      "basis": "Named prospective source/output/parent selectors supplied by the fullfunction author; no final source/runtime claim.",
+      "finalSourceOrActualOutcomePinned": false,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-root-wrappers-source-20261010-r1",
+      "presentAtPreparation": false
+    }
+  ],
+  "operationsPerformed": {
+    "archiveCopy": false,
+    "candidateContentsEnumerated": false,
+    "candidatePayloadsHashed": false,
+    "inventoryRun": false,
+    "namedPackagePresenceChecksOnly": true,
+    "privateOrDependencyTraversal": false,
+    "repositoryOrGitMutation": false,
+    "runtimeOrProcessProbes": false
+  },
+  "originalArchiveFinalizer": {
+    "bytes": 6520,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ai-archive-finalization-source-20261009-r1/finalize_archive.py",
+    "sha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b"
+  },
+  "preservationRules": [
+    "Preserve all source-only STOPs, author-preparation failures, operational failures and corrected receipts with original identities.",
+    "Never export or traverse original private M0/R9/mirror/dependency/Git trees. Named finite runtime artifacts do not authorize copying private source/dependency payloads; unexpected nested private/dependency content refuses selection.",
+    "Only named session evidence packages are root-enumerated at final cutoff; no scratch-wide tree discovery.",
+    "Whole late AO directory is selected; current AP root remains mutable until cutoff and its final lessons/adoptions must be retained.",
+    "No payload is truncated, reformatted or normalized. Only literal authenticated unified-diff blank context lines may explain whitespace exceptions; current report/HANDOFF whitespace must pass separately.",
+    "Do not claim all diff checks clean when preserved context warnings exist."
+  ],
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "rawLocalPolicy": {
+    "action": "LOCAL_HASH_SIZE_ONLY",
+    "allDotLOCAL": true,
+    "localRolesNeverPriorGitReuse": true,
+    "nodeCachePayloadsExported": false,
+    "rawContentsExported": false,
+    "rebuildableNodeCompileCache": true,
+    "semanticClassificationSources": "Retained producer RAW-LOCAL-ONLY documents and PREFLIGHT.rawLocalOnly, checked against actual selected paths; filename guards are additional refusal defenses.",
+    "unclassifiedRawRole": "STOP; classify under genuine producer evidence before final inventory",
+    "wholeMachineRawPSFD": true
+  },
+  "reuseBindingMap": {
+    "finalizeArchive": {
+      "archiveTarget": null,
+      "authority": "Root supplies actual finalized arguments; exact original finalizer reauthenticated, no new archive framework.",
+      "claimPath": null,
+      "expectedHead": "Genuine current published AO HEAD rechecked by root at finalizer execution",
+      "inventoryPath": null,
+      "inventorySha256": null,
+      "source": {
+        "bytes": 6520,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ai-archive-finalization-source-20261009-r1/finalize_archive.py",
+        "sha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b"
+      },
+      "sourceChangeRequired": false
+    },
+    "prepareFinalPackages": {
+      "futureDelta": "Current prefix AO\u2192AP, whole late directory AN\u2192AO, current finalization directory excluded, and genuine fullfunction lane extras resolved from sealed source then actual readback. Retain raw producer classification, cache LOCAL policy and original finite inventory.",
+      "rootFinalizationDirectory": null,
+      "selectedPackagePaths": "Root reconciles this finite named catalog with genuine later AP packages at cutoff; this preparatory catalog is not exhaustive.",
+      "source": {
+        "bytes": 3636,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py",
+        "sha256": "73fe10265249491b1bde71dc3976bb13ff743bc1a996e01b0d4650c76699e7e1"
+      }
+    },
+    "prepareInventory": {
+      "futureDelta": "Only inventory schema/session prose binds AP; input remains final explicit package/local-role plan. No run until root cutoff.",
+      "originalFiniteFileAndMetadataGuardsRetained": true,
+      "source": {
+        "bytes": 3147,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_inventory.py",
+        "sha256": "41f65de76277cd521556ed4656a4f76ef92cb35ac5f8e56787b5b73120a2a30b"
+      }
+    },
+    "verifyCompleteIndex": {
+      "expectedSetRule": "All COPIED_FINITE_PAYLOAD archiveRelativePaths + ARCHIVE-MANIFEST.json + INVENTORY-FINAL.json + ROOT-FINAL-CLAIM.txt + exact current docs paths == complete staged path set; every indexed blob == authenticated working bytes; indexed src tree remains13880.",
+      "futureDelta": "Bind actual AP archive/report paths; derive expected paths from final manifest, not historical463. Accept clean check or exclusively authenticated immutable context exceptions; no assumed return2/count26.",
+      "ignoredPayloads": "Do not infer coverage from normal git add or observed count. Stage exact missing manifest destinations, including ignored README/lane roles, and preserve failed coverage evidence before a fresh complete verification.",
+      "source": {
+        "bytes": 3115,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/verify_index_complete.py",
+        "sha256": "9210504d687871c2ffd216a63a7979dd144849d6ed873f735d99151f27f3b54f"
+      }
+    }
+  },
+  "rootNextSteps": [
+    "Finish the genuine fullfunction attempt and mandatory original shared postflight; retain PASS/STOP and all incomplete phase boundaries honestly.",
+    "Declare cutoff, reconcile later named AP packages/reviews/results/lessons and actual lane identities; exclude only new finalization workspace except original explicit builder/input roles.",
+    "Run original finite selection/inventory after semantic LOCAL classification, then exact original finalizer with authenticated expected HEAD and root final claim.",
+    "Independently review docs/archive; stage complete manifest-derived destination set (including ignored payloads); verify exact full set and every indexed byte, src tree and bounded whitespace exceptions.",
+    "Only root may commit/push and retain genuine publication/advertised-ref readback; publication ends the current operational metadata continuity."
+  ],
+  "schema": "1370-ap-public-checkpoint-inventory-plan/v1",
+  "status": "SOURCE_ONLY_HELD_ROOT_CUTOFF_AND_FINAL_EVIDENCE_PENDING"
+}

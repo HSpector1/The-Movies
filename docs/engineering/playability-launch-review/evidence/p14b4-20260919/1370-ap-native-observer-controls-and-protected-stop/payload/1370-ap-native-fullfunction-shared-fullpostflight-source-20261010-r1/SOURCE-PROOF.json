@@ -1,0 +1,146 @@
+{
+  "schema": "1370-ap-native-fullfunction-postflight-source-proof/v1",
+  "predecessorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 3309,
+    "sha256": "a99444f72815ce9db487885c0a9949cb0dcbc1d6bb4b03df449ec08c6fa471c0"
+  },
+  "applications": [
+    {
+      "source": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+        "bytes": 5283,
+        "sha256": "0003d2c01f91ba5d480ec32cea74af77358d82199a668644a5ee6009fd780785"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+        "bytes": 5308,
+        "sha256": "448b2f60846d4d28eb972ea07ef3cb89c7e3f3d540332809271f987117266d6f"
+      },
+      "retainedBaseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/BASELINE-launch-fullpostflight.py",
+        "bytes": 5308,
+        "sha256": "448b2f60846d4d28eb972ea07ef3cb89c7e3f3d540332809271f987117266d6f"
+      },
+      "applications": [
+        {
+          "before": "1370-ao-root-continuation-20261010-r1",
+          "after": "1370-ap-root-continuation-20261010-r1",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-current-operational-fullguard-source-20261010-r1",
+          "after": "1370-ap-current-operational-fullguard-source-20261010-r1",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-parent-recorded-20261010-r1",
+          "after": "1370-ap-native-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1",
+          "count": 1
+        },
+        {
+          "before": "CURRENT-AN-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+          "after": "CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+          "count": 1
+        },
+        {
+          "before": "753a7597c20032c70b2a07c9001de15ba1f72b5a0a5ac7706e340228da5fef5a",
+          "after": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552",
+          "count": 1
+        },
+        {
+          "before": "ROOT_ADOPTED_CURRENT_AN_FULL_PREFLIGHT",
+          "after": "ROOT_ADOPTED_CURRENT_AO_FULL_PREFLIGHT",
+          "count": 1
+        },
+        {
+          "before": "9df63e39d302e3b8481198999e129233ab4eb5709848d91cb1d45af0dfee0e88",
+          "after": "5ede60a6f02c405aea31dd7fa981d871de6b5af8c594cf103ad9c66076f9834a",
+          "count": 1
+        },
+        {
+          "before": "postflight-fullfunction-observer-row-diagnostic-r1",
+          "after": "postflight-fullfunction-native-observer-r1",
+          "count": 1
+        },
+        {
+          "before": "under current AN.",
+          "after": "under current AO.",
+          "count": 1
+        }
+      ],
+      "wholeInverseActuallyEqual": true,
+      "allOriginalHelpersByteExact": [
+        "role",
+        "read",
+        "put"
+      ],
+      "staticCompilationOnly": true
+    },
+    {
+      "source": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py",
+        "bytes": 5421,
+        "sha256": "0c4047136b4c872b8e65ac5d868788f79c9004af9372e2c1a9bab5d24077b12c"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py",
+        "bytes": 5439,
+        "sha256": "484acc12c4ef79ccdcc0aa928e495fce793f27f4c76373d5c0ea88058711a84f"
+      },
+      "retainedBaseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-fullfunction-shared-fullpostflight-source-20261010-r1/BASELINE-read-fullpostflight.py",
+        "bytes": 5439,
+        "sha256": "484acc12c4ef79ccdcc0aa928e495fce793f27f4c76373d5c0ea88058711a84f"
+      },
+      "applications": [
+        {
+          "before": "1370-ao-current-operational-fullguard-source-20261010-r1",
+          "after": "1370-ap-current-operational-fullguard-source-20261010-r1",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-parent-recorded-20261010-r1",
+          "after": "1370-ap-native-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1",
+          "count": 1
+        },
+        {
+          "before": "postflight-fullfunction-observer-row-diagnostic-r1",
+          "after": "postflight-fullfunction-native-observer-r1",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-fullpostflight-raw-local-only/v1",
+          "after": "1370-ap-fullpostflight-raw-local-only/v1",
+          "count": 1
+        },
+        {
+          "before": "1370-ao-fullfunction-shared-fullpostflight-readback/v1",
+          "after": "1370-ap-native-fullfunction-shared-fullpostflight-readback/v1",
+          "count": 1
+        }
+      ],
+      "wholeInverseActuallyEqual": true,
+      "allOriginalHelpersByteExact": [
+        "role",
+        "read",
+        "put"
+      ],
+      "staticCompilationOnly": true
+    }
+  ],
+  "wholeInverseApplications": 2,
+  "helperCounts": [
+    3,
+    3
+  ],
+  "currentAOProtectionAuthority": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "bytes": 4729,
+    "sha256": "e3804904e003a7178e98c3d6d83c52ff32194f1117cef780d24c3d1c88849552"
+  },
+  "futureActualsUnfilled": true,
+  "historicalTypesAndM0ProofsSeparate": true,
+  "noRuntimeExecuted": true,
+  "executionAuthorization": false
+}

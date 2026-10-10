@@ -1,0 +1,111 @@
+{
+  "actualNativeFitMeasured": false,
+  "api": {
+    "bytes": 8118,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/API.md",
+    "sha256": "3da98803fc94b4beeb4e37d6aa01a4ccd266a12ac123df9746cc21d12b1fc9fa"
+  },
+  "authenticatedContractRoles": [
+    {
+      "bytes": 8118,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/API.md",
+      "sha256": "3da98803fc94b4beeb4e37d6aa01a4ccd266a12ac123df9746cc21d12b1fc9fa"
+    },
+    {
+      "bytes": 7379,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r5/API.md",
+      "sha256": "332286018d872d4972df3cececa6e13f2a585ed08a2582c86d0832ab425dd351"
+    },
+    {
+      "bytes": 3376,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+      "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+    }
+  ],
+  "candidateImportsOrRuntimePerformed": false,
+  "concreteFindings": [],
+  "contract": {
+    "bytes": 896,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/CONTRACT.json",
+    "sha256": "67d656c86a453c81447d45565ca1fca3c0fc7b13457afcaa98316a1965aab047"
+  },
+  "currentSharedArmTemplateSource": {
+    "bytes": 9962,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+    "sha256": "6057cdc52bc7db089bd701ff5578bbd4d4c574ed72b4abaa39d20a4e2c87a783"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_NATIVE_OBSERVER_FINAL_API",
+  "executionAuthorization": false,
+  "finalSignatures": {
+    "createM0FeasibilitySink": "({codec,latch})->{capture(context),rows(),throwIfFailed()}; capture.context and capture.record(kind,detail) retained",
+    "createNativeRowCodec": "({latch})->frozen{encodeInputDetail,decodeInputDetail,legacyRow}",
+    "createObserverFailureLatch": "()->frozen{record(error),throwIfFailed(),first()->frozen{failed,error}}",
+    "diagnosticFactory": "Existing dependencies plus mandatory same{codec,latch}; wrap/throwIfFailed/emitFirst/reset retained",
+    "runObserverArm": "(diagnostic,body,end,reset,writeLine); existing actual helper, no copied harness/new runner/checkSink"
+  },
+  "fullQualificationAccepted": false,
+  "game": false,
+  "governingDesignContract": {
+    "bytes": 4562,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-20261010-r3/CONTRACT.json",
+    "sha256": "5f77e8b607e6636701af88e042725f79a3e194e1aaae5f417fd6bd450b6579e6"
+  },
+  "implementationAuthorized": false,
+  "independentDesignReview": {
+    "bytes": 11508,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-independent-review-20261010-r1/RECEIPT.json",
+    "sha256": "005dde7ebc073ffa8141721007aca377524940f1c8a3103df43bd093a827c696"
+  },
+  "majorLessons": [
+    "Actual public factory and consumer dependency signatures must be authenticated, not guessed.",
+    "Shared health must preserve explicit error presence and chronological identity through cleanup; ordinary no-observer exception precedence remains separate.",
+    "Strict fatal accessors require a separately bounded pre-failure diagnostic snapshot to retain meaningful failure metrics.",
+    "Codec work bounds and native sink resource predicates are different contracts; known no-fit rows must not silently become a new expected operational RED."
+  ],
+  "nextStep": "Root may adopt final API for one public implementation writer and independent finite controls; actual recorded controls and fullfunction/protected postflight remain future.",
+  "originalMarketAndMutantPredicateSource": {
+    "bytes": 119700,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/talentMarket.ts",
+    "sha256": "fe9bea844bf41c3ad7e57924a6822f3a48b695b75880477281889a250a7c500a"
+  },
+  "originalWitness": {
+    "bytes": 4729,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+    "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+  },
+  "privateReadsOrGitMutationsPerformed": false,
+  "requiredSpecificControlCriteria": [
+    "Use implemented latch/codec/native witness/diagnostic/shared helper and original public67ff oracle; no fullgame/private import or handwritten arm-copy proof.",
+    "Positive full rich canonical roundtrip including Unicode/escapes/native numeric/omission semantics and exact digest/evaluation projection; one meaningful native-fit/legacy-over16KiB GREEN with derived-view inequality.",
+    "Specific malformed/key/tag/lexical-roundtrip/inputBytes/digest/context/source/order/multiplicity refusals; no arbitrary exception accepted as expected RED.",
+    "Exact physical count512/513, row16384/16385 and aggregate2097152 accounting including newline/new tag/framing; count preempts malformed/overbound input, original row preempts native parse for known no-fit, refused append state unchanged.",
+    "Shared first E swallowed-return or E then F, newly swallowed cleanup E, failing end/reset/write and explicit falsy throws; both cleanup attempts and original empty-latch precedence; fresh-arm isolation.",
+    "Snapshot failure exact operational E/no-record; immutable physical prior snapshot produces available native ROW metadata despite sticky rows refusal, while first native operational failure produces zero row emissions.",
+    "Original18 affected ordering predicates on actual migrated consumer, all affected diagnostic predicates under new physical encoder, exact30-byte market mutant preserved; unchanged parser/helper codec tests need no automatic replay."
+  ],
+  "reviewConclusions": [
+    "One arm-local latch holds chronologically first observer thrown value by identity and explicit presence, including null/undefined/falsy values; no reset/global state or secondary state can override it. Fresh arm construction isolates old immutable snapshots and old failures.",
+    "The actual native sink, codec and diagnostic share that same explicit latch. All native producer/decoder/resource failures record before throw; ordinary gameplay and separate market M0ObserverError faults stay outside this new channel.",
+    "Helper checks shared health after body and after each cleanup phase, even if callbacks throw. It always attempts end then reset; first observer E wins later F/emission/cleanup, including newly swallowed E during cleanup. With empty latch throughout, original ordinary reset>end>body precedence remains.",
+    "Count preflight remains first inside native record. Original canonical text>16384 takes the original row-byte Error before codec parse/latching; direct codec over-bound is operational CANONICAL_OVER_BOUND. No failed append advances retained rows/sequence/occurrence or total.",
+    "Bounded healthy physical snapshot is obtained before record and used after resource refusal; strict public rows refuses sticky failure. At most512 references to immutable already-bounded physical rows, no serialized duplicate/expanded trace, and snapshot released after one attempt/metadata retention.",
+    "Snapshot failure is explicitly an earlier operational wrapper-stage failure with no record call. It must not be mislabeled sink resource Error; normal healthy snapshot preserves count-row-total behavior.",
+    "First native operational cause emits no row diagnostic: zero writer calls, even if later resource F occurs. Actual resource row E can emit bounded exact new physical metadata from saved prior snapshot; reconstruction/writer errors cannot replace E.",
+    "Specific format codes remain distinct from native thrown values and original resource messages. Full canonical bytes/inputBytes/digest, all tuple elements/order/multiplicity/context/source slots and all assessment details remain intact; consumer matching uses exact per-row projection.",
+    "Representation/accounting amendment is explicit and adopted; physical512/16384/2097152, preparse16384/depth64/nodes-properties16384 and one/two transient decoded rows remain. No fixed JS heap guarantee, fit prediction, policy/fixture/horizon change or historical witness relabel.",
+    "Separate market recorder, its single-use fault restoration and exact30-byte typed-catch mutant stay byte-identical. New latch cannot make that mutant RED via a different propagation mechanism."
+  ],
+  "rootDesignAdoption": {
+    "bytes": 3376,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+    "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+  },
+  "schema": "1370-native-observer-independent-api-review/v1",
+  "supersededDraftIssues": [
+    "R1/R2 misnamed original capture factory and unresolved shared signature.",
+    "R3 retained chained supersessions/new runner/checkSink and codec-reset/latch-reset ambiguity.",
+    "R4 needed explicit original known-no-fit row refusal versus direct-codec operational predicate, and zero emission for first native operational cause.",
+    "R5 strict sticky rows/provider incompatibility resolved by R6 bounded healthy physical snapshot."
+  ],
+  "types": false
+}

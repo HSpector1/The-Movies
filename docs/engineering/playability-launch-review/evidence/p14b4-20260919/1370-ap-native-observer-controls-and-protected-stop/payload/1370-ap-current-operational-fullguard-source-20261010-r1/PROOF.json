@@ -1,0 +1,88 @@
+{
+  "all11FunctionsByteExact": true,
+  "completeWholeApplicationsActuallyApplied": 4,
+  "configChangedKeys": [
+    "operationalRemoteRefs",
+    "parentScopeAdoption",
+    "productionHead",
+    "status"
+  ],
+  "currentFullGuardsYetRun": false,
+  "executionAuthorization": false,
+  "genuineRootOperationalFacts": {
+    "bytes": 1029,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-OPERATIONAL-TRANSITION.json",
+    "sha256": "8ed8eab0ba445edbd2b93f0f87e932e9c3f902d42fe56cf14e6c7d7166b8976c"
+  },
+  "genuineRootOperationalScope": {
+    "bytes": 2935,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/CURRENT-AO-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "7dee435f6d0ac86e41d590aa08ef81b87caaa8f3e7692a097301a94eeb7bbc6b"
+  },
+  "historicalANProtectionRemainsHistorical": true,
+  "pairs": {
+    "CONFIG.json": {
+      "baseline": {
+        "bytes": 3928,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/BASELINE-CONFIG.json.txt",
+        "sha256": "f9d2d7fda1b5df5c01176c142bd6b16c9be9cc78963fe73e7fc62640b82a9cdd"
+      },
+      "current": {
+        "bytes": 3928,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+        "sha256": "2bc496099b22f228ba671a57aec531f4eb11fc5f7c3d2cc8c21b7608331f7814"
+      },
+      "forward": {
+        "bytes": 2435,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/CONFIG.json.forward.diff",
+        "sha256": "8b2cb845b5382ab70111af8f814c9640ff14d98e7b5befc2ca46e03ad3d3cbc4"
+      },
+      "inverse": {
+        "bytes": 2435,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/CONFIG.json.inverse.diff",
+        "sha256": "379527293fcf51d93174779a543df1030189d19c75f6fd88a87ba7254e779177"
+      },
+      "original": {
+        "bytes": 3928,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+        "sha256": "f9d2d7fda1b5df5c01176c142bd6b16c9be9cc78963fe73e7fc62640b82a9cdd"
+      }
+    },
+    "snapshot.py": {
+      "baseline": {
+        "bytes": 21984,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/BASELINE-snapshot.py.txt",
+        "sha256": "2915fd60e26b894fd431e4483e23d9beed79b3332dc3c7173b0a37fd3130ef1d"
+      },
+      "current": {
+        "bytes": 21984,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/snapshot.py",
+        "sha256": "8e27bb8f5ba9ee51223da4db7fb521eac035a79b714a756b11e9d37949c9bf0f"
+      },
+      "forward": {
+        "bytes": 564,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/snapshot.py.forward.diff",
+        "sha256": "a585310dce26b84a88f029bad7f1cac62e5a8b37f96ddc704e7998c1d4402acd"
+      },
+      "inverse": {
+        "bytes": 564,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-source-20261010-r1/snapshot.py.inverse.diff",
+        "sha256": "a486fc614fb0b5cd3a58971b8b68acef29aa0dca75760dc60810a22a6a138889"
+      },
+      "original": {
+        "bytes": 21984,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/snapshot.py",
+        "sha256": "2915fd60e26b894fd431e4483e23d9beed79b3332dc3c7173b0a37fd3130ef1d"
+      }
+    }
+  },
+  "preparatoryUnfilledProposalPreserved": {
+    "bytes": 6149,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-current-operational-fullguard-proposal-20261010-r1/SOURCE-PINS.json",
+    "sha256": "3f477b6e350d6f6cfd9301e3e0044b8589927ba7ea43d9cf8377d7875eef895e"
+  },
+  "rootScopeAdoptedBySourceAuthor": false,
+  "schema": "1370-ap-current-ao-fullguard-binding-source-proof/v1",
+  "sourceDelta": "CONFIG_SHA only; original private R9 baseline555867/guards/source inventories/180s per command/no overall clock/cleanup unchanged.",
+  "sourceOnly": true
+}

@@ -1,0 +1,44 @@
+{
+  "baseline": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/R1-BASELINE-CONFIG.json",
+    "bytes": 25680,
+    "sha256": "ffd5d7e59fd222f01dc3002cdac9065fd66557dcf9cd75d190db3b6ac0bdf717"
+  },
+  "final": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CONFIG.json",
+    "bytes": 25680,
+    "sha256": "c47ad11df9021afd55694994ca7a116ee12cedac5fd781d364947929b168ad9e"
+  },
+  "indexedWholeForwardInverse": [
+    {
+      "oldStart": 3197,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/RESOLUTION-SOURCE-BINDING.json\",\n",
+      "newStart": 3197,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/RESOLUTION-SOURCE-BINDING.json\",\n"
+    },
+    {
+      "oldStart": 3804,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/canonical-typescript-transform.mjs\",\n",
+      "newStart": 3804,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/canonical-typescript-transform.mjs\",\n"
+    },
+    {
+      "oldStart": 14361,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/CONFIG-TEMPLATE.mts\",\n",
+      "newStart": 14361,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CONFIG-TEMPLATE.mts\",\n"
+    },
+    {
+      "oldStart": 14515,
+      "old": "      \"sha256\": \"cec263a2941b55eafca3e2f656bea2266c23ca5a7948235333024f2a4333e59d\"\n",
+      "newStart": 14515,
+      "new": "      \"sha256\": \"d5441dd9caa89530c41cdd8716573f33fc1d5356571fa7b2e78b2b762d6b9da3\"\n"
+    },
+    {
+      "oldStart": 14636,
+      "old": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r1/CORE-TEST-TEMPLATE.ts\",\n",
+      "newStart": 14636,
+      "new": "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r2/CORE-TEST-TEMPLATE.ts\",\n"
+    }
+  ]
+}

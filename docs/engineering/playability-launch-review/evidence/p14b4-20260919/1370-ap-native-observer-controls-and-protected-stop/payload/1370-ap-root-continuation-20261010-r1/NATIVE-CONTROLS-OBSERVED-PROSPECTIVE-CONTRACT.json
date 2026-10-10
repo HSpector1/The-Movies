@@ -1,0 +1,21 @@
+{
+  "actualObservedReview": null,
+  "actualRootAdoption": null,
+  "caseCount": 72,
+  "executionAuthorization": false,
+  "game": false,
+  "independentObservedDecision": "ACCEPT_ACTUAL_PURE_NATIVE_OBSERVER_72_CONTROLS_ONLY",
+  "independentObservedSchema": "1370-native-observer-controls-independent-observed-review/v1",
+  "originalOrderingCases": 18,
+  "positiveCount": 13,
+  "readbackSchema": "1370-root-native-observer-controls-actual-readback/v1",
+  "readbackStatus": "ACTUAL_PURE_72_NATIVE_OBSERVER_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW",
+  "rootAdoptionSchema": "1370-root-native-observer-controls-observed-adoption/v1",
+  "rootAdoptionStatus": "ROOT_ADOPTED_ACTUAL_NATIVE_OBSERVER_72_CONTROLS_ONLY",
+  "schema": "1370-root-native-controls-observed-prospective-contract/v1",
+  "scope": "Source protocol names only; no actual result, review or adoption is asserted.",
+  "sourceReviewLabelsUnchanged": true,
+  "specificNegativeCount": 59,
+  "workerResultSchema": "1370-native-observer-independent-controls-result/v1",
+  "workerResultStatus": "PURE_NATIVE_OBSERVER_CODEC_SINK_AND_AFFECTED_CONSUMERS_COMPLETED_UNADOPTED"
+}

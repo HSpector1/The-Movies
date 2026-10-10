@@ -1,0 +1,62 @@
+{
+  "actualRuntimeOutcome": null,
+  "artifactBoundAdoption": {
+    "bytes": 2172,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULL-STATE-FIXTURE-ARTIFACT-BOUND.json",
+    "sha256": "186c55ff7381787d3abe401e175d8c1c468be5bfb5e8ef169f89d7c94a0bc546"
+  },
+  "currentProtection": {
+    "bytes": 4345,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/M0-NATIVE-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "sha256": "c4918e6adf12a77c3697adb64b632ec1cfeaebac2cb71caedfe687d48dfe92cb"
+  },
+  "executionAuthorization": false,
+  "losslessControlsObservedAdoption": {
+    "bytes": 6868,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "fa668549c4526317f1c5f7f17494ae3bdaec2f6713e6b72351f30d384cfa096a"
+  },
+  "nativeObserverControlsObservedAdoption": {
+    "bytes": 13238,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "401e54ce61697d70e1fbbf2d10a7d263a2ff7afa465ab58f00faa9a5002431c4"
+  },
+  "parentSourcePins": {
+    "bytes": 3625,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-parent-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "c2eb3c2cf3454022bd3df01d0559e4a0f1ffa43bb024f6d7b4b4f77732a10f23"
+  },
+  "parentSourceReview": {
+    "bytes": 7779,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-parent-readback-wrappers-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "bf3de68e1faee8ea2ddba8c546f7c7bad7bfd304925422fededf2ac44c207f9d"
+  },
+  "parserControlsAdoption": {
+    "bytes": 1983,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d"
+  },
+  "runtimeToolsObservation": {
+    "bytes": 1478,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RUNTIME-TOOLS.json",
+    "sha256": "e7d0f540655698dac3c15f4210307bef0112abe9316283d6c68a8245dd9eca9e"
+  },
+  "schema": "1370-root-fullfunction-qualified-route-source-adoption/v1",
+  "scope": "Bounded real prefix fixture generation, baseline and specific typed-catch mutant only. Not neutrality416 or ledger admission.",
+  "sourcePins": {
+    "bytes": 25246,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "88b8d5b06a3e4fc0f37fe0b0f7054ef0572effceac839a4078f416e4fd946055"
+  },
+  "sourceReview": {
+    "bytes": 15578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ap-m0-fullfunction-native-observer-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "bd8c16acd12b9fdc7eee64a25e29e6f76f5e509160fd91ce5c24ede6431f4959"
+  },
+  "status": "ROOT_ADOPTED_REAL_FULL_FUNCTION_QUALIFICATION_SOURCE_WITH_ACTUAL_PREREQUISITES",
+  "typesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  }
+}

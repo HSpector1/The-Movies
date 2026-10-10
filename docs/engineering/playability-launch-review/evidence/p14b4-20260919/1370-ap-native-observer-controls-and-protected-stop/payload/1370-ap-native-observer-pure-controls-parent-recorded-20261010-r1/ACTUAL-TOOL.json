@@ -1,0 +1,21 @@
+{
+  "allToolChunks": [
+    {
+      "chunk_id": "3102c3",
+      "original_token_count": 121,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 8051, \"sha256\": \"576fb0ca7705bde86558471f7bea6117e7712ceeddf4da348e5f6b5c73f4ee7f\"}, \"sourceAdoption\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-CONTROLS-ROUTE-SOURCE-ADOPTION.json\", \"bytes\": 1344, \"sha256\": \"788e8c2bab18d9c8e9c3d7772f624bc9e235ee9514c8134821c0bd2e1d11e3c7\"}}\n",
+      "session_id": 93991,
+      "wall_time_seconds": 1.001638221
+    },
+    {
+      "chunk_id": "f76613",
+      "exit_code": 0,
+      "original_token_count": 76,
+      "output": "{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json\", \"bytes\": 3617, \"sha256\": \"3f0ee0beaed1aa2565d7ba7ef7953df358e5c329ccbeae135668da3f3627ce0f\"}, \"helperPid\": 26665, \"helperPgid\": 26665, \"helperSid\": 26665}\n",
+      "wall_time_seconds": 2.5153e-05
+    }
+  ],
+  "finalExit": 0,
+  "schema": "1370-root-native-observer-controls-actual-tool/v1",
+  "sessionId": 93991
+}

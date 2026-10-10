@@ -1,0 +1,31 @@
+{
+  "schema": "1370-native-observer-independent-controls-source-pins/v1",
+  "files": {
+    "run-native-observer-controls.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r1/run-native-observer-controls.mjs",
+      "bytes": 30765,
+      "sha256": "36c1d6b2096b7ac0fdac1bcfe605de11b482e4cfc86684ac04843056d7eaea76"
+    },
+    "MATRIX.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r1/MATRIX.json",
+      "bytes": 11805,
+      "sha256": "e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r1/CONTRACT.json",
+      "bytes": 8241,
+      "sha256": "3ee533b309a67588eb8649edd19b510a21d72af6145c58af2daec8656cc5ffec"
+    },
+    "LESSONS.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r1/LESSONS.md",
+      "bytes": 996,
+      "sha256": "efb223c04d14e4f44fd107f3b12af33a2a91679c672d1794fba8ab6ed8130bae"
+    },
+    "seal_controls.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r1/seal_controls.py",
+      "bytes": 7819,
+      "sha256": "de7a653ee0ba12eb968a57f285948fef35f0e46a6a5e308c081154f65e7070fb"
+    }
+  },
+  "executionAuthorization": false
+}

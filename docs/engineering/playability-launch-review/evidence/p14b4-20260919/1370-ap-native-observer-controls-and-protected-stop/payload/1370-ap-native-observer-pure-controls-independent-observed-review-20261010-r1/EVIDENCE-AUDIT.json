@@ -1,0 +1,473 @@
+{
+  "auditedRoleCount": 76,
+  "auditedRoles": [
+    {
+      "bytes": 1279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+      "sha256": "5da84713ccd8aed0c27b8158e0ed0095dc1f3f140fe14b9f1b5391e330f441b9"
+    },
+    {
+      "bytes": 8118,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-api-source-20261010-r6/API.md",
+      "sha256": "3da98803fc94b4beeb4e37d6aa01a4ccd266a12ac123df9746cc21d12b1fc9fa"
+    },
+    {
+      "bytes": 3933,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-API-ADOPTION.json",
+      "sha256": "9300b1167ee0b481757023e9a93306432c115c3e6f554733aff42e6c95565c7f"
+    },
+    {
+      "bytes": 2042,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+      "sha256": "be758595a589a51f559fe6933c8b6a68b23e16691ab32ee87aebf8d7b2dd64f9"
+    },
+    {
+      "bytes": 11102,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-review-20261010-r3/RECEIPT.json",
+      "sha256": "a3315ae0ab0ea6be8839db4e4e7e501e072ade628cc50047abb93c944e689dd4"
+    },
+    {
+      "bytes": 5869,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/m0FeasibilityWitness-native.mjs",
+      "sha256": "dcf04ae2d13b074a994428c776305869969f4e3a9fc71add506c828a7d76fd1d"
+    },
+    {
+      "bytes": 10267,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/m0NativeObserverRows.mjs",
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    {
+      "bytes": 10954,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/m0ObserverRowDiagnostic.mjs",
+      "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+    },
+    {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    {
+      "bytes": 3310,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/ordering-source-controls.mjs",
+      "sha256": "d399320d826520575b8b9397588322b50c4a9fc860564fbcec0d60741658af29"
+    },
+    {
+      "bytes": 13513,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/ordering.mjs",
+      "sha256": "ed30efa432bb342236b4c4c6428e6f59fece22e9f2c89da42356e21165fdf656"
+    },
+    {
+      "bytes": 4135,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/original-m0FeasibilityWitness.mjs",
+      "sha256": "c4f4e26ff5f17be2deadbe70032bf0abeaa55893a6684260501e41cbc91fef5c"
+    },
+    {
+      "bytes": 30858,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/run-native-observer-controls.mjs",
+      "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+    },
+    {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    },
+    {
+      "bytes": 8051,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+      "sha256": "576fb0ca7705bde86558471f7bea6117e7712ceeddf4da348e5f6b5c73f4ee7f"
+    },
+    {
+      "bytes": 4060,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION-r2.json",
+      "sha256": "e30f2625a6eac0a994bf8a5026ef9b550304f3243e3e0ce72e5b6fd418ce06a8"
+    },
+    {
+      "bytes": 12245,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/SOURCE-PINS.json",
+      "sha256": "cb3aa4e0e9f93b06683b0a9b07047b485ed2c7eef9bc0e82694cfdc0964ffa5e"
+    },
+    {
+      "bytes": 10219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-implementation-independent-source-review-20261010-r5/RECEIPT.json",
+      "sha256": "e1d537f355b4f6e53a132638999b9b70e3dc7c4ab55d584c8dd73a9afc044fd2"
+    },
+    {
+      "bytes": 8241,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "1303c82c407869b2be88a59e2fd03050a0a2caf5d7456dcedd557b9a15b473a0"
+    },
+    {
+      "bytes": 11805,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "e6b7c5198eee224af2090f2b0286d085322119bf384eada8ddf084ee06fefb39"
+    },
+    {
+      "bytes": 27476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    },
+    {
+      "bytes": 5868,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0FeasibilityWitness-native.ts",
+      "sha256": "53fb7391309f197447fcd029731be0e0b5fd53d0d454deb2be2f8c57c0b6d42b"
+    },
+    {
+      "bytes": 10267,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0NativeObserverRows.mjs",
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    {
+      "bytes": 10954,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/m0ObserverRowDiagnostic.mjs",
+      "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+    },
+    {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    {
+      "bytes": 3407,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering-source-controls.ts",
+      "sha256": "d485414f997bcf606a416160d9ec212e621b59cfd29a49e0f359b84ba06556f4"
+    },
+    {
+      "bytes": 12555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/ordering.ts",
+      "sha256": "21cefca182d43b3d52a27c0c0546f9e2c51535cdd46ad556fcf06a93057fd87b"
+    },
+    {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/BASELINE-m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 30858,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-independent-controls-source-20261010-r2/run-native-observer-controls.mjs",
+      "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+    },
+    {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    },
+    {
+      "bytes": 430,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+      "sha256": "b0d70e5ebcfdab03ce0c9ff467bbaf003a57e9264921a48a1167770bad29d768"
+    },
+    {
+      "bytes": 556,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/controls.lane.log.meta",
+      "sha256": "cc887fc31a0afad9f9fe1388939e465dbbbe7d323f22ccf6732cf504dc564194"
+    },
+    {
+      "bytes": 3617,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json",
+      "sha256": "3f0ee0beaed1aa2565d7ba7ef7953df358e5c329ccbeae135668da3f3627ce0f"
+    },
+    {
+      "bytes": 1100,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorder-results-20261010-r1/RESULT.json",
+      "sha256": "ba580bb64cc8388d075f0062e919cfc63b9eef3365539c0e4f55725ba73d2572"
+    },
+    {
+      "bytes": 20012,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorder-results-20261010-r1/CONTROLS-RESULT.json",
+      "sha256": "3d83d18e8abc11ee93220ad46be2cae15d00d1f9790601e439068e2412601b60"
+    },
+    {
+      "bytes": 3376,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/NATIVE-CANONICAL-OBSERVER-DESIGN-ADOPTION.json",
+      "sha256": "0c5c6760436ac5d3a254e8b412028891608520d2f3e85c9719dfb119563da229"
+    },
+    {
+      "bytes": 1344,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/NATIVE-OBSERVER-CONTROLS-ROUTE-SOURCE-ADOPTION.json",
+      "sha256": "788e8c2bab18d9c8e9c3d7772f624bc9e235ee9514c8134821c0bd2e1d11e3c7"
+    },
+    {
+      "bytes": 10202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+      "sha256": "df5f42b9c1761bcb274b511eb6cc2fd2ff22895d1e0dd89044be226272039ef7"
+    },
+    {
+      "bytes": 13582,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-independent-source-review-20261010-r3/RECEIPT.json",
+      "sha256": "4e954629eae5f415b4a603b721838f95f1cade240d4ea0a3e0c8c767a352f5d5"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorder-results-20261010-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 20012,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorder-results-20261010-r1/stdout.bin",
+      "sha256": "ca8421b31fcf158b934b5b1ef9a779a689c7b327d565b9cb1ad815eade167bf3"
+    },
+    {
+      "bytes": 1768,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-root-continuation-20261010-r1/DIAGNOSTIC-CODEC-SUPPLEMENT-ADOPTION.json",
+      "sha256": "0e19294627060a4bc2b77d4172dce7d3b33af97ac91f4e263372cc3ba525842d"
+    },
+    {
+      "bytes": 24206,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/CONTROLS-RESULT.json",
+      "sha256": "58da849a963f902e580e6d089365eacaea1db4368369fbad7ddae5d21755cf86"
+    },
+    {
+      "bytes": 1691,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-RUNTIME-TOOLS.json",
+      "sha256": "12d11061dd21827447ef0563d9ab4c5bec0c636986e8690ed067eb0be37dfa0c"
+    },
+    {
+      "bytes": 10207,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/CONFIG.json",
+      "sha256": "8a14c244e10da3a7a9994ca4e3707a74f9e6ecf1b374aa9763cdf54fcfd8ca42"
+    },
+    {
+      "bytes": 4698,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R5-STOP-OBSERVED-ADOPTION.json",
+      "sha256": "ab5b801da2ec6408281115aa424bfafad8a8e458b96e3f068d5fecfb2346669f"
+    },
+    {
+      "bytes": 15756,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/RECIPE.json",
+      "sha256": "3fa467074b18b9dce49438d8f972c5a1edec01f2ded984fddee5cbb1170194d5"
+    },
+    {
+      "bytes": 5017,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3/run_native_observer_controls_once.py",
+      "sha256": "5a64a66f7f98498c316ad330d078caebc0214c50699fc3c2228e097a74c12470"
+    },
+    {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    {
+      "bytes": 115440320,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    {
+      "bytes": 9112572,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+      "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+    },
+    {
+      "bytes": 3620,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+      "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+    },
+    {
+      "bytes": 2931,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-root-adapters-source-20261010-r3/SOURCE-PINS.json",
+      "sha256": "aaa7fc7aa6b4f8bb75f19a4096d4408c8d1e7a0d7b98bd8abdf94d6e0a276e92"
+    },
+    {
+      "bytes": 7018,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/BASELINE-CONFIG.json",
+      "sha256": "ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa"
+    },
+    {
+      "bytes": 4589,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/BASELINE-CONTRACT.json",
+      "sha256": "ede7dd2698764a78607f9c18ec55f86ec694d4543e5a93a9acd1d2584c0d63b7"
+    },
+    {
+      "bytes": 9905,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/BASELINE-RECIPE.json",
+      "sha256": "33cf30a62abf4c4c19e146e1331b80cd549c93e36412fc8d8861dd308c592e91"
+    },
+    {
+      "bytes": 11670,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/BASELINE-launch-observer-row-controls.py",
+      "sha256": "7f96ddeb7dbfbb11a5103f6e999f6d33c087a85f3d34bc726a686b63350605ac"
+    },
+    {
+      "bytes": 17408,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/BASELINE-record-observer-row-controls.py",
+      "sha256": "0eaf949c201047e861483cdc175375be8a0e2049d726427d041bf15872ebdf26"
+    },
+    {
+      "bytes": 13541,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/BASELINE-run-observer-row-recorded-controls.mjs",
+      "sha256": "c819ea3777bfbc073a9b6795794e00dad8b2942106e13b2295b55e860cf492f6"
+    },
+    {
+      "bytes": 9788,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/CONFIG-UNFILLED.json",
+      "sha256": "ce4c61653d63a0af9542eff1a496b873b486e5c4d709d4280f63658fd7a6c586"
+    },
+    {
+      "bytes": 6396,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/CONTRACT.json",
+      "sha256": "1a165815bf862fb2268ed5eafff9ba2e234fe202434182103f6ed672276f8f00"
+    },
+    {
+      "bytes": 14521,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/DIFF-CONFIG.json.json",
+      "sha256": "95c4dcea89bbac048ce94930b0627ab6f0af07df4e197fa24d9a08865de146ca"
+    },
+    {
+      "bytes": 8513,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/DIFF-CONTRACT.json.json",
+      "sha256": "b7452ef3440fe06c7993ca3b2ab2ac07c2a408249b352328ae864d3d942386e7"
+    },
+    {
+      "bytes": 20321,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/DIFF-RECIPE.json.json",
+      "sha256": "64bb578f62b2343a47a39f272c06b52e15a5725f88bfe98d3ffc78132f6eeec8"
+    },
+    {
+      "bytes": 9884,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/DIFF-launch-native-observer-controls.py.json",
+      "sha256": "045788f0a42be13748119a73cc77c0aa68d7a3dc61ff11cf85e18cf8d9942e51"
+    },
+    {
+      "bytes": 7027,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/DIFF-record-native-observer-controls.py.json",
+      "sha256": "c78391305d37fbad8e99db8d9902bc77a2836a199905a971c8fa721a80f9784d"
+    },
+    {
+      "bytes": 15062,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/DIFF-run-native-observer-recorded-controls.mjs.json",
+      "sha256": "31d9c9a0376c1d05ef206a742e11042749f8705637f2c37045579fdf04604723"
+    },
+    {
+      "bytes": 735,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/LESSONS.md",
+      "sha256": "3b5d0925e2071aadc23f2d5abd06f8f791ce8521d42dd7e84fd9d9da6ca3c124"
+    },
+    {
+      "bytes": 784,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/PREPARATION-STATE.json",
+      "sha256": "0cc5e34ca8487911f9808e73e5d7254bb4d9687feeaf0a068845449334528897"
+    },
+    {
+      "bytes": 7375,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/SOURCE-PROOF.json",
+      "sha256": "94cce6214a64ba0c5e032495894a783570cc5fec3144b5c84ca5435942611e86"
+    },
+    {
+      "bytes": 11646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/launch-native-observer-controls.py",
+      "sha256": "a1d94123e0368cda3c117a2ba330df4b14008e34198a35a7ce8b5180709ea25a"
+    },
+    {
+      "bytes": 17451,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/record-native-observer-controls.py",
+      "sha256": "1a4b4d2deba04c6267c573b79d0d5cd765f7eb5ea1af9738170185faf282074f"
+    },
+    {
+      "bytes": 15924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/run-native-observer-recorded-controls.mjs",
+      "sha256": "8b83d33cc3bd822a166694b09c5da1d2efe04d4a34bde03688a5fc3ea36b0ad4"
+    },
+    {
+      "bytes": 1652,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-source-20261010-r5/INTERFACE.json",
+      "sha256": "074f05314b9165ae7f99f0d83536e646b19e0074a334cbeeb55a79bed239b57d"
+    },
+    {
+      "bytes": 6892,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+      "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
+    }
+  ],
+  "candidateCodeExecutedByReviewer": false,
+  "caseCount": 72,
+  "copiedModulesByteExact": 5,
+  "generatedModulesExact": {
+    "m0FeasibilityWitness-native.ts": {
+      "bytes": 5869,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/m0FeasibilityWitness-native.mjs",
+      "sha256": "dcf04ae2d13b074a994428c776305869969f4e3a9fc71add506c828a7d76fd1d"
+    },
+    "m0NativeObserverRows.mjs": {
+      "bytes": 10267,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/m0NativeObserverRows.mjs",
+      "sha256": "b280a92f2f59702e148999450fa67171bc6fdd5aff5f5b2a416f63a3e896b07a"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 10954,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/m0ObserverRowDiagnostic.mjs",
+      "sha256": "be7c1f330fe816e668c5e2fc6028f1cd2490297f23d3be09ac53d17ee9889397"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "ordering-source-controls.ts": {
+      "bytes": 3310,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/ordering-source-controls.mjs",
+      "sha256": "d399320d826520575b8b9397588322b50c4a9fc860564fbcec0d60741658af29"
+    },
+    "ordering.ts": {
+      "bytes": 13513,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/ordering.mjs",
+      "sha256": "ed30efa432bb342236b4c4c6428e6f59fece22e9f2c89da42356e21165fdf656"
+    },
+    "original-m0FeasibilityWitness.ts": {
+      "bytes": 4135,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/original-m0FeasibilityWitness.mjs",
+      "sha256": "c4f4e26ff5f17be2deadbe70032bf0abeaa55893a6684260501e41cbc91fef5c"
+    },
+    "run-native-observer-controls.mjs": {
+      "bytes": 30858,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/run-native-observer-controls.mjs",
+      "sha256": "3147e1d0555ee0471fbe2bfb2d95f5ee48942d1fe74afbcb7de94d4d29a900a8"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-results-20261010-r1/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "generatedStaticGraphExact": true,
+  "helperCombinedLogWarning": "/Users/zacheryspector/studio-scratch/1370-ap-native-observer-pure-controls-recorded-route-source-20261010-r2/record-native-observer-controls.py:259: SyntaxWarning: 'return' in a 'finally' block\n  return code\n",
+  "laneReleased": true,
+  "orderedRowsExact": true,
+  "originalOrderingCases": 18,
+  "physicalToolsRehashedByReviewer": true,
+  "positiveCount": 13,
+  "preparationSeconds": 0.4741182890138589,
+  "recordedScopedChecks": [
+    {
+      "id": 26665,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 26665,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 26921,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 26921,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "recorderSeconds": 3.2204292549868114,
+  "runtimeProbesByReviewer": false,
+  "schema": "1370-native-observer-controls-independent-evidence-audit/v1",
+  "specificNegativeCount": 59,
+  "stderrBytes": 0,
+  "stdoutBytes": 20012,
+  "transpiledPublicModules": 4,
+  "typedReportEquality": true
+}
